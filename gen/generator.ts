@@ -335,7 +335,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	const rels: string[] = []
 	relationships.forEach(r => {
 		if (r.deprecated) {
-			const deprecated = '/**\n\t* @deprecated The field should not be used\n\t*/\n\t'
+			const deprecated = '/**\n\t* @deprecated This field should not be used as it may be removed in the future without notice\n\t*/\n\t'
 			rels.push(`${deprecated}${r.name}?: object${(r.cardinality === Cardinality.to_many) ? '[]' : ''}`)
 		}
 		else {

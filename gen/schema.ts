@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
 import fs from 'fs'
 import _ from 'lodash'
-const Inflector = require('inflector-js')
 import axios from 'axios'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Inflector = require('inflector-js')
 
 
 
