@@ -224,11 +224,11 @@ class CommerceLayerClient {
 	}
 	*/
 
-	/*
+	
 	resources(): string[] {
-		return Object.keys(this)
+		return api.resourceList
 	}
-	*/
+	
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	isApiError(error: any): error is ApiError {

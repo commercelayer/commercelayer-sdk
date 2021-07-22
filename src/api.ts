@@ -181,6 +181,7 @@ export type ResTypeLock =
 |	'wire_transfers'
 // ##__API_RESOURCE_TYPES_STOP__##
 
+
 export const resourceList = [
 // ##__API_RESOURCE_LIST_START__##
 	'addresses',
