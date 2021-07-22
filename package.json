@@ -1,0 +1,45 @@
+{
+  "name": "@commercelayer/sdk",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepare": "npm run build & cp -rf build/* lib",
+    "build": "rm -rf ./build/* & tsc",
+    "start": "ts-node src/index.ts",
+    "generate": "ts-node gen/generator.ts",
+    "lint": "eslint ./src --ext .ts"
+  },
+  "keywords": [
+    "javascript",
+    "ecommerce",
+    "jamstack"
+  ],
+  "author": "Pierluigi Viti <pierluigi@commercelayer.io>",
+  "license": "MIT",
+  "description": "Commerce Layer Javascript SDK",
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.170",
+    "@types/node": "^15.12.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "eslint": "^7.31.0",
+    "husky": "^6.0.0",
+    "inflector-js": "^1.0.1",
+    "json-typescript": "^1.1.2",
+    "jsonapi-typescript": "^0.1.3",
+    "lodash": "^4.17.21",
+    "pretty-quick": "^3.1.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2"
+  }
+}
