@@ -19,13 +19,11 @@ class ApiError extends Error {
 	status?: number
 	code?: string
 
-	constructor(error: { message: string, type: ErrorType }) {
+	constructor(error: { message: string, type?: ErrorType }) {
 		super(error.message)
-		this.type = error.type
+		this.name = this.constructor.name
+		this.type = error.type || ErrorType.GENERIC
 	}
-
-
-	isApiError(): boolean { return (this.type === ErrorType.RESPONSE) }
 
 }
 

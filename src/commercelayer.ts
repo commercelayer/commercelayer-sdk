@@ -1,5 +1,6 @@
 
 import * as api from './api'
+import ApiError from './error'
 // import QueryBuilder, { QueryBuilderRetrieve, QueryBuilderList } from './query'
 
 import ResourceAdapter, { ResourcesConfig, ResourcesInitConfig } from './resource'
@@ -228,6 +229,11 @@ class CommerceLayerClient {
 		return Object.keys(this)
 	}
 	*/
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	isApiError(error: any): error is ApiError {
+		return ApiError.isApiError(error)
+	}
 
 }
 
