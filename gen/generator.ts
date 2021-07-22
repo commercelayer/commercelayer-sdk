@@ -1,8 +1,11 @@
+/* eslint-disable no-console */
 
-import apiSchema, { Resource, Operation, Component, Cardinality, Relationship } from './schema'
+import apiSchema, { Resource, Operation, Component, Cardinality } from './schema'
 import fs from 'fs'
 import path from 'path'
-import _, { head } from 'lodash'
+import _ from 'lodash'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const Inflector = require('inflector-js')
 
 
@@ -68,10 +71,12 @@ const findLine = (str: string, lines: string[]): { text: string, index: number, 
 }
 
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const tabsCount = (template: string): number => {
 	return template.match(/##__TAB__##/g)?.length || 0
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const tabsString = (num: number): string => {
 	let str = ''
 	for (let i = 0; i < num; i++) str += '\t'
@@ -81,7 +86,7 @@ const tabsString = (num: number): string => {
 
 const updateSdkResources = (resources: { [key: string]: string }): void => {
 
-	let cl = fs.readFileSync('src/commercelayer.ts', { encoding: 'utf-8' })
+	const cl = fs.readFileSync('src/commercelayer.ts', { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
 
@@ -133,7 +138,7 @@ const updateSdkResources = (resources: { [key: string]: string }): void => {
 
 const updateApiResources = (resources: { [key: string]: string }): void => {
 
-	let cl = fs.readFileSync('src/api.ts', { encoding: 'utf-8' })
+	const cl = fs.readFileSync('src/api.ts', { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
 	
@@ -203,7 +208,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Operations
 	const qryMod: string[] = []
 	Object.entries(resource.operations).forEach(([opName, op]) => {
-		let tpl = op.singleton ? templates['singleton'] : templates[opName]
+		const tpl = op.singleton ? templates['singleton'] : templates[opName]
 		if (tpl) {
 			if (['retrieve', 'list'].includes(opName)) qryMod.push('QueryParams' + _.capitalize(op.singleton ? 'retrieve' : opName))
 			const tplOp = templatedOperation(resName, opName, op, tpl)
@@ -232,7 +237,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	typesArray.forEach(t => {
 		const cudSuffix = getCUDSuffix(t)
 		resIntf.push(`Resource${cudSuffix}`)
-		const tplCmp = templatedComponent(resName, t, resource.components[t], templates.model)
+		const tplCmp = templatedComponent(resName, t, resource.components[t])
 		tplCmp.models.forEach(m => imports.add(m))
 		modIntf.push(tplCmp.component)
 		if (cudSuffix) tplCmp.models.forEach(t => relTypes.add(t))
@@ -313,24 +318,21 @@ const isCUDModel = (name: string): boolean => {
 }
 
 
-const templatedComponent = (res: string, name: string, cmp: Component, tpl: string): { component: string, models: string[] } => {
+const templatedComponent = (res: string, name: string, cmp: Component): { component: string, models: string[] } => {
 
-	let component = tpl
 	const models: string[] = []
 
 	// Attributes
-	let idx = 0
 	const attributes = Object.values(cmp.attributes)
-	let fields: string[] = []
+	const fields: string[] = []
 	attributes.forEach(a => {
 		if (!['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at'].includes(a.name))
 			fields.push(`${a.name}${a.required ? '' : '?'}: ${expType(a.type)}`)
 	})
 	
 	// Relationships
-	idx = 0
 	const relationships = Object.values(cmp.relationships)
-	let rels: string[] = []
+	const rels: string[] = []
 	relationships.forEach(r => {
 		if (r.deprecated) {
 			const deprecated = '/**\n\t* @deprecated The field should not be used\n\t*/\n\t'
@@ -363,6 +365,8 @@ const templatedComponent = (res: string, name: string, cmp: Component, tpl: stri
 		}
 	})
 
+
+	let component = (fields.length || rels.length) ? templates.model : templates.model_empty
 	
 	component = component.replace(/##__RESOURCE_MODEL__##/g, name)
 	component = component.replace(/##__EXTEND_TYPE__##/g, getCUDSuffix(name))
