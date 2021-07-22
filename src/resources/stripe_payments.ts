@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -50,19 +50,19 @@ class StripePayments extends ApiResource {
 	static readonly TYPE: 'stripe_payments' = 'stripe_payments'
 	// static readonly PATH = 'stripe_payments'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StripePayment[] | DocWithData<StripePayment>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StripePayment[]> {
 		return this.resources.list({ type: StripePayments.TYPE }, params, options)
 	}
 
-	async create(resource: StripePaymentCreate, options?: ResourcesConfig): Promise<StripePayment | DocWithData<StripePayment>> {
+	async create(resource: StripePaymentCreate, options?: ResourcesConfig): Promise<StripePayment> {
 		return this.resources.create(Object.assign(resource, { type: StripePayments.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment | DocWithData<StripePayment>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {
 		return this.resources.retrieve<StripePayment>({ type: StripePayments.TYPE, id }, params, options)
 	}
 
-	async update(resource: StripePaymentUpdate, options?: ResourcesConfig): Promise<StripePayment | DocWithData<StripePayment>> {
+	async update(resource: StripePaymentUpdate, options?: ResourcesConfig): Promise<StripePayment> {
 		return this.resources.update({ ...resource, type: StripePayments.TYPE }, options)
 	}
 

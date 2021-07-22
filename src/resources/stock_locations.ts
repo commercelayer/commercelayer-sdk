@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Address } from './addresses'
@@ -62,19 +62,19 @@ class StockLocations extends ApiResource {
 	static readonly TYPE: 'stock_locations' = 'stock_locations'
 	// static readonly PATH = 'stock_locations'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StockLocation[] | DocWithData<StockLocation>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StockLocation[]> {
 		return this.resources.list({ type: StockLocations.TYPE }, params, options)
 	}
 
-	async create(resource: StockLocationCreate, options?: ResourcesConfig): Promise<StockLocation | DocWithData<StockLocation>> {
+	async create(resource: StockLocationCreate, options?: ResourcesConfig): Promise<StockLocation> {
 		return this.resources.create(Object.assign(resource, { type: StockLocations.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation | DocWithData<StockLocation>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
 		return this.resources.retrieve<StockLocation>({ type: StockLocations.TYPE, id }, params, options)
 	}
 
-	async update(resource: StockLocationUpdate, options?: ResourcesConfig): Promise<StockLocation | DocWithData<StockLocation>> {
+	async update(resource: StockLocationUpdate, options?: ResourcesConfig): Promise<StockLocation> {
 		return this.resources.update({ ...resource, type: StockLocations.TYPE }, options)
 	}
 

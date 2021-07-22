@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
@@ -58,19 +58,19 @@ class AvalaraAccounts extends ApiResource {
 	static readonly TYPE: 'avalara_accounts' = 'avalara_accounts'
 	// static readonly PATH = 'avalara_accounts'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<AvalaraAccount[] | DocWithData<AvalaraAccount>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<AvalaraAccount[]> {
 		return this.resources.list({ type: AvalaraAccounts.TYPE }, params, options)
 	}
 
-	async create(resource: AvalaraAccountCreate, options?: ResourcesConfig): Promise<AvalaraAccount | DocWithData<AvalaraAccount>> {
+	async create(resource: AvalaraAccountCreate, options?: ResourcesConfig): Promise<AvalaraAccount> {
 		return this.resources.create(Object.assign(resource, { type: AvalaraAccounts.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount | DocWithData<AvalaraAccount>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
 		return this.resources.retrieve<AvalaraAccount>({ type: AvalaraAccounts.TYPE, id }, params, options)
 	}
 
-	async update(resource: AvalaraAccountUpdate, options?: ResourcesConfig): Promise<AvalaraAccount | DocWithData<AvalaraAccount>> {
+	async update(resource: AvalaraAccountUpdate, options?: ResourcesConfig): Promise<AvalaraAccount> {
 		return this.resources.update({ ...resource, type: AvalaraAccounts.TYPE }, options)
 	}
 

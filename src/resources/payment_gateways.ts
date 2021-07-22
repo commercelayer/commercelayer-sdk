@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
@@ -40,19 +40,19 @@ class PaymentGateways extends ApiResource {
 	static readonly TYPE: 'payment_gateways' = 'payment_gateways'
 	// static readonly PATH = 'payment_gateways'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<PaymentGateway[] | DocWithData<PaymentGateway>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<PaymentGateway[]> {
 		return this.resources.list({ type: PaymentGateways.TYPE }, params, options)
 	}
 
-	async create(resource: PaymentGatewayCreate, options?: ResourcesConfig): Promise<PaymentGateway | DocWithData<PaymentGateway>> {
+	async create(resource: PaymentGatewayCreate, options?: ResourcesConfig): Promise<PaymentGateway> {
 		return this.resources.create(Object.assign(resource, { type: PaymentGateways.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway | DocWithData<PaymentGateway>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		return this.resources.retrieve<PaymentGateway>({ type: PaymentGateways.TYPE, id }, params, options)
 	}
 
-	async update(resource: PaymentGatewayUpdate, options?: ResourcesConfig): Promise<PaymentGateway | DocWithData<PaymentGateway>> {
+	async update(resource: PaymentGatewayUpdate, options?: ResourcesConfig): Promise<PaymentGateway> {
 		return this.resources.update({ ...resource, type: PaymentGateways.TYPE }, options)
 	}
 

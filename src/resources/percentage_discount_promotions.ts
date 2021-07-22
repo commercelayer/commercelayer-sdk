@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -88,19 +88,19 @@ class PercentageDiscountPromotions extends ApiResource {
 	static readonly TYPE: 'percentage_discount_promotions' = 'percentage_discount_promotions'
 	// static readonly PATH = 'percentage_discount_promotions'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<PercentageDiscountPromotion[] | DocWithData<PercentageDiscountPromotion>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<PercentageDiscountPromotion[]> {
 		return this.resources.list({ type: PercentageDiscountPromotions.TYPE }, params, options)
 	}
 
-	async create(resource: PercentageDiscountPromotionCreate, options?: ResourcesConfig): Promise<PercentageDiscountPromotion | DocWithData<PercentageDiscountPromotion>> {
+	async create(resource: PercentageDiscountPromotionCreate, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
 		return this.resources.create(Object.assign(resource, { type: PercentageDiscountPromotions.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion | DocWithData<PercentageDiscountPromotion>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
 		return this.resources.retrieve<PercentageDiscountPromotion>({ type: PercentageDiscountPromotions.TYPE, id }, params, options)
 	}
 
-	async update(resource: PercentageDiscountPromotionUpdate, options?: ResourcesConfig): Promise<PercentageDiscountPromotion | DocWithData<PercentageDiscountPromotion>> {
+	async update(resource: PercentageDiscountPromotionUpdate, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
 		return this.resources.update({ ...resource, type: PercentageDiscountPromotions.TYPE }, options)
 	}
 

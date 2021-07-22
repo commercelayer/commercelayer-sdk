@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
@@ -53,19 +53,19 @@ class GiftCardRecipients extends ApiResource {
 	static readonly TYPE: 'gift_card_recipients' = 'gift_card_recipients'
 	// static readonly PATH = 'gift_card_recipients'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<GiftCardRecipient[] | DocWithData<GiftCardRecipient>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<GiftCardRecipient[]> {
 		return this.resources.list({ type: GiftCardRecipients.TYPE }, params, options)
 	}
 
-	async create(resource: GiftCardRecipientCreate, options?: ResourcesConfig): Promise<GiftCardRecipient | DocWithData<GiftCardRecipient>> {
+	async create(resource: GiftCardRecipientCreate, options?: ResourcesConfig): Promise<GiftCardRecipient> {
 		return this.resources.create(Object.assign(resource, { type: GiftCardRecipients.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient | DocWithData<GiftCardRecipient>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
 		return this.resources.retrieve<GiftCardRecipient>({ type: GiftCardRecipients.TYPE, id }, params, options)
 	}
 
-	async update(resource: GiftCardRecipientUpdate, options?: ResourcesConfig): Promise<GiftCardRecipient | DocWithData<GiftCardRecipient>> {
+	async update(resource: GiftCardRecipientUpdate, options?: ResourcesConfig): Promise<GiftCardRecipient> {
 		return this.resources.update({ ...resource, type: GiftCardRecipients.TYPE }, options)
 	}
 

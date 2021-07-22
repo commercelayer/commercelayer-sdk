@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
@@ -46,19 +46,19 @@ class CustomerAddresses extends ApiResource {
 	static readonly TYPE: 'customer_addresses' = 'customer_addresses'
 	// static readonly PATH = 'customer_addresses'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<CustomerAddress[] | DocWithData<CustomerAddress>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<CustomerAddress[]> {
 		return this.resources.list({ type: CustomerAddresses.TYPE }, params, options)
 	}
 
-	async create(resource: CustomerAddressCreate, options?: ResourcesConfig): Promise<CustomerAddress | DocWithData<CustomerAddress>> {
+	async create(resource: CustomerAddressCreate, options?: ResourcesConfig): Promise<CustomerAddress> {
 		return this.resources.create(Object.assign(resource, { type: CustomerAddresses.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress | DocWithData<CustomerAddress>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
 		return this.resources.retrieve<CustomerAddress>({ type: CustomerAddresses.TYPE, id }, params, options)
 	}
 
-	async update(resource: CustomerAddressUpdate, options?: ResourcesConfig): Promise<CustomerAddress | DocWithData<CustomerAddress>> {
+	async update(resource: CustomerAddressUpdate, options?: ResourcesConfig): Promise<CustomerAddress> {
 		return this.resources.update({ ...resource, type: CustomerAddresses.TYPE }, options)
 	}
 

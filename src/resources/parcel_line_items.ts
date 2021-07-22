@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Parcel } from './parcels'
@@ -45,10 +45,7 @@ interface ParcelLineItemCreate extends ResourceCreate {
 }
 
 
-interface ParcelLineItemUpdate extends ResourceUpdate {
-	
-	
-}
+type ParcelLineItemUpdate = ResourceUpdate
 
 
 class ParcelLineItems extends ApiResource {
@@ -56,19 +53,19 @@ class ParcelLineItems extends ApiResource {
 	static readonly TYPE: 'parcel_line_items' = 'parcel_line_items'
 	// static readonly PATH = 'parcel_line_items'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ParcelLineItem[] | DocWithData<ParcelLineItem>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ParcelLineItem[]> {
 		return this.resources.list({ type: ParcelLineItems.TYPE }, params, options)
 	}
 
-	async create(resource: ParcelLineItemCreate, options?: ResourcesConfig): Promise<ParcelLineItem | DocWithData<ParcelLineItem>> {
+	async create(resource: ParcelLineItemCreate, options?: ResourcesConfig): Promise<ParcelLineItem> {
 		return this.resources.create(Object.assign(resource, { type: ParcelLineItems.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem | DocWithData<ParcelLineItem>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
 		return this.resources.retrieve<ParcelLineItem>({ type: ParcelLineItems.TYPE, id }, params, options)
 	}
 
-	async update(resource: ParcelLineItemUpdate, options?: ResourcesConfig): Promise<ParcelLineItem | DocWithData<ParcelLineItem>> {
+	async update(resource: ParcelLineItemUpdate, options?: ResourcesConfig): Promise<ParcelLineItem> {
 		return this.resources.update({ ...resource, type: ParcelLineItems.TYPE }, options)
 	}
 

@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { StockLocation } from './stock_locations'
@@ -55,19 +55,19 @@ class StockItems extends ApiResource {
 	static readonly TYPE: 'stock_items' = 'stock_items'
 	// static readonly PATH = 'stock_items'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StockItem[] | DocWithData<StockItem>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StockItem[]> {
 		return this.resources.list({ type: StockItems.TYPE }, params, options)
 	}
 
-	async create(resource: StockItemCreate, options?: ResourcesConfig): Promise<StockItem | DocWithData<StockItem>> {
+	async create(resource: StockItemCreate, options?: ResourcesConfig): Promise<StockItem> {
 		return this.resources.create(Object.assign(resource, { type: StockItems.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem | DocWithData<StockItem>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
 		return this.resources.retrieve<StockItem>({ type: StockItems.TYPE, id }, params, options)
 	}
 
-	async update(resource: StockItemUpdate, options?: ResourcesConfig): Promise<StockItem | DocWithData<StockItem>> {
+	async update(resource: StockItemUpdate, options?: ResourcesConfig): Promise<StockItem> {
 		return this.resources.update({ ...resource, type: StockItems.TYPE }, options)
 	}
 

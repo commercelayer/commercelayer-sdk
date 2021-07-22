@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { StockLocation } from './stock_locations'
@@ -53,19 +53,19 @@ class InventoryStockLocations extends ApiResource {
 	static readonly TYPE: 'inventory_stock_locations' = 'inventory_stock_locations'
 	// static readonly PATH = 'inventory_stock_locations'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<InventoryStockLocation[] | DocWithData<InventoryStockLocation>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<InventoryStockLocation[]> {
 		return this.resources.list({ type: InventoryStockLocations.TYPE }, params, options)
 	}
 
-	async create(resource: InventoryStockLocationCreate, options?: ResourcesConfig): Promise<InventoryStockLocation | DocWithData<InventoryStockLocation>> {
+	async create(resource: InventoryStockLocationCreate, options?: ResourcesConfig): Promise<InventoryStockLocation> {
 		return this.resources.create(Object.assign(resource, { type: InventoryStockLocations.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation | DocWithData<InventoryStockLocation>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
 		return this.resources.retrieve<InventoryStockLocation>({ type: InventoryStockLocations.TYPE, id }, params, options)
 	}
 
-	async update(resource: InventoryStockLocationUpdate, options?: ResourcesConfig): Promise<InventoryStockLocation | DocWithData<InventoryStockLocation>> {
+	async update(resource: InventoryStockLocationUpdate, options?: ResourcesConfig): Promise<InventoryStockLocation> {
 		return this.resources.update({ ...resource, type: InventoryStockLocations.TYPE }, options)
 	}
 

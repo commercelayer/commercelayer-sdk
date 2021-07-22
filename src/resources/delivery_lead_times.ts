@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { StockLocation } from './stock_locations'
@@ -57,19 +57,19 @@ class DeliveryLeadTimes extends ApiResource {
 	static readonly TYPE: 'delivery_lead_times' = 'delivery_lead_times'
 	// static readonly PATH = 'delivery_lead_times'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<DeliveryLeadTime[] | DocWithData<DeliveryLeadTime>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<DeliveryLeadTime[]> {
 		return this.resources.list({ type: DeliveryLeadTimes.TYPE }, params, options)
 	}
 
-	async create(resource: DeliveryLeadTimeCreate, options?: ResourcesConfig): Promise<DeliveryLeadTime | DocWithData<DeliveryLeadTime>> {
+	async create(resource: DeliveryLeadTimeCreate, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
 		return this.resources.create(Object.assign(resource, { type: DeliveryLeadTimes.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime | DocWithData<DeliveryLeadTime>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
 		return this.resources.retrieve<DeliveryLeadTime>({ type: DeliveryLeadTimes.TYPE, id }, params, options)
 	}
 
-	async update(resource: DeliveryLeadTimeUpdate, options?: ResourcesConfig): Promise<DeliveryLeadTime | DocWithData<DeliveryLeadTime>> {
+	async update(resource: DeliveryLeadTimeUpdate, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
 		return this.resources.update({ ...resource, type: DeliveryLeadTimes.TYPE }, options)
 	}
 

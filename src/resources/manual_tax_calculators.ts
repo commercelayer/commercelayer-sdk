@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
@@ -52,19 +52,19 @@ class ManualTaxCalculators extends ApiResource {
 	static readonly TYPE: 'manual_tax_calculators' = 'manual_tax_calculators'
 	// static readonly PATH = 'manual_tax_calculators'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ManualTaxCalculator[] | DocWithData<ManualTaxCalculator>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ManualTaxCalculator[]> {
 		return this.resources.list({ type: ManualTaxCalculators.TYPE }, params, options)
 	}
 
-	async create(resource: ManualTaxCalculatorCreate, options?: ResourcesConfig): Promise<ManualTaxCalculator | DocWithData<ManualTaxCalculator>> {
+	async create(resource: ManualTaxCalculatorCreate, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
 		return this.resources.create(Object.assign(resource, { type: ManualTaxCalculators.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator | DocWithData<ManualTaxCalculator>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
 		return this.resources.retrieve<ManualTaxCalculator>({ type: ManualTaxCalculators.TYPE, id }, params, options)
 	}
 
-	async update(resource: ManualTaxCalculatorUpdate, options?: ResourcesConfig): Promise<ManualTaxCalculator | DocWithData<ManualTaxCalculator>> {
+	async update(resource: ManualTaxCalculatorUpdate, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
 		return this.resources.update({ ...resource, type: ManualTaxCalculators.TYPE }, options)
 	}
 

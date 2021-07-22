@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Merchant } from './merchants'
@@ -73,19 +73,19 @@ class Markets extends ApiResource {
 	static readonly TYPE: 'markets' = 'markets'
 	// static readonly PATH = 'markets'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Market[] | DocWithData<Market>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Market[]> {
 		return this.resources.list({ type: Markets.TYPE }, params, options)
 	}
 
-	async create(resource: MarketCreate, options?: ResourcesConfig): Promise<Market | DocWithData<Market>> {
+	async create(resource: MarketCreate, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.create(Object.assign(resource, { type: Markets.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market | DocWithData<Market>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.retrieve<Market>({ type: Markets.TYPE, id }, params, options)
 	}
 
-	async update(resource: MarketUpdate, options?: ResourcesConfig): Promise<Market | DocWithData<Market>> {
+	async update(resource: MarketUpdate, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.update({ ...resource, type: Markets.TYPE }, options)
 	}
 

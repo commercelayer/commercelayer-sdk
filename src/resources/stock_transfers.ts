@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Sku } from './skus'
@@ -71,19 +71,19 @@ class StockTransfers extends ApiResource {
 	static readonly TYPE: 'stock_transfers' = 'stock_transfers'
 	// static readonly PATH = 'stock_transfers'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StockTransfer[] | DocWithData<StockTransfer>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StockTransfer[]> {
 		return this.resources.list({ type: StockTransfers.TYPE }, params, options)
 	}
 
-	async create(resource: StockTransferCreate, options?: ResourcesConfig): Promise<StockTransfer | DocWithData<StockTransfer>> {
+	async create(resource: StockTransferCreate, options?: ResourcesConfig): Promise<StockTransfer> {
 		return this.resources.create(Object.assign(resource, { type: StockTransfers.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer | DocWithData<StockTransfer>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
 		return this.resources.retrieve<StockTransfer>({ type: StockTransfers.TYPE, id }, params, options)
 	}
 
-	async update(resource: StockTransferUpdate, options?: ResourcesConfig): Promise<StockTransfer | DocWithData<StockTransfer>> {
+	async update(resource: StockTransferUpdate, options?: ResourcesConfig): Promise<StockTransfer> {
 		return this.resources.update({ ...resource, type: StockTransfers.TYPE }, options)
 	}
 

@@ -62,7 +62,7 @@ export { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceU
 
 // Resources adapter local configuration
 type ResourceAdapterConfig = {
-	rawResponse?: boolean
+	// rawResponse?: boolean
 }
 
 type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
@@ -89,72 +89,74 @@ class ResourceAdapter {
 		this.#client.config(config)
 
 		// Resources config
-		if (typeof config.rawResponse !== 'undefined') this.#config.rawResponse = config.rawResponse
+		// if (typeof config.rawResponse !== 'undefined') this.#config.rawResponse = config.rawResponse
 
 		return
 
 	}
 
 
+	/*
 	private isRawResponse(options?: ResourcesConfig): boolean {
 		return (typeof options?.rawResponse !== 'undefined') ? (options?.rawResponse === true) : (this.#config.rawResponse === true)
 	}
+	*/
 
 
-	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R/* | DocWithData<R>*/> {
+	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
 		const queryParams = generateQueryStringParams(params)
 
 		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
-		const r = /*this.isRawResponse(options) ? res as DocWithData<R> :*/ denormalize<R>(res) as R
+		const r = denormalize<R>(res) as R
 
 		return r
 
 	}
 
 
-	async retrieve<R extends Resource>(resource: ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R/* | DocWithData<R>*/> {
+	async retrieve<R extends Resource>(resource: ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
 		const queryParams = generateQueryStringParams(params)
 
 		const res = await this.#client.request('get', `${resource.type}/${resource.id}`, undefined, { ...options, params: queryParams })
-		const r = /*this.isRawResponse(options) ? res as DocWithData<R> : */denormalize<R>(res) as R
+		const r = denormalize<R>(res) as R
 
 		return r
 
 	}
 
 
-	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<R[]/* | DocWithData<R>*/> {
+	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<R[]> {
 
 		const queryParams = generateQueryStringParams(params)
 
 		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
-		const r = /*this.isRawResponse(options) ? res as DocWithData<R> : */denormalize<R>(res) as R[]
+		const r = denormalize<R>(res) as R[]
 
 		return r
 
 	}
 
 
-	async create<C extends ResourceCreate, R extends Resource>(resource: C & ResourceType, options?: ResourcesConfig): Promise<R/* | DocWithData<R>*/> {
+	async create<C extends ResourceCreate, R extends Resource>(resource: C & ResourceType, options?: ResourcesConfig): Promise<R> {
 
 		const data = normalize(resource)
 
 		const res = await this.#client.request('post', resource.type, data, options)
-		const r = /*this.isRawResponse(options) ? res as DocWithData<R> : */denormalize<R>(res) as R
+		const r = denormalize<R>(res) as R
 
 		return r
 
 	}
 
 
-	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, options?: ResourcesConfig): Promise<R/* | DocWithData<R>*/> {
+	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, options?: ResourcesConfig): Promise<R> {
 
 		const data = normalize(resource)
 
 		const res = await this.#client.request('patch', `${resource.type}/${resource.id}`, data, options)
-		const r = /*this.isRawResponse(options) ? res as DocWithData<R> : */denormalize<R>(res) as R
+		const r = denormalize<R>(res) as R
 
 		return r
 
@@ -166,10 +168,12 @@ class ResourceAdapter {
 	}
 
 
+	/*
 	async rawList(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<DocWithData> {
 		const queryParams = generateQueryStringParams(params)
 		return this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
 	}
+	*/
 
 }
 

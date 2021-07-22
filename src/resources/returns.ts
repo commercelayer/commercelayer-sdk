@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -73,19 +73,19 @@ class Returns extends ApiResource {
 	static readonly TYPE: 'returns' = 'returns'
 	// static readonly PATH = 'returns'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Return[] | DocWithData<Return>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Return[]> {
 		return this.resources.list({ type: Returns.TYPE }, params, options)
 	}
 
-	async create(resource: ReturnCreate, options?: ResourcesConfig): Promise<Return | DocWithData<Return>> {
+	async create(resource: ReturnCreate, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.create(Object.assign(resource, { type: Returns.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return | DocWithData<Return>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.retrieve<Return>({ type: Returns.TYPE, id }, params, options)
 	}
 
-	async update(resource: ReturnUpdate, options?: ResourcesConfig): Promise<Return | DocWithData<Return>> {
+	async update(resource: ReturnUpdate, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.update({ ...resource, type: Returns.TYPE }, options)
 	}
 

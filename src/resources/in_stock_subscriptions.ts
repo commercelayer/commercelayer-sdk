@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -63,19 +63,19 @@ class InStockSubscriptions extends ApiResource {
 	static readonly TYPE: 'in_stock_subscriptions' = 'in_stock_subscriptions'
 	// static readonly PATH = 'in_stock_subscriptions'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<InStockSubscription[] | DocWithData<InStockSubscription>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<InStockSubscription[]> {
 		return this.resources.list({ type: InStockSubscriptions.TYPE }, params, options)
 	}
 
-	async create(resource: InStockSubscriptionCreate, options?: ResourcesConfig): Promise<InStockSubscription | DocWithData<InStockSubscription>> {
+	async create(resource: InStockSubscriptionCreate, options?: ResourcesConfig): Promise<InStockSubscription> {
 		return this.resources.create(Object.assign(resource, { type: InStockSubscriptions.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription | DocWithData<InStockSubscription>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
 		return this.resources.retrieve<InStockSubscription>({ type: InStockSubscriptions.TYPE, id }, params, options)
 	}
 
-	async update(resource: InStockSubscriptionUpdate, options?: ResourcesConfig): Promise<InStockSubscription | DocWithData<InStockSubscription>> {
+	async update(resource: InStockSubscriptionUpdate, options?: ResourcesConfig): Promise<InStockSubscription> {
 		return this.resources.update({ ...resource, type: InStockSubscriptions.TYPE }, options)
 	}
 

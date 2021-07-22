@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Promotion } from './promotions'
@@ -52,19 +52,19 @@ class SkuListPromotionRules extends ApiResource {
 	static readonly TYPE: 'sku_list_promotion_rules' = 'sku_list_promotion_rules'
 	// static readonly PATH = 'sku_list_promotion_rules'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<SkuListPromotionRule[] | DocWithData<SkuListPromotionRule>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<SkuListPromotionRule[]> {
 		return this.resources.list({ type: SkuListPromotionRules.TYPE }, params, options)
 	}
 
-	async create(resource: SkuListPromotionRuleCreate, options?: ResourcesConfig): Promise<SkuListPromotionRule | DocWithData<SkuListPromotionRule>> {
+	async create(resource: SkuListPromotionRuleCreate, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		return this.resources.create(Object.assign(resource, { type: SkuListPromotionRules.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule | DocWithData<SkuListPromotionRule>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		return this.resources.retrieve<SkuListPromotionRule>({ type: SkuListPromotionRules.TYPE, id }, params, options)
 	}
 
-	async update(resource: SkuListPromotionRuleUpdate, options?: ResourcesConfig): Promise<SkuListPromotionRule | DocWithData<SkuListPromotionRule>> {
+	async update(resource: SkuListPromotionRuleUpdate, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		return this.resources.update({ ...resource, type: SkuListPromotionRules.TYPE }, options)
 	}
 

@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -89,19 +89,19 @@ class GiftCards extends ApiResource {
 	static readonly TYPE: 'gift_cards' = 'gift_cards'
 	// static readonly PATH = 'gift_cards'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<GiftCard[] | DocWithData<GiftCard>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<GiftCard[]> {
 		return this.resources.list({ type: GiftCards.TYPE }, params, options)
 	}
 
-	async create(resource: GiftCardCreate, options?: ResourcesConfig): Promise<GiftCard | DocWithData<GiftCard>> {
+	async create(resource: GiftCardCreate, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.create(Object.assign(resource, { type: GiftCards.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard | DocWithData<GiftCard>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.retrieve<GiftCard>({ type: GiftCards.TYPE, id }, params, options)
 	}
 
-	async update(resource: GiftCardUpdate, options?: ResourcesConfig): Promise<GiftCard | DocWithData<GiftCard>> {
+	async update(resource: GiftCardUpdate, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.update({ ...resource, type: GiftCards.TYPE }, options)
 	}
 

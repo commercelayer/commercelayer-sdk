@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Sku } from './skus'
@@ -54,19 +54,19 @@ class TaxCategories extends ApiResource {
 	static readonly TYPE: 'tax_categories' = 'tax_categories'
 	// static readonly PATH = 'tax_categories'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<TaxCategory[] | DocWithData<TaxCategory>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<TaxCategory[]> {
 		return this.resources.list({ type: TaxCategories.TYPE }, params, options)
 	}
 
-	async create(resource: TaxCategoryCreate, options?: ResourcesConfig): Promise<TaxCategory | DocWithData<TaxCategory>> {
+	async create(resource: TaxCategoryCreate, options?: ResourcesConfig): Promise<TaxCategory> {
 		return this.resources.create(Object.assign(resource, { type: TaxCategories.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory | DocWithData<TaxCategory>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
 		return this.resources.retrieve<TaxCategory>({ type: TaxCategories.TYPE, id }, params, options)
 	}
 
-	async update(resource: TaxCategoryUpdate, options?: ResourcesConfig): Promise<TaxCategory | DocWithData<TaxCategory>> {
+	async update(resource: TaxCategoryUpdate, options?: ResourcesConfig): Promise<TaxCategory> {
 		return this.resources.update({ ...resource, type: TaxCategories.TYPE }, options)
 	}
 

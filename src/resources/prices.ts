@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PriceList } from './price_lists'
@@ -63,19 +63,19 @@ class Prices extends ApiResource {
 	static readonly TYPE: 'prices' = 'prices'
 	// static readonly PATH = 'prices'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Price[] | DocWithData<Price>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Price[]> {
 		return this.resources.list({ type: Prices.TYPE }, params, options)
 	}
 
-	async create(resource: PriceCreate, options?: ResourcesConfig): Promise<Price | DocWithData<Price>> {
+	async create(resource: PriceCreate, options?: ResourcesConfig): Promise<Price> {
 		return this.resources.create(Object.assign(resource, { type: Prices.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price | DocWithData<Price>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
 		return this.resources.retrieve<Price>({ type: Prices.TYPE, id }, params, options)
 	}
 
-	async update(resource: PriceUpdate, options?: ResourcesConfig): Promise<Price | DocWithData<Price>> {
+	async update(resource: PriceUpdate, options?: ResourcesConfig): Promise<Price> {
 		return this.resources.update({ ...resource, type: Prices.TYPE }, options)
 	}
 

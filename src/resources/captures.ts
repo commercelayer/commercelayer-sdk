@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -54,15 +54,15 @@ class Captures extends ApiResource {
 	static readonly TYPE: 'captures' = 'captures'
 	// static readonly PATH = 'captures'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Capture[] | DocWithData<Capture>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Capture[]> {
 		return this.resources.list({ type: Captures.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture | DocWithData<Capture>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.retrieve<Capture>({ type: Captures.TYPE, id }, params, options)
 	}
 
-	async update(resource: CaptureUpdate, options?: ResourcesConfig): Promise<Capture | DocWithData<Capture>> {
+	async update(resource: CaptureUpdate, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.update({ ...resource, type: Captures.TYPE }, options)
 	}
 

@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
@@ -50,19 +50,19 @@ class ExternalTaxCalculators extends ApiResource {
 	static readonly TYPE: 'external_tax_calculators' = 'external_tax_calculators'
 	// static readonly PATH = 'external_tax_calculators'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ExternalTaxCalculator[] | DocWithData<ExternalTaxCalculator>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ExternalTaxCalculator[]> {
 		return this.resources.list({ type: ExternalTaxCalculators.TYPE }, params, options)
 	}
 
-	async create(resource: ExternalTaxCalculatorCreate, options?: ResourcesConfig): Promise<ExternalTaxCalculator | DocWithData<ExternalTaxCalculator>> {
+	async create(resource: ExternalTaxCalculatorCreate, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
 		return this.resources.create(Object.assign(resource, { type: ExternalTaxCalculators.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator | DocWithData<ExternalTaxCalculator>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
 		return this.resources.retrieve<ExternalTaxCalculator>({ type: ExternalTaxCalculators.TYPE, id }, params, options)
 	}
 
-	async update(resource: ExternalTaxCalculatorUpdate, options?: ResourcesConfig): Promise<ExternalTaxCalculator | DocWithData<ExternalTaxCalculator>> {
+	async update(resource: ExternalTaxCalculatorUpdate, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
 		return this.resources.update({ ...resource, type: ExternalTaxCalculators.TYPE }, options)
 	}
 

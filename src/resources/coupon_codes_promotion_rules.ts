@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Promotion } from './promotions'
@@ -44,19 +44,19 @@ class CouponCodesPromotionRules extends ApiResource {
 	static readonly TYPE: 'coupon_codes_promotion_rules' = 'coupon_codes_promotion_rules'
 	// static readonly PATH = 'coupon_codes_promotion_rules'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<CouponCodesPromotionRule[] | DocWithData<CouponCodesPromotionRule>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<CouponCodesPromotionRule[]> {
 		return this.resources.list({ type: CouponCodesPromotionRules.TYPE }, params, options)
 	}
 
-	async create(resource: CouponCodesPromotionRuleCreate, options?: ResourcesConfig): Promise<CouponCodesPromotionRule | DocWithData<CouponCodesPromotionRule>> {
+	async create(resource: CouponCodesPromotionRuleCreate, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		return this.resources.create(Object.assign(resource, { type: CouponCodesPromotionRules.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule | DocWithData<CouponCodesPromotionRule>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		return this.resources.retrieve<CouponCodesPromotionRule>({ type: CouponCodesPromotionRules.TYPE, id }, params, options)
 	}
 
-	async update(resource: CouponCodesPromotionRuleUpdate, options?: ResourcesConfig): Promise<CouponCodesPromotionRule | DocWithData<CouponCodesPromotionRule>> {
+	async update(resource: CouponCodesPromotionRuleUpdate, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		return this.resources.update({ ...resource, type: CouponCodesPromotionRules.TYPE }, options)
 	}
 

@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -83,19 +83,19 @@ class FixedAmountPromotions extends ApiResource {
 	static readonly TYPE: 'fixed_amount_promotions' = 'fixed_amount_promotions'
 	// static readonly PATH = 'fixed_amount_promotions'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<FixedAmountPromotion[] | DocWithData<FixedAmountPromotion>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<FixedAmountPromotion[]> {
 		return this.resources.list({ type: FixedAmountPromotions.TYPE }, params, options)
 	}
 
-	async create(resource: FixedAmountPromotionCreate, options?: ResourcesConfig): Promise<FixedAmountPromotion | DocWithData<FixedAmountPromotion>> {
+	async create(resource: FixedAmountPromotionCreate, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
 		return this.resources.create(Object.assign(resource, { type: FixedAmountPromotions.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedAmountPromotion | DocWithData<FixedAmountPromotion>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
 		return this.resources.retrieve<FixedAmountPromotion>({ type: FixedAmountPromotions.TYPE, id }, params, options)
 	}
 
-	async update(resource: FixedAmountPromotionUpdate, options?: ResourcesConfig): Promise<FixedAmountPromotion | DocWithData<FixedAmountPromotion>> {
+	async update(resource: FixedAmountPromotionUpdate, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
 		return this.resources.update({ ...resource, type: FixedAmountPromotions.TYPE }, options)
 	}
 

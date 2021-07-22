@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Sku } from './skus'
@@ -52,19 +52,19 @@ class SkuLists extends ApiResource {
 	static readonly TYPE: 'sku_lists' = 'sku_lists'
 	// static readonly PATH = 'sku_lists'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<SkuList[] | DocWithData<SkuList>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<SkuList[]> {
 		return this.resources.list({ type: SkuLists.TYPE }, params, options)
 	}
 
-	async create(resource: SkuListCreate, options?: ResourcesConfig): Promise<SkuList | DocWithData<SkuList>> {
+	async create(resource: SkuListCreate, options?: ResourcesConfig): Promise<SkuList> {
 		return this.resources.create(Object.assign(resource, { type: SkuLists.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList | DocWithData<SkuList>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		return this.resources.retrieve<SkuList>({ type: SkuLists.TYPE, id }, params, options)
 	}
 
-	async update(resource: SkuListUpdate, options?: ResourcesConfig): Promise<SkuList | DocWithData<SkuList>> {
+	async update(resource: SkuListUpdate, options?: ResourcesConfig): Promise<SkuList> {
 		return this.resources.update({ ...resource, type: SkuLists.TYPE }, options)
 	}
 

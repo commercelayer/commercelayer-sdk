@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -60,19 +60,19 @@ class CheckoutComPayments extends ApiResource {
 	static readonly TYPE: 'checkout_com_payments' = 'checkout_com_payments'
 	// static readonly PATH = 'checkout_com_payments'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<CheckoutComPayment[] | DocWithData<CheckoutComPayment>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<CheckoutComPayment[]> {
 		return this.resources.list({ type: CheckoutComPayments.TYPE }, params, options)
 	}
 
-	async create(resource: CheckoutComPaymentCreate, options?: ResourcesConfig): Promise<CheckoutComPayment | DocWithData<CheckoutComPayment>> {
+	async create(resource: CheckoutComPaymentCreate, options?: ResourcesConfig): Promise<CheckoutComPayment> {
 		return this.resources.create(Object.assign(resource, { type: CheckoutComPayments.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment | DocWithData<CheckoutComPayment>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
 		return this.resources.retrieve<CheckoutComPayment>({ type: CheckoutComPayments.TYPE, id }, params, options)
 	}
 
-	async update(resource: CheckoutComPaymentUpdate, options?: ResourcesConfig): Promise<CheckoutComPayment | DocWithData<CheckoutComPayment>> {
+	async update(resource: CheckoutComPaymentUpdate, options?: ResourcesConfig): Promise<CheckoutComPayment> {
 		return this.resources.update({ ...resource, type: CheckoutComPayments.TYPE }, options)
 	}
 

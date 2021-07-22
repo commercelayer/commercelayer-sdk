@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
@@ -47,19 +47,19 @@ class StripeGateways extends ApiResource {
 	static readonly TYPE: 'stripe_gateways' = 'stripe_gateways'
 	// static readonly PATH = 'stripe_gateways'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StripeGateway[] | DocWithData<StripeGateway>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StripeGateway[]> {
 		return this.resources.list({ type: StripeGateways.TYPE }, params, options)
 	}
 
-	async create(resource: StripeGatewayCreate, options?: ResourcesConfig): Promise<StripeGateway | DocWithData<StripeGateway>> {
+	async create(resource: StripeGatewayCreate, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.create(Object.assign(resource, { type: StripeGateways.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway | DocWithData<StripeGateway>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.retrieve<StripeGateway>({ type: StripeGateways.TYPE, id }, params, options)
 	}
 
-	async update(resource: StripeGatewayUpdate, options?: ResourcesConfig): Promise<StripeGateway | DocWithData<StripeGateway>> {
+	async update(resource: StripeGatewayUpdate, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.update({ ...resource, type: StripeGateways.TYPE }, options)
 	}
 

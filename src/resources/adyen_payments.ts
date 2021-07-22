@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -52,19 +52,19 @@ class AdyenPayments extends ApiResource {
 	static readonly TYPE: 'adyen_payments' = 'adyen_payments'
 	// static readonly PATH = 'adyen_payments'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<AdyenPayment[] | DocWithData<AdyenPayment>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<AdyenPayment[]> {
 		return this.resources.list({ type: AdyenPayments.TYPE }, params, options)
 	}
 
-	async create(resource: AdyenPaymentCreate, options?: ResourcesConfig): Promise<AdyenPayment | DocWithData<AdyenPayment>> {
+	async create(resource: AdyenPaymentCreate, options?: ResourcesConfig): Promise<AdyenPayment> {
 		return this.resources.create(Object.assign(resource, { type: AdyenPayments.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment | DocWithData<AdyenPayment>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment> {
 		return this.resources.retrieve<AdyenPayment>({ type: AdyenPayments.TYPE, id }, params, options)
 	}
 
-	async update(resource: AdyenPaymentUpdate, options?: ResourcesConfig): Promise<AdyenPayment | DocWithData<AdyenPayment>> {
+	async update(resource: AdyenPaymentUpdate, options?: ResourcesConfig): Promise<AdyenPayment> {
 		return this.resources.update({ ...resource, type: AdyenPayments.TYPE }, options)
 	}
 

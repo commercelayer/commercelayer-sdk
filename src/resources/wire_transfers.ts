@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -39,19 +39,19 @@ class WireTransfers extends ApiResource {
 	static readonly TYPE: 'wire_transfers' = 'wire_transfers'
 	// static readonly PATH = 'wire_transfers'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<WireTransfer[] | DocWithData<WireTransfer>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<WireTransfer[]> {
 		return this.resources.list({ type: WireTransfers.TYPE }, params, options)
 	}
 
-	async create(resource: WireTransferCreate, options?: ResourcesConfig): Promise<WireTransfer | DocWithData<WireTransfer>> {
+	async create(resource: WireTransferCreate, options?: ResourcesConfig): Promise<WireTransfer> {
 		return this.resources.create(Object.assign(resource, { type: WireTransfers.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer | DocWithData<WireTransfer>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
 		return this.resources.retrieve<WireTransfer>({ type: WireTransfers.TYPE, id }, params, options)
 	}
 
-	async update(resource: WireTransferUpdate, options?: ResourcesConfig): Promise<WireTransfer | DocWithData<WireTransfer>> {
+	async update(resource: WireTransferUpdate, options?: ResourcesConfig): Promise<WireTransfer> {
 		return this.resources.update({ ...resource, type: WireTransfers.TYPE }, options)
 	}
 

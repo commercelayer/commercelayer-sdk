@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { StockLocation } from './stock_locations'
@@ -64,19 +64,19 @@ class Packages extends ApiResource {
 	static readonly TYPE: 'packages' = 'packages'
 	// static readonly PATH = 'packages'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Package[] | DocWithData<Package>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Package[]> {
 		return this.resources.list({ type: Packages.TYPE }, params, options)
 	}
 
-	async create(resource: PackageCreate, options?: ResourcesConfig): Promise<Package | DocWithData<Package>> {
+	async create(resource: PackageCreate, options?: ResourcesConfig): Promise<Package> {
 		return this.resources.create(Object.assign(resource, { type: Packages.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package | DocWithData<Package>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
 		return this.resources.retrieve<Package>({ type: Packages.TYPE, id }, params, options)
 	}
 
-	async update(resource: PackageUpdate, options?: ResourcesConfig): Promise<Package | DocWithData<Package>> {
+	async update(resource: PackageUpdate, options?: ResourcesConfig): Promise<Package> {
 		return this.resources.update({ ...resource, type: Packages.TYPE }, options)
 	}
 

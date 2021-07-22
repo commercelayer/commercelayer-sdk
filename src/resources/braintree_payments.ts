@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -56,19 +56,19 @@ class BraintreePayments extends ApiResource {
 	static readonly TYPE: 'braintree_payments' = 'braintree_payments'
 	// static readonly PATH = 'braintree_payments'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<BraintreePayment[] | DocWithData<BraintreePayment>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<BraintreePayment[]> {
 		return this.resources.list({ type: BraintreePayments.TYPE }, params, options)
 	}
 
-	async create(resource: BraintreePaymentCreate, options?: ResourcesConfig): Promise<BraintreePayment | DocWithData<BraintreePayment>> {
+	async create(resource: BraintreePaymentCreate, options?: ResourcesConfig): Promise<BraintreePayment> {
 		return this.resources.create(Object.assign(resource, { type: BraintreePayments.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment | DocWithData<BraintreePayment>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {
 		return this.resources.retrieve<BraintreePayment>({ type: BraintreePayments.TYPE, id }, params, options)
 	}
 
-	async update(resource: BraintreePaymentUpdate, options?: ResourcesConfig): Promise<BraintreePayment | DocWithData<BraintreePayment>> {
+	async update(resource: BraintreePaymentUpdate, options?: ResourcesConfig): Promise<BraintreePayment> {
 		return this.resources.update({ ...resource, type: BraintreePayments.TYPE }, options)
 	}
 

@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
@@ -55,19 +55,19 @@ class ExternalGateways extends ApiResource {
 	static readonly TYPE: 'external_gateways' = 'external_gateways'
 	// static readonly PATH = 'external_gateways'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ExternalGateway[] | DocWithData<ExternalGateway>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ExternalGateway[]> {
 		return this.resources.list({ type: ExternalGateways.TYPE }, params, options)
 	}
 
-	async create(resource: ExternalGatewayCreate, options?: ResourcesConfig): Promise<ExternalGateway | DocWithData<ExternalGateway>> {
+	async create(resource: ExternalGatewayCreate, options?: ResourcesConfig): Promise<ExternalGateway> {
 		return this.resources.create(Object.assign(resource, { type: ExternalGateways.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway | DocWithData<ExternalGateway>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
 		return this.resources.retrieve<ExternalGateway>({ type: ExternalGateways.TYPE, id }, params, options)
 	}
 
-	async update(resource: ExternalGatewayUpdate, options?: ResourcesConfig): Promise<ExternalGateway | DocWithData<ExternalGateway>> {
+	async update(resource: ExternalGatewayUpdate, options?: ResourcesConfig): Promise<ExternalGateway> {
 		return this.resources.update({ ...resource, type: ExternalGateways.TYPE }, options)
 	}
 

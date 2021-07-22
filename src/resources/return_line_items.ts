@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Return } from './returns'
@@ -54,19 +54,19 @@ class ReturnLineItems extends ApiResource {
 	static readonly TYPE: 'return_line_items' = 'return_line_items'
 	// static readonly PATH = 'return_line_items'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ReturnLineItem[] | DocWithData<ReturnLineItem>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ReturnLineItem[]> {
 		return this.resources.list({ type: ReturnLineItems.TYPE }, params, options)
 	}
 
-	async create(resource: ReturnLineItemCreate, options?: ResourcesConfig): Promise<ReturnLineItem | DocWithData<ReturnLineItem>> {
+	async create(resource: ReturnLineItemCreate, options?: ResourcesConfig): Promise<ReturnLineItem> {
 		return this.resources.create(Object.assign(resource, { type: ReturnLineItems.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem | DocWithData<ReturnLineItem>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
 		return this.resources.retrieve<ReturnLineItem>({ type: ReturnLineItems.TYPE, id }, params, options)
 	}
 
-	async update(resource: ReturnLineItemUpdate, options?: ResourcesConfig): Promise<ReturnLineItem | DocWithData<ReturnLineItem>> {
+	async update(resource: ReturnLineItemUpdate, options?: ResourcesConfig): Promise<ReturnLineItem> {
 		return this.resources.update({ ...resource, type: ReturnLineItems.TYPE }, options)
 	}
 

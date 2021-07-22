@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
@@ -52,19 +52,19 @@ class CustomerPaymentSources extends ApiResource {
 	static readonly TYPE: 'customer_payment_sources' = 'customer_payment_sources'
 	// static readonly PATH = 'customer_payment_sources'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<CustomerPaymentSource[] | DocWithData<CustomerPaymentSource>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<CustomerPaymentSource[]> {
 		return this.resources.list({ type: CustomerPaymentSources.TYPE }, params, options)
 	}
 
-	async create(resource: CustomerPaymentSourceCreate, options?: ResourcesConfig): Promise<CustomerPaymentSource | DocWithData<CustomerPaymentSource>> {
+	async create(resource: CustomerPaymentSourceCreate, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
 		return this.resources.create(Object.assign(resource, { type: CustomerPaymentSources.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource | DocWithData<CustomerPaymentSource>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
 		return this.resources.retrieve<CustomerPaymentSource>({ type: CustomerPaymentSources.TYPE, id }, params, options)
 	}
 
-	async update(resource: CustomerPaymentSourceUpdate, options?: ResourcesConfig): Promise<CustomerPaymentSource | DocWithData<CustomerPaymentSource>> {
+	async update(resource: CustomerPaymentSourceUpdate, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
 		return this.resources.update({ ...resource, type: CustomerPaymentSources.TYPE }, options)
 	}
 

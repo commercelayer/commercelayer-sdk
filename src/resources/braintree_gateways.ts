@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
@@ -65,19 +65,19 @@ class BraintreeGateways extends ApiResource {
 	static readonly TYPE: 'braintree_gateways' = 'braintree_gateways'
 	// static readonly PATH = 'braintree_gateways'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<BraintreeGateway[] | DocWithData<BraintreeGateway>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<BraintreeGateway[]> {
 		return this.resources.list({ type: BraintreeGateways.TYPE }, params, options)
 	}
 
-	async create(resource: BraintreeGatewayCreate, options?: ResourcesConfig): Promise<BraintreeGateway | DocWithData<BraintreeGateway>> {
+	async create(resource: BraintreeGatewayCreate, options?: ResourcesConfig): Promise<BraintreeGateway> {
 		return this.resources.create(Object.assign(resource, { type: BraintreeGateways.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreeGateway | DocWithData<BraintreeGateway>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreeGateway> {
 		return this.resources.retrieve<BraintreeGateway>({ type: BraintreeGateways.TYPE, id }, params, options)
 	}
 
-	async update(resource: BraintreeGatewayUpdate, options?: ResourcesConfig): Promise<BraintreeGateway | DocWithData<BraintreeGateway>> {
+	async update(resource: BraintreeGatewayUpdate, options?: ResourcesConfig): Promise<BraintreeGateway> {
 		return this.resources.update({ ...resource, type: BraintreeGateways.TYPE }, options)
 	}
 

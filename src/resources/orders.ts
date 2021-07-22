@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -231,7 +231,7 @@ class Orders extends ApiResource {
 		return this.resources.list({ type: Orders.TYPE }, params, options)
 	}
 
-	async create(resource: OrderCreate, options?: ResourcesConfig): Promise<Order/* | DocWithData<Order>*/> {
+	async create(resource: OrderCreate, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.create(Object.assign(resource, { type: Orders.TYPE }) , options)
 	}
 
@@ -239,7 +239,7 @@ class Orders extends ApiResource {
 		return this.resources.retrieve<Order>({ type: Orders.TYPE, id }, params, options)
 	}
 
-	async update(resource: OrderUpdate, options?: ResourcesConfig): Promise<Order/* | DocWithData<Order>*/> {
+	async update(resource: OrderUpdate, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update({ ...resource, type: Orders.TYPE }, options)
 	}
 

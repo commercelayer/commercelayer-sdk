@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 
@@ -96,19 +96,19 @@ class Addresses extends ApiResource {
 	static readonly TYPE: 'addresses' = 'addresses'
 	// static readonly PATH = 'addresses'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Address[] | DocWithData<Address>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Address[]> {
 		return this.resources.list({ type: Addresses.TYPE }, params, options)
 	}
 
-	async create(resource: AddressCreate, options?: ResourcesConfig): Promise<Address | DocWithData<Address>> {
+	async create(resource: AddressCreate, options?: ResourcesConfig): Promise<Address> {
 		return this.resources.create(Object.assign(resource, { type: Addresses.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address | DocWithData<Address>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		return this.resources.retrieve<Address>({ type: Addresses.TYPE, id }, params, options)
 	}
 
-	async update(resource: AddressUpdate, options?: ResourcesConfig): Promise<Address | DocWithData<Address>> {
+	async update(resource: AddressUpdate, options?: ResourcesConfig): Promise<Address> {
 		return this.resources.update({ ...resource, type: Addresses.TYPE }, options)
 	}
 

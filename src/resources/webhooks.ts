@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 
@@ -46,19 +46,19 @@ class Webhooks extends ApiResource {
 	static readonly TYPE: 'webhooks' = 'webhooks'
 	// static readonly PATH = 'webhooks'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Webhook[] | DocWithData<Webhook>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Webhook[]> {
 		return this.resources.list({ type: Webhooks.TYPE }, params, options)
 	}
 
-	async create(resource: WebhookCreate, options?: ResourcesConfig): Promise<Webhook | DocWithData<Webhook>> {
+	async create(resource: WebhookCreate, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.create(Object.assign(resource, { type: Webhooks.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook | DocWithData<Webhook>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.retrieve<Webhook>({ type: Webhooks.TYPE, id }, params, options)
 	}
 
-	async update(resource: WebhookUpdate, options?: ResourcesConfig): Promise<Webhook | DocWithData<Webhook>> {
+	async update(resource: WebhookUpdate, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.update({ ...resource, type: Webhooks.TYPE }, options)
 	}
 

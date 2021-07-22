@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -49,10 +49,7 @@ interface Authorization extends Resource {
 }
 
 
-interface AuthorizationCreate extends ResourceCreate {
-	
-	
-}
+type AuthorizationCreate = ResourceCreate
 
 
 interface AuthorizationUpdate extends ResourceUpdate {
@@ -69,19 +66,19 @@ class Authorizations extends ApiResource {
 	static readonly TYPE: 'authorizations' = 'authorizations'
 	// static readonly PATH = 'authorizations'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Authorization[] | DocWithData<Authorization>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Authorization[]> {
 		return this.resources.list({ type: Authorizations.TYPE }, params, options)
 	}
 
-	async create(resource: AuthorizationCreate, options?: ResourcesConfig): Promise<Authorization | DocWithData<Authorization>> {
+	async create(resource: AuthorizationCreate, options?: ResourcesConfig): Promise<Authorization> {
 		return this.resources.create(Object.assign(resource, { type: Authorizations.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization | DocWithData<Authorization>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
 		return this.resources.retrieve<Authorization>({ type: Authorizations.TYPE, id }, params, options)
 	}
 
-	async update(resource: AuthorizationUpdate, options?: ResourcesConfig): Promise<Authorization | DocWithData<Authorization>> {
+	async update(resource: AuthorizationUpdate, options?: ResourcesConfig): Promise<Authorization> {
 		return this.resources.update({ ...resource, type: Authorizations.TYPE }, options)
 	}
 

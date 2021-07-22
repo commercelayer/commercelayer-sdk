@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { LineItem } from './line_items'
@@ -64,19 +64,19 @@ class LineItemOptions extends ApiResource {
 	static readonly TYPE: 'line_item_options' = 'line_item_options'
 	// static readonly PATH = 'line_item_options'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<LineItemOption[] | DocWithData<LineItemOption>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<LineItemOption[]> {
 		return this.resources.list({ type: LineItemOptions.TYPE }, params, options)
 	}
 
-	async create(resource: LineItemOptionCreate, options?: ResourcesConfig): Promise<LineItemOption | DocWithData<LineItemOption>> {
+	async create(resource: LineItemOptionCreate, options?: ResourcesConfig): Promise<LineItemOption> {
 		return this.resources.create(Object.assign(resource, { type: LineItemOptions.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption | DocWithData<LineItemOption>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
 		return this.resources.retrieve<LineItemOption>({ type: LineItemOptions.TYPE, id }, params, options)
 	}
 
-	async update(resource: LineItemOptionUpdate, options?: ResourcesConfig): Promise<LineItemOption | DocWithData<LineItemOption>> {
+	async update(resource: LineItemOptionUpdate, options?: ResourcesConfig): Promise<LineItemOption> {
 		return this.resources.update({ ...resource, type: LineItemOptions.TYPE }, options)
 	}
 

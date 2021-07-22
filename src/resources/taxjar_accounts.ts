@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
@@ -49,19 +49,19 @@ class TaxjarAccounts extends ApiResource {
 	static readonly TYPE: 'taxjar_accounts' = 'taxjar_accounts'
 	// static readonly PATH = 'taxjar_accounts'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<TaxjarAccount[] | DocWithData<TaxjarAccount>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<TaxjarAccount[]> {
 		return this.resources.list({ type: TaxjarAccounts.TYPE }, params, options)
 	}
 
-	async create(resource: TaxjarAccountCreate, options?: ResourcesConfig): Promise<TaxjarAccount | DocWithData<TaxjarAccount>> {
+	async create(resource: TaxjarAccountCreate, options?: ResourcesConfig): Promise<TaxjarAccount> {
 		return this.resources.create(Object.assign(resource, { type: TaxjarAccounts.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount | DocWithData<TaxjarAccount>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
 		return this.resources.retrieve<TaxjarAccount>({ type: TaxjarAccounts.TYPE, id }, params, options)
 	}
 
-	async update(resource: TaxjarAccountUpdate, options?: ResourcesConfig): Promise<TaxjarAccount | DocWithData<TaxjarAccount>> {
+	async update(resource: TaxjarAccountUpdate, options?: ResourcesConfig): Promise<TaxjarAccount> {
 		return this.resources.update({ ...resource, type: TaxjarAccounts.TYPE }, options)
 	}
 

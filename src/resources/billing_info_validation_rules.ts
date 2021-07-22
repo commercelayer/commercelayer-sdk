@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -39,19 +39,19 @@ class BillingInfoValidationRules extends ApiResource {
 	static readonly TYPE: 'billing_info_validation_rules' = 'billing_info_validation_rules'
 	// static readonly PATH = 'billing_info_validation_rules'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<BillingInfoValidationRule[] | DocWithData<BillingInfoValidationRule>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<BillingInfoValidationRule[]> {
 		return this.resources.list({ type: BillingInfoValidationRules.TYPE }, params, options)
 	}
 
-	async create(resource: BillingInfoValidationRuleCreate, options?: ResourcesConfig): Promise<BillingInfoValidationRule | DocWithData<BillingInfoValidationRule>> {
+	async create(resource: BillingInfoValidationRuleCreate, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
 		return this.resources.create(Object.assign(resource, { type: BillingInfoValidationRules.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule | DocWithData<BillingInfoValidationRule>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
 		return this.resources.retrieve<BillingInfoValidationRule>({ type: BillingInfoValidationRules.TYPE, id }, params, options)
 	}
 
-	async update(resource: BillingInfoValidationRuleUpdate, options?: ResourcesConfig): Promise<BillingInfoValidationRule | DocWithData<BillingInfoValidationRule>> {
+	async update(resource: BillingInfoValidationRuleUpdate, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
 		return this.resources.update({ ...resource, type: BillingInfoValidationRules.TYPE }, options)
 	}
 

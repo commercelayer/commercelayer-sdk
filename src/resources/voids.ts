@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -38,11 +38,11 @@ class Voids extends ApiResource {
 	static readonly TYPE: 'voids' = 'voids'
 	// static readonly PATH = 'voids'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Void[] | DocWithData<Void>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Void[]> {
 		return this.resources.list({ type: Voids.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Void | DocWithData<Void>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Void> {
 		return this.resources.retrieve<Void>({ type: Voids.TYPE, id }, params, options)
 	}
 

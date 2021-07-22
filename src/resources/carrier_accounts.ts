@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -30,11 +30,11 @@ class CarrierAccounts extends ApiResource {
 	static readonly TYPE: 'carrier_accounts' = 'carrier_accounts'
 	// static readonly PATH = 'carrier_accounts'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<CarrierAccount[] | DocWithData<CarrierAccount>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<CarrierAccount[]> {
 		return this.resources.list({ type: CarrierAccounts.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CarrierAccount | DocWithData<CarrierAccount>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CarrierAccount> {
 		return this.resources.retrieve<CarrierAccount>({ type: CarrierAccounts.TYPE, id }, params, options)
 	}
 

@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Shipment } from './shipments'
@@ -113,19 +113,19 @@ class Parcels extends ApiResource {
 	static readonly TYPE: 'parcels' = 'parcels'
 	// static readonly PATH = 'parcels'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Parcel[] | DocWithData<Parcel>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Parcel[]> {
 		return this.resources.list({ type: Parcels.TYPE }, params, options)
 	}
 
-	async create(resource: ParcelCreate, options?: ResourcesConfig): Promise<Parcel | DocWithData<Parcel>> {
+	async create(resource: ParcelCreate, options?: ResourcesConfig): Promise<Parcel> {
 		return this.resources.create(Object.assign(resource, { type: Parcels.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel | DocWithData<Parcel>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
 		return this.resources.retrieve<Parcel>({ type: Parcels.TYPE, id }, params, options)
 	}
 
-	async update(resource: ParcelUpdate, options?: ResourcesConfig): Promise<Parcel | DocWithData<Parcel>> {
+	async update(resource: ParcelUpdate, options?: ResourcesConfig): Promise<Parcel> {
 		return this.resources.update({ ...resource, type: Parcels.TYPE }, options)
 	}
 

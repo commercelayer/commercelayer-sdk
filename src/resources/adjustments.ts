@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 
@@ -45,19 +45,19 @@ class Adjustments extends ApiResource {
 	static readonly TYPE: 'adjustments' = 'adjustments'
 	// static readonly PATH = 'adjustments'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Adjustment[] | DocWithData<Adjustment>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Adjustment[]> {
 		return this.resources.list({ type: Adjustments.TYPE }, params, options)
 	}
 
-	async create(resource: AdjustmentCreate, options?: ResourcesConfig): Promise<Adjustment | DocWithData<Adjustment>> {
+	async create(resource: AdjustmentCreate, options?: ResourcesConfig): Promise<Adjustment> {
 		return this.resources.create(Object.assign(resource, { type: Adjustments.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment | DocWithData<Adjustment>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {
 		return this.resources.retrieve<Adjustment>({ type: Adjustments.TYPE, id }, params, options)
 	}
 
-	async update(resource: AdjustmentUpdate, options?: ResourcesConfig): Promise<Adjustment | DocWithData<Adjustment>> {
+	async update(resource: AdjustmentUpdate, options?: ResourcesConfig): Promise<Adjustment> {
 		return this.resources.update({ ...resource, type: Adjustments.TYPE }, options)
 	}
 

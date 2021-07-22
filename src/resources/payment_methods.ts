@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -59,19 +59,19 @@ class PaymentMethods extends ApiResource {
 	static readonly TYPE: 'payment_methods' = 'payment_methods'
 	// static readonly PATH = 'payment_methods'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<PaymentMethod[] | DocWithData<PaymentMethod>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<PaymentMethod[]> {
 		return this.resources.list({ type: PaymentMethods.TYPE }, params, options)
 	}
 
-	async create(resource: PaymentMethodCreate, options?: ResourcesConfig): Promise<PaymentMethod | DocWithData<PaymentMethod>> {
+	async create(resource: PaymentMethodCreate, options?: ResourcesConfig): Promise<PaymentMethod> {
 		return this.resources.create(Object.assign(resource, { type: PaymentMethods.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod | DocWithData<PaymentMethod>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
 		return this.resources.retrieve<PaymentMethod>({ type: PaymentMethods.TYPE, id }, params, options)
 	}
 
-	async update(resource: PaymentMethodUpdate, options?: ResourcesConfig): Promise<PaymentMethod | DocWithData<PaymentMethod>> {
+	async update(resource: PaymentMethodUpdate, options?: ResourcesConfig): Promise<PaymentMethod> {
 		return this.resources.update({ ...resource, type: PaymentMethods.TYPE }, options)
 	}
 

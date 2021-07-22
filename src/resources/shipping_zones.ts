@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Attachment } from './attachments'
@@ -58,19 +58,19 @@ class ShippingZones extends ApiResource {
 	static readonly TYPE: 'shipping_zones' = 'shipping_zones'
 	// static readonly PATH = 'shipping_zones'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ShippingZone[] | DocWithData<ShippingZone>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ShippingZone[]> {
 		return this.resources.list({ type: ShippingZones.TYPE }, params, options)
 	}
 
-	async create(resource: ShippingZoneCreate, options?: ResourcesConfig): Promise<ShippingZone | DocWithData<ShippingZone>> {
+	async create(resource: ShippingZoneCreate, options?: ResourcesConfig): Promise<ShippingZone> {
 		return this.resources.create(Object.assign(resource, { type: ShippingZones.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone | DocWithData<ShippingZone>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
 		return this.resources.retrieve<ShippingZone>({ type: ShippingZones.TYPE, id }, params, options)
 	}
 
-	async update(resource: ShippingZoneUpdate, options?: ResourcesConfig): Promise<ShippingZone | DocWithData<ShippingZone>> {
+	async update(resource: ShippingZoneUpdate, options?: ResourcesConfig): Promise<ShippingZone> {
 		return this.resources.update({ ...resource, type: ShippingZones.TYPE }, options)
 	}
 

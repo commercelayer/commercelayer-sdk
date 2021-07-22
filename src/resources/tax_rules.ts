@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { ManualTaxCalculator } from './manual_tax_calculators'
@@ -79,19 +79,19 @@ class TaxRules extends ApiResource {
 	static readonly TYPE: 'tax_rules' = 'tax_rules'
 	// static readonly PATH = 'tax_rules'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<TaxRule[] | DocWithData<TaxRule>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<TaxRule[]> {
 		return this.resources.list({ type: TaxRules.TYPE }, params, options)
 	}
 
-	async create(resource: TaxRuleCreate, options?: ResourcesConfig): Promise<TaxRule | DocWithData<TaxRule>> {
+	async create(resource: TaxRuleCreate, options?: ResourcesConfig): Promise<TaxRule> {
 		return this.resources.create(Object.assign(resource, { type: TaxRules.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule | DocWithData<TaxRule>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
 		return this.resources.retrieve<TaxRule>({ type: TaxRules.TYPE, id }, params, options)
 	}
 
-	async update(resource: TaxRuleUpdate, options?: ResourcesConfig): Promise<TaxRule | DocWithData<TaxRule>> {
+	async update(resource: TaxRuleUpdate, options?: ResourcesConfig): Promise<TaxRule> {
 		return this.resources.update({ ...resource, type: TaxRules.TYPE }, options)
 	}
 

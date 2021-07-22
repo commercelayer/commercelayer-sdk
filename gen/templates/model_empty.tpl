@@ -1,0 +1,1 @@
+type ##__RESOURCE_MODEL__## = Resource##__EXTEND_TYPE__##

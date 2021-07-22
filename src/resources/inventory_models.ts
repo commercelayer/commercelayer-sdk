@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { InventoryStockLocation } from './inventory_stock_locations'
@@ -50,19 +50,19 @@ class InventoryModels extends ApiResource {
 	static readonly TYPE: 'inventory_models' = 'inventory_models'
 	// static readonly PATH = 'inventory_models'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<InventoryModel[] | DocWithData<InventoryModel>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<InventoryModel[]> {
 		return this.resources.list({ type: InventoryModels.TYPE }, params, options)
 	}
 
-	async create(resource: InventoryModelCreate, options?: ResourcesConfig): Promise<InventoryModel | DocWithData<InventoryModel>> {
+	async create(resource: InventoryModelCreate, options?: ResourcesConfig): Promise<InventoryModel> {
 		return this.resources.create(Object.assign(resource, { type: InventoryModels.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel | DocWithData<InventoryModel>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
 		return this.resources.retrieve<InventoryModel>({ type: InventoryModels.TYPE, id }, params, options)
 	}
 
-	async update(resource: InventoryModelUpdate, options?: ResourcesConfig): Promise<InventoryModel | DocWithData<InventoryModel>> {
+	async update(resource: InventoryModelUpdate, options?: ResourcesConfig): Promise<InventoryModel> {
 		return this.resources.update({ ...resource, type: InventoryModels.TYPE }, options)
 	}
 

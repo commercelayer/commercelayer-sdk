@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 21-07-2021
+ * Generation date: 22-07-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, DocWithData, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -74,19 +74,19 @@ class ShippingMethods extends ApiResource {
 	static readonly TYPE: 'shipping_methods' = 'shipping_methods'
 	// static readonly PATH = 'shipping_methods'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ShippingMethod[] | DocWithData<ShippingMethod>> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ShippingMethod[]> {
 		return this.resources.list({ type: ShippingMethods.TYPE }, params, options)
 	}
 
-	async create(resource: ShippingMethodCreate, options?: ResourcesConfig): Promise<ShippingMethod | DocWithData<ShippingMethod>> {
+	async create(resource: ShippingMethodCreate, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.create(Object.assign(resource, { type: ShippingMethods.TYPE }) , options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod | DocWithData<ShippingMethod>> {
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.retrieve<ShippingMethod>({ type: ShippingMethods.TYPE, id }, params, options)
 	}
 
-	async update(resource: ShippingMethodUpdate, options?: ResourcesConfig): Promise<ShippingMethod | DocWithData<ShippingMethod>> {
+	async update(resource: ShippingMethodUpdate, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.update({ ...resource, type: ShippingMethods.TYPE }, options)
 	}
 
