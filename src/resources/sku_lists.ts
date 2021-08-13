@@ -1,7 +1,7 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 22-07-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Generation date: 13-08-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
@@ -9,6 +9,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 
 import { Sku } from './skus'
 import { SkuListItem } from './sku_list_items'
+import { Bundle } from './bundles'
 
 
 
@@ -18,11 +19,13 @@ interface SkuList extends Resource {
 	name?: string
 	slug?: string
 	description?: string
+	image_url?: string
 	manual?: boolean
 	sku_code_regex?: string
 
 	skus?: Sku[]
 	sku_list_items?: SkuListItem[]
+	bundles?: Bundle[]
 
 }
 
@@ -31,6 +34,7 @@ interface SkuListCreate extends ResourceCreate {
 	
 	name: string
 	description?: string
+	image_url?: string
 	manual?: boolean
 	sku_code_regex?: string
 	
@@ -41,6 +45,7 @@ interface SkuListUpdate extends ResourceUpdate {
 	
 	name?: string
 	description?: string
+	image_url?: string
 	manual?: boolean
 	sku_code_regex?: string
 	

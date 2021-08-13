@@ -1,7 +1,7 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 22-07-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Generation date: 13-08-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
@@ -16,6 +16,7 @@ type OrderRel = ResourceId & { type: 'orders' }
 
 interface AdyenPayment extends Resource {
 	
+	public_key?: string
 	payment_methods?: object
 	payment_request_data?: object
 	payment_request_details?: object

@@ -3,8 +3,8 @@
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 22-07-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Generation date: 13-08-2021
  **/
 export { default as Addresses } from './resources/addresses'
 export { default as Adjustments } from './resources/adjustments'
@@ -15,8 +15,10 @@ export { default as Attachments } from './resources/attachments'
 export { default as Authorizations } from './resources/authorizations'
 export { default as AvalaraAccounts } from './resources/avalara_accounts'
 export { default as BillingInfoValidationRules } from './resources/billing_info_validation_rules'
+export { default as BingGeocoders } from './resources/bing_geocoders'
 export { default as BraintreeGateways } from './resources/braintree_gateways'
 export { default as BraintreePayments } from './resources/braintree_payments'
+export { default as Bundles } from './resources/bundles'
 export { default as Captures } from './resources/captures'
 export { default as CarrierAccounts } from './resources/carrier_accounts'
 export { default as CheckoutComGateways } from './resources/checkout_com_gateways'
@@ -36,8 +38,10 @@ export { default as ExternalPromotions } from './resources/external_promotions'
 export { default as ExternalTaxCalculators } from './resources/external_tax_calculators'
 export { default as FixedAmountPromotions } from './resources/fixed_amount_promotions'
 export { default as FreeShippingPromotions } from './resources/free_shipping_promotions'
+export { default as Geocoders } from './resources/geocoders'
 export { default as GiftCardRecipients } from './resources/gift_card_recipients'
 export { default as GiftCards } from './resources/gift_cards'
+export { default as GoogleGeocoders } from './resources/google_geocoders'
 export { default as Imports } from './resources/imports'
 export { default as InStockSubscriptions } from './resources/in_stock_subscriptions'
 export { default as InventoryModels } from './resources/inventory_models'
@@ -50,6 +54,8 @@ export { default as ManualTaxCalculators } from './resources/manual_tax_calculat
 export { default as Markets } from './resources/markets'
 export { default as Merchants } from './resources/merchants'
 export { default as OrderAmountPromotionRules } from './resources/order_amount_promotion_rules'
+export { default as OrderCopies } from './resources/order_copies'
+export { default as OrderSubscriptions } from './resources/order_subscriptions'
 export { default as Orders } from './resources/orders'
 export { default as Organizations } from './resources/organization'
 export { default as Packages } from './resources/packages'
@@ -104,8 +110,10 @@ export type ResTypeLock =
 |	'authorizations'
 |	'avalara_accounts'
 |	'billing_info_validation_rules'
+|	'bing_geocoders'
 |	'braintree_gateways'
 |	'braintree_payments'
+|	'bundles'
 |	'captures'
 |	'carrier_accounts'
 |	'checkout_com_gateways'
@@ -125,8 +133,10 @@ export type ResTypeLock =
 |	'external_tax_calculators'
 |	'fixed_amount_promotions'
 |	'free_shipping_promotions'
+|	'geocoders'
 |	'gift_card_recipients'
 |	'gift_cards'
+|	'google_geocoders'
 |	'imports'
 |	'in_stock_subscriptions'
 |	'inventory_models'
@@ -139,6 +149,8 @@ export type ResTypeLock =
 |	'markets'
 |	'merchants'
 |	'order_amount_promotion_rules'
+|	'order_copies'
+|	'order_subscriptions'
 |	'orders'
 |	'organization'
 |	'packages'
@@ -193,8 +205,10 @@ export const resourceList = [
 	'authorizations',
 	'avalara_accounts',
 	'billing_info_validation_rules',
+	'bing_geocoders',
 	'braintree_gateways',
 	'braintree_payments',
+	'bundles',
 	'captures',
 	'carrier_accounts',
 	'checkout_com_gateways',
@@ -214,8 +228,10 @@ export const resourceList = [
 	'external_tax_calculators',
 	'fixed_amount_promotions',
 	'free_shipping_promotions',
+	'geocoders',
 	'gift_card_recipients',
 	'gift_cards',
+	'google_geocoders',
 	'imports',
 	'in_stock_subscriptions',
 	'inventory_models',
@@ -228,6 +244,8 @@ export const resourceList = [
 	'markets',
 	'merchants',
 	'order_amount_promotion_rules',
+	'order_copies',
+	'order_subscriptions',
 	'orders',
 	'organization',
 	'packages',

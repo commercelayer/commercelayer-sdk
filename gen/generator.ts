@@ -29,7 +29,7 @@ const loadTemplates = (): void => {
 
 const generate = async () => {
 
-	const schemaPath = 'gen/openapi_fix.json' // await apiSchema.download()
+	const schemaPath = 'gen/openapi_doc.json' // await apiSchema.download()
 	if (!fs.existsSync(schemaPath)) {
 		console.log('Cannot find schema file: ' + schemaPath)
 		return

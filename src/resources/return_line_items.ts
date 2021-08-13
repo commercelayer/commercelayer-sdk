@@ -1,7 +1,7 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 22-07-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Generation date: 13-08-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
@@ -18,6 +18,7 @@ type LineItemRel = ResourceId & { type: 'line_items' }
 interface ReturnLineItem extends Resource {
 	
 	sku_code?: string
+	bundle_code?: string
 	name?: string
 	quantity?: number
 	return_reason?: object

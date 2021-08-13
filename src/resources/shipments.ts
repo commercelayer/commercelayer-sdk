@@ -1,7 +1,7 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 22-07-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Generation date: 13-08-2021
  **/
 
 import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
@@ -50,7 +50,7 @@ interface Shipment extends Resource {
 	shipping_method?: ShippingMethod
 	delivery_lead_time?: DeliveryLeadTime
 	/**
-	* @deprecated The field should not be used
+	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
 	shipment_line_items?: object[]
 	stock_line_items?: StockLineItem[]

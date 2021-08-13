@@ -1,13 +1,12 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "0.0.1",
+  "version": "2.0.0-alpha.1",
   "main": "lib/index.js",
   "scripts": {
-    "prepare": "npm run build & cp -rf build/* lib",
+    "lint": "eslint ./src --ext .ts",
     "build": "rm -rf ./build/* & tsc",
-    "start": "ts-node src/index.ts",
     "generate": "ts-node gen/generator.ts",
-    "lint": "eslint ./src --ext .ts"
+    "prepare": "npm run build & cp -rf build/* lib"
   },
   "keywords": [
     "javascript",

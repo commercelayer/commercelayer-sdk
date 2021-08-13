@@ -1,20 +1,23 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 22-07-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Generation date: 13-08-2021
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '../query'
 
-import { Promotion } from './promotions'
+import { PercentageDiscountPromotion } from './percentage_discount_promotions'
+import { FreeShippingPromotion } from './free_shipping_promotions'
+import { FixedAmountPromotion } from './fixed_amount_promotions'
+import { ExternalPromotion } from './external_promotions'
 
 
 
 
 interface PromotionRule extends Resource {
 	
-	promotion?: Promotion
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FixedAmountPromotion | ExternalPromotion
 
 }
 

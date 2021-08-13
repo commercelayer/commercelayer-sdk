@@ -1,14 +1,16 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 22-07-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Generation date: 13-08-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
+import { Geocoder } from './geocoders'
 
 
+type GeocoderRel = ResourceId & { type: 'geocoders' }
 
 
 interface Address extends Resource {
@@ -38,7 +40,7 @@ interface Address extends Resource {
 	static_map_url?: string
 	billing_info?: string
 
-	geocoder?: object
+	geocoder?: Geocoder
 
 }
 
@@ -62,7 +64,7 @@ interface AddressCreate extends ResourceCreate {
 	lng?: number
 	billing_info?: string
 
-	geocoder?: object
+	geocoder?: GeocoderRel
 
 }
 
@@ -86,7 +88,7 @@ interface AddressUpdate extends ResourceUpdate {
 	lng?: number
 	billing_info?: string
 
-	geocoder?: object
+	geocoder?: GeocoderRel
 
 }
 

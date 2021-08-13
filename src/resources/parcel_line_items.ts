@@ -1,7 +1,7 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 22-07-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Generation date: 13-08-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
@@ -23,7 +23,7 @@ interface ParcelLineItem extends Resource {
 	parcel?: Parcel
 	stock_line_item?: StockLineItem
 	/**
-	* @deprecated The field should not be used
+	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
 	shipment_line_item?: object
 
@@ -38,7 +38,7 @@ interface ParcelLineItemCreate extends ResourceCreate {
 	parcel?: ParcelRel
 	stock_line_item?: StockLineItemRel
 	/**
-	* @deprecated The field should not be used
+	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
 	shipment_line_item?: object
 

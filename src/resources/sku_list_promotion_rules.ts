@@ -1,18 +1,24 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
- * Generation date: 22-07-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Generation date: 13-08-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Promotion } from './promotions'
+import { PercentageDiscountPromotion } from './percentage_discount_promotions'
+import { FreeShippingPromotion } from './free_shipping_promotions'
+import { FixedAmountPromotion } from './fixed_amount_promotions'
+import { ExternalPromotion } from './external_promotions'
 import { SkuList } from './sku_lists'
 import { Sku } from './skus'
 
 
-type PromotionRel = ResourceId & { type: 'promotions' }
+type PercentageDiscountPromotionRel = ResourceId & { type: 'percentage_discount_promotions' }
+type FreeShippingPromotionRel = ResourceId & { type: 'free_shipping_promotions' }
+type FixedAmountPromotionRel = ResourceId & { type: 'fixed_amount_promotions' }
+type ExternalPromotionRel = ResourceId & { type: 'external_promotions' }
 type SkuListRel = ResourceId & { type: 'sku_lists' }
 
 
@@ -20,7 +26,7 @@ interface SkuListPromotionRule extends Resource {
 	
 	all_skus?: boolean
 
-	promotion?: Promotion
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FixedAmountPromotion | ExternalPromotion
 	sku_list?: SkuList
 	skus?: Sku[]
 
@@ -31,7 +37,7 @@ interface SkuListPromotionRuleCreate extends ResourceCreate {
 	
 	all_skus?: boolean
 
-	promotion?: PromotionRel
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | ExternalPromotionRel
 	sku_list?: SkuListRel
 
 }
@@ -41,7 +47,7 @@ interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 	
 	all_skus?: boolean
 
-	promotion?: PromotionRel
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | ExternalPromotionRel
 	sku_list?: SkuListRel
 
 }
