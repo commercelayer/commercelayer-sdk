@@ -2,9 +2,11 @@
   "name": "@commercelayer/sdk",
   "version": "2.0.0-alpha.2",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "lint": "eslint ./src --ext .ts",
-    "build": "rm -rf ./build/* & tsc",
+    "build": "rm -rf ./dist/* & tsdx build",
+    "start": "ts-node src/index.ts",
     "generate": "ts-node gen/generator.ts",
     "prepare": "npm run build & cp -rf build/* lib"
   },
@@ -39,6 +41,7 @@
     "lodash": "^4.17.21",
     "pretty-quick": "^3.1.0",
     "ts-node": "^10.0.0",
+    "tsdx": "^0.14.1",
     "typescript": "^4.3.2"
   },
   "repository": "github:commercelayer/commercelayer-sdk"
