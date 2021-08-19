@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
@@ -51,7 +51,7 @@ class TaxjarAccounts extends ApiResource {
 	static readonly TYPE: 'taxjar_accounts' = 'taxjar_accounts'
 	// static readonly PATH = 'taxjar_accounts'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<TaxjarAccount[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxjarAccount>> {
 		return this.resources.list({ type: TaxjarAccounts.TYPE }, params, options)
 	}
 

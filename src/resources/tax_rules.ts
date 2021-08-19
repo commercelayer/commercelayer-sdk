@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { ManualTaxCalculator } from './manual_tax_calculators'
@@ -79,7 +79,7 @@ class TaxRules extends ApiResource {
 	static readonly TYPE: 'tax_rules' = 'tax_rules'
 	// static readonly PATH = 'tax_rules'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<TaxRule[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxRule>> {
 		return this.resources.list({ type: TaxRules.TYPE }, params, options)
 	}
 

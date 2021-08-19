@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -47,7 +47,7 @@ class OrderCopies extends ApiResource {
 	static readonly TYPE: 'order_copies' = 'order_copies'
 	// static readonly PATH = 'order_copies'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<OrderCopy[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
 		return this.resources.list({ type: OrderCopies.TYPE }, params, options)
 	}
 

@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
@@ -53,7 +53,7 @@ class GiftCardRecipients extends ApiResource {
 	static readonly TYPE: 'gift_card_recipients' = 'gift_card_recipients'
 	// static readonly PATH = 'gift_card_recipients'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<GiftCardRecipient[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GiftCardRecipient>> {
 		return this.resources.list({ type: GiftCardRecipients.TYPE }, params, options)
 	}
 

@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -53,7 +53,7 @@ class AdyenPayments extends ApiResource {
 	static readonly TYPE: 'adyen_payments' = 'adyen_payments'
 	// static readonly PATH = 'adyen_payments'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<AdyenPayment[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenPayment>> {
 		return this.resources.list({ type: AdyenPayments.TYPE }, params, options)
 	}
 

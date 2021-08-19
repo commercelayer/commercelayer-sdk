@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Sku } from './skus'
@@ -71,7 +71,7 @@ class StockTransfers extends ApiResource {
 	static readonly TYPE: 'stock_transfers' = 'stock_transfers'
 	// static readonly PATH = 'stock_transfers'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<StockTransfer[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		return this.resources.list({ type: StockTransfers.TYPE }, params, options)
 	}
 

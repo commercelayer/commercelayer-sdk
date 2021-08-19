@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '../query'
 
 import { PercentageDiscountPromotion } from './percentage_discount_promotions'
@@ -27,7 +27,7 @@ class PromotionRules extends ApiResource {
 	static readonly TYPE: 'promotion_rules' = 'promotion_rules'
 	// static readonly PATH = 'promotion_rules'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<PromotionRule[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PromotionRule>> {
 		return this.resources.list({ type: PromotionRules.TYPE }, params, options)
 	}
 

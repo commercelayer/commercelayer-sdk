@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { SkuList } from './sku_lists'
@@ -50,7 +50,7 @@ class SkuListItems extends ApiResource {
 	static readonly TYPE: 'sku_list_items' = 'sku_list_items'
 	// static readonly PATH = 'sku_list_items'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<SkuListItem[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuListItem>> {
 		return this.resources.list({ type: SkuListItems.TYPE }, params, options)
 	}
 

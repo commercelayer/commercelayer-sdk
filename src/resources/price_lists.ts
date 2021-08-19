@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Price } from './prices'
@@ -48,7 +48,7 @@ class PriceLists extends ApiResource {
 	static readonly TYPE: 'price_lists' = 'price_lists'
 	// static readonly PATH = 'price_lists'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<PriceList[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceList>> {
 		return this.resources.list({ type: PriceLists.TYPE }, params, options)
 	}
 

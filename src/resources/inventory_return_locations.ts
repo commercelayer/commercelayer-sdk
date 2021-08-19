@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { StockLocation } from './stock_locations'
@@ -50,7 +50,7 @@ class InventoryReturnLocations extends ApiResource {
 	static readonly TYPE: 'inventory_return_locations' = 'inventory_return_locations'
 	// static readonly PATH = 'inventory_return_locations'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<InventoryReturnLocation[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
 		return this.resources.list({ type: InventoryReturnLocations.TYPE }, params, options)
 	}
 

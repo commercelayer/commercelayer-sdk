@@ -47,6 +47,25 @@ interface ResourceUpdate {
 }
 
 
+type ListMeta = {
+	readonly pageCount: number
+	readonly recordCount: number
+	readonly currentPage: number
+	readonly recordsPerPage: number
+}
+
+class ListResponse<R> extends Array<R> {
+
+	readonly meta: ListMeta
+
+	constructor(meta: ListMeta, data: Array<R>) {
+		super(...data)
+		this.meta = meta
+	}
+
+}
+
+
 
 const isResourceId = (resource: any): resource is ResourceId => {
 	return (resource.type && resource.id)
@@ -57,7 +76,7 @@ const isResourceType = (resource: any): resource is ResourceType => {
 }
 
 
-export { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, isResourceId, isResourceType }
+export { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, isResourceId, isResourceType, ListResponse }
 
 
 // Resources adapter local configuration
@@ -127,14 +146,21 @@ class ResourceAdapter {
 	}
 
 
-	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<R[]> {
+	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
 
 		const queryParams = generateQueryStringParams(params)
 
 		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R[]
 
-		return r
+		const meta: ListMeta = {
+			pageCount: Number(res.meta?.page_count),
+			recordCount: Number(res.meta?.record_count),
+			currentPage: params?.pageNumber || 1,
+			recordsPerPage: params?.pageSize || 10
+		}
+
+		return new ListResponse(meta, r)
 
 	}
 

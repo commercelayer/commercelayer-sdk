@@ -4,7 +4,7 @@
  * Generation date: ##__CURRENT_DATE__##
  **/
 
-import { ApiResource, ##__RESOURCE_INTERFACES__##, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, ##__RESOURCE_INTERFACES__##, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */##__QUERY_MODELS__## } from '../query'
 
 ##__IMPORT_RESOURCE_MODELS__##

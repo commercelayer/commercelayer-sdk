@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -63,7 +63,7 @@ class InStockSubscriptions extends ApiResource {
 	static readonly TYPE: 'in_stock_subscriptions' = 'in_stock_subscriptions'
 	// static readonly PATH = 'in_stock_subscriptions'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<InStockSubscription[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InStockSubscription>> {
 		return this.resources.list({ type: InStockSubscriptions.TYPE }, params, options)
 	}
 

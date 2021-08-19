@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-08-2021
+ * Generation date: 19-08-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
@@ -49,7 +49,7 @@ class Coupons extends ApiResource {
 	static readonly TYPE: 'coupons' = 'coupons'
 	// static readonly PATH = 'coupons'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<Coupon[]> {
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
 		return this.resources.list({ type: Coupons.TYPE }, params, options)
 	}
 
