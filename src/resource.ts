@@ -4,6 +4,7 @@ import ApiClient, { ApiClientConfig, ApiClientInitConfig } from './client'
 import { denormalize, normalize, JSON, DocWithData } from './jsonapi'
 import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from './query'
 import { ResTypeLock } from './api'
+import config from './config'
 
 export { DocWithData }
 
@@ -156,8 +157,8 @@ class ResourceAdapter {
 		const meta: ListMeta = {
 			pageCount: Number(res.meta?.page_count),
 			recordCount: Number(res.meta?.record_count),
-			currentPage: params?.pageNumber || 1,
-			recordsPerPage: params?.pageSize || 10
+			currentPage: params?.pageNumber || config.default.pageNumber,
+			recordsPerPage: params?.pageSize || config.default.pageSize
 		}
 
 		return new ListResponse(meta, r)
