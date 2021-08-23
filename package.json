@@ -5,10 +5,10 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "lint": "eslint ./src --ext .ts",
-    "build": "rm -rf ./dist/* & tsdx build",
+    "build": "rm -rf ./dist/* & tsdx build --tsconfig tsconfig.prod.json",
     "start": "ts-node src/index.ts",
     "generate": "ts-node gen/generator.ts",
-    "prepare": "npm run build & cp -rf build/* lib",
+    "prepare": "npm run build && cp -rf dist/* lib",
     "test": "tsdx test"
   },
   "keywords": [
