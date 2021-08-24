@@ -15,6 +15,7 @@ import { StockTransfer } from './stock_transfers'
 import { Attachment } from './attachments'
 
 
+type StockLocationRel = ResourceId & { type: typeof StockLocations.TYPE }
 type AddressRel = ResourceId & { type: 'addresses' }
 
 
@@ -100,8 +101,8 @@ class StockLocations extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof StockLocations.TYPE } {
-		return { id, type: StockLocations.TYPE }
+	relationship(id: string | ResourceId): StockLocationRel {
+		return (typeof id === 'string') ? { id, type: StockLocations.TYPE } : {id: id.id, type: StockLocations.TYPE }
 	}
 
 }

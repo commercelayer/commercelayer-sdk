@@ -12,6 +12,7 @@ import { Order } from './orders'
 import { OrderCopy } from './order_copies'
 
 
+type OrderSubscriptionRel = ResourceId & { type: typeof OrderSubscriptions.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 type OrderRel = ResourceId & { type: 'orders' }
 
@@ -106,8 +107,8 @@ class OrderSubscriptions extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof OrderSubscriptions.TYPE } {
-		return { id, type: OrderSubscriptions.TYPE }
+	relationship(id: string | ResourceId): OrderSubscriptionRel {
+		return (typeof id === 'string') ? { id, type: OrderSubscriptions.TYPE } : {id: id.id, type: OrderSubscriptions.TYPE }
 	}
 
 }

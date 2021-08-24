@@ -17,6 +17,7 @@ import { StripePayment } from './stripe_payments'
 import { WireTransfer } from './wire_transfers'
 
 
+type CustomerPaymentSourceRel = ResourceId & { type: typeof CustomerPaymentSources.TYPE }
 type CustomerRel = ResourceId & { type: 'customers' }
 type AdyenPaymentRel = ResourceId & { type: 'adyen_payments' }
 type BraintreePaymentRel = ResourceId & { type: 'braintree_payments' }
@@ -98,8 +99,8 @@ class CustomerPaymentSources extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof CustomerPaymentSources.TYPE } {
-		return { id, type: CustomerPaymentSources.TYPE }
+	relationship(id: string | ResourceId): CustomerPaymentSourceRel {
+		return (typeof id === 'string') ? { id, type: CustomerPaymentSources.TYPE } : {id: id.id, type: CustomerPaymentSources.TYPE }
 	}
 
 }

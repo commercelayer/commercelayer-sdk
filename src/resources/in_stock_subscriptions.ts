@@ -12,6 +12,7 @@ import { Customer } from './customers'
 import { Sku } from './skus'
 
 
+type InStockSubscriptionRel = ResourceId & { type: typeof InStockSubscriptions.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 type CustomerRel = ResourceId & { type: 'customers' }
 type SkuRel = ResourceId & { type: 'skus' }
@@ -101,8 +102,8 @@ class InStockSubscriptions extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof InStockSubscriptions.TYPE } {
-		return { id, type: InStockSubscriptions.TYPE }
+	relationship(id: string | ResourceId): InStockSubscriptionRel {
+		return (typeof id === 'string') ? { id, type: InStockSubscriptions.TYPE } : {id: id.id, type: InStockSubscriptions.TYPE }
 	}
 
 }

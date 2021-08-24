@@ -16,6 +16,7 @@ import { Return } from './returns'
 import { Attachment } from './attachments'
 
 
+type CustomerRel = ResourceId & { type: typeof Customers.TYPE }
 type CustomerGroupRel = ResourceId & { type: 'customer_groups' }
 
 
@@ -99,8 +100,8 @@ class Customers extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Customers.TYPE } {
-		return { id, type: Customers.TYPE }
+	relationship(id: string | ResourceId): CustomerRel {
+		return (typeof id === 'string') ? { id, type: Customers.TYPE } : {id: id.id, type: Customers.TYPE }
 	}
 
 }

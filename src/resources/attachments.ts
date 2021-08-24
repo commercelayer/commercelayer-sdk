@@ -39,6 +39,7 @@ import { TaxCalculator } from './tax_calculators'
 import { TaxCategory } from './tax_categories'
 
 
+type AttachmentRel = ResourceId & { type: typeof Attachments.TYPE }
 type BundleRel = ResourceId & { type: 'bundles' }
 type CarrierAccountRel = ResourceId & { type: 'carrier_accounts' }
 type CustomerGroupRel = ResourceId & { type: 'customer_groups' }
@@ -147,8 +148,8 @@ class Attachments extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Attachments.TYPE } {
-		return { id, type: Attachments.TYPE }
+	relationship(id: string | ResourceId): AttachmentRel {
+		return (typeof id === 'string') ? { id, type: Attachments.TYPE } : {id: id.id, type: Attachments.TYPE }
 	}
 
 }

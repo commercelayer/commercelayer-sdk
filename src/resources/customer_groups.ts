@@ -12,6 +12,7 @@ import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
+type CustomerGroupRel = ResourceId & { type: typeof CustomerGroups.TYPE }
 
 
 interface CustomerGroup extends Resource {
@@ -82,8 +83,8 @@ class CustomerGroups extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof CustomerGroups.TYPE } {
-		return { id, type: CustomerGroups.TYPE }
+	relationship(id: string | ResourceId): CustomerGroupRel {
+		return (typeof id === 'string') ? { id, type: CustomerGroups.TYPE } : {id: id.id, type: CustomerGroups.TYPE }
 	}
 
 }

@@ -12,6 +12,7 @@ import { Parcel } from './parcels'
 import { Attachment } from './attachments'
 
 
+type PackageRel = ResourceId & { type: typeof Packages.TYPE }
 type StockLocationRel = ResourceId & { type: 'stock_locations' }
 
 
@@ -102,8 +103,8 @@ class Packages extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Packages.TYPE } {
-		return { id, type: Packages.TYPE }
+	relationship(id: string | ResourceId): PackageRel {
+		return (typeof id === 'string') ? { id, type: Packages.TYPE } : {id: id.id, type: Packages.TYPE }
 	}
 
 }

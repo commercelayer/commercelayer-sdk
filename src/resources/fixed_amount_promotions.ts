@@ -15,6 +15,7 @@ import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import { Attachment } from './attachments'
 
 
+type FixedAmountPromotionRel = ResourceId & { type: typeof FixedAmountPromotions.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 type PromotionRuleRel = ResourceId & { type: 'promotion_rules' }
 type OrderAmountPromotionRuleRel = ResourceId & { type: 'order_amount_promotion_rules' }
@@ -121,8 +122,8 @@ class FixedAmountPromotions extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof FixedAmountPromotions.TYPE } {
-		return { id, type: FixedAmountPromotions.TYPE }
+	relationship(id: string | ResourceId): FixedAmountPromotionRel {
+		return (typeof id === 'string') ? { id, type: FixedAmountPromotions.TYPE } : {id: id.id, type: FixedAmountPromotions.TYPE }
 	}
 
 }

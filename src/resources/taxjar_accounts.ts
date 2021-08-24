@@ -12,6 +12,7 @@ import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
+type TaxjarAccountRel = ResourceId & { type: typeof TaxjarAccounts.TYPE }
 type TaxCategoryRel = ResourceId & { type: 'tax_categories' }
 
 
@@ -89,8 +90,8 @@ class TaxjarAccounts extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof TaxjarAccounts.TYPE } {
-		return { id, type: TaxjarAccounts.TYPE }
+	relationship(id: string | ResourceId): TaxjarAccountRel {
+		return (typeof id === 'string') ? { id, type: TaxjarAccounts.TYPE } : {id: id.id, type: TaxjarAccounts.TYPE }
 	}
 
 }

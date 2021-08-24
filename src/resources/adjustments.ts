@@ -9,6 +9,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 
 
 
+type AdjustmentRel = ResourceId & { type: typeof Adjustments.TYPE }
 
 
 interface Adjustment extends Resource {
@@ -83,8 +84,8 @@ class Adjustments extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Adjustments.TYPE } {
-		return { id, type: Adjustments.TYPE }
+	relationship(id: string | ResourceId): AdjustmentRel {
+		return (typeof id === 'string') ? { id, type: Adjustments.TYPE } : {id: id.id, type: Adjustments.TYPE }
 	}
 
 }

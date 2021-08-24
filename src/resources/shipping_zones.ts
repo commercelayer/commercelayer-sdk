@@ -10,6 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { Attachment } from './attachments'
 
 
+type ShippingZoneRel = ResourceId & { type: typeof ShippingZones.TYPE }
 
 
 interface ShippingZone extends Resource {
@@ -96,8 +97,8 @@ class ShippingZones extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof ShippingZones.TYPE } {
-		return { id, type: ShippingZones.TYPE }
+	relationship(id: string | ResourceId): ShippingZoneRel {
+		return (typeof id === 'string') ? { id, type: ShippingZones.TYPE } : {id: id.id, type: ShippingZones.TYPE }
 	}
 
 }

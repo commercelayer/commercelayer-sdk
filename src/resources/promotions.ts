@@ -15,6 +15,7 @@ import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import { Attachment } from './attachments'
 
 
+type PromotionRel = ResourceId & { type: typeof Promotions.TYPE }
 
 
 interface Promotion extends Resource {
@@ -63,8 +64,8 @@ class Promotions extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Promotions.TYPE } {
-		return { id, type: Promotions.TYPE }
+	relationship(id: string | ResourceId): PromotionRel {
+		return (typeof id === 'string') ? { id, type: Promotions.TYPE } : {id: id.id, type: Promotions.TYPE }
 	}
 
 }

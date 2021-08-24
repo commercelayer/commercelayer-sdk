@@ -12,6 +12,7 @@ import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
+type ExternalTaxCalculatorRel = ResourceId & { type: typeof ExternalTaxCalculators.TYPE }
 type TaxCategoryRel = ResourceId & { type: 'tax_categories' }
 
 
@@ -90,8 +91,8 @@ class ExternalTaxCalculators extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof ExternalTaxCalculators.TYPE } {
-		return { id, type: ExternalTaxCalculators.TYPE }
+	relationship(id: string | ResourceId): ExternalTaxCalculatorRel {
+		return (typeof id === 'string') ? { id, type: ExternalTaxCalculators.TYPE } : {id: id.id, type: ExternalTaxCalculators.TYPE }
 	}
 
 }

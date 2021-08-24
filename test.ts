@@ -83,12 +83,14 @@ async function test() {
 	if (c1) console.log(c1)
 	console.log('----------------------------------------')
 
-	/*
+	
+	const cg = (await cl.customer_groups.list()).first()
+
 	cl.customers.create({
 		email: 'user@server.com',
-		customer_group: cl.customer_groups.relationship('id')
+		customer_group: cl.customer_groups.relationship(cg)
 	})
-	*/
+	
 
 
 }

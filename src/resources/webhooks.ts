@@ -9,6 +9,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 
 
 
+type WebhookRel = ResourceId & { type: typeof Webhooks.TYPE }
 
 
 interface Webhook extends Resource {
@@ -84,8 +85,8 @@ class Webhooks extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Webhooks.TYPE } {
-		return { id, type: Webhooks.TYPE }
+	relationship(id: string | ResourceId): WebhookRel {
+		return (typeof id === 'string') ? { id, type: Webhooks.TYPE } : {id: id.id, type: Webhooks.TYPE }
 	}
 
 }

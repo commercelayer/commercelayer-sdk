@@ -13,6 +13,7 @@ import { Attachment } from './attachments'
 import { TaxRule } from './tax_rules'
 
 
+type ManualTaxCalculatorRel = ResourceId & { type: typeof ManualTaxCalculators.TYPE }
 type TaxCategoryRel = ResourceId & { type: 'tax_categories' }
 type TaxRuleRel = ResourceId & { type: 'tax_rules' }
 
@@ -92,8 +93,8 @@ class ManualTaxCalculators extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof ManualTaxCalculators.TYPE } {
-		return { id, type: ManualTaxCalculators.TYPE }
+	relationship(id: string | ResourceId): ManualTaxCalculatorRel {
+		return (typeof id === 'string') ? { id, type: ManualTaxCalculators.TYPE } : {id: id.id, type: ManualTaxCalculators.TYPE }
 	}
 
 }

@@ -17,6 +17,7 @@ import { SkuList } from './sku_lists'
 import { Sku } from './skus'
 
 
+type PercentageDiscountPromotionRel = ResourceId & { type: typeof PercentageDiscountPromotions.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 type PromotionRuleRel = ResourceId & { type: 'promotion_rules' }
 type OrderAmountPromotionRuleRel = ResourceId & { type: 'order_amount_promotion_rules' }
@@ -126,8 +127,8 @@ class PercentageDiscountPromotions extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof PercentageDiscountPromotions.TYPE } {
-		return { id, type: PercentageDiscountPromotions.TYPE }
+	relationship(id: string | ResourceId): PercentageDiscountPromotionRel {
+		return (typeof id === 'string') ? { id, type: PercentageDiscountPromotions.TYPE } : {id: id.id, type: PercentageDiscountPromotions.TYPE }
 	}
 
 }

@@ -12,6 +12,7 @@ import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
+type AvalaraAccountRel = ResourceId & { type: typeof AvalaraAccounts.TYPE }
 type TaxCategoryRel = ResourceId & { type: 'tax_categories' }
 
 
@@ -98,8 +99,8 @@ class AvalaraAccounts extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof AvalaraAccounts.TYPE } {
-		return { id, type: AvalaraAccounts.TYPE }
+	relationship(id: string | ResourceId): AvalaraAccountRel {
+		return (typeof id === 'string') ? { id, type: AvalaraAccounts.TYPE } : {id: id.id, type: AvalaraAccounts.TYPE }
 	}
 
 }

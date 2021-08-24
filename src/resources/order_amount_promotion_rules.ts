@@ -13,6 +13,7 @@ import { FixedAmountPromotion } from './fixed_amount_promotions'
 import { ExternalPromotion } from './external_promotions'
 
 
+type OrderAmountPromotionRuleRel = ResourceId & { type: typeof OrderAmountPromotionRules.TYPE }
 type PercentageDiscountPromotionRel = ResourceId & { type: 'percentage_discount_promotions' }
 type FreeShippingPromotionRel = ResourceId & { type: 'free_shipping_promotions' }
 type FixedAmountPromotionRel = ResourceId & { type: 'fixed_amount_promotions' }
@@ -91,8 +92,8 @@ class OrderAmountPromotionRules extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof OrderAmountPromotionRules.TYPE } {
-		return { id, type: OrderAmountPromotionRules.TYPE }
+	relationship(id: string | ResourceId): OrderAmountPromotionRuleRel {
+		return (typeof id === 'string') ? { id, type: OrderAmountPromotionRules.TYPE } : {id: id.id, type: OrderAmountPromotionRules.TYPE }
 	}
 
 }

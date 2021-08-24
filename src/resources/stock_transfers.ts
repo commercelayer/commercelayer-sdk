@@ -13,6 +13,7 @@ import { Shipment } from './shipments'
 import { LineItem } from './line_items'
 
 
+type StockTransferRel = ResourceId & { type: typeof StockTransfers.TYPE }
 type SkuRel = ResourceId & { type: 'skus' }
 type StockLocationRel = ResourceId & { type: 'stock_locations' }
 type ShipmentRel = ResourceId & { type: 'shipments' }
@@ -109,8 +110,8 @@ class StockTransfers extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof StockTransfers.TYPE } {
-		return { id, type: StockTransfers.TYPE }
+	relationship(id: string | ResourceId): StockTransferRel {
+		return (typeof id === 'string') ? { id, type: StockTransfers.TYPE } : {id: id.id, type: StockTransfers.TYPE }
 	}
 
 }

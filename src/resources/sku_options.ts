@@ -11,6 +11,7 @@ import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
+type SkuOptionRel = ResourceId & { type: typeof SkuOptions.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 
 
@@ -100,8 +101,8 @@ class SkuOptions extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof SkuOptions.TYPE } {
-		return { id, type: SkuOptions.TYPE }
+	relationship(id: string | ResourceId): SkuOptionRel {
+		return (typeof id === 'string') ? { id, type: SkuOptions.TYPE } : {id: id.id, type: SkuOptions.TYPE }
 	}
 
 }

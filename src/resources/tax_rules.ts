@@ -10,6 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { ManualTaxCalculator } from './manual_tax_calculators'
 
 
+type TaxRuleRel = ResourceId & { type: typeof TaxRules.TYPE }
 type ManualTaxCalculatorRel = ResourceId & { type: 'manual_tax_calculators' }
 
 
@@ -117,8 +118,8 @@ class TaxRules extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof TaxRules.TYPE } {
-		return { id, type: TaxRules.TYPE }
+	relationship(id: string | ResourceId): TaxRuleRel {
+		return (typeof id === 'string') ? { id, type: TaxRules.TYPE } : {id: id.id, type: TaxRules.TYPE }
 	}
 
 }

@@ -11,6 +11,7 @@ import { PaymentMethod } from './payment_methods'
 import { AdyenPayment } from './adyen_payments'
 
 
+type AdyenGatewayRel = ResourceId & { type: typeof AdyenGateways.TYPE }
 type AdyenPaymentRel = ResourceId & { type: 'adyen_payments' }
 
 
@@ -93,8 +94,8 @@ class AdyenGateways extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof AdyenGateways.TYPE } {
-		return { id, type: AdyenGateways.TYPE }
+	relationship(id: string | ResourceId): AdyenGatewayRel {
+		return (typeof id === 'string') ? { id, type: AdyenGateways.TYPE } : {id: id.id, type: AdyenGateways.TYPE }
 	}
 
 }

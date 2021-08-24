@@ -11,6 +11,7 @@ import { Price } from './prices'
 import { Attachment } from './attachments'
 
 
+type PriceListRel = ResourceId & { type: typeof PriceLists.TYPE }
 
 
 interface PriceList extends Resource {
@@ -86,8 +87,8 @@ class PriceLists extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof PriceLists.TYPE } {
-		return { id, type: PriceLists.TYPE }
+	relationship(id: string | ResourceId): PriceListRel {
+		return (typeof id === 'string') ? { id, type: PriceLists.TYPE } : {id: id.id, type: PriceLists.TYPE }
 	}
 
 }

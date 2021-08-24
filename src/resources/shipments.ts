@@ -20,6 +20,7 @@ import { Parcel } from './parcels'
 import { Attachment } from './attachments'
 
 
+type ShipmentRel = ResourceId & { type: typeof Shipments.TYPE }
 type ShippingMethodRel = ResourceId & { type: 'shipping_methods' }
 
 
@@ -114,8 +115,8 @@ class Shipments extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Shipments.TYPE } {
-		return { id, type: Shipments.TYPE }
+	relationship(id: string | ResourceId): ShipmentRel {
+		return (typeof id === 'string') ? { id, type: Shipments.TYPE } : {id: id.id, type: Shipments.TYPE }
 	}
 
 }

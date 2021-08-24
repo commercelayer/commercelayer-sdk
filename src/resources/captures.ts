@@ -12,6 +12,7 @@ import { Authorization } from './authorizations'
 import { Refund } from './refunds'
 
 
+type CaptureRel = ResourceId & { type: typeof Captures.TYPE }
 
 
 interface Capture extends Resource {
@@ -84,8 +85,8 @@ class Captures extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Captures.TYPE } {
-		return { id, type: Captures.TYPE }
+	relationship(id: string | ResourceId): CaptureRel {
+		return (typeof id === 'string') ? { id, type: Captures.TYPE } : {id: id.id, type: Captures.TYPE }
 	}
 
 }

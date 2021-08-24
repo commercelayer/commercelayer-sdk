@@ -11,6 +11,7 @@ import { Order } from './orders'
 import { PaymentGateway } from './payment_gateways'
 
 
+type CheckoutComPaymentRel = ResourceId & { type: typeof CheckoutComPayments.TYPE }
 type OrderRel = ResourceId & { type: 'orders' }
 
 
@@ -98,8 +99,8 @@ class CheckoutComPayments extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof CheckoutComPayments.TYPE } {
-		return { id, type: CheckoutComPayments.TYPE }
+	relationship(id: string | ResourceId): CheckoutComPaymentRel {
+		return (typeof id === 'string') ? { id, type: CheckoutComPayments.TYPE } : {id: id.id, type: CheckoutComPayments.TYPE }
 	}
 
 }

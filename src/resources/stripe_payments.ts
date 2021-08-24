@@ -11,6 +11,7 @@ import { Order } from './orders'
 import { PaymentGateway } from './payment_gateways'
 
 
+type StripePaymentRel = ResourceId & { type: typeof StripePayments.TYPE }
 type OrderRel = ResourceId & { type: 'orders' }
 
 
@@ -88,8 +89,8 @@ class StripePayments extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof StripePayments.TYPE } {
-		return { id, type: StripePayments.TYPE }
+	relationship(id: string | ResourceId): StripePaymentRel {
+		return (typeof id === 'string') ? { id, type: StripePayments.TYPE } : {id: id.id, type: StripePayments.TYPE }
 	}
 
 }

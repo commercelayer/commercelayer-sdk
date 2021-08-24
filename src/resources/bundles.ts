@@ -13,6 +13,7 @@ import { Sku } from './skus'
 import { Attachment } from './attachments'
 
 
+type BundleRel = ResourceId & { type: typeof Bundles.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 type SkuListRel = ResourceId & { type: 'sku_lists' }
 
@@ -111,8 +112,8 @@ class Bundles extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Bundles.TYPE } {
-		return { id, type: Bundles.TYPE }
+	relationship(id: string | ResourceId): BundleRel {
+		return (typeof id === 'string') ? { id, type: Bundles.TYPE } : {id: id.id, type: Bundles.TYPE }
 	}
 
 }

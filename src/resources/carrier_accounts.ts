@@ -11,6 +11,7 @@ import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
+type CarrierAccountRel = ResourceId & { type: typeof CarrierAccounts.TYPE }
 
 
 interface CarrierAccount extends Resource {
@@ -56,8 +57,8 @@ class CarrierAccounts extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof CarrierAccounts.TYPE } {
-		return { id, type: CarrierAccounts.TYPE }
+	relationship(id: string | ResourceId): CarrierAccountRel {
+		return (typeof id === 'string') ? { id, type: CarrierAccounts.TYPE } : {id: id.id, type: CarrierAccounts.TYPE }
 	}
 
 }

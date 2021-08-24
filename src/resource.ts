@@ -61,6 +61,9 @@ class ListResponse<R> extends Array<R> {
 		this.meta = meta
 	}
 
+	first(): R | undefined { return this.length ? this[0] : undefined }
+	get(index: number): R | undefined { return (this.length && (index >= 0)) ? this[index] : undefined }
+
 }
 
 

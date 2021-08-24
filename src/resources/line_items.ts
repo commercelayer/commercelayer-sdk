@@ -23,6 +23,7 @@ import { StockLineItem } from './stock_line_items'
 import { StockTransfer } from './stock_transfers'
 
 
+type LineItemRel = ResourceId & { type: typeof LineItems.TYPE }
 type OrderRel = ResourceId & { type: 'orders' }
 type AdjustmentRel = ResourceId & { type: 'adjustments' }
 type BundleRel = ResourceId & { type: 'bundles' }
@@ -149,8 +150,8 @@ class LineItems extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof LineItems.TYPE } {
-		return { id, type: LineItems.TYPE }
+	relationship(id: string | ResourceId): LineItemRel {
+		return (typeof id === 'string') ? { id, type: LineItems.TYPE } : {id: id.id, type: LineItems.TYPE }
 	}
 
 }

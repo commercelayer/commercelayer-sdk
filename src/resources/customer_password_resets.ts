@@ -10,6 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { Customer } from './customers'
 
 
+type CustomerPasswordResetRel = ResourceId & { type: typeof CustomerPasswordResets.TYPE }
 
 
 interface CustomerPasswordReset extends Resource {
@@ -81,8 +82,8 @@ class CustomerPasswordResets extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof CustomerPasswordResets.TYPE } {
-		return { id, type: CustomerPasswordResets.TYPE }
+	relationship(id: string | ResourceId): CustomerPasswordResetRel {
+		return (typeof id === 'string') ? { id, type: CustomerPasswordResets.TYPE } : {id: id.id, type: CustomerPasswordResets.TYPE }
 	}
 
 }

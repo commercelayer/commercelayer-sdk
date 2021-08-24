@@ -15,6 +15,7 @@ import { CustomerGroup } from './customer_groups'
 import { Attachment } from './attachments'
 
 
+type MarketRel = ResourceId & { type: typeof Markets.TYPE }
 type MerchantRel = ResourceId & { type: 'merchants' }
 type PriceListRel = ResourceId & { type: 'price_lists' }
 type InventoryModelRel = ResourceId & { type: 'inventory_models' }
@@ -116,8 +117,8 @@ class Markets extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Markets.TYPE } {
-		return { id, type: Markets.TYPE }
+	relationship(id: string | ResourceId): MarketRel {
+		return (typeof id === 'string') ? { id, type: Markets.TYPE } : {id: id.id, type: Markets.TYPE }
 	}
 
 }

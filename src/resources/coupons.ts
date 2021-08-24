@@ -10,6 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 
 
+type CouponRel = ResourceId & { type: typeof Coupons.TYPE }
 type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_rules' }
 
 
@@ -87,8 +88,8 @@ class Coupons extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Coupons.TYPE } {
-		return { id, type: Coupons.TYPE }
+	relationship(id: string | ResourceId): CouponRel {
+		return (typeof id === 'string') ? { id, type: Coupons.TYPE } : {id: id.id, type: Coupons.TYPE }
 	}
 
 }

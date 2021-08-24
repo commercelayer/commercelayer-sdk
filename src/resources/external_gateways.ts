@@ -11,6 +11,7 @@ import { PaymentMethod } from './payment_methods'
 import { ExternalPayment } from './external_payments'
 
 
+type ExternalGatewayRel = ResourceId & { type: typeof ExternalGateways.TYPE }
 
 
 interface ExternalGateway extends Resource {
@@ -93,8 +94,8 @@ class ExternalGateways extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof ExternalGateways.TYPE } {
-		return { id, type: ExternalGateways.TYPE }
+	relationship(id: string | ResourceId): ExternalGatewayRel {
+		return (typeof id === 'string') ? { id, type: ExternalGateways.TYPE } : {id: id.id, type: ExternalGateways.TYPE }
 	}
 
 }

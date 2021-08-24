@@ -11,6 +11,7 @@ import { Order } from './orders'
 import { PaymentGateway } from './payment_gateways'
 
 
+type PaypalPaymentRel = ResourceId & { type: typeof PaypalPayments.TYPE }
 type OrderRel = ResourceId & { type: 'orders' }
 
 
@@ -94,8 +95,8 @@ class PaypalPayments extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof PaypalPayments.TYPE } {
-		return { id, type: PaypalPayments.TYPE }
+	relationship(id: string | ResourceId): PaypalPaymentRel {
+		return (typeof id === 'string') ? { id, type: PaypalPayments.TYPE } : {id: id.id, type: PaypalPayments.TYPE }
 	}
 
 }

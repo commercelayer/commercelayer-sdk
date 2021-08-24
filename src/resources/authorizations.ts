@@ -12,6 +12,7 @@ import { Capture } from './captures'
 import { Void } from './voids'
 
 
+type AuthorizationRel = ResourceId & { type: typeof Authorizations.TYPE }
 
 
 interface Authorization extends Resource {
@@ -93,8 +94,8 @@ class Authorizations extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Authorizations.TYPE } {
-		return { id, type: Authorizations.TYPE }
+	relationship(id: string | ResourceId): AuthorizationRel {
+		return (typeof id === 'string') ? { id, type: Authorizations.TYPE } : {id: id.id, type: Authorizations.TYPE }
 	}
 
 }

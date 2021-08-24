@@ -11,6 +11,7 @@ import { PaymentMethod } from './payment_methods'
 import { BraintreePayment } from './braintree_payments'
 
 
+type BraintreeGatewayRel = ResourceId & { type: typeof BraintreeGateways.TYPE }
 type BraintreePaymentRel = ResourceId & { type: 'braintree_payments' }
 
 
@@ -103,8 +104,8 @@ class BraintreeGateways extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof BraintreeGateways.TYPE } {
-		return { id, type: BraintreeGateways.TYPE }
+	relationship(id: string | ResourceId): BraintreeGatewayRel {
+		return (typeof id === 'string') ? { id, type: BraintreeGateways.TYPE } : {id: id.id, type: BraintreeGateways.TYPE }
 	}
 
 }

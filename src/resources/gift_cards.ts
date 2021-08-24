@@ -12,6 +12,7 @@ import { GiftCardRecipient } from './gift_card_recipients'
 import { Attachment } from './attachments'
 
 
+type GiftCardRel = ResourceId & { type: typeof GiftCards.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 type GiftCardRecipientRel = ResourceId & { type: 'gift_card_recipients' }
 
@@ -127,8 +128,8 @@ class GiftCards extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof GiftCards.TYPE } {
-		return { id, type: GiftCards.TYPE }
+	relationship(id: string | ResourceId): GiftCardRel {
+		return (typeof id === 'string') ? { id, type: GiftCards.TYPE } : {id: id.id, type: GiftCards.TYPE }
 	}
 
 }

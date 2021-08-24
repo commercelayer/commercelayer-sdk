@@ -10,6 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { PaymentMethod } from './payment_methods'
 
 
+type ManualGatewayRel = ResourceId & { type: typeof ManualGateways.TYPE }
 
 
 interface ManualGateway extends Resource {
@@ -81,8 +82,8 @@ class ManualGateways extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof ManualGateways.TYPE } {
-		return { id, type: ManualGateways.TYPE }
+	relationship(id: string | ResourceId): ManualGatewayRel {
+		return (typeof id === 'string') ? { id, type: ManualGateways.TYPE } : {id: id.id, type: ManualGateways.TYPE }
 	}
 
 }

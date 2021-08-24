@@ -12,6 +12,7 @@ import { LineItem } from './line_items'
 import { StockItem } from './stock_items'
 
 
+type StockLineItemRel = ResourceId & { type: typeof StockLineItems.TYPE }
 
 
 interface StockLineItem extends Resource {
@@ -58,8 +59,8 @@ class StockLineItems extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof StockLineItems.TYPE } {
-		return { id, type: StockLineItems.TYPE }
+	relationship(id: string | ResourceId): StockLineItemRel {
+		return (typeof id === 'string') ? { id, type: StockLineItems.TYPE } : {id: id.id, type: StockLineItems.TYPE }
 	}
 
 }

@@ -11,6 +11,7 @@ import { PaymentMethod } from './payment_methods'
 import { PaypalPayment } from './paypal_payments'
 
 
+type PaypalGatewayRel = ResourceId & { type: typeof PaypalGateways.TYPE }
 
 
 interface PaypalGateway extends Resource {
@@ -86,8 +87,8 @@ class PaypalGateways extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof PaypalGateways.TYPE } {
-		return { id, type: PaypalGateways.TYPE }
+	relationship(id: string | ResourceId): PaypalGatewayRel {
+		return (typeof id === 'string') ? { id, type: PaypalGateways.TYPE } : {id: id.id, type: PaypalGateways.TYPE }
 	}
 
 }

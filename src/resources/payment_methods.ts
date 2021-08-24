@@ -12,6 +12,7 @@ import { PaymentGateway } from './payment_gateways'
 import { Attachment } from './attachments'
 
 
+type PaymentMethodRel = ResourceId & { type: typeof PaymentMethods.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 type PaymentGatewayRel = ResourceId & { type: 'payment_gateways' }
 
@@ -97,8 +98,8 @@ class PaymentMethods extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof PaymentMethods.TYPE } {
-		return { id, type: PaymentMethods.TYPE }
+	relationship(id: string | ResourceId): PaymentMethodRel {
+		return (typeof id === 'string') ? { id, type: PaymentMethods.TYPE } : {id: id.id, type: PaymentMethods.TYPE }
 	}
 
 }

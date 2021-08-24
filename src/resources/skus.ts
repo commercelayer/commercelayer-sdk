@@ -15,6 +15,7 @@ import { SkuOption } from './sku_options'
 import { Attachment } from './attachments'
 
 
+type SkuRel = ResourceId & { type: typeof Skus.TYPE }
 type ShippingCategoryRel = ResourceId & { type: 'shipping_categories' }
 
 
@@ -121,8 +122,8 @@ class Skus extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Skus.TYPE } {
-		return { id, type: Skus.TYPE }
+	relationship(id: string | ResourceId): SkuRel {
+		return (typeof id === 'string') ? { id, type: Skus.TYPE } : {id: id.id, type: Skus.TYPE }
 	}
 
 }

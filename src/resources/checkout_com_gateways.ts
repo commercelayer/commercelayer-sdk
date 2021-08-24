@@ -11,6 +11,7 @@ import { PaymentMethod } from './payment_methods'
 import { CheckoutComPayment } from './checkout_com_payments'
 
 
+type CheckoutComGatewayRel = ResourceId & { type: typeof CheckoutComGateways.TYPE }
 type CheckoutComPaymentRel = ResourceId & { type: 'checkout_com_payments' }
 
 
@@ -92,8 +93,8 @@ class CheckoutComGateways extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof CheckoutComGateways.TYPE } {
-		return { id, type: CheckoutComGateways.TYPE }
+	relationship(id: string | ResourceId): CheckoutComGatewayRel {
+		return (typeof id === 'string') ? { id, type: CheckoutComGateways.TYPE } : {id: id.id, type: CheckoutComGateways.TYPE }
 	}
 
 }

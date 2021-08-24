@@ -12,6 +12,7 @@ import { ShippingMethod } from './shipping_methods'
 import { Attachment } from './attachments'
 
 
+type DeliveryLeadTimeRel = ResourceId & { type: typeof DeliveryLeadTimes.TYPE }
 type StockLocationRel = ResourceId & { type: 'stock_locations' }
 type ShippingMethodRel = ResourceId & { type: 'shipping_methods' }
 
@@ -95,8 +96,8 @@ class DeliveryLeadTimes extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof DeliveryLeadTimes.TYPE } {
-		return { id, type: DeliveryLeadTimes.TYPE }
+	relationship(id: string | ResourceId): DeliveryLeadTimeRel {
+		return (typeof id === 'string') ? { id, type: DeliveryLeadTimes.TYPE } : {id: id.id, type: DeliveryLeadTimes.TYPE }
 	}
 
 }

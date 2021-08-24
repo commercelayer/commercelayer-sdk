@@ -11,6 +11,7 @@ import { Address } from './addresses'
 import { Attachment } from './attachments'
 
 
+type MerchantRel = ResourceId & { type: typeof Merchants.TYPE }
 type AddressRel = ResourceId & { type: 'addresses' }
 
 
@@ -85,8 +86,8 @@ class Merchants extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Merchants.TYPE } {
-		return { id, type: Merchants.TYPE }
+	relationship(id: string | ResourceId): MerchantRel {
+		return (typeof id === 'string') ? { id, type: Merchants.TYPE } : {id: id.id, type: Merchants.TYPE }
 	}
 
 }

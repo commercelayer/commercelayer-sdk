@@ -69,16 +69,16 @@ The code snippets below show how to use the Commerce Layer JS SDK when performin
 ### How to create an SKU
 
 ```
-  const shippingCategory = await ShippingCategory.findBy({ name: 'Merchandising'}) // selects the shipping category (it's a required relationship for the SKU resource)
+  // selects the shipping category (it's a required relationship for the SKU resource)
+  const shippingCategory = await cl.shipping_categories.list({ filters: { name_eq: 'Merchandising' } })
 
   const attributes = {
-    code: 'TSHIRTMM000000FFFFFFXL',
-    name: 'Black Men T-shirt with White Logo (XL)',
-    imageUrl: 'https://img.yourdomain.com/skus/image.png', // optional attribute
-    shippingCategory: shippingCategory // assigns the relationship
+	  code: 'TSHIRTMM000000FFFFFFXL',
+	  name: 'Black Men T-shirt with White Logo (XL)',
+	  shipping_category: cl.shipping_categories.relationship(shippingCategory[0].id), // assigns the relationship
   }
 
-  const newSku = await Sku.create(attributes)
+  const newSku = await cl.skus.create(attributes)
 ```
 
 Check our API reference for more information on how to [create an SKU](https://docs.commercelayer.io/api/resources/skus/create_sku).
@@ -89,10 +89,10 @@ Check our API reference for more information on how to [create an SKU](https://d
 
 ```
   // Fetches the SKU by ID
-  const sku = await Sku.find('xYZkjABcde')
+  const sku = await cl.skus.retrieve('BxAkSVqKEn')
 
   // Fetches the SKU by code
-  const sku = await Sku.findBy({ code: 'TSHIRTMM000000FFFFFFXLXX'})
+  const sku = await cl.skus.list({ filters: { code_eq: 'TSHIRTMM000000FFFFFFXLXX' } })
 
   // Fetches the first SKU of the list
   const sku = await Sku.first()

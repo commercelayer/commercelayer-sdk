@@ -9,6 +9,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */##__QUERY_MODELS__## } fro
 
 ##__IMPORT_RESOURCE_MODELS__##
 
+type ##__MODEL_RESOURCE_INTERFACE__##Rel = ResourceId & { type: typeof ##__RESOURCE_CLASS__##.TYPE }
 ##__RELATIONSHIP_TYPES__##
 
 ##__MODEL_INTERFACES__##
@@ -39,8 +40,8 @@ class ##__RESOURCE_CLASS__## extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof ##__RESOURCE_CLASS__##.TYPE } {
-		return { id, type: ##__RESOURCE_CLASS__##.TYPE }
+	relationship(id: string | ResourceId): ##__MODEL_RESOURCE_INTERFACE__##Rel {
+		return (typeof id === 'string') ? { id, type: ##__RESOURCE_CLASS__##.TYPE } : {id: id.id, type: ##__RESOURCE_CLASS__##.TYPE }
 	}
 
 }

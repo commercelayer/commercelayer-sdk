@@ -10,6 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { Market } from './markets'
 
 
+type BillingInfoValidationRuleRel = ResourceId & { type: typeof BillingInfoValidationRules.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 
 
@@ -77,8 +78,8 @@ class BillingInfoValidationRules extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof BillingInfoValidationRules.TYPE } {
-		return { id, type: BillingInfoValidationRules.TYPE }
+	relationship(id: string | ResourceId): BillingInfoValidationRuleRel {
+		return (typeof id === 'string') ? { id, type: BillingInfoValidationRules.TYPE } : {id: id.id, type: BillingInfoValidationRules.TYPE }
 	}
 
 }

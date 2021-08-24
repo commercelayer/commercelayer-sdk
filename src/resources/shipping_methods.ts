@@ -14,6 +14,7 @@ import { DeliveryLeadTime } from './delivery_lead_times'
 import { Attachment } from './attachments'
 
 
+type ShippingMethodRel = ResourceId & { type: typeof ShippingMethods.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 type ShippingZoneRel = ResourceId & { type: 'shipping_zones' }
 type ShippingCategoryRel = ResourceId & { type: 'shipping_categories' }
@@ -112,8 +113,8 @@ class ShippingMethods extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof ShippingMethods.TYPE } {
-		return { id, type: ShippingMethods.TYPE }
+	relationship(id: string | ResourceId): ShippingMethodRel {
+		return (typeof id === 'string') ? { id, type: ShippingMethods.TYPE } : {id: id.id, type: ShippingMethods.TYPE }
 	}
 
 }

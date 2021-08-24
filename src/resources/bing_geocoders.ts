@@ -11,6 +11,7 @@ import { Address } from './addresses'
 import { Attachment } from './attachments'
 
 
+type BingGeocoderRel = ResourceId & { type: typeof BingGeocoders.TYPE }
 
 
 interface BingGeocoder extends Resource {
@@ -82,8 +83,8 @@ class BingGeocoders extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof BingGeocoders.TYPE } {
-		return { id, type: BingGeocoders.TYPE }
+	relationship(id: string | ResourceId): BingGeocoderRel {
+		return (typeof id === 'string') ? { id, type: BingGeocoders.TYPE } : {id: id.id, type: BingGeocoders.TYPE }
 	}
 
 }

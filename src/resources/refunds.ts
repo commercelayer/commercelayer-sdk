@@ -11,6 +11,7 @@ import { Order } from './orders'
 import { Capture } from './captures'
 
 
+type RefundRel = ResourceId & { type: typeof Refunds.TYPE }
 
 
 interface Refund extends Resource {
@@ -64,8 +65,8 @@ class Refunds extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Refunds.TYPE } {
-		return { id, type: Refunds.TYPE }
+	relationship(id: string | ResourceId): RefundRel {
+		return (typeof id === 'string') ? { id, type: Refunds.TYPE } : {id: id.id, type: Refunds.TYPE }
 	}
 
 }

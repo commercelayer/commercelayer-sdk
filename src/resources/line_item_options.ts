@@ -11,6 +11,7 @@ import { LineItem } from './line_items'
 import { SkuOption } from './sku_options'
 
 
+type LineItemOptionRel = ResourceId & { type: typeof LineItemOptions.TYPE }
 type LineItemRel = ResourceId & { type: 'line_items' }
 type SkuOptionRel = ResourceId & { type: 'sku_options' }
 
@@ -102,8 +103,8 @@ class LineItemOptions extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof LineItemOptions.TYPE } {
-		return { id, type: LineItemOptions.TYPE }
+	relationship(id: string | ResourceId): LineItemOptionRel {
+		return (typeof id === 'string') ? { id, type: LineItemOptions.TYPE } : {id: id.id, type: LineItemOptions.TYPE }
 	}
 
 }

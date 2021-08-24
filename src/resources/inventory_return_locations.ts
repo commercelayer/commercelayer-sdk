@@ -11,6 +11,7 @@ import { StockLocation } from './stock_locations'
 import { InventoryModel } from './inventory_models'
 
 
+type InventoryReturnLocationRel = ResourceId & { type: typeof InventoryReturnLocations.TYPE }
 type StockLocationRel = ResourceId & { type: 'stock_locations' }
 type InventoryModelRel = ResourceId & { type: 'inventory_models' }
 
@@ -88,8 +89,8 @@ class InventoryReturnLocations extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof InventoryReturnLocations.TYPE } {
-		return { id, type: InventoryReturnLocations.TYPE }
+	relationship(id: string | ResourceId): InventoryReturnLocationRel {
+		return (typeof id === 'string') ? { id, type: InventoryReturnLocations.TYPE } : {id: id.id, type: InventoryReturnLocations.TYPE }
 	}
 
 }

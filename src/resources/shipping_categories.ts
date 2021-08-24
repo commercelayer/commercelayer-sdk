@@ -11,6 +11,7 @@ import { Sku } from './skus'
 import { Attachment } from './attachments'
 
 
+type ShippingCategoryRel = ResourceId & { type: typeof ShippingCategories.TYPE }
 
 
 interface ShippingCategory extends Resource {
@@ -80,8 +81,8 @@ class ShippingCategories extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof ShippingCategories.TYPE } {
-		return { id, type: ShippingCategories.TYPE }
+	relationship(id: string | ResourceId): ShippingCategoryRel {
+		return (typeof id === 'string') ? { id, type: ShippingCategories.TYPE } : {id: id.id, type: ShippingCategories.TYPE }
 	}
 
 }

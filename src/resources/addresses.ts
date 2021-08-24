@@ -10,6 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { Geocoder } from './geocoders'
 
 
+type AddressRel = ResourceId & { type: typeof Addresses.TYPE }
 type GeocoderRel = ResourceId & { type: 'geocoders' }
 
 
@@ -136,8 +137,8 @@ class Addresses extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Addresses.TYPE } {
-		return { id, type: Addresses.TYPE }
+	relationship(id: string | ResourceId): AddressRel {
+		return (typeof id === 'string') ? { id, type: Addresses.TYPE } : {id: id.id, type: Addresses.TYPE }
 	}
 
 }

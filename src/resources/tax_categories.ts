@@ -15,6 +15,7 @@ import { ExternalTaxCalculator } from './external_tax_calculators'
 import { Attachment } from './attachments'
 
 
+type TaxCategoryRel = ResourceId & { type: typeof TaxCategories.TYPE }
 type SkuRel = ResourceId & { type: 'skus' }
 type AvalaraAccountRel = ResourceId & { type: 'avalara_accounts' }
 type TaxjarAccountRel = ResourceId & { type: 'taxjar_accounts' }
@@ -98,8 +99,8 @@ class TaxCategories extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof TaxCategories.TYPE } {
-		return { id, type: TaxCategories.TYPE }
+	relationship(id: string | ResourceId): TaxCategoryRel {
+		return (typeof id === 'string') ? { id, type: TaxCategories.TYPE } : {id: id.id, type: TaxCategories.TYPE }
 	}
 
 }

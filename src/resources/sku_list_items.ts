@@ -11,6 +11,7 @@ import { SkuList } from './sku_lists'
 import { Sku } from './skus'
 
 
+type SkuListItemRel = ResourceId & { type: typeof SkuListItems.TYPE }
 type SkuListRel = ResourceId & { type: 'sku_lists' }
 type SkuRel = ResourceId & { type: 'skus' }
 
@@ -88,8 +89,8 @@ class SkuListItems extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof SkuListItems.TYPE } {
-		return { id, type: SkuListItems.TYPE }
+	relationship(id: string | ResourceId): SkuListItemRel {
+		return (typeof id === 'string') ? { id, type: SkuListItems.TYPE } : {id: id.id, type: SkuListItems.TYPE }
 	}
 
 }

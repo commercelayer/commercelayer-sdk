@@ -14,6 +14,7 @@ import { ExternalPromotion } from './external_promotions'
 import { Coupon } from './coupons'
 
 
+type CouponCodesPromotionRuleRel = ResourceId & { type: typeof CouponCodesPromotionRules.TYPE }
 type PercentageDiscountPromotionRel = ResourceId & { type: 'percentage_discount_promotions' }
 type FreeShippingPromotionRel = ResourceId & { type: 'free_shipping_promotions' }
 type FixedAmountPromotionRel = ResourceId & { type: 'fixed_amount_promotions' }
@@ -88,8 +89,8 @@ class CouponCodesPromotionRules extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof CouponCodesPromotionRules.TYPE } {
-		return { id, type: CouponCodesPromotionRules.TYPE }
+	relationship(id: string | ResourceId): CouponCodesPromotionRuleRel {
+		return (typeof id === 'string') ? { id, type: CouponCodesPromotionRules.TYPE } : {id: id.id, type: CouponCodesPromotionRules.TYPE }
 	}
 
 }

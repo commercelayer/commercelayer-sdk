@@ -13,6 +13,7 @@ import { FixedAmountPromotion } from './fixed_amount_promotions'
 import { ExternalPromotion } from './external_promotions'
 
 
+type PromotionRuleRel = ResourceId & { type: typeof PromotionRules.TYPE }
 
 
 interface PromotionRule extends Resource {
@@ -49,8 +50,8 @@ class PromotionRules extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof PromotionRules.TYPE } {
-		return { id, type: PromotionRules.TYPE }
+	relationship(id: string | ResourceId): PromotionRuleRel {
+		return (typeof id === 'string') ? { id, type: PromotionRules.TYPE } : {id: id.id, type: PromotionRules.TYPE }
 	}
 
 }

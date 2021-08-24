@@ -12,6 +12,7 @@ import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
+type TaxCalculatorRel = ResourceId & { type: typeof TaxCalculators.TYPE }
 
 
 interface TaxCalculator extends Resource {
@@ -52,8 +53,8 @@ class TaxCalculators extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof TaxCalculators.TYPE } {
-		return { id, type: TaxCalculators.TYPE }
+	relationship(id: string | ResourceId): TaxCalculatorRel {
+		return (typeof id === 'string') ? { id, type: TaxCalculators.TYPE } : {id: id.id, type: TaxCalculators.TYPE }
 	}
 
 }

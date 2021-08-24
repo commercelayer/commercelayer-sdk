@@ -12,6 +12,7 @@ import { Sku } from './skus'
 import { Attachment } from './attachments'
 
 
+type StockItemRel = ResourceId & { type: typeof StockItems.TYPE }
 type StockLocationRel = ResourceId & { type: 'stock_locations' }
 type SkuRel = ResourceId & { type: 'skus' }
 
@@ -93,8 +94,8 @@ class StockItems extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof StockItems.TYPE } {
-		return { id, type: StockItems.TYPE }
+	relationship(id: string | ResourceId): StockItemRel {
+		return (typeof id === 'string') ? { id, type: StockItems.TYPE } : {id: id.id, type: StockItems.TYPE }
 	}
 
 }

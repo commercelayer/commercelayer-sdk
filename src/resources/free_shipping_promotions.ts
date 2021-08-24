@@ -15,6 +15,7 @@ import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import { Attachment } from './attachments'
 
 
+type FreeShippingPromotionRel = ResourceId & { type: typeof FreeShippingPromotions.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 type PromotionRuleRel = ResourceId & { type: 'promotion_rules' }
 type OrderAmountPromotionRuleRel = ResourceId & { type: 'order_amount_promotion_rules' }
@@ -116,8 +117,8 @@ class FreeShippingPromotions extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof FreeShippingPromotions.TYPE } {
-		return { id, type: FreeShippingPromotions.TYPE }
+	relationship(id: string | ResourceId): FreeShippingPromotionRel {
+		return (typeof id === 'string') ? { id, type: FreeShippingPromotions.TYPE } : {id: id.id, type: FreeShippingPromotions.TYPE }
 	}
 
 }

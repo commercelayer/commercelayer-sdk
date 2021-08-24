@@ -12,6 +12,7 @@ import { InventoryReturnLocation } from './inventory_return_locations'
 import { Attachment } from './attachments'
 
 
+type InventoryModelRel = ResourceId & { type: typeof InventoryModels.TYPE }
 
 
 interface InventoryModel extends Resource {
@@ -88,8 +89,8 @@ class InventoryModels extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof InventoryModels.TYPE } {
-		return { id, type: InventoryModels.TYPE }
+	relationship(id: string | ResourceId): InventoryModelRel {
+		return (typeof id === 'string') ? { id, type: InventoryModels.TYPE } : {id: id.id, type: InventoryModels.TYPE }
 	}
 
 }

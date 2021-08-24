@@ -10,6 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '..
 import { Order } from './orders'
 
 
+type TransactionRel = ResourceId & { type: typeof Transactions.TYPE }
 
 
 interface Transaction extends Resource {
@@ -58,8 +59,8 @@ class Transactions extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Transactions.TYPE } {
-		return { id, type: Transactions.TYPE }
+	relationship(id: string | ResourceId): TransactionRel {
+		return (typeof id === 'string') ? { id, type: Transactions.TYPE } : {id: id.id, type: Transactions.TYPE }
 	}
 
 }

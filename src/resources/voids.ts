@@ -11,6 +11,7 @@ import { Order } from './orders'
 import { Authorization } from './authorizations'
 
 
+type VoidRel = ResourceId & { type: typeof Voids.TYPE }
 
 
 interface Void extends Resource {
@@ -64,8 +65,8 @@ class Voids extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Voids.TYPE } {
-		return { id, type: Voids.TYPE }
+	relationship(id: string | ResourceId): VoidRel {
+		return (typeof id === 'string') ? { id, type: Voids.TYPE } : {id: id.id, type: Voids.TYPE }
 	}
 
 }

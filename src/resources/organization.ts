@@ -9,6 +9,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsRetrieve } from
 
 
 
+type OrganizationRel = ResourceId & { type: typeof Organizations.TYPE }
 
 
 interface Organization extends Resource {
@@ -58,8 +59,8 @@ class Organizations extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Organizations.TYPE } {
-		return { id, type: Organizations.TYPE }
+	relationship(id: string | ResourceId): OrganizationRel {
+		return (typeof id === 'string') ? { id, type: Organizations.TYPE } : {id: id.id, type: Organizations.TYPE }
 	}
 
 }

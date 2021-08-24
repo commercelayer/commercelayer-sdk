@@ -15,6 +15,7 @@ import { ReturnLineItem } from './return_line_items'
 import { Attachment } from './attachments'
 
 
+type ReturnRel = ResourceId & { type: typeof Returns.TYPE }
 type OrderRel = ResourceId & { type: 'orders' }
 type StockLocationRel = ResourceId & { type: 'stock_locations' }
 
@@ -111,8 +112,8 @@ class Returns extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Returns.TYPE } {
-		return { id, type: Returns.TYPE }
+	relationship(id: string | ResourceId): ReturnRel {
+		return (typeof id === 'string') ? { id, type: Returns.TYPE } : {id: id.id, type: Returns.TYPE }
 	}
 
 }

@@ -11,6 +11,7 @@ import { Address } from './addresses'
 import { Attachment } from './attachments'
 
 
+type GeocoderRel = ResourceId & { type: typeof Geocoders.TYPE }
 
 
 interface Geocoder extends Resource {
@@ -50,8 +51,8 @@ class Geocoders extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof Geocoders.TYPE } {
-		return { id, type: Geocoders.TYPE }
+	relationship(id: string | ResourceId): GeocoderRel {
+		return (typeof id === 'string') ? { id, type: Geocoders.TYPE } : {id: id.id, type: Geocoders.TYPE }
 	}
 
 }

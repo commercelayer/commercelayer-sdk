@@ -11,6 +11,7 @@ import { Return } from './returns'
 import { LineItem } from './line_items'
 
 
+type ReturnLineItemRel = ResourceId & { type: typeof ReturnLineItems.TYPE }
 type ReturnRel = ResourceId & { type: 'returns' }
 type LineItemRel = ResourceId & { type: 'line_items' }
 
@@ -93,8 +94,8 @@ class ReturnLineItems extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof ReturnLineItems.TYPE } {
-		return { id, type: ReturnLineItems.TYPE }
+	relationship(id: string | ResourceId): ReturnLineItemRel {
+		return (typeof id === 'string') ? { id, type: ReturnLineItems.TYPE } : {id: id.id, type: ReturnLineItems.TYPE }
 	}
 
 }

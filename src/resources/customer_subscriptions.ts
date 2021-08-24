@@ -10,6 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { Customer } from './customers'
 
 
+type CustomerSubscriptionRel = ResourceId & { type: typeof CustomerSubscriptions.TYPE }
 
 
 interface CustomerSubscription extends Resource {
@@ -74,8 +75,8 @@ class CustomerSubscriptions extends ApiResource {
 	}
 	*/
 
-	relationship(id: string): ResourceId & { type: typeof CustomerSubscriptions.TYPE } {
-		return { id, type: CustomerSubscriptions.TYPE }
+	relationship(id: string | ResourceId): CustomerSubscriptionRel {
+		return (typeof id === 'string') ? { id, type: CustomerSubscriptions.TYPE } : {id: id.id, type: CustomerSubscriptions.TYPE }
 	}
 
 }
