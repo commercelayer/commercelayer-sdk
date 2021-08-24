@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import ApiClient, { ApiClientConfig, ApiClientInitConfig } from './client'
-import { denormalize, normalize, JSON, DocWithData } from './jsonapi'
+import { denormalize, normalize, DocWithData, JSONValue } from './jsonapi'
 import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from './query'
 import { ResTypeLock } from './api'
 import config from './config'
@@ -9,7 +8,7 @@ import config from './config'
 export { DocWithData }
 
 
-type Metadata = { [key: string]: JSON.Value }
+type Metadata = { [key: string]: JSONValue }
 
 
 interface ResourceType {
@@ -23,13 +22,11 @@ interface ResourceId extends ResourceType {
 
 
 interface Resource extends ResourceId {
-
 	reference?: string;
 	reference_origin?: string;
 	metadata?: Metadata
 	readonly created_at: string
 	readonly updated_at: string
-
 }
 
 
@@ -68,16 +65,7 @@ class ListResponse<R> extends Array<R> {
 
 
 
-const isResourceId = (resource: any): resource is ResourceId => {
-	return (resource.type && resource.id)
-}
-
-const isResourceType = (resource: any): resource is ResourceType => {
-	return (typeof resource.type !== 'undefined') && resource.type
-}
-
-
-export { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, isResourceId, isResourceType, ListResponse }
+export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse }
 
 
 // Resources adapter local configuration

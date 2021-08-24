@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Value } from 'json-typescript'
 import { DocWithData, Included, ResourceIdentifierObject, ResourceObject, AttributesObject, RelationshipsObject } from 'jsonapi-typescript'
-import { ResourceCreate, ResourceUpdate, isResourceId, ResourceId, ResourceType, Resource } from './resource'
+import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource } from './resource'
+import { isResourceId } from './common'
 
-export * as JSON from 'json-typescript'
-export { DocWithData }
+export type { DocWithData, Value as JSONValue }
 
 
 

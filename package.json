@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-beta.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -47,5 +47,8 @@
     "tsdx": "^0.14.1",
     "typescript": "^4.3.2"
   },
-  "repository": "github:commercelayer/commercelayer-sdk"
+  "repository": "github:commercelayer/commercelayer-sdk",
+  "publishConfig": {
+    "access": "public"
+  }
 }
