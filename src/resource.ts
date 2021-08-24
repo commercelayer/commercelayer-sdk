@@ -62,7 +62,13 @@ class ListResponse<R> extends Array<R> {
 	}
 
 	first(): R | undefined { return this.length ? this[0] : undefined }
+	last(): R | undefined { return this.length ? this[this.length - 1] : undefined }
 	get(index: number): R | undefined { return (this.length && (index >= 0)) ? this[index] : undefined }
+	// getMetaInfo(): ListMeta { return this.meta }
+	// hasNextPage(): boolean { return (this.meta.currentPage < this.meta.pageCount) }
+	// hasPrevPage(): boolean { return (this.meta.currentPage > 1) }
+	// recordCount(): number { return this.meta.recordCount }
+	// pageCount(): number { return this.meta.pageCount }
 
 }
 

@@ -3,6 +3,7 @@
 interface QueryParamsRetrieve {
 	include?: string[]
 	fields?: { [key: string]: string[] }
+	// fields?: string[] | { [key: string]: string[] }
 }
 
 
