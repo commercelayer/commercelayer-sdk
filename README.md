@@ -168,7 +168,7 @@ When you fetch a collection of resources, you get paginated results:
 
 ```
   // Fetches the SKUs, setting the page number to 3 and the page size to 5
-  const skus = await Sku.perPage(5).page(3).all()
+  const skus = await cl.skus.list({ pageNumber: 3, pageSize: 5 })
 
   // Gets the total number of SKUs in the collection
   const skuCount = skus.meta.recordCount
@@ -196,14 +196,13 @@ To execute a function for every item of a collection, use the `map()` method:
 ### How to update an existing SKU
 
 ```
-  const sku = await Sku.find('xYZkjABcde') // fetches the SKU by ID
-
-  const attributes = {
+  const sku = {
+    id: 'xYZkjABcde',
     description: 'Updated description.',
     imageUrl: 'https://img.yourdomain.com/skus/new-image.png'
   }
 
-  sku.update(attributes) // updates the SKU on the server
+  cl.skus.update(sku) // updates the SKU on the server
 ```
 
 Check our API reference for more information on how to [update an SKU](https://docs.commercelayer.io/api/resources/skus/update_sku).
@@ -213,59 +212,65 @@ Check our API reference for more information on how to [update an SKU](https://d
 ### How to delete an existing SKU
 
 ```
-  const sku = await Sku.find('xYZkjABcde') // fetches the SKU by ID
-
-  sku.destroy() // persisted deletion
+  cl.skus.delete('xYZkjABcde') // persisted deletion
 ```
 
 Check our API reference for more information on how to [delete an SKU](https://docs.commercelayer.io/api/resources/skus/delete_sku).
 
 # Overriding credentials
 
-If needed, Commerce Layer JS SDK lets you set the configuration at a request level. To do that, just use the `withCredentials()` method and authenticate the API call with the desired credentials:
+If needed, Commerce Layer JS SDK lets you change the client configuration set it at a request level. To do that, just use the `config()` method or pass the `options` parameter and authenticate the API call with the desired credentials:
 
 ```
-  const skus = await Sku.withCredentials({
-    accessToken: 'your-access-token',
-    endpoint: 'https://yourdomain.commercelayer.io'
-  }).all()
+  // Permanently change configuration at client level
+  cl.config({ organization: 'you-organization-slug', accessToken: 'your-access-token' })
+  const skus = await cl.skus.list()
+
+  or
+
+  // Use configuration at request level
+  cl.skus.list({}, { organization: 'you-organization-slug', accessToken: 'your-access-token' })
 ```
 
 # Handling validation errors
 
-Commerce Layer API returns specific errors (with extra information) on each attribute of a single resource. You can inspect them to properly handle validation errors (if any). To do that, use the `errors()` method:
+Commerce Layer API returns specific errors (with extra information) on each attribute of a single resource. You can inspect them to properly handle validation errors (if any). To do that, use the `errors` attribute of the catched error:
 
 ```
-  // logs 2 error messages to console:
-  // 'shipping_category - must exist'
-  // 'name - can't be blank'
+  // logs error messages to console:
 
-  const attributes = { code: 'TSHIRTMM000000FFFFFFXL' }
+  const attributes = { code: 'TSHIRTMM000000FFFFFFXL', name: '' }
 
-  const newSku = await Sku.create(attributes, (sku) => {
-    const errors = sku.errors()
-    if (!errors.empty()) {
-      errors.toArray().map((e) => {
-        console.error(e.code + ' on ' + e.field + ': ' + e.message)
-      })
+  const newSku = await cl.skus.create(attributes).catch(error => console.log(error.errors))
+
+  /*
+  [
+    {
+      title: "can't be blank",
+      detail: "name - can't be blank",
+      code: 'VALIDATION_ERROR',
+      source: { pointer: '/data/attributes/name' },
+      status: '422',
+      meta: { error: 'blank' }
+    },
+    {
+      title: 'has already been taken',
+      detail: 'code - has already been taken',
+      code: 'VALIDATION_ERROR',
+      source: { pointer: '/data/attributes/code' },
+      status: '422',
+      meta: { error: 'taken', value: 'TSHIRTMM000000FFFFFFXL' }
+    },
+    {
+      title: "can't be blank",
+      detail: "shipping_category - can't be blank",
+      code: 'VALIDATION_ERROR',
+      source: { pointer: '/data/relationships/shipping_category' },
+      status: '422',
+      meta: { error: 'blank' }
     }
-  })
-
-  // logs 1 error message to console
-  // 'pieces_per_pack - must be greater than 0'
-
-  const sku = await Sku.findBy({ code: 'TSHIRTMM000000FFFFFFXL' })
-
-  const attributes = { piecesPerPack: 0 }
-
-  sku.update(attributes, (sku) => {
-    const errors = sku.errors()
-    if (!errors.empty()) {
-      errors.toArray().map((e) => {
-      console.error(e.code + ' on ' + e.field + ': ' + e.message)
-      })
-    }
-  })
+  ]
+  */
 
 ```
 
