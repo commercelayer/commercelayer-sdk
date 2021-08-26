@@ -64,6 +64,8 @@ type ApiClientConfig = { organization?: string, domain?: string, accessToken?: s
 class ApiClient {
 
 	static create(options: ApiClientInitConfig): ApiClient {
+		if (!options?.organization) throw new Error("Undefined 'organization' parameter")
+		if (!options?.accessToken) throw new Error("Undefined 'accessToken' parameter")
 		return new ApiClient(options)
 	}
 
@@ -71,7 +73,7 @@ class ApiClient {
 	#accessToken: string
 	#client: AxiosInstance
 
-	constructor(options: ApiClientInitConfig) {
+	private constructor(options: ApiClientInitConfig) {
 
 		this.baseUrl = baseURL(options.organization, options.domain)
 		this.#accessToken = options.accessToken
