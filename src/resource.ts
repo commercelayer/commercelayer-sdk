@@ -1,11 +1,10 @@
 
 import ApiClient, { ApiClientConfig, ApiClientInitConfig } from './client'
-import { denormalize, normalize, DocWithData, JSONValue } from './jsonapi'
+import { denormalize, normalize, JSONValue } from './jsonapi'
 import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from './query'
 import { ResTypeLock } from './api'
 import config from './config'
 
-export { DocWithData }
 
 
 type Metadata = { [key: string]: JSONValue }
