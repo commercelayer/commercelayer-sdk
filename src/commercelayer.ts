@@ -214,7 +214,7 @@ class CommerceLayerClient {
 	}
 
 
-	get currentOrganization() { return this.#organization }
+	get currentOrganization(): string { return this.#organization }
 
 
 	config(config: CommerceLayerConfig): void {
@@ -242,7 +242,7 @@ class CommerceLayerClient {
 	}
 	
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isApiError(error: any): error is ApiError {
 		return ApiError.isApiError(error)
 	}
@@ -256,3 +256,5 @@ const CommerceLayer = (config: CommerceLayerInitConfig): CommerceLayerClient => 
 
 
 export default CommerceLayer
+
+export type { CommerceLayerClient, CommerceLayerConfig, CommerceLayerInitConfig }
