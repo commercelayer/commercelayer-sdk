@@ -1,7 +1,7 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 24-08-2021
+ * Generation date: 13-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -36,7 +36,7 @@ interface Import extends Resource {
 interface ImportCreate extends ResourceCreate {
 	
 	resource_type: string
-	parent_resource_id: string
+	parent_resource_id?: string
 	inputs: object[]
 	cleanup_records?: boolean
 	

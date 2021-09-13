@@ -27,6 +27,8 @@ const downloadSchema = async (url?: string): Promise<string> => {
 
 const parseSchema = (path: string): { version: string, resources: ResourceMap, components: ComponentMap } => {
 
+	console.log('Parsing OpenAPI schema ...')
+
 	const apiSchema: any = {}
 
 	const schemaFile = path
@@ -53,6 +55,8 @@ const parseSchema = (path: string): { version: string, resources: ResourceMap, c
 			if (resName === Inflector.singularize(p)) resources[p].components[c] = apiSchema.components[c]
 		})
 	})
+
+	console.log('OpenAPI schema correctly parsed.')
 
 
 	return { version: apiSchema.version, resources, components }

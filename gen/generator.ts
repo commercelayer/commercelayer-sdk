@@ -29,11 +29,13 @@ const loadTemplates = (): void => {
 
 const generate = async () => {
 
-	const schemaPath = 'gen/openapi_doc.json' // await apiSchema.download()
+	const schemaPath = 'gen/openapi.json' // await apiSchema.download()
 	if (!fs.existsSync(schemaPath)) {
 		console.log('Cannot find schema file: ' + schemaPath)
 		return
 	}
+
+	console.log('Generating SDK resources from schema ' + schemaPath)
 
 	const schema = apiSchema.parse(schemaPath)
 	global.version = schema.version
@@ -56,6 +58,8 @@ const generate = async () => {
 
 	updateApiResources(resources)
 	updateSdkResources(resources)
+
+	console.log('SDK resources generation completed.\n')
 	
 }
 
