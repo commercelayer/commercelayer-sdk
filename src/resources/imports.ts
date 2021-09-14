@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 
@@ -36,11 +36,14 @@ interface Import extends Resource {
 interface ImportCreate extends ResourceCreate {
 	
 	resource_type: string
-	parent_resource_id?: string
+	parent_resource_id: string
 	inputs: object[]
 	cleanup_records?: boolean
 	
 }
+
+
+type ImportUpdate = ResourceUpdate
 
 
 class Imports extends ApiResource {
@@ -58,6 +61,10 @@ class Imports extends ApiResource {
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {
 		return this.resources.retrieve<Import>({ type: Imports.TYPE, id }, params, options)
+	}
+
+	async update(resource: ImportUpdate, options?: ResourcesConfig): Promise<Import> {
+		return this.resources.update({ ...resource, type: Imports.TYPE }, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
@@ -91,4 +98,4 @@ class Imports extends ApiResource {
 
 export default Imports
 
-export { Import, ImportCreate }
+export { Import, ImportCreate, ImportUpdate }

@@ -1,7 +1,7 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -9,11 +9,13 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 
 import { Parcel } from './parcels'
 import { StockLineItem } from './stock_line_items'
+import { ShipmentLineItem } from './shipment_line_items'
 
 
 type ParcelLineItemRel = ResourceId & { type: typeof ParcelLineItems.TYPE }
 type ParcelRel = ResourceId & { type: 'parcels' }
 type StockLineItemRel = ResourceId & { type: 'stock_line_items' }
+type ShipmentLineItemRel = ResourceId & { type: 'shipment_line_items' }
 
 
 interface ParcelLineItem extends Resource {
@@ -23,10 +25,7 @@ interface ParcelLineItem extends Resource {
 
 	parcel?: Parcel
 	stock_line_item?: StockLineItem
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	shipment_line_item?: object
+	shipment_line_item?: ShipmentLineItem
 
 }
 
@@ -38,10 +37,7 @@ interface ParcelLineItemCreate extends ResourceCreate {
 
 	parcel?: ParcelRel
 	stock_line_item?: StockLineItemRel
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	shipment_line_item?: object
+	shipment_line_item?: ShipmentLineItemRel
 
 }
 

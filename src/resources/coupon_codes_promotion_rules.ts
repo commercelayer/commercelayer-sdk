@@ -1,30 +1,24 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PercentageDiscountPromotion } from './percentage_discount_promotions'
-import { FreeShippingPromotion } from './free_shipping_promotions'
-import { FixedAmountPromotion } from './fixed_amount_promotions'
-import { ExternalPromotion } from './external_promotions'
+import { Promotion } from './promotions'
 import { Coupon } from './coupons'
 
 
 type CouponCodesPromotionRuleRel = ResourceId & { type: typeof CouponCodesPromotionRules.TYPE }
-type PercentageDiscountPromotionRel = ResourceId & { type: 'percentage_discount_promotions' }
-type FreeShippingPromotionRel = ResourceId & { type: 'free_shipping_promotions' }
-type FixedAmountPromotionRel = ResourceId & { type: 'fixed_amount_promotions' }
-type ExternalPromotionRel = ResourceId & { type: 'external_promotions' }
+type PromotionRel = ResourceId & { type: 'promotions' }
 type CouponRel = ResourceId & { type: 'coupons' }
 
 
 interface CouponCodesPromotionRule extends Resource {
 	
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FixedAmountPromotion | ExternalPromotion
+	promotion?: Promotion
 	coupons?: Coupon[]
 
 }
@@ -32,7 +26,7 @@ interface CouponCodesPromotionRule extends Resource {
 
 interface CouponCodesPromotionRuleCreate extends ResourceCreate {
 	
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | ExternalPromotionRel
+	promotion?: PromotionRel
 	coupons?: CouponRel[]
 
 }
@@ -40,7 +34,7 @@ interface CouponCodesPromotionRuleCreate extends ResourceCreate {
 
 interface CouponCodesPromotionRuleUpdate extends ResourceUpdate {
 	
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | ExternalPromotionRel
+	promotion?: PromotionRel
 	coupons?: CouponRel[]
 
 }

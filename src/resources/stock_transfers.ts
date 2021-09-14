@@ -1,21 +1,23 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Sku } from './skus'
-import { StockLocation } from './stock_locations'
+import { OriginStockLocation } from './origin_stock_locations'
+import { DestinationStockLocation } from './destination_stock_locations'
 import { Shipment } from './shipments'
 import { LineItem } from './line_items'
 
 
 type StockTransferRel = ResourceId & { type: typeof StockTransfers.TYPE }
 type SkuRel = ResourceId & { type: 'skus' }
-type StockLocationRel = ResourceId & { type: 'stock_locations' }
+type OriginStockLocationRel = ResourceId & { type: 'origin_stock_locations' }
+type DestinationStockLocationRel = ResourceId & { type: 'destination_stock_locations' }
 type ShipmentRel = ResourceId & { type: 'shipments' }
 type LineItemRel = ResourceId & { type: 'line_items' }
 
@@ -29,8 +31,8 @@ interface StockTransfer extends Resource {
 	cancelled_at?: string
 
 	sku?: Sku
-	origin_stock_location?: StockLocation
-	destination_stock_location?: StockLocation
+	origin_stock_location?: OriginStockLocation
+	destination_stock_location?: DestinationStockLocation
 	shipment?: Shipment
 	line_item?: LineItem
 
@@ -43,8 +45,8 @@ interface StockTransferCreate extends ResourceCreate {
 	quantity: number
 
 	sku?: SkuRel
-	origin_stock_location?: StockLocationRel
-	destination_stock_location?: StockLocationRel
+	origin_stock_location?: OriginStockLocationRel
+	destination_stock_location?: DestinationStockLocationRel
 	shipment?: ShipmentRel
 	line_item?: LineItemRel
 
@@ -61,8 +63,8 @@ interface StockTransferUpdate extends ResourceUpdate {
 	_cancel?: boolean
 
 	sku?: SkuRel
-	origin_stock_location?: StockLocationRel
-	destination_stock_location?: StockLocationRel
+	origin_stock_location?: OriginStockLocationRel
+	destination_stock_location?: DestinationStockLocationRel
 
 }
 

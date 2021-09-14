@@ -1,23 +1,17 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PercentageDiscountPromotion } from './percentage_discount_promotions'
-import { FreeShippingPromotion } from './free_shipping_promotions'
-import { FixedAmountPromotion } from './fixed_amount_promotions'
-import { ExternalPromotion } from './external_promotions'
+import { Promotion } from './promotions'
 
 
 type OrderAmountPromotionRuleRel = ResourceId & { type: typeof OrderAmountPromotionRules.TYPE }
-type PercentageDiscountPromotionRel = ResourceId & { type: 'percentage_discount_promotions' }
-type FreeShippingPromotionRel = ResourceId & { type: 'free_shipping_promotions' }
-type FixedAmountPromotionRel = ResourceId & { type: 'fixed_amount_promotions' }
-type ExternalPromotionRel = ResourceId & { type: 'external_promotions' }
+type PromotionRel = ResourceId & { type: 'promotions' }
 
 
 interface OrderAmountPromotionRule extends Resource {
@@ -26,7 +20,7 @@ interface OrderAmountPromotionRule extends Resource {
 	order_amount_float?: number
 	formatted_order_amount?: string
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FixedAmountPromotion | ExternalPromotion
+	promotion?: Promotion
 
 }
 
@@ -35,7 +29,7 @@ interface OrderAmountPromotionRuleCreate extends ResourceCreate {
 	
 	order_amount_cents?: number
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | ExternalPromotionRel
+	promotion?: PromotionRel
 
 }
 
@@ -44,7 +38,7 @@ interface OrderAmountPromotionRuleUpdate extends ResourceUpdate {
 	
 	order_amount_cents?: number
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | ExternalPromotionRel
+	promotion?: PromotionRel
 
 }
 

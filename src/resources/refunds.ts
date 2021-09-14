@@ -1,14 +1,14 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
-import { Capture } from './captures'
+import { ReferenceCapture } from './reference_captures'
 
 
 type RefundRel = ResourceId & { type: typeof Refunds.TYPE }
@@ -29,9 +29,15 @@ interface Refund extends Resource {
 	gateway_transaction_id?: string
 
 	order?: Order
-	reference_capture?: Capture
+	reference_capture?: ReferenceCapture
 
 }
+
+
+type RefundCreate = ResourceCreate
+
+
+type RefundUpdate = ResourceUpdate
 
 
 class Refunds extends ApiResource {
@@ -43,8 +49,20 @@ class Refunds extends ApiResource {
 		return this.resources.list({ type: Refunds.TYPE }, params, options)
 	}
 
+	async create(resource: RefundCreate, options?: ResourcesConfig): Promise<Refund> {
+		return this.resources.create(Object.assign(resource, { type: Refunds.TYPE }) , options)
+	}
+
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Refund> {
 		return this.resources.retrieve<Refund>({ type: Refunds.TYPE, id }, params, options)
+	}
+
+	async update(resource: RefundUpdate, options?: ResourcesConfig): Promise<Refund> {
+		return this.resources.update({ ...resource, type: Refunds.TYPE }, options)
+	}
+
+	async delete(id: string, options?: ResourcesConfig): Promise<void> {
+		this.resources.delete({ type: Refunds.TYPE, id }, options)
 	}
 
 
@@ -74,4 +92,4 @@ class Refunds extends ApiResource {
 
 export default Refunds
 
-export { Refund }
+export { Refund, RefundCreate, RefundUpdate }

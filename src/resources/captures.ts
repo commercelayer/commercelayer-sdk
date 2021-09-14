@@ -1,14 +1,14 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
-import { Authorization } from './authorizations'
+import { ReferenceAuthorization } from './reference_authorizations'
 import { Refund } from './refunds'
 
 
@@ -36,10 +36,13 @@ interface Capture extends Resource {
 	formatted_refund_balance?: string
 
 	order?: Order
-	reference_authorization?: Authorization
+	reference_authorization?: ReferenceAuthorization
 	refunds?: Refund[]
 
 }
+
+
+type CaptureCreate = ResourceCreate
 
 
 interface CaptureUpdate extends ResourceUpdate {
@@ -59,12 +62,20 @@ class Captures extends ApiResource {
 		return this.resources.list({ type: Captures.TYPE }, params, options)
 	}
 
+	async create(resource: CaptureCreate, options?: ResourcesConfig): Promise<Capture> {
+		return this.resources.create(Object.assign(resource, { type: Captures.TYPE }) , options)
+	}
+
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.retrieve<Capture>({ type: Captures.TYPE, id }, params, options)
 	}
 
 	async update(resource: CaptureUpdate, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.update({ ...resource, type: Captures.TYPE }, options)
+	}
+
+	async delete(id: string, options?: ResourcesConfig): Promise<void> {
+		this.resources.delete({ type: Captures.TYPE, id }, options)
 	}
 
 
@@ -94,4 +105,4 @@ class Captures extends ApiResource {
 
 export default Captures
 
-export { Capture, CaptureUpdate }
+export { Capture, CaptureCreate, CaptureUpdate }

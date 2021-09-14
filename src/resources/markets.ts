@@ -1,7 +1,7 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -10,7 +10,6 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { Merchant } from './merchants'
 import { PriceList } from './price_lists'
 import { InventoryModel } from './inventory_models'
-import { TaxCalculator } from './tax_calculators'
 import { CustomerGroup } from './customer_groups'
 import { Attachment } from './attachments'
 
@@ -19,7 +18,6 @@ type MarketRel = ResourceId & { type: typeof Markets.TYPE }
 type MerchantRel = ResourceId & { type: 'merchants' }
 type PriceListRel = ResourceId & { type: 'price_lists' }
 type InventoryModelRel = ResourceId & { type: 'inventory_models' }
-type TaxCalculatorRel = ResourceId & { type: 'tax_calculators' }
 type CustomerGroupRel = ResourceId & { type: 'customer_groups' }
 
 
@@ -35,7 +33,6 @@ interface Market extends Resource {
 	merchant?: Merchant
 	price_list?: PriceList
 	inventory_model?: InventoryModel
-	tax_calculator?: TaxCalculator
 	customer_group?: CustomerGroup
 	attachments?: Attachment[]
 
@@ -52,7 +49,6 @@ interface MarketCreate extends ResourceCreate {
 	merchant?: MerchantRel
 	price_list?: PriceListRel
 	inventory_model?: InventoryModelRel
-	tax_calculator?: TaxCalculatorRel
 	customer_group?: CustomerGroupRel
 
 }
@@ -68,7 +64,6 @@ interface MarketUpdate extends ResourceUpdate {
 	merchant?: MerchantRel
 	price_list?: PriceListRel
 	inventory_model?: InventoryModelRel
-	tax_calculator?: TaxCalculatorRel
 	customer_group?: CustomerGroupRel
 
 }

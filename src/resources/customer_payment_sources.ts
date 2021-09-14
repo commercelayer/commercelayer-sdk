@@ -1,31 +1,19 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
-import { AdyenPayment } from './adyen_payments'
-import { BraintreePayment } from './braintree_payments'
-import { CheckoutComPayment } from './checkout_com_payments'
-import { ExternalPayment } from './external_payments'
-import { PaypalPayment } from './paypal_payments'
-import { StripePayment } from './stripe_payments'
-import { WireTransfer } from './wire_transfers'
+import { CreditCard } from './credit_cards'
 
 
 type CustomerPaymentSourceRel = ResourceId & { type: typeof CustomerPaymentSources.TYPE }
 type CustomerRel = ResourceId & { type: 'customers' }
-type AdyenPaymentRel = ResourceId & { type: 'adyen_payments' }
-type BraintreePaymentRel = ResourceId & { type: 'braintree_payments' }
-type CheckoutComPaymentRel = ResourceId & { type: 'checkout_com_payments' }
-type ExternalPaymentRel = ResourceId & { type: 'external_payments' }
-type PaypalPaymentRel = ResourceId & { type: 'paypal_payments' }
-type StripePaymentRel = ResourceId & { type: 'stripe_payments' }
-type WireTransferRel = ResourceId & { type: 'wire_transfers' }
+type CreditCardRel = ResourceId & { type: 'credit_cards' }
 
 
 interface CustomerPaymentSource extends Resource {
@@ -35,7 +23,7 @@ interface CustomerPaymentSource extends Resource {
 	payment_source_token?: string
 
 	customer?: Customer
-	payment_source?: AdyenPayment | BraintreePayment | CheckoutComPayment | ExternalPayment | PaypalPayment | StripePayment | WireTransfer
+	payment_source?: CreditCard
 
 }
 
@@ -43,7 +31,7 @@ interface CustomerPaymentSource extends Resource {
 interface CustomerPaymentSourceCreate extends ResourceCreate {
 	
 	customer?: CustomerRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: CreditCardRel
 
 }
 
@@ -51,7 +39,7 @@ interface CustomerPaymentSourceCreate extends ResourceCreate {
 interface CustomerPaymentSourceUpdate extends ResourceUpdate {
 	
 	customer?: CustomerRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: CreditCardRel
 
 }
 

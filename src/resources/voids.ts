@@ -1,14 +1,14 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
-import { Authorization } from './authorizations'
+import { ReferenceAuthorization } from './reference_authorizations'
 
 
 type VoidRel = ResourceId & { type: typeof Voids.TYPE }
@@ -29,9 +29,15 @@ interface Void extends Resource {
 	gateway_transaction_id?: string
 
 	order?: Order
-	reference_authorization?: Authorization
+	reference_authorization?: ReferenceAuthorization
 
 }
+
+
+type VoidCreate = ResourceCreate
+
+
+type VoidUpdate = ResourceUpdate
 
 
 class Voids extends ApiResource {
@@ -43,8 +49,20 @@ class Voids extends ApiResource {
 		return this.resources.list({ type: Voids.TYPE }, params, options)
 	}
 
+	async create(resource: VoidCreate, options?: ResourcesConfig): Promise<Void> {
+		return this.resources.create(Object.assign(resource, { type: Voids.TYPE }) , options)
+	}
+
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Void> {
 		return this.resources.retrieve<Void>({ type: Voids.TYPE, id }, params, options)
+	}
+
+	async update(resource: VoidUpdate, options?: ResourcesConfig): Promise<Void> {
+		return this.resources.update({ ...resource, type: Voids.TYPE }, options)
+	}
+
+	async delete(id: string, options?: ResourcesConfig): Promise<void> {
+		this.resources.delete({ type: Voids.TYPE, id }, options)
 	}
 
 
@@ -74,4 +92,4 @@ class Voids extends ApiResource {
 
 export default Voids
 
-export { Void }
+export { Void, VoidCreate, VoidUpdate }

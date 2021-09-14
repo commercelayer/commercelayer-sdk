@@ -29,10 +29,8 @@ class CommerceLayerClient {
 	authorizations: api.Authorizations
 	avalara_accounts: api.AvalaraAccounts
 	billing_info_validation_rules: api.BillingInfoValidationRules
-	bing_geocoders: api.BingGeocoders
 	braintree_gateways: api.BraintreeGateways
 	braintree_payments: api.BraintreePayments
-	bundles: api.Bundles
 	captures: api.Captures
 	carrier_accounts: api.CarrierAccounts
 	checkout_com_gateways: api.CheckoutComGateways
@@ -52,10 +50,8 @@ class CommerceLayerClient {
 	external_tax_calculators: api.ExternalTaxCalculators
 	fixed_amount_promotions: api.FixedAmountPromotions
 	free_shipping_promotions: api.FreeShippingPromotions
-	geocoders: api.Geocoders
 	gift_card_recipients: api.GiftCardRecipients
 	gift_cards: api.GiftCards
-	google_geocoders: api.GoogleGeocoders
 	imports: api.Imports
 	in_stock_subscriptions: api.InStockSubscriptions
 	inventory_models: api.InventoryModels
@@ -68,8 +64,6 @@ class CommerceLayerClient {
 	markets: api.Markets
 	merchants: api.Merchants
 	order_amount_promotion_rules: api.OrderAmountPromotionRules
-	order_copies: api.OrderCopies
-	order_subscriptions: api.OrderSubscriptions
 	orders: api.Orders
 	organization: api.Organizations
 	packages: api.Packages
@@ -128,10 +122,8 @@ class CommerceLayerClient {
 		this.authorizations = new api.Authorizations(this.#adapter)
 		this.avalara_accounts = new api.AvalaraAccounts(this.#adapter)
 		this.billing_info_validation_rules = new api.BillingInfoValidationRules(this.#adapter)
-		this.bing_geocoders = new api.BingGeocoders(this.#adapter)
 		this.braintree_gateways = new api.BraintreeGateways(this.#adapter)
 		this.braintree_payments = new api.BraintreePayments(this.#adapter)
-		this.bundles = new api.Bundles(this.#adapter)
 		this.captures = new api.Captures(this.#adapter)
 		this.carrier_accounts = new api.CarrierAccounts(this.#adapter)
 		this.checkout_com_gateways = new api.CheckoutComGateways(this.#adapter)
@@ -151,10 +143,8 @@ class CommerceLayerClient {
 		this.external_tax_calculators = new api.ExternalTaxCalculators(this.#adapter)
 		this.fixed_amount_promotions = new api.FixedAmountPromotions(this.#adapter)
 		this.free_shipping_promotions = new api.FreeShippingPromotions(this.#adapter)
-		this.geocoders = new api.Geocoders(this.#adapter)
 		this.gift_card_recipients = new api.GiftCardRecipients(this.#adapter)
 		this.gift_cards = new api.GiftCards(this.#adapter)
-		this.google_geocoders = new api.GoogleGeocoders(this.#adapter)
 		this.imports = new api.Imports(this.#adapter)
 		this.in_stock_subscriptions = new api.InStockSubscriptions(this.#adapter)
 		this.inventory_models = new api.InventoryModels(this.#adapter)
@@ -167,8 +157,6 @@ class CommerceLayerClient {
 		this.markets = new api.Markets(this.#adapter)
 		this.merchants = new api.Merchants(this.#adapter)
 		this.order_amount_promotion_rules = new api.OrderAmountPromotionRules(this.#adapter)
-		this.order_copies = new api.OrderCopies(this.#adapter)
-		this.order_subscriptions = new api.OrderSubscriptions(this.#adapter)
 		this.orders = new api.Orders(this.#adapter)
 		this.organization = new api.Organizations(this.#adapter)
 		this.packages = new api.Packages(this.#adapter)

@@ -1,46 +1,28 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
-import { Adjustment } from './adjustments'
-import { Bundle } from './bundles'
-import { ExternalPromotion } from './external_promotions'
-import { FixedAmountPromotion } from './fixed_amount_promotions'
-import { FreeShippingPromotion } from './free_shipping_promotions'
-import { GiftCard } from './gift_cards'
-import { PaymentMethod } from './payment_methods'
-import { PercentageDiscountPromotion } from './percentage_discount_promotions'
-import { Shipment } from './shipments'
-import { Sku } from './skus'
+import { Item } from './items'
 import { LineItemOption } from './line_item_options'
+import { ShipmentLineItem } from './shipment_line_items'
 import { StockLineItem } from './stock_line_items'
 import { StockTransfer } from './stock_transfers'
 
 
 type LineItemRel = ResourceId & { type: typeof LineItems.TYPE }
 type OrderRel = ResourceId & { type: 'orders' }
-type AdjustmentRel = ResourceId & { type: 'adjustments' }
-type BundleRel = ResourceId & { type: 'bundles' }
-type ExternalPromotionRel = ResourceId & { type: 'external_promotions' }
-type FixedAmountPromotionRel = ResourceId & { type: 'fixed_amount_promotions' }
-type FreeShippingPromotionRel = ResourceId & { type: 'free_shipping_promotions' }
-type GiftCardRel = ResourceId & { type: 'gift_cards' }
-type PaymentMethodRel = ResourceId & { type: 'payment_methods' }
-type PercentageDiscountPromotionRel = ResourceId & { type: 'percentage_discount_promotions' }
-type ShipmentRel = ResourceId & { type: 'shipments' }
-type SkuRel = ResourceId & { type: 'skus' }
+type ItemRel = ResourceId & { type: 'items' }
 
 
 interface LineItem extends Resource {
 	
 	sku_code?: string
-	bundle_code?: string
 	quantity?: number
 	currency_code?: string
 	unit_amount_cents?: number
@@ -66,12 +48,9 @@ interface LineItem extends Resource {
 	item_type?: string
 
 	order?: Order
-	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku
+	item?: Item
 	line_item_options?: LineItemOption[]
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	shipment_line_items?: object[]
+	shipment_line_items?: ShipmentLineItem[]
 	stock_line_items?: StockLineItem[]
 	stock_transfers?: StockTransfer[]
 
@@ -81,7 +60,6 @@ interface LineItem extends Resource {
 interface LineItemCreate extends ResourceCreate {
 	
 	sku_code?: string
-	bundle_code?: string
 	quantity: number
 	_external_price?: boolean
 	_update_quantity?: boolean
@@ -91,7 +69,7 @@ interface LineItemCreate extends ResourceCreate {
 	item_type?: string
 
 	order?: OrderRel
-	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel
+	item?: ItemRel
 
 }
 
@@ -99,7 +77,6 @@ interface LineItemCreate extends ResourceCreate {
 interface LineItemUpdate extends ResourceUpdate {
 	
 	sku_code?: string
-	bundle_code?: string
 	quantity?: number
 	name?: string
 	image_url?: string

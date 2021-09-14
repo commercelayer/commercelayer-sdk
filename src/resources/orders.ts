@@ -1,7 +1,7 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -9,39 +9,29 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 
 import { Market } from './markets'
 import { Customer } from './customers'
-import { Address } from './addresses'
+import { ShippingAddress } from './shipping_addresses'
+import { BillingAddress } from './billing_addresses'
+import { AvailablePaymentMethod } from './available_payment_methods'
+import { AvailableCustomerPaymentSource } from './available_customer_payment_sources'
 import { PaymentMethod } from './payment_methods'
-import { CustomerPaymentSource } from './customer_payment_sources'
-import { AdyenPayment } from './adyen_payments'
-import { BraintreePayment } from './braintree_payments'
-import { CheckoutComPayment } from './checkout_com_payments'
-import { ExternalPayment } from './external_payments'
-import { PaypalPayment } from './paypal_payments'
-import { StripePayment } from './stripe_payments'
-import { WireTransfer } from './wire_transfers'
+import { CreditCard } from './credit_cards'
 import { LineItem } from './line_items'
 import { Shipment } from './shipments'
+import { Transaction } from './transactions'
 import { Authorization } from './authorizations'
-import { Void } from './voids'
 import { Capture } from './captures'
+import { Void } from './voids'
 import { Refund } from './refunds'
-import { OrderSubscription } from './order_subscriptions'
-import { OrderCopy } from './order_copies'
 import { Attachment } from './attachments'
 
 
 type OrderRel = ResourceId & { type: typeof Orders.TYPE }
 type MarketRel = ResourceId & { type: 'markets' }
 type CustomerRel = ResourceId & { type: 'customers' }
-type AddressRel = ResourceId & { type: 'addresses' }
+type ShippingAddressRel = ResourceId & { type: 'shipping_addresses' }
+type BillingAddressRel = ResourceId & { type: 'billing_addresses' }
 type PaymentMethodRel = ResourceId & { type: 'payment_methods' }
-type AdyenPaymentRel = ResourceId & { type: 'adyen_payments' }
-type BraintreePaymentRel = ResourceId & { type: 'braintree_payments' }
-type CheckoutComPaymentRel = ResourceId & { type: 'checkout_com_payments' }
-type ExternalPaymentRel = ResourceId & { type: 'external_payments' }
-type PaypalPaymentRel = ResourceId & { type: 'paypal_payments' }
-type StripePaymentRel = ResourceId & { type: 'stripe_payments' }
-type WireTransferRel = ResourceId & { type: 'wire_transfers' }
+type CreditCardRel = ResourceId & { type: 'credit_cards' }
 
 
 interface Order extends Resource {
@@ -144,21 +134,19 @@ interface Order extends Resource {
 
 	market?: Market
 	customer?: Customer
-	shipping_address?: Address
-	billing_address?: Address
-	available_payment_methods?: PaymentMethod[]
-	available_customer_payment_sources?: CustomerPaymentSource[]
+	shipping_address?: ShippingAddress
+	billing_address?: BillingAddress
+	available_payment_methods?: AvailablePaymentMethod[]
+	available_customer_payment_sources?: AvailableCustomerPaymentSource[]
 	payment_method?: PaymentMethod
-	payment_source?: AdyenPayment | BraintreePayment | CheckoutComPayment | ExternalPayment | PaypalPayment | StripePayment | WireTransfer
+	payment_source?: CreditCard
 	line_items?: LineItem[]
 	shipments?: Shipment[]
-	transactions?: (Authorization | Void | Capture | Refund)[]
+	transactions?: Transaction[]
 	authorizations?: Authorization[]
 	captures?: Capture[]
 	voids?: Void[]
 	refunds?: Refund[]
-	order_subscriptions?: OrderSubscription[]
-	order_copies?: OrderCopy[]
 	attachments?: Attachment[]
 
 }
@@ -181,10 +169,10 @@ interface OrderCreate extends ResourceCreate {
 
 	market?: MarketRel
 	customer?: CustomerRel
-	shipping_address?: AddressRel
-	billing_address?: AddressRel
+	shipping_address?: ShippingAddressRel
+	billing_address?: BillingAddressRel
 	payment_method?: PaymentMethodRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: CreditCardRel
 
 }
 
@@ -226,10 +214,10 @@ interface OrderUpdate extends ResourceUpdate {
 
 	market?: MarketRel
 	customer?: CustomerRel
-	shipping_address?: AddressRel
-	billing_address?: AddressRel
+	shipping_address?: ShippingAddressRel
+	billing_address?: BillingAddressRel
 	payment_method?: PaymentMethodRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: CreditCardRel
 
 }
 

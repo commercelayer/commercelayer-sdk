@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Generation date: 14-09-2021
  **/
 
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
@@ -26,6 +26,12 @@ interface CarrierAccount extends Resource {
 }
 
 
+type CarrierAccountCreate = ResourceCreate
+
+
+type CarrierAccountUpdate = ResourceUpdate
+
+
 class CarrierAccounts extends ApiResource {
 
 	static readonly TYPE: 'carrier_accounts' = 'carrier_accounts'
@@ -35,8 +41,20 @@ class CarrierAccounts extends ApiResource {
 		return this.resources.list({ type: CarrierAccounts.TYPE }, params, options)
 	}
 
+	async create(resource: CarrierAccountCreate, options?: ResourcesConfig): Promise<CarrierAccount> {
+		return this.resources.create(Object.assign(resource, { type: CarrierAccounts.TYPE }) , options)
+	}
+
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CarrierAccount> {
 		return this.resources.retrieve<CarrierAccount>({ type: CarrierAccounts.TYPE, id }, params, options)
+	}
+
+	async update(resource: CarrierAccountUpdate, options?: ResourcesConfig): Promise<CarrierAccount> {
+		return this.resources.update({ ...resource, type: CarrierAccounts.TYPE }, options)
+	}
+
+	async delete(id: string, options?: ResourcesConfig): Promise<void> {
+		this.resources.delete({ type: CarrierAccounts.TYPE, id }, options)
 	}
 
 
@@ -66,4 +84,4 @@ class CarrierAccounts extends ApiResource {
 
 export default CarrierAccounts
 
-export { CarrierAccount }
+export { CarrierAccount, CarrierAccountCreate, CarrierAccountUpdate }
