@@ -1,11 +1,11 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '../query'
 
 import { Market } from './markets'
 import { PromotionRule } from './promotion_rules'
@@ -16,11 +16,6 @@ import { Attachment } from './attachments'
 
 
 type PromotionRel = ResourceId & { type: typeof Promotions.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type PromotionRuleRel = ResourceId & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceId & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceId & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_rules' }
 
 
 interface Promotion extends Resource {
@@ -42,38 +37,6 @@ interface Promotion extends Resource {
 }
 
 
-interface PromotionCreate extends ResourceCreate {
-	
-	name: string
-	starts_at: string
-	expires_at: string
-	total_usage_limit: number
-
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
-
-}
-
-
-interface PromotionUpdate extends ResourceUpdate {
-	
-	name?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
-
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
-
-}
-
-
 class Promotions extends ApiResource {
 
 	static readonly TYPE: 'promotions' = 'promotions'
@@ -81,22 +44,6 @@ class Promotions extends ApiResource {
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Promotion>> {
 		return this.resources.list({ type: Promotions.TYPE }, params, options)
-	}
-
-	async create(resource: PromotionCreate, options?: ResourcesConfig): Promise<Promotion> {
-		return this.resources.create(Object.assign(resource, { type: Promotions.TYPE }) , options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Promotion> {
-		return this.resources.retrieve<Promotion>({ type: Promotions.TYPE, id }, params, options)
-	}
-
-	async update(resource: PromotionUpdate, options?: ResourcesConfig): Promise<Promotion> {
-		return this.resources.update({ ...resource, type: Promotions.TYPE }, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		this.resources.delete({ type: Promotions.TYPE, id }, options)
 	}
 
 
@@ -126,4 +73,4 @@ class Promotions extends ApiResource {
 
 export default Promotions
 
-export { Promotion, PromotionCreate, PromotionUpdate }
+export { Promotion }

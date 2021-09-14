@@ -1,30 +1,26 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { ShippingCategory } from './shipping_categories'
 import { StockLocation } from './stock_locations'
-import { OriginAddress } from './origin_addresses'
-import { ShippingAddress } from './shipping_addresses'
+import { Address } from './addresses'
 import { ShippingMethod } from './shipping_methods'
 import { DeliveryLeadTime } from './delivery_lead_times'
-import { ShipmentLineItem } from './shipment_line_items'
 import { StockLineItem } from './stock_line_items'
 import { StockTransfer } from './stock_transfers'
-import { AvailableShippingMethod } from './available_shipping_methods'
 import { CarrierAccount } from './carrier_accounts'
 import { Parcel } from './parcels'
 import { Attachment } from './attachments'
 
 
 type ShipmentRel = ResourceId & { type: typeof Shipments.TYPE }
-type OrderRel = ResourceId & { type: 'orders' }
 type ShippingMethodRel = ResourceId & { type: 'shipping_methods' }
 
 
@@ -50,24 +46,20 @@ interface Shipment extends Resource {
 	order?: Order
 	shipping_category?: ShippingCategory
 	stock_location?: StockLocation
-	origin_address?: OriginAddress
-	shipping_address?: ShippingAddress
+	origin_address?: Address
+	shipping_address?: Address
 	shipping_method?: ShippingMethod
 	delivery_lead_time?: DeliveryLeadTime
-	shipment_line_items?: ShipmentLineItem[]
+	/**
+	* @deprecated This field should not be used as it may be removed in the future without notice
+	*/
+	shipment_line_items?: object[]
 	stock_line_items?: StockLineItem[]
 	stock_transfers?: StockTransfer[]
-	available_shipping_methods?: AvailableShippingMethod[]
+	available_shipping_methods?: ShippingMethod[]
 	carrier_accounts?: CarrierAccount[]
 	parcels?: Parcel[]
 	attachments?: Attachment[]
-
-}
-
-
-interface ShipmentCreate extends ResourceCreate {
-	
-	order?: OrderRel
 
 }
 
@@ -97,20 +89,12 @@ class Shipments extends ApiResource {
 		return this.resources.list({ type: Shipments.TYPE }, params, options)
 	}
 
-	async create(resource: ShipmentCreate, options?: ResourcesConfig): Promise<Shipment> {
-		return this.resources.create(Object.assign(resource, { type: Shipments.TYPE }) , options)
-	}
-
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.retrieve<Shipment>({ type: Shipments.TYPE, id }, params, options)
 	}
 
 	async update(resource: ShipmentUpdate, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update({ ...resource, type: Shipments.TYPE }, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		this.resources.delete({ type: Shipments.TYPE, id }, options)
 	}
 
 
@@ -140,4 +124,4 @@ class Shipments extends ApiResource {
 
 export default Shipments
 
-export { Shipment, ShipmentCreate, ShipmentUpdate }
+export { Shipment, ShipmentUpdate }

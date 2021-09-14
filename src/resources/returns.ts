@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
@@ -10,8 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { Order } from './orders'
 import { Customer } from './customers'
 import { StockLocation } from './stock_locations'
-import { OriginAddress } from './origin_addresses'
-import { DestinationAddress } from './destination_addresses'
+import { Address } from './addresses'
 import { ReturnLineItem } from './return_line_items'
 import { Attachment } from './attachments'
 
@@ -37,8 +36,8 @@ interface Return extends Resource {
 	order?: Order
 	customer?: Customer
 	stock_location?: StockLocation
-	origin_address?: OriginAddress
-	destination_address?: DestinationAddress
+	origin_address?: Address
+	destination_address?: Address
 	return_line_items?: ReturnLineItem[]
 	attachments?: Attachment[]
 

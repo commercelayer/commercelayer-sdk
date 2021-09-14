@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 

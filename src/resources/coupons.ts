@@ -1,17 +1,17 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PromotionRule } from './promotion_rules'
+import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 
 
 type CouponRel = ResourceId & { type: typeof Coupons.TYPE }
-type PromotionRuleRel = ResourceId & { type: 'promotion_rules' }
+type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_rules' }
 
 
 interface Coupon extends Resource {
@@ -20,7 +20,7 @@ interface Coupon extends Resource {
 	usage_limit?: number
 	usage_count?: number
 
-	promotion_rule?: PromotionRule
+	promotion_rule?: CouponCodesPromotionRule
 
 }
 
@@ -30,7 +30,7 @@ interface CouponCreate extends ResourceCreate {
 	code: string
 	usage_limit: number
 
-	promotion_rule?: PromotionRuleRel
+	promotion_rule?: CouponCodesPromotionRuleRel
 
 }
 
@@ -40,7 +40,7 @@ interface CouponUpdate extends ResourceUpdate {
 	code?: string
 	usage_limit?: number
 
-	promotion_rule?: PromotionRuleRel
+	promotion_rule?: CouponCodesPromotionRuleRel
 
 }
 

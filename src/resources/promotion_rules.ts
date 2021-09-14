@@ -1,36 +1,24 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '../query'
 
-import { Promotion } from './promotions'
+import { PercentageDiscountPromotion } from './percentage_discount_promotions'
+import { FreeShippingPromotion } from './free_shipping_promotions'
+import { FixedAmountPromotion } from './fixed_amount_promotions'
+import { ExternalPromotion } from './external_promotions'
 
 
 type PromotionRuleRel = ResourceId & { type: typeof PromotionRules.TYPE }
-type PromotionRel = ResourceId & { type: 'promotions' }
 
 
 interface PromotionRule extends Resource {
 	
-	promotion?: Promotion
-
-}
-
-
-interface PromotionRuleCreate extends ResourceCreate {
-	
-	promotion?: PromotionRel
-
-}
-
-
-interface PromotionRuleUpdate extends ResourceUpdate {
-	
-	promotion?: PromotionRel
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FixedAmountPromotion | ExternalPromotion
 
 }
 
@@ -42,22 +30,6 @@ class PromotionRules extends ApiResource {
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PromotionRule>> {
 		return this.resources.list({ type: PromotionRules.TYPE }, params, options)
-	}
-
-	async create(resource: PromotionRuleCreate, options?: ResourcesConfig): Promise<PromotionRule> {
-		return this.resources.create(Object.assign(resource, { type: PromotionRules.TYPE }) , options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PromotionRule> {
-		return this.resources.retrieve<PromotionRule>({ type: PromotionRules.TYPE, id }, params, options)
-	}
-
-	async update(resource: PromotionRuleUpdate, options?: ResourcesConfig): Promise<PromotionRule> {
-		return this.resources.update({ ...resource, type: PromotionRules.TYPE }, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		this.resources.delete({ type: PromotionRules.TYPE, id }, options)
 	}
 
 
@@ -87,4 +59,4 @@ class PromotionRules extends ApiResource {
 
 export default PromotionRules
 
-export { PromotionRule, PromotionRuleCreate, PromotionRuleUpdate }
+export { PromotionRule }

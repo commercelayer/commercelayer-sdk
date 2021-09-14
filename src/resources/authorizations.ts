@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
@@ -50,9 +50,6 @@ interface Authorization extends Resource {
 }
 
 
-type AuthorizationCreate = ResourceCreate
-
-
 interface AuthorizationUpdate extends ResourceUpdate {
 	
 	_capture?: boolean
@@ -71,20 +68,12 @@ class Authorizations extends ApiResource {
 		return this.resources.list({ type: Authorizations.TYPE }, params, options)
 	}
 
-	async create(resource: AuthorizationCreate, options?: ResourcesConfig): Promise<Authorization> {
-		return this.resources.create(Object.assign(resource, { type: Authorizations.TYPE }) , options)
-	}
-
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
 		return this.resources.retrieve<Authorization>({ type: Authorizations.TYPE, id }, params, options)
 	}
 
 	async update(resource: AuthorizationUpdate, options?: ResourcesConfig): Promise<Authorization> {
 		return this.resources.update({ ...resource, type: Authorizations.TYPE }, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		this.resources.delete({ type: Authorizations.TYPE, id }, options)
 	}
 
 
@@ -114,4 +103,4 @@ class Authorizations extends ApiResource {
 
 export default Authorizations
 
-export { Authorization, AuthorizationCreate, AuthorizationUpdate }
+export { Authorization, AuthorizationUpdate }

@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
@@ -8,6 +8,7 @@ import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig,
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
+import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
@@ -20,6 +21,7 @@ interface TaxjarAccount extends Resource {
 	name?: string
 
 	tax_categories?: TaxCategory[]
+	markets?: Market[]
 	attachments?: Attachment[]
 
 }

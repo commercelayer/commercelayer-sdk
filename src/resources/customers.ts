@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
@@ -12,6 +12,7 @@ import { CustomerAddress } from './customer_addresses'
 import { CustomerPaymentSource } from './customer_payment_sources'
 import { CustomerSubscription } from './customer_subscriptions'
 import { Order } from './orders'
+import { OrderSubscription } from './order_subscriptions'
 import { Return } from './returns'
 import { Attachment } from './attachments'
 
@@ -31,6 +32,7 @@ interface Customer extends Resource {
 	customer_payment_sources?: CustomerPaymentSource[]
 	customer_subscriptions?: CustomerSubscription[]
 	orders?: Order[]
+	order_subscriptions?: OrderSubscription[]
 	returns?: Return[]
 	attachments?: Attachment[]
 

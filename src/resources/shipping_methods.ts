@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
@@ -10,7 +10,7 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryPara
 import { Market } from './markets'
 import { ShippingZone } from './shipping_zones'
 import { ShippingCategory } from './shipping_categories'
-import { DeliveryLeadTimeForShipment } from './delivery_lead_time_for_shipments'
+import { DeliveryLeadTime } from './delivery_lead_times'
 import { Attachment } from './attachments'
 
 
@@ -38,7 +38,7 @@ interface ShippingMethod extends Resource {
 	market?: Market
 	shipping_zone?: ShippingZone
 	shipping_category?: ShippingCategory
-	delivery_lead_time_for_shipment?: DeliveryLeadTimeForShipment
+	delivery_lead_time_for_shipment?: DeliveryLeadTime
 	attachments?: Attachment[]
 
 }

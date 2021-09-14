@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
@@ -8,13 +8,19 @@ import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig,
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Sku } from './skus'
-import { TaxCalculator } from './tax_calculators'
+import { AvalaraAccount } from './avalara_accounts'
+import { TaxjarAccount } from './taxjar_accounts'
+import { ManualTaxCalculator } from './manual_tax_calculators'
+import { ExternalTaxCalculator } from './external_tax_calculators'
 import { Attachment } from './attachments'
 
 
 type TaxCategoryRel = ResourceId & { type: typeof TaxCategories.TYPE }
 type SkuRel = ResourceId & { type: 'skus' }
-type TaxCalculatorRel = ResourceId & { type: 'tax_calculators' }
+type AvalaraAccountRel = ResourceId & { type: 'avalara_accounts' }
+type TaxjarAccountRel = ResourceId & { type: 'taxjar_accounts' }
+type ManualTaxCalculatorRel = ResourceId & { type: 'manual_tax_calculators' }
+type ExternalTaxCalculatorRel = ResourceId & { type: 'external_tax_calculators' }
 
 
 interface TaxCategory extends Resource {
@@ -23,7 +29,7 @@ interface TaxCategory extends Resource {
 	sku_code?: string
 
 	sku?: Sku
-	tax_calculator?: TaxCalculator
+	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator
 	attachments?: Attachment[]
 
 }
@@ -35,7 +41,7 @@ interface TaxCategoryCreate extends ResourceCreate {
 	sku_code?: string
 
 	sku?: SkuRel
-	tax_calculator?: TaxCalculatorRel
+	tax_calculator?: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
 
 }
 

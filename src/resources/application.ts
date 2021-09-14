@@ -1,11 +1,11 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsRetrieve } from '../query'
 
 
 
@@ -23,47 +23,13 @@ interface Application extends Resource {
 }
 
 
-interface ApplicationCreate extends ResourceCreate {
-	
-	name?: string
-	kind?: string
-	public_access?: string
-	
-}
-
-
-interface ApplicationUpdate extends ResourceUpdate {
-	
-	name?: string
-	kind?: string
-	public_access?: string
-	
-}
-
-
 class Applications extends ApiResource {
 
 	static readonly TYPE: 'application' = 'application'
 	// static readonly PATH = 'application'
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Application>> {
-		return this.resources.list({ type: Applications.TYPE }, params, options)
-	}
-
-	async create(resource: ApplicationCreate, options?: ResourcesConfig): Promise<Application> {
-		return this.resources.create(Object.assign(resource, { type: Applications.TYPE }) , options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Application> {
-		return this.resources.retrieve<Application>({ type: Applications.TYPE, id }, params, options)
-	}
-
-	async update(resource: ApplicationUpdate, options?: ResourcesConfig): Promise<Application> {
-		return this.resources.update({ ...resource, type: Applications.TYPE }, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		this.resources.delete({ type: Applications.TYPE, id }, options)
+	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Application> {
+		return this.resources.singleton<Application>({ type: Applications.TYPE }, params, options)
 	}
 
 
@@ -93,4 +59,4 @@ class Applications extends ApiResource {
 
 export default Applications
 
-export { Application, ApplicationCreate, ApplicationUpdate }
+export { Application }

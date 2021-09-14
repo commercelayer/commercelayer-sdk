@@ -1,17 +1,23 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.3.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Promotion } from './promotions'
+import { PercentageDiscountPromotion } from './percentage_discount_promotions'
+import { FreeShippingPromotion } from './free_shipping_promotions'
+import { FixedAmountPromotion } from './fixed_amount_promotions'
+import { ExternalPromotion } from './external_promotions'
 
 
 type OrderAmountPromotionRuleRel = ResourceId & { type: typeof OrderAmountPromotionRules.TYPE }
-type PromotionRel = ResourceId & { type: 'promotions' }
+type PercentageDiscountPromotionRel = ResourceId & { type: 'percentage_discount_promotions' }
+type FreeShippingPromotionRel = ResourceId & { type: 'free_shipping_promotions' }
+type FixedAmountPromotionRel = ResourceId & { type: 'fixed_amount_promotions' }
+type ExternalPromotionRel = ResourceId & { type: 'external_promotions' }
 
 
 interface OrderAmountPromotionRule extends Resource {
@@ -20,7 +26,7 @@ interface OrderAmountPromotionRule extends Resource {
 	order_amount_float?: number
 	formatted_order_amount?: string
 
-	promotion?: Promotion
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FixedAmountPromotion | ExternalPromotion
 
 }
 
@@ -29,7 +35,7 @@ interface OrderAmountPromotionRuleCreate extends ResourceCreate {
 	
 	order_amount_cents?: number
 
-	promotion?: PromotionRel
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | ExternalPromotionRel
 
 }
 
@@ -38,7 +44,7 @@ interface OrderAmountPromotionRuleUpdate extends ResourceUpdate {
 	
 	order_amount_cents?: number
 
-	promotion?: PromotionRel
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | ExternalPromotionRel
 
 }
 
