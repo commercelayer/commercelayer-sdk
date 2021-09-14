@@ -1,7 +1,7 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 13-09-2021
+ * Generation date: 14-09-2021
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -76,8 +76,9 @@ class SkuListPromotionRules extends ApiResource {
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		this.resources.delete({ type: SkuListPromotionRules.TYPE, id }, options)
+		await this.resources.delete({ type: SkuListPromotionRules.TYPE, id }, options)
 	}
+	
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
