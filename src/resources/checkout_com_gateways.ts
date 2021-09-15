@@ -72,8 +72,9 @@ class CheckoutComGateways extends ApiResource {
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		this.resources.delete({ type: CheckoutComGateways.TYPE, id }, options)
+		await this.resources.delete({ type: CheckoutComGateways.TYPE, id }, options)
 	}
+	
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
