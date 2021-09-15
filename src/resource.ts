@@ -187,7 +187,7 @@ class ResourceAdapter {
 
 
 	async delete(resource: ResourceId, options?: ResourcesConfig): Promise<void> {
-		this.#client.request('delete', `${resource.type}/${resource.id}`, undefined, options)
+		await this.#client.request('delete', `${resource.type}/${resource.id}`, undefined, options)
 	}
 
 
