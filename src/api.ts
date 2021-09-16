@@ -4,7 +4,7 @@
 /**
  * ©2021 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 14-09-2021
+ * Generation date: 15-09-2021
  **/
 export { default as Addresses } from './resources/addresses'
 export { default as Adjustments } from './resources/adjustments'
