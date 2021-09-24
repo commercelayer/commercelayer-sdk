@@ -1,7 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
- * Generation date: 15-09-2021
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -116,7 +115,7 @@ class Addresses extends ApiResource {
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		return this.resources.delete({ type: Addresses.TYPE, id }, options)
+		await this.resources.delete({ type: Addresses.TYPE, id }, options)
 	}
 	
 
