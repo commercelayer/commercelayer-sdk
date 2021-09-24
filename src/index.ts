@@ -1,4 +1,12 @@
 
-export { default, CommerceLayerClient } from './commercelayer'
+// SDK
+export { default } from './commercelayer'
 
-export type { QueryBuilderRetrieve, QueryBuilderList } from './query'
+// Commerce Layer client type
+export type { CommerceLayerClient } from './commercelayer'
+
+// Query filter types
+export type { QueryParamsRetrieve, QueryParamsList } from './query'
+
+// Resource model types
+export * from './model'
