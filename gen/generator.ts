@@ -9,6 +9,13 @@ import _ from 'lodash'
 const Inflector = require('inflector-js')
 
 
+type ApiRes = {
+	type: string;
+	apiClass: string;
+	models: Array<String>;
+}
+
+
 const templates: { [key: string]: string } = { }
 
 const global: {
@@ -29,7 +36,7 @@ const loadTemplates = (): void => {
 
 const generate = async () => {
 
-	const schemaPath = 'gen/openapi.json' // await apiSchema.download()
+	const schemaPath = /*'gen/openapi.json'*/ await apiSchema.download()
 	if (!fs.existsSync(schemaPath)) {
 		console.log('Cannot find schema file: ' + schemaPath)
 		return
@@ -47,19 +54,24 @@ const generate = async () => {
 	fs.mkdirSync(resDir, { recursive: true })
 
 
-	const resources: { [key: string]: string } = {}
+	const resources: { [key: string]: ApiRes } = {}
 
 	Object.entries(schema.resources).forEach(([type, res]) => {
-		const name = Inflector.pluralize(Inflector.camelize(type))
+		const name = Inflector.pluralize(Inflector.camelize(type)) as string
 		const tplRes = generateResource(type, name, res)
 		fs.writeFileSync(`${resDir}/${type}.ts`, tplRes)
-		resources[type] = name
+		resources[type] = {
+			type,
+			apiClass: name,
+			models: Object.keys(res.components)
+		}
 	})
 
 	updateApiResources(resources)
-	updateSdkResources(resources)
+	updateSdkInterfaces(resources)
+	updateMofdelTypes(resources)
 
-	console.log('SDK resources generation completed.\n')
+	console.log('SDK generation completed.\n')
 	
 }
 
@@ -88,7 +100,7 @@ const tabsString = (num: number): string => {
 }
 
 
-const updateSdkResources = (resources: { [key: string]: string }): void => {
+const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const cl = fs.readFileSync('src/commercelayer.ts', { encoding: 'utf-8' })
 
@@ -104,7 +116,7 @@ const updateSdkResources = (resources: { [key: string]: string }): void => {
 		let def = defTpl
 		def = def.replace(/##__TAB__##/g, '\t')
 		def = def.replace('##__RESOURCE_TYPE__##', type)
-		def = def.replace('##__RESOURCE_CLASS__##', res)
+		def = def.replace('##__RESOURCE_CLASS__##', res.apiClass)
 		definitions.push(def)
 	})
 
@@ -123,7 +135,7 @@ const updateSdkResources = (resources: { [key: string]: string }): void => {
 		let ini = iniTpl
 		ini = ini.replace(/##__TAB__##/g, '\t')
 		ini = ini.replace('##__RESOURCE_TYPE__##', type)
-		ini = ini.replace('##__RESOURCE_CLASS__##', res)
+		ini = ini.replace('##__RESOURCE_CLASS__##', res.apiClass)
 		initializations.push(ini)
 	})
 
@@ -137,10 +149,46 @@ const updateSdkResources = (resources: { [key: string]: string }): void => {
 
 	fs.writeFileSync('src/commercelayer.ts', lines.join('\n'), { encoding: 'utf-8' })
 
+	console.log('API interfaces generated.')
+
 }
 
 
-const updateApiResources = (resources: { [key: string]: string }): void => {
+const updateMofdelTypes = (resources: { [key: string]: ApiRes }): void => {
+
+	const cl = fs.readFileSync('src/model.ts', { encoding: 'utf-8' })
+
+	const lines = cl.split('\n')
+	
+	// Exports
+	const expTplLine = findLine('##__MODEL_TYPES_TEMPLATE::', lines)
+	const expTplIdx = expTplLine.offset + '##__MODEL_TYPES_TEMPLATE::'.length + 1
+	const expTpl = expTplLine.text.substring(expTplIdx)
+
+	const exports: string[] = [ copyrightHeader(templates.header) ]
+	const types: string[] = [ ]
+	Object.entries(resources).forEach(([type, res]) => {
+		let exp = expTpl
+		exp = exp.replace(/##__TAB__##/g, '\t')
+		exp = exp.replace('##__RESOURCE_TYPE__##', type)
+		exp = exp.replace('##__RESOURCE_MODELS__##', res.models.join(', '))
+		exports.push(exp)
+		types.push(`\t'${type}'`)
+	})
+
+	const expStartIdx = findLine('##__MODEL_TYPES_START__##', lines).index + 2
+	const expStopIdx = findLine('##__MODEL_TYPES_STOP__##', lines).index
+	lines.splice(expStartIdx, expStopIdx - expStartIdx, ...exports)
+
+
+	fs.writeFileSync('src/model.ts', lines.join('\n'), { encoding: 'utf-8' })
+
+	console.log('Model types generated.')
+
+}
+
+
+const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 
 	const cl = fs.readFileSync('src/api.ts', { encoding: 'utf-8' })
 
@@ -157,7 +205,7 @@ const updateApiResources = (resources: { [key: string]: string }): void => {
 		let exp = expTpl
 		exp = exp.replace(/##__TAB__##/g, '\t')
 		exp = exp.replace('##__RESOURCE_TYPE__##', type)
-		exp = exp.replace('##__RESOURCE_CLASS__##', res)
+		exp = exp.replace('##__RESOURCE_CLASS__##', res.apiClass)
 		exports.push(exp)
 		types.push(`\t'${type}'`)
 	})
@@ -176,6 +224,8 @@ const updateApiResources = (resources: { [key: string]: string }): void => {
 
 
 	fs.writeFileSync('src/api.ts', lines.join('\n'), { encoding: 'utf-8' })
+
+	console.log('API resources generated.')
 
 }
 
