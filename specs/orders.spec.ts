@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 import CommerceLayer from '../lib'
-import getToken from '../utils/getToken'
+import getToken from '../utils/token'
 import dotenv from 'dotenv'
+
 dotenv.config()
 
 const organization = process.env.ORGANIZATION_SLUG as string
