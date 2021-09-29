@@ -15,15 +15,15 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('Orders resource', () => {
+describe('CheckoutComPayments resource', () => {
 
-  const resourceType = 'orders'
+  const resourceType = 'checkout_com_payments'
 
 
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = {  }
+    const createAttributes = { payment_type: 'delta', token: 'delta' }
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 
@@ -46,7 +46,7 @@ describe('Orders resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { orders: CommonData.paramsFields } }
+    const params = { fields: { checkout_com_payments: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')

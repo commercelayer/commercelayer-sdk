@@ -15,9 +15,9 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('Orders resource', () => {
+describe('Packages resource', () => {
 
-  const resourceType = 'orders'
+  const resourceType = 'packages'
 
 
   /* spec.create.start */
@@ -46,7 +46,7 @@ describe('Orders resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { orders: CommonData.paramsFields } }
+    const params = { fields: { packages: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')

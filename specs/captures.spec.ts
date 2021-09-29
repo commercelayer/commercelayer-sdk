@@ -15,38 +15,16 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('Orders resource', () => {
+describe('Captures resource', () => {
 
-  const resourceType = 'orders'
-
-
-  /* spec.create.start */
-  it(resourceType + '.create', async () => {
-
-    const createAttributes = {  }
-    const attributes = { ...createAttributes, reference: TestData.reference }
-    const resData = attributes
-
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('post')
-      checkCommon(config, resourceType)
-      checkCommonData(config, resourceType, attributes)
-      return interceptRequest()
-    })
-
-    await cl[resourceType].create(resData, CommonData.options)
-      .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
-
-  })
-  /* spec.create.stop */
+  const resourceType = 'captures'
 
 
   /* spec.retrieve.start */
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { orders: CommonData.paramsFields } }
+    const params = { fields: { captures: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
@@ -82,25 +60,6 @@ describe('Orders resource', () => {
 
   })
   /* spec.update.stop */
-
-
-  /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
-
-    const id = TestData.id
-
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('delete')
-      checkCommon(config, resourceType, id)
-      return interceptRequest()
-    })
-
-    await cl[resourceType].delete(id, CommonData.options)
-      .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
-
-  })
-  /* spec.delete.stop */
 
 
   /* spec.list.start */

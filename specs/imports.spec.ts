@@ -15,15 +15,15 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('Orders resource', () => {
+describe('Imports resource', () => {
 
-  const resourceType = 'orders'
+  const resourceType = 'imports'
 
 
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = {  }
+    const createAttributes = { resource_type: 'beta', inputs: [ { key11: 'val11' } ] }
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 
@@ -46,7 +46,7 @@ describe('Orders resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { orders: CommonData.paramsFields } }
+    const params = { fields: { imports: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
@@ -61,27 +61,6 @@ describe('Orders resource', () => {
 
   })
   /* spec.retrieve.stop */
-
-
-  /* spec.update.start */
-  it(resourceType + '.update', async () => {
-
-    const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
-    const resData = { id: TestData.id, ...attributes}
-
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('patch')
-      checkCommon(config, resourceType, resData.id)
-      checkCommonData(config, resourceType, attributes, resData.id)
-      return interceptRequest()
-    })
-
-    await cl[resourceType].update(resData, CommonData.options)
-      .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
-
-  })
-  /* spec.update.stop */
 
 
   /* spec.delete.start */
