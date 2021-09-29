@@ -93,7 +93,7 @@ class PercentageDiscountPromotions extends ApiResource {
 	}
 
 	async create(resource: PercentageDiscountPromotionCreate, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
-		return this.resources.create(Object.assign(resource, { type: PercentageDiscountPromotions.TYPE }) , options)
+		return this.resources.create({ ...resource, type: PercentageDiscountPromotions.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {

@@ -76,7 +76,7 @@ class StockTransfers extends ApiResource {
 	}
 
 	async create(resource: StockTransferCreate, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.create(Object.assign(resource, { type: StockTransfers.TYPE }) , options)
+		return this.resources.create({ ...resource, type: StockTransfers.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {

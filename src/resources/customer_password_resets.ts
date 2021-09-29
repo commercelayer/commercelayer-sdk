@@ -48,7 +48,7 @@ class CustomerPasswordResets extends ApiResource {
 	}
 
 	async create(resource: CustomerPasswordResetCreate, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
-		return this.resources.create(Object.assign(resource, { type: CustomerPasswordResets.TYPE }) , options)
+		return this.resources.create({ ...resource, type: CustomerPasswordResets.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {

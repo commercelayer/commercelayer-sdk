@@ -54,7 +54,7 @@ class ExternalPayments extends ApiResource {
 	}
 
 	async create(resource: ExternalPaymentCreate, options?: ResourcesConfig): Promise<ExternalPayment> {
-		return this.resources.create(Object.assign(resource, { type: ExternalPayments.TYPE }) , options)
+		return this.resources.create({ ...resource, type: ExternalPayments.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {

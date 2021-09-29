@@ -116,7 +116,7 @@ class LineItems extends ApiResource {
 	}
 
 	async create(resource: LineItemCreate, options?: ResourcesConfig): Promise<LineItem> {
-		return this.resources.create(Object.assign(resource, { type: LineItems.TYPE }) , options)
+		return this.resources.create({ ...resource, type: LineItems.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {

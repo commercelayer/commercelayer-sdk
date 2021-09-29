@@ -49,7 +49,7 @@ class CustomerGroups extends ApiResource {
 	}
 
 	async create(resource: CustomerGroupCreate, options?: ResourcesConfig): Promise<CustomerGroup> {
-		return this.resources.create(Object.assign(resource, { type: CustomerGroups.TYPE }) , options)
+		return this.resources.create({ ...resource, type: CustomerGroups.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {

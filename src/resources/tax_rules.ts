@@ -84,7 +84,7 @@ class TaxRules extends ApiResource {
 	}
 
 	async create(resource: TaxRuleCreate, options?: ResourcesConfig): Promise<TaxRule> {
-		return this.resources.create(Object.assign(resource, { type: TaxRules.TYPE }) , options)
+		return this.resources.create({ ...resource, type: TaxRules.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {

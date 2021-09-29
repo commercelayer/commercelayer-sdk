@@ -59,7 +59,7 @@ class ManualTaxCalculators extends ApiResource {
 	}
 
 	async create(resource: ManualTaxCalculatorCreate, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
-		return this.resources.create(Object.assign(resource, { type: ManualTaxCalculators.TYPE }) , options)
+		return this.resources.create({ ...resource, type: ManualTaxCalculators.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {

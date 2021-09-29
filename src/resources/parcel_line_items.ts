@@ -58,7 +58,7 @@ class ParcelLineItems extends ApiResource {
 	}
 
 	async create(resource: ParcelLineItemCreate, options?: ResourcesConfig): Promise<ParcelLineItem> {
-		return this.resources.create(Object.assign(resource, { type: ParcelLineItems.TYPE }) , options)
+		return this.resources.create({ ...resource, type: ParcelLineItems.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {

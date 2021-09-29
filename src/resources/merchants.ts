@@ -52,7 +52,7 @@ class Merchants extends ApiResource {
 	}
 
 	async create(resource: MerchantCreate, options?: ResourcesConfig): Promise<Merchant> {
-		return this.resources.create(Object.assign(resource, { type: Merchants.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Merchants.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {

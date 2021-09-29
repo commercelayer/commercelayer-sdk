@@ -4,6 +4,7 @@ import { denormalize, normalize, JSONValue } from './jsonapi'
 import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from './query'
 import { ResTypeLock } from './api'
 import config from './config'
+import { InterceptorManager } from './interceptor'
 
 
 
@@ -112,6 +113,8 @@ class ResourceAdapter {
 	}
 
 
+	get interceptors(): InterceptorManager { return this.#client.interceptors }
+
 	/*
 	private isRawResponse(options?: ResourcesConfig): boolean {
 		return (typeof options?.rawResponse !== 'undefined') ? (options?.rawResponse === true) : (this.#config.rawResponse === true)
@@ -122,6 +125,7 @@ class ResourceAdapter {
 	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
 		const queryParams = generateQueryStringParams(params)
+		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
@@ -134,6 +138,7 @@ class ResourceAdapter {
 	async retrieve<R extends Resource>(resource: ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
 		const queryParams = generateQueryStringParams(params)
+		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('get', `${resource.type}/${resource.id}`, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
@@ -146,6 +151,7 @@ class ResourceAdapter {
 	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
 
 		const queryParams = generateQueryStringParams(params)
+		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R[]

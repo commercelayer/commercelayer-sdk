@@ -45,7 +45,7 @@ class PaymentGateways extends ApiResource {
 	}
 
 	async create(resource: PaymentGatewayCreate, options?: ResourcesConfig): Promise<PaymentGateway> {
-		return this.resources.create(Object.assign(resource, { type: PaymentGateways.TYPE }) , options)
+		return this.resources.create({ ...resource, type: PaymentGateways.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {

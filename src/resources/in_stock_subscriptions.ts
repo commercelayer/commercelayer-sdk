@@ -68,7 +68,7 @@ class InStockSubscriptions extends ApiResource {
 	}
 
 	async create(resource: InStockSubscriptionCreate, options?: ResourcesConfig): Promise<InStockSubscription> {
-		return this.resources.create(Object.assign(resource, { type: InStockSubscriptions.TYPE }) , options)
+		return this.resources.create({ ...resource, type: InStockSubscriptions.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {

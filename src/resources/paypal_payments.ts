@@ -61,7 +61,7 @@ class PaypalPayments extends ApiResource {
 	}
 
 	async create(resource: PaypalPaymentCreate, options?: ResourcesConfig): Promise<PaypalPayment> {
-		return this.resources.create(Object.assign(resource, { type: PaypalPayments.TYPE }) , options)
+		return this.resources.create({ ...resource, type: PaypalPayments.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {

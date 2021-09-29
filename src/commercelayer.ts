@@ -1,6 +1,7 @@
 
 import * as api from './api'
 import ApiError from './error'
+import { ErrorInterceptor, InterceptorType, RequestInterceptor, ResponseInterceptor } from './interceptor'
 // import QueryBuilder, { QueryBuilderRetrieve, QueryBuilderList } from './query'
 
 import ResourceAdapter, { ResourcesConfig, ResourcesInitConfig } from './resource'
@@ -246,6 +247,20 @@ class CommerceLayerClient {
 	isApiError(error: any): error is ApiError {
 		return ApiError.isApiError(error)
 	}
+
+
+	addRequestInterceptor(onFulfilled?: RequestInterceptor, onRejected?: ErrorInterceptor): number {
+		return this.#adapter.interceptors.request.use(onFulfilled, onRejected)
+	}
+
+	addResponseInterceptor(onFulfilled?: ResponseInterceptor, onRejected?: ErrorInterceptor): number {
+		return this.#adapter.interceptors.response.use(onFulfilled, onRejected)
+	}
+
+	removeInterceptor(type: InterceptorType, id: number): void {
+		return this.#adapter.interceptors[type].eject(id)
+	}
+	
 
 }
 

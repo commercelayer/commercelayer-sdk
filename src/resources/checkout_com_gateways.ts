@@ -59,7 +59,7 @@ class CheckoutComGateways extends ApiResource {
 	}
 
 	async create(resource: CheckoutComGatewayCreate, options?: ResourcesConfig): Promise<CheckoutComGateway> {
-		return this.resources.create(Object.assign(resource, { type: CheckoutComGateways.TYPE }) , options)
+		return this.resources.create({ ...resource, type: CheckoutComGateways.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {

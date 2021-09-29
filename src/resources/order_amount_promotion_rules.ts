@@ -58,7 +58,7 @@ class OrderAmountPromotionRules extends ApiResource {
 	}
 
 	async create(resource: OrderAmountPromotionRuleCreate, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
-		return this.resources.create(Object.assign(resource, { type: OrderAmountPromotionRules.TYPE }) , options)
+		return this.resources.create({ ...resource, type: OrderAmountPromotionRules.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {

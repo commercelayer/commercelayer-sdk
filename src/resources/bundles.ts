@@ -78,7 +78,7 @@ class Bundles extends ApiResource {
 	}
 
 	async create(resource: BundleCreate, options?: ResourcesConfig): Promise<Bundle> {
-		return this.resources.create(Object.assign(resource, { type: Bundles.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Bundles.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {

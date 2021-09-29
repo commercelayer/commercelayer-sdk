@@ -53,7 +53,7 @@ class PaypalGateways extends ApiResource {
 	}
 
 	async create(resource: PaypalGatewayCreate, options?: ResourcesConfig): Promise<PaypalGateway> {
-		return this.resources.create(Object.assign(resource, { type: PaypalGateways.TYPE }) , options)
+		return this.resources.create({ ...resource, type: PaypalGateways.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalGateway> {

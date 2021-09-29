@@ -65,7 +65,7 @@ class CustomerPaymentSources extends ApiResource {
 	}
 
 	async create(resource: CustomerPaymentSourceCreate, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
-		return this.resources.create(Object.assign(resource, { type: CustomerPaymentSources.TYPE }) , options)
+		return this.resources.create({ ...resource, type: CustomerPaymentSources.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {

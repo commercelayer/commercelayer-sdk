@@ -65,7 +65,7 @@ class AvalaraAccounts extends ApiResource {
 	}
 
 	async create(resource: AvalaraAccountCreate, options?: ResourcesConfig): Promise<AvalaraAccount> {
-		return this.resources.create(Object.assign(resource, { type: AvalaraAccounts.TYPE }) , options)
+		return this.resources.create({ ...resource, type: AvalaraAccounts.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {

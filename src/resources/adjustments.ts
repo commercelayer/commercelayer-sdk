@@ -50,7 +50,7 @@ class Adjustments extends ApiResource {
 	}
 
 	async create(resource: AdjustmentCreate, options?: ResourcesConfig): Promise<Adjustment> {
-		return this.resources.create(Object.assign(resource, { type: Adjustments.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Adjustments.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {

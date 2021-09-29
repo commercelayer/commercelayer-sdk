@@ -55,7 +55,7 @@ class InventoryModels extends ApiResource {
 	}
 
 	async create(resource: InventoryModelCreate, options?: ResourcesConfig): Promise<InventoryModel> {
-		return this.resources.create(Object.assign(resource, { type: InventoryModels.TYPE }) , options)
+		return this.resources.create({ ...resource, type: InventoryModels.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {

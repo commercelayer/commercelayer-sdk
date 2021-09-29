@@ -52,7 +52,7 @@ class StripeGateways extends ApiResource {
 	}
 
 	async create(resource: StripeGatewayCreate, options?: ResourcesConfig): Promise<StripeGateway> {
-		return this.resources.create(Object.assign(resource, { type: StripeGateways.TYPE }) , options)
+		return this.resources.create({ ...resource, type: StripeGateways.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {

@@ -49,7 +49,7 @@ class GoogleGeocoders extends ApiResource {
 	}
 
 	async create(resource: GoogleGeocoderCreate, options?: ResourcesConfig): Promise<GoogleGeocoder> {
-		return this.resources.create(Object.assign(resource, { type: GoogleGeocoders.TYPE }) , options)
+		return this.resources.create({ ...resource, type: GoogleGeocoders.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GoogleGeocoder> {

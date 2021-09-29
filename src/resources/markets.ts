@@ -83,7 +83,7 @@ class Markets extends ApiResource {
 	}
 
 	async create(resource: MarketCreate, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.create(Object.assign(resource, { type: Markets.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Markets.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {

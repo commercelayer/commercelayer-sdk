@@ -62,7 +62,7 @@ class SkuLists extends ApiResource {
 	}
 
 	async create(resource: SkuListCreate, options?: ResourcesConfig): Promise<SkuList> {
-		return this.resources.create(Object.assign(resource, { type: SkuLists.TYPE }) , options)
+		return this.resources.create({ ...resource, type: SkuLists.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {

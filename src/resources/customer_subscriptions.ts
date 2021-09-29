@@ -41,7 +41,7 @@ class CustomerSubscriptions extends ApiResource {
 	}
 
 	async create(resource: CustomerSubscriptionCreate, options?: ResourcesConfig): Promise<CustomerSubscription> {
-		return this.resources.create(Object.assign(resource, { type: CustomerSubscriptions.TYPE }) , options)
+		return this.resources.create({ ...resource, type: CustomerSubscriptions.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerSubscription> {

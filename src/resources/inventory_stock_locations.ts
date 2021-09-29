@@ -58,7 +58,7 @@ class InventoryStockLocations extends ApiResource {
 	}
 
 	async create(resource: InventoryStockLocationCreate, options?: ResourcesConfig): Promise<InventoryStockLocation> {
-		return this.resources.create(Object.assign(resource, { type: InventoryStockLocations.TYPE }) , options)
+		return this.resources.create({ ...resource, type: InventoryStockLocations.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {

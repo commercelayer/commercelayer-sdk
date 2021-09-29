@@ -60,7 +60,7 @@ class AdyenGateways extends ApiResource {
 	}
 
 	async create(resource: AdyenGatewayCreate, options?: ResourcesConfig): Promise<AdyenGateway> {
-		return this.resources.create(Object.assign(resource, { type: AdyenGateways.TYPE }) , options)
+		return this.resources.create({ ...resource, type: AdyenGateways.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {

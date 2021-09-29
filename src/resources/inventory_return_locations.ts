@@ -55,7 +55,7 @@ class InventoryReturnLocations extends ApiResource {
 	}
 
 	async create(resource: InventoryReturnLocationCreate, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
-		return this.resources.create(Object.assign(resource, { type: InventoryReturnLocations.TYPE }) , options)
+		return this.resources.create({ ...resource, type: InventoryReturnLocations.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {

@@ -88,7 +88,7 @@ class FixedAmountPromotions extends ApiResource {
 	}
 
 	async create(resource: FixedAmountPromotionCreate, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
-		return this.resources.create(Object.assign(resource, { type: FixedAmountPromotions.TYPE }) , options)
+		return this.resources.create({ ...resource, type: FixedAmountPromotions.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedAmountPromotion> {

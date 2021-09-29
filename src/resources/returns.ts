@@ -78,7 +78,7 @@ class Returns extends ApiResource {
 	}
 
 	async create(resource: ReturnCreate, options?: ResourcesConfig): Promise<Return> {
-		return this.resources.create(Object.assign(resource, { type: Returns.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Returns.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {

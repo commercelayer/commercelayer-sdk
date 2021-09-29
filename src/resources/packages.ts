@@ -69,7 +69,7 @@ class Packages extends ApiResource {
 	}
 
 	async create(resource: PackageCreate, options?: ResourcesConfig): Promise<Package> {
-		return this.resources.create(Object.assign(resource, { type: Packages.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Packages.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {

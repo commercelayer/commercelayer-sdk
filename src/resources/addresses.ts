@@ -103,7 +103,7 @@ class Addresses extends ApiResource {
 	}
 
 	async create(resource: AddressCreate, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.create(Object.assign(resource, { type: Addresses.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Addresses.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {

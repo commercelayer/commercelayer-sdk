@@ -60,7 +60,7 @@ class ExternalGateways extends ApiResource {
 	}
 
 	async create(resource: ExternalGatewayCreate, options?: ResourcesConfig): Promise<ExternalGateway> {
-		return this.resources.create(Object.assign(resource, { type: ExternalGateways.TYPE }) , options)
+		return this.resources.create({ ...resource, type: ExternalGateways.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {

@@ -65,7 +65,7 @@ class CheckoutComPayments extends ApiResource {
 	}
 
 	async create(resource: CheckoutComPaymentCreate, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.create(Object.assign(resource, { type: CheckoutComPayments.TYPE }) , options)
+		return this.resources.create({ ...resource, type: CheckoutComPayments.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {

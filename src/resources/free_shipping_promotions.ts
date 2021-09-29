@@ -83,7 +83,7 @@ class FreeShippingPromotions extends ApiResource {
 	}
 
 	async create(resource: FreeShippingPromotionCreate, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
-		return this.resources.create(Object.assign(resource, { type: FreeShippingPromotions.TYPE }) , options)
+		return this.resources.create({ ...resource, type: FreeShippingPromotions.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {

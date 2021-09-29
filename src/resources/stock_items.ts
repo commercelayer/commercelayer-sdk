@@ -60,7 +60,7 @@ class StockItems extends ApiResource {
 	}
 
 	async create(resource: StockItemCreate, options?: ResourcesConfig): Promise<StockItem> {
-		return this.resources.create(Object.assign(resource, { type: StockItems.TYPE }) , options)
+		return this.resources.create({ ...resource, type: StockItems.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {

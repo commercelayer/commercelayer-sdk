@@ -47,7 +47,7 @@ class ShippingCategories extends ApiResource {
 	}
 
 	async create(resource: ShippingCategoryCreate, options?: ResourcesConfig): Promise<ShippingCategory> {
-		return this.resources.create(Object.assign(resource, { type: ShippingCategories.TYPE }) , options)
+		return this.resources.create({ ...resource, type: ShippingCategories.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {

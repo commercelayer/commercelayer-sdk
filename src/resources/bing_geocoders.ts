@@ -49,7 +49,7 @@ class BingGeocoders extends ApiResource {
 	}
 
 	async create(resource: BingGeocoderCreate, options?: ResourcesConfig): Promise<BingGeocoder> {
-		return this.resources.create(Object.assign(resource, { type: BingGeocoders.TYPE }) , options)
+		return this.resources.create({ ...resource, type: BingGeocoders.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BingGeocoder> {

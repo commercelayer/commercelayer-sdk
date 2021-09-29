@@ -60,7 +60,7 @@ class ReturnLineItems extends ApiResource {
 	}
 
 	async create(resource: ReturnLineItemCreate, options?: ResourcesConfig): Promise<ReturnLineItem> {
-		return this.resources.create(Object.assign(resource, { type: ReturnLineItems.TYPE }) , options)
+		return this.resources.create({ ...resource, type: ReturnLineItems.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {

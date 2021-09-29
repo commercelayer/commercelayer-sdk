@@ -75,7 +75,7 @@ class OrderSubscriptions extends ApiResource {
 	}
 
 	async create(resource: OrderSubscriptionCreate, options?: ResourcesConfig): Promise<OrderSubscription> {
-		return this.resources.create(Object.assign(resource, { type: OrderSubscriptions.TYPE }) , options)
+		return this.resources.create({ ...resource, type: OrderSubscriptions.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {

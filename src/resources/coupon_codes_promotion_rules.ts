@@ -55,7 +55,7 @@ class CouponCodesPromotionRules extends ApiResource {
 	}
 
 	async create(resource: CouponCodesPromotionRuleCreate, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		return this.resources.create(Object.assign(resource, { type: CouponCodesPromotionRules.TYPE }) , options)
+		return this.resources.create({ ...resource, type: CouponCodesPromotionRules.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {

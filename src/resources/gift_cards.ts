@@ -94,7 +94,7 @@ class GiftCards extends ApiResource {
 	}
 
 	async create(resource: GiftCardCreate, options?: ResourcesConfig): Promise<GiftCard> {
-		return this.resources.create(Object.assign(resource, { type: GiftCards.TYPE }) , options)
+		return this.resources.create({ ...resource, type: GiftCards.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {

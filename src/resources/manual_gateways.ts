@@ -48,7 +48,7 @@ class ManualGateways extends ApiResource {
 	}
 
 	async create(resource: ManualGatewayCreate, options?: ResourcesConfig): Promise<ManualGateway> {
-		return this.resources.create(Object.assign(resource, { type: ManualGateways.TYPE }) , options)
+		return this.resources.create({ ...resource, type: ManualGateways.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {

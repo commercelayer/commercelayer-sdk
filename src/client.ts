@@ -2,27 +2,12 @@
 import axios, { AxiosInstance, Method } from 'axios'
 import { DocWithData as JSONApiDocument, ResourceObject as JSONApiResource } from 'jsonapi-typescript'
 import ApiError, { ErrorType } from './error'
+import type { InterceptorManager } from './interceptor'
 
 
 const baseURL = (organization: string, domain?: string): string => {
 	return `https://${organization.toLowerCase()}.${domain ? domain : 'commercelayer.io'}/api`
 }
-
-/*
-axios.interceptors.request.use(request => {
-	console.log()
-	console.log('REQUEST -->')
-	console.log(request)
-	return request
-})
-
-axios.interceptors.response.use(response => {
-	console.log()
-	console.log('<-- RESPONSE')
-	console.log(response.data)
-	return response
-})
-*/
 
 
 const handleError = (error: Error) => {
@@ -73,6 +58,8 @@ class ApiClient {
 	#accessToken: string
 	#client: AxiosInstance
 
+	public interceptors: InterceptorManager
+
 	private constructor(options: ApiClientInitConfig) {
 
 		this.baseUrl = baseURL(options.organization, options.domain)
@@ -93,15 +80,7 @@ class ApiClient {
 			...axiosConfig
 		})
 
-		/*
-		this.#client.interceptors.request.use(function (config) {
-			console.log('>>>>>>>>>> REQUEST INTERCEPTOR')
-			return config;
-		  }, function (error) {
-			// Do something with request error
-			return Promise.reject(error);
-		  })
-		  */
+		this.interceptors = this.#client.interceptors
 
 	}
 

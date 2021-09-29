@@ -63,7 +63,7 @@ class ShippingZones extends ApiResource {
 	}
 
 	async create(resource: ShippingZoneCreate, options?: ResourcesConfig): Promise<ShippingZone> {
-		return this.resources.create(Object.assign(resource, { type: ShippingZones.TYPE }) , options)
+		return this.resources.create({ ...resource, type: ShippingZones.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {

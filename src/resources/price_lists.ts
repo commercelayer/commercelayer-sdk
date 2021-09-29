@@ -53,7 +53,7 @@ class PriceLists extends ApiResource {
 	}
 
 	async create(resource: PriceListCreate, options?: ResourcesConfig): Promise<PriceList> {
-		return this.resources.create(Object.assign(resource, { type: PriceLists.TYPE }) , options)
+		return this.resources.create({ ...resource, type: PriceLists.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {

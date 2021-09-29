@@ -51,7 +51,7 @@ class Webhooks extends ApiResource {
 	}
 
 	async create(resource: WebhookCreate, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.create(Object.assign(resource, { type: Webhooks.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Webhooks.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {

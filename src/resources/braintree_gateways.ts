@@ -70,7 +70,7 @@ class BraintreeGateways extends ApiResource {
 	}
 
 	async create(resource: BraintreeGatewayCreate, options?: ResourcesConfig): Promise<BraintreeGateway> {
-		return this.resources.create(Object.assign(resource, { type: BraintreeGateways.TYPE }) , options)
+		return this.resources.create({ ...resource, type: BraintreeGateways.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreeGateway> {

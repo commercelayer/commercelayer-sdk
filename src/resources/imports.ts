@@ -52,7 +52,7 @@ class Imports extends ApiResource {
 	}
 
 	async create(resource: ImportCreate, options?: ResourcesConfig): Promise<Import> {
-		return this.resources.create(Object.assign(resource, { type: Imports.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Imports.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {

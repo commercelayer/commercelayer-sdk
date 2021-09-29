@@ -69,7 +69,7 @@ class LineItemOptions extends ApiResource {
 	}
 
 	async create(resource: LineItemOptionCreate, options?: ResourcesConfig): Promise<LineItemOption> {
-		return this.resources.create(Object.assign(resource, { type: LineItemOptions.TYPE }) , options)
+		return this.resources.create({ ...resource, type: LineItemOptions.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {

@@ -63,7 +63,7 @@ class SkuListPromotionRules extends ApiResource {
 	}
 
 	async create(resource: SkuListPromotionRuleCreate, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
-		return this.resources.create(Object.assign(resource, { type: SkuListPromotionRules.TYPE }) , options)
+		return this.resources.create({ ...resource, type: SkuListPromotionRules.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {

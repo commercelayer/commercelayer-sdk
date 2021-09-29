@@ -51,7 +51,7 @@ class CustomerAddresses extends ApiResource {
 	}
 
 	async create(resource: CustomerAddressCreate, options?: ResourcesConfig): Promise<CustomerAddress> {
-		return this.resources.create(Object.assign(resource, { type: CustomerAddresses.TYPE }) , options)
+		return this.resources.create({ ...resource, type: CustomerAddresses.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {

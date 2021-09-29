@@ -44,7 +44,7 @@ class WireTransfers extends ApiResource {
 	}
 
 	async create(resource: WireTransferCreate, options?: ResourcesConfig): Promise<WireTransfer> {
-		return this.resources.create(Object.assign(resource, { type: WireTransfers.TYPE }) , options)
+		return this.resources.create({ ...resource, type: WireTransfers.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {

@@ -86,7 +86,7 @@ class ExternalPromotions extends ApiResource {
 	}
 
 	async create(resource: ExternalPromotionCreate, options?: ResourcesConfig): Promise<ExternalPromotion> {
-		return this.resources.create(Object.assign(resource, { type: ExternalPromotions.TYPE }) , options)
+		return this.resources.create({ ...resource, type: ExternalPromotions.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {

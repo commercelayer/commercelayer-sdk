@@ -61,7 +61,7 @@ class BraintreePayments extends ApiResource {
 	}
 
 	async create(resource: BraintreePaymentCreate, options?: ResourcesConfig): Promise<BraintreePayment> {
-		return this.resources.create(Object.assign(resource, { type: BraintreePayments.TYPE }) , options)
+		return this.resources.create({ ...resource, type: BraintreePayments.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {

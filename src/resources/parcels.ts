@@ -118,7 +118,7 @@ class Parcels extends ApiResource {
 	}
 
 	async create(resource: ParcelCreate, options?: ResourcesConfig): Promise<Parcel> {
-		return this.resources.create(Object.assign(resource, { type: Parcels.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Parcels.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {

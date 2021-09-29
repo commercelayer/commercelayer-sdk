@@ -114,7 +114,7 @@ class Attachments extends ApiResource {
 	}
 
 	async create(resource: AttachmentCreate, options?: ResourcesConfig): Promise<Attachment> {
-		return this.resources.create(Object.assign(resource, { type: Attachments.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Attachments.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {

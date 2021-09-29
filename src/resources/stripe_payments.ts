@@ -56,7 +56,7 @@ class StripePayments extends ApiResource {
 	}
 
 	async create(resource: StripePaymentCreate, options?: ResourcesConfig): Promise<StripePayment> {
-		return this.resources.create(Object.assign(resource, { type: StripePayments.TYPE }) , options)
+		return this.resources.create({ ...resource, type: StripePayments.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {

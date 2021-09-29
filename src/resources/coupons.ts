@@ -54,7 +54,7 @@ class Coupons extends ApiResource {
 	}
 
 	async create(resource: CouponCreate, options?: ResourcesConfig): Promise<Coupon> {
-		return this.resources.create(Object.assign(resource, { type: Coupons.TYPE }) , options)
+		return this.resources.create({ ...resource, type: Coupons.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Coupon> {

@@ -79,7 +79,7 @@ class ShippingMethods extends ApiResource {
 	}
 
 	async create(resource: ShippingMethodCreate, options?: ResourcesConfig): Promise<ShippingMethod> {
-		return this.resources.create(Object.assign(resource, { type: ShippingMethods.TYPE }) , options)
+		return this.resources.create({ ...resource, type: ShippingMethods.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {

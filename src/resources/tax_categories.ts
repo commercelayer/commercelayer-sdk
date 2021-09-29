@@ -65,7 +65,7 @@ class TaxCategories extends ApiResource {
 	}
 
 	async create(resource: TaxCategoryCreate, options?: ResourcesConfig): Promise<TaxCategory> {
-		return this.resources.create(Object.assign(resource, { type: TaxCategories.TYPE }) , options)
+		return this.resources.create({ ...resource, type: TaxCategories.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {

@@ -62,7 +62,7 @@ class DeliveryLeadTimes extends ApiResource {
 	}
 
 	async create(resource: DeliveryLeadTimeCreate, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
-		return this.resources.create(Object.assign(resource, { type: DeliveryLeadTimes.TYPE }) , options)
+		return this.resources.create({ ...resource, type: DeliveryLeadTimes.TYPE } , options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
