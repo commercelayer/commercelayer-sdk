@@ -5,6 +5,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "lint": "eslint ./src --ext .ts",
+    "lintspec": "eslint ./specs --ext .spec.ts",
     "build": "rm -rf ./dist/* & tsdx build --tsconfig tsconfig.prod.json",
     "start": "ts-node src/index.ts",
     "generate": "ts-node gen/generator.ts",
@@ -28,7 +29,7 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.4"
   },
   "devDependencies": {
     "@commercelayer/js-auth": "^2.0.8",
