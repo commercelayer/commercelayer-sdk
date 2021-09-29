@@ -4,6 +4,7 @@ import apiSchema, { Resource, Operation, Component, Cardinality } from './schema
 import fs from 'fs'
 import path from 'path'
 import _ from 'lodash'
+import { inspect } from 'util'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Inflector = require('inflector-js')
@@ -16,7 +17,7 @@ type ApiRes = {
 }
 
 
-const templates: { [key: string]: string } = { }
+const templates: { [key: string]: string } = {}
 
 const global: {
 	version?: string
@@ -49,22 +50,37 @@ const generate = async () => {
 
 	loadTemplates()
 
+	// Initialize source dir
 	const resDir = 'src/resources'
 	if (fs.existsSync(resDir)) fs.rmdirSync(resDir, { recursive: true })
 	fs.mkdirSync(resDir, { recursive: true })
+
+	// Initialize test dir
+	const testDir = 'specs'
+	if (fs.existsSync(testDir)) fs.rmdirSync(testDir, { recursive: true })
+	fs.mkdirSync(testDir, { recursive: true })
 
 
 	const resources: { [key: string]: ApiRes } = {}
 
 	Object.entries(schema.resources).forEach(([type, res]) => {
+
 		const name = Inflector.pluralize(Inflector.camelize(type)) as string
+
 		const tplRes = generateResource(type, name, res)
 		fs.writeFileSync(`${resDir}/${type}.ts`, tplRes)
+		console.log('Generated resource ' + name)
+
+		const tplSpec = generateSpec(type, name, res)
+		fs.writeFileSync(`${testDir}/${type}.spec.ts`, tplSpec)
+		console.log('Generated spec ' + name)
+
 		resources[type] = {
 			type,
 			apiClass: name,
 			models: Object.keys(res.components)
 		}
+
 	})
 
 	updateApiResources(resources)
@@ -72,7 +88,7 @@ const generate = async () => {
 	updateMofdelTypes(resources)
 
 	console.log('SDK generation completed.\n')
-	
+
 }
 
 
@@ -159,14 +175,14 @@ const updateMofdelTypes = (resources: { [key: string]: ApiRes }): void => {
 	const cl = fs.readFileSync('src/model.ts', { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
-	
+
 	// Exports
 	const expTplLine = findLine('##__MODEL_TYPES_TEMPLATE::', lines)
 	const expTplIdx = expTplLine.offset + '##__MODEL_TYPES_TEMPLATE::'.length + 1
 	const expTpl = expTplLine.text.substring(expTplIdx)
 
-	const exports: string[] = [ copyrightHeader(templates.header) ]
-	const types: string[] = [ ]
+	const exports: string[] = [copyrightHeader(templates.header)]
+	const types: string[] = []
 	Object.entries(resources).forEach(([type, res]) => {
 		let exp = expTpl
 		exp = exp.replace(/##__TAB__##/g, '\t')
@@ -193,14 +209,14 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const cl = fs.readFileSync('src/api.ts', { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
-	
+
 	// Exports
 	const expTplLine = findLine('##__API_RESOURCES_TEMPLATE::', lines)
 	const expTplIdx = expTplLine.offset + '##__API_RESOURCES_TEMPLATE::'.length + 1
 	const expTpl = expTplLine.text.substring(expTplIdx)
 
-	const exports: string[] = [ copyrightHeader(templates.header) ]
-	const types: string[] = [ ]
+	const exports: string[] = [copyrightHeader(templates.header)]
+	const types: string[] = []
 	Object.entries(resources).forEach(([type, res]) => {
 		let exp = expTpl
 		exp = exp.replace(/##__TAB__##/g, '\t')
@@ -226,6 +242,81 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	fs.writeFileSync('src/api.ts', lines.join('\n'), { encoding: 'utf-8' })
 
 	console.log('API resources generated.')
+
+}
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const randomValue = (type: string): any | Array<any> => {
+
+	const numbers = [0, 1, 10, 100, 1000, 10000]
+	const strings = ['alfa', 'beta', 'gamma', 'delta', 'epsilon', 'omega']
+	const booleans = [true, false, true, false, true, false]
+	const objects = [{ key11: 'val11' }, { key21: 'val21' }, { key31: 'val31' }, { key41: 'val41' }]
+
+	let values: Array<string | number | boolean | object>
+
+	if (type.startsWith('boolean')) values = booleans
+	else
+	if (type.startsWith('integer') || type.startsWith('number')) values = numbers
+	else
+	if (type.startsWith('object')) values = objects
+	else
+	if (type.startsWith('string')) values = strings
+	else values = strings
+
+	let value = values[Math.floor(Math.random() * (values.length - 1))]
+
+	if (type.endsWith('[]')) value = [ value ]
+
+	return value
+
+}
+
+
+const generateSpec = (type: string, name: string, resource: Resource): string => {
+
+	let spec = templates.spec
+
+	// Remove unsupported operations
+	const lines = spec.split('\n')
+
+	const allOperations = ['list', 'create', 'retrieve', 'update', 'delete', 'singleton']
+	allOperations.forEach(op => {
+		if (!Object.values(resource.operations).map(o => {
+			if ((o.name === 'list') && o.singleton) return 'singleton'
+			else return o.name
+		}).includes(op)) {
+			const opStartIdx = findLine(`spec.${op}.start`, lines).index - 2
+			const opStopIdx = findLine(`spec.${op}.stop`, lines).index + 2
+			lines.splice(opStartIdx, opStopIdx - opStartIdx, '')
+		}
+	})
+
+	spec = lines.join('\n')
+
+	// Header
+	spec = copyrightHeader(spec)
+
+	spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
+	spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
+
+	if (resource.operations.create) {
+
+		const reqType = resource.operations.create.requestType
+		const attributes = reqType ? resource.components[reqType].attributes : {}
+		const required = Object.values(attributes).filter(attr => attr.required)
+		console.log(required)
+		const values = required.map(r => `${r.name}: ${inspect(randomValue(r.type))}`)
+
+		const obj = `{ ${values.join(', ')} }`
+
+		spec = spec.replace(/##__RESOURCE_ATTRIBUTES_CREATE__##/g, obj)
+
+	}
+
+
+	return spec
 
 }
 
@@ -303,9 +394,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Relationships definition
 	const relTypesArray = Array.from(relTypes).map(i => `type ${i}Rel = ResourceId & { type: '${_.snakeCase(Inflector.pluralize(i))}' }`)
 	res = res.replace(/##__RELATIONSHIP_TYPES__##/g, relTypesArray.length ? (relTypesArray.join('\n') + '\n') : '')
-	
+
 	// Resources import
-	const impResMod: string[] =  Array.from(imports)
+	const impResMod: string[] = Array.from(imports)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
 		.map(i => `import { ${i} } from './${_.snakeCase(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
@@ -383,7 +474,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 		if (!['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at'].includes(a.name))
 			fields.push(`${a.name}${a.required ? '' : '?'}: ${expType(a.type)}`)
 	})
-	
+
 	// Relationships
 	const relationships = Object.values(cmp.relationships)
 	const rels: string[] = []
@@ -415,13 +506,13 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			if (r.polymorphic && (r.cardinality === Cardinality.to_many)) resName = `(${resName})`
 
 			rels.push(`${r.name}${req}: ${resName}${arr}`)
-		
+
 		}
 	})
 
 
 	let component = (fields.length || rels.length) ? templates.model : templates.model_empty
-	
+
 	component = component.replace(/##__RESOURCE_MODEL__##/g, name)
 	component = component.replace(/##__EXTEND_TYPE__##/g, getCUDSuffix(name))
 
@@ -432,7 +523,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 
 
 	return { component, models }
-	
+
 }
 
 
