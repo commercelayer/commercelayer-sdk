@@ -24,7 +24,15 @@ describe('Addresses resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { line_1: 'alfa', city: 'beta', state_code: 'alfa', country_code: 'beta', phone: 'gamma' }
+    const createAttributes = {
+			line_1: 'sigma_88',
+			city: 'gamma_99',
+			state_code: 'beta_56',
+			country_code: 'lambda_80',
+			phone: 'sigma_26',
+			geocoder: cl.geocoders.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

@@ -24,7 +24,13 @@ describe('PaypalGateways resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'delta', client_id: 'delta', client_secret: 'gamma', mode: 'epsilon' }
+    const createAttributes = {
+			name: 'alfa_24',
+			client_id: 'lambda_20',
+			client_secret: 'epsilon_7',
+			mode: 'kappa_50',
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

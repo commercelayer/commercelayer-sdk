@@ -24,7 +24,13 @@ describe('PaymentMethods resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { payment_source_type: 'gamma', price_amount_cents: 100 }
+    const createAttributes = {
+			payment_source_type: 'sigma_34',
+			price_amount_cents: 0,
+			market: cl.markets.relationship(TestData.id),
+			payment_gateway: cl.payment_gateways.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

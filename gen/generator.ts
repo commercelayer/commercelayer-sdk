@@ -56,7 +56,7 @@ const generate = async () => {
 	fs.mkdirSync(resDir, { recursive: true })
 
 	// Initialize test dir
-	const testDir = 'specs'
+	const testDir = 'specs/resources'
 	if (fs.existsSync(testDir)) fs.rmdirSync(testDir, { recursive: true })
 	fs.mkdirSync(testDir, { recursive: true })
 
@@ -249,10 +249,10 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const randomValue = (type: string): any | Array<any> => {
 
-	const numbers = [0, 1, 10, 100, 1000, 10000]
-	const strings = ['alfa', 'beta', 'gamma', 'delta', 'epsilon', 'omega']
-	const booleans = [true, false, true, false, true, false]
-	const objects = [{ key11: 'val11' }, { key21: 'val21' }, { key31: 'val31' }, { key41: 'val41' }]
+	const numbers = [0, 1, 10, 100, 1000, 10000, 5, 55, 555, 12345, 6666]
+	const strings = ['alfa', 'beta', 'gamma', 'delta', 'epsilon', 'kappa', 'lambda', 'omega', 'sigma', 'zeta']
+	const booleans = [true, false, true, false, true, false, true, false, true, false]
+	const objects = [{ key11: 'val11' }, { key21: 'val21' }, { key31: 'val31' }, { key41: 'val41' }, { key51: 'val51' }]
 
 	let values: Array<string | number | boolean | object>
 
@@ -260,12 +260,16 @@ const randomValue = (type: string): any | Array<any> => {
 	else
 	if (type.startsWith('integer') || type.startsWith('number')) values = numbers
 	else
+	if (type.startsWith('fload') || type.startsWith('decimal')) values = numbers
+	else
 	if (type.startsWith('object')) values = objects
 	else
 	if (type.startsWith('string')) values = strings
 	else values = strings
 
 	let value = values[Math.floor(Math.random() * (values.length - 1))]
+
+	if (type === 'string') value = `${value}_${Math.floor(Math.random() * 100)}`
 
 	if (type.endsWith('[]')) value = [ value ]
 
@@ -303,17 +307,34 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	if (resource.operations.create) {
 
+		let obj = '{\n'
+
+		// Attriburtes
 		const reqType = resource.operations.create.requestType
 		const attributes = reqType ? resource.components[reqType].attributes : {}
 		const required = Object.values(attributes).filter(attr => attr.required)
-		console.log(required)
-		const values = required.map(r => `${r.name}: ${inspect(randomValue(r.type))}`)
+		required.forEach(r => obj += `\t\t\t${r.name}: ${inspect(randomValue(r.type))},\n`)
 
-		const obj = `{ ${values.join(', ')} }`
+		// Relationships
+		const relationships = reqType ? resource.components[reqType].relationships : {}
+		const filtered = Object.values(relationships).filter(rel => !rel.deprecated)
+		filtered.forEach(f => {
+			let relVal: string | string[] = `cl.${f.type}.relationship(TestData.id)`
+			if (f.cardinality === 'to_many') relVal = `[ ${relVal} ]`
+			obj += `\t\t\t${f.name}: ${relVal},\n`
+		})
+
+		obj += '\t\t}\n'
 
 		spec = spec.replace(/##__RESOURCE_ATTRIBUTES_CREATE__##/g, obj)
 
 	}
+
+	let modelName = String(Object.keys(resource.components)[0])
+	if (modelName.endsWith('Update')) modelName = String(resource.components).slice(0, -'Update'.length)
+	else
+	if (modelName.endsWith('Create')) modelName = String(resource.components).slice(0, -'Create'.length)
+	spec = spec.replace(/##__RESOURCE_MODEL__##/g, modelName)
 
 
 	return spec

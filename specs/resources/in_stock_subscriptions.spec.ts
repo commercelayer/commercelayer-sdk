@@ -24,7 +24,12 @@ describe('InStockSubscriptions resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = {  }
+    const createAttributes = {
+			market: cl.markets.relationship(TestData.id),
+			customer: cl.customers.relationship(TestData.id),
+			sku: cl.skus.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

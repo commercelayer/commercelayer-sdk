@@ -24,7 +24,20 @@ describe('PercentageDiscountPromotions resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'gamma', starts_at: 'epsilon', expires_at: 'gamma', total_usage_limit: 1000, percentage: 1000 }
+    const createAttributes = {
+			name: 'sigma_11',
+			starts_at: 'epsilon_81',
+			expires_at: 'kappa_11',
+			total_usage_limit: 1,
+			percentage: 1,
+			market: cl.markets.relationship(TestData.id),
+			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
+			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
+			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
+			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
+			sku_list: cl.sku_lists.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

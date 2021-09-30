@@ -24,7 +24,15 @@ describe('Orders resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = {  }
+    const createAttributes = {
+			market: cl.markets.relationship(TestData.id),
+			customer: cl.customers.relationship(TestData.id),
+			shipping_address: cl.addresses.relationship(TestData.id),
+			billing_address: cl.addresses.relationship(TestData.id),
+			payment_method: cl.payment_methods.relationship(TestData.id),
+			payment_source: cl.adyen_payments.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

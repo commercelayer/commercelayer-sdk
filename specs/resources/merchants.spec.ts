@@ -24,7 +24,11 @@ describe('Merchants resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'delta' }
+    const createAttributes = {
+			name: 'delta_12',
+			address: cl.addresses.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

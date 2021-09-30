@@ -24,7 +24,19 @@ describe('FixedAmountPromotions resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'epsilon', starts_at: 'epsilon', expires_at: 'beta', total_usage_limit: 0, fixed_amount_cents: 1000 }
+    const createAttributes = {
+			name: 'beta_99',
+			starts_at: 'gamma_38',
+			expires_at: 'sigma_5',
+			total_usage_limit: 5,
+			fixed_amount_cents: 5,
+			market: cl.markets.relationship(TestData.id),
+			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
+			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
+			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
+			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

@@ -40,6 +40,9 @@ const handleError = (error: Error) => {
 type RequestConfig = {
 	timeout?: number
 	params?: { [key: string]: string | number | boolean }
+	// httpAgent
+	// httpsAgent
+	// proxy
 }
 
 type ApiClientInitConfig = { organization: string, domain?: string, accessToken: string } & RequestConfig

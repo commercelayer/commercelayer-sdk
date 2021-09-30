@@ -24,7 +24,12 @@ describe('TaxCategories resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { code: 'alfa' }
+    const createAttributes = {
+			code: 'sigma_70',
+			sku: cl.skus.relationship(TestData.id),
+			tax_calculator: cl.avalara_accounts.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

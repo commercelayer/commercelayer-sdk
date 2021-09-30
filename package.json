@@ -5,12 +5,13 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "lint": "eslint ./src --ext .ts",
-    "lintspec": "eslint ./specs --ext .spec.ts",
+    "lintspec": "eslint ./specs/resources/ --ext .spec.ts",
     "build": "rm -rf ./dist/* & tsdx build --tsconfig tsconfig.prod.json",
     "start": "ts-node src/index.ts",
     "generate": "ts-node gen/generator.ts",
-    "prepare": "npm run build && cp -rf dist/* lib",
-    "test": "tsdx test"
+    "prepare": "npm run build && cp -rf dist lib",
+    "test": "tsdx test",
+    "coverage": "tsdx test --coverage"
   },
   "keywords": [
     "javascript",

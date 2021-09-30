@@ -24,7 +24,11 @@ describe('ExternalPayments resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { payment_source_token: 'alfa' }
+    const createAttributes = {
+			payment_source_token: 'delta_31',
+			order: cl.orders.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

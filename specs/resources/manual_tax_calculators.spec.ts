@@ -24,7 +24,12 @@ describe('ManualTaxCalculators resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'alfa' }
+    const createAttributes = {
+			name: 'alfa_4',
+			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
+			tax_rules: [ cl.tax_rules.relationship(TestData.id) ],
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

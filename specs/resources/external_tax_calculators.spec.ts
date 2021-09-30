@@ -24,7 +24,12 @@ describe('ExternalTaxCalculators resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'beta', tax_calculator_url: 'epsilon' }
+    const createAttributes = {
+			name: 'alfa_3',
+			tax_calculator_url: 'alfa_47',
+			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

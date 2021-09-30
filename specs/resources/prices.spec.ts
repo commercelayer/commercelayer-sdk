@@ -24,7 +24,13 @@ describe('Prices resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { amount_cents: 1, compare_at_amount_cents: 1 }
+    const createAttributes = {
+			amount_cents: 1,
+			compare_at_amount_cents: 10000,
+			price_list: cl.price_lists.relationship(TestData.id),
+			sku: cl.skus.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

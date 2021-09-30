@@ -24,7 +24,14 @@ describe('ShippingMethods resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'alfa', price_amount_cents: 1000 }
+    const createAttributes = {
+			name: 'kappa_76',
+			price_amount_cents: 5,
+			market: cl.markets.relationship(TestData.id),
+			shipping_zone: cl.shipping_zones.relationship(TestData.id),
+			shipping_category: cl.shipping_categories.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

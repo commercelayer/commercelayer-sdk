@@ -24,7 +24,19 @@ describe('ExternalPromotions resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'epsilon', starts_at: 'alfa', expires_at: 'alfa', total_usage_limit: 1000, promotion_url: 'gamma' }
+    const createAttributes = {
+			name: 'lambda_42',
+			starts_at: 'alfa_84',
+			expires_at: 'gamma_56',
+			total_usage_limit: 12345,
+			promotion_url: 'omega_34',
+			market: cl.markets.relationship(TestData.id),
+			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
+			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
+			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
+			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

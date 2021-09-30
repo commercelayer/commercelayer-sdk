@@ -24,7 +24,10 @@ describe('OrderAmountPromotionRules resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = {  }
+    const createAttributes = {
+			promotion: cl.percentage_discount_promotions.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

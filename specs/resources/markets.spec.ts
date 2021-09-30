@@ -24,7 +24,15 @@ describe('Markets resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'epsilon' }
+    const createAttributes = {
+			name: 'alfa_25',
+			merchant: cl.merchants.relationship(TestData.id),
+			price_list: cl.price_lists.relationship(TestData.id),
+			inventory_model: cl.inventory_models.relationship(TestData.id),
+			tax_calculator: cl.tax_calculators.relationship(TestData.id),
+			customer_group: cl.customer_groups.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

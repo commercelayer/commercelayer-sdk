@@ -24,7 +24,13 @@ describe('SkuListItems resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { position: 0, quantity: 10 }
+    const createAttributes = {
+			position: 1000,
+			quantity: 10,
+			sku_list: cl.sku_lists.relationship(TestData.id),
+			sku: cl.skus.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

@@ -24,7 +24,13 @@ describe('DeliveryLeadTimes resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { min_hours: 10, max_hours: 100 }
+    const createAttributes = {
+			min_hours: 0,
+			max_hours: 1,
+			stock_location: cl.stock_locations.relationship(TestData.id),
+			shipping_method: cl.shipping_methods.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

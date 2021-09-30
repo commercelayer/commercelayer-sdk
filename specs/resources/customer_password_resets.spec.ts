@@ -24,7 +24,10 @@ describe('CustomerPasswordResets resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { customer_email: 'alfa' }
+    const createAttributes = {
+			customer_email: 'lambda_29',
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

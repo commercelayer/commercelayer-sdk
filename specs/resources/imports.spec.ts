@@ -24,7 +24,11 @@ describe('Imports resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { resource_type: 'beta', inputs: [ { key21: 'val21' } ] }
+    const createAttributes = {
+			resource_type: 'gamma_53',
+			inputs: [ { key11: 'val11' } ],
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

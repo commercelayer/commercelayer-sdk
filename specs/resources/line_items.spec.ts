@@ -24,7 +24,12 @@ describe('LineItems resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { quantity: 1000 }
+    const createAttributes = {
+			quantity: 0,
+			order: cl.orders.relationship(TestData.id),
+			item: cl.adjustments.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

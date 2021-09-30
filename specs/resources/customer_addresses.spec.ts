@@ -24,7 +24,11 @@ describe('CustomerAddresses resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = {  }
+    const createAttributes = {
+			customer: cl.customers.relationship(TestData.id),
+			address: cl.addresses.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

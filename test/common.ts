@@ -8,6 +8,7 @@ import { inspect } from 'util'
 import axios, { AxiosRequestConfig } from 'axios'
 import { isEqual } from 'lodash'
 import { RequestConfig } from '../src/client'
+import { denormalize } from '../src/jsonapi'
 
 dotenv.config()
 
@@ -123,7 +124,13 @@ const checkCommon = (config: AxiosRequestConfig, type: string, id?: string) => {
 const checkCommonData = (config: AxiosRequestConfig, type: string, attributes: any, id?: string) => {
 	if (id) expect(config.data.data.id).toBe(id)
 	expect(config.data.data.type).toBe(type)
-	expect(isEqual(config.data.data.attributes, attributes)).toBeTruthy()
+	const relationships: { [k: string]: any } = {}
+	Object.entries(config.data.data.relationships).forEach(([k, v]) => relationships[k] = (v as any)['data'])
+	const received = {
+		...config.data.data.attributes,
+		...relationships
+	}
+	expect(isEqual(received, attributes)).toBeTruthy()
 }
 
 const checkParam = (params: any, name: string, value: string | number | boolean) => {

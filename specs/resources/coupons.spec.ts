@@ -24,7 +24,12 @@ describe('Coupons resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { code: 'delta', usage_limit: 10 }
+    const createAttributes = {
+			code: 'lambda_42',
+			usage_limit: 100,
+			promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

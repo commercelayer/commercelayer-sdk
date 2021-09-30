@@ -24,7 +24,11 @@ describe('StripeGateways resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'alfa', login: 'delta' }
+    const createAttributes = {
+			name: 'delta_55',
+			login: 'kappa_53',
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

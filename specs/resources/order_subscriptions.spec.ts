@@ -24,7 +24,12 @@ describe('OrderSubscriptions resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { starts_at: 'delta' }
+    const createAttributes = {
+			starts_at: 'lambda_80',
+			market: cl.markets.relationship(TestData.id),
+			source_order: cl.orders.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

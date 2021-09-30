@@ -24,7 +24,14 @@ describe('AvalaraAccounts resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'alfa', username: 'delta', password: 'epsilon', company_code: 'alfa' }
+    const createAttributes = {
+			name: 'omega_71',
+			username: 'omega_47',
+			password: 'lambda_21',
+			company_code: 'beta_92',
+			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

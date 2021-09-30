@@ -24,7 +24,18 @@ describe('FreeShippingPromotions resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { name: 'beta', starts_at: 'gamma', expires_at: 'beta', total_usage_limit: 1000 }
+    const createAttributes = {
+			name: 'delta_41',
+			starts_at: 'epsilon_23',
+			expires_at: 'alfa_1',
+			total_usage_limit: 1,
+			market: cl.markets.relationship(TestData.id),
+			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
+			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
+			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
+			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

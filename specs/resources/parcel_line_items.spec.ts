@@ -24,7 +24,12 @@ describe('ParcelLineItems resource', () => {
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
-    const createAttributes = { quantity: 0 }
+    const createAttributes = {
+			quantity: 1,
+			parcel: cl.parcels.relationship(TestData.id),
+			stock_line_item: cl.stock_line_items.relationship(TestData.id),
+		}
+
     const attributes = { ...createAttributes, reference: TestData.reference }
     const resData = attributes
 

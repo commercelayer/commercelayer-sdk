@@ -66,7 +66,7 @@ const normalize = (resource: (ResourceCreate & ResourceType) | (ResourceUpdate &
 	for (const field in resource) {
 		if (['type', 'id'].includes(field)) continue
 		const value = resource[field as keyof (ResourceCreate | ResourceUpdate)]
-		if (value && isResourceId(value)) {
+		if (value && (isResourceId(value) || (Array.isArray(value) && isResourceId(value[0])))) {
 			relationships[field] = { data: value as ResourceIdentifierObject }
 		}
 		else attributes[field] = value as Value
