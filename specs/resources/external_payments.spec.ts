@@ -25,7 +25,7 @@ describe('ExternalPayments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			payment_source_token: 'sigma_9',
+			payment_source_token: 'delta_1',
 			order: cl.orders.relationship(TestData.id),
 		}
 

@@ -25,7 +25,7 @@ describe('Imports resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			resource_type: 'gamma_21',
+			resource_type: 'lambda_36',
 			inputs: [ { key41: 'val41' } ],
 		}
 

@@ -25,8 +25,8 @@ describe('LineItemOptions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 1,
-			options: { key11: 'val11' },
+			quantity: 12345,
+			options: { key41: 'val41' },
 			line_item: cl.line_items.relationship(TestData.id),
 			sku_option: cl.sku_options.relationship(TestData.id),
 		}

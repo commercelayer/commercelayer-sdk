@@ -26,7 +26,7 @@ describe('SkuListItems resource', () => {
 
     const createAttributes = {
 			position: 10000,
-			quantity: 1,
+			quantity: 55,
 			sku_list: cl.sku_lists.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 		}
