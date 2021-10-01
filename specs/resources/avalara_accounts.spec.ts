@@ -6,7 +6,7 @@
 import { CommerceLayerClient } from '../../src'
 import { isEqual } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams } from '../../test/common'
+import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken } from '../../test/common'
 
 
 
@@ -25,10 +25,10 @@ describe('AvalaraAccounts resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_71',
-			username: 'omega_47',
-			password: 'lambda_21',
-			company_code: 'beta_92',
+			name: 'kappa_45',
+			username: 'beta_98',
+			password: 'delta_10',
+			company_code: 'gamma_81',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 
@@ -59,7 +59,7 @@ describe('AvalaraAccounts resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
-      checkCommon(config, resourceType, id)
+      checkCommon(config, resourceType, id, currentAccessToken)
       checkCommonParams(config, params)
      return interceptRequest()
     })
@@ -80,7 +80,7 @@ describe('AvalaraAccounts resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('patch')
-      checkCommon(config, resourceType, resData.id)
+      checkCommon(config, resourceType, resData.id, currentAccessToken)
       checkCommonData(config, resourceType, attributes, resData.id)
       return interceptRequest()
     })
@@ -100,7 +100,7 @@ describe('AvalaraAccounts resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('delete')
-      checkCommon(config, resourceType, id)
+      checkCommon(config, resourceType, id, currentAccessToken)
       return interceptRequest()
     })
 

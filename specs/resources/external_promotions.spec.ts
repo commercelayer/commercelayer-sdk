@@ -6,7 +6,7 @@
 import { CommerceLayerClient } from '../../src'
 import { isEqual } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams } from '../../test/common'
+import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken } from '../../test/common'
 
 
 
@@ -25,11 +25,11 @@ describe('ExternalPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_42',
-			starts_at: 'alfa_84',
-			expires_at: 'gamma_56',
-			total_usage_limit: 12345,
-			promotion_url: 'omega_34',
+			name: 'gamma_28',
+			starts_at: 'delta_97',
+			expires_at: 'alfa_33',
+			total_usage_limit: 55,
+			promotion_url: 'epsilon_96',
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
@@ -64,7 +64,7 @@ describe('ExternalPromotions resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
-      checkCommon(config, resourceType, id)
+      checkCommon(config, resourceType, id, currentAccessToken)
       checkCommonParams(config, params)
      return interceptRequest()
     })
@@ -85,7 +85,7 @@ describe('ExternalPromotions resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('patch')
-      checkCommon(config, resourceType, resData.id)
+      checkCommon(config, resourceType, resData.id, currentAccessToken)
       checkCommonData(config, resourceType, attributes, resData.id)
       return interceptRequest()
     })
@@ -105,7 +105,7 @@ describe('ExternalPromotions resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('delete')
-      checkCommon(config, resourceType, id)
+      checkCommon(config, resourceType, id, currentAccessToken)
       return interceptRequest()
     })
 

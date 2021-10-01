@@ -6,7 +6,7 @@
 import { CommerceLayerClient } from '../../src'
 import { isEqual } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams } from '../../test/common'
+import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken } from '../../test/common'
 
 
 
@@ -25,8 +25,8 @@ describe('ExternalTaxCalculators resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'alfa_3',
-			tax_calculator_url: 'alfa_47',
+			name: 'kappa_98',
+			tax_calculator_url: 'sigma_19',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 
@@ -57,7 +57,7 @@ describe('ExternalTaxCalculators resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
-      checkCommon(config, resourceType, id)
+      checkCommon(config, resourceType, id, currentAccessToken)
       checkCommonParams(config, params)
      return interceptRequest()
     })
@@ -78,7 +78,7 @@ describe('ExternalTaxCalculators resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('patch')
-      checkCommon(config, resourceType, resData.id)
+      checkCommon(config, resourceType, resData.id, currentAccessToken)
       checkCommonData(config, resourceType, attributes, resData.id)
       return interceptRequest()
     })
@@ -98,7 +98,7 @@ describe('ExternalTaxCalculators resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('delete')
-      checkCommon(config, resourceType, id)
+      checkCommon(config, resourceType, id, currentAccessToken)
       return interceptRequest()
     })
 

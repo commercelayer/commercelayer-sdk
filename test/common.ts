@@ -59,10 +59,12 @@ export const CommonData = {
 
 
 let cl: CommerceLayerClient
+let currentAccessToken: string
 
 
 const initClient = async (fake?: boolean): Promise<CommerceLayerClient> => {
 	const accessToken = fake ? 'fake-access-token' : (await getToken('integration')).accessToken
+	currentAccessToken = accessToken
 	return CommerceLayer({ organization, accessToken, domain })
 }
 
@@ -76,7 +78,7 @@ const printObject = (obj: unknown): string => {
 }
 
 
-export { initClient, getClient, printObject }
+export { initClient, getClient, printObject, currentAccessToken }
 
 
 
@@ -115,9 +117,9 @@ export { handleError, interceptRequest, randomAttributes }
 
 
 
-const checkCommon = (config: AxiosRequestConfig, type: string, id?: string) => {
+const checkCommon = (config: AxiosRequestConfig, type: string, id?: string, token?: string) => {
 	expect(config.url).toBe(type + (id ? `/${id}` : ''))
-	expect(config.headers.Authorization).toContain('Bearer ')
+	expect(config.headers.Authorization).toContain('Bearer ' + (token || ''))
 	expect(config.timeout).toBe(REQUEST_TIMEOUT)
 }
 

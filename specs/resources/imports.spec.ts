@@ -6,7 +6,7 @@
 import { CommerceLayerClient } from '../../src'
 import { isEqual } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams } from '../../test/common'
+import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken } from '../../test/common'
 
 
 
@@ -25,8 +25,8 @@ describe('Imports resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			resource_type: 'gamma_53',
-			inputs: [ { key11: 'val11' } ],
+			resource_type: 'gamma_21',
+			inputs: [ { key41: 'val41' } ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -56,7 +56,7 @@ describe('Imports resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
-      checkCommon(config, resourceType, id)
+      checkCommon(config, resourceType, id, currentAccessToken)
       checkCommonParams(config, params)
      return interceptRequest()
     })
@@ -76,7 +76,7 @@ describe('Imports resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('delete')
-      checkCommon(config, resourceType, id)
+      checkCommon(config, resourceType, id, currentAccessToken)
       return interceptRequest()
     })
 

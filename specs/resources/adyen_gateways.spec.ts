@@ -6,7 +6,7 @@
 import { CommerceLayerClient } from '../../src'
 import { isEqual } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams } from '../../test/common'
+import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken } from '../../test/common'
 
 
 
@@ -25,10 +25,10 @@ describe('AdyenGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_96',
-			merchant_account: 'delta_93',
-			api_key: 'epsilon_81',
-			live_url_prefix: 'epsilon_65',
+			name: 'epsilon_15',
+			merchant_account: 'omega_41',
+			api_key: 'delta_63',
+			live_url_prefix: 'epsilon_42',
 			adyen_payments: [ cl.adyen_payments.relationship(TestData.id) ],
 		}
 
@@ -59,7 +59,7 @@ describe('AdyenGateways resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
-      checkCommon(config, resourceType, id)
+      checkCommon(config, resourceType, id, currentAccessToken)
       checkCommonParams(config, params)
      return interceptRequest()
     })
@@ -80,7 +80,7 @@ describe('AdyenGateways resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('patch')
-      checkCommon(config, resourceType, resData.id)
+      checkCommon(config, resourceType, resData.id, currentAccessToken)
       checkCommonData(config, resourceType, attributes, resData.id)
       return interceptRequest()
     })
@@ -100,7 +100,7 @@ describe('AdyenGateways resource', () => {
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('delete')
-      checkCommon(config, resourceType, id)
+      checkCommon(config, resourceType, id, currentAccessToken)
       return interceptRequest()
     })
 

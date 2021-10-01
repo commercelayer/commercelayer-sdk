@@ -1,11 +1,12 @@
 
-import { CommerceLayerClient } from '../src'
+import { CommerceLayerClient, Customer } from '../src'
 import { sleep } from '../src/util'
 import { getClient, TestData } from '../test/common'
 import { normalize, denormalize } from '../src/jsonapi'
 import { ResTypeLock } from '../src/api'
 import { isEqual } from 'lodash'
 import { TSNamespaceExportDeclaration } from '@babel/types'
+import { isResourceType } from '../src/common'
 
 
 let cl: CommerceLayerClient
@@ -28,6 +29,20 @@ describe('SDK suite', () => {
 
 		expect(delay).toBeGreaterThanOrEqual(ms)
 		expect(delay).toBeLessThan(ms + 10)
+
+	})
+
+
+	it('common.type', async () => {
+
+		const customer: Customer = {
+			id: TestData.id,
+			type: 'customers',
+			created_at: new Date().toISOString(),
+			updated_at: new Date().toISOString()
+		}
+
+		expect(isResourceType(customer)).toBeTruthy()
 
 	})
 
