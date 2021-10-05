@@ -3,9 +3,8 @@ import { CommerceLayerClient, Customer } from '../src'
 import { sleep } from '../src/util'
 import { getClient, TestData } from '../test/common'
 import { normalize, denormalize } from '../src/jsonapi'
-import { ResTypeLock } from '../src/api'
+import { ResourceTypeLock } from '../src/api'
 import { isEqual } from 'lodash'
-import { TSNamespaceExportDeclaration } from '@babel/types'
 import { isResourceType } from '../src/common'
 
 
@@ -49,7 +48,7 @@ describe('SDK suite', () => {
 
 	it('jsonapi.normalize', async () => {
 
-		const type: ResTypeLock = 'customers'
+		const type: ResourceTypeLock = 'customers'
 
 		const resource = {
 			id: TestData.id,
