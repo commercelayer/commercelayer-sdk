@@ -3,7 +3,6 @@
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
  **/
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
