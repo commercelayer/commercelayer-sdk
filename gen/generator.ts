@@ -238,6 +238,14 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const resStopIdx = findLine('##__API_RESOURCE_LIST_STOP__##', lines).index
 	lines.splice(resStartIdx, resStopIdx - resStartIdx, types.join(',\n'))
 
+	/*
+	const mapStartIdx = findLine('##__API_RESOURCE_MAP_START__##', lines).index + 1
+	const mapStopIdx = findLine('##__API_RESOURCE_MAP_STOP__##', lines).index
+	lines.splice(mapStartIdx, mapStopIdx - mapStartIdx,
+		Object.keys(resources).map(t => `\t${t}: { name: '${Inflector.singularize(t)}', type: '${t}', api: '${t}' }`).join(',\n')
+	)
+	*/
+
 
 	fs.writeFileSync('src/api.ts', lines.join('\n'), { encoding: 'utf-8' })
 
@@ -373,10 +381,14 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 	// Operations
 	const qryMod: string[] = []
+	const resMod: string[] = []
 	Object.entries(resource.operations).forEach(([opName, op]) => {
 		const tpl = op.singleton ? templates['singleton'] : templates[opName]
 		if (tpl) {
-			if (['retrieve', 'list'].includes(opName)) qryMod.push('QueryParams' + _.capitalize(op.singleton ? 'retrieve' : opName))
+			if (['retrieve', 'list'].includes(opName)) {
+				qryMod.push('QueryParams' + _.capitalize(op.singleton ? 'retrieve' : opName))
+				if ((opName === 'list') && !op.singleton) resMod.push('ListResponse')
+			}
 			const tplOp = templatedOperation(resName, opName, op, tpl)
 			operations.push(tplOp.operation)
 			tplOp.types.forEach(t => { types.add(t) })
@@ -384,6 +396,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		else console.log('Unknown operation: ' + opName)
 	})
 	res = res.replace(/##__QUERY_MODELS__##/g, qryMod.join(', '))
+	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.length > 0) ? `, ${resMod.join(', ')}`: '')
 	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(resName))
 
 
