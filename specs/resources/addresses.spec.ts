@@ -25,11 +25,11 @@ describe('Addresses resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			line_1: 'gamma_21',
-			city: 'lambda_97',
-			state_code: 'lambda_21',
-			country_code: 'beta_93',
-			phone: 'kappa_37',
+			line_1: 'alfa_21',
+			city: 'lambda_90',
+			state_code: 'epsilon_5',
+			country_code: 'sigma_42',
+			phone: 'beta_83',
 			geocoder: cl.geocoders.relationship(TestData.id),
 		}
 

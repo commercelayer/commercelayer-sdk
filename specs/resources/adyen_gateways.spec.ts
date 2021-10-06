@@ -25,10 +25,10 @@ describe('AdyenGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_99',
-			merchant_account: 'sigma_50',
-			api_key: 'lambda_94',
-			live_url_prefix: 'lambda_42',
+			name: 'beta_23',
+			merchant_account: 'gamma_76',
+			api_key: 'alfa_79',
+			live_url_prefix: 'kappa_5',
 			adyen_payments: [ cl.adyen_payments.relationship(TestData.id) ],
 		}
 

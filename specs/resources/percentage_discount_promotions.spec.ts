@@ -25,10 +25,10 @@ describe('PercentageDiscountPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_10',
-			starts_at: 'lambda_37',
-			expires_at: 'beta_61',
-			total_usage_limit: 1000,
+			name: 'lambda_89',
+			starts_at: 'epsilon_51',
+			expires_at: 'lambda_59',
+			total_usage_limit: 555,
 			percentage: 555,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],

@@ -25,7 +25,7 @@ describe('ManualGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'sigma_63',
+			name: 'epsilon_81',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
