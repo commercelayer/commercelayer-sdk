@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -45,7 +45,7 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 	
 	frequency?: string
 	activate_by_source_order?: boolean
-	starts_at: string
+	starts_at?: string
 	expires_at?: string
 	options?: object
 

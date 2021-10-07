@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -25,8 +25,8 @@ interface Import extends Resource {
 	warnings_count?: number
 	destroyed_count?: number
 	processed_count?: number
-	errors_log?: object[]
-	warnings_log?: object[]
+	errors_log?: object
+	warnings_log?: object
 	cleanup_records?: boolean
 	
 }

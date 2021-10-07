@@ -3,7 +3,7 @@
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  **/
 export type { Address, AddressCreate, AddressUpdate } from './resources/addresses'
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate } from './resources/adjustments'
@@ -31,6 +31,7 @@ export type { CustomerPaymentSource, CustomerPaymentSourceCreate, CustomerPaymen
 export type { CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscriptionUpdate } from './resources/customer_subscriptions'
 export type { Customer, CustomerCreate, CustomerUpdate } from './resources/customers'
 export type { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeUpdate } from './resources/delivery_lead_times'
+export type { EventCallback } from './resources/event_callbacks'
 export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate } from './resources/external_gateways'
 export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate } from './resources/external_payments'
 export type { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionUpdate } from './resources/external_promotions'
@@ -55,6 +56,7 @@ export type { Merchant, MerchantCreate, MerchantUpdate } from './resources/merch
 export type { OrderAmountPromotionRule, OrderAmountPromotionRuleCreate, OrderAmountPromotionRuleUpdate } from './resources/order_amount_promotion_rules'
 export type { OrderCopy, OrderCopyCreate } from './resources/order_copies'
 export type { OrderSubscription, OrderSubscriptionCreate, OrderSubscriptionUpdate } from './resources/order_subscriptions'
+export type { OrderValidationRule } from './resources/order_validation_rules'
 export type { Order, OrderCreate, OrderUpdate } from './resources/orders'
 export type { Organization } from './resources/organization'
 export type { Package, PackageCreate, PackageUpdate } from './resources/packages'

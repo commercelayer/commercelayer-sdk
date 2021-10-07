@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -43,6 +43,7 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	name?: string
 	merchant_account?: string
 	api_key?: string
+	public_key?: string
 	live_url_prefix?: string
 
 	adyen_payments?: AdyenPaymentRel[]

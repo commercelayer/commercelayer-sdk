@@ -1,11 +1,12 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
+import { EventCallback } from './event_callbacks'
 
 
 type WebhookRel = ResourceId & { type: typeof Webhooks.TYPE }
@@ -13,17 +14,21 @@ type WebhookRel = ResourceId & { type: typeof Webhooks.TYPE }
 
 interface Webhook extends Resource {
 	
+	name?: string
 	topic?: string
 	callback_url?: string
 	include_resources?: string[]
 	circuit_state?: string
 	circuit_failure_count?: number
-	
+
+	last_event_callbacks?: EventCallback[]
+
 }
 
 
 interface WebhookCreate extends ResourceCreate {
 	
+	name: string
 	topic: string
 	callback_url: string
 	include_resources?: string[]
@@ -33,6 +38,7 @@ interface WebhookCreate extends ResourceCreate {
 
 interface WebhookUpdate extends ResourceUpdate {
 	
+	name?: string
 	topic?: string
 	callback_url?: string
 	include_resources?: string[]

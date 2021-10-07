@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('GiftCards resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			currency_code: 'beta_42',
-			balance_cents: 555,
+			currency_code: 'epsilon_92',
+			balance_cents: 10000,
 			market: cl.markets.relationship(TestData.id),
 			gift_card_recipient: cl.gift_card_recipients.relationship(TestData.id),
 		}

@@ -3,7 +3,7 @@
  * Source code generated automatically by SDK codegen from OpenAPI schema ##__SCHEMA_VERSION__##
  **/
 
-import { ApiResource, ##__RESOURCE_INTERFACES__##, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { ApiResource, ##__RESOURCE_INTERFACES__##, ResourcesConfig, ResourceId##__RESPONSE_MODELS__## } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */##__QUERY_MODELS__## } from '../query'
 
 ##__IMPORT_RESOURCE_MODELS__##

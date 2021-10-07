@@ -1,9 +1,9 @@
 
 import * as api from './api'
 import ApiError from './error'
-import { ErrorInterceptor, InterceptorType, RequestInterceptor, ResponseInterceptor } from './interceptor'
+import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj } from './interceptor'
 // import QueryBuilder, { QueryBuilderRetrieve, QueryBuilderList } from './query'
-
+import { CommerceLayerStatic } from './static'
 import ResourceAdapter, { ResourcesConfig, ResourcesInitConfig } from './resource'
 
 
@@ -47,6 +47,7 @@ class CommerceLayerClient {
 	customer_subscriptions: api.CustomerSubscriptions
 	customers: api.Customers
 	delivery_lead_times: api.DeliveryLeadTimes
+	event_callbacks: api.EventCallbacks
 	external_gateways: api.ExternalGateways
 	external_payments: api.ExternalPayments
 	external_promotions: api.ExternalPromotions
@@ -71,6 +72,7 @@ class CommerceLayerClient {
 	order_amount_promotion_rules: api.OrderAmountPromotionRules
 	order_copies: api.OrderCopies
 	order_subscriptions: api.OrderSubscriptions
+	order_validation_rules: api.OrderValidationRules
 	orders: api.Orders
 	organization: api.Organizations
 	packages: api.Packages
@@ -113,6 +115,7 @@ class CommerceLayerClient {
 	wire_transfers: api.WireTransfers
 	// ##__CL_RESOURCES_DEF_STOP__##
 
+
 	constructor(config: CommerceLayerInitConfig) {
 
 		this.#adapter = new ResourceAdapter(config)
@@ -146,6 +149,7 @@ class CommerceLayerClient {
 		this.customer_subscriptions = new api.CustomerSubscriptions(this.#adapter)
 		this.customers = new api.Customers(this.#adapter)
 		this.delivery_lead_times = new api.DeliveryLeadTimes(this.#adapter)
+		this.event_callbacks = new api.EventCallbacks(this.#adapter)
 		this.external_gateways = new api.ExternalGateways(this.#adapter)
 		this.external_payments = new api.ExternalPayments(this.#adapter)
 		this.external_promotions = new api.ExternalPromotions(this.#adapter)
@@ -170,6 +174,7 @@ class CommerceLayerClient {
 		this.order_amount_promotion_rules = new api.OrderAmountPromotionRules(this.#adapter)
 		this.order_copies = new api.OrderCopies(this.#adapter)
 		this.order_subscriptions = new api.OrderSubscriptions(this.#adapter)
+		this.order_validation_rules = new api.OrderValidationRules(this.#adapter)
 		this.orders = new api.Orders(this.#adapter)
 		this.organization = new api.Organizations(this.#adapter)
 		this.packages = new api.Packages(this.#adapter)
@@ -238,14 +243,14 @@ class CommerceLayerClient {
 	*/
 
 	
-	resources(): string[] {
-		return api.resourceList
+	resources(): readonly string[] {
+		return CommerceLayerStatic.resources()
 	}
 	
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isApiError(error: any): error is ApiError {
-		return ApiError.isApiError(error)
+		return CommerceLayerStatic.isApiError(error)
 	}
 
 
@@ -260,9 +265,34 @@ class CommerceLayerClient {
 	removeInterceptor(type: InterceptorType, id: number): void {
 		return this.#adapter.interceptors[type].eject(id)
 	}
-	
+
+
+	addRawResponseReader(): RawResponseReader {
+
+		const reader: RawResponseReader = {
+			id: undefined,
+			rawResponse: undefined,
+		}
+
+		function rawResponseInterceptor(response: ResponseObj): ResponseObj {
+			reader.rawResponse = response?.data
+			return response
+		}
+		
+		const interceptor = this.addResponseInterceptor(rawResponseInterceptor)
+		reader.id = interceptor
+
+		return reader
+
+	}
+
+	removeRawResponseReader(reader: number | RawResponseReader): void {
+		const id = (typeof reader === 'number') ? reader : reader.id
+		if (id) return this.removeInterceptor('response', id)
+	}
 
 }
+
 
 
 const CommerceLayer = (config: CommerceLayerInitConfig): CommerceLayerClient => {

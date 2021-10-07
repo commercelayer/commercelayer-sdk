@@ -16,9 +16,9 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('Geocoders resource', () => {
+describe('OrderValidationRules resource', () => {
 
-  const resourceType = 'geocoders'
+  const resourceType = 'order_validation_rules'
 
 
   /* spec.list.start */
@@ -45,7 +45,7 @@ describe('Geocoders resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isGeocoder(resource)).toBeTruthy()
+    expect(cl[resourceType].isOrderValidationRule(resource)).toBeTruthy()
 
     const relId = cl[resourceType].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))

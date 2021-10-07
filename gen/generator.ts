@@ -10,6 +10,7 @@ import { inspect } from 'util'
 const Inflector = require('inflector-js')
 
 
+
 type ApiRes = {
 	type: string;
 	apiClass: string;
@@ -24,6 +25,7 @@ const global: {
 } = {}
 
 
+
 const loadTemplates = (): void => {
 	const tplDir = './gen/templates'
 	const tplList = fs.readdirSync(tplDir, { encoding: 'utf-8' }).filter(f => f.endsWith('.tpl'))
@@ -35,9 +37,9 @@ const loadTemplates = (): void => {
 }
 
 
-const generate = async () => {
+const generate = async (localSchema?: boolean) => {
 
-	const schemaPath = /*'gen/openapi.json'*/ await apiSchema.download()
+	const schemaPath = localSchema ? 'gen/openapi.json' : await apiSchema.download()
 	if (!fs.existsSync(schemaPath)) {
 		console.log('Cannot find schema file: ' + schemaPath)
 		return

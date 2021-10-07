@@ -9,8 +9,9 @@
     "build": "rm -rf ./dist/* & tsdx build --tsconfig tsconfig.prod.json",
     "start": "ts-node src/index.ts",
     "generate": "ts-node gen/generator.ts",
-    "prepare": "npm run build && cp -rf dist lib",
+    "prepare": "npm run build && cp -rf dist/ lib",
     "test": "tsdx test",
+    "test-local": "ts-node test.ts",
     "coverage": "tsdx test --coverage"
   },
   "keywords": [

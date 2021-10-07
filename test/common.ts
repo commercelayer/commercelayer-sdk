@@ -8,7 +8,6 @@ import { inspect } from 'util'
 import axios, { AxiosRequestConfig } from 'axios'
 import { isEqual } from 'lodash'
 import { RequestConfig } from '../src/client'
-import { denormalize } from '../src/jsonapi'
 
 dotenv.config()
 

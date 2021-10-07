@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -46,6 +46,7 @@ type WireTransferRel = ResourceId & { type: 'wire_transfers' }
 interface Order extends Resource {
 	
 	number?: number
+	autorefresh?: boolean
 	status?: string
 	payment_status?: string
 	fulfillment_status?: string
@@ -166,6 +167,7 @@ interface Order extends Resource {
 
 interface OrderCreate extends ResourceCreate {
 	
+	autorefresh?: boolean
 	guest?: boolean
 	customer_email?: string
 	customer_password?: string
@@ -191,6 +193,7 @@ interface OrderCreate extends ResourceCreate {
 
 interface OrderUpdate extends ResourceUpdate {
 	
+	autorefresh?: boolean
 	guest?: boolean
 	customer_email?: string
 	customer_password?: string

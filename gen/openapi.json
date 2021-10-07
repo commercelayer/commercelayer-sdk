@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.7.1",
+        "version": "2.7.0",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -4494,6 +4494,48 @@
                 "responses": {
                     "200": {
                         "description": "The attachments associated to the delivery lead time"
+                    }
+                }
+            }
+        },
+        "/event_callbacks": {
+            "get": {
+                "operationId": "GET/event_callbacks",
+                "summary": "List all event callbacks",
+                "description": "List all event callbacks",
+                "tags": [
+                    "event_callbacks"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of event callback objects"
+                    }
+                }
+            }
+        },
+        "/event_callbacks/{eventCallbackId}/webhook": {
+            "get": {
+                "operationId": "GET/eventCallbackId/webhook",
+                "summary": "Retrieve the webhook associated to the event callback",
+                "description": "Retrieve the webhook associated to the event callback",
+                "tags": [
+                    "has_one",
+                    "webhooks"
+                ],
+                "parameters": [
+                    {
+                        "name": "eventCallbackId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The webhook associated to the event callback"
                     }
                 }
             }
@@ -9270,6 +9312,48 @@
                 "responses": {
                     "200": {
                         "description": "The orders associated to the order subscription"
+                    }
+                }
+            }
+        },
+        "/order_validation_rules": {
+            "get": {
+                "operationId": "GET/order_validation_rules",
+                "summary": "List all order validation rules",
+                "description": "List all order validation rules",
+                "tags": [
+                    "order_validation_rules"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of order validation rule objects"
+                    }
+                }
+            }
+        },
+        "/order_validation_rules/{orderValidationRuleId}/market": {
+            "get": {
+                "operationId": "GET/orderValidationRuleId/market",
+                "summary": "Retrieve the market associated to the order validation rule",
+                "description": "Retrieve the market associated to the order validation rule",
+                "tags": [
+                    "has_one",
+                    "markets"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderValidationRuleId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The market associated to the order validation rule"
                     }
                 }
             }
@@ -17015,6 +17099,33 @@
                 }
             }
         },
+        "/webhooks/{webhookId}/last_event_callbacks": {
+            "get": {
+                "operationId": "GET/webhookId/last_event_callbacks",
+                "summary": "Retrieve the last event callbacks associated to the webhook",
+                "description": "Retrieve the last event callbacks associated to the webhook",
+                "tags": [
+                    "has_many",
+                    "event_callbacks"
+                ],
+                "parameters": [
+                    {
+                        "name": "webhookId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The last_event_callbacks associated to the webhook"
+                    }
+                }
+            }
+        },
         "/wire_transfers": {
             "get": {
                 "operationId": "GET/wire_transfers",
@@ -18092,7 +18203,7 @@
                                     "public_key": {
                                         "type": "string",
                                         "description": "The public key linked to your API credential.",
-                                        "example": "live_xxxx-yyyy-zzzz"
+                                        "example": "xxxx-yyyy-zzzz"
                                     },
                                     "live_url_prefix": {
                                         "type": "string",
@@ -18196,6 +18307,11 @@
                                         "description": "The gateway API key.",
                                         "example": "xxxx-yyyy-zzzz"
                                     },
+                                    "public_key": {
+                                        "type": "string",
+                                        "description": "The public key linked to your API credential.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    },
                                     "live_url_prefix": {
                                         "type": "string",
                                         "description": "The prefix of the endpoint used for live transactions.",
@@ -18257,7 +18373,7 @@
                                     "public_key": {
                                         "type": "string",
                                         "description": "The public key linked to your API credential.",
-                                        "example": "live_xxxx-yyyy-zzzz"
+                                        "example": "xxxx-yyyy-zzzz"
                                     },
                                     "payment_methods": {
                                         "type": "object",
@@ -25352,6 +25468,118 @@
                     }
                 }
             },
+            "eventCallback": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "event_callbacks",
+                                "default": "event_callbacks"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "callback_url": {
+                                        "type": "string",
+                                        "description": "The URI of the callback, inherited by the associated webhook.",
+                                        "example": "https://yourapp.com/webhooks"
+                                    },
+                                    "payload": {
+                                        "type": "object",
+                                        "description": "The payload sent to the callback endpoint, including the event affected resource and the specified includes.",
+                                        "example": {
+                                            "data": {
+                                                "attributes": {
+                                                    "id": "PYWehaoXJj",
+                                                    "type": "orders"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "response_code": {
+                                        "type": "string",
+                                        "description": "The HTTP response code of the callback endpoint.",
+                                        "example": "200"
+                                    },
+                                    "response_message": {
+                                        "type": "string",
+                                        "description": "The HTTP response message of the callback endpoint.",
+                                        "example": "OK"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "webhook": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "webhooks",
+                                                "default": "webhooks"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "externalGateway": {
                 "type": "object",
                 "required": [
@@ -29249,33 +29477,23 @@
                                         "example": 270
                                     },
                                     "errors_log": {
-                                        "type": "array",
+                                        "type": "object",
                                         "description": "Contains the import errors, if any.",
-                                        "example": [
-                                            {
-                                                "ABC": {
-                                                    "name": [
-                                                        "has already been taken"
-                                                    ]
-                                                }
+                                        "example": {
+                                            "ABC": {
+                                                "name": [
+                                                    "has already been taken"
+                                                ]
                                             }
-                                        ],
-                                        "items": {
-                                            "type": "object"
                                         }
                                     },
                                     "warnings_log": {
-                                        "type": "array",
+                                        "type": "object",
                                         "description": "Contains the import warnings, if any.",
-                                        "example": [
-                                            {
-                                                "ABC": [
-                                                    "could not be deleted"
-                                                ]
-                                            }
-                                        ],
-                                        "items": {
-                                            "type": "object"
+                                        "example": {
+                                            "ABC": [
+                                                "could not be deleted"
+                                            ]
                                         }
                                     },
                                     "cleanup_records": {
@@ -33540,18 +33758,18 @@
                                         "description": "Indicates if the source order must be cancelled upon copy.",
                                         "example": true
                                     },
+                                    "reuse_wallet": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the payment source within the source order customer's wallet must be copied.",
+                                        "example": true
+                                    },
                                     "errors_log": {
-                                        "type": "array",
+                                        "type": "object",
                                         "description": "Contains the order copy errors, if any.",
-                                        "example": [
-                                            {
-                                                "status": [
-                                                    "cannot transition from draft to placed"
-                                                ]
-                                            }
-                                        ],
-                                        "items": {
-                                            "type": "object"
+                                        "example": {
+                                            "status": [
+                                                "cannot transition from draft to placed"
+                                            ]
                                         }
                                     },
                                     "errors_count": {
@@ -33694,6 +33912,11 @@
                                         "description": "Indicates if the source order must be cancelled upon copy.",
                                         "example": true
                                     },
+                                    "reuse_wallet": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the payment source within the source order customer's wallet must be copied.",
+                                        "example": true
+                                    },
                                     "reference": {
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
@@ -33779,7 +34002,7 @@
                                     },
                                     "frequency": {
                                         "type": "string",
-                                        "description": "The frequency of the subscription. One of 'daily', 'weekly', 'monthly', or 'yearly'.",
+                                        "description": "The frequency of the subscription. One of 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', or 'yearly'.",
                                         "example": "monthly"
                                     },
                                     "activate_by_source_order": {
@@ -33996,7 +34219,7 @@
                                 "properties": {
                                     "frequency": {
                                         "type": "string",
-                                        "description": "The frequency of the subscription. One of 'daily', 'weekly', 'monthly', or 'yearly'.",
+                                        "description": "The frequency of the subscription. One of 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', or 'yearly'.",
                                         "example": "monthly"
                                     },
                                     "activate_by_source_order": {
@@ -34038,10 +34261,7 @@
                                             "foo": "bar"
                                         }
                                     }
-                                },
-                                "required": [
-                                    "starts_at"
-                                ]
+                                }
                             },
                             "relationships": {
                                 "type": "object",
@@ -34170,6 +34390,91 @@
                     }
                 }
             },
+            "orderValidationRule": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "order_validation_rules",
+                                "default": "order_validation_rules"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "market": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "markets",
+                                                "default": "markets"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "order": {
                 "type": "object",
                 "required": [
@@ -34196,6 +34501,11 @@
                                         "type": "integer",
                                         "description": "Unique identifier for the order (numeric)",
                                         "example": 1234
+                                    },
+                                    "autorefresh": {
+                                        "type": "boolean",
+                                        "description": "Save this attribute as 'false' if you want prevent the order to be refreshed automatically at each change (much faster).",
+                                        "example": true
                                     },
                                     "status": {
                                         "type": "string",
@@ -35151,6 +35461,11 @@
                             "attributes": {
                                 "type": "object",
                                 "properties": {
+                                    "autorefresh": {
+                                        "type": "boolean",
+                                        "description": "Save this attribute as 'false' if you want prevent the order to be refreshed automatically at each change (much faster).",
+                                        "example": true
+                                    },
                                     "guest": {
                                         "type": "boolean",
                                         "description": "Indicates if the order has been placed as guest.",
@@ -35419,6 +35734,11 @@
                             "attributes": {
                                 "type": "object",
                                 "properties": {
+                                    "autorefresh": {
+                                        "type": "boolean",
+                                        "description": "Save this attribute as 'false' if you want prevent the order to be refreshed automatically at each change (much faster).",
+                                        "example": true
+                                    },
                                     "guest": {
                                         "type": "boolean",
                                         "description": "Indicates if the order has been placed as guest.",
@@ -47910,6 +48230,11 @@
                             "attributes": {
                                 "type": "object",
                                 "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Unique name for the webhook.",
+                                        "example": "myorg-orders.place"
+                                    },
                                     "topic": {
                                         "type": "string",
                                         "description": "The identifier of the resource/event that will trigger the webhook.",
@@ -47978,7 +48303,28 @@
                             },
                             "relationships": {
                                 "type": "object",
-                                "properties": {}
+                                "properties": {
+                                    "last_event_callbacks": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "event_callbacks",
+                                                "default": "event_callbacks"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -48006,6 +48352,11 @@
                             "attributes": {
                                 "type": "object",
                                 "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Unique name for the webhook.",
+                                        "example": "myorg-orders.place"
+                                    },
                                     "topic": {
                                         "type": "string",
                                         "description": "The identifier of the resource/event that will trigger the webhook.",
@@ -48047,6 +48398,7 @@
                                     }
                                 },
                                 "required": [
+                                    "name",
                                     "topic",
                                     "callback_url"
                                 ]
@@ -48087,6 +48439,11 @@
                             "attributes": {
                                 "type": "object",
                                 "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Unique name for the webhook.",
+                                        "example": "myorg-orders.place"
+                                    },
                                     "topic": {
                                         "type": "string",
                                         "description": "The identifier of the resource/event that will trigger the webhook.",
@@ -48495,6 +48852,10 @@
             "description": "resource type"
         },
         {
+            "name": "event_callbacks",
+            "description": "resource type"
+        },
+        {
             "name": "external_gateways",
             "description": "resource type"
         },
@@ -48588,6 +48949,10 @@
         },
         {
             "name": "order_subscriptions",
+            "description": "resource type"
+        },
+        {
+            "name": "order_validation_rules",
             "description": "resource type"
         },
         {

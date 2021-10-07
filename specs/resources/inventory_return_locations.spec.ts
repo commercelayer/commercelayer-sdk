@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('InventoryReturnLocations resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			priority: 12345,
+			priority: 55,
 			stock_location: cl.stock_locations.relationship(TestData.id),
 			inventory_model: cl.inventory_models.relationship(TestData.id),
 		}

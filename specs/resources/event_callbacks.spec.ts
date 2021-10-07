@@ -16,9 +16,9 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('Geocoders resource', () => {
+describe('EventCallbacks resource', () => {
 
-  const resourceType = 'geocoders'
+  const resourceType = 'event_callbacks'
 
 
   /* spec.list.start */
@@ -45,7 +45,7 @@ describe('Geocoders resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isGeocoder(resource)).toBeTruthy()
+    expect(cl[resourceType].isEventCallback(resource)).toBeTruthy()
 
     const relId = cl[resourceType].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))

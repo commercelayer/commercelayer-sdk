@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('Skus resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			code: 'sigma_84',
-			name: 'gamma_2',
+			code: 'delta_34',
+			name: 'gamma_97',
 			shipping_category: cl.shipping_categories.relationship(TestData.id),
 		}
 

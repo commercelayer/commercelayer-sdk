@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -22,7 +22,8 @@ interface OrderCopy extends Resource {
 	failed_at?: string
 	place_target_order?: boolean
 	cancel_source_order?: boolean
-	errors_log?: object[]
+	reuse_wallet?: boolean
+	errors_log?: object
 	errors_count?: number
 
 	source_order?: Order
@@ -36,6 +37,7 @@ interface OrderCopyCreate extends ResourceCreate {
 	
 	place_target_order?: boolean
 	cancel_source_order?: boolean
+	reuse_wallet?: boolean
 
 	source_order?: OrderRel
 

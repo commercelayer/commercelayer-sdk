@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { AxiosInterceptorManager, AxiosRequestConfig } from "axios"
+import type { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse } from "axios"
 
 
 type InterceptorManager = {
@@ -8,13 +8,26 @@ type InterceptorManager = {
 }
 
 
-type RequestInterceptor = (config: AxiosRequestConfig) => AxiosRequestConfig | Promise<AxiosRequestConfig>
+type RequestObj = AxiosRequestConfig
+type RequestInterceptor = (request: RequestObj) => RequestObj | Promise<RequestObj>
 
-type ResponseInterceptor = (response: unknown) => unknown
+type ResponseObj = AxiosResponse
+type ResponseInterceptor = (response: ResponseObj) => ResponseObj
 
-type ErrorInterceptor = (error: unknown) => unknown
+type ErrorObj = AxiosError
+type ErrorInterceptor = (error: ErrorObj) => ErrorObj
 
 type InterceptorType = 'request' | 'response'
 
 
 export type { InterceptorManager, RequestInterceptor, ResponseInterceptor, ErrorInterceptor, InterceptorType }
+
+
+
+type RawResponseReader = {
+	id: number | undefined;
+	rawResponse: ResponseObj | undefined;
+}
+
+
+export type { RawResponseReader, ResponseObj }

@@ -2,7 +2,7 @@
 import ApiClient, { ApiClientConfig, ApiClientInitConfig } from './client'
 import { denormalize, normalize, JSONValue } from './jsonapi'
 import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from './query'
-import { ResTypeLock } from './api'
+import { ResourceTypeLock } from './api'
 import config from './config'
 import { InterceptorManager } from './interceptor'
 
@@ -12,7 +12,7 @@ type Metadata = { [key: string]: JSONValue }
 
 
 interface ResourceType {
-	readonly type: ResTypeLock
+	readonly type: ResourceTypeLock
 }
 
 
@@ -92,10 +92,14 @@ class ResourceAdapter {
 
 	#config: ResourceAdapterConfig = {}
 
+
 	constructor(config: ResourcesInitConfig) {
 		this.#client = ApiClient.create(config)
 		this.config(config)
 	}
+
+
+	get interceptors(): InterceptorManager { return this.#client.interceptors }
 
 
 	config(config: ResourcesConfig): void {
@@ -111,9 +115,7 @@ class ResourceAdapter {
 		return
 
 	}
-
-
-	get interceptors(): InterceptorManager { return this.#client.interceptors }
+	
 
 	/*
 	private isRawResponse(options?: ResourcesConfig): boolean {
@@ -210,13 +212,15 @@ class ResourceAdapter {
 
 abstract class ApiResource {
 
-	static readonly TYPE: string
-	// static readonly PATH: string
+	static readonly TYPE: ResourceTypeLock
+	// static readonly PATH: ResourceTypeLock
 	protected resources: ResourceAdapter
 
 	constructor(adapter: ResourceAdapter) {
 		this.resources = adapter
 	}
+
+	abstract relationship(id: string | ResourceId): ResourceId
 
 	/*
 	async rawList(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<DocWithData> {
