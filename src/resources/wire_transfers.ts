@@ -82,6 +82,10 @@ class WireTransfers extends ApiResource {
 		return (typeof id === 'string') ? { id, type: WireTransfers.TYPE } : {id: id.id, type: WireTransfers.TYPE }
 	}
 
+	type(): string {
+		return WireTransfers.TYPE
+	}
+
 }
 
 

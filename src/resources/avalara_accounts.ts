@@ -103,6 +103,10 @@ class AvalaraAccounts extends ApiResource {
 		return (typeof id === 'string') ? { id, type: AvalaraAccounts.TYPE } : {id: id.id, type: AvalaraAccounts.TYPE }
 	}
 
+	type(): string {
+		return AvalaraAccounts.TYPE
+	}
+
 }
 
 

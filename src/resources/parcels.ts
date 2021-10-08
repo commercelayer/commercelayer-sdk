@@ -156,6 +156,10 @@ class Parcels extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Parcels.TYPE } : {id: id.id, type: Parcels.TYPE }
 	}
 
+	type(): string {
+		return Parcels.TYPE
+	}
+
 }
 
 

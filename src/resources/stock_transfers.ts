@@ -114,6 +114,10 @@ class StockTransfers extends ApiResource {
 		return (typeof id === 'string') ? { id, type: StockTransfers.TYPE } : {id: id.id, type: StockTransfers.TYPE }
 	}
 
+	type(): string {
+		return StockTransfers.TYPE
+	}
+
 }
 
 

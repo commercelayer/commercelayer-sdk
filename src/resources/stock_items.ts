@@ -98,6 +98,10 @@ class StockItems extends ApiResource {
 		return (typeof id === 'string') ? { id, type: StockItems.TYPE } : {id: id.id, type: StockItems.TYPE }
 	}
 
+	type(): string {
+		return StockItems.TYPE
+	}
+
 }
 
 

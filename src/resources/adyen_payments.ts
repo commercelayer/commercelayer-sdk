@@ -96,6 +96,10 @@ class AdyenPayments extends ApiResource {
 		return (typeof id === 'string') ? { id, type: AdyenPayments.TYPE } : {id: id.id, type: AdyenPayments.TYPE }
 	}
 
+	type(): string {
+		return AdyenPayments.TYPE
+	}
+
 }
 
 

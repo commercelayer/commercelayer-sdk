@@ -50,6 +50,10 @@ class OrderValidationRules extends ApiResource {
 		return (typeof id === 'string') ? { id, type: OrderValidationRules.TYPE } : {id: id.id, type: OrderValidationRules.TYPE }
 	}
 
+	type(): string {
+		return OrderValidationRules.TYPE
+	}
+
 }
 
 

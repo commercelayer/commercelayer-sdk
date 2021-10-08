@@ -116,6 +116,10 @@ class Bundles extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Bundles.TYPE } : {id: id.id, type: Bundles.TYPE }
 	}
 
+	type(): string {
+		return Bundles.TYPE
+	}
+
 }
 
 

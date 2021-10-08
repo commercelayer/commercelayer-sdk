@@ -86,6 +86,10 @@ class Imports extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Imports.TYPE } : {id: id.id, type: Imports.TYPE }
 	}
 
+	type(): string {
+		return Imports.TYPE
+	}
+
 }
 
 

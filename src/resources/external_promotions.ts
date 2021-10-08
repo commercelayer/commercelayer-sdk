@@ -124,6 +124,10 @@ class ExternalPromotions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ExternalPromotions.TYPE } : {id: id.id, type: ExternalPromotions.TYPE }
 	}
 
+	type(): string {
+		return ExternalPromotions.TYPE
+	}
+
 }
 
 

@@ -117,6 +117,10 @@ class ShippingMethods extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ShippingMethods.TYPE } : {id: id.id, type: ShippingMethods.TYPE }
 	}
 
+	type(): string {
+		return ShippingMethods.TYPE
+	}
+
 }
 
 

@@ -105,6 +105,10 @@ class SkuOptions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: SkuOptions.TYPE } : {id: id.id, type: SkuOptions.TYPE }
 	}
 
+	type(): string {
+		return SkuOptions.TYPE
+	}
+
 }
 
 

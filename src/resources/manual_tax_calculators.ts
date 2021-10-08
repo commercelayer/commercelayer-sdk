@@ -97,6 +97,10 @@ class ManualTaxCalculators extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ManualTaxCalculators.TYPE } : {id: id.id, type: ManualTaxCalculators.TYPE }
 	}
 
+	type(): string {
+		return ManualTaxCalculators.TYPE
+	}
+
 }
 
 

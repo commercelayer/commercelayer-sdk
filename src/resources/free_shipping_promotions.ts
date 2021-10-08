@@ -121,6 +121,10 @@ class FreeShippingPromotions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: FreeShippingPromotions.TYPE } : {id: id.id, type: FreeShippingPromotions.TYPE }
 	}
 
+	type(): string {
+		return FreeShippingPromotions.TYPE
+	}
+
 }
 
 

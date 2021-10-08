@@ -99,6 +99,10 @@ class AdyenGateways extends ApiResource {
 		return (typeof id === 'string') ? { id, type: AdyenGateways.TYPE } : {id: id.id, type: AdyenGateways.TYPE }
 	}
 
+	type(): string {
+		return AdyenGateways.TYPE
+	}
+
 }
 
 

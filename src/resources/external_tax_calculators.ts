@@ -95,6 +95,10 @@ class ExternalTaxCalculators extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ExternalTaxCalculators.TYPE } : {id: id.id, type: ExternalTaxCalculators.TYPE }
 	}
 
+	type(): string {
+		return ExternalTaxCalculators.TYPE
+	}
+
 }
 
 

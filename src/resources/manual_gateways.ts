@@ -86,6 +86,10 @@ class ManualGateways extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ManualGateways.TYPE } : {id: id.id, type: ManualGateways.TYPE }
 	}
 
+	type(): string {
+		return ManualGateways.TYPE
+	}
+
 }
 
 

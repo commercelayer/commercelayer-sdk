@@ -53,6 +53,10 @@ class PromotionRules extends ApiResource {
 		return (typeof id === 'string') ? { id, type: PromotionRules.TYPE } : {id: id.id, type: PromotionRules.TYPE }
 	}
 
+	type(): string {
+		return PromotionRules.TYPE
+	}
+
 }
 
 

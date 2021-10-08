@@ -85,6 +85,10 @@ class ShippingCategories extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ShippingCategories.TYPE } : {id: id.id, type: ShippingCategories.TYPE }
 	}
 
+	type(): string {
+		return ShippingCategories.TYPE
+	}
+
 }
 
 

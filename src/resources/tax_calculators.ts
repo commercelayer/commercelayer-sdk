@@ -56,6 +56,10 @@ class TaxCalculators extends ApiResource {
 		return (typeof id === 'string') ? { id, type: TaxCalculators.TYPE } : {id: id.id, type: TaxCalculators.TYPE }
 	}
 
+	type(): string {
+		return TaxCalculators.TYPE
+	}
+
 }
 
 

@@ -126,6 +126,10 @@ class FixedAmountPromotions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: FixedAmountPromotions.TYPE } : {id: id.id, type: FixedAmountPromotions.TYPE }
 	}
 
+	type(): string {
+		return FixedAmountPromotions.TYPE
+	}
+
 }
 
 

@@ -88,6 +88,10 @@ class Adjustments extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Adjustments.TYPE } : {id: id.id, type: Adjustments.TYPE }
 	}
 
+	type(): string {
+		return Adjustments.TYPE
+	}
+
 }
 
 

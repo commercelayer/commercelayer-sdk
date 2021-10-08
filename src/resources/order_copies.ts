@@ -88,6 +88,10 @@ class OrderCopies extends ApiResource {
 		return (typeof id === 'string') ? { id, type: OrderCopies.TYPE } : {id: id.id, type: OrderCopies.TYPE }
 	}
 
+	type(): string {
+		return OrderCopies.TYPE
+	}
+
 }
 
 

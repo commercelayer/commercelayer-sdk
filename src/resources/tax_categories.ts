@@ -103,6 +103,10 @@ class TaxCategories extends ApiResource {
 		return (typeof id === 'string') ? { id, type: TaxCategories.TYPE } : {id: id.id, type: TaxCategories.TYPE }
 	}
 
+	type(): string {
+		return TaxCategories.TYPE
+	}
+
 }
 
 

@@ -116,6 +116,10 @@ class Returns extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Returns.TYPE } : {id: id.id, type: Returns.TYPE }
 	}
 
+	type(): string {
+		return Returns.TYPE
+	}
+
 }
 
 

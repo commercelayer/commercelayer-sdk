@@ -94,6 +94,10 @@ class TaxjarAccounts extends ApiResource {
 		return (typeof id === 'string') ? { id, type: TaxjarAccounts.TYPE } : {id: id.id, type: TaxjarAccounts.TYPE }
 	}
 
+	type(): string {
+		return TaxjarAccounts.TYPE
+	}
+
 }
 
 

@@ -87,6 +87,10 @@ class BingGeocoders extends ApiResource {
 		return (typeof id === 'string') ? { id, type: BingGeocoders.TYPE } : {id: id.id, type: BingGeocoders.TYPE }
 	}
 
+	type(): string {
+		return BingGeocoders.TYPE
+	}
+
 }
 
 

@@ -98,6 +98,10 @@ class ExternalGateways extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ExternalGateways.TYPE } : {id: id.id, type: ExternalGateways.TYPE }
 	}
 
+	type(): string {
+		return ExternalGateways.TYPE
+	}
+
 }
 
 

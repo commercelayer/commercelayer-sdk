@@ -68,6 +68,10 @@ class Voids extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Voids.TYPE } : {id: id.id, type: Voids.TYPE }
 	}
 
+	type(): string {
+		return Voids.TYPE
+	}
+
 }
 
 

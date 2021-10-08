@@ -25,8 +25,8 @@ describe('CheckoutComPayments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			payment_type: 'lambda_97',
-			token: 'beta_77',
+			payment_type: 'sigma_40',
+			token: 'beta_28',
 			order: cl.orders.relationship(TestData.id),
 		}
 

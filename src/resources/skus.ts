@@ -126,6 +126,10 @@ class Skus extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Skus.TYPE } : {id: id.id, type: Skus.TYPE }
 	}
 
+	type(): string {
+		return Skus.TYPE
+	}
+
 }
 
 

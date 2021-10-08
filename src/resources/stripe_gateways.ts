@@ -90,6 +90,10 @@ class StripeGateways extends ApiResource {
 		return (typeof id === 'string') ? { id, type: StripeGateways.TYPE } : {id: id.id, type: StripeGateways.TYPE }
 	}
 
+	type(): string {
+		return StripeGateways.TYPE
+	}
+
 }
 
 

@@ -54,6 +54,10 @@ class Geocoders extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Geocoders.TYPE } : {id: id.id, type: Geocoders.TYPE }
 	}
 
+	type(): string {
+		return Geocoders.TYPE
+	}
+
 }
 
 

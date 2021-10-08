@@ -93,6 +93,10 @@ class SkuListItems extends ApiResource {
 		return (typeof id === 'string') ? { id, type: SkuListItems.TYPE } : {id: id.id, type: SkuListItems.TYPE }
 	}
 
+	type(): string {
+		return SkuListItems.TYPE
+	}
+
 }
 
 

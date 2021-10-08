@@ -131,6 +131,10 @@ class PercentageDiscountPromotions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: PercentageDiscountPromotions.TYPE } : {id: id.id, type: PercentageDiscountPromotions.TYPE }
 	}
 
+	type(): string {
+		return PercentageDiscountPromotions.TYPE
+	}
+
 }
 
 

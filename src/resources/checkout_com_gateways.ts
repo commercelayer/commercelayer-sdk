@@ -97,6 +97,10 @@ class CheckoutComGateways extends ApiResource {
 		return (typeof id === 'string') ? { id, type: CheckoutComGateways.TYPE } : {id: id.id, type: CheckoutComGateways.TYPE }
 	}
 
+	type(): string {
+		return CheckoutComGateways.TYPE
+	}
+
 }
 
 

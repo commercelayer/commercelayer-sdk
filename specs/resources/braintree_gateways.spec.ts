@@ -25,11 +25,11 @@ describe('BraintreeGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'sigma_69',
-			merchant_account_id: 'sigma_61',
-			merchant_id: 'lambda_84',
-			public_key: 'omega_35',
-			private_key: 'alfa_34',
+			name: 'lambda_21',
+			merchant_account_id: 'beta_83',
+			merchant_id: 'epsilon_31',
+			public_key: 'delta_91',
+			private_key: 'lambda_70',
 			braintree_payments: [ cl.braintree_payments.relationship(TestData.id) ],
 		}
 

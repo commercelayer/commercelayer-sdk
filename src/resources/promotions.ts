@@ -67,6 +67,10 @@ class Promotions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Promotions.TYPE } : {id: id.id, type: Promotions.TYPE }
 	}
 
+	type(): string {
+		return Promotions.TYPE
+	}
+
 }
 
 

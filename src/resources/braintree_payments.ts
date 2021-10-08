@@ -99,6 +99,10 @@ class BraintreePayments extends ApiResource {
 		return (typeof id === 'string') ? { id, type: BraintreePayments.TYPE } : {id: id.id, type: BraintreePayments.TYPE }
 	}
 
+	type(): string {
+		return BraintreePayments.TYPE
+	}
+
 }
 
 

@@ -25,8 +25,8 @@ describe('GiftCards resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			currency_code: 'epsilon_92',
-			balance_cents: 10000,
+			currency_code: 'lambda_45',
+			balance_cents: 100,
 			market: cl.markets.relationship(TestData.id),
 			gift_card_recipient: cl.gift_card_recipients.relationship(TestData.id),
 		}

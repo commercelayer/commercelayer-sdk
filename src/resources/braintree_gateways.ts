@@ -108,6 +108,10 @@ class BraintreeGateways extends ApiResource {
 		return (typeof id === 'string') ? { id, type: BraintreeGateways.TYPE } : {id: id.id, type: BraintreeGateways.TYPE }
 	}
 
+	type(): string {
+		return BraintreeGateways.TYPE
+	}
+
 }
 
 

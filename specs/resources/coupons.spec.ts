@@ -25,7 +25,7 @@ describe('Coupons resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			code: 'omega_50',
+			code: 'sigma_25',
 			usage_limit: 1000,
 			promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
 		}

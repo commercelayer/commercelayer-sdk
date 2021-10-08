@@ -107,6 +107,10 @@ class Packages extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Packages.TYPE } : {id: id.id, type: Packages.TYPE }
 	}
 
+	type(): string {
+		return Packages.TYPE
+	}
+
 }
 
 

@@ -99,6 +99,10 @@ class PaypalPayments extends ApiResource {
 		return (typeof id === 'string') ? { id, type: PaypalPayments.TYPE } : {id: id.id, type: PaypalPayments.TYPE }
 	}
 
+	type(): string {
+		return PaypalPayments.TYPE
+	}
+
 }
 
 

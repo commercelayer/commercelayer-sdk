@@ -62,6 +62,10 @@ class Transactions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Transactions.TYPE } : {id: id.id, type: Transactions.TYPE }
 	}
 
+	type(): string {
+		return Transactions.TYPE
+	}
+
 }
 
 

@@ -93,6 +93,10 @@ class InventoryReturnLocations extends ApiResource {
 		return (typeof id === 'string') ? { id, type: InventoryReturnLocations.TYPE } : {id: id.id, type: InventoryReturnLocations.TYPE }
 	}
 
+	type(): string {
+		return InventoryReturnLocations.TYPE
+	}
+
 }
 
 

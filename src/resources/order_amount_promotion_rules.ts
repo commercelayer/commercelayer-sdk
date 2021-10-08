@@ -96,6 +96,10 @@ class OrderAmountPromotionRules extends ApiResource {
 		return (typeof id === 'string') ? { id, type: OrderAmountPromotionRules.TYPE } : {id: id.id, type: OrderAmountPromotionRules.TYPE }
 	}
 
+	type(): string {
+		return OrderAmountPromotionRules.TYPE
+	}
+
 }
 
 

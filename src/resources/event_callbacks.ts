@@ -55,6 +55,10 @@ class EventCallbacks extends ApiResource {
 		return (typeof id === 'string') ? { id, type: EventCallbacks.TYPE } : {id: id.id, type: EventCallbacks.TYPE }
 	}
 
+	type(): string {
+		return EventCallbacks.TYPE
+	}
+
 }
 
 

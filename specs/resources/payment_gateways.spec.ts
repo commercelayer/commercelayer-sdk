@@ -25,7 +25,7 @@ describe('PaymentGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_11',
+			name: 'epsilon_19',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

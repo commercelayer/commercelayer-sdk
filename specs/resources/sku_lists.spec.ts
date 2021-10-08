@@ -25,7 +25,7 @@ describe('SkuLists resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_17',
+			name: 'sigma_84',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

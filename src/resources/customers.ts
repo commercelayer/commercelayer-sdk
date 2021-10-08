@@ -106,6 +106,10 @@ class Customers extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Customers.TYPE } : {id: id.id, type: Customers.TYPE }
 	}
 
+	type(): string {
+		return Customers.TYPE
+	}
+
 }
 
 

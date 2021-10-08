@@ -25,10 +25,10 @@ describe('FreeShippingPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'alfa_19',
-			starts_at: 'beta_72',
-			expires_at: 'alfa_60',
-			total_usage_limit: 12345,
+			name: 'gamma_13',
+			starts_at: 'beta_77',
+			expires_at: 'sigma_54',
+			total_usage_limit: 10,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

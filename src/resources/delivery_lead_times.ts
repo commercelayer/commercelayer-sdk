@@ -100,6 +100,10 @@ class DeliveryLeadTimes extends ApiResource {
 		return (typeof id === 'string') ? { id, type: DeliveryLeadTimes.TYPE } : {id: id.id, type: DeliveryLeadTimes.TYPE }
 	}
 
+	type(): string {
+		return DeliveryLeadTimes.TYPE
+	}
+
 }
 
 

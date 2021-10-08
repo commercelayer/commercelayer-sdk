@@ -101,6 +101,10 @@ class ShippingZones extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ShippingZones.TYPE } : {id: id.id, type: ShippingZones.TYPE }
 	}
 
+	type(): string {
+		return ShippingZones.TYPE
+	}
+
 }
 
 

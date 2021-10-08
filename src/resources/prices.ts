@@ -106,6 +106,10 @@ class Prices extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Prices.TYPE } : {id: id.id, type: Prices.TYPE }
 	}
 
+	type(): string {
+		return Prices.TYPE
+	}
+
 }
 
 

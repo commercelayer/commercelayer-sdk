@@ -95,6 +95,10 @@ class Webhooks extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Webhooks.TYPE } : {id: id.id, type: Webhooks.TYPE }
 	}
 
+	type(): string {
+		return Webhooks.TYPE
+	}
+
 }
 
 

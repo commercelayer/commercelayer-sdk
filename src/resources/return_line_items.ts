@@ -98,6 +98,10 @@ class ReturnLineItems extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ReturnLineItems.TYPE } : {id: id.id, type: ReturnLineItems.TYPE }
 	}
 
+	type(): string {
+		return ReturnLineItems.TYPE
+	}
+
 }
 
 

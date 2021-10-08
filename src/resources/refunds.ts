@@ -68,6 +68,10 @@ class Refunds extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Refunds.TYPE } : {id: id.id, type: Refunds.TYPE }
 	}
 
+	type(): string {
+		return Refunds.TYPE
+	}
+
 }
 
 

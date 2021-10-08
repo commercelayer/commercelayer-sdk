@@ -93,6 +93,10 @@ class InventoryModels extends ApiResource {
 		return (typeof id === 'string') ? { id, type: InventoryModels.TYPE } : {id: id.id, type: InventoryModels.TYPE }
 	}
 
+	type(): string {
+		return InventoryModels.TYPE
+	}
+
 }
 
 

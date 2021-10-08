@@ -90,6 +90,10 @@ class Merchants extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Merchants.TYPE } : {id: id.id, type: Merchants.TYPE }
 	}
 
+	type(): string {
+		return Merchants.TYPE
+	}
+
 }
 
 

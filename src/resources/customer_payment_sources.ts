@@ -103,6 +103,10 @@ class CustomerPaymentSources extends ApiResource {
 		return (typeof id === 'string') ? { id, type: CustomerPaymentSources.TYPE } : {id: id.id, type: CustomerPaymentSources.TYPE }
 	}
 
+	type(): string {
+		return CustomerPaymentSources.TYPE
+	}
+
 }
 
 

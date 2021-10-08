@@ -82,6 +82,10 @@ class BillingInfoValidationRules extends ApiResource {
 		return (typeof id === 'string') ? { id, type: BillingInfoValidationRules.TYPE } : {id: id.id, type: BillingInfoValidationRules.TYPE }
 	}
 
+	type(): string {
+		return BillingInfoValidationRules.TYPE
+	}
+
 }
 
 

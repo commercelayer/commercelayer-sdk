@@ -83,6 +83,10 @@ class PaymentGateways extends ApiResource {
 		return (typeof id === 'string') ? { id, type: PaymentGateways.TYPE } : {id: id.id, type: PaymentGateways.TYPE }
 	}
 
+	type(): string {
+		return PaymentGateways.TYPE
+	}
+
 }
 
 

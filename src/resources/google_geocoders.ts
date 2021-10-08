@@ -87,6 +87,10 @@ class GoogleGeocoders extends ApiResource {
 		return (typeof id === 'string') ? { id, type: GoogleGeocoders.TYPE } : {id: id.id, type: GoogleGeocoders.TYPE }
 	}
 
+	type(): string {
+		return GoogleGeocoders.TYPE
+	}
+
 }
 
 

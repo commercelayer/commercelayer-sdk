@@ -113,6 +113,10 @@ class OrderSubscriptions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: OrderSubscriptions.TYPE } : {id: id.id, type: OrderSubscriptions.TYPE }
 	}
 
+	type(): string {
+		return OrderSubscriptions.TYPE
+	}
+
 }
 
 

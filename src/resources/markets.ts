@@ -121,6 +121,10 @@ class Markets extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Markets.TYPE } : {id: id.id, type: Markets.TYPE }
 	}
 
+	type(): string {
+		return Markets.TYPE
+	}
+
 }
 
 

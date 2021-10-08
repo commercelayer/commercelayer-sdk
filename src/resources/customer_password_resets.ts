@@ -86,6 +86,10 @@ class CustomerPasswordResets extends ApiResource {
 		return (typeof id === 'string') ? { id, type: CustomerPasswordResets.TYPE } : {id: id.id, type: CustomerPasswordResets.TYPE }
 	}
 
+	type(): string {
+		return CustomerPasswordResets.TYPE
+	}
+
 }
 
 

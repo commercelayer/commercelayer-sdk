@@ -94,6 +94,10 @@ class StripePayments extends ApiResource {
 		return (typeof id === 'string') ? { id, type: StripePayments.TYPE } : {id: id.id, type: StripePayments.TYPE }
 	}
 
+	type(): string {
+		return StripePayments.TYPE
+	}
+
 }
 
 

@@ -96,6 +96,10 @@ class ParcelLineItems extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ParcelLineItems.TYPE } : {id: id.id, type: ParcelLineItems.TYPE }
 	}
 
+	type(): string {
+		return ParcelLineItems.TYPE
+	}
+
 }
 
 

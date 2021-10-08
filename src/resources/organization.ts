@@ -62,6 +62,10 @@ class Organizations extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Organizations.TYPE } : {id: id.id, type: Organizations.TYPE }
 	}
 
+	type(): string {
+		return Organizations.TYPE
+	}
+
 }
 
 

@@ -79,6 +79,10 @@ class CustomerSubscriptions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: CustomerSubscriptions.TYPE } : {id: id.id, type: CustomerSubscriptions.TYPE }
 	}
 
+	type(): string {
+		return CustomerSubscriptions.TYPE
+	}
+
 }
 
 

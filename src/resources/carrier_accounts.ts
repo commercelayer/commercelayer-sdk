@@ -60,6 +60,10 @@ class CarrierAccounts extends ApiResource {
 		return (typeof id === 'string') ? { id, type: CarrierAccounts.TYPE } : {id: id.id, type: CarrierAccounts.TYPE }
 	}
 
+	type(): string {
+		return CarrierAccounts.TYPE
+	}
+
 }
 
 

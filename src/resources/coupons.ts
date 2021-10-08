@@ -92,6 +92,10 @@ class Coupons extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Coupons.TYPE } : {id: id.id, type: Coupons.TYPE }
 	}
 
+	type(): string {
+		return Coupons.TYPE
+	}
+
 }
 
 

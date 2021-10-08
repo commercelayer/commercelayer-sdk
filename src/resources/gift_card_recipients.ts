@@ -96,6 +96,10 @@ class GiftCardRecipients extends ApiResource {
 		return (typeof id === 'string') ? { id, type: GiftCardRecipients.TYPE } : {id: id.id, type: GiftCardRecipients.TYPE }
 	}
 
+	type(): string {
+		return GiftCardRecipients.TYPE
+	}
+
 }
 
 

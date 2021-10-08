@@ -93,6 +93,10 @@ class CouponCodesPromotionRules extends ApiResource {
 		return (typeof id === 'string') ? { id, type: CouponCodesPromotionRules.TYPE } : {id: id.id, type: CouponCodesPromotionRules.TYPE }
 	}
 
+	type(): string {
+		return CouponCodesPromotionRules.TYPE
+	}
+
 }
 
 

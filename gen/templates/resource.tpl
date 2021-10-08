@@ -43,6 +43,10 @@ class ##__RESOURCE_CLASS__## extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ##__RESOURCE_CLASS__##.TYPE } : {id: id.id, type: ##__RESOURCE_CLASS__##.TYPE }
 	}
 
+	type(): string {
+		return ##__RESOURCE_CLASS__##.TYPE
+	}
+
 }
 
 

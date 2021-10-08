@@ -53,6 +53,10 @@ class Applications extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Applications.TYPE } : {id: id.id, type: Applications.TYPE }
 	}
 
+	type(): string {
+		return Applications.TYPE
+	}
+
 }
 
 

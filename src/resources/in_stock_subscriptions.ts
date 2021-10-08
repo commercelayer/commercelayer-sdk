@@ -106,6 +106,10 @@ class InStockSubscriptions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: InStockSubscriptions.TYPE } : {id: id.id, type: InStockSubscriptions.TYPE }
 	}
 
+	type(): string {
+		return InStockSubscriptions.TYPE
+	}
+
 }
 
 

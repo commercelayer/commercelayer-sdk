@@ -101,6 +101,10 @@ class SkuListPromotionRules extends ApiResource {
 		return (typeof id === 'string') ? { id, type: SkuListPromotionRules.TYPE } : {id: id.id, type: SkuListPromotionRules.TYPE }
 	}
 
+	type(): string {
+		return SkuListPromotionRules.TYPE
+	}
+
 }
 
 

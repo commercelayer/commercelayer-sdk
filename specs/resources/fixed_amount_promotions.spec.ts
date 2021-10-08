@@ -25,11 +25,11 @@ describe('FixedAmountPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'epsilon_1',
-			starts_at: 'delta_77',
-			expires_at: 'delta_35',
+			name: 'kappa_14',
+			starts_at: 'gamma_31',
+			expires_at: 'beta_64',
 			total_usage_limit: 55,
-			fixed_amount_cents: 10,
+			fixed_amount_cents: 0,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

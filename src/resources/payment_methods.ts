@@ -102,6 +102,10 @@ class PaymentMethods extends ApiResource {
 		return (typeof id === 'string') ? { id, type: PaymentMethods.TYPE } : {id: id.id, type: PaymentMethods.TYPE }
 	}
 
+	type(): string {
+		return PaymentMethods.TYPE
+	}
+
 }
 
 

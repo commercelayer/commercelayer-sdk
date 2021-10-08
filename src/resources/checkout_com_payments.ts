@@ -103,6 +103,10 @@ class CheckoutComPayments extends ApiResource {
 		return (typeof id === 'string') ? { id, type: CheckoutComPayments.TYPE } : {id: id.id, type: CheckoutComPayments.TYPE }
 	}
 
+	type(): string {
+		return CheckoutComPayments.TYPE
+	}
+
 }
 
 

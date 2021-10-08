@@ -107,6 +107,10 @@ class LineItemOptions extends ApiResource {
 		return (typeof id === 'string') ? { id, type: LineItemOptions.TYPE } : {id: id.id, type: LineItemOptions.TYPE }
 	}
 
+	type(): string {
+		return LineItemOptions.TYPE
+	}
+
 }
 
 

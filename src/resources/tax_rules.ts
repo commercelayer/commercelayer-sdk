@@ -122,6 +122,10 @@ class TaxRules extends ApiResource {
 		return (typeof id === 'string') ? { id, type: TaxRules.TYPE } : {id: id.id, type: TaxRules.TYPE }
 	}
 
+	type(): string {
+		return TaxRules.TYPE
+	}
+
 }
 
 

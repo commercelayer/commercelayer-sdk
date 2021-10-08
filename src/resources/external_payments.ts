@@ -92,6 +92,10 @@ class ExternalPayments extends ApiResource {
 		return (typeof id === 'string') ? { id, type: ExternalPayments.TYPE } : {id: id.id, type: ExternalPayments.TYPE }
 	}
 
+	type(): string {
+		return ExternalPayments.TYPE
+	}
+
 }
 
 

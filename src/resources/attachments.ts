@@ -152,6 +152,10 @@ class Attachments extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Attachments.TYPE } : {id: id.id, type: Attachments.TYPE }
 	}
 
+	type(): string {
+		return Attachments.TYPE
+	}
+
 }
 
 

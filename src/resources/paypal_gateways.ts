@@ -91,6 +91,10 @@ class PaypalGateways extends ApiResource {
 		return (typeof id === 'string') ? { id, type: PaypalGateways.TYPE } : {id: id.id, type: PaypalGateways.TYPE }
 	}
 
+	type(): string {
+		return PaypalGateways.TYPE
+	}
+
 }
 
 

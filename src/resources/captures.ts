@@ -88,6 +88,10 @@ class Captures extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Captures.TYPE } : {id: id.id, type: Captures.TYPE }
 	}
 
+	type(): string {
+		return Captures.TYPE
+	}
+
 }
 
 

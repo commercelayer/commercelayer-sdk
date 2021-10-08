@@ -97,6 +97,10 @@ class Authorizations extends ApiResource {
 		return (typeof id === 'string') ? { id, type: Authorizations.TYPE } : {id: id.id, type: Authorizations.TYPE }
 	}
 
+	type(): string {
+		return Authorizations.TYPE
+	}
+
 }
 
 
