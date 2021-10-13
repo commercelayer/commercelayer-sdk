@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -17,7 +17,8 @@
   "keywords": [
     "javascript",
     "ecommerce",
-    "jamstack"
+    "jamstack",
+    "commercelayer"
   ],
   "author": "Pierluigi Viti <pierluigi@commercelayer.io>",
   "license": "MIT",
