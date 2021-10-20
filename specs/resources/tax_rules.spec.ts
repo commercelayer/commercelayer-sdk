@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('TaxRules resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_94',
+			name: 'lambda_68',
 			manual_tax_calculator: cl.manual_tax_calculators.relationship(TestData.id),
 		}
 

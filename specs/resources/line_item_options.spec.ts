@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('LineItemOptions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 0,
-			options: { key31: 'val31' },
+			quantity: 5,
+			options: { key41: 'val41' },
 			line_item: cl.line_items.relationship(TestData.id),
 			sku_option: cl.sku_options.relationship(TestData.id),
 		}

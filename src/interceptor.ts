@@ -21,6 +21,7 @@ type InterceptorType = 'request' | 'response'
 
 
 export type { InterceptorManager, RequestInterceptor, ResponseInterceptor, ErrorInterceptor, InterceptorType }
+export type { RequestObj, ResponseObj, ErrorObj }
 
 
 
@@ -30,4 +31,4 @@ type RawResponseReader = {
 }
 
 
-export type { RawResponseReader, ResponseObj }
+export type { RawResponseReader }

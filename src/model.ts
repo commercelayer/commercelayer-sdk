@@ -3,7 +3,7 @@
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 export type { Address, AddressCreate, AddressUpdate } from './resources/addresses'
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate } from './resources/adjustments'
@@ -23,6 +23,7 @@ export type { CarrierAccount } from './resources/carrier_accounts'
 export type { CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewayUpdate } from './resources/checkout_com_gateways'
 export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate } from './resources/checkout_com_payments'
 export type { CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRuleUpdate } from './resources/coupon_codes_promotion_rules'
+export type { CouponRecipient, CouponRecipientCreate, CouponRecipientUpdate } from './resources/coupon_recipients'
 export type { Coupon, CouponCreate, CouponUpdate } from './resources/coupons'
 export type { CustomerAddress, CustomerAddressCreate, CustomerAddressUpdate } from './resources/customer_addresses'
 export type { CustomerGroup, CustomerGroupCreate, CustomerGroupUpdate } from './resources/customer_groups'
@@ -37,6 +38,8 @@ export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate } fr
 export type { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionUpdate } from './resources/external_promotions'
 export type { ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorUpdate } from './resources/external_tax_calculators'
 export type { FixedAmountPromotion, FixedAmountPromotionCreate, FixedAmountPromotionUpdate } from './resources/fixed_amount_promotions'
+export type { FixedPricePromotion, FixedPricePromotionCreate, FixedPricePromotionUpdate } from './resources/fixed_price_promotions'
+export type { FreeGiftPromotion, FreeGiftPromotionCreate, FreeGiftPromotionUpdate } from './resources/free_gift_promotions'
 export type { FreeShippingPromotion, FreeShippingPromotionCreate, FreeShippingPromotionUpdate } from './resources/free_shipping_promotions'
 export type { Geocoder } from './resources/geocoders'
 export type { GiftCardRecipient, GiftCardRecipientCreate, GiftCardRecipientUpdate } from './resources/gift_card_recipients'

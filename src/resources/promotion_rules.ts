@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -9,6 +9,8 @@ import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '..
 import { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import { FreeShippingPromotion } from './free_shipping_promotions'
 import { FixedAmountPromotion } from './fixed_amount_promotions'
+import { FreeGiftPromotion } from './free_gift_promotions'
+import { FixedPricePromotion } from './fixed_price_promotions'
 import { ExternalPromotion } from './external_promotions'
 
 
@@ -17,7 +19,7 @@ type PromotionRuleRel = ResourceId & { type: typeof PromotionRules.TYPE }
 
 interface PromotionRule extends Resource {
 	
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FixedAmountPromotion | ExternalPromotion
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FixedAmountPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion
 
 }
 

@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('Coupons resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			code: 'sigma_25',
-			usage_limit: 1000,
+			code: 'beta_20',
+			usage_limit: 1,
 			promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
 		}
 

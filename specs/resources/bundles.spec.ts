@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,10 +25,10 @@ describe('Bundles resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			code: 'beta_16',
-			name: 'omega_5',
-			price_amount_cents: 5,
-			compare_at_amount_cents: 10,
+			code: 'kappa_80',
+			name: 'omega_45',
+			price_amount_cents: 1,
+			compare_at_amount_cents: 0,
 			market: cl.markets.relationship(TestData.id),
 			sku_list: cl.sku_lists.relationship(TestData.id),
 		}

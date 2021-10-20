@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -26,7 +26,7 @@ describe('DeliveryLeadTimes resource', () => {
 
     const createAttributes = {
 			min_hours: 1,
-			max_hours: 555,
+			max_hours: 5,
 			stock_location: cl.stock_locations.relationship(TestData.id),
 			shipping_method: cl.shipping_methods.relationship(TestData.id),
 		}

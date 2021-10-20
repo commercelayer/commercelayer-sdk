@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('Markets resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'beta_58',
+			name: 'beta_17',
 			merchant: cl.merchants.relationship(TestData.id),
 			price_list: cl.price_lists.relationship(TestData.id),
 			inventory_model: cl.inventory_models.relationship(TestData.id),

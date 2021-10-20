@@ -1,10 +1,10 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '../query'
+import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Webhook } from './webhooks'
 
@@ -31,6 +31,10 @@ class EventCallbacks extends ApiResource {
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		return this.resources.list({ type: EventCallbacks.TYPE }, params, options)
+	}
+
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<EventCallback> {
+		return this.resources.retrieve<EventCallback>({ type: EventCallbacks.TYPE, id }, params, options)
 	}
 
 

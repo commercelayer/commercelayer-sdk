@@ -39,6 +39,7 @@ class CommerceLayerClient {
 	checkout_com_gateways: api.CheckoutComGateways
 	checkout_com_payments: api.CheckoutComPayments
 	coupon_codes_promotion_rules: api.CouponCodesPromotionRules
+	coupon_recipients: api.CouponRecipients
 	coupons: api.Coupons
 	customer_addresses: api.CustomerAddresses
 	customer_groups: api.CustomerGroups
@@ -53,6 +54,8 @@ class CommerceLayerClient {
 	external_promotions: api.ExternalPromotions
 	external_tax_calculators: api.ExternalTaxCalculators
 	fixed_amount_promotions: api.FixedAmountPromotions
+	fixed_price_promotions: api.FixedPricePromotions
+	free_gift_promotions: api.FreeGiftPromotions
 	free_shipping_promotions: api.FreeShippingPromotions
 	geocoders: api.Geocoders
 	gift_card_recipients: api.GiftCardRecipients
@@ -141,6 +144,7 @@ class CommerceLayerClient {
 		this.checkout_com_gateways = new api.CheckoutComGateways(this.#adapter)
 		this.checkout_com_payments = new api.CheckoutComPayments(this.#adapter)
 		this.coupon_codes_promotion_rules = new api.CouponCodesPromotionRules(this.#adapter)
+		this.coupon_recipients = new api.CouponRecipients(this.#adapter)
 		this.coupons = new api.Coupons(this.#adapter)
 		this.customer_addresses = new api.CustomerAddresses(this.#adapter)
 		this.customer_groups = new api.CustomerGroups(this.#adapter)
@@ -155,6 +159,8 @@ class CommerceLayerClient {
 		this.external_promotions = new api.ExternalPromotions(this.#adapter)
 		this.external_tax_calculators = new api.ExternalTaxCalculators(this.#adapter)
 		this.fixed_amount_promotions = new api.FixedAmountPromotions(this.#adapter)
+		this.fixed_price_promotions = new api.FixedPricePromotions(this.#adapter)
+		this.free_gift_promotions = new api.FreeGiftPromotions(this.#adapter)
 		this.free_shipping_promotions = new api.FreeShippingPromotions(this.#adapter)
 		this.geocoders = new api.Geocoders(this.#adapter)
 		this.gift_card_recipients = new api.GiftCardRecipients(this.#adapter)

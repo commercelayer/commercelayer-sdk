@@ -3,7 +3,7 @@
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 export { default as Addresses } from './resources/addresses'
 export { default as Adjustments } from './resources/adjustments'
@@ -23,6 +23,7 @@ export { default as CarrierAccounts } from './resources/carrier_accounts'
 export { default as CheckoutComGateways } from './resources/checkout_com_gateways'
 export { default as CheckoutComPayments } from './resources/checkout_com_payments'
 export { default as CouponCodesPromotionRules } from './resources/coupon_codes_promotion_rules'
+export { default as CouponRecipients } from './resources/coupon_recipients'
 export { default as Coupons } from './resources/coupons'
 export { default as CustomerAddresses } from './resources/customer_addresses'
 export { default as CustomerGroups } from './resources/customer_groups'
@@ -37,6 +38,8 @@ export { default as ExternalPayments } from './resources/external_payments'
 export { default as ExternalPromotions } from './resources/external_promotions'
 export { default as ExternalTaxCalculators } from './resources/external_tax_calculators'
 export { default as FixedAmountPromotions } from './resources/fixed_amount_promotions'
+export { default as FixedPricePromotions } from './resources/fixed_price_promotions'
+export { default as FreeGiftPromotions } from './resources/free_gift_promotions'
 export { default as FreeShippingPromotions } from './resources/free_shipping_promotions'
 export { default as Geocoders } from './resources/geocoders'
 export { default as GiftCardRecipients } from './resources/gift_card_recipients'
@@ -120,6 +123,7 @@ export type ResourceTypeLock =
 |	'checkout_com_gateways'
 |	'checkout_com_payments'
 |	'coupon_codes_promotion_rules'
+|	'coupon_recipients'
 |	'coupons'
 |	'customer_addresses'
 |	'customer_groups'
@@ -134,6 +138,8 @@ export type ResourceTypeLock =
 |	'external_promotions'
 |	'external_tax_calculators'
 |	'fixed_amount_promotions'
+|	'fixed_price_promotions'
+|	'free_gift_promotions'
 |	'free_shipping_promotions'
 |	'geocoders'
 |	'gift_card_recipients'
@@ -217,6 +223,7 @@ export const resourceList = [
 	'checkout_com_gateways',
 	'checkout_com_payments',
 	'coupon_codes_promotion_rules',
+	'coupon_recipients',
 	'coupons',
 	'customer_addresses',
 	'customer_groups',
@@ -231,6 +238,8 @@ export const resourceList = [
 	'external_promotions',
 	'external_tax_calculators',
 	'fixed_amount_promotions',
+	'fixed_price_promotions',
+	'free_gift_promotions',
 	'free_shipping_promotions',
 	'geocoders',
 	'gift_card_recipients',

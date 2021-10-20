@@ -14,5 +14,5 @@ export type { QueryParamsRetrieve, QueryParamsList } from './query'
 // Resource model types
 export * from './model'
 
-// Raw response reader
-export type { RawResponseReader } from './interceptor'
+// Raw response reader and request/response interceptors
+export * from './interceptor'

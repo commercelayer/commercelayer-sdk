@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('ParcelLineItems resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 0,
+			quantity: 10000,
 			parcel: cl.parcels.relationship(TestData.id),
 			stock_line_item: cl.stock_line_items.relationship(TestData.id),
 		}

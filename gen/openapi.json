@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.7.0",
+        "version": "2.7.3",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -2926,6 +2926,189 @@
                 }
             }
         },
+        "/coupon_recipients": {
+            "get": {
+                "operationId": "GET/coupon_recipients",
+                "summary": "List all coupon recipients",
+                "description": "List all coupon recipients",
+                "tags": [
+                    "coupon_recipients"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of coupon recipient objects"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "POST/coupon_recipients",
+                "summary": "Create a coupon recipient",
+                "description": "Create a coupon recipient",
+                "tags": [
+                    "coupon_recipients"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/couponRecipientCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created coupon recipient object"
+                    }
+                }
+            }
+        },
+        "/coupon_recipients/{couponRecipientId}": {
+            "get": {
+                "operationId": "GET/coupon_recipients/couponRecipientId",
+                "summary": "Retrieve a coupon recipient",
+                "description": "Retrieve a coupon recipient",
+                "tags": [
+                    "coupon_recipients"
+                ],
+                "parameters": [
+                    {
+                        "name": "couponRecipientId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The coupon recipient object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/couponRecipient"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/coupon_recipients/couponRecipientId",
+                "summary": "Update a coupon recipient",
+                "description": "Update a coupon recipient",
+                "tags": [
+                    "coupon_recipients"
+                ],
+                "parameters": [
+                    {
+                        "name": "couponRecipientId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/couponRecipientUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated coupon recipient object"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/coupon_recipients/couponRecipientId",
+                "summary": "Delete a coupon recipient",
+                "description": "Delete a coupon recipient",
+                "tags": [
+                    "coupon_recipients"
+                ],
+                "parameters": [
+                    {
+                        "name": "couponRecipientId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/coupon_recipients/{couponRecipientId}/customer": {
+            "get": {
+                "operationId": "GET/couponRecipientId/customer",
+                "summary": "Retrieve the customer associated to the coupon recipient",
+                "description": "Retrieve the customer associated to the coupon recipient",
+                "tags": [
+                    "has_one",
+                    "customers"
+                ],
+                "parameters": [
+                    {
+                        "name": "couponRecipientId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The customer associated to the coupon recipient"
+                    }
+                }
+            }
+        },
+        "/coupon_recipients/{couponRecipientId}/attachments": {
+            "get": {
+                "operationId": "GET/couponRecipientId/attachments",
+                "summary": "Retrieve the attachments associated to the coupon recipient",
+                "description": "Retrieve the attachments associated to the coupon recipient",
+                "tags": [
+                    "has_many",
+                    "attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "couponRecipientId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The attachments associated to the coupon recipient"
+                    }
+                }
+            }
+        },
         "/coupons": {
             "get": {
                 "operationId": "GET/coupons",
@@ -4513,6 +4696,39 @@
                 }
             }
         },
+        "/event_callbacks/{eventCallbackId}": {
+            "get": {
+                "operationId": "GET/event_callbacks/eventCallbackId",
+                "summary": "Retrieve an event callback",
+                "description": "Retrieve an event callback",
+                "tags": [
+                    "event_callbacks"
+                ],
+                "parameters": [
+                    {
+                        "name": "eventCallbackId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The event callback object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/eventCallback"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/event_callbacks/{eventCallbackId}/webhook": {
             "get": {
                 "operationId": "GET/eventCallbackId/webhook",
@@ -5640,6 +5856,642 @@
                 "responses": {
                     "200": {
                         "description": "The attachments associated to the fixed amount promotion"
+                    }
+                }
+            }
+        },
+        "/fixed_price_promotions": {
+            "get": {
+                "operationId": "GET/fixed_price_promotions",
+                "summary": "List all fixed price promotions",
+                "description": "List all fixed price promotions",
+                "tags": [
+                    "fixed_price_promotions"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of fixed price promotion objects"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "POST/fixed_price_promotions",
+                "summary": "Create a fixed price promotion",
+                "description": "Create a fixed price promotion",
+                "tags": [
+                    "fixed_price_promotions"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/fixedPricePromotionCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created fixed price promotion object"
+                    }
+                }
+            }
+        },
+        "/fixed_price_promotions/{fixedPricePromotionId}": {
+            "get": {
+                "operationId": "GET/fixed_price_promotions/fixedPricePromotionId",
+                "summary": "Retrieve a fixed price promotion",
+                "description": "Retrieve a fixed price promotion",
+                "tags": [
+                    "fixed_price_promotions"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The fixed price promotion object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/fixedPricePromotion"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/fixed_price_promotions/fixedPricePromotionId",
+                "summary": "Update a fixed price promotion",
+                "description": "Update a fixed price promotion",
+                "tags": [
+                    "fixed_price_promotions"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/fixedPricePromotionUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated fixed price promotion object"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/fixed_price_promotions/fixedPricePromotionId",
+                "summary": "Delete a fixed price promotion",
+                "description": "Delete a fixed price promotion",
+                "tags": [
+                    "fixed_price_promotions"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/fixed_price_promotions/{fixedPricePromotionId}/market": {
+            "get": {
+                "operationId": "GET/fixedPricePromotionId/market",
+                "summary": "Retrieve the market associated to the fixed price promotion",
+                "description": "Retrieve the market associated to the fixed price promotion",
+                "tags": [
+                    "has_one",
+                    "markets"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The market associated to the fixed price promotion"
+                    }
+                }
+            }
+        },
+        "/fixed_price_promotions/{fixedPricePromotionId}/order_amount_promotion_rule": {
+            "get": {
+                "operationId": "GET/fixedPricePromotionId/order_amount_promotion_rule",
+                "summary": "Retrieve the order amount promotion rule associated to the fixed price promotion",
+                "description": "Retrieve the order amount promotion rule associated to the fixed price promotion",
+                "tags": [
+                    "has_one",
+                    "order_amount_promotion_rules"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The order_amount_promotion_rule associated to the fixed price promotion"
+                    }
+                }
+            }
+        },
+        "/fixed_price_promotions/{fixedPricePromotionId}/sku_list_promotion_rule": {
+            "get": {
+                "operationId": "GET/fixedPricePromotionId/sku_list_promotion_rule",
+                "summary": "Retrieve the sku list promotion rule associated to the fixed price promotion",
+                "description": "Retrieve the sku list promotion rule associated to the fixed price promotion",
+                "tags": [
+                    "has_one",
+                    "sku_list_promotion_rules"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The sku_list_promotion_rule associated to the fixed price promotion"
+                    }
+                }
+            }
+        },
+        "/fixed_price_promotions/{fixedPricePromotionId}/coupon_codes_promotion_rule": {
+            "get": {
+                "operationId": "GET/fixedPricePromotionId/coupon_codes_promotion_rule",
+                "summary": "Retrieve the coupon codes promotion rule associated to the fixed price promotion",
+                "description": "Retrieve the coupon codes promotion rule associated to the fixed price promotion",
+                "tags": [
+                    "has_one",
+                    "coupon_codes_promotion_rules"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The coupon_codes_promotion_rule associated to the fixed price promotion"
+                    }
+                }
+            }
+        },
+        "/fixed_price_promotions/{fixedPricePromotionId}/attachments": {
+            "get": {
+                "operationId": "GET/fixedPricePromotionId/attachments",
+                "summary": "Retrieve the attachments associated to the fixed price promotion",
+                "description": "Retrieve the attachments associated to the fixed price promotion",
+                "tags": [
+                    "has_many",
+                    "attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The attachments associated to the fixed price promotion"
+                    }
+                }
+            }
+        },
+        "/fixed_price_promotions/{fixedPricePromotionId}/sku_list": {
+            "get": {
+                "operationId": "GET/fixedPricePromotionId/sku_list",
+                "summary": "Retrieve the sku list associated to the fixed price promotion",
+                "description": "Retrieve the sku list associated to the fixed price promotion",
+                "tags": [
+                    "has_one",
+                    "sku_lists"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The sku_list associated to the fixed price promotion"
+                    }
+                }
+            }
+        },
+        "/fixed_price_promotions/{fixedPricePromotionId}/skus": {
+            "get": {
+                "operationId": "GET/fixedPricePromotionId/skus",
+                "summary": "Retrieve the skus associated to the fixed price promotion",
+                "description": "Retrieve the skus associated to the fixed price promotion",
+                "tags": [
+                    "has_many",
+                    "skus"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The skus associated to the fixed price promotion"
+                    }
+                }
+            }
+        },
+        "/free_gift_promotions": {
+            "get": {
+                "operationId": "GET/free_gift_promotions",
+                "summary": "List all free gift promotions",
+                "description": "List all free gift promotions",
+                "tags": [
+                    "free_gift_promotions"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of free gift promotion objects"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "POST/free_gift_promotions",
+                "summary": "Create a free gift promotion",
+                "description": "Create a free gift promotion",
+                "tags": [
+                    "free_gift_promotions"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/freeGiftPromotionCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created free gift promotion object"
+                    }
+                }
+            }
+        },
+        "/free_gift_promotions/{freeGiftPromotionId}": {
+            "get": {
+                "operationId": "GET/free_gift_promotions/freeGiftPromotionId",
+                "summary": "Retrieve a free gift promotion",
+                "description": "Retrieve a free gift promotion",
+                "tags": [
+                    "free_gift_promotions"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The free gift promotion object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/freeGiftPromotion"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/free_gift_promotions/freeGiftPromotionId",
+                "summary": "Update a free gift promotion",
+                "description": "Update a free gift promotion",
+                "tags": [
+                    "free_gift_promotions"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/freeGiftPromotionUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated free gift promotion object"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/free_gift_promotions/freeGiftPromotionId",
+                "summary": "Delete a free gift promotion",
+                "description": "Delete a free gift promotion",
+                "tags": [
+                    "free_gift_promotions"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/free_gift_promotions/{freeGiftPromotionId}/market": {
+            "get": {
+                "operationId": "GET/freeGiftPromotionId/market",
+                "summary": "Retrieve the market associated to the free gift promotion",
+                "description": "Retrieve the market associated to the free gift promotion",
+                "tags": [
+                    "has_one",
+                    "markets"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The market associated to the free gift promotion"
+                    }
+                }
+            }
+        },
+        "/free_gift_promotions/{freeGiftPromotionId}/order_amount_promotion_rule": {
+            "get": {
+                "operationId": "GET/freeGiftPromotionId/order_amount_promotion_rule",
+                "summary": "Retrieve the order amount promotion rule associated to the free gift promotion",
+                "description": "Retrieve the order amount promotion rule associated to the free gift promotion",
+                "tags": [
+                    "has_one",
+                    "order_amount_promotion_rules"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The order_amount_promotion_rule associated to the free gift promotion"
+                    }
+                }
+            }
+        },
+        "/free_gift_promotions/{freeGiftPromotionId}/sku_list_promotion_rule": {
+            "get": {
+                "operationId": "GET/freeGiftPromotionId/sku_list_promotion_rule",
+                "summary": "Retrieve the sku list promotion rule associated to the free gift promotion",
+                "description": "Retrieve the sku list promotion rule associated to the free gift promotion",
+                "tags": [
+                    "has_one",
+                    "sku_list_promotion_rules"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The sku_list_promotion_rule associated to the free gift promotion"
+                    }
+                }
+            }
+        },
+        "/free_gift_promotions/{freeGiftPromotionId}/coupon_codes_promotion_rule": {
+            "get": {
+                "operationId": "GET/freeGiftPromotionId/coupon_codes_promotion_rule",
+                "summary": "Retrieve the coupon codes promotion rule associated to the free gift promotion",
+                "description": "Retrieve the coupon codes promotion rule associated to the free gift promotion",
+                "tags": [
+                    "has_one",
+                    "coupon_codes_promotion_rules"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The coupon_codes_promotion_rule associated to the free gift promotion"
+                    }
+                }
+            }
+        },
+        "/free_gift_promotions/{freeGiftPromotionId}/attachments": {
+            "get": {
+                "operationId": "GET/freeGiftPromotionId/attachments",
+                "summary": "Retrieve the attachments associated to the free gift promotion",
+                "description": "Retrieve the attachments associated to the free gift promotion",
+                "tags": [
+                    "has_many",
+                    "attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The attachments associated to the free gift promotion"
+                    }
+                }
+            }
+        },
+        "/free_gift_promotions/{freeGiftPromotionId}/sku_list": {
+            "get": {
+                "operationId": "GET/freeGiftPromotionId/sku_list",
+                "summary": "Retrieve the sku list associated to the free gift promotion",
+                "description": "Retrieve the sku list associated to the free gift promotion",
+                "tags": [
+                    "has_one",
+                    "sku_lists"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The sku_list associated to the free gift promotion"
+                    }
+                }
+            }
+        },
+        "/free_gift_promotions/{freeGiftPromotionId}/skus": {
+            "get": {
+                "operationId": "GET/freeGiftPromotionId/skus",
+                "summary": "Retrieve the skus associated to the free gift promotion",
+                "description": "Retrieve the skus associated to the free gift promotion",
+                "tags": [
+                    "has_many",
+                    "skus"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The skus associated to the free gift promotion"
                     }
                 }
             }
@@ -22771,6 +23623,8 @@
                                                     "percentage_discount_promotions",
                                                     "free_shipping_promotions",
                                                     "fixed_amount_promotions",
+                                                    "free_gift_promotions",
+                                                    "fixed_price_promotions",
                                                     "external_promotions"
                                                 ]
                                             },
@@ -22789,6 +23643,12 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/fixedAmountPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/freeGiftPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedPricePromotion"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
@@ -22881,6 +23741,8 @@
                                                     "percentage_discount_promotions",
                                                     "free_shipping_promotions",
                                                     "fixed_amount_promotions",
+                                                    "free_gift_promotions",
+                                                    "fixed_price_promotions",
                                                     "external_promotions"
                                                 ]
                                             },
@@ -22899,6 +23761,12 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/fixedAmountPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/freeGiftPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedPricePromotion"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
@@ -23000,6 +23868,8 @@
                                                     "percentage_discount_promotions",
                                                     "free_shipping_promotions",
                                                     "fixed_amount_promotions",
+                                                    "free_gift_promotions",
+                                                    "fixed_price_promotions",
                                                     "external_promotions"
                                                 ]
                                             },
@@ -23020,6 +23890,12 @@
                                                 "$ref": "#/components/schemas/fixedAmountPromotion"
                                             },
                                             {
+                                                "$ref": "#/components/schemas/freeGiftPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedPricePromotion"
+                                            },
+                                            {
                                                 "$ref": "#/components/schemas/externalPromotion"
                                             }
                                         ]
@@ -23036,6 +23912,305 @@
                                                 "description": "The resource's type",
                                                 "example": "coupons",
                                                 "default": "coupons"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "couponRecipient": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "coupon_recipients",
+                                "default": "coupon_recipients"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "The recipient email address",
+                                        "example": "john@example.com"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "description": "The recipient first name",
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "description": "The recipient last name",
+                                        "example": "Smith"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "customer": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "customers",
+                                                "default": "customers"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "attachments",
+                                                "default": "attachments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "couponRecipientCreate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "coupon_recipients",
+                                "default": "coupon_recipients"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "The recipient email address",
+                                        "example": "john@example.com"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "description": "The recipient first name",
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "description": "The recipient last name",
+                                        "example": "Smith"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "email"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "customer": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "customers",
+                                                "default": "customers"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "couponRecipientUpdate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "coupon_recipients",
+                                "default": "coupon_recipients"
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "The recipient email address",
+                                        "example": "john@example.com"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "description": "The recipient first name",
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "description": "The recipient last name",
+                                        "example": "Smith"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "customer": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "customers",
+                                                "default": "customers"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -23086,6 +24261,11 @@
                                         "type": "integer",
                                         "description": "The number of times this coupon has been used.",
                                         "example": 20
+                                    },
+                                    "recipient_email": {
+                                        "type": "string",
+                                        "description": "The email address of the associated recipient. When creating or updating a coupon, this is a shortcut to find or create the associated recipient by email.",
+                                        "example": "john@example.com"
                                     },
                                     "id": {
                                         "type": "string",
@@ -23182,6 +24362,11 @@
                                         "description": "The total number of times this coupon can be used.",
                                         "example": 50
                                     },
+                                    "recipient_email": {
+                                        "type": "string",
+                                        "description": "The email address of the associated recipient. When creating or updating a coupon, this is a shortcut to find or create the associated recipient by email.",
+                                        "example": "john@example.com"
+                                    },
                                     "reference": {
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
@@ -23274,6 +24459,11 @@
                                         "type": "integer",
                                         "description": "The total number of times this coupon can be used.",
                                         "example": 50
+                                    },
+                                    "recipient_email": {
+                                        "type": "string",
+                                        "description": "The email address of the associated recipient. When creating or updating a coupon, this is a shortcut to find or create the associated recipient by email.",
+                                        "example": "john@example.com"
                                     },
                                     "reference": {
                                         "type": "string",
@@ -27641,6 +28831,1347 @@
                     }
                 }
             },
+            "fixedPricePromotion": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "fixed_price_promotions",
+                                "default": "fixed_price_promotions"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The promotion's internal name.",
+                                        "example": "Personal promotion"
+                                    },
+                                    "starts_at": {
+                                        "type": "string",
+                                        "description": "The activation date/time of this promotion.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "expires_at": {
+                                        "type": "string",
+                                        "description": "The expiration date/time of this promotion (must be after starts_at).",
+                                        "example": "2018-01-02T12:00:00.000Z"
+                                    },
+                                    "total_usage_limit": {
+                                        "type": "integer",
+                                        "description": "The total number of times this promotion can be applied.",
+                                        "example": 5
+                                    },
+                                    "total_usage_count": {
+                                        "type": "integer",
+                                        "description": "The number of times this promotion has been applied.",
+                                        "example": 2
+                                    },
+                                    "active": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the promotion is active.",
+                                        "example": true
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "fixed_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price fixed amount to be applied on matching SKUs, in cents",
+                                        "example": 1000
+                                    },
+                                    "fixed_amount_float": {
+                                        "type": "number",
+                                        "description": "The discount fixed amount to be applied, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_fixed_amount": {
+                                        "type": "string",
+                                        "description": "The discount fixed amount to be applied, formatted.",
+                                        "example": "€10,00"
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "market": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "markets",
+                                                "default": "markets"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "promotion_rules": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "promotion_rules",
+                                                "default": "promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "order_amount_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "order_amount_promotion_rules",
+                                                "default": "order_amount_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_list_promotion_rules",
+                                                "default": "sku_list_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "coupon_codes_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "coupon_codes_promotion_rules",
+                                                "default": "coupon_codes_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "attachments",
+                                                "default": "attachments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_lists",
+                                                "default": "sku_lists"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "skus": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "skus",
+                                                "default": "skus"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "fixedPricePromotionCreate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "fixed_price_promotions",
+                                "default": "fixed_price_promotions"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The promotion's internal name.",
+                                        "example": "Personal promotion"
+                                    },
+                                    "starts_at": {
+                                        "type": "string",
+                                        "description": "The activation date/time of this promotion.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "expires_at": {
+                                        "type": "string",
+                                        "description": "The expiration date/time of this promotion (must be after starts_at).",
+                                        "example": "2018-01-02T12:00:00.000Z"
+                                    },
+                                    "total_usage_limit": {
+                                        "type": "integer",
+                                        "description": "The total number of times this promotion can be applied.",
+                                        "example": 5
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "fixed_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price fixed amount to be applied on matching SKUs, in cents",
+                                        "example": 1000
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "starts_at",
+                                    "expires_at",
+                                    "total_usage_limit",
+                                    "fixed_amount_cents"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "market": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "markets",
+                                                "default": "markets"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "promotion_rules": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "promotion_rules",
+                                                "default": "promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "order_amount_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "order_amount_promotion_rules",
+                                                "default": "order_amount_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_list_promotion_rules",
+                                                "default": "sku_list_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "coupon_codes_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "coupon_codes_promotion_rules",
+                                                "default": "coupon_codes_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_lists",
+                                                "default": "sku_lists"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "sku_list"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "fixedPricePromotionUpdate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "fixed_price_promotions",
+                                "default": "fixed_price_promotions"
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The promotion's internal name.",
+                                        "example": "Personal promotion"
+                                    },
+                                    "starts_at": {
+                                        "type": "string",
+                                        "description": "The activation date/time of this promotion.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "expires_at": {
+                                        "type": "string",
+                                        "description": "The expiration date/time of this promotion (must be after starts_at).",
+                                        "example": "2018-01-02T12:00:00.000Z"
+                                    },
+                                    "total_usage_limit": {
+                                        "type": "integer",
+                                        "description": "The total number of times this promotion can be applied.",
+                                        "example": 5
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "fixed_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price fixed amount to be applied on matching SKUs, in cents",
+                                        "example": 1000
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "market": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "markets",
+                                                "default": "markets"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "promotion_rules": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "promotion_rules",
+                                                "default": "promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "order_amount_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "order_amount_promotion_rules",
+                                                "default": "order_amount_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_list_promotion_rules",
+                                                "default": "sku_list_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "coupon_codes_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "coupon_codes_promotion_rules",
+                                                "default": "coupon_codes_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_lists",
+                                                "default": "sku_lists"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "freeGiftPromotion": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "free_gift_promotions",
+                                "default": "free_gift_promotions"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The promotion's internal name.",
+                                        "example": "Personal promotion"
+                                    },
+                                    "starts_at": {
+                                        "type": "string",
+                                        "description": "The activation date/time of this promotion.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "expires_at": {
+                                        "type": "string",
+                                        "description": "The expiration date/time of this promotion (must be after starts_at).",
+                                        "example": "2018-01-02T12:00:00.000Z"
+                                    },
+                                    "total_usage_limit": {
+                                        "type": "integer",
+                                        "description": "The total number of times this promotion can be applied.",
+                                        "example": 5
+                                    },
+                                    "total_usage_count": {
+                                        "type": "integer",
+                                        "description": "The number of times this promotion has been applied.",
+                                        "example": 2
+                                    },
+                                    "active": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the promotion is active.",
+                                        "example": true
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "max_quantity": {
+                                        "type": "integer",
+                                        "description": "The max quantity of free gifts globally applicable by the promotion, default to 1",
+                                        "example": 3
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "market": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "markets",
+                                                "default": "markets"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "promotion_rules": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "promotion_rules",
+                                                "default": "promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "order_amount_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "order_amount_promotion_rules",
+                                                "default": "order_amount_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_list_promotion_rules",
+                                                "default": "sku_list_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "coupon_codes_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "coupon_codes_promotion_rules",
+                                                "default": "coupon_codes_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "attachments",
+                                                "default": "attachments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_lists",
+                                                "default": "sku_lists"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "skus": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "skus",
+                                                "default": "skus"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "freeGiftPromotionCreate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "free_gift_promotions",
+                                "default": "free_gift_promotions"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The promotion's internal name.",
+                                        "example": "Personal promotion"
+                                    },
+                                    "starts_at": {
+                                        "type": "string",
+                                        "description": "The activation date/time of this promotion.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "expires_at": {
+                                        "type": "string",
+                                        "description": "The expiration date/time of this promotion (must be after starts_at).",
+                                        "example": "2018-01-02T12:00:00.000Z"
+                                    },
+                                    "total_usage_limit": {
+                                        "type": "integer",
+                                        "description": "The total number of times this promotion can be applied.",
+                                        "example": 5
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "max_quantity": {
+                                        "type": "integer",
+                                        "description": "The max quantity of free gifts globally applicable by the promotion, default to 1",
+                                        "example": 3
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "starts_at",
+                                    "expires_at",
+                                    "total_usage_limit"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "market": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "markets",
+                                                "default": "markets"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "promotion_rules": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "promotion_rules",
+                                                "default": "promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "order_amount_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "order_amount_promotion_rules",
+                                                "default": "order_amount_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_list_promotion_rules",
+                                                "default": "sku_list_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "coupon_codes_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "coupon_codes_promotion_rules",
+                                                "default": "coupon_codes_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_lists",
+                                                "default": "sku_lists"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "sku_list"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "freeGiftPromotionUpdate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "free_gift_promotions",
+                                "default": "free_gift_promotions"
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The promotion's internal name.",
+                                        "example": "Personal promotion"
+                                    },
+                                    "starts_at": {
+                                        "type": "string",
+                                        "description": "The activation date/time of this promotion.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "expires_at": {
+                                        "type": "string",
+                                        "description": "The expiration date/time of this promotion (must be after starts_at).",
+                                        "example": "2018-01-02T12:00:00.000Z"
+                                    },
+                                    "total_usage_limit": {
+                                        "type": "integer",
+                                        "description": "The total number of times this promotion can be applied.",
+                                        "example": 5
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "max_quantity": {
+                                        "type": "integer",
+                                        "description": "The max quantity of free gifts globally applicable by the promotion, default to 1",
+                                        "example": 3
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "market": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "markets",
+                                                "default": "markets"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "promotion_rules": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "promotion_rules",
+                                                "default": "promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "order_amount_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "order_amount_promotion_rules",
+                                                "default": "order_amount_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_list_promotion_rules",
+                                                "default": "sku_list_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "coupon_codes_promotion_rule": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "coupon_codes_promotion_rules",
+                                                "default": "coupon_codes_promotion_rules"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "sku_list": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "sku_lists",
+                                                "default": "sku_lists"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "freeShippingPromotion": {
                 "type": "object",
                 "required": [
@@ -28342,23 +30873,18 @@
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "description": "The gift card recipient email address",
+                                        "description": "The recipient email address",
                                         "example": "john@example.com"
                                     },
                                     "first_name": {
                                         "type": "string",
-                                        "description": "The gift card recipient first name",
+                                        "description": "The recipient first name",
                                         "example": "John"
                                     },
                                     "last_name": {
                                         "type": "string",
-                                        "description": "The gift card recipient last name",
+                                        "description": "The recipient last name",
                                         "example": "Smith"
-                                    },
-                                    "reference_origin": {
-                                        "type": "string",
-                                        "description": "Any identifier of the third party system that defines the reference code",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                                     },
                                     "id": {
                                         "type": "string",
@@ -28379,6 +30905,11 @@
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
                                         "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                                     },
                                     "metadata": {
                                         "type": "object",
@@ -28462,28 +30993,28 @@
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "description": "The gift card recipient email address",
+                                        "description": "The recipient email address",
                                         "example": "john@example.com"
                                     },
                                     "first_name": {
                                         "type": "string",
-                                        "description": "The gift card recipient first name",
+                                        "description": "The recipient first name",
                                         "example": "John"
                                     },
                                     "last_name": {
                                         "type": "string",
-                                        "description": "The gift card recipient last name",
+                                        "description": "The recipient last name",
                                         "example": "Smith"
-                                    },
-                                    "reference_origin": {
-                                        "type": "string",
-                                        "description": "Any identifier of the third party system that defines the reference code",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                                     },
                                     "reference": {
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
                                         "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                                     },
                                     "metadata": {
                                         "type": "object",
@@ -28556,28 +31087,28 @@
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "description": "The gift card recipient email address",
+                                        "description": "The recipient email address",
                                         "example": "john@example.com"
                                     },
                                     "first_name": {
                                         "type": "string",
-                                        "description": "The gift card recipient first name",
+                                        "description": "The recipient first name",
                                         "example": "John"
                                     },
                                     "last_name": {
                                         "type": "string",
-                                        "description": "The gift card recipient last name",
+                                        "description": "The recipient last name",
                                         "example": "Smith"
-                                    },
-                                    "reference_origin": {
-                                        "type": "string",
-                                        "description": "Any identifier of the third party system that defines the reference code",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                                     },
                                     "reference": {
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
                                         "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                                     },
                                     "metadata": {
                                         "type": "object",
@@ -28736,11 +31267,6 @@
                                         "description": "Time at which the gift card will expire.",
                                         "example": "2018-01-01T12:00:00.000Z"
                                     },
-                                    "reference_origin": {
-                                        "type": "string",
-                                        "description": "Any identifier of the third party system that defines the reference code",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                                    },
                                     "recipient_email": {
                                         "type": "string",
                                         "description": "The email address of the associated recipient. When creating or updating a gift card, this is a shortcut to find or create the associated recipient by email.",
@@ -28770,6 +31296,11 @@
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
                                         "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                                     },
                                     "metadata": {
                                         "type": "object",
@@ -28911,11 +31442,6 @@
                                         "description": "Time at which the gift card will expire.",
                                         "example": "2018-01-01T12:00:00.000Z"
                                     },
-                                    "reference_origin": {
-                                        "type": "string",
-                                        "description": "Any identifier of the third party system that defines the reference code",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                                    },
                                     "recipient_email": {
                                         "type": "string",
                                         "description": "The email address of the associated recipient. When creating or updating a gift card, this is a shortcut to find or create the associated recipient by email.",
@@ -28925,6 +31451,11 @@
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
                                         "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                                     },
                                     "metadata": {
                                         "type": "object",
@@ -29051,11 +31582,6 @@
                                         "description": "Time at which the gift card will expire.",
                                         "example": "2018-01-01T12:00:00.000Z"
                                     },
-                                    "reference_origin": {
-                                        "type": "string",
-                                        "description": "Any identifier of the third party system that defines the reference code",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                                    },
                                     "recipient_email": {
                                         "type": "string",
                                         "description": "The email address of the associated recipient. When creating or updating a gift card, this is a shortcut to find or create the associated recipient by email.",
@@ -29085,6 +31611,11 @@
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
                                         "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                                     },
                                     "metadata": {
                                         "type": "object",
@@ -33477,6 +36008,8 @@
                                                     "percentage_discount_promotions",
                                                     "free_shipping_promotions",
                                                     "fixed_amount_promotions",
+                                                    "free_gift_promotions",
+                                                    "fixed_price_promotions",
                                                     "external_promotions"
                                                 ]
                                             },
@@ -33495,6 +36028,12 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/fixedAmountPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/freeGiftPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedPricePromotion"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
@@ -33572,6 +36111,8 @@
                                                     "percentage_discount_promotions",
                                                     "free_shipping_promotions",
                                                     "fixed_amount_promotions",
+                                                    "free_gift_promotions",
+                                                    "fixed_price_promotions",
                                                     "external_promotions"
                                                 ]
                                             },
@@ -33590,6 +36131,12 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/fixedAmountPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/freeGiftPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedPricePromotion"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
@@ -33676,6 +36223,8 @@
                                                     "percentage_discount_promotions",
                                                     "free_shipping_promotions",
                                                     "fixed_amount_promotions",
+                                                    "free_gift_promotions",
+                                                    "fixed_price_promotions",
                                                     "external_promotions"
                                                 ]
                                             },
@@ -33694,6 +36243,12 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/fixedAmountPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/freeGiftPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedPricePromotion"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
@@ -40079,6 +42634,8 @@
                                                     "percentage_discount_promotions",
                                                     "free_shipping_promotions",
                                                     "fixed_amount_promotions",
+                                                    "free_gift_promotions",
+                                                    "fixed_price_promotions",
                                                     "external_promotions"
                                                 ]
                                             },
@@ -40097,6 +42654,12 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/fixedAmountPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/freeGiftPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedPricePromotion"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
@@ -43181,8 +45744,13 @@
                                     },
                                     "all_skus": {
                                         "type": "boolean",
-                                        "description": "Indicates if the rule is activated only when all of the skus of the list is also part of the order.",
+                                        "description": "Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.",
                                         "example": true
+                                    },
+                                    "min_quantity": {
+                                        "type": "integer",
+                                        "description": "The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the sku_list is manual, its items quantities are honoured.",
+                                        "example": 3
                                     }
                                 }
                             },
@@ -43205,6 +45773,8 @@
                                                     "percentage_discount_promotions",
                                                     "free_shipping_promotions",
                                                     "fixed_amount_promotions",
+                                                    "free_gift_promotions",
+                                                    "fixed_price_promotions",
                                                     "external_promotions"
                                                 ]
                                             },
@@ -43223,6 +45793,12 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/fixedAmountPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/freeGiftPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedPricePromotion"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
@@ -43316,8 +45892,13 @@
                                     },
                                     "all_skus": {
                                         "type": "boolean",
-                                        "description": "Indicates if the rule is activated only when all of the skus of the list is also part of the order.",
+                                        "description": "Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.",
                                         "example": true
+                                    },
+                                    "min_quantity": {
+                                        "type": "integer",
+                                        "description": "The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the sku_list is manual, its items quantities are honoured.",
+                                        "example": 3
                                     }
                                 }
                             },
@@ -43340,6 +45921,8 @@
                                                     "percentage_discount_promotions",
                                                     "free_shipping_promotions",
                                                     "fixed_amount_promotions",
+                                                    "free_gift_promotions",
+                                                    "fixed_price_promotions",
                                                     "external_promotions"
                                                 ]
                                             },
@@ -43358,6 +45941,12 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/fixedAmountPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/freeGiftPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedPricePromotion"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
@@ -43440,8 +46029,13 @@
                                     },
                                     "all_skus": {
                                         "type": "boolean",
-                                        "description": "Indicates if the rule is activated only when all of the skus of the list is also part of the order.",
+                                        "description": "Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.",
                                         "example": true
+                                    },
+                                    "min_quantity": {
+                                        "type": "integer",
+                                        "description": "The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the sku_list is manual, its items quantities are honoured.",
+                                        "example": 3
                                     }
                                 }
                             },
@@ -43464,6 +46058,8 @@
                                                     "percentage_discount_promotions",
                                                     "free_shipping_promotions",
                                                     "fixed_amount_promotions",
+                                                    "free_gift_promotions",
+                                                    "fixed_price_promotions",
                                                     "external_promotions"
                                                 ]
                                             },
@@ -43482,6 +46078,12 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/fixedAmountPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/freeGiftPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedPricePromotion"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
@@ -48398,7 +51000,6 @@
                                     }
                                 },
                                 "required": [
-                                    "name",
                                     "topic",
                                     "callback_url"
                                 ]
@@ -48820,6 +51421,10 @@
             "description": "resource type"
         },
         {
+            "name": "coupon_recipients",
+            "description": "resource type"
+        },
+        {
             "name": "coupons",
             "description": "resource type"
         },
@@ -48873,6 +51478,14 @@
         },
         {
             "name": "fixed_amount_promotions",
+            "description": "resource type"
+        },
+        {
+            "name": "fixed_price_promotions",
+            "description": "resource type"
+        },
+        {
+            "name": "free_gift_promotions",
             "description": "resource type"
         },
         {

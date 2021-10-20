@@ -19,8 +19,8 @@ const denormalize = <R extends Resource>(response: DocWithData): R | R[] => {
 	const data = response.data
 	const included = response.included
 
-	if (Array.isArray(data)) denormalizedResponse = data.map(res => denormalizeResource(res, included))
-	else denormalizedResponse = denormalizeResource(data, included)
+	if (Array.isArray(data)) denormalizedResponse = data.map(res => denormalizeResource<R>(res, included))
+	else denormalizedResponse = denormalizeResource<R>(data, included)
 
 	return denormalizedResponse
 
@@ -34,7 +34,7 @@ const findIncluded = (rel: ResourceIdentifierObject, included: Included = []): R
 }
 
 
-const denormalizeResource = (res: any, included?: Included): any => {
+const denormalizeResource = <T extends ResourceType>(res: any, included?: Included): T => {
 
 	const resource = {
 		id: res.id,
@@ -45,8 +45,8 @@ const denormalizeResource = (res: any, included?: Included): any => {
 	if (res.relationships) Object.keys(res.relationships).forEach(key => {
 		const rel = res.relationships[key].data
 		if (rel) {
-			if (Array.isArray(rel)) resource[key] = rel.map(r => denormalizeResource(findIncluded(r, included), included))
-			else resource[key] = denormalizeResource(findIncluded(rel, included), included)
+			if (Array.isArray(rel)) resource[key] = rel.map(r => denormalizeResource<ResourceType>(findIncluded(r, included), included))
+			else resource[key] = denormalizeResource<ResourceType>(findIncluded(rel, included), included)
 		} else if (rel === null) resource[key] = null
 	})
 	
