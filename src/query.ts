@@ -16,7 +16,7 @@ interface QueryParamsList extends QueryParamsRetrieve {
 
 type QueryParams = QueryParamsRetrieve | QueryParamsList
 
-export { QueryParamsRetrieve, QueryParamsList }
+export { QueryParamsRetrieve, QueryParamsList, QueryParams }
 
 
 

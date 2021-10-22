@@ -9,7 +9,7 @@ export type { CommerceLayerClient } from './commercelayer'
 export { CommerceLayerStatic } from './static'
 
 // Query filter types
-export type { QueryParamsRetrieve, QueryParamsList } from './query'
+export type { QueryParamsRetrieve, QueryParamsList, QueryParams } from './query'
 
 // Resource model types
 export * from './model'
