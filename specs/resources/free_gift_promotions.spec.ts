@@ -25,10 +25,10 @@ describe('FreeGiftPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'alfa_73',
-			starts_at: 'gamma_44',
-			expires_at: 'omega_6',
-			total_usage_limit: 5,
+			name: 'alfa_69',
+			starts_at: 'kappa_34',
+			expires_at: 'delta_64',
+			total_usage_limit: 10000,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
@@ -38,6 +38,7 @@ describe('FreeGiftPromotions resource', () => {
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { free_gift_promotions: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -48,7 +49,7 @@ describe('FreeGiftPromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, CommonData.options)
+    await cl[resourceType].create(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -81,6 +82,7 @@ describe('FreeGiftPromotions resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { free_gift_promotions: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -90,7 +92,7 @@ describe('FreeGiftPromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, CommonData.options)
+    await cl[resourceType].update(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -148,6 +150,9 @@ describe('FreeGiftPromotions resource', () => {
 
     const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+
+    const type = cl[resourceType].type()
+    expect(type).toBe(resourceType)
 
   })
   /* spec.type.stop */

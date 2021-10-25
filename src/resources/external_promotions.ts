@@ -85,16 +85,16 @@ class ExternalPromotions extends ApiResource {
 		return this.resources.list({ type: ExternalPromotions.TYPE }, params, options)
 	}
 
-	async create(resource: ExternalPromotionCreate, options?: ResourcesConfig): Promise<ExternalPromotion> {
-		return this.resources.create({ ...resource, type: ExternalPromotions.TYPE } , options)
+	async create(resource: ExternalPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
+		return this.resources.create({ ...resource, type: ExternalPromotions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
 		return this.resources.retrieve<ExternalPromotion>({ type: ExternalPromotions.TYPE, id }, params, options)
 	}
 
-	async update(resource: ExternalPromotionUpdate, options?: ResourcesConfig): Promise<ExternalPromotion> {
-		return this.resources.update({ ...resource, type: ExternalPromotions.TYPE }, options)
+	async update(resource: ExternalPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
+		return this.resources.update({ ...resource, type: ExternalPromotions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

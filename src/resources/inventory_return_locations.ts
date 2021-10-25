@@ -54,16 +54,16 @@ class InventoryReturnLocations extends ApiResource {
 		return this.resources.list({ type: InventoryReturnLocations.TYPE }, params, options)
 	}
 
-	async create(resource: InventoryReturnLocationCreate, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
-		return this.resources.create({ ...resource, type: InventoryReturnLocations.TYPE } , options)
+	async create(resource: InventoryReturnLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
+		return this.resources.create({ ...resource, type: InventoryReturnLocations.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
 		return this.resources.retrieve<InventoryReturnLocation>({ type: InventoryReturnLocations.TYPE, id }, params, options)
 	}
 
-	async update(resource: InventoryReturnLocationUpdate, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
-		return this.resources.update({ ...resource, type: InventoryReturnLocations.TYPE }, options)
+	async update(resource: InventoryReturnLocationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
+		return this.resources.update({ ...resource, type: InventoryReturnLocations.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

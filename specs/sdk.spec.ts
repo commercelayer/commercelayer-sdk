@@ -27,7 +27,7 @@ describe('SDK suite', () => {
 		const delay = stop - start
 
 		expect(delay).toBeGreaterThanOrEqual(ms)
-		expect(delay).toBeLessThan(ms + 10)
+		expect(delay).toBeLessThan(ms + 50)
 
 	})
 

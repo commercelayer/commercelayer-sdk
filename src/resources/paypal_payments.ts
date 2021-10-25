@@ -60,16 +60,16 @@ class PaypalPayments extends ApiResource {
 		return this.resources.list({ type: PaypalPayments.TYPE }, params, options)
 	}
 
-	async create(resource: PaypalPaymentCreate, options?: ResourcesConfig): Promise<PaypalPayment> {
-		return this.resources.create({ ...resource, type: PaypalPayments.TYPE } , options)
+	async create(resource: PaypalPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
+		return this.resources.create({ ...resource, type: PaypalPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
 		return this.resources.retrieve<PaypalPayment>({ type: PaypalPayments.TYPE, id }, params, options)
 	}
 
-	async update(resource: PaypalPaymentUpdate, options?: ResourcesConfig): Promise<PaypalPayment> {
-		return this.resources.update({ ...resource, type: PaypalPayments.TYPE }, options)
+	async update(resource: PaypalPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
+		return this.resources.update({ ...resource, type: PaypalPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

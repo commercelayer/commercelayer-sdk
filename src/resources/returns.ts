@@ -77,16 +77,16 @@ class Returns extends ApiResource {
 		return this.resources.list({ type: Returns.TYPE }, params, options)
 	}
 
-	async create(resource: ReturnCreate, options?: ResourcesConfig): Promise<Return> {
-		return this.resources.create({ ...resource, type: Returns.TYPE } , options)
+	async create(resource: ReturnCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.create({ ...resource, type: Returns.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.retrieve<Return>({ type: Returns.TYPE, id }, params, options)
 	}
 
-	async update(resource: ReturnUpdate, options?: ResourcesConfig): Promise<Return> {
-		return this.resources.update({ ...resource, type: Returns.TYPE }, options)
+	async update(resource: ReturnUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update({ ...resource, type: Returns.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

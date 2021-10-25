@@ -47,16 +47,16 @@ class ManualGateways extends ApiResource {
 		return this.resources.list({ type: ManualGateways.TYPE }, params, options)
 	}
 
-	async create(resource: ManualGatewayCreate, options?: ResourcesConfig): Promise<ManualGateway> {
-		return this.resources.create({ ...resource, type: ManualGateways.TYPE } , options)
+	async create(resource: ManualGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
+		return this.resources.create({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
 		return this.resources.retrieve<ManualGateway>({ type: ManualGateways.TYPE, id }, params, options)
 	}
 
-	async update(resource: ManualGatewayUpdate, options?: ResourcesConfig): Promise<ManualGateway> {
-		return this.resources.update({ ...resource, type: ManualGateways.TYPE }, options)
+	async update(resource: ManualGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
+		return this.resources.update({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

@@ -78,16 +78,16 @@ class ShippingMethods extends ApiResource {
 		return this.resources.list({ type: ShippingMethods.TYPE }, params, options)
 	}
 
-	async create(resource: ShippingMethodCreate, options?: ResourcesConfig): Promise<ShippingMethod> {
-		return this.resources.create({ ...resource, type: ShippingMethods.TYPE } , options)
+	async create(resource: ShippingMethodCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+		return this.resources.create({ ...resource, type: ShippingMethods.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.retrieve<ShippingMethod>({ type: ShippingMethods.TYPE, id }, params, options)
 	}
 
-	async update(resource: ShippingMethodUpdate, options?: ResourcesConfig): Promise<ShippingMethod> {
-		return this.resources.update({ ...resource, type: ShippingMethods.TYPE }, options)
+	async update(resource: ShippingMethodUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+		return this.resources.update({ ...resource, type: ShippingMethods.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

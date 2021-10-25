@@ -25,13 +25,14 @@ describe('Prices resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			amount_cents: 1000,
-			compare_at_amount_cents: 10000,
+			amount_cents: 555,
+			compare_at_amount_cents: 100,
 			price_list: cl.price_lists.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { prices: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -42,7 +43,7 @@ describe('Prices resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, CommonData.options)
+    await cl[resourceType].create(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -75,6 +76,7 @@ describe('Prices resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { prices: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -84,7 +86,7 @@ describe('Prices resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, CommonData.options)
+    await cl[resourceType].update(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -142,6 +144,9 @@ describe('Prices resource', () => {
 
     const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+
+    const type = cl[resourceType].type()
+    expect(type).toBe(resourceType)
 
   })
   /* spec.type.stop */

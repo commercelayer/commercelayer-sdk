@@ -64,16 +64,16 @@ class TaxCategories extends ApiResource {
 		return this.resources.list({ type: TaxCategories.TYPE }, params, options)
 	}
 
-	async create(resource: TaxCategoryCreate, options?: ResourcesConfig): Promise<TaxCategory> {
-		return this.resources.create({ ...resource, type: TaxCategories.TYPE } , options)
+	async create(resource: TaxCategoryCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
+		return this.resources.create({ ...resource, type: TaxCategories.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
 		return this.resources.retrieve<TaxCategory>({ type: TaxCategories.TYPE, id }, params, options)
 	}
 
-	async update(resource: TaxCategoryUpdate, options?: ResourcesConfig): Promise<TaxCategory> {
-		return this.resources.update({ ...resource, type: TaxCategories.TYPE }, options)
+	async update(resource: TaxCategoryUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
+		return this.resources.update({ ...resource, type: TaxCategories.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

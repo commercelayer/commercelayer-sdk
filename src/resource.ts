@@ -170,11 +170,14 @@ class ResourceAdapter {
 	}
 
 
-	async create<C extends ResourceCreate, R extends Resource>(resource: C & ResourceType, options?: ResourcesConfig): Promise<R> {
+	async create<C extends ResourceCreate, R extends Resource>(resource: C & ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+
+		const queryParams = generateQueryStringParams(params)
+		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
 
-		const res = await this.#client.request('post', resource.type, data, options)
+		const res = await this.#client.request('post', resource.type, data, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
 		return r
@@ -182,11 +185,14 @@ class ResourceAdapter {
 	}
 
 
-	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, options?: ResourcesConfig): Promise<R> {
+	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+
+		const queryParams = generateQueryStringParams(params)
+		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
 
-		const res = await this.#client.request('patch', `${resource.type}/${resource.id}`, data, options)
+		const res = await this.#client.request('patch', `${resource.type}/${resource.id}`, data, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
 		return r

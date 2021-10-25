@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse, Cancel } from "axios"
+import { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse } from "axios"
 
 
 type InterceptorManager = {
@@ -19,12 +19,9 @@ type ErrorInterceptor = (error: ErrorObj) => ErrorObj
 
 type InterceptorType = 'request' | 'response'
 
-type CancelRequestException = Cancel
-
 
 export type { InterceptorManager, RequestInterceptor, ResponseInterceptor, ErrorInterceptor, InterceptorType }
 export type { RequestObj, ResponseObj, ErrorObj }
-export type { CancelRequestException }
 
 
 

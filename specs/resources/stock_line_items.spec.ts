@@ -74,6 +74,9 @@ describe('StockLineItems resource', () => {
     const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
+    const type = cl[resourceType].type()
+    expect(type).toBe(resourceType)
+
   })
   /* spec.type.stop */
 

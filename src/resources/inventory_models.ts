@@ -54,16 +54,16 @@ class InventoryModels extends ApiResource {
 		return this.resources.list({ type: InventoryModels.TYPE }, params, options)
 	}
 
-	async create(resource: InventoryModelCreate, options?: ResourcesConfig): Promise<InventoryModel> {
-		return this.resources.create({ ...resource, type: InventoryModels.TYPE } , options)
+	async create(resource: InventoryModelCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
+		return this.resources.create({ ...resource, type: InventoryModels.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
 		return this.resources.retrieve<InventoryModel>({ type: InventoryModels.TYPE, id }, params, options)
 	}
 
-	async update(resource: InventoryModelUpdate, options?: ResourcesConfig): Promise<InventoryModel> {
-		return this.resources.update({ ...resource, type: InventoryModels.TYPE }, options)
+	async update(resource: InventoryModelUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
+		return this.resources.update({ ...resource, type: InventoryModels.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

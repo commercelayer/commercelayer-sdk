@@ -113,16 +113,16 @@ class Attachments extends ApiResource {
 		return this.resources.list({ type: Attachments.TYPE }, params, options)
 	}
 
-	async create(resource: AttachmentCreate, options?: ResourcesConfig): Promise<Attachment> {
-		return this.resources.create({ ...resource, type: Attachments.TYPE } , options)
+	async create(resource: AttachmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
+		return this.resources.create({ ...resource, type: Attachments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
 		return this.resources.retrieve<Attachment>({ type: Attachments.TYPE, id }, params, options)
 	}
 
-	async update(resource: AttachmentUpdate, options?: ResourcesConfig): Promise<Attachment> {
-		return this.resources.update({ ...resource, type: Attachments.TYPE }, options)
+	async update(resource: AttachmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
+		return this.resources.update({ ...resource, type: Attachments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

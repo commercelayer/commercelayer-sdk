@@ -56,16 +56,16 @@ class Webhooks extends ApiResource {
 		return this.resources.list({ type: Webhooks.TYPE }, params, options)
 	}
 
-	async create(resource: WebhookCreate, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.create({ ...resource, type: Webhooks.TYPE } , options)
+	async create(resource: WebhookCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+		return this.resources.create({ ...resource, type: Webhooks.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.retrieve<Webhook>({ type: Webhooks.TYPE, id }, params, options)
 	}
 
-	async update(resource: WebhookUpdate, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.update({ ...resource, type: Webhooks.TYPE }, options)
+	async update(resource: WebhookUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+		return this.resources.update({ ...resource, type: Webhooks.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

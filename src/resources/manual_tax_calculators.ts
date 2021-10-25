@@ -58,16 +58,16 @@ class ManualTaxCalculators extends ApiResource {
 		return this.resources.list({ type: ManualTaxCalculators.TYPE }, params, options)
 	}
 
-	async create(resource: ManualTaxCalculatorCreate, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
-		return this.resources.create({ ...resource, type: ManualTaxCalculators.TYPE } , options)
+	async create(resource: ManualTaxCalculatorCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
+		return this.resources.create({ ...resource, type: ManualTaxCalculators.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
 		return this.resources.retrieve<ManualTaxCalculator>({ type: ManualTaxCalculators.TYPE, id }, params, options)
 	}
 
-	async update(resource: ManualTaxCalculatorUpdate, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
-		return this.resources.update({ ...resource, type: ManualTaxCalculators.TYPE }, options)
+	async update(resource: ManualTaxCalculatorUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
+		return this.resources.update({ ...resource, type: ManualTaxCalculators.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

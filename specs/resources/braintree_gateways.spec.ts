@@ -25,15 +25,16 @@ describe('BraintreeGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_54',
-			merchant_account_id: 'beta_37',
-			merchant_id: 'alfa_86',
-			public_key: 'epsilon_51',
-			private_key: 'alfa_9',
+			name: 'alfa_44',
+			merchant_account_id: 'delta_77',
+			merchant_id: 'omega_40',
+			public_key: 'lambda_77',
+			private_key: 'lambda_95',
 			braintree_payments: [ cl.braintree_payments.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { braintree_gateways: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -44,7 +45,7 @@ describe('BraintreeGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, CommonData.options)
+    await cl[resourceType].create(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -77,6 +78,7 @@ describe('BraintreeGateways resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { braintree_gateways: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -86,7 +88,7 @@ describe('BraintreeGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, CommonData.options)
+    await cl[resourceType].update(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -144,6 +146,9 @@ describe('BraintreeGateways resource', () => {
 
     const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+
+    const type = cl[resourceType].type()
+    expect(type).toBe(resourceType)
 
   })
   /* spec.type.stop */

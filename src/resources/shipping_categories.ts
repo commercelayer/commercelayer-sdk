@@ -46,16 +46,16 @@ class ShippingCategories extends ApiResource {
 		return this.resources.list({ type: ShippingCategories.TYPE }, params, options)
 	}
 
-	async create(resource: ShippingCategoryCreate, options?: ResourcesConfig): Promise<ShippingCategory> {
-		return this.resources.create({ ...resource, type: ShippingCategories.TYPE } , options)
+	async create(resource: ShippingCategoryCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+		return this.resources.create({ ...resource, type: ShippingCategories.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
 		return this.resources.retrieve<ShippingCategory>({ type: ShippingCategories.TYPE, id }, params, options)
 	}
 
-	async update(resource: ShippingCategoryUpdate, options?: ResourcesConfig): Promise<ShippingCategory> {
-		return this.resources.update({ ...resource, type: ShippingCategories.TYPE }, options)
+	async update(resource: ShippingCategoryUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+		return this.resources.update({ ...resource, type: ShippingCategories.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

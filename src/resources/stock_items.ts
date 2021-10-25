@@ -59,16 +59,16 @@ class StockItems extends ApiResource {
 		return this.resources.list({ type: StockItems.TYPE }, params, options)
 	}
 
-	async create(resource: StockItemCreate, options?: ResourcesConfig): Promise<StockItem> {
-		return this.resources.create({ ...resource, type: StockItems.TYPE } , options)
+	async create(resource: StockItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
+		return this.resources.create({ ...resource, type: StockItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
 		return this.resources.retrieve<StockItem>({ type: StockItems.TYPE, id }, params, options)
 	}
 
-	async update(resource: StockItemUpdate, options?: ResourcesConfig): Promise<StockItem> {
-		return this.resources.update({ ...resource, type: StockItems.TYPE }, options)
+	async update(resource: StockItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
+		return this.resources.update({ ...resource, type: StockItems.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

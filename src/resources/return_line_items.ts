@@ -59,16 +59,16 @@ class ReturnLineItems extends ApiResource {
 		return this.resources.list({ type: ReturnLineItems.TYPE }, params, options)
 	}
 
-	async create(resource: ReturnLineItemCreate, options?: ResourcesConfig): Promise<ReturnLineItem> {
-		return this.resources.create({ ...resource, type: ReturnLineItems.TYPE } , options)
+	async create(resource: ReturnLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
+		return this.resources.create({ ...resource, type: ReturnLineItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
 		return this.resources.retrieve<ReturnLineItem>({ type: ReturnLineItems.TYPE, id }, params, options)
 	}
 
-	async update(resource: ReturnLineItemUpdate, options?: ResourcesConfig): Promise<ReturnLineItem> {
-		return this.resources.update({ ...resource, type: ReturnLineItems.TYPE }, options)
+	async update(resource: ReturnLineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
+		return this.resources.update({ ...resource, type: ReturnLineItems.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

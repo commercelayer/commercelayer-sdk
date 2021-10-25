@@ -25,7 +25,7 @@ describe('StockTransfers resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 555,
+			quantity: 55,
 			sku: cl.skus.relationship(TestData.id),
 			origin_stock_location: cl.stock_locations.relationship(TestData.id),
 			destination_stock_location: cl.stock_locations.relationship(TestData.id),
@@ -34,6 +34,7 @@ describe('StockTransfers resource', () => {
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { stock_transfers: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -44,7 +45,7 @@ describe('StockTransfers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, CommonData.options)
+    await cl[resourceType].create(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -77,6 +78,7 @@ describe('StockTransfers resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { stock_transfers: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -86,7 +88,7 @@ describe('StockTransfers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, CommonData.options)
+    await cl[resourceType].update(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -144,6 +146,9 @@ describe('StockTransfers resource', () => {
 
     const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+
+    const type = cl[resourceType].type()
+    expect(type).toBe(resourceType)
 
   })
   /* spec.type.stop */

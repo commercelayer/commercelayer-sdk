@@ -25,11 +25,12 @@ describe('BingGeocoders resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_99',
-			key: 'omega_30',
+			name: 'gamma_11',
+			key: 'kappa_45',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { bing_geocoders: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -40,7 +41,7 @@ describe('BingGeocoders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, CommonData.options)
+    await cl[resourceType].create(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -73,6 +74,7 @@ describe('BingGeocoders resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { bing_geocoders: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -82,7 +84,7 @@ describe('BingGeocoders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, CommonData.options)
+    await cl[resourceType].update(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -140,6 +142,9 @@ describe('BingGeocoders resource', () => {
 
     const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+
+    const type = cl[resourceType].type()
+    expect(type).toBe(resourceType)
 
   })
   /* spec.type.stop */

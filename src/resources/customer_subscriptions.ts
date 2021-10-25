@@ -40,16 +40,16 @@ class CustomerSubscriptions extends ApiResource {
 		return this.resources.list({ type: CustomerSubscriptions.TYPE }, params, options)
 	}
 
-	async create(resource: CustomerSubscriptionCreate, options?: ResourcesConfig): Promise<CustomerSubscription> {
-		return this.resources.create({ ...resource, type: CustomerSubscriptions.TYPE } , options)
+	async create(resource: CustomerSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerSubscription> {
+		return this.resources.create({ ...resource, type: CustomerSubscriptions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerSubscription> {
 		return this.resources.retrieve<CustomerSubscription>({ type: CustomerSubscriptions.TYPE, id }, params, options)
 	}
 
-	async update(resource: CustomerSubscriptionUpdate, options?: ResourcesConfig): Promise<CustomerSubscription> {
-		return this.resources.update({ ...resource, type: CustomerSubscriptions.TYPE }, options)
+	async update(resource: CustomerSubscriptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerSubscription> {
+		return this.resources.update({ ...resource, type: CustomerSubscriptions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

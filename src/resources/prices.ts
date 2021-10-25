@@ -67,16 +67,16 @@ class Prices extends ApiResource {
 		return this.resources.list({ type: Prices.TYPE }, params, options)
 	}
 
-	async create(resource: PriceCreate, options?: ResourcesConfig): Promise<Price> {
-		return this.resources.create({ ...resource, type: Prices.TYPE } , options)
+	async create(resource: PriceCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
+		return this.resources.create({ ...resource, type: Prices.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
 		return this.resources.retrieve<Price>({ type: Prices.TYPE, id }, params, options)
 	}
 
-	async update(resource: PriceUpdate, options?: ResourcesConfig): Promise<Price> {
-		return this.resources.update({ ...resource, type: Prices.TYPE }, options)
+	async update(resource: PriceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
+		return this.resources.update({ ...resource, type: Prices.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

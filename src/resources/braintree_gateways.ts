@@ -69,16 +69,16 @@ class BraintreeGateways extends ApiResource {
 		return this.resources.list({ type: BraintreeGateways.TYPE }, params, options)
 	}
 
-	async create(resource: BraintreeGatewayCreate, options?: ResourcesConfig): Promise<BraintreeGateway> {
-		return this.resources.create({ ...resource, type: BraintreeGateways.TYPE } , options)
+	async create(resource: BraintreeGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreeGateway> {
+		return this.resources.create({ ...resource, type: BraintreeGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreeGateway> {
 		return this.resources.retrieve<BraintreeGateway>({ type: BraintreeGateways.TYPE, id }, params, options)
 	}
 
-	async update(resource: BraintreeGatewayUpdate, options?: ResourcesConfig): Promise<BraintreeGateway> {
-		return this.resources.update({ ...resource, type: BraintreeGateways.TYPE }, options)
+	async update(resource: BraintreeGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreeGateway> {
+		return this.resources.update({ ...resource, type: BraintreeGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

@@ -50,16 +50,16 @@ class CustomerAddresses extends ApiResource {
 		return this.resources.list({ type: CustomerAddresses.TYPE }, params, options)
 	}
 
-	async create(resource: CustomerAddressCreate, options?: ResourcesConfig): Promise<CustomerAddress> {
-		return this.resources.create({ ...resource, type: CustomerAddresses.TYPE } , options)
+	async create(resource: CustomerAddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
+		return this.resources.create({ ...resource, type: CustomerAddresses.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
 		return this.resources.retrieve<CustomerAddress>({ type: CustomerAddresses.TYPE, id }, params, options)
 	}
 
-	async update(resource: CustomerAddressUpdate, options?: ResourcesConfig): Promise<CustomerAddress> {
-		return this.resources.update({ ...resource, type: CustomerAddresses.TYPE }, options)
+	async update(resource: CustomerAddressUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
+		return this.resources.update({ ...resource, type: CustomerAddresses.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

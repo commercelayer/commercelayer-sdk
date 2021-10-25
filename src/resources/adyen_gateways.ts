@@ -60,16 +60,16 @@ class AdyenGateways extends ApiResource {
 		return this.resources.list({ type: AdyenGateways.TYPE }, params, options)
 	}
 
-	async create(resource: AdyenGatewayCreate, options?: ResourcesConfig): Promise<AdyenGateway> {
-		return this.resources.create({ ...resource, type: AdyenGateways.TYPE } , options)
+	async create(resource: AdyenGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
+		return this.resources.create({ ...resource, type: AdyenGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
 		return this.resources.retrieve<AdyenGateway>({ type: AdyenGateways.TYPE, id }, params, options)
 	}
 
-	async update(resource: AdyenGatewayUpdate, options?: ResourcesConfig): Promise<AdyenGateway> {
-		return this.resources.update({ ...resource, type: AdyenGateways.TYPE }, options)
+	async update(resource: AdyenGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
+		return this.resources.update({ ...resource, type: AdyenGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

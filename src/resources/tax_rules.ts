@@ -83,16 +83,16 @@ class TaxRules extends ApiResource {
 		return this.resources.list({ type: TaxRules.TYPE }, params, options)
 	}
 
-	async create(resource: TaxRuleCreate, options?: ResourcesConfig): Promise<TaxRule> {
-		return this.resources.create({ ...resource, type: TaxRules.TYPE } , options)
+	async create(resource: TaxRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
+		return this.resources.create({ ...resource, type: TaxRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
 		return this.resources.retrieve<TaxRule>({ type: TaxRules.TYPE, id }, params, options)
 	}
 
-	async update(resource: TaxRuleUpdate, options?: ResourcesConfig): Promise<TaxRule> {
-		return this.resources.update({ ...resource, type: TaxRules.TYPE }, options)
+	async update(resource: TaxRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
+		return this.resources.update({ ...resource, type: TaxRules.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

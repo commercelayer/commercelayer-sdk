@@ -92,8 +92,8 @@ class Shipments extends ApiResource {
 		return this.resources.retrieve<Shipment>({ type: Shipments.TYPE, id }, params, options)
 	}
 
-	async update(resource: ShipmentUpdate, options?: ResourcesConfig): Promise<Shipment> {
-		return this.resources.update({ ...resource, type: Shipments.TYPE }, options)
+	async update(resource: ShipmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update({ ...resource, type: Shipments.TYPE }, params, options)
 	}
 
 

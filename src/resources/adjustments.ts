@@ -49,16 +49,16 @@ class Adjustments extends ApiResource {
 		return this.resources.list({ type: Adjustments.TYPE }, params, options)
 	}
 
-	async create(resource: AdjustmentCreate, options?: ResourcesConfig): Promise<Adjustment> {
-		return this.resources.create({ ...resource, type: Adjustments.TYPE } , options)
+	async create(resource: AdjustmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {
+		return this.resources.create({ ...resource, type: Adjustments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {
 		return this.resources.retrieve<Adjustment>({ type: Adjustments.TYPE, id }, params, options)
 	}
 
-	async update(resource: AdjustmentUpdate, options?: ResourcesConfig): Promise<Adjustment> {
-		return this.resources.update({ ...resource, type: Adjustments.TYPE }, options)
+	async update(resource: AdjustmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {
+		return this.resources.update({ ...resource, type: Adjustments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

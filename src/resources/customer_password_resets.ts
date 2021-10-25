@@ -47,16 +47,16 @@ class CustomerPasswordResets extends ApiResource {
 		return this.resources.list({ type: CustomerPasswordResets.TYPE }, params, options)
 	}
 
-	async create(resource: CustomerPasswordResetCreate, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
-		return this.resources.create({ ...resource, type: CustomerPasswordResets.TYPE } , options)
+	async create(resource: CustomerPasswordResetCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
+		return this.resources.create({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
 		return this.resources.retrieve<CustomerPasswordReset>({ type: CustomerPasswordResets.TYPE, id }, params, options)
 	}
 
-	async update(resource: CustomerPasswordResetUpdate, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
-		return this.resources.update({ ...resource, type: CustomerPasswordResets.TYPE }, options)
+	async update(resource: CustomerPasswordResetUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
+		return this.resources.update({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

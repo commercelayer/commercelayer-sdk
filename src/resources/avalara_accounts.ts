@@ -64,16 +64,16 @@ class AvalaraAccounts extends ApiResource {
 		return this.resources.list({ type: AvalaraAccounts.TYPE }, params, options)
 	}
 
-	async create(resource: AvalaraAccountCreate, options?: ResourcesConfig): Promise<AvalaraAccount> {
-		return this.resources.create({ ...resource, type: AvalaraAccounts.TYPE } , options)
+	async create(resource: AvalaraAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
+		return this.resources.create({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
 		return this.resources.retrieve<AvalaraAccount>({ type: AvalaraAccounts.TYPE, id }, params, options)
 	}
 
-	async update(resource: AvalaraAccountUpdate, options?: ResourcesConfig): Promise<AvalaraAccount> {
-		return this.resources.update({ ...resource, type: AvalaraAccounts.TYPE }, options)
+	async update(resource: AvalaraAccountUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
+		return this.resources.update({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

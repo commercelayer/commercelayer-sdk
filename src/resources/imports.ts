@@ -51,8 +51,8 @@ class Imports extends ApiResource {
 		return this.resources.list({ type: Imports.TYPE }, params, options)
 	}
 
-	async create(resource: ImportCreate, options?: ResourcesConfig): Promise<Import> {
-		return this.resources.create({ ...resource, type: Imports.TYPE } , options)
+	async create(resource: ImportCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {
+		return this.resources.create({ ...resource, type: Imports.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {

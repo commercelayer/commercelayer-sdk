@@ -60,16 +60,16 @@ class BraintreePayments extends ApiResource {
 		return this.resources.list({ type: BraintreePayments.TYPE }, params, options)
 	}
 
-	async create(resource: BraintreePaymentCreate, options?: ResourcesConfig): Promise<BraintreePayment> {
-		return this.resources.create({ ...resource, type: BraintreePayments.TYPE } , options)
+	async create(resource: BraintreePaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {
+		return this.resources.create({ ...resource, type: BraintreePayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {
 		return this.resources.retrieve<BraintreePayment>({ type: BraintreePayments.TYPE, id }, params, options)
 	}
 
-	async update(resource: BraintreePaymentUpdate, options?: ResourcesConfig): Promise<BraintreePayment> {
-		return this.resources.update({ ...resource, type: BraintreePayments.TYPE }, options)
+	async update(resource: BraintreePaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {
+		return this.resources.update({ ...resource, type: BraintreePayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

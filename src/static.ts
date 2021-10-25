@@ -10,8 +10,7 @@ export const CommerceLayerStatic = {
 		return api.resourceList
 	},
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-	isApiError: (error: any): error is ApiError => {
+	isApiError: (error: unknown): error is ApiError => {
 		return ApiError.isApiError(error)
 	},
 

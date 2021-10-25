@@ -75,16 +75,16 @@ class StockTransfers extends ApiResource {
 		return this.resources.list({ type: StockTransfers.TYPE }, params, options)
 	}
 
-	async create(resource: StockTransferCreate, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.create({ ...resource, type: StockTransfers.TYPE } , options)
+	async create(resource: StockTransferCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.create({ ...resource, type: StockTransfers.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
 		return this.resources.retrieve<StockTransfer>({ type: StockTransfers.TYPE, id }, params, options)
 	}
 
-	async update(resource: StockTransferUpdate, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.update({ ...resource, type: StockTransfers.TYPE }, options)
+	async update(resource: StockTransferUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update({ ...resource, type: StockTransfers.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

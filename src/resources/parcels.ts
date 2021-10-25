@@ -117,16 +117,16 @@ class Parcels extends ApiResource {
 		return this.resources.list({ type: Parcels.TYPE }, params, options)
 	}
 
-	async create(resource: ParcelCreate, options?: ResourcesConfig): Promise<Parcel> {
-		return this.resources.create({ ...resource, type: Parcels.TYPE } , options)
+	async create(resource: ParcelCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
+		return this.resources.create({ ...resource, type: Parcels.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
 		return this.resources.retrieve<Parcel>({ type: Parcels.TYPE, id }, params, options)
 	}
 
-	async update(resource: ParcelUpdate, options?: ResourcesConfig): Promise<Parcel> {
-		return this.resources.update({ ...resource, type: Parcels.TYPE }, options)
+	async update(resource: ParcelUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
+		return this.resources.update({ ...resource, type: Parcels.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

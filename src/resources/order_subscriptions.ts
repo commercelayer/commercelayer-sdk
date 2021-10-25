@@ -74,16 +74,16 @@ class OrderSubscriptions extends ApiResource {
 		return this.resources.list({ type: OrderSubscriptions.TYPE }, params, options)
 	}
 
-	async create(resource: OrderSubscriptionCreate, options?: ResourcesConfig): Promise<OrderSubscription> {
-		return this.resources.create({ ...resource, type: OrderSubscriptions.TYPE } , options)
+	async create(resource: OrderSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+		return this.resources.create({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
 		return this.resources.retrieve<OrderSubscription>({ type: OrderSubscriptions.TYPE, id }, params, options)
 	}
 
-	async update(resource: OrderSubscriptionUpdate, options?: ResourcesConfig): Promise<OrderSubscription> {
-		return this.resources.update({ ...resource, type: OrderSubscriptions.TYPE }, options)
+	async update(resource: OrderSubscriptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+		return this.resources.update({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

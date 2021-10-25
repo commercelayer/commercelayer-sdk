@@ -48,16 +48,16 @@ class GoogleGeocoders extends ApiResource {
 		return this.resources.list({ type: GoogleGeocoders.TYPE }, params, options)
 	}
 
-	async create(resource: GoogleGeocoderCreate, options?: ResourcesConfig): Promise<GoogleGeocoder> {
-		return this.resources.create({ ...resource, type: GoogleGeocoders.TYPE } , options)
+	async create(resource: GoogleGeocoderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GoogleGeocoder> {
+		return this.resources.create({ ...resource, type: GoogleGeocoders.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GoogleGeocoder> {
 		return this.resources.retrieve<GoogleGeocoder>({ type: GoogleGeocoders.TYPE, id }, params, options)
 	}
 
-	async update(resource: GoogleGeocoderUpdate, options?: ResourcesConfig): Promise<GoogleGeocoder> {
-		return this.resources.update({ ...resource, type: GoogleGeocoders.TYPE }, options)
+	async update(resource: GoogleGeocoderUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GoogleGeocoder> {
+		return this.resources.update({ ...resource, type: GoogleGeocoders.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

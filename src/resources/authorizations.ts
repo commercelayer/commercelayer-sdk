@@ -71,8 +71,8 @@ class Authorizations extends ApiResource {
 		return this.resources.retrieve<Authorization>({ type: Authorizations.TYPE, id }, params, options)
 	}
 
-	async update(resource: AuthorizationUpdate, options?: ResourcesConfig): Promise<Authorization> {
-		return this.resources.update({ ...resource, type: Authorizations.TYPE }, options)
+	async update(resource: AuthorizationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
+		return this.resources.update({ ...resource, type: Authorizations.TYPE }, params, options)
 	}
 
 

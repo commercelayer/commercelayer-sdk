@@ -57,16 +57,16 @@ class CouponRecipients extends ApiResource {
 		return this.resources.list({ type: CouponRecipients.TYPE }, params, options)
 	}
 
-	async create(resource: CouponRecipientCreate, options?: ResourcesConfig): Promise<CouponRecipient> {
-		return this.resources.create({ ...resource, type: CouponRecipients.TYPE } , options)
+	async create(resource: CouponRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
+		return this.resources.create({ ...resource, type: CouponRecipients.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
 		return this.resources.retrieve<CouponRecipient>({ type: CouponRecipients.TYPE, id }, params, options)
 	}
 
-	async update(resource: CouponRecipientUpdate, options?: ResourcesConfig): Promise<CouponRecipient> {
-		return this.resources.update({ ...resource, type: CouponRecipients.TYPE }, options)
+	async update(resource: CouponRecipientUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
+		return this.resources.update({ ...resource, type: CouponRecipients.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

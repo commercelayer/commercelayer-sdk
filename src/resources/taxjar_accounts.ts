@@ -55,16 +55,16 @@ class TaxjarAccounts extends ApiResource {
 		return this.resources.list({ type: TaxjarAccounts.TYPE }, params, options)
 	}
 
-	async create(resource: TaxjarAccountCreate, options?: ResourcesConfig): Promise<TaxjarAccount> {
-		return this.resources.create({ ...resource, type: TaxjarAccounts.TYPE } , options)
+	async create(resource: TaxjarAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
+		return this.resources.create({ ...resource, type: TaxjarAccounts.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
 		return this.resources.retrieve<TaxjarAccount>({ type: TaxjarAccounts.TYPE, id }, params, options)
 	}
 
-	async update(resource: TaxjarAccountUpdate, options?: ResourcesConfig): Promise<TaxjarAccount> {
-		return this.resources.update({ ...resource, type: TaxjarAccounts.TYPE }, options)
+	async update(resource: TaxjarAccountUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
+		return this.resources.update({ ...resource, type: TaxjarAccounts.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

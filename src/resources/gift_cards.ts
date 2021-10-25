@@ -93,16 +93,16 @@ class GiftCards extends ApiResource {
 		return this.resources.list({ type: GiftCards.TYPE }, params, options)
 	}
 
-	async create(resource: GiftCardCreate, options?: ResourcesConfig): Promise<GiftCard> {
-		return this.resources.create({ ...resource, type: GiftCards.TYPE } , options)
+	async create(resource: GiftCardCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+		return this.resources.create({ ...resource, type: GiftCards.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.retrieve<GiftCard>({ type: GiftCards.TYPE, id }, params, options)
 	}
 
-	async update(resource: GiftCardUpdate, options?: ResourcesConfig): Promise<GiftCard> {
-		return this.resources.update({ ...resource, type: GiftCards.TYPE }, options)
+	async update(resource: GiftCardUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+		return this.resources.update({ ...resource, type: GiftCards.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

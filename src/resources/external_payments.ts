@@ -53,16 +53,16 @@ class ExternalPayments extends ApiResource {
 		return this.resources.list({ type: ExternalPayments.TYPE }, params, options)
 	}
 
-	async create(resource: ExternalPaymentCreate, options?: ResourcesConfig): Promise<ExternalPayment> {
-		return this.resources.create({ ...resource, type: ExternalPayments.TYPE } , options)
+	async create(resource: ExternalPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
+		return this.resources.create({ ...resource, type: ExternalPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
 		return this.resources.retrieve<ExternalPayment>({ type: ExternalPayments.TYPE, id }, params, options)
 	}
 
-	async update(resource: ExternalPaymentUpdate, options?: ResourcesConfig): Promise<ExternalPayment> {
-		return this.resources.update({ ...resource, type: ExternalPayments.TYPE }, options)
+	async update(resource: ExternalPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
+		return this.resources.update({ ...resource, type: ExternalPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

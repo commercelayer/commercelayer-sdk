@@ -54,16 +54,16 @@ class SkuListItems extends ApiResource {
 		return this.resources.list({ type: SkuListItems.TYPE }, params, options)
 	}
 
-	async create(resource: SkuListItemCreate, options?: ResourcesConfig): Promise<SkuListItem> {
-		return this.resources.create({ ...resource, type: SkuListItems.TYPE } , options)
+	async create(resource: SkuListItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListItem> {
+		return this.resources.create({ ...resource, type: SkuListItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListItem> {
 		return this.resources.retrieve<SkuListItem>({ type: SkuListItems.TYPE, id }, params, options)
 	}
 
-	async update(resource: SkuListItemUpdate, options?: ResourcesConfig): Promise<SkuListItem> {
-		return this.resources.update({ ...resource, type: SkuListItems.TYPE }, options)
+	async update(resource: SkuListItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListItem> {
+		return this.resources.update({ ...resource, type: SkuListItems.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

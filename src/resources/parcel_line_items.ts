@@ -57,16 +57,16 @@ class ParcelLineItems extends ApiResource {
 		return this.resources.list({ type: ParcelLineItems.TYPE }, params, options)
 	}
 
-	async create(resource: ParcelLineItemCreate, options?: ResourcesConfig): Promise<ParcelLineItem> {
-		return this.resources.create({ ...resource, type: ParcelLineItems.TYPE } , options)
+	async create(resource: ParcelLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
+		return this.resources.create({ ...resource, type: ParcelLineItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
 		return this.resources.retrieve<ParcelLineItem>({ type: ParcelLineItems.TYPE, id }, params, options)
 	}
 
-	async update(resource: ParcelLineItemUpdate, options?: ResourcesConfig): Promise<ParcelLineItem> {
-		return this.resources.update({ ...resource, type: ParcelLineItems.TYPE }, options)
+	async update(resource: ParcelLineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
+		return this.resources.update({ ...resource, type: ParcelLineItems.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

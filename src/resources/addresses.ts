@@ -102,16 +102,16 @@ class Addresses extends ApiResource {
 		return this.resources.list({ type: Addresses.TYPE }, params, options)
 	}
 
-	async create(resource: AddressCreate, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.create({ ...resource, type: Addresses.TYPE } , options)
+	async create(resource: AddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+		return this.resources.create({ ...resource, type: Addresses.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		return this.resources.retrieve<Address>({ type: Addresses.TYPE, id }, params, options)
 	}
 
-	async update(resource: AddressUpdate, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.update({ ...resource, type: Addresses.TYPE }, options)
+	async update(resource: AddressUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+		return this.resources.update({ ...resource, type: Addresses.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

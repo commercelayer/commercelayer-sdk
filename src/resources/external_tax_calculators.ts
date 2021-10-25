@@ -56,16 +56,16 @@ class ExternalTaxCalculators extends ApiResource {
 		return this.resources.list({ type: ExternalTaxCalculators.TYPE }, params, options)
 	}
 
-	async create(resource: ExternalTaxCalculatorCreate, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
-		return this.resources.create({ ...resource, type: ExternalTaxCalculators.TYPE } , options)
+	async create(resource: ExternalTaxCalculatorCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
+		return this.resources.create({ ...resource, type: ExternalTaxCalculators.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
 		return this.resources.retrieve<ExternalTaxCalculator>({ type: ExternalTaxCalculators.TYPE, id }, params, options)
 	}
 
-	async update(resource: ExternalTaxCalculatorUpdate, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
-		return this.resources.update({ ...resource, type: ExternalTaxCalculators.TYPE }, options)
+	async update(resource: ExternalTaxCalculatorUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
+		return this.resources.update({ ...resource, type: ExternalTaxCalculators.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

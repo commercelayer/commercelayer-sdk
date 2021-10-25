@@ -82,16 +82,16 @@ class Markets extends ApiResource {
 		return this.resources.list({ type: Markets.TYPE }, params, options)
 	}
 
-	async create(resource: MarketCreate, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.create({ ...resource, type: Markets.TYPE } , options)
+	async create(resource: MarketCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.create({ ...resource, type: Markets.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.retrieve<Market>({ type: Markets.TYPE, id }, params, options)
 	}
 
-	async update(resource: MarketUpdate, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.update({ ...resource, type: Markets.TYPE }, options)
+	async update(resource: MarketUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.update({ ...resource, type: Markets.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

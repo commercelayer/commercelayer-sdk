@@ -58,16 +58,16 @@ class CheckoutComGateways extends ApiResource {
 		return this.resources.list({ type: CheckoutComGateways.TYPE }, params, options)
 	}
 
-	async create(resource: CheckoutComGatewayCreate, options?: ResourcesConfig): Promise<CheckoutComGateway> {
-		return this.resources.create({ ...resource, type: CheckoutComGateways.TYPE } , options)
+	async create(resource: CheckoutComGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {
+		return this.resources.create({ ...resource, type: CheckoutComGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {
 		return this.resources.retrieve<CheckoutComGateway>({ type: CheckoutComGateways.TYPE, id }, params, options)
 	}
 
-	async update(resource: CheckoutComGatewayUpdate, options?: ResourcesConfig): Promise<CheckoutComGateway> {
-		return this.resources.update({ ...resource, type: CheckoutComGateways.TYPE }, options)
+	async update(resource: CheckoutComGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {
+		return this.resources.update({ ...resource, type: CheckoutComGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

@@ -64,16 +64,16 @@ class CheckoutComPayments extends ApiResource {
 		return this.resources.list({ type: CheckoutComPayments.TYPE }, params, options)
 	}
 
-	async create(resource: CheckoutComPaymentCreate, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.create({ ...resource, type: CheckoutComPayments.TYPE } , options)
+	async create(resource: CheckoutComPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
+		return this.resources.create({ ...resource, type: CheckoutComPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
 		return this.resources.retrieve<CheckoutComPayment>({ type: CheckoutComPayments.TYPE, id }, params, options)
 	}
 
-	async update(resource: CheckoutComPaymentUpdate, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.update({ ...resource, type: CheckoutComPayments.TYPE }, options)
+	async update(resource: CheckoutComPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
+		return this.resources.update({ ...resource, type: CheckoutComPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

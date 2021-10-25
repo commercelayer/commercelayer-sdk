@@ -51,16 +51,16 @@ class StripeGateways extends ApiResource {
 		return this.resources.list({ type: StripeGateways.TYPE }, params, options)
 	}
 
-	async create(resource: StripeGatewayCreate, options?: ResourcesConfig): Promise<StripeGateway> {
-		return this.resources.create({ ...resource, type: StripeGateways.TYPE } , options)
+	async create(resource: StripeGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
+		return this.resources.create({ ...resource, type: StripeGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.retrieve<StripeGateway>({ type: StripeGateways.TYPE, id }, params, options)
 	}
 
-	async update(resource: StripeGatewayUpdate, options?: ResourcesConfig): Promise<StripeGateway> {
-		return this.resources.update({ ...resource, type: StripeGateways.TYPE }, options)
+	async update(resource: StripeGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
+		return this.resources.update({ ...resource, type: StripeGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

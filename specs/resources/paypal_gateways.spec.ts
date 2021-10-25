@@ -25,13 +25,14 @@ describe('PaypalGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_41',
-			client_id: 'omega_63',
-			client_secret: 'delta_40',
-			mode: 'lambda_56',
+			name: 'lambda_72',
+			client_id: 'omega_61',
+			client_secret: 'delta_16',
+			mode: 'delta_64',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { paypal_gateways: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -42,7 +43,7 @@ describe('PaypalGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, CommonData.options)
+    await cl[resourceType].create(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -75,6 +76,7 @@ describe('PaypalGateways resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { paypal_gateways: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -84,7 +86,7 @@ describe('PaypalGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, CommonData.options)
+    await cl[resourceType].update(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -142,6 +144,9 @@ describe('PaypalGateways resource', () => {
 
     const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+
+    const type = cl[resourceType].type()
+    expect(type).toBe(resourceType)
 
   })
   /* spec.type.stop */

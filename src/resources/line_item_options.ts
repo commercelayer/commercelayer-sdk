@@ -68,16 +68,16 @@ class LineItemOptions extends ApiResource {
 		return this.resources.list({ type: LineItemOptions.TYPE }, params, options)
 	}
 
-	async create(resource: LineItemOptionCreate, options?: ResourcesConfig): Promise<LineItemOption> {
-		return this.resources.create({ ...resource, type: LineItemOptions.TYPE } , options)
+	async create(resource: LineItemOptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
+		return this.resources.create({ ...resource, type: LineItemOptions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
 		return this.resources.retrieve<LineItemOption>({ type: LineItemOptions.TYPE, id }, params, options)
 	}
 
-	async update(resource: LineItemOptionUpdate, options?: ResourcesConfig): Promise<LineItemOption> {
-		return this.resources.update({ ...resource, type: LineItemOptions.TYPE }, options)
+	async update(resource: LineItemOptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
+		return this.resources.update({ ...resource, type: LineItemOptions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

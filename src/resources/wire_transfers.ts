@@ -43,16 +43,16 @@ class WireTransfers extends ApiResource {
 		return this.resources.list({ type: WireTransfers.TYPE }, params, options)
 	}
 
-	async create(resource: WireTransferCreate, options?: ResourcesConfig): Promise<WireTransfer> {
-		return this.resources.create({ ...resource, type: WireTransfers.TYPE } , options)
+	async create(resource: WireTransferCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
+		return this.resources.create({ ...resource, type: WireTransfers.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
 		return this.resources.retrieve<WireTransfer>({ type: WireTransfers.TYPE, id }, params, options)
 	}
 
-	async update(resource: WireTransferUpdate, options?: ResourcesConfig): Promise<WireTransfer> {
-		return this.resources.update({ ...resource, type: WireTransfers.TYPE }, options)
+	async update(resource: WireTransferUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
+		return this.resources.update({ ...resource, type: WireTransfers.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

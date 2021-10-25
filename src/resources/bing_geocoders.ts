@@ -48,16 +48,16 @@ class BingGeocoders extends ApiResource {
 		return this.resources.list({ type: BingGeocoders.TYPE }, params, options)
 	}
 
-	async create(resource: BingGeocoderCreate, options?: ResourcesConfig): Promise<BingGeocoder> {
-		return this.resources.create({ ...resource, type: BingGeocoders.TYPE } , options)
+	async create(resource: BingGeocoderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BingGeocoder> {
+		return this.resources.create({ ...resource, type: BingGeocoders.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BingGeocoder> {
 		return this.resources.retrieve<BingGeocoder>({ type: BingGeocoders.TYPE, id }, params, options)
 	}
 
-	async update(resource: BingGeocoderUpdate, options?: ResourcesConfig): Promise<BingGeocoder> {
-		return this.resources.update({ ...resource, type: BingGeocoders.TYPE }, options)
+	async update(resource: BingGeocoderUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BingGeocoder> {
+		return this.resources.update({ ...resource, type: BingGeocoders.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

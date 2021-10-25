@@ -67,16 +67,16 @@ class InStockSubscriptions extends ApiResource {
 		return this.resources.list({ type: InStockSubscriptions.TYPE }, params, options)
 	}
 
-	async create(resource: InStockSubscriptionCreate, options?: ResourcesConfig): Promise<InStockSubscription> {
-		return this.resources.create({ ...resource, type: InStockSubscriptions.TYPE } , options)
+	async create(resource: InStockSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
+		return this.resources.create({ ...resource, type: InStockSubscriptions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
 		return this.resources.retrieve<InStockSubscription>({ type: InStockSubscriptions.TYPE, id }, params, options)
 	}
 
-	async update(resource: InStockSubscriptionUpdate, options?: ResourcesConfig): Promise<InStockSubscription> {
-		return this.resources.update({ ...resource, type: InStockSubscriptions.TYPE }, options)
+	async update(resource: InStockSubscriptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
+		return this.resources.update({ ...resource, type: InStockSubscriptions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

@@ -25,11 +25,11 @@ describe('FixedPricePromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'epsilon_62',
-			starts_at: 'omega_70',
-			expires_at: 'delta_2',
-			total_usage_limit: 100,
-			fixed_amount_cents: 10,
+			name: 'omega_61',
+			starts_at: 'beta_16',
+			expires_at: 'epsilon_4',
+			total_usage_limit: 0,
+			fixed_amount_cents: 55,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
@@ -39,6 +39,7 @@ describe('FixedPricePromotions resource', () => {
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { fixed_price_promotions: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -49,7 +50,7 @@ describe('FixedPricePromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, CommonData.options)
+    await cl[resourceType].create(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -82,6 +83,7 @@ describe('FixedPricePromotions resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { fixed_price_promotions: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -91,7 +93,7 @@ describe('FixedPricePromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, CommonData.options)
+    await cl[resourceType].update(resData, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request', intId))
 
@@ -149,6 +151,9 @@ describe('FixedPricePromotions resource', () => {
 
     const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+
+    const type = cl[resourceType].type()
+    expect(type).toBe(resourceType)
 
   })
   /* spec.type.stop */
