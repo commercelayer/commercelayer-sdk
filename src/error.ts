@@ -4,7 +4,8 @@ enum ErrorType {
 	CLIENT = 'client',
 	REQUEST = 'request',
 	RESPONSE = 'response',
-	GENERIC = 'generic'
+	GENERIC = 'generic',
+	CANCEL = 'cancel',
 }
 
 class ApiError extends Error {
@@ -18,6 +19,8 @@ class ApiError extends Error {
 	errors: any[] = []
 	status?: number
 	code?: string
+	source?: Error
+	request?: any
 
 	constructor(error: { message: string, type?: ErrorType }) {
 		super(error.message)
