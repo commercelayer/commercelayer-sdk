@@ -12,7 +12,7 @@ class ApiError extends Error {
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	static isApiError(error: any): error is ApiError {
-		return error && (error.name === 'ApiError') && (error.type === ErrorType.RESPONSE)
+		return error && (error.name === 'ApiError') && Object.values(ErrorType).includes(error.type)
 	}
 
 	type: string
