@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, Method } from 'axios'
 import { DocWithData as JSONApiDocument, ResourceObject as JSONApiResource } from 'jsonapi-typescript'
-import ApiError, { ErrorType } from './error'
+import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
 
 
@@ -12,28 +12,30 @@ const baseURL = (organization: string, domain?: string): string => {
 
 const handleError = (error: Error) => {
 
-	const apiError = new ApiError({ message: error.message, type: ErrorType.GENERIC })
+	let sdkError = new SdkError({ message: error.message, type: ErrorType.GENERIC })
 
 	if (axios.isAxiosError(error)) {
 		if (error.response) {
 			// The request was made and the server responded with a status code that falls out of the range of 2xx
+			const apiError = new ApiError(sdkError)
 			apiError.type = ErrorType.RESPONSE
 			apiError.status = error.response.status
 			apiError.code = String(apiError.status)
 			apiError.errors = error.response.data.errors
+			sdkError = apiError
 		} else if (error.request) {
 			// The request was made but no response was received
 			// `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
-			apiError.type = ErrorType.REQUEST
-			apiError.request = error.request
+			sdkError.type = ErrorType.REQUEST
+			sdkError.request = error.request
 		} else {
 			// Something happened in setting up the request that triggered an Error
-			apiError.type = ErrorType.CLIENT
+			sdkError.type = ErrorType.CLIENT
 		}
-	} else if (axios.isCancel(error)) apiError.type = ErrorType.CANCEL
-	else apiError.source = error
+	} else if (axios.isCancel(error)) sdkError.type = ErrorType.CANCEL
+	else sdkError.source = error
 
-	throw apiError
+	throw sdkError
 
 }
 

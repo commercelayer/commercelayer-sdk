@@ -1,6 +1,6 @@
 
 import * as api from './api'
-import ApiError from './error'
+import { ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj } from './interceptor'
 // import QueryBuilder, { QueryBuilderRetrieve, QueryBuilderList } from './query'
 import { CommerceLayerStatic } from './static'

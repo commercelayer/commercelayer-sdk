@@ -8,16 +8,15 @@ enum ErrorType {
 	CANCEL = 'cancel',
 }
 
-class ApiError extends Error {
+
+class SdkError extends Error {
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-	static isApiError(error: any): error is ApiError {
-		return error && (error.name === 'ApiError') && Object.values(ErrorType).includes(error.type)
+	static isSdkError(error: any): error is ApiError {
+		return error && ['SdkError', 'ApiError'].includes(error.name) && Object.values(ErrorType).includes(error.type)
 	}
 
 	type: string
-	errors: any[] = []
-	status?: number
 	code?: string
 	source?: Error
 	request?: any
@@ -28,6 +27,24 @@ class ApiError extends Error {
 		this.type = error.type || ErrorType.GENERIC
 	}
 
+}
+
+class ApiError extends SdkError {
+
+	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+	static isApiError(error: any): error is ApiError {
+		return SdkError.isSdkError(error) && (error.name === 'ApiError') && (error.type === ErrorType.RESPONSE)
+	}
+
+	errors: any[] = []
+	status?: number
+
+	constructor(error: SdkError)
+	constructor(error: { message: string }) {
+		super({ ...error, type: ErrorType.RESPONSE })
+		this.name = this.constructor.name
+	}
+
 	first(): any {
 		return (this.errors.length > 0) ? this.errors[0] : undefined
 	}
@@ -35,6 +52,4 @@ class ApiError extends Error {
 }
 
 
-export default ApiError
-
-export { ErrorType }
+export { SdkError, ApiError, ErrorType }
