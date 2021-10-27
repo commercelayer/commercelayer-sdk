@@ -1,18 +1,21 @@
 {
   "name": "@commercelayer/sdk",
   "version": "2.3.3-beta.0",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/cjs/index.js",
+  "types": "lib/cjs/index.d.ts",
+  "module": "lib/esm/index.js",
   "scripts": {
     "lint": "eslint ./src --ext .ts",
     "lintspec": "eslint ./specs/resources/ --ext .spec.ts",
-    "build": "rm -rf ./dist/* & tsdx build --tsconfig tsconfig.prod.json",
+    "build": "tsc -b tsconfig.json tsconfig.esm.json --verbose",
     "start": "ts-node src/index.ts",
     "generate": "ts-node gen/generator.ts",
-    "prepare": "npm run build && cp -rf dist/ lib",
-    "test": "tsdx test",
+    "prepare": "npm run build",
+    "test": "jest test",
     "test-local": "ts-node test.ts",
-    "coverage": "tsdx test --coverage"
+    "coverage": "jest --coverage",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
   },
   "keywords": [
     "javascript",
@@ -32,27 +35,37 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "axios": "^0.21.4"
+    "axios": "^0.24.0"
   },
   "devDependencies": {
-    "@commercelayer/js-auth": "^2.0.8",
-    "@types/lodash": "^4.14.170",
-    "@types/node": "^15.12.1",
-    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-typescript": "^7.15.0",
+    "@commercelayer/js-auth": "^2.1.0",
+    "@size-limit/preset-small-lib": "^6.0.3",
+    "@types/lodash": "^4.14.176",
+    "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
     "dotenv": "^10.0.0",
-    "eslint": "^7.31.0",
-    "husky": "^6.0.0",
+    "eslint": "^8.1.0",
+    "husky": "^7.0.4",
     "inflector-js": "^1.0.1",
+    "jest": "^27.3.1",
     "json-typescript": "^1.1.2",
     "jsonapi-typescript": "^0.1.3",
     "lodash": "^4.17.21",
-    "pretty-quick": "^3.1.0",
-    "ts-node": "^10.0.0",
-    "tsdx": "^0.14.1",
-    "typescript": "^4.3.2"
+    "pretty-quick": "^3.1.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
   },
   "repository": "github:commercelayer/commercelayer-sdk",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "size-limit": [
+    {
+      "path": "lib",
+      "limit": "350 kB",
+      "webpack": false
+    }
+  ]
 }
