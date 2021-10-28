@@ -40,7 +40,7 @@ class ##__RESOURCE_CLASS__## extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): ##__MODEL_RESOURCE_INTERFACE__##Rel {
-		return (typeof id === 'string') ? { id, type: ##__RESOURCE_CLASS__##.TYPE } : {id: id.id, type: ##__RESOURCE_CLASS__##.TYPE }
+		return (typeof id === 'string') ? { id, type: ##__RESOURCE_CLASS__##.TYPE } : { id: id.id, type: ##__RESOURCE_CLASS__##.TYPE }
 	}
 
 	type(): string {
