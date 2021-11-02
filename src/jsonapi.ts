@@ -28,9 +28,10 @@ const denormalize = <R extends Resource>(response: DocWithData): R | R[] => {
 
 
 const findIncluded = (rel: ResourceIdentifierObject, included: Included = []): ResourceObject | undefined => {
-	return included.find(inc => {
+	const inc = included.find(inc => {
 		return (rel.id === inc.id) && (rel.type === inc.type)
 	})
+	return inc || rel
 }
 
 
