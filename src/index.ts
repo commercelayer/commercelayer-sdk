@@ -16,3 +16,6 @@ export * from './model'
 
 // Raw response reader and request/response interceptors
 export type { RequestObj, ResponseObj, ErrorObj } from './interceptor'
+
+// Error types
+export type { SdkError, ApiError, ErrorType } from './error'
