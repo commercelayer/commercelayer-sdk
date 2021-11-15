@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "2.3.6",
+  "version": "2.3.7",
   "main": "lib/cjs/index.js",
   "types": "lib/cjs/index.d.ts",
   "module": "lib/esm/index.js",
@@ -69,8 +69,5 @@
       "limit": "350 kB",
       "webpack": false
     }
-  ],
-  "engines": {
-    "node": ">=16.0.0"
-  }
+  ]
 }
