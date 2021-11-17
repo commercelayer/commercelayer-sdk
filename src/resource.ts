@@ -57,7 +57,7 @@ class ListResponse<R> extends Array<R> {
 	readonly meta: ListMeta
 
 	constructor(meta: ListMeta, data: Array<R>) {
-		super(...data)
+		super(...(data || []))
 		this.meta = meta
 	}
 
