@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -128,7 +128,7 @@ class PercentageDiscountPromotions extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): PercentageDiscountPromotionRel {
-		return (typeof id === 'string') ? { id, type: PercentageDiscountPromotions.TYPE } : {id: id.id, type: PercentageDiscountPromotions.TYPE }
+		return (typeof id === 'string') ? { id, type: PercentageDiscountPromotions.TYPE } : { id: id.id, type: PercentageDiscountPromotions.TYPE }
 	}
 
 	type(): string {

@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -95,7 +95,7 @@ class ReturnLineItems extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): ReturnLineItemRel {
-		return (typeof id === 'string') ? { id, type: ReturnLineItems.TYPE } : {id: id.id, type: ReturnLineItems.TYPE }
+		return (typeof id === 'string') ? { id, type: ReturnLineItems.TYPE } : { id: id.id, type: ReturnLineItems.TYPE }
 	}
 
 	type(): string {

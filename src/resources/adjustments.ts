@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -85,7 +85,7 @@ class Adjustments extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): AdjustmentRel {
-		return (typeof id === 'string') ? { id, type: Adjustments.TYPE } : {id: id.id, type: Adjustments.TYPE }
+		return (typeof id === 'string') ? { id, type: Adjustments.TYPE } : { id: id.id, type: Adjustments.TYPE }
 	}
 
 	type(): string {

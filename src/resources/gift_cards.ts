@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -36,7 +36,6 @@ interface GiftCard extends Resource {
 	image_url?: string
 	expires_at?: string
 	recipient_email?: string
-	_balance_change_cents?: number
 
 	market?: Market
 	gift_card_recipient?: GiftCardRecipient
@@ -129,7 +128,7 @@ class GiftCards extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): GiftCardRel {
-		return (typeof id === 'string') ? { id, type: GiftCards.TYPE } : {id: id.id, type: GiftCards.TYPE }
+		return (typeof id === 'string') ? { id, type: GiftCards.TYPE } : { id: id.id, type: GiftCards.TYPE }
 	}
 
 	type(): string {

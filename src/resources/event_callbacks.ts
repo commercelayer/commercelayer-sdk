@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -56,7 +56,7 @@ class EventCallbacks extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): EventCallbackRel {
-		return (typeof id === 'string') ? { id, type: EventCallbacks.TYPE } : {id: id.id, type: EventCallbacks.TYPE }
+		return (typeof id === 'string') ? { id, type: EventCallbacks.TYPE } : { id: id.id, type: EventCallbacks.TYPE }
 	}
 
 	type(): string {

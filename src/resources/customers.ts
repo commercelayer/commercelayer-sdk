@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -103,7 +103,7 @@ class Customers extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): CustomerRel {
-		return (typeof id === 'string') ? { id, type: Customers.TYPE } : {id: id.id, type: Customers.TYPE }
+		return (typeof id === 'string') ? { id, type: Customers.TYPE } : { id: id.id, type: Customers.TYPE }
 	}
 
 	type(): string {

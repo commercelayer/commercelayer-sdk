@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -65,7 +65,7 @@ class Voids extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): VoidRel {
-		return (typeof id === 'string') ? { id, type: Voids.TYPE } : {id: id.id, type: Voids.TYPE }
+		return (typeof id === 'string') ? { id, type: Voids.TYPE } : { id: id.id, type: Voids.TYPE }
 	}
 
 	type(): string {

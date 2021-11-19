@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -91,7 +91,7 @@ class TaxjarAccounts extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): TaxjarAccountRel {
-		return (typeof id === 'string') ? { id, type: TaxjarAccounts.TYPE } : {id: id.id, type: TaxjarAccounts.TYPE }
+		return (typeof id === 'string') ? { id, type: TaxjarAccounts.TYPE } : { id: id.id, type: TaxjarAccounts.TYPE }
 	}
 
 	type(): string {

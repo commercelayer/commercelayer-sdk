@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -79,7 +79,7 @@ class WireTransfers extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): WireTransferRel {
-		return (typeof id === 'string') ? { id, type: WireTransfers.TYPE } : {id: id.id, type: WireTransfers.TYPE }
+		return (typeof id === 'string') ? { id, type: WireTransfers.TYPE } : { id: id.id, type: WireTransfers.TYPE }
 	}
 
 	type(): string {

@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('Customers resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			email: 'omega_60',
+			email: 'omega_0',
 			customer_group: cl.customer_groups.relationship(TestData.id),
 		}
 

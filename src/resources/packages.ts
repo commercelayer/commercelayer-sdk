@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -33,12 +33,12 @@ interface Package extends Resource {
 
 interface PackageCreate extends ResourceCreate {
 	
-	name?: string
+	name: string
 	code?: string
-	length?: number
-	width?: number
-	height?: number
-	unit_of_length?: string
+	length: number
+	width: number
+	height: number
+	unit_of_length: string
 
 	stock_location?: StockLocationRel
 
@@ -104,7 +104,7 @@ class Packages extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): PackageRel {
-		return (typeof id === 'string') ? { id, type: Packages.TYPE } : {id: id.id, type: Packages.TYPE }
+		return (typeof id === 'string') ? { id, type: Packages.TYPE } : { id: id.id, type: Packages.TYPE }
 	}
 
 	type(): string {

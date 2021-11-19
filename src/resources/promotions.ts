@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -64,7 +64,7 @@ class Promotions extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): PromotionRel {
-		return (typeof id === 'string') ? { id, type: Promotions.TYPE } : {id: id.id, type: Promotions.TYPE }
+		return (typeof id === 'string') ? { id, type: Promotions.TYPE } : { id: id.id, type: Promotions.TYPE }
 	}
 
 	type(): string {

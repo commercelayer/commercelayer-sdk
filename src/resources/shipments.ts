@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -115,7 +115,7 @@ class Shipments extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): ShipmentRel {
-		return (typeof id === 'string') ? { id, type: Shipments.TYPE } : {id: id.id, type: Shipments.TYPE }
+		return (typeof id === 'string') ? { id, type: Shipments.TYPE } : { id: id.id, type: Shipments.TYPE }
 	}
 
 	type(): string {

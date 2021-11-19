@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -43,7 +43,7 @@ interface OrderSubscription extends Resource {
 
 interface OrderSubscriptionCreate extends ResourceCreate {
 	
-	frequency?: string
+	frequency: string
 	activate_by_source_order?: boolean
 	starts_at?: string
 	expires_at?: string
@@ -110,7 +110,7 @@ class OrderSubscriptions extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): OrderSubscriptionRel {
-		return (typeof id === 'string') ? { id, type: OrderSubscriptions.TYPE } : {id: id.id, type: OrderSubscriptions.TYPE }
+		return (typeof id === 'string') ? { id, type: OrderSubscriptions.TYPE } : { id: id.id, type: OrderSubscriptions.TYPE }
 	}
 
 	type(): string {

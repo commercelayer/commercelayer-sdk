@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -93,7 +93,7 @@ class CouponRecipients extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): CouponRecipientRel {
-		return (typeof id === 'string') ? { id, type: CouponRecipients.TYPE } : {id: id.id, type: CouponRecipients.TYPE }
+		return (typeof id === 'string') ? { id, type: CouponRecipients.TYPE } : { id: id.id, type: CouponRecipients.TYPE }
 	}
 
 	type(): string {

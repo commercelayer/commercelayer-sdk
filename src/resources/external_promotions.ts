@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -121,7 +121,7 @@ class ExternalPromotions extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): ExternalPromotionRel {
-		return (typeof id === 'string') ? { id, type: ExternalPromotions.TYPE } : {id: id.id, type: ExternalPromotions.TYPE }
+		return (typeof id === 'string') ? { id, type: ExternalPromotions.TYPE } : { id: id.id, type: ExternalPromotions.TYPE }
 	}
 
 	type(): string {

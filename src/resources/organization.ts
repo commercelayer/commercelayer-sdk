@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId } from '../resource'
@@ -27,6 +27,8 @@ interface Organization extends Resource {
 	discount_disabled?: boolean
 	account_disabled?: boolean
 	acceptance_disabled?: boolean
+	max_concurrent_promotions?: number
+	max_concurrent_imports?: number
 	
 }
 
@@ -59,7 +61,7 @@ class Organizations extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): OrganizationRel {
-		return (typeof id === 'string') ? { id, type: Organizations.TYPE } : {id: id.id, type: Organizations.TYPE }
+		return (typeof id === 'string') ? { id, type: Organizations.TYPE } : { id: id.id, type: Organizations.TYPE }
 	}
 
 	type(): string {

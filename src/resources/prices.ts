@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -103,7 +103,7 @@ class Prices extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): PriceRel {
-		return (typeof id === 'string') ? { id, type: Prices.TYPE } : {id: id.id, type: Prices.TYPE }
+		return (typeof id === 'string') ? { id, type: Prices.TYPE } : { id: id.id, type: Prices.TYPE }
 	}
 
 	type(): string {

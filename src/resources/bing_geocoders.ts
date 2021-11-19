@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -84,7 +84,7 @@ class BingGeocoders extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): BingGeocoderRel {
-		return (typeof id === 'string') ? { id, type: BingGeocoders.TYPE } : {id: id.id, type: BingGeocoders.TYPE }
+		return (typeof id === 'string') ? { id, type: BingGeocoders.TYPE } : { id: id.id, type: BingGeocoders.TYPE }
 	}
 
 	type(): string {

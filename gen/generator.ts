@@ -54,12 +54,12 @@ const generate = async (localSchema?: boolean) => {
 
 	// Initialize source dir
 	const resDir = 'src/resources'
-	if (fs.existsSync(resDir)) fs.rmdirSync(resDir, { recursive: true })
+	if (fs.existsSync(resDir)) fs.rmSync(resDir, { recursive: true })
 	fs.mkdirSync(resDir, { recursive: true })
 
 	// Initialize test dir
 	const testDir = 'specs/resources'
-	if (fs.existsSync(testDir)) fs.rmdirSync(testDir, { recursive: true })
+	if (fs.existsSync(testDir)) fs.rmSync(testDir, { recursive: true })
 	fs.mkdirSync(testDir, { recursive: true })
 
 

@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -92,7 +92,7 @@ class Webhooks extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): WebhookRel {
-		return (typeof id === 'string') ? { id, type: Webhooks.TYPE } : {id: id.id, type: Webhooks.TYPE }
+		return (typeof id === 'string') ? { id, type: Webhooks.TYPE } : { id: id.id, type: Webhooks.TYPE }
 	}
 
 	type(): string {

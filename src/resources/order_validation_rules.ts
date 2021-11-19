@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -47,7 +47,7 @@ class OrderValidationRules extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): OrderValidationRuleRel {
-		return (typeof id === 'string') ? { id, type: OrderValidationRules.TYPE } : {id: id.id, type: OrderValidationRules.TYPE }
+		return (typeof id === 'string') ? { id, type: OrderValidationRules.TYPE } : { id: id.id, type: OrderValidationRules.TYPE }
 	}
 
 	type(): string {

@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -59,7 +59,7 @@ class Transactions extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): TransactionRel {
-		return (typeof id === 'string') ? { id, type: Transactions.TYPE } : {id: id.id, type: Transactions.TYPE }
+		return (typeof id === 'string') ? { id, type: Transactions.TYPE } : { id: id.id, type: Transactions.TYPE }
 	}
 
 	type(): string {

@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -102,7 +102,7 @@ class StockLocations extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): StockLocationRel {
-		return (typeof id === 'string') ? { id, type: StockLocations.TYPE } : {id: id.id, type: StockLocations.TYPE }
+		return (typeof id === 'string') ? { id, type: StockLocations.TYPE } : { id: id.id, type: StockLocations.TYPE }
 	}
 
 	type(): string {

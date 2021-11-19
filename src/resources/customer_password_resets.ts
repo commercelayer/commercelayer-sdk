@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -83,7 +83,7 @@ class CustomerPasswordResets extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): CustomerPasswordResetRel {
-		return (typeof id === 'string') ? { id, type: CustomerPasswordResets.TYPE } : {id: id.id, type: CustomerPasswordResets.TYPE }
+		return (typeof id === 'string') ? { id, type: CustomerPasswordResets.TYPE } : { id: id.id, type: CustomerPasswordResets.TYPE }
 	}
 
 	type(): string {

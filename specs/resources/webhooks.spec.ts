@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('Webhooks resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			topic: 'lambda_27',
-			callback_url: 'alfa_25',
+			topic: 'epsilon_34',
+			callback_url: 'sigma_87',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

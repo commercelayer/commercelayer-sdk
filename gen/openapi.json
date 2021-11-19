@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.7.3",
+        "version": "2.7.4",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -2407,21 +2407,21 @@
         "/checkout_com_gateways": {
             "get": {
                 "operationId": "GET/checkout_com_gateways",
-                "summary": "List all checkout com gateways",
-                "description": "List all checkout com gateways",
+                "summary": "List all checkout.com gateways",
+                "description": "List all checkout.com gateways",
                 "tags": [
                     "checkout_com_gateways"
                 ],
                 "responses": {
                     "200": {
-                        "description": "A list of checkout com gateway objects"
+                        "description": "A list of checkout.com gateway objects"
                     }
                 }
             },
             "post": {
                 "operationId": "POST/checkout_com_gateways",
-                "summary": "Create a checkout com gateway",
-                "description": "Create a checkout com gateway",
+                "summary": "Create a checkout.com gateway",
+                "description": "Create a checkout.com gateway",
                 "tags": [
                     "checkout_com_gateways"
                 ],
@@ -2437,7 +2437,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "The created checkout com gateway object"
+                        "description": "The created checkout.com gateway object"
                     }
                 }
             }
@@ -2445,8 +2445,8 @@
         "/checkout_com_gateways/{checkoutComGatewayId}": {
             "get": {
                 "operationId": "GET/checkout_com_gateways/checkoutComGatewayId",
-                "summary": "Retrieve a checkout com gateway",
-                "description": "Retrieve a checkout com gateway",
+                "summary": "Retrieve a checkout.com gateway",
+                "description": "Retrieve a checkout.com gateway",
                 "tags": [
                     "checkout_com_gateways"
                 ],
@@ -2463,7 +2463,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The checkout com gateway object",
+                        "description": "The checkout.com gateway object",
                         "content": {
                             "application/vnd.api+json": {
                                 "schema": {
@@ -2476,8 +2476,8 @@
             },
             "patch": {
                 "operationId": "PATCH/checkout_com_gateways/checkoutComGatewayId",
-                "summary": "Update a checkout com gateway",
-                "description": "Update a checkout com gateway",
+                "summary": "Update a checkout.com gateway",
+                "description": "Update a checkout.com gateway",
                 "tags": [
                     "checkout_com_gateways"
                 ],
@@ -2504,14 +2504,14 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "The updated checkout com gateway object"
+                        "description": "The updated checkout.com gateway object"
                     }
                 }
             },
             "delete": {
                 "operationId": "DELETE/checkout_com_gateways/checkoutComGatewayId",
-                "summary": "Delete a checkout com gateway",
-                "description": "Delete a checkout com gateway",
+                "summary": "Delete a checkout.com gateway",
+                "description": "Delete a checkout.com gateway",
                 "tags": [
                     "checkout_com_gateways"
                 ],
@@ -2536,8 +2536,8 @@
         "/checkout_com_gateways/{checkoutComGatewayId}/payment_methods": {
             "get": {
                 "operationId": "GET/checkoutComGatewayId/payment_methods",
-                "summary": "Retrieve the payment methods associated to the checkout com gateway",
-                "description": "Retrieve the payment methods associated to the checkout com gateway",
+                "summary": "Retrieve the payment methods associated to the checkout.com gateway",
+                "description": "Retrieve the payment methods associated to the checkout.com gateway",
                 "tags": [
                     "has_many",
                     "payment_methods"
@@ -2555,7 +2555,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The payment_methods associated to the checkout com gateway"
+                        "description": "The payment_methods associated to the checkout.com gateway"
                     }
                 }
             }
@@ -2563,8 +2563,8 @@
         "/checkout_com_gateways/{checkoutComGatewayId}/checkout_com_payments": {
             "get": {
                 "operationId": "GET/checkoutComGatewayId/checkout_com_payments",
-                "summary": "Retrieve the checkout com payments associated to the checkout com gateway",
-                "description": "Retrieve the checkout com payments associated to the checkout com gateway",
+                "summary": "Retrieve the checkout com payments associated to the checkout.com gateway",
+                "description": "Retrieve the checkout com payments associated to the checkout.com gateway",
                 "tags": [
                     "has_many",
                     "checkout_com_payments"
@@ -2582,7 +2582,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The checkout_com_payments associated to the checkout com gateway"
+                        "description": "The checkout_com_payments associated to the checkout.com gateway"
                     }
                 }
             }
@@ -2590,21 +2590,21 @@
         "/checkout_com_payments": {
             "get": {
                 "operationId": "GET/checkout_com_payments",
-                "summary": "List all checkout com payments",
-                "description": "List all checkout com payments",
+                "summary": "List all checkout.com payments",
+                "description": "List all checkout.com payments",
                 "tags": [
                     "checkout_com_payments"
                 ],
                 "responses": {
                     "200": {
-                        "description": "A list of checkout com payment objects"
+                        "description": "A list of checkout.com payment objects"
                     }
                 }
             },
             "post": {
                 "operationId": "POST/checkout_com_payments",
-                "summary": "Create a checkout com payment",
-                "description": "Create a checkout com payment",
+                "summary": "Create a checkout.com payment",
+                "description": "Create a checkout.com payment",
                 "tags": [
                     "checkout_com_payments"
                 ],
@@ -2620,7 +2620,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "The created checkout com payment object"
+                        "description": "The created checkout.com payment object"
                     }
                 }
             }
@@ -2628,8 +2628,8 @@
         "/checkout_com_payments/{checkoutComPaymentId}": {
             "get": {
                 "operationId": "GET/checkout_com_payments/checkoutComPaymentId",
-                "summary": "Retrieve a checkout com payment",
-                "description": "Retrieve a checkout com payment",
+                "summary": "Retrieve a checkout.com payment",
+                "description": "Retrieve a checkout.com payment",
                 "tags": [
                     "checkout_com_payments"
                 ],
@@ -2646,7 +2646,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The checkout com payment object",
+                        "description": "The checkout.com payment object",
                         "content": {
                             "application/vnd.api+json": {
                                 "schema": {
@@ -2659,8 +2659,8 @@
             },
             "patch": {
                 "operationId": "PATCH/checkout_com_payments/checkoutComPaymentId",
-                "summary": "Update a checkout com payment",
-                "description": "Update a checkout com payment",
+                "summary": "Update a checkout.com payment",
+                "description": "Update a checkout.com payment",
                 "tags": [
                     "checkout_com_payments"
                 ],
@@ -2687,14 +2687,14 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "The updated checkout com payment object"
+                        "description": "The updated checkout.com payment object"
                     }
                 }
             },
             "delete": {
                 "operationId": "DELETE/checkout_com_payments/checkoutComPaymentId",
-                "summary": "Delete a checkout com payment",
-                "description": "Delete a checkout com payment",
+                "summary": "Delete a checkout.com payment",
+                "description": "Delete a checkout.com payment",
                 "tags": [
                     "checkout_com_payments"
                 ],
@@ -2719,8 +2719,8 @@
         "/checkout_com_payments/{checkoutComPaymentId}/order": {
             "get": {
                 "operationId": "GET/checkoutComPaymentId/order",
-                "summary": "Retrieve the order associated to the checkout com payment",
-                "description": "Retrieve the order associated to the checkout com payment",
+                "summary": "Retrieve the order associated to the checkout.com payment",
+                "description": "Retrieve the order associated to the checkout.com payment",
                 "tags": [
                     "has_one",
                     "orders"
@@ -2738,7 +2738,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The order associated to the checkout com payment"
+                        "description": "The order associated to the checkout.com payment"
                     }
                 }
             }
@@ -2746,8 +2746,8 @@
         "/checkout_com_payments/{checkoutComPaymentId}/payment_gateway": {
             "get": {
                 "operationId": "GET/checkoutComPaymentId/payment_gateway",
-                "summary": "Retrieve the payment gateway associated to the checkout com payment",
-                "description": "Retrieve the payment gateway associated to the checkout com payment",
+                "summary": "Retrieve the payment gateway associated to the checkout.com payment",
+                "description": "Retrieve the payment gateway associated to the checkout.com payment",
                 "tags": [
                     "has_one",
                     "payment_gateways"
@@ -2765,7 +2765,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The payment_gateway associated to the checkout com payment"
+                        "description": "The payment_gateway associated to the checkout.com payment"
                     }
                 }
             }
@@ -31272,11 +31272,6 @@
                                         "description": "The email address of the associated recipient. When creating or updating a gift card, this is a shortcut to find or create the associated recipient by email.",
                                         "example": "john@example.com"
                                     },
-                                    "_balance_change_cents": {
-                                        "type": "integer",
-                                        "description": "The balance change, in cents. Send a negative value to reduces the card balance by the specified amount. Send a positive value to recharge the gift card (if rechargeable).",
-                                        "example": -5000
-                                    },
                                     "id": {
                                         "type": "string",
                                         "description": "Unique identifier for the resource (hash).",
@@ -36557,7 +36552,7 @@
                                     },
                                     "frequency": {
                                         "type": "string",
-                                        "description": "The frequency of the subscription. One of 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', or 'yearly'.",
+                                        "description": "The frequency of the subscription. One of 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', or 'yearly'.",
                                         "example": "monthly"
                                     },
                                     "activate_by_source_order": {
@@ -36774,7 +36769,7 @@
                                 "properties": {
                                     "frequency": {
                                         "type": "string",
-                                        "description": "The frequency of the subscription. One of 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', or 'yearly'.",
+                                        "description": "The frequency of the subscription. One of 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', or 'yearly'.",
                                         "example": "monthly"
                                     },
                                     "activate_by_source_order": {
@@ -36816,7 +36811,10 @@
                                             "foo": "bar"
                                         }
                                     }
-                                }
+                                },
+                                "required": [
+                                    "frequency"
+                                ]
                             },
                             "relationships": {
                                 "type": "object",
@@ -38726,6 +38724,16 @@
                                         "description": "Indicates if organization has acceptance disabled.",
                                         "example": false
                                     },
+                                    "max_concurrent_promotions": {
+                                        "type": "integer",
+                                        "description": "The maximum number of active concurrent promotions allowed for your organization.",
+                                        "example": 10
+                                    },
+                                    "max_concurrent_imports": {
+                                        "type": "integer",
+                                        "description": "The maximum number of concurrent imports allowed for your organization.",
+                                        "example": 30
+                                    },
                                     "id": {
                                         "type": "string",
                                         "description": "Unique identifier for the resource (hash).",
@@ -38992,7 +39000,14 @@
                                             "foo": "bar"
                                         }
                                     }
-                                }
+                                },
+                                "required": [
+                                    "name",
+                                    "length",
+                                    "width",
+                                    "height",
+                                    "unit_of_length"
+                                ]
                             },
                             "relationships": {
                                 "type": "object",

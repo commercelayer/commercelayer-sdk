@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -103,7 +103,7 @@ class InStockSubscriptions extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): InStockSubscriptionRel {
-		return (typeof id === 'string') ? { id, type: InStockSubscriptions.TYPE } : {id: id.id, type: InStockSubscriptions.TYPE }
+		return (typeof id === 'string') ? { id, type: InStockSubscriptions.TYPE } : { id: id.id, type: InStockSubscriptions.TYPE }
 	}
 
 	type(): string {

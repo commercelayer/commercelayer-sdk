@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -118,7 +118,7 @@ class FreeShippingPromotions extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): FreeShippingPromotionRel {
-		return (typeof id === 'string') ? { id, type: FreeShippingPromotions.TYPE } : {id: id.id, type: FreeShippingPromotions.TYPE }
+		return (typeof id === 'string') ? { id, type: FreeShippingPromotions.TYPE } : { id: id.id, type: FreeShippingPromotions.TYPE }
 	}
 
 	type(): string {

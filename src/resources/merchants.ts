@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -87,7 +87,7 @@ class Merchants extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): MerchantRel {
-		return (typeof id === 'string') ? { id, type: Merchants.TYPE } : {id: id.id, type: Merchants.TYPE }
+		return (typeof id === 'string') ? { id, type: Merchants.TYPE } : { id: id.id, type: Merchants.TYPE }
 	}
 
 	type(): string {

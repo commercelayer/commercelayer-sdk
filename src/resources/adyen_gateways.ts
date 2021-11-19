@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -96,7 +96,7 @@ class AdyenGateways extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): AdyenGatewayRel {
-		return (typeof id === 'string') ? { id, type: AdyenGateways.TYPE } : {id: id.id, type: AdyenGateways.TYPE }
+		return (typeof id === 'string') ? { id, type: AdyenGateways.TYPE } : { id: id.id, type: AdyenGateways.TYPE }
 	}
 
 	type(): string {

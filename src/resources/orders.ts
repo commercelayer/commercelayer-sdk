@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -282,7 +282,7 @@ class Orders extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): OrderRel {
-		return (typeof id === 'string') ? { id, type: Orders.TYPE } : {id: id.id, type: Orders.TYPE }
+		return (typeof id === 'string') ? { id, type: Orders.TYPE } : { id: id.id, type: Orders.TYPE }
 	}
 
 	type(): string {

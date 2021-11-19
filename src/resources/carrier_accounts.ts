@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -57,7 +57,7 @@ class CarrierAccounts extends ApiResource {
 	*/
 
 	relationship(id: string | ResourceId): CarrierAccountRel {
-		return (typeof id === 'string') ? { id, type: CarrierAccounts.TYPE } : {id: id.id, type: CarrierAccounts.TYPE }
+		return (typeof id === 'string') ? { id, type: CarrierAccounts.TYPE } : { id: id.id, type: CarrierAccounts.TYPE }
 	}
 
 	type(): string {
