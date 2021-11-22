@@ -3,10 +3,12 @@ import axios, { AxiosInstance, Method } from 'axios'
 import { DocWithData as JSONApiDocument, ResourceObject as JSONApiResource } from 'jsonapi-typescript'
 import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
+import config from './config'
+
 
 
 const baseURL = (organization: string, domain?: string): string => {
-	return `https://${organization.toLowerCase()}.${domain ? domain : 'commercelayer.io'}/api`
+	return `https://${organization.toLowerCase()}.${domain ? domain : config.default.domain}/api`
 }
 
 
@@ -73,12 +75,12 @@ class ApiClient {
 		this.#accessToken = options.accessToken
 
 		const axiosConfig: RequestConfig = {
-			timeout: options.timeout || 3000
+			timeout: options.timeout || config.client.timeout
 		}
 
 		this.#client = axios.create({
 			baseURL: this.baseUrl,
-			timeout: 3000,
+			timeout: config.client.timeout,
 			headers: {
 				'Accept': 'application/vnd.api+json',
 				'Content-Type': 'application/vnd.api+json',
