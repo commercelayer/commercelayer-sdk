@@ -76,6 +76,7 @@ const isParamsList = (params: any): params is QueryParamsList => {
 }
 
 
+/*
 class QueryBuilderRetrieve {
 
 	#resource: string
@@ -131,8 +132,10 @@ class QueryBuilderRetrieve {
 	}
 
 }
+*/
 
 
+/*
 class QueryBuilderList extends QueryBuilderRetrieve {
 
 	#sort?: string[]
@@ -213,8 +216,9 @@ class QueryBuilderList extends QueryBuilderRetrieve {
 	}
 
 }
+*/
 
-
+/*
 class QueryBuilder extends QueryBuilderList {
 
 	constructor(resource?: string) {
@@ -222,6 +226,7 @@ class QueryBuilder extends QueryBuilderList {
 	}
 
 }
+*/
 
 
 // export default QueryBuilder
