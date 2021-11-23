@@ -224,9 +224,9 @@ class QueryBuilder extends QueryBuilderList {
 }
 
 
-export default QueryBuilder
+// export default QueryBuilder
 
-export { QueryBuilderRetrieve, QueryBuilderList }
+// export { QueryBuilderRetrieve, QueryBuilderList }
 
 
 
