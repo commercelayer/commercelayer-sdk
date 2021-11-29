@@ -46,7 +46,7 @@ class ApiError extends SdkError {
 	}
 
 	first(): any {
-		return (this.errors.length > 0) ? this.errors[0] : undefined
+		return (this.errors?.length > 0) ? this.errors[0] : undefined
 	}
 
 }
