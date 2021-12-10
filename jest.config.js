@@ -2,6 +2,6 @@
 module.exports = async () => {
   return {
     verbose: true,
-    testMatch: ['**/specs/**/*.[jt]s?(x)']
+    testMatch: ['**/specs/**/*.spec.[jt]s?(x)']
   }
 }

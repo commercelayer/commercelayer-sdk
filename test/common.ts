@@ -135,7 +135,7 @@ const checkCommonData = (config: AxiosRequestConfig, type: string, attributes: a
 }
 
 const checkParam = (params: any, name: string, value: string | number | boolean) => {
-	expect(params).toHaveProperty(name)
+	expect(params).toHaveProperty([name])
 	expect(params[name]).toBe(String(value))
 }
 

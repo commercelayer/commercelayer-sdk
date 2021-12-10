@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "2.3.10",
+  "version": "2.3.12",
   "main": "lib/cjs/index.js",
   "types": "lib/cjs/index.d.ts",
   "module": "lib/esm/index.js",
@@ -11,7 +11,7 @@
     "start": "ts-node src/index.ts",
     "generate": "ts-node gen/generator.ts",
     "prepare": "npm run build",
-    "test": "jest test",
+    "test": "jest",
     "test-local": "ts-node test.ts",
     "coverage": "jest --coverage",
     "size": "size-limit",
@@ -35,6 +35,9 @@
   "files": [
     "lib/**/*"
   ],
+  "engines": {
+    "node": ">=12.20"
+  },
   "dependencies": {
     "axios": "^0.24.0"
   },
@@ -43,8 +46,9 @@
     "@babel/preset-typescript": "^7.15.0",
     "@commercelayer/js-auth": "^2.1.0",
     "@size-limit/preset-small-lib": "^6.0.3",
+    "@types/jest": "^27.0.3",
     "@types/lodash": "^4.14.176",
-    "@types/node": "^16.11.6",
+    "@types/node": "^16.11.0",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "dotenv": "^10.0.0",
     "eslint": "^8.1.0",
