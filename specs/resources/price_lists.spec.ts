@@ -25,8 +25,8 @@ describe('PriceLists resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_0',
-			currency_code: 'sigma_4',
+			name: 'omega_47',
+			currency_code: 'sigma_32',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

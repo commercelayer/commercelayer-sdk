@@ -25,7 +25,7 @@ describe('StockItems resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 12345,
+			quantity: 10,
 			stock_location: cl.stock_locations.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 		}

@@ -25,8 +25,8 @@ describe('ShippingMethods resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'gamma_29',
-			price_amount_cents: 0,
+			name: 'alfa_49',
+			price_amount_cents: 1,
 			market: cl.markets.relationship(TestData.id),
 			shipping_zone: cl.shipping_zones.relationship(TestData.id),
 			shipping_category: cl.shipping_categories.relationship(TestData.id),

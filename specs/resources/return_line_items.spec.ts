@@ -25,7 +25,7 @@ describe('ReturnLineItems resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 0,
+			quantity: 55,
 			return: cl.returns.relationship(TestData.id),
 			line_item: cl.line_items.relationship(TestData.id),
 		}

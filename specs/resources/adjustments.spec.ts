@@ -25,9 +25,9 @@ describe('Adjustments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_97',
-			currency_code: 'epsilon_84',
-			amount_cents: 12345,
+			name: 'omega_75',
+			currency_code: 'lambda_0',
+			amount_cents: 100,
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

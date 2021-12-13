@@ -25,8 +25,8 @@ describe('Prices resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			amount_cents: 100,
-			compare_at_amount_cents: 555,
+			amount_cents: 5,
+			compare_at_amount_cents: 10,
 			price_list: cl.price_lists.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 		}

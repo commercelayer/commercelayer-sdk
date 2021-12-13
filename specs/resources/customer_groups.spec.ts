@@ -25,7 +25,7 @@ describe('CustomerGroups resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_71',
+			name: 'beta_41',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

@@ -25,10 +25,10 @@ describe('PaypalGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_19',
-			client_id: 'epsilon_24',
-			client_secret: 'epsilon_33',
-			mode: 'gamma_76',
+			name: 'omega_93',
+			client_id: 'sigma_27',
+			client_secret: 'beta_51',
+			mode: 'sigma_60',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

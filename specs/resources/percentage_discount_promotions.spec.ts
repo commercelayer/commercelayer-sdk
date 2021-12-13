@@ -25,11 +25,11 @@ describe('PercentageDiscountPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'epsilon_66',
-			starts_at: 'epsilon_96',
-			expires_at: 'omega_18',
-			total_usage_limit: 12345,
-			percentage: 0,
+			name: 'alfa_21',
+			starts_at: 'alfa_24',
+			expires_at: 'kappa_67',
+			total_usage_limit: 10,
+			percentage: 12345,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

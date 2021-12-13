@@ -25,10 +25,10 @@ describe('Bundles resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			code: 'alfa_97',
-			name: 'kappa_1',
-			price_amount_cents: 5,
-			compare_at_amount_cents: 10,
+			code: 'epsilon_7',
+			name: 'omega_69',
+			price_amount_cents: 1000,
+			compare_at_amount_cents: 555,
 			market: cl.markets.relationship(TestData.id),
 			sku_list: cl.sku_lists.relationship(TestData.id),
 		}

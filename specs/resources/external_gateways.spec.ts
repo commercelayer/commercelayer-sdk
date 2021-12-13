@@ -25,7 +25,7 @@ describe('ExternalGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'gamma_87',
+			name: 'omega_87',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

@@ -25,7 +25,7 @@ describe('ParcelLineItems resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 0,
+			quantity: 10,
 			parcel: cl.parcels.relationship(TestData.id),
 			stock_line_item: cl.stock_line_items.relationship(TestData.id),
 		}

@@ -25,7 +25,7 @@ describe('Merchants resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'epsilon_82',
+			name: 'kappa_27',
 			address: cl.addresses.relationship(TestData.id),
 		}
 

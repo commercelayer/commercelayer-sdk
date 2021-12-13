@@ -25,7 +25,7 @@ describe('LineItems resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 12345,
+			quantity: 100,
 			order: cl.orders.relationship(TestData.id),
 			item: cl.adjustments.relationship(TestData.id),
 		}
