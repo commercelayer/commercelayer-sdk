@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,6 @@ describe('SkuListItems resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			position: 10,
-			quantity: 0,
 			sku_list: cl.sku_lists.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 		}

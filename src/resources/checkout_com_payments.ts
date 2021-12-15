@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -46,7 +41,6 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	payment_type?: string
 	token?: string
 	session_id?: string
-	_authorize?: boolean
 	_details?: boolean
 	_refresh?: boolean
 
@@ -87,21 +81,11 @@ class CheckoutComPayments extends ApiResource {
 		return resource.type && (resource.type === CheckoutComPayments.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(CheckoutComPayments.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(CheckoutComPayments.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): CheckoutComPaymentRel {
 		return (typeof id === 'string') ? { id, type: CheckoutComPayments.TYPE } : { id: id.id, type: CheckoutComPayments.TYPE }
 	}
+
 
 	type(): string {
 		return CheckoutComPayments.TYPE

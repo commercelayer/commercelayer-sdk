@@ -1,10 +1,5 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '../query'
+import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 
@@ -28,27 +23,21 @@ class OrderValidationRules extends ApiResource {
 		return this.resources.list({ type: OrderValidationRules.TYPE }, params, options)
 	}
 
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderValidationRule> {
+		return this.resources.retrieve<OrderValidationRule>({ type: OrderValidationRules.TYPE, id }, params, options)
+	}
+
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrderValidationRule(resource: any): resource is OrderValidationRule {
 		return resource.type && (resource.type === OrderValidationRules.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(OrderValidationRules.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(OrderValidationRules.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): OrderValidationRuleRel {
 		return (typeof id === 'string') ? { id, type: OrderValidationRules.TYPE } : { id: id.id, type: OrderValidationRules.TYPE }
 	}
+
 
 	type(): string {
 		return OrderValidationRules.TYPE

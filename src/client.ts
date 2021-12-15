@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, Method } from 'axios'
-import { DocWithData as JSONApiDocument, ResourceObject as JSONApiResource } from 'jsonapi-typescript'
+import type { DocWithData as JSONApiDocument, ResourceObject as JSONApiResource } from 'jsonapi-typescript'
 import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'

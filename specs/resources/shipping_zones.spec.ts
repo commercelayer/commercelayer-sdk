@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('ShippingZones resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_20',
+			name: 'lambda_11',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

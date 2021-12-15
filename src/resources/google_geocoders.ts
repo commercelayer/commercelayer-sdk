@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -71,21 +66,11 @@ class GoogleGeocoders extends ApiResource {
 		return resource.type && (resource.type === GoogleGeocoders.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(GoogleGeocoders.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(GoogleGeocoders.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): GoogleGeocoderRel {
 		return (typeof id === 'string') ? { id, type: GoogleGeocoders.TYPE } : { id: id.id, type: GoogleGeocoders.TYPE }
 	}
+
 
 	type(): string {
 		return GoogleGeocoders.TYPE

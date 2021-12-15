@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -81,21 +76,11 @@ class ManualTaxCalculators extends ApiResource {
 		return resource.type && (resource.type === ManualTaxCalculators.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(ManualTaxCalculators.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(ManualTaxCalculators.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): ManualTaxCalculatorRel {
 		return (typeof id === 'string') ? { id, type: ManualTaxCalculators.TYPE } : { id: id.id, type: ManualTaxCalculators.TYPE }
 	}
+
 
 	type(): string {
 		return ManualTaxCalculators.TYPE

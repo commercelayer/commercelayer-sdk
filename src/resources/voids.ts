@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -52,21 +47,11 @@ class Voids extends ApiResource {
 		return resource.type && (resource.type === Voids.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(Voids.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(Voids.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): VoidRel {
 		return (typeof id === 'string') ? { id, type: Voids.TYPE } : { id: id.id, type: Voids.TYPE }
 	}
+
 
 	type(): string {
 		return Voids.TYPE

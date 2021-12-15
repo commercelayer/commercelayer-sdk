@@ -2,9 +2,11 @@
 import * as api from './api'
 import { ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj } from './interceptor'
-// import QueryBuilder, { QueryBuilderRetrieve, QueryBuilderList } from './query'
 import { CommerceLayerStatic } from './static'
 import ResourceAdapter, { ResourcesConfig, ResourcesInitConfig } from './resource'
+
+
+const OPEN_API_SCHEMA_VERSION = '2.7.6'
 
 
 type SdkConfig = {}
@@ -15,6 +17,8 @@ type CommerceLayerConfig = SdkConfig & ResourcesConfig
 
 
 class CommerceLayerClient {
+
+	static get openApiSchemaVersion() { return OPEN_API_SCHEMA_VERSION }
 
 	#adapter: ResourceAdapter
 	#organization: string
@@ -240,13 +244,6 @@ class CommerceLayerClient {
 		this.#adapter.config(config)
 
 	}
-
-
-	/*
-	queryBuilder(resource: string): QueryBuilderRetrieve {
-		return new QueryBuilder(resource)
-	}
-	*/
 
 	
 	resources(): readonly string[] {

@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('InventoryModels resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_30',
-			strategy: 'sigma_43',
+			name: 'delta_72',
+			strategy: 'epsilon_94',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

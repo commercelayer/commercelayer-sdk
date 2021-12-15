@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -108,21 +103,11 @@ class ExternalPromotions extends ApiResource {
 		return resource.type && (resource.type === ExternalPromotions.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(ExternalPromotions.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(ExternalPromotions.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): ExternalPromotionRel {
 		return (typeof id === 'string') ? { id, type: ExternalPromotions.TYPE } : { id: id.id, type: ExternalPromotions.TYPE }
 	}
+
 
 	type(): string {
 		return ExternalPromotions.TYPE

@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -19,6 +19,27 @@ beforeAll(async () => { cl = await getClient() })
 describe('TaxCalculators resource', () => {
 
   const resourceType = 'tax_calculators'
+
+
+  /* spec.retrieve.start */
+  it(resourceType + '.retrieve', async () => {
+
+    const id = TestData.id
+    const params = { fields: { tax_calculators: CommonData.paramsFields } }
+
+    const intId = cl.addRequestInterceptor((config) => {
+      expect(config.method).toBe('get')
+      checkCommon(config, resourceType, id, currentAccessToken)
+      checkCommonParams(config, params)
+     return interceptRequest()
+    })
+
+    await cl[resourceType].retrieve(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request', intId))
+
+  })
+  /* spec.retrieve.stop */
 
 
   /* spec.list.start */

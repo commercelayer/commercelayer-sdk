@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -81,21 +76,11 @@ class Authorizations extends ApiResource {
 		return resource.type && (resource.type === Authorizations.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(Authorizations.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(Authorizations.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): AuthorizationRel {
 		return (typeof id === 'string') ? { id, type: Authorizations.TYPE } : { id: id.id, type: Authorizations.TYPE }
 	}
+
 
 	type(): string {
 		return Authorizations.TYPE

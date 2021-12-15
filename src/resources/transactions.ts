@@ -1,10 +1,5 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '../query'
+import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 
@@ -40,27 +35,21 @@ class Transactions extends ApiResource {
 		return this.resources.list({ type: Transactions.TYPE }, params, options)
 	}
 
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Transaction> {
+		return this.resources.retrieve<Transaction>({ type: Transactions.TYPE, id }, params, options)
+	}
+
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isTransaction(resource: any): resource is Transaction {
 		return resource.type && (resource.type === Transactions.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(Transactions.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(Transactions.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): TransactionRel {
 		return (typeof id === 'string') ? { id, type: Transactions.TYPE } : { id: id.id, type: Transactions.TYPE }
 	}
+
 
 	type(): string {
 		return Transactions.TYPE

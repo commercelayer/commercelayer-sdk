@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -18,6 +13,7 @@ type SkuRel = ResourceId & { type: 'skus' }
 interface SkuListItem extends Resource {
 	
 	position?: number
+	sku_code?: string
 	quantity?: number
 
 	sku_list?: SkuList
@@ -28,8 +24,9 @@ interface SkuListItem extends Resource {
 
 interface SkuListItemCreate extends ResourceCreate {
 	
-	position: number
-	quantity: number
+	position?: number
+	sku_code?: string
+	quantity?: number
 
 	sku_list?: SkuListRel
 	sku?: SkuRel
@@ -40,6 +37,7 @@ interface SkuListItemCreate extends ResourceCreate {
 interface SkuListItemUpdate extends ResourceUpdate {
 	
 	position?: number
+	sku_code?: string
 	quantity?: number
 	
 }
@@ -77,21 +75,11 @@ class SkuListItems extends ApiResource {
 		return resource.type && (resource.type === SkuListItems.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(SkuListItems.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(SkuListItems.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): SkuListItemRel {
 		return (typeof id === 'string') ? { id, type: SkuListItems.TYPE } : { id: id.id, type: SkuListItems.TYPE }
 	}
+
 
 	type(): string {
 		return SkuListItems.TYPE

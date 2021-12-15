@@ -1,9 +1,4 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
@@ -21,20 +16,6 @@ interface PaymentGateway extends Resource {
 }
 
 
-interface PaymentGatewayCreate extends ResourceCreate {
-	
-	name: string
-	
-}
-
-
-interface PaymentGatewayUpdate extends ResourceUpdate {
-	
-	name?: string
-	
-}
-
-
 class PaymentGateways extends ApiResource {
 
 	static readonly TYPE: 'payment_gateways' = 'payment_gateways'
@@ -44,22 +25,9 @@ class PaymentGateways extends ApiResource {
 		return this.resources.list({ type: PaymentGateways.TYPE }, params, options)
 	}
 
-	async create(resource: PaymentGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		return this.resources.create({ ...resource, type: PaymentGateways.TYPE }, params, options)
-	}
-
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		return this.resources.retrieve<PaymentGateway>({ type: PaymentGateways.TYPE, id }, params, options)
 	}
-
-	async update(resource: PaymentGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		return this.resources.update({ ...resource, type: PaymentGateways.TYPE }, params, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: PaymentGateways.TYPE, id }, options)
-	}
-	
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
@@ -67,21 +35,11 @@ class PaymentGateways extends ApiResource {
 		return resource.type && (resource.type === PaymentGateways.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(PaymentGateways.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(PaymentGateways.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): PaymentGatewayRel {
 		return (typeof id === 'string') ? { id, type: PaymentGateways.TYPE } : { id: id.id, type: PaymentGateways.TYPE }
 	}
+
 
 	type(): string {
 		return PaymentGateways.TYPE
@@ -92,4 +50,4 @@ class PaymentGateways extends ApiResource {
 
 export default PaymentGateways
 
-export { PaymentGateway, PaymentGatewayCreate, PaymentGatewayUpdate }
+export { PaymentGateway }

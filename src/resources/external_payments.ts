@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -76,21 +71,11 @@ class ExternalPayments extends ApiResource {
 		return resource.type && (resource.type === ExternalPayments.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(ExternalPayments.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(ExternalPayments.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): ExternalPaymentRel {
 		return (typeof id === 'string') ? { id, type: ExternalPayments.TYPE } : { id: id.id, type: ExternalPayments.TYPE }
 	}
+
 
 	type(): string {
 		return ExternalPayments.TYPE

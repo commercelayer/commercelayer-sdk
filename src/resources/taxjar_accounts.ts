@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -78,21 +73,11 @@ class TaxjarAccounts extends ApiResource {
 		return resource.type && (resource.type === TaxjarAccounts.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(TaxjarAccounts.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(TaxjarAccounts.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): TaxjarAccountRel {
 		return (typeof id === 'string') ? { id, type: TaxjarAccounts.TYPE } : { id: id.id, type: TaxjarAccounts.TYPE }
 	}
+
 
 	type(): string {
 		return TaxjarAccounts.TYPE

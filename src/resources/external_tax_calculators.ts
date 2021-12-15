@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -79,21 +74,11 @@ class ExternalTaxCalculators extends ApiResource {
 		return resource.type && (resource.type === ExternalTaxCalculators.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(ExternalTaxCalculators.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(ExternalTaxCalculators.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): ExternalTaxCalculatorRel {
 		return (typeof id === 'string') ? { id, type: ExternalTaxCalculators.TYPE } : { id: id.id, type: ExternalTaxCalculators.TYPE }
 	}
+
 
 	type(): string {
 		return ExternalTaxCalculators.TYPE

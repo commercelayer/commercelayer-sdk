@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -20,6 +15,7 @@ interface PaymentMethod extends Resource {
 	
 	payment_source_type?: string
 	name?: string
+	moto?: boolean
 	disabled_at?: string
 	price_amount_cents?: number
 	price_amount_float?: number
@@ -35,6 +31,7 @@ interface PaymentMethod extends Resource {
 interface PaymentMethodCreate extends ResourceCreate {
 	
 	payment_source_type: string
+	moto?: boolean
 	price_amount_cents: number
 
 	market?: MarketRel
@@ -46,6 +43,7 @@ interface PaymentMethodCreate extends ResourceCreate {
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
 	payment_source_type?: string
+	moto?: boolean
 	price_amount_cents?: number
 
 	market?: MarketRel
@@ -86,21 +84,11 @@ class PaymentMethods extends ApiResource {
 		return resource.type && (resource.type === PaymentMethods.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(PaymentMethods.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(PaymentMethods.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): PaymentMethodRel {
 		return (typeof id === 'string') ? { id, type: PaymentMethods.TYPE } : { id: id.id, type: PaymentMethods.TYPE }
 	}
+
 
 	type(): string {
 		return PaymentMethods.TYPE

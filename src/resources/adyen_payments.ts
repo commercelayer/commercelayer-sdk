@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -40,7 +35,6 @@ interface AdyenPaymentUpdate extends ResourceUpdate {
 	payment_request_data?: object
 	payment_request_details?: object
 	payment_response?: object
-	_authorize?: boolean
 	_details?: boolean
 
 	order?: OrderRel
@@ -80,21 +74,11 @@ class AdyenPayments extends ApiResource {
 		return resource.type && (resource.type === AdyenPayments.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(AdyenPayments.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(AdyenPayments.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): AdyenPaymentRel {
 		return (typeof id === 'string') ? { id, type: AdyenPayments.TYPE } : { id: id.id, type: AdyenPayments.TYPE }
 	}
+
 
 	type(): string {
 		return AdyenPayments.TYPE

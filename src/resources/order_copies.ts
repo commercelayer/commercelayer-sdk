@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -72,21 +67,11 @@ class OrderCopies extends ApiResource {
 		return resource.type && (resource.type === OrderCopies.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(OrderCopies.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(OrderCopies.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): OrderCopyRel {
 		return (typeof id === 'string') ? { id, type: OrderCopies.TYPE } : { id: id.id, type: OrderCopies.TYPE }
 	}
+
 
 	type(): string {
 		return OrderCopies.TYPE

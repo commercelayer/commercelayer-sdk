@@ -4,8 +4,6 @@ import { DocWithData, Included, ResourceIdentifierObject, ResourceObject, Attrib
 import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource } from './resource'
 import { isResourceId } from './common'
 
-export type { DocWithData, Value as JSONValue }
-
 
 
 // DENORMALIZATION

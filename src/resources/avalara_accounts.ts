@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -87,21 +82,11 @@ class AvalaraAccounts extends ApiResource {
 		return resource.type && (resource.type === AvalaraAccounts.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(AvalaraAccounts.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(AvalaraAccounts.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): AvalaraAccountRel {
 		return (typeof id === 'string') ? { id, type: AvalaraAccounts.TYPE } : { id: id.id, type: AvalaraAccounts.TYPE }
 	}
+
 
 	type(): string {
 		return AvalaraAccounts.TYPE

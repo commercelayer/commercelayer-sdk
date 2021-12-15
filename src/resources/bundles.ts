@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -100,21 +95,11 @@ class Bundles extends ApiResource {
 		return resource.type && (resource.type === Bundles.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(Bundles.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(Bundles.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): BundleRel {
 		return (typeof id === 'string') ? { id, type: Bundles.TYPE } : { id: id.id, type: Bundles.TYPE }
 	}
+
 
 	type(): string {
 		return Bundles.TYPE

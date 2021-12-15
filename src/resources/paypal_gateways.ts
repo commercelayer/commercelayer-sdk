@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -75,21 +70,11 @@ class PaypalGateways extends ApiResource {
 		return resource.type && (resource.type === PaypalGateways.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(PaypalGateways.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(PaypalGateways.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): PaypalGatewayRel {
 		return (typeof id === 'string') ? { id, type: PaypalGateways.TYPE } : { id: id.id, type: PaypalGateways.TYPE }
 	}
+
 
 	type(): string {
 		return PaypalGateways.TYPE

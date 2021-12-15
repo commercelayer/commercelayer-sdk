@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -80,21 +75,11 @@ class ParcelLineItems extends ApiResource {
 		return resource.type && (resource.type === ParcelLineItems.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(ParcelLineItems.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(ParcelLineItems.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): ParcelLineItemRel {
 		return (typeof id === 'string') ? { id, type: ParcelLineItems.TYPE } : { id: id.id, type: ParcelLineItems.TYPE }
 	}
+
 
 	type(): string {
 		return ParcelLineItems.TYPE

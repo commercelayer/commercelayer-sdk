@@ -1,10 +1,11 @@
 
 import ApiClient, { ApiClientConfig, ApiClientInitConfig } from './client'
-import { denormalize, normalize, JSONValue } from './jsonapi'
+import { denormalize, normalize } from './jsonapi'
 import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from './query'
 import { ResourceTypeLock } from './api'
 import config from './config'
 import { InterceptorManager } from './interceptor'
+import { Value as JSONValue } from 'json-typescript'
 
 
 
@@ -126,7 +127,7 @@ class ResourceAdapter {
 
 	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
-		const queryParams = generateQueryStringParams(params)
+		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
@@ -139,7 +140,7 @@ class ResourceAdapter {
 
 	async retrieve<R extends Resource>(resource: ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
-		const queryParams = generateQueryStringParams(params)
+		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('get', `${resource.type}/${resource.id}`, undefined, { ...options, params: queryParams })
@@ -152,7 +153,7 @@ class ResourceAdapter {
 
 	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
 
-		const queryParams = generateQueryStringParams(params)
+		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
@@ -172,7 +173,7 @@ class ResourceAdapter {
 
 	async create<C extends ResourceCreate, R extends Resource>(resource: C & ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
-		const queryParams = generateQueryStringParams(params)
+		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
@@ -187,7 +188,7 @@ class ResourceAdapter {
 
 	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
-		const queryParams = generateQueryStringParams(params)
+		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)

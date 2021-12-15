@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.7.4",
+        "version": "2.7.6",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -6775,6 +6775,39 @@
                 }
             }
         },
+        "/geocoders/{geocoderId}": {
+            "get": {
+                "operationId": "GET/geocoders/geocoderId",
+                "summary": "Retrieve a geocoder",
+                "description": "Retrieve a geocoder",
+                "tags": [
+                    "geocoders"
+                ],
+                "parameters": [
+                    {
+                        "name": "geocoderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The geocoder object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/geocoder"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/geocoders/{geocoderId}/addresses": {
             "get": {
                 "operationId": "GET/geocoderId/addresses",
@@ -10183,6 +10216,39 @@
                 }
             }
         },
+        "/order_validation_rules/{orderValidationRuleId}": {
+            "get": {
+                "operationId": "GET/order_validation_rules/orderValidationRuleId",
+                "summary": "Retrieve an order validation rule",
+                "description": "Retrieve an order validation rule",
+                "tags": [
+                    "order_validation_rules"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderValidationRuleId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The order validation rule object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/orderValidationRule"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/order_validation_rules/{orderValidationRuleId}/market": {
             "get": {
                 "operationId": "GET/orderValidationRuleId/market",
@@ -11463,29 +11529,6 @@
                         "description": "A list of payment gateway objects"
                     }
                 }
-            },
-            "post": {
-                "operationId": "POST/payment_gateways",
-                "summary": "Create a payment gateway",
-                "description": "Create a payment gateway",
-                "tags": [
-                    "payment_gateways"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/vnd.api+json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/paymentGatewayCreate"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "The created payment gateway object"
-                    }
-                }
             }
         },
         "/payment_gateways/{paymentGatewayId}": {
@@ -11517,64 +11560,6 @@
                                 }
                             }
                         }
-                    }
-                }
-            },
-            "patch": {
-                "operationId": "PATCH/payment_gateways/paymentGatewayId",
-                "summary": "Update a payment gateway",
-                "description": "Update a payment gateway",
-                "tags": [
-                    "payment_gateways"
-                ],
-                "parameters": [
-                    {
-                        "name": "paymentGatewayId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/vnd.api+json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/paymentGatewayUpdate"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "The updated payment gateway object"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "DELETE/payment_gateways/paymentGatewayId",
-                "summary": "Delete a payment gateway",
-                "description": "Delete a payment gateway",
-                "tags": [
-                    "payment_gateways"
-                ],
-                "parameters": [
-                    {
-                        "name": "paymentGatewayId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
                     }
                 }
             }
@@ -12908,6 +12893,39 @@
                 }
             }
         },
+        "/promotion_rules/{promotionRuleId}": {
+            "get": {
+                "operationId": "GET/promotion_rules/promotionRuleId",
+                "summary": "Retrieve a promotion rule",
+                "description": "Retrieve a promotion rule",
+                "tags": [
+                    "promotion_rules"
+                ],
+                "parameters": [
+                    {
+                        "name": "promotionRuleId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The promotion rule object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/promotionRule"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/promotions": {
             "get": {
                 "operationId": "GET/promotions",
@@ -12919,6 +12937,39 @@
                 "responses": {
                     "200": {
                         "description": "A list of promotion objects"
+                    }
+                }
+            }
+        },
+        "/promotions/{promotionId}": {
+            "get": {
+                "operationId": "GET/promotions/promotionId",
+                "summary": "Retrieve a promotion",
+                "description": "Retrieve a promotion",
+                "tags": [
+                    "promotions"
+                ],
+                "parameters": [
+                    {
+                        "name": "promotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The promotion object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/promotion"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -17048,6 +17099,39 @@
                 }
             }
         },
+        "/tax_calculators/{taxCalculatorId}": {
+            "get": {
+                "operationId": "GET/tax_calculators/taxCalculatorId",
+                "summary": "Retrieve a tax calculator",
+                "description": "Retrieve a tax calculator",
+                "tags": [
+                    "tax_calculators"
+                ],
+                "parameters": [
+                    {
+                        "name": "taxCalculatorId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The tax calculator object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/taxCalculator"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/tax_calculators/{taxCalculatorId}/tax_categories": {
             "get": {
                 "operationId": "GET/taxCalculatorId/tax_categories",
@@ -17689,6 +17773,39 @@
                 "responses": {
                     "200": {
                         "description": "A list of transaction objects"
+                    }
+                }
+            }
+        },
+        "/transactions/{transactionId}": {
+            "get": {
+                "operationId": "GET/transactions/transactionId",
+                "summary": "Retrieve a transaction",
+                "description": "Retrieve a transaction",
+                "tags": [
+                    "transactions"
+                ],
+                "parameters": [
+                    {
+                        "name": "transactionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The transaction object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/transaction"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -19459,11 +19576,6 @@
                                         "example": {
                                             "foo": "bar"
                                         }
-                                    },
-                                    "_authorize": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to authorize the payment.",
-                                        "example": true
                                     },
                                     "_details": {
                                         "type": "boolean",
@@ -23485,11 +23597,6 @@
                                         "description": "A payment session ID used to obtain the details.",
                                         "example": "sid_y3oqhf46pyzuxjbcn2giaqnb44"
                                     },
-                                    "_authorize": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to authorize the payment.",
-                                        "example": true
-                                    },
                                     "_details": {
                                         "type": "boolean",
                                         "description": "Send this attribute if you want to send additional details the payment request (i.e. upon 3DS check).",
@@ -24252,6 +24359,11 @@
                                         "description": "The coupon code, that uniquely identifies the coupon within the promotion rule.",
                                         "example": "04371af2-70b3-48d7-8f4e-316b374224c3"
                                     },
+                                    "customer_single_use": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the coupon can be used just once per customer.",
+                                        "example": false
+                                    },
                                     "usage_limit": {
                                         "type": "integer",
                                         "description": "The total number of times this coupon can be used.",
@@ -24357,6 +24469,11 @@
                                         "description": "The coupon code, that uniquely identifies the coupon within the promotion rule.",
                                         "example": "04371af2-70b3-48d7-8f4e-316b374224c3"
                                     },
+                                    "customer_single_use": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the coupon can be used just once per customer.",
+                                        "example": false
+                                    },
                                     "usage_limit": {
                                         "type": "integer",
                                         "description": "The total number of times this coupon can be used.",
@@ -24454,6 +24571,11 @@
                                         "type": "string",
                                         "description": "The coupon code, that uniquely identifies the coupon within the promotion rule.",
                                         "example": "04371af2-70b3-48d7-8f4e-316b374224c3"
+                                    },
+                                    "customer_single_use": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the coupon can be used just once per customer.",
+                                        "example": false
                                     },
                                     "usage_limit": {
                                         "type": "integer",
@@ -40201,123 +40323,6 @@
                     }
                 }
             },
-            "paymentGatewayCreate": {
-                "type": "object",
-                "required": [
-                    "data"
-                ],
-                "properties": {
-                    "data": {
-                        "type": "object",
-                        "required": [
-                            "type",
-                            "attributes"
-                        ],
-                        "properties": {
-                            "type": {
-                                "type": "string",
-                                "description": "The resource's type",
-                                "example": "payment_gateways",
-                                "default": "payment_gateways"
-                            },
-                            "attributes": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "description": "The payment gateway's internal name.",
-                                        "example": "US payment gateway"
-                                    },
-                                    "reference": {
-                                        "type": "string",
-                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE"
-                                    },
-                                    "reference_origin": {
-                                        "type": "string",
-                                        "description": "Any identifier of the third party system that defines the reference code",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                                    },
-                                    "metadata": {
-                                        "type": "object",
-                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
-                                        "example": {
-                                            "foo": "bar"
-                                        }
-                                    }
-                                },
-                                "required": [
-                                    "name"
-                                ]
-                            },
-                            "relationships": {
-                                "type": "object",
-                                "properties": {}
-                            }
-                        }
-                    }
-                }
-            },
-            "paymentGatewayUpdate": {
-                "type": "object",
-                "required": [
-                    "data"
-                ],
-                "properties": {
-                    "data": {
-                        "type": "object",
-                        "required": [
-                            "type",
-                            "id",
-                            "attributes"
-                        ],
-                        "properties": {
-                            "type": {
-                                "type": "string",
-                                "description": "The resource's type",
-                                "example": "payment_gateways",
-                                "default": "payment_gateways"
-                            },
-                            "id": {
-                                "type": "string",
-                                "description": "The resource's id",
-                                "example": "XGZwpOSrWL"
-                            },
-                            "attributes": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "description": "The payment gateway's internal name.",
-                                        "example": "US payment gateway"
-                                    },
-                                    "reference": {
-                                        "type": "string",
-                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE"
-                                    },
-                                    "reference_origin": {
-                                        "type": "string",
-                                        "description": "Any identifier of the third party system that defines the reference code",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                                    },
-                                    "metadata": {
-                                        "type": "object",
-                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
-                                        "example": {
-                                            "foo": "bar"
-                                        }
-                                    }
-                                }
-                            },
-                            "relationships": {
-                                "type": "object",
-                                "properties": {}
-                            }
-                        }
-                    }
-                }
-            },
             "paymentMethod": {
                 "type": "object",
                 "required": [
@@ -40349,6 +40354,11 @@
                                         "type": "string",
                                         "description": "Payment source type, titleized",
                                         "example": "Credit Card"
+                                    },
+                                    "moto": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
+                                        "example": false
                                     },
                                     "disabled_at": {
                                         "type": "string",
@@ -40500,6 +40510,11 @@
                                         "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
                                         "example": "CreditCard"
                                     },
+                                    "moto": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
+                                        "example": false
+                                    },
                                     "price_amount_cents": {
                                         "type": "integer",
                                         "description": "The payment method's price, in cents",
@@ -40613,6 +40628,11 @@
                                         "type": "string",
                                         "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
                                         "example": "CreditCard"
+                                    },
+                                    "moto": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
+                                        "example": false
                                     },
                                     "price_amount_cents": {
                                         "type": "integer",
@@ -45442,6 +45462,11 @@
                                         "description": "The SKU list item's position.",
                                         "example": 2
                                     },
+                                    "sku_code": {
+                                        "type": "string",
+                                        "description": "The code of the associated SKU.",
+                                        "example": "TSHIRTMM000000FFFFFFXLXX"
+                                    },
                                     "quantity": {
                                         "type": "integer",
                                         "description": "The SKU quantity for this SKU list item.",
@@ -45557,6 +45582,11 @@
                                         "description": "The SKU list item's position.",
                                         "example": 2
                                     },
+                                    "sku_code": {
+                                        "type": "string",
+                                        "description": "The code of the associated SKU.",
+                                        "example": "TSHIRTMM000000FFFFFFXLXX"
+                                    },
                                     "quantity": {
                                         "type": "integer",
                                         "description": "The SKU quantity for this SKU list item.",
@@ -45579,11 +45609,7 @@
                                             "foo": "bar"
                                         }
                                     }
-                                },
-                                "required": [
-                                    "position",
-                                    "quantity"
-                                ]
+                                }
                             },
                             "relationships": {
                                 "type": "object",
@@ -45670,6 +45696,11 @@
                                         "type": "integer",
                                         "description": "The SKU list item's position.",
                                         "example": 2
+                                    },
+                                    "sku_code": {
+                                        "type": "string",
+                                        "description": "The code of the associated SKU.",
+                                        "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "quantity": {
                                         "type": "integer",

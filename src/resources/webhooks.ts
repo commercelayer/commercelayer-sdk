@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -79,21 +74,11 @@ class Webhooks extends ApiResource {
 		return resource.type && (resource.type === Webhooks.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(Webhooks.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(Webhooks.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): WebhookRel {
 		return (typeof id === 'string') ? { id, type: Webhooks.TYPE } : { id: id.id, type: Webhooks.TYPE }
 	}
+
 
 	type(): string {
 		return Webhooks.TYPE

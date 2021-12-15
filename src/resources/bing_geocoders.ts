@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -71,21 +66,11 @@ class BingGeocoders extends ApiResource {
 		return resource.type && (resource.type === BingGeocoders.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(BingGeocoders.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(BingGeocoders.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): BingGeocoderRel {
 		return (typeof id === 'string') ? { id, type: BingGeocoders.TYPE } : { id: id.id, type: BingGeocoders.TYPE }
 	}
+
 
 	type(): string {
 		return BingGeocoders.TYPE

@@ -14,20 +14,8 @@ import { getIntegrationToken } from '@commercelayer/js-auth'
 
 	const shipmentId = 'edJBCJOzLy'
 
-	const shipment = await cl.shipments.retrieve(shipmentId, { include: ['available_shipping_methods' ] })
-	const available = shipment.available_shipping_methods
-
-	if (available && available.length > 0) {
-
-		const shipmentUpdate: ShipmentUpdate = {
-			id: shipmentId,
-			shipping_method: cl.shipping_methods.relationship(available[0].id),
-		}
-
-		const shipmentUpdated = await cl.shipments.update(shipmentUpdate)
-
-		console.log(shipmentUpdated)
-
-	}
+	const shipment = await cl.shipments.retrieve(shipmentId, { include: ['available_shipping_methods' ], fields: { shipments: ['number', 'status', 'currency_code'] } })
+	
+	console.log(shipment)
 
 })()

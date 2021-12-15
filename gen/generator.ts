@@ -39,6 +39,8 @@ const loadTemplates = (): void => {
 
 const generate = async (localSchema?: boolean) => {
 
+	console.log('>> Local schema: ' + (localSchema || false) + '\n')
+
 	const schemaPath = localSchema ? 'gen/openapi.json' : await apiSchema.download()
 	if (!fs.existsSync(schemaPath)) {
 		console.log('Cannot find schema file: ' + schemaPath)
@@ -87,7 +89,7 @@ const generate = async (localSchema?: boolean) => {
 
 	updateApiResources(resources)
 	updateSdkInterfaces(resources)
-	updateMofdelTypes(resources)
+	updateModelTypes(resources)
 
 	console.log('SDK generation completed.\n')
 
@@ -123,6 +125,12 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 	const cl = fs.readFileSync('src/commercelayer.ts', { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
+
+	// OpenAPI schema version
+	if (global.version) {
+		const schemaLine = findLine('const OPEN_API_SCHEMA_VERSION', lines)
+		if (schemaLine.index >= 0) lines[schemaLine.index] = `const OPEN_API_SCHEMA_VERSION = '${global.version}'`
+	}
 
 	// Definitions
 	const defTplLine = findLine('##__CL_RESOURCES_DEF_TEMPLATE::', lines)
@@ -172,7 +180,7 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 }
 
 
-const updateMofdelTypes = (resources: { [key: string]: ApiRes }): void => {
+const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 
 	const cl = fs.readFileSync('src/model.ts', { encoding: 'utf-8' })
 
@@ -563,6 +571,4 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 }
 
 
-
-
-generate()
+generate(process.argv.indexOf('--local') > -1)

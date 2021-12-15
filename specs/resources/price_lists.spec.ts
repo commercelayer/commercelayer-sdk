@@ -1,6 +1,6 @@
 /**
  * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('PriceLists resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_47',
-			currency_code: 'sigma_32',
+			name: 'lambda_47',
+			currency_code: 'epsilon_33',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
