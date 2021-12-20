@@ -24,8 +24,8 @@ interface InventoryReturnLocationCreate extends ResourceCreate {
 	
 	priority: number
 
-	stock_location?: StockLocationRel
-	inventory_model?: InventoryModelRel
+	stock_location: StockLocationRel
+	inventory_model: InventoryModelRel
 
 }
 

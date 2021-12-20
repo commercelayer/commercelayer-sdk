@@ -44,7 +44,7 @@ interface TaxRuleCreate extends ResourceCreate {
 	gift_card_taxable?: boolean
 	adjustment_taxable?: boolean
 
-	manual_tax_calculator?: ManualTaxCalculatorRel
+	manual_tax_calculator: ManualTaxCalculatorRel
 
 }
 

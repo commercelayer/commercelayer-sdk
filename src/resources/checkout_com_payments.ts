@@ -31,7 +31,7 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 	token: string
 	session_id?: string
 
-	order?: OrderRel
+	order: OrderRel
 
 }
 

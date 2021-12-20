@@ -29,7 +29,7 @@ interface BraintreePaymentCreate extends ResourceCreate {
 	local?: boolean
 	options?: object
 
-	order?: OrderRel
+	order: OrderRel
 
 }
 

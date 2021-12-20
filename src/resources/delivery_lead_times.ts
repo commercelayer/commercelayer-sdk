@@ -30,8 +30,8 @@ interface DeliveryLeadTimeCreate extends ResourceCreate {
 	min_hours: number
 	max_hours: number
 
-	stock_location?: StockLocationRel
-	shipping_method?: ShippingMethodRel
+	stock_location: StockLocationRel
+	shipping_method: ShippingMethodRel
 
 }
 

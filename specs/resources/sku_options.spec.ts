@@ -25,7 +25,7 @@ describe('SkuOptions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'gamma_9',
+			name: 'alfa_95',
 			market: cl.markets.relationship(TestData.id),
 		}
 

@@ -25,8 +25,8 @@ describe('TaxjarAccounts resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_84',
-			api_key: 'omega_20',
+			name: 'lambda_48',
+			api_key: 'lambda_16',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 

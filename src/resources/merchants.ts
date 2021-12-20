@@ -23,7 +23,7 @@ interface MerchantCreate extends ResourceCreate {
 	
 	name: string
 
-	address?: AddressRel
+	address: AddressRel
 
 }
 

@@ -37,8 +37,8 @@ interface LineItemOptionCreate extends ResourceCreate {
 	quantity: number
 	options: object
 
-	line_item?: LineItemRel
-	sku_option?: SkuOptionRel
+	line_item: LineItemRel
+	sku_option: SkuOptionRel
 
 }
 

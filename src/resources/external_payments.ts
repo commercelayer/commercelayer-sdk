@@ -25,7 +25,7 @@ interface ExternalPaymentCreate extends ResourceCreate {
 	payment_source_token: string
 	options?: object
 
-	order?: OrderRel
+	order: OrderRel
 
 }
 

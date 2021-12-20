@@ -44,9 +44,9 @@ interface ShippingMethodCreate extends ResourceCreate {
 	price_amount_cents: number
 	free_over_amount_cents?: number
 
-	market?: MarketRel
-	shipping_zone?: ShippingZoneRel
-	shipping_category?: ShippingCategoryRel
+	market: MarketRel
+	shipping_zone: ShippingZoneRel
+	shipping_category: ShippingCategoryRel
 
 }
 

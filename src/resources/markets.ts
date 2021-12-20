@@ -43,9 +43,9 @@ interface MarketCreate extends ResourceCreate {
 	checkout_url?: string
 	external_prices_url?: string
 
-	merchant?: MerchantRel
-	price_list?: PriceListRel
-	inventory_model?: InventoryModelRel
+	merchant: MerchantRel
+	price_list: PriceListRel
+	inventory_model: InventoryModelRel
 	tax_calculator?: TaxCalculatorRel
 	customer_group?: CustomerGroupRel
 

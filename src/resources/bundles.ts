@@ -45,7 +45,7 @@ interface BundleCreate extends ResourceCreate {
 	_compute_compare_at_amount?: boolean
 
 	market?: MarketRel
-	sku_list?: SkuListRel
+	sku_list: SkuListRel
 
 }
 

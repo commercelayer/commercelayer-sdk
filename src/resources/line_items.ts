@@ -84,7 +84,7 @@ interface LineItemCreate extends ResourceCreate {
 	image_url?: string
 	item_type?: string
 
-	order?: OrderRel
+	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel
 
 }

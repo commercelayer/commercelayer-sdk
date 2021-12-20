@@ -25,9 +25,9 @@ describe('CheckoutComGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_5',
-			secret_key: 'omega_62',
-			public_key: 'sigma_77',
+			name: 'lambda_14',
+			secret_key: 'delta_76',
+			public_key: 'beta_69',
 			checkout_com_payments: [ cl.checkout_com_payments.relationship(TestData.id) ],
 		}
 

@@ -35,7 +35,7 @@ interface PackageCreate extends ResourceCreate {
 	height: number
 	unit_of_length: string
 
-	stock_location?: StockLocationRel
+	stock_location: StockLocationRel
 
 }
 

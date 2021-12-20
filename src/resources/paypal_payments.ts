@@ -32,7 +32,7 @@ interface PaypalPaymentCreate extends ResourceCreate {
 	cancel_url: string
 	note_to_payer?: string
 
-	order?: OrderRel
+	order: OrderRel
 
 }
 

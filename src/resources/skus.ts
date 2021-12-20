@@ -50,7 +50,7 @@ interface SkuCreate extends ResourceCreate {
 	do_not_ship?: boolean
 	do_not_track?: boolean
 
-	shipping_category?: ShippingCategoryRel
+	shipping_category: ShippingCategoryRel
 
 }
 

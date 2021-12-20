@@ -36,8 +36,8 @@ interface CustomerPaymentSource extends Resource {
 
 interface CustomerPaymentSourceCreate extends ResourceCreate {
 	
-	customer?: CustomerRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	customer: CustomerRel
+	payment_source: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 

@@ -69,8 +69,8 @@ interface ParcelCreate extends ResourceCreate {
 	signed_by?: string
 	incoterm?: string
 
-	shipment?: ShipmentRel
-	package?: PackageRel
+	shipment: ShipmentRel
+	package: PackageRel
 
 }
 

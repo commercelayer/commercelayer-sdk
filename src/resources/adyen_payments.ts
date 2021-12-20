@@ -25,7 +25,7 @@ interface AdyenPayment extends Resource {
 
 interface AdyenPaymentCreate extends ResourceCreate {
 	
-	order?: OrderRel
+	order: OrderRel
 
 }
 

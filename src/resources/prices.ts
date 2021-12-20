@@ -35,7 +35,7 @@ interface PriceCreate extends ResourceCreate {
 	amount_cents: number
 	compare_at_amount_cents: number
 
-	price_list?: PriceListRel
+	price_list: PriceListRel
 	sku?: SkuRel
 
 }

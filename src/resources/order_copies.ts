@@ -34,7 +34,7 @@ interface OrderCopyCreate extends ResourceCreate {
 	cancel_source_order?: boolean
 	reuse_wallet?: boolean
 
-	source_order?: OrderRel
+	source_order: OrderRel
 
 }
 

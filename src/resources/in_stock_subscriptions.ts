@@ -32,9 +32,9 @@ interface InStockSubscriptionCreate extends ResourceCreate {
 	sku_code?: string
 	stock_threshold?: number
 
-	market?: MarketRel
-	customer?: CustomerRel
-	sku?: SkuRel
+	market: MarketRel
+	customer: CustomerRel
+	sku: SkuRel
 
 }
 

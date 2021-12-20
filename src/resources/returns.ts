@@ -40,7 +40,7 @@ interface Return extends Resource {
 
 interface ReturnCreate extends ResourceCreate {
 	
-	order?: OrderRel
+	order: OrderRel
 	stock_location?: StockLocationRel
 
 }

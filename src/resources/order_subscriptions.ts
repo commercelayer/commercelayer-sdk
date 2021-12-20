@@ -45,7 +45,7 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 	options?: object
 
 	market?: MarketRel
-	source_order?: OrderRel
+	source_order: OrderRel
 
 }
 

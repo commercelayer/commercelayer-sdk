@@ -30,8 +30,8 @@ interface ParcelLineItemCreate extends ResourceCreate {
 	sku_code?: string
 	quantity: number
 
-	parcel?: ParcelRel
-	stock_line_item?: StockLineItemRel
+	parcel: ParcelRel
+	stock_line_item: StockLineItemRel
 	/**
 	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/

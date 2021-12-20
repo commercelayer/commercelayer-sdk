@@ -57,7 +57,7 @@ interface FixedPricePromotionCreate extends ResourceCreate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
-	sku_list?: SkuListRel
+	sku_list: SkuListRel
 
 }
 

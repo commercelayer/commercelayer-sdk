@@ -153,8 +153,9 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 		const [cKey, cValue] = c
 
 		const attributes: { [key: string]: Attribute } = {}
-		const required: string[] = cValue.properties.data.properties.attributes.required || []
+		const requiredAttributes: string[] = cValue.properties.data.properties.attributes.required || []
 		const relationships: { [key: string]: Relationship } = {}
+		const requiredRelationships: string[] = cValue.properties.data.properties.relationships.required || []
 
 		Object.entries(cValue.properties.data.properties.attributes.properties as object).forEach(a => {
 			const [aKey, aValue] = a
@@ -162,7 +163,7 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 			attributes[aKey] = {
 				name: aKey,
 				type,
-				required: required.includes(aKey)
+				required: requiredAttributes.includes(aKey)
 			}
 		})
 
@@ -175,7 +176,7 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 				relationships[rKey] = {
 					name: rKey,
 					type,
-					required: false,
+					required: requiredRelationships.includes(rKey),
 					cardinality: (Inflector.pluralize(rKey) === rKey) ? Cardinality.to_many : Cardinality.to_one,
 					deprecated: rValue.deprecated,
 					oneOf,

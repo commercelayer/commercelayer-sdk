@@ -17,7 +17,7 @@ interface BillingInfoValidationRule extends Resource {
 
 interface BillingInfoValidationRuleCreate extends ResourceCreate {
 	
-	market?: MarketRel
+	market: MarketRel
 
 }
 

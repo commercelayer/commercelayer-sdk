@@ -34,8 +34,8 @@ interface PaymentMethodCreate extends ResourceCreate {
 	moto?: boolean
 	price_amount_cents: number
 
-	market?: MarketRel
-	payment_gateway?: PaymentGatewayRel
+	market: MarketRel
+	payment_gateway: PaymentGatewayRel
 
 }
 

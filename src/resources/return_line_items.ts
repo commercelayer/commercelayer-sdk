@@ -30,8 +30,8 @@ interface ReturnLineItemCreate extends ResourceCreate {
 	quantity: number
 	return_reason?: object
 
-	return?: ReturnRel
-	line_item?: LineItemRel
+	return: ReturnRel
+	line_item: LineItemRel
 
 }
 

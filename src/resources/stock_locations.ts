@@ -36,7 +36,7 @@ interface StockLocationCreate extends ResourceCreate {
 	label_format?: string
 	suppress_etd?: boolean
 
-	address?: AddressRel
+	address: AddressRel
 
 }
 

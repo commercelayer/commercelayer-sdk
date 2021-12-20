@@ -28,8 +28,8 @@ interface SkuListItemCreate extends ResourceCreate {
 	sku_code?: string
 	quantity?: number
 
-	sku_list?: SkuListRel
-	sku?: SkuRel
+	sku_list: SkuListRel
+	sku: SkuRel
 
 }
 

@@ -34,8 +34,8 @@ interface TaxCategoryCreate extends ResourceCreate {
 	code: string
 	sku_code?: string
 
-	sku?: SkuRel
-	tax_calculator?: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
+	sku: SkuRel
+	tax_calculator: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
 
 }
 

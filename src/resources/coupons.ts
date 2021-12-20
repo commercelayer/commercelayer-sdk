@@ -28,7 +28,7 @@ interface CouponCreate extends ResourceCreate {
 	usage_limit: number
 	recipient_email?: string
 
-	promotion_rule?: CouponCodesPromotionRuleRel
+	promotion_rule: CouponCodesPromotionRuleRel
 
 }
 

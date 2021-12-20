@@ -25,7 +25,7 @@ describe('Attachments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_13',
+			name: 'beta_41',
 			attachable: cl.bundles.relationship(TestData.id),
 		}
 

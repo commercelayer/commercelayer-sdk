@@ -22,8 +22,8 @@ interface CustomerAddress extends Resource {
 
 interface CustomerAddressCreate extends ResourceCreate {
 	
-	customer?: CustomerRel
-	address?: AddressRel
+	customer: CustomerRel
+	address: AddressRel
 
 }
 

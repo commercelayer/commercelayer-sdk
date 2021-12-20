@@ -26,7 +26,7 @@ interface StripePaymentCreate extends ResourceCreate {
 	
 	options?: object
 
-	order?: OrderRel
+	order: OrderRel
 
 }
 

@@ -17,7 +17,7 @@ interface WireTransfer extends Resource {
 
 interface WireTransferCreate extends ResourceCreate {
 	
-	order?: OrderRel
+	order: OrderRel
 
 }
 

@@ -36,9 +36,9 @@ interface StockTransferCreate extends ResourceCreate {
 	sku_code?: string
 	quantity: number
 
-	sku?: SkuRel
-	origin_stock_location?: StockLocationRel
-	destination_stock_location?: StockLocationRel
+	sku: SkuRel
+	origin_stock_location: StockLocationRel
+	destination_stock_location: StockLocationRel
 	shipment?: ShipmentRel
 	line_item?: LineItemRel
 

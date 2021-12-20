@@ -28,7 +28,7 @@ interface StockItemCreate extends ResourceCreate {
 	sku_code?: string
 	quantity: number
 
-	stock_location?: StockLocationRel
+	stock_location: StockLocationRel
 	sku?: SkuRel
 
 }

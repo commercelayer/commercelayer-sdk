@@ -38,7 +38,7 @@ interface SkuListPromotionRuleCreate extends ResourceCreate {
 	all_skus?: boolean
 	min_quantity?: number
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel
+	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel
 	sku_list?: SkuListRel
 
 }
