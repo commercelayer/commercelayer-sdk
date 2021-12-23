@@ -103,7 +103,10 @@ class ApiClient {
 
 		// API Client config
 		if (config.organization) this.baseUrl = baseURL(config.organization, config.domain)
-		if (config.accessToken) this.#accessToken = config.accessToken
+		if (config.accessToken) {
+			this.#accessToken = config.accessToken
+			def.headers.common['Authorization'] = 'Bearer ' + this.#accessToken;
+		}
 
 	}
 
@@ -115,7 +118,8 @@ class ApiClient {
 
 		// Runtime request parameters
 		const baseUrl = options?.organization ? baseURL(options.organization, options.domain) : undefined
-		const headers = options?.accessToken ? { 'Authorization': 'Bearer ' + options.accessToken } : undefined
+		const accessToken = options?.accessToken || this.#accessToken
+		const headers = accessToken ? { 'Authorization': 'Bearer ' + accessToken } : undefined
 
 		// const start = Date.now()
 

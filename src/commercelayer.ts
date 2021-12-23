@@ -235,8 +235,6 @@ class CommerceLayerClient {
 
 	config(config: CommerceLayerConfig): void {
 
-		if (!config) return
-
 		// CommerceLayer config
 		if (config.organization) this.#organization = config.organization
 

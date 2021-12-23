@@ -105,15 +105,11 @@ class ResourceAdapter {
 
 	config(config: ResourcesConfig): void {
 
-		if (!config) return
-
 		// Client config
 		this.#client.config(config)
 
 		// Resources config
 		// if (typeof config.rawResponse !== 'undefined') this.#config.rawResponse = config.rawResponse
-
-		return
 
 	}
 	
