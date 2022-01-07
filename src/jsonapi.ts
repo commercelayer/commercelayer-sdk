@@ -4,6 +4,9 @@ import { DocWithData, Included, ResourceIdentifierObject, ResourceObject, Attrib
 import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource } from './resource'
 import { isResourceId } from './common'
 
+import Debug from './debug'
+const debug = Debug()
+
 
 
 // DENORMALIZATION
@@ -35,6 +38,8 @@ const findIncluded = (rel: ResourceIdentifierObject, included: Included = []): R
 
 const denormalizeResource = <T extends ResourceType>(res: any, included?: Included): T => {
 
+	debug('denormalize resource: %O, %o', res, included || {})
+
 	const resource = {
 		id: res.id,
 		type: res.type,
@@ -49,6 +54,7 @@ const denormalizeResource = <T extends ResourceType>(res: any, included?: Includ
 		} else if (rel === null) resource[key] = null
 	})
 	
+	debug('denormalized resource: %O', resource)
 
 	return resource
 
@@ -58,6 +64,8 @@ const denormalizeResource = <T extends ResourceType>(res: any, included?: Includ
 // NORMALIZATION
 
 const normalize = (resource: (ResourceCreate & ResourceType) | (ResourceUpdate & ResourceId)): ResourceObject => {
+
+	debug('normalize resource: %O', resource)
 
 	const attributes: AttributesObject = {}
 	const relationships: RelationshipsObject = {}
@@ -79,6 +87,7 @@ const normalize = (resource: (ResourceCreate & ResourceType) | (ResourceUpdate &
 
 	if (isResourceId(resource)) normalized.id = resource.id
 
+	debug('normalized resource: %O', normalized)
 
 	return normalized
 

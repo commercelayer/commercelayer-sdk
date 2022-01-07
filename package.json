@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "main": "lib/cjs/index.js",
   "types": "lib/cjs/index.d.ts",
   "module": "lib/esm/index.js",
@@ -46,6 +46,7 @@
     "@babel/preset-typescript": "^7.16.5",
     "@commercelayer/js-auth": "^2.2.7",
     "@size-limit/preset-small-lib": "^6.0.4",
+    "@types/debug": "^4.1.7",
     "@types/jest": "^27.0.3",
     "@types/lodash": "^4.14.178",
     "@types/node": "^16.11.13",

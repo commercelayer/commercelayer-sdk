@@ -5,6 +5,9 @@ import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInter
 import { CommerceLayerStatic } from './static'
 import ResourceAdapter, { ResourcesConfig, ResourcesInitConfig } from './resource'
 
+import Debug from './debug'
+const debug = Debug()
+
 
 const OPEN_API_SCHEMA_VERSION = '2.7.6'
 
@@ -125,6 +128,8 @@ class CommerceLayerClient {
 
 	constructor(config: CommerceLayerInitConfig) {
 
+		debug('new commercelayer instance %O', config)
+
 		this.#adapter = new ResourceAdapter(config)
 		this.#organization = config.organization
 
@@ -233,14 +238,17 @@ class CommerceLayerClient {
 	get currentOrganization(): string { return this.#organization }
 
 
-	config(config: CommerceLayerConfig): void {
-
-		// CommerceLayer config
+	private localConfig(config: SdkConfig & { organization?: string }): void {
 		if (config.organization) this.#organization = config.organization
+	}
 
+
+	config(config: CommerceLayerConfig): void {
+		debug('config %o', config)
+		// CommerceLayer config
+		this.localConfig(config)
 		// ResourceAdapter config
 		this.#adapter.config(config)
-
 	}
 
 	

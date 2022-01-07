@@ -5,6 +5,9 @@ import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
 
+import Debug from './debug'
+const debug = Debug()
+
 
 
 const baseURL = (organization: string, domain?: string): string => {
@@ -52,7 +55,7 @@ type RequestConfig = {
 }
 
 type ApiClientInitConfig = { organization: string, domain?: string, accessToken: string } & RequestConfig
-type ApiClientConfig = { organization?: string, domain?: string, accessToken?: string } & RequestConfig
+type ApiClientConfig = Partial<ApiClientInitConfig>
 
 
 class ApiClient {
@@ -71,6 +74,8 @@ class ApiClient {
 
 	private constructor(options: ApiClientInitConfig) {
 
+		debug('new client instance %O', options)
+
 		this.baseUrl = baseURL(options.organization, options.domain)
 		this.#accessToken = options.accessToken
 
@@ -78,7 +83,7 @@ class ApiClient {
 			timeout: options.timeout || config.client.timeout
 		}
 
-		this.#client = axios.create({
+		const axiosOptions = {
 			baseURL: this.baseUrl,
 			timeout: config.client.timeout,
 			headers: {
@@ -87,7 +92,11 @@ class ApiClient {
 				'Authorization': 'Bearer ' + this.#accessToken,
 			},
 			...axiosConfig
-		})
+		}
+
+		debug('axios options: %O', axiosOptions)
+
+		this.#client = axios.create(axiosOptions)
 
 		this.interceptors = this.#client.interceptors
 
@@ -95,6 +104,8 @@ class ApiClient {
 
 
 	config(config: ApiClientConfig): void {
+
+		debug('config %o', config)
 
 		const def = this.#client.defaults
 
@@ -113,6 +124,8 @@ class ApiClient {
 
 	async request(method: Method, path: string, body?: JSONApiResource, options?: ApiClientConfig): Promise<JSONApiDocument> {
 
+		debug('request %s %s, %O, %O', method, path, body || {}, options || {})
+
 		const data = body ? { data: body } : undefined
 		const url = path
 
@@ -123,7 +136,13 @@ class ApiClient {
 
 		// const start = Date.now()
 
-		return this.#client.request({ method, baseURL: baseUrl, url, data, headers, ...options })
+		// debug('axios defaults: %O', this.#client.defaults)
+
+		const requestParams = { method, baseURL: baseUrl, url, data, headers, ...options }
+
+		debug('request params: %O', requestParams)
+
+		return this.#client.request(requestParams)
 			.then(response => response.data)
 			.catch(error => handleError(error))
 		// .finally(() => console.log(`<<-- ${method} ${path} ${Date.now() - start}`))

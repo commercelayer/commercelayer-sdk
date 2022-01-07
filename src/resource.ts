@@ -1,11 +1,14 @@
 
-import ApiClient, { ApiClientConfig, ApiClientInitConfig } from './client'
+import ApiClient, { ApiClientInitConfig } from './client'
 import { denormalize, normalize } from './jsonapi'
 import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from './query'
 import { ResourceTypeLock } from './api'
 import config from './config'
 import { InterceptorManager } from './interceptor'
 import { Value as JSONValue } from 'json-typescript'
+
+import Debug from './debug'
+const debug = Debug()
 
 
 
@@ -78,13 +81,13 @@ class ListResponse<R> extends Array<R> {
 export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse }
 
 
-// Resources adapter local configuration
+// Resource adapters local configuration
 type ResourceAdapterConfig = {
-	// rawResponse?: boolean
+	// xyz?: boolean
 }
 
 type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
-type ResourcesConfig = ResourceAdapterConfig & ApiClientConfig
+type ResourcesConfig = Partial<ResourcesInitConfig>
 
 
 class ResourceAdapter {
@@ -96,32 +99,31 @@ class ResourceAdapter {
 
 	constructor(config: ResourcesInitConfig) {
 		this.#client = ApiClient.create(config)
-		this.config(config)
+		this.localConfig(config)
 	}
 
 
 	get interceptors(): InterceptorManager { return this.#client.interceptors }
 
 
-	config(config: ResourcesConfig): void {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	private localConfig(config: ResourceAdapterConfig): void {
+		// if (typeof config.xyz !== 'undefined') this.#config.xyz = config.xyz
+	}
 
+
+	config(config: ResourcesConfig): void {
+		debug('config %o', config)
+		// ResourceAdapter config
+		this.localConfig(config)
 		// Client config
 		this.#client.config(config)
-
-		// Resources config
-		// if (typeof config.rawResponse !== 'undefined') this.#config.rawResponse = config.rawResponse
-
 	}
-	
-
-	/*
-	private isRawResponse(options?: ResourcesConfig): boolean {
-		return (typeof options?.rawResponse !== 'undefined') ? (options?.rawResponse === true) : (this.#config.rawResponse === true)
-	}
-	*/
 
 
 	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+
+		debug('singleton: %o, %O, %O', resource, params || {}, options || {})
 
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
@@ -136,6 +138,8 @@ class ResourceAdapter {
 
 	async retrieve<R extends Resource>(resource: ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
+		debug('retrieve: %o, %O, %O', resource, params || {}, options || {})
+
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
@@ -148,6 +152,8 @@ class ResourceAdapter {
 
 
 	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
+
+		debug('list: %o, %O, %O', resource, params || {}, options || {})
 
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
@@ -169,11 +175,12 @@ class ResourceAdapter {
 
 	async create<C extends ResourceCreate, R extends Resource>(resource: C & ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
+		debug('create: %o, %O, %O', resource, params || {}, options || {})
+
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
-
 		const res = await this.#client.request('post', resource.type, data, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
@@ -184,11 +191,12 @@ class ResourceAdapter {
 
 	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
+		debug('update: %o, %O, %O', resource, params || {}, options || {})
+
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
-
 		const res = await this.#client.request('patch', `${resource.type}/${resource.id}`, data, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
@@ -198,16 +206,9 @@ class ResourceAdapter {
 
 
 	async delete(resource: ResourceId, options?: ResourcesConfig): Promise<void> {
+		debug('delete: %o, %O', resource, options || {})
 		await this.#client.request('delete', `${resource.type}/${resource.id}`, undefined, options)
 	}
-
-
-	/*
-	async rawList(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<DocWithData> {
-		const queryParams = generateQueryStringParams(params)
-		return this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
-	}
-	*/
 
 }
 
@@ -220,16 +221,13 @@ abstract class ApiResource {
 	protected resources: ResourceAdapter
 
 	constructor(adapter: ResourceAdapter) {
+		debug('new resource instance: %s', this.type())
 		this.resources = adapter
 	}
 
 	abstract relationship(id: string | ResourceId): ResourceId
 
-	/*
-	async rawList(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<DocWithData> {
-		return this.resources.rawList(resource, params, options)
-	}
-	*/
+	abstract type(): string
 
 }
 

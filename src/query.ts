@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { ResourceTypeLock } from "./api"
 import { ResourceType } from "./resource"
+
+import Debug from './debug'
+const debug = Debug()
 
 interface QueryParamsRetrieve {
 	include?: string[]
@@ -29,6 +30,8 @@ const isParamsList = (params: any): params is QueryParamsList => {
 
 
 const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: ResourceType): { [key: string]: string } => {
+
+	debug('generate query string params: %O, %O', params, res)
 
 	const qp: { [key: string]: string } = {}
 	if (!params) return qp
@@ -59,6 +62,8 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 			})
 		}
 	}
+
+	debug('query string params: %O', qp)
 
 	return qp
 
