@@ -3,7 +3,7 @@
 		"main",
 		{ "name": "sdk2", "channel": "sdk2", "range": "2.x" },
 		{ "name": "sdk3", "channel": "sdk3", "range": "3.x" },
-		{ "name": "v4.x", "channel": "sdk4", "range": "4.x" }
+		{ "name": "sdk4", "channel": "sdk4", "range": "4.x" }
 	],
 	"plugins": [
 	  "@semantic-release/commit-analyzer",
