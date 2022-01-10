@@ -1,5 +1,5 @@
 /**
- * ©2021 Commerce Layer Inc.
+ * ©2022 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
@@ -25,8 +25,8 @@ describe('Prices resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			amount_cents: 5,
-			compare_at_amount_cents: 10000,
+			amount_cents: 1,
+			compare_at_amount_cents: 1,
 			price_list: cl.price_lists.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 		}

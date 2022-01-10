@@ -1,5 +1,5 @@
 /**
- * ©2021 Commerce Layer Inc.
+ * ©2022 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
@@ -25,7 +25,7 @@ describe('ParcelLineItems resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 10,
+			quantity: 100,
 			parcel: cl.parcels.relationship(TestData.id),
 			stock_line_item: cl.stock_line_items.relationship(TestData.id),
 		}

@@ -1,5 +1,5 @@
 /**
- * ©2021 Commerce Layer Inc.
+ * ©2022 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
@@ -25,7 +25,7 @@ describe('GiftCardRecipients resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			email: 'alfa_64',
+			email: 'omega_39',
 			customer: cl.customers.relationship(TestData.id),
 		}
 

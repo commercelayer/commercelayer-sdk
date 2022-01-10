@@ -1,5 +1,5 @@
 /**
- * ©2021 Commerce Layer Inc.
+ * ©2022 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
@@ -25,8 +25,8 @@ describe('PriceLists resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_59',
-			currency_code: 'epsilon_8',
+			name: 'sigma_81',
+			currency_code: 'lambda_23',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

@@ -1,5 +1,5 @@
 /**
- * ©2021 Commerce Layer Inc.
+ * ©2022 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
@@ -25,8 +25,8 @@ describe('GoogleGeocoders resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'epsilon_18',
-			api_key: 'gamma_94',
+			name: 'sigma_6',
+			api_key: 'delta_85',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

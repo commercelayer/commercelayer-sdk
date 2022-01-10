@@ -1,5 +1,5 @@
 /**
- * ©2021 Commerce Layer Inc.
+ * ©2022 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
@@ -25,8 +25,8 @@ describe('ExternalTaxCalculators resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'gamma_47',
-			tax_calculator_url: 'omega_73',
+			name: 'delta_1',
+			tax_calculator_url: 'alfa_45',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 

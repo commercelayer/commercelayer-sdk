@@ -1,5 +1,5 @@
 /**
- * ©2021 Commerce Layer Inc.
+ * ©2022 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
@@ -25,8 +25,8 @@ describe('TaxjarAccounts resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_48',
-			api_key: 'lambda_16',
+			name: 'kappa_15',
+			api_key: 'kappa_55',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 
