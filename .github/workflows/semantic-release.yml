@@ -22,6 +22,8 @@ jobs:
       - name: Build package
         run: npm run build
       - name: Run specs
+        env:
+          CL_SDK_ORGANIZATION: ${{ secrets.CL_SDK_ORGANIZATION }}
         run: npm test
       - name: Release
         env:
