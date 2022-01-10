@@ -1,8 +1,3 @@
-/**
- * ©##__CURRENT_YEAR__## Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema ##__SCHEMA_VERSION__##
- **/
-
 import { ApiResource, ##__RESOURCE_INTERFACES__##, ResourcesConfig, ResourceId##__RESPONSE_MODELS__## } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */##__QUERY_MODELS__## } from '../query'
 
@@ -27,21 +22,11 @@ class ##__RESOURCE_CLASS__## extends ApiResource {
 		return resource.type && (resource.type === ##__RESOURCE_CLASS__##.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(##__RESOURCE_CLASS__##.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(##__RESOURCE_CLASS__##.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): ##__MODEL_RESOURCE_INTERFACE__##Rel {
 		return (typeof id === 'string') ? { id, type: ##__RESOURCE_CLASS__##.TYPE } : { id: id.id, type: ##__RESOURCE_CLASS__##.TYPE }
 	}
+
 
 	type(): string {
 		return ##__RESOURCE_CLASS__##.TYPE

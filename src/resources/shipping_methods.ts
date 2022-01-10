@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -49,9 +44,9 @@ interface ShippingMethodCreate extends ResourceCreate {
 	price_amount_cents: number
 	free_over_amount_cents?: number
 
-	market?: MarketRel
-	shipping_zone?: ShippingZoneRel
-	shipping_category?: ShippingCategoryRel
+	market: MarketRel
+	shipping_zone: ShippingZoneRel
+	shipping_category: ShippingCategoryRel
 
 }
 
@@ -101,21 +96,11 @@ class ShippingMethods extends ApiResource {
 		return resource.type && (resource.type === ShippingMethods.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(ShippingMethods.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(ShippingMethods.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): ShippingMethodRel {
 		return (typeof id === 'string') ? { id, type: ShippingMethods.TYPE } : { id: id.id, type: ShippingMethods.TYPE }
 	}
+
 
 	type(): string {
 		return ShippingMethods.TYPE

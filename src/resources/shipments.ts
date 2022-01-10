@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -102,21 +97,11 @@ class Shipments extends ApiResource {
 		return resource.type && (resource.type === Shipments.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(Shipments.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(Shipments.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): ShipmentRel {
 		return (typeof id === 'string') ? { id, type: Shipments.TYPE } : { id: id.id, type: Shipments.TYPE }
 	}
+
 
 	type(): string {
 		return Shipments.TYPE

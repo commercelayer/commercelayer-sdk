@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -89,7 +84,7 @@ interface LineItemCreate extends ResourceCreate {
 	image_url?: string
 	item_type?: string
 
-	order?: OrderRel
+	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel
 
 }
@@ -138,21 +133,11 @@ class LineItems extends ApiResource {
 		return resource.type && (resource.type === LineItems.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(LineItems.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(LineItems.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): LineItemRel {
 		return (typeof id === 'string') ? { id, type: LineItems.TYPE } : { id: id.id, type: LineItems.TYPE }
 	}
+
 
 	type(): string {
 		return LineItems.TYPE

@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -60,7 +55,7 @@ interface FreeGiftPromotionCreate extends ResourceCreate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
-	sku_list?: SkuListRel
+	sku_list: SkuListRel
 
 }
 
@@ -115,21 +110,11 @@ class FreeGiftPromotions extends ApiResource {
 		return resource.type && (resource.type === FreeGiftPromotions.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(FreeGiftPromotions.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(FreeGiftPromotions.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): FreeGiftPromotionRel {
 		return (typeof id === 'string') ? { id, type: FreeGiftPromotions.TYPE } : { id: id.id, type: FreeGiftPromotions.TYPE }
 	}
+
 
 	type(): string {
 		return FreeGiftPromotions.TYPE

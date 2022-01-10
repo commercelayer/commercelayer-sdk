@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -43,7 +38,7 @@ interface SkuListPromotionRuleCreate extends ResourceCreate {
 	all_skus?: boolean
 	min_quantity?: number
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel
+	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel
 	sku_list?: SkuListRel
 
 }
@@ -92,21 +87,11 @@ class SkuListPromotionRules extends ApiResource {
 		return resource.type && (resource.type === SkuListPromotionRules.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(SkuListPromotionRules.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(SkuListPromotionRules.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): SkuListPromotionRuleRel {
 		return (typeof id === 'string') ? { id, type: SkuListPromotionRules.TYPE } : { id: id.id, type: SkuListPromotionRules.TYPE }
 	}
+
 
 	type(): string {
 		return SkuListPromotionRules.TYPE

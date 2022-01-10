@@ -1,6 +1,6 @@
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('Merchants resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'epsilon_82',
+			name: 'omega_95',
 			address: cl.addresses.relationship(TestData.id),
 		}
 

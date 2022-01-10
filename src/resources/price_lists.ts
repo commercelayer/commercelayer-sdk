@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -75,21 +70,11 @@ class PriceLists extends ApiResource {
 		return resource.type && (resource.type === PriceLists.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(PriceLists.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(PriceLists.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): PriceListRel {
 		return (typeof id === 'string') ? { id, type: PriceLists.TYPE } : { id: id.id, type: PriceLists.TYPE }
 	}
+
 
 	type(): string {
 		return PriceLists.TYPE

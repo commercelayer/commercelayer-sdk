@@ -1,10 +1,5 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '../query'
+import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import { FreeShippingPromotion } from './free_shipping_promotions'
@@ -33,27 +28,21 @@ class PromotionRules extends ApiResource {
 		return this.resources.list({ type: PromotionRules.TYPE }, params, options)
 	}
 
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PromotionRule> {
+		return this.resources.retrieve<PromotionRule>({ type: PromotionRules.TYPE, id }, params, options)
+	}
+
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPromotionRule(resource: any): resource is PromotionRule {
 		return resource.type && (resource.type === PromotionRules.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(PromotionRules.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(PromotionRules.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): PromotionRuleRel {
 		return (typeof id === 'string') ? { id, type: PromotionRules.TYPE } : { id: id.id, type: PromotionRules.TYPE }
 	}
+
 
 	type(): string {
 		return PromotionRules.TYPE

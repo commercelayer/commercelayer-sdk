@@ -2,8 +2,8 @@
 // ##__MODEL_TYPES_START__##
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * OpenAPI schema, version 2.7.6
  **/
 export type { Address, AddressCreate, AddressUpdate } from './resources/addresses'
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate } from './resources/adjustments'
@@ -65,7 +65,7 @@ export type { Organization } from './resources/organization'
 export type { Package, PackageCreate, PackageUpdate } from './resources/packages'
 export type { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate } from './resources/parcel_line_items'
 export type { Parcel, ParcelCreate, ParcelUpdate } from './resources/parcels'
-export type { PaymentGateway, PaymentGatewayCreate, PaymentGatewayUpdate } from './resources/payment_gateways'
+export type { PaymentGateway } from './resources/payment_gateways'
 export type { PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate } from './resources/payment_methods'
 export type { PaypalGateway, PaypalGatewayCreate, PaypalGatewayUpdate } from './resources/paypal_gateways'
 export type { PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate } from './resources/paypal_payments'

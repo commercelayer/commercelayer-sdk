@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -37,9 +32,9 @@ interface InStockSubscriptionCreate extends ResourceCreate {
 	sku_code?: string
 	stock_threshold?: number
 
-	market?: MarketRel
-	customer?: CustomerRel
-	sku?: SkuRel
+	market: MarketRel
+	customer: CustomerRel
+	sku: SkuRel
 
 }
 
@@ -90,21 +85,11 @@ class InStockSubscriptions extends ApiResource {
 		return resource.type && (resource.type === InStockSubscriptions.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(InStockSubscriptions.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(InStockSubscriptions.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): InStockSubscriptionRel {
 		return (typeof id === 'string') ? { id, type: InStockSubscriptions.TYPE } : { id: id.id, type: InStockSubscriptions.TYPE }
 	}
+
 
 	type(): string {
 		return InStockSubscriptions.TYPE

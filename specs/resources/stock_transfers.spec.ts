@@ -1,6 +1,6 @@
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('StockTransfers resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 5,
+			quantity: 0,
 			sku: cl.skus.relationship(TestData.id),
 			origin_stock_location: cl.stock_locations.relationship(TestData.id),
 			destination_stock_location: cl.stock_locations.relationship(TestData.id),

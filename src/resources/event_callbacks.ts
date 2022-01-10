@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -43,21 +38,11 @@ class EventCallbacks extends ApiResource {
 		return resource.type && (resource.type === EventCallbacks.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(EventCallbacks.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(EventCallbacks.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): EventCallbackRel {
 		return (typeof id === 'string') ? { id, type: EventCallbacks.TYPE } : { id: id.id, type: EventCallbacks.TYPE }
 	}
+
 
 	type(): string {
 		return EventCallbacks.TYPE

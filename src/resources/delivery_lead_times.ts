@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -35,8 +30,8 @@ interface DeliveryLeadTimeCreate extends ResourceCreate {
 	min_hours: number
 	max_hours: number
 
-	stock_location?: StockLocationRel
-	shipping_method?: ShippingMethodRel
+	stock_location: StockLocationRel
+	shipping_method: ShippingMethodRel
 
 }
 
@@ -84,21 +79,11 @@ class DeliveryLeadTimes extends ApiResource {
 		return resource.type && (resource.type === DeliveryLeadTimes.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(DeliveryLeadTimes.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(DeliveryLeadTimes.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): DeliveryLeadTimeRel {
 		return (typeof id === 'string') ? { id, type: DeliveryLeadTimes.TYPE } : { id: id.id, type: DeliveryLeadTimes.TYPE }
 	}
+
 
 	type(): string {
 		return DeliveryLeadTimes.TYPE

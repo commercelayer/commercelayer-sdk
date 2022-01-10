@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -44,21 +39,11 @@ class CarrierAccounts extends ApiResource {
 		return resource.type && (resource.type === CarrierAccounts.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(CarrierAccounts.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(CarrierAccounts.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): CarrierAccountRel {
 		return (typeof id === 'string') ? { id, type: CarrierAccounts.TYPE } : { id: id.id, type: CarrierAccounts.TYPE }
 	}
+
 
 	type(): string {
 		return CarrierAccounts.TYPE

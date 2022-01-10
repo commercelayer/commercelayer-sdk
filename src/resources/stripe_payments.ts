@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -31,7 +26,7 @@ interface StripePaymentCreate extends ResourceCreate {
 	
 	options?: object
 
-	order?: OrderRel
+	order: OrderRel
 
 }
 
@@ -78,21 +73,11 @@ class StripePayments extends ApiResource {
 		return resource.type && (resource.type === StripePayments.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(StripePayments.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(StripePayments.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): StripePaymentRel {
 		return (typeof id === 'string') ? { id, type: StripePayments.TYPE } : { id: id.id, type: StripePayments.TYPE }
 	}
+
 
 	type(): string {
 		return StripePayments.TYPE

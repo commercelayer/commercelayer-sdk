@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -41,8 +36,8 @@ interface CustomerPaymentSource extends Resource {
 
 interface CustomerPaymentSourceCreate extends ResourceCreate {
 	
-	customer?: CustomerRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	customer: CustomerRel
+	payment_source: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 
@@ -87,21 +82,11 @@ class CustomerPaymentSources extends ApiResource {
 		return resource.type && (resource.type === CustomerPaymentSources.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(CustomerPaymentSources.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(CustomerPaymentSources.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): CustomerPaymentSourceRel {
 		return (typeof id === 'string') ? { id, type: CustomerPaymentSources.TYPE } : { id: id.id, type: CustomerPaymentSources.TYPE }
 	}
+
 
 	type(): string {
 		return CustomerPaymentSources.TYPE

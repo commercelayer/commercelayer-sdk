@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -31,8 +26,8 @@ interface InventoryStockLocationCreate extends ResourceCreate {
 	priority: number
 	on_hold?: boolean
 
-	stock_location?: StockLocationRel
-	inventory_model?: InventoryModelRel
+	stock_location: StockLocationRel
+	inventory_model: InventoryModelRel
 
 }
 
@@ -80,21 +75,11 @@ class InventoryStockLocations extends ApiResource {
 		return resource.type && (resource.type === InventoryStockLocations.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(InventoryStockLocations.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(InventoryStockLocations.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): InventoryStockLocationRel {
 		return (typeof id === 'string') ? { id, type: InventoryStockLocations.TYPE } : { id: id.id, type: InventoryStockLocations.TYPE }
 	}
+
 
 	type(): string {
 		return InventoryStockLocations.TYPE

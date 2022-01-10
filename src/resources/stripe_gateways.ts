@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -74,21 +69,11 @@ class StripeGateways extends ApiResource {
 		return resource.type && (resource.type === StripeGateways.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(StripeGateways.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(StripeGateways.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): StripeGatewayRel {
 		return (typeof id === 'string') ? { id, type: StripeGateways.TYPE } : { id: id.id, type: StripeGateways.TYPE }
 	}
+
 
 	type(): string {
 		return StripeGateways.TYPE

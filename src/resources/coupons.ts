@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -16,6 +11,7 @@ type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_
 interface Coupon extends Resource {
 	
 	code?: string
+	customer_single_use?: boolean
 	usage_limit?: number
 	usage_count?: number
 	recipient_email?: string
@@ -28,10 +24,11 @@ interface Coupon extends Resource {
 interface CouponCreate extends ResourceCreate {
 	
 	code: string
+	customer_single_use?: boolean
 	usage_limit: number
 	recipient_email?: string
 
-	promotion_rule?: CouponCodesPromotionRuleRel
+	promotion_rule: CouponCodesPromotionRuleRel
 
 }
 
@@ -39,6 +36,7 @@ interface CouponCreate extends ResourceCreate {
 interface CouponUpdate extends ResourceUpdate {
 	
 	code?: string
+	customer_single_use?: boolean
 	usage_limit?: number
 	recipient_email?: string
 
@@ -79,21 +77,11 @@ class Coupons extends ApiResource {
 		return resource.type && (resource.type === Coupons.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(Coupons.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(Coupons.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): CouponRel {
 		return (typeof id === 'string') ? { id, type: Coupons.TYPE } : { id: id.id, type: Coupons.TYPE }
 	}
+
 
 	type(): string {
 		return Coupons.TYPE

@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -35,7 +30,7 @@ interface CouponCodesPromotionRule extends Resource {
 
 interface CouponCodesPromotionRuleCreate extends ResourceCreate {
 	
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel
+	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel
 	coupons?: CouponRel[]
 
 }
@@ -81,21 +76,11 @@ class CouponCodesPromotionRules extends ApiResource {
 		return resource.type && (resource.type === CouponCodesPromotionRules.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(CouponCodesPromotionRules.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(CouponCodesPromotionRules.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): CouponCodesPromotionRuleRel {
 		return (typeof id === 'string') ? { id, type: CouponCodesPromotionRules.TYPE } : { id: id.id, type: CouponCodesPromotionRules.TYPE }
 	}
+
 
 	type(): string {
 		return CouponCodesPromotionRules.TYPE

@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -22,7 +17,7 @@ interface WireTransfer extends Resource {
 
 interface WireTransferCreate extends ResourceCreate {
 	
-	order?: OrderRel
+	order: OrderRel
 
 }
 
@@ -66,21 +61,11 @@ class WireTransfers extends ApiResource {
 		return resource.type && (resource.type === WireTransfers.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(WireTransfers.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(WireTransfers.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): WireTransferRel {
 		return (typeof id === 'string') ? { id, type: WireTransfers.TYPE } : { id: id.id, type: WireTransfers.TYPE }
 	}
+
 
 	type(): string {
 		return WireTransfers.TYPE

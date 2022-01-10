@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -39,8 +34,8 @@ interface TaxCategoryCreate extends ResourceCreate {
 	code: string
 	sku_code?: string
 
-	sku?: SkuRel
-	tax_calculator?: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
+	sku: SkuRel
+	tax_calculator: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
 
 }
 
@@ -87,21 +82,11 @@ class TaxCategories extends ApiResource {
 		return resource.type && (resource.type === TaxCategories.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(TaxCategories.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(TaxCategories.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): TaxCategoryRel {
 		return (typeof id === 'string') ? { id, type: TaxCategories.TYPE } : { id: id.id, type: TaxCategories.TYPE }
 	}
+
 
 	type(): string {
 		return TaxCategories.TYPE

@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -35,8 +30,8 @@ interface ReturnLineItemCreate extends ResourceCreate {
 	quantity: number
 	return_reason?: object
 
-	return?: ReturnRel
-	line_item?: LineItemRel
+	return: ReturnRel
+	line_item: LineItemRel
 
 }
 
@@ -82,21 +77,11 @@ class ReturnLineItems extends ApiResource {
 		return resource.type && (resource.type === ReturnLineItems.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(ReturnLineItems.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(ReturnLineItems.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): ReturnLineItemRel {
 		return (typeof id === 'string') ? { id, type: ReturnLineItems.TYPE } : { id: id.id, type: ReturnLineItems.TYPE }
 	}
+
 
 	type(): string {
 		return ReturnLineItems.TYPE

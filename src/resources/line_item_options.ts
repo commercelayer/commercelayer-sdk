@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -42,8 +37,8 @@ interface LineItemOptionCreate extends ResourceCreate {
 	quantity: number
 	options: object
 
-	line_item?: LineItemRel
-	sku_option?: SkuOptionRel
+	line_item: LineItemRel
+	sku_option: SkuOptionRel
 
 }
 
@@ -91,21 +86,11 @@ class LineItemOptions extends ApiResource {
 		return resource.type && (resource.type === LineItemOptions.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(LineItemOptions.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(LineItemOptions.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): LineItemOptionRel {
 		return (typeof id === 'string') ? { id, type: LineItemOptions.TYPE } : { id: id.id, type: LineItemOptions.TYPE }
 	}
+
 
 	type(): string {
 		return LineItemOptions.TYPE

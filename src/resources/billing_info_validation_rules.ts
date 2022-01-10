@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -22,7 +17,7 @@ interface BillingInfoValidationRule extends Resource {
 
 interface BillingInfoValidationRuleCreate extends ResourceCreate {
 	
-	market?: MarketRel
+	market: MarketRel
 
 }
 
@@ -66,21 +61,11 @@ class BillingInfoValidationRules extends ApiResource {
 		return resource.type && (resource.type === BillingInfoValidationRules.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(BillingInfoValidationRules.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(BillingInfoValidationRules.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): BillingInfoValidationRuleRel {
 		return (typeof id === 'string') ? { id, type: BillingInfoValidationRules.TYPE } : { id: id.id, type: BillingInfoValidationRules.TYPE }
 	}
+
 
 	type(): string {
 		return BillingInfoValidationRules.TYPE

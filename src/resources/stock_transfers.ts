@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -41,9 +36,9 @@ interface StockTransferCreate extends ResourceCreate {
 	sku_code?: string
 	quantity: number
 
-	sku?: SkuRel
-	origin_stock_location?: StockLocationRel
-	destination_stock_location?: StockLocationRel
+	sku: SkuRel
+	origin_stock_location: StockLocationRel
+	destination_stock_location: StockLocationRel
 	shipment?: ShipmentRel
 	line_item?: LineItemRel
 
@@ -98,21 +93,11 @@ class StockTransfers extends ApiResource {
 		return resource.type && (resource.type === StockTransfers.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(StockTransfers.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(StockTransfers.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): StockTransferRel {
 		return (typeof id === 'string') ? { id, type: StockTransfers.TYPE } : { id: id.id, type: StockTransfers.TYPE }
 	}
+
 
 	type(): string {
 		return StockTransfers.TYPE

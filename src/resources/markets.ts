@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -48,9 +43,9 @@ interface MarketCreate extends ResourceCreate {
 	checkout_url?: string
 	external_prices_url?: string
 
-	merchant?: MerchantRel
-	price_list?: PriceListRel
-	inventory_model?: InventoryModelRel
+	merchant: MerchantRel
+	price_list: PriceListRel
+	inventory_model: InventoryModelRel
 	tax_calculator?: TaxCalculatorRel
 	customer_group?: CustomerGroupRel
 
@@ -105,21 +100,11 @@ class Markets extends ApiResource {
 		return resource.type && (resource.type === Markets.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(Markets.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(Markets.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): MarketRel {
 		return (typeof id === 'string') ? { id, type: Markets.TYPE } : { id: id.id, type: Markets.TYPE }
 	}
+
 
 	type(): string {
 		return Markets.TYPE

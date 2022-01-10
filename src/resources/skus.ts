@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -55,7 +50,7 @@ interface SkuCreate extends ResourceCreate {
 	do_not_ship?: boolean
 	do_not_track?: boolean
 
-	shipping_category?: ShippingCategoryRel
+	shipping_category: ShippingCategoryRel
 
 }
 
@@ -110,21 +105,11 @@ class Skus extends ApiResource {
 		return resource.type && (resource.type === Skus.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(Skus.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(Skus.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): SkuRel {
 		return (typeof id === 'string') ? { id, type: Skus.TYPE } : { id: id.id, type: Skus.TYPE }
 	}
+
 
 	type(): string {
 		return Skus.TYPE

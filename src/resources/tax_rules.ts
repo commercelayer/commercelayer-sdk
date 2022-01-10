@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -49,7 +44,7 @@ interface TaxRuleCreate extends ResourceCreate {
 	gift_card_taxable?: boolean
 	adjustment_taxable?: boolean
 
-	manual_tax_calculator?: ManualTaxCalculatorRel
+	manual_tax_calculator: ManualTaxCalculatorRel
 
 }
 
@@ -106,21 +101,11 @@ class TaxRules extends ApiResource {
 		return resource.type && (resource.type === TaxRules.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(TaxRules.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(TaxRules.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): TaxRuleRel {
 		return (typeof id === 'string') ? { id, type: TaxRules.TYPE } : { id: id.id, type: TaxRules.TYPE }
 	}
+
 
 	type(): string {
 		return TaxRules.TYPE

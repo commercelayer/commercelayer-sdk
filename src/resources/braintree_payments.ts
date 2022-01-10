@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -34,7 +29,7 @@ interface BraintreePaymentCreate extends ResourceCreate {
 	local?: boolean
 	options?: object
 
-	order?: OrderRel
+	order: OrderRel
 
 }
 
@@ -83,21 +78,11 @@ class BraintreePayments extends ApiResource {
 		return resource.type && (resource.type === BraintreePayments.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(BraintreePayments.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(BraintreePayments.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): BraintreePaymentRel {
 		return (typeof id === 'string') ? { id, type: BraintreePayments.TYPE } : { id: id.id, type: BraintreePayments.TYPE }
 	}
+
 
 	type(): string {
 		return BraintreePayments.TYPE

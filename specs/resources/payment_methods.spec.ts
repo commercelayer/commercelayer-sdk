@@ -1,6 +1,6 @@
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('PaymentMethods resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			payment_source_type: 'kappa_74',
-			price_amount_cents: 555,
+			payment_source_type: 'lambda_2',
+			price_amount_cents: 10,
 			market: cl.markets.relationship(TestData.id),
 			payment_gateway: cl.payment_gateways.relationship(TestData.id),
 		}

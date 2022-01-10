@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -41,7 +36,7 @@ interface StockLocationCreate extends ResourceCreate {
 	label_format?: string
 	suppress_etd?: boolean
 
-	address?: AddressRel
+	address: AddressRel
 
 }
 
@@ -89,21 +84,11 @@ class StockLocations extends ApiResource {
 		return resource.type && (resource.type === StockLocations.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(StockLocations.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(StockLocations.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): StockLocationRel {
 		return (typeof id === 'string') ? { id, type: StockLocations.TYPE } : { id: id.id, type: StockLocations.TYPE }
 	}
+
 
 	type(): string {
 		return StockLocations.TYPE

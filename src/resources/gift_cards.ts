@@ -1,8 +1,3 @@
-/**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
- **/
-
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
 import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
@@ -115,21 +110,11 @@ class GiftCards extends ApiResource {
 		return resource.type && (resource.type === GiftCards.TYPE)
 	}
 
-	/*
-	filter(): QueryBuilderRetrieve {
-		return new QueryBuilderRetrieve(GiftCards.TYPE)
-	}
-	*/
-
-	/*
-	filterList(): QueryBuilderList {
-		return new QueryBuilderList(GiftCards.TYPE)
-	}
-	*/
 
 	relationship(id: string | ResourceId): GiftCardRel {
 		return (typeof id === 'string') ? { id, type: GiftCards.TYPE } : { id: id.id, type: GiftCards.TYPE }
 	}
+
 
 	type(): string {
 		return GiftCards.TYPE

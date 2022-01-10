@@ -6,7 +6,7 @@ const config = {
 		pageSize: 10,
 	},
 	client: {
-		timeout: 3000,
+		timeout: 15000,
 	}
 } as const
 
