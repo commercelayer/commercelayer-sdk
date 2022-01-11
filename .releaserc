@@ -1,6 +1,6 @@
 {
 	"ci": true,
-	"dryRun": true,
+	"dryRun": false,
 	"branches": [
 		"main",
 		{ "name": "beta", "prerelease": true },
