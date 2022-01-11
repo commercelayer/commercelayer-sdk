@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/commercelayer/commercelayer-sdk/compare/v1.0.0...v1.0.1) (2022-01-11)
+
+
+### Bug Fixes
+
+* **release:** change release branches ([ee77604](https://github.com/commercelayer/commercelayer-sdk/commit/ee77604944235dc0d64c4cf2701f7eee9270b9c5))
+
 # 1.0.0 (2022-01-10)
 
 
