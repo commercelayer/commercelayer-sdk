@@ -1,6 +1,6 @@
 {
 	"ci": true,
-	"dryRun": false,
+	"dryRun": true,
 	"branches": [
 		"main",
 		{ "name": "beta", "prerelease": true },
@@ -11,7 +11,7 @@
 		"@semantic-release/release-notes-generator",
 		"@semantic-release/github",
 		"@semantic-release/npm",
-		["semantic-release/changelog", {
+		["@semantic-release/changelog", {
 			"changelogFile": "CHANGELOG.md"
 		}],
 		["@semantic-release/git", {
