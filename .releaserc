@@ -1,6 +1,7 @@
 {
 	"branches": [
 		"main",
+		{ "name": "beta", "prerelease": true },
 		{ "name": "sdk4", "channel": "sdk4", "range": "4.x" }
 	],
 	"plugins": [
