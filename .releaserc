@@ -1,25 +1,39 @@
 {
+	"ci": true,
+	"dryRun": true,
 	"branches": [
 		"main",
-		{ "name": "beta", "prerelease": true },
-		{ "name": "sdk4", "channel": "sdk4", "range": "4.x" }
+		{
+			"name": "beta",
+			"prerelease": true
+		},
+		{
+			"name": "sdk4",
+			"channel": "sdk4",
+			"range": "4.x"
+		}
 	],
 	"plugins": [
-	  "@semantic-release/commit-analyzer",
-	  "@semantic-release/release-notes-generator",
-	  "@semantic-release/github",
-	  "@semantic-release/npm",
-	  [
-		"@semantic-release/changelog",
-		{
-		  "changelogFile": "CHANGELOG.md"
-		}
-	  ],
-	  [
-		"@semantic-release/git",
-		{
-		  "assets": ["CHANGELOG.md"]
-		}
-	  ]
+		"@semantic-release/commit-analyzer",
+		"@semantic-release/release-notes-generator",
+		"@semantic-release/github",
+		"@semantic-release/npm",
+		[
+			"@semantic-release/changelog",
+			{
+				"changelogFile": "CHANGELOG.md"
+			}
+		],
+		[
+			"@semantic-release/git",
+			{
+				"assets": [
+					"lib/**/*.{js,ts}",
+					"package.json",
+					"CHANGELOG.md"
+				],
+				"message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+			}
+		]
 	]
-  }
+}
