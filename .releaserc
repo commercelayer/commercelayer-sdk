@@ -4,7 +4,7 @@
 	"branches": [
 		"main",
 		{ "name": "beta", "prerelease": true },
-		{ "name": "sdk4", "channel": "sdk4", "range": "4.x", "prerelease": "beta" }
+		{ "name": "sdk4", "channel": "sdk4", "prerelease": "beta" }
 	],
 	"plugins": [
 		"@semantic-release/commit-analyzer",
