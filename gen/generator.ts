@@ -265,7 +265,7 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const randomValue = (type: string): any | Array<any> => {
+const randomValue = (type: string, name?: string): any | Array<any> => {
 
 	const numbers = [0, 1, 10, 100, 1000, 10000, 5, 55, 555, 12345, 6666]
 	const strings = ['alfa', 'beta', 'gamma', 'delta', 'epsilon', 'kappa', 'lambda', 'omega', 'sigma', 'zeta']
@@ -273,6 +273,10 @@ const randomValue = (type: string): any | Array<any> => {
 	const objects = [{ key11: 'val11' }, { key21: 'val21' }, { key31: 'val31' }, { key41: 'val41' }, { key51: 'val51' }]
 
 	let values: Array<string | number | boolean | object>
+
+	if (name) {
+		// type = 
+	}
 
 	if (type.startsWith('boolean')) values = booleans
 	else
@@ -331,7 +335,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 		const reqType = resource.operations.create.requestType
 		const attributes = reqType ? resource.components[reqType].attributes : {}
 		const required = Object.values(attributes).filter(attr => attr.required)
-		required.forEach(r => obj += `\t\t\t${r.name}: ${inspect(randomValue(r.type))},\n`)
+		required.forEach(r => obj += `\t\t\t${r.name}: ${inspect(randomValue(r.type, r.name))},\n`)
 
 		// Relationships
 		const relationships = reqType ? resource.components[reqType].relationships : {}

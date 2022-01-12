@@ -25,7 +25,7 @@ describe('StockLocations resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'sigma_39',
+			name: 'kappa_47',
 			address: cl.addresses.relationship(TestData.id),
 		}
 

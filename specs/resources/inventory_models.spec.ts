@@ -25,8 +25,8 @@ describe('InventoryModels resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'gamma_25',
-			strategy: 'delta_19',
+			name: 'gamma_70',
+			strategy: 'kappa_23',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

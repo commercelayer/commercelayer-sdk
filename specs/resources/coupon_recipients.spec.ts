@@ -25,7 +25,7 @@ describe('CouponRecipients resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			email: 'delta_99',
+			email: 'alfa_75',
 			customer: cl.customers.relationship(TestData.id),
 		}
 

@@ -25,7 +25,7 @@ describe('Customers resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			email: 'alfa_18',
+			email: 'omega_33',
 			customer_group: cl.customer_groups.relationship(TestData.id),
 		}
 

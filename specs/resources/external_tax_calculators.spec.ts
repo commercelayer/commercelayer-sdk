@@ -25,8 +25,8 @@ describe('ExternalTaxCalculators resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_1',
-			tax_calculator_url: 'alfa_45',
+			name: 'omega_91',
+			tax_calculator_url: 'lambda_4',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 

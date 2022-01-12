@@ -25,8 +25,8 @@ describe('Imports resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			resource_type: 'lambda_59',
-			inputs: [ { key31: 'val31' } ],
+			resource_type: 'epsilon_62',
+			inputs: [ { key21: 'val21' } ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

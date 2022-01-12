@@ -25,7 +25,7 @@ describe('ShippingCategories resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_86',
+			name: 'omega_5',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

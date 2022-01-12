@@ -25,8 +25,8 @@ describe('PaypalPayments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			return_url: 'omega_37',
-			cancel_url: 'sigma_59',
+			return_url: 'sigma_9',
+			cancel_url: 'gamma_35',
 			order: cl.orders.relationship(TestData.id),
 		}
 
