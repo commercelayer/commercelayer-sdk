@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosInstance, Method } from 'axios'
+import axios, { AxiosInstance, AxiosProxyConfig, Method } from 'axios'
 import type { DocWithData as JSONApiDocument, ResourceObject as JSONApiResource } from 'jsonapi-typescript'
 import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
@@ -47,11 +47,11 @@ const handleError = (error: Error) => {
 
 // Subset of AxiosRequestConfig
 type RequestConfig = {
-	timeout?: number
-	params?: { [key: string]: string | number | boolean }
+	timeout?: number;
+	params?: { [key: string]: string | number | boolean };
 	// httpAgent
 	// httpsAgent
-	// proxy
+	proxy?: AxiosProxyConfig | false;
 }
 
 type ApiClientInitConfig = { organization: string, domain?: string, accessToken: string } & RequestConfig
@@ -80,7 +80,8 @@ class ApiClient {
 		this.#accessToken = options.accessToken
 
 		const axiosConfig: RequestConfig = {
-			timeout: options.timeout || config.client.timeout
+			timeout: options.timeout || config.client.timeout,
+			proxy: options.proxy
 		}
 
 		const axiosOptions = {
@@ -111,6 +112,7 @@ class ApiClient {
 
 		// Axios config
 		if (config.timeout) def.timeout = config.timeout
+		if (config.proxy) def.proxy = config.proxy
 
 		// API Client config
 		if (config.organization) this.baseUrl = baseURL(config.organization, config.domain)
