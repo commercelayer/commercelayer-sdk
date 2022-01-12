@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-undef
+/* global module */
 module.exports = async () => {
   return {
     verbose: true,
