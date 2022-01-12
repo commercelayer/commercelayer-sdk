@@ -134,14 +134,11 @@ class ApiClient {
 		const accessToken = options?.accessToken || this.#accessToken
 		const headers = accessToken ? { 'Authorization': 'Bearer ' + accessToken } : undefined
 
-		// const start = Date.now()
-
-		// debug('axios defaults: %O', this.#client.defaults)
-
 		const requestParams = { method, baseURL: baseUrl, url, data, headers, ...options }
 
 		debug('request params: %O', requestParams)
 
+		// const start = Date.now()
 		return this.#client.request(requestParams)
 			.then(response => response.data)
 			.catch(error => handleError(error))
