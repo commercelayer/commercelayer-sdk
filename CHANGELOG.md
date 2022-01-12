@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.1.0...v4.1.1) (2022-01-12)
+
+
+### Bug Fixes
+
+* **release:** fix committed files ([a7bd7b3](https://github.com/commercelayer/commercelayer-sdk/commit/a7bd7b32cc74b5c233e3eb687db5af0b234a3207))
+
 # [4.1.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.0.0...v4.1.0) (2022-01-12)
 
 
