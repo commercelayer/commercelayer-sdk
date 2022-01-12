@@ -1,3 +1,10 @@
+# [4.2.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.1.1...v4.2.0-beta.1) (2022-01-12)
+
+
+### Features
+
+* **client:** add request proxy support ([75bd120](https://github.com/commercelayer/commercelayer-sdk/commit/75bd12072dd6be38ceb3a29df806c2eddbfbf40f))
+
 ## [4.1.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.1.0...v4.1.1) (2022-01-12)
 
 
