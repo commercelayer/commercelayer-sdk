@@ -1,3 +1,12 @@
+# [4.2.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.1.1...v4.2.0) (2022-01-13)
+
+
+### Features
+
+* **client:** add http and https agents config ([74e7e4e](https://github.com/commercelayer/commercelayer-sdk/commit/74e7e4e530e6c1190f75b17f906ed7d9860a1e26))
+* **client:** add request proxy support ([75bd120](https://github.com/commercelayer/commercelayer-sdk/commit/75bd12072dd6be38ceb3a29df806c2eddbfbf40f))
+* **resources:** update resources to schema v2.8.0 ([7cb6e50](https://github.com/commercelayer/commercelayer-sdk/commit/7cb6e502c3cc581c48774cd7d668f2cb0547e26d))
+
 # [4.2.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v4.2.0-beta.1...v4.2.0-beta.2) (2022-01-13)
 
 
