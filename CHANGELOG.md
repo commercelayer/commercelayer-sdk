@@ -1,3 +1,10 @@
+# [4.2.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v4.2.0-beta.1...v4.2.0-beta.2) (2022-01-13)
+
+
+### Features
+
+* **client:** add http and https agents config ([74e7e4e](https://github.com/commercelayer/commercelayer-sdk/commit/74e7e4e530e6c1190f75b17f906ed7d9860a1e26))
+
 # [4.2.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.1.1...v4.2.0-beta.1) (2022-01-12)
 
 
