@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('SkuLists resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_74',
+			name: 'alfa_89',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

@@ -3,7 +3,7 @@
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2022 Commerce Layer Inc.
- * OpenAPI schema, version 2.7.6
+ * OpenAPI schema, version 2.8.0
  **/
 export type { Address, AddressCreate, AddressUpdate } from './resources/addresses'
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate } from './resources/adjustments'
@@ -50,6 +50,8 @@ export type { InStockSubscription, InStockSubscriptionCreate, InStockSubscriptio
 export type { InventoryModel, InventoryModelCreate, InventoryModelUpdate } from './resources/inventory_models'
 export type { InventoryReturnLocation, InventoryReturnLocationCreate, InventoryReturnLocationUpdate } from './resources/inventory_return_locations'
 export type { InventoryStockLocation, InventoryStockLocationCreate, InventoryStockLocationUpdate } from './resources/inventory_stock_locations'
+export type { KlarnaGateway, KlarnaGatewayCreate, KlarnaGatewayUpdate } from './resources/klarna_gateways'
+export type { KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate } from './resources/klarna_payments'
 export type { LineItemOption, LineItemOptionCreate, LineItemOptionUpdate } from './resources/line_item_options'
 export type { LineItem, LineItemCreate, LineItemUpdate } from './resources/line_items'
 export type { ManualGateway, ManualGatewayCreate, ManualGatewayUpdate } from './resources/manual_gateways'

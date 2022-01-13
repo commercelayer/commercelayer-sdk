@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.6
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,10 +25,10 @@ describe('PaypalGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'beta_63',
-			client_id: 'omega_93',
-			client_secret: 'alfa_53',
-			mode: 'beta_72',
+			name: 'alfa_6',
+			client_id: 'omega_19',
+			client_secret: 'beta_27',
+			mode: 'kappa_57',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

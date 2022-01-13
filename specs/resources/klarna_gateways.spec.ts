@@ -16,28 +16,31 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('SkuOptions resource', () => {
+describe('KlarnaGateways resource', () => {
 
-  const resourceType = 'sku_options'
+  const resourceType = 'klarna_gateways'
 
 
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_47',
-			market: cl.markets.relationship(TestData.id),
+			name: 'sigma_3',
+			country_code: 'gamma_73',
+			api_key: 'sigma_68',
+			api_secret: 'beta_92',
+			klarna_payments: [ cl.klarna_payments.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
-    const params = { fields: { sku_options: CommonData.paramsFields } }
+    const params = { fields: { klarna_gateways: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('post')
       checkCommon(config, resourceType)
       checkCommonData(config, resourceType, attributes)
-      expect(cl[resourceType].isSkuOption(config.data.data)).toBeTruthy()
+      expect(cl[resourceType].isKlarnaGateway(config.data.data)).toBeTruthy()
       return interceptRequest()
     })
 
@@ -53,7 +56,7 @@ describe('SkuOptions resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { sku_options: CommonData.paramsFields } }
+    const params = { fields: { klarna_gateways: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
@@ -74,7 +77,7 @@ describe('SkuOptions resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
-    const params = { fields: { sku_options: CommonData.paramsFields } }
+    const params = { fields: { klarna_gateways: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -135,7 +138,7 @@ describe('SkuOptions resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isSkuOption(resource)).toBeTruthy()
+    expect(cl[resourceType].isKlarnaGateway(resource)).toBeTruthy()
 
     const relId = cl[resourceType].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
