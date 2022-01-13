@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.7.4",
+        "version": "2.8.0",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -5122,6 +5122,33 @@
                 }
             }
         },
+        "/external_payments/{externalPaymentId}/wallet": {
+            "get": {
+                "operationId": "GET/externalPaymentId/wallet",
+                "summary": "Retrieve the wallet associated to the external payment",
+                "description": "Retrieve the wallet associated to the external payment",
+                "tags": [
+                    "has_one",
+                    "customer_payment_sources"
+                ],
+                "parameters": [
+                    {
+                        "name": "externalPaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The wallet associated to the external payment"
+                    }
+                }
+            }
+        },
         "/external_promotions": {
             "get": {
                 "operationId": "GET/external_promotions",
@@ -6775,6 +6802,39 @@
                 }
             }
         },
+        "/geocoders/{geocoderId}": {
+            "get": {
+                "operationId": "GET/geocoders/geocoderId",
+                "summary": "Retrieve a geocoder",
+                "description": "Retrieve a geocoder",
+                "tags": [
+                    "geocoders"
+                ],
+                "parameters": [
+                    {
+                        "name": "geocoderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The geocoder object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/geocoder"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/geocoders/{geocoderId}/addresses": {
             "get": {
                 "operationId": "GET/geocoderId/addresses",
@@ -8282,6 +8342,372 @@
                 "responses": {
                     "200": {
                         "description": "The inventory_model associated to the inventory stock location"
+                    }
+                }
+            }
+        },
+        "/klarna_gateways": {
+            "get": {
+                "operationId": "GET/klarna_gateways",
+                "summary": "List all klarna gateways",
+                "description": "List all klarna gateways",
+                "tags": [
+                    "klarna_gateways"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of klarna gateway objects"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "POST/klarna_gateways",
+                "summary": "Create a klarna gateway",
+                "description": "Create a klarna gateway",
+                "tags": [
+                    "klarna_gateways"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/klarnaGatewayCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created klarna gateway object"
+                    }
+                }
+            }
+        },
+        "/klarna_gateways/{klarnaGatewayId}": {
+            "get": {
+                "operationId": "GET/klarna_gateways/klarnaGatewayId",
+                "summary": "Retrieve a klarna gateway",
+                "description": "Retrieve a klarna gateway",
+                "tags": [
+                    "klarna_gateways"
+                ],
+                "parameters": [
+                    {
+                        "name": "klarnaGatewayId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The klarna gateway object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/klarnaGateway"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/klarna_gateways/klarnaGatewayId",
+                "summary": "Update a klarna gateway",
+                "description": "Update a klarna gateway",
+                "tags": [
+                    "klarna_gateways"
+                ],
+                "parameters": [
+                    {
+                        "name": "klarnaGatewayId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/klarnaGatewayUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated klarna gateway object"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/klarna_gateways/klarnaGatewayId",
+                "summary": "Delete a klarna gateway",
+                "description": "Delete a klarna gateway",
+                "tags": [
+                    "klarna_gateways"
+                ],
+                "parameters": [
+                    {
+                        "name": "klarnaGatewayId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/klarna_gateways/{klarnaGatewayId}/payment_methods": {
+            "get": {
+                "operationId": "GET/klarnaGatewayId/payment_methods",
+                "summary": "Retrieve the payment methods associated to the klarna gateway",
+                "description": "Retrieve the payment methods associated to the klarna gateway",
+                "tags": [
+                    "has_many",
+                    "payment_methods"
+                ],
+                "parameters": [
+                    {
+                        "name": "klarnaGatewayId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The payment_methods associated to the klarna gateway"
+                    }
+                }
+            }
+        },
+        "/klarna_gateways/{klarnaGatewayId}/klarna_payments": {
+            "get": {
+                "operationId": "GET/klarnaGatewayId/klarna_payments",
+                "summary": "Retrieve the klarna payments associated to the klarna gateway",
+                "description": "Retrieve the klarna payments associated to the klarna gateway",
+                "tags": [
+                    "has_many",
+                    "klarna_payments"
+                ],
+                "parameters": [
+                    {
+                        "name": "klarnaGatewayId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The klarna_payments associated to the klarna gateway"
+                    }
+                }
+            }
+        },
+        "/klarna_payments": {
+            "get": {
+                "operationId": "GET/klarna_payments",
+                "summary": "List all klarna payments",
+                "description": "List all klarna payments",
+                "tags": [
+                    "klarna_payments"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of klarna payment objects"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "POST/klarna_payments",
+                "summary": "Create a klarna payment",
+                "description": "Create a klarna payment",
+                "tags": [
+                    "klarna_payments"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/klarnaPaymentCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created klarna payment object"
+                    }
+                }
+            }
+        },
+        "/klarna_payments/{klarnaPaymentId}": {
+            "get": {
+                "operationId": "GET/klarna_payments/klarnaPaymentId",
+                "summary": "Retrieve a klarna payment",
+                "description": "Retrieve a klarna payment",
+                "tags": [
+                    "klarna_payments"
+                ],
+                "parameters": [
+                    {
+                        "name": "klarnaPaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The klarna payment object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/klarnaPayment"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/klarna_payments/klarnaPaymentId",
+                "summary": "Update a klarna payment",
+                "description": "Update a klarna payment",
+                "tags": [
+                    "klarna_payments"
+                ],
+                "parameters": [
+                    {
+                        "name": "klarnaPaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/klarnaPaymentUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated klarna payment object"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/klarna_payments/klarnaPaymentId",
+                "summary": "Delete a klarna payment",
+                "description": "Delete a klarna payment",
+                "tags": [
+                    "klarna_payments"
+                ],
+                "parameters": [
+                    {
+                        "name": "klarnaPaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/klarna_payments/{klarnaPaymentId}/order": {
+            "get": {
+                "operationId": "GET/klarnaPaymentId/order",
+                "summary": "Retrieve the order associated to the klarna payment",
+                "description": "Retrieve the order associated to the klarna payment",
+                "tags": [
+                    "has_one",
+                    "orders"
+                ],
+                "parameters": [
+                    {
+                        "name": "klarnaPaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The order associated to the klarna payment"
+                    }
+                }
+            }
+        },
+        "/klarna_payments/{klarnaPaymentId}/payment_gateway": {
+            "get": {
+                "operationId": "GET/klarnaPaymentId/payment_gateway",
+                "summary": "Retrieve the payment gateway associated to the klarna payment",
+                "description": "Retrieve the payment gateway associated to the klarna payment",
+                "tags": [
+                    "has_one",
+                    "payment_gateways"
+                ],
+                "parameters": [
+                    {
+                        "name": "klarnaPaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The payment_gateway associated to the klarna payment"
                     }
                 }
             }
@@ -10183,6 +10609,39 @@
                 }
             }
         },
+        "/order_validation_rules/{orderValidationRuleId}": {
+            "get": {
+                "operationId": "GET/order_validation_rules/orderValidationRuleId",
+                "summary": "Retrieve an order validation rule",
+                "description": "Retrieve an order validation rule",
+                "tags": [
+                    "order_validation_rules"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderValidationRuleId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The order validation rule object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/orderValidationRule"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/order_validation_rules/{orderValidationRuleId}/market": {
             "get": {
                 "operationId": "GET/orderValidationRuleId/market",
@@ -11463,29 +11922,6 @@
                         "description": "A list of payment gateway objects"
                     }
                 }
-            },
-            "post": {
-                "operationId": "POST/payment_gateways",
-                "summary": "Create a payment gateway",
-                "description": "Create a payment gateway",
-                "tags": [
-                    "payment_gateways"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/vnd.api+json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/paymentGatewayCreate"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "The created payment gateway object"
-                    }
-                }
             }
         },
         "/payment_gateways/{paymentGatewayId}": {
@@ -11517,64 +11953,6 @@
                                 }
                             }
                         }
-                    }
-                }
-            },
-            "patch": {
-                "operationId": "PATCH/payment_gateways/paymentGatewayId",
-                "summary": "Update a payment gateway",
-                "description": "Update a payment gateway",
-                "tags": [
-                    "payment_gateways"
-                ],
-                "parameters": [
-                    {
-                        "name": "paymentGatewayId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/vnd.api+json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/paymentGatewayUpdate"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "The updated payment gateway object"
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "DELETE/payment_gateways/paymentGatewayId",
-                "summary": "Delete a payment gateway",
-                "description": "Delete a payment gateway",
-                "tags": [
-                    "payment_gateways"
-                ],
-                "parameters": [
-                    {
-                        "name": "paymentGatewayId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content"
                     }
                 }
             }
@@ -12908,6 +13286,39 @@
                 }
             }
         },
+        "/promotion_rules/{promotionRuleId}": {
+            "get": {
+                "operationId": "GET/promotion_rules/promotionRuleId",
+                "summary": "Retrieve a promotion rule",
+                "description": "Retrieve a promotion rule",
+                "tags": [
+                    "promotion_rules"
+                ],
+                "parameters": [
+                    {
+                        "name": "promotionRuleId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The promotion rule object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/promotionRule"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/promotions": {
             "get": {
                 "operationId": "GET/promotions",
@@ -12919,6 +13330,39 @@
                 "responses": {
                     "200": {
                         "description": "A list of promotion objects"
+                    }
+                }
+            }
+        },
+        "/promotions/{promotionId}": {
+            "get": {
+                "operationId": "GET/promotions/promotionId",
+                "summary": "Retrieve a promotion",
+                "description": "Retrieve a promotion",
+                "tags": [
+                    "promotions"
+                ],
+                "parameters": [
+                    {
+                        "name": "promotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The promotion object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/promotion"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -17048,6 +17492,39 @@
                 }
             }
         },
+        "/tax_calculators/{taxCalculatorId}": {
+            "get": {
+                "operationId": "GET/tax_calculators/taxCalculatorId",
+                "summary": "Retrieve a tax calculator",
+                "description": "Retrieve a tax calculator",
+                "tags": [
+                    "tax_calculators"
+                ],
+                "parameters": [
+                    {
+                        "name": "taxCalculatorId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The tax calculator object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/taxCalculator"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/tax_calculators/{taxCalculatorId}/tax_categories": {
             "get": {
                 "operationId": "GET/taxCalculatorId/tax_categories",
@@ -17689,6 +18166,39 @@
                 "responses": {
                     "200": {
                         "description": "A list of transaction objects"
+                    }
+                }
+            }
+        },
+        "/transactions/{transactionId}": {
+            "get": {
+                "operationId": "GET/transactions/transactionId",
+                "summary": "Retrieve a transaction",
+                "description": "Retrieve a transaction",
+                "tags": [
+                    "transactions"
+                ],
+                "parameters": [
+                    {
+                        "name": "transactionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The transaction object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/transaction"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -19459,11 +19969,6 @@
                                         "example": {
                                             "foo": "bar"
                                         }
-                                    },
-                                    "_authorize": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to authorize the payment.",
-                                        "example": true
                                     },
                                     "_details": {
                                         "type": "boolean",
@@ -23485,11 +23990,6 @@
                                         "description": "A payment session ID used to obtain the details.",
                                         "example": "sid_y3oqhf46pyzuxjbcn2giaqnb44"
                                     },
-                                    "_authorize": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to authorize the payment.",
-                                        "example": true
-                                    },
                                     "_details": {
                                         "type": "boolean",
                                         "description": "Send this attribute if you want to send additional details the payment request (i.e. upon 3DS check).",
@@ -24252,6 +24752,11 @@
                                         "description": "The coupon code, that uniquely identifies the coupon within the promotion rule.",
                                         "example": "04371af2-70b3-48d7-8f4e-316b374224c3"
                                     },
+                                    "customer_single_use": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the coupon can be used just once per customer.",
+                                        "example": false
+                                    },
                                     "usage_limit": {
                                         "type": "integer",
                                         "description": "The total number of times this coupon can be used.",
@@ -24357,6 +24862,11 @@
                                         "description": "The coupon code, that uniquely identifies the coupon within the promotion rule.",
                                         "example": "04371af2-70b3-48d7-8f4e-316b374224c3"
                                     },
+                                    "customer_single_use": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the coupon can be used just once per customer.",
+                                        "example": false
+                                    },
                                     "usage_limit": {
                                         "type": "integer",
                                         "description": "The total number of times this coupon can be used.",
@@ -24454,6 +24964,11 @@
                                         "type": "string",
                                         "description": "The coupon code, that uniquely identifies the coupon within the promotion rule.",
                                         "example": "04371af2-70b3-48d7-8f4e-316b374224c3"
+                                    },
+                                    "customer_single_use": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the coupon can be used just once per customer.",
+                                        "example": false
                                     },
                                     "usage_limit": {
                                         "type": "integer",
@@ -25393,6 +25908,7 @@
                                                     "braintree_payments",
                                                     "checkout_com_payments",
                                                     "external_payments",
+                                                    "klarna_payments",
                                                     "paypal_payments",
                                                     "stripe_payments",
                                                     "wire_transfers"
@@ -25416,6 +25932,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/klarnaPayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/paypalPayment"
@@ -25515,6 +26034,7 @@
                                                     "braintree_payments",
                                                     "checkout_com_payments",
                                                     "external_payments",
+                                                    "klarna_payments",
                                                     "paypal_payments",
                                                     "stripe_payments",
                                                     "wire_transfers"
@@ -25538,6 +26058,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/klarnaPayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/paypalPayment"
@@ -25647,6 +26170,7 @@
                                                     "braintree_payments",
                                                     "checkout_com_payments",
                                                     "external_payments",
+                                                    "klarna_payments",
                                                     "paypal_payments",
                                                     "stripe_payments",
                                                     "wire_transfers"
@@ -25670,6 +26194,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/klarnaPayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/paypalPayment"
@@ -26853,6 +27380,11 @@
                                         "type": "string",
                                         "description": "The endpoint used by the external gateway to refund payments.",
                                         "example": "https://external_gateway.com/refund"
+                                    },
+                                    "token_url": {
+                                        "type": "string",
+                                        "description": "The endpoint used by the external gateway to create a customer payment token.",
+                                        "example": "https://external_gateway.com/token"
                                     }
                                 }
                             },
@@ -26968,6 +27500,11 @@
                                         "type": "string",
                                         "description": "The endpoint used by the external gateway to refund payments.",
                                         "example": "https://external_gateway.com/refund"
+                                    },
+                                    "token_url": {
+                                        "type": "string",
+                                        "description": "The endpoint used by the external gateway to create a customer payment token.",
+                                        "example": "https://external_gateway.com/token"
                                     }
                                 },
                                 "required": [
@@ -27051,6 +27588,11 @@
                                         "type": "string",
                                         "description": "The endpoint used by the external gateway to refund payments.",
                                         "example": "https://external_gateway.com/refund"
+                                    },
+                                    "token_url": {
+                                        "type": "string",
+                                        "description": "The endpoint used by the external gateway to create a customer payment token.",
+                                        "example": "https://external_gateway.com/token"
                                     }
                                 }
                             },
@@ -27165,6 +27707,26 @@
                                                 "description": "The resource's type",
                                                 "example": "payment_gateways",
                                                 "default": "payment_gateways"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "wallet": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "customer_payment_sources",
+                                                "default": "customer_payment_sources"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -33484,6 +34046,599 @@
                     }
                 }
             },
+            "klarnaGateway": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "klarna_gateways",
+                                "default": "klarna_gateways"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The payment gateway's internal name.",
+                                        "example": "US payment gateway"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "payment_methods": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "payment_methods",
+                                                "default": "payment_methods"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "klarna_payments": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "klarna_payments",
+                                                "default": "klarna_payments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "klarnaGatewayCreate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "klarna_gateways",
+                                "default": "klarna_gateways"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The payment gateway's internal name.",
+                                        "example": "US payment gateway"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "country_code": {
+                                        "type": "string",
+                                        "description": "The gateway country code one of EU, US, or OC.",
+                                        "example": "EU"
+                                    },
+                                    "api_key": {
+                                        "type": "string",
+                                        "description": "The public key linked to your API credential.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    },
+                                    "api_secret": {
+                                        "type": "string",
+                                        "description": "The gateway API key.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "country_code",
+                                    "api_key",
+                                    "api_secret"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "klarna_payments": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "klarna_payments",
+                                                "default": "klarna_payments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "klarnaGatewayUpdate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "klarna_gateways",
+                                "default": "klarna_gateways"
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The payment gateway's internal name.",
+                                        "example": "US payment gateway"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "country_code": {
+                                        "type": "string",
+                                        "description": "The gateway country code one of EU, US, or OC.",
+                                        "example": "EU"
+                                    },
+                                    "api_key": {
+                                        "type": "string",
+                                        "description": "The public key linked to your API credential.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    },
+                                    "api_secret": {
+                                        "type": "string",
+                                        "description": "The gateway API key.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "klarna_payments": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "klarna_payments",
+                                                "default": "klarna_payments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "klarnaPayment": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "klarna_payments",
+                                "default": "klarna_payments"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "session_id": {
+                                        "type": "string",
+                                        "description": "The identifier of the payment session, useful to updated it.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    },
+                                    "client_token": {
+                                        "type": "string",
+                                        "description": "The public token linked to your API credential. Available upon session creation.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    },
+                                    "payment_methods": {
+                                        "type": "array",
+                                        "description": "The merchant available payment methods for the assoiated order. Available upon session creation.",
+                                        "example": [
+                                            {
+                                                "foo": "bar"
+                                            }
+                                        ],
+                                        "items": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "auth_token": {
+                                        "type": "string",
+                                        "description": "The token returned by a successful client authorization, mandatory to place the order.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "order": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "orders",
+                                                "default": "orders"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "payment_gateway": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "payment_gateways",
+                                                "default": "payment_gateways"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "klarnaPaymentCreate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "klarna_payments",
+                                "default": "klarna_payments"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "order": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "orders",
+                                                "default": "orders"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "order"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "klarnaPaymentUpdate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "klarna_payments",
+                                "default": "klarna_payments"
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "auth_token": {
+                                        "type": "string",
+                                        "description": "The token returned by a successful client authorization, mandatory to place the order.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    },
+                                    "_update": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to update the payment session with fresh order data.",
+                                        "example": true
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "order": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "orders",
+                                                "default": "orders"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "lineItemOption": {
                 "type": "object",
                 "required": [
@@ -37731,6 +38886,7 @@
                                                     "braintree_payments",
                                                     "checkout_com_payments",
                                                     "external_payments",
+                                                    "klarna_payments",
                                                     "paypal_payments",
                                                     "stripe_payments",
                                                     "wire_transfers"
@@ -37754,6 +38910,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/klarnaPayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/paypalPayment"
@@ -38218,6 +39377,7 @@
                                                     "braintree_payments",
                                                     "checkout_com_payments",
                                                     "external_payments",
+                                                    "klarna_payments",
                                                     "paypal_payments",
                                                     "stripe_payments",
                                                     "wire_transfers"
@@ -38241,6 +39401,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/klarnaPayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/paypalPayment"
@@ -38591,6 +39754,7 @@
                                                     "braintree_payments",
                                                     "checkout_com_payments",
                                                     "external_payments",
+                                                    "klarna_payments",
                                                     "paypal_payments",
                                                     "stripe_payments",
                                                     "wire_transfers"
@@ -38614,6 +39778,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/klarnaPayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/paypalPayment"
@@ -40201,123 +41368,6 @@
                     }
                 }
             },
-            "paymentGatewayCreate": {
-                "type": "object",
-                "required": [
-                    "data"
-                ],
-                "properties": {
-                    "data": {
-                        "type": "object",
-                        "required": [
-                            "type",
-                            "attributes"
-                        ],
-                        "properties": {
-                            "type": {
-                                "type": "string",
-                                "description": "The resource's type",
-                                "example": "payment_gateways",
-                                "default": "payment_gateways"
-                            },
-                            "attributes": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "description": "The payment gateway's internal name.",
-                                        "example": "US payment gateway"
-                                    },
-                                    "reference": {
-                                        "type": "string",
-                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE"
-                                    },
-                                    "reference_origin": {
-                                        "type": "string",
-                                        "description": "Any identifier of the third party system that defines the reference code",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                                    },
-                                    "metadata": {
-                                        "type": "object",
-                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
-                                        "example": {
-                                            "foo": "bar"
-                                        }
-                                    }
-                                },
-                                "required": [
-                                    "name"
-                                ]
-                            },
-                            "relationships": {
-                                "type": "object",
-                                "properties": {}
-                            }
-                        }
-                    }
-                }
-            },
-            "paymentGatewayUpdate": {
-                "type": "object",
-                "required": [
-                    "data"
-                ],
-                "properties": {
-                    "data": {
-                        "type": "object",
-                        "required": [
-                            "type",
-                            "id",
-                            "attributes"
-                        ],
-                        "properties": {
-                            "type": {
-                                "type": "string",
-                                "description": "The resource's type",
-                                "example": "payment_gateways",
-                                "default": "payment_gateways"
-                            },
-                            "id": {
-                                "type": "string",
-                                "description": "The resource's id",
-                                "example": "XGZwpOSrWL"
-                            },
-                            "attributes": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "description": "The payment gateway's internal name.",
-                                        "example": "US payment gateway"
-                                    },
-                                    "reference": {
-                                        "type": "string",
-                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE"
-                                    },
-                                    "reference_origin": {
-                                        "type": "string",
-                                        "description": "Any identifier of the third party system that defines the reference code",
-                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                                    },
-                                    "metadata": {
-                                        "type": "object",
-                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
-                                        "example": {
-                                            "foo": "bar"
-                                        }
-                                    }
-                                }
-                            },
-                            "relationships": {
-                                "type": "object",
-                                "properties": {}
-                            }
-                        }
-                    }
-                }
-            },
             "paymentMethod": {
                 "type": "object",
                 "required": [
@@ -40349,6 +41399,11 @@
                                         "type": "string",
                                         "description": "Payment source type, titleized",
                                         "example": "Credit Card"
+                                    },
+                                    "moto": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
+                                        "example": false
                                     },
                                     "disabled_at": {
                                         "type": "string",
@@ -40500,6 +41555,11 @@
                                         "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
                                         "example": "CreditCard"
                                     },
+                                    "moto": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
+                                        "example": false
+                                    },
                                     "price_amount_cents": {
                                         "type": "integer",
                                         "description": "The payment method's price, in cents",
@@ -40613,6 +41673,11 @@
                                         "type": "string",
                                         "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
                                         "example": "CreditCard"
+                                    },
+                                    "moto": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
+                                        "example": false
                                     },
                                     "price_amount_cents": {
                                         "type": "integer",
@@ -45442,6 +46507,11 @@
                                         "description": "The SKU list item's position.",
                                         "example": 2
                                     },
+                                    "sku_code": {
+                                        "type": "string",
+                                        "description": "The code of the associated SKU.",
+                                        "example": "TSHIRTMM000000FFFFFFXLXX"
+                                    },
                                     "quantity": {
                                         "type": "integer",
                                         "description": "The SKU quantity for this SKU list item.",
@@ -45557,6 +46627,11 @@
                                         "description": "The SKU list item's position.",
                                         "example": 2
                                     },
+                                    "sku_code": {
+                                        "type": "string",
+                                        "description": "The code of the associated SKU.",
+                                        "example": "TSHIRTMM000000FFFFFFXLXX"
+                                    },
                                     "quantity": {
                                         "type": "integer",
                                         "description": "The SKU quantity for this SKU list item.",
@@ -45579,11 +46654,7 @@
                                             "foo": "bar"
                                         }
                                     }
-                                },
-                                "required": [
-                                    "position",
-                                    "quantity"
-                                ]
+                                }
                             },
                             "relationships": {
                                 "type": "object",
@@ -45670,6 +46741,11 @@
                                         "type": "integer",
                                         "description": "The SKU list item's position.",
                                         "example": 2
+                                    },
+                                    "sku_code": {
+                                        "type": "string",
+                                        "description": "The code of the associated SKU.",
+                                        "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "quantity": {
                                         "type": "integer",
@@ -51541,6 +52617,14 @@
         },
         {
             "name": "inventory_stock_locations",
+            "description": "resource type"
+        },
+        {
+            "name": "klarna_gateways",
+            "description": "resource type"
+        },
+        {
+            "name": "klarna_payments",
             "description": "resource type"
         },
         {

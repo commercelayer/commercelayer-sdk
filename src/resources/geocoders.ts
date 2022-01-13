@@ -1,10 +1,10 @@
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList } from '../query'
+import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Address } from './addresses'
 import { Attachment } from './attachments'
@@ -30,6 +30,10 @@ class Geocoders extends ApiResource {
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Geocoder>> {
 		return this.resources.list({ type: Geocoders.TYPE }, params, options)
+	}
+
+	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
+		return this.resources.retrieve<Geocoder>({ type: Geocoders.TYPE, id }, params, options)
 	}
 
 

@@ -1,6 +1,6 @@
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -20,6 +20,7 @@ interface PaymentMethod extends Resource {
 	
 	payment_source_type?: string
 	name?: string
+	moto?: boolean
 	disabled_at?: string
 	price_amount_cents?: number
 	price_amount_float?: number
@@ -35,6 +36,7 @@ interface PaymentMethod extends Resource {
 interface PaymentMethodCreate extends ResourceCreate {
 	
 	payment_source_type: string
+	moto?: boolean
 	price_amount_cents: number
 
 	market?: MarketRel
@@ -46,6 +48,7 @@ interface PaymentMethodCreate extends ResourceCreate {
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
 	payment_source_type?: string
+	moto?: boolean
 	price_amount_cents?: number
 
 	market?: MarketRel

@@ -1,6 +1,6 @@
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -16,6 +16,7 @@ type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_
 interface Coupon extends Resource {
 	
 	code?: string
+	customer_single_use?: boolean
 	usage_limit?: number
 	usage_count?: number
 	recipient_email?: string
@@ -28,6 +29,7 @@ interface Coupon extends Resource {
 interface CouponCreate extends ResourceCreate {
 	
 	code: string
+	customer_single_use?: boolean
 	usage_limit: number
 	recipient_email?: string
 
@@ -39,6 +41,7 @@ interface CouponCreate extends ResourceCreate {
 interface CouponUpdate extends ResourceUpdate {
 	
 	code?: string
+	customer_single_use?: boolean
 	usage_limit?: number
 	recipient_email?: string
 

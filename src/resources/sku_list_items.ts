@@ -1,6 +1,6 @@
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -18,6 +18,7 @@ type SkuRel = ResourceId & { type: 'skus' }
 interface SkuListItem extends Resource {
 	
 	position?: number
+	sku_code?: string
 	quantity?: number
 
 	sku_list?: SkuList
@@ -28,8 +29,9 @@ interface SkuListItem extends Resource {
 
 interface SkuListItemCreate extends ResourceCreate {
 	
-	position: number
-	quantity: number
+	position?: number
+	sku_code?: string
+	quantity?: number
 
 	sku_list?: SkuListRel
 	sku?: SkuRel
@@ -40,6 +42,7 @@ interface SkuListItemCreate extends ResourceCreate {
 interface SkuListItemUpdate extends ResourceUpdate {
 	
 	position?: number
+	sku_code?: string
 	quantity?: number
 	
 }

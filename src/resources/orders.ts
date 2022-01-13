@@ -1,6 +1,6 @@
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -15,6 +15,7 @@ import { AdyenPayment } from './adyen_payments'
 import { BraintreePayment } from './braintree_payments'
 import { CheckoutComPayment } from './checkout_com_payments'
 import { ExternalPayment } from './external_payments'
+import { KlarnaPayment } from './klarna_payments'
 import { PaypalPayment } from './paypal_payments'
 import { StripePayment } from './stripe_payments'
 import { WireTransfer } from './wire_transfers'
@@ -38,6 +39,7 @@ type AdyenPaymentRel = ResourceId & { type: 'adyen_payments' }
 type BraintreePaymentRel = ResourceId & { type: 'braintree_payments' }
 type CheckoutComPaymentRel = ResourceId & { type: 'checkout_com_payments' }
 type ExternalPaymentRel = ResourceId & { type: 'external_payments' }
+type KlarnaPaymentRel = ResourceId & { type: 'klarna_payments' }
 type PaypalPaymentRel = ResourceId & { type: 'paypal_payments' }
 type StripePaymentRel = ResourceId & { type: 'stripe_payments' }
 type WireTransferRel = ResourceId & { type: 'wire_transfers' }
@@ -150,7 +152,7 @@ interface Order extends Resource {
 	available_payment_methods?: PaymentMethod[]
 	available_customer_payment_sources?: CustomerPaymentSource[]
 	payment_method?: PaymentMethod
-	payment_source?: AdyenPayment | BraintreePayment | CheckoutComPayment | ExternalPayment | PaypalPayment | StripePayment | WireTransfer
+	payment_source?: AdyenPayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | StripePayment | WireTransfer
 	line_items?: LineItem[]
 	shipments?: Shipment[]
 	transactions?: (Authorization | Void | Capture | Refund)[]
@@ -186,7 +188,7 @@ interface OrderCreate extends ResourceCreate {
 	shipping_address?: AddressRel
 	billing_address?: AddressRel
 	payment_method?: PaymentMethodRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 
@@ -232,7 +234,7 @@ interface OrderUpdate extends ResourceUpdate {
 	shipping_address?: AddressRel
 	billing_address?: AddressRel
 	payment_method?: PaymentMethodRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 

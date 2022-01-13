@@ -16,32 +16,27 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('StockTransfers resource', () => {
+describe('KlarnaPayments resource', () => {
 
-  const resourceType = 'stock_transfers'
+  const resourceType = 'klarna_payments'
 
 
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 555,
-			sku: cl.skus.relationship(TestData.id),
-			origin_stock_location: cl.stock_locations.relationship(TestData.id),
-			destination_stock_location: cl.stock_locations.relationship(TestData.id),
-			shipment: cl.shipments.relationship(TestData.id),
-			line_item: cl.line_items.relationship(TestData.id),
+			order: cl.orders.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
-    const params = { fields: { stock_transfers: CommonData.paramsFields } }
+    const params = { fields: { klarna_payments: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('post')
       checkCommon(config, resourceType)
       checkCommonData(config, resourceType, attributes)
-      expect(cl[resourceType].isStockTransfer(config.data.data)).toBeTruthy()
+      expect(cl[resourceType].isKlarnaPayment(config.data.data)).toBeTruthy()
       return interceptRequest()
     })
 
@@ -57,7 +52,7 @@ describe('StockTransfers resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { stock_transfers: CommonData.paramsFields } }
+    const params = { fields: { klarna_payments: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
@@ -78,7 +73,7 @@ describe('StockTransfers resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
-    const params = { fields: { stock_transfers: CommonData.paramsFields } }
+    const params = { fields: { klarna_payments: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -139,7 +134,7 @@ describe('StockTransfers resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isStockTransfer(resource)).toBeTruthy()
+    expect(cl[resourceType].isKlarnaPayment(resource)).toBeTruthy()
 
     const relId = cl[resourceType].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))

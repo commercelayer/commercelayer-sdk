@@ -1,6 +1,6 @@
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -11,6 +11,7 @@ import { AdyenPayment } from './adyen_payments'
 import { BraintreePayment } from './braintree_payments'
 import { CheckoutComPayment } from './checkout_com_payments'
 import { ExternalPayment } from './external_payments'
+import { KlarnaPayment } from './klarna_payments'
 import { PaypalPayment } from './paypal_payments'
 import { StripePayment } from './stripe_payments'
 import { WireTransfer } from './wire_transfers'
@@ -22,6 +23,7 @@ type AdyenPaymentRel = ResourceId & { type: 'adyen_payments' }
 type BraintreePaymentRel = ResourceId & { type: 'braintree_payments' }
 type CheckoutComPaymentRel = ResourceId & { type: 'checkout_com_payments' }
 type ExternalPaymentRel = ResourceId & { type: 'external_payments' }
+type KlarnaPaymentRel = ResourceId & { type: 'klarna_payments' }
 type PaypalPaymentRel = ResourceId & { type: 'paypal_payments' }
 type StripePaymentRel = ResourceId & { type: 'stripe_payments' }
 type WireTransferRel = ResourceId & { type: 'wire_transfers' }
@@ -34,7 +36,7 @@ interface CustomerPaymentSource extends Resource {
 	payment_source_token?: string
 
 	customer?: Customer
-	payment_source?: AdyenPayment | BraintreePayment | CheckoutComPayment | ExternalPayment | PaypalPayment | StripePayment | WireTransfer
+	payment_source?: AdyenPayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | StripePayment | WireTransfer
 
 }
 
@@ -42,7 +44,7 @@ interface CustomerPaymentSource extends Resource {
 interface CustomerPaymentSourceCreate extends ResourceCreate {
 	
 	customer?: CustomerRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 
@@ -50,7 +52,7 @@ interface CustomerPaymentSourceCreate extends ResourceCreate {
 interface CustomerPaymentSourceUpdate extends ResourceUpdate {
 	
 	customer?: CustomerRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 

@@ -2,8 +2,8 @@
 // ##__API_RESOURCES_START__##
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
- * ©2021 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.7.4
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
  **/
 export { default as Addresses } from './resources/addresses'
 export { default as Adjustments } from './resources/adjustments'
@@ -50,6 +50,8 @@ export { default as InStockSubscriptions } from './resources/in_stock_subscripti
 export { default as InventoryModels } from './resources/inventory_models'
 export { default as InventoryReturnLocations } from './resources/inventory_return_locations'
 export { default as InventoryStockLocations } from './resources/inventory_stock_locations'
+export { default as KlarnaGateways } from './resources/klarna_gateways'
+export { default as KlarnaPayments } from './resources/klarna_payments'
 export { default as LineItemOptions } from './resources/line_item_options'
 export { default as LineItems } from './resources/line_items'
 export { default as ManualGateways } from './resources/manual_gateways'
@@ -150,6 +152,8 @@ export type ResourceTypeLock =
 |	'inventory_models'
 |	'inventory_return_locations'
 |	'inventory_stock_locations'
+|	'klarna_gateways'
+|	'klarna_payments'
 |	'line_item_options'
 |	'line_items'
 |	'manual_gateways'
@@ -250,6 +254,8 @@ export const resourceList = [
 	'inventory_models',
 	'inventory_return_locations',
 	'inventory_stock_locations',
+	'klarna_gateways',
+	'klarna_payments',
 	'line_item_options',
 	'line_items',
 	'manual_gateways',
