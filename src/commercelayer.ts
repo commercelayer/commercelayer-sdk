@@ -6,7 +6,7 @@ import { CommerceLayerStatic } from './static'
 import ResourceAdapter, { ResourcesConfig, ResourcesInitConfig } from './resource'
 
 
-const OPEN_API_SCHEMA_VERSION = '2.7.6'
+const OPEN_API_SCHEMA_VERSION = '2.8.0'
 
 
 type SdkConfig = {}
@@ -70,6 +70,8 @@ class CommerceLayerClient {
 	inventory_models: api.InventoryModels
 	inventory_return_locations: api.InventoryReturnLocations
 	inventory_stock_locations: api.InventoryStockLocations
+	klarna_gateways: api.KlarnaGateways
+	klarna_payments: api.KlarnaPayments
 	line_item_options: api.LineItemOptions
 	line_items: api.LineItems
 	manual_gateways: api.ManualGateways
@@ -175,6 +177,8 @@ class CommerceLayerClient {
 		this.inventory_models = new api.InventoryModels(this.#adapter)
 		this.inventory_return_locations = new api.InventoryReturnLocations(this.#adapter)
 		this.inventory_stock_locations = new api.InventoryStockLocations(this.#adapter)
+		this.klarna_gateways = new api.KlarnaGateways(this.#adapter)
+		this.klarna_payments = new api.KlarnaPayments(this.#adapter)
 		this.line_item_options = new api.LineItemOptions(this.#adapter)
 		this.line_items = new api.LineItems(this.#adapter)
 		this.manual_gateways = new api.ManualGateways(this.#adapter)

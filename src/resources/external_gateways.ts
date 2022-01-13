@@ -16,6 +16,7 @@ interface ExternalGateway extends Resource {
 	capture_url?: string
 	void_url?: string
 	refund_url?: string
+	token_url?: string
 
 	payment_methods?: PaymentMethod[]
 	external_payments?: ExternalPayment[]
@@ -30,6 +31,7 @@ interface ExternalGatewayCreate extends ResourceCreate {
 	capture_url?: string
 	void_url?: string
 	refund_url?: string
+	token_url?: string
 	
 }
 
@@ -41,6 +43,7 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 	capture_url?: string
 	void_url?: string
 	refund_url?: string
+	token_url?: string
 	
 }
 
