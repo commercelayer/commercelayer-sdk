@@ -4,6 +4,8 @@ import type { DocWithData as JSONApiDocument, ResourceObject as JSONApiResource 
 import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
+import type { Agent as HttpAgent } from 'http'
+import type { Agent as HttpsAgent } from 'https'
 
 import Debug from './debug'
 const debug = Debug()
@@ -49,8 +51,8 @@ const handleError = (error: Error) => {
 type RequestConfig = {
 	timeout?: number;
 	params?: { [key: string]: string | number | boolean };
-	// httpAgent
-	// httpsAgent
+	httpAgent?: HttpAgent;
+	httpsAgent?: HttpsAgent;
 	proxy?: AxiosProxyConfig | false;
 }
 
@@ -81,7 +83,9 @@ class ApiClient {
 
 		const axiosConfig: RequestConfig = {
 			timeout: options.timeout || config.client.timeout,
-			proxy: options.proxy
+			proxy: options.proxy,
+			httpAgent: options.httpAgent,
+			httpsAgent: options.httpsAgent,
 		}
 
 		const axiosOptions = {
@@ -113,6 +117,8 @@ class ApiClient {
 		// Axios config
 		if (config.timeout) def.timeout = config.timeout
 		if (config.proxy) def.proxy = config.proxy
+		if (config.httpAgent) def.httpAgent = config.httpAgent
+		if (config.httpsAgent) def.httpsAgent = config.httpsAgent
 
 		// API Client config
 		if (config.organization) this.baseUrl = baseURL(config.organization, config.domain)
