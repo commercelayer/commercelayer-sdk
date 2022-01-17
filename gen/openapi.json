@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.8.0",
+        "version": "2.8.1",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -22620,6 +22620,11 @@
                                         "description": "The internal name of the bundle.",
                                         "example": "Black Men T-shirt (XL) with Black Cap and Socks, all with White Logo"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "description": {
                                         "type": "string",
                                         "description": "An internal description of the bundle.",
@@ -22820,6 +22825,11 @@
                                         "description": "The internal name of the bundle.",
                                         "example": "Black Men T-shirt (XL) with Black Cap and Socks, all with White Logo"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "description": {
                                         "type": "string",
                                         "description": "An internal description of the bundle.",
@@ -22839,6 +22849,11 @@
                                         "type": "integer",
                                         "description": "The compared price amount, in cents. Useful to display a percentage discount.",
                                         "example": 13000
+                                    },
+                                    "_compute_price_amount": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to compute the price_amount_cents as the sum of the prices of the bundle SKUs for the market.",
+                                        "example": true
                                     },
                                     "_compute_compare_at_amount": {
                                         "type": "boolean",
@@ -22960,6 +22975,11 @@
                                         "description": "The internal name of the bundle.",
                                         "example": "Black Men T-shirt (XL) with Black Cap and Socks, all with White Logo"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "description": {
                                         "type": "string",
                                         "description": "An internal description of the bundle.",
@@ -22979,6 +22999,11 @@
                                         "type": "integer",
                                         "description": "The compared price amount, in cents. Useful to display a percentage discount.",
                                         "example": 13000
+                                    },
+                                    "_compute_price_amount": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to compute the price_amount_cents as the sum of the prices of the bundle SKUs for the market.",
+                                        "example": true
                                     },
                                     "_compute_compare_at_amount": {
                                         "type": "boolean",
@@ -27633,7 +27658,7 @@
                                     },
                                     "options": {
                                         "type": "object",
-                                        "description": "External payment options",
+                                        "description": "External payment options.",
                                         "example": {
                                             "foo": "bar"
                                         }
@@ -27770,7 +27795,7 @@
                                     },
                                     "options": {
                                         "type": "object",
-                                        "description": "External payment options",
+                                        "description": "External payment options.",
                                         "example": {
                                             "foo": "bar"
                                         }
@@ -27859,7 +27884,7 @@
                                 "properties": {
                                     "options": {
                                         "type": "object",
-                                        "description": "External payment options",
+                                        "description": "External payment options.",
                                         "example": {
                                             "foo": "bar"
                                         }
@@ -27938,6 +27963,11 @@
                                         "type": "string",
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "starts_at": {
                                         "type": "string",
@@ -28159,6 +28189,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -28346,6 +28381,11 @@
                                         "type": "string",
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "starts_at": {
                                         "type": "string",
@@ -28827,6 +28867,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -29057,6 +29102,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -29245,6 +29295,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -29419,6 +29474,11 @@
                                         "type": "string",
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "starts_at": {
                                         "type": "string",
@@ -29690,6 +29750,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -29901,6 +29966,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -30095,6 +30165,11 @@
                                         "type": "string",
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "starts_at": {
                                         "type": "string",
@@ -30356,6 +30431,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -30566,6 +30646,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -30760,6 +30845,11 @@
                                         "type": "string",
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "starts_at": {
                                         "type": "string",
@@ -30976,6 +31066,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -31157,6 +31252,11 @@
                                         "type": "string",
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "starts_at": {
                                         "type": "string",
@@ -32023,7 +32123,6 @@
                                     }
                                 },
                                 "required": [
-                                    "currency_code",
                                     "balance_cents"
                                 ]
                             },
@@ -41400,6 +41499,11 @@
                                         "description": "Payment source type, titleized",
                                         "example": "Credit Card"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "moto": {
                                         "type": "boolean",
                                         "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
@@ -41555,6 +41659,11 @@
                                         "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
                                         "example": "CreditCard"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "moto": {
                                         "type": "boolean",
                                         "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
@@ -41633,7 +41742,6 @@
                                     }
                                 },
                                 "required": [
-                                    "market",
                                     "payment_gateway"
                                 ]
                             }
@@ -41673,6 +41781,11 @@
                                         "type": "string",
                                         "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
                                         "example": "CreditCard"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "moto": {
                                         "type": "boolean",
@@ -42357,6 +42470,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -42617,6 +42735,11 @@
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "starts_at": {
                                         "type": "string",
                                         "description": "The activation date/time of this promotion.",
@@ -42824,6 +42947,11 @@
                                         "type": "string",
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "starts_at": {
                                         "type": "string",
@@ -43778,6 +43906,11 @@
                                         "type": "string",
                                         "description": "The promotion's internal name.",
                                         "example": "Personal promotion"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "starts_at": {
                                         "type": "string",
@@ -45720,15 +45853,15 @@
                                         "description": "The shipping method's name",
                                         "example": "Standard shipping"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "disabled_at": {
                                         "type": "string",
                                         "description": "Time at which the shipping method was disabled.",
                                         "example": "2018-01-01T12:00:00.000Z"
-                                    },
-                                    "currency_code": {
-                                        "type": "string",
-                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard, automatically inherited from the associated market.",
-                                        "example": "EUR"
                                     },
                                     "price_amount_cents": {
                                         "type": "integer",
@@ -45945,6 +46078,11 @@
                                         "description": "The shipping method's name",
                                         "example": "Standard shipping"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "price_amount_cents": {
                                         "type": "integer",
                                         "description": "The price of this shipping method, in cents.",
@@ -46043,7 +46181,6 @@
                                     }
                                 },
                                 "required": [
-                                    "market",
                                     "shipping_zone",
                                     "shipping_category"
                                 ]
@@ -46084,6 +46221,11 @@
                                         "type": "string",
                                         "description": "The shipping method's name",
                                         "example": "Standard shipping"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "price_amount_cents": {
                                         "type": "integer",
@@ -47546,6 +47688,11 @@
                                         "description": "The sku option's internal name",
                                         "example": "Embossing"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "description": {
                                         "type": "string",
                                         "description": "An internal description of the sku option.",
@@ -47691,6 +47838,11 @@
                                         "description": "The sku option's internal name",
                                         "example": "Embossing"
                                     },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
+                                    },
                                     "description": {
                                         "type": "string",
                                         "description": "An internal description of the sku option.",
@@ -47797,6 +47949,11 @@
                                         "type": "string",
                                         "description": "The sku option's internal name",
                                         "example": "Embossing"
+                                    },
+                                    "currency_code": {
+                                        "type": "string",
+                                        "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
+                                        "example": "EUR"
                                     },
                                     "description": {
                                         "type": "string",

@@ -20,6 +20,7 @@ type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_
 interface ExternalPromotion extends Resource {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
@@ -40,6 +41,7 @@ interface ExternalPromotion extends Resource {
 interface ExternalPromotionCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -57,6 +59,7 @@ interface ExternalPromotionCreate extends ResourceCreate {
 interface ExternalPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number

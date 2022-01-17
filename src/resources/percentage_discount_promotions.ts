@@ -23,6 +23,7 @@ type SkuListRel = ResourceId & { type: 'sku_lists' }
 interface PercentageDiscountPromotion extends Resource {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
@@ -45,6 +46,7 @@ interface PercentageDiscountPromotion extends Resource {
 interface PercentageDiscountPromotionCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -63,6 +65,7 @@ interface PercentageDiscountPromotionCreate extends ResourceCreate {
 interface PercentageDiscountPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number

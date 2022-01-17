@@ -42,7 +42,7 @@ interface GiftCard extends Resource {
 interface GiftCardCreate extends ResourceCreate {
 	
 	code?: string
-	currency_code: string
+	currency_code?: string
 	balance_cents: number
 	balance_max_cents?: string
 	single_use?: boolean

@@ -15,6 +15,7 @@ type PromotionRel = ResourceId & { type: typeof Promotions.TYPE }
 interface Promotion extends Resource {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number

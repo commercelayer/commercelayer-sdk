@@ -15,6 +15,7 @@ interface PaymentMethod extends Resource {
 	
 	payment_source_type?: string
 	name?: string
+	currency_code?: string
 	moto?: boolean
 	disabled_at?: string
 	price_amount_cents?: number
@@ -31,10 +32,11 @@ interface PaymentMethod extends Resource {
 interface PaymentMethodCreate extends ResourceCreate {
 	
 	payment_source_type: string
+	currency_code?: string
 	moto?: boolean
 	price_amount_cents: number
 
-	market: MarketRel
+	market?: MarketRel
 	payment_gateway: PaymentGatewayRel
 
 }
@@ -43,6 +45,7 @@ interface PaymentMethodCreate extends ResourceCreate {
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
 	payment_source_type?: string
+	currency_code?: string
 	moto?: boolean
 	price_amount_cents?: number
 

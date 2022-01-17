@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,11 +25,11 @@ describe('BraintreeGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_68',
-			merchant_account_id: 'delta_22',
-			merchant_id: 'delta_50',
-			public_key: 'alfa_47',
-			private_key: 'gamma_33',
+			name: 'epsilon_39',
+			merchant_account_id: 'lambda_83',
+			merchant_id: 'lambda_27',
+			public_key: 'gamma_28',
+			private_key: 'epsilon_89',
 			braintree_payments: [ cl.braintree_payments.relationship(TestData.id) ],
 		}
 

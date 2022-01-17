@@ -23,6 +23,7 @@ type SkuListRel = ResourceId & { type: 'sku_lists' }
 interface FreeGiftPromotion extends Resource {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
@@ -45,6 +46,7 @@ interface FreeGiftPromotion extends Resource {
 interface FreeGiftPromotionCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -63,6 +65,7 @@ interface FreeGiftPromotionCreate extends ResourceCreate {
 interface FreeGiftPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number

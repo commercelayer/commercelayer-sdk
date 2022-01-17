@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,9 +25,9 @@ describe('Adjustments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_37',
-			currency_code: 'sigma_25',
-			amount_cents: 555,
+			name: 'kappa_15',
+			currency_code: 'alfa_58',
+			amount_cents: 10,
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

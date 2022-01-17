@@ -17,8 +17,8 @@ type ShippingCategoryRel = ResourceId & { type: 'shipping_categories' }
 interface ShippingMethod extends Resource {
 	
 	name?: string
-	disabled_at?: string
 	currency_code?: string
+	disabled_at?: string
 	price_amount_cents?: number
 	price_amount_float?: number
 	formatted_price_amount?: string
@@ -41,10 +41,11 @@ interface ShippingMethod extends Resource {
 interface ShippingMethodCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	price_amount_cents: number
 	free_over_amount_cents?: number
 
-	market: MarketRel
+	market?: MarketRel
 	shipping_zone: ShippingZoneRel
 	shipping_category: ShippingCategoryRel
 
@@ -54,6 +55,7 @@ interface ShippingMethodCreate extends ResourceCreate {
 interface ShippingMethodUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	price_amount_cents?: number
 	free_over_amount_cents?: number
 

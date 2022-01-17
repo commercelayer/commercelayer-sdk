@@ -12,6 +12,7 @@ type MarketRel = ResourceId & { type: 'markets' }
 interface SkuOption extends Resource {
 	
 	name?: string
+	currency_code?: string
 	description?: string
 	price_amount_cents?: number
 	price_amount_float?: number
@@ -29,6 +30,7 @@ interface SkuOption extends Resource {
 interface SkuOptionCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	description?: string
 	price_amount_cents?: number
 	delay_hours?: number
@@ -42,6 +44,7 @@ interface SkuOptionCreate extends ResourceCreate {
 interface SkuOptionUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	description?: string
 	price_amount_cents?: number
 	delay_hours?: number
