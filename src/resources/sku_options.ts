@@ -1,17 +1,18 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
-type SkuOptionRel = ResourceId & { type: typeof SkuOptions.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
+type SkuOptionRel = ResourceRel & { type: typeof SkuOptions.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
 
 
 interface SkuOption extends Resource {
 	
 	name?: string
+	currency_code?: string
 	description?: string
 	price_amount_cents?: number
 	price_amount_float?: number
@@ -29,6 +30,7 @@ interface SkuOption extends Resource {
 interface SkuOptionCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	description?: string
 	price_amount_cents?: number
 	delay_hours?: number
@@ -42,6 +44,7 @@ interface SkuOptionCreate extends ResourceCreate {
 interface SkuOptionUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	description?: string
 	price_amount_cents?: number
 	delay_hours?: number
@@ -85,8 +88,8 @@ class SkuOptions extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): SkuOptionRel {
-		return (typeof id === 'string') ? { id, type: SkuOptions.TYPE } : { id: id.id, type: SkuOptions.TYPE }
+	relationship(id: string | ResourceId | null): SkuOptionRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: SkuOptions.TYPE } : { id: id.id, type: SkuOptions.TYPE }
 	}
 
 

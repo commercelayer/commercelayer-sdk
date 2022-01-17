@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { Adjustment } from './adjustments'
@@ -17,18 +17,18 @@ import { StockLineItem } from './stock_line_items'
 import { StockTransfer } from './stock_transfers'
 
 
-type LineItemRel = ResourceId & { type: typeof LineItems.TYPE }
-type OrderRel = ResourceId & { type: 'orders' }
-type AdjustmentRel = ResourceId & { type: 'adjustments' }
-type BundleRel = ResourceId & { type: 'bundles' }
-type ExternalPromotionRel = ResourceId & { type: 'external_promotions' }
-type FixedAmountPromotionRel = ResourceId & { type: 'fixed_amount_promotions' }
-type FreeShippingPromotionRel = ResourceId & { type: 'free_shipping_promotions' }
-type GiftCardRel = ResourceId & { type: 'gift_cards' }
-type PaymentMethodRel = ResourceId & { type: 'payment_methods' }
-type PercentageDiscountPromotionRel = ResourceId & { type: 'percentage_discount_promotions' }
-type ShipmentRel = ResourceId & { type: 'shipments' }
-type SkuRel = ResourceId & { type: 'skus' }
+type LineItemRel = ResourceRel & { type: typeof LineItems.TYPE }
+type OrderRel = ResourceRel & { type: 'orders' }
+type AdjustmentRel = ResourceRel & { type: 'adjustments' }
+type BundleRel = ResourceRel & { type: 'bundles' }
+type ExternalPromotionRel = ResourceRel & { type: 'external_promotions' }
+type FixedAmountPromotionRel = ResourceRel & { type: 'fixed_amount_promotions' }
+type FreeShippingPromotionRel = ResourceRel & { type: 'free_shipping_promotions' }
+type GiftCardRel = ResourceRel & { type: 'gift_cards' }
+type PaymentMethodRel = ResourceRel & { type: 'payment_methods' }
+type PercentageDiscountPromotionRel = ResourceRel & { type: 'percentage_discount_promotions' }
+type ShipmentRel = ResourceRel & { type: 'shipments' }
+type SkuRel = ResourceRel & { type: 'skus' }
 
 
 interface LineItem extends Resource {
@@ -134,8 +134,8 @@ class LineItems extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): LineItemRel {
-		return (typeof id === 'string') ? { id, type: LineItems.TYPE } : { id: id.id, type: LineItems.TYPE }
+	relationship(id: string | ResourceId | null): LineItemRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: LineItems.TYPE } : { id: id.id, type: LineItems.TYPE }
 	}
 
 

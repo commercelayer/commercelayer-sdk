@@ -1,14 +1,14 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { StockLocation } from './stock_locations'
 import { ShippingMethod } from './shipping_methods'
 import { Attachment } from './attachments'
 
 
-type DeliveryLeadTimeRel = ResourceId & { type: typeof DeliveryLeadTimes.TYPE }
-type StockLocationRel = ResourceId & { type: 'stock_locations' }
-type ShippingMethodRel = ResourceId & { type: 'shipping_methods' }
+type DeliveryLeadTimeRel = ResourceRel & { type: typeof DeliveryLeadTimes.TYPE }
+type StockLocationRel = ResourceRel & { type: 'stock_locations' }
+type ShippingMethodRel = ResourceRel & { type: 'shipping_methods' }
 
 
 interface DeliveryLeadTime extends Resource {
@@ -80,8 +80,8 @@ class DeliveryLeadTimes extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): DeliveryLeadTimeRel {
-		return (typeof id === 'string') ? { id, type: DeliveryLeadTimes.TYPE } : { id: id.id, type: DeliveryLeadTimes.TYPE }
+	relationship(id: string | ResourceId | null): DeliveryLeadTimeRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: DeliveryLeadTimes.TYPE } : { id: id.id, type: DeliveryLeadTimes.TYPE }
 	}
 
 

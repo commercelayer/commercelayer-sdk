@@ -1,13 +1,13 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Return } from './returns'
 import { LineItem } from './line_items'
 
 
-type ReturnLineItemRel = ResourceId & { type: typeof ReturnLineItems.TYPE }
-type ReturnRel = ResourceId & { type: 'returns' }
-type LineItemRel = ResourceId & { type: 'line_items' }
+type ReturnLineItemRel = ResourceRel & { type: typeof ReturnLineItems.TYPE }
+type ReturnRel = ResourceRel & { type: 'returns' }
+type LineItemRel = ResourceRel & { type: 'line_items' }
 
 
 interface ReturnLineItem extends Resource {
@@ -78,8 +78,8 @@ class ReturnLineItems extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ReturnLineItemRel {
-		return (typeof id === 'string') ? { id, type: ReturnLineItems.TYPE } : { id: id.id, type: ReturnLineItems.TYPE }
+	relationship(id: string | ResourceId | null): ReturnLineItemRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: ReturnLineItems.TYPE } : { id: id.id, type: ReturnLineItems.TYPE }
 	}
 
 

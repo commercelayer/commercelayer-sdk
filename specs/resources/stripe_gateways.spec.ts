@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('StripeGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_55',
-			login: 'delta_0',
+			name: 'alfa_52',
+			login: 'sigma_57',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

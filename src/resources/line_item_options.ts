@@ -1,13 +1,13 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { LineItem } from './line_items'
 import { SkuOption } from './sku_options'
 
 
-type LineItemOptionRel = ResourceId & { type: typeof LineItemOptions.TYPE }
-type LineItemRel = ResourceId & { type: 'line_items' }
-type SkuOptionRel = ResourceId & { type: 'sku_options' }
+type LineItemOptionRel = ResourceRel & { type: typeof LineItemOptions.TYPE }
+type LineItemRel = ResourceRel & { type: 'line_items' }
+type SkuOptionRel = ResourceRel & { type: 'sku_options' }
 
 
 interface LineItemOption extends Resource {
@@ -87,8 +87,8 @@ class LineItemOptions extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): LineItemOptionRel {
-		return (typeof id === 'string') ? { id, type: LineItemOptions.TYPE } : { id: id.id, type: LineItemOptions.TYPE }
+	relationship(id: string | ResourceId | null): LineItemOptionRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: LineItemOptions.TYPE } : { id: id.id, type: LineItemOptions.TYPE }
 	}
 
 

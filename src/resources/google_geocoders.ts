@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Address } from './addresses'
 import { Attachment } from './attachments'
 
 
-type GoogleGeocoderRel = ResourceId & { type: typeof GoogleGeocoders.TYPE }
+type GoogleGeocoderRel = ResourceRel & { type: typeof GoogleGeocoders.TYPE }
 
 
 interface GoogleGeocoder extends Resource {
@@ -67,8 +67,8 @@ class GoogleGeocoders extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): GoogleGeocoderRel {
-		return (typeof id === 'string') ? { id, type: GoogleGeocoders.TYPE } : { id: id.id, type: GoogleGeocoders.TYPE }
+	relationship(id: string | ResourceId | null): GoogleGeocoderRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: GoogleGeocoders.TYPE } : { id: id.id, type: GoogleGeocoders.TYPE }
 	}
 
 

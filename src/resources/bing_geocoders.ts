@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Address } from './addresses'
 import { Attachment } from './attachments'
 
 
-type BingGeocoderRel = ResourceId & { type: typeof BingGeocoders.TYPE }
+type BingGeocoderRel = ResourceRel & { type: typeof BingGeocoders.TYPE }
 
 
 interface BingGeocoder extends Resource {
@@ -67,8 +67,8 @@ class BingGeocoders extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): BingGeocoderRel {
-		return (typeof id === 'string') ? { id, type: BingGeocoders.TYPE } : { id: id.id, type: BingGeocoders.TYPE }
+	relationship(id: string | ResourceId | null): BingGeocoderRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: BingGeocoders.TYPE } : { id: id.id, type: BingGeocoders.TYPE }
 	}
 
 

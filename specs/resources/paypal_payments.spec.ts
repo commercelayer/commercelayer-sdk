@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('PaypalPayments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			return_url: 'lambda_70',
-			cancel_url: 'delta_45',
+			return_url: 'sigma_25',
+			cancel_url: 'lambda_92',
 			order: cl.orders.relationship(TestData.id),
 		}
 

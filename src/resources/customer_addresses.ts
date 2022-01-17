@@ -1,13 +1,13 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
 import { Address } from './addresses'
 
 
-type CustomerAddressRel = ResourceId & { type: typeof CustomerAddresses.TYPE }
-type CustomerRel = ResourceId & { type: 'customers' }
-type AddressRel = ResourceId & { type: 'addresses' }
+type CustomerAddressRel = ResourceRel & { type: typeof CustomerAddresses.TYPE }
+type CustomerRel = ResourceRel & { type: 'customers' }
+type AddressRel = ResourceRel & { type: 'addresses' }
 
 
 interface CustomerAddress extends Resource {
@@ -69,8 +69,8 @@ class CustomerAddresses extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): CustomerAddressRel {
-		return (typeof id === 'string') ? { id, type: CustomerAddresses.TYPE } : { id: id.id, type: CustomerAddresses.TYPE }
+	relationship(id: string | ResourceId | null): CustomerAddressRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: CustomerAddresses.TYPE } : { id: id.id, type: CustomerAddresses.TYPE }
 	}
 
 

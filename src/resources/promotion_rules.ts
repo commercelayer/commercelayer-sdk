@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import { FreeShippingPromotion } from './free_shipping_promotions'
@@ -9,7 +9,7 @@ import { FixedPricePromotion } from './fixed_price_promotions'
 import { ExternalPromotion } from './external_promotions'
 
 
-type PromotionRuleRel = ResourceId & { type: typeof PromotionRules.TYPE }
+type PromotionRuleRel = ResourceRel & { type: typeof PromotionRules.TYPE }
 
 
 interface PromotionRule extends Resource {
@@ -39,8 +39,8 @@ class PromotionRules extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): PromotionRuleRel {
-		return (typeof id === 'string') ? { id, type: PromotionRules.TYPE } : { id: id.id, type: PromotionRules.TYPE }
+	relationship(id: string | ResourceId | null): PromotionRuleRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: PromotionRules.TYPE } : { id: id.id, type: PromotionRules.TYPE }
 	}
 
 

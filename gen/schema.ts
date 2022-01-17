@@ -14,7 +14,7 @@ const downloadSchema = async (url?: string): Promise<string> => {
 	const schemaUrl = url || 'https://data.commercelayer.app/schemas/openapi.json'
 	const schemaOutPath = './gen/openapi.json'
 
-	console.log('Downloading OpenAPI schema ...')
+	console.log(`Downloading OpenAPI schema ... [${schemaUrl}]`)
 
 	const response = await axios.get(schemaUrl)
 	const schema = await response.data
@@ -22,7 +22,7 @@ const downloadSchema = async (url?: string): Promise<string> => {
 	if (schema) fs.writeFileSync(schemaOutPath, JSON.stringify(schema, null, 4))
 	else console.log ('OpenAPI schema is empty!')
 
-	console.log('OpenAPI schema downloaded.')
+	console.log('OpenAPI schema downloaded: ' + schema.info.version)
 
 	return schemaOutPath
 

@@ -13,16 +13,8 @@ import commercelayer from '../src'
 		timeout: 5000,
 	})
 
-	cl.config({ timeout: 6000 })
+	const c = await cl.customers.update({ id: 'kopZhGAJBn', customer_group: cl.customer_groups.relationship(null)}, { include: ['customer_group'] })
 
-	const opt = {
-		timeout: 8000
-	}
-
-	const start = Date.now()
-	const customers = await cl.customers.list({ pageSize: 2, pageNumber: 2, sort: { created_at: 'desc', updated_at: 'asc' }, fields: ['email'] }, opt)
-		.catch(console.log)
-	const stop = Date.now()
-	console.log(stop-start)
+	console.log(c)
 
 })()

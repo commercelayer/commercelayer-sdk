@@ -1,15 +1,15 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { Customer } from './customers'
 import { Sku } from './skus'
 
 
-type InStockSubscriptionRel = ResourceId & { type: typeof InStockSubscriptions.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type CustomerRel = ResourceId & { type: 'customers' }
-type SkuRel = ResourceId & { type: 'skus' }
+type InStockSubscriptionRel = ResourceRel & { type: typeof InStockSubscriptions.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
+type CustomerRel = ResourceRel & { type: 'customers' }
+type SkuRel = ResourceRel & { type: 'skus' }
 
 
 interface InStockSubscription extends Resource {
@@ -86,8 +86,8 @@ class InStockSubscriptions extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): InStockSubscriptionRel {
-		return (typeof id === 'string') ? { id, type: InStockSubscriptions.TYPE } : { id: id.id, type: InStockSubscriptions.TYPE }
+	relationship(id: string | ResourceId | null): InStockSubscriptionRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: InStockSubscriptions.TYPE } : { id: id.id, type: InStockSubscriptions.TYPE }
 	}
 
 

@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { PromotionRule } from './promotion_rules'
@@ -9,17 +9,18 @@ import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import { Attachment } from './attachments'
 
 
-type ExternalPromotionRel = ResourceId & { type: typeof ExternalPromotions.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type PromotionRuleRel = ResourceId & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceId & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceId & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_rules' }
+type ExternalPromotionRel = ResourceRel & { type: typeof ExternalPromotions.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
+type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
+type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
 
 
 interface ExternalPromotion extends Resource {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
@@ -40,6 +41,7 @@ interface ExternalPromotion extends Resource {
 interface ExternalPromotionCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -57,6 +59,7 @@ interface ExternalPromotionCreate extends ResourceCreate {
 interface ExternalPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
@@ -104,8 +107,8 @@ class ExternalPromotions extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ExternalPromotionRel {
-		return (typeof id === 'string') ? { id, type: ExternalPromotions.TYPE } : { id: id.id, type: ExternalPromotions.TYPE }
+	relationship(id: string | ResourceId | null): ExternalPromotionRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: ExternalPromotions.TYPE } : { id: id.id, type: ExternalPromotions.TYPE }
 	}
 
 

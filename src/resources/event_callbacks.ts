@@ -1,10 +1,10 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Webhook } from './webhooks'
 
 
-type EventCallbackRel = ResourceId & { type: typeof EventCallbacks.TYPE }
+type EventCallbackRel = ResourceRel & { type: typeof EventCallbacks.TYPE }
 
 
 interface EventCallback extends Resource {
@@ -39,8 +39,8 @@ class EventCallbacks extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): EventCallbackRel {
-		return (typeof id === 'string') ? { id, type: EventCallbacks.TYPE } : { id: id.id, type: EventCallbacks.TYPE }
+	relationship(id: string | ResourceId | null): EventCallbackRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: EventCallbacks.TYPE } : { id: id.id, type: EventCallbacks.TYPE }
 	}
 
 

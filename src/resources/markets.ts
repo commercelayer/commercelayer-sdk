@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Merchant } from './merchants'
 import { PriceList } from './price_lists'
@@ -9,12 +9,12 @@ import { CustomerGroup } from './customer_groups'
 import { Attachment } from './attachments'
 
 
-type MarketRel = ResourceId & { type: typeof Markets.TYPE }
-type MerchantRel = ResourceId & { type: 'merchants' }
-type PriceListRel = ResourceId & { type: 'price_lists' }
-type InventoryModelRel = ResourceId & { type: 'inventory_models' }
-type TaxCalculatorRel = ResourceId & { type: 'tax_calculators' }
-type CustomerGroupRel = ResourceId & { type: 'customer_groups' }
+type MarketRel = ResourceRel & { type: typeof Markets.TYPE }
+type MerchantRel = ResourceRel & { type: 'merchants' }
+type PriceListRel = ResourceRel & { type: 'price_lists' }
+type InventoryModelRel = ResourceRel & { type: 'inventory_models' }
+type TaxCalculatorRel = ResourceRel & { type: 'tax_calculators' }
+type CustomerGroupRel = ResourceRel & { type: 'customer_groups' }
 
 
 interface Market extends Resource {
@@ -101,8 +101,8 @@ class Markets extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): MarketRel {
-		return (typeof id === 'string') ? { id, type: Markets.TYPE } : { id: id.id, type: Markets.TYPE }
+	relationship(id: string | ResourceId | null): MarketRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Markets.TYPE } : { id: id.id, type: Markets.TYPE }
 	}
 
 

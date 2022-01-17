@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { PaymentGateway } from './payment_gateways'
 
 
-type BraintreePaymentRel = ResourceId & { type: typeof BraintreePayments.TYPE }
-type OrderRel = ResourceId & { type: 'orders' }
+type BraintreePaymentRel = ResourceRel & { type: typeof BraintreePayments.TYPE }
+type OrderRel = ResourceRel & { type: 'orders' }
 
 
 interface BraintreePayment extends Resource {
@@ -79,8 +79,8 @@ class BraintreePayments extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): BraintreePaymentRel {
-		return (typeof id === 'string') ? { id, type: BraintreePayments.TYPE } : { id: id.id, type: BraintreePayments.TYPE }
+	relationship(id: string | ResourceId | null): BraintreePaymentRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: BraintreePayments.TYPE } : { id: id.id, type: BraintreePayments.TYPE }
 	}
 
 

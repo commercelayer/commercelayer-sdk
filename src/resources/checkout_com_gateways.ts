@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
 import { CheckoutComPayment } from './checkout_com_payments'
 
 
-type CheckoutComGatewayRel = ResourceId & { type: typeof CheckoutComGateways.TYPE }
-type CheckoutComPaymentRel = ResourceId & { type: 'checkout_com_payments' }
+type CheckoutComGatewayRel = ResourceRel & { type: typeof CheckoutComGateways.TYPE }
+type CheckoutComPaymentRel = ResourceRel & { type: 'checkout_com_payments' }
 
 
 interface CheckoutComGateway extends Resource {
@@ -77,8 +77,8 @@ class CheckoutComGateways extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): CheckoutComGatewayRel {
-		return (typeof id === 'string') ? { id, type: CheckoutComGateways.TYPE } : { id: id.id, type: CheckoutComGateways.TYPE }
+	relationship(id: string | ResourceId | null): CheckoutComGatewayRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: CheckoutComGateways.TYPE } : { id: id.id, type: CheckoutComGateways.TYPE }
 	}
 
 

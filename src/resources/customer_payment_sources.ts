@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
 import { AdyenPayment } from './adyen_payments'
@@ -12,16 +12,16 @@ import { StripePayment } from './stripe_payments'
 import { WireTransfer } from './wire_transfers'
 
 
-type CustomerPaymentSourceRel = ResourceId & { type: typeof CustomerPaymentSources.TYPE }
-type CustomerRel = ResourceId & { type: 'customers' }
-type AdyenPaymentRel = ResourceId & { type: 'adyen_payments' }
-type BraintreePaymentRel = ResourceId & { type: 'braintree_payments' }
-type CheckoutComPaymentRel = ResourceId & { type: 'checkout_com_payments' }
-type ExternalPaymentRel = ResourceId & { type: 'external_payments' }
-type KlarnaPaymentRel = ResourceId & { type: 'klarna_payments' }
-type PaypalPaymentRel = ResourceId & { type: 'paypal_payments' }
-type StripePaymentRel = ResourceId & { type: 'stripe_payments' }
-type WireTransferRel = ResourceId & { type: 'wire_transfers' }
+type CustomerPaymentSourceRel = ResourceRel & { type: typeof CustomerPaymentSources.TYPE }
+type CustomerRel = ResourceRel & { type: 'customers' }
+type AdyenPaymentRel = ResourceRel & { type: 'adyen_payments' }
+type BraintreePaymentRel = ResourceRel & { type: 'braintree_payments' }
+type CheckoutComPaymentRel = ResourceRel & { type: 'checkout_com_payments' }
+type ExternalPaymentRel = ResourceRel & { type: 'external_payments' }
+type KlarnaPaymentRel = ResourceRel & { type: 'klarna_payments' }
+type PaypalPaymentRel = ResourceRel & { type: 'paypal_payments' }
+type StripePaymentRel = ResourceRel & { type: 'stripe_payments' }
+type WireTransferRel = ResourceRel & { type: 'wire_transfers' }
 
 
 interface CustomerPaymentSource extends Resource {
@@ -85,8 +85,8 @@ class CustomerPaymentSources extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): CustomerPaymentSourceRel {
-		return (typeof id === 'string') ? { id, type: CustomerPaymentSources.TYPE } : { id: id.id, type: CustomerPaymentSources.TYPE }
+	relationship(id: string | ResourceId | null): CustomerPaymentSourceRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: CustomerPaymentSources.TYPE } : { id: id.id, type: CustomerPaymentSources.TYPE }
 	}
 
 

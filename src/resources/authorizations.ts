@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { Capture } from './captures'
 import { Void } from './voids'
 
 
-type AuthorizationRel = ResourceId & { type: typeof Authorizations.TYPE }
+type AuthorizationRel = ResourceRel & { type: typeof Authorizations.TYPE }
 
 
 interface Authorization extends Resource {
@@ -77,8 +77,8 @@ class Authorizations extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): AuthorizationRel {
-		return (typeof id === 'string') ? { id, type: Authorizations.TYPE } : { id: id.id, type: Authorizations.TYPE }
+	relationship(id: string | ResourceId | null): AuthorizationRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Authorizations.TYPE } : { id: id.id, type: Authorizations.TYPE }
 	}
 
 

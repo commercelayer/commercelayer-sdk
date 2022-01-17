@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Sku } from './skus'
 import { Attachment } from './attachments'
 
 
-type ShippingCategoryRel = ResourceId & { type: typeof ShippingCategories.TYPE }
+type ShippingCategoryRel = ResourceRel & { type: typeof ShippingCategories.TYPE }
 
 
 interface ShippingCategory extends Resource {
@@ -65,8 +65,8 @@ class ShippingCategories extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ShippingCategoryRel {
-		return (typeof id === 'string') ? { id, type: ShippingCategories.TYPE } : { id: id.id, type: ShippingCategories.TYPE }
+	relationship(id: string | ResourceId | null): ShippingCategoryRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: ShippingCategories.TYPE } : { id: id.id, type: ShippingCategories.TYPE }
 	}
 
 

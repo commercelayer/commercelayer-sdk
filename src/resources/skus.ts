@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { ShippingCategory } from './shipping_categories'
 import { Price } from './prices'
@@ -9,8 +9,8 @@ import { SkuOption } from './sku_options'
 import { Attachment } from './attachments'
 
 
-type SkuRel = ResourceId & { type: typeof Skus.TYPE }
-type ShippingCategoryRel = ResourceId & { type: 'shipping_categories' }
+type SkuRel = ResourceRel & { type: typeof Skus.TYPE }
+type ShippingCategoryRel = ResourceRel & { type: 'shipping_categories' }
 
 
 interface Sku extends Resource {
@@ -106,8 +106,8 @@ class Skus extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): SkuRel {
-		return (typeof id === 'string') ? { id, type: Skus.TYPE } : { id: id.id, type: Skus.TYPE }
+	relationship(id: string | ResourceId | null): SkuRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Skus.TYPE } : { id: id.id, type: Skus.TYPE }
 	}
 
 

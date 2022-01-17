@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { PromotionRule } from './promotion_rules'
@@ -9,17 +9,18 @@ import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import { Attachment } from './attachments'
 
 
-type FreeShippingPromotionRel = ResourceId & { type: typeof FreeShippingPromotions.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type PromotionRuleRel = ResourceId & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceId & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceId & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_rules' }
+type FreeShippingPromotionRel = ResourceRel & { type: typeof FreeShippingPromotions.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
+type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
+type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
 
 
 interface FreeShippingPromotion extends Resource {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
@@ -39,6 +40,7 @@ interface FreeShippingPromotion extends Resource {
 interface FreeShippingPromotionCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -55,6 +57,7 @@ interface FreeShippingPromotionCreate extends ResourceCreate {
 interface FreeShippingPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
@@ -101,8 +104,8 @@ class FreeShippingPromotions extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): FreeShippingPromotionRel {
-		return (typeof id === 'string') ? { id, type: FreeShippingPromotions.TYPE } : { id: id.id, type: FreeShippingPromotions.TYPE }
+	relationship(id: string | ResourceId | null): FreeShippingPromotionRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: FreeShippingPromotions.TYPE } : { id: id.id, type: FreeShippingPromotions.TYPE }
 	}
 
 

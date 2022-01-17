@@ -1,13 +1,13 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { StockLocation } from './stock_locations'
 import { Parcel } from './parcels'
 import { Attachment } from './attachments'
 
 
-type PackageRel = ResourceId & { type: typeof Packages.TYPE }
-type StockLocationRel = ResourceId & { type: 'stock_locations' }
+type PackageRel = ResourceRel & { type: typeof Packages.TYPE }
+type StockLocationRel = ResourceRel & { type: 'stock_locations' }
 
 
 interface Package extends Resource {
@@ -87,8 +87,8 @@ class Packages extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): PackageRel {
-		return (typeof id === 'string') ? { id, type: Packages.TYPE } : { id: id.id, type: Packages.TYPE }
+	relationship(id: string | ResourceId | null): PackageRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Packages.TYPE } : { id: id.id, type: Packages.TYPE }
 	}
 
 

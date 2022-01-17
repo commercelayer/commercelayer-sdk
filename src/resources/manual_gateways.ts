@@ -1,10 +1,10 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
 
 
-type ManualGatewayRel = ResourceId & { type: typeof ManualGateways.TYPE }
+type ManualGatewayRel = ResourceRel & { type: typeof ManualGateways.TYPE }
 
 
 interface ManualGateway extends Resource {
@@ -66,8 +66,8 @@ class ManualGateways extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ManualGatewayRel {
-		return (typeof id === 'string') ? { id, type: ManualGateways.TYPE } : { id: id.id, type: ManualGateways.TYPE }
+	relationship(id: string | ResourceId | null): ManualGatewayRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: ManualGateways.TYPE } : { id: id.id, type: ManualGateways.TYPE }
 	}
 
 

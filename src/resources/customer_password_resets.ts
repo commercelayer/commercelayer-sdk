@@ -1,10 +1,10 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
 
 
-type CustomerPasswordResetRel = ResourceId & { type: typeof CustomerPasswordResets.TYPE }
+type CustomerPasswordResetRel = ResourceRel & { type: typeof CustomerPasswordResets.TYPE }
 
 
 interface CustomerPasswordReset extends Resource {
@@ -66,8 +66,8 @@ class CustomerPasswordResets extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): CustomerPasswordResetRel {
-		return (typeof id === 'string') ? { id, type: CustomerPasswordResets.TYPE } : { id: id.id, type: CustomerPasswordResets.TYPE }
+	relationship(id: string | ResourceId | null): CustomerPasswordResetRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: CustomerPasswordResets.TYPE } : { id: id.id, type: CustomerPasswordResets.TYPE }
 	}
 
 

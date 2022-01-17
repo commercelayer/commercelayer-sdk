@@ -1,10 +1,10 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Attachment } from './attachments'
 
 
-type ShippingZoneRel = ResourceId & { type: typeof ShippingZones.TYPE }
+type ShippingZoneRel = ResourceRel & { type: typeof ShippingZones.TYPE }
 
 
 interface ShippingZone extends Resource {
@@ -81,8 +81,8 @@ class ShippingZones extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ShippingZoneRel {
-		return (typeof id === 'string') ? { id, type: ShippingZones.TYPE } : { id: id.id, type: ShippingZones.TYPE }
+	relationship(id: string | ResourceId | null): ShippingZoneRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: ShippingZones.TYPE } : { id: id.id, type: ShippingZones.TYPE }
 	}
 
 

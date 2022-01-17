@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Address } from './addresses'
 import { Attachment } from './attachments'
 
 
-type GeocoderRel = ResourceId & { type: typeof Geocoders.TYPE }
+type GeocoderRel = ResourceRel & { type: typeof Geocoders.TYPE }
 
 
 interface Geocoder extends Resource {
@@ -38,8 +38,8 @@ class Geocoders extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): GeocoderRel {
-		return (typeof id === 'string') ? { id, type: Geocoders.TYPE } : { id: id.id, type: Geocoders.TYPE }
+	relationship(id: string | ResourceId | null): GeocoderRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Geocoders.TYPE } : { id: id.id, type: Geocoders.TYPE }
 	}
 
 

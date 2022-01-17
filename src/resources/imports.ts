@@ -1,9 +1,9 @@
-import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 
 
-type ImportRel = ResourceId & { type: typeof Imports.TYPE }
+type ImportRel = ResourceRel & { type: typeof Imports.TYPE }
 
 
 interface Import extends Resource {
@@ -66,8 +66,8 @@ class Imports extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ImportRel {
-		return (typeof id === 'string') ? { id, type: Imports.TYPE } : { id: id.id, type: Imports.TYPE }
+	relationship(id: string | ResourceId | null): ImportRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Imports.TYPE } : { id: id.id, type: Imports.TYPE }
 	}
 
 

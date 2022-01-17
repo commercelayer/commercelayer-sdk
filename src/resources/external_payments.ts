@@ -1,13 +1,13 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { PaymentGateway } from './payment_gateways'
 import { CustomerPaymentSource } from './customer_payment_sources'
 
 
-type ExternalPaymentRel = ResourceId & { type: typeof ExternalPayments.TYPE }
-type OrderRel = ResourceId & { type: 'orders' }
+type ExternalPaymentRel = ResourceRel & { type: typeof ExternalPayments.TYPE }
+type OrderRel = ResourceRel & { type: 'orders' }
 
 
 interface ExternalPayment extends Resource {
@@ -74,8 +74,8 @@ class ExternalPayments extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ExternalPaymentRel {
-		return (typeof id === 'string') ? { id, type: ExternalPayments.TYPE } : { id: id.id, type: ExternalPayments.TYPE }
+	relationship(id: string | ResourceId | null): ExternalPaymentRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: ExternalPayments.TYPE } : { id: id.id, type: ExternalPayments.TYPE }
 	}
 
 

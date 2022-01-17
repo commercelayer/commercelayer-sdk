@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 
 
-type CouponRel = ResourceId & { type: typeof Coupons.TYPE }
-type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_rules' }
+type CouponRel = ResourceRel & { type: typeof Coupons.TYPE }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
 
 
 interface Coupon extends Resource {
@@ -78,8 +78,8 @@ class Coupons extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): CouponRel {
-		return (typeof id === 'string') ? { id, type: Coupons.TYPE } : { id: id.id, type: Coupons.TYPE }
+	relationship(id: string | ResourceId | null): CouponRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Coupons.TYPE } : { id: id.id, type: Coupons.TYPE }
 	}
 
 

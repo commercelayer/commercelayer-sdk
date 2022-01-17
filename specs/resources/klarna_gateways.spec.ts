@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,10 +25,10 @@ describe('KlarnaGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'sigma_3',
-			country_code: 'gamma_73',
-			api_key: 'sigma_68',
-			api_secret: 'beta_92',
+			name: 'beta_56',
+			country_code: 'sigma_17',
+			api_key: 'sigma_56',
+			api_secret: 'alfa_89',
 			klarna_payments: [ cl.klarna_payments.relationship(TestData.id) ],
 		}
 

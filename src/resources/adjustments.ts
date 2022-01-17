@@ -1,9 +1,9 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 
 
-type AdjustmentRel = ResourceId & { type: typeof Adjustments.TYPE }
+type AdjustmentRel = ResourceRel & { type: typeof Adjustments.TYPE }
 
 
 interface Adjustment extends Resource {
@@ -68,8 +68,8 @@ class Adjustments extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): AdjustmentRel {
-		return (typeof id === 'string') ? { id, type: Adjustments.TYPE } : { id: id.id, type: Adjustments.TYPE }
+	relationship(id: string | ResourceId | null): AdjustmentRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Adjustments.TYPE } : { id: id.id, type: Adjustments.TYPE }
 	}
 
 

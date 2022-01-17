@@ -1,13 +1,13 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
 import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
-type TaxjarAccountRel = ResourceId & { type: typeof TaxjarAccounts.TYPE }
-type TaxCategoryRel = ResourceId & { type: 'tax_categories' }
+type TaxjarAccountRel = ResourceRel & { type: typeof TaxjarAccounts.TYPE }
+type TaxCategoryRel = ResourceRel & { type: 'tax_categories' }
 
 
 interface TaxjarAccount extends Resource {
@@ -74,8 +74,8 @@ class TaxjarAccounts extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): TaxjarAccountRel {
-		return (typeof id === 'string') ? { id, type: TaxjarAccounts.TYPE } : { id: id.id, type: TaxjarAccounts.TYPE }
+	relationship(id: string | ResourceId | null): TaxjarAccountRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: TaxjarAccounts.TYPE } : { id: id.id, type: TaxjarAccounts.TYPE }
 	}
 
 

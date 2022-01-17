@@ -1,13 +1,13 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
 import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
-type AvalaraAccountRel = ResourceId & { type: typeof AvalaraAccounts.TYPE }
-type TaxCategoryRel = ResourceId & { type: 'tax_categories' }
+type AvalaraAccountRel = ResourceRel & { type: typeof AvalaraAccounts.TYPE }
+type TaxCategoryRel = ResourceRel & { type: 'tax_categories' }
 
 
 interface AvalaraAccount extends Resource {
@@ -83,8 +83,8 @@ class AvalaraAccounts extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): AvalaraAccountRel {
-		return (typeof id === 'string') ? { id, type: AvalaraAccounts.TYPE } : { id: id.id, type: AvalaraAccounts.TYPE }
+	relationship(id: string | ResourceId | null): AvalaraAccountRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: AvalaraAccounts.TYPE } : { id: id.id, type: AvalaraAccounts.TYPE }
 	}
 
 

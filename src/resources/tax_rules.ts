@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { ManualTaxCalculator } from './manual_tax_calculators'
 
 
-type TaxRuleRel = ResourceId & { type: typeof TaxRules.TYPE }
-type ManualTaxCalculatorRel = ResourceId & { type: 'manual_tax_calculators' }
+type TaxRuleRel = ResourceRel & { type: typeof TaxRules.TYPE }
+type ManualTaxCalculatorRel = ResourceRel & { type: 'manual_tax_calculators' }
 
 
 interface TaxRule extends Resource {
@@ -102,8 +102,8 @@ class TaxRules extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): TaxRuleRel {
-		return (typeof id === 'string') ? { id, type: TaxRules.TYPE } : { id: id.id, type: TaxRules.TYPE }
+	relationship(id: string | ResourceId | null): TaxRuleRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: TaxRules.TYPE } : { id: id.id, type: TaxRules.TYPE }
 	}
 
 

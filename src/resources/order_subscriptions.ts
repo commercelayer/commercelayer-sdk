@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { Order } from './orders'
@@ -7,9 +7,9 @@ import { Customer } from './customers'
 import { OrderCopy } from './order_copies'
 
 
-type OrderSubscriptionRel = ResourceId & { type: typeof OrderSubscriptions.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type OrderRel = ResourceId & { type: 'orders' }
+type OrderSubscriptionRel = ResourceRel & { type: typeof OrderSubscriptions.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
+type OrderRel = ResourceRel & { type: 'orders' }
 
 
 interface OrderSubscription extends Resource {
@@ -93,8 +93,8 @@ class OrderSubscriptions extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): OrderSubscriptionRel {
-		return (typeof id === 'string') ? { id, type: OrderSubscriptions.TYPE } : { id: id.id, type: OrderSubscriptions.TYPE }
+	relationship(id: string | ResourceId | null): OrderSubscriptionRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: OrderSubscriptions.TYPE } : { id: id.id, type: OrderSubscriptions.TYPE }
 	}
 
 

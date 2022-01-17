@@ -1,10 +1,10 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 
 
-type OrderValidationRuleRel = ResourceId & { type: typeof OrderValidationRules.TYPE }
+type OrderValidationRuleRel = ResourceRel & { type: typeof OrderValidationRules.TYPE }
 
 
 interface OrderValidationRule extends Resource {
@@ -34,8 +34,8 @@ class OrderValidationRules extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): OrderValidationRuleRel {
-		return (typeof id === 'string') ? { id, type: OrderValidationRules.TYPE } : { id: id.id, type: OrderValidationRules.TYPE }
+	relationship(id: string | ResourceId | null): OrderValidationRuleRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: OrderValidationRules.TYPE } : { id: id.id, type: OrderValidationRules.TYPE }
 	}
 
 

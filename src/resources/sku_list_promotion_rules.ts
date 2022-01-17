@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import { FreeShippingPromotion } from './free_shipping_promotions'
@@ -11,14 +11,14 @@ import { SkuList } from './sku_lists'
 import { Sku } from './skus'
 
 
-type SkuListPromotionRuleRel = ResourceId & { type: typeof SkuListPromotionRules.TYPE }
-type PercentageDiscountPromotionRel = ResourceId & { type: 'percentage_discount_promotions' }
-type FreeShippingPromotionRel = ResourceId & { type: 'free_shipping_promotions' }
-type FixedAmountPromotionRel = ResourceId & { type: 'fixed_amount_promotions' }
-type FreeGiftPromotionRel = ResourceId & { type: 'free_gift_promotions' }
-type FixedPricePromotionRel = ResourceId & { type: 'fixed_price_promotions' }
-type ExternalPromotionRel = ResourceId & { type: 'external_promotions' }
-type SkuListRel = ResourceId & { type: 'sku_lists' }
+type SkuListPromotionRuleRel = ResourceRel & { type: typeof SkuListPromotionRules.TYPE }
+type PercentageDiscountPromotionRel = ResourceRel & { type: 'percentage_discount_promotions' }
+type FreeShippingPromotionRel = ResourceRel & { type: 'free_shipping_promotions' }
+type FixedAmountPromotionRel = ResourceRel & { type: 'fixed_amount_promotions' }
+type FreeGiftPromotionRel = ResourceRel & { type: 'free_gift_promotions' }
+type FixedPricePromotionRel = ResourceRel & { type: 'fixed_price_promotions' }
+type ExternalPromotionRel = ResourceRel & { type: 'external_promotions' }
+type SkuListRel = ResourceRel & { type: 'sku_lists' }
 
 
 interface SkuListPromotionRule extends Resource {
@@ -88,8 +88,8 @@ class SkuListPromotionRules extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): SkuListPromotionRuleRel {
-		return (typeof id === 'string') ? { id, type: SkuListPromotionRules.TYPE } : { id: id.id, type: SkuListPromotionRules.TYPE }
+	relationship(id: string | ResourceId | null): SkuListPromotionRuleRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: SkuListPromotionRules.TYPE } : { id: id.id, type: SkuListPromotionRules.TYPE }
 	}
 
 

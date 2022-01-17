@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
-type CarrierAccountRel = ResourceId & { type: typeof CarrierAccounts.TYPE }
+type CarrierAccountRel = ResourceRel & { type: typeof CarrierAccounts.TYPE }
 
 
 interface CarrierAccount extends Resource {
@@ -40,8 +40,8 @@ class CarrierAccounts extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): CarrierAccountRel {
-		return (typeof id === 'string') ? { id, type: CarrierAccounts.TYPE } : { id: id.id, type: CarrierAccounts.TYPE }
+	relationship(id: string | ResourceId | null): CarrierAccountRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: CarrierAccounts.TYPE } : { id: id.id, type: CarrierAccounts.TYPE }
 	}
 
 

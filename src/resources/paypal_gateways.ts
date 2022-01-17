@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
 import { PaypalPayment } from './paypal_payments'
 
 
-type PaypalGatewayRel = ResourceId & { type: typeof PaypalGateways.TYPE }
+type PaypalGatewayRel = ResourceRel & { type: typeof PaypalGateways.TYPE }
 
 
 interface PaypalGateway extends Resource {
@@ -71,8 +71,8 @@ class PaypalGateways extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): PaypalGatewayRel {
-		return (typeof id === 'string') ? { id, type: PaypalGateways.TYPE } : { id: id.id, type: PaypalGateways.TYPE }
+	relationship(id: string | ResourceId | null): PaypalGatewayRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: PaypalGateways.TYPE } : { id: id.id, type: PaypalGateways.TYPE }
 	}
 
 

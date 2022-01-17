@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('GoogleGeocoders resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'sigma_23',
-			api_key: 'lambda_14',
+			name: 'omega_67',
+			api_key: 'delta_68',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

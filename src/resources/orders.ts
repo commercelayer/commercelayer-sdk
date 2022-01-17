@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { Customer } from './customers'
@@ -25,19 +25,19 @@ import { OrderCopy } from './order_copies'
 import { Attachment } from './attachments'
 
 
-type OrderRel = ResourceId & { type: typeof Orders.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type CustomerRel = ResourceId & { type: 'customers' }
-type AddressRel = ResourceId & { type: 'addresses' }
-type PaymentMethodRel = ResourceId & { type: 'payment_methods' }
-type AdyenPaymentRel = ResourceId & { type: 'adyen_payments' }
-type BraintreePaymentRel = ResourceId & { type: 'braintree_payments' }
-type CheckoutComPaymentRel = ResourceId & { type: 'checkout_com_payments' }
-type ExternalPaymentRel = ResourceId & { type: 'external_payments' }
-type KlarnaPaymentRel = ResourceId & { type: 'klarna_payments' }
-type PaypalPaymentRel = ResourceId & { type: 'paypal_payments' }
-type StripePaymentRel = ResourceId & { type: 'stripe_payments' }
-type WireTransferRel = ResourceId & { type: 'wire_transfers' }
+type OrderRel = ResourceRel & { type: typeof Orders.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
+type CustomerRel = ResourceRel & { type: 'customers' }
+type AddressRel = ResourceRel & { type: 'addresses' }
+type PaymentMethodRel = ResourceRel & { type: 'payment_methods' }
+type AdyenPaymentRel = ResourceRel & { type: 'adyen_payments' }
+type BraintreePaymentRel = ResourceRel & { type: 'braintree_payments' }
+type CheckoutComPaymentRel = ResourceRel & { type: 'checkout_com_payments' }
+type ExternalPaymentRel = ResourceRel & { type: 'external_payments' }
+type KlarnaPaymentRel = ResourceRel & { type: 'klarna_payments' }
+type PaypalPaymentRel = ResourceRel & { type: 'paypal_payments' }
+type StripePaymentRel = ResourceRel & { type: 'stripe_payments' }
+type WireTransferRel = ResourceRel & { type: 'wire_transfers' }
 
 
 interface Order extends Resource {
@@ -267,8 +267,8 @@ class Orders extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): OrderRel {
-		return (typeof id === 'string') ? { id, type: Orders.TYPE } : { id: id.id, type: Orders.TYPE }
+	relationship(id: string | ResourceId | null): OrderRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Orders.TYPE } : { id: id.id, type: Orders.TYPE }
 	}
 
 

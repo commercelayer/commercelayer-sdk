@@ -9,7 +9,7 @@ import Debug from './debug'
 const debug = Debug()
 
 
-const OPEN_API_SCHEMA_VERSION = '2.8.0'
+const OPEN_API_SCHEMA_VERSION = '2.8.1'
 
 
 type SdkConfig = {}

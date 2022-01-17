@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Sku } from './skus'
 import { SkuListItem } from './sku_list_items'
 import { Bundle } from './bundles'
 
 
-type SkuListRel = ResourceId & { type: typeof SkuLists.TYPE }
+type SkuListRel = ResourceRel & { type: typeof SkuLists.TYPE }
 
 
 interface SkuList extends Resource {
@@ -80,8 +80,8 @@ class SkuLists extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): SkuListRel {
-		return (typeof id === 'string') ? { id, type: SkuLists.TYPE } : { id: id.id, type: SkuLists.TYPE }
+	relationship(id: string | ResourceId | null): SkuListRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: SkuLists.TYPE } : { id: id.id, type: SkuLists.TYPE }
 	}
 
 

@@ -1,10 +1,10 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { EventCallback } from './event_callbacks'
 
 
-type WebhookRel = ResourceId & { type: typeof Webhooks.TYPE }
+type WebhookRel = ResourceRel & { type: typeof Webhooks.TYPE }
 
 
 interface Webhook extends Resource {
@@ -75,8 +75,8 @@ class Webhooks extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): WebhookRel {
-		return (typeof id === 'string') ? { id, type: Webhooks.TYPE } : { id: id.id, type: Webhooks.TYPE }
+	relationship(id: string | ResourceId | null): WebhookRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Webhooks.TYPE } : { id: id.id, type: Webhooks.TYPE }
 	}
 
 

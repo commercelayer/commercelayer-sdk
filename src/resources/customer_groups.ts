@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
 import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
-type CustomerGroupRel = ResourceId & { type: typeof CustomerGroups.TYPE }
+type CustomerGroupRel = ResourceRel & { type: typeof CustomerGroups.TYPE }
 
 
 interface CustomerGroup extends Resource {
@@ -67,8 +67,8 @@ class CustomerGroups extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): CustomerGroupRel {
-		return (typeof id === 'string') ? { id, type: CustomerGroups.TYPE } : { id: id.id, type: CustomerGroups.TYPE }
+	relationship(id: string | ResourceId | null): CustomerGroupRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: CustomerGroups.TYPE } : { id: id.id, type: CustomerGroups.TYPE }
 	}
 
 

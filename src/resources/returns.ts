@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { Customer } from './customers'
@@ -9,9 +9,9 @@ import { ReturnLineItem } from './return_line_items'
 import { Attachment } from './attachments'
 
 
-type ReturnRel = ResourceId & { type: typeof Returns.TYPE }
-type OrderRel = ResourceId & { type: 'orders' }
-type StockLocationRel = ResourceId & { type: 'stock_locations' }
+type ReturnRel = ResourceRel & { type: typeof Returns.TYPE }
+type OrderRel = ResourceRel & { type: 'orders' }
+type StockLocationRel = ResourceRel & { type: 'stock_locations' }
 
 
 interface Return extends Resource {
@@ -96,8 +96,8 @@ class Returns extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ReturnRel {
-		return (typeof id === 'string') ? { id, type: Returns.TYPE } : { id: id.id, type: Returns.TYPE }
+	relationship(id: string | ResourceId | null): ReturnRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Returns.TYPE } : { id: id.id, type: Returns.TYPE }
 	}
 
 

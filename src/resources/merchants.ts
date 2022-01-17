@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Address } from './addresses'
 import { Attachment } from './attachments'
 
 
-type MerchantRel = ResourceId & { type: typeof Merchants.TYPE }
-type AddressRel = ResourceId & { type: 'addresses' }
+type MerchantRel = ResourceRel & { type: typeof Merchants.TYPE }
+type AddressRel = ResourceRel & { type: 'addresses' }
 
 
 interface Merchant extends Resource {
@@ -70,8 +70,8 @@ class Merchants extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): MerchantRel {
-		return (typeof id === 'string') ? { id, type: Merchants.TYPE } : { id: id.id, type: Merchants.TYPE }
+	relationship(id: string | ResourceId | null): MerchantRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Merchants.TYPE } : { id: id.id, type: Merchants.TYPE }
 	}
 
 

@@ -1,9 +1,9 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel } from '../resource'
+import { QueryParamsRetrieve } from '../query'
 
 
 
-type OrganizationRel = ResourceId & { type: typeof Organizations.TYPE }
+type OrganizationRel = ResourceRel & { type: typeof Organizations.TYPE }
 
 
 interface Organization extends Resource {
@@ -44,8 +44,8 @@ class Organizations extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): OrganizationRel {
-		return (typeof id === 'string') ? { id, type: Organizations.TYPE } : { id: id.id, type: Organizations.TYPE }
+	relationship(id: string | ResourceId | null): OrganizationRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Organizations.TYPE } : { id: id.id, type: Organizations.TYPE }
 	}
 
 

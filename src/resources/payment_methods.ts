@@ -1,20 +1,21 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { PaymentGateway } from './payment_gateways'
 import { Attachment } from './attachments'
 
 
-type PaymentMethodRel = ResourceId & { type: typeof PaymentMethods.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type PaymentGatewayRel = ResourceId & { type: 'payment_gateways' }
+type PaymentMethodRel = ResourceRel & { type: typeof PaymentMethods.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
+type PaymentGatewayRel = ResourceRel & { type: 'payment_gateways' }
 
 
 interface PaymentMethod extends Resource {
 	
 	payment_source_type?: string
 	name?: string
+	currency_code?: string
 	moto?: boolean
 	disabled_at?: string
 	price_amount_cents?: number
@@ -31,10 +32,11 @@ interface PaymentMethod extends Resource {
 interface PaymentMethodCreate extends ResourceCreate {
 	
 	payment_source_type: string
+	currency_code?: string
 	moto?: boolean
 	price_amount_cents: number
 
-	market: MarketRel
+	market?: MarketRel
 	payment_gateway: PaymentGatewayRel
 
 }
@@ -43,6 +45,7 @@ interface PaymentMethodCreate extends ResourceCreate {
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
 	payment_source_type?: string
+	currency_code?: string
 	moto?: boolean
 	price_amount_cents?: number
 
@@ -85,8 +88,8 @@ class PaymentMethods extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): PaymentMethodRel {
-		return (typeof id === 'string') ? { id, type: PaymentMethods.TYPE } : { id: id.id, type: PaymentMethods.TYPE }
+	relationship(id: string | ResourceId | null): PaymentMethodRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: PaymentMethods.TYPE } : { id: id.id, type: PaymentMethods.TYPE }
 	}
 
 
