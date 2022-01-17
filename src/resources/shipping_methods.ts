@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -22,8 +22,8 @@ type ShippingCategoryRel = ResourceId & { type: 'shipping_categories' }
 interface ShippingMethod extends Resource {
 	
 	name?: string
-	disabled_at?: string
 	currency_code?: string
+	disabled_at?: string
 	price_amount_cents?: number
 	price_amount_float?: number
 	formatted_price_amount?: string
@@ -46,6 +46,7 @@ interface ShippingMethod extends Resource {
 interface ShippingMethodCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	price_amount_cents: number
 	free_over_amount_cents?: number
 
@@ -59,6 +60,7 @@ interface ShippingMethodCreate extends ResourceCreate {
 interface ShippingMethodUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	price_amount_cents?: number
 	free_over_amount_cents?: number
 

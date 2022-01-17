@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -25,6 +25,7 @@ type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_
 interface FreeShippingPromotion extends Resource {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
@@ -44,6 +45,7 @@ interface FreeShippingPromotion extends Resource {
 interface FreeShippingPromotionCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -60,6 +62,7 @@ interface FreeShippingPromotionCreate extends ResourceCreate {
 interface FreeShippingPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number

@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -20,6 +20,7 @@ type PromotionRel = ResourceId & { type: typeof Promotions.TYPE }
 interface Promotion extends Resource {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number

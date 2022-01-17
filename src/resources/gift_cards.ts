@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -47,7 +47,7 @@ interface GiftCard extends Resource {
 interface GiftCardCreate extends ResourceCreate {
 	
 	code?: string
-	currency_code: string
+	currency_code?: string
 	balance_cents: number
 	balance_max_cents?: string
 	single_use?: boolean

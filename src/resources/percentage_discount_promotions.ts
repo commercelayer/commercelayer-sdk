@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -28,6 +28,7 @@ type SkuListRel = ResourceId & { type: 'sku_lists' }
 interface PercentageDiscountPromotion extends Resource {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
@@ -50,6 +51,7 @@ interface PercentageDiscountPromotion extends Resource {
 interface PercentageDiscountPromotionCreate extends ResourceCreate {
 	
 	name: string
+	currency_code?: string
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -68,6 +70,7 @@ interface PercentageDiscountPromotionCreate extends ResourceCreate {
 interface PercentageDiscountPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
+	currency_code?: string
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number

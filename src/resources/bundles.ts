@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
@@ -21,6 +21,7 @@ interface Bundle extends Resource {
 	
 	code?: string
 	name?: string
+	currency_code?: string
 	description?: string
 	image_url?: string
 	price_amount_cents?: number
@@ -43,10 +44,12 @@ interface BundleCreate extends ResourceCreate {
 	
 	code: string
 	name: string
+	currency_code?: string
 	description?: string
 	image_url?: string
 	price_amount_cents: number
 	compare_at_amount_cents: number
+	_compute_price_amount?: boolean
 	_compute_compare_at_amount?: boolean
 
 	market?: MarketRel
@@ -59,10 +62,12 @@ interface BundleUpdate extends ResourceUpdate {
 	
 	code?: string
 	name?: string
+	currency_code?: string
 	description?: string
 	image_url?: string
 	price_amount_cents?: number
 	compare_at_amount_cents?: number
+	_compute_price_amount?: boolean
 	_compute_compare_at_amount?: boolean
 	
 }

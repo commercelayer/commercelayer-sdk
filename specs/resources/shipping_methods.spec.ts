@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('ShippingMethods resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'alfa_47',
-			price_amount_cents: 100,
+			name: 'sigma_8',
+			price_amount_cents: 555,
 			market: cl.markets.relationship(TestData.id),
 			shipping_zone: cl.shipping_zones.relationship(TestData.id),
 			shipping_category: cl.shipping_categories.relationship(TestData.id),
