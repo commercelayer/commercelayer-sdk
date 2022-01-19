@@ -25,10 +25,10 @@ describe('KlarnaGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_89',
-			country_code: 'omega_35',
-			api_key: 'kappa_0',
-			api_secret: 'kappa_1',
+			name: 'beta_7',
+			country_code: 'gamma_0',
+			api_key: 'epsilon_5',
+			api_secret: 'omega_97',
 			klarna_payments: [ cl.klarna_payments.relationship(TestData.id) ],
 		}
 

@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { PaymentGateway } from './payment_gateways'
 
 
-type PaypalPaymentRel = ResourceId & { type: typeof PaypalPayments.TYPE }
-type OrderRel = ResourceId & { type: 'orders' }
+type PaypalPaymentRel = ResourceRel & { type: typeof PaypalPayments.TYPE }
+type OrderRel = ResourceRel & { type: 'orders' }
 
 
 interface PaypalPayment extends Resource {
@@ -79,8 +79,8 @@ class PaypalPayments extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): PaypalPaymentRel {
-		return (typeof id === 'string') ? { id, type: PaypalPayments.TYPE } : { id: id.id, type: PaypalPayments.TYPE }
+	relationship(id: string | ResourceId | null): PaypalPaymentRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: PaypalPayments.TYPE } : { id: id.id, type: PaypalPayments.TYPE }
 	}
 
 

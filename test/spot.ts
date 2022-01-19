@@ -1,5 +1,4 @@
-import commercelayer, { ShipmentUpdate } from '../lib/cjs'
-import { getIntegrationToken } from '@commercelayer/js-auth'
+import commercelayer from '../lib/cjs'
 
 
 (async () => {
@@ -12,10 +11,28 @@ import { getIntegrationToken } from '@commercelayer/js-auth'
 		accessToken,
 	})
 
-	const shipmentId = 'edJBCJOzLy'
+	const customers = await cl.customers.list({ pageSize: 1, fields: ['email', 'customer_group'], include: ['customer_group'] })
+	const customer = customers[0]
+	console.log('CUSTOMER')
+	console.log(customer)
 
-	const shipment = await cl.shipments.retrieve(shipmentId, { include: ['available_shipping_methods' ], fields: { shipments: ['number', 'status', 'currency_code'] } })
-	
-	console.log(shipment)
+	const customerGroups = await cl.customer_groups.list({ pageSize: 1, fields: ['name'] })
+	const customerGroup = customerGroups[0]
+	console.log('CUSTOMER GROUP')
+	console.log(customerGroup)
+
+	let c = await cl.customers.update({
+		id: customer.id,
+		customer_group: cl.customer_groups.relationship(customerGroup)
+	}, { fields: ['email', 'customer_group'], include: ['customer_group']})
+	console.log('CUSTOMER WITH CUSTOMER GROUP')
+	console.log(await cl.customers.retrieve(c.id, { fields: ['email', 'customer_group'], include: ['customer_group']}))
+
+	c = await cl.customers.update({
+		id: customer.id,
+		customer_group: cl.customer_groups.relationship(null)
+	}, { fields: ['email', 'customer_group'], include: ['customer_group']})
+	console.log('CUSTOMER WITHOUT CUSTOMER GROUP')
+	console.log(await cl.customers.retrieve(c.id, { fields: ['email', 'customer_group'], include: ['customer_group']}))
 
 })()

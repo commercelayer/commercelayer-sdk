@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { Capture } from './captures'
 
 
-type RefundRel = ResourceId & { type: typeof Refunds.TYPE }
+type RefundRel = ResourceRel & { type: typeof Refunds.TYPE }
 
 
 interface Refund extends Resource {
@@ -48,8 +48,8 @@ class Refunds extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): RefundRel {
-		return (typeof id === 'string') ? { id, type: Refunds.TYPE } : { id: id.id, type: Refunds.TYPE }
+	relationship(id: string | ResourceId | null): RefundRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Refunds.TYPE } : { id: id.id, type: Refunds.TYPE }
 	}
 
 

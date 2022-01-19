@@ -1,10 +1,10 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
 
 
-type CustomerSubscriptionRel = ResourceId & { type: typeof CustomerSubscriptions.TYPE }
+type CustomerSubscriptionRel = ResourceRel & { type: typeof CustomerSubscriptions.TYPE }
 
 
 interface CustomerSubscription extends Resource {
@@ -59,8 +59,8 @@ class CustomerSubscriptions extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): CustomerSubscriptionRel {
-		return (typeof id === 'string') ? { id, type: CustomerSubscriptions.TYPE } : { id: id.id, type: CustomerSubscriptions.TYPE }
+	relationship(id: string | ResourceId | null): CustomerSubscriptionRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: CustomerSubscriptions.TYPE } : { id: id.id, type: CustomerSubscriptions.TYPE }
 	}
 
 

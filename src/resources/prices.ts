@@ -1,14 +1,14 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PriceList } from './price_lists'
 import { Sku } from './skus'
 import { Attachment } from './attachments'
 
 
-type PriceRel = ResourceId & { type: typeof Prices.TYPE }
-type PriceListRel = ResourceId & { type: 'price_lists' }
-type SkuRel = ResourceId & { type: 'skus' }
+type PriceRel = ResourceRel & { type: typeof Prices.TYPE }
+type PriceListRel = ResourceRel & { type: 'price_lists' }
+type SkuRel = ResourceRel & { type: 'skus' }
 
 
 interface Price extends Resource {
@@ -86,8 +86,8 @@ class Prices extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): PriceRel {
-		return (typeof id === 'string') ? { id, type: Prices.TYPE } : { id: id.id, type: Prices.TYPE }
+	relationship(id: string | ResourceId | null): PriceRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Prices.TYPE } : { id: id.id, type: Prices.TYPE }
 	}
 
 

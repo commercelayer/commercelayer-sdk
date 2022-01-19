@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Shipment } from './shipments'
 import { Package } from './packages'
@@ -7,9 +7,9 @@ import { ParcelLineItem } from './parcel_line_items'
 import { Attachment } from './attachments'
 
 
-type ParcelRel = ResourceId & { type: typeof Parcels.TYPE }
-type ShipmentRel = ResourceId & { type: 'shipments' }
-type PackageRel = ResourceId & { type: 'packages' }
+type ParcelRel = ResourceRel & { type: typeof Parcels.TYPE }
+type ShipmentRel = ResourceRel & { type: 'shipments' }
+type PackageRel = ResourceRel & { type: 'packages' }
 
 
 interface Parcel extends Resource {
@@ -136,8 +136,8 @@ class Parcels extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ParcelRel {
-		return (typeof id === 'string') ? { id, type: Parcels.TYPE } : { id: id.id, type: Parcels.TYPE }
+	relationship(id: string | ResourceId | null): ParcelRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Parcels.TYPE } : { id: id.id, type: Parcels.TYPE }
 	}
 
 

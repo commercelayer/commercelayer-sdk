@@ -1,13 +1,13 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { StockLocation } from './stock_locations'
 import { InventoryModel } from './inventory_models'
 
 
-type InventoryStockLocationRel = ResourceId & { type: typeof InventoryStockLocations.TYPE }
-type StockLocationRel = ResourceId & { type: 'stock_locations' }
-type InventoryModelRel = ResourceId & { type: 'inventory_models' }
+type InventoryStockLocationRel = ResourceRel & { type: typeof InventoryStockLocations.TYPE }
+type StockLocationRel = ResourceRel & { type: 'stock_locations' }
+type InventoryModelRel = ResourceRel & { type: 'inventory_models' }
 
 
 interface InventoryStockLocation extends Resource {
@@ -76,8 +76,8 @@ class InventoryStockLocations extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): InventoryStockLocationRel {
-		return (typeof id === 'string') ? { id, type: InventoryStockLocations.TYPE } : { id: id.id, type: InventoryStockLocations.TYPE }
+	relationship(id: string | ResourceId | null): InventoryStockLocationRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: InventoryStockLocations.TYPE } : { id: id.id, type: InventoryStockLocations.TYPE }
 	}
 
 

@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Shipment } from './shipments'
 import { LineItem } from './line_items'
 import { StockItem } from './stock_items'
 
 
-type StockLineItemRel = ResourceId & { type: typeof StockLineItems.TYPE }
+type StockLineItemRel = ResourceRel & { type: typeof StockLineItems.TYPE }
 
 
 interface StockLineItem extends Resource {
@@ -42,8 +42,8 @@ class StockLineItems extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): StockLineItemRel {
-		return (typeof id === 'string') ? { id, type: StockLineItems.TYPE } : { id: id.id, type: StockLineItems.TYPE }
+	relationship(id: string | ResourceId | null): StockLineItemRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: StockLineItems.TYPE } : { id: id.id, type: StockLineItems.TYPE }
 	}
 
 

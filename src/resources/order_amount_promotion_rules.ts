@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import { FreeShippingPromotion } from './free_shipping_promotions'
@@ -9,13 +9,13 @@ import { FixedPricePromotion } from './fixed_price_promotions'
 import { ExternalPromotion } from './external_promotions'
 
 
-type OrderAmountPromotionRuleRel = ResourceId & { type: typeof OrderAmountPromotionRules.TYPE }
-type PercentageDiscountPromotionRel = ResourceId & { type: 'percentage_discount_promotions' }
-type FreeShippingPromotionRel = ResourceId & { type: 'free_shipping_promotions' }
-type FixedAmountPromotionRel = ResourceId & { type: 'fixed_amount_promotions' }
-type FreeGiftPromotionRel = ResourceId & { type: 'free_gift_promotions' }
-type FixedPricePromotionRel = ResourceId & { type: 'fixed_price_promotions' }
-type ExternalPromotionRel = ResourceId & { type: 'external_promotions' }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: typeof OrderAmountPromotionRules.TYPE }
+type PercentageDiscountPromotionRel = ResourceRel & { type: 'percentage_discount_promotions' }
+type FreeShippingPromotionRel = ResourceRel & { type: 'free_shipping_promotions' }
+type FixedAmountPromotionRel = ResourceRel & { type: 'fixed_amount_promotions' }
+type FreeGiftPromotionRel = ResourceRel & { type: 'free_gift_promotions' }
+type FixedPricePromotionRel = ResourceRel & { type: 'fixed_price_promotions' }
+type ExternalPromotionRel = ResourceRel & { type: 'external_promotions' }
 
 
 interface OrderAmountPromotionRule extends Resource {
@@ -80,8 +80,8 @@ class OrderAmountPromotionRules extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): OrderAmountPromotionRuleRel {
-		return (typeof id === 'string') ? { id, type: OrderAmountPromotionRules.TYPE } : { id: id.id, type: OrderAmountPromotionRules.TYPE }
+	relationship(id: string | ResourceId | null): OrderAmountPromotionRuleRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: OrderAmountPromotionRules.TYPE } : { id: id.id, type: OrderAmountPromotionRules.TYPE }
 	}
 
 

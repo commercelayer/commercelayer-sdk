@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
 import { KlarnaPayment } from './klarna_payments'
 
 
-type KlarnaGatewayRel = ResourceId & { type: typeof KlarnaGateways.TYPE }
-type KlarnaPaymentRel = ResourceId & { type: 'klarna_payments' }
+type KlarnaGatewayRel = ResourceRel & { type: typeof KlarnaGateways.TYPE }
+type KlarnaPaymentRel = ResourceRel & { type: 'klarna_payments' }
 
 
 interface KlarnaGateway extends Resource {
@@ -76,8 +76,8 @@ class KlarnaGateways extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): KlarnaGatewayRel {
-		return (typeof id === 'string') ? { id, type: KlarnaGateways.TYPE } : { id: id.id, type: KlarnaGateways.TYPE }
+	relationship(id: string | ResourceId | null): KlarnaGatewayRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: KlarnaGateways.TYPE } : { id: id.id, type: KlarnaGateways.TYPE }
 	}
 
 

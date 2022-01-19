@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { Authorization } from './authorizations'
 import { Refund } from './refunds'
 
 
-type CaptureRel = ResourceId & { type: typeof Captures.TYPE }
+type CaptureRel = ResourceRel & { type: typeof Captures.TYPE }
 
 
 interface Capture extends Resource {
@@ -68,8 +68,8 @@ class Captures extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): CaptureRel {
-		return (typeof id === 'string') ? { id, type: Captures.TYPE } : { id: id.id, type: Captures.TYPE }
+	relationship(id: string | ResourceId | null): CaptureRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Captures.TYPE } : { id: id.id, type: Captures.TYPE }
 	}
 
 

@@ -25,7 +25,7 @@ describe('StockTransfers resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 0,
+			quantity: 1000,
 			sku: cl.skus.relationship(TestData.id),
 			origin_stock_location: cl.stock_locations.relationship(TestData.id),
 			destination_stock_location: cl.stock_locations.relationship(TestData.id),

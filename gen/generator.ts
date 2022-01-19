@@ -436,7 +436,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 
 	// Relationships definition
-	const relTypesArray = Array.from(relTypes).map(i => `type ${i}Rel = ResourceId & { type: '${_.snakeCase(Inflector.pluralize(i))}' }`)
+	const relTypesArray = Array.from(relTypes).map(i => `type ${i}Rel = ResourceRel & { type: '${_.snakeCase(Inflector.pluralize(i))}' }`)
 	res = res.replace(/##__RELATIONSHIP_TYPES__##/g, relTypesArray.length ? (relTypesArray.join('\n') + '\n') : '')
 
 	// Resources import

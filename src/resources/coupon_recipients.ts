@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
 import { Attachment } from './attachments'
 
 
-type CouponRecipientRel = ResourceId & { type: typeof CouponRecipients.TYPE }
-type CustomerRel = ResourceId & { type: 'customers' }
+type CouponRecipientRel = ResourceRel & { type: typeof CouponRecipients.TYPE }
+type CustomerRel = ResourceRel & { type: 'customers' }
 
 
 interface CouponRecipient extends Resource {
@@ -76,8 +76,8 @@ class CouponRecipients extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): CouponRecipientRel {
-		return (typeof id === 'string') ? { id, type: CouponRecipients.TYPE } : { id: id.id, type: CouponRecipients.TYPE }
+	relationship(id: string | ResourceId | null): CouponRecipientRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: CouponRecipients.TYPE } : { id: id.id, type: CouponRecipients.TYPE }
 	}
 
 

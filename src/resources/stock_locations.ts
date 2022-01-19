@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Address } from './addresses'
 import { InventoryStockLocation } from './inventory_stock_locations'
@@ -9,8 +9,8 @@ import { StockTransfer } from './stock_transfers'
 import { Attachment } from './attachments'
 
 
-type StockLocationRel = ResourceId & { type: typeof StockLocations.TYPE }
-type AddressRel = ResourceId & { type: 'addresses' }
+type StockLocationRel = ResourceRel & { type: typeof StockLocations.TYPE }
+type AddressRel = ResourceRel & { type: 'addresses' }
 
 
 interface StockLocation extends Resource {
@@ -85,8 +85,8 @@ class StockLocations extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): StockLocationRel {
-		return (typeof id === 'string') ? { id, type: StockLocations.TYPE } : { id: id.id, type: StockLocations.TYPE }
+	relationship(id: string | ResourceId | null): StockLocationRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: StockLocations.TYPE } : { id: id.id, type: StockLocations.TYPE }
 	}
 
 

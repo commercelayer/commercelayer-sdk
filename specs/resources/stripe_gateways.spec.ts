@@ -25,8 +25,8 @@ describe('StripeGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_82',
-			login: 'delta_92',
+			name: 'sigma_90',
+			login: 'gamma_9',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

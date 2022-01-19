@@ -26,7 +26,7 @@ describe('LineItemOptions resource', () => {
 
     const createAttributes = {
 			quantity: 10000,
-			options: { key31: 'val31' },
+			options: { key41: 'val41' },
 			line_item: cl.line_items.relationship(TestData.id),
 			sku_option: cl.sku_options.relationship(TestData.id),
 		}

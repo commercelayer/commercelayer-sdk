@@ -1,10 +1,10 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
 
 
-type PaymentGatewayRel = ResourceId & { type: typeof PaymentGateways.TYPE }
+type PaymentGatewayRel = ResourceRel & { type: typeof PaymentGateways.TYPE }
 
 
 interface PaymentGateway extends Resource {
@@ -36,8 +36,8 @@ class PaymentGateways extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): PaymentGatewayRel {
-		return (typeof id === 'string') ? { id, type: PaymentGateways.TYPE } : { id: id.id, type: PaymentGateways.TYPE }
+	relationship(id: string | ResourceId | null): PaymentGatewayRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: PaymentGateways.TYPE } : { id: id.id, type: PaymentGateways.TYPE }
 	}
 
 

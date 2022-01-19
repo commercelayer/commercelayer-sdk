@@ -1,10 +1,10 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 
 
-type TransactionRel = ResourceId & { type: typeof Transactions.TYPE }
+type TransactionRel = ResourceRel & { type: typeof Transactions.TYPE }
 
 
 interface Transaction extends Resource {
@@ -46,8 +46,8 @@ class Transactions extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): TransactionRel {
-		return (typeof id === 'string') ? { id, type: Transactions.TYPE } : { id: id.id, type: Transactions.TYPE }
+	relationship(id: string | ResourceId | null): TransactionRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Transactions.TYPE } : { id: id.id, type: Transactions.TYPE }
 	}
 
 

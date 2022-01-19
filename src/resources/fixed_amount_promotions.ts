@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { PromotionRule } from './promotion_rules'
@@ -9,12 +9,12 @@ import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import { Attachment } from './attachments'
 
 
-type FixedAmountPromotionRel = ResourceId & { type: typeof FixedAmountPromotions.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type PromotionRuleRel = ResourceId & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceId & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceId & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceId & { type: 'coupon_codes_promotion_rules' }
+type FixedAmountPromotionRel = ResourceRel & { type: typeof FixedAmountPromotions.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
+type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
+type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
 
 
 interface FixedAmountPromotion extends Resource {
@@ -109,8 +109,8 @@ class FixedAmountPromotions extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): FixedAmountPromotionRel {
-		return (typeof id === 'string') ? { id, type: FixedAmountPromotions.TYPE } : { id: id.id, type: FixedAmountPromotions.TYPE }
+	relationship(id: string | ResourceId | null): FixedAmountPromotionRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: FixedAmountPromotions.TYPE } : { id: id.id, type: FixedAmountPromotions.TYPE }
 	}
 
 

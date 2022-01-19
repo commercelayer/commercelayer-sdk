@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { ShippingZone } from './shipping_zones'
@@ -8,10 +8,10 @@ import { DeliveryLeadTime } from './delivery_lead_times'
 import { Attachment } from './attachments'
 
 
-type ShippingMethodRel = ResourceId & { type: typeof ShippingMethods.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type ShippingZoneRel = ResourceId & { type: 'shipping_zones' }
-type ShippingCategoryRel = ResourceId & { type: 'shipping_categories' }
+type ShippingMethodRel = ResourceRel & { type: typeof ShippingMethods.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
+type ShippingZoneRel = ResourceRel & { type: 'shipping_zones' }
+type ShippingCategoryRel = ResourceRel & { type: 'shipping_categories' }
 
 
 interface ShippingMethod extends Resource {
@@ -99,8 +99,8 @@ class ShippingMethods extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ShippingMethodRel {
-		return (typeof id === 'string') ? { id, type: ShippingMethods.TYPE } : { id: id.id, type: ShippingMethods.TYPE }
+	relationship(id: string | ResourceId | null): ShippingMethodRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: ShippingMethods.TYPE } : { id: id.id, type: ShippingMethods.TYPE }
 	}
 
 

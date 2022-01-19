@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
 import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
-type TaxCalculatorRel = ResourceId & { type: typeof TaxCalculators.TYPE }
+type TaxCalculatorRel = ResourceRel & { type: typeof TaxCalculators.TYPE }
 
 
 interface TaxCalculator extends Resource {
@@ -40,8 +40,8 @@ class TaxCalculators extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): TaxCalculatorRel {
-		return (typeof id === 'string') ? { id, type: TaxCalculators.TYPE } : { id: id.id, type: TaxCalculators.TYPE }
+	relationship(id: string | ResourceId | null): TaxCalculatorRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: TaxCalculators.TYPE } : { id: id.id, type: TaxCalculators.TYPE }
 	}
 
 

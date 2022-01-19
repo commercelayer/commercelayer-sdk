@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
 import { Attachment } from './attachments'
 
 
-type GiftCardRecipientRel = ResourceId & { type: typeof GiftCardRecipients.TYPE }
-type CustomerRel = ResourceId & { type: 'customers' }
+type GiftCardRecipientRel = ResourceRel & { type: typeof GiftCardRecipients.TYPE }
+type CustomerRel = ResourceRel & { type: 'customers' }
 
 
 interface GiftCardRecipient extends Resource {
@@ -76,8 +76,8 @@ class GiftCardRecipients extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): GiftCardRecipientRel {
-		return (typeof id === 'string') ? { id, type: GiftCardRecipients.TYPE } : { id: id.id, type: GiftCardRecipients.TYPE }
+	relationship(id: string | ResourceId | null): GiftCardRecipientRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: GiftCardRecipients.TYPE } : { id: id.id, type: GiftCardRecipients.TYPE }
 	}
 
 

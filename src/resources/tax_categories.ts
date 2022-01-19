@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Sku } from './skus'
 import { AvalaraAccount } from './avalara_accounts'
@@ -9,12 +9,12 @@ import { ExternalTaxCalculator } from './external_tax_calculators'
 import { Attachment } from './attachments'
 
 
-type TaxCategoryRel = ResourceId & { type: typeof TaxCategories.TYPE }
-type SkuRel = ResourceId & { type: 'skus' }
-type AvalaraAccountRel = ResourceId & { type: 'avalara_accounts' }
-type TaxjarAccountRel = ResourceId & { type: 'taxjar_accounts' }
-type ManualTaxCalculatorRel = ResourceId & { type: 'manual_tax_calculators' }
-type ExternalTaxCalculatorRel = ResourceId & { type: 'external_tax_calculators' }
+type TaxCategoryRel = ResourceRel & { type: typeof TaxCategories.TYPE }
+type SkuRel = ResourceRel & { type: 'skus' }
+type AvalaraAccountRel = ResourceRel & { type: 'avalara_accounts' }
+type TaxjarAccountRel = ResourceRel & { type: 'taxjar_accounts' }
+type ManualTaxCalculatorRel = ResourceRel & { type: 'manual_tax_calculators' }
+type ExternalTaxCalculatorRel = ResourceRel & { type: 'external_tax_calculators' }
 
 
 interface TaxCategory extends Resource {
@@ -83,8 +83,8 @@ class TaxCategories extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): TaxCategoryRel {
-		return (typeof id === 'string') ? { id, type: TaxCategories.TYPE } : { id: id.id, type: TaxCategories.TYPE }
+	relationship(id: string | ResourceId | null): TaxCategoryRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: TaxCategories.TYPE } : { id: id.id, type: TaxCategories.TYPE }
 	}
 
 

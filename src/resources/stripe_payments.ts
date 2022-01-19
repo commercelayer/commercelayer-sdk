@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { PaymentGateway } from './payment_gateways'
 
 
-type StripePaymentRel = ResourceId & { type: typeof StripePayments.TYPE }
-type OrderRel = ResourceId & { type: 'orders' }
+type StripePaymentRel = ResourceRel & { type: typeof StripePayments.TYPE }
+type OrderRel = ResourceRel & { type: 'orders' }
 
 
 interface StripePayment extends Resource {
@@ -74,8 +74,8 @@ class StripePayments extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): StripePaymentRel {
-		return (typeof id === 'string') ? { id, type: StripePayments.TYPE } : { id: id.id, type: StripePayments.TYPE }
+	relationship(id: string | ResourceId | null): StripePaymentRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: StripePayments.TYPE } : { id: id.id, type: StripePayments.TYPE }
 	}
 
 

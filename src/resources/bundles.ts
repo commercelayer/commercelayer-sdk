@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { SkuList } from './sku_lists'
@@ -7,9 +7,9 @@ import { Sku } from './skus'
 import { Attachment } from './attachments'
 
 
-type BundleRel = ResourceId & { type: typeof Bundles.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type SkuListRel = ResourceId & { type: 'sku_lists' }
+type BundleRel = ResourceRel & { type: typeof Bundles.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
+type SkuListRel = ResourceRel & { type: 'sku_lists' }
 
 
 interface Bundle extends Resource {
@@ -101,8 +101,8 @@ class Bundles extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): BundleRel {
-		return (typeof id === 'string') ? { id, type: Bundles.TYPE } : { id: id.id, type: Bundles.TYPE }
+	relationship(id: string | ResourceId | null): BundleRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Bundles.TYPE } : { id: id.id, type: Bundles.TYPE }
 	}
 
 

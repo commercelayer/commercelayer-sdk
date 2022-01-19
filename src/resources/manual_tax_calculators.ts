@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
 import { Market } from './markets'
@@ -7,9 +7,9 @@ import { Attachment } from './attachments'
 import { TaxRule } from './tax_rules'
 
 
-type ManualTaxCalculatorRel = ResourceId & { type: typeof ManualTaxCalculators.TYPE }
-type TaxCategoryRel = ResourceId & { type: 'tax_categories' }
-type TaxRuleRel = ResourceId & { type: 'tax_rules' }
+type ManualTaxCalculatorRel = ResourceRel & { type: typeof ManualTaxCalculators.TYPE }
+type TaxCategoryRel = ResourceRel & { type: 'tax_categories' }
+type TaxRuleRel = ResourceRel & { type: 'tax_rules' }
 
 
 interface ManualTaxCalculator extends Resource {
@@ -77,8 +77,8 @@ class ManualTaxCalculators extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ManualTaxCalculatorRel {
-		return (typeof id === 'string') ? { id, type: ManualTaxCalculators.TYPE } : { id: id.id, type: ManualTaxCalculators.TYPE }
+	relationship(id: string | ResourceId | null): ManualTaxCalculatorRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: ManualTaxCalculators.TYPE } : { id: id.id, type: ManualTaxCalculators.TYPE }
 	}
 
 

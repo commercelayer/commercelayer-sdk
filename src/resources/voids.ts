@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { Authorization } from './authorizations'
 
 
-type VoidRel = ResourceId & { type: typeof Voids.TYPE }
+type VoidRel = ResourceRel & { type: typeof Voids.TYPE }
 
 
 interface Void extends Resource {
@@ -48,8 +48,8 @@ class Voids extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): VoidRel {
-		return (typeof id === 'string') ? { id, type: Voids.TYPE } : { id: id.id, type: Voids.TYPE }
+	relationship(id: string | ResourceId | null): VoidRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Voids.TYPE } : { id: id.id, type: Voids.TYPE }
 	}
 
 

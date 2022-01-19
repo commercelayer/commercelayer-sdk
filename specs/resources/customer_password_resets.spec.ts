@@ -25,7 +25,7 @@ describe('CustomerPasswordResets resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			customer_email: 'sigma_87',
+			customer_email: 'lambda_13',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

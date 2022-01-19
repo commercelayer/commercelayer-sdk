@@ -9,6 +9,10 @@ import { Value as JSONValue } from 'json-typescript'
 
 
 
+type ResourceNull = { id: null } & ResourceType
+type ResourceRel = ResourceId | ResourceNull
+
+
 type Metadata = { [key: string]: JSONValue }
 
 
@@ -75,7 +79,7 @@ class ListResponse<R> extends Array<R> {
 
 
 
-export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse }
+export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse, ResourceRel }
 
 
 // Resources adapter local configuration
@@ -223,7 +227,7 @@ abstract class ApiResource {
 		this.resources = adapter
 	}
 
-	abstract relationship(id: string | ResourceId): ResourceId
+	abstract relationship(id: string | ResourceId | null): ResourceRel
 
 	/*
 	async rawList(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<DocWithData> {

@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Sku } from './skus'
 import { StockLocation } from './stock_locations'
@@ -7,11 +7,11 @@ import { Shipment } from './shipments'
 import { LineItem } from './line_items'
 
 
-type StockTransferRel = ResourceId & { type: typeof StockTransfers.TYPE }
-type SkuRel = ResourceId & { type: 'skus' }
-type StockLocationRel = ResourceId & { type: 'stock_locations' }
-type ShipmentRel = ResourceId & { type: 'shipments' }
-type LineItemRel = ResourceId & { type: 'line_items' }
+type StockTransferRel = ResourceRel & { type: typeof StockTransfers.TYPE }
+type SkuRel = ResourceRel & { type: 'skus' }
+type StockLocationRel = ResourceRel & { type: 'stock_locations' }
+type ShipmentRel = ResourceRel & { type: 'shipments' }
+type LineItemRel = ResourceRel & { type: 'line_items' }
 
 
 interface StockTransfer extends Resource {
@@ -94,8 +94,8 @@ class StockTransfers extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): StockTransferRel {
-		return (typeof id === 'string') ? { id, type: StockTransfers.TYPE } : { id: id.id, type: StockTransfers.TYPE }
+	relationship(id: string | ResourceId | null): StockTransferRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: StockTransfers.TYPE } : { id: id.id, type: StockTransfers.TYPE }
 	}
 
 

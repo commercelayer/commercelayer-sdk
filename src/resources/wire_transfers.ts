@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 
 
-type WireTransferRel = ResourceId & { type: typeof WireTransfers.TYPE }
-type OrderRel = ResourceId & { type: 'orders' }
+type WireTransferRel = ResourceRel & { type: typeof WireTransfers.TYPE }
+type OrderRel = ResourceRel & { type: 'orders' }
 
 
 interface WireTransfer extends Resource {
@@ -62,8 +62,8 @@ class WireTransfers extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): WireTransferRel {
-		return (typeof id === 'string') ? { id, type: WireTransfers.TYPE } : { id: id.id, type: WireTransfers.TYPE }
+	relationship(id: string | ResourceId | null): WireTransferRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: WireTransfers.TYPE } : { id: id.id, type: WireTransfers.TYPE }
 	}
 
 

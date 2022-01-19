@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 
 
-type BillingInfoValidationRuleRel = ResourceId & { type: typeof BillingInfoValidationRules.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
+type BillingInfoValidationRuleRel = ResourceRel & { type: typeof BillingInfoValidationRules.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
 
 
 interface BillingInfoValidationRule extends Resource {
@@ -62,8 +62,8 @@ class BillingInfoValidationRules extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): BillingInfoValidationRuleRel {
-		return (typeof id === 'string') ? { id, type: BillingInfoValidationRules.TYPE } : { id: id.id, type: BillingInfoValidationRules.TYPE }
+	relationship(id: string | ResourceId | null): BillingInfoValidationRuleRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: BillingInfoValidationRules.TYPE } : { id: id.id, type: BillingInfoValidationRules.TYPE }
 	}
 
 

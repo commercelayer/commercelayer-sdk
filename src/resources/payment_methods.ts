@@ -1,14 +1,14 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Market } from './markets'
 import { PaymentGateway } from './payment_gateways'
 import { Attachment } from './attachments'
 
 
-type PaymentMethodRel = ResourceId & { type: typeof PaymentMethods.TYPE }
-type MarketRel = ResourceId & { type: 'markets' }
-type PaymentGatewayRel = ResourceId & { type: 'payment_gateways' }
+type PaymentMethodRel = ResourceRel & { type: typeof PaymentMethods.TYPE }
+type MarketRel = ResourceRel & { type: 'markets' }
+type PaymentGatewayRel = ResourceRel & { type: 'payment_gateways' }
 
 
 interface PaymentMethod extends Resource {
@@ -88,8 +88,8 @@ class PaymentMethods extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): PaymentMethodRel {
-		return (typeof id === 'string') ? { id, type: PaymentMethods.TYPE } : { id: id.id, type: PaymentMethods.TYPE }
+	relationship(id: string | ResourceId | null): PaymentMethodRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: PaymentMethods.TYPE } : { id: id.id, type: PaymentMethods.TYPE }
 	}
 
 

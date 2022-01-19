@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { ShippingCategory } from './shipping_categories'
@@ -14,8 +14,8 @@ import { Parcel } from './parcels'
 import { Attachment } from './attachments'
 
 
-type ShipmentRel = ResourceId & { type: typeof Shipments.TYPE }
-type ShippingMethodRel = ResourceId & { type: 'shipping_methods' }
+type ShipmentRel = ResourceRel & { type: typeof Shipments.TYPE }
+type ShippingMethodRel = ResourceRel & { type: 'shipping_methods' }
 
 
 interface Shipment extends Resource {
@@ -98,8 +98,8 @@ class Shipments extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ShipmentRel {
-		return (typeof id === 'string') ? { id, type: Shipments.TYPE } : { id: id.id, type: Shipments.TYPE }
+	relationship(id: string | ResourceId | null): ShipmentRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Shipments.TYPE } : { id: id.id, type: Shipments.TYPE }
 	}
 
 

@@ -25,10 +25,10 @@ describe('AvalaraAccounts resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'sigma_32',
-			username: 'beta_53',
-			password: 'omega_18',
-			company_code: 'beta_10',
+			name: 'beta_85',
+			username: 'epsilon_21',
+			password: 'gamma_59',
+			company_code: 'kappa_86',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 

@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Bundle } from './bundles'
 import { CarrierAccount } from './carrier_accounts'
@@ -33,37 +33,37 @@ import { TaxCalculator } from './tax_calculators'
 import { TaxCategory } from './tax_categories'
 
 
-type AttachmentRel = ResourceId & { type: typeof Attachments.TYPE }
-type BundleRel = ResourceId & { type: 'bundles' }
-type CarrierAccountRel = ResourceId & { type: 'carrier_accounts' }
-type CustomerGroupRel = ResourceId & { type: 'customer_groups' }
-type CustomerRel = ResourceId & { type: 'customers' }
-type DeliveryLeadTimeRel = ResourceId & { type: 'delivery_lead_times' }
-type GeocoderRel = ResourceId & { type: 'geocoders' }
-type GiftCardRecipientRel = ResourceId & { type: 'gift_card_recipients' }
-type GiftCardRel = ResourceId & { type: 'gift_cards' }
-type InventoryModelRel = ResourceId & { type: 'inventory_models' }
-type MarketRel = ResourceId & { type: 'markets' }
-type MerchantRel = ResourceId & { type: 'merchants' }
-type BillingInfoValidationRuleRel = ResourceId & { type: 'billing_info_validation_rules' }
-type OrderRel = ResourceId & { type: 'orders' }
-type PackageRel = ResourceId & { type: 'packages' }
-type ParcelRel = ResourceId & { type: 'parcels' }
-type PaymentMethodRel = ResourceId & { type: 'payment_methods' }
-type PriceListRel = ResourceId & { type: 'price_lists' }
-type PriceRel = ResourceId & { type: 'prices' }
-type PromotionRel = ResourceId & { type: 'promotions' }
-type ReturnRel = ResourceId & { type: 'returns' }
-type ShipmentRel = ResourceId & { type: 'shipments' }
-type ShippingCategoryRel = ResourceId & { type: 'shipping_categories' }
-type ShippingMethodRel = ResourceId & { type: 'shipping_methods' }
-type ShippingZoneRel = ResourceId & { type: 'shipping_zones' }
-type SkuOptionRel = ResourceId & { type: 'sku_options' }
-type SkuRel = ResourceId & { type: 'skus' }
-type StockItemRel = ResourceId & { type: 'stock_items' }
-type StockLocationRel = ResourceId & { type: 'stock_locations' }
-type TaxCalculatorRel = ResourceId & { type: 'tax_calculators' }
-type TaxCategoryRel = ResourceId & { type: 'tax_categories' }
+type AttachmentRel = ResourceRel & { type: typeof Attachments.TYPE }
+type BundleRel = ResourceRel & { type: 'bundles' }
+type CarrierAccountRel = ResourceRel & { type: 'carrier_accounts' }
+type CustomerGroupRel = ResourceRel & { type: 'customer_groups' }
+type CustomerRel = ResourceRel & { type: 'customers' }
+type DeliveryLeadTimeRel = ResourceRel & { type: 'delivery_lead_times' }
+type GeocoderRel = ResourceRel & { type: 'geocoders' }
+type GiftCardRecipientRel = ResourceRel & { type: 'gift_card_recipients' }
+type GiftCardRel = ResourceRel & { type: 'gift_cards' }
+type InventoryModelRel = ResourceRel & { type: 'inventory_models' }
+type MarketRel = ResourceRel & { type: 'markets' }
+type MerchantRel = ResourceRel & { type: 'merchants' }
+type BillingInfoValidationRuleRel = ResourceRel & { type: 'billing_info_validation_rules' }
+type OrderRel = ResourceRel & { type: 'orders' }
+type PackageRel = ResourceRel & { type: 'packages' }
+type ParcelRel = ResourceRel & { type: 'parcels' }
+type PaymentMethodRel = ResourceRel & { type: 'payment_methods' }
+type PriceListRel = ResourceRel & { type: 'price_lists' }
+type PriceRel = ResourceRel & { type: 'prices' }
+type PromotionRel = ResourceRel & { type: 'promotions' }
+type ReturnRel = ResourceRel & { type: 'returns' }
+type ShipmentRel = ResourceRel & { type: 'shipments' }
+type ShippingCategoryRel = ResourceRel & { type: 'shipping_categories' }
+type ShippingMethodRel = ResourceRel & { type: 'shipping_methods' }
+type ShippingZoneRel = ResourceRel & { type: 'shipping_zones' }
+type SkuOptionRel = ResourceRel & { type: 'sku_options' }
+type SkuRel = ResourceRel & { type: 'skus' }
+type StockItemRel = ResourceRel & { type: 'stock_items' }
+type StockLocationRel = ResourceRel & { type: 'stock_locations' }
+type TaxCalculatorRel = ResourceRel & { type: 'tax_calculators' }
+type TaxCategoryRel = ResourceRel & { type: 'tax_categories' }
 
 
 interface Attachment extends Resource {
@@ -132,8 +132,8 @@ class Attachments extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): AttachmentRel {
-		return (typeof id === 'string') ? { id, type: Attachments.TYPE } : { id: id.id, type: Attachments.TYPE }
+	relationship(id: string | ResourceId | null): AttachmentRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: Attachments.TYPE } : { id: id.id, type: Attachments.TYPE }
 	}
 
 

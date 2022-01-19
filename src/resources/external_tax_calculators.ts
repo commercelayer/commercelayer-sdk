@@ -1,13 +1,13 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { TaxCategory } from './tax_categories'
 import { Market } from './markets'
 import { Attachment } from './attachments'
 
 
-type ExternalTaxCalculatorRel = ResourceId & { type: typeof ExternalTaxCalculators.TYPE }
-type TaxCategoryRel = ResourceId & { type: 'tax_categories' }
+type ExternalTaxCalculatorRel = ResourceRel & { type: typeof ExternalTaxCalculators.TYPE }
+type TaxCategoryRel = ResourceRel & { type: 'tax_categories' }
 
 
 interface ExternalTaxCalculator extends Resource {
@@ -75,8 +75,8 @@ class ExternalTaxCalculators extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): ExternalTaxCalculatorRel {
-		return (typeof id === 'string') ? { id, type: ExternalTaxCalculators.TYPE } : { id: id.id, type: ExternalTaxCalculators.TYPE }
+	relationship(id: string | ResourceId | null): ExternalTaxCalculatorRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: ExternalTaxCalculators.TYPE } : { id: id.id, type: ExternalTaxCalculators.TYPE }
 	}
 
 

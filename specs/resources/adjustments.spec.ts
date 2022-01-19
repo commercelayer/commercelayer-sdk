@@ -25,8 +25,8 @@ describe('Adjustments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_15',
-			currency_code: 'alfa_58',
+			name: 'kappa_38',
+			currency_code: 'lambda_80',
 			amount_cents: 10,
 		}
 

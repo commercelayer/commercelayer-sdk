@@ -1,12 +1,12 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource'
-import { /* QueryBuilderRetrieve, QueryBuilderList, */QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PaymentMethod } from './payment_methods'
 import { AdyenPayment } from './adyen_payments'
 
 
-type AdyenGatewayRel = ResourceId & { type: typeof AdyenGateways.TYPE }
-type AdyenPaymentRel = ResourceId & { type: 'adyen_payments' }
+type AdyenGatewayRel = ResourceRel & { type: typeof AdyenGateways.TYPE }
+type AdyenPaymentRel = ResourceRel & { type: 'adyen_payments' }
 
 
 interface AdyenGateway extends Resource {
@@ -79,8 +79,8 @@ class AdyenGateways extends ApiResource {
 	}
 
 
-	relationship(id: string | ResourceId): AdyenGatewayRel {
-		return (typeof id === 'string') ? { id, type: AdyenGateways.TYPE } : { id: id.id, type: AdyenGateways.TYPE }
+	relationship(id: string | ResourceId | null): AdyenGatewayRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: AdyenGateways.TYPE } : { id: id.id, type: AdyenGateways.TYPE }
 	}
 
 
