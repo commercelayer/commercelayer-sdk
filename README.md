@@ -1,6 +1,6 @@
 # Commerce Layer JS SDK
 
-A JavaScript Library wrapper that makes it quick and easy to interact with the [Commerce Layer API](https://docs.commercelayer.io/api/).
+A JavaScript Library wrapper that makes it quick and easy to interact with the [Commerce Layer API](https://docs.commercelayer.io/developers/).
 
 ### What is Commerce Layer?
 
@@ -28,7 +28,7 @@ yarn add @commercelayer/sdk
 
 ## Authentication
 
-All requests to Commerce Layer API must be authenticated with an [OAuth2](https://oauth.net/2/) bearer token. Hence, before starting to use this SDK you need to get a valid access token. Check [our documentation](https://docs.commercelayer.io/api/authentication) for more information about the available authorization flows.
+All requests to Commerce Layer API must be authenticated with an [OAuth2](https://oauth.net/2/) bearer token. Hence, before starting to use this SDK you need to get a valid access token. Check [our documentation](https://docs.commercelayer.io/developers/authentication) for more information about the available authorization flows.
 
 > Feel free to use [Commerce Layer JS Auth](https://github.com/commercelayer/commercelayer-js-auth), a JavaScript library that helps you wrap our authentication API.
 
@@ -45,7 +45,7 @@ const cl = CommerceLayer({
 })
 ```
 
-> In the following examples, we will use only the the specific resources we're going to access (SKUs and shipping categories). Check our [API reference](https://docs.commercelayer.io/api/) for the complete list of available resources and their attributes.
+> In the following examples, we will use only the the specific resources we're going to access (SKUs and shipping categories). Check our [API reference](https://docs.commercelayer.io/developers/v/api-reference/) for the complete list of available resources and their attributes.
 
 # Usage
 
@@ -81,7 +81,7 @@ The code snippets below show how to use the Commerce Layer JS SDK when performin
   const newSku = await cl.skus.create(attributes)
 ```
 
-Check our API reference for more information on how to [create an SKU](https://docs.commercelayer.io/api/resources/skus/create_sku).
+Check our API reference for more information on how to [create an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/create).
 
 ## Retrieve
 
@@ -101,7 +101,7 @@ Check our API reference for more information on how to [create an SKU](https://d
   const sku = (await cl.skus.list()).last()
 ```
 
-Check our API reference for more information on how to [retrieve an SKU](https://docs.commercelayer.io/api/resources/skus/retrieve_sku).
+Check our API reference for more information on how to [retrieve an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/retrieve).
 
 ### How to fetch a collection of SKUs
 
@@ -160,7 +160,7 @@ When fetching a collection of resources you can leverage the `meta` attribute to
   const meta = skus.meta
 ```
 
-Check our API reference for more information on how to [list all SKUs](https://docs.commercelayer.io/api/resources/skus/list_skus), [sort the results](https://docs.commercelayer.io/api/sorting-results), use [sparse fieldsets](https://docs.commercelayer.io/api/sparse-fieldsets), [include associations](https://docs.commercelayer.io/api/including-associations), and [filter data](https://docs.commercelayer.io/api/filtering-data).
+Check our API reference for more information on how to [list all SKUs](https://docs.commercelayer.io/developers/v/api-reference/skus/list), [sort the results](https://docs.commercelayer.io/developers/sorting-results), use [sparse fieldsets](https://docs.commercelayer.io/developers/sparse-fieldsets), [include associations](https://docs.commercelayer.io/developers/including-associations), and [filter data](https://docs.commercelayer.io/developers/filtering-data).
 
 ### How to paginate a collection of SKUs
 
@@ -179,7 +179,7 @@ When you fetch a collection of resources, you get paginated results:
 
 > The default page number is **1**. The default page size is **10**. The maximum page size allowed is **25**.
 
-Check our API reference for more information on how [pagination](https://docs.commercelayer.io/api/pagination) works.
+Check our API reference for more information on how [pagination](https://docs.commercelayer.io/developers/pagination) works.
 
 ### How to iterate through a collection of SKUs
 
@@ -205,7 +205,7 @@ To execute a function for every item of a collection, use the `map()` method:
   cl.skus.update(sku) // updates the SKU on the server
 ```
 
-Check our API reference for more information on how to [update an SKU](https://docs.commercelayer.io/api/resources/skus/update_sku).
+Check our API reference for more information on how to [update an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/update).
 
 ## Delete
 
@@ -215,7 +215,7 @@ Check our API reference for more information on how to [update an SKU](https://d
   cl.skus.delete('xYZkjABcde') // persisted deletion
 ```
 
-Check our API reference for more information on how to [delete an SKU](https://docs.commercelayer.io/api/resources/skus/delete_sku).
+Check our API reference for more information on how to [delete an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/delete).
 
 # Overriding credentials
 
@@ -274,7 +274,7 @@ Commerce Layer API returns specific errors (with extra information) on each attr
 
 ```
 
-Check our API reference for more information about the [errors](https://docs.commercelayer.io/api/handling-errors) returned by the API.
+Check our API reference for more information about the [errors](https://docs.commercelayer.io/developers/handling-errors) returned by the API.
 
 ---
 
