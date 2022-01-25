@@ -1,12 +1,13 @@
 {
   "name": "@commercelayer/sdk",
   "version": "4.3.0-beta.1",
-  "export": "./lib/index.js",
-  "type": "module",
+  "main": "lib/cjs/index.js",
+  "types": "lib/cjs/index.d.ts",
+  "module": "lib/esm/index.js",
   "scripts": {
     "lint": "eslint ./src --ext .ts",
     "lintspec": "eslint ./specs/resources/ --ext .spec.ts",
-    "build": "tsc -b tsconfig.esm.json --verbose",
+    "build": "tsc -b tsconfig.json tsconfig.esm.json --verbose",
     "start": "ts-node src/index.ts",
     "generate": "ts-node gen/generator.ts",
     "prepare": "npm run build",
