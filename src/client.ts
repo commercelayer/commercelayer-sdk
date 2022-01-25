@@ -47,13 +47,15 @@ const handleError = (error: Error) => {
 }
 
 
+type ProxyConfig = AxiosProxyConfig | false
+
 // Subset of AxiosRequestConfig
 type RequestConfig = {
 	timeout?: number;
 	params?: { [key: string]: string | number | boolean };
 	httpAgent?: HttpAgent;
 	httpsAgent?: HttpsAgent;
-	proxy?: AxiosProxyConfig | false;
+	proxy?: ProxyConfig;
 }
 
 type ApiClientInitConfig = { organization: string, domain?: string, accessToken: string } & RequestConfig

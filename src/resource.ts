@@ -77,6 +77,9 @@ class ListResponse<R> extends Array<R> {
 	// hasPrevPage(): boolean { return (this.meta.currentPage > 1) }
 	// recordCount(): number { return this.meta.recordCount }
 	// pageCount(): number { return this.meta.pageCount }
+	// get metaInfo(): ListMeta { return this.meta }
+	// get recordCount(): number { return this.meta.recordCount }
+	// get pageCount(): number { return this.meta.pageCount }
 
 }
 
