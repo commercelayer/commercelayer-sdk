@@ -1,3 +1,10 @@
+# [4.3.0-beta.6](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.5...v4.3.0-beta.6) (2022-01-26)
+
+
+### Bug Fixes
+
+* **core:** fix dependencies ([621c251](https://github.com/commercelayer/commercelayer-sdk/commit/621c2512db9835ffdcb51fc2150bde67d862c5e8))
+
 # [4.3.0-beta.5](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.4...v4.3.0-beta.5) (2022-01-26)
 
 
