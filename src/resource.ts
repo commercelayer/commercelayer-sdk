@@ -5,7 +5,7 @@ import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from 
 import { ResourceTypeLock } from './api'
 import config from './config'
 import { InterceptorManager } from './interceptor'
-import { Value } from 'json-typescript'
+import type { Value } from 'json-typescript'
 
 import Debug from './debug'
 const debug = Debug()

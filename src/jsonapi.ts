@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Value } from 'json-typescript'
-import { DocWithData, Included, ResourceIdentifierObject, ResourceObject, AttributesObject, RelationshipsObject } from 'jsonapi-typescript'
+import type { Value } from 'json-typescript'
+import type { DocWithData, Included, ResourceIdentifierObject, ResourceObject, AttributesObject, RelationshipsObject } from 'jsonapi-typescript'
 import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource } from './resource'
 import { isResourceId, isResourceType } from './common'
 
