@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Value } from 'json-typescript'
-import type { DocWithData, Included, ResourceIdentifierObject, ResourceObject, AttributesObject, RelationshipsObject } from 'jsonapi-typescript'
+import type { Value as JSONValue } from 'json-typescript'
+import type { DocWithData, Included, ResourceIdentifierObject, ResourceObject as JSONAPIObject, AttributesObject, RelationshipsObject } from 'jsonapi-typescript'
 import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource } from './resource'
 import { isResourceId, isResourceType } from './common'
 
@@ -28,7 +28,7 @@ const denormalize = <R extends Resource>(response: DocWithData): R | R[] => {
 }
 
 
-const findIncluded = (rel: ResourceIdentifierObject, included: Included = []): ResourceObject | undefined => {
+const findIncluded = (rel: ResourceIdentifierObject, included: Included = []): JSONAPIObject | undefined => {
 	const inc = included.find(inc => {
 		return (rel.id === inc.id) && (rel.type === inc.type)
 	})
@@ -63,7 +63,7 @@ const denormalizeResource = <T extends ResourceType>(res: any, included?: Includ
 
 // NORMALIZATION
 
-const normalize = (resource: (ResourceCreate & ResourceType) | (ResourceUpdate & ResourceId)): ResourceObject => {
+const normalize = (resource: (ResourceCreate & ResourceType) | (ResourceUpdate & ResourceId)): JSONAPIObject => {
 
 	debug('normalize resource: %O', resource)
 
@@ -80,10 +80,10 @@ const normalize = (resource: (ResourceCreate & ResourceType) | (ResourceUpdate &
 		if (value && (isResourceId(value) || (Array.isArray(value) && isResourceId(value[0])))) {
 			relationships[field] = { data: value as ResourceIdentifierObject }
 		}
-		else attributes[field] = value as Value
+		else attributes[field] = value as JSONValue
 	}
 
-	const normalized: ResourceObject = {
+	const normalized: JSONAPIObject = {
 		type: resource.type,
 		attributes,
 		relationships
