@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, AxiosProxyConfig, Method } from 'axios'
-import type { DocWithData as JSONApiDocument, ResourceObject as JSONApiResource } from 'jsonapi-typescript'
+import type { DocWithData, ResourceObject } from 'jsonapi-typescript'
 import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
@@ -132,7 +132,7 @@ class ApiClient {
 	}
 
 
-	async request(method: Method, path: string, body?: JSONApiResource, options?: ApiClientConfig): Promise<JSONApiDocument> {
+	async request(method: Method, path: string, body?: ResourceObject, options?: ApiClientConfig): Promise<DocWithData> {
 
 		debug('request %s %s, %O, %O', method, path, body || {}, options || {})
 
