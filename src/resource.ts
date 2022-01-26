@@ -5,7 +5,6 @@ import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from 
 import { ResourceTypeLock } from './api'
 import config from './config'
 import { InterceptorManager } from './interceptor'
-import type { Value } from 'json-typescript'
 
 import Debug from './debug'
 const debug = Debug()
@@ -16,7 +15,8 @@ type ResourceNull = { id: null } & ResourceType
 type ResourceRel = ResourceId | ResourceNull
 
 
-type Metadata = { [key: string]: Value }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Metadata = { [key: string]: any }
 
 
 interface ResourceType {
