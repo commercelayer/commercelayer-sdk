@@ -50,7 +50,7 @@ class Captures extends ApiResource {
 	// static readonly PATH = 'captures'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
-		return this.resources.list({ type: Captures.TYPE }, params, options)
+		return this.resources.list<Capture>({ type: Captures.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
@@ -59,6 +59,18 @@ class Captures extends ApiResource {
 
 	async update(resource: CaptureUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.update({ ...resource, type: Captures.TYPE }, params, options)
+	}
+
+	async order(captureId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `captures/${captureId}/order`, params, options) as unknown as Order
+	}
+
+	async reference_authorization(captureId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
+		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `captures/${captureId}/reference_authorization`, params, options) as unknown as Authorization
+	}
+
+	async refunds(captureId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
+		return this.resources.fetch<Refund>({ type: 'refunds' }, `captures/${captureId}/refunds`, params, options) as unknown as ListResponse<Refund>
 	}
 
 

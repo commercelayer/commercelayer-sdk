@@ -45,7 +45,7 @@ class OrderCopies extends ApiResource {
 	// static readonly PATH = 'order_copies'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
-		return this.resources.list({ type: OrderCopies.TYPE }, params, options)
+		return this.resources.list<OrderCopy>({ type: OrderCopies.TYPE }, params, options)
 	}
 
 	async create(resource: OrderCopyCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {
@@ -59,7 +59,18 @@ class OrderCopies extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: OrderCopies.TYPE, id }, options)
 	}
-	
+
+	async source_order(orderCopyId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `order_copies/${orderCopyId}/source_order`, params, options) as unknown as Order
+	}
+
+	async target_order(orderCopyId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `order_copies/${orderCopyId}/target_order`, params, options) as unknown as Order
+	}
+
+	async order_subscription(orderCopyId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_copies/${orderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

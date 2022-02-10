@@ -25,7 +25,7 @@ describe('ExternalPayments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			payment_source_token: 'sigma_2',
+			payment_source_token: 'epsilon_96',
 			order: cl.orders.relationship(TestData.id),
 		}
 
@@ -149,4 +149,62 @@ describe('ExternalPayments resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.order', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { orders: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'order')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].order(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.payment_gateway', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_gateways: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'payment_gateway')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].payment_gateway(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.wallet', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { customer_payment_sources: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'wallet')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].wallet(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

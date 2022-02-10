@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 
 import apiSchema, { Resource, Operation, Component, Cardinality } from './schema'
-import fs from 'fs'
-import path from 'path'
-import _ from 'lodash'
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
+import { basename } from 'path'
+import { capitalize, snakeCase } from 'lodash'
 import { inspect } from 'util'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -28,10 +28,10 @@ const global: {
 
 const loadTemplates = (): void => {
 	const tplDir = './gen/templates'
-	const tplList = fs.readdirSync(tplDir, { encoding: 'utf-8' }).filter(f => f.endsWith('.tpl'))
+	const tplList = readdirSync(tplDir, { encoding: 'utf-8' }).filter(f => f.endsWith('.tpl'))
 	tplList.forEach(t => {
-		const tplName = path.basename(t).replace('.tpl', '')
-		const tpl = fs.readFileSync(`${tplDir}/${tplName}.tpl`, { encoding: 'utf-8' })
+		const tplName = basename(t).replace('.tpl', '')
+		const tpl = readFileSync(`${tplDir}/${tplName}.tpl`, { encoding: 'utf-8' })
 		templates[tplName] = tpl
 	})
 }
@@ -42,7 +42,7 @@ const generate = async (localSchema?: boolean) => {
 	console.log('>> Local schema: ' + (localSchema || false) + '\n')
 
 	const schemaPath = localSchema ? 'gen/openapi.json' : await apiSchema.download()
-	if (!fs.existsSync(schemaPath)) {
+	if (!existsSync(schemaPath)) {
 		console.log('Cannot find schema file: ' + schemaPath)
 		return
 	}
@@ -56,13 +56,13 @@ const generate = async (localSchema?: boolean) => {
 
 	// Initialize source dir
 	const resDir = 'src/resources'
-	if (fs.existsSync(resDir)) fs.rmSync(resDir, { recursive: true })
-	fs.mkdirSync(resDir, { recursive: true })
+	if (existsSync(resDir)) rmSync(resDir, { recursive: true })
+	mkdirSync(resDir, { recursive: true })
 
 	// Initialize test dir
 	const testDir = 'specs/resources'
-	if (fs.existsSync(testDir)) fs.rmSync(testDir, { recursive: true })
-	fs.mkdirSync(testDir, { recursive: true })
+	if (existsSync(testDir)) rmSync(testDir, { recursive: true })
+	mkdirSync(testDir, { recursive: true })
 
 
 	const resources: { [key: string]: ApiRes } = {}
@@ -72,11 +72,11 @@ const generate = async (localSchema?: boolean) => {
 		const name = Inflector.pluralize(Inflector.camelize(type)) as string
 
 		const tplRes = generateResource(type, name, res)
-		fs.writeFileSync(`${resDir}/${type}.ts`, tplRes)
+		writeFileSync(`${resDir}/${type}.ts`, tplRes)
 		console.log('Generated resource ' + name)
 
 		const tplSpec = generateSpec(type, name, res)
-		fs.writeFileSync(`${testDir}/${type}.spec.ts`, tplSpec)
+		writeFileSync(`${testDir}/${type}.spec.ts`, tplSpec)
 		console.log('Generated spec ' + name)
 
 		resources[type] = {
@@ -122,7 +122,7 @@ const tabsString = (num: number): string => {
 
 const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
-	const cl = fs.readFileSync('src/commercelayer.ts', { encoding: 'utf-8' })
+	const cl = readFileSync('src/commercelayer.ts', { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
 
@@ -173,7 +173,7 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 	// console.log(definitions)
 	// console.log(initializations)
 
-	fs.writeFileSync('src/commercelayer.ts', lines.join('\n'), { encoding: 'utf-8' })
+	writeFileSync('src/commercelayer.ts', lines.join('\n'), { encoding: 'utf-8' })
 
 	console.log('API interfaces generated.')
 
@@ -182,7 +182,7 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 
-	const cl = fs.readFileSync('src/model.ts', { encoding: 'utf-8' })
+	const cl = readFileSync('src/model.ts', { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
 
@@ -207,7 +207,7 @@ const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 	lines.splice(expStartIdx, expStopIdx - expStartIdx, ...exports)
 
 
-	fs.writeFileSync('src/model.ts', lines.join('\n'), { encoding: 'utf-8' })
+	writeFileSync('src/model.ts', lines.join('\n'), { encoding: 'utf-8' })
 
 	console.log('Model types generated.')
 
@@ -216,7 +216,7 @@ const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 
 const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 
-	const cl = fs.readFileSync('src/api.ts', { encoding: 'utf-8' })
+	const cl = readFileSync('src/api.ts', { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
 
@@ -257,7 +257,7 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	*/
 
 
-	fs.writeFileSync('src/api.ts', lines.join('\n'), { encoding: 'utf-8' })
+	writeFileSync('src/api.ts', lines.join('\n'), { encoding: 'utf-8' })
 
 	console.log('API resources generated.')
 
@@ -308,6 +308,8 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 	const lines = spec.split('\n')
 
 	const allOperations = ['list', 'create', 'retrieve', 'update', 'delete', 'singleton']
+
+	// Generate CRUD operations specs
 	allOperations.forEach(op => {
 		if (!Object.values(resource.operations).map(o => {
 			if ((o.name === 'list') && o.singleton) return 'singleton'
@@ -321,11 +323,27 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	spec = lines.join('\n')
 
+	// Generate relationships operations specs
+	Object.keys(resource.operations).filter(o => !allOperations.includes(o)).forEach(o => {
+		const op = resource.operations[o]
+		if (op.relationship) {
+
+			let specRel = templates.spec_relationship.split('\n').join('\n\t')
+
+			specRel = specRel.replace(/##__OPERATION_NAME__##/g, op.name)
+			specRel = specRel.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
+			console.log(specRel)
+			spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '\n\n\t' + specRel + '\n\t##__RELATIONSHIP_SPECS__##')
+
+		}
+	})
+
 	// Header
 	spec = copyrightHeader(spec)
 
 	spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
 	spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
+	spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '')
 
 	if (resource.operations.create) {
 
@@ -386,8 +404,8 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 	const resName = name
 
-	const types: Set<string> = new Set()
-	const imports: Set<string> = new Set()
+	const declaredTypes: Set<string> = new Set()
+	const declaredImports: Set<string> = new Set()
 
 	// Header
 	res = copyrightHeader(res)
@@ -400,14 +418,20 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		const tpl = op.singleton ? templates['singleton'] : templates[opName]
 		if (tpl) {
 			if (['retrieve', 'list'].includes(opName)) {
-				qryMod.push('QueryParams' + _.capitalize(op.singleton ? 'retrieve' : opName))
+				qryMod.push('QueryParams' + capitalize(op.singleton ? 'retrieve' : opName))
 				if ((opName === 'list') && !op.singleton) resMod.push('ListResponse')
 			}
 			const tplOp = templatedOperation(resName, opName, op, tpl)
 			operations.push(tplOp.operation)
-			tplOp.types.forEach(t => { types.add(t) })
+			tplOp.types.forEach(t => { declaredTypes.add(t) })
 		}
-		else console.log('Unknown operation: ' + opName)
+		else {
+			if (op.relationship) {
+				const tplr = templates[`relationship_${op.relationship.cardinality.replace('to_', '')}`]
+				const tplrOp = templatedOperation('', opName, op, tplr)
+				operations.push(tplrOp.operation)
+			} else console.log('Unknown operation: ' + opName)
+		}
 	})
 	res = res.replace(/##__QUERY_MODELS__##/g, qryMod.join(', '))
 	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.length > 0) ? `, ${resMod.join(', ')}`: '')
@@ -420,18 +444,19 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	if (operations && (operations.length > 0)) res = res.replace(/##__RESOURCE_OPERATIONS__##/g, operations.join('\n\n\t'))
 
 	// Interfaces export
-	const typesArray = Array.from(types)
+	const typesArray = Array.from(declaredTypes)
 	res = res.replace(/##__EXPORT_RESOURCE_TYPES__##/g, typesArray.join(', '))
 
 	// Interfaces definition
 	const modIntf: string[] = []
 	const resIntf: string[] = []
 	const relTypes: Set<string> = new Set()
+
 	typesArray.forEach(t => {
 		const cudSuffix = getCUDSuffix(t)
 		resIntf.push(`Resource${cudSuffix}`)
 		const tplCmp = templatedComponent(resName, t, resource.components[t])
-		tplCmp.models.forEach(m => imports.add(m))
+		tplCmp.models.forEach(m => declaredImports.add(m))
 		modIntf.push(tplCmp.component)
 		if (cudSuffix) tplCmp.models.forEach(t => relTypes.add(t))
 	})
@@ -440,13 +465,13 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 
 	// Relationships definition
-	const relTypesArray = Array.from(relTypes).map(i => `type ${i}Rel = ResourceRel & { type: '${_.snakeCase(Inflector.pluralize(i))}' }`)
+	const relTypesArray = Array.from(relTypes).map(i => `type ${i}Rel = ResourceRel & { type: '${snakeCase(Inflector.pluralize(i))}' }`)
 	res = res.replace(/##__RELATIONSHIP_TYPES__##/g, relTypesArray.length ? (relTypesArray.join('\n') + '\n') : '')
 
 	// Resources import
-	const impResMod: string[] = Array.from(imports)
+	const impResMod: string[] = Array.from(declaredImports)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import { ${i} } from './${_.snakeCase(Inflector.pluralize(i))}'`)
+		.map(i => `import { ${i} } from './${snakeCase(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
@@ -466,13 +491,18 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 
 	if (op.requestType) {
 		const requestType = op.requestType
-		operation = operation.replace(/##__RESOURCE_REQUEST_TYPE__##/g, requestType)
-		types.push(requestType)
+		operation = operation.replace(/##__RESOURCE_REQUEST_CLASS__##/g, requestType)
+		if (!types.includes(requestType)) types.push(requestType)
 	}
 	if (op.responseType || ['list', 'update', 'create'].includes(name)) {
 		const responseType = op.responseType ? op.responseType : Inflector.singularize(res)
-		operation = operation.replace(/##__RESOURCE_RESPONSE_TYPE__##/g, responseType)
-		types.push(responseType)
+		operation = operation.replace(/##__RESOURCE_RESPONSE_CLASS__##/g, responseType)
+		if (!types.includes(responseType)) types.push(responseType)
+	}
+	if (op.relationship) {
+		operation = operation.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
+		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{', '${'))
+		operation = operation.replace(/##__RESOURCE_ID__##/g, op.id || 'id')
 	}
 
 	operation = operation.replace(/\n/g, '\n\t')

@@ -25,8 +25,8 @@ describe('CheckoutComPayments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			payment_type: 'epsilon_80',
-			token: 'epsilon_3',
+			payment_type: 'kappa_2',
+			token: 'delta_34',
 			order: cl.orders.relationship(TestData.id),
 		}
 
@@ -150,4 +150,43 @@ describe('CheckoutComPayments resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.order', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { orders: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'order')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].order(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.payment_gateway', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_gateways: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'payment_gateway')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].payment_gateway(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

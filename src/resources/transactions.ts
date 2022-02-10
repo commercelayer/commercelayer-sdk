@@ -32,11 +32,15 @@ class Transactions extends ApiResource {
 	// static readonly PATH = 'transactions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Transaction>> {
-		return this.resources.list({ type: Transactions.TYPE }, params, options)
+		return this.resources.list<Transaction>({ type: Transactions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Transaction> {
 		return this.resources.retrieve<Transaction>({ type: Transactions.TYPE, id }, params, options)
+	}
+
+	async order(transactionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `transactions/${transactionId}/order`, params, options) as unknown as Order
 	}
 
 

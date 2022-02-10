@@ -47,7 +47,7 @@ class StripePayments extends ApiResource {
 	// static readonly PATH = 'stripe_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
-		return this.resources.list({ type: StripePayments.TYPE }, params, options)
+		return this.resources.list<StripePayment>({ type: StripePayments.TYPE }, params, options)
 	}
 
 	async create(resource: StripePaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {
@@ -65,7 +65,14 @@ class StripePayments extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: StripePayments.TYPE, id }, options)
 	}
-	
+
+	async order(stripePaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `stripe_payments/${stripePaymentId}/order`, params, options) as unknown as Order
+	}
+
+	async payment_gateway(stripePaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `stripe_payments/${stripePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

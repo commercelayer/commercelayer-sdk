@@ -25,7 +25,7 @@ describe('ExternalGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_31',
+			name: 'epsilon_46',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -148,4 +148,43 @@ describe('ExternalGateways resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.payment_methods', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'payment_methods')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].payment_methods(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.external_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { external_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'external_payments')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].external_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

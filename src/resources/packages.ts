@@ -60,7 +60,7 @@ class Packages extends ApiResource {
 	// static readonly PATH = 'packages'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Package>> {
-		return this.resources.list({ type: Packages.TYPE }, params, options)
+		return this.resources.list<Package>({ type: Packages.TYPE }, params, options)
 	}
 
 	async create(resource: PackageCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
@@ -78,7 +78,18 @@ class Packages extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Packages.TYPE, id }, options)
 	}
-	
+
+	async stock_location(packageId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `packages/${packageId}/stock_location`, params, options) as unknown as StockLocation
+	}
+
+	async parcels(packageId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
+		return this.resources.fetch<Parcel>({ type: 'parcels' }, `packages/${packageId}/parcels`, params, options) as unknown as ListResponse<Parcel>
+	}
+
+	async attachments(packageId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `packages/${packageId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

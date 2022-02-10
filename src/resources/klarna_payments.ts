@@ -45,7 +45,7 @@ class KlarnaPayments extends ApiResource {
 	// static readonly PATH = 'klarna_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
-		return this.resources.list({ type: KlarnaPayments.TYPE }, params, options)
+		return this.resources.list<KlarnaPayment>({ type: KlarnaPayments.TYPE }, params, options)
 	}
 
 	async create(resource: KlarnaPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
@@ -63,7 +63,14 @@ class KlarnaPayments extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: KlarnaPayments.TYPE, id }, options)
 	}
-	
+
+	async order(klarnaPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `klarna_payments/${klarnaPaymentId}/order`, params, options) as unknown as Order
+	}
+
+	async payment_gateway(klarnaPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `klarna_payments/${klarnaPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

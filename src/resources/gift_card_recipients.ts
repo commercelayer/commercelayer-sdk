@@ -49,7 +49,7 @@ class GiftCardRecipients extends ApiResource {
 	// static readonly PATH = 'gift_card_recipients'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GiftCardRecipient>> {
-		return this.resources.list({ type: GiftCardRecipients.TYPE }, params, options)
+		return this.resources.list<GiftCardRecipient>({ type: GiftCardRecipients.TYPE }, params, options)
 	}
 
 	async create(resource: GiftCardRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
@@ -67,7 +67,14 @@ class GiftCardRecipients extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: GiftCardRecipients.TYPE, id }, options)
 	}
-	
+
+	async customer(giftCardRecipientId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.fetch<Customer>({ type: 'customers' }, `gift_card_recipients/${giftCardRecipientId}/customer`, params, options) as unknown as Customer
+	}
+
+	async attachments(giftCardRecipientId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `gift_card_recipients/${giftCardRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

@@ -25,8 +25,8 @@ describe('InventoryModels resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'sigma_9',
-			strategy: 'lambda_0',
+			name: 'kappa_4',
+			strategy: 'gamma_51',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -149,4 +149,62 @@ describe('InventoryModels resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.inventory_stock_locations', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { inventory_stock_locations: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'inventory_stock_locations')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].inventory_stock_locations(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.inventory_return_locations', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { inventory_return_locations: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'inventory_return_locations')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].inventory_return_locations(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

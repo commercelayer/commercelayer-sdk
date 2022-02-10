@@ -148,4 +148,5 @@ describe('OrderAmountPromotionRules resource', () => {
   })
   /* spec.type.stop */
 
+  
 })

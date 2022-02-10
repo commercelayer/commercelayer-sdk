@@ -41,7 +41,7 @@ class Adjustments extends ApiResource {
 	// static readonly PATH = 'adjustments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Adjustment>> {
-		return this.resources.list({ type: Adjustments.TYPE }, params, options)
+		return this.resources.list<Adjustment>({ type: Adjustments.TYPE }, params, options)
 	}
 
 	async create(resource: AdjustmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {
@@ -59,7 +59,6 @@ class Adjustments extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Adjustments.TYPE, id }, options)
 	}
-	
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

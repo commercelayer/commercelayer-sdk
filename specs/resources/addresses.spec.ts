@@ -25,11 +25,11 @@ describe('Addresses resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			line_1: 'omega_68',
-			city: 'epsilon_22',
-			state_code: 'kappa_82',
-			country_code: 'sigma_69',
-			phone: 'alfa_10',
+			line_1: 'gamma_69',
+			city: 'alfa_29',
+			state_code: 'lambda_32',
+			country_code: 'lambda_65',
+			phone: 'beta_0',
 			geocoder: cl.geocoders.relationship(TestData.id),
 		}
 
@@ -153,4 +153,24 @@ describe('Addresses resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.geocoder', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { geocoders: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'geocoder')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].geocoder(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

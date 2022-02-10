@@ -25,8 +25,8 @@ describe('Webhooks resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			topic: 'alfa_57',
-			callback_url: 'alfa_45',
+			topic: 'beta_43',
+			callback_url: 'kappa_44',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -149,4 +149,24 @@ describe('Webhooks resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.last_event_callbacks', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_callbacks: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'last_event_callbacks')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].last_event_callbacks(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

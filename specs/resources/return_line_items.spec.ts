@@ -25,7 +25,7 @@ describe('ReturnLineItems resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 1000,
+			quantity: 0,
 			return: cl.returns.relationship(TestData.id),
 			line_item: cl.line_items.relationship(TestData.id),
 		}
@@ -150,4 +150,43 @@ describe('ReturnLineItems resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.return', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { returns: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'return')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].return(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.line_item', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { line_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'line_item')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].line_item(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

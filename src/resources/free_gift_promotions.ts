@@ -87,7 +87,7 @@ class FreeGiftPromotions extends ApiResource {
 	// static readonly PATH = 'free_gift_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FreeGiftPromotion>> {
-		return this.resources.list({ type: FreeGiftPromotions.TYPE }, params, options)
+		return this.resources.list<FreeGiftPromotion>({ type: FreeGiftPromotions.TYPE }, params, options)
 	}
 
 	async create(resource: FreeGiftPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeGiftPromotion> {
@@ -105,7 +105,34 @@ class FreeGiftPromotions extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: FreeGiftPromotions.TYPE, id }, options)
 	}
-	
+
+	async market(freeGiftPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `free_gift_promotions/${freeGiftPromotionId}/market`, params, options) as unknown as Market
+	}
+
+	async order_amount_promotion_rule(freeGiftPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
+		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `free_gift_promotions/${freeGiftPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
+	}
+
+	async sku_list_promotion_rule(freeGiftPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
+		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `free_gift_promotions/${freeGiftPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
+	}
+
+	async coupon_codes_promotion_rule(freeGiftPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
+		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `free_gift_promotions/${freeGiftPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	}
+
+	async attachments(freeGiftPromotionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `free_gift_promotions/${freeGiftPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async sku_list(freeGiftPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `free_gift_promotions/${freeGiftPromotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async skus(freeGiftPromotionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `free_gift_promotions/${freeGiftPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

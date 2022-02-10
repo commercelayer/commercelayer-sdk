@@ -67,7 +67,7 @@ class StockTransfers extends ApiResource {
 	// static readonly PATH = 'stock_transfers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
-		return this.resources.list({ type: StockTransfers.TYPE }, params, options)
+		return this.resources.list<StockTransfer>({ type: StockTransfers.TYPE }, params, options)
 	}
 
 	async create(resource: StockTransferCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
@@ -85,7 +85,26 @@ class StockTransfers extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: StockTransfers.TYPE, id }, options)
 	}
-	
+
+	async sku(stockTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_transfers/${stockTransferId}/sku`, params, options) as unknown as Sku
+	}
+
+	async origin_stock_location(stockTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_transfers/${stockTransferId}/origin_stock_location`, params, options) as unknown as StockLocation
+	}
+
+	async destination_stock_location(stockTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_transfers/${stockTransferId}/destination_stock_location`, params, options) as unknown as StockLocation
+	}
+
+	async shipment(stockTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.fetch<Shipment>({ type: 'shipments' }, `stock_transfers/${stockTransferId}/shipment`, params, options) as unknown as Shipment
+	}
+
+	async line_item(stockTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_transfers/${stockTransferId}/line_item`, params, options) as unknown as LineItem
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

@@ -25,7 +25,7 @@ describe('TaxRules resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_77',
+			name: 'delta_14',
 			manual_tax_calculator: cl.manual_tax_calculators.relationship(TestData.id),
 		}
 
@@ -149,4 +149,24 @@ describe('TaxRules resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.manual_tax_calculator', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { manual_tax_calculators: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'manual_tax_calculator')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].manual_tax_calculator(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

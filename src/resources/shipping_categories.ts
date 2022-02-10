@@ -38,7 +38,7 @@ class ShippingCategories extends ApiResource {
 	// static readonly PATH = 'shipping_categories'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingCategory>> {
-		return this.resources.list({ type: ShippingCategories.TYPE }, params, options)
+		return this.resources.list<ShippingCategory>({ type: ShippingCategories.TYPE }, params, options)
 	}
 
 	async create(resource: ShippingCategoryCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
@@ -56,7 +56,14 @@ class ShippingCategories extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ShippingCategories.TYPE, id }, options)
 	}
-	
+
+	async skus(shippingCategoryId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `shipping_categories/${shippingCategoryId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async attachments(shippingCategoryId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_categories/${shippingCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

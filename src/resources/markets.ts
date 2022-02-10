@@ -74,7 +74,7 @@ class Markets extends ApiResource {
 	// static readonly PATH = 'markets'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		return this.resources.list({ type: Markets.TYPE }, params, options)
+		return this.resources.list<Market>({ type: Markets.TYPE }, params, options)
 	}
 
 	async create(resource: MarketCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -92,7 +92,30 @@ class Markets extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Markets.TYPE, id }, options)
 	}
-	
+
+	async merchant(marketId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
+		return this.resources.fetch<Merchant>({ type: 'merchants' }, `markets/${marketId}/merchant`, params, options) as unknown as Merchant
+	}
+
+	async price_list(marketId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
+		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `markets/${marketId}/price_list`, params, options) as unknown as PriceList
+	}
+
+	async inventory_model(marketId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
+		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `markets/${marketId}/inventory_model`, params, options) as unknown as InventoryModel
+	}
+
+	async tax_calculator(marketId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCalculator> {
+		return this.resources.fetch<TaxCalculator>({ type: 'tax_calculators' }, `markets/${marketId}/tax_calculator`, params, options) as unknown as TaxCalculator
+	}
+
+	async customer_group(marketId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
+		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `markets/${marketId}/customer_group`, params, options) as unknown as CustomerGroup
+	}
+
+	async attachments(marketId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `markets/${marketId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

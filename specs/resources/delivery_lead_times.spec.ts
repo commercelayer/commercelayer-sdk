@@ -25,8 +25,8 @@ describe('DeliveryLeadTimes resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			min_hours: 1,
-			max_hours: 100,
+			min_hours: 5,
+			max_hours: 12345,
 			stock_location: cl.stock_locations.relationship(TestData.id),
 			shipping_method: cl.shipping_methods.relationship(TestData.id),
 		}
@@ -151,4 +151,62 @@ describe('DeliveryLeadTimes resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.stock_location', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stock_locations: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'stock_location')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stock_location(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.shipping_method', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { shipping_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'shipping_method')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].shipping_method(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

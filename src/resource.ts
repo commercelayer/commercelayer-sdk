@@ -7,6 +7,7 @@ import config from './config'
 import { InterceptorManager } from './interceptor'
 
 import Debug from './debug'
+import { QueryParams } from '.'
 const debug = Debug()
 
 
@@ -215,6 +216,31 @@ class ResourceAdapter {
 	async delete(resource: ResourceId, options?: ResourcesConfig): Promise<void> {
 		debug('delete: %o, %O', resource, options || {})
 		await this.#client.request('delete', `${resource.type}/${resource.id}`, undefined, options)
+	}
+
+
+	async fetch<R extends Resource>(resource: ResourceType, path: string, params?: QueryParams, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
+
+		debug('fetch: %o, %O, %O', path, params || {}, options || {})
+
+		const queryParams = generateQueryStringParams(params, resource)
+		if (options?.params) Object.assign(queryParams, options?.params)
+
+		const res = await this.#client.request('get', path, undefined, { ...options, params: queryParams })
+		const r = denormalize<R>(res)
+
+		if (Array.isArray(r)) {
+			const p = params as QueryParamsList
+			const meta: ListMeta = {
+				pageCount: Number(res.meta?.page_count),
+				recordCount: Number(res.meta?.record_count),
+				currentPage: p?.pageNumber || config.default.pageNumber,
+				recordsPerPage: p?.pageSize || config.default.pageSize
+			}
+			return new ListResponse(meta, r)
+		}
+		else return r
+
 	}
 
 }

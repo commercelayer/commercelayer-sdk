@@ -72,7 +72,7 @@ class ShippingMethods extends ApiResource {
 	// static readonly PATH = 'shipping_methods'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingMethod>> {
-		return this.resources.list({ type: ShippingMethods.TYPE }, params, options)
+		return this.resources.list<ShippingMethod>({ type: ShippingMethods.TYPE }, params, options)
 	}
 
 	async create(resource: ShippingMethodCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
@@ -90,7 +90,26 @@ class ShippingMethods extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ShippingMethods.TYPE, id }, options)
 	}
-	
+
+	async market(shippingMethodId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `shipping_methods/${shippingMethodId}/market`, params, options) as unknown as Market
+	}
+
+	async shipping_zone(shippingMethodId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
+		return this.resources.fetch<ShippingZone>({ type: 'shipping_zones' }, `shipping_methods/${shippingMethodId}/shipping_zone`, params, options) as unknown as ShippingZone
+	}
+
+	async shipping_category(shippingMethodId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `shipping_methods/${shippingMethodId}/shipping_category`, params, options) as unknown as ShippingCategory
+	}
+
+	async delivery_lead_time_for_shipment(shippingMethodId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
+		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `shipping_methods/${shippingMethodId}/delivery_lead_time_for_shipment`, params, options) as unknown as DeliveryLeadTime
+	}
+
+	async attachments(shippingMethodId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_methods/${shippingMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

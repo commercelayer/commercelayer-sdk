@@ -47,7 +47,7 @@ class TaxjarAccounts extends ApiResource {
 	// static readonly PATH = 'taxjar_accounts'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxjarAccount>> {
-		return this.resources.list({ type: TaxjarAccounts.TYPE }, params, options)
+		return this.resources.list<TaxjarAccount>({ type: TaxjarAccounts.TYPE }, params, options)
 	}
 
 	async create(resource: TaxjarAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
@@ -65,7 +65,18 @@ class TaxjarAccounts extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: TaxjarAccounts.TYPE, id }, options)
 	}
-	
+
+	async tax_categories(taxjarAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
+		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `taxjar_accounts/${taxjarAccountId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
+	}
+
+	async markets(taxjarAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `taxjar_accounts/${taxjarAccountId}/markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async attachments(taxjarAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `taxjar_accounts/${taxjarAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

@@ -66,7 +66,7 @@ class OrderSubscriptions extends ApiResource {
 	// static readonly PATH = 'order_subscriptions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
-		return this.resources.list({ type: OrderSubscriptions.TYPE }, params, options)
+		return this.resources.list<OrderSubscription>({ type: OrderSubscriptions.TYPE }, params, options)
 	}
 
 	async create(resource: OrderSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
@@ -84,7 +84,26 @@ class OrderSubscriptions extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: OrderSubscriptions.TYPE, id }, options)
 	}
-	
+
+	async market(orderSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `order_subscriptions/${orderSubscriptionId}/market`, params, options) as unknown as Market
+	}
+
+	async source_order(orderSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `order_subscriptions/${orderSubscriptionId}/source_order`, params, options) as unknown as Order
+	}
+
+	async customer(orderSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.fetch<Customer>({ type: 'customers' }, `order_subscriptions/${orderSubscriptionId}/customer`, params, options) as unknown as Customer
+	}
+
+	async order_copies(orderSubscriptionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
+		return this.resources.fetch<OrderCopy>({ type: 'order_copies' }, `order_subscriptions/${orderSubscriptionId}/order_copies`, params, options) as unknown as ListResponse<OrderCopy>
+	}
+
+	async orders(orderSubscriptionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `order_subscriptions/${orderSubscriptionId}/orders`, params, options) as unknown as ListResponse<Order>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

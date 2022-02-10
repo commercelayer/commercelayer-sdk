@@ -75,7 +75,7 @@ class TaxRules extends ApiResource {
 	// static readonly PATH = 'tax_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxRule>> {
-		return this.resources.list({ type: TaxRules.TYPE }, params, options)
+		return this.resources.list<TaxRule>({ type: TaxRules.TYPE }, params, options)
 	}
 
 	async create(resource: TaxRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
@@ -93,7 +93,10 @@ class TaxRules extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: TaxRules.TYPE, id }, options)
 	}
-	
+
+	async manual_tax_calculator(taxRuleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
+		return this.resources.fetch<ManualTaxCalculator>({ type: 'manual_tax_calculators' }, `tax_rules/${taxRuleId}/manual_tax_calculator`, params, options) as unknown as ManualTaxCalculator
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

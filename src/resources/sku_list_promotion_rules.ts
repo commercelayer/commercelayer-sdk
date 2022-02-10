@@ -61,7 +61,7 @@ class SkuListPromotionRules extends ApiResource {
 	// static readonly PATH = 'sku_list_promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuListPromotionRule>> {
-		return this.resources.list({ type: SkuListPromotionRules.TYPE }, params, options)
+		return this.resources.list<SkuListPromotionRule>({ type: SkuListPromotionRules.TYPE }, params, options)
 	}
 
 	async create(resource: SkuListPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
@@ -79,7 +79,14 @@ class SkuListPromotionRules extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: SkuListPromotionRules.TYPE, id }, options)
 	}
-	
+
+	async sku_list(skuListPromotionRuleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_promotion_rules/${skuListPromotionRuleId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async skus(skuListPromotionRuleId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_promotion_rules/${skuListPromotionRuleId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

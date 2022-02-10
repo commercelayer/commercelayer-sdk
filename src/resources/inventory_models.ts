@@ -46,7 +46,7 @@ class InventoryModels extends ApiResource {
 	// static readonly PATH = 'inventory_models'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryModel>> {
-		return this.resources.list({ type: InventoryModels.TYPE }, params, options)
+		return this.resources.list<InventoryModel>({ type: InventoryModels.TYPE }, params, options)
 	}
 
 	async create(resource: InventoryModelCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
@@ -64,7 +64,18 @@ class InventoryModels extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: InventoryModels.TYPE, id }, options)
 	}
-	
+
+	async inventory_stock_locations(inventoryModelId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
+		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `inventory_models/${inventoryModelId}/inventory_stock_locations`, params, options) as unknown as ListResponse<InventoryStockLocation>
+	}
+
+	async inventory_return_locations(inventoryModelId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
+		return this.resources.fetch<InventoryReturnLocation>({ type: 'inventory_return_locations' }, `inventory_models/${inventoryModelId}/inventory_return_locations`, params, options) as unknown as ListResponse<InventoryReturnLocation>
+	}
+
+	async attachments(inventoryModelId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `inventory_models/${inventoryModelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

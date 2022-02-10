@@ -39,7 +39,7 @@ class ManualGateways extends ApiResource {
 	// static readonly PATH = 'manual_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ManualGateway>> {
-		return this.resources.list({ type: ManualGateways.TYPE }, params, options)
+		return this.resources.list<ManualGateway>({ type: ManualGateways.TYPE }, params, options)
 	}
 
 	async create(resource: ManualGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
@@ -57,7 +57,10 @@ class ManualGateways extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ManualGateways.TYPE, id }, options)
 	}
-	
+
+	async payment_methods(manualGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `manual_gateways/${manualGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

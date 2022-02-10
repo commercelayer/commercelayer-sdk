@@ -25,10 +25,10 @@ describe('AdyenGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'epsilon_33',
-			merchant_account: 'delta_20',
-			api_key: 'gamma_82',
-			live_url_prefix: 'lambda_10',
+			name: 'sigma_9',
+			merchant_account: 'lambda_28',
+			api_key: 'lambda_97',
+			live_url_prefix: 'epsilon_20',
 			adyen_payments: [ cl.adyen_payments.relationship(TestData.id) ],
 		}
 
@@ -152,4 +152,43 @@ describe('AdyenGateways resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.payment_methods', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'payment_methods')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].payment_methods(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.adyen_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { adyen_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'adyen_payments')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].adyen_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

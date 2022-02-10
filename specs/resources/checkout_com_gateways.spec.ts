@@ -25,9 +25,9 @@ describe('CheckoutComGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_57',
-			secret_key: 'sigma_37',
-			public_key: 'kappa_58',
+			name: 'delta_96',
+			secret_key: 'gamma_62',
+			public_key: 'lambda_62',
 			checkout_com_payments: [ cl.checkout_com_payments.relationship(TestData.id) ],
 		}
 
@@ -151,4 +151,43 @@ describe('CheckoutComGateways resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.payment_methods', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'payment_methods')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].payment_methods(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.checkout_com_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { checkout_com_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'checkout_com_payments')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].checkout_com_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

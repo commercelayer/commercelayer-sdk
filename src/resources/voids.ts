@@ -34,11 +34,19 @@ class Voids extends ApiResource {
 	// static readonly PATH = 'voids'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
-		return this.resources.list({ type: Voids.TYPE }, params, options)
+		return this.resources.list<Void>({ type: Voids.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Void> {
 		return this.resources.retrieve<Void>({ type: Voids.TYPE, id }, params, options)
+	}
+
+	async order(voidId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `voids/${voidId}/order`, params, options) as unknown as Order
+	}
+
+	async reference_authorization(voidId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
+		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `voids/${voidId}/reference_authorization`, params, options) as unknown as Authorization
 	}
 
 

@@ -49,7 +49,7 @@ class SkuListItems extends ApiResource {
 	// static readonly PATH = 'sku_list_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuListItem>> {
-		return this.resources.list({ type: SkuListItems.TYPE }, params, options)
+		return this.resources.list<SkuListItem>({ type: SkuListItems.TYPE }, params, options)
 	}
 
 	async create(resource: SkuListItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListItem> {
@@ -67,7 +67,14 @@ class SkuListItems extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: SkuListItems.TYPE, id }, options)
 	}
-	
+
+	async sku_list(skuListItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_items/${skuListItemId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async sku(skuListItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_items/${skuListItemId}/sku`, params, options) as unknown as Sku
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

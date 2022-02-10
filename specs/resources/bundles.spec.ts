@@ -25,10 +25,10 @@ describe('Bundles resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			code: 'kappa_58',
-			name: 'beta_4',
-			price_amount_cents: 55,
-			compare_at_amount_cents: 1,
+			code: 'delta_90',
+			name: 'omega_39',
+			price_amount_cents: 0,
+			compare_at_amount_cents: 555,
 			market: cl.markets.relationship(TestData.id),
 			sku_list: cl.sku_lists.relationship(TestData.id),
 		}
@@ -153,4 +153,81 @@ describe('Bundles resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.market', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { markets: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'market')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].market(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.sku_list', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { sku_lists: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'sku_list')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku_list(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.skus', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { skus: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'skus')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].skus(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

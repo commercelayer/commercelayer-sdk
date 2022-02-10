@@ -25,7 +25,7 @@ describe('SkuLists resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_10',
+			name: 'gamma_25',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -148,4 +148,62 @@ describe('SkuLists resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.skus', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { skus: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'skus')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].skus(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.sku_list_items', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { sku_list_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'sku_list_items')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku_list_items(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.bundles', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { bundles: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'bundles')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].bundles(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

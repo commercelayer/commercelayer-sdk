@@ -25,11 +25,15 @@ class EventCallbacks extends ApiResource {
 	// static readonly PATH = 'event_callbacks'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
-		return this.resources.list({ type: EventCallbacks.TYPE }, params, options)
+		return this.resources.list<EventCallback>({ type: EventCallbacks.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<EventCallback> {
 		return this.resources.retrieve<EventCallback>({ type: EventCallbacks.TYPE, id }, params, options)
+	}
+
+	async webhook(eventCallbackId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+		return this.resources.fetch<Webhook>({ type: 'webhooks' }, `event_callbacks/${eventCallbackId}/webhook`, params, options) as unknown as Webhook
 	}
 
 

@@ -22,11 +22,15 @@ class PaymentGateways extends ApiResource {
 	// static readonly PATH = 'payment_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentGateway>> {
-		return this.resources.list({ type: PaymentGateways.TYPE }, params, options)
+		return this.resources.list<PaymentGateway>({ type: PaymentGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		return this.resources.retrieve<PaymentGateway>({ type: PaymentGateways.TYPE, id }, params, options)
+	}
+
+	async payment_methods(paymentGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `payment_gateways/${paymentGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
 

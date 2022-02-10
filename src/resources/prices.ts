@@ -59,7 +59,7 @@ class Prices extends ApiResource {
 	// static readonly PATH = 'prices'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Price>> {
-		return this.resources.list({ type: Prices.TYPE }, params, options)
+		return this.resources.list<Price>({ type: Prices.TYPE }, params, options)
 	}
 
 	async create(resource: PriceCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
@@ -77,7 +77,18 @@ class Prices extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Prices.TYPE, id }, options)
 	}
-	
+
+	async price_list(priceId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
+		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `prices/${priceId}/price_list`, params, options) as unknown as PriceList
+	}
+
+	async sku(priceId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `prices/${priceId}/sku`, params, options) as unknown as Sku
+	}
+
+	async attachments(priceId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `prices/${priceId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

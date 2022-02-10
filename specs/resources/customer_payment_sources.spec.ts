@@ -149,4 +149,24 @@ describe('CustomerPaymentSources resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.customer', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { customers: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'customer')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].customer(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

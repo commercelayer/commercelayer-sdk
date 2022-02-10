@@ -44,7 +44,7 @@ class PaypalGateways extends ApiResource {
 	// static readonly PATH = 'paypal_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalGateway>> {
-		return this.resources.list({ type: PaypalGateways.TYPE }, params, options)
+		return this.resources.list<PaypalGateway>({ type: PaypalGateways.TYPE }, params, options)
 	}
 
 	async create(resource: PaypalGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalGateway> {
@@ -62,7 +62,14 @@ class PaypalGateways extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: PaypalGateways.TYPE, id }, options)
 	}
-	
+
+	async payment_methods(paypalGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `paypal_gateways/${paypalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
+
+	async paypal_payments(paypalGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
+		return this.resources.fetch<PaypalPayment>({ type: 'paypal_payments' }, `paypal_gateways/${paypalGatewayId}/paypal_payments`, params, options) as unknown as ListResponse<PaypalPayment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

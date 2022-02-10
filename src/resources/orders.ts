@@ -240,7 +240,7 @@ class Orders extends ApiResource {
 	// static readonly PATH = 'orders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
-		return this.resources.list({ type: Orders.TYPE }, params, options)
+		return this.resources.list<Order>({ type: Orders.TYPE }, params, options)
 	}
 
 	async create(resource: OrderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -258,7 +258,70 @@ class Orders extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Orders.TYPE, id }, options)
 	}
-	
+
+	async market(orderId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `orders/${orderId}/market`, params, options) as unknown as Market
+	}
+
+	async customer(orderId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.fetch<Customer>({ type: 'customers' }, `orders/${orderId}/customer`, params, options) as unknown as Customer
+	}
+
+	async shipping_address(orderId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+		return this.resources.fetch<Address>({ type: 'addresses' }, `orders/${orderId}/shipping_address`, params, options) as unknown as Address
+	}
+
+	async billing_address(orderId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+		return this.resources.fetch<Address>({ type: 'addresses' }, `orders/${orderId}/billing_address`, params, options) as unknown as Address
+	}
+
+	async available_payment_methods(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `orders/${orderId}/available_payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
+
+	async available_customer_payment_sources(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
+		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `orders/${orderId}/available_customer_payment_sources`, params, options) as unknown as ListResponse<CustomerPaymentSource>
+	}
+
+	async payment_method(orderId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `orders/${orderId}/payment_method`, params, options) as unknown as PaymentMethod
+	}
+
+	async line_items(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `orders/${orderId}/line_items`, params, options) as unknown as ListResponse<LineItem>
+	}
+
+	async shipments(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Shipment>> {
+		return this.resources.fetch<Shipment>({ type: 'shipments' }, `orders/${orderId}/shipments`, params, options) as unknown as ListResponse<Shipment>
+	}
+
+	async authorizations(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Authorization>> {
+		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `orders/${orderId}/authorizations`, params, options) as unknown as ListResponse<Authorization>
+	}
+
+	async captures(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
+		return this.resources.fetch<Capture>({ type: 'captures' }, `orders/${orderId}/captures`, params, options) as unknown as ListResponse<Capture>
+	}
+
+	async voids(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
+		return this.resources.fetch<Void>({ type: 'voids' }, `orders/${orderId}/voids`, params, options) as unknown as ListResponse<Void>
+	}
+
+	async refunds(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
+		return this.resources.fetch<Refund>({ type: 'refunds' }, `orders/${orderId}/refunds`, params, options) as unknown as ListResponse<Refund>
+	}
+
+	async order_subscriptions(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
+		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `orders/${orderId}/order_subscriptions`, params, options) as unknown as ListResponse<OrderSubscription>
+	}
+
+	async order_copies(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
+		return this.resources.fetch<OrderCopy>({ type: 'order_copies' }, `orders/${orderId}/order_copies`, params, options) as unknown as ListResponse<OrderCopy>
+	}
+
+	async attachments(orderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `orders/${orderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

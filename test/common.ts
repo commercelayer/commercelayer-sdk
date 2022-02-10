@@ -116,8 +116,8 @@ export { handleError, interceptRequest, randomAttributes }
 
 
 
-const checkCommon = (config: AxiosRequestConfig, type: string, id?: string, token?: string) => {
-	expect(config.url).toBe(type + (id ? `/${id}` : ''))
+const checkCommon = (config: AxiosRequestConfig, type: string, id?: string, token?: string, relationship?: string) => {
+	expect(config.url).toBe(type + (id ? `/${id}` : '') + (relationship ? `/${relationship}`: ''))
 	expect(config.headers.Authorization).toContain('Bearer ' + (token || ''))
 	expect(config.timeout).toBe(REQUEST_TIMEOUT)
 }

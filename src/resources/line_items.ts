@@ -107,7 +107,7 @@ class LineItems extends ApiResource {
 	// static readonly PATH = 'line_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {
-		return this.resources.list({ type: LineItems.TYPE }, params, options)
+		return this.resources.list<LineItem>({ type: LineItems.TYPE }, params, options)
 	}
 
 	async create(resource: LineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
@@ -125,7 +125,22 @@ class LineItems extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: LineItems.TYPE, id }, options)
 	}
-	
+
+	async order(lineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `line_items/${lineItemId}/order`, params, options) as unknown as Order
+	}
+
+	async line_item_options(lineItemId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
+		return this.resources.fetch<LineItemOption>({ type: 'line_item_options' }, `line_items/${lineItemId}/line_item_options`, params, options) as unknown as ListResponse<LineItemOption>
+	}
+
+	async stock_line_items(lineItemId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
+		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `line_items/${lineItemId}/stock_line_items`, params, options) as unknown as ListResponse<StockLineItem>
+	}
+
+	async stock_transfers(lineItemId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
+		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `line_items/${lineItemId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

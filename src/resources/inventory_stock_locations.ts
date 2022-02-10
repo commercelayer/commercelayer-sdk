@@ -49,7 +49,7 @@ class InventoryStockLocations extends ApiResource {
 	// static readonly PATH = 'inventory_stock_locations'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
-		return this.resources.list({ type: InventoryStockLocations.TYPE }, params, options)
+		return this.resources.list<InventoryStockLocation>({ type: InventoryStockLocations.TYPE }, params, options)
 	}
 
 	async create(resource: InventoryStockLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
@@ -67,7 +67,14 @@ class InventoryStockLocations extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: InventoryStockLocations.TYPE, id }, options)
 	}
-	
+
+	async stock_location(inventoryStockLocationId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `inventory_stock_locations/${inventoryStockLocationId}/stock_location`, params, options) as unknown as StockLocation
+	}
+
+	async inventory_model(inventoryStockLocationId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
+		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `inventory_stock_locations/${inventoryStockLocationId}/inventory_model`, params, options) as unknown as InventoryModel
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

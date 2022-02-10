@@ -25,8 +25,8 @@ describe('PriceLists resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'epsilon_33',
-			currency_code: 'alfa_67',
+			name: 'sigma_85',
+			currency_code: 'gamma_39',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -149,4 +149,43 @@ describe('PriceLists resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.prices', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { prices: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'prices')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].prices(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

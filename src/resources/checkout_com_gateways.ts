@@ -50,7 +50,7 @@ class CheckoutComGateways extends ApiResource {
 	// static readonly PATH = 'checkout_com_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CheckoutComGateway>> {
-		return this.resources.list({ type: CheckoutComGateways.TYPE }, params, options)
+		return this.resources.list<CheckoutComGateway>({ type: CheckoutComGateways.TYPE }, params, options)
 	}
 
 	async create(resource: CheckoutComGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {
@@ -68,7 +68,14 @@ class CheckoutComGateways extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CheckoutComGateways.TYPE, id }, options)
 	}
-	
+
+	async payment_methods(checkoutComGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `checkout_com_gateways/${checkoutComGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
+
+	async checkout_com_payments(checkoutComGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CheckoutComPayment>> {
+		return this.resources.fetch<CheckoutComPayment>({ type: 'checkout_com_payments' }, `checkout_com_gateways/${checkoutComGatewayId}/checkout_com_payments`, params, options) as unknown as ListResponse<CheckoutComPayment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

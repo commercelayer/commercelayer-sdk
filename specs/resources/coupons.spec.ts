@@ -25,8 +25,8 @@ describe('Coupons resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			code: 'epsilon_46',
-			usage_limit: 100,
+			code: 'gamma_21',
+			usage_limit: 12345,
 			promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
 		}
 
@@ -150,4 +150,24 @@ describe('Coupons resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.promotion_rule', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { coupon_codes_promotion_rules: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'promotion_rule')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].promotion_rule(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

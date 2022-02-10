@@ -34,11 +34,19 @@ class Refunds extends ApiResource {
 	// static readonly PATH = 'refunds'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
-		return this.resources.list({ type: Refunds.TYPE }, params, options)
+		return this.resources.list<Refund>({ type: Refunds.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Refund> {
 		return this.resources.retrieve<Refund>({ type: Refunds.TYPE, id }, params, options)
+	}
+
+	async order(refundId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `refunds/${refundId}/order`, params, options) as unknown as Order
+	}
+
+	async reference_capture(refundId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
+		return this.resources.fetch<Capture>({ type: 'captures' }, `refunds/${refundId}/reference_capture`, params, options) as unknown as Capture
 	}
 
 

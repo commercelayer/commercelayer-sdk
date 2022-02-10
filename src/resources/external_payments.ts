@@ -47,7 +47,7 @@ class ExternalPayments extends ApiResource {
 	// static readonly PATH = 'external_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
-		return this.resources.list({ type: ExternalPayments.TYPE }, params, options)
+		return this.resources.list<ExternalPayment>({ type: ExternalPayments.TYPE }, params, options)
 	}
 
 	async create(resource: ExternalPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
@@ -65,7 +65,18 @@ class ExternalPayments extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ExternalPayments.TYPE, id }, options)
 	}
-	
+
+	async order(externalPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `external_payments/${externalPaymentId}/order`, params, options) as unknown as Order
+	}
+
+	async payment_gateway(externalPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `external_payments/${externalPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async wallet(externalPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
+		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `external_payments/${externalPaymentId}/wallet`, params, options) as unknown as CustomerPaymentSource
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

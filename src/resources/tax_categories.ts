@@ -56,7 +56,7 @@ class TaxCategories extends ApiResource {
 	// static readonly PATH = 'tax_categories'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
-		return this.resources.list({ type: TaxCategories.TYPE }, params, options)
+		return this.resources.list<TaxCategory>({ type: TaxCategories.TYPE }, params, options)
 	}
 
 	async create(resource: TaxCategoryCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
@@ -74,7 +74,14 @@ class TaxCategories extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: TaxCategories.TYPE, id }, options)
 	}
-	
+
+	async sku(taxCategoryId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `tax_categories/${taxCategoryId}/sku`, params, options) as unknown as Sku
+	}
+
+	async attachments(taxCategoryId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_categories/${taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

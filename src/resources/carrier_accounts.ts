@@ -26,11 +26,19 @@ class CarrierAccounts extends ApiResource {
 	// static readonly PATH = 'carrier_accounts'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CarrierAccount>> {
-		return this.resources.list({ type: CarrierAccounts.TYPE }, params, options)
+		return this.resources.list<CarrierAccount>({ type: CarrierAccounts.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CarrierAccount> {
 		return this.resources.retrieve<CarrierAccount>({ type: CarrierAccounts.TYPE, id }, params, options)
+	}
+
+	async market(carrierAccountId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `carrier_accounts/${carrierAccountId}/market`, params, options) as unknown as Market
+	}
+
+	async attachments(carrierAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `carrier_accounts/${carrierAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

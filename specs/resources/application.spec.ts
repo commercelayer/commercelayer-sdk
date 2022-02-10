@@ -59,4 +59,5 @@ describe('Applications resource', () => {
   })
   /* spec.type.stop */
 
+  
 })

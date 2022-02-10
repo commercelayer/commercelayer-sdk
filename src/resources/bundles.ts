@@ -74,7 +74,7 @@ class Bundles extends ApiResource {
 	// static readonly PATH = 'bundles'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
-		return this.resources.list({ type: Bundles.TYPE }, params, options)
+		return this.resources.list<Bundle>({ type: Bundles.TYPE }, params, options)
 	}
 
 	async create(resource: BundleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
@@ -92,7 +92,22 @@ class Bundles extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Bundles.TYPE, id }, options)
 	}
-	
+
+	async market(bundleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `bundles/${bundleId}/market`, params, options) as unknown as Market
+	}
+
+	async sku_list(bundleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `bundles/${bundleId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async skus(bundleId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `bundles/${bundleId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async attachments(bundleId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bundles/${bundleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

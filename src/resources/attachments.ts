@@ -105,7 +105,7 @@ class Attachments extends ApiResource {
 	// static readonly PATH = 'attachments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.list({ type: Attachments.TYPE }, params, options)
+		return this.resources.list<Attachment>({ type: Attachments.TYPE }, params, options)
 	}
 
 	async create(resource: AttachmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
@@ -123,7 +123,6 @@ class Attachments extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Attachments.TYPE, id }, options)
 	}
-	
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

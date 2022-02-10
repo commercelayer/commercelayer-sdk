@@ -46,7 +46,7 @@ class InventoryReturnLocations extends ApiResource {
 	// static readonly PATH = 'inventory_return_locations'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
-		return this.resources.list({ type: InventoryReturnLocations.TYPE }, params, options)
+		return this.resources.list<InventoryReturnLocation>({ type: InventoryReturnLocations.TYPE }, params, options)
 	}
 
 	async create(resource: InventoryReturnLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
@@ -64,7 +64,14 @@ class InventoryReturnLocations extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: InventoryReturnLocations.TYPE, id }, options)
 	}
-	
+
+	async stock_location(inventoryReturnLocationId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `inventory_return_locations/${inventoryReturnLocationId}/stock_location`, params, options) as unknown as StockLocation
+	}
+
+	async inventory_model(inventoryReturnLocationId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
+		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `inventory_return_locations/${inventoryReturnLocationId}/inventory_model`, params, options) as unknown as InventoryModel
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

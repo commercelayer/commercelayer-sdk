@@ -25,8 +25,8 @@ describe('LineItemOptions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 10000,
-			options: { key21: 'val21' },
+			quantity: 0,
+			options: { key11: 'val11' },
 			line_item: cl.line_items.relationship(TestData.id),
 			sku_option: cl.sku_options.relationship(TestData.id),
 		}
@@ -151,4 +151,43 @@ describe('LineItemOptions resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.line_item', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { line_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'line_item')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].line_item(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.sku_option', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { sku_options: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'sku_option')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku_option(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

@@ -48,7 +48,7 @@ class ExternalTaxCalculators extends ApiResource {
 	// static readonly PATH = 'external_tax_calculators'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalTaxCalculator>> {
-		return this.resources.list({ type: ExternalTaxCalculators.TYPE }, params, options)
+		return this.resources.list<ExternalTaxCalculator>({ type: ExternalTaxCalculators.TYPE }, params, options)
 	}
 
 	async create(resource: ExternalTaxCalculatorCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
@@ -66,7 +66,18 @@ class ExternalTaxCalculators extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ExternalTaxCalculators.TYPE, id }, options)
 	}
-	
+
+	async tax_categories(externalTaxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
+		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `external_tax_calculators/${externalTaxCalculatorId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
+	}
+
+	async markets(externalTaxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `external_tax_calculators/${externalTaxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async attachments(externalTaxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_tax_calculators/${externalTaxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

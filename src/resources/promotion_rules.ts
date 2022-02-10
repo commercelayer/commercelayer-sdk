@@ -25,7 +25,7 @@ class PromotionRules extends ApiResource {
 	// static readonly PATH = 'promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PromotionRule>> {
-		return this.resources.list({ type: PromotionRules.TYPE }, params, options)
+		return this.resources.list<PromotionRule>({ type: PromotionRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PromotionRule> {
