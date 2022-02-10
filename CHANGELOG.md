@@ -1,3 +1,10 @@
+# [4.4.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0...v4.4.0) (2022-02-10)
+
+
+### Features
+
+* **core:** add relationships ops to resources ([15240c9](https://github.com/commercelayer/commercelayer-sdk/commit/15240c9d5ccacef8d28da1fba018cfc6e0833b9f))
+
 # [4.3.0-beta.6](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.5...v4.3.0-beta.6) (2022-01-26)
 
 
