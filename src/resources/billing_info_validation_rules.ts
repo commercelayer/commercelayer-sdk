@@ -35,7 +35,7 @@ class BillingInfoValidationRules extends ApiResource {
 	// static readonly PATH = 'billing_info_validation_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BillingInfoValidationRule>> {
-		return this.resources.list({ type: BillingInfoValidationRules.TYPE }, params, options)
+		return this.resources.list<BillingInfoValidationRule>({ type: BillingInfoValidationRules.TYPE }, params, options)
 	}
 
 	async create(resource: BillingInfoValidationRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
@@ -53,7 +53,10 @@ class BillingInfoValidationRules extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: BillingInfoValidationRules.TYPE, id }, options)
 	}
-	
+
+	async market(billingInfoValidationRuleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `billing_info_validation_rules/${billingInfoValidationRuleId}/market`, params, options) as unknown as Market
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

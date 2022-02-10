@@ -53,7 +53,7 @@ class OrderAmountPromotionRules extends ApiResource {
 	// static readonly PATH = 'order_amount_promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderAmountPromotionRule>> {
-		return this.resources.list({ type: OrderAmountPromotionRules.TYPE }, params, options)
+		return this.resources.list<OrderAmountPromotionRule>({ type: OrderAmountPromotionRules.TYPE }, params, options)
 	}
 
 	async create(resource: OrderAmountPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
@@ -71,7 +71,6 @@ class OrderAmountPromotionRules extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: OrderAmountPromotionRules.TYPE, id }, options)
 	}
-	
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

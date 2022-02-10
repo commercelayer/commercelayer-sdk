@@ -28,11 +28,23 @@ class StockLineItems extends ApiResource {
 	// static readonly PATH = 'stock_line_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
-		return this.resources.list({ type: StockLineItems.TYPE }, params, options)
+		return this.resources.list<StockLineItem>({ type: StockLineItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
 		return this.resources.retrieve<StockLineItem>({ type: StockLineItems.TYPE, id }, params, options)
+	}
+
+	async shipment(stockLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.fetch<Shipment>({ type: 'shipments' }, `stock_line_items/${stockLineItemId}/shipment`, params, options) as unknown as Shipment
+	}
+
+	async line_item(stockLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_line_items/${stockLineItemId}/line_item`, params, options) as unknown as LineItem
+	}
+
+	async stock_item(stockLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
+		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `stock_line_items/${stockLineItemId}/stock_item`, params, options) as unknown as StockItem
 	}
 
 

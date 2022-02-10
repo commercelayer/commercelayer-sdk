@@ -40,7 +40,7 @@ class GoogleGeocoders extends ApiResource {
 	// static readonly PATH = 'google_geocoders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GoogleGeocoder>> {
-		return this.resources.list({ type: GoogleGeocoders.TYPE }, params, options)
+		return this.resources.list<GoogleGeocoder>({ type: GoogleGeocoders.TYPE }, params, options)
 	}
 
 	async create(resource: GoogleGeocoderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GoogleGeocoder> {
@@ -58,7 +58,14 @@ class GoogleGeocoders extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: GoogleGeocoders.TYPE, id }, options)
 	}
-	
+
+	async addresses(googleGeocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
+		return this.resources.fetch<Address>({ type: 'addresses' }, `google_geocoders/${googleGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
+	}
+
+	async attachments(googleGeocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `google_geocoders/${googleGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

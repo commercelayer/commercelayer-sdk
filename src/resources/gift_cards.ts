@@ -84,7 +84,7 @@ class GiftCards extends ApiResource {
 	// static readonly PATH = 'gift_cards'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GiftCard>> {
-		return this.resources.list({ type: GiftCards.TYPE }, params, options)
+		return this.resources.list<GiftCard>({ type: GiftCards.TYPE }, params, options)
 	}
 
 	async create(resource: GiftCardCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
@@ -102,7 +102,18 @@ class GiftCards extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: GiftCards.TYPE, id }, options)
 	}
-	
+
+	async market(giftCardId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `gift_cards/${giftCardId}/market`, params, options) as unknown as Market
+	}
+
+	async gift_card_recipient(giftCardId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
+		return this.resources.fetch<GiftCardRecipient>({ type: 'gift_card_recipients' }, `gift_cards/${giftCardId}/gift_card_recipient`, params, options) as unknown as GiftCardRecipient
+	}
+
+	async attachments(giftCardId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `gift_cards/${giftCardId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

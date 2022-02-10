@@ -50,7 +50,7 @@ class CouponCodesPromotionRules extends ApiResource {
 	// static readonly PATH = 'coupon_codes_promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CouponCodesPromotionRule>> {
-		return this.resources.list({ type: CouponCodesPromotionRules.TYPE }, params, options)
+		return this.resources.list<CouponCodesPromotionRule>({ type: CouponCodesPromotionRules.TYPE }, params, options)
 	}
 
 	async create(resource: CouponCodesPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
@@ -68,7 +68,10 @@ class CouponCodesPromotionRules extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CouponCodesPromotionRules.TYPE, id }, options)
 	}
-	
+
+	async coupons(couponCodesPromotionRuleId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+		return this.resources.fetch<Coupon>({ type: 'coupons' }, `coupon_codes_promotion_rules/${couponCodesPromotionRuleId}/coupons`, params, options) as unknown as ListResponse<Coupon>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

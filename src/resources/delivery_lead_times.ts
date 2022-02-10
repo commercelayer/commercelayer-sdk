@@ -53,7 +53,7 @@ class DeliveryLeadTimes extends ApiResource {
 	// static readonly PATH = 'delivery_lead_times'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
-		return this.resources.list({ type: DeliveryLeadTimes.TYPE }, params, options)
+		return this.resources.list<DeliveryLeadTime>({ type: DeliveryLeadTimes.TYPE }, params, options)
 	}
 
 	async create(resource: DeliveryLeadTimeCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
@@ -71,7 +71,18 @@ class DeliveryLeadTimes extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: DeliveryLeadTimes.TYPE, id }, options)
 	}
-	
+
+	async stock_location(deliveryLeadTimeId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `delivery_lead_times/${deliveryLeadTimeId}/stock_location`, params, options) as unknown as StockLocation
+	}
+
+	async shipping_method(deliveryLeadTimeId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `delivery_lead_times/${deliveryLeadTimeId}/shipping_method`, params, options) as unknown as ShippingMethod
+	}
+
+	async attachments(deliveryLeadTimeId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `delivery_lead_times/${deliveryLeadTimeId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

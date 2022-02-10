@@ -52,7 +52,7 @@ class AdyenGateways extends ApiResource {
 	// static readonly PATH = 'adyen_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenGateway>> {
-		return this.resources.list({ type: AdyenGateways.TYPE }, params, options)
+		return this.resources.list<AdyenGateway>({ type: AdyenGateways.TYPE }, params, options)
 	}
 
 	async create(resource: AdyenGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
@@ -70,7 +70,14 @@ class AdyenGateways extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: AdyenGateways.TYPE, id }, options)
 	}
-	
+
+	async payment_methods(adyenGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `adyen_gateways/${adyenGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
+
+	async adyen_payments(adyenGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenPayment>> {
+		return this.resources.fetch<AdyenPayment>({ type: 'adyen_payments' }, `adyen_gateways/${adyenGatewayId}/adyen_payments`, params, options) as unknown as ListResponse<AdyenPayment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

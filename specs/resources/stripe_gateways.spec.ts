@@ -25,8 +25,8 @@ describe('StripeGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'alfa_52',
-			login: 'sigma_57',
+			name: 'kappa_86',
+			login: 'sigma_89',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -149,4 +149,43 @@ describe('StripeGateways resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.payment_methods', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'payment_methods')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].payment_methods(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.stripe_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stripe_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'stripe_payments')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stripe_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

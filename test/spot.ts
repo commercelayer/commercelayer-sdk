@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // import commercelayer from '../lib/cjs'
 import commercelayer from '../src'
 
@@ -13,7 +14,7 @@ import commercelayer from '../src'
 		timeout: 5000,
 	})
 
-	const c = await cl.customers.update({ id: 'kopZhGAJBn', customer_group: cl.customer_groups.relationship(null)}, { include: ['customer_group'] })
+	const c = await cl.customers.orders('OZqohRjoWn')
 
 	console.log(c)
 

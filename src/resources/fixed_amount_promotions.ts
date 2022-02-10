@@ -82,7 +82,7 @@ class FixedAmountPromotions extends ApiResource {
 	// static readonly PATH = 'fixed_amount_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FixedAmountPromotion>> {
-		return this.resources.list({ type: FixedAmountPromotions.TYPE }, params, options)
+		return this.resources.list<FixedAmountPromotion>({ type: FixedAmountPromotions.TYPE }, params, options)
 	}
 
 	async create(resource: FixedAmountPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
@@ -100,7 +100,26 @@ class FixedAmountPromotions extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: FixedAmountPromotions.TYPE, id }, options)
 	}
-	
+
+	async market(fixedAmountPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `fixed_amount_promotions/${fixedAmountPromotionId}/market`, params, options) as unknown as Market
+	}
+
+	async order_amount_promotion_rule(fixedAmountPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
+		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `fixed_amount_promotions/${fixedAmountPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
+	}
+
+	async sku_list_promotion_rule(fixedAmountPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
+		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `fixed_amount_promotions/${fixedAmountPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
+	}
+
+	async coupon_codes_promotion_rule(fixedAmountPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
+		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `fixed_amount_promotions/${fixedAmountPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	}
+
+	async attachments(fixedAmountPromotionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `fixed_amount_promotions/${fixedAmountPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

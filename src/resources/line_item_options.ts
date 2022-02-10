@@ -60,7 +60,7 @@ class LineItemOptions extends ApiResource {
 	// static readonly PATH = 'line_item_options'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
-		return this.resources.list({ type: LineItemOptions.TYPE }, params, options)
+		return this.resources.list<LineItemOption>({ type: LineItemOptions.TYPE }, params, options)
 	}
 
 	async create(resource: LineItemOptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
@@ -78,7 +78,14 @@ class LineItemOptions extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: LineItemOptions.TYPE, id }, options)
 	}
-	
+
+	async line_item(lineItemOptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `line_item_options/${lineItemOptionId}/line_item`, params, options) as unknown as LineItem
+	}
+
+	async sku_option(lineItemOptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
+		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `line_item_options/${lineItemOptionId}/sku_option`, params, options) as unknown as SkuOption
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

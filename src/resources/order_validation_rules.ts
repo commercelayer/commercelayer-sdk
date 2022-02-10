@@ -20,11 +20,15 @@ class OrderValidationRules extends ApiResource {
 	// static readonly PATH = 'order_validation_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderValidationRule>> {
-		return this.resources.list({ type: OrderValidationRules.TYPE }, params, options)
+		return this.resources.list<OrderValidationRule>({ type: OrderValidationRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderValidationRule> {
 		return this.resources.retrieve<OrderValidationRule>({ type: OrderValidationRules.TYPE, id }, params, options)
+	}
+
+	async market(orderValidationRuleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `order_validation_rules/${orderValidationRuleId}/market`, params, options) as unknown as Market
 	}
 
 

@@ -59,7 +59,7 @@ class InStockSubscriptions extends ApiResource {
 	// static readonly PATH = 'in_stock_subscriptions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InStockSubscription>> {
-		return this.resources.list({ type: InStockSubscriptions.TYPE }, params, options)
+		return this.resources.list<InStockSubscription>({ type: InStockSubscriptions.TYPE }, params, options)
 	}
 
 	async create(resource: InStockSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
@@ -77,7 +77,18 @@ class InStockSubscriptions extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: InStockSubscriptions.TYPE, id }, options)
 	}
-	
+
+	async market(inStockSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `in_stock_subscriptions/${inStockSubscriptionId}/market`, params, options) as unknown as Market
+	}
+
+	async customer(inStockSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.fetch<Customer>({ type: 'customers' }, `in_stock_subscriptions/${inStockSubscriptionId}/customer`, params, options) as unknown as Customer
+	}
+
+	async sku(inStockSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `in_stock_subscriptions/${inStockSubscriptionId}/sku`, params, options) as unknown as Sku
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

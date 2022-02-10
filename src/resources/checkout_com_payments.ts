@@ -55,7 +55,7 @@ class CheckoutComPayments extends ApiResource {
 	// static readonly PATH = 'checkout_com_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CheckoutComPayment>> {
-		return this.resources.list({ type: CheckoutComPayments.TYPE }, params, options)
+		return this.resources.list<CheckoutComPayment>({ type: CheckoutComPayments.TYPE }, params, options)
 	}
 
 	async create(resource: CheckoutComPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
@@ -73,7 +73,14 @@ class CheckoutComPayments extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CheckoutComPayments.TYPE, id }, options)
 	}
-	
+
+	async order(checkoutComPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `checkout_com_payments/${checkoutComPaymentId}/order`, params, options) as unknown as Order
+	}
+
+	async payment_gateway(checkoutComPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `checkout_com_payments/${checkoutComPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

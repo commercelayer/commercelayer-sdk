@@ -38,11 +38,31 @@ class Promotions extends ApiResource {
 	// static readonly PATH = 'promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Promotion>> {
-		return this.resources.list({ type: Promotions.TYPE }, params, options)
+		return this.resources.list<Promotion>({ type: Promotions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Promotion> {
 		return this.resources.retrieve<Promotion>({ type: Promotions.TYPE, id }, params, options)
+	}
+
+	async market(promotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `promotions/${promotionId}/market`, params, options) as unknown as Market
+	}
+
+	async order_amount_promotion_rule(promotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
+		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `promotions/${promotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
+	}
+
+	async sku_list_promotion_rule(promotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
+		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `promotions/${promotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
+	}
+
+	async coupon_codes_promotion_rule(promotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
+		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `promotions/${promotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	}
+
+	async attachments(promotionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `promotions/${promotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

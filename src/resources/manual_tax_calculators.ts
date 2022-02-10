@@ -50,7 +50,7 @@ class ManualTaxCalculators extends ApiResource {
 	// static readonly PATH = 'manual_tax_calculators'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ManualTaxCalculator>> {
-		return this.resources.list({ type: ManualTaxCalculators.TYPE }, params, options)
+		return this.resources.list<ManualTaxCalculator>({ type: ManualTaxCalculators.TYPE }, params, options)
 	}
 
 	async create(resource: ManualTaxCalculatorCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
@@ -68,7 +68,22 @@ class ManualTaxCalculators extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ManualTaxCalculators.TYPE, id }, options)
 	}
-	
+
+	async tax_categories(manualTaxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
+		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `manual_tax_calculators/${manualTaxCalculatorId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
+	}
+
+	async markets(manualTaxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `manual_tax_calculators/${manualTaxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async attachments(manualTaxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `manual_tax_calculators/${manualTaxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async tax_rules(manualTaxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxRule>> {
+		return this.resources.fetch<TaxRule>({ type: 'tax_rules' }, `manual_tax_calculators/${manualTaxCalculatorId}/tax_rules`, params, options) as unknown as ListResponse<TaxRule>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

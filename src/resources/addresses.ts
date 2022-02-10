@@ -94,7 +94,7 @@ class Addresses extends ApiResource {
 	// static readonly PATH = 'addresses'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
-		return this.resources.list({ type: Addresses.TYPE }, params, options)
+		return this.resources.list<Address>({ type: Addresses.TYPE }, params, options)
 	}
 
 	async create(resource: AddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
@@ -112,7 +112,10 @@ class Addresses extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Addresses.TYPE, id }, options)
 	}
-	
+
+	async geocoder(addressId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
+		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `addresses/${addressId}/geocoder`, params, options) as unknown as Geocoder
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

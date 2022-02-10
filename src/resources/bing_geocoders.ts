@@ -40,7 +40,7 @@ class BingGeocoders extends ApiResource {
 	// static readonly PATH = 'bing_geocoders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BingGeocoder>> {
-		return this.resources.list({ type: BingGeocoders.TYPE }, params, options)
+		return this.resources.list<BingGeocoder>({ type: BingGeocoders.TYPE }, params, options)
 	}
 
 	async create(resource: BingGeocoderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BingGeocoder> {
@@ -58,7 +58,14 @@ class BingGeocoders extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: BingGeocoders.TYPE, id }, options)
 	}
-	
+
+	async addresses(bingGeocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
+		return this.resources.fetch<Address>({ type: 'addresses' }, `bing_geocoders/${bingGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
+	}
+
+	async attachments(bingGeocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bing_geocoders/${bingGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

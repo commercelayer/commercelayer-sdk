@@ -51,7 +51,7 @@ class StockItems extends ApiResource {
 	// static readonly PATH = 'stock_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
-		return this.resources.list({ type: StockItems.TYPE }, params, options)
+		return this.resources.list<StockItem>({ type: StockItems.TYPE }, params, options)
 	}
 
 	async create(resource: StockItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
@@ -69,7 +69,18 @@ class StockItems extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: StockItems.TYPE, id }, options)
 	}
-	
+
+	async stock_location(stockItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_items/${stockItemId}/stock_location`, params, options) as unknown as StockLocation
+	}
+
+	async sku(stockItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_items/${stockItemId}/sku`, params, options) as unknown as Sku
+	}
+
+	async attachments(stockItemId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_items/${stockItemId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

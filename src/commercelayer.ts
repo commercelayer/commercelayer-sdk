@@ -15,7 +15,7 @@ const OPEN_API_SCHEMA_VERSION = '2.8.1'
 type SdkConfig = {}
 
 type CommerceLayerInitConfig = SdkConfig & ResourcesInitConfig
-type CommerceLayerConfig = SdkConfig & ResourcesConfig
+type CommerceLayerConfig = Partial<CommerceLayerInitConfig>
 
 
 

@@ -43,7 +43,7 @@ class StripeGateways extends ApiResource {
 	// static readonly PATH = 'stripe_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripeGateway>> {
-		return this.resources.list({ type: StripeGateways.TYPE }, params, options)
+		return this.resources.list<StripeGateway>({ type: StripeGateways.TYPE }, params, options)
 	}
 
 	async create(resource: StripeGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
@@ -61,7 +61,14 @@ class StripeGateways extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: StripeGateways.TYPE, id }, options)
 	}
-	
+
+	async payment_methods(stripeGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `stripe_gateways/${stripeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
+
+	async stripe_payments(stripeGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
+		return this.resources.fetch<StripePayment>({ type: 'stripe_payments' }, `stripe_gateways/${stripeGatewayId}/stripe_payments`, params, options) as unknown as ListResponse<StripePayment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

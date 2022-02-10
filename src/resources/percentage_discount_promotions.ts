@@ -87,7 +87,7 @@ class PercentageDiscountPromotions extends ApiResource {
 	// static readonly PATH = 'percentage_discount_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PercentageDiscountPromotion>> {
-		return this.resources.list({ type: PercentageDiscountPromotions.TYPE }, params, options)
+		return this.resources.list<PercentageDiscountPromotion>({ type: PercentageDiscountPromotions.TYPE }, params, options)
 	}
 
 	async create(resource: PercentageDiscountPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
@@ -105,7 +105,34 @@ class PercentageDiscountPromotions extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: PercentageDiscountPromotions.TYPE, id }, options)
 	}
-	
+
+	async market(percentageDiscountPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `percentage_discount_promotions/${percentageDiscountPromotionId}/market`, params, options) as unknown as Market
+	}
+
+	async order_amount_promotion_rule(percentageDiscountPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
+		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `percentage_discount_promotions/${percentageDiscountPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
+	}
+
+	async sku_list_promotion_rule(percentageDiscountPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
+		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `percentage_discount_promotions/${percentageDiscountPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
+	}
+
+	async coupon_codes_promotion_rule(percentageDiscountPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
+		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `percentage_discount_promotions/${percentageDiscountPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	}
+
+	async attachments(percentageDiscountPromotionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `percentage_discount_promotions/${percentageDiscountPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async sku_list(percentageDiscountPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `percentage_discount_promotions/${percentageDiscountPromotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async skus(percentageDiscountPromotionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `percentage_discount_promotions/${percentageDiscountPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

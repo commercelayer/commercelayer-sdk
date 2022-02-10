@@ -58,7 +58,7 @@ class CustomerPaymentSources extends ApiResource {
 	// static readonly PATH = 'customer_payment_sources'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
-		return this.resources.list({ type: CustomerPaymentSources.TYPE }, params, options)
+		return this.resources.list<CustomerPaymentSource>({ type: CustomerPaymentSources.TYPE }, params, options)
 	}
 
 	async create(resource: CustomerPaymentSourceCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
@@ -76,7 +76,10 @@ class CustomerPaymentSources extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CustomerPaymentSources.TYPE, id }, options)
 	}
-	
+
+	async customer(customerPaymentSourceId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_payment_sources/${customerPaymentSourceId}/customer`, params, options) as unknown as Customer
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

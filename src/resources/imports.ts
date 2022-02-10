@@ -43,7 +43,7 @@ class Imports extends ApiResource {
 	// static readonly PATH = 'imports'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Import>> {
-		return this.resources.list({ type: Imports.TYPE }, params, options)
+		return this.resources.list<Import>({ type: Imports.TYPE }, params, options)
 	}
 
 	async create(resource: ImportCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {
@@ -57,7 +57,6 @@ class Imports extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Imports.TYPE, id }, options)
 	}
-	
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

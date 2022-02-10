@@ -49,7 +49,7 @@ class ParcelLineItems extends ApiResource {
 	// static readonly PATH = 'parcel_line_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
-		return this.resources.list({ type: ParcelLineItems.TYPE }, params, options)
+		return this.resources.list<ParcelLineItem>({ type: ParcelLineItems.TYPE }, params, options)
 	}
 
 	async create(resource: ParcelLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
@@ -67,7 +67,14 @@ class ParcelLineItems extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ParcelLineItems.TYPE, id }, options)
 	}
-	
+
+	async parcel(parcelLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
+		return this.resources.fetch<Parcel>({ type: 'parcels' }, `parcel_line_items/${parcelLineItemId}/parcel`, params, options) as unknown as Parcel
+	}
+
+	async stock_line_item(parcelLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
+		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `parcel_line_items/${parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

@@ -59,7 +59,7 @@ class Authorizations extends ApiResource {
 	// static readonly PATH = 'authorizations'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Authorization>> {
-		return this.resources.list({ type: Authorizations.TYPE }, params, options)
+		return this.resources.list<Authorization>({ type: Authorizations.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
@@ -68,6 +68,18 @@ class Authorizations extends ApiResource {
 
 	async update(resource: AuthorizationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
 		return this.resources.update({ ...resource, type: Authorizations.TYPE }, params, options)
+	}
+
+	async order(authorizationId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `authorizations/${authorizationId}/order`, params, options) as unknown as Order
+	}
+
+	async captures(authorizationId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
+		return this.resources.fetch<Capture>({ type: 'captures' }, `authorizations/${authorizationId}/captures`, params, options) as unknown as ListResponse<Capture>
+	}
+
+	async voids(authorizationId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
+		return this.resources.fetch<Void>({ type: 'voids' }, `authorizations/${authorizationId}/voids`, params, options) as unknown as ListResponse<Void>
 	}
 
 

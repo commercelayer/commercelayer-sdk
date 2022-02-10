@@ -49,7 +49,7 @@ class CouponRecipients extends ApiResource {
 	// static readonly PATH = 'coupon_recipients'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CouponRecipient>> {
-		return this.resources.list({ type: CouponRecipients.TYPE }, params, options)
+		return this.resources.list<CouponRecipient>({ type: CouponRecipients.TYPE }, params, options)
 	}
 
 	async create(resource: CouponRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
@@ -67,7 +67,14 @@ class CouponRecipients extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CouponRecipients.TYPE, id }, options)
 	}
-	
+
+	async customer(couponRecipientId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.fetch<Customer>({ type: 'customers' }, `coupon_recipients/${couponRecipientId}/customer`, params, options) as unknown as Customer
+	}
+
+	async attachments(couponRecipientId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

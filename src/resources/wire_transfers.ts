@@ -35,7 +35,7 @@ class WireTransfers extends ApiResource {
 	// static readonly PATH = 'wire_transfers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<WireTransfer>> {
-		return this.resources.list({ type: WireTransfers.TYPE }, params, options)
+		return this.resources.list<WireTransfer>({ type: WireTransfers.TYPE }, params, options)
 	}
 
 	async create(resource: WireTransferCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
@@ -53,7 +53,10 @@ class WireTransfers extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: WireTransfers.TYPE, id }, options)
 	}
-	
+
+	async order(wireTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `wire_transfers/${wireTransferId}/order`, params, options) as unknown as Order
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

@@ -26,11 +26,23 @@ class TaxCalculators extends ApiResource {
 	// static readonly PATH = 'tax_calculators'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCalculator>> {
-		return this.resources.list({ type: TaxCalculators.TYPE }, params, options)
+		return this.resources.list<TaxCalculator>({ type: TaxCalculators.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCalculator> {
 		return this.resources.retrieve<TaxCalculator>({ type: TaxCalculators.TYPE, id }, params, options)
+	}
+
+	async tax_categories(taxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
+		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `tax_calculators/${taxCalculatorId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
+	}
+
+	async markets(taxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `tax_calculators/${taxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async attachments(taxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_calculators/${taxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

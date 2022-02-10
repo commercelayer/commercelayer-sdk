@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
-import fs from 'fs'
-import _ from 'lodash'
+import { readFileSync, writeFileSync } from 'fs'
+import { camelCase, capitalize, snakeCase } from 'lodash'
 import axios from 'axios'
+import { inspect } from 'util'
+
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Inflector = require('inflector-js')
@@ -19,7 +21,7 @@ const downloadSchema = async (url?: string): Promise<string> => {
 	const response = await axios.get(schemaUrl)
 	const schema = await response.data
 
-	if (schema) fs.writeFileSync(schemaOutPath, JSON.stringify(schema, null, 4))
+	if (schema) writeFileSync(schemaOutPath, JSON.stringify(schema, null, 4))
 	else console.log ('OpenAPI schema is empty!')
 
 	console.log('OpenAPI schema downloaded: ' + schema.info.version)
@@ -36,7 +38,7 @@ const parseSchema = (path: string): { version: string, resources: ResourceMap, c
 	const apiSchema: any = {}
 
 	const schemaFile = path
-	const openApi = fs.readFileSync(schemaFile, { encoding: 'utf-8' }) as any
+	const openApi = readFileSync(schemaFile, { encoding: 'utf-8' }) as any
 
 	const schema = JSON.parse(openApi)
 
@@ -54,7 +56,7 @@ const parseSchema = (path: string): { version: string, resources: ResourceMap, c
 			components: {}
 		}
 		Object.keys(apiSchema.components).forEach(c => {
-			const resName = _.snakeCase(c.replace('Update', '').replace('Create', ''))
+			const resName = snakeCase(c.replace('Update', '').replace('Create', ''))
 			if (!c.endsWith('Update') && !c.endsWith('Create')) components[c] = apiSchema.components[c]
 			if (resName === Inflector.singularize(p)) resources[p].components[c] = apiSchema.components[c]
 		})
@@ -68,9 +70,9 @@ const parseSchema = (path: string): { version: string, resources: ResourceMap, c
 }
 
 
-const basicOperationName = (op: string, id?: string): string => {
+const operationName = (op: string, id?: string, relationship?: string): string => {
 	switch (op) {
-		case 'get': return id ? 'retrieve' : 'list'
+		case 'get': return id ? (relationship || 'retrieve') : 'list'
 		case 'patch': return 'update'
 		case 'delete': return 'delete'
 		case 'post': return 'create'
@@ -97,15 +99,19 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 	for (const p of Object.entries(schemaPaths)) {
 
 		const [pKey, pValue] = p
-		if (pKey.indexOf('}/') > -1) continue
+		const relIdx = pKey.indexOf('}/') + 2
+		const relationship = (relIdx > 1) ? pKey.substring(relIdx) : undefined
 
 		const id = pKey.substring(pKey.indexOf('{') + 1, pKey.indexOf('}'))
-		const path = pKey.replace(/\/{.*}/g, '')
-		const res = path.substr(1)
-
+		const path = pKey.replace(/\/{.*}/g, '').substring(1)
+		const slIdx = path.lastIndexOf('/') 
+		const res = (slIdx === -1) ? path :  path.substring(0, slIdx)
+		
 		const operations: OperationMap = paths[res] || {}
 
 		Object.entries(pValue as object).forEach(o => {
+
+			let skip = false
 
 			const [oKey, oValue] = o
 
@@ -114,8 +120,8 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 			const op: Operation = {
 				path: pKey,
 				type: oKey,
-				name: basicOperationName(oKey, id),
-				singleton
+				name: operationName(oKey, id, relationship),
+				singleton,
 			}
 
 			if (id) op.id = id
@@ -130,7 +136,31 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 				op.responseType = referenceContent(oValue.responses['200'].content)
 			}
 
-			operations[op.name] = op
+
+			if (relationship) {
+
+				const relCard = oValue.tags[0] as string
+				if (!relCard) console.log(`Relationship without cardinality: ${op.name} [${op.path}]`)
+				const relType = oValue.tags[1] as string
+				if (!relType) console.log(`Relationship without type: ${op.name} [${op.path}]`)
+				if (!relCard || ! relType) skip = true
+
+				if (!skip) {
+					op.relationship = {
+						name: relationship || '',
+						type: relType,
+						polymorphic: false,
+						cardinality: (relCard === 'has_many') ? Cardinality.to_many : Cardinality.to_one,
+						required: false,
+						deprecated: false
+					}
+					op.responseType = Inflector.camelize(Inflector.singularize(op.relationship.type))
+				}
+			}
+			
+
+			if (skip) console.log(`Operation skipped: ${op.name} [${op.path}]`)
+			else operations[op.name] = op
 
 		})
 
@@ -248,8 +278,9 @@ type Operation = {
 	id?: string
 	name: string
 	requestType?: any
-	responseType?: any,
+	responseType?: any
 	singleton: boolean
+	relationship?: Relationship
 }
 
 

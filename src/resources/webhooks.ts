@@ -48,7 +48,7 @@ class Webhooks extends ApiResource {
 	// static readonly PATH = 'webhooks'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {
-		return this.resources.list({ type: Webhooks.TYPE }, params, options)
+		return this.resources.list<Webhook>({ type: Webhooks.TYPE }, params, options)
 	}
 
 	async create(resource: WebhookCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
@@ -66,7 +66,10 @@ class Webhooks extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Webhooks.TYPE, id }, options)
 	}
-	
+
+	async last_event_callbacks(webhookId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
+		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

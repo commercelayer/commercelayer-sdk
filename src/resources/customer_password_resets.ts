@@ -39,7 +39,7 @@ class CustomerPasswordResets extends ApiResource {
 	// static readonly PATH = 'customer_password_resets'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPasswordReset>> {
-		return this.resources.list({ type: CustomerPasswordResets.TYPE }, params, options)
+		return this.resources.list<CustomerPasswordReset>({ type: CustomerPasswordResets.TYPE }, params, options)
 	}
 
 	async create(resource: CustomerPasswordResetCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
@@ -57,7 +57,10 @@ class CustomerPasswordResets extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CustomerPasswordResets.TYPE, id }, options)
 	}
-	
+
+	async customer(customerPasswordResetId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_password_resets/${customerPasswordResetId}/customer`, params, options) as unknown as Customer
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

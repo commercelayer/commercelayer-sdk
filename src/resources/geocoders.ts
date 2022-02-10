@@ -24,11 +24,19 @@ class Geocoders extends ApiResource {
 	// static readonly PATH = 'geocoders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Geocoder>> {
-		return this.resources.list({ type: Geocoders.TYPE }, params, options)
+		return this.resources.list<Geocoder>({ type: Geocoders.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
 		return this.resources.retrieve<Geocoder>({ type: Geocoders.TYPE, id }, params, options)
+	}
+
+	async addresses(geocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
+		return this.resources.fetch<Address>({ type: 'addresses' }, `geocoders/${geocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
+	}
+
+	async attachments(geocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `geocoders/${geocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

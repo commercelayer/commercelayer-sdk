@@ -25,9 +25,9 @@ describe('Adjustments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_79',
-			currency_code: 'kappa_7',
-			amount_cents: 555,
+			name: 'sigma_35',
+			currency_code: 'delta_59',
+			amount_cents: 12345,
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -150,4 +150,5 @@ describe('Adjustments resource', () => {
   })
   /* spec.type.stop */
 
+  
 })

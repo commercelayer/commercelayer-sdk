@@ -25,7 +25,7 @@ describe('InventoryReturnLocations resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			priority: 100,
+			priority: 5,
 			stock_location: cl.stock_locations.relationship(TestData.id),
 			inventory_model: cl.inventory_models.relationship(TestData.id),
 		}
@@ -150,4 +150,43 @@ describe('InventoryReturnLocations resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.stock_location', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stock_locations: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'stock_location')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stock_location(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.inventory_model', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { inventory_models: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'inventory_model')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].inventory_model(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

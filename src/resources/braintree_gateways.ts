@@ -61,7 +61,7 @@ class BraintreeGateways extends ApiResource {
 	// static readonly PATH = 'braintree_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BraintreeGateway>> {
-		return this.resources.list({ type: BraintreeGateways.TYPE }, params, options)
+		return this.resources.list<BraintreeGateway>({ type: BraintreeGateways.TYPE }, params, options)
 	}
 
 	async create(resource: BraintreeGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreeGateway> {
@@ -79,7 +79,14 @@ class BraintreeGateways extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: BraintreeGateways.TYPE, id }, options)
 	}
-	
+
+	async payment_methods(braintreeGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `braintree_gateways/${braintreeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
+
+	async braintree_payments(braintreeGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BraintreePayment>> {
+		return this.resources.fetch<BraintreePayment>({ type: 'braintree_payments' }, `braintree_gateways/${braintreeGatewayId}/braintree_payments`, params, options) as unknown as ListResponse<BraintreePayment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

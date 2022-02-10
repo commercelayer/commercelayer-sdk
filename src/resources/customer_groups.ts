@@ -40,7 +40,7 @@ class CustomerGroups extends ApiResource {
 	// static readonly PATH = 'customer_groups'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerGroup>> {
-		return this.resources.list({ type: CustomerGroups.TYPE }, params, options)
+		return this.resources.list<CustomerGroup>({ type: CustomerGroups.TYPE }, params, options)
 	}
 
 	async create(resource: CustomerGroupCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
@@ -58,7 +58,18 @@ class CustomerGroups extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CustomerGroups.TYPE, id }, options)
 	}
-	
+
+	async customers(customerGroupId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Customer>> {
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_groups/${customerGroupId}/customers`, params, options) as unknown as ListResponse<Customer>
+	}
+
+	async markets(customerGroupId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `customer_groups/${customerGroupId}/markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async attachments(customerGroupId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customer_groups/${customerGroupId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

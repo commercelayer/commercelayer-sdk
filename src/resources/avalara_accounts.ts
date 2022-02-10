@@ -56,7 +56,7 @@ class AvalaraAccounts extends ApiResource {
 	// static readonly PATH = 'avalara_accounts'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AvalaraAccount>> {
-		return this.resources.list({ type: AvalaraAccounts.TYPE }, params, options)
+		return this.resources.list<AvalaraAccount>({ type: AvalaraAccounts.TYPE }, params, options)
 	}
 
 	async create(resource: AvalaraAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
@@ -74,7 +74,18 @@ class AvalaraAccounts extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: AvalaraAccounts.TYPE, id }, options)
 	}
-	
+
+	async tax_categories(avalaraAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
+		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `avalara_accounts/${avalaraAccountId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
+	}
+
+	async markets(avalaraAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		return this.resources.fetch<Market>({ type: 'markets' }, `avalara_accounts/${avalaraAccountId}/markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async attachments(avalaraAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `avalara_accounts/${avalaraAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

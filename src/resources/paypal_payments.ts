@@ -52,7 +52,7 @@ class PaypalPayments extends ApiResource {
 	// static readonly PATH = 'paypal_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
-		return this.resources.list({ type: PaypalPayments.TYPE }, params, options)
+		return this.resources.list<PaypalPayment>({ type: PaypalPayments.TYPE }, params, options)
 	}
 
 	async create(resource: PaypalPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
@@ -70,7 +70,14 @@ class PaypalPayments extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: PaypalPayments.TYPE, id }, options)
 	}
-	
+
+	async order(paypalPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `paypal_payments/${paypalPaymentId}/order`, params, options) as unknown as Order
+	}
+
+	async payment_gateway(paypalPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `paypal_payments/${paypalPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

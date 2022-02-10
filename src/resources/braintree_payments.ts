@@ -52,7 +52,7 @@ class BraintreePayments extends ApiResource {
 	// static readonly PATH = 'braintree_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BraintreePayment>> {
-		return this.resources.list({ type: BraintreePayments.TYPE }, params, options)
+		return this.resources.list<BraintreePayment>({ type: BraintreePayments.TYPE }, params, options)
 	}
 
 	async create(resource: BraintreePaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {
@@ -70,7 +70,14 @@ class BraintreePayments extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: BraintreePayments.TYPE, id }, options)
 	}
-	
+
+	async order(braintreePaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.fetch<Order>({ type: 'orders' }, `braintree_payments/${braintreePaymentId}/order`, params, options) as unknown as Order
+	}
+
+	async payment_gateway(braintreePaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `braintree_payments/${braintreePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

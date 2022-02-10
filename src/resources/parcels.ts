@@ -109,7 +109,7 @@ class Parcels extends ApiResource {
 	// static readonly PATH = 'parcels'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
-		return this.resources.list({ type: Parcels.TYPE }, params, options)
+		return this.resources.list<Parcel>({ type: Parcels.TYPE }, params, options)
 	}
 
 	async create(resource: ParcelCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
@@ -127,7 +127,22 @@ class Parcels extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Parcels.TYPE, id }, options)
 	}
-	
+
+	async shipment(parcelId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.fetch<Shipment>({ type: 'shipments' }, `parcels/${parcelId}/shipment`, params, options) as unknown as Shipment
+	}
+
+	async package(parcelId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
+		return this.resources.fetch<Package>({ type: 'packages' }, `parcels/${parcelId}/package`, params, options) as unknown as Package
+	}
+
+	async parcel_line_items(parcelId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
+		return this.resources.fetch<ParcelLineItem>({ type: 'parcel_line_items' }, `parcels/${parcelId}/parcel_line_items`, params, options) as unknown as ListResponse<ParcelLineItem>
+	}
+
+	async attachments(parcelId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `parcels/${parcelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

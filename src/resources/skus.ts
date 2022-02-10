@@ -79,7 +79,7 @@ class Skus extends ApiResource {
 	// static readonly PATH = 'skus'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
-		return this.resources.list({ type: Skus.TYPE }, params, options)
+		return this.resources.list<Sku>({ type: Skus.TYPE }, params, options)
 	}
 
 	async create(resource: SkuCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
@@ -97,7 +97,30 @@ class Skus extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Skus.TYPE, id }, options)
 	}
-	
+
+	async shipping_category(skuId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `skus/${skuId}/shipping_category`, params, options) as unknown as ShippingCategory
+	}
+
+	async prices(skuId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Price>> {
+		return this.resources.fetch<Price>({ type: 'prices' }, `skus/${skuId}/prices`, params, options) as unknown as ListResponse<Price>
+	}
+
+	async stock_items(skuId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
+		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `skus/${skuId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
+	}
+
+	async delivery_lead_times(skuId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
+		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `skus/${skuId}/delivery_lead_times`, params, options) as unknown as ListResponse<DeliveryLeadTime>
+	}
+
+	async sku_options(skuId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
+		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `skus/${skuId}/sku_options`, params, options) as unknown as ListResponse<SkuOption>
+	}
+
+	async attachments(skuId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `skus/${skuId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

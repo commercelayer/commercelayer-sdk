@@ -53,7 +53,7 @@ class SkuLists extends ApiResource {
 	// static readonly PATH = 'sku_lists'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuList>> {
-		return this.resources.list({ type: SkuLists.TYPE }, params, options)
+		return this.resources.list<SkuList>({ type: SkuLists.TYPE }, params, options)
 	}
 
 	async create(resource: SkuListCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
@@ -71,7 +71,18 @@ class SkuLists extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: SkuLists.TYPE, id }, options)
 	}
-	
+
+	async skus(skuListId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_lists/${skuListId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async sku_list_items(skuListId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuListItem>> {
+		return this.resources.fetch<SkuListItem>({ type: 'sku_list_items' }, `sku_lists/${skuListId}/sku_list_items`, params, options) as unknown as ListResponse<SkuListItem>
+	}
+
+	async bundles(skuListId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
+		return this.resources.fetch<Bundle>({ type: 'bundles' }, `sku_lists/${skuListId}/bundles`, params, options) as unknown as ListResponse<Bundle>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

@@ -54,7 +54,7 @@ class ShippingZones extends ApiResource {
 	// static readonly PATH = 'shipping_zones'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingZone>> {
-		return this.resources.list({ type: ShippingZones.TYPE }, params, options)
+		return this.resources.list<ShippingZone>({ type: ShippingZones.TYPE }, params, options)
 	}
 
 	async create(resource: ShippingZoneCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
@@ -72,7 +72,10 @@ class ShippingZones extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ShippingZones.TYPE, id }, options)
 	}
-	
+
+	async attachments(shippingZoneId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_zones/${shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

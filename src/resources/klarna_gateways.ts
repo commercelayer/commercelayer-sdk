@@ -49,7 +49,7 @@ class KlarnaGateways extends ApiResource {
 	// static readonly PATH = 'klarna_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaGateway>> {
-		return this.resources.list({ type: KlarnaGateways.TYPE }, params, options)
+		return this.resources.list<KlarnaGateway>({ type: KlarnaGateways.TYPE }, params, options)
 	}
 
 	async create(resource: KlarnaGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway> {
@@ -67,7 +67,14 @@ class KlarnaGateways extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: KlarnaGateways.TYPE, id }, options)
 	}
-	
+
+	async payment_methods(klarnaGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `klarna_gateways/${klarnaGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
+
+	async klarna_payments(klarnaGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
+		return this.resources.fetch<KlarnaPayment>({ type: 'klarna_payments' }, `klarna_gateways/${klarnaGatewayId}/klarna_payments`, params, options) as unknown as ListResponse<KlarnaPayment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

@@ -44,7 +44,7 @@ class PriceLists extends ApiResource {
 	// static readonly PATH = 'price_lists'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceList>> {
-		return this.resources.list({ type: PriceLists.TYPE }, params, options)
+		return this.resources.list<PriceList>({ type: PriceLists.TYPE }, params, options)
 	}
 
 	async create(resource: PriceListCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
@@ -62,7 +62,14 @@ class PriceLists extends ApiResource {
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: PriceLists.TYPE, id }, options)
 	}
-	
+
+	async prices(priceListId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Price>> {
+		return this.resources.fetch<Price>({ type: 'prices' }, `price_lists/${priceListId}/prices`, params, options) as unknown as ListResponse<Price>
+	}
+
+	async attachments(priceListId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_lists/${priceListId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
 
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

@@ -25,7 +25,7 @@ describe('ParcelLineItems resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			quantity: 12345,
+			quantity: 555,
 			parcel: cl.parcels.relationship(TestData.id),
 			stock_line_item: cl.stock_line_items.relationship(TestData.id),
 		}
@@ -150,4 +150,43 @@ describe('ParcelLineItems resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.parcel', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { parcels: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'parcel')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].parcel(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.stock_line_item', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stock_line_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'stock_line_item')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stock_line_item(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

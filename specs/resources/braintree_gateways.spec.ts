@@ -25,11 +25,11 @@ describe('BraintreeGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'alfa_27',
-			merchant_account_id: 'epsilon_45',
-			merchant_id: 'kappa_54',
-			public_key: 'gamma_64',
-			private_key: 'epsilon_38',
+			name: 'lambda_22',
+			merchant_account_id: 'epsilon_93',
+			merchant_id: 'beta_73',
+			public_key: 'omega_43',
+			private_key: 'alfa_48',
 			braintree_payments: [ cl.braintree_payments.relationship(TestData.id) ],
 		}
 
@@ -153,4 +153,43 @@ describe('BraintreeGateways resource', () => {
   })
   /* spec.type.stop */
 
+  
+
+	it(resourceType + '.payment_methods', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'payment_methods')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].payment_methods(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.braintree_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { braintree_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'braintree_payments')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].braintree_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })
