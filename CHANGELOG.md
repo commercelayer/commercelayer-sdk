@@ -1,3 +1,10 @@
+# [5.0.0-alpha.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-alpha.1...v5.0.0-alpha.2) (2022-02-11)
+
+
+### Bug Fixes
+
+* **config:** temp node 16 support ([a6e7ce4](https://github.com/commercelayer/commercelayer-sdk/commit/a6e7ce4eed05a19bd018cbe76acb37c069a0c0c4))
+
 # [5.0.0-alpha.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-alpha.1...v5.0.0-alpha.1) (2022-02-11)
 
 

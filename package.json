@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.2",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
   "scripts": {
