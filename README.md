@@ -1,36 +1,9 @@
-# Commerce Layer JS SDK
-
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 [![Version](https://img.shields.io/npm/v/@commercelayer/sdk.svg)](https://npmjs.org/package/@commercelayer/sdk)
 [![Downloads/week](https://img.shields.io/npm/dw/@commercelayer/sdk.svg)](https://npmjs.org/package/@commercelayer/sdk)
 [![License](https://img.shields.io/npm/l/@commercelayer/commercelayer-sdk.svg)](https://github.com/commercelayer/commercelayer-sdk/blob/master/package.json)
-Team
-​
-​
-​
-​
-​
-​
-​​
-​​
-​​
-Alumni
-​
-​
-​
-​
-​
-​
-​
-​
-​
-​
-​​
-​​
-​​
-​​
-​​
-Kill all humans
+# Commerce Layer JS SDK
+
 A JavaScript Library wrapper that makes it quick and easy to interact with the [Commerce Layer API](https://docs.commercelayer.io/api/).
 
 ### What is Commerce Layer?
