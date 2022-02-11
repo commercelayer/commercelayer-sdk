@@ -1,3 +1,10 @@
+# [4.3.0-beta.10](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.9...v4.3.0-beta.10) (2022-02-11)
+
+
+### Bug Fixes
+
+* **doc:** add badges ([f3377f9](https://github.com/commercelayer/commercelayer-sdk/commit/f3377f953cc94c975882802c0a6d07d820c64adc))
+
 # [4.3.0-beta.9](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.8...v4.3.0-beta.9) (2022-02-11)
 
 
