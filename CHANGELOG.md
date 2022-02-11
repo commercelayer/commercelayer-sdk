@@ -1,3 +1,10 @@
+# [4.3.0-beta.9](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.8...v4.3.0-beta.9) (2022-02-11)
+
+
+### Bug Fixes
+
+* **config:** sr badge ([7e4d47e](https://github.com/commercelayer/commercelayer-sdk/commit/7e4d47ed97711fced8de8fd6d5d68c494c244f35))
+
 # [4.3.0-beta.8](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.7...v4.3.0-beta.8) (2022-02-10)
 
 
