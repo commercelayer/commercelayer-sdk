@@ -1,3 +1,11 @@
+# [4.5.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.5.0-beta.0...v4.5.0-beta.1) (2022-02-11)
+
+
+### Bug Fixes
+
+* **config:** fix package pre-release version ([68b2f95](https://github.com/commercelayer/commercelayer-sdk/commit/68b2f95ed0ee7a4c85b8a364485ec13bcdaf0870))
+* **doc:** remove main badges ([1d18e75](https://github.com/commercelayer/commercelayer-sdk/commit/1d18e75342fbe442f4f7d88fdc3884342b0a22e6))
+
 # [4.3.0-beta.12](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.11...v4.3.0-beta.12) (2022-02-11)
 
 
