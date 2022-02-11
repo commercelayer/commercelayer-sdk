@@ -1,6 +1,9 @@
 # Commerce Layer JS SDK
 
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![Version](https://img.shields.io/npm/v/@commercelayer/sdk.svg)](https://npmjs.org/package/@commercelayer/sdk)
+[![Downloads/week](https://img.shields.io/npm/dw/@commercelayer/sdk.svg)](https://npmjs.org/package/@commercelayer/sdk)
+[![License](https://img.shields.io/npm/l/@commercelayer/commercelayer-sdk.svg)](https://github.com/commercelayer/commercelayer-sdk/blob/master/package.json)
 Team
 ​
 ​
