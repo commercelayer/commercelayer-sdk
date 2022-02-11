@@ -1,3 +1,11 @@
+# [5.0.0-alpha.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2022-02-11)
+
+
+### Bug Fixes
+
+* **config:** add type to package ([ee00fea](https://github.com/commercelayer/commercelayer-sdk/commit/ee00fea2c9d9c836442923b33038671c58fc479d))
+* **config:** fix cjs files ([27a1bc6](https://github.com/commercelayer/commercelayer-sdk/commit/27a1bc62e9935865989d4a0dd34e644c5041b4f5))
+
 # [5.0.0-alpha.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-alpha.1...v5.0.0-alpha.2) (2022-02-11)
 
 
