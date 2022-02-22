@@ -55,12 +55,13 @@ The code snippets below show how to use the Commerce Layer JS SDK when performin
 
 - ### Create
   - [How to create an SKU](#how-to-create-an-sku)
-- ### Retrieve
+- ### Retrieve / List
   - [How to fetch a single SKU](#how-to-fetch-a-single-sku)
   - [How to fetch a collection of SKUs](#how-to-fetch-a-collection-of-skus)
   - [How to paginate a collection of SKUs](#how-to-paginate-a-collection-of-skus)
   - [How to iterate through a collection of SKUs](#how-to-iterate-through-a-collection-of-skus)
-  - [How to build complex queries](#how-to-build-complex-queries)
+  <!-- - [How to build complex queries](#how-to-build-complex-queries) -->
+  - [How to fetch resource relationships](#how-to-fetch-resource-relationships)
 - ### Update
   - [How to update an existing SKU](#how-to-update-an-existing-sku)
 - ### Delete
@@ -85,7 +86,7 @@ The code snippets below show how to use the Commerce Layer JS SDK when performin
 
 Check our API reference for more information on how to [create an SKU](https://docs.commercelayer.io/api/resources/skus/create_sku).
 
-## Retrieve
+## Retrieve / List
 
 ### How to fetch a single SKU
 
@@ -191,6 +192,14 @@ To execute a function for every item of a collection, use the `map()` method:
   // Fetches the whole list of SKUs and prints their names and codes to console
   const skus = await cl.skus.list()
   skus.map(p => console.log('Product: ' + p.name + ' - Code: ' + p.code))
+```
+
+
+### How to fetch resource relationships
+
+xxxxxxx
+```
+code
 ```
 
 ## Update
