@@ -5,7 +5,7 @@ import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource
 import { isResourceId, isResourceType } from './common'
 
 import Debug from './debug'
-const debug = Debug()
+const debug = Debug('jsonapi')
 
 
 
