@@ -1,3 +1,11 @@
+# [4.5.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v4.5.0-beta.1...v4.5.0-beta.2) (2022-02-25)
+
+
+### Bug Fixes
+
+* **core:** fix debug caller issue ([d2f0f81](https://github.com/commercelayer/commercelayer-sdk/commit/d2f0f8191efaef7014b7b36092720ee11c7acd44))
+* **core:** fix debug caller issue ([02c0ee7](https://github.com/commercelayer/commercelayer-sdk/commit/02c0ee7c84c89a029ac4ab2ae7da1533caea378a))
+
 # [4.5.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.5.0-beta.0...v4.5.0-beta.1) (2022-02-11)
 
 
