@@ -189,7 +189,7 @@ Check our API reference for more information on how [pagination](https://docs.co
 To execute a function for every item of a collection, use the `map()` method:
 
 ```
-  // Fetches the whole list of SKUs and prints their names and codes to console
+  // Fetches the whole list of SKUs (1st page) and prints their names and codes to console
   const skus = await cl.skus.list()
   skus.map(p => console.log('Product: ' + p.name + ' - Code: ' + p.code))
 ```
@@ -197,10 +197,17 @@ To execute a function for every item of a collection, use the `map()` method:
 
 ### How to fetch resource relationships
 
-xxxxxxx
+Many resources have relationships with other resources and instead of including these associations as seen above, you can fetch them directly.
+In this way, in case of 1-to-N relationship, you can filter or sort the resulting collection as for standard resources.
+
 ```
-code
+// Fetches 1-to-1 related resource: billing address of an order
+const billingAddress = cl.orders.billing_address('<order-id>')
+
+// Fetches 1-to-N related resources: orders associated to a customer
+const orders = cl.customers.orders('<customer-id>', { fields: ['status', 'number'] })
 ```
+
 
 ## Update
 
