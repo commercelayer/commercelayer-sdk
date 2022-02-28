@@ -1,3 +1,10 @@
+# [4.5.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.4.1...v4.5.0) (2022-02-28)
+
+
+### Features
+
+* **core:** bump version to 4.5.0 ([265c3a2](https://github.com/commercelayer/commercelayer-sdk/commit/265c3a2eae7218746920b8018f61c919ff7dad79))
+
 ## [4.4.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.4.0...v4.4.1) (2022-02-28)
 
 
