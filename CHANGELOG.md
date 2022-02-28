@@ -1,0 +1,15 @@
+## [4.4.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.4.0...v4.4.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* **build:** restore package-lock file ([f52b5ce](https://github.com/commercelayer/commercelayer-sdk/commit/f52b5ceef3f6f7a5699dfddc3c1666e54cab1a80))
+* **config:** fix package pre-release version ([68b2f95](https://github.com/commercelayer/commercelayer-sdk/commit/68b2f95ed0ee7a4c85b8a364485ec13bcdaf0870))
+* **config:** sr badge ([7e4d47e](https://github.com/commercelayer/commercelayer-sdk/commit/7e4d47ed97711fced8de8fd6d5d68c494c244f35))
+* **config:** update dependencies ([97d2748](https://github.com/commercelayer/commercelayer-sdk/commit/97d274881e106ba83a50f0350d4fe6cc3eaedeb0))
+* **core:** fix debug caller issue ([d2f0f81](https://github.com/commercelayer/commercelayer-sdk/commit/d2f0f8191efaef7014b7b36092720ee11c7acd44))
+* **core:** fix debug caller issue ([02c0ee7](https://github.com/commercelayer/commercelayer-sdk/commit/02c0ee7c84c89a029ac4ab2ae7da1533caea378a))
+* **doc:** add badges ([f3377f9](https://github.com/commercelayer/commercelayer-sdk/commit/f3377f953cc94c975882802c0a6d07d820c64adc))
+* **doc:** fix readme badges ([c3faba4](https://github.com/commercelayer/commercelayer-sdk/commit/c3faba4293b26d17158d80e491f296aea7f8683f))
+* **doc:** fix README badges ([be00e40](https://github.com/commercelayer/commercelayer-sdk/commit/be00e407d1b5293022810bb16deaa30c4b9ec563))
+* **doc:** remove main badges ([1d18e75](https://github.com/commercelayer/commercelayer-sdk/commit/1d18e75342fbe442f4f7d88fdc3884342b0a22e6))
