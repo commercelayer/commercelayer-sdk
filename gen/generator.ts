@@ -332,7 +332,6 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 			specRel = specRel.replace(/##__OPERATION_NAME__##/g, op.name)
 			specRel = specRel.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
-			console.log(specRel)
 			spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '\n\n\t' + specRel + '\n\t##__RELATIONSHIP_SPECS__##')
 
 		}

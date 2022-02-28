@@ -30,6 +30,7 @@ const debugPrefix = 'clsdk'
 
 
 /* Retrieve the name of the caller 'module' */
+/*
 const caller = (): string => {
 
 	const err = new Error()
@@ -43,11 +44,12 @@ const caller = (): string => {
 	return fileName.replace(/^.*[\\/]/, '').replace('.ts', '')
 
 }
+*/
 
 
 /* Return a debugger for the defined namespace */
-const debug = (namespace?: string): Debugger => {
-	return debuggerFactory(`${debugPrefix}:${namespace || caller()}`)
+const debug = (namespace: string): Debugger => {
+	return debuggerFactory(`${debugPrefix}:${namespace}`)
 }
 
 

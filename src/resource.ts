@@ -8,7 +8,7 @@ import { InterceptorManager } from './interceptor'
 
 import Debug from './debug'
 import { QueryParams } from '.'
-const debug = Debug()
+const debug = Debug('resource')
 
 
 

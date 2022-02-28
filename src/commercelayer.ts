@@ -3,10 +3,10 @@ import * as api from './api'
 import { ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj } from './interceptor'
 import { CommerceLayerStatic } from './static'
-import ResourceAdapter, { ResourcesConfig, ResourcesInitConfig } from './resource'
+import ResourceAdapter, { ResourcesInitConfig } from './resource'
 
 import Debug from './debug'
-const debug = Debug()
+const debug = Debug('commercelayer')
 
 
 const OPEN_API_SCHEMA_VERSION = '2.8.1'

@@ -1,4 +1,51 @@
+<<<<<<< HEAD
 # [4.4.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0...v4.4.0) (2022-02-10)
+=======
+# [4.5.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.5.0-beta.0...v4.5.0-beta.1) (2022-02-11)
+
+
+### Bug Fixes
+
+* **config:** fix package pre-release version ([68b2f95](https://github.com/commercelayer/commercelayer-sdk/commit/68b2f95ed0ee7a4c85b8a364485ec13bcdaf0870))
+* **doc:** remove main badges ([1d18e75](https://github.com/commercelayer/commercelayer-sdk/commit/1d18e75342fbe442f4f7d88fdc3884342b0a22e6))
+
+# [4.3.0-beta.12](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.11...v4.3.0-beta.12) (2022-02-11)
+
+
+### Bug Fixes
+
+* **doc:** fix readme badges ([c3faba4](https://github.com/commercelayer/commercelayer-sdk/commit/c3faba4293b26d17158d80e491f296aea7f8683f))
+
+# [4.3.0-beta.11](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.10...v4.3.0-beta.11) (2022-02-11)
+
+
+### Bug Fixes
+
+* **doc:** fix README badges ([be00e40](https://github.com/commercelayer/commercelayer-sdk/commit/be00e407d1b5293022810bb16deaa30c4b9ec563))
+
+# [4.3.0-beta.10](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.9...v4.3.0-beta.10) (2022-02-11)
+
+
+### Bug Fixes
+
+* **doc:** add badges ([f3377f9](https://github.com/commercelayer/commercelayer-sdk/commit/f3377f953cc94c975882802c0a6d07d820c64adc))
+
+# [4.3.0-beta.9](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.8...v4.3.0-beta.9) (2022-02-11)
+
+
+### Bug Fixes
+
+* **config:** sr badge ([7e4d47e](https://github.com/commercelayer/commercelayer-sdk/commit/7e4d47ed97711fced8de8fd6d5d68c494c244f35))
+
+# [4.3.0-beta.8](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.7...v4.3.0-beta.8) (2022-02-10)
+
+
+### Bug Fixes
+
+* **config:** update dependencies ([97d2748](https://github.com/commercelayer/commercelayer-sdk/commit/97d274881e106ba83a50f0350d4fe6cc3eaedeb0))
+
+# [4.3.0-beta.7](https://github.com/commercelayer/commercelayer-sdk/compare/v4.3.0-beta.6...v4.3.0-beta.7) (2022-02-10)
+>>>>>>> sdk4
 
 
 ### Features
