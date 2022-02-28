@@ -1,3 +1,15 @@
+# [4.5.0-beta.3](https://github.com/commercelayer/commercelayer-sdk/compare/v4.5.0-beta.2...v4.5.0-beta.3) (2022-02-28)
+
+
+### Bug Fixes
+
+* **build:** restore package-lock file ([f52b5ce](https://github.com/commercelayer/commercelayer-sdk/commit/f52b5ceef3f6f7a5699dfddc3c1666e54cab1a80))
+
+
+### Features
+
+* **core:** bump version to 4.5.0 ([265c3a2](https://github.com/commercelayer/commercelayer-sdk/commit/265c3a2eae7218746920b8018f61c919ff7dad79))
+
 ## [4.4.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.4.0...v4.4.1) (2022-02-28)
 
 
