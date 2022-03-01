@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('ManualTaxCalculators resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'beta_67',
+			name: 'delta_16',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 			tax_rules: [ cl.tax_rules.relationship(TestData.id) ],
 		}

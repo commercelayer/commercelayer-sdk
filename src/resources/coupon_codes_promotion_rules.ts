@@ -54,7 +54,7 @@ class CouponCodesPromotionRules extends ApiResource {
 	}
 
 	async create(resource: CouponCodesPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		return this.resources.create({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
+		return this.resources.create<CouponCodesPromotionRuleCreate, CouponCodesPromotionRule>({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
@@ -62,7 +62,7 @@ class CouponCodesPromotionRules extends ApiResource {
 	}
 
 	async update(resource: CouponCodesPromotionRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		return this.resources.update({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
+		return this.resources.update<CouponCodesPromotionRuleUpdate, CouponCodesPromotionRule>({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

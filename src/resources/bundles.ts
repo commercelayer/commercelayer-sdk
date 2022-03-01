@@ -78,7 +78,7 @@ class Bundles extends ApiResource {
 	}
 
 	async create(resource: BundleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
-		return this.resources.create({ ...resource, type: Bundles.TYPE }, params, options)
+		return this.resources.create<BundleCreate, Bundle>({ ...resource, type: Bundles.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
@@ -86,7 +86,7 @@ class Bundles extends ApiResource {
 	}
 
 	async update(resource: BundleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
-		return this.resources.update({ ...resource, type: Bundles.TYPE }, params, options)
+		return this.resources.update<BundleUpdate, Bundle>({ ...resource, type: Bundles.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

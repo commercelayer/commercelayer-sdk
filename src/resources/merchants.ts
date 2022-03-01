@@ -47,7 +47,7 @@ class Merchants extends ApiResource {
 	}
 
 	async create(resource: MerchantCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
-		return this.resources.create({ ...resource, type: Merchants.TYPE }, params, options)
+		return this.resources.create<MerchantCreate, Merchant>({ ...resource, type: Merchants.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
@@ -55,7 +55,7 @@ class Merchants extends ApiResource {
 	}
 
 	async update(resource: MerchantUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
-		return this.resources.update({ ...resource, type: Merchants.TYPE }, params, options)
+		return this.resources.update<MerchantUpdate, Merchant>({ ...resource, type: Merchants.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

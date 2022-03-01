@@ -53,7 +53,7 @@ class KlarnaGateways extends ApiResource {
 	}
 
 	async create(resource: KlarnaGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway> {
-		return this.resources.create({ ...resource, type: KlarnaGateways.TYPE }, params, options)
+		return this.resources.create<KlarnaGatewayCreate, KlarnaGateway>({ ...resource, type: KlarnaGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway> {
@@ -61,7 +61,7 @@ class KlarnaGateways extends ApiResource {
 	}
 
 	async update(resource: KlarnaGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway> {
-		return this.resources.update({ ...resource, type: KlarnaGateways.TYPE }, params, options)
+		return this.resources.update<KlarnaGatewayUpdate, KlarnaGateway>({ ...resource, type: KlarnaGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

@@ -65,7 +65,7 @@ class SkuListPromotionRules extends ApiResource {
 	}
 
 	async create(resource: SkuListPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
-		return this.resources.create({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
+		return this.resources.create<SkuListPromotionRuleCreate, SkuListPromotionRule>({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
@@ -73,7 +73,7 @@ class SkuListPromotionRules extends ApiResource {
 	}
 
 	async update(resource: SkuListPromotionRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
-		return this.resources.update({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
+		return this.resources.update<SkuListPromotionRuleUpdate, SkuListPromotionRule>({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

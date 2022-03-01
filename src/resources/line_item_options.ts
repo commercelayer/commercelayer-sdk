@@ -64,7 +64,7 @@ class LineItemOptions extends ApiResource {
 	}
 
 	async create(resource: LineItemOptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
-		return this.resources.create({ ...resource, type: LineItemOptions.TYPE }, params, options)
+		return this.resources.create<LineItemOptionCreate, LineItemOption>({ ...resource, type: LineItemOptions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
@@ -72,7 +72,7 @@ class LineItemOptions extends ApiResource {
 	}
 
 	async update(resource: LineItemOptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
-		return this.resources.update({ ...resource, type: LineItemOptions.TYPE }, params, options)
+		return this.resources.update<LineItemOptionUpdate, LineItemOption>({ ...resource, type: LineItemOptions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

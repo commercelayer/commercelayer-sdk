@@ -53,7 +53,7 @@ class ParcelLineItems extends ApiResource {
 	}
 
 	async create(resource: ParcelLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
-		return this.resources.create({ ...resource, type: ParcelLineItems.TYPE }, params, options)
+		return this.resources.create<ParcelLineItemCreate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
@@ -61,7 +61,7 @@ class ParcelLineItems extends ApiResource {
 	}
 
 	async update(resource: ParcelLineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
-		return this.resources.update({ ...resource, type: ParcelLineItems.TYPE }, params, options)
+		return this.resources.update<ParcelLineItemUpdate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

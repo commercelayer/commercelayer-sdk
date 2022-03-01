@@ -44,7 +44,7 @@ class CustomerGroups extends ApiResource {
 	}
 
 	async create(resource: CustomerGroupCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
-		return this.resources.create({ ...resource, type: CustomerGroups.TYPE }, params, options)
+		return this.resources.create<CustomerGroupCreate, CustomerGroup>({ ...resource, type: CustomerGroups.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
@@ -52,7 +52,7 @@ class CustomerGroups extends ApiResource {
 	}
 
 	async update(resource: CustomerGroupUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
-		return this.resources.update({ ...resource, type: CustomerGroups.TYPE }, params, options)
+		return this.resources.update<CustomerGroupUpdate, CustomerGroup>({ ...resource, type: CustomerGroups.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

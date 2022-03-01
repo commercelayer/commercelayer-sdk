@@ -39,7 +39,7 @@ class WireTransfers extends ApiResource {
 	}
 
 	async create(resource: WireTransferCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
-		return this.resources.create({ ...resource, type: WireTransfers.TYPE }, params, options)
+		return this.resources.create<WireTransferCreate, WireTransfer>({ ...resource, type: WireTransfers.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
@@ -47,7 +47,7 @@ class WireTransfers extends ApiResource {
 	}
 
 	async update(resource: WireTransferUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
-		return this.resources.update({ ...resource, type: WireTransfers.TYPE }, params, options)
+		return this.resources.update<WireTransferUpdate, WireTransfer>({ ...resource, type: WireTransfers.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

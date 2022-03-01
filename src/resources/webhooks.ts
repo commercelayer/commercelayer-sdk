@@ -52,7 +52,7 @@ class Webhooks extends ApiResource {
 	}
 
 	async create(resource: WebhookCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.create({ ...resource, type: Webhooks.TYPE }, params, options)
+		return this.resources.create<WebhookCreate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
@@ -60,7 +60,7 @@ class Webhooks extends ApiResource {
 	}
 
 	async update(resource: WebhookUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.update({ ...resource, type: Webhooks.TYPE }, params, options)
+		return this.resources.update<WebhookUpdate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

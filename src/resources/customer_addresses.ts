@@ -46,7 +46,7 @@ class CustomerAddresses extends ApiResource {
 	}
 
 	async create(resource: CustomerAddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
-		return this.resources.create({ ...resource, type: CustomerAddresses.TYPE }, params, options)
+		return this.resources.create<CustomerAddressCreate, CustomerAddress>({ ...resource, type: CustomerAddresses.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
@@ -54,7 +54,7 @@ class CustomerAddresses extends ApiResource {
 	}
 
 	async update(resource: CustomerAddressUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
-		return this.resources.update({ ...resource, type: CustomerAddresses.TYPE }, params, options)
+		return this.resources.update<CustomerAddressUpdate, CustomerAddress>({ ...resource, type: CustomerAddresses.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

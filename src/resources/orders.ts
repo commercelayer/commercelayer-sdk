@@ -244,7 +244,7 @@ class Orders extends ApiResource {
 	}
 
 	async create(resource: OrderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.create({ ...resource, type: Orders.TYPE }, params, options)
+		return this.resources.create<OrderCreate, Order>({ ...resource, type: Orders.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -252,7 +252,7 @@ class Orders extends ApiResource {
 	}
 
 	async update(resource: OrderUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.update({ ...resource, type: Orders.TYPE }, params, options)
+		return this.resources.update<OrderUpdate, Order>({ ...resource, type: Orders.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

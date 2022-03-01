@@ -57,7 +57,7 @@ class SkuLists extends ApiResource {
 	}
 
 	async create(resource: SkuListCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
-		return this.resources.create({ ...resource, type: SkuLists.TYPE }, params, options)
+		return this.resources.create<SkuListCreate, SkuList>({ ...resource, type: SkuLists.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
@@ -65,7 +65,7 @@ class SkuLists extends ApiResource {
 	}
 
 	async update(resource: SkuListUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
-		return this.resources.update({ ...resource, type: SkuLists.TYPE }, params, options)
+		return this.resources.update<SkuListUpdate, SkuList>({ ...resource, type: SkuLists.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

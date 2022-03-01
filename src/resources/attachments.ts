@@ -109,7 +109,7 @@ class Attachments extends ApiResource {
 	}
 
 	async create(resource: AttachmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
-		return this.resources.create({ ...resource, type: Attachments.TYPE }, params, options)
+		return this.resources.create<AttachmentCreate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
@@ -117,7 +117,7 @@ class Attachments extends ApiResource {
 	}
 
 	async update(resource: AttachmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
-		return this.resources.update({ ...resource, type: Attachments.TYPE }, params, options)
+		return this.resources.update<AttachmentUpdate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

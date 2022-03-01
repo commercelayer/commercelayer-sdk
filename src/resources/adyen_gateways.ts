@@ -56,7 +56,7 @@ class AdyenGateways extends ApiResource {
 	}
 
 	async create(resource: AdyenGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
-		return this.resources.create({ ...resource, type: AdyenGateways.TYPE }, params, options)
+		return this.resources.create<AdyenGatewayCreate, AdyenGateway>({ ...resource, type: AdyenGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
@@ -64,7 +64,7 @@ class AdyenGateways extends ApiResource {
 	}
 
 	async update(resource: AdyenGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
-		return this.resources.update({ ...resource, type: AdyenGateways.TYPE }, params, options)
+		return this.resources.update<AdyenGatewayUpdate, AdyenGateway>({ ...resource, type: AdyenGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

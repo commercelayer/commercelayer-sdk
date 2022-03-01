@@ -53,7 +53,7 @@ class GiftCardRecipients extends ApiResource {
 	}
 
 	async create(resource: GiftCardRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
-		return this.resources.create({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
+		return this.resources.create<GiftCardRecipientCreate, GiftCardRecipient>({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
@@ -61,7 +61,7 @@ class GiftCardRecipients extends ApiResource {
 	}
 
 	async update(resource: GiftCardRecipientUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
-		return this.resources.update({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
+		return this.resources.update<GiftCardRecipientUpdate, GiftCardRecipient>({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

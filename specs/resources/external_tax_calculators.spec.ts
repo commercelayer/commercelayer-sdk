@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('ExternalTaxCalculators resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'gamma_82',
-			tax_calculator_url: 'sigma_60',
+			name: 'delta_65',
+			tax_calculator_url: 'kappa_12',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 

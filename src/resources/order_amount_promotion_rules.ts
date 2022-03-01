@@ -57,7 +57,7 @@ class OrderAmountPromotionRules extends ApiResource {
 	}
 
 	async create(resource: OrderAmountPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
-		return this.resources.create({ ...resource, type: OrderAmountPromotionRules.TYPE }, params, options)
+		return this.resources.create<OrderAmountPromotionRuleCreate, OrderAmountPromotionRule>({ ...resource, type: OrderAmountPromotionRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
@@ -65,7 +65,7 @@ class OrderAmountPromotionRules extends ApiResource {
 	}
 
 	async update(resource: OrderAmountPromotionRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
-		return this.resources.update({ ...resource, type: OrderAmountPromotionRules.TYPE }, params, options)
+		return this.resources.update<OrderAmountPromotionRuleUpdate, OrderAmountPromotionRule>({ ...resource, type: OrderAmountPromotionRules.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

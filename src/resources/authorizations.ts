@@ -67,7 +67,7 @@ class Authorizations extends ApiResource {
 	}
 
 	async update(resource: AuthorizationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
-		return this.resources.update({ ...resource, type: Authorizations.TYPE }, params, options)
+		return this.resources.update<AuthorizationUpdate, Authorization>({ ...resource, type: Authorizations.TYPE }, params, options)
 	}
 
 	async order(authorizationId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {

@@ -43,7 +43,7 @@ class CustomerPasswordResets extends ApiResource {
 	}
 
 	async create(resource: CustomerPasswordResetCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
-		return this.resources.create({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
+		return this.resources.create<CustomerPasswordResetCreate, CustomerPasswordReset>({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
@@ -51,7 +51,7 @@ class CustomerPasswordResets extends ApiResource {
 	}
 
 	async update(resource: CustomerPasswordResetUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
-		return this.resources.update({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
+		return this.resources.update<CustomerPasswordResetUpdate, CustomerPasswordReset>({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

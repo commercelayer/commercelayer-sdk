@@ -91,7 +91,7 @@ class PercentageDiscountPromotions extends ApiResource {
 	}
 
 	async create(resource: PercentageDiscountPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
-		return this.resources.create({ ...resource, type: PercentageDiscountPromotions.TYPE }, params, options)
+		return this.resources.create<PercentageDiscountPromotionCreate, PercentageDiscountPromotion>({ ...resource, type: PercentageDiscountPromotions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
@@ -99,7 +99,7 @@ class PercentageDiscountPromotions extends ApiResource {
 	}
 
 	async update(resource: PercentageDiscountPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
-		return this.resources.update({ ...resource, type: PercentageDiscountPromotions.TYPE }, params, options)
+		return this.resources.update<PercentageDiscountPromotionUpdate, PercentageDiscountPromotion>({ ...resource, type: PercentageDiscountPromotions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

@@ -55,7 +55,7 @@ class StockItems extends ApiResource {
 	}
 
 	async create(resource: StockItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
-		return this.resources.create({ ...resource, type: StockItems.TYPE }, params, options)
+		return this.resources.create<StockItemCreate, StockItem>({ ...resource, type: StockItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
@@ -63,7 +63,7 @@ class StockItems extends ApiResource {
 	}
 
 	async update(resource: StockItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
-		return this.resources.update({ ...resource, type: StockItems.TYPE }, params, options)
+		return this.resources.update<StockItemUpdate, StockItem>({ ...resource, type: StockItems.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

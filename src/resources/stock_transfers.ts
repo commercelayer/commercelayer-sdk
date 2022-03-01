@@ -71,7 +71,7 @@ class StockTransfers extends ApiResource {
 	}
 
 	async create(resource: StockTransferCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.create({ ...resource, type: StockTransfers.TYPE }, params, options)
+		return this.resources.create<StockTransferCreate, StockTransfer>({ ...resource, type: StockTransfers.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
@@ -79,7 +79,7 @@ class StockTransfers extends ApiResource {
 	}
 
 	async update(resource: StockTransferUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.update({ ...resource, type: StockTransfers.TYPE }, params, options)
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ ...resource, type: StockTransfers.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

@@ -81,7 +81,7 @@ class FreeShippingPromotions extends ApiResource {
 	}
 
 	async create(resource: FreeShippingPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
-		return this.resources.create({ ...resource, type: FreeShippingPromotions.TYPE }, params, options)
+		return this.resources.create<FreeShippingPromotionCreate, FreeShippingPromotion>({ ...resource, type: FreeShippingPromotions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
@@ -89,7 +89,7 @@ class FreeShippingPromotions extends ApiResource {
 	}
 
 	async update(resource: FreeShippingPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
-		return this.resources.update({ ...resource, type: FreeShippingPromotions.TYPE }, params, options)
+		return this.resources.update<FreeShippingPromotionUpdate, FreeShippingPromotion>({ ...resource, type: FreeShippingPromotions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

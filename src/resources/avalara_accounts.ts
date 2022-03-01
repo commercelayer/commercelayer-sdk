@@ -60,7 +60,7 @@ class AvalaraAccounts extends ApiResource {
 	}
 
 	async create(resource: AvalaraAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
-		return this.resources.create({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
+		return this.resources.create<AvalaraAccountCreate, AvalaraAccount>({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
@@ -68,7 +68,7 @@ class AvalaraAccounts extends ApiResource {
 	}
 
 	async update(resource: AvalaraAccountUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
-		return this.resources.update({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
+		return this.resources.update<AvalaraAccountUpdate, AvalaraAccount>({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

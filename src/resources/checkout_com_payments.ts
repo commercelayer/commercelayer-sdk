@@ -11,6 +11,7 @@ type OrderRel = ResourceRel & { type: 'orders' }
 
 interface CheckoutComPayment extends Resource {
 	
+	public_key?: string
 	payment_type?: string
 	token?: string
 	session_id?: string
@@ -59,7 +60,7 @@ class CheckoutComPayments extends ApiResource {
 	}
 
 	async create(resource: CheckoutComPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.create({ ...resource, type: CheckoutComPayments.TYPE }, params, options)
+		return this.resources.create<CheckoutComPaymentCreate, CheckoutComPayment>({ ...resource, type: CheckoutComPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
@@ -67,7 +68,7 @@ class CheckoutComPayments extends ApiResource {
 	}
 
 	async update(resource: CheckoutComPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.update({ ...resource, type: CheckoutComPayments.TYPE }, params, options)
+		return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>({ ...resource, type: CheckoutComPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

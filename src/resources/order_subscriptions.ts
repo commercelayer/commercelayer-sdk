@@ -70,7 +70,7 @@ class OrderSubscriptions extends ApiResource {
 	}
 
 	async create(resource: OrderSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
-		return this.resources.create({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
+		return this.resources.create<OrderSubscriptionCreate, OrderSubscription>({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
@@ -78,7 +78,7 @@ class OrderSubscriptions extends ApiResource {
 	}
 
 	async update(resource: OrderSubscriptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
-		return this.resources.update({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
+		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

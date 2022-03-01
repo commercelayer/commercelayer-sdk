@@ -58,7 +58,7 @@ class ExternalGateways extends ApiResource {
 	}
 
 	async create(resource: ExternalGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
-		return this.resources.create({ ...resource, type: ExternalGateways.TYPE }, params, options)
+		return this.resources.create<ExternalGatewayCreate, ExternalGateway>({ ...resource, type: ExternalGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
@@ -66,7 +66,7 @@ class ExternalGateways extends ApiResource {
 	}
 
 	async update(resource: ExternalGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
-		return this.resources.update({ ...resource, type: ExternalGateways.TYPE }, params, options)
+		return this.resources.update<ExternalGatewayUpdate, ExternalGateway>({ ...resource, type: ExternalGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

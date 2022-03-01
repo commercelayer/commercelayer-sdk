@@ -51,7 +51,7 @@ class ExternalPayments extends ApiResource {
 	}
 
 	async create(resource: ExternalPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
-		return this.resources.create({ ...resource, type: ExternalPayments.TYPE }, params, options)
+		return this.resources.create<ExternalPaymentCreate, ExternalPayment>({ ...resource, type: ExternalPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
@@ -59,7 +59,7 @@ class ExternalPayments extends ApiResource {
 	}
 
 	async update(resource: ExternalPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
-		return this.resources.update({ ...resource, type: ExternalPayments.TYPE }, params, options)
+		return this.resources.update<ExternalPaymentUpdate, ExternalPayment>({ ...resource, type: ExternalPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

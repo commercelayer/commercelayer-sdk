@@ -93,7 +93,7 @@ class FixedPricePromotions extends ApiResource {
 	}
 
 	async create(resource: FixedPricePromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedPricePromotion> {
-		return this.resources.create({ ...resource, type: FixedPricePromotions.TYPE }, params, options)
+		return this.resources.create<FixedPricePromotionCreate, FixedPricePromotion>({ ...resource, type: FixedPricePromotions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedPricePromotion> {
@@ -101,7 +101,7 @@ class FixedPricePromotions extends ApiResource {
 	}
 
 	async update(resource: FixedPricePromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedPricePromotion> {
-		return this.resources.update({ ...resource, type: FixedPricePromotions.TYPE }, params, options)
+		return this.resources.update<FixedPricePromotionUpdate, FixedPricePromotion>({ ...resource, type: FixedPricePromotions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

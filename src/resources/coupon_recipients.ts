@@ -53,7 +53,7 @@ class CouponRecipients extends ApiResource {
 	}
 
 	async create(resource: CouponRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
-		return this.resources.create({ ...resource, type: CouponRecipients.TYPE }, params, options)
+		return this.resources.create<CouponRecipientCreate, CouponRecipient>({ ...resource, type: CouponRecipients.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
@@ -61,7 +61,7 @@ class CouponRecipients extends ApiResource {
 	}
 
 	async update(resource: CouponRecipientUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
-		return this.resources.update({ ...resource, type: CouponRecipients.TYPE }, params, options)
+		return this.resources.update<CouponRecipientUpdate, CouponRecipient>({ ...resource, type: CouponRecipients.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

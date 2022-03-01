@@ -49,7 +49,7 @@ class KlarnaPayments extends ApiResource {
 	}
 
 	async create(resource: KlarnaPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
-		return this.resources.create({ ...resource, type: KlarnaPayments.TYPE }, params, options)
+		return this.resources.create<KlarnaPaymentCreate, KlarnaPayment>({ ...resource, type: KlarnaPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
@@ -57,7 +57,7 @@ class KlarnaPayments extends ApiResource {
 	}
 
 	async update(resource: KlarnaPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
-		return this.resources.update({ ...resource, type: KlarnaPayments.TYPE }, params, options)
+		return this.resources.update<KlarnaPaymentUpdate, KlarnaPayment>({ ...resource, type: KlarnaPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

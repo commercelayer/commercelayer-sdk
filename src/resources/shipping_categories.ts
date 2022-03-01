@@ -42,7 +42,7 @@ class ShippingCategories extends ApiResource {
 	}
 
 	async create(resource: ShippingCategoryCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
-		return this.resources.create({ ...resource, type: ShippingCategories.TYPE }, params, options)
+		return this.resources.create<ShippingCategoryCreate, ShippingCategory>({ ...resource, type: ShippingCategories.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
@@ -50,7 +50,7 @@ class ShippingCategories extends ApiResource {
 	}
 
 	async update(resource: ShippingCategoryUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
-		return this.resources.update({ ...resource, type: ShippingCategories.TYPE }, params, options)
+		return this.resources.update<ShippingCategoryUpdate, ShippingCategory>({ ...resource, type: ShippingCategories.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

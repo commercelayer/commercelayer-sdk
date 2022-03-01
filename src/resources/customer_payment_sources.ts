@@ -62,7 +62,7 @@ class CustomerPaymentSources extends ApiResource {
 	}
 
 	async create(resource: CustomerPaymentSourceCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
-		return this.resources.create({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
+		return this.resources.create<CustomerPaymentSourceCreate, CustomerPaymentSource>({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
@@ -70,7 +70,7 @@ class CustomerPaymentSources extends ApiResource {
 	}
 
 	async update(resource: CustomerPaymentSourceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
-		return this.resources.update({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
+		return this.resources.update<CustomerPaymentSourceUpdate, CustomerPaymentSource>({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

@@ -55,7 +55,7 @@ class ReturnLineItems extends ApiResource {
 	}
 
 	async create(resource: ReturnLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
-		return this.resources.create({ ...resource, type: ReturnLineItems.TYPE }, params, options)
+		return this.resources.create<ReturnLineItemCreate, ReturnLineItem>({ ...resource, type: ReturnLineItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
@@ -63,7 +63,7 @@ class ReturnLineItems extends ApiResource {
 	}
 
 	async update(resource: ReturnLineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
-		return this.resources.update({ ...resource, type: ReturnLineItems.TYPE }, params, options)
+		return this.resources.update<ReturnLineItemUpdate, ReturnLineItem>({ ...resource, type: ReturnLineItems.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('TaxjarAccounts resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_66',
-			api_key: 'gamma_38',
+			name: 'omega_52',
+			api_key: 'kappa_80',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 

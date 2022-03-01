@@ -49,7 +49,7 @@ class OrderCopies extends ApiResource {
 	}
 
 	async create(resource: OrderCopyCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {
-		return this.resources.create({ ...resource, type: OrderCopies.TYPE }, params, options)
+		return this.resources.create<OrderCopyCreate, OrderCopy>({ ...resource, type: OrderCopies.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {

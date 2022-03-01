@@ -78,7 +78,7 @@ class Markets extends ApiResource {
 	}
 
 	async create(resource: MarketCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.create({ ...resource, type: Markets.TYPE }, params, options)
+		return this.resources.create<MarketCreate, Market>({ ...resource, type: Markets.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -86,7 +86,7 @@ class Markets extends ApiResource {
 	}
 
 	async update(resource: MarketUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.update({ ...resource, type: Markets.TYPE }, params, options)
+		return this.resources.update<MarketUpdate, Market>({ ...resource, type: Markets.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

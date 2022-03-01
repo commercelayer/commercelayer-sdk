@@ -63,7 +63,7 @@ class InStockSubscriptions extends ApiResource {
 	}
 
 	async create(resource: InStockSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
-		return this.resources.create({ ...resource, type: InStockSubscriptions.TYPE }, params, options)
+		return this.resources.create<InStockSubscriptionCreate, InStockSubscription>({ ...resource, type: InStockSubscriptions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
@@ -71,7 +71,7 @@ class InStockSubscriptions extends ApiResource {
 	}
 
 	async update(resource: InStockSubscriptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
-		return this.resources.update({ ...resource, type: InStockSubscriptions.TYPE }, params, options)
+		return this.resources.update<InStockSubscriptionUpdate, InStockSubscription>({ ...resource, type: InStockSubscriptions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

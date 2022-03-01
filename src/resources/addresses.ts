@@ -98,7 +98,7 @@ class Addresses extends ApiResource {
 	}
 
 	async create(resource: AddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.create({ ...resource, type: Addresses.TYPE }, params, options)
+		return this.resources.create<AddressCreate, Address>({ ...resource, type: Addresses.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
@@ -106,7 +106,7 @@ class Addresses extends ApiResource {
 	}
 
 	async update(resource: AddressUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.update({ ...resource, type: Addresses.TYPE }, params, options)
+		return this.resources.update<AddressUpdate, Address>({ ...resource, type: Addresses.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

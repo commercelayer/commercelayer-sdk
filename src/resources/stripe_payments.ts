@@ -51,7 +51,7 @@ class StripePayments extends ApiResource {
 	}
 
 	async create(resource: StripePaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {
-		return this.resources.create({ ...resource, type: StripePayments.TYPE }, params, options)
+		return this.resources.create<StripePaymentCreate, StripePayment>({ ...resource, type: StripePayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {
@@ -59,7 +59,7 @@ class StripePayments extends ApiResource {
 	}
 
 	async update(resource: StripePaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {
-		return this.resources.update({ ...resource, type: StripePayments.TYPE }, params, options)
+		return this.resources.update<StripePaymentUpdate, StripePayment>({ ...resource, type: StripePayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

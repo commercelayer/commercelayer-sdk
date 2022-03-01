@@ -76,7 +76,7 @@ class ShippingMethods extends ApiResource {
 	}
 
 	async create(resource: ShippingMethodCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
-		return this.resources.create({ ...resource, type: ShippingMethods.TYPE }, params, options)
+		return this.resources.create<ShippingMethodCreate, ShippingMethod>({ ...resource, type: ShippingMethods.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
@@ -84,7 +84,7 @@ class ShippingMethods extends ApiResource {
 	}
 
 	async update(resource: ShippingMethodUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
-		return this.resources.update({ ...resource, type: ShippingMethods.TYPE }, params, options)
+		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ ...resource, type: ShippingMethods.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

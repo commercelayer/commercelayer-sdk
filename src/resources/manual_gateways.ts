@@ -43,7 +43,7 @@ class ManualGateways extends ApiResource {
 	}
 
 	async create(resource: ManualGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
-		return this.resources.create({ ...resource, type: ManualGateways.TYPE }, params, options)
+		return this.resources.create<ManualGatewayCreate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
@@ -51,7 +51,7 @@ class ManualGateways extends ApiResource {
 	}
 
 	async update(resource: ManualGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
-		return this.resources.update({ ...resource, type: ManualGateways.TYPE }, params, options)
+		return this.resources.update<ManualGatewayUpdate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

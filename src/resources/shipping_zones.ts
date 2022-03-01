@@ -58,7 +58,7 @@ class ShippingZones extends ApiResource {
 	}
 
 	async create(resource: ShippingZoneCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
-		return this.resources.create({ ...resource, type: ShippingZones.TYPE }, params, options)
+		return this.resources.create<ShippingZoneCreate, ShippingZone>({ ...resource, type: ShippingZones.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
@@ -66,7 +66,7 @@ class ShippingZones extends ApiResource {
 	}
 
 	async update(resource: ShippingZoneUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
-		return this.resources.update({ ...resource, type: ShippingZones.TYPE }, params, options)
+		return this.resources.update<ShippingZoneUpdate, ShippingZone>({ ...resource, type: ShippingZones.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

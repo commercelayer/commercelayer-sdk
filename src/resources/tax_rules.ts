@@ -79,7 +79,7 @@ class TaxRules extends ApiResource {
 	}
 
 	async create(resource: TaxRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
-		return this.resources.create({ ...resource, type: TaxRules.TYPE }, params, options)
+		return this.resources.create<TaxRuleCreate, TaxRule>({ ...resource, type: TaxRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
@@ -87,7 +87,7 @@ class TaxRules extends ApiResource {
 	}
 
 	async update(resource: TaxRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
-		return this.resources.update({ ...resource, type: TaxRules.TYPE }, params, options)
+		return this.resources.update<TaxRuleUpdate, TaxRule>({ ...resource, type: TaxRules.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

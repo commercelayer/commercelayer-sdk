@@ -60,7 +60,7 @@ class TaxCategories extends ApiResource {
 	}
 
 	async create(resource: TaxCategoryCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
-		return this.resources.create({ ...resource, type: TaxCategories.TYPE }, params, options)
+		return this.resources.create<TaxCategoryCreate, TaxCategory>({ ...resource, type: TaxCategories.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
@@ -68,7 +68,7 @@ class TaxCategories extends ApiResource {
 	}
 
 	async update(resource: TaxCategoryUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
-		return this.resources.update({ ...resource, type: TaxCategories.TYPE }, params, options)
+		return this.resources.update<TaxCategoryUpdate, TaxCategory>({ ...resource, type: TaxCategories.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

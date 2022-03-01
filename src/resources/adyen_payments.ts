@@ -52,7 +52,7 @@ class AdyenPayments extends ApiResource {
 	}
 
 	async create(resource: AdyenPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment> {
-		return this.resources.create({ ...resource, type: AdyenPayments.TYPE }, params, options)
+		return this.resources.create<AdyenPaymentCreate, AdyenPayment>({ ...resource, type: AdyenPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment> {
@@ -60,7 +60,7 @@ class AdyenPayments extends ApiResource {
 	}
 
 	async update(resource: AdyenPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment> {
-		return this.resources.update({ ...resource, type: AdyenPayments.TYPE }, params, options)
+		return this.resources.update<AdyenPaymentUpdate, AdyenPayment>({ ...resource, type: AdyenPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

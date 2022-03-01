@@ -39,7 +39,7 @@ class BillingInfoValidationRules extends ApiResource {
 	}
 
 	async create(resource: BillingInfoValidationRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
-		return this.resources.create({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
+		return this.resources.create<BillingInfoValidationRuleCreate, BillingInfoValidationRule>({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
@@ -47,7 +47,7 @@ class BillingInfoValidationRules extends ApiResource {
 	}
 
 	async update(resource: BillingInfoValidationRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
-		return this.resources.update({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
+		return this.resources.update<BillingInfoValidationRuleUpdate, BillingInfoValidationRule>({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

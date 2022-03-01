@@ -54,7 +54,7 @@ class ManualTaxCalculators extends ApiResource {
 	}
 
 	async create(resource: ManualTaxCalculatorCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
-		return this.resources.create({ ...resource, type: ManualTaxCalculators.TYPE }, params, options)
+		return this.resources.create<ManualTaxCalculatorCreate, ManualTaxCalculator>({ ...resource, type: ManualTaxCalculators.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
@@ -62,7 +62,7 @@ class ManualTaxCalculators extends ApiResource {
 	}
 
 	async update(resource: ManualTaxCalculatorUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
-		return this.resources.update({ ...resource, type: ManualTaxCalculators.TYPE }, params, options)
+		return this.resources.update<ManualTaxCalculatorUpdate, ManualTaxCalculator>({ ...resource, type: ManualTaxCalculators.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

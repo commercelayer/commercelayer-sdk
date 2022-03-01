@@ -53,7 +53,7 @@ class InventoryStockLocations extends ApiResource {
 	}
 
 	async create(resource: InventoryStockLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
-		return this.resources.create({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
+		return this.resources.create<InventoryStockLocationCreate, InventoryStockLocation>({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
@@ -61,7 +61,7 @@ class InventoryStockLocations extends ApiResource {
 	}
 
 	async update(resource: InventoryStockLocationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
-		return this.resources.update({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
+		return this.resources.update<InventoryStockLocationUpdate, InventoryStockLocation>({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

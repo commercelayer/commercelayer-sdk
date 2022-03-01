@@ -57,7 +57,7 @@ class DeliveryLeadTimes extends ApiResource {
 	}
 
 	async create(resource: DeliveryLeadTimeCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
-		return this.resources.create({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
+		return this.resources.create<DeliveryLeadTimeCreate, DeliveryLeadTime>({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
@@ -65,7 +65,7 @@ class DeliveryLeadTimes extends ApiResource {
 	}
 
 	async update(resource: DeliveryLeadTimeUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
-		return this.resources.update({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
+		return this.resources.update<DeliveryLeadTimeUpdate, DeliveryLeadTime>({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

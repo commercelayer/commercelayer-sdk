@@ -111,7 +111,7 @@ class LineItems extends ApiResource {
 	}
 
 	async create(resource: LineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
-		return this.resources.create({ ...resource, type: LineItems.TYPE }, params, options)
+		return this.resources.create<LineItemCreate, LineItem>({ ...resource, type: LineItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
@@ -119,7 +119,7 @@ class LineItems extends ApiResource {
 	}
 
 	async update(resource: LineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
-		return this.resources.update({ ...resource, type: LineItems.TYPE }, params, options)
+		return this.resources.update<LineItemUpdate, LineItem>({ ...resource, type: LineItems.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

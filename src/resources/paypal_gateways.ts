@@ -48,7 +48,7 @@ class PaypalGateways extends ApiResource {
 	}
 
 	async create(resource: PaypalGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalGateway> {
-		return this.resources.create({ ...resource, type: PaypalGateways.TYPE }, params, options)
+		return this.resources.create<PaypalGatewayCreate, PaypalGateway>({ ...resource, type: PaypalGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalGateway> {
@@ -56,7 +56,7 @@ class PaypalGateways extends ApiResource {
 	}
 
 	async update(resource: PaypalGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalGateway> {
-		return this.resources.update({ ...resource, type: PaypalGateways.TYPE }, params, options)
+		return this.resources.update<PaypalGatewayUpdate, PaypalGateway>({ ...resource, type: PaypalGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

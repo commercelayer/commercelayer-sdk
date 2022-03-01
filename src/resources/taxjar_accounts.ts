@@ -51,7 +51,7 @@ class TaxjarAccounts extends ApiResource {
 	}
 
 	async create(resource: TaxjarAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
-		return this.resources.create({ ...resource, type: TaxjarAccounts.TYPE }, params, options)
+		return this.resources.create<TaxjarAccountCreate, TaxjarAccount>({ ...resource, type: TaxjarAccounts.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
@@ -59,7 +59,7 @@ class TaxjarAccounts extends ApiResource {
 	}
 
 	async update(resource: TaxjarAccountUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
-		return this.resources.update({ ...resource, type: TaxjarAccounts.TYPE }, params, options)
+		return this.resources.update<TaxjarAccountUpdate, TaxjarAccount>({ ...resource, type: TaxjarAccounts.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

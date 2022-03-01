@@ -13,6 +13,7 @@ interface PaypalPayment extends Resource {
 	
 	return_url?: string
 	cancel_url?: string
+	store_payment_source?: boolean
 	note_to_payer?: string
 	paypal_payer_id?: string
 	name?: string
@@ -30,6 +31,7 @@ interface PaypalPaymentCreate extends ResourceCreate {
 	
 	return_url: string
 	cancel_url: string
+	store_payment_source?: boolean
 	note_to_payer?: string
 
 	order: OrderRel
@@ -56,7 +58,7 @@ class PaypalPayments extends ApiResource {
 	}
 
 	async create(resource: PaypalPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
-		return this.resources.create({ ...resource, type: PaypalPayments.TYPE }, params, options)
+		return this.resources.create<PaypalPaymentCreate, PaypalPayment>({ ...resource, type: PaypalPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
@@ -64,7 +66,7 @@ class PaypalPayments extends ApiResource {
 	}
 
 	async update(resource: PaypalPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
-		return this.resources.update({ ...resource, type: PaypalPayments.TYPE }, params, options)
+		return this.resources.update<PaypalPaymentUpdate, PaypalPayment>({ ...resource, type: PaypalPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

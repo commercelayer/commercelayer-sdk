@@ -65,7 +65,7 @@ class PaymentMethods extends ApiResource {
 	}
 
 	async create(resource: PaymentMethodCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
-		return this.resources.create({ ...resource, type: PaymentMethods.TYPE }, params, options)
+		return this.resources.create<PaymentMethodCreate, PaymentMethod>({ ...resource, type: PaymentMethods.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
@@ -73,7 +73,7 @@ class PaymentMethods extends ApiResource {
 	}
 
 	async update(resource: PaymentMethodUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
-		return this.resources.update({ ...resource, type: PaymentMethods.TYPE }, params, options)
+		return this.resources.update<PaymentMethodUpdate, PaymentMethod>({ ...resource, type: PaymentMethods.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

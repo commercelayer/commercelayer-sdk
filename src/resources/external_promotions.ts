@@ -84,7 +84,7 @@ class ExternalPromotions extends ApiResource {
 	}
 
 	async create(resource: ExternalPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
-		return this.resources.create({ ...resource, type: ExternalPromotions.TYPE }, params, options)
+		return this.resources.create<ExternalPromotionCreate, ExternalPromotion>({ ...resource, type: ExternalPromotions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
@@ -92,7 +92,7 @@ class ExternalPromotions extends ApiResource {
 	}
 
 	async update(resource: ExternalPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
-		return this.resources.update({ ...resource, type: ExternalPromotions.TYPE }, params, options)
+		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ ...resource, type: ExternalPromotions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

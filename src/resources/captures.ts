@@ -58,7 +58,7 @@ class Captures extends ApiResource {
 	}
 
 	async update(resource: CaptureUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
-		return this.resources.update({ ...resource, type: Captures.TYPE }, params, options)
+		return this.resources.update<CaptureUpdate, Capture>({ ...resource, type: Captures.TYPE }, params, options)
 	}
 
 	async order(captureId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
