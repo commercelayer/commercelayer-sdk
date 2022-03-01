@@ -6,7 +6,6 @@
   "module": "lib/esm/index.js",
   "scripts": {
     "analyze": "size-limit --why",
-    "prebuild": "npm run generate",
     "build": "tsc -b tsconfig.json tsconfig.esm.json --verbose",
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
     "coverage": "jest --coverage",
