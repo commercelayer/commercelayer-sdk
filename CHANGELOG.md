@@ -1,3 +1,10 @@
+## [4.7.2](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.1...v4.7.2) (2022-03-01)
+
+
+### Bug Fixes
+
+* **build:** size-limit setup and config ([f26cec8](https://github.com/commercelayer/commercelayer-sdk/commit/f26cec86129f08f4b86ac477032dacedae487937))
+
 ## [4.7.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.0...v4.7.1) (2022-03-01)
 
 
