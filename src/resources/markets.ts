@@ -1,12 +1,12 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Merchant } from './merchants'
-import { PriceList } from './price_lists'
-import { InventoryModel } from './inventory_models'
-import { TaxCalculator } from './tax_calculators'
-import { CustomerGroup } from './customer_groups'
-import { Attachment } from './attachments'
+import type { Merchant } from './merchants'
+import type { PriceList } from './price_lists'
+import type { InventoryModel } from './inventory_models'
+import type { TaxCalculator } from './tax_calculators'
+import type { CustomerGroup } from './customer_groups'
+import type { Attachment } from './attachments'
 
 
 type MarketRel = ResourceRel & { type: typeof Markets.TYPE }
@@ -93,28 +93,34 @@ class Markets extends ApiResource {
 		await this.resources.delete({ type: Markets.TYPE, id }, options)
 	}
 
-	async merchant(marketId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
-		return this.resources.fetch<Merchant>({ type: 'merchants' }, `markets/${marketId}/merchant`, params, options) as unknown as Merchant
+	async merchant(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
+		const _marketId = (marketId as Market).id || marketId
+		return this.resources.fetch<Merchant>({ type: 'merchants' }, `markets/${_marketId}/merchant`, params, options) as unknown as Merchant
 	}
 
-	async price_list(marketId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
-		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `markets/${marketId}/price_list`, params, options) as unknown as PriceList
+	async price_list(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
+		const _marketId = (marketId as Market).id || marketId
+		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `markets/${_marketId}/price_list`, params, options) as unknown as PriceList
 	}
 
-	async inventory_model(marketId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
-		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `markets/${marketId}/inventory_model`, params, options) as unknown as InventoryModel
+	async inventory_model(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
+		const _marketId = (marketId as Market).id || marketId
+		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `markets/${_marketId}/inventory_model`, params, options) as unknown as InventoryModel
 	}
 
-	async tax_calculator(marketId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCalculator> {
-		return this.resources.fetch<TaxCalculator>({ type: 'tax_calculators' }, `markets/${marketId}/tax_calculator`, params, options) as unknown as TaxCalculator
+	async tax_calculator(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCalculator> {
+		const _marketId = (marketId as Market).id || marketId
+		return this.resources.fetch<TaxCalculator>({ type: 'tax_calculators' }, `markets/${_marketId}/tax_calculator`, params, options) as unknown as TaxCalculator
 	}
 
-	async customer_group(marketId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
-		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `markets/${marketId}/customer_group`, params, options) as unknown as CustomerGroup
+	async customer_group(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
+		const _marketId = (marketId as Market).id || marketId
+		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `markets/${_marketId}/customer_group`, params, options) as unknown as CustomerGroup
 	}
 
-	async attachments(marketId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `markets/${marketId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(marketId: string | Market, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _marketId = (marketId as Market).id || marketId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `markets/${_marketId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

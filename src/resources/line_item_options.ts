@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { LineItem } from './line_items'
-import { SkuOption } from './sku_options'
+import type { LineItem } from './line_items'
+import type { SkuOption } from './sku_options'
 
 
 type LineItemOptionRel = ResourceRel & { type: typeof LineItemOptions.TYPE }
@@ -79,12 +79,14 @@ class LineItemOptions extends ApiResource {
 		await this.resources.delete({ type: LineItemOptions.TYPE, id }, options)
 	}
 
-	async line_item(lineItemOptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
-		return this.resources.fetch<LineItem>({ type: 'line_items' }, `line_item_options/${lineItemOptionId}/line_item`, params, options) as unknown as LineItem
+	async line_item(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `line_item_options/${_lineItemOptionId}/line_item`, params, options) as unknown as LineItem
 	}
 
-	async sku_option(lineItemOptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
-		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `line_item_options/${lineItemOptionId}/sku_option`, params, options) as unknown as SkuOption
+	async sku_option(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
+		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId
+		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `line_item_options/${_lineItemOptionId}/sku_option`, params, options) as unknown as SkuOption
 	}
 
 

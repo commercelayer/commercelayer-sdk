@@ -1,14 +1,14 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PercentageDiscountPromotion } from './percentage_discount_promotions'
-import { FreeShippingPromotion } from './free_shipping_promotions'
-import { FixedAmountPromotion } from './fixed_amount_promotions'
-import { FreeGiftPromotion } from './free_gift_promotions'
-import { FixedPricePromotion } from './fixed_price_promotions'
-import { ExternalPromotion } from './external_promotions'
-import { SkuList } from './sku_lists'
-import { Sku } from './skus'
+import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
+import type { FreeShippingPromotion } from './free_shipping_promotions'
+import type { FixedAmountPromotion } from './fixed_amount_promotions'
+import type { FreeGiftPromotion } from './free_gift_promotions'
+import type { FixedPricePromotion } from './fixed_price_promotions'
+import type { ExternalPromotion } from './external_promotions'
+import type { SkuList } from './sku_lists'
+import type { Sku } from './skus'
 
 
 type SkuListPromotionRuleRel = ResourceRel & { type: typeof SkuListPromotionRules.TYPE }
@@ -80,12 +80,14 @@ class SkuListPromotionRules extends ApiResource {
 		await this.resources.delete({ type: SkuListPromotionRules.TYPE, id }, options)
 	}
 
-	async sku_list(skuListPromotionRuleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_promotion_rules/${skuListPromotionRuleId}/sku_list`, params, options) as unknown as SkuList
+	async sku_list(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/sku_list`, params, options) as unknown as SkuList
 	}
 
-	async skus(skuListPromotionRuleId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
-		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_promotion_rules/${skuListPromotionRuleId}/skus`, params, options) as unknown as ListResponse<Sku>
+	async skus(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId
+		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 

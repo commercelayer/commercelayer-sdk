@@ -4,8 +4,8 @@
 [![Downloads/week](https://img.shields.io/npm/dw/@commercelayer/sdk.svg)](https://npmjs.org/package/@commercelayer/sdk)
 [![License](https://img.shields.io/npm/l/@commercelayer/sdk.svg)](https://github.com/commercelayer/commercelayer-sdk/blob/master/package.json)
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
-![Build status](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml/badge.svg)
-![Code analysis](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/codeql-analysis.yml/badge.svg)
+[![Release](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml/badge.svg)](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml)
+[![CodeQL](https://github.com/commercelayer/commercelayer-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/commercelayer/commercelayer-cli/actions/workflows/codeql-analysis.yml)
 
 A JavaScript Library wrapper that makes it quick and easy to interact with the [Commerce Layer API](https://docs.commercelayer.io/developers/).
 
@@ -207,10 +207,10 @@ In this way, in case of 1-to-N relationship, you can filter or sort the resultin
 
 ```
 // Fetches 1-to-1 related resource: billing address of an order
-const billingAddress = cl.orders.billing_address('<order-id>')
+const billingAddress = cl.orders.billing_address('xYZkjABcde')
 
 // Fetches 1-to-N related resources: orders associated to a customer
-const orders = cl.customers.orders('<customer-id>', { fields: ['status', 'number'] })
+const orders = cl.customers.orders('XyzKjAbCDe', { fields: ['status', 'number'] })
 ```
 
 

@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Parcel } from './parcels'
-import { StockLineItem } from './stock_line_items'
+import type { Parcel } from './parcels'
+import type { StockLineItem } from './stock_line_items'
 
 
 type ParcelLineItemRel = ResourceRel & { type: typeof ParcelLineItems.TYPE }
@@ -68,12 +68,14 @@ class ParcelLineItems extends ApiResource {
 		await this.resources.delete({ type: ParcelLineItems.TYPE, id }, options)
 	}
 
-	async parcel(parcelLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
-		return this.resources.fetch<Parcel>({ type: 'parcels' }, `parcel_line_items/${parcelLineItemId}/parcel`, params, options) as unknown as Parcel
+	async parcel(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
+		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId
+		return this.resources.fetch<Parcel>({ type: 'parcels' }, `parcel_line_items/${_parcelLineItemId}/parcel`, params, options) as unknown as Parcel
 	}
 
-	async stock_line_item(parcelLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
-		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `parcel_line_items/${parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
+	async stock_line_item(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
+		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId
+		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `parcel_line_items/${_parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
 	}
 
 

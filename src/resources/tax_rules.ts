@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { ManualTaxCalculator } from './manual_tax_calculators'
+import type { ManualTaxCalculator } from './manual_tax_calculators'
 
 
 type TaxRuleRel = ResourceRel & { type: typeof TaxRules.TYPE }
@@ -94,8 +94,9 @@ class TaxRules extends ApiResource {
 		await this.resources.delete({ type: TaxRules.TYPE, id }, options)
 	}
 
-	async manual_tax_calculator(taxRuleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
-		return this.resources.fetch<ManualTaxCalculator>({ type: 'manual_tax_calculators' }, `tax_rules/${taxRuleId}/manual_tax_calculator`, params, options) as unknown as ManualTaxCalculator
+	async manual_tax_calculator(taxRuleId: string | TaxRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
+		const _taxRuleId = (taxRuleId as TaxRule).id || taxRuleId
+		return this.resources.fetch<ManualTaxCalculator>({ type: 'manual_tax_calculators' }, `tax_rules/${_taxRuleId}/manual_tax_calculator`, params, options) as unknown as ManualTaxCalculator
 	}
 
 

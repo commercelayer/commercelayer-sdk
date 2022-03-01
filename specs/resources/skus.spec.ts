@@ -25,8 +25,8 @@ describe('Skus resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			code: 'beta_30',
-			name: 'lambda_50',
+			code: 'delta_6',
+			name: 'gamma_4',
 			shipping_category: cl.shipping_categories.relationship(TestData.id),
 		}
 

@@ -25,10 +25,10 @@ describe('FreeGiftPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'alfa_10',
-			starts_at: 'lambda_66',
-			expires_at: 'lambda_31',
-			total_usage_limit: 10,
+			name: 'gamma_55',
+			starts_at: 'omega_73',
+			expires_at: 'omega_57',
+			total_usage_limit: 12345,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

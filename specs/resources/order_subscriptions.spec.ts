@@ -25,7 +25,7 @@ describe('OrderSubscriptions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			frequency: 'epsilon_51',
+			frequency: 'sigma_51',
 			market: cl.markets.relationship(TestData.id),
 			source_order: cl.orders.relationship(TestData.id),
 		}

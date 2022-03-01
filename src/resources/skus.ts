@@ -1,12 +1,12 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { ShippingCategory } from './shipping_categories'
-import { Price } from './prices'
-import { StockItem } from './stock_items'
-import { DeliveryLeadTime } from './delivery_lead_times'
-import { SkuOption } from './sku_options'
-import { Attachment } from './attachments'
+import type { ShippingCategory } from './shipping_categories'
+import type { Price } from './prices'
+import type { StockItem } from './stock_items'
+import type { DeliveryLeadTime } from './delivery_lead_times'
+import type { SkuOption } from './sku_options'
+import type { Attachment } from './attachments'
 
 
 type SkuRel = ResourceRel & { type: typeof Skus.TYPE }
@@ -98,28 +98,34 @@ class Skus extends ApiResource {
 		await this.resources.delete({ type: Skus.TYPE, id }, options)
 	}
 
-	async shipping_category(skuId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
-		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `skus/${skuId}/shipping_category`, params, options) as unknown as ShippingCategory
+	async shipping_category(skuId: string | Sku, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+		const _skuId = (skuId as Sku).id || skuId
+		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `skus/${_skuId}/shipping_category`, params, options) as unknown as ShippingCategory
 	}
 
-	async prices(skuId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Price>> {
-		return this.resources.fetch<Price>({ type: 'prices' }, `skus/${skuId}/prices`, params, options) as unknown as ListResponse<Price>
+	async prices(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Price>> {
+		const _skuId = (skuId as Sku).id || skuId
+		return this.resources.fetch<Price>({ type: 'prices' }, `skus/${_skuId}/prices`, params, options) as unknown as ListResponse<Price>
 	}
 
-	async stock_items(skuId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
-		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `skus/${skuId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
+	async stock_items(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
+		const _skuId = (skuId as Sku).id || skuId
+		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `skus/${_skuId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
 	}
 
-	async delivery_lead_times(skuId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
-		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `skus/${skuId}/delivery_lead_times`, params, options) as unknown as ListResponse<DeliveryLeadTime>
+	async delivery_lead_times(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
+		const _skuId = (skuId as Sku).id || skuId
+		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `skus/${_skuId}/delivery_lead_times`, params, options) as unknown as ListResponse<DeliveryLeadTime>
 	}
 
-	async sku_options(skuId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
-		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `skus/${skuId}/sku_options`, params, options) as unknown as ListResponse<SkuOption>
+	async sku_options(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
+		const _skuId = (skuId as Sku).id || skuId
+		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `skus/${_skuId}/sku_options`, params, options) as unknown as ListResponse<SkuOption>
 	}
 
-	async attachments(skuId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `skus/${skuId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _skuId = (skuId as Sku).id || skuId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `skus/${_skuId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

@@ -25,7 +25,7 @@ describe('Markets resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'beta_77',
+			name: 'lambda_23',
 			merchant: cl.merchants.relationship(TestData.id),
 			price_list: cl.price_lists.relationship(TestData.id),
 			inventory_model: cl.inventory_models.relationship(TestData.id),

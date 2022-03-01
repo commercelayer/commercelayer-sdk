@@ -1,10 +1,10 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
-import { Order } from './orders'
-import { Customer } from './customers'
-import { OrderCopy } from './order_copies'
+import type { Market } from './markets'
+import type { Order } from './orders'
+import type { Customer } from './customers'
+import type { OrderCopy } from './order_copies'
 
 
 type OrderSubscriptionRel = ResourceRel & { type: typeof OrderSubscriptions.TYPE }
@@ -85,24 +85,29 @@ class OrderSubscriptions extends ApiResource {
 		await this.resources.delete({ type: OrderSubscriptions.TYPE, id }, options)
 	}
 
-	async market(orderSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `order_subscriptions/${orderSubscriptionId}/market`, params, options) as unknown as Market
+	async market(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId
+		return this.resources.fetch<Market>({ type: 'markets' }, `order_subscriptions/${_orderSubscriptionId}/market`, params, options) as unknown as Market
 	}
 
-	async source_order(orderSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `order_subscriptions/${orderSubscriptionId}/source_order`, params, options) as unknown as Order
+	async source_order(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId
+		return this.resources.fetch<Order>({ type: 'orders' }, `order_subscriptions/${_orderSubscriptionId}/source_order`, params, options) as unknown as Order
 	}
 
-	async customer(orderSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `order_subscriptions/${orderSubscriptionId}/customer`, params, options) as unknown as Customer
+	async customer(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId
+		return this.resources.fetch<Customer>({ type: 'customers' }, `order_subscriptions/${_orderSubscriptionId}/customer`, params, options) as unknown as Customer
 	}
 
-	async order_copies(orderSubscriptionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
-		return this.resources.fetch<OrderCopy>({ type: 'order_copies' }, `order_subscriptions/${orderSubscriptionId}/order_copies`, params, options) as unknown as ListResponse<OrderCopy>
+	async order_copies(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId
+		return this.resources.fetch<OrderCopy>({ type: 'order_copies' }, `order_subscriptions/${_orderSubscriptionId}/order_copies`, params, options) as unknown as ListResponse<OrderCopy>
 	}
 
-	async orders(orderSubscriptionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `order_subscriptions/${orderSubscriptionId}/orders`, params, options) as unknown as ListResponse<Order>
+	async orders(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId
+		return this.resources.fetch<Order>({ type: 'orders' }, `order_subscriptions/${_orderSubscriptionId}/orders`, params, options) as unknown as ListResponse<Order>
 	}
 
 

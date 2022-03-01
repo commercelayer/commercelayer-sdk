@@ -1,5 +1,5 @@
 import { ApiResource, ##__RESOURCE_INTERFACES__##, ResourcesConfig, ResourceId, ResourceRel##__RESPONSE_MODELS__## } from '../resource'
-import { ##__QUERY_MODELS__## } from '../query'
+import type { ##__QUERY_MODELS__## } from '../query'
 
 ##__IMPORT_RESOURCE_MODELS__##
 

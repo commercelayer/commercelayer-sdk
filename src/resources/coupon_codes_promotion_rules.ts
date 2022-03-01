@@ -1,13 +1,13 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PercentageDiscountPromotion } from './percentage_discount_promotions'
-import { FreeShippingPromotion } from './free_shipping_promotions'
-import { FixedAmountPromotion } from './fixed_amount_promotions'
-import { FreeGiftPromotion } from './free_gift_promotions'
-import { FixedPricePromotion } from './fixed_price_promotions'
-import { ExternalPromotion } from './external_promotions'
-import { Coupon } from './coupons'
+import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
+import type { FreeShippingPromotion } from './free_shipping_promotions'
+import type { FixedAmountPromotion } from './fixed_amount_promotions'
+import type { FreeGiftPromotion } from './free_gift_promotions'
+import type { FixedPricePromotion } from './fixed_price_promotions'
+import type { ExternalPromotion } from './external_promotions'
+import type { Coupon } from './coupons'
 
 
 type CouponCodesPromotionRuleRel = ResourceRel & { type: typeof CouponCodesPromotionRules.TYPE }
@@ -69,8 +69,9 @@ class CouponCodesPromotionRules extends ApiResource {
 		await this.resources.delete({ type: CouponCodesPromotionRules.TYPE, id }, options)
 	}
 
-	async coupons(couponCodesPromotionRuleId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `coupon_codes_promotion_rules/${couponCodesPromotionRuleId}/coupons`, params, options) as unknown as ListResponse<Coupon>
+	async coupons(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+		const _couponCodesPromotionRuleId = (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || couponCodesPromotionRuleId
+		return this.resources.fetch<Coupon>({ type: 'coupons' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/coupons`, params, options) as unknown as ListResponse<Coupon>
 	}
 
 

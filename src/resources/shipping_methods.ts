@@ -1,11 +1,11 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
-import { ShippingZone } from './shipping_zones'
-import { ShippingCategory } from './shipping_categories'
-import { DeliveryLeadTime } from './delivery_lead_times'
-import { Attachment } from './attachments'
+import type { Market } from './markets'
+import type { ShippingZone } from './shipping_zones'
+import type { ShippingCategory } from './shipping_categories'
+import type { DeliveryLeadTime } from './delivery_lead_times'
+import type { Attachment } from './attachments'
 
 
 type ShippingMethodRel = ResourceRel & { type: typeof ShippingMethods.TYPE }
@@ -91,24 +91,29 @@ class ShippingMethods extends ApiResource {
 		await this.resources.delete({ type: ShippingMethods.TYPE, id }, options)
 	}
 
-	async market(shippingMethodId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `shipping_methods/${shippingMethodId}/market`, params, options) as unknown as Market
+	async market(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId
+		return this.resources.fetch<Market>({ type: 'markets' }, `shipping_methods/${_shippingMethodId}/market`, params, options) as unknown as Market
 	}
 
-	async shipping_zone(shippingMethodId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
-		return this.resources.fetch<ShippingZone>({ type: 'shipping_zones' }, `shipping_methods/${shippingMethodId}/shipping_zone`, params, options) as unknown as ShippingZone
+	async shipping_zone(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId
+		return this.resources.fetch<ShippingZone>({ type: 'shipping_zones' }, `shipping_methods/${_shippingMethodId}/shipping_zone`, params, options) as unknown as ShippingZone
 	}
 
-	async shipping_category(shippingMethodId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
-		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `shipping_methods/${shippingMethodId}/shipping_category`, params, options) as unknown as ShippingCategory
+	async shipping_category(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId
+		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `shipping_methods/${_shippingMethodId}/shipping_category`, params, options) as unknown as ShippingCategory
 	}
 
-	async delivery_lead_time_for_shipment(shippingMethodId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
-		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `shipping_methods/${shippingMethodId}/delivery_lead_time_for_shipment`, params, options) as unknown as DeliveryLeadTime
+	async delivery_lead_time_for_shipment(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId
+		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `shipping_methods/${_shippingMethodId}/delivery_lead_time_for_shipment`, params, options) as unknown as DeliveryLeadTime
 	}
 
-	async attachments(shippingMethodId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_methods/${shippingMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(shippingMethodId: string | ShippingMethod, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_methods/${_shippingMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

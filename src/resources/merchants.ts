@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Address } from './addresses'
-import { Attachment } from './attachments'
+import type { Address } from './addresses'
+import type { Attachment } from './attachments'
 
 
 type MerchantRel = ResourceRel & { type: typeof Merchants.TYPE }
@@ -62,12 +62,14 @@ class Merchants extends ApiResource {
 		await this.resources.delete({ type: Merchants.TYPE, id }, options)
 	}
 
-	async address(merchantId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.fetch<Address>({ type: 'addresses' }, `merchants/${merchantId}/address`, params, options) as unknown as Address
+	async address(merchantId: string | Merchant, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+		const _merchantId = (merchantId as Merchant).id || merchantId
+		return this.resources.fetch<Address>({ type: 'addresses' }, `merchants/${_merchantId}/address`, params, options) as unknown as Address
 	}
 
-	async attachments(merchantId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `merchants/${merchantId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(merchantId: string | Merchant, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _merchantId = (merchantId as Merchant).id || merchantId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `merchants/${_merchantId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PaymentMethod } from './payment_methods'
-import { PaypalPayment } from './paypal_payments'
+import type { PaymentMethod } from './payment_methods'
+import type { PaypalPayment } from './paypal_payments'
 
 
 type PaypalGatewayRel = ResourceRel & { type: typeof PaypalGateways.TYPE }
@@ -63,12 +63,14 @@ class PaypalGateways extends ApiResource {
 		await this.resources.delete({ type: PaypalGateways.TYPE, id }, options)
 	}
 
-	async payment_methods(paypalGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `paypal_gateways/${paypalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	async payment_methods(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `paypal_gateways/${_paypalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async paypal_payments(paypalGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
-		return this.resources.fetch<PaypalPayment>({ type: 'paypal_payments' }, `paypal_gateways/${paypalGatewayId}/paypal_payments`, params, options) as unknown as ListResponse<PaypalPayment>
+	async paypal_payments(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
+		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId
+		return this.resources.fetch<PaypalPayment>({ type: 'paypal_payments' }, `paypal_gateways/${_paypalGatewayId}/paypal_payments`, params, options) as unknown as ListResponse<PaypalPayment>
 	}
 
 

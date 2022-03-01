@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Order } from './orders'
-import { PaymentGateway } from './payment_gateways'
+import type { Order } from './orders'
+import type { PaymentGateway } from './payment_gateways'
 
 
 type StripePaymentRel = ResourceRel & { type: typeof StripePayments.TYPE }
@@ -66,12 +66,14 @@ class StripePayments extends ApiResource {
 		await this.resources.delete({ type: StripePayments.TYPE, id }, options)
 	}
 
-	async order(stripePaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `stripe_payments/${stripePaymentId}/order`, params, options) as unknown as Order
+	async order(stripePaymentId: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId
+		return this.resources.fetch<Order>({ type: 'orders' }, `stripe_payments/${_stripePaymentId}/order`, params, options) as unknown as Order
 	}
 
-	async payment_gateway(stripePaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `stripe_payments/${stripePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	async payment_gateway(stripePaymentId: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `stripe_payments/${_stripePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
 

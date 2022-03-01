@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PaymentMethod } from './payment_methods'
-import { StripePayment } from './stripe_payments'
+import type { PaymentMethod } from './payment_methods'
+import type { StripePayment } from './stripe_payments'
 
 
 type StripeGatewayRel = ResourceRel & { type: typeof StripeGateways.TYPE }
@@ -62,12 +62,14 @@ class StripeGateways extends ApiResource {
 		await this.resources.delete({ type: StripeGateways.TYPE, id }, options)
 	}
 
-	async payment_methods(stripeGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `stripe_gateways/${stripeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	async payment_methods(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `stripe_gateways/${_stripeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async stripe_payments(stripeGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
-		return this.resources.fetch<StripePayment>({ type: 'stripe_payments' }, `stripe_gateways/${stripeGatewayId}/stripe_payments`, params, options) as unknown as ListResponse<StripePayment>
+	async stripe_payments(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
+		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId
+		return this.resources.fetch<StripePayment>({ type: 'stripe_payments' }, `stripe_gateways/${_stripeGatewayId}/stripe_payments`, params, options) as unknown as ListResponse<StripePayment>
 	}
 
 

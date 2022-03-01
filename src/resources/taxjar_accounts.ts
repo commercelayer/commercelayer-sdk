@@ -1,9 +1,9 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { TaxCategory } from './tax_categories'
-import { Market } from './markets'
-import { Attachment } from './attachments'
+import type { TaxCategory } from './tax_categories'
+import type { Market } from './markets'
+import type { Attachment } from './attachments'
 
 
 type TaxjarAccountRel = ResourceRel & { type: typeof TaxjarAccounts.TYPE }
@@ -66,16 +66,19 @@ class TaxjarAccounts extends ApiResource {
 		await this.resources.delete({ type: TaxjarAccounts.TYPE, id }, options)
 	}
 
-	async tax_categories(taxjarAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
-		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `taxjar_accounts/${taxjarAccountId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
+	async tax_categories(taxjarAccountId: string | TaxjarAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
+		const _taxjarAccountId = (taxjarAccountId as TaxjarAccount).id || taxjarAccountId
+		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `taxjar_accounts/${_taxjarAccountId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
 	}
 
-	async markets(taxjarAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `taxjar_accounts/${taxjarAccountId}/markets`, params, options) as unknown as ListResponse<Market>
+	async markets(taxjarAccountId: string | TaxjarAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		const _taxjarAccountId = (taxjarAccountId as TaxjarAccount).id || taxjarAccountId
+		return this.resources.fetch<Market>({ type: 'markets' }, `taxjar_accounts/${_taxjarAccountId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
-	async attachments(taxjarAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `taxjar_accounts/${taxjarAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(taxjarAccountId: string | TaxjarAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _taxjarAccountId = (taxjarAccountId as TaxjarAccount).id || taxjarAccountId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `taxjar_accounts/${_taxjarAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

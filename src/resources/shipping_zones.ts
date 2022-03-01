@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Attachment } from './attachments'
+import type { Attachment } from './attachments'
 
 
 type ShippingZoneRel = ResourceRel & { type: typeof ShippingZones.TYPE }
@@ -73,8 +73,9 @@ class ShippingZones extends ApiResource {
 		await this.resources.delete({ type: ShippingZones.TYPE, id }, options)
 	}
 
-	async attachments(shippingZoneId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_zones/${shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(shippingZoneId: string | ShippingZone, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_zones/${_shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

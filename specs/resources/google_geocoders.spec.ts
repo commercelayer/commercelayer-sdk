@@ -25,8 +25,8 @@ describe('GoogleGeocoders resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_29',
-			api_key: 'gamma_17',
+			name: 'alfa_54',
+			api_key: 'lambda_36',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

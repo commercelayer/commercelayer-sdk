@@ -14,8 +14,14 @@ import commercelayer from '../src'
 		timeout: 5000,
 	})
 
-	const c = await cl.customers.orders('OZqohRjoWn')
+	const customer = await cl.customers.retrieve('OZqohRjoWn')
 
-	console.log(c)
+	const id = customer.id
+
+	const orders = await cl.customers.orders(id)
+
+	console.log(orders)
+
+	console.log(id)
 
 })()

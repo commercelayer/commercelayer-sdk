@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Customer } from './customers'
+import type { Customer } from './customers'
 
 
 type CustomerSubscriptionRel = ResourceRel & { type: typeof CustomerSubscriptions.TYPE }
@@ -51,8 +51,9 @@ class CustomerSubscriptions extends ApiResource {
 		await this.resources.delete({ type: CustomerSubscriptions.TYPE, id }, options)
 	}
 
-	async customer(customerSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_subscriptions/${customerSubscriptionId}/customer`, params, options) as unknown as Customer
+	async customer(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _customerSubscriptionId = (customerSubscriptionId as CustomerSubscription).id || customerSubscriptionId
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_subscriptions/${_customerSubscriptionId}/customer`, params, options) as unknown as Customer
 	}
 
 

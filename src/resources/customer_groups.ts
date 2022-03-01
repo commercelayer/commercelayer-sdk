@@ -1,9 +1,9 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Customer } from './customers'
-import { Market } from './markets'
-import { Attachment } from './attachments'
+import type { Customer } from './customers'
+import type { Market } from './markets'
+import type { Attachment } from './attachments'
 
 
 type CustomerGroupRel = ResourceRel & { type: typeof CustomerGroups.TYPE }
@@ -59,16 +59,19 @@ class CustomerGroups extends ApiResource {
 		await this.resources.delete({ type: CustomerGroups.TYPE, id }, options)
 	}
 
-	async customers(customerGroupId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Customer>> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_groups/${customerGroupId}/customers`, params, options) as unknown as ListResponse<Customer>
+	async customers(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Customer>> {
+		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_groups/${_customerGroupId}/customers`, params, options) as unknown as ListResponse<Customer>
 	}
 
-	async markets(customerGroupId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `customer_groups/${customerGroupId}/markets`, params, options) as unknown as ListResponse<Market>
+	async markets(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId
+		return this.resources.fetch<Market>({ type: 'markets' }, `customer_groups/${_customerGroupId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
-	async attachments(customerGroupId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customer_groups/${customerGroupId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customer_groups/${_customerGroupId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

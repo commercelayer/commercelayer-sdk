@@ -1,12 +1,12 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Address } from './addresses'
-import { InventoryStockLocation } from './inventory_stock_locations'
-import { InventoryReturnLocation } from './inventory_return_locations'
-import { StockItem } from './stock_items'
-import { StockTransfer } from './stock_transfers'
-import { Attachment } from './attachments'
+import type { Address } from './addresses'
+import type { InventoryStockLocation } from './inventory_stock_locations'
+import type { InventoryReturnLocation } from './inventory_return_locations'
+import type { StockItem } from './stock_items'
+import type { StockTransfer } from './stock_transfers'
+import type { Attachment } from './attachments'
 
 
 type StockLocationRel = ResourceRel & { type: typeof StockLocations.TYPE }
@@ -77,28 +77,34 @@ class StockLocations extends ApiResource {
 		await this.resources.delete({ type: StockLocations.TYPE, id }, options)
 	}
 
-	async address(stockLocationId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.fetch<Address>({ type: 'addresses' }, `stock_locations/${stockLocationId}/address`, params, options) as unknown as Address
+	async address(stockLocationId: string | StockLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId
+		return this.resources.fetch<Address>({ type: 'addresses' }, `stock_locations/${_stockLocationId}/address`, params, options) as unknown as Address
 	}
 
-	async inventory_stock_locations(stockLocationId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
-		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `stock_locations/${stockLocationId}/inventory_stock_locations`, params, options) as unknown as ListResponse<InventoryStockLocation>
+	async inventory_stock_locations(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
+		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId
+		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `stock_locations/${_stockLocationId}/inventory_stock_locations`, params, options) as unknown as ListResponse<InventoryStockLocation>
 	}
 
-	async inventory_return_locations(stockLocationId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
-		return this.resources.fetch<InventoryReturnLocation>({ type: 'inventory_return_locations' }, `stock_locations/${stockLocationId}/inventory_return_locations`, params, options) as unknown as ListResponse<InventoryReturnLocation>
+	async inventory_return_locations(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
+		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId
+		return this.resources.fetch<InventoryReturnLocation>({ type: 'inventory_return_locations' }, `stock_locations/${_stockLocationId}/inventory_return_locations`, params, options) as unknown as ListResponse<InventoryReturnLocation>
 	}
 
-	async stock_items(stockLocationId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
-		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `stock_locations/${stockLocationId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
+	async stock_items(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
+		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId
+		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `stock_locations/${_stockLocationId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
 	}
 
-	async stock_transfers(stockLocationId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
-		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `stock_locations/${stockLocationId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+	async stock_transfers(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
+		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId
+		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `stock_locations/${_stockLocationId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
 	}
 
-	async attachments(stockLocationId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_locations/${stockLocationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_locations/${_stockLocationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

@@ -1,9 +1,9 @@
 import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Order } from './orders'
-import { Capture } from './captures'
-import { Void } from './voids'
+import type { Order } from './orders'
+import type { Capture } from './captures'
+import type { Void } from './voids'
 
 
 type AuthorizationRel = ResourceRel & { type: typeof Authorizations.TYPE }
@@ -70,16 +70,19 @@ class Authorizations extends ApiResource {
 		return this.resources.update<AuthorizationUpdate, Authorization>({ ...resource, type: Authorizations.TYPE }, params, options)
 	}
 
-	async order(authorizationId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `authorizations/${authorizationId}/order`, params, options) as unknown as Order
+	async order(authorizationId: string | Authorization, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId
+		return this.resources.fetch<Order>({ type: 'orders' }, `authorizations/${_authorizationId}/order`, params, options) as unknown as Order
 	}
 
-	async captures(authorizationId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
-		return this.resources.fetch<Capture>({ type: 'captures' }, `authorizations/${authorizationId}/captures`, params, options) as unknown as ListResponse<Capture>
+	async captures(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId
+		return this.resources.fetch<Capture>({ type: 'captures' }, `authorizations/${_authorizationId}/captures`, params, options) as unknown as ListResponse<Capture>
 	}
 
-	async voids(authorizationId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
-		return this.resources.fetch<Void>({ type: 'voids' }, `authorizations/${authorizationId}/voids`, params, options) as unknown as ListResponse<Void>
+	async voids(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId
+		return this.resources.fetch<Void>({ type: 'voids' }, `authorizations/${_authorizationId}/voids`, params, options) as unknown as ListResponse<Void>
 	}
 
 

@@ -25,7 +25,7 @@ describe('ManualTaxCalculators resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_16',
+			name: 'lambda_20',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 			tax_rules: [ cl.tax_rules.relationship(TestData.id) ],
 		}

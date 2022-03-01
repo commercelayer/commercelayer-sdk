@@ -25,7 +25,7 @@ describe('TaxCategories resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			code: 'lambda_9',
+			code: 'lambda_13',
 			sku: cl.skus.relationship(TestData.id),
 			tax_calculator: cl.avalara_accounts.relationship(TestData.id),
 		}

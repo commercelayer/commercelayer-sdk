@@ -1,12 +1,12 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PercentageDiscountPromotion } from './percentage_discount_promotions'
-import { FreeShippingPromotion } from './free_shipping_promotions'
-import { FixedAmountPromotion } from './fixed_amount_promotions'
-import { FreeGiftPromotion } from './free_gift_promotions'
-import { FixedPricePromotion } from './fixed_price_promotions'
-import { ExternalPromotion } from './external_promotions'
+import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
+import type { FreeShippingPromotion } from './free_shipping_promotions'
+import type { FixedAmountPromotion } from './fixed_amount_promotions'
+import type { FreeGiftPromotion } from './free_gift_promotions'
+import type { FixedPricePromotion } from './fixed_price_promotions'
+import type { ExternalPromotion } from './external_promotions'
 
 
 type OrderAmountPromotionRuleRel = ResourceRel & { type: typeof OrderAmountPromotionRules.TYPE }

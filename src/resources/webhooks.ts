@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { EventCallback } from './event_callbacks'
+import type { EventCallback } from './event_callbacks'
 
 
 type WebhookRel = ResourceRel & { type: typeof Webhooks.TYPE }
@@ -67,8 +67,9 @@ class Webhooks extends ApiResource {
 		await this.resources.delete({ type: Webhooks.TYPE, id }, options)
 	}
 
-	async last_event_callbacks(webhookId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
-		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
+	async last_event_callbacks(webhookId: string | Webhook, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
+		const _webhookId = (webhookId as Webhook).id || webhookId
+		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${_webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
 	}
 
 

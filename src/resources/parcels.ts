@@ -1,10 +1,10 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Shipment } from './shipments'
-import { Package } from './packages'
-import { ParcelLineItem } from './parcel_line_items'
-import { Attachment } from './attachments'
+import type { Shipment } from './shipments'
+import type { Package } from './packages'
+import type { ParcelLineItem } from './parcel_line_items'
+import type { Attachment } from './attachments'
 
 
 type ParcelRel = ResourceRel & { type: typeof Parcels.TYPE }
@@ -128,20 +128,24 @@ class Parcels extends ApiResource {
 		await this.resources.delete({ type: Parcels.TYPE, id }, options)
 	}
 
-	async shipment(parcelId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
-		return this.resources.fetch<Shipment>({ type: 'shipments' }, `parcels/${parcelId}/shipment`, params, options) as unknown as Shipment
+	async shipment(parcelId: string | Parcel, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		const _parcelId = (parcelId as Parcel).id || parcelId
+		return this.resources.fetch<Shipment>({ type: 'shipments' }, `parcels/${_parcelId}/shipment`, params, options) as unknown as Shipment
 	}
 
-	async package(parcelId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
-		return this.resources.fetch<Package>({ type: 'packages' }, `parcels/${parcelId}/package`, params, options) as unknown as Package
+	async package(parcelId: string | Parcel, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
+		const _parcelId = (parcelId as Parcel).id || parcelId
+		return this.resources.fetch<Package>({ type: 'packages' }, `parcels/${_parcelId}/package`, params, options) as unknown as Package
 	}
 
-	async parcel_line_items(parcelId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
-		return this.resources.fetch<ParcelLineItem>({ type: 'parcel_line_items' }, `parcels/${parcelId}/parcel_line_items`, params, options) as unknown as ListResponse<ParcelLineItem>
+	async parcel_line_items(parcelId: string | Parcel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
+		const _parcelId = (parcelId as Parcel).id || parcelId
+		return this.resources.fetch<ParcelLineItem>({ type: 'parcel_line_items' }, `parcels/${_parcelId}/parcel_line_items`, params, options) as unknown as ListResponse<ParcelLineItem>
 	}
 
-	async attachments(parcelId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `parcels/${parcelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(parcelId: string | Parcel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _parcelId = (parcelId as Parcel).id || parcelId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `parcels/${_parcelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Address } from './addresses'
-import { Attachment } from './attachments'
+import type { Address } from './addresses'
+import type { Attachment } from './attachments'
 
 
 type GoogleGeocoderRel = ResourceRel & { type: typeof GoogleGeocoders.TYPE }
@@ -59,12 +59,14 @@ class GoogleGeocoders extends ApiResource {
 		await this.resources.delete({ type: GoogleGeocoders.TYPE, id }, options)
 	}
 
-	async addresses(googleGeocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
-		return this.resources.fetch<Address>({ type: 'addresses' }, `google_geocoders/${googleGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
+	async addresses(googleGeocoderId: string | GoogleGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
+		const _googleGeocoderId = (googleGeocoderId as GoogleGeocoder).id || googleGeocoderId
+		return this.resources.fetch<Address>({ type: 'addresses' }, `google_geocoders/${_googleGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
 	}
 
-	async attachments(googleGeocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `google_geocoders/${googleGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(googleGeocoderId: string | GoogleGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _googleGeocoderId = (googleGeocoderId as GoogleGeocoder).id || googleGeocoderId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `google_geocoders/${_googleGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

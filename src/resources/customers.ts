@@ -1,14 +1,14 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { CustomerGroup } from './customer_groups'
-import { CustomerAddress } from './customer_addresses'
-import { CustomerPaymentSource } from './customer_payment_sources'
-import { CustomerSubscription } from './customer_subscriptions'
-import { Order } from './orders'
-import { OrderSubscription } from './order_subscriptions'
-import { Return } from './returns'
-import { Attachment } from './attachments'
+import type { CustomerGroup } from './customer_groups'
+import type { CustomerAddress } from './customer_addresses'
+import type { CustomerPaymentSource } from './customer_payment_sources'
+import type { CustomerSubscription } from './customer_subscriptions'
+import type { Order } from './orders'
+import type { OrderSubscription } from './order_subscriptions'
+import type { Return } from './returns'
+import type { Attachment } from './attachments'
 
 
 type CustomerRel = ResourceRel & { type: typeof Customers.TYPE }
@@ -78,36 +78,44 @@ class Customers extends ApiResource {
 		await this.resources.delete({ type: Customers.TYPE, id }, options)
 	}
 
-	async customer_group(customerId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
-		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `customers/${customerId}/customer_group`, params, options) as unknown as CustomerGroup
+	async customer_group(customerId: string | Customer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
+		const _customerId = (customerId as Customer).id || customerId
+		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `customers/${_customerId}/customer_group`, params, options) as unknown as CustomerGroup
 	}
 
-	async customer_addresses(customerId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerAddress>> {
-		return this.resources.fetch<CustomerAddress>({ type: 'customer_addresses' }, `customers/${customerId}/customer_addresses`, params, options) as unknown as ListResponse<CustomerAddress>
+	async customer_addresses(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerAddress>> {
+		const _customerId = (customerId as Customer).id || customerId
+		return this.resources.fetch<CustomerAddress>({ type: 'customer_addresses' }, `customers/${_customerId}/customer_addresses`, params, options) as unknown as ListResponse<CustomerAddress>
 	}
 
-	async customer_payment_sources(customerId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
-		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `customers/${customerId}/customer_payment_sources`, params, options) as unknown as ListResponse<CustomerPaymentSource>
+	async customer_payment_sources(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
+		const _customerId = (customerId as Customer).id || customerId
+		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `customers/${_customerId}/customer_payment_sources`, params, options) as unknown as ListResponse<CustomerPaymentSource>
 	}
 
-	async customer_subscriptions(customerId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerSubscription>> {
-		return this.resources.fetch<CustomerSubscription>({ type: 'customer_subscriptions' }, `customers/${customerId}/customer_subscriptions`, params, options) as unknown as ListResponse<CustomerSubscription>
+	async customer_subscriptions(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerSubscription>> {
+		const _customerId = (customerId as Customer).id || customerId
+		return this.resources.fetch<CustomerSubscription>({ type: 'customer_subscriptions' }, `customers/${_customerId}/customer_subscriptions`, params, options) as unknown as ListResponse<CustomerSubscription>
 	}
 
-	async orders(customerId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `customers/${customerId}/orders`, params, options) as unknown as ListResponse<Order>
+	async orders(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
+		const _customerId = (customerId as Customer).id || customerId
+		return this.resources.fetch<Order>({ type: 'orders' }, `customers/${_customerId}/orders`, params, options) as unknown as ListResponse<Order>
 	}
 
-	async order_subscriptions(customerId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
-		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `customers/${customerId}/order_subscriptions`, params, options) as unknown as ListResponse<OrderSubscription>
+	async order_subscriptions(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
+		const _customerId = (customerId as Customer).id || customerId
+		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `customers/${_customerId}/order_subscriptions`, params, options) as unknown as ListResponse<OrderSubscription>
 	}
 
-	async returns(customerId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
-		return this.resources.fetch<Return>({ type: 'returns' }, `customers/${customerId}/returns`, params, options) as unknown as ListResponse<Return>
+	async returns(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
+		const _customerId = (customerId as Customer).id || customerId
+		return this.resources.fetch<Return>({ type: 'returns' }, `customers/${_customerId}/returns`, params, options) as unknown as ListResponse<Return>
 	}
 
-	async attachments(customerId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customers/${customerId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _customerId = (customerId as Customer).id || customerId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customers/${_customerId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

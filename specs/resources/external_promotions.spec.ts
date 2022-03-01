@@ -25,11 +25,11 @@ describe('ExternalPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'sigma_24',
-			starts_at: 'omega_65',
-			expires_at: 'lambda_10',
-			total_usage_limit: 1000,
-			promotion_url: 'gamma_45',
+			name: 'alfa_14',
+			starts_at: 'omega_13',
+			expires_at: 'alfa_0',
+			total_usage_limit: 5,
+			promotion_url: 'beta_32',
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

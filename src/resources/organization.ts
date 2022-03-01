@@ -1,5 +1,5 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel } from '../resource'
-import { QueryParamsRetrieve } from '../query'
+import type { QueryParamsRetrieve } from '../query'
 
 
 

@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Customer } from './customers'
+import type { Customer } from './customers'
 
 
 type CustomerPasswordResetRel = ResourceRel & { type: typeof CustomerPasswordResets.TYPE }
@@ -58,8 +58,9 @@ class CustomerPasswordResets extends ApiResource {
 		await this.resources.delete({ type: CustomerPasswordResets.TYPE, id }, options)
 	}
 
-	async customer(customerPasswordResetId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_password_resets/${customerPasswordResetId}/customer`, params, options) as unknown as Customer
+	async customer(customerPasswordResetId: string | CustomerPasswordReset, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _customerPasswordResetId = (customerPasswordResetId as CustomerPasswordReset).id || customerPasswordResetId
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_password_resets/${_customerPasswordResetId}/customer`, params, options) as unknown as Customer
 	}
 
 

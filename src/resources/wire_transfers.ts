@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Order } from './orders'
+import type { Order } from './orders'
 
 
 type WireTransferRel = ResourceRel & { type: typeof WireTransfers.TYPE }
@@ -54,8 +54,9 @@ class WireTransfers extends ApiResource {
 		await this.resources.delete({ type: WireTransfers.TYPE, id }, options)
 	}
 
-	async order(wireTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `wire_transfers/${wireTransferId}/order`, params, options) as unknown as Order
+	async order(wireTransferId: string | WireTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId
+		return this.resources.fetch<Order>({ type: 'orders' }, `wire_transfers/${_wireTransferId}/order`, params, options) as unknown as Order
 	}
 
 

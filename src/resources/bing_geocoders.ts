@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Address } from './addresses'
-import { Attachment } from './attachments'
+import type { Address } from './addresses'
+import type { Attachment } from './attachments'
 
 
 type BingGeocoderRel = ResourceRel & { type: typeof BingGeocoders.TYPE }
@@ -59,12 +59,14 @@ class BingGeocoders extends ApiResource {
 		await this.resources.delete({ type: BingGeocoders.TYPE, id }, options)
 	}
 
-	async addresses(bingGeocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
-		return this.resources.fetch<Address>({ type: 'addresses' }, `bing_geocoders/${bingGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
+	async addresses(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
+		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId
+		return this.resources.fetch<Address>({ type: 'addresses' }, `bing_geocoders/${_bingGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
 	}
 
-	async attachments(bingGeocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bing_geocoders/${bingGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bing_geocoders/${_bingGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

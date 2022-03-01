@@ -427,7 +427,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		else {
 			if (op.relationship) {
 				const tplr = templates[`relationship_${op.relationship.cardinality.replace('to_', '')}`]
-				const tplrOp = templatedOperation('', opName, op, tplr)
+				const tplrOp = templatedOperation(resName, opName, op, tplr)
 				operations.push(tplrOp.operation)
 			} else console.log('Unknown operation: ' + opName)
 		}
@@ -470,7 +470,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImports)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import { ${i} } from './${snakeCase(Inflector.pluralize(i))}'`)
+		.map(i => `import type { ${i} } from './${snakeCase(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
@@ -500,8 +500,9 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 	}
 	if (op.relationship) {
 		operation = operation.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
-		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{', '${'))
+		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{', '${_'))
 		operation = operation.replace(/##__RESOURCE_ID__##/g, op.id || 'id')
+		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
 	}
 
 	operation = operation.replace(/\n/g, '\n\t')

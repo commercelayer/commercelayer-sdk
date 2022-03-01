@@ -25,11 +25,11 @@ describe('Packages resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_59',
+			name: 'omega_39',
 			length: 0,
-			width: 5,
-			height: 0,
-			unit_of_length: 'sigma_69',
+			width: 10,
+			height: 10000,
+			unit_of_length: 'gamma_38',
 			stock_location: cl.stock_locations.relationship(TestData.id),
 		}
 

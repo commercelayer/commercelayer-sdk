@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
-import { Attachment } from './attachments'
+import type { Market } from './markets'
+import type { Attachment } from './attachments'
 
 
 type SkuOptionRel = ResourceRel & { type: typeof SkuOptions.TYPE }
@@ -80,12 +80,14 @@ class SkuOptions extends ApiResource {
 		await this.resources.delete({ type: SkuOptions.TYPE, id }, options)
 	}
 
-	async market(skuOptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `sku_options/${skuOptionId}/market`, params, options) as unknown as Market
+	async market(skuOptionId: string | SkuOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId
+		return this.resources.fetch<Market>({ type: 'markets' }, `sku_options/${_skuOptionId}/market`, params, options) as unknown as Market
 	}
 
-	async attachments(skuOptionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_options/${skuOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_options/${_skuOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

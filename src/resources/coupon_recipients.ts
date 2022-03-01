@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Customer } from './customers'
-import { Attachment } from './attachments'
+import type { Customer } from './customers'
+import type { Attachment } from './attachments'
 
 
 type CouponRecipientRel = ResourceRel & { type: typeof CouponRecipients.TYPE }
@@ -68,12 +68,14 @@ class CouponRecipients extends ApiResource {
 		await this.resources.delete({ type: CouponRecipients.TYPE, id }, options)
 	}
 
-	async customer(couponRecipientId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `coupon_recipients/${couponRecipientId}/customer`, params, options) as unknown as Customer
+	async customer(couponRecipientId: string | CouponRecipient, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId
+		return this.resources.fetch<Customer>({ type: 'customers' }, `coupon_recipients/${_couponRecipientId}/customer`, params, options) as unknown as Customer
 	}
 
-	async attachments(couponRecipientId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(couponRecipientId: string | CouponRecipient, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${_couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 
