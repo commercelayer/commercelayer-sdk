@@ -1,3 +1,10 @@
+## [4.7.3](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.2...v4.7.3) (2022-03-01)
+
+
+### Bug Fixes
+
+* **build:** add resource generation before build ([3e3afb7](https://github.com/commercelayer/commercelayer-sdk/commit/3e3afb752e806b1733a60ea7aaa95e148908dc87))
+
 ## [4.7.2](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.1...v4.7.2) (2022-03-01)
 
 
