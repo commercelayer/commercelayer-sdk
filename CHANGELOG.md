@@ -1,3 +1,10 @@
+## [4.6.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.6.0...v4.6.1) (2022-03-01)
+
+
+### Bug Fixes
+
+* **core:** fix fetch resource type ([6c794ad](https://github.com/commercelayer/commercelayer-sdk/commit/6c794ad1ee5869608e4bf2b392fc686ddba8f710))
+
 # [4.6.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.5.0...v4.6.0) (2022-03-01)
 
 
