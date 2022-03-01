@@ -16,7 +16,7 @@ import commercelayer from '../src'
 
 	const customer = await cl.customers.retrieve('OZqohRjoWn')
 
-	const id = customer.id
+	const id = customer
 
 	const orders = await cl.customers.orders(id)
 
