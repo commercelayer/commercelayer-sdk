@@ -76,13 +76,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "size-limit": [
-    {
-      "path": "lib",
-      "limit": "350 kB",
-      "webpack": false
-    }
-  ],
   "resolutions": {
     "ansi-regex": "5.0.1"
   }
