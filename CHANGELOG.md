@@ -1,3 +1,10 @@
+## [4.7.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.0...v4.7.1) (2022-03-01)
+
+
+### Bug Fixes
+
+* **config:** fix dependencies security issues ([45d9de0](https://github.com/commercelayer/commercelayer-sdk/commit/45d9de0696ae28f19fc1450d0a5f46240884168e))
+
 # [4.7.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.6.1...v4.7.0) (2022-03-01)
 
 
