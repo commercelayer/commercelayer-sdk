@@ -42,7 +42,7 @@
     "node": ">=16"
   },
   "dependencies": {
-    "axios": "^0.25.0"
+    "axios": "^0.26.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
