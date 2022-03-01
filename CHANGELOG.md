@@ -1,3 +1,10 @@
+# [4.7.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.6.1...v4.7.0) (2022-03-01)
+
+
+### Features
+
+* **core:** change relationship ops interface ([6ff5215](https://github.com/commercelayer/commercelayer-sdk/commit/6ff5215a71c893b8f1d1cbec6f7b956de9f74dc4))
+
 ## [4.6.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.6.0...v4.6.1) (2022-03-01)
 
 
