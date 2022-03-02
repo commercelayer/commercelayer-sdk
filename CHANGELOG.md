@@ -1,3 +1,10 @@
+## [4.7.4](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.3...v4.7.4) (2022-03-02)
+
+
+### Bug Fixes
+
+* **core:** fix installation script ([3a16f4f](https://github.com/commercelayer/commercelayer-sdk/commit/3a16f4f727f7d727591599d9eb0e8bc7789e9a2f))
+
 ## [4.7.3](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.2...v4.7.3) (2022-03-01)
 
 
