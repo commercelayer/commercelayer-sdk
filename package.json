@@ -13,7 +13,6 @@
     "lint": "eslint ./src --ext .ts",
     "lintspec": "eslint ./specs/resources/ --ext .spec.ts",
     "postbuild": "minimize-js lib",
-    "preinstall": "npx npm-force-resolutions",
     "prepare": "npm run build",
     "semantic-release": "semantic-release",
     "size": "size-limit",
