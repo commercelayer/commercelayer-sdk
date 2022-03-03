@@ -272,7 +272,7 @@ To do that, just use the `config()` method or pass the `options` parameter and a
 
 Commerce Layer API returns specific errors (with extra information) on each attribute of a single resource. You can inspect them to properly handle validation errors (if any). To do that, use the `errors` attribute of the catched error:
 
-```
+```typescript
   // logs error messages to console:
 
   const attributes = { code: 'TSHIRTMM000000FFFFFFXL', name: '' }
