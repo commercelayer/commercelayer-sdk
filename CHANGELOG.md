@@ -1,3 +1,10 @@
+## [4.7.5](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.4...v4.7.5) (2022-03-03)
+
+
+### Bug Fixes
+
+* **core:** fix null relationship response ([f2ff29a](https://github.com/commercelayer/commercelayer-sdk/commit/f2ff29a29254f2786b821c595cb3ea745681cc55))
+
 ## [4.7.4](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.3...v4.7.4) (2022-03-02)
 
 
