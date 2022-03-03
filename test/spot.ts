@@ -18,10 +18,10 @@ import commercelayer from '../src'
 
 	const id = customer
 
-	const orders = await cl.customers.orders(id)
+	const cg = await cl.customers.customer_group(id)
 
-	console.log(orders)
+	console.log(cg)
 
-	console.log(id)
+	if (!cg) console.log('No response!')
 
 })()
