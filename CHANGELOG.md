@@ -1,3 +1,10 @@
+## [4.7.6](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.5...v4.7.6) (2022-03-07)
+
+
+### Bug Fixes
+
+* **build:** minimize definition files ([406c61a](https://github.com/commercelayer/commercelayer-sdk/commit/406c61a7bc1972e99f2e67b771b708f5b00ccdd2))
+
 ## [4.7.5](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.4...v4.7.5) (2022-03-03)
 
 
