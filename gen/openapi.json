@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.9.0",
+        "version": "2.9.1",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -19687,6 +19687,11 @@
                                             "foo": "bar"
                                         }
                                     },
+                                    "mismatched_amounts": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the order current amount differs form the one of the associated authorization.",
+                                        "example": false
+                                    },
                                     "id": {
                                         "type": "string",
                                         "description": "Unique identifier for the resource (hash).",
@@ -23702,6 +23707,16 @@
                                         "description": "A payment session ID used to obtain the details.",
                                         "example": "sid_y3oqhf46pyzuxjbcn2giaqnb44"
                                     },
+                                    "success_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS succeeded authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/success"
+                                    },
+                                    "failure_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS failed authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/failure"
+                                    },
                                     "source_id": {
                                         "type": "string",
                                         "description": "The payment source identifier that can be used for subsequent payments.",
@@ -23723,6 +23738,11 @@
                                         "example": {
                                             "foo": "bar"
                                         }
+                                    },
+                                    "mismatched_amounts": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the order current amount differs form the one of the associated authorization.",
+                                        "example": false
                                     },
                                     "id": {
                                         "type": "string",
@@ -23844,6 +23864,16 @@
                                         "description": "A payment session ID used to obtain the details.",
                                         "example": "sid_y3oqhf46pyzuxjbcn2giaqnb44"
                                     },
+                                    "success_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS succeeded authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/success"
+                                    },
+                                    "failure_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS failed authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/failure"
+                                    },
                                     "reference": {
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
@@ -23941,6 +23971,16 @@
                                         "type": "string",
                                         "description": "A payment session ID used to obtain the details.",
                                         "example": "sid_y3oqhf46pyzuxjbcn2giaqnb44"
+                                    },
+                                    "success_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS succeeded authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/success"
+                                    },
+                                    "failure_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS failed authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/failure"
                                     },
                                     "_details": {
                                         "type": "boolean",
@@ -41955,18 +41995,12 @@
                                         "type": "string",
                                         "description": "The gateway client secret.",
                                         "example": "xxxx-yyyy-zzzz"
-                                    },
-                                    "mode": {
-                                        "type": "string",
-                                        "description": "The gateway mode, either 'sandbox' or 'live'.",
-                                        "example": "live"
                                     }
                                 },
                                 "required": [
                                     "name",
                                     "client_id",
-                                    "client_secret",
-                                    "mode"
+                                    "client_secret"
                                 ]
                             },
                             "relationships": {
@@ -42036,11 +42070,6 @@
                                         "type": "string",
                                         "description": "The gateway client secret.",
                                         "example": "xxxx-yyyy-zzzz"
-                                    },
-                                    "mode": {
-                                        "type": "string",
-                                        "description": "The gateway mode, either 'sandbox' or 'live'.",
-                                        "example": "live"
                                     }
                                 }
                             },
@@ -42084,11 +42113,6 @@
                                         "description": "The URL where the payer is redirected after they cancel the payment.",
                                         "example": "https://yourdomain.com/checkout/payment"
                                     },
-                                    "store_payment_source": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want Paypal to store the payment source for future usage.",
-                                        "example": false
-                                    },
                                     "note_to_payer": {
                                         "type": "string",
                                         "description": "A free-form field that you can use to send a note to the payer on PayPal.",
@@ -42118,6 +42142,26 @@
                                         "type": "string",
                                         "description": "The URL the customer should be redirected to approve the payment.",
                                         "example": "https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-1234567890ABCDEFGHG"
+                                    },
+                                    "mismatched_amounts": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the order current amount differs form the one of the created payment intent.",
+                                        "example": false
+                                    },
+                                    "intent_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The amount of the associated payment intent, in cents.",
+                                        "example": 1000
+                                    },
+                                    "intent_amount_float": {
+                                        "type": "number",
+                                        "description": "The amount of the associated payment intent, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_intent_amount": {
+                                        "type": "string",
+                                        "description": "The amount of the associated payment intent, formatted.",
+                                        "example": "€10,00"
                                     },
                                     "id": {
                                         "type": "string",
@@ -42233,11 +42277,6 @@
                                         "type": "string",
                                         "description": "The URL where the payer is redirected after they cancel the payment.",
                                         "example": "https://yourdomain.com/checkout/payment"
-                                    },
-                                    "store_payment_source": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want Paypal to store the payment source for future usage.",
-                                        "example": false
                                     },
                                     "note_to_payer": {
                                         "type": "string",
@@ -43082,7 +43121,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The market's internal name",
+                                        "description": "The price list's internal name",
                                         "example": "EU Price list"
                                     },
                                     "currency_code": {
@@ -43202,7 +43241,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The market's internal name",
+                                        "description": "The price list's internal name",
                                         "example": "EU Price list"
                                     },
                                     "currency_code": {
@@ -43276,7 +43315,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The market's internal name",
+                                        "description": "The price list's internal name",
                                         "example": "EU Price list"
                                     },
                                     "currency_code": {
@@ -47845,10 +47884,7 @@
                                             }
                                         }
                                     }
-                                },
-                                "required": [
-                                    "market"
-                                ]
+                                }
                             }
                         }
                     }
@@ -50217,6 +50253,26 @@
                                         "example": {
                                             "id": "pm_xxx"
                                         }
+                                    },
+                                    "mismatched_amounts": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the order current amount differs form the one of the created payment intent.",
+                                        "example": false
+                                    },
+                                    "intent_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The amount of the associated payment intent, in cents.",
+                                        "example": 1000
+                                    },
+                                    "intent_amount_float": {
+                                        "type": "number",
+                                        "description": "The amount of the associated payment intent, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_intent_amount": {
+                                        "type": "string",
+                                        "description": "The amount of the associated payment intent, formatted.",
+                                        "example": "€10,00"
                                     },
                                     "id": {
                                         "type": "string",

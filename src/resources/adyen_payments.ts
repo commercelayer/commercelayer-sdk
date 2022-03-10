@@ -16,6 +16,7 @@ interface AdyenPayment extends Resource {
 	payment_request_data?: object
 	payment_request_details?: object
 	payment_response?: object
+	mismatched_amounts?: boolean
 
 	order?: Order
 	payment_gateway?: PaymentGateway

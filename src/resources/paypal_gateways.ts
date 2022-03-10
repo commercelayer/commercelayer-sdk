@@ -23,7 +23,6 @@ interface PaypalGatewayCreate extends ResourceCreate {
 	name: string
 	client_id: string
 	client_secret: string
-	mode: string
 	
 }
 
@@ -33,7 +32,6 @@ interface PaypalGatewayUpdate extends ResourceUpdate {
 	name?: string
 	client_id?: string
 	client_secret?: string
-	mode?: string
 	
 }
 
