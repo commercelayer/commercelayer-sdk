@@ -41,7 +41,22 @@ const generate = async (localSchema?: boolean) => {
 
 	console.log('>> Local schema: ' + (localSchema || false) + '\n')
 
-	const schemaPath = localSchema ? 'gen/openapi.json' : await apiSchema.download()
+	if (!localSchema) {
+
+		const currentSchema = apiSchema.current()
+		const currentVersion = currentSchema.info.version
+
+		const schemaInfo = await apiSchema.download()
+
+		if (schemaInfo.version === currentVersion) {
+			console.log('No new OpenAPI schema version: ' + currentVersion)
+			return
+		}
+		else console.log(`New OpenAPI schema version: ${currentVersion} --> ${schemaInfo.version}`)
+
+	}
+
+	const schemaPath = apiSchema.localPath
 	if (!existsSync(schemaPath)) {
 		console.log('Cannot find schema file: ' + schemaPath)
 		return

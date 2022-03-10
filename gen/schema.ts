@@ -1,20 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 import { readFileSync, writeFileSync } from 'fs'
-import { camelCase, capitalize, snakeCase } from 'lodash'
+import { snakeCase } from 'lodash'
 import axios from 'axios'
-import { inspect } from 'util'
+import { resolve } from 'path'
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Inflector = require('inflector-js')
 
 
+const SCHEMA_LOCAL_PATH = resolve('./gen/openapi.json')
+const SCHEMA_REMOTE_URL = 'https://data.commercelayer.app/schemas/openapi.json'
 
-const downloadSchema = async (url?: string): Promise<string> => {
 
-	const schemaUrl = url || 'https://data.commercelayer.app/schemas/openapi.json'
-	const schemaOutPath = './gen/openapi.json'
+type SchemaInfo = {
+	remoteUrl?: string;
+	localPath?: string;
+	version?: string;
+}
+
+
+const downloadSchema = async (url?: string): Promise<SchemaInfo> => {
+
+	const schemaUrl = url || SCHEMA_REMOTE_URL
+	const schemaOutPath = SCHEMA_LOCAL_PATH
 
 	console.log(`Downloading OpenAPI schema ... [${schemaUrl}]`)
 
@@ -24,9 +34,25 @@ const downloadSchema = async (url?: string): Promise<string> => {
 	if (schema) writeFileSync(schemaOutPath, JSON.stringify(schema, null, 4))
 	else console.log ('OpenAPI schema is empty!')
 
-	console.log('OpenAPI schema downloaded: ' + schema.info.version)
+	const version = schema.info.version
 
-	return schemaOutPath
+	console.log('OpenAPI schema downloaded: ' + version)
+
+	return {
+		remoteUrl: schemaUrl,
+		localPath: schemaOutPath,
+		version,
+	}
+
+}
+
+
+const currentSchema = (): any => {
+
+	const currentSchema = readFileSync(SCHEMA_LOCAL_PATH, { encoding: 'utf-8' })
+	const schema = JSON.parse(currentSchema)
+
+	return schema
 
 }
 
@@ -288,6 +314,9 @@ type Operation = {
 export default {
 	download: downloadSchema,
 	parse: parseSchema,
+	current: currentSchema,
+	localPath: SCHEMA_LOCAL_PATH,
+	remoteUrl: SCHEMA_REMOTE_URL,
 }
 
 export { Resource, Operation, Component, ComponentMap, Cardinality, Relationship }
