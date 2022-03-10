@@ -11,13 +11,17 @@ type OrderRel = ResourceRel & { type: 'orders' }
 
 interface CheckoutComPayment extends Resource {
 	
+	public_key?: string
 	payment_type?: string
 	token?: string
 	session_id?: string
+	success_url?: string
+	failure_url?: string
 	source_id?: string
 	customer_token?: string
 	redirect_uri?: string
 	payment_response?: object
+	mismatched_amounts?: boolean
 
 	order?: Order
 	payment_gateway?: PaymentGateway
@@ -30,6 +34,8 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 	payment_type: string
 	token: string
 	session_id?: string
+	success_url?: string
+	failure_url?: string
 
 	order: OrderRel
 
@@ -41,6 +47,8 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	payment_type?: string
 	token?: string
 	session_id?: string
+	success_url?: string
+	failure_url?: string
 	_details?: boolean
 	_refresh?: boolean
 

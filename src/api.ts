@@ -3,7 +3,7 @@
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2022 Commerce Layer Inc.
- * OpenAPI schema, version 2.8.1
+ * OpenAPI schema, version 2.9.1
  **/
 export { default as Addresses } from './resources/addresses'
 export { default as Adjustments } from './resources/adjustments'

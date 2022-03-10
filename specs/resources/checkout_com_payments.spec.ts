@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('CheckoutComPayments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			payment_type: 'lambda_22',
-			token: 'beta_53',
+			payment_type: 'beta_31',
+			token: 'sigma_4',
 			order: cl.orders.relationship(TestData.id),
 		}
 

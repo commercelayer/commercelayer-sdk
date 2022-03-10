@@ -36,7 +36,7 @@ interface SkuOptionCreate extends ResourceCreate {
 	delay_hours?: number
 	sku_code_regex?: string
 
-	market: MarketRel
+	market?: MarketRel
 
 }
 

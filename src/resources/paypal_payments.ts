@@ -19,6 +19,10 @@ interface PaypalPayment extends Resource {
 	paypal_id?: string
 	status?: string
 	approval_url?: string
+	mismatched_amounts?: boolean
+	intent_amount_cents?: number
+	intent_amount_float?: number
+	formatted_intent_amount?: string
 
 	order?: Order
 	payment_gateway?: PaymentGateway

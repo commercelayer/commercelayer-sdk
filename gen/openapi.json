@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.8.1",
+        "version": "2.9.1",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -9078,32 +9078,6 @@
                 }
             }
         },
-        "/line_items/{lineItemId}/shipment_line_items": {
-            "get": {
-                "operationId": "GET/lineItemId/shipment_line_items",
-                "summary": "Retrieve the shipment line items associated to the line item",
-                "description": "Retrieve the shipment line items associated to the line item",
-                "tags": [
-                    "has_many"
-                ],
-                "parameters": [
-                    {
-                        "name": "lineItemId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The shipment_line_items associated to the line item"
-                    }
-                }
-            }
-        },
         "/line_items/{lineItemId}/stock_line_items": {
             "get": {
                 "operationId": "GET/lineItemId/stock_line_items",
@@ -11642,32 +11616,6 @@
                 "responses": {
                     "200": {
                         "description": "The stock_line_item associated to the parcel line item"
-                    }
-                }
-            }
-        },
-        "/parcel_line_items/{parcelLineItemId}/shipment_line_item": {
-            "get": {
-                "operationId": "GET/parcelLineItemId/shipment_line_item",
-                "summary": "Retrieve the shipment line item associated to the parcel line item",
-                "description": "Retrieve the shipment line item associated to the parcel line item",
-                "tags": [
-                    "has_one"
-                ],
-                "parameters": [
-                    {
-                        "name": "parcelLineItemId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The shipment_line_item associated to the parcel line item"
                     }
                 }
             }
@@ -14372,32 +14320,6 @@
                 "responses": {
                     "200": {
                         "description": "The delivery_lead_time associated to the shipment"
-                    }
-                }
-            }
-        },
-        "/shipments/{shipmentId}/shipment_line_items": {
-            "get": {
-                "operationId": "GET/shipmentId/shipment_line_items",
-                "summary": "Retrieve the shipment line items associated to the shipment",
-                "description": "Retrieve the shipment line items associated to the shipment",
-                "tags": [
-                    "has_many"
-                ],
-                "parameters": [
-                    {
-                        "name": "shipmentId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The shipment_line_items associated to the shipment"
                     }
                 }
             }
@@ -19765,6 +19687,11 @@
                                             "foo": "bar"
                                         }
                                     },
+                                    "mismatched_amounts": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the order current amount differs form the one of the associated authorization.",
+                                        "example": false
+                                    },
                                     "id": {
                                         "type": "string",
                                         "description": "Unique identifier for the resource (hash).",
@@ -23760,6 +23687,11 @@
                             "attributes": {
                                 "type": "object",
                                 "properties": {
+                                    "public_key": {
+                                        "type": "string",
+                                        "description": "The Checkout.com publishable API key.",
+                                        "example": "pk_test_xxxx-yyyy-zzzz"
+                                    },
                                     "payment_type": {
                                         "type": "string",
                                         "description": "The payment source type.",
@@ -23774,6 +23706,16 @@
                                         "type": "string",
                                         "description": "A payment session ID used to obtain the details.",
                                         "example": "sid_y3oqhf46pyzuxjbcn2giaqnb44"
+                                    },
+                                    "success_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS succeeded authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/success"
+                                    },
+                                    "failure_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS failed authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/failure"
                                     },
                                     "source_id": {
                                         "type": "string",
@@ -23796,6 +23738,11 @@
                                         "example": {
                                             "foo": "bar"
                                         }
+                                    },
+                                    "mismatched_amounts": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the order current amount differs form the one of the associated authorization.",
+                                        "example": false
                                     },
                                     "id": {
                                         "type": "string",
@@ -23917,6 +23864,16 @@
                                         "description": "A payment session ID used to obtain the details.",
                                         "example": "sid_y3oqhf46pyzuxjbcn2giaqnb44"
                                     },
+                                    "success_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS succeeded authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/success"
+                                    },
+                                    "failure_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS failed authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/failure"
+                                    },
                                     "reference": {
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
@@ -24014,6 +23971,16 @@
                                         "type": "string",
                                         "description": "A payment session ID used to obtain the details.",
                                         "example": "sid_y3oqhf46pyzuxjbcn2giaqnb44"
+                                    },
+                                    "success_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS succeeded authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/success"
+                                    },
+                                    "failure_url": {
+                                        "type": "string",
+                                        "description": "The URL to redirect your customer upon 3DS failed authentication.",
+                                        "example": "http://commercelayer.dev/checkout_com/failure"
                                     },
                                     "_details": {
                                         "type": "boolean",
@@ -42028,18 +41995,12 @@
                                         "type": "string",
                                         "description": "The gateway client secret.",
                                         "example": "xxxx-yyyy-zzzz"
-                                    },
-                                    "mode": {
-                                        "type": "string",
-                                        "description": "The gateway mode, either 'sandbox' or 'live'.",
-                                        "example": "live"
                                     }
                                 },
                                 "required": [
                                     "name",
                                     "client_id",
-                                    "client_secret",
-                                    "mode"
+                                    "client_secret"
                                 ]
                             },
                             "relationships": {
@@ -42109,11 +42070,6 @@
                                         "type": "string",
                                         "description": "The gateway client secret.",
                                         "example": "xxxx-yyyy-zzzz"
-                                    },
-                                    "mode": {
-                                        "type": "string",
-                                        "description": "The gateway mode, either 'sandbox' or 'live'.",
-                                        "example": "live"
                                     }
                                 }
                             },
@@ -42186,6 +42142,26 @@
                                         "type": "string",
                                         "description": "The URL the customer should be redirected to approve the payment.",
                                         "example": "https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-1234567890ABCDEFGHG"
+                                    },
+                                    "mismatched_amounts": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the order current amount differs form the one of the created payment intent.",
+                                        "example": false
+                                    },
+                                    "intent_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The amount of the associated payment intent, in cents.",
+                                        "example": 1000
+                                    },
+                                    "intent_amount_float": {
+                                        "type": "number",
+                                        "description": "The amount of the associated payment intent, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_intent_amount": {
+                                        "type": "string",
+                                        "description": "The amount of the associated payment intent, formatted.",
+                                        "example": "€10,00"
                                     },
                                     "id": {
                                         "type": "string",
@@ -43145,7 +43121,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The market's internal name",
+                                        "description": "The price list's internal name",
                                         "example": "EU Price list"
                                     },
                                     "currency_code": {
@@ -43265,7 +43241,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The market's internal name",
+                                        "description": "The price list's internal name",
                                         "example": "EU Price list"
                                     },
                                     "currency_code": {
@@ -43339,7 +43315,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The market's internal name",
+                                        "description": "The price list's internal name",
                                         "example": "EU Price list"
                                     },
                                     "currency_code": {
@@ -47908,10 +47884,7 @@
                                             }
                                         }
                                     }
-                                },
-                                "required": [
-                                    "market"
-                                ]
+                                }
                             }
                         }
                     }
@@ -50280,6 +50253,26 @@
                                         "example": {
                                             "id": "pm_xxx"
                                         }
+                                    },
+                                    "mismatched_amounts": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the order current amount differs form the one of the created payment intent.",
+                                        "example": false
+                                    },
+                                    "intent_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The amount of the associated payment intent, in cents.",
+                                        "example": 1000
+                                    },
+                                    "intent_amount_float": {
+                                        "type": "number",
+                                        "description": "The amount of the associated payment intent, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_intent_amount": {
+                                        "type": "string",
+                                        "description": "The amount of the associated payment intent, formatted.",
+                                        "example": "€10,00"
                                     },
                                     "id": {
                                         "type": "string",
