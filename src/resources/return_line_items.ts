@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Return } from './returns'
-import { LineItem } from './line_items'
+import type { Return } from './returns'
+import type { LineItem } from './line_items'
 
 
 type ReturnLineItemRel = ResourceRel & { type: typeof ReturnLineItems.TYPE }
@@ -55,7 +55,7 @@ class ReturnLineItems extends ApiResource {
 	}
 
 	async create(resource: ReturnLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
-		return this.resources.create({ ...resource, type: ReturnLineItems.TYPE }, params, options)
+		return this.resources.create<ReturnLineItemCreate, ReturnLineItem>({ ...resource, type: ReturnLineItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
@@ -63,19 +63,21 @@ class ReturnLineItems extends ApiResource {
 	}
 
 	async update(resource: ReturnLineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
-		return this.resources.update({ ...resource, type: ReturnLineItems.TYPE }, params, options)
+		return this.resources.update<ReturnLineItemUpdate, ReturnLineItem>({ ...resource, type: ReturnLineItems.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ReturnLineItems.TYPE, id }, options)
 	}
 
-	async return(returnLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
-		return this.resources.fetch<Return>({ type: 'returns' }, `return_line_items/${returnLineItemId}/return`, params, options) as unknown as Return
+	async return(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId
+		return this.resources.fetch<Return>({ type: 'returns' }, `return_line_items/${_returnLineItemId}/return`, params, options) as unknown as Return
 	}
 
-	async line_item(returnLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
-		return this.resources.fetch<LineItem>({ type: 'line_items' }, `return_line_items/${returnLineItemId}/line_item`, params, options) as unknown as LineItem
+	async line_item(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `return_line_items/${_returnLineItemId}/line_item`, params, options) as unknown as LineItem
 	}
 
 

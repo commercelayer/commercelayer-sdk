@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,10 +25,10 @@ describe('FreeGiftPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_14',
-			starts_at: 'omega_81',
-			expires_at: 'beta_42',
-			total_usage_limit: 5,
+			name: 'omega_22',
+			starts_at: 'lambda_1',
+			expires_at: 'beta_37',
+			total_usage_limit: 100,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

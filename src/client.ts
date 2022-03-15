@@ -7,7 +7,7 @@ import type { Agent as HttpAgent } from 'http'
 import type { Agent as HttpsAgent } from 'https'
 
 import Debug from './debug'
-const debug = Debug()
+const debug = Debug('client')
 
 
 

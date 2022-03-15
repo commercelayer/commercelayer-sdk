@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,10 +25,10 @@ describe('FreeShippingPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_86',
-			starts_at: 'gamma_57',
-			expires_at: 'epsilon_77',
-			total_usage_limit: 555,
+			name: 'beta_16',
+			starts_at: 'epsilon_78',
+			expires_at: 'delta_92',
+			total_usage_limit: 1000,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

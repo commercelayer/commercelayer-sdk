@@ -1,12 +1,12 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Order } from './orders'
-import { Customer } from './customers'
-import { StockLocation } from './stock_locations'
-import { Address } from './addresses'
-import { ReturnLineItem } from './return_line_items'
-import { Attachment } from './attachments'
+import type { Order } from './orders'
+import type { Customer } from './customers'
+import type { StockLocation } from './stock_locations'
+import type { Address } from './addresses'
+import type { ReturnLineItem } from './return_line_items'
+import type { Attachment } from './attachments'
 
 
 type ReturnRel = ResourceRel & { type: typeof Returns.TYPE }
@@ -73,7 +73,7 @@ class Returns extends ApiResource {
 	}
 
 	async create(resource: ReturnCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
-		return this.resources.create({ ...resource, type: Returns.TYPE }, params, options)
+		return this.resources.create<ReturnCreate, Return>({ ...resource, type: Returns.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
@@ -81,39 +81,46 @@ class Returns extends ApiResource {
 	}
 
 	async update(resource: ReturnUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
-		return this.resources.update({ ...resource, type: Returns.TYPE }, params, options)
+		return this.resources.update<ReturnUpdate, Return>({ ...resource, type: Returns.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Returns.TYPE, id }, options)
 	}
 
-	async order(returnId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `returns/${returnId}/order`, params, options) as unknown as Order
+	async order(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _returnId = (returnId as Return).id || returnId
+		return this.resources.fetch<Order>({ type: 'orders' }, `returns/${_returnId}/order`, params, options) as unknown as Order
 	}
 
-	async customer(returnId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `returns/${returnId}/customer`, params, options) as unknown as Customer
+	async customer(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _returnId = (returnId as Return).id || returnId
+		return this.resources.fetch<Customer>({ type: 'customers' }, `returns/${_returnId}/customer`, params, options) as unknown as Customer
 	}
 
-	async stock_location(returnId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `returns/${returnId}/stock_location`, params, options) as unknown as StockLocation
+	async stock_location(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		const _returnId = (returnId as Return).id || returnId
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `returns/${_returnId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async origin_address(returnId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.fetch<Address>({ type: 'addresses' }, `returns/${returnId}/origin_address`, params, options) as unknown as Address
+	async origin_address(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+		const _returnId = (returnId as Return).id || returnId
+		return this.resources.fetch<Address>({ type: 'addresses' }, `returns/${_returnId}/origin_address`, params, options) as unknown as Address
 	}
 
-	async destination_address(returnId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.fetch<Address>({ type: 'addresses' }, `returns/${returnId}/destination_address`, params, options) as unknown as Address
+	async destination_address(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+		const _returnId = (returnId as Return).id || returnId
+		return this.resources.fetch<Address>({ type: 'addresses' }, `returns/${_returnId}/destination_address`, params, options) as unknown as Address
 	}
 
-	async return_line_items(returnId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
-		return this.resources.fetch<ReturnLineItem>({ type: 'return_line_items' }, `returns/${returnId}/return_line_items`, params, options) as unknown as ListResponse<ReturnLineItem>
+	async return_line_items(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
+		const _returnId = (returnId as Return).id || returnId
+		return this.resources.fetch<ReturnLineItem>({ type: 'return_line_items' }, `returns/${_returnId}/return_line_items`, params, options) as unknown as ListResponse<ReturnLineItem>
 	}
 
-	async attachments(returnId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `returns/${returnId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _returnId = (returnId as Return).id || returnId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `returns/${_returnId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

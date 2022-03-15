@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Geocoder } from './geocoders'
+import type { Geocoder } from './geocoders'
 
 
 type AddressRel = ResourceRel & { type: typeof Addresses.TYPE }
@@ -98,7 +98,7 @@ class Addresses extends ApiResource {
 	}
 
 	async create(resource: AddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.create({ ...resource, type: Addresses.TYPE }, params, options)
+		return this.resources.create<AddressCreate, Address>({ ...resource, type: Addresses.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
@@ -106,15 +106,16 @@ class Addresses extends ApiResource {
 	}
 
 	async update(resource: AddressUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.update({ ...resource, type: Addresses.TYPE }, params, options)
+		return this.resources.update<AddressUpdate, Address>({ ...resource, type: Addresses.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Addresses.TYPE, id }, options)
 	}
 
-	async geocoder(addressId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
-		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `addresses/${addressId}/geocoder`, params, options) as unknown as Geocoder
+	async geocoder(addressId: string | Address, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
+		const _addressId = (addressId as Address).id || addressId
+		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `addresses/${_addressId}/geocoder`, params, options) as unknown as Geocoder
 	}
 
 

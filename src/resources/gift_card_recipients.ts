@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Customer } from './customers'
-import { Attachment } from './attachments'
+import type { Customer } from './customers'
+import type { Attachment } from './attachments'
 
 
 type GiftCardRecipientRel = ResourceRel & { type: typeof GiftCardRecipients.TYPE }
@@ -53,7 +53,7 @@ class GiftCardRecipients extends ApiResource {
 	}
 
 	async create(resource: GiftCardRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
-		return this.resources.create({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
+		return this.resources.create<GiftCardRecipientCreate, GiftCardRecipient>({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
@@ -61,19 +61,21 @@ class GiftCardRecipients extends ApiResource {
 	}
 
 	async update(resource: GiftCardRecipientUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
-		return this.resources.update({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
+		return this.resources.update<GiftCardRecipientUpdate, GiftCardRecipient>({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: GiftCardRecipients.TYPE, id }, options)
 	}
 
-	async customer(giftCardRecipientId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `gift_card_recipients/${giftCardRecipientId}/customer`, params, options) as unknown as Customer
+	async customer(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId
+		return this.resources.fetch<Customer>({ type: 'customers' }, `gift_card_recipients/${_giftCardRecipientId}/customer`, params, options) as unknown as Customer
 	}
 
-	async attachments(giftCardRecipientId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `gift_card_recipients/${giftCardRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `gift_card_recipients/${_giftCardRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

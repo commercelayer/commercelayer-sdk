@@ -1,8 +1,13 @@
 # Commerce Layer JS SDK
 
+[![Version](https://img.shields.io/npm/v/@commercelayer/sdk.svg)](https://npmjs.org/package/@commercelayer/sdk)
+[![Downloads/week](https://img.shields.io/npm/dw/@commercelayer/sdk.svg)](https://npmjs.org/package/@commercelayer/sdk)
+[![License](https://img.shields.io/npm/l/@commercelayer/sdk.svg)](https://github.com/commercelayer/commercelayer-sdk/blob/master/package.json)
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![Release](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml/badge.svg)](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml)
+[![CodeQL](https://github.com/commercelayer/commercelayer-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/commercelayer/commercelayer-cli/actions/workflows/codeql-analysis.yml)
 
-A JavaScript Library wrapper that makes it quick and easy to interact with the [Commerce Layer API](https://docs.commercelayer.io/api/).
+A JavaScript Library wrapper that makes it quick and easy to interact with the [Commerce Layer API](https://docs.commercelayer.io/developers/).
 
 ### What is Commerce Layer?
 
@@ -20,7 +25,7 @@ To get started with Commerce Layer JS SDK you need to install it and then get th
 
 Commerce Layer JS SDK is available as an [npm package](https://www.npmjs.com/package/@commercelayer/sdk):
 
-```
+```shell
 // npm
 npm install @commercelayer/sdk
 
@@ -30,7 +35,9 @@ yarn add @commercelayer/sdk
 
 ## Authentication
 
-All requests to Commerce Layer API must be authenticated with an [OAuth2](https://oauth.net/2/) bearer token. Hence, before starting to use this SDK you need to get a valid access token. Check [our documentation](https://docs.commercelayer.io/api/authentication) for more information about the available authorization flows.
+All requests to Commerce Layer API must be authenticated with an [OAuth2](https://oauth.net/2/) bearer token.
+Hence, before starting to use this SDK you need to get a valid access token.
+Check [our documentation](https://docs.commercelayer.io/developers/authentication) for more information about the available authorization flows.
 
 > Feel free to use [Commerce Layer JS Auth](https://github.com/commercelayer/commercelayer-js-auth), a JavaScript library that helps you wrap our authentication API.
 
@@ -38,7 +45,7 @@ All requests to Commerce Layer API must be authenticated with an [OAuth2](https:
 
 You can use the ES6 default import with the SDK as follow:
 
-```
+```typescript
 import CommerceLayer from '@commercelayer/sdk'
 
 const cl = CommerceLayer({
@@ -47,49 +54,59 @@ const cl = CommerceLayer({
 })
 ```
 
-> In the following examples, we will use only the the specific resources we're going to access (SKUs and shipping categories). Check our [API reference](https://docs.commercelayer.io/api/) for the complete list of available resources and their attributes.
+> In the following examples, we will use only the the specific resources we're going to access (SKUs and shipping categories).
+Check our [API reference](https://docs.commercelayer.io/developers/v/api-reference/) for the complete list of available  
+resources and their attributes.
 
 # Usage
 
 The code snippets below show how to use the Commerce Layer JS SDK when performing the standard CRUD operations provided by our REST API on the SKU resource.
 
 - ### Create
+
   - [How to create an SKU](#how-to-create-an-sku)
-- ### Retrieve
+
+- ### Retrieve / List
+
   - [How to fetch a single SKU](#how-to-fetch-a-single-sku)
   - [How to fetch a collection of SKUs](#how-to-fetch-a-collection-of-skus)
   - [How to paginate a collection of SKUs](#how-to-paginate-a-collection-of-skus)
   - [How to iterate through a collection of SKUs](#how-to-iterate-through-a-collection-of-skus)
-  - [How to build complex queries](#how-to-build-complex-queries)
+  <!-- - [How to build complex queries](#how-to-build-complex-queries) -->
+  - [How to fetch resource relationships](#how-to-fetch-resource-relationships)
+
 - ### Update
+
   - [How to update an existing SKU](#how-to-update-an-existing-sku)
+
 - ### Delete
+
   - [How to delete an existing SKU](#how-to-delete-an-existing-sku)
 
 ## Create
 
 ### How to create an SKU
 
-```
+```typescript
   // selects the shipping category (it's a required relationship for the SKU resource)
   const shippingCategories = await cl.shipping_categories.list({ filters: { name_eq: 'Merchandising' } })
 
   const attributes = {
-	  code: 'TSHIRTMM000000FFFFFFXL',
-	  name: 'Black Men T-shirt with White Logo (XL)',
-	  shipping_category: cl.shipping_categories.relationship(shippingCategories[0].id), // assigns the relationship
+    code: 'TSHIRTMM000000FFFFFFXL',
+    name: 'Black Men T-shirt with White Logo (XL)',
+    shipping_category: cl.shipping_categories.relationship(shippingCategories[0].id), // assigns the relationship
   }
 
   const newSku = await cl.skus.create(attributes)
 ```
 
-Check our API reference for more information on how to [create an SKU](https://docs.commercelayer.io/api/resources/skus/create_sku).
+Check our API reference for more information on how to [create an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/create).
 
-## Retrieve
+## Retrieve / List
 
 ### How to fetch a single SKU
 
-```
+```typescript
   // Fetches the SKU by ID
   const sku = await cl.skus.retrieve('BxAkSVqKEn')
 
@@ -103,11 +120,11 @@ Check our API reference for more information on how to [create an SKU](https://d
   const sku = (await cl.skus.list()).last()
 ```
 
-Check our API reference for more information on how to [retrieve an SKU](https://docs.commercelayer.io/api/resources/skus/retrieve_sku).
+Check our API reference for more information on how to [retrieve an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/retrieve).
 
 ### How to fetch a collection of SKUs
 
-```
+```typescript
   // LISTING RESULTS
 
   // Fetches all the SKUs
@@ -146,29 +163,32 @@ Check our API reference for more information on how to [retrieve an SKU](https:/
   const skus = await cl.skus.list({ filters: { name_cont: 'White Logo' } })
 
   // Filters all the SKUs fetching only the ones created between two specific dates
-  const skus = await cl.skus.list({ filters: { created_at_gt: '2018-01-01', created_at_lt: '2018-01-31'} }) // filters combined according to an AND logic
+  // (filters combined according to an AND logic)
+  const skus = await cl.skus.list({ filters: { created_at_gt: '2018-01-01', created_at_lt: '2018-01-31'} })
 
   // Filters all the SKUs fetching only the ones created or updated after a specific date
-  const skus = await cl.skus.list({ filters: { updated_at_or_created_at_gt: '2019-10-10' } }) // attributes combined according to an OR logic
+  // (attributes combined according to an OR logic)
+  const skus = await cl.skus.list({ filters: { updated_at_or_created_at_gt: '2019-10-10' } })
 
-  // Filters all the SKUs fetching only the ones whose name contains the string "Black" and whose shipping category name starts with the string "MERCH"
+  // Filters all the SKUs fetching only the ones whose name contains the string "Black" and whose shipping category 
+  // name starts with the string "MERCH"
   const skus = await cl.skus.list({ filters: { name_cont: 'Black', shipping_category_name_start: 'MERCH'} })
 ```
 
 When fetching a collection of resources you can leverage the `meta` attribute to get its `meta` information:
 
-```
+```typescript
   const skus = await cl.skus.list()
   const meta = skus.meta
 ```
 
-Check our API reference for more information on how to [list all SKUs](https://docs.commercelayer.io/api/resources/skus/list_skus), [sort the results](https://docs.commercelayer.io/api/sorting-results), use [sparse fieldsets](https://docs.commercelayer.io/api/sparse-fieldsets), [include associations](https://docs.commercelayer.io/api/including-associations), and [filter data](https://docs.commercelayer.io/api/filtering-data).
+Check our API reference for more information on how to [list all SKUs](https://docs.commercelayer.io/developers/v/api-reference/skus/list), [sort the results](https://docs.commercelayer.io/developers/sorting-results), use [sparse fieldsets](https://docs.commercelayer.io/developers/sparse-fieldsets), [include associations](https://docs.commercelayer.io/developers/including-associations), and [filter data](https://docs.commercelayer.io/developers/filtering-data).
 
 ### How to paginate a collection of SKUs
 
 When you fetch a collection of resources, you get paginated results:
 
-```
+```typescript
   // Fetches the SKUs, setting the page number to 3 and the page size to 5
   const skus = await cl.skus.list({ pageNumber: 3, pageSize: 5 })
 
@@ -181,23 +201,36 @@ When you fetch a collection of resources, you get paginated results:
 
 > The default page number is **1**. The default page size is **10**. The maximum page size allowed is **25**.
 
-Check our API reference for more information on how [pagination](https://docs.commercelayer.io/api/pagination) works.
+Check our API reference for more information on how [pagination](https://docs.commercelayer.io/developers/pagination) works.
 
 ### How to iterate through a collection of SKUs
 
 To execute a function for every item of a collection, use the `map()` method:
 
-```
-  // Fetches the whole list of SKUs and prints their names and codes to console
+```typescript
+  // Fetches the whole list of SKUs (1st page) and prints their names and codes to console
   const skus = await cl.skus.list()
   skus.map(p => console.log('Product: ' + p.name + ' - Code: ' + p.code))
+```
+
+### How to fetch resource relationships
+
+Many resources have relationships with other resources and instead of including these associations as seen above, you can fetch them directly.
+In this way, in case of 1-to-N relationship, you can filter or sort the resulting collection as for standard resources.
+
+```typescript
+// Fetches 1-to-1 related resource: billing address of an order
+const billingAddress = cl.orders.billing_address('xYZkjABcde')
+
+// Fetches 1-to-N related resources: orders associated to a customer
+const orders = cl.customers.orders('XyzKjAbCDe', { fields: ['status', 'number'] })
 ```
 
 ## Update
 
 ### How to update an existing SKU
 
-```
+```typescript
   const sku = {
     id: 'xYZkjABcde',
     description: 'Updated description.',
@@ -207,23 +240,24 @@ To execute a function for every item of a collection, use the `map()` method:
   cl.skus.update(sku) // updates the SKU on the server
 ```
 
-Check our API reference for more information on how to [update an SKU](https://docs.commercelayer.io/api/resources/skus/update_sku).
+Check our API reference for more information on how to [update an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/update).
 
 ## Delete
 
 ### How to delete an existing SKU
 
-```
+```typescript
   cl.skus.delete('xYZkjABcde') // persisted deletion
 ```
 
-Check our API reference for more information on how to [delete an SKU](https://docs.commercelayer.io/api/resources/skus/delete_sku).
+Check our API reference for more information on how to [delete an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/delete).
 
 # Overriding credentials
 
-If needed, Commerce Layer JS SDK lets you change the client configuration set it at a request level. To do that, just use the `config()` method or pass the `options` parameter and authenticate the API call with the desired credentials:
+If needed, Commerce Layer JS SDK lets you change the client configuration set it at a request level.
+To do that, just use the `config()` method or pass the `options` parameter and authenticate the API call with the desired credentials:
 
-```
+```typescript
   // Permanently change configuration at client level
   cl.config({ organization: 'you-organization-slug', accessToken: 'your-access-token' })
   const skus = await cl.skus.list()
@@ -238,7 +272,7 @@ If needed, Commerce Layer JS SDK lets you change the client configuration set it
 
 Commerce Layer API returns specific errors (with extra information) on each attribute of a single resource. You can inspect them to properly handle validation errors (if any). To do that, use the `errors` attribute of the catched error:
 
-```
+```typescript
   // logs error messages to console:
 
   const attributes = { code: 'TSHIRTMM000000FFFFFFXL', name: '' }
@@ -276,7 +310,7 @@ Commerce Layer API returns specific errors (with extra information) on each attr
 
 ```
 
-Check our API reference for more information about the [errors](https://docs.commercelayer.io/api/handling-errors) returned by the API.
+Check our API reference for more information about the [errors](https://docs.commercelayer.io/developers/handling-errors) returned by the API.
 
 ---
 

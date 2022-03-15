@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PaymentMethod } from './payment_methods'
+import type { PaymentMethod } from './payment_methods'
 
 
 type ManualGatewayRel = ResourceRel & { type: typeof ManualGateways.TYPE }
@@ -43,7 +43,7 @@ class ManualGateways extends ApiResource {
 	}
 
 	async create(resource: ManualGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
-		return this.resources.create({ ...resource, type: ManualGateways.TYPE }, params, options)
+		return this.resources.create<ManualGatewayCreate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
@@ -51,15 +51,16 @@ class ManualGateways extends ApiResource {
 	}
 
 	async update(resource: ManualGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
-		return this.resources.update({ ...resource, type: ManualGateways.TYPE }, params, options)
+		return this.resources.update<ManualGatewayUpdate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ManualGateways.TYPE, id }, options)
 	}
 
-	async payment_methods(manualGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `manual_gateways/${manualGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	async payment_methods(manualGatewayId: string | ManualGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `manual_gateways/${_manualGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
 

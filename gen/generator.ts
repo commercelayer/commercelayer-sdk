@@ -41,7 +41,22 @@ const generate = async (localSchema?: boolean) => {
 
 	console.log('>> Local schema: ' + (localSchema || false) + '\n')
 
-	const schemaPath = localSchema ? 'gen/openapi.json' : await apiSchema.download()
+	if (!localSchema) {
+
+		const currentSchema = apiSchema.current()
+		const currentVersion = currentSchema.info.version
+
+		const schemaInfo = await apiSchema.download()
+
+		if (schemaInfo.version === currentVersion) {
+			console.log('No new OpenAPI schema version: ' + currentVersion)
+			return
+		}
+		else console.log(`New OpenAPI schema version: ${currentVersion} --> ${schemaInfo.version}`)
+
+	}
+
+	const schemaPath = apiSchema.localPath
 	if (!existsSync(schemaPath)) {
 		console.log('Cannot find schema file: ' + schemaPath)
 		return
@@ -332,7 +347,6 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 			specRel = specRel.replace(/##__OPERATION_NAME__##/g, op.name)
 			specRel = specRel.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
-			console.log(specRel)
 			spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '\n\n\t' + specRel + '\n\t##__RELATIONSHIP_SPECS__##')
 
 		}
@@ -428,7 +442,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		else {
 			if (op.relationship) {
 				const tplr = templates[`relationship_${op.relationship.cardinality.replace('to_', '')}`]
-				const tplrOp = templatedOperation('', opName, op, tplr)
+				const tplrOp = templatedOperation(resName, opName, op, tplr)
 				operations.push(tplrOp.operation)
 			} else console.log('Unknown operation: ' + opName)
 		}
@@ -471,7 +485,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImports)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import { ${i} } from './${snakeCase(Inflector.pluralize(i))}'`)
+		.map(i => `import type { ${i} } from './${snakeCase(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
@@ -501,8 +515,9 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 	}
 	if (op.relationship) {
 		operation = operation.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
-		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{', '${'))
+		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{', '${_'))
 		operation = operation.replace(/##__RESOURCE_ID__##/g, op.id || 'id')
+		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
 	}
 
 	operation = operation.replace(/\n/g, '\n\t')

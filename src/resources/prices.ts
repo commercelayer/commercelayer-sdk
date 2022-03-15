@@ -1,9 +1,9 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PriceList } from './price_lists'
-import { Sku } from './skus'
-import { Attachment } from './attachments'
+import type { PriceList } from './price_lists'
+import type { Sku } from './skus'
+import type { Attachment } from './attachments'
 
 
 type PriceRel = ResourceRel & { type: typeof Prices.TYPE }
@@ -63,7 +63,7 @@ class Prices extends ApiResource {
 	}
 
 	async create(resource: PriceCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
-		return this.resources.create({ ...resource, type: Prices.TYPE }, params, options)
+		return this.resources.create<PriceCreate, Price>({ ...resource, type: Prices.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
@@ -71,23 +71,26 @@ class Prices extends ApiResource {
 	}
 
 	async update(resource: PriceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
-		return this.resources.update({ ...resource, type: Prices.TYPE }, params, options)
+		return this.resources.update<PriceUpdate, Price>({ ...resource, type: Prices.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Prices.TYPE, id }, options)
 	}
 
-	async price_list(priceId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
-		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `prices/${priceId}/price_list`, params, options) as unknown as PriceList
+	async price_list(priceId: string | Price, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
+		const _priceId = (priceId as Price).id || priceId
+		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `prices/${_priceId}/price_list`, params, options) as unknown as PriceList
 	}
 
-	async sku(priceId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
-		return this.resources.fetch<Sku>({ type: 'skus' }, `prices/${priceId}/sku`, params, options) as unknown as Sku
+	async sku(priceId: string | Price, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		const _priceId = (priceId as Price).id || priceId
+		return this.resources.fetch<Sku>({ type: 'skus' }, `prices/${_priceId}/sku`, params, options) as unknown as Sku
 	}
 
-	async attachments(priceId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `prices/${priceId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _priceId = (priceId as Price).id || priceId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `prices/${_priceId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

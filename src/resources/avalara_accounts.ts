@@ -1,9 +1,9 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { TaxCategory } from './tax_categories'
-import { Market } from './markets'
-import { Attachment } from './attachments'
+import type { TaxCategory } from './tax_categories'
+import type { Market } from './markets'
+import type { Attachment } from './attachments'
 
 
 type AvalaraAccountRel = ResourceRel & { type: typeof AvalaraAccounts.TYPE }
@@ -60,7 +60,7 @@ class AvalaraAccounts extends ApiResource {
 	}
 
 	async create(resource: AvalaraAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
-		return this.resources.create({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
+		return this.resources.create<AvalaraAccountCreate, AvalaraAccount>({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
@@ -68,23 +68,26 @@ class AvalaraAccounts extends ApiResource {
 	}
 
 	async update(resource: AvalaraAccountUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
-		return this.resources.update({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
+		return this.resources.update<AvalaraAccountUpdate, AvalaraAccount>({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: AvalaraAccounts.TYPE, id }, options)
 	}
 
-	async tax_categories(avalaraAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
-		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `avalara_accounts/${avalaraAccountId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
+	async tax_categories(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
+		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId
+		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `avalara_accounts/${_avalaraAccountId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
 	}
 
-	async markets(avalaraAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `avalara_accounts/${avalaraAccountId}/markets`, params, options) as unknown as ListResponse<Market>
+	async markets(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId
+		return this.resources.fetch<Market>({ type: 'markets' }, `avalara_accounts/${_avalaraAccountId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
-	async attachments(avalaraAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `avalara_accounts/${avalaraAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `avalara_accounts/${_avalaraAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

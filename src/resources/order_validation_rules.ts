@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
+import type { Market } from './markets'
 
 
 type OrderValidationRuleRel = ResourceRel & { type: typeof OrderValidationRules.TYPE }
@@ -27,8 +27,9 @@ class OrderValidationRules extends ApiResource {
 		return this.resources.retrieve<OrderValidationRule>({ type: OrderValidationRules.TYPE, id }, params, options)
 	}
 
-	async market(orderValidationRuleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `order_validation_rules/${orderValidationRuleId}/market`, params, options) as unknown as Market
+	async market(orderValidationRuleId: string | OrderValidationRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _orderValidationRuleId = (orderValidationRuleId as OrderValidationRule).id || orderValidationRuleId
+		return this.resources.fetch<Market>({ type: 'markets' }, `order_validation_rules/${_orderValidationRuleId}/market`, params, options) as unknown as Market
 	}
 
 

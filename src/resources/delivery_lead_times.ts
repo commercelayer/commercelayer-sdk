@@ -1,9 +1,9 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { StockLocation } from './stock_locations'
-import { ShippingMethod } from './shipping_methods'
-import { Attachment } from './attachments'
+import type { StockLocation } from './stock_locations'
+import type { ShippingMethod } from './shipping_methods'
+import type { Attachment } from './attachments'
 
 
 type DeliveryLeadTimeRel = ResourceRel & { type: typeof DeliveryLeadTimes.TYPE }
@@ -57,7 +57,7 @@ class DeliveryLeadTimes extends ApiResource {
 	}
 
 	async create(resource: DeliveryLeadTimeCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
-		return this.resources.create({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
+		return this.resources.create<DeliveryLeadTimeCreate, DeliveryLeadTime>({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
@@ -65,23 +65,26 @@ class DeliveryLeadTimes extends ApiResource {
 	}
 
 	async update(resource: DeliveryLeadTimeUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
-		return this.resources.update({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
+		return this.resources.update<DeliveryLeadTimeUpdate, DeliveryLeadTime>({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: DeliveryLeadTimes.TYPE, id }, options)
 	}
 
-	async stock_location(deliveryLeadTimeId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `delivery_lead_times/${deliveryLeadTimeId}/stock_location`, params, options) as unknown as StockLocation
+	async stock_location(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `delivery_lead_times/${_deliveryLeadTimeId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async shipping_method(deliveryLeadTimeId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
-		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `delivery_lead_times/${deliveryLeadTimeId}/shipping_method`, params, options) as unknown as ShippingMethod
+	async shipping_method(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId
+		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `delivery_lead_times/${_deliveryLeadTimeId}/shipping_method`, params, options) as unknown as ShippingMethod
 	}
 
-	async attachments(deliveryLeadTimeId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `delivery_lead_times/${deliveryLeadTimeId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `delivery_lead_times/${_deliveryLeadTimeId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

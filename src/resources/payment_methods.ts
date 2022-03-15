@@ -1,9 +1,9 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
-import { PaymentGateway } from './payment_gateways'
-import { Attachment } from './attachments'
+import type { Market } from './markets'
+import type { PaymentGateway } from './payment_gateways'
+import type { Attachment } from './attachments'
 
 
 type PaymentMethodRel = ResourceRel & { type: typeof PaymentMethods.TYPE }
@@ -65,7 +65,7 @@ class PaymentMethods extends ApiResource {
 	}
 
 	async create(resource: PaymentMethodCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
-		return this.resources.create({ ...resource, type: PaymentMethods.TYPE }, params, options)
+		return this.resources.create<PaymentMethodCreate, PaymentMethod>({ ...resource, type: PaymentMethods.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
@@ -73,23 +73,26 @@ class PaymentMethods extends ApiResource {
 	}
 
 	async update(resource: PaymentMethodUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
-		return this.resources.update({ ...resource, type: PaymentMethods.TYPE }, params, options)
+		return this.resources.update<PaymentMethodUpdate, PaymentMethod>({ ...resource, type: PaymentMethods.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: PaymentMethods.TYPE, id }, options)
 	}
 
-	async market(paymentMethodId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `payment_methods/${paymentMethodId}/market`, params, options) as unknown as Market
+	async market(paymentMethodId: string | PaymentMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId
+		return this.resources.fetch<Market>({ type: 'markets' }, `payment_methods/${_paymentMethodId}/market`, params, options) as unknown as Market
 	}
 
-	async payment_gateway(paymentMethodId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `payment_methods/${paymentMethodId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	async payment_gateway(paymentMethodId: string | PaymentMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `payment_methods/${_paymentMethodId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
-	async attachments(paymentMethodId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_methods/${paymentMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(paymentMethodId: string | PaymentMethod, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_methods/${_paymentMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

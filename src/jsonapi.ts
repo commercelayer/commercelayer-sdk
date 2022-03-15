@@ -5,7 +5,7 @@ import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource
 import { isResourceId, isResourceType } from './common'
 
 import Debug from './debug'
-const debug = Debug()
+const debug = Debug('jsonapi')
 
 
 
@@ -20,8 +20,11 @@ const denormalize = <R extends Resource>(response: DocWithData): R | R[] => {
 	const data = response.data
 	const included = response.included
 
-	if (Array.isArray(data)) denormalizedResponse = data.map(res => denormalizeResource<R>(res, included))
-	else denormalizedResponse = denormalizeResource<R>(data, included)
+	if (!data) denormalizedResponse = data
+	else {
+		if (Array.isArray(data)) denormalizedResponse = data.map(res => denormalizeResource<R>(res, included))
+		else denormalizedResponse = denormalizeResource<R>(data, included)
+	}
 
 	return denormalizedResponse
 
@@ -39,6 +42,8 @@ const findIncluded = (rel: ResourceIdentifierObject, included: Included = []): J
 const denormalizeResource = <T extends ResourceType>(res: any, included?: Included): T => {
 
 	debug('denormalize resource: %O, %o', res, included || {})
+
+	if (!res) return res
 
 	const resource = {
 		id: res.id,

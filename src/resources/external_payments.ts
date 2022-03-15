@@ -1,9 +1,9 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Order } from './orders'
-import { PaymentGateway } from './payment_gateways'
-import { CustomerPaymentSource } from './customer_payment_sources'
+import type { Order } from './orders'
+import type { PaymentGateway } from './payment_gateways'
+import type { CustomerPaymentSource } from './customer_payment_sources'
 
 
 type ExternalPaymentRel = ResourceRel & { type: typeof ExternalPayments.TYPE }
@@ -51,7 +51,7 @@ class ExternalPayments extends ApiResource {
 	}
 
 	async create(resource: ExternalPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
-		return this.resources.create({ ...resource, type: ExternalPayments.TYPE }, params, options)
+		return this.resources.create<ExternalPaymentCreate, ExternalPayment>({ ...resource, type: ExternalPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
@@ -59,23 +59,26 @@ class ExternalPayments extends ApiResource {
 	}
 
 	async update(resource: ExternalPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
-		return this.resources.update({ ...resource, type: ExternalPayments.TYPE }, params, options)
+		return this.resources.update<ExternalPaymentUpdate, ExternalPayment>({ ...resource, type: ExternalPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ExternalPayments.TYPE, id }, options)
 	}
 
-	async order(externalPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `external_payments/${externalPaymentId}/order`, params, options) as unknown as Order
+	async order(externalPaymentId: string | ExternalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId
+		return this.resources.fetch<Order>({ type: 'orders' }, `external_payments/${_externalPaymentId}/order`, params, options) as unknown as Order
 	}
 
-	async payment_gateway(externalPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `external_payments/${externalPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	async payment_gateway(externalPaymentId: string | ExternalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `external_payments/${_externalPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
-	async wallet(externalPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
-		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `external_payments/${externalPaymentId}/wallet`, params, options) as unknown as CustomerPaymentSource
+	async wallet(externalPaymentId: string | ExternalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
+		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId
+		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `external_payments/${_externalPaymentId}/wallet`, params, options) as unknown as CustomerPaymentSource
 	}
 
 

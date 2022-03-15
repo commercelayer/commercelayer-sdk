@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { SkuList } from './sku_lists'
-import { Sku } from './skus'
+import type { SkuList } from './sku_lists'
+import type { Sku } from './skus'
 
 
 type SkuListItemRel = ResourceRel & { type: typeof SkuListItems.TYPE }
@@ -53,7 +53,7 @@ class SkuListItems extends ApiResource {
 	}
 
 	async create(resource: SkuListItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListItem> {
-		return this.resources.create({ ...resource, type: SkuListItems.TYPE }, params, options)
+		return this.resources.create<SkuListItemCreate, SkuListItem>({ ...resource, type: SkuListItems.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListItem> {
@@ -61,19 +61,21 @@ class SkuListItems extends ApiResource {
 	}
 
 	async update(resource: SkuListItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListItem> {
-		return this.resources.update({ ...resource, type: SkuListItems.TYPE }, params, options)
+		return this.resources.update<SkuListItemUpdate, SkuListItem>({ ...resource, type: SkuListItems.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: SkuListItems.TYPE, id }, options)
 	}
 
-	async sku_list(skuListItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_items/${skuListItemId}/sku_list`, params, options) as unknown as SkuList
+	async sku_list(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_items/${_skuListItemId}/sku_list`, params, options) as unknown as SkuList
 	}
 
-	async sku(skuListItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
-		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_items/${skuListItemId}/sku`, params, options) as unknown as Sku
+	async sku(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId
+		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_items/${_skuListItemId}/sku`, params, options) as unknown as Sku
 	}
 
 

@@ -14,8 +14,14 @@ import commercelayer from '../src'
 		timeout: 5000,
 	})
 
-	const c = await cl.customers.orders('OZqohRjoWn')
+	const customer = await cl.customers.retrieve('OZqohRjoWn')
 
-	console.log(c)
+	const id = customer
+
+	const cg = await cl.customers.customer_group(id)
+
+	console.log(cg)
+
+	if (!cg) console.log('No response!')
 
 })()

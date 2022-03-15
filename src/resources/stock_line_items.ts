@@ -1,9 +1,9 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Shipment } from './shipments'
-import { LineItem } from './line_items'
-import { StockItem } from './stock_items'
+import type { Shipment } from './shipments'
+import type { LineItem } from './line_items'
+import type { StockItem } from './stock_items'
 
 
 type StockLineItemRel = ResourceRel & { type: typeof StockLineItems.TYPE }
@@ -35,16 +35,19 @@ class StockLineItems extends ApiResource {
 		return this.resources.retrieve<StockLineItem>({ type: StockLineItems.TYPE, id }, params, options)
 	}
 
-	async shipment(stockLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
-		return this.resources.fetch<Shipment>({ type: 'shipments' }, `stock_line_items/${stockLineItemId}/shipment`, params, options) as unknown as Shipment
+	async shipment(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId
+		return this.resources.fetch<Shipment>({ type: 'shipments' }, `stock_line_items/${_stockLineItemId}/shipment`, params, options) as unknown as Shipment
 	}
 
-	async line_item(stockLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
-		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_line_items/${stockLineItemId}/line_item`, params, options) as unknown as LineItem
+	async line_item(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_line_items/${_stockLineItemId}/line_item`, params, options) as unknown as LineItem
 	}
 
-	async stock_item(stockLineItemId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
-		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `stock_line_items/${stockLineItemId}/stock_item`, params, options) as unknown as StockItem
+	async stock_item(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
+		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId
+		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `stock_line_items/${_stockLineItemId}/stock_item`, params, options) as unknown as StockItem
 	}
 
 

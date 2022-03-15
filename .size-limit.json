@@ -1,0 +1,7 @@
+[
+  {
+    "path": "lib/",
+    "limit": "400 kB",
+    "webpack": false
+  }
+]

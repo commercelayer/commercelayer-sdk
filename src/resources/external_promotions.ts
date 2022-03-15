@@ -1,12 +1,12 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
-import { PromotionRule } from './promotion_rules'
-import { OrderAmountPromotionRule } from './order_amount_promotion_rules'
-import { SkuListPromotionRule } from './sku_list_promotion_rules'
-import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
-import { Attachment } from './attachments'
+import type { Market } from './markets'
+import type { PromotionRule } from './promotion_rules'
+import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Attachment } from './attachments'
 
 
 type ExternalPromotionRel = ResourceRel & { type: typeof ExternalPromotions.TYPE }
@@ -84,7 +84,7 @@ class ExternalPromotions extends ApiResource {
 	}
 
 	async create(resource: ExternalPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
-		return this.resources.create({ ...resource, type: ExternalPromotions.TYPE }, params, options)
+		return this.resources.create<ExternalPromotionCreate, ExternalPromotion>({ ...resource, type: ExternalPromotions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
@@ -92,31 +92,36 @@ class ExternalPromotions extends ApiResource {
 	}
 
 	async update(resource: ExternalPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
-		return this.resources.update({ ...resource, type: ExternalPromotions.TYPE }, params, options)
+		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ ...resource, type: ExternalPromotions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ExternalPromotions.TYPE, id }, options)
 	}
 
-	async market(externalPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `external_promotions/${externalPromotionId}/market`, params, options) as unknown as Market
+	async market(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId
+		return this.resources.fetch<Market>({ type: 'markets' }, `external_promotions/${_externalPromotionId}/market`, params, options) as unknown as Market
 	}
 
-	async order_amount_promotion_rule(externalPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
-		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `external_promotions/${externalPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
+	async order_amount_promotion_rule(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId
+		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `external_promotions/${_externalPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
 	}
 
-	async sku_list_promotion_rule(externalPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
-		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `external_promotions/${externalPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
+	async sku_list_promotion_rule(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId
+		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `external_promotions/${_externalPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
 	}
 
-	async coupon_codes_promotion_rule(externalPromotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `external_promotions/${externalPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	async coupon_codes_promotion_rule(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId
+		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `external_promotions/${_externalPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
 	}
 
-	async attachments(externalPromotionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_promotions/${externalPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_promotions/${_externalPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

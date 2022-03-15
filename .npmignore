@@ -4,6 +4,7 @@ src/
 node_modules/
 
 tsconfig.json
+tsconfig.*.json
 tslint.json
 .prettierrc
 

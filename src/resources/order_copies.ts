@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Order } from './orders'
-import { OrderSubscription } from './order_subscriptions'
+import type { Order } from './orders'
+import type { OrderSubscription } from './order_subscriptions'
 
 
 type OrderCopyRel = ResourceRel & { type: typeof OrderCopies.TYPE }
@@ -49,7 +49,7 @@ class OrderCopies extends ApiResource {
 	}
 
 	async create(resource: OrderCopyCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {
-		return this.resources.create({ ...resource, type: OrderCopies.TYPE }, params, options)
+		return this.resources.create<OrderCopyCreate, OrderCopy>({ ...resource, type: OrderCopies.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {
@@ -60,16 +60,19 @@ class OrderCopies extends ApiResource {
 		await this.resources.delete({ type: OrderCopies.TYPE, id }, options)
 	}
 
-	async source_order(orderCopyId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `order_copies/${orderCopyId}/source_order`, params, options) as unknown as Order
+	async source_order(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId
+		return this.resources.fetch<Order>({ type: 'orders' }, `order_copies/${_orderCopyId}/source_order`, params, options) as unknown as Order
 	}
 
-	async target_order(orderCopyId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `order_copies/${orderCopyId}/target_order`, params, options) as unknown as Order
+	async target_order(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId
+		return this.resources.fetch<Order>({ type: 'orders' }, `order_copies/${_orderCopyId}/target_order`, params, options) as unknown as Order
 	}
 
-	async order_subscription(orderCopyId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
-		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_copies/${orderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
+	async order_subscription(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId
+		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_copies/${_orderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
 	}
 
 

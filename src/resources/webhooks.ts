@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { EventCallback } from './event_callbacks'
+import type { EventCallback } from './event_callbacks'
 
 
 type WebhookRel = ResourceRel & { type: typeof Webhooks.TYPE }
@@ -52,7 +52,7 @@ class Webhooks extends ApiResource {
 	}
 
 	async create(resource: WebhookCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.create({ ...resource, type: Webhooks.TYPE }, params, options)
+		return this.resources.create<WebhookCreate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
@@ -60,15 +60,16 @@ class Webhooks extends ApiResource {
 	}
 
 	async update(resource: WebhookUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.update({ ...resource, type: Webhooks.TYPE }, params, options)
+		return this.resources.update<WebhookUpdate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Webhooks.TYPE, id }, options)
 	}
 
-	async last_event_callbacks(webhookId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
-		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
+	async last_event_callbacks(webhookId: string | Webhook, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
+		const _webhookId = (webhookId as Webhook).id || webhookId
+		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${_webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
 	}
 
 

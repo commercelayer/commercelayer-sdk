@@ -2,7 +2,7 @@
 import { ResourceType } from "./resource"
 
 import Debug from './debug'
-const debug = Debug()
+const debug = Debug('query')
 
 interface QueryParamsRetrieve {
 	include?: string[]
@@ -29,7 +29,7 @@ const isParamsList = (params: any): params is QueryParamsList => {
 }
 
 
-const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: ResourceType): { [key: string]: string } => {
+const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: string | ResourceType): { [key: string]: string } => {
 
 	debug('generate query string params: %O, %O', params, res)
 
@@ -40,7 +40,7 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 	if (params.include) qp['include'] = params.include.join(',')
 	// Fields
 	if (params.fields) {
-		if (Array.isArray(params.fields)) params.fields = { [res.type]: params.fields }
+		if (Array.isArray(params.fields)) params.fields = { [(res as ResourceType).type || res]: params.fields }
 		Object.entries(params.fields).forEach(([p, v]) => {
 			qp[`fields[${p}]`] = v.join(',')
 		})

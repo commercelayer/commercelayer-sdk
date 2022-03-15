@@ -8,7 +8,7 @@ import { InterceptorManager } from './interceptor'
 
 import Debug from './debug'
 import { QueryParams } from '.'
-const debug = Debug()
+const debug = Debug('resource')
 
 
 
@@ -219,7 +219,7 @@ class ResourceAdapter {
 	}
 
 
-	async fetch<R extends Resource>(resource: ResourceType, path: string, params?: QueryParams, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
+	async fetch<R extends Resource>(resource: string | ResourceType, path: string, params?: QueryParams, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
 
 		debug('fetch: %o, %O, %O', path, params || {}, options || {})
 

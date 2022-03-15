@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.1
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('CouponRecipients resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			email: 'epsilon_90',
+			email: 'alfa_50',
 			customer: cl.customers.relationship(TestData.id),
 		}
 
