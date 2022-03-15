@@ -1,3 +1,10 @@
+## [4.8.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.8.0...v4.8.1) (2022-03-11)
+
+
+### Bug Fixes
+
+* **core:** add static instance builder ([847a049](https://github.com/commercelayer/commercelayer-sdk/commit/847a049d3b1a8cb8741f68bd12b82b27a97442ae))
+
 # [4.8.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.7.6...v4.8.0) (2022-03-10)
 
 
