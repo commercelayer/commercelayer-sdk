@@ -1,3 +1,10 @@
+# [5.0.0-alpha.5](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-alpha.4...v5.0.0-alpha.5) (2022-03-16)
+
+
+### Bug Fixes
+
+* **core:** update dependencies ([8d1c696](https://github.com/commercelayer/commercelayer-sdk/commit/8d1c696f48aa485b803f2dba3ed8414f310db70c))
+
 # [5.0.0-alpha.4](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2022-03-15)
 
 
