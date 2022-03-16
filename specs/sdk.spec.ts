@@ -1,7 +1,7 @@
 
-import { CommerceLayerClient, Customer } from '../src'
+import { CommerceLayerClient, CommerceLayerStatic, Customer } from '../src'
 import { sleep } from '../src/util'
-import { getClient, TestData } from '../test/common'
+import { getClient, organization, TestData } from '../test/common'
 import { normalize, denormalize } from '../src/jsonapi'
 import { ResourceTypeLock } from '../src/api'
 import { isEqual } from 'lodash'
@@ -124,6 +124,24 @@ describe('SDK suite', () => {
 		const denormalized = denormalize(jsonApi)
 
 		expect(isEqual(expected, denormalized)).toBeTruthy()
+
+	})
+
+
+
+	it('sdk.static', async () => {
+
+		const sdkError = CommerceLayerStatic.isSdkError({ message: 'SdkError', name: 'SdkError', type: 'request' })
+		expect(sdkError).toBeTruthy()
+
+		const apiError = CommerceLayerStatic.isApiError({ message: 'ApiError', name: 'ApiError', type: 'response' })
+		expect(apiError).toBeTruthy()
+
+		const resources = CommerceLayerStatic.resources()
+		expect(Array.isArray(resources)).toBeTruthy()
+
+		const client = CommerceLayerStatic.init({ organization: organization, accessToken: 'fake-access-token' })
+		expect(client).not.toBeNull()
 
 	})
 
