@@ -1,3 +1,15 @@
+# [4.9.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.8.2...v4.9.0) (2022-03-17)
+
+
+### Bug Fixes
+
+* **test:** fix coverage configuration ([f608cef](https://github.com/commercelayer/commercelayer-sdk/commit/f608cef3abbbacda0a99fe9389b01ad549600170))
+
+
+### Features
+
+* **core:** add schema version instance variable ([4e3ba63](https://github.com/commercelayer/commercelayer-sdk/commit/4e3ba6310cfe04eee34069253f7842aacfc9fb8f))
+
 ## [4.8.2](https://github.com/commercelayer/commercelayer-sdk/compare/v4.8.1...v4.8.2) (2022-03-16)
 
 
