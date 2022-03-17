@@ -18,7 +18,7 @@ const baseURL = (organization: string, domain?: string): string => {
 
 const handleError = (error: Error) => {
 
-	let sdkError = new SdkError({ message: error.message, type: ErrorType.GENERIC })
+	let sdkError = new SdkError({ message: error.message })
 
 	if (axios.isAxiosError(error)) {
 		if (error.response) {
