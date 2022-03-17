@@ -1,11 +1,7 @@
 
-import { CommerceLayerClient, Customer } from '../src'
-import { sleep } from '../src/util'
-import { getClient, TestData } from '../test/common'
-import { normalize, denormalize } from '../src/jsonapi'
-import { ResourceTypeLock } from '../src/api'
-import { isEqual } from 'lodash'
-import { isResourceType } from '../src/common'
+import { CommerceLayerClient } from '../src'
+import { getClient } from '../test/common'
+
 
 
 let cl: CommerceLayerClient
