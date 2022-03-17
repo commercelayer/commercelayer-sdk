@@ -21,7 +21,8 @@ type CommerceLayerConfig = Partial<CommerceLayerInitConfig>
 
 class CommerceLayerClient {
 
-	static get openApiSchemaVersion() { return OPEN_API_SCHEMA_VERSION }
+	// static get openApiSchemaVersion() { return OPEN_API_SCHEMA_VERSION }
+	readonly openApiSchemaVersion = OPEN_API_SCHEMA_VERSION
 
 	#adapter: ResourceAdapter
 	#organization: string
@@ -252,6 +253,8 @@ class CommerceLayerClient {
 		// CommerceLayer config
 		this.localConfig(config)
 		// ResourceAdapter config
+		// To rebuild baseUrl in client in case only the domain is defined
+		if (!config.organization) config.organization = this.currentOrganization
 		this.#adapter.config(config)
 	}
 
@@ -300,8 +303,8 @@ class CommerceLayerClient {
 	}
 
 	removeRawResponseReader(reader: number | RawResponseReader): void {
-		const id = (typeof reader === 'number') ? reader : reader.id
-		if (id) return this.removeInterceptor('response', id)
+		const id = (typeof reader === 'number') ? reader : reader?.id
+		if (id && (id >= 0)) return this.removeInterceptor('response', id)
 	}
 
 }
