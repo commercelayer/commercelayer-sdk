@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.9.1",
+        "version": "2.9.2",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -34463,6 +34463,26 @@
                                         "description": "The token returned by a successful client authorization, mandatory to place the order.",
                                         "example": "xxxx-yyyy-zzzz"
                                     },
+                                    "mismatched_amounts": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the order current amount differs form the one of the created payment intent.",
+                                        "example": false
+                                    },
+                                    "intent_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The amount of the associated payment intent, in cents.",
+                                        "example": 1000
+                                    },
+                                    "intent_amount_float": {
+                                        "type": "number",
+                                        "description": "The amount of the associated payment intent, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_intent_amount": {
+                                        "type": "string",
+                                        "description": "The amount of the associated payment intent, formatted.",
+                                        "example": "€10,00"
+                                    },
                                     "id": {
                                         "type": "string",
                                         "description": "Unique identifier for the resource (hash).",
@@ -38273,7 +38293,7 @@
                                 "properties": {
                                     "number": {
                                         "type": "integer",
-                                        "description": "Unique identifier for the order (numeric)",
+                                        "description": "Unique identifier for the order (numeric).",
                                         "example": 1234
                                     },
                                     "autorefresh": {
@@ -38283,17 +38303,17 @@
                                     },
                                     "status": {
                                         "type": "string",
-                                        "description": "The order status. One of 'draft' (default), 'pending', 'placed', 'approved', or 'cancelled'",
+                                        "description": "The order status. One of 'draft' (default), 'pending', 'placed', 'approved', or 'cancelled'.",
                                         "example": "draft"
                                     },
                                     "payment_status": {
                                         "type": "string",
-                                        "description": "The order's payment status. One of 'unpaid' (default), 'authorized', 'paid', 'voided', or 'refunded'",
+                                        "description": "The order's payment status. One of 'unpaid' (default), 'authorized', 'paid', 'voided', or 'refunded'.",
                                         "example": "unpaid"
                                     },
                                     "fulfillment_status": {
                                         "type": "string",
-                                        "description": "The order's fulfillment status. One of 'unfulfilled' (default), 'in_progress', or 'fulfilled'",
+                                        "description": "The order's fulfillment status. One of 'unfulfilled' (default), 'in_progress', or 'fulfilled'.",
                                         "example": "unfulfilled"
                                     },
                                     "guest": {
@@ -38623,7 +38643,7 @@
                                     },
                                     "total_amount_with_taxes_cents": {
                                         "type": "integer",
-                                        "description": "The order's total amount (when prices include taxes) or the order's total + taxes amount (when prices don't include taxes, e.g. US Markets or B2B)",
+                                        "description": "The order's total amount (when prices include taxes) or the order's total + taxes amount (when prices don't include taxes, e.g. US Markets or B2B).",
                                         "example": 5700
                                     },
                                     "total_amount_with_taxes_float": {
@@ -39635,6 +39655,11 @@
                                         "type": "boolean",
                                         "description": "Send this attribute if you want to force tax calculation for this order (a tax calculator must be associated to the order's market).",
                                         "example": true
+                                    },
+                                    "_nullify_payment_source": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to nullify the payment source for this order.",
+                                        "example": false
                                     },
                                     "_billing_address_clone_id": {
                                         "type": "string",

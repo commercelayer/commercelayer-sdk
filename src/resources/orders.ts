@@ -214,6 +214,7 @@ interface OrderUpdate extends ResourceUpdate {
 	_capture?: boolean
 	_refund?: boolean
 	_update_taxes?: boolean
+	_nullify_payment_source?: boolean
 	_billing_address_clone_id?: string
 	_shipping_address_clone_id?: string
 	_customer_payment_source_id?: string
