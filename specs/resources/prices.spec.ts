@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.2
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -26,7 +26,7 @@ describe('Prices resource', () => {
 
     const createAttributes = {
 			amount_cents: 10000,
-			compare_at_amount_cents: 1000,
+			compare_at_amount_cents: 55,
 			price_list: cl.price_lists.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 		}

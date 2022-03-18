@@ -15,6 +15,10 @@ interface KlarnaPayment extends Resource {
 	client_token?: string
 	payment_methods?: object[]
 	auth_token?: string
+	mismatched_amounts?: boolean
+	intent_amount_cents?: number
+	intent_amount_float?: number
+	formatted_intent_amount?: string
 
 	order?: Order
 	payment_gateway?: PaymentGateway

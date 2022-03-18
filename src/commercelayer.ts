@@ -9,7 +9,7 @@ import Debug from './debug'
 const debug = Debug('commercelayer')
 
 
-const OPEN_API_SCHEMA_VERSION = '2.9.1'
+const OPEN_API_SCHEMA_VERSION = '2.9.2'
 
 
 type SdkConfig = {}
@@ -21,7 +21,7 @@ type CommerceLayerConfig = Partial<CommerceLayerInitConfig>
 
 class CommerceLayerClient {
 
-	// static get openApiSchemaVersion() { return OPEN_API_SCHEMA_VERSION }
+	static get openApiSchemaVersion() { return OPEN_API_SCHEMA_VERSION }
 	readonly openApiSchemaVersion = OPEN_API_SCHEMA_VERSION
 
 	#adapter: ResourceAdapter

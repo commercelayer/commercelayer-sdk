@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.2
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,10 +25,10 @@ describe('AvalaraAccounts resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'omega_68',
-			username: 'kappa_0',
-			password: 'epsilon_25',
-			company_code: 'lambda_99',
+			name: 'beta_4',
+			username: 'beta_21',
+			password: 'lambda_22',
+			company_code: 'gamma_34',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 
