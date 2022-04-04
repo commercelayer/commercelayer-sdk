@@ -1,3 +1,10 @@
+# [4.11.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.10.0...v4.11.0) (2022-04-04)
+
+
+### Features
+
+* **core:** add support for node 14.7 ([32dc480](https://github.com/commercelayer/commercelayer-sdk/commit/32dc48091bf446b2e6454af318ff398a5d58ab5a))
+
 # [4.10.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.9.0...v4.10.0) (2022-03-18)
 
 
