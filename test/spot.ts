@@ -1,12 +1,14 @@
 /* eslint-disable no-console */
 // import commercelayer from '../lib/cjs'
 import commercelayer from '../src'
+import getToken from './token'
 
 
 (async () => {
 
 	const organization = process.env.CL_SDK_ORGANIZATION || ''
-	const accessToken = process.env.CL_SDK_ACCESS_TOKEN || ''
+	const auth = await getToken('integration')
+	const accessToken = auth? auth.accessToken : ''
 
 	const cl = commercelayer({
 		organization,
@@ -14,14 +16,11 @@ import commercelayer from '../src'
 		timeout: 5000,
 	})
 
-	const customer = await cl.customers.retrieve('OZqohRjoWn')
+	const rrr = cl.addRawResponseReader({ headers: true })
 
-	const id = customer
+	const customers = await cl.customers.list({ pageSize: 1 })
 
-	const cg = await cl.customers.customer_group(id)
-
-	console.log(cg)
-
-	if (!cg) console.log('No response!')
+	console.log(rrr.rawResponse)
+	console.log(rrr.headers)
 
 })()

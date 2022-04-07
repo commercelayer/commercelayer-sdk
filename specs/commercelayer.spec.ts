@@ -39,15 +39,18 @@ describe('SDK:commercelayer suite', () => {
 	it('commercelayer.rawResponse', async () => {
 
 		jest.setTimeout(10000)
+		const headers = true
 
 		const cli = await initClient()
 
-		const reader = cli.addRawResponseReader()
+		const reader = cli.addRawResponseReader({ headers })
 		expect(reader).not.toBeUndefined()
 		expect(reader.id).toBeGreaterThanOrEqual(0)
 
 		await cli.customers.list({ pageSize: 1 })
 		expect(reader.rawResponse.data).not.toBeUndefined()
+		if (headers) expect(reader.headers).not.toBeUndefined()
+		else expect(reader.headers).toBeUndefined()
 
 		cli.removeRawResponseReader(reader.id)
 		cli.removeRawResponseReader(reader)

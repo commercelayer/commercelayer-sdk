@@ -283,15 +283,17 @@ class CommerceLayerClient {
 	}
 
 
-	addRawResponseReader(): RawResponseReader {
+	addRawResponseReader(options?: { headers: boolean }): RawResponseReader {
 
 		const reader: RawResponseReader = {
 			id: undefined,
 			rawResponse: undefined,
+			headers: undefined,
 		}
 
 		function rawResponseInterceptor(response: ResponseObj): ResponseObj {
 			reader.rawResponse = response?.data
+			if (options?.headers) reader.headers = response.headers
 			return response
 		}
 		

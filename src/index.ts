@@ -15,7 +15,7 @@ export type { QueryParamsRetrieve, QueryParamsList, QueryParams } from './query'
 export * from './model'
 
 // Raw response reader and request/response interceptors
-export type { RequestObj, ResponseObj, ErrorObj } from './interceptor'
+export type { RequestObj, ResponseObj, ErrorObj, HeadersObj } from './interceptor'
 
 // Error types
 export type { SdkError, ApiError, ErrorType } from './error'
