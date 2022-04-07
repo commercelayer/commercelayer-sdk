@@ -20,6 +20,7 @@ import getToken from './token'
 
 	const customers = await cl.customers.list({ pageSize: 1 })
 
+	console.log(customers)
 	console.log(rrr.rawResponse)
 	console.log(rrr.headers)
 

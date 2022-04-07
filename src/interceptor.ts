@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders } from "axios"
+import { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders } from 'axios'
 
 
 type InterceptorManager = {
