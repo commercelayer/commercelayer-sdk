@@ -1,3 +1,10 @@
+# [4.12.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.11.0...v4.12.0) (2022-04-07)
+
+
+### Features
+
+* **core:** add optional headers in raw response ([9bff319](https://github.com/commercelayer/commercelayer-sdk/commit/9bff319915718fad8eb10509e1be5aa1c0610c79))
+
 # [4.11.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.10.0...v4.11.0) (2022-04-04)
 
 
