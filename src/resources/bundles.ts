@@ -19,6 +19,8 @@ interface Bundle extends Resource {
 	currency_code?: string
 	description?: string
 	image_url?: string
+	do_not_ship?: boolean
+	do_not_track?: boolean
 	price_amount_cents?: number
 	price_amount_float?: number
 	formatted_price_amount?: string
@@ -42,6 +44,8 @@ interface BundleCreate extends ResourceCreate {
 	currency_code?: string
 	description?: string
 	image_url?: string
+	do_not_ship?: boolean
+	do_not_track?: boolean
 	price_amount_cents: number
 	compare_at_amount_cents: number
 	_compute_price_amount?: boolean
@@ -60,6 +64,8 @@ interface BundleUpdate extends ResourceUpdate {
 	currency_code?: string
 	description?: string
 	image_url?: string
+	do_not_ship?: boolean
+	do_not_track?: boolean
 	price_amount_cents?: number
 	compare_at_amount_cents?: number
 	_compute_price_amount?: boolean

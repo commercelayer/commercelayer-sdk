@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.2
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,9 +25,9 @@ describe('CheckoutComGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'alfa_39',
-			secret_key: 'delta_9',
-			public_key: 'alfa_26',
+			name: 'delta_85',
+			secret_key: 'alfa_38',
+			public_key: 'sigma_18',
 			checkout_com_payments: [ cl.checkout_com_payments.relationship(TestData.id) ],
 		}
 

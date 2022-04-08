@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.2
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('BingGeocoders resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_28',
-			key: 'alfa_89',
+			name: 'sigma_65',
+			key: 'omega_88',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

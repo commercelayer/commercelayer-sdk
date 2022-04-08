@@ -15,6 +15,7 @@ interface AvalaraAccount extends Resource {
 	name?: string
 	username?: string
 	company_code?: string
+	commit_invoice?: string
 	ddp?: string
 
 	tax_categories?: TaxCategory[]
@@ -30,6 +31,7 @@ interface AvalaraAccountCreate extends ResourceCreate {
 	username: string
 	password: string
 	company_code: string
+	commit_invoice?: string
 	ddp?: string
 
 	tax_categories?: TaxCategoryRel[]
@@ -43,6 +45,7 @@ interface AvalaraAccountUpdate extends ResourceUpdate {
 	username?: string
 	password?: string
 	company_code?: string
+	commit_invoice?: string
 	ddp?: string
 
 	tax_categories?: TaxCategoryRel[]

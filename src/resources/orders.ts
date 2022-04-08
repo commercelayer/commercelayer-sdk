@@ -220,6 +220,8 @@ interface OrderUpdate extends ResourceUpdate {
 	_customer_payment_source_id?: string
 	_shipping_address_same_as_billing?: boolean
 	_billing_address_same_as_shipping?: boolean
+	_commit_invoice?: boolean
+	_refund_invoice?: boolean
 	_save_payment_source_to_customer_wallet?: boolean
 	_save_shipping_address_to_customer_address_book?: boolean
 	_save_billing_address_to_customer_address_book?: boolean

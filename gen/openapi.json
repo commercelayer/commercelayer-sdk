@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.9.2",
+        "version": "2.9.3",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -21082,6 +21082,11 @@
                                         "description": "The Avalara company code.",
                                         "example": "MYCOMPANY"
                                     },
+                                    "commit_invoice": {
+                                        "type": "string",
+                                        "description": "Indicates if the transaction will be recorded and visible on the Avalara website.",
+                                        "example": "true"
+                                    },
                                     "ddp": {
                                         "type": "string",
                                         "description": "Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.",
@@ -21217,6 +21222,11 @@
                                         "description": "The Avalara company code.",
                                         "example": "MYCOMPANY"
                                     },
+                                    "commit_invoice": {
+                                        "type": "string",
+                                        "description": "Indicates if the transaction will be recorded and visible on the Avalara website.",
+                                        "example": "true"
+                                    },
                                     "ddp": {
                                         "type": "string",
                                         "description": "Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.",
@@ -21323,6 +21333,11 @@
                                         "type": "string",
                                         "description": "The Avalara company code.",
                                         "example": "MYCOMPANY"
+                                    },
+                                    "commit_invoice": {
+                                        "type": "string",
+                                        "description": "Indicates if the transaction will be recorded and visible on the Avalara website.",
+                                        "example": "true"
                                     },
                                     "ddp": {
                                         "type": "string",
@@ -22562,6 +22577,16 @@
                                         "description": "The URL of an image that represents the bundle.",
                                         "example": "https://img.yourdomain.com/bundles/xYZkjABcde.png"
                                     },
+                                    "do_not_ship": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't generate shipments.",
+                                        "example": false
+                                    },
+                                    "do_not_track": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't track the stock inventory.",
+                                        "example": false
+                                    },
                                     "price_amount_cents": {
                                         "type": "integer",
                                         "description": "The bundle price amount for the associated market, in cents.",
@@ -22767,6 +22792,16 @@
                                         "description": "The URL of an image that represents the bundle.",
                                         "example": "https://img.yourdomain.com/bundles/xYZkjABcde.png"
                                     },
+                                    "do_not_ship": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't generate shipments.",
+                                        "example": false
+                                    },
+                                    "do_not_track": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't track the stock inventory.",
+                                        "example": false
+                                    },
                                     "price_amount_cents": {
                                         "type": "integer",
                                         "description": "The bundle price amount for the associated market, in cents.",
@@ -22916,6 +22951,16 @@
                                         "type": "string",
                                         "description": "The URL of an image that represents the bundle.",
                                         "example": "https://img.yourdomain.com/bundles/xYZkjABcde.png"
+                                    },
+                                    "do_not_ship": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't generate shipments.",
+                                        "example": false
+                                    },
+                                    "do_not_track": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't track the stock inventory.",
+                                        "example": false
                                     },
                                     "price_amount_cents": {
                                         "type": "integer",
@@ -39684,6 +39729,16 @@
                                     "_billing_address_same_as_shipping": {
                                         "type": "boolean",
                                         "description": "Send this attribute if you want the billing address to be cloned from the order's shipping address.",
+                                        "example": true
+                                    },
+                                    "_commit_invoice": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want commit the sales tax invoice to the associated tax calculator (currently supported by Avalara).",
+                                        "example": true
+                                    },
+                                    "_refund_invoice": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want refund the sales tax invoice to the associated tax calculator (currently supported by Avalara).",
                                         "example": true
                                     },
                                     "_save_payment_source_to_customer_wallet": {
