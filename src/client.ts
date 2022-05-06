@@ -27,7 +27,7 @@ const handleError = (error: Error) => {
 			apiError.type = ErrorType.RESPONSE
 			apiError.status = error.response.status
 			apiError.code = String(apiError.status)
-			apiError.errors = error.response.data.errors as any[]
+			apiError.errors = (error.response.data as any).errors
 			sdkError = apiError
 		} else if (error.request) {
 			// The request was made but no response was received
