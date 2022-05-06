@@ -1,3 +1,10 @@
+## [4.13.2](https://github.com/commercelayer/commercelayer-sdk/compare/v4.13.1...v4.13.2) (2022-05-06)
+
+
+### Bug Fixes
+
+* **core:** bumb axios version to 0.27.2 ([8508e83](https://github.com/commercelayer/commercelayer-sdk/commit/8508e833c22307d509f1e4f38fb523c1a7a08795))
+
 ## [4.13.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.13.0...v4.13.1) (2022-04-27)
 
 
