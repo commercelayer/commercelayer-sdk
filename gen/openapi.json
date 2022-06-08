@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.9.3",
+        "version": "2.9.4",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -10930,6 +10930,60 @@
                 "responses": {
                     "200": {
                         "description": "The available_customer_payment_sources associated to the order"
+                    }
+                }
+            }
+        },
+        "/orders/{orderId}/available_free_skus": {
+            "get": {
+                "operationId": "GET/orderId/available_free_skus",
+                "summary": "Retrieve the available free skus associated to the order",
+                "description": "Retrieve the available free skus associated to the order",
+                "tags": [
+                    "has_many",
+                    "skus"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The available_free_skus associated to the order"
+                    }
+                }
+            }
+        },
+        "/orders/{orderId}/available_free_bundles": {
+            "get": {
+                "operationId": "GET/orderId/available_free_bundles",
+                "summary": "Retrieve the available free bundles associated to the order",
+                "description": "Retrieve the available free bundles associated to the order",
+                "tags": [
+                    "has_many",
+                    "bundles"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The available_free_bundles associated to the order"
                     }
                 }
             }
@@ -21913,7 +21967,7 @@
                                     },
                                     "descriptor_phone": {
                                         "type": "string",
-                                        "description": "The dynamic descriptor phone number.",
+                                        "description": "The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods.",
                                         "example": "3125551212"
                                     },
                                     "descriptor_url": {
@@ -22048,7 +22102,7 @@
                                     },
                                     "descriptor_phone": {
                                         "type": "string",
-                                        "description": "The dynamic descriptor phone number.",
+                                        "description": "The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods.",
                                         "example": "3125551212"
                                     },
                                     "descriptor_url": {
@@ -22171,7 +22225,7 @@
                                     },
                                     "descriptor_phone": {
                                         "type": "string",
-                                        "description": "The dynamic descriptor phone number.",
+                                        "description": "The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods.",
                                         "example": "3125551212"
                                     },
                                     "descriptor_url": {
@@ -38972,6 +39026,46 @@
                                                 "description": "The resource's type",
                                                 "example": "customer_payment_sources",
                                                 "default": "customer_payment_sources"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "available_free_skus": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "skus",
+                                                "default": "skus"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "available_free_bundles": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "bundles",
+                                                "default": "bundles"
                                             },
                                             "id": {
                                                 "type": "string",

@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.4
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('ExternalGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_67',
+			name: 'gamma_76',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

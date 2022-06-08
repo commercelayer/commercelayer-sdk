@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.4
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('CustomerSubscriptions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			customer_email: 'lambda_30',
+			customer_email: 'lambda_94',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

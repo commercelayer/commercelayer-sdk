@@ -6,6 +6,8 @@ import type { Customer } from './customers'
 import type { Address } from './addresses'
 import type { PaymentMethod } from './payment_methods'
 import type { CustomerPaymentSource } from './customer_payment_sources'
+import type { Sku } from './skus'
+import type { Bundle } from './bundles'
 import type { AdyenPayment } from './adyen_payments'
 import type { BraintreePayment } from './braintree_payments'
 import type { CheckoutComPayment } from './checkout_com_payments'
@@ -146,6 +148,8 @@ interface Order extends Resource {
 	billing_address?: Address
 	available_payment_methods?: PaymentMethod[]
 	available_customer_payment_sources?: CustomerPaymentSource[]
+	available_free_skus?: Sku[]
+	available_free_bundles?: Bundle[]
 	payment_method?: PaymentMethod
 	payment_source?: AdyenPayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | StripePayment | WireTransfer
 	line_items?: LineItem[]
@@ -290,6 +294,16 @@ class Orders extends ApiResource {
 	async available_customer_payment_sources(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
 		const _orderId = (orderId as Order).id || orderId
 		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `orders/${_orderId}/available_customer_payment_sources`, params, options) as unknown as ListResponse<CustomerPaymentSource>
+	}
+
+	async available_free_skus(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		const _orderId = (orderId as Order).id || orderId
+		return this.resources.fetch<Sku>({ type: 'skus' }, `orders/${_orderId}/available_free_skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async available_free_bundles(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
+		const _orderId = (orderId as Order).id || orderId
+		return this.resources.fetch<Bundle>({ type: 'bundles' }, `orders/${_orderId}/available_free_bundles`, params, options) as unknown as ListResponse<Bundle>
 	}
 
 	async payment_method(orderId: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {

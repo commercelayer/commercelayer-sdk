@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.3
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.4
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('ExternalPayments resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			payment_source_token: 'gamma_63',
+			payment_source_token: 'epsilon_18',
 			order: cl.orders.relationship(TestData.id),
 		}
 
