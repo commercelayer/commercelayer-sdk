@@ -6,7 +6,7 @@ import { CommerceLayerStatic } from './static'
 import ResourceAdapter, { ResourcesConfig, ResourcesInitConfig } from './resource'
 
 
-const OPEN_API_SCHEMA_VERSION = '2.9.2'
+const OPEN_API_SCHEMA_VERSION = '2.9.4'
 
 
 type SdkConfig = {}

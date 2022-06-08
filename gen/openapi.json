@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.9.2",
+        "version": "2.9.4",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -10934,6 +10934,60 @@
                 }
             }
         },
+        "/orders/{orderId}/available_free_skus": {
+            "get": {
+                "operationId": "GET/orderId/available_free_skus",
+                "summary": "Retrieve the available free skus associated to the order",
+                "description": "Retrieve the available free skus associated to the order",
+                "tags": [
+                    "has_many",
+                    "skus"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The available_free_skus associated to the order"
+                    }
+                }
+            }
+        },
+        "/orders/{orderId}/available_free_bundles": {
+            "get": {
+                "operationId": "GET/orderId/available_free_bundles",
+                "summary": "Retrieve the available free bundles associated to the order",
+                "description": "Retrieve the available free bundles associated to the order",
+                "tags": [
+                    "has_many",
+                    "bundles"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The available_free_bundles associated to the order"
+                    }
+                }
+            }
+        },
         "/orders/{orderId}/payment_method": {
             "get": {
                 "operationId": "GET/orderId/payment_method",
@@ -21082,6 +21136,11 @@
                                         "description": "The Avalara company code.",
                                         "example": "MYCOMPANY"
                                     },
+                                    "commit_invoice": {
+                                        "type": "string",
+                                        "description": "Indicates if the transaction will be recorded and visible on the Avalara website.",
+                                        "example": "true"
+                                    },
                                     "ddp": {
                                         "type": "string",
                                         "description": "Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.",
@@ -21217,6 +21276,11 @@
                                         "description": "The Avalara company code.",
                                         "example": "MYCOMPANY"
                                     },
+                                    "commit_invoice": {
+                                        "type": "string",
+                                        "description": "Indicates if the transaction will be recorded and visible on the Avalara website.",
+                                        "example": "true"
+                                    },
                                     "ddp": {
                                         "type": "string",
                                         "description": "Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.",
@@ -21323,6 +21387,11 @@
                                         "type": "string",
                                         "description": "The Avalara company code.",
                                         "example": "MYCOMPANY"
+                                    },
+                                    "commit_invoice": {
+                                        "type": "string",
+                                        "description": "Indicates if the transaction will be recorded and visible on the Avalara website.",
+                                        "example": "true"
                                     },
                                     "ddp": {
                                         "type": "string",
@@ -21898,7 +21967,7 @@
                                     },
                                     "descriptor_phone": {
                                         "type": "string",
-                                        "description": "The dynamic descriptor phone number.",
+                                        "description": "The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods.",
                                         "example": "3125551212"
                                     },
                                     "descriptor_url": {
@@ -22033,7 +22102,7 @@
                                     },
                                     "descriptor_phone": {
                                         "type": "string",
-                                        "description": "The dynamic descriptor phone number.",
+                                        "description": "The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods.",
                                         "example": "3125551212"
                                     },
                                     "descriptor_url": {
@@ -22156,7 +22225,7 @@
                                     },
                                     "descriptor_phone": {
                                         "type": "string",
-                                        "description": "The dynamic descriptor phone number.",
+                                        "description": "The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods.",
                                         "example": "3125551212"
                                     },
                                     "descriptor_url": {
@@ -22562,6 +22631,16 @@
                                         "description": "The URL of an image that represents the bundle.",
                                         "example": "https://img.yourdomain.com/bundles/xYZkjABcde.png"
                                     },
+                                    "do_not_ship": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't generate shipments.",
+                                        "example": false
+                                    },
+                                    "do_not_track": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't track the stock inventory.",
+                                        "example": false
+                                    },
                                     "price_amount_cents": {
                                         "type": "integer",
                                         "description": "The bundle price amount for the associated market, in cents.",
@@ -22767,6 +22846,16 @@
                                         "description": "The URL of an image that represents the bundle.",
                                         "example": "https://img.yourdomain.com/bundles/xYZkjABcde.png"
                                     },
+                                    "do_not_ship": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't generate shipments.",
+                                        "example": false
+                                    },
+                                    "do_not_track": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't track the stock inventory.",
+                                        "example": false
+                                    },
                                     "price_amount_cents": {
                                         "type": "integer",
                                         "description": "The bundle price amount for the associated market, in cents.",
@@ -22916,6 +23005,16 @@
                                         "type": "string",
                                         "description": "The URL of an image that represents the bundle.",
                                         "example": "https://img.yourdomain.com/bundles/xYZkjABcde.png"
+                                    },
+                                    "do_not_ship": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't generate shipments.",
+                                        "example": false
+                                    },
+                                    "do_not_track": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the bundle doesn't track the stock inventory.",
+                                        "example": false
                                     },
                                     "price_amount_cents": {
                                         "type": "integer",
@@ -38935,6 +39034,46 @@
                                             }
                                         }
                                     },
+                                    "available_free_skus": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "skus",
+                                                "default": "skus"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "available_free_bundles": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "bundles",
+                                                "default": "bundles"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
                                     "payment_method": {
                                         "type": "object",
                                         "required": [
@@ -39684,6 +39823,16 @@
                                     "_billing_address_same_as_shipping": {
                                         "type": "boolean",
                                         "description": "Send this attribute if you want the billing address to be cloned from the order's shipping address.",
+                                        "example": true
+                                    },
+                                    "_commit_invoice": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want commit the sales tax invoice to the associated tax calculator (currently supported by Avalara).",
+                                        "example": true
+                                    },
+                                    "_refund_invoice": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want refund the sales tax invoice to the associated tax calculator (currently supported by Avalara).",
                                         "example": true
                                     },
                                     "_save_payment_source_to_customer_wallet": {

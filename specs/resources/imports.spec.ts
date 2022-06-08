@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.2
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.4
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('Imports resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			resource_type: 'gamma_26',
-			inputs: [ { key41: 'val41' } ],
+			resource_type: 'sigma_31',
+			inputs: [ { key11: 'val11' } ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

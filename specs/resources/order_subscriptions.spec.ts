@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.2
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.4
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('OrderSubscriptions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			frequency: 'alfa_22',
+			frequency: 'alfa_38',
 			market: cl.markets.relationship(TestData.id),
 			source_order: cl.orders.relationship(TestData.id),
 		}

@@ -6,6 +6,8 @@ import { Customer } from './customers'
 import { Address } from './addresses'
 import { PaymentMethod } from './payment_methods'
 import { CustomerPaymentSource } from './customer_payment_sources'
+import { Sku } from './skus'
+import { Bundle } from './bundles'
 import { AdyenPayment } from './adyen_payments'
 import { BraintreePayment } from './braintree_payments'
 import { CheckoutComPayment } from './checkout_com_payments'
@@ -146,6 +148,8 @@ interface Order extends Resource {
 	billing_address?: Address
 	available_payment_methods?: PaymentMethod[]
 	available_customer_payment_sources?: CustomerPaymentSource[]
+	available_free_skus?: Sku[]
+	available_free_bundles?: Bundle[]
 	payment_method?: PaymentMethod
 	payment_source?: AdyenPayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | StripePayment | WireTransfer
 	line_items?: LineItem[]
@@ -220,6 +224,8 @@ interface OrderUpdate extends ResourceUpdate {
 	_customer_payment_source_id?: string
 	_shipping_address_same_as_billing?: boolean
 	_billing_address_same_as_shipping?: boolean
+	_commit_invoice?: boolean
+	_refund_invoice?: boolean
 	_save_payment_source_to_customer_wallet?: boolean
 	_save_shipping_address_to_customer_address_book?: boolean
 	_save_billing_address_to_customer_address_book?: boolean
