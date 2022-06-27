@@ -7,6 +7,7 @@ import type { StockLocation } from './stock_locations'
 import type { Address } from './addresses'
 import type { ReturnLineItem } from './return_line_items'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 
 
 type ReturnRel = ResourceRel & { type: typeof Returns.TYPE }
@@ -34,6 +35,7 @@ interface Return extends Resource {
 	destination_address?: Address
 	return_line_items?: ReturnLineItem[]
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 
@@ -121,6 +123,11 @@ class Returns extends ApiResource {
 	async attachments(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _returnId = (returnId as Return).id || returnId
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `returns/${_returnId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _returnId = (returnId as Return).id || returnId
+		return this.resources.fetch<Event>({ type: 'events' }, `returns/${_returnId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

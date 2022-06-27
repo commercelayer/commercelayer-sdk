@@ -3,7 +3,7 @@
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2022 Commerce Layer Inc.
- * OpenAPI schema, version 2.9.4
+ * OpenAPI schema, version 2.9.5
  **/
 export { default as Addresses } from './resources/addresses'
 export { default as Adjustments } from './resources/adjustments'
@@ -33,6 +33,7 @@ export { default as CustomerSubscriptions } from './resources/customer_subscript
 export { default as Customers } from './resources/customers'
 export { default as DeliveryLeadTimes } from './resources/delivery_lead_times'
 export { default as EventCallbacks } from './resources/event_callbacks'
+export { default as Events } from './resources/events'
 export { default as ExternalGateways } from './resources/external_gateways'
 export { default as ExternalPayments } from './resources/external_payments'
 export { default as ExternalPromotions } from './resources/external_promotions'
@@ -73,6 +74,8 @@ export { default as PaypalGateways } from './resources/paypal_gateways'
 export { default as PaypalPayments } from './resources/paypal_payments'
 export { default as PercentageDiscountPromotions } from './resources/percentage_discount_promotions'
 export { default as PriceLists } from './resources/price_lists'
+export { default as PriceTiers } from './resources/price_tiers'
+export { default as PriceVolumeTiers } from './resources/price_volume_tiers'
 export { default as Prices } from './resources/prices'
 export { default as PromotionRules } from './resources/promotion_rules'
 export { default as Promotions } from './resources/promotions'
@@ -81,7 +84,9 @@ export { default as ReturnLineItems } from './resources/return_line_items'
 export { default as Returns } from './resources/returns'
 export { default as Shipments } from './resources/shipments'
 export { default as ShippingCategories } from './resources/shipping_categories'
+export { default as ShippingMethodTiers } from './resources/shipping_method_tiers'
 export { default as ShippingMethods } from './resources/shipping_methods'
+export { default as ShippingWeightTiers } from './resources/shipping_weight_tiers'
 export { default as ShippingZones } from './resources/shipping_zones'
 export { default as SkuListItems } from './resources/sku_list_items'
 export { default as SkuListPromotionRules } from './resources/sku_list_promotion_rules'
@@ -135,6 +140,7 @@ export type ResourceTypeLock =
 |	'customers'
 |	'delivery_lead_times'
 |	'event_callbacks'
+|	'events'
 |	'external_gateways'
 |	'external_payments'
 |	'external_promotions'
@@ -175,6 +181,8 @@ export type ResourceTypeLock =
 |	'paypal_payments'
 |	'percentage_discount_promotions'
 |	'price_lists'
+|	'price_tiers'
+|	'price_volume_tiers'
 |	'prices'
 |	'promotion_rules'
 |	'promotions'
@@ -183,7 +191,9 @@ export type ResourceTypeLock =
 |	'returns'
 |	'shipments'
 |	'shipping_categories'
+|	'shipping_method_tiers'
 |	'shipping_methods'
+|	'shipping_weight_tiers'
 |	'shipping_zones'
 |	'sku_list_items'
 |	'sku_list_promotion_rules'
@@ -237,6 +247,7 @@ export const resourceList = [
 	'customers',
 	'delivery_lead_times',
 	'event_callbacks',
+	'events',
 	'external_gateways',
 	'external_payments',
 	'external_promotions',
@@ -277,6 +288,8 @@ export const resourceList = [
 	'paypal_payments',
 	'percentage_discount_promotions',
 	'price_lists',
+	'price_tiers',
+	'price_volume_tiers',
 	'prices',
 	'promotion_rules',
 	'promotions',
@@ -285,7 +298,9 @@ export const resourceList = [
 	'returns',
 	'shipments',
 	'shipping_categories',
+	'shipping_method_tiers',
 	'shipping_methods',
+	'shipping_weight_tiers',
 	'shipping_zones',
 	'sku_list_items',
 	'sku_list_promotion_rules',

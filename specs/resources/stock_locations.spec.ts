@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.4
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.5
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,7 +25,7 @@ describe('StockLocations resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'kappa_10',
+			name: 'kappa_54',
 			address: cl.addresses.relationship(TestData.id),
 		}
 

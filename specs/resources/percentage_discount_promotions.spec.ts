@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.4
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.5
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,11 +25,11 @@ describe('PercentageDiscountPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'beta_76',
-			starts_at: 'lambda_15',
-			expires_at: 'gamma_6',
-			total_usage_limit: 5,
-			percentage: 10,
+			name: 'epsilon_5',
+			starts_at: 'sigma_8',
+			expires_at: 'omega_0',
+			total_usage_limit: 10,
+			percentage: 10000,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

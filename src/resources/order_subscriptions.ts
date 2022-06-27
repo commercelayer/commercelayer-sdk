@@ -5,6 +5,7 @@ import type { Market } from './markets'
 import type { Order } from './orders'
 import type { Customer } from './customers'
 import type { OrderCopy } from './order_copies'
+import type { Event } from './events'
 
 
 type OrderSubscriptionRel = ResourceRel & { type: typeof OrderSubscriptions.TYPE }
@@ -32,6 +33,7 @@ interface OrderSubscription extends Resource {
 	customer?: Customer
 	order_copies?: OrderCopy[]
 	orders?: Order[]
+	events?: Event[]
 
 }
 
@@ -108,6 +110,11 @@ class OrderSubscriptions extends ApiResource {
 	async orders(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
 		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId
 		return this.resources.fetch<Order>({ type: 'orders' }, `order_subscriptions/${_orderSubscriptionId}/orders`, params, options) as unknown as ListResponse<Order>
+	}
+
+	async events(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId
+		return this.resources.fetch<Event>({ type: 'events' }, `order_subscriptions/${_orderSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

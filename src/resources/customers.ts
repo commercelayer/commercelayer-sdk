@@ -9,6 +9,7 @@ import type { Order } from './orders'
 import type { OrderSubscription } from './order_subscriptions'
 import type { Return } from './returns'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 
 
 type CustomerRel = ResourceRel & { type: typeof Customers.TYPE }
@@ -29,6 +30,7 @@ interface Customer extends Resource {
 	order_subscriptions?: OrderSubscription[]
 	returns?: Return[]
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 
@@ -116,6 +118,11 @@ class Customers extends ApiResource {
 	async attachments(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _customerId = (customerId as Customer).id || customerId
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customers/${_customerId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _customerId = (customerId as Customer).id || customerId
+		return this.resources.fetch<Event>({ type: 'events' }, `customers/${_customerId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

@@ -4,6 +4,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 import type { Market } from './markets'
 import type { GiftCardRecipient } from './gift_card_recipients'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 
 
 type GiftCardRel = ResourceRel & { type: typeof GiftCards.TYPE }
@@ -35,6 +36,7 @@ interface GiftCard extends Resource {
 	market?: Market
 	gift_card_recipient?: GiftCardRecipient
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 
@@ -116,6 +118,11 @@ class GiftCards extends ApiResource {
 	async attachments(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `gift_cards/${_giftCardId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _giftCardId = (giftCardId as GiftCard).id || giftCardId
+		return this.resources.fetch<Event>({ type: 'events' }, `gift_cards/${_giftCardId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

@@ -2,6 +2,7 @@ import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig,
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Customer } from './customers'
+import type { Event } from './events'
 
 
 type CustomerSubscriptionRel = ResourceRel & { type: typeof CustomerSubscriptions.TYPE }
@@ -12,6 +13,7 @@ interface CustomerSubscription extends Resource {
 	customer_email?: string
 
 	customer?: Customer
+	events?: Event[]
 
 }
 
@@ -54,6 +56,11 @@ class CustomerSubscriptions extends ApiResource {
 	async customer(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
 		const _customerSubscriptionId = (customerSubscriptionId as CustomerSubscription).id || customerSubscriptionId
 		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_subscriptions/${_customerSubscriptionId}/customer`, params, options) as unknown as Customer
+	}
+
+	async events(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _customerSubscriptionId = (customerSubscriptionId as CustomerSubscription).id || customerSubscriptionId
+		return this.resources.fetch<Event>({ type: 'events' }, `customer_subscriptions/${_customerSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

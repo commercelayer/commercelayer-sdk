@@ -3,12 +3,15 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { PriceList } from './price_lists'
 import type { Sku } from './skus'
+import type { PriceTier } from './price_tiers'
+import type { PriceVolumeTier } from './price_volume_tiers'
 import type { Attachment } from './attachments'
 
 
 type PriceRel = ResourceRel & { type: typeof Prices.TYPE }
 type PriceListRel = ResourceRel & { type: 'price_lists' }
 type SkuRel = ResourceRel & { type: 'skus' }
+type PriceTierRel = ResourceRel & { type: 'price_tiers' }
 
 
 interface Price extends Resource {
@@ -24,6 +27,8 @@ interface Price extends Resource {
 
 	price_list?: PriceList
 	sku?: Sku
+	price_tiers?: PriceTier[]
+	price_volume_tiers?: PriceVolumeTier[]
 	attachments?: Attachment[]
 
 }
@@ -37,6 +42,7 @@ interface PriceCreate extends ResourceCreate {
 
 	price_list: PriceListRel
 	sku?: SkuRel
+	price_tiers?: PriceTierRel[]
 
 }
 
@@ -49,6 +55,7 @@ interface PriceUpdate extends ResourceUpdate {
 
 	price_list?: PriceListRel
 	sku?: SkuRel
+	price_tiers?: PriceTierRel[]
 
 }
 
@@ -86,6 +93,16 @@ class Prices extends ApiResource {
 	async sku(priceId: string | Price, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
 		const _priceId = (priceId as Price).id || priceId
 		return this.resources.fetch<Sku>({ type: 'skus' }, `prices/${_priceId}/sku`, params, options) as unknown as Sku
+	}
+
+	async price_tiers(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceTier>> {
+		const _priceId = (priceId as Price).id || priceId
+		return this.resources.fetch<PriceTier>({ type: 'price_tiers' }, `prices/${_priceId}/price_tiers`, params, options) as unknown as ListResponse<PriceTier>
+	}
+
+	async price_volume_tiers(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceVolumeTier>> {
+		const _priceId = (priceId as Price).id || priceId
+		return this.resources.fetch<PriceVolumeTier>({ type: 'price_volume_tiers' }, `prices/${_priceId}/price_volume_tiers`, params, options) as unknown as ListResponse<PriceVolumeTier>
 	}
 
 	async attachments(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

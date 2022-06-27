@@ -1,6 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
+import type { Event } from './events'
 
 
 type ImportRel = ResourceRel & { type: typeof Imports.TYPE }
@@ -23,7 +24,9 @@ interface Import extends Resource {
 	errors_log?: object
 	warnings_log?: object
 	cleanup_records?: boolean
-	
+
+	events?: Event[]
+
 }
 
 
@@ -56,6 +59,11 @@ class Imports extends ApiResource {
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Imports.TYPE, id }, options)
+	}
+
+	async events(importId: string | Import, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _importId = (importId as Import).id || importId
+		return this.resources.fetch<Event>({ type: 'events' }, `imports/${_importId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

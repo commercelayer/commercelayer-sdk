@@ -25,6 +25,7 @@ import type { Refund } from './refunds'
 import type { OrderSubscription } from './order_subscriptions'
 import type { OrderCopy } from './order_copies'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 
 
 type OrderRel = ResourceRel & { type: typeof Orders.TYPE }
@@ -162,6 +163,7 @@ interface Order extends Resource {
 	order_subscriptions?: OrderSubscription[]
 	order_copies?: OrderCopy[]
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 
@@ -354,6 +356,11 @@ class Orders extends ApiResource {
 	async attachments(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _orderId = (orderId as Order).id || orderId
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `orders/${_orderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _orderId = (orderId as Order).id || orderId
+		return this.resources.fetch<Event>({ type: 'events' }, `orders/${_orderId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

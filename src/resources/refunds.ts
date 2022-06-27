@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 import type { Capture } from './captures'
+import type { Event } from './events'
 
 
 type RefundRel = ResourceRel & { type: typeof Refunds.TYPE }
@@ -24,6 +25,7 @@ interface Refund extends Resource {
 
 	order?: Order
 	reference_capture?: Capture
+	events?: Event[]
 
 }
 
@@ -49,6 +51,11 @@ class Refunds extends ApiResource {
 	async reference_capture(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
 		const _refundId = (refundId as Refund).id || refundId
 		return this.resources.fetch<Capture>({ type: 'captures' }, `refunds/${_refundId}/reference_capture`, params, options) as unknown as Capture
+	}
+
+	async events(refundId: string | Refund, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _refundId = (refundId as Refund).id || refundId
+		return this.resources.fetch<Event>({ type: 'events' }, `refunds/${_refundId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

@@ -4,6 +4,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 import type { Market } from './markets'
 import type { Customer } from './customers'
 import type { Sku } from './skus'
+import type { Event } from './events'
 
 
 type InStockSubscriptionRel = ResourceRel & { type: typeof InStockSubscriptions.TYPE }
@@ -22,6 +23,7 @@ interface InStockSubscription extends Resource {
 	market?: Market
 	customer?: Customer
 	sku?: Sku
+	events?: Event[]
 
 }
 
@@ -91,6 +93,11 @@ class InStockSubscriptions extends ApiResource {
 	async sku(inStockSubscriptionId: string | InStockSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
 		const _inStockSubscriptionId = (inStockSubscriptionId as InStockSubscription).id || inStockSubscriptionId
 		return this.resources.fetch<Sku>({ type: 'skus' }, `in_stock_subscriptions/${_inStockSubscriptionId}/sku`, params, options) as unknown as Sku
+	}
+
+	async events(inStockSubscriptionId: string | InStockSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _inStockSubscriptionId = (inStockSubscriptionId as InStockSubscription).id || inStockSubscriptionId
+		return this.resources.fetch<Event>({ type: 'events' }, `in_stock_subscriptions/${_inStockSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

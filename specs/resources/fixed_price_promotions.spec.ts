@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.4
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.5
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,11 +25,11 @@ describe('FixedPricePromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_7',
-			starts_at: 'gamma_50',
-			expires_at: 'epsilon_55',
-			total_usage_limit: 1000,
-			fixed_amount_cents: 0,
+			name: 'delta_77',
+			starts_at: 'alfa_90',
+			expires_at: 'omega_33',
+			total_usage_limit: 10000,
+			fixed_amount_cents: 10000,
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

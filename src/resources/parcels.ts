@@ -5,6 +5,7 @@ import type { Shipment } from './shipments'
 import type { Package } from './packages'
 import type { ParcelLineItem } from './parcel_line_items'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 
 
 type ParcelRel = ResourceRel & { type: typeof Parcels.TYPE }
@@ -43,14 +44,15 @@ interface Parcel extends Resource {
 	package?: Package
 	parcel_line_items?: ParcelLineItem[]
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 
 
 interface ParcelCreate extends ResourceCreate {
 	
-	weight?: number
-	unit_of_weight?: string
+	weight: number
+	unit_of_weight: string
 	eel_pfc?: string
 	contents_type?: string
 	contents_explanation?: string
@@ -146,6 +148,11 @@ class Parcels extends ApiResource {
 	async attachments(parcelId: string | Parcel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _parcelId = (parcelId as Parcel).id || parcelId
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `parcels/${_parcelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(parcelId: string | Parcel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _parcelId = (parcelId as Parcel).id || parcelId
+		return this.resources.fetch<Event>({ type: 'events' }, `parcels/${_parcelId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

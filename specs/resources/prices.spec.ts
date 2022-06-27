@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.4
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.5
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,10 +25,11 @@ describe('Prices resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			amount_cents: 0,
-			compare_at_amount_cents: 555,
+			amount_cents: 5,
+			compare_at_amount_cents: 100,
 			price_list: cl.price_lists.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
+			price_tiers: [ cl.price_tiers.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -185,6 +186,44 @@ describe('Prices resource', () => {
 		})
 	
 		await cl[resourceType].sku(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.price_tiers', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { price_tiers: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'price_tiers')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].price_tiers(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.price_volume_tiers', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { price_volume_tiers: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'price_volume_tiers')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].price_volume_tiers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

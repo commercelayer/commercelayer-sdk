@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 import type { OrderSubscription } from './order_subscriptions'
+import type { Event } from './events'
 
 
 type OrderCopyRel = ResourceRel & { type: typeof OrderCopies.TYPE }
@@ -24,6 +25,7 @@ interface OrderCopy extends Resource {
 	source_order?: Order
 	target_order?: Order
 	order_subscription?: OrderSubscription
+	events?: Event[]
 
 }
 
@@ -73,6 +75,11 @@ class OrderCopies extends ApiResource {
 	async order_subscription(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
 		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId
 		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_copies/${_orderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
+	}
+
+	async events(orderCopyId: string | OrderCopy, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId
+		return this.resources.fetch<Event>({ type: 'events' }, `order_copies/${_orderCopyId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

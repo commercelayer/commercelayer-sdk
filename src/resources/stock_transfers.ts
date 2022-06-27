@@ -5,6 +5,7 @@ import type { Sku } from './skus'
 import type { StockLocation } from './stock_locations'
 import type { Shipment } from './shipments'
 import type { LineItem } from './line_items'
+import type { Event } from './events'
 
 
 type StockTransferRel = ResourceRel & { type: typeof StockTransfers.TYPE }
@@ -27,6 +28,7 @@ interface StockTransfer extends Resource {
 	destination_stock_location?: StockLocation
 	shipment?: Shipment
 	line_item?: LineItem
+	events?: Event[]
 
 }
 
@@ -109,6 +111,11 @@ class StockTransfers extends ApiResource {
 	async line_item(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
 		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_transfers/${_stockTransferId}/line_item`, params, options) as unknown as LineItem
+	}
+
+	async events(stockTransferId: string | StockTransfer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId
+		return this.resources.fetch<Event>({ type: 'events' }, `stock_transfers/${_stockTransferId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

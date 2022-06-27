@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.9.4",
+        "version": "2.9.5",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -3448,6 +3448,33 @@
                 }
             }
         },
+        "/customer_addresses/{customerAddressId}/events": {
+            "get": {
+                "operationId": "GET/customerAddressId/events",
+                "summary": "Retrieve the events associated to the customer address",
+                "description": "Retrieve the events associated to the customer address",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "customerAddressId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the customer address"
+                    }
+                }
+            }
+        },
         "/customer_groups": {
             "get": {
                 "operationId": "GET/customer_groups",
@@ -3814,6 +3841,33 @@
                 }
             }
         },
+        "/customer_password_resets/{customerPasswordResetId}/events": {
+            "get": {
+                "operationId": "GET/customerPasswordResetId/events",
+                "summary": "Retrieve the events associated to the customer password reset",
+                "description": "Retrieve the events associated to the customer password reset",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "customerPasswordResetId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the customer password reset"
+                    }
+                }
+            }
+        },
         "/customer_payment_sources": {
             "get": {
                 "operationId": "GET/customer_payment_sources",
@@ -4122,6 +4176,33 @@
                 "responses": {
                     "200": {
                         "description": "The customer associated to the customer subscription"
+                    }
+                }
+            }
+        },
+        "/customer_subscriptions/{customerSubscriptionId}/events": {
+            "get": {
+                "operationId": "GET/customerSubscriptionId/events",
+                "summary": "Retrieve the events associated to the customer subscription",
+                "description": "Retrieve the events associated to the customer subscription",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "customerSubscriptionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the customer subscription"
                     }
                 }
             }
@@ -4471,6 +4552,33 @@
                 }
             }
         },
+        "/customers/{customerId}/events": {
+            "get": {
+                "operationId": "GET/customerId/events",
+                "summary": "Retrieve the events associated to the customer",
+                "description": "Retrieve the events associated to the customer",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "customerId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the customer"
+                    }
+                }
+            }
+        },
         "/delivery_lead_times": {
             "get": {
                 "operationId": "GET/delivery_lead_times",
@@ -4752,6 +4860,108 @@
                 "responses": {
                     "200": {
                         "description": "The webhook associated to the event callback"
+                    }
+                }
+            }
+        },
+        "/events": {
+            "get": {
+                "operationId": "GET/events",
+                "summary": "List all events",
+                "description": "List all events",
+                "tags": [
+                    "events"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of event objects"
+                    }
+                }
+            }
+        },
+        "/events/{eventId}": {
+            "get": {
+                "operationId": "GET/events/eventId",
+                "summary": "Retrieve an event",
+                "description": "Retrieve an event",
+                "tags": [
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The event object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/event"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/events/{eventId}/last_event_callbacks": {
+            "get": {
+                "operationId": "GET/eventId/last_event_callbacks",
+                "summary": "Retrieve the last event callbacks associated to the event",
+                "description": "Retrieve the last event callbacks associated to the event",
+                "tags": [
+                    "has_many",
+                    "event_callbacks"
+                ],
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The last_event_callbacks associated to the event"
+                    }
+                }
+            }
+        },
+        "/events/{eventId}/webhooks": {
+            "get": {
+                "operationId": "GET/eventId/webhooks",
+                "summary": "Retrieve the webhooks associated to the event",
+                "description": "Retrieve the webhooks associated to the event",
+                "tags": [
+                    "has_many",
+                    "webhooks"
+                ],
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The webhooks associated to the event"
                     }
                 }
             }
@@ -7282,6 +7492,33 @@
                 }
             }
         },
+        "/gift_cards/{giftCardId}/events": {
+            "get": {
+                "operationId": "GET/giftCardId/events",
+                "summary": "Retrieve the events associated to the gift card",
+                "description": "Retrieve the events associated to the gift card",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "giftCardId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the gift card"
+                    }
+                }
+            }
+        },
         "/google_geocoders": {
             "get": {
                 "operationId": "GET/google_geocoders",
@@ -7560,6 +7797,33 @@
                 }
             }
         },
+        "/imports/{importId}/events": {
+            "get": {
+                "operationId": "GET/importId/events",
+                "summary": "Retrieve the events associated to the import",
+                "description": "Retrieve the events associated to the import",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "importId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the import"
+                    }
+                }
+            }
+        },
         "/in_stock_subscriptions": {
             "get": {
                 "operationId": "GET/in_stock_subscriptions",
@@ -7766,6 +8030,33 @@
                 "responses": {
                     "200": {
                         "description": "The sku associated to the in stock subscription"
+                    }
+                }
+            }
+        },
+        "/in_stock_subscriptions/{inStockSubscriptionId}/events": {
+            "get": {
+                "operationId": "GET/inStockSubscriptionId/events",
+                "summary": "Retrieve the events associated to the in stock subscription",
+                "description": "Retrieve the events associated to the in stock subscription",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "inStockSubscriptionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the in stock subscription"
                     }
                 }
             }
@@ -10304,6 +10595,33 @@
                 }
             }
         },
+        "/order_copies/{orderCopyId}/events": {
+            "get": {
+                "operationId": "GET/orderCopyId/events",
+                "summary": "Retrieve the events associated to the order copy",
+                "description": "Retrieve the events associated to the order copy",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderCopyId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the order copy"
+                    }
+                }
+            }
+        },
         "/order_subscriptions": {
             "get": {
                 "operationId": "GET/order_subscriptions",
@@ -10564,6 +10882,33 @@
                 "responses": {
                     "200": {
                         "description": "The orders associated to the order subscription"
+                    }
+                }
+            }
+        },
+        "/order_subscriptions/{orderSubscriptionId}/events": {
+            "get": {
+                "operationId": "GET/orderSubscriptionId/events",
+                "summary": "Retrieve the events associated to the order subscription",
+                "description": "Retrieve the events associated to the order subscription",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderSubscriptionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the order subscription"
                     }
                 }
             }
@@ -11258,6 +11603,33 @@
                 }
             }
         },
+        "/orders/{orderId}/events": {
+            "get": {
+                "operationId": "GET/orderId/events",
+                "summary": "Retrieve the events associated to the order",
+                "description": "Retrieve the events associated to the order",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the order"
+                    }
+                }
+            }
+        },
         "/organization": {
             "get": {
                 "operationId": "GET/organization/organizationId",
@@ -11907,6 +12279,33 @@
                 "responses": {
                     "200": {
                         "description": "The attachments associated to the parcel"
+                    }
+                }
+            }
+        },
+        "/parcels/{parcelId}/events": {
+            "get": {
+                "operationId": "GET/parcelId/events",
+                "summary": "Retrieve the events associated to the parcel",
+                "description": "Retrieve the events associated to the parcel",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "parcelId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the parcel"
                     }
                 }
             }
@@ -13063,6 +13462,291 @@
                 }
             }
         },
+        "/price_tiers": {
+            "get": {
+                "operationId": "GET/price_tiers",
+                "summary": "List all price tiers",
+                "description": "List all price tiers",
+                "tags": [
+                    "price_tiers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of price tier objects"
+                    }
+                }
+            }
+        },
+        "/price_tiers/{priceTierId}": {
+            "get": {
+                "operationId": "GET/price_tiers/priceTierId",
+                "summary": "Retrieve a price tier",
+                "description": "Retrieve a price tier",
+                "tags": [
+                    "price_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "priceTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The price tier object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/priceTier"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/price_tiers/{priceTierId}/price": {
+            "get": {
+                "operationId": "GET/priceTierId/price",
+                "summary": "Retrieve the price associated to the price tier",
+                "description": "Retrieve the price associated to the price tier",
+                "tags": [
+                    "has_one",
+                    "prices"
+                ],
+                "parameters": [
+                    {
+                        "name": "priceTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The price associated to the price tier"
+                    }
+                }
+            }
+        },
+        "/price_tiers/{priceTierId}/attachments": {
+            "get": {
+                "operationId": "GET/priceTierId/attachments",
+                "summary": "Retrieve the attachments associated to the price tier",
+                "description": "Retrieve the attachments associated to the price tier",
+                "tags": [
+                    "has_many",
+                    "attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "priceTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The attachments associated to the price tier"
+                    }
+                }
+            }
+        },
+        "/price_volume_tiers": {
+            "get": {
+                "operationId": "GET/price_volume_tiers",
+                "summary": "List all price volume tiers",
+                "description": "List all price volume tiers",
+                "tags": [
+                    "price_volume_tiers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of price volume tier objects"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "POST/price_volume_tiers",
+                "summary": "Create a price volume tier",
+                "description": "Create a price volume tier",
+                "tags": [
+                    "price_volume_tiers"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/priceVolumeTierCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created price volume tier object"
+                    }
+                }
+            }
+        },
+        "/price_volume_tiers/{priceVolumeTierId}": {
+            "get": {
+                "operationId": "GET/price_volume_tiers/priceVolumeTierId",
+                "summary": "Retrieve a price volume tier",
+                "description": "Retrieve a price volume tier",
+                "tags": [
+                    "price_volume_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "priceVolumeTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The price volume tier object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/priceVolumeTier"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/price_volume_tiers/priceVolumeTierId",
+                "summary": "Update a price volume tier",
+                "description": "Update a price volume tier",
+                "tags": [
+                    "price_volume_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "priceVolumeTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/priceVolumeTierUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated price volume tier object"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/price_volume_tiers/priceVolumeTierId",
+                "summary": "Delete a price volume tier",
+                "description": "Delete a price volume tier",
+                "tags": [
+                    "price_volume_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "priceVolumeTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/price_volume_tiers/{priceVolumeTierId}/price": {
+            "get": {
+                "operationId": "GET/priceVolumeTierId/price",
+                "summary": "Retrieve the price associated to the price volume tier",
+                "description": "Retrieve the price associated to the price volume tier",
+                "tags": [
+                    "has_one",
+                    "prices"
+                ],
+                "parameters": [
+                    {
+                        "name": "priceVolumeTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The price associated to the price volume tier"
+                    }
+                }
+            }
+        },
+        "/price_volume_tiers/{priceVolumeTierId}/attachments": {
+            "get": {
+                "operationId": "GET/priceVolumeTierId/attachments",
+                "summary": "Retrieve the attachments associated to the price volume tier",
+                "description": "Retrieve the attachments associated to the price volume tier",
+                "tags": [
+                    "has_many",
+                    "attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "priceVolumeTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The attachments associated to the price volume tier"
+                    }
+                }
+            }
+        },
         "/prices": {
             "get": {
                 "operationId": "GET/prices",
@@ -13242,6 +13926,60 @@
                 "responses": {
                     "200": {
                         "description": "The sku associated to the price"
+                    }
+                }
+            }
+        },
+        "/prices/{priceId}/price_tiers": {
+            "get": {
+                "operationId": "GET/priceId/price_tiers",
+                "summary": "Retrieve the price tiers associated to the price",
+                "description": "Retrieve the price tiers associated to the price",
+                "tags": [
+                    "has_many",
+                    "price_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "priceId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The price_tiers associated to the price"
+                    }
+                }
+            }
+        },
+        "/prices/{priceId}/price_volume_tiers": {
+            "get": {
+                "operationId": "GET/priceId/price_volume_tiers",
+                "summary": "Retrieve the price volume tiers associated to the price",
+                "description": "Retrieve the price volume tiers associated to the price",
+                "tags": [
+                    "has_many",
+                    "price_volume_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "priceId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The price_volume_tiers associated to the price"
                     }
                 }
             }
@@ -13602,6 +14340,33 @@
                 "responses": {
                     "200": {
                         "description": "The reference_capture associated to the refund"
+                    }
+                }
+            }
+        },
+        "/refunds/{refundId}/events": {
+            "get": {
+                "operationId": "GET/refundId/events",
+                "summary": "Retrieve the events associated to the refund",
+                "description": "Retrieve the events associated to the refund",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "refundId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the refund"
                     }
                 }
             }
@@ -14107,6 +14872,33 @@
                 }
             }
         },
+        "/returns/{returnId}/events": {
+            "get": {
+                "operationId": "GET/returnId/events",
+                "summary": "Retrieve the events associated to the return",
+                "description": "Retrieve the events associated to the return",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "returnId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the return"
+                    }
+                }
+            }
+        },
         "/shipments": {
             "get": {
                 "operationId": "GET/shipments",
@@ -14540,6 +15332,33 @@
                 }
             }
         },
+        "/shipments/{shipmentId}/events": {
+            "get": {
+                "operationId": "GET/shipmentId/events",
+                "summary": "Retrieve the events associated to the shipment",
+                "description": "Retrieve the events associated to the shipment",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "shipmentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the shipment"
+                    }
+                }
+            }
+        },
         "/shipping_categories": {
             "get": {
                 "operationId": "GET/shipping_categories",
@@ -14719,6 +15538,108 @@
                 "responses": {
                     "200": {
                         "description": "The attachments associated to the shipping category"
+                    }
+                }
+            }
+        },
+        "/shipping_method_tiers": {
+            "get": {
+                "operationId": "GET/shipping_method_tiers",
+                "summary": "List all shipping method tiers",
+                "description": "List all shipping method tiers",
+                "tags": [
+                    "shipping_method_tiers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of shipping method tier objects"
+                    }
+                }
+            }
+        },
+        "/shipping_method_tiers/{shippingMethodTierId}": {
+            "get": {
+                "operationId": "GET/shipping_method_tiers/shippingMethodTierId",
+                "summary": "Retrieve a shipping method tier",
+                "description": "Retrieve a shipping method tier",
+                "tags": [
+                    "shipping_method_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingMethodTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The shipping method tier object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/shippingMethodTier"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/shipping_method_tiers/{shippingMethodTierId}/shipping_method": {
+            "get": {
+                "operationId": "GET/shippingMethodTierId/shipping_method",
+                "summary": "Retrieve the shipping method associated to the shipping method tier",
+                "description": "Retrieve the shipping method associated to the shipping method tier",
+                "tags": [
+                    "has_one",
+                    "shipping_methods"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingMethodTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The shipping_method associated to the shipping method tier"
+                    }
+                }
+            }
+        },
+        "/shipping_method_tiers/{shippingMethodTierId}/attachments": {
+            "get": {
+                "operationId": "GET/shippingMethodTierId/attachments",
+                "summary": "Retrieve the attachments associated to the shipping method tier",
+                "description": "Retrieve the attachments associated to the shipping method tier",
+                "tags": [
+                    "has_many",
+                    "attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingMethodTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The attachments associated to the shipping method tier"
                     }
                 }
             }
@@ -14933,6 +15854,33 @@
                 }
             }
         },
+        "/shipping_methods/{shippingMethodId}/stock_location": {
+            "get": {
+                "operationId": "GET/shippingMethodId/stock_location",
+                "summary": "Retrieve the stock location associated to the shipping method",
+                "description": "Retrieve the stock location associated to the shipping method",
+                "tags": [
+                    "has_one",
+                    "stock_locations"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingMethodId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The stock_location associated to the shipping method"
+                    }
+                }
+            }
+        },
         "/shipping_methods/{shippingMethodId}/delivery_lead_time_for_shipment": {
             "get": {
                 "operationId": "GET/shippingMethodId/delivery_lead_time_for_shipment",
@@ -14960,6 +15908,60 @@
                 }
             }
         },
+        "/shipping_methods/{shippingMethodId}/shipping_method_tiers": {
+            "get": {
+                "operationId": "GET/shippingMethodId/shipping_method_tiers",
+                "summary": "Retrieve the shipping method tiers associated to the shipping method",
+                "description": "Retrieve the shipping method tiers associated to the shipping method",
+                "tags": [
+                    "has_many",
+                    "shipping_method_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingMethodId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The shipping_method_tiers associated to the shipping method"
+                    }
+                }
+            }
+        },
+        "/shipping_methods/{shippingMethodId}/shipping_weight_tiers": {
+            "get": {
+                "operationId": "GET/shippingMethodId/shipping_weight_tiers",
+                "summary": "Retrieve the shipping weight tiers associated to the shipping method",
+                "description": "Retrieve the shipping weight tiers associated to the shipping method",
+                "tags": [
+                    "has_many",
+                    "shipping_weight_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingMethodId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The shipping_weight_tiers associated to the shipping method"
+                    }
+                }
+            }
+        },
         "/shipping_methods/{shippingMethodId}/attachments": {
             "get": {
                 "operationId": "GET/shippingMethodId/attachments",
@@ -14983,6 +15985,189 @@
                 "responses": {
                     "200": {
                         "description": "The attachments associated to the shipping method"
+                    }
+                }
+            }
+        },
+        "/shipping_weight_tiers": {
+            "get": {
+                "operationId": "GET/shipping_weight_tiers",
+                "summary": "List all shipping weight tiers",
+                "description": "List all shipping weight tiers",
+                "tags": [
+                    "shipping_weight_tiers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of shipping weight tier objects"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "POST/shipping_weight_tiers",
+                "summary": "Create a shipping weight tier",
+                "description": "Create a shipping weight tier",
+                "tags": [
+                    "shipping_weight_tiers"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/shippingWeightTierCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created shipping weight tier object"
+                    }
+                }
+            }
+        },
+        "/shipping_weight_tiers/{shippingWeightTierId}": {
+            "get": {
+                "operationId": "GET/shipping_weight_tiers/shippingWeightTierId",
+                "summary": "Retrieve a shipping weight tier",
+                "description": "Retrieve a shipping weight tier",
+                "tags": [
+                    "shipping_weight_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingWeightTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The shipping weight tier object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/shippingWeightTier"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/shipping_weight_tiers/shippingWeightTierId",
+                "summary": "Update a shipping weight tier",
+                "description": "Update a shipping weight tier",
+                "tags": [
+                    "shipping_weight_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingWeightTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/shippingWeightTierUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated shipping weight tier object"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/shipping_weight_tiers/shippingWeightTierId",
+                "summary": "Delete a shipping weight tier",
+                "description": "Delete a shipping weight tier",
+                "tags": [
+                    "shipping_weight_tiers"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingWeightTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/shipping_weight_tiers/{shippingWeightTierId}/shipping_method": {
+            "get": {
+                "operationId": "GET/shippingWeightTierId/shipping_method",
+                "summary": "Retrieve the shipping method associated to the shipping weight tier",
+                "description": "Retrieve the shipping method associated to the shipping weight tier",
+                "tags": [
+                    "has_one",
+                    "shipping_methods"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingWeightTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The shipping_method associated to the shipping weight tier"
+                    }
+                }
+            }
+        },
+        "/shipping_weight_tiers/{shippingWeightTierId}/attachments": {
+            "get": {
+                "operationId": "GET/shippingWeightTierId/attachments",
+                "summary": "Retrieve the attachments associated to the shipping weight tier",
+                "description": "Retrieve the attachments associated to the shipping weight tier",
+                "tags": [
+                    "has_many",
+                    "attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingWeightTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The attachments associated to the shipping weight tier"
                     }
                 }
             }
@@ -17083,6 +18268,33 @@
                 "responses": {
                     "200": {
                         "description": "The line_item associated to the stock transfer"
+                    }
+                }
+            }
+        },
+        "/stock_transfers/{stockTransferId}/events": {
+            "get": {
+                "operationId": "GET/stockTransferId/events",
+                "summary": "Retrieve the events associated to the stock transfer",
+                "description": "Retrieve the events associated to the stock transfer",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "stockTransferId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the stock transfer"
                     }
                 }
             }
@@ -20037,9 +21249,9 @@
                                         "example": "sales-channel"
                                     },
                                     "public_access": {
-                                        "type": "string",
+                                        "type": "boolean",
                                         "description": "Indicates if the application has public access.",
-                                        "example": "true"
+                                        "example": true
                                     },
                                     "redirect_uri": {
                                         "type": "string",
@@ -25222,6 +26434,26 @@
                                                 "example": "XGZwpOSrWL"
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -25752,6 +26984,26 @@
                                                 "description": "The resource's type",
                                                 "example": "customers",
                                                 "default": "customers"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -26389,6 +27641,26 @@
                                                 "example": "XGZwpOSrWL"
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -26734,6 +28006,26 @@
                                                 "description": "The resource's type",
                                                 "example": "attachments",
                                                 "default": "attachments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -27363,6 +28655,116 @@
                                 "type": "object",
                                 "properties": {
                                     "webhook": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "webhooks",
+                                                "default": "webhooks"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "event": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "events",
+                                "default": "events"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The event's internal name.",
+                                        "example": "orders.create"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "last_event_callbacks": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "event_callbacks",
+                                                "default": "event_callbacks"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "webhooks": {
                                         "type": "object",
                                         "required": [
                                             "type",
@@ -32096,6 +33498,26 @@
                                                 "example": "XGZwpOSrWL"
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -32790,7 +34212,28 @@
                             },
                             "relationships": {
                                 "type": "object",
-                                "properties": {}
+                                "properties": {
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -33012,6 +34455,26 @@
                                                 "description": "The resource's type",
                                                 "example": "skus",
                                                 "default": "skus"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -37763,6 +39226,26 @@
                                                 "example": "XGZwpOSrWL"
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -38071,6 +39554,26 @@
                                                 "description": "The resource's type",
                                                 "example": "orders",
                                                 "default": "orders"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -39362,6 +40865,26 @@
                                                 "description": "The resource's type",
                                                 "example": "attachments",
                                                 "default": "attachments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -40907,7 +42430,7 @@
                                     },
                                     "unit_of_weight": {
                                         "type": "string",
-                                        "description": "The unit of weight. Can be one of 'gr', or 'oz'.",
+                                        "description": "Can be one of 'gr', 'lb', or 'oz'",
                                         "example": "gr"
                                     },
                                     "eel_pfc": {
@@ -41131,6 +42654,26 @@
                                                 "example": "XGZwpOSrWL"
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -41167,7 +42710,7 @@
                                     },
                                     "unit_of_weight": {
                                         "type": "string",
-                                        "description": "The unit of weight. Can be one of 'gr', or 'oz'.",
+                                        "description": "Can be one of 'gr', 'lb', or 'oz'",
                                         "example": "gr"
                                     },
                                     "eel_pfc": {
@@ -41272,7 +42815,11 @@
                                             "foo": "bar"
                                         }
                                     }
-                                }
+                                },
+                                "required": [
+                                    "weight",
+                                    "unit_of_weight"
+                                ]
                             },
                             "relationships": {
                                 "type": "object",
@@ -41362,7 +42909,7 @@
                                     },
                                     "unit_of_weight": {
                                         "type": "string",
-                                        "description": "The unit of weight. Can be one of 'gr', or 'oz'.",
+                                        "description": "Can be one of 'gr', 'lb', or 'oz'",
                                         "example": "gr"
                                     },
                                     "eel_pfc": {
@@ -43529,6 +45076,449 @@
                     }
                 }
             },
+            "priceTier": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "price_tiers",
+                                "default": "price_tiers"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The price tier's name",
+                                        "example": "six pack"
+                                    },
+                                    "up_to": {
+                                        "type": "number",
+                                        "description": "The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).",
+                                        "example": 20.5
+                                    },
+                                    "price_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price of this price tier, in cents.",
+                                        "example": 1000
+                                    },
+                                    "price_amount_float": {
+                                        "type": "number",
+                                        "description": "The price of this price tier, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_price_amount": {
+                                        "type": "string",
+                                        "description": "The price of this price tier, formatted.",
+                                        "example": "€10,00"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "price": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "prices",
+                                                "default": "prices"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "attachments",
+                                                "default": "attachments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "priceVolumeTier": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "price_volume_tiers",
+                                "default": "price_volume_tiers"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The price tier's name",
+                                        "example": "six pack"
+                                    },
+                                    "up_to": {
+                                        "type": "number",
+                                        "description": "The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).",
+                                        "example": 20.5
+                                    },
+                                    "price_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price of this price tier, in cents.",
+                                        "example": 1000
+                                    },
+                                    "price_amount_float": {
+                                        "type": "number",
+                                        "description": "The price of this price tier, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_price_amount": {
+                                        "type": "string",
+                                        "description": "The price of this price tier, formatted.",
+                                        "example": "€10,00"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "price": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "prices",
+                                                "default": "prices"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "attachments",
+                                                "default": "attachments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "priceVolumeTierCreate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "price_volume_tiers",
+                                "default": "price_volume_tiers"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The price tier's name",
+                                        "example": "six pack"
+                                    },
+                                    "up_to": {
+                                        "type": "number",
+                                        "description": "The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).",
+                                        "example": 20.5
+                                    },
+                                    "price_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price of this price tier, in cents.",
+                                        "example": 1000
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "price_amount_cents"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "price": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "prices",
+                                                "default": "prices"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "price"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "priceVolumeTierUpdate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "price_volume_tiers",
+                                "default": "price_volume_tiers"
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The price tier's name",
+                                        "example": "six pack"
+                                    },
+                                    "up_to": {
+                                        "type": "number",
+                                        "description": "The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).",
+                                        "example": 20.5
+                                    },
+                                    "price_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price of this price tier, in cents.",
+                                        "example": 1000
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "price": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "prices",
+                                                "default": "prices"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "price": {
                 "type": "object",
                 "required": [
@@ -43668,6 +45658,46 @@
                                             }
                                         }
                                     },
+                                    "price_tiers": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "price_tiers",
+                                                "default": "price_tiers"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "price_volume_tiers": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "price_volume_tiers",
+                                                "default": "price_volume_tiers"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
                                     "attachments": {
                                         "type": "object",
                                         "required": [
@@ -43796,6 +45826,26 @@
                                                 "example": "XGZwpOSrWL"
                                             }
                                         }
+                                    },
+                                    "price_tiers": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "price_tiers",
+                                                "default": "price_tiers"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
                                     }
                                 },
                                 "required": [
@@ -43903,6 +45953,26 @@
                                                 "description": "The resource's type",
                                                 "example": "skus",
                                                 "default": "skus"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "price_tiers": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "price_tiers",
+                                                "default": "price_tiers"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -44396,6 +46466,26 @@
                                                 "description": "The resource's type",
                                                 "example": "captures",
                                                 "default": "captures"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -44976,6 +47066,26 @@
                                                 "example": "XGZwpOSrWL"
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -45283,6 +47393,20 @@
                                         "type": "string",
                                         "description": "The shipping rate purchase error message, if any.",
                                         "example": "Account not allowed for this service."
+                                    },
+                                    "get_rates_errors": {
+                                        "type": "array",
+                                        "description": "Any errors collected when fetching shipping rates.",
+                                        "example": [
+                                            {
+                                                "carrier": "DHLExpress",
+                                                "message": "to_address.postal_code: Shorter than minimum length 3",
+                                                "type": "rate_error"
+                                            }
+                                        ],
+                                        "items": {
+                                            "type": "object"
+                                        }
                                     },
                                     "get_rates_started_at": {
                                         "type": "string",
@@ -45619,6 +47743,26 @@
                                                 "description": "The resource's type",
                                                 "example": "attachments",
                                                 "default": "attachments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -45976,6 +48120,136 @@
                     }
                 }
             },
+            "shippingMethodTier": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "shipping_method_tiers",
+                                "default": "shipping_method_tiers"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The shipping method tier's name",
+                                        "example": "Light shipping under 3kg"
+                                    },
+                                    "up_to": {
+                                        "type": "number",
+                                        "description": "The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).",
+                                        "example": 20.5
+                                    },
+                                    "price_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price of this shipping method tier, in cents.",
+                                        "example": 1000
+                                    },
+                                    "price_amount_float": {
+                                        "type": "number",
+                                        "description": "The price of this shipping method tier, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_price_amount": {
+                                        "type": "string",
+                                        "description": "The price of this shipping method tier, formatted.",
+                                        "example": "€10,00"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "shipping_method": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "shipping_methods",
+                                                "default": "shipping_methods"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "attachments",
+                                                "default": "attachments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "shippingMethod": {
                 "type": "object",
                 "required": [
@@ -46002,6 +48276,11 @@
                                         "type": "string",
                                         "description": "The shipping method's name",
                                         "example": "Standard shipping"
+                                    },
+                                    "scheme": {
+                                        "type": "string",
+                                        "description": "The shipping method's scheme, one of 'flat' or 'weight_tiered'.",
+                                        "example": "flat"
                                     },
                                     "currency_code": {
                                         "type": "string",
@@ -46057,6 +48336,21 @@
                                         "type": "string",
                                         "description": "The calculated price (zero or price amount) when associated to a shipment, formatted.",
                                         "example": "€0,00"
+                                    },
+                                    "min_weight": {
+                                        "type": "number",
+                                        "description": "The minimum weight for which this shipping method is available.",
+                                        "example": 3
+                                    },
+                                    "max_weight": {
+                                        "type": "number",
+                                        "description": "The maximum weight for which this shipping method is available.",
+                                        "example": 300
+                                    },
+                                    "unit_of_weight": {
+                                        "type": "string",
+                                        "description": "Can be one of 'gr', 'lb', or 'oz'",
+                                        "example": "gr"
                                     },
                                     "id": {
                                         "type": "string",
@@ -46155,6 +48449,26 @@
                                             }
                                         }
                                     },
+                                    "stock_location": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "stock_locations",
+                                                "default": "stock_locations"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
                                     "delivery_lead_time_for_shipment": {
                                         "type": "object",
                                         "required": [
@@ -46167,6 +48481,46 @@
                                                 "description": "The resource's type",
                                                 "example": "delivery_lead_times",
                                                 "default": "delivery_lead_times"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "shipping_method_tiers": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "shipping_method_tiers",
+                                                "default": "shipping_method_tiers"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "shipping_weight_tiers": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "shipping_weight_tiers",
+                                                "default": "shipping_weight_tiers"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -46228,6 +48582,11 @@
                                         "description": "The shipping method's name",
                                         "example": "Standard shipping"
                                     },
+                                    "scheme": {
+                                        "type": "string",
+                                        "description": "The shipping method's scheme, one of 'flat' or 'weight_tiered'.",
+                                        "example": "flat"
+                                    },
                                     "currency_code": {
                                         "type": "string",
                                         "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
@@ -46242,6 +48601,21 @@
                                         "type": "integer",
                                         "description": "Apply free shipping if the order amount is over this value, in cents.",
                                         "example": 9900
+                                    },
+                                    "min_weight": {
+                                        "type": "number",
+                                        "description": "The minimum weight for which this shipping method is available.",
+                                        "example": 3
+                                    },
+                                    "max_weight": {
+                                        "type": "number",
+                                        "description": "The maximum weight for which this shipping method is available.",
+                                        "example": 300
+                                    },
+                                    "unit_of_weight": {
+                                        "type": "string",
+                                        "description": "Can be one of 'gr', 'lb', or 'oz'",
+                                        "example": "gr"
                                     },
                                     "reference": {
                                         "type": "string",
@@ -46328,12 +48702,48 @@
                                                 "example": "XGZwpOSrWL"
                                             }
                                         }
+                                    },
+                                    "stock_location": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "stock_locations",
+                                                "default": "stock_locations"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "shipping_method_tiers": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "shipping_method_tiers",
+                                                "default": "shipping_method_tiers"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
                                     }
-                                },
-                                "required": [
-                                    "shipping_zone",
-                                    "shipping_category"
-                                ]
+                                }
                             }
                         }
                     }
@@ -46372,6 +48782,11 @@
                                         "description": "The shipping method's name",
                                         "example": "Standard shipping"
                                     },
+                                    "scheme": {
+                                        "type": "string",
+                                        "description": "The shipping method's scheme, one of 'flat' or 'weight_tiered'.",
+                                        "example": "flat"
+                                    },
                                     "currency_code": {
                                         "type": "string",
                                         "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
@@ -46386,6 +48801,21 @@
                                         "type": "integer",
                                         "description": "Apply free shipping if the order amount is over this value, in cents.",
                                         "example": 9900
+                                    },
+                                    "min_weight": {
+                                        "type": "number",
+                                        "description": "The minimum weight for which this shipping method is available.",
+                                        "example": 3
+                                    },
+                                    "max_weight": {
+                                        "type": "number",
+                                        "description": "The maximum weight for which this shipping method is available.",
+                                        "example": 300
+                                    },
+                                    "unit_of_weight": {
+                                        "type": "string",
+                                        "description": "Can be one of 'gr', 'lb', or 'oz'",
+                                        "example": "gr"
                                     },
                                     "reference": {
                                         "type": "string",
@@ -46461,6 +48891,359 @@
                                                 "description": "The resource's type",
                                                 "example": "shipping_categories",
                                                 "default": "shipping_categories"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "stock_location": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "stock_locations",
+                                                "default": "stock_locations"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "shipping_method_tiers": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "shipping_method_tiers",
+                                                "default": "shipping_method_tiers"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "shippingWeightTier": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "shipping_weight_tiers",
+                                "default": "shipping_weight_tiers"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The shipping method tier's name",
+                                        "example": "Light shipping under 3kg"
+                                    },
+                                    "up_to": {
+                                        "type": "number",
+                                        "description": "The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).",
+                                        "example": 20.5
+                                    },
+                                    "price_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price of this shipping method tier, in cents.",
+                                        "example": 1000
+                                    },
+                                    "price_amount_float": {
+                                        "type": "number",
+                                        "description": "The price of this shipping method tier, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_price_amount": {
+                                        "type": "string",
+                                        "description": "The price of this shipping method tier, formatted.",
+                                        "example": "€10,00"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "shipping_method": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "shipping_methods",
+                                                "default": "shipping_methods"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "attachments",
+                                                "default": "attachments"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "shippingWeightTierCreate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "shipping_weight_tiers",
+                                "default": "shipping_weight_tiers"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The shipping method tier's name",
+                                        "example": "Light shipping under 3kg"
+                                    },
+                                    "up_to": {
+                                        "type": "number",
+                                        "description": "The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).",
+                                        "example": 20.5
+                                    },
+                                    "price_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price of this shipping method tier, in cents.",
+                                        "example": 1000
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "price_amount_cents"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "shipping_method": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "shipping_methods",
+                                                "default": "shipping_methods"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "shipping_method"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "shippingWeightTierUpdate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "example": "shipping_weight_tiers",
+                                "default": "shipping_weight_tiers"
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The shipping method tier's name",
+                                        "example": "Light shipping under 3kg"
+                                    },
+                                    "up_to": {
+                                        "type": "number",
+                                        "description": "The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).",
+                                        "example": 20.5
+                                    },
+                                    "price_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The price of this shipping method tier, in cents.",
+                                        "example": 1000
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "shipping_method": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "shipping_methods",
+                                                "default": "shipping_methods"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -48224,7 +51007,7 @@
                                     },
                                     "unit_of_weight": {
                                         "type": "string",
-                                        "description": "Can be one of 'gr', or 'oz'",
+                                        "description": "Can be one of 'gr', 'lb', or 'oz'",
                                         "example": "gr"
                                     },
                                     "hs_tariff_number": {
@@ -48551,7 +51334,7 @@
                                     },
                                     "unit_of_weight": {
                                         "type": "string",
-                                        "description": "Can be one of 'gr', or 'oz'",
+                                        "description": "Can be one of 'gr', 'lb', or 'oz'",
                                         "example": "gr"
                                     },
                                     "hs_tariff_number": {
@@ -48684,7 +51467,7 @@
                                     },
                                     "unit_of_weight": {
                                         "type": "string",
-                                        "description": "Can be one of 'gr', or 'oz'",
+                                        "description": "Can be one of 'gr', 'lb', or 'oz'",
                                         "example": "gr"
                                     },
                                     "hs_tariff_number": {
@@ -49800,6 +52583,26 @@
                                                 "description": "The resource's type",
                                                 "example": "line_items",
                                                 "default": "line_items"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "description": "The resource's id",
+                                                "example": "XGZwpOSrWL"
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "The resource's type",
+                                                "example": "events",
+                                                "default": "events"
                                             },
                                             "id": {
                                                 "type": "string",
@@ -52876,6 +55679,10 @@
             "description": "resource type"
         },
         {
+            "name": "events",
+            "description": "resource type"
+        },
+        {
             "name": "external_gateways",
             "description": "resource type"
         },
@@ -53036,6 +55843,14 @@
             "description": "resource type"
         },
         {
+            "name": "price_tiers",
+            "description": "resource type"
+        },
+        {
+            "name": "price_volume_tiers",
+            "description": "resource type"
+        },
+        {
             "name": "prices",
             "description": "resource type"
         },
@@ -53068,7 +55883,15 @@
             "description": "resource type"
         },
         {
+            "name": "shipping_method_tiers",
+            "description": "resource type"
+        },
+        {
             "name": "shipping_methods",
+            "description": "resource type"
+        },
+        {
+            "name": "shipping_weight_tiers",
             "description": "resource type"
         },
         {
