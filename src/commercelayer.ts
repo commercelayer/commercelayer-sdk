@@ -6,7 +6,7 @@ import { CommerceLayerStatic } from './static'
 import ResourceAdapter, { ResourcesConfig, ResourcesInitConfig } from './resource'
 
 
-const OPEN_API_SCHEMA_VERSION = '2.9.4'
+const OPEN_API_SCHEMA_VERSION = '2.9.5'
 
 
 type SdkConfig = {}
@@ -53,6 +53,7 @@ class CommerceLayerClient {
 	customers: api.Customers
 	delivery_lead_times: api.DeliveryLeadTimes
 	event_callbacks: api.EventCallbacks
+	events: api.Events
 	external_gateways: api.ExternalGateways
 	external_payments: api.ExternalPayments
 	external_promotions: api.ExternalPromotions
@@ -93,6 +94,8 @@ class CommerceLayerClient {
 	paypal_payments: api.PaypalPayments
 	percentage_discount_promotions: api.PercentageDiscountPromotions
 	price_lists: api.PriceLists
+	price_tiers: api.PriceTiers
+	price_volume_tiers: api.PriceVolumeTiers
 	prices: api.Prices
 	promotion_rules: api.PromotionRules
 	promotions: api.Promotions
@@ -101,7 +104,9 @@ class CommerceLayerClient {
 	returns: api.Returns
 	shipments: api.Shipments
 	shipping_categories: api.ShippingCategories
+	shipping_method_tiers: api.ShippingMethodTiers
 	shipping_methods: api.ShippingMethods
+	shipping_weight_tiers: api.ShippingWeightTiers
 	shipping_zones: api.ShippingZones
 	sku_list_items: api.SkuListItems
 	sku_list_promotion_rules: api.SkuListPromotionRules
@@ -160,6 +165,7 @@ class CommerceLayerClient {
 		this.customers = new api.Customers(this.#adapter)
 		this.delivery_lead_times = new api.DeliveryLeadTimes(this.#adapter)
 		this.event_callbacks = new api.EventCallbacks(this.#adapter)
+		this.events = new api.Events(this.#adapter)
 		this.external_gateways = new api.ExternalGateways(this.#adapter)
 		this.external_payments = new api.ExternalPayments(this.#adapter)
 		this.external_promotions = new api.ExternalPromotions(this.#adapter)
@@ -200,6 +206,8 @@ class CommerceLayerClient {
 		this.paypal_payments = new api.PaypalPayments(this.#adapter)
 		this.percentage_discount_promotions = new api.PercentageDiscountPromotions(this.#adapter)
 		this.price_lists = new api.PriceLists(this.#adapter)
+		this.price_tiers = new api.PriceTiers(this.#adapter)
+		this.price_volume_tiers = new api.PriceVolumeTiers(this.#adapter)
 		this.prices = new api.Prices(this.#adapter)
 		this.promotion_rules = new api.PromotionRules(this.#adapter)
 		this.promotions = new api.Promotions(this.#adapter)
@@ -208,7 +216,9 @@ class CommerceLayerClient {
 		this.returns = new api.Returns(this.#adapter)
 		this.shipments = new api.Shipments(this.#adapter)
 		this.shipping_categories = new api.ShippingCategories(this.#adapter)
+		this.shipping_method_tiers = new api.ShippingMethodTiers(this.#adapter)
 		this.shipping_methods = new api.ShippingMethods(this.#adapter)
+		this.shipping_weight_tiers = new api.ShippingWeightTiers(this.#adapter)
 		this.shipping_zones = new api.ShippingZones(this.#adapter)
 		this.sku_list_items = new api.SkuListItems(this.#adapter)
 		this.sku_list_promotion_rules = new api.SkuListPromotionRules(this.#adapter)

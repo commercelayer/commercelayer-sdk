@@ -25,6 +25,7 @@ import { Refund } from './refunds'
 import { OrderSubscription } from './order_subscriptions'
 import { OrderCopy } from './order_copies'
 import { Attachment } from './attachments'
+import { Event } from './events'
 
 
 type OrderRel = ResourceRel & { type: typeof Orders.TYPE }
@@ -162,6 +163,7 @@ interface Order extends Resource {
 	order_subscriptions?: OrderSubscription[]
 	order_copies?: OrderCopy[]
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 

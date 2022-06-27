@@ -10,7 +10,7 @@ interface Application extends Resource {
 	
 	name?: string
 	kind?: string
-	public_access?: string
+	public_access?: boolean
 	redirect_uri?: string
 	scopes?: string
 	

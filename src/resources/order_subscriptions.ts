@@ -5,6 +5,7 @@ import { Market } from './markets'
 import { Order } from './orders'
 import { Customer } from './customers'
 import { OrderCopy } from './order_copies'
+import { Event } from './events'
 
 
 type OrderSubscriptionRel = ResourceRel & { type: typeof OrderSubscriptions.TYPE }
@@ -32,6 +33,7 @@ interface OrderSubscription extends Resource {
 	customer?: Customer
 	order_copies?: OrderCopy[]
 	orders?: Order[]
+	events?: Event[]
 
 }
 

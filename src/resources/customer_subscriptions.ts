@@ -2,6 +2,7 @@ import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig,
 import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
+import { Event } from './events'
 
 
 type CustomerSubscriptionRel = ResourceRel & { type: typeof CustomerSubscriptions.TYPE }
@@ -12,6 +13,7 @@ interface CustomerSubscription extends Resource {
 	customer_email?: string
 
 	customer?: Customer
+	events?: Event[]
 
 }
 

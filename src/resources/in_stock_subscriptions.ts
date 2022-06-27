@@ -4,6 +4,7 @@ import { QueryParamsList, QueryParamsRetrieve } from '../query'
 import { Market } from './markets'
 import { Customer } from './customers'
 import { Sku } from './skus'
+import { Event } from './events'
 
 
 type InStockSubscriptionRel = ResourceRel & { type: typeof InStockSubscriptions.TYPE }
@@ -22,6 +23,7 @@ interface InStockSubscription extends Resource {
 	market?: Market
 	customer?: Customer
 	sku?: Sku
+	events?: Event[]
 
 }
 

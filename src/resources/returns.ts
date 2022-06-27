@@ -7,6 +7,7 @@ import { StockLocation } from './stock_locations'
 import { Address } from './addresses'
 import { ReturnLineItem } from './return_line_items'
 import { Attachment } from './attachments'
+import { Event } from './events'
 
 
 type ReturnRel = ResourceRel & { type: typeof Returns.TYPE }
@@ -34,6 +35,7 @@ interface Return extends Resource {
 	destination_address?: Address
 	return_line_items?: ReturnLineItem[]
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 

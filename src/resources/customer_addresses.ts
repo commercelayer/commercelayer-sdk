@@ -3,6 +3,7 @@ import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
 import { Address } from './addresses'
+import { Event } from './events'
 
 
 type CustomerAddressRel = ResourceRel & { type: typeof CustomerAddresses.TYPE }
@@ -16,6 +17,7 @@ interface CustomerAddress extends Resource {
 
 	customer?: Customer
 	address?: Address
+	events?: Event[]
 
 }
 

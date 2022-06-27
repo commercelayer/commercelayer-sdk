@@ -3,6 +3,7 @@ import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { Capture } from './captures'
+import { Event } from './events'
 
 
 type RefundRel = ResourceRel & { type: typeof Refunds.TYPE }
@@ -24,6 +25,7 @@ interface Refund extends Resource {
 
 	order?: Order
 	reference_capture?: Capture
+	events?: Event[]
 
 }
 

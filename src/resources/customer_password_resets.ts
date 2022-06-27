@@ -2,6 +2,7 @@ import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig,
 import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Customer } from './customers'
+import { Event } from './events'
 
 
 type CustomerPasswordResetRel = ResourceRel & { type: typeof CustomerPasswordResets.TYPE }
@@ -14,6 +15,7 @@ interface CustomerPasswordReset extends Resource {
 	reset_password_at?: string
 
 	customer?: Customer
+	events?: Event[]
 
 }
 

@@ -1,6 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
 import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
+import { Event } from './events'
 
 
 type ImportRel = ResourceRel & { type: typeof Imports.TYPE }
@@ -23,7 +24,9 @@ interface Import extends Resource {
 	errors_log?: object
 	warnings_log?: object
 	cleanup_records?: boolean
-	
+
+	events?: Event[]
+
 }
 
 

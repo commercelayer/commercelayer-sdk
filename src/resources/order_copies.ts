@@ -3,6 +3,7 @@ import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { Order } from './orders'
 import { OrderSubscription } from './order_subscriptions'
+import { Event } from './events'
 
 
 type OrderCopyRel = ResourceRel & { type: typeof OrderCopies.TYPE }
@@ -24,6 +25,7 @@ interface OrderCopy extends Resource {
 	source_order?: Order
 	target_order?: Order
 	order_subscription?: OrderSubscription
+	events?: Event[]
 
 }
 

@@ -5,6 +5,7 @@ import { Sku } from './skus'
 import { StockLocation } from './stock_locations'
 import { Shipment } from './shipments'
 import { LineItem } from './line_items'
+import { Event } from './events'
 
 
 type StockTransferRel = ResourceRel & { type: typeof StockTransfers.TYPE }
@@ -27,6 +28,7 @@ interface StockTransfer extends Resource {
 	destination_stock_location?: StockLocation
 	shipment?: Shipment
 	line_item?: LineItem
+	events?: Event[]
 
 }
 

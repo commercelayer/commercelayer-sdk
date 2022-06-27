@@ -9,6 +9,7 @@ import { Order } from './orders'
 import { OrderSubscription } from './order_subscriptions'
 import { Return } from './returns'
 import { Attachment } from './attachments'
+import { Event } from './events'
 
 
 type CustomerRel = ResourceRel & { type: typeof Customers.TYPE }
@@ -29,6 +30,7 @@ interface Customer extends Resource {
 	order_subscriptions?: OrderSubscription[]
 	returns?: Return[]
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 

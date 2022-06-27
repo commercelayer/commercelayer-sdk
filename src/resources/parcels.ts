@@ -5,6 +5,7 @@ import { Shipment } from './shipments'
 import { Package } from './packages'
 import { ParcelLineItem } from './parcel_line_items'
 import { Attachment } from './attachments'
+import { Event } from './events'
 
 
 type ParcelRel = ResourceRel & { type: typeof Parcels.TYPE }
@@ -43,14 +44,15 @@ interface Parcel extends Resource {
 	package?: Package
 	parcel_line_items?: ParcelLineItem[]
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 
 
 interface ParcelCreate extends ResourceCreate {
 	
-	weight?: number
-	unit_of_weight?: string
+	weight: number
+	unit_of_weight: string
 	eel_pfc?: string
 	contents_type?: string
 	contents_explanation?: string

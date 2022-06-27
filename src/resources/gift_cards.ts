@@ -4,6 +4,7 @@ import { QueryParamsList, QueryParamsRetrieve } from '../query'
 import { Market } from './markets'
 import { GiftCardRecipient } from './gift_card_recipients'
 import { Attachment } from './attachments'
+import { Event } from './events'
 
 
 type GiftCardRel = ResourceRel & { type: typeof GiftCards.TYPE }
@@ -35,6 +36,7 @@ interface GiftCard extends Resource {
 	market?: Market
 	gift_card_recipient?: GiftCardRecipient
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 

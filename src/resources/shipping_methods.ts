@@ -4,7 +4,10 @@ import { QueryParamsList, QueryParamsRetrieve } from '../query'
 import { Market } from './markets'
 import { ShippingZone } from './shipping_zones'
 import { ShippingCategory } from './shipping_categories'
+import { StockLocation } from './stock_locations'
 import { DeliveryLeadTime } from './delivery_lead_times'
+import { ShippingMethodTier } from './shipping_method_tiers'
+import { ShippingWeightTier } from './shipping_weight_tiers'
 import { Attachment } from './attachments'
 
 
@@ -12,11 +15,14 @@ type ShippingMethodRel = ResourceRel & { type: typeof ShippingMethods.TYPE }
 type MarketRel = ResourceRel & { type: 'markets' }
 type ShippingZoneRel = ResourceRel & { type: 'shipping_zones' }
 type ShippingCategoryRel = ResourceRel & { type: 'shipping_categories' }
+type StockLocationRel = ResourceRel & { type: 'stock_locations' }
+type ShippingMethodTierRel = ResourceRel & { type: 'shipping_method_tiers' }
 
 
 interface ShippingMethod extends Resource {
 	
 	name?: string
+	scheme?: string
 	currency_code?: string
 	disabled_at?: string
 	price_amount_cents?: number
@@ -28,11 +34,17 @@ interface ShippingMethod extends Resource {
 	price_amount_for_shipment_cents?: number
 	price_amount_for_shipment_float?: number
 	formatted_price_amount_for_shipment?: string
+	min_weight?: number
+	max_weight?: number
+	unit_of_weight?: string
 
 	market?: Market
 	shipping_zone?: ShippingZone
 	shipping_category?: ShippingCategory
+	stock_location?: StockLocation
 	delivery_lead_time_for_shipment?: DeliveryLeadTime
+	shipping_method_tiers?: ShippingMethodTier[]
+	shipping_weight_tiers?: ShippingWeightTier[]
 	attachments?: Attachment[]
 
 }
@@ -41,13 +53,19 @@ interface ShippingMethod extends Resource {
 interface ShippingMethodCreate extends ResourceCreate {
 	
 	name: string
+	scheme?: string
 	currency_code?: string
 	price_amount_cents: number
 	free_over_amount_cents?: number
+	min_weight?: number
+	max_weight?: number
+	unit_of_weight?: string
 
 	market?: MarketRel
-	shipping_zone: ShippingZoneRel
-	shipping_category: ShippingCategoryRel
+	shipping_zone?: ShippingZoneRel
+	shipping_category?: ShippingCategoryRel
+	stock_location?: StockLocationRel
+	shipping_method_tiers?: ShippingMethodTierRel[]
 
 }
 
@@ -55,13 +73,19 @@ interface ShippingMethodCreate extends ResourceCreate {
 interface ShippingMethodUpdate extends ResourceUpdate {
 	
 	name?: string
+	scheme?: string
 	currency_code?: string
 	price_amount_cents?: number
 	free_over_amount_cents?: number
+	min_weight?: number
+	max_weight?: number
+	unit_of_weight?: string
 
 	market?: MarketRel
 	shipping_zone?: ShippingZoneRel
 	shipping_category?: ShippingCategoryRel
+	stock_location?: StockLocationRel
+	shipping_method_tiers?: ShippingMethodTierRel[]
 
 }
 

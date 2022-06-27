@@ -3,12 +3,15 @@ import { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import { PriceList } from './price_lists'
 import { Sku } from './skus'
+import { PriceTier } from './price_tiers'
+import { PriceVolumeTier } from './price_volume_tiers'
 import { Attachment } from './attachments'
 
 
 type PriceRel = ResourceRel & { type: typeof Prices.TYPE }
 type PriceListRel = ResourceRel & { type: 'price_lists' }
 type SkuRel = ResourceRel & { type: 'skus' }
+type PriceTierRel = ResourceRel & { type: 'price_tiers' }
 
 
 interface Price extends Resource {
@@ -24,6 +27,8 @@ interface Price extends Resource {
 
 	price_list?: PriceList
 	sku?: Sku
+	price_tiers?: PriceTier[]
+	price_volume_tiers?: PriceVolumeTier[]
 	attachments?: Attachment[]
 
 }
@@ -37,6 +42,7 @@ interface PriceCreate extends ResourceCreate {
 
 	price_list: PriceListRel
 	sku?: SkuRel
+	price_tiers?: PriceTierRel[]
 
 }
 
@@ -49,6 +55,7 @@ interface PriceUpdate extends ResourceUpdate {
 
 	price_list?: PriceListRel
 	sku?: SkuRel
+	price_tiers?: PriceTierRel[]
 
 }
 

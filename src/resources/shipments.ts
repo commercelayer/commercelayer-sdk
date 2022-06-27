@@ -12,6 +12,7 @@ import { StockTransfer } from './stock_transfers'
 import { CarrierAccount } from './carrier_accounts'
 import { Parcel } from './parcels'
 import { Attachment } from './attachments'
+import { Event } from './events'
 
 
 type ShipmentRel = ResourceRel & { type: typeof Shipments.TYPE }
@@ -31,6 +32,7 @@ interface Shipment extends Resource {
 	rates?: object[]
 	purchase_error_code?: string
 	purchase_error_message?: string
+	get_rates_errors?: object[]
 	get_rates_started_at?: string
 	get_rates_completed_at?: string
 	purchase_started_at?: string
@@ -54,6 +56,7 @@ interface Shipment extends Resource {
 	carrier_accounts?: CarrierAccount[]
 	parcels?: Parcel[]
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 
