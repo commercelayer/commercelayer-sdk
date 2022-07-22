@@ -75,6 +75,8 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	name?: string
 	scheme?: string
 	currency_code?: string
+	_disable?: boolean
+	_enable?: boolean
 	price_amount_cents?: number
 	free_over_amount_cents?: number
 	min_weight?: number

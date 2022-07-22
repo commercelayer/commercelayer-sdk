@@ -47,6 +47,8 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 	payment_source_type?: string
 	currency_code?: string
 	moto?: boolean
+	_disable?: boolean
+	_enable?: boolean
 	price_amount_cents?: number
 
 	market?: MarketRel
