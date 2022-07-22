@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "2.9.5",
+        "version": "2.9.6",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -34091,7 +34091,7 @@
                                     },
                                     "status": {
                                         "type": "string",
-                                        "description": "The import job status. One of 'pending' (default), 'in_progress', 'interrputed', or 'completed'.",
+                                        "description": "The import job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.",
                                         "example": "in_progress"
                                     },
                                     "started_at": {
@@ -34358,7 +34358,7 @@
                                     },
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku, replace the relationship",
+                                        "description": "The code of the associated SKU, replace the relationship",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "stock_threshold": {
@@ -34518,7 +34518,7 @@
                                     },
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku, replace the relationship",
+                                        "description": "The code of the associated SKU, replace the relationship",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "stock_threshold": {
@@ -34649,7 +34649,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku, replace the relationship",
+                                        "description": "The code of the associated SKU, replace the relationship",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "stock_threshold": {
@@ -34784,8 +34784,8 @@
                                     },
                                     "strategy": {
                                         "type": "string",
-                                        "description": "The inventory model's shipping strategy: one between 'split_shipments' (default), 'ship_from_primary' and 'ship_from_first_available_or_primary'.",
-                                        "example": "split_shipments"
+                                        "description": "The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.",
+                                        "example": "no_split"
                                     },
                                     "stock_locations_cutoff": {
                                         "type": "integer",
@@ -34924,8 +34924,8 @@
                                     },
                                     "strategy": {
                                         "type": "string",
-                                        "description": "The inventory model's shipping strategy: one between 'split_shipments' (default), 'ship_from_primary' and 'ship_from_first_available_or_primary'.",
-                                        "example": "split_shipments"
+                                        "description": "The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.",
+                                        "example": "no_split"
                                     },
                                     "stock_locations_cutoff": {
                                         "type": "integer",
@@ -34951,8 +34951,7 @@
                                     }
                                 },
                                 "required": [
-                                    "name",
-                                    "strategy"
+                                    "name"
                                 ]
                             },
                             "relationships": {
@@ -34998,8 +34997,8 @@
                                     },
                                     "strategy": {
                                         "type": "string",
-                                        "description": "The inventory model's shipping strategy: one between 'split_shipments' (default), 'ship_from_primary' and 'ship_from_first_available_or_primary'.",
-                                        "example": "split_shipments"
+                                        "description": "The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.",
+                                        "example": "no_split"
                                     },
                                     "stock_locations_cutoff": {
                                         "type": "integer",
@@ -36311,7 +36310,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The name of the line item option. When blank, it gets populated with the name of the associated sku option.",
+                                        "description": "The name of the line item option. When blank, it gets populated with the name of the associated SKU option.",
                                         "example": "Embossing"
                                     },
                                     "quantity": {
@@ -36326,7 +36325,7 @@
                                     },
                                     "unit_amount_cents": {
                                         "type": "integer",
-                                        "description": "The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated sku option's price.",
+                                        "description": "The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price.",
                                         "example": 990
                                     },
                                     "unit_amount_float": {
@@ -36356,7 +36355,7 @@
                                     },
                                     "delay_hours": {
                                         "type": "integer",
-                                        "description": "The shipping delay that the customer can expect when adding this option (hours). Inherited from the associated sku option.",
+                                        "description": "The shipping delay that the customer can expect when adding this option (hours). Inherited from the associated SKU option.",
                                         "example": 48
                                     },
                                     "delay_days": {
@@ -36478,7 +36477,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The name of the line item option. When blank, it gets populated with the name of the associated sku option.",
+                                        "description": "The name of the line item option. When blank, it gets populated with the name of the associated SKU option.",
                                         "example": "Embossing"
                                     },
                                     "quantity": {
@@ -36599,7 +36598,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The name of the line item option. When blank, it gets populated with the name of the associated sku option.",
+                                        "description": "The name of the line item option. When blank, it gets populated with the name of the associated SKU option.",
                                         "example": "Embossing"
                                     },
                                     "quantity": {
@@ -36686,7 +36685,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "bundle_code": {
@@ -36766,17 +36765,17 @@
                                     },
                                     "tax_amount_cents": {
                                         "type": "integer",
-                                        "description": "Calculated as total amount cents - discount cent * tax rate, in cents.",
+                                        "description": "The collected tax amount, otherwise calculated as total amount cents - discount cent * tax rate, in cents.",
                                         "example": 1880
                                     },
                                     "tax_amount_float": {
                                         "type": "number",
-                                        "description": "Calculated as total amount cents - discount cent * tax rate, float.",
+                                        "description": "The collected tax amount, otherwise calculated as total amount cents - discount cent * tax rate, float.",
                                         "example": 18.8
                                     },
                                     "formatted_tax_amount": {
                                         "type": "string",
-                                        "description": "Calculated as total amount cents - discount cent * tax rate, formatted.",
+                                        "description": "The collected tax amount, otherwise calculated as total amount cents - discount cent * tax rate, formatted.",
                                         "example": "€18,80"
                                     },
                                     "name": {
@@ -36786,7 +36785,7 @@
                                     },
                                     "image_url": {
                                         "type": "string",
-                                        "description": "The image_url of the line item. When blank, it gets populated with the image_url of the associated item (if present, sku only).",
+                                        "description": "The image_url of the line item. When blank, it gets populated with the image_url of the associated item (if present, SKU only).",
                                         "example": "https://img.yourdomain.com/skus/xYZkjABcde.png"
                                     },
                                     "discount_breakdown": {
@@ -37063,7 +37062,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "bundle_code": {
@@ -37083,7 +37082,7 @@
                                     },
                                     "_update_quantity": {
                                         "type": "boolean",
-                                        "description": "When creating a new line item, set this attribute to '1' if you want to update the line item quantity (if present) instead of creating a new line item for the same sku.",
+                                        "description": "When creating a new line item, set this attribute to '1' if you want to update the line item quantity (if present) instead of creating a new line item for the same SKU.",
                                         "example": true
                                     },
                                     "unit_amount_cents": {
@@ -37098,7 +37097,7 @@
                                     },
                                     "image_url": {
                                         "type": "string",
-                                        "description": "The image_url of the line item. When blank, it gets populated with the image_url of the associated item (if present, sku only).",
+                                        "description": "The image_url of the line item. When blank, it gets populated with the image_url of the associated item (if present, SKU only).",
                                         "example": "https://img.yourdomain.com/skus/xYZkjABcde.png"
                                     },
                                     "item_type": {
@@ -37254,7 +37253,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "bundle_code": {
@@ -37274,7 +37273,7 @@
                                     },
                                     "image_url": {
                                         "type": "string",
-                                        "description": "The image_url of the line item. When blank, it gets populated with the image_url of the associated item (if present, sku only).",
+                                        "description": "The image_url of the line item. When blank, it gets populated with the image_url of the associated item (if present, SKU only).",
                                         "example": "https://img.yourdomain.com/skus/xYZkjABcde.png"
                                     },
                                     "reference": {
@@ -39380,7 +39379,7 @@
                                     },
                                     "activate_by_source_order": {
                                         "type": "boolean",
-                                        "description": "Indicates if the subscription will be actvated considering the placed source order as its first run, default to true.",
+                                        "description": "Indicates if the subscription will be activated considering the placed source order as its first run, default to true.",
                                         "example": true
                                     },
                                     "customer_email": {
@@ -39617,7 +39616,7 @@
                                     },
                                     "activate_by_source_order": {
                                         "type": "boolean",
-                                        "description": "Indicates if the subscription will be actvated considering the placed source order as its first run, default to true.",
+                                        "description": "Indicates if the subscription will be activated considering the placed source order as its first run, default to true.",
                                         "example": true
                                     },
                                     "starts_at": {
@@ -39990,17 +39989,17 @@
                                     },
                                     "subtotal_amount_cents": {
                                         "type": "integer",
-                                        "description": "The sum of all the sku line items total amounts, in cents.",
+                                        "description": "The sum of all the SKU line items total amounts, in cents.",
                                         "example": 5000
                                     },
                                     "subtotal_amount_float": {
                                         "type": "number",
-                                        "description": "The sum of all the sku line items total amounts, float.",
+                                        "description": "The sum of all the SKU line items total amounts, float.",
                                         "example": 50
                                     },
                                     "formatted_subtotal_amount": {
                                         "type": "string",
-                                        "description": "The sum of all the sku line items total amounts, formatted.",
+                                        "description": "The sum of all the SKU line items total amounts, formatted.",
                                         "example": "€50,00"
                                     },
                                     "shipping_amount_cents": {
@@ -40170,7 +40169,7 @@
                                     },
                                     "total_taxable_amount_cents": {
                                         "type": "integer",
-                                        "description": "The order's total taxable amount, in cents (equal to total_amount_cents when prices don't include taxes).",
+                                        "description": "The order's total taxable amount, in cents (without discounts).",
                                         "example": 4672
                                     },
                                     "total_taxable_amount_float": {
@@ -40290,7 +40289,7 @@
                                     },
                                     "skus_count": {
                                         "type": "integer",
-                                        "description": "The total number of skus in the order's line items. This can be useful to display a preview of the customer shopping cart content.",
+                                        "description": "The total number of SKUs in the order's line items. This can be useful to display a preview of the customer shopping cart content.",
                                         "example": 2
                                     },
                                     "line_item_options_count": {
@@ -41305,7 +41304,7 @@
                                     },
                                     "_capture": {
                                         "type": "boolean",
-                                        "description": "Send this attribute if you want to capture an approved order.",
+                                        "description": "Send this attribute if you want to capture an authorized order.",
                                         "example": true
                                     },
                                     "_refund": {
@@ -42101,7 +42100,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the sku of the associated shipment_line_item.",
+                                        "description": "The code of the SKU of the associated shipment_line_item.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "quantity": {
@@ -42237,7 +42236,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the sku of the associated shipment_line_item.",
+                                        "description": "The code of the SKU of the associated shipment_line_item.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "quantity": {
@@ -43179,7 +43178,7 @@
                                 "properties": {
                                     "payment_source_type": {
                                         "type": "string",
-                                        "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
+                                        "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'KlarnaPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
                                         "example": "CreditCard"
                                     },
                                     "name": {
@@ -43344,7 +43343,7 @@
                                 "properties": {
                                     "payment_source_type": {
                                         "type": "string",
-                                        "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
+                                        "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'KlarnaPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
                                         "example": "CreditCard"
                                     },
                                     "currency_code": {
@@ -43467,7 +43466,7 @@
                                 "properties": {
                                     "payment_source_type": {
                                         "type": "string",
-                                        "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
+                                        "description": "The payment source type, can be one of: 'AdyenPayment', 'BraintreePayment', 'CheckoutComPayment', 'CreditCard', 'ExternalPayment', 'KlarnaPayment', 'PaypalPayment', 'StripePayment', or 'WireTransfer'.",
                                         "example": "CreditCard"
                                     },
                                     "currency_code": {
@@ -43479,6 +43478,16 @@
                                         "type": "boolean",
                                         "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
                                         "example": false
+                                    },
+                                    "_disable": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the payment method as disabled.",
+                                        "example": true
+                                    },
+                                    "_enable": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the payment method as enabled.",
+                                        "example": true
                                     },
                                     "price_amount_cents": {
                                         "type": "integer",
@@ -46524,7 +46533,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "bundle_code": {
@@ -46857,7 +46866,7 @@
                                     },
                                     "skus_count": {
                                         "type": "integer",
-                                        "description": "The total number of skus in the return's line items. This can be useful to display a preview of the return content.",
+                                        "description": "The total number of SKUs in the return's line items. This can be useful to display a preview of the return content.",
                                         "example": 2
                                     },
                                     "approved_at": {
@@ -47361,7 +47370,7 @@
                                     },
                                     "skus_count": {
                                         "type": "integer",
-                                        "description": "The total number of skus in the shipment's line items. This can be useful to display a preview of the shipment content.",
+                                        "description": "The total number of SKUs in the shipment's line items. This can be useful to display a preview of the shipment content.",
                                         "example": 2
                                     },
                                     "selected_rate_id": {
@@ -48792,6 +48801,16 @@
                                         "description": "The international 3-letter currency code as defined by the ISO 4217 standard.",
                                         "example": "EUR"
                                     },
+                                    "_disable": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the shipping method as disabled.",
+                                        "example": true
+                                    },
+                                    "_enable": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the shipping method as enabled.",
+                                        "example": true
+                                    },
                                     "price_amount_cents": {
                                         "type": "integer",
                                         "description": "The price of this shipping method, in cents.",
@@ -49915,7 +49934,7 @@
                                     },
                                     "min_quantity": {
                                         "type": "integer",
-                                        "description": "The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the sku_list is manual, its items quantities are honoured.",
+                                        "description": "The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.",
                                         "example": 3
                                     }
                                 }
@@ -50063,7 +50082,7 @@
                                     },
                                     "min_quantity": {
                                         "type": "integer",
-                                        "description": "The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the sku_list is manual, its items quantities are honoured.",
+                                        "description": "The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.",
                                         "example": 3
                                     }
                                 }
@@ -50200,7 +50219,7 @@
                                     },
                                     "min_quantity": {
                                         "type": "integer",
-                                        "description": "The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the sku_list is manual, its items quantities are honoured.",
+                                        "description": "The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.",
                                         "example": 3
                                     }
                                 }
@@ -50618,7 +50637,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The sku option's internal name",
+                                        "description": "The SKU option's internal name",
                                         "example": "Embossing"
                                     },
                                     "currency_code": {
@@ -50628,7 +50647,7 @@
                                     },
                                     "description": {
                                         "type": "string",
-                                        "description": "An internal description of the sku option.",
+                                        "description": "An internal description of the SKU option.",
                                         "example": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                                     },
                                     "price_amount_cents": {
@@ -50658,7 +50677,7 @@
                                     },
                                     "sku_code_regex": {
                                         "type": "string",
-                                        "description": "The regex that will be evaluated to match the sku codes.",
+                                        "description": "The regex that will be evaluated to match the SKU codes.",
                                         "example": "^(A|B).*$"
                                     },
                                     "id": {
@@ -50768,7 +50787,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The sku option's internal name",
+                                        "description": "The SKU option's internal name",
                                         "example": "Embossing"
                                     },
                                     "currency_code": {
@@ -50778,7 +50797,7 @@
                                     },
                                     "description": {
                                         "type": "string",
-                                        "description": "An internal description of the sku option.",
+                                        "description": "An internal description of the SKU option.",
                                         "example": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                                     },
                                     "price_amount_cents": {
@@ -50793,7 +50812,7 @@
                                     },
                                     "sku_code_regex": {
                                         "type": "string",
-                                        "description": "The regex that will be evaluated to match the sku codes.",
+                                        "description": "The regex that will be evaluated to match the SKU codes.",
                                         "example": "^(A|B).*$"
                                     },
                                     "reference": {
@@ -50877,7 +50896,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "The sku option's internal name",
+                                        "description": "The SKU option's internal name",
                                         "example": "Embossing"
                                     },
                                     "currency_code": {
@@ -50887,7 +50906,7 @@
                                     },
                                     "description": {
                                         "type": "string",
-                                        "description": "An internal description of the sku option.",
+                                        "description": "An internal description of the SKU option.",
                                         "example": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                                     },
                                     "price_amount_cents": {
@@ -50902,7 +50921,7 @@
                                     },
                                     "sku_code_regex": {
                                         "type": "string",
-                                        "description": "The regex that will be evaluated to match the sku codes.",
+                                        "description": "The regex that will be evaluated to match the SKU codes.",
                                         "example": "^(A|B).*$"
                                     },
                                     "reference": {
@@ -51557,7 +51576,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "quantity": {
@@ -51692,7 +51711,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "quantity": {
@@ -51804,7 +51823,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "quantity": {
@@ -51904,7 +51923,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "bundle_code": {
@@ -52431,7 +52450,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "status": {
@@ -52641,7 +52660,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "quantity": {
@@ -52815,7 +52834,7 @@
                                 "properties": {
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku.",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "_upcoming": {
@@ -53663,7 +53682,7 @@
                                     },
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "id": {
@@ -53818,7 +53837,7 @@
                                     },
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "reference": {
@@ -53951,7 +53970,7 @@
                                     },
                                     "sku_code": {
                                         "type": "string",
-                                        "description": "The code of the associated sku",
+                                        "description": "The code of the associated SKU.",
                                         "example": "TSHIRTMM000000FFFFFFXLXX"
                                     },
                                     "reference": {

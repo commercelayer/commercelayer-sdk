@@ -25,7 +25,7 @@ interface InventoryModel extends Resource {
 interface InventoryModelCreate extends ResourceCreate {
 	
 	name: string
-	strategy: string
+	strategy?: string
 	stock_locations_cutoff?: number
 	
 }
