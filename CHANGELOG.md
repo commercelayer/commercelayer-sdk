@@ -1,3 +1,11 @@
+## [4.15.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.15.0...v4.15.1) (2022-07-22)
+
+
+### Bug Fixes
+
+* **core:** update resources to schema v2.9.6 ([ba2e2f3](https://github.com/commercelayer/commercelayer-sdk/commit/ba2e2f39912f98ce65f398542d5df0a701f278ec))
+* **core:** update resources to schema v2.9.6 ([14e04f5](https://github.com/commercelayer/commercelayer-sdk/commit/14e04f5e05779916581ceb627b4befa1c2a1cbfa))
+
 # [4.15.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.14.0...v4.15.0) (2022-06-27)
 
 
