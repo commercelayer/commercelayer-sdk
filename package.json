@@ -65,7 +65,8 @@
   },
   "repository": "github:commercelayer/commercelayer-sdk",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "node12"
   },
   "size-limit": [
     {
