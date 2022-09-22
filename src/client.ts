@@ -7,6 +7,7 @@ import type { Agent as HttpAgent } from 'http'
 import type { Agent as HttpsAgent } from 'https'
 
 import Debug from './debug'
+import { inspect } from 'util'
 const debug = Debug('client')
 
 
@@ -145,7 +146,7 @@ class ApiClient {
 
 		const requestParams = { method, baseURL: baseUrl, url, data, headers, ...options }
 
-		debug('request params: %O', requestParams)
+		debug('request params: %O', inspect(requestParams, false, null, true))
 
 		// const start = Date.now()
 		return this.#client.request(requestParams)
