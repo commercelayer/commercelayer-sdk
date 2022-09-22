@@ -146,7 +146,7 @@ class ApiClient {
 
 		const requestParams = { method, baseURL: baseUrl, url, data, headers, ...options }
 
-		debug('request params: %O', inspect(requestParams, false, null, true))
+		debug('request params: %s', inspect(requestParams, false, null, true))
 
 		// const start = Date.now()
 		return this.#client.request(requestParams)
