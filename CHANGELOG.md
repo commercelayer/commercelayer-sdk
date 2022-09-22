@@ -1,3 +1,10 @@
+## [4.15.2](https://github.com/commercelayer/commercelayer-sdk/compare/v4.15.1...v4.15.2) (2022-09-22)
+
+
+### Bug Fixes
+
+* **client:** add details to request debug log ([45f1ab0](https://github.com/commercelayer/commercelayer-sdk/commit/45f1ab0fa720d09681145066df9c4ff7eea1f7c1))
+
 ## [4.15.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.15.0...v4.15.1) (2022-07-22)
 
 
