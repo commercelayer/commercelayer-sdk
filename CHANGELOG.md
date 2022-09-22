@@ -1,3 +1,11 @@
+## [4.15.3](https://github.com/commercelayer/commercelayer-sdk/compare/v4.15.2...v4.15.3) (2022-09-22)
+
+
+### Bug Fixes
+
+* **core:** fix issue in error type handling ([b6594e4](https://github.com/commercelayer/commercelayer-sdk/commit/b6594e4ae5574d19990167daee77a108ad99f854))
+* **debug:** update log format ([4769878](https://github.com/commercelayer/commercelayer-sdk/commit/476987834eec55a12c347a19a0f1d5cc0a93e886))
+
 ## [4.15.2](https://github.com/commercelayer/commercelayer-sdk/compare/v4.15.1...v4.15.2) (2022-09-22)
 
 
