@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.5
+ * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('PriceVolumeTiers resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_13',
-			price_amount_cents: 100,
+			name: 'omega_69',
+			price_amount_cents: 10000,
 			price: cl.prices.relationship(TestData.id),
 		}
 

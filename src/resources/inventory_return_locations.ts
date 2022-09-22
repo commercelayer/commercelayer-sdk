@@ -42,7 +42,7 @@ interface InventoryReturnLocationUpdate extends ResourceUpdate {
 
 class InventoryReturnLocations extends ApiResource {
 
-	static readonly TYPE: 'inventory_return_locations' = 'inventory_return_locations'
+	static readonly TYPE: 'inventory_return_locations' = 'inventory_return_locations' as const
 	// static readonly PATH = 'inventory_return_locations'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {

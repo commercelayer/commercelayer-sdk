@@ -34,7 +34,7 @@ interface ShippingCategoryUpdate extends ResourceUpdate {
 
 class ShippingCategories extends ApiResource {
 
-	static readonly TYPE: 'shipping_categories' = 'shipping_categories'
+	static readonly TYPE: 'shipping_categories' = 'shipping_categories' as const
 	// static readonly PATH = 'shipping_categories'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingCategory>> {

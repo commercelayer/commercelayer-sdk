@@ -21,7 +21,7 @@ interface PromotionRule extends Resource {
 
 class PromotionRules extends ApiResource {
 
-	static readonly TYPE: 'promotion_rules' = 'promotion_rules'
+	static readonly TYPE: 'promotion_rules' = 'promotion_rules' as const
 	// static readonly PATH = 'promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PromotionRule>> {

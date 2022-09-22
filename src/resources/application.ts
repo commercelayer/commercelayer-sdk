@@ -19,7 +19,7 @@ interface Application extends Resource {
 
 class Applications extends ApiResource {
 
-	static readonly TYPE: 'application' = 'application'
+	static readonly TYPE: 'application' = 'application' as const
 	// static readonly PATH = 'application'
 
 	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Application> {

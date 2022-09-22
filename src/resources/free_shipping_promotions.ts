@@ -73,7 +73,7 @@ interface FreeShippingPromotionUpdate extends ResourceUpdate {
 
 class FreeShippingPromotions extends ApiResource {
 
-	static readonly TYPE: 'free_shipping_promotions' = 'free_shipping_promotions'
+	static readonly TYPE: 'free_shipping_promotions' = 'free_shipping_promotions' as const
 	// static readonly PATH = 'free_shipping_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FreeShippingPromotion>> {

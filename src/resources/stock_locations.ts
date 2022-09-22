@@ -54,7 +54,7 @@ interface StockLocationUpdate extends ResourceUpdate {
 
 class StockLocations extends ApiResource {
 
-	static readonly TYPE: 'stock_locations' = 'stock_locations'
+	static readonly TYPE: 'stock_locations' = 'stock_locations' as const
 	// static readonly PATH = 'stock_locations'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {

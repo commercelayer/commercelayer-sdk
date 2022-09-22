@@ -44,8 +44,6 @@ interface BundleCreate extends ResourceCreate {
 	currency_code?: string
 	description?: string
 	image_url?: string
-	do_not_ship?: boolean
-	do_not_track?: boolean
 	price_amount_cents: number
 	compare_at_amount_cents: number
 	_compute_price_amount?: boolean
@@ -64,8 +62,6 @@ interface BundleUpdate extends ResourceUpdate {
 	currency_code?: string
 	description?: string
 	image_url?: string
-	do_not_ship?: boolean
-	do_not_track?: boolean
 	price_amount_cents?: number
 	compare_at_amount_cents?: number
 	_compute_price_amount?: boolean
@@ -76,7 +72,7 @@ interface BundleUpdate extends ResourceUpdate {
 
 class Bundles extends ApiResource {
 
-	static readonly TYPE: 'bundles' = 'bundles'
+	static readonly TYPE: 'bundles' = 'bundles' as const
 	// static readonly PATH = 'bundles'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {

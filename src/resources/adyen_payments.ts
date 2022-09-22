@@ -45,7 +45,7 @@ interface AdyenPaymentUpdate extends ResourceUpdate {
 
 class AdyenPayments extends ApiResource {
 
-	static readonly TYPE: 'adyen_payments' = 'adyen_payments'
+	static readonly TYPE: 'adyen_payments' = 'adyen_payments' as const
 	// static readonly PATH = 'adyen_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenPayment>> {

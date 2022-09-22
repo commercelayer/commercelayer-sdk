@@ -101,7 +101,7 @@ interface AttachmentUpdate extends ResourceUpdate {
 
 class Attachments extends ApiResource {
 
-	static readonly TYPE: 'attachments' = 'attachments'
+	static readonly TYPE: 'attachments' = 'attachments' as const
 	// static readonly PATH = 'attachments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

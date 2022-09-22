@@ -61,7 +61,9 @@ export const CommonData = {
 let currentAccessToken: string
 
 const initClient = async (): Promise<CommerceLayerClient> => {
-	const accessToken = (await getToken('integration')).accessToken
+	const token = await getToken('integration')
+	if (token === null) throw new Error('Unable to get access token')
+	const accessToken = token.accessToken
 	currentAccessToken = accessToken
 	const client = CommerceLayer({ organization, accessToken, domain })
 	client.config({ timeout: GLOBAL_TIMEOUT })
@@ -126,7 +128,7 @@ export { handleError, interceptRequest, randomAttributes }
 
 const checkCommon = (config: AxiosRequestConfig, type: string, id?: string, token?: string, relationship?: string) => {
 	expect(config.url).toBe(type + (id ? `/${id}` : '') + (relationship ? `/${relationship}`: ''))
-	expect(config.headers.Authorization).toContain('Bearer ' + (token || ''))
+	expect(config.headers?.Authorization).toContain('Bearer ' + (token || ''))
 	expect(config.timeout).toBe(REQUEST_TIMEOUT)
 }
 

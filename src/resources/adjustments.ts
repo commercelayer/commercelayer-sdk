@@ -37,7 +37,7 @@ interface AdjustmentUpdate extends ResourceUpdate {
 
 class Adjustments extends ApiResource {
 
-	static readonly TYPE: 'adjustments' = 'adjustments'
+	static readonly TYPE: 'adjustments' = 'adjustments' as const
 	// static readonly PATH = 'adjustments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Adjustment>> {

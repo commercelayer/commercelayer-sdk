@@ -48,7 +48,7 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 
 class AdyenGateways extends ApiResource {
 
-	static readonly TYPE: 'adyen_gateways' = 'adyen_gateways'
+	static readonly TYPE: 'adyen_gateways' = 'adyen_gateways' as const
 	// static readonly PATH = 'adyen_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenGateway>> {

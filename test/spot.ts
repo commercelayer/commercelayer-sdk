@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 // import commercelayer from '../lib/cjs'
+import { inspect } from 'util'
 import commercelayer from '../src'
 import getToken from './token'
 
@@ -16,12 +17,13 @@ import getToken from './token'
 		timeout: 5000,
 	})
 
-	const rrr = cl.addRawResponseReader({ headers: true })
+	const s = await cl.customers.list({
+		include: ['orders', 'orders.market'],
+		filters: {
+			'orders_market_name_eq': 'USA'
+		}
+	})
 
-	const customers = await cl.customers.list({ pageSize: 1 })
-
-	console.log(customers)
-	console.log(rrr.rawResponse)
-	console.log(rrr.headers)
+	console.log(inspect(s, false, null, true))
 
 })()

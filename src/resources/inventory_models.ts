@@ -42,7 +42,7 @@ interface InventoryModelUpdate extends ResourceUpdate {
 
 class InventoryModels extends ApiResource {
 
-	static readonly TYPE: 'inventory_models' = 'inventory_models'
+	static readonly TYPE: 'inventory_models' = 'inventory_models' as const
 	// static readonly PATH = 'inventory_models'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryModel>> {

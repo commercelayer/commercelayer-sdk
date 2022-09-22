@@ -46,7 +46,7 @@ interface CheckoutComGatewayUpdate extends ResourceUpdate {
 
 class CheckoutComGateways extends ApiResource {
 
-	static readonly TYPE: 'checkout_com_gateways' = 'checkout_com_gateways'
+	static readonly TYPE: 'checkout_com_gateways' = 'checkout_com_gateways' as const
 	// static readonly PATH = 'checkout_com_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CheckoutComGateway>> {

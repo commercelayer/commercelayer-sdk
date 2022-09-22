@@ -47,7 +47,7 @@ interface ReturnLineItemUpdate extends ResourceUpdate {
 
 class ReturnLineItems extends ApiResource {
 
-	static readonly TYPE: 'return_line_items' = 'return_line_items'
+	static readonly TYPE: 'return_line_items' = 'return_line_items' as const
 	// static readonly PATH = 'return_line_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {

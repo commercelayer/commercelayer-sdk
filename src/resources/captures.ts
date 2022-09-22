@@ -46,7 +46,7 @@ interface CaptureUpdate extends ResourceUpdate {
 
 class Captures extends ApiResource {
 
-	static readonly TYPE: 'captures' = 'captures'
+	static readonly TYPE: 'captures' = 'captures' as const
 	// static readonly PATH = 'captures'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {

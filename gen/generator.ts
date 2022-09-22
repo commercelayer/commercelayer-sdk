@@ -5,6 +5,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync
 import { basename } from 'path'
 import { capitalize, snakeCase } from 'lodash'
 import { inspect } from 'util'
+import fixSchema from './fixer'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Inflector = require('inflector-js')
@@ -43,8 +44,14 @@ const generate = async (localSchema?: boolean) => {
 
 	if (!localSchema) {
 
-		const currentSchema = apiSchema.current()
-		const currentVersion = currentSchema.info.version
+		let currentVersion = '0.0.0'
+
+		try {
+			const currentSchema = apiSchema.current()
+			currentVersion = currentSchema.info.version
+		} catch (err) {
+			console.log('No current local schema available')
+		}
 
 		const schemaInfo = await apiSchema.download()
 
@@ -66,6 +73,12 @@ const generate = async (localSchema?: boolean) => {
 
 	const schema = apiSchema.parse(schemaPath)
 	global.version = schema.version
+
+
+	// Remove redundant components and force usage of global resource component
+	fixSchema(schema)
+	// console.log(inspect(schema, false, null, true))
+
 
 	loadTemplates()
 
@@ -384,10 +397,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	}
 
-	let modelName = String(Object.keys(resource.components)[0])
-	if (modelName.endsWith('Update')) modelName = String(resource.components).slice(0, -'Update'.length)
-	else
-	if (modelName.endsWith('Create')) modelName = String(resource.components).slice(0, -'Create'.length)
+	const modelName = String(Object.keys(resource.components)[0].replace(/(Create|Update)$/g, ''))
 	spec = spec.replace(/##__RESOURCE_MODEL__##/g, modelName)
 
 
@@ -508,8 +518,8 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 		operation = operation.replace(/##__RESOURCE_REQUEST_CLASS__##/g, requestType)
 		if (!types.includes(requestType)) types.push(requestType)
 	}
-	if (op.responseType || ['list', 'update', 'create'].includes(name)) {
-		const responseType = op.responseType ? op.responseType : Inflector.singularize(res)
+	if (op.responseType) {
+		const responseType = op.responseType
 		operation = operation.replace(/##__RESOURCE_RESPONSE_CLASS__##/g, responseType)
 		if (!types.includes(responseType)) types.push(responseType)
 	}
@@ -537,7 +547,7 @@ const expType = (type: string): string => {
 
 
 const getCUDSuffix = (name: string): string => {
-	const suffixes = ['Update', 'Create', 'Delete']
+	const suffixes = ['Create', 'Update', 'Delete']
 	let suffix = ''
 	if (name) {
 		suffixes.some(x => {

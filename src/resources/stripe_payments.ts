@@ -47,7 +47,7 @@ interface StripePaymentUpdate extends ResourceUpdate {
 
 class StripePayments extends ApiResource {
 
-	static readonly TYPE: 'stripe_payments' = 'stripe_payments'
+	static readonly TYPE: 'stripe_payments' = 'stripe_payments' as const
 	// static readonly PATH = 'stripe_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {

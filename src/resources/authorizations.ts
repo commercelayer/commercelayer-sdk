@@ -55,7 +55,7 @@ interface AuthorizationUpdate extends ResourceUpdate {
 
 class Authorizations extends ApiResource {
 
-	static readonly TYPE: 'authorizations' = 'authorizations'
+	static readonly TYPE: 'authorizations' = 'authorizations' as const
 	// static readonly PATH = 'authorizations'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Authorization>> {

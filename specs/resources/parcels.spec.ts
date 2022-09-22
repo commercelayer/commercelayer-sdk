@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.5
+ * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,8 +25,8 @@ describe('Parcels resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			weight: 1,
-			unit_of_weight: 'gamma_99',
+			weight: 1000,
+			unit_of_weight: 'omega_58',
 			shipment: cl.shipments.relationship(TestData.id),
 			package: cl.packages.relationship(TestData.id),
 		}

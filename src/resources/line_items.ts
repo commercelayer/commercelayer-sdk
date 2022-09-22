@@ -103,7 +103,7 @@ interface LineItemUpdate extends ResourceUpdate {
 
 class LineItems extends ApiResource {
 
-	static readonly TYPE: 'line_items' = 'line_items'
+	static readonly TYPE: 'line_items' = 'line_items' as const
 	// static readonly PATH = 'line_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {

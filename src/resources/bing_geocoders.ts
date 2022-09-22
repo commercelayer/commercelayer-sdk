@@ -36,7 +36,7 @@ interface BingGeocoderUpdate extends ResourceUpdate {
 
 class BingGeocoders extends ApiResource {
 
-	static readonly TYPE: 'bing_geocoders' = 'bing_geocoders'
+	static readonly TYPE: 'bing_geocoders' = 'bing_geocoders' as const
 	// static readonly PATH = 'bing_geocoders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BingGeocoder>> {

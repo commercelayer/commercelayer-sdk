@@ -31,7 +31,7 @@ interface WireTransferUpdate extends ResourceUpdate {
 
 class WireTransfers extends ApiResource {
 
-	static readonly TYPE: 'wire_transfers' = 'wire_transfers'
+	static readonly TYPE: 'wire_transfers' = 'wire_transfers' as const
 	// static readonly PATH = 'wire_transfers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<WireTransfer>> {

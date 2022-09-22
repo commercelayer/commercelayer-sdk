@@ -44,7 +44,7 @@ interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 
 class ExternalTaxCalculators extends ApiResource {
 
-	static readonly TYPE: 'external_tax_calculators' = 'external_tax_calculators'
+	static readonly TYPE: 'external_tax_calculators' = 'external_tax_calculators' as const
 	// static readonly PATH = 'external_tax_calculators'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalTaxCalculator>> {

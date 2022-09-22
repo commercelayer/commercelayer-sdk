@@ -3,7 +3,7 @@
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2022 Commerce Layer Inc.
- * OpenAPI schema, version 2.9.6
+ * OpenAPI schema, version 3.0.0
  **/
 export type { Address, AddressCreate, AddressUpdate } from './resources/addresses'
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate } from './resources/adjustments'
@@ -34,6 +34,7 @@ export type { Customer, CustomerCreate, CustomerUpdate } from './resources/custo
 export type { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeUpdate } from './resources/delivery_lead_times'
 export type { EventCallback } from './resources/event_callbacks'
 export type { Event } from './resources/events'
+export type { Export, ExportCreate } from './resources/exports'
 export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate } from './resources/external_gateways'
 export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate } from './resources/external_payments'
 export type { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionUpdate } from './resources/external_promotions'

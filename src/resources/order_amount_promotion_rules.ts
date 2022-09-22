@@ -49,7 +49,7 @@ interface OrderAmountPromotionRuleUpdate extends ResourceUpdate {
 
 class OrderAmountPromotionRules extends ApiResource {
 
-	static readonly TYPE: 'order_amount_promotion_rules' = 'order_amount_promotion_rules'
+	static readonly TYPE: 'order_amount_promotion_rules' = 'order_amount_promotion_rules' as const
 	// static readonly PATH = 'order_amount_promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderAmountPromotionRule>> {

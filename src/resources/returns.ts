@@ -67,7 +67,7 @@ interface ReturnUpdate extends ResourceUpdate {
 
 class Returns extends ApiResource {
 
-	static readonly TYPE: 'returns' = 'returns'
+	static readonly TYPE: 'returns' = 'returns' as const
 	// static readonly PATH = 'returns'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {

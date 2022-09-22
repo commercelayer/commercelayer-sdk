@@ -75,7 +75,7 @@ interface SkuUpdate extends ResourceUpdate {
 
 class Skus extends ApiResource {
 
-	static readonly TYPE: 'skus' = 'skus'
+	static readonly TYPE: 'skus' = 'skus' as const
 	// static readonly PATH = 'skus'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {

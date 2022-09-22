@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.9.5
+ * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.0
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,11 +25,11 @@ describe('ExternalPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'gamma_84',
-			starts_at: 'alfa_4',
-			expires_at: 'delta_16',
-			total_usage_limit: 55,
-			promotion_url: 'kappa_55',
+			name: 'epsilon_54',
+			starts_at: 'lambda_74',
+			expires_at: 'delta_50',
+			total_usage_limit: 10000,
+			promotion_url: 'omega_68',
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

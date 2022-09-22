@@ -57,7 +57,7 @@ interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 
 class SkuListPromotionRules extends ApiResource {
 
-	static readonly TYPE: 'sku_list_promotion_rules' = 'sku_list_promotion_rules'
+	static readonly TYPE: 'sku_list_promotion_rules' = 'sku_list_promotion_rules' as const
 	// static readonly PATH = 'sku_list_promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuListPromotionRule>> {

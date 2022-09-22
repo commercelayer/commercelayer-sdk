@@ -49,7 +49,7 @@ interface DeliveryLeadTimeUpdate extends ResourceUpdate {
 
 class DeliveryLeadTimes extends ApiResource {
 
-	static readonly TYPE: 'delivery_lead_times' = 'delivery_lead_times'
+	static readonly TYPE: 'delivery_lead_times' = 'delivery_lead_times' as const
 	// static readonly PATH = 'delivery_lead_times'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {

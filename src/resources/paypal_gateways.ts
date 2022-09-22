@@ -38,7 +38,7 @@ interface PaypalGatewayUpdate extends ResourceUpdate {
 
 class PaypalGateways extends ApiResource {
 
-	static readonly TYPE: 'paypal_gateways' = 'paypal_gateways'
+	static readonly TYPE: 'paypal_gateways' = 'paypal_gateways' as const
 	// static readonly PATH = 'paypal_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalGateway>> {

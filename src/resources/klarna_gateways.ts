@@ -45,7 +45,7 @@ interface KlarnaGatewayUpdate extends ResourceUpdate {
 
 class KlarnaGateways extends ApiResource {
 
-	static readonly TYPE: 'klarna_gateways' = 'klarna_gateways'
+	static readonly TYPE: 'klarna_gateways' = 'klarna_gateways' as const
 	// static readonly PATH = 'klarna_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaGateway>> {

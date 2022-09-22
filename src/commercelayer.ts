@@ -9,7 +9,7 @@ import Debug from './debug'
 const debug = Debug('commercelayer')
 
 
-const OPEN_API_SCHEMA_VERSION = '2.9.6'
+const OPEN_API_SCHEMA_VERSION = '3.0.0'
 
 
 type SdkConfig = {}
@@ -58,6 +58,7 @@ class CommerceLayerClient {
 	delivery_lead_times: api.DeliveryLeadTimes
 	event_callbacks: api.EventCallbacks
 	events: api.Events
+	exports: api.Exports
 	external_gateways: api.ExternalGateways
 	external_payments: api.ExternalPayments
 	external_promotions: api.ExternalPromotions
@@ -172,6 +173,7 @@ class CommerceLayerClient {
 		this.delivery_lead_times = new api.DeliveryLeadTimes(this.#adapter)
 		this.event_callbacks = new api.EventCallbacks(this.#adapter)
 		this.events = new api.Events(this.#adapter)
+		this.exports = new api.Exports(this.#adapter)
 		this.external_gateways = new api.ExternalGateways(this.#adapter)
 		this.external_payments = new api.ExternalPayments(this.#adapter)
 		this.external_promotions = new api.ExternalPromotions(this.#adapter)

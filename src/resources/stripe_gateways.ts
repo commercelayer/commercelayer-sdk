@@ -39,7 +39,7 @@ interface StripeGatewayUpdate extends ResourceUpdate {
 
 class StripeGateways extends ApiResource {
 
-	static readonly TYPE: 'stripe_gateways' = 'stripe_gateways'
+	static readonly TYPE: 'stripe_gateways' = 'stripe_gateways' as const
 	// static readonly PATH = 'stripe_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripeGateway>> {

@@ -3,7 +3,7 @@
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2022 Commerce Layer Inc.
- * OpenAPI schema, version 2.9.6
+ * OpenAPI schema, version 3.0.0
  **/
 export { default as Addresses } from './resources/addresses'
 export { default as Adjustments } from './resources/adjustments'
@@ -34,6 +34,7 @@ export { default as Customers } from './resources/customers'
 export { default as DeliveryLeadTimes } from './resources/delivery_lead_times'
 export { default as EventCallbacks } from './resources/event_callbacks'
 export { default as Events } from './resources/events'
+export { default as Exports } from './resources/exports'
 export { default as ExternalGateways } from './resources/external_gateways'
 export { default as ExternalPayments } from './resources/external_payments'
 export { default as ExternalPromotions } from './resources/external_promotions'
@@ -141,6 +142,7 @@ export type ResourceTypeLock =
 |	'delivery_lead_times'
 |	'event_callbacks'
 |	'events'
+|	'exports'
 |	'external_gateways'
 |	'external_payments'
 |	'external_promotions'
@@ -248,6 +250,7 @@ export const resourceList = [
 	'delivery_lead_times',
 	'event_callbacks',
 	'events',
+	'exports',
 	'external_gateways',
 	'external_payments',
 	'external_promotions',

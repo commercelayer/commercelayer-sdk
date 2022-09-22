@@ -20,7 +20,7 @@ interface Event extends Resource {
 
 class Events extends ApiResource {
 
-	static readonly TYPE: 'events' = 'events'
+	static readonly TYPE: 'events' = 'events' as const
 	// static readonly PATH = 'events'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {

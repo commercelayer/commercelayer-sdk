@@ -79,7 +79,7 @@ interface ShipmentUpdate extends ResourceUpdate {
 
 class Shipments extends ApiResource {
 
-	static readonly TYPE: 'shipments' = 'shipments'
+	static readonly TYPE: 'shipments' = 'shipments' as const
 	// static readonly PATH = 'shipments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Shipment>> {

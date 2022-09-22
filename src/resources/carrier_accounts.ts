@@ -22,7 +22,7 @@ interface CarrierAccount extends Resource {
 
 class CarrierAccounts extends ApiResource {
 
-	static readonly TYPE: 'carrier_accounts' = 'carrier_accounts'
+	static readonly TYPE: 'carrier_accounts' = 'carrier_accounts' as const
 	// static readonly PATH = 'carrier_accounts'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CarrierAccount>> {

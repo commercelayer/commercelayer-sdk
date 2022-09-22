@@ -16,27 +16,27 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('KlarnaPayments resource', () => {
+describe('Exports resource', () => {
 
-  const resourceType = 'klarna_payments'
+  const resourceType = 'exports'
 
 
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			order: cl.orders.relationship(TestData.id),
+			resource_type: 'delta_24',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
-    const params = { fields: { klarna_payments: CommonData.paramsFields } }
+    const params = { fields: { exports: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('post')
       checkCommon(config, resourceType)
       checkCommonData(config, resourceType, attributes)
-      expect(cl[resourceType].isKlarnaPayment(config.data.data)).toBeTruthy()
+      expect(cl[resourceType].isExport(config.data.data)).toBeTruthy()
       return interceptRequest()
     })
 
@@ -52,7 +52,7 @@ describe('KlarnaPayments resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { klarna_payments: CommonData.paramsFields } }
+    const params = { fields: { exports: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
@@ -67,28 +67,6 @@ describe('KlarnaPayments resource', () => {
 
   })
   /* spec.retrieve.stop */
-
-
-  /* spec.update.start */
-  it(resourceType + '.update', async () => {
-
-    const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
-    const params = { fields: { klarna_payments: CommonData.paramsFields } }
-    const resData = { id: TestData.id, ...attributes}
-
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('patch')
-      checkCommon(config, resourceType, resData.id, currentAccessToken)
-      checkCommonData(config, resourceType, attributes, resData.id)
-      return interceptRequest()
-    })
-
-    await cl[resourceType].update(resData, params, CommonData.options)
-      .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
-
-  })
-  /* spec.update.stop */
 
 
   /* spec.delete.start */
@@ -134,7 +112,7 @@ describe('KlarnaPayments resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isKlarnaPayment(resource)).toBeTruthy()
+    expect(cl[resourceType].isExport(resource)).toBeTruthy()
 
     const relId = cl[resourceType].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
@@ -150,38 +128,19 @@ describe('KlarnaPayments resource', () => {
 
   
 
-	it(resourceType + '.order', async () => {
+	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { orders: CommonData.paramsFields } }
+		const params = { fields: { events: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((config) => {
 			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'order')
+			checkCommon(config, resourceType, id, currentAccessToken, 'events')
 			checkCommonParams(config, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].order(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
-	
-	})
-	
-
-	it(resourceType + '.payment_gateway', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { payment_gateways: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'payment_gateway')
-			checkCommonParams(config, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].payment_gateway(id, params, CommonData.options)
+		await cl[resourceType].events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

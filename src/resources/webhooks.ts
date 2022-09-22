@@ -44,7 +44,7 @@ interface WebhookUpdate extends ResourceUpdate {
 
 class Webhooks extends ApiResource {
 
-	static readonly TYPE: 'webhooks' = 'webhooks'
+	static readonly TYPE: 'webhooks' = 'webhooks' as const
 	// static readonly PATH = 'webhooks'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {

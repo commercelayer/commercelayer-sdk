@@ -83,7 +83,7 @@ interface FreeGiftPromotionUpdate extends ResourceUpdate {
 
 class FreeGiftPromotions extends ApiResource {
 
-	static readonly TYPE: 'free_gift_promotions' = 'free_gift_promotions'
+	static readonly TYPE: 'free_gift_promotions' = 'free_gift_promotions' as const
 	// static readonly PATH = 'free_gift_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FreeGiftPromotion>> {

@@ -127,6 +127,7 @@ interface Order extends Resource {
 	skus_count?: number
 	line_item_options_count?: number
 	shipments_count?: number
+	tax_calculations_count?: number
 	payment_source_details?: object
 	token?: string
 	cart_url?: string
@@ -245,7 +246,7 @@ interface OrderUpdate extends ResourceUpdate {
 
 class Orders extends ApiResource {
 
-	static readonly TYPE: 'orders' = 'orders'
+	static readonly TYPE: 'orders' = 'orders' as const
 	// static readonly PATH = 'orders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {

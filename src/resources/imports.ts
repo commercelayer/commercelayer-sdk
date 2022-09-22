@@ -24,6 +24,7 @@ interface Import extends Resource {
 	errors_log?: object
 	warnings_log?: object
 	cleanup_records?: boolean
+	attachment_url?: string
 
 	events?: Event[]
 
@@ -33,6 +34,7 @@ interface Import extends Resource {
 interface ImportCreate extends ResourceCreate {
 	
 	resource_type: string
+	format?: string
 	parent_resource_id?: string
 	inputs: object[]
 	cleanup_records?: boolean
@@ -42,7 +44,7 @@ interface ImportCreate extends ResourceCreate {
 
 class Imports extends ApiResource {
 
-	static readonly TYPE: 'imports' = 'imports'
+	static readonly TYPE: 'imports' = 'imports' as const
 	// static readonly PATH = 'imports'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Import>> {

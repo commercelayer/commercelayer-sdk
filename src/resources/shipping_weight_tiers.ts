@@ -47,7 +47,7 @@ interface ShippingWeightTierUpdate extends ResourceUpdate {
 
 class ShippingWeightTiers extends ApiResource {
 
-	static readonly TYPE: 'shipping_weight_tiers' = 'shipping_weight_tiers'
+	static readonly TYPE: 'shipping_weight_tiers' = 'shipping_weight_tiers' as const
 	// static readonly PATH = 'shipping_weight_tiers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingWeightTier>> {

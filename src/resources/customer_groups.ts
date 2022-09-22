@@ -36,7 +36,7 @@ interface CustomerGroupUpdate extends ResourceUpdate {
 
 class CustomerGroups extends ApiResource {
 
-	static readonly TYPE: 'customer_groups' = 'customer_groups'
+	static readonly TYPE: 'customer_groups' = 'customer_groups' as const
 	// static readonly PATH = 'customer_groups'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerGroup>> {

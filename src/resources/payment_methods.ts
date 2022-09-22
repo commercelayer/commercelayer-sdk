@@ -59,7 +59,7 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 
 class PaymentMethods extends ApiResource {
 
-	static readonly TYPE: 'payment_methods' = 'payment_methods'
+	static readonly TYPE: 'payment_methods' = 'payment_methods' as const
 	// static readonly PATH = 'payment_methods'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {

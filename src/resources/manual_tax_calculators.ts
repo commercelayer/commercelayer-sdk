@@ -46,7 +46,7 @@ interface ManualTaxCalculatorUpdate extends ResourceUpdate {
 
 class ManualTaxCalculators extends ApiResource {
 
-	static readonly TYPE: 'manual_tax_calculators' = 'manual_tax_calculators'
+	static readonly TYPE: 'manual_tax_calculators' = 'manual_tax_calculators' as const
 	// static readonly PATH = 'manual_tax_calculators'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ManualTaxCalculator>> {

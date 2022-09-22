@@ -32,7 +32,7 @@ interface Refund extends Resource {
 
 class Refunds extends ApiResource {
 
-	static readonly TYPE: 'refunds' = 'refunds'
+	static readonly TYPE: 'refunds' = 'refunds' as const
 	// static readonly PATH = 'refunds'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {

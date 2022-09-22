@@ -16,7 +16,7 @@ interface OrderValidationRule extends Resource {
 
 class OrderValidationRules extends ApiResource {
 
-	static readonly TYPE: 'order_validation_rules' = 'order_validation_rules'
+	static readonly TYPE: 'order_validation_rules' = 'order_validation_rules' as const
 	// static readonly PATH = 'order_validation_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderValidationRule>> {

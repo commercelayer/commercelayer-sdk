@@ -48,7 +48,7 @@ interface BraintreePaymentUpdate extends ResourceUpdate {
 
 class BraintreePayments extends ApiResource {
 
-	static readonly TYPE: 'braintree_payments' = 'braintree_payments'
+	static readonly TYPE: 'braintree_payments' = 'braintree_payments' as const
 	// static readonly PATH = 'braintree_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BraintreePayment>> {

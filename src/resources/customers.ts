@@ -57,7 +57,7 @@ interface CustomerUpdate extends ResourceUpdate {
 
 class Customers extends ApiResource {
 
-	static readonly TYPE: 'customers' = 'customers'
+	static readonly TYPE: 'customers' = 'customers' as const
 	// static readonly PATH = 'customers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Customer>> {

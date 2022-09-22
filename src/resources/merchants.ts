@@ -39,7 +39,7 @@ interface MerchantUpdate extends ResourceUpdate {
 
 class Merchants extends ApiResource {
 
-	static readonly TYPE: 'merchants' = 'merchants'
+	static readonly TYPE: 'merchants' = 'merchants' as const
 	// static readonly PATH = 'merchants'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Merchant>> {

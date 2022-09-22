@@ -64,7 +64,7 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 
 class OrderSubscriptions extends ApiResource {
 
-	static readonly TYPE: 'order_subscriptions' = 'order_subscriptions'
+	static readonly TYPE: 'order_subscriptions' = 'order_subscriptions' as const
 	// static readonly PATH = 'order_subscriptions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {

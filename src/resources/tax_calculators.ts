@@ -22,7 +22,7 @@ interface TaxCalculator extends Resource {
 
 class TaxCalculators extends ApiResource {
 
-	static readonly TYPE: 'tax_calculators' = 'tax_calculators'
+	static readonly TYPE: 'tax_calculators' = 'tax_calculators' as const
 	// static readonly PATH = 'tax_calculators'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCalculator>> {

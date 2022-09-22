@@ -18,7 +18,7 @@ interface PaymentGateway extends Resource {
 
 class PaymentGateways extends ApiResource {
 
-	static readonly TYPE: 'payment_gateways' = 'payment_gateways'
+	static readonly TYPE: 'payment_gateways' = 'payment_gateways' as const
 	// static readonly PATH = 'payment_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentGateway>> {

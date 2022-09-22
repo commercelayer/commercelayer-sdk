@@ -82,7 +82,7 @@ interface GiftCardUpdate extends ResourceUpdate {
 
 class GiftCards extends ApiResource {
 
-	static readonly TYPE: 'gift_cards' = 'gift_cards'
+	static readonly TYPE: 'gift_cards' = 'gift_cards' as const
 	// static readonly PATH = 'gift_cards'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GiftCard>> {

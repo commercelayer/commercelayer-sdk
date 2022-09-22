@@ -78,7 +78,7 @@ interface FixedAmountPromotionUpdate extends ResourceUpdate {
 
 class FixedAmountPromotions extends ApiResource {
 
-	static readonly TYPE: 'fixed_amount_promotions' = 'fixed_amount_promotions'
+	static readonly TYPE: 'fixed_amount_promotions' = 'fixed_amount_promotions' as const
 	// static readonly PATH = 'fixed_amount_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FixedAmountPromotion>> {

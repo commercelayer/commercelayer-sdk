@@ -76,7 +76,7 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 
 class ExternalPromotions extends ApiResource {
 
-	static readonly TYPE: 'external_promotions' = 'external_promotions'
+	static readonly TYPE: 'external_promotions' = 'external_promotions' as const
 	// static readonly PATH = 'external_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalPromotion>> {

@@ -45,7 +45,7 @@ interface CouponRecipientUpdate extends ResourceUpdate {
 
 class CouponRecipients extends ApiResource {
 
-	static readonly TYPE: 'coupon_recipients' = 'coupon_recipients'
+	static readonly TYPE: 'coupon_recipients' = 'coupon_recipients' as const
 	// static readonly PATH = 'coupon_recipients'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CouponRecipient>> {

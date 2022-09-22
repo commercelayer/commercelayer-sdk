@@ -62,6 +62,10 @@ interface ParcelCreate extends ResourceCreate {
 	restriction_type?: string
 	restriction_comments?: string
 	customs_info_required?: boolean
+	shipping_label_url?: string
+	shipping_label_file_type?: string
+	shipping_label_size?: string
+	shipping_label_resolution?: string
 	tracking_number?: string
 	tracking_status?: string
 	tracking_status_detail?: string
@@ -90,6 +94,10 @@ interface ParcelUpdate extends ResourceUpdate {
 	restriction_type?: string
 	restriction_comments?: string
 	customs_info_required?: boolean
+	shipping_label_url?: string
+	shipping_label_file_type?: string
+	shipping_label_size?: string
+	shipping_label_resolution?: string
 	tracking_number?: string
 	tracking_status?: string
 	tracking_status_detail?: string
@@ -107,7 +115,7 @@ interface ParcelUpdate extends ResourceUpdate {
 
 class Parcels extends ApiResource {
 
-	static readonly TYPE: 'parcels' = 'parcels'
+	static readonly TYPE: 'parcels' = 'parcels' as const
 	// static readonly PATH = 'parcels'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {

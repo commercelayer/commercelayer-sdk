@@ -11,7 +11,7 @@ type ##__MODEL_RESOURCE_INTERFACE__##Rel = ResourceRel & { type: typeof ##__RESO
 
 class ##__RESOURCE_CLASS__## extends ApiResource {
 
-	static readonly TYPE: '##__RESOURCE_TYPE__##' = '##__RESOURCE_TYPE__##'
+	static readonly TYPE: '##__RESOURCE_TYPE__##' = '##__RESOURCE_TYPE__##' as const
 	// static readonly PATH = '##__RESOURCE_TYPE__##'
 
 	##__RESOURCE_OPERATIONS__##

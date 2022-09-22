@@ -59,7 +59,7 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
 
 class CheckoutComPayments extends ApiResource {
 
-	static readonly TYPE: 'checkout_com_payments' = 'checkout_com_payments'
+	static readonly TYPE: 'checkout_com_payments' = 'checkout_com_payments' as const
 	// static readonly PATH = 'checkout_com_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CheckoutComPayment>> {

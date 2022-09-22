@@ -28,7 +28,7 @@ interface Transaction extends Resource {
 
 class Transactions extends ApiResource {
 
-	static readonly TYPE: 'transactions' = 'transactions'
+	static readonly TYPE: 'transactions' = 'transactions' as const
 	// static readonly PATH = 'transactions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Transaction>> {

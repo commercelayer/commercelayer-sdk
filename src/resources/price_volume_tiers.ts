@@ -47,7 +47,7 @@ interface PriceVolumeTierUpdate extends ResourceUpdate {
 
 class PriceVolumeTiers extends ApiResource {
 
-	static readonly TYPE: 'price_volume_tiers' = 'price_volume_tiers'
+	static readonly TYPE: 'price_volume_tiers' = 'price_volume_tiers' as const
 	// static readonly PATH = 'price_volume_tiers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceVolumeTier>> {

@@ -57,7 +57,7 @@ interface InStockSubscriptionUpdate extends ResourceUpdate {
 
 class InStockSubscriptions extends ApiResource {
 
-	static readonly TYPE: 'in_stock_subscriptions' = 'in_stock_subscriptions'
+	static readonly TYPE: 'in_stock_subscriptions' = 'in_stock_subscriptions' as const
 	// static readonly PATH = 'in_stock_subscriptions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InStockSubscription>> {
