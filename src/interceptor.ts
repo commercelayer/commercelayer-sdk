@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders } from 'axios'
+import { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios'
 
 
 type InterceptorManager = {
@@ -14,7 +14,7 @@ type RequestInterceptor = (request: RequestObj) => RequestObj | Promise<RequestO
 type ResponseObj = AxiosResponse
 type ResponseInterceptor = (response: ResponseObj) => ResponseObj
 
-type HeadersObj = AxiosResponseHeaders
+type HeadersObj = AxiosResponseHeaders | RawAxiosResponseHeaders
 
 type ErrorObj = AxiosError
 type ErrorInterceptor = (error: ErrorObj) => ErrorObj
