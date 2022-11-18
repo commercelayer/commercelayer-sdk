@@ -1,3 +1,10 @@
+# [4.18.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.17.0...v4.18.0) (2022-11-18)
+
+
+### Features
+
+* **core:** update to OpenAPI schema v3.0.3 ([3298a43](https://github.com/commercelayer/commercelayer-sdk/commit/3298a431050223fc8fba3690479fb19ca9e534ba))
+
 # [4.17.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.16.0...v4.17.0) (2022-10-28)
 
 
