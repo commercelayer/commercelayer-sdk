@@ -1,3 +1,15 @@
+# [4.17.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.16.0...v4.17.0) (2022-10-28)
+
+
+### Bug Fixes
+
+* **core:** remove dependency from node:util ([a73835e](https://github.com/commercelayer/commercelayer-sdk/commit/a73835ed4c128a9aa0fe1940430b8358665bc3cc))
+
+
+### Features
+
+* **core:** update Axios to version 1.1.3 ([c17b3d0](https://github.com/commercelayer/commercelayer-sdk/commit/c17b3d06ee35578a5aa3779bf7c85263f4d838a9))
+
 # [4.16.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.15.3...v4.16.0) (2022-09-22)
 
 
