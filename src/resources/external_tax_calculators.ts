@@ -14,6 +14,7 @@ interface ExternalTaxCalculator extends Resource {
 	
 	name?: string
 	tax_calculator_url?: string
+	shared_secret?: string
 
 	tax_categories?: TaxCategory[]
 	markets?: Market[]

@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "3.0.0",
+        "version": "3.0.3",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -3082,6 +3082,142 @@
                 }
             }
         },
+        "/cleanups": {
+            "get": {
+                "operationId": "GET/cleanups",
+                "summary": "List all cleanups",
+                "description": "List all cleanups",
+                "tags": [
+                    "cleanups"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of cleanup objects",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/cleanupResponseList"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "POST/cleanups",
+                "summary": "Create a cleanup",
+                "description": "Create a cleanup",
+                "tags": [
+                    "cleanups"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/cleanupCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created cleanup object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/cleanupResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cleanups/{cleanupId}": {
+            "get": {
+                "operationId": "GET/cleanups/cleanupId",
+                "summary": "Retrieve a cleanup",
+                "description": "Retrieve a cleanup",
+                "tags": [
+                    "cleanups"
+                ],
+                "parameters": [
+                    {
+                        "name": "cleanupId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The cleanup object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/cleanupResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/cleanups/cleanupId",
+                "summary": "Delete a cleanup",
+                "description": "Delete a cleanup",
+                "tags": [
+                    "cleanups"
+                ],
+                "parameters": [
+                    {
+                        "name": "cleanupId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/cleanups/{cleanupId}/events": {
+            "get": {
+                "operationId": "GET/cleanupId/events",
+                "summary": "Retrieve the events associated to the cleanup",
+                "description": "Retrieve the events associated to the cleanup",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "cleanupId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the cleanup"
+                    }
+                }
+            }
+        },
         "/coupon_codes_promotion_rules": {
             "get": {
                 "operationId": "GET/coupon_codes_promotion_rules",
@@ -5022,6 +5158,33 @@
                 "responses": {
                     "200": {
                         "description": "The returns associated to the customer"
+                    }
+                }
+            }
+        },
+        "/customers/{customerId}/sku_lists": {
+            "get": {
+                "operationId": "GET/customerId/sku_lists",
+                "summary": "Retrieve the sku lists associated to the customer",
+                "description": "Retrieve the sku lists associated to the customer",
+                "tags": [
+                    "has_many",
+                    "sku_lists"
+                ],
+                "parameters": [
+                    {
+                        "name": "customerId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The sku_lists associated to the customer"
                     }
                 }
             }
@@ -18538,6 +18701,33 @@
                 }
             }
         },
+        "/sku_lists/{skuListId}/customer": {
+            "get": {
+                "operationId": "GET/skuListId/customer",
+                "summary": "Retrieve the customer associated to the SKU list",
+                "description": "Retrieve the customer associated to the SKU list",
+                "tags": [
+                    "has_one",
+                    "customers"
+                ],
+                "parameters": [
+                    {
+                        "name": "skuListId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The customer associated to the SKU list"
+                    }
+                }
+            }
+        },
         "/sku_lists/{skuListId}/skus": {
             "get": {
                 "operationId": "GET/skuListId/skus",
@@ -29619,6 +29809,307 @@
                     }
                 }
             },
+            "cleanup": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "cleanups"
+                                ]
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "resource_type": {
+                                        "type": "string",
+                                        "description": "The type of resource being cleaned.",
+                                        "example": "skus"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "description": "The cleanup job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.",
+                                        "example": "in_progress"
+                                    },
+                                    "started_at": {
+                                        "type": "string",
+                                        "description": "Time at which the cleanup was started.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "completed_at": {
+                                        "type": "string",
+                                        "description": "Time at which the cleanup was completed.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "interrupted_at": {
+                                        "type": "string",
+                                        "description": "Time at which the cleanup was interrupted.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "filters": {
+                                        "type": "object",
+                                        "description": "The filters used to select the records to be cleaned.",
+                                        "example": {
+                                            "code_eq": "AAA"
+                                        }
+                                    },
+                                    "records_count": {
+                                        "type": "integer",
+                                        "description": "Indicates the number of records to be cleaned.",
+                                        "example": 300
+                                    },
+                                    "errors_count": {
+                                        "type": "integer",
+                                        "description": "Indicates the number of cleanup errors, if any.",
+                                        "example": 30
+                                    },
+                                    "processed_count": {
+                                        "type": "integer",
+                                        "description": "Indicates the number of records that have been cleaned.",
+                                        "example": 270
+                                    },
+                                    "errors_log": {
+                                        "type": "object",
+                                        "description": "Contains the cleanup errors, if any.",
+                                        "example": {
+                                            "ABC": {
+                                                "name": [
+                                                    "has already been taken"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "Unique identifier for the resource (hash).",
+                                        "example": "XAyRWNUzyN"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "events": {
+                                        "type": "object",
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "cleanupCreate": {
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "cleanups"
+                                ]
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "resource_type": {
+                                        "type": "string",
+                                        "description": "The type of resource being cleaned.",
+                                        "example": "skus"
+                                    },
+                                    "filters": {
+                                        "type": "object",
+                                        "description": "The filters used to select the records to be cleaned.",
+                                        "example": {
+                                            "code_eq": "AAA"
+                                        }
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "resource_type"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "cleanupResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "cleanups"
+                                ]
+                            },
+                            "links": {
+                                "type": "object",
+                                "properties": {
+                                    "self": {
+                                        "type": "string",
+                                        "description": "URL"
+                                    }
+                                }
+                            },
+                            "attributes": {
+                                "$ref": "#/components/schemas/cleanup/properties/data/properties/attributes"
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "type": {
+                                                            "type": "string",
+                                                            "description": "The resource's type",
+                                                            "enum": [
+                                                                "events"
+                                                            ]
+                                                        },
+                                                        "id": {
+                                                            "type": "string",
+                                                            "description": "The resource ID"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "cleanupResponseList": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/cleanupResponse/properties/data"
+                        }
+                    }
+                }
+            },
             "couponCodesPromotionRule": {
                 "type": "object",
                 "required": [
@@ -33471,6 +33962,31 @@
                                             }
                                         }
                                     },
+                                    "sku_lists": {
+                                        "type": "object",
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "sku_lists"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
                                     "attachments": {
                                         "type": "object",
                                         "required": [
@@ -33986,6 +34502,43 @@
                                                             "description": "The resource's type",
                                                             "enum": [
                                                                 "returns"
+                                                            ]
+                                                        },
+                                                        "id": {
+                                                            "type": "string",
+                                                            "description": "The resource ID"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "sku_lists": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "type": {
+                                                            "type": "string",
+                                                            "description": "The resource's type",
+                                                            "enum": [
+                                                                "sku_lists"
                                                             ]
                                                         },
                                                         "id": {
@@ -35142,29 +35695,9 @@
                                             "code_eq": "AAA"
                                         }
                                     },
-                                    "skip_ids": {
+                                    "dry_data": {
                                         "type": "boolean",
-                                        "description": "Send this attribute if you want to skip exporting of resources IDs.",
-                                        "example": false
-                                    },
-                                    "skip_rel_ids": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to skip exporting of relationships IDs.",
-                                        "example": false
-                                    },
-                                    "skip_timestamps": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to skip exporting of resources created_at and updated_at.",
-                                        "example": false
-                                    },
-                                    "skip_blanks": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to skip exporting of blank values (not suitable for csv format).",
-                                        "example": false
-                                    },
-                                    "skip_amount_formats": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to skip exporting of float and fromatted amounts.",
+                                        "description": "Send this attribute if you want to skip exporting redundant attributes (IDs, timestamps, blanks, etc.), useful when combining export and import to duplicate your dataset.",
                                         "example": false
                                     },
                                     "started_at": {
@@ -35310,29 +35843,9 @@
                                             "code_eq": "AAA"
                                         }
                                     },
-                                    "skip_ids": {
+                                    "dry_data": {
                                         "type": "boolean",
-                                        "description": "Send this attribute if you want to skip exporting of resources IDs.",
-                                        "example": false
-                                    },
-                                    "skip_rel_ids": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to skip exporting of relationships IDs.",
-                                        "example": false
-                                    },
-                                    "skip_timestamps": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to skip exporting of resources created_at and updated_at.",
-                                        "example": false
-                                    },
-                                    "skip_blanks": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to skip exporting of blank values (not suitable for csv format).",
-                                        "example": false
-                                    },
-                                    "skip_amount_formats": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to skip exporting of float and fromatted amounts.",
+                                        "description": "Send this attribute if you want to skip exporting redundant attributes (IDs, timestamps, blanks, etc.), useful when combining export and import to duplicate your dataset.",
                                         "example": false
                                     },
                                     "reference": {
@@ -35514,7 +36027,7 @@
                                     },
                                     "shared_secret": {
                                         "type": "string",
-                                        "description": "The shared secret used to sign gateway payloads.",
+                                        "description": "The shared secret used to sign the external request payload.",
                                         "example": "xxxx-yyyy-zzzz"
                                     },
                                     "authorize_url": {
@@ -36478,6 +36991,11 @@
                                         "type": "string",
                                         "description": "The URL to the service that will compute the discount.",
                                         "example": "https://external_promotion.yourbrand.com"
+                                    },
+                                    "shared_secret": {
+                                        "type": "string",
+                                        "description": "The shared secret used to sign the external request payload.",
+                                        "example": "xxxx-yyyy-zzzz"
                                     }
                                 }
                             },
@@ -37389,6 +37907,11 @@
                                         "type": "string",
                                         "description": "The URL to the service that will compute the taxes.",
                                         "example": "https://external_calculator.yourbrand.com"
+                                    },
+                                    "shared_secret": {
+                                        "type": "string",
+                                        "description": "The shared secret used to sign the external request payload.",
+                                        "example": "xxxx-yyyy-zzzz"
                                     }
                                 }
                             },
@@ -49543,6 +50066,11 @@
                                         "description": "Indicates if market belongs to a customer_group.",
                                         "example": true
                                     },
+                                    "disabled_at": {
+                                        "type": "string",
+                                        "description": "Time at which the market was disabled.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
                                     "id": {
                                         "type": "string",
                                         "description": "Unique identifier for the resource (hash).",
@@ -49988,6 +50516,16 @@
                                         "type": "string",
                                         "description": "The URL used to fetch prices from an external source",
                                         "example": "https://external_prices.yourbrand.com"
+                                    },
+                                    "_disable": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the market as disabled.",
+                                        "example": true
+                                    },
+                                    "_enable": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark the market as enabled.",
+                                        "example": true
                                     },
                                     "reference": {
                                         "type": "string",
@@ -56120,6 +56658,16 @@
                                         "description": "The parcel line item quantity.",
                                         "example": 4
                                     },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The internal name of the associated line item.",
+                                        "example": "Black Men T-shirt with White Logo (XL)"
+                                    },
+                                    "image_url": {
+                                        "type": "string",
+                                        "description": "The image_url of the associated line item.",
+                                        "example": "https://img.yourdomain.com/skus/xYZkjABcde.png"
+                                    },
                                     "id": {
                                         "type": "string",
                                         "description": "Unique identifier for the resource (hash).",
@@ -61824,7 +62372,8 @@
                                     }
                                 },
                                 "required": [
-                                    "price_list"
+                                    "price_list",
+                                    "sku"
                                 ]
                             }
                         }
@@ -69604,6 +70153,31 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
+                                    "customer": {
+                                        "type": "object",
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "customers"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
                                     "skus": {
                                         "type": "object",
                                         "required": [
@@ -69757,7 +70331,33 @@
                             },
                             "relationships": {
                                 "type": "object",
-                                "properties": {}
+                                "properties": {
+                                    "customer": {
+                                        "type": "object",
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "customers"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -69838,7 +70438,33 @@
                             },
                             "relationships": {
                                 "type": "object",
-                                "properties": {}
+                                "properties": {
+                                    "customer": {
+                                        "type": "object",
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "customers"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -69877,6 +70503,40 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
+                                    "customer": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "customer"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
                                     "skus": {
                                         "type": "object",
                                         "properties": {
@@ -75539,7 +76199,7 @@
                                     },
                                     "tax_rate": {
                                         "type": "number",
-                                        "description": "The tax rate for this ruke.",
+                                        "description": "The tax rate for this rule.",
                                         "example": 0.22
                                     },
                                     "country_code_regex": {
@@ -75699,7 +76359,7 @@
                                     },
                                     "tax_rate": {
                                         "type": "number",
-                                        "description": "The tax rate for this ruke.",
+                                        "description": "The tax rate for this rule.",
                                         "example": 0.22
                                     },
                                     "country_code_regex": {
@@ -75847,7 +76507,7 @@
                                     },
                                     "tax_rate": {
                                         "type": "number",
-                                        "description": "The tax rate for this ruke.",
+                                        "description": "The tax rate for this rule.",
                                         "example": 0.22
                                     },
                                     "country_code_regex": {
@@ -77081,7 +77741,7 @@
                                     "callback_url": {
                                         "type": "string",
                                         "description": "URI where the webhook subscription should send the POST request when the event occurs.",
-                                        "example": "https://yourapp.com/webhooks"
+                                        "example": ""
                                     },
                                     "include_resources": {
                                         "type": "array",
@@ -77104,6 +77764,11 @@
                                         "type": "integer",
                                         "description": "The number of consecutive failures recorded by the circuit breaker associated to this webhook, will be reset on first successful call to callback.",
                                         "example": 5
+                                    },
+                                    "shared_secret": {
+                                        "type": "string",
+                                        "description": "The shared secret used to sign the external request payload.",
+                                        "example": "https://yourapp.com/webhooks"
                                     },
                                     "id": {
                                         "type": "string",
@@ -77209,7 +77874,7 @@
                                     "callback_url": {
                                         "type": "string",
                                         "description": "URI where the webhook subscription should send the POST request when the event occurs.",
-                                        "example": "https://yourapp.com/webhooks"
+                                        "example": ""
                                     },
                                     "include_resources": {
                                         "type": "array",
@@ -77296,7 +77961,7 @@
                                     "callback_url": {
                                         "type": "string",
                                         "description": "URI where the webhook subscription should send the POST request when the event occurs.",
-                                        "example": "https://yourapp.com/webhooks"
+                                        "example": ""
                                     },
                                     "include_resources": {
                                         "type": "array",
@@ -77853,6 +78518,10 @@
         },
         {
             "name": "checkout_com_payments",
+            "description": "resource type"
+        },
+        {
+            "name": "cleanups",
             "description": "resource type"
         },
         {

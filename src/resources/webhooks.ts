@@ -15,6 +15,7 @@ interface Webhook extends Resource {
 	include_resources?: string[]
 	circuit_state?: string
 	circuit_failure_count?: number
+	shared_secret?: string
 
 	last_event_callbacks?: EventCallback[]
 

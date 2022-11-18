@@ -9,7 +9,7 @@ import Debug from './debug'
 const debug = Debug('commercelayer')
 
 
-const OPEN_API_SCHEMA_VERSION = '3.0.0'
+const OPEN_API_SCHEMA_VERSION = '3.0.3'
 
 
 type SdkConfig = {}
@@ -46,6 +46,7 @@ class CommerceLayerClient {
 	carrier_accounts: api.CarrierAccounts
 	checkout_com_gateways: api.CheckoutComGateways
 	checkout_com_payments: api.CheckoutComPayments
+	cleanups: api.Cleanups
 	coupon_codes_promotion_rules: api.CouponCodesPromotionRules
 	coupon_recipients: api.CouponRecipients
 	coupons: api.Coupons
@@ -161,6 +162,7 @@ class CommerceLayerClient {
 		this.carrier_accounts = new api.CarrierAccounts(this.#adapter)
 		this.checkout_com_gateways = new api.CheckoutComGateways(this.#adapter)
 		this.checkout_com_payments = new api.CheckoutComPayments(this.#adapter)
+		this.cleanups = new api.Cleanups(this.#adapter)
 		this.coupon_codes_promotion_rules = new api.CouponCodesPromotionRules(this.#adapter)
 		this.coupon_recipients = new api.CouponRecipients(this.#adapter)
 		this.coupons = new api.Coupons(this.#adapter)

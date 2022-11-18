@@ -16,27 +16,27 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('Exports resource', () => {
+describe('Cleanups resource', () => {
 
-  const resourceType = 'exports'
+  const resourceType = 'cleanups'
 
 
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			resource_type: 'omega_51',
+			resource_type: 'kappa_33',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
-    const params = { fields: { exports: CommonData.paramsFields } }
+    const params = { fields: { cleanups: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('post')
       checkCommon(config, resourceType)
       checkCommonData(config, resourceType, attributes)
-      expect(cl[resourceType].isExport(config.data.data)).toBeTruthy()
+      expect(cl[resourceType].isCleanup(config.data.data)).toBeTruthy()
       return interceptRequest()
     })
 
@@ -52,7 +52,7 @@ describe('Exports resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { exports: CommonData.paramsFields } }
+    const params = { fields: { cleanups: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
@@ -112,7 +112,7 @@ describe('Exports resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isExport(resource)).toBeTruthy()
+    expect(cl[resourceType].isCleanup(resource)).toBeTruthy()
 
     const relId = cl[resourceType].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))

@@ -3,7 +3,7 @@
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2022 Commerce Layer Inc.
- * OpenAPI schema, version 3.0.0
+ * OpenAPI schema, version 3.0.3
  **/
 export { default as Addresses } from './resources/addresses'
 export { default as Adjustments } from './resources/adjustments'
@@ -22,6 +22,7 @@ export { default as Captures } from './resources/captures'
 export { default as CarrierAccounts } from './resources/carrier_accounts'
 export { default as CheckoutComGateways } from './resources/checkout_com_gateways'
 export { default as CheckoutComPayments } from './resources/checkout_com_payments'
+export { default as Cleanups } from './resources/cleanups'
 export { default as CouponCodesPromotionRules } from './resources/coupon_codes_promotion_rules'
 export { default as CouponRecipients } from './resources/coupon_recipients'
 export { default as Coupons } from './resources/coupons'
@@ -130,6 +131,7 @@ export type ResourceTypeLock =
 |	'carrier_accounts'
 |	'checkout_com_gateways'
 |	'checkout_com_payments'
+|	'cleanups'
 |	'coupon_codes_promotion_rules'
 |	'coupon_recipients'
 |	'coupons'
@@ -238,6 +240,7 @@ export const resourceList = [
 	'carrier_accounts',
 	'checkout_com_gateways',
 	'checkout_com_payments',
+	'cleanups',
 	'coupon_codes_promotion_rules',
 	'coupon_recipients',
 	'coupons',

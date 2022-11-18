@@ -14,11 +14,7 @@ interface Export extends Resource {
 	status?: string
 	includes?: string[]
 	filters?: object
-	skip_ids?: boolean
-	skip_rel_ids?: boolean
-	skip_timestamps?: boolean
-	skip_blanks?: boolean
-	skip_amount_formats?: boolean
+	dry_data?: boolean
 	started_at?: string
 	completed_at?: string
 	interrupted_at?: string
@@ -36,11 +32,7 @@ interface ExportCreate extends ResourceCreate {
 	format?: string
 	includes?: string[]
 	filters?: object
-	skip_ids?: boolean
-	skip_rel_ids?: boolean
-	skip_timestamps?: boolean
-	skip_blanks?: boolean
-	skip_amount_formats?: boolean
+	dry_data?: boolean
 	
 }
 

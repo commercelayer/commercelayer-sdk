@@ -25,6 +25,7 @@ interface Market extends Resource {
 	checkout_url?: string
 	external_prices_url?: string
 	private?: boolean
+	disabled_at?: string
 
 	merchant?: Merchant
 	price_list?: PriceList
@@ -58,6 +59,8 @@ interface MarketUpdate extends ResourceUpdate {
 	facebook_pixel_id?: string
 	checkout_url?: string
 	external_prices_url?: string
+	_disable?: boolean
+	_enable?: boolean
 
 	merchant?: MerchantRel
 	price_list?: PriceListRel

@@ -27,6 +27,7 @@ interface ExternalPromotion extends Resource {
 	total_usage_count?: number
 	active?: boolean
 	promotion_url?: string
+	shared_secret?: string
 
 	market?: Market
 	promotion_rules?: PromotionRule[]

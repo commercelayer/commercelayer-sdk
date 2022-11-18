@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.0
+ * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,10 +25,10 @@ describe('AdyenGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'gamma_98',
-			merchant_account: 'lambda_0',
-			api_key: 'omega_82',
-			live_url_prefix: 'omega_54',
+			name: 'lambda_18',
+			merchant_account: 'lambda_53',
+			api_key: 'gamma_80',
+			live_url_prefix: 'sigma_52',
 			adyen_payments: [ cl.adyen_payments.relationship(TestData.id) ],
 		}
 

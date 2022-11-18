@@ -1,12 +1,14 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
+import type { Customer } from './customers'
 import type { Sku } from './skus'
 import type { SkuListItem } from './sku_list_items'
 import type { Bundle } from './bundles'
 
 
 type SkuListRel = ResourceRel & { type: typeof SkuLists.TYPE }
+type CustomerRel = ResourceRel & { type: 'customers' }
 
 
 interface SkuList extends Resource {
@@ -18,6 +20,7 @@ interface SkuList extends Resource {
 	manual?: boolean
 	sku_code_regex?: string
 
+	customer?: Customer
 	skus?: Sku[]
 	sku_list_items?: SkuListItem[]
 	bundles?: Bundle[]
@@ -32,7 +35,9 @@ interface SkuListCreate extends ResourceCreate {
 	image_url?: string
 	manual?: boolean
 	sku_code_regex?: string
-	
+
+	customer?: CustomerRel
+
 }
 
 
@@ -43,7 +48,9 @@ interface SkuListUpdate extends ResourceUpdate {
 	image_url?: string
 	manual?: boolean
 	sku_code_regex?: string
-	
+
+	customer?: CustomerRel
+
 }
 
 
@@ -70,6 +77,11 @@ class SkuLists extends ApiResource {
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: SkuLists.TYPE, id }, options)
+	}
+
+	async customer(skuListId: string | SkuList, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _skuListId = (skuListId as SkuList).id || skuListId
+		return this.resources.fetch<Customer>({ type: 'customers' }, `sku_lists/${_skuListId}/customer`, params, options) as unknown as Customer
 	}
 
 	async skus(skuListId: string | SkuList, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {

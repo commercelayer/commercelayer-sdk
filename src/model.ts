@@ -3,7 +3,7 @@
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2022 Commerce Layer Inc.
- * OpenAPI schema, version 3.0.0
+ * OpenAPI schema, version 3.0.3
  **/
 export type { Address, AddressCreate, AddressUpdate } from './resources/addresses'
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate } from './resources/adjustments'
@@ -22,6 +22,7 @@ export type { Capture, CaptureUpdate } from './resources/captures'
 export type { CarrierAccount } from './resources/carrier_accounts'
 export type { CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewayUpdate } from './resources/checkout_com_gateways'
 export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate } from './resources/checkout_com_payments'
+export type { Cleanup, CleanupCreate } from './resources/cleanups'
 export type { CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRuleUpdate } from './resources/coupon_codes_promotion_rules'
 export type { CouponRecipient, CouponRecipientCreate, CouponRecipientUpdate } from './resources/coupon_recipients'
 export type { Coupon, CouponCreate, CouponUpdate } from './resources/coupons'

@@ -8,6 +8,7 @@ import type { CustomerSubscription } from './customer_subscriptions'
 import type { Order } from './orders'
 import type { OrderSubscription } from './order_subscriptions'
 import type { Return } from './returns'
+import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
@@ -29,6 +30,7 @@ interface Customer extends Resource {
 	orders?: Order[]
 	order_subscriptions?: OrderSubscription[]
 	returns?: Return[]
+	sku_lists?: SkuList[]
 	attachments?: Attachment[]
 	events?: Event[]
 
@@ -113,6 +115,11 @@ class Customers extends ApiResource {
 	async returns(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
 		const _customerId = (customerId as Customer).id || customerId
 		return this.resources.fetch<Return>({ type: 'returns' }, `customers/${_customerId}/returns`, params, options) as unknown as ListResponse<Return>
+	}
+
+	async sku_lists(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuList>> {
+		const _customerId = (customerId as Customer).id || customerId
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `customers/${_customerId}/sku_lists`, params, options) as unknown as ListResponse<SkuList>
 	}
 
 	async attachments(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

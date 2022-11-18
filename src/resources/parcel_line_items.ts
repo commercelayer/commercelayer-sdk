@@ -14,6 +14,8 @@ interface ParcelLineItem extends Resource {
 	
 	sku_code?: string
 	quantity?: number
+	name?: string
+	image_url?: string
 
 	parcel?: Parcel
 	stock_line_item?: StockLineItem
