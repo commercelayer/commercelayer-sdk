@@ -80,12 +80,12 @@ class LineItemOptions extends ApiResource {
 	}
 
 	async line_item(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
-		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId
+		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `line_item_options/${_lineItemOptionId}/line_item`, params, options) as unknown as LineItem
 	}
 
 	async sku_option(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
-		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId
+		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
 		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `line_item_options/${_lineItemOptionId}/sku_option`, params, options) as unknown as SkuOption
 	}
 

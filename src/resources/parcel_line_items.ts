@@ -71,12 +71,12 @@ class ParcelLineItems extends ApiResource {
 	}
 
 	async parcel(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
-		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId
+		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
 		return this.resources.fetch<Parcel>({ type: 'parcels' }, `parcel_line_items/${_parcelLineItemId}/parcel`, params, options) as unknown as Parcel
 	}
 
 	async stock_line_item(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
-		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId
+		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
 		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `parcel_line_items/${_parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
 	}
 

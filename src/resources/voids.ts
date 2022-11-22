@@ -42,12 +42,12 @@ class Voids extends ApiResource {
 	}
 
 	async order(voidId: string | Void, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _voidId = (voidId as Void).id || voidId
+		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `voids/${_voidId}/order`, params, options) as unknown as Order
 	}
 
 	async reference_authorization(voidId: string | Void, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
-		const _voidId = (voidId as Void).id || voidId
+		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `voids/${_voidId}/reference_authorization`, params, options) as unknown as Authorization
 	}
 

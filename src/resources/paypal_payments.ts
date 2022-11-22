@@ -76,12 +76,12 @@ class PaypalPayments extends ApiResource {
 	}
 
 	async order(paypalPaymentId: string | PaypalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId
+		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `paypal_payments/${_paypalPaymentId}/order`, params, options) as unknown as Order
 	}
 
 	async payment_gateway(paypalPaymentId: string | PaypalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId
+		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `paypal_payments/${_paypalPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 

@@ -66,17 +66,17 @@ class InventoryModels extends ApiResource {
 	}
 
 	async inventory_stock_locations(inventoryModelId: string | InventoryModel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
-		const _inventoryModelId = (inventoryModelId as InventoryModel).id || inventoryModelId
+		const _inventoryModelId = (inventoryModelId as InventoryModel).id || inventoryModelId as string
 		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `inventory_models/${_inventoryModelId}/inventory_stock_locations`, params, options) as unknown as ListResponse<InventoryStockLocation>
 	}
 
 	async inventory_return_locations(inventoryModelId: string | InventoryModel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
-		const _inventoryModelId = (inventoryModelId as InventoryModel).id || inventoryModelId
+		const _inventoryModelId = (inventoryModelId as InventoryModel).id || inventoryModelId as string
 		return this.resources.fetch<InventoryReturnLocation>({ type: 'inventory_return_locations' }, `inventory_models/${_inventoryModelId}/inventory_return_locations`, params, options) as unknown as ListResponse<InventoryReturnLocation>
 	}
 
 	async attachments(inventoryModelId: string | InventoryModel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _inventoryModelId = (inventoryModelId as InventoryModel).id || inventoryModelId
+		const _inventoryModelId = (inventoryModelId as InventoryModel).id || inventoryModelId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `inventory_models/${_inventoryModelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

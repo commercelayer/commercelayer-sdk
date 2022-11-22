@@ -71,17 +71,17 @@ class Authorizations extends ApiResource {
 	}
 
 	async order(authorizationId: string | Authorization, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _authorizationId = (authorizationId as Authorization).id || authorizationId
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `authorizations/${_authorizationId}/order`, params, options) as unknown as Order
 	}
 
 	async captures(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
-		const _authorizationId = (authorizationId as Authorization).id || authorizationId
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Capture>({ type: 'captures' }, `authorizations/${_authorizationId}/captures`, params, options) as unknown as ListResponse<Capture>
 	}
 
 	async voids(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
-		const _authorizationId = (authorizationId as Authorization).id || authorizationId
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Void>({ type: 'voids' }, `authorizations/${_authorizationId}/voids`, params, options) as unknown as ListResponse<Void>
 	}
 

@@ -59,7 +59,7 @@ class Exports extends ApiResource {
 	}
 
 	async events(exportId: string | Export, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _exportId = (exportId as Export).id || exportId
+		const _exportId = (exportId as Export).id || exportId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `exports/${_exportId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 

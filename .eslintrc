@@ -1,23 +1,15 @@
 {
-  "root": true,
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
-  ],
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "@commercelayer/eslint-config-ts"
   ],
+  "ignorePatterns": ["test/**/*.test.ts", "gen/**"],
   "rules": {
-    "no-console": 1,
-    "indent": "off",
-    "object-curly-spacing": "off",
-    "padded-blocks": "off",
-    "no-multiple-empty-lines": "off",
-    "array-bracket-spacing": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/no-inferrable-types": "off",
-    "@typescript-eslint/ban-types": "off"
+    "prettier/prettier": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/return-await": "off"
   }
 }

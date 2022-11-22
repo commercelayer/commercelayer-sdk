@@ -86,27 +86,27 @@ class Prices extends ApiResource {
 	}
 
 	async price_list(priceId: string | Price, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
-		const _priceId = (priceId as Price).id || priceId
+		const _priceId = (priceId as Price).id || priceId as string
 		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `prices/${_priceId}/price_list`, params, options) as unknown as PriceList
 	}
 
 	async sku(priceId: string | Price, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
-		const _priceId = (priceId as Price).id || priceId
+		const _priceId = (priceId as Price).id || priceId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `prices/${_priceId}/sku`, params, options) as unknown as Sku
 	}
 
 	async price_tiers(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceTier>> {
-		const _priceId = (priceId as Price).id || priceId
+		const _priceId = (priceId as Price).id || priceId as string
 		return this.resources.fetch<PriceTier>({ type: 'price_tiers' }, `prices/${_priceId}/price_tiers`, params, options) as unknown as ListResponse<PriceTier>
 	}
 
 	async price_volume_tiers(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceVolumeTier>> {
-		const _priceId = (priceId as Price).id || priceId
+		const _priceId = (priceId as Price).id || priceId as string
 		return this.resources.fetch<PriceVolumeTier>({ type: 'price_volume_tiers' }, `prices/${_priceId}/price_volume_tiers`, params, options) as unknown as ListResponse<PriceVolumeTier>
 	}
 
 	async attachments(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _priceId = (priceId as Price).id || priceId
+		const _priceId = (priceId as Price).id || priceId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `prices/${_priceId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

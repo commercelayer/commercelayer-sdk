@@ -1260,33 +1260,6 @@
                 }
             }
         },
-        "/avalara_accounts/{avalaraAccountId}/tax_categories": {
-            "get": {
-                "operationId": "GET/avalaraAccountId/tax_categories",
-                "summary": "Retrieve the tax categories associated to the avalara account",
-                "description": "Retrieve the tax categories associated to the avalara account",
-                "tags": [
-                    "has_many",
-                    "tax_categories"
-                ],
-                "parameters": [
-                    {
-                        "name": "avalaraAccountId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The tax_categories associated to the avalara account"
-                    }
-                }
-            }
-        },
         "/avalara_accounts/{avalaraAccountId}/markets": {
             "get": {
                 "operationId": "GET/avalaraAccountId/markets",
@@ -1337,6 +1310,33 @@
                 "responses": {
                     "200": {
                         "description": "The attachments associated to the avalara account"
+                    }
+                }
+            }
+        },
+        "/avalara_accounts/{avalaraAccountId}/tax_categories": {
+            "get": {
+                "operationId": "GET/avalaraAccountId/tax_categories",
+                "summary": "Retrieve the tax categories associated to the avalara account",
+                "description": "Retrieve the tax categories associated to the avalara account",
+                "tags": [
+                    "has_many",
+                    "tax_categories"
+                ],
+                "parameters": [
+                    {
+                        "name": "avalaraAccountId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The tax_categories associated to the avalara account"
                     }
                 }
             }
@@ -6671,33 +6671,6 @@
                 }
             }
         },
-        "/external_tax_calculators/{externalTaxCalculatorId}/tax_categories": {
-            "get": {
-                "operationId": "GET/externalTaxCalculatorId/tax_categories",
-                "summary": "Retrieve the tax categories associated to the external tax calculator",
-                "description": "Retrieve the tax categories associated to the external tax calculator",
-                "tags": [
-                    "has_many",
-                    "tax_categories"
-                ],
-                "parameters": [
-                    {
-                        "name": "externalTaxCalculatorId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The tax_categories associated to the external tax calculator"
-                    }
-                }
-            }
-        },
         "/external_tax_calculators/{externalTaxCalculatorId}/markets": {
             "get": {
                 "operationId": "GET/externalTaxCalculatorId/markets",
@@ -11001,33 +10974,6 @@
                 "responses": {
                     "204": {
                         "description": "No content"
-                    }
-                }
-            }
-        },
-        "/manual_tax_calculators/{manualTaxCalculatorId}/tax_categories": {
-            "get": {
-                "operationId": "GET/manualTaxCalculatorId/tax_categories",
-                "summary": "Retrieve the tax categories associated to the manual tax calculator",
-                "description": "Retrieve the tax categories associated to the manual tax calculator",
-                "tags": [
-                    "has_many",
-                    "tax_categories"
-                ],
-                "parameters": [
-                    {
-                        "name": "manualTaxCalculatorId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The tax_categories associated to the manual tax calculator"
                     }
                 }
             }
@@ -18809,6 +18755,33 @@
                 }
             }
         },
+        "/sku_lists/{skuListId}/attachments": {
+            "get": {
+                "operationId": "GET/skuListId/attachments",
+                "summary": "Retrieve the attachments associated to the SKU list",
+                "description": "Retrieve the attachments associated to the SKU list",
+                "tags": [
+                    "has_many",
+                    "attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "skuListId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The attachments associated to the SKU list"
+                    }
+                }
+            }
+        },
         "/sku_options": {
             "get": {
                 "operationId": "GET/sku_options",
@@ -20779,33 +20752,6 @@
                 }
             }
         },
-        "/tax_calculators/{taxCalculatorId}/tax_categories": {
-            "get": {
-                "operationId": "GET/taxCalculatorId/tax_categories",
-                "summary": "Retrieve the tax categories associated to the tax calculator",
-                "description": "Retrieve the tax categories associated to the tax calculator",
-                "tags": [
-                    "has_many",
-                    "tax_categories"
-                ],
-                "parameters": [
-                    {
-                        "name": "taxCalculatorId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The tax_categories associated to the tax calculator"
-                    }
-                }
-            }
-        },
         "/tax_calculators/{taxCalculatorId}/markets": {
             "get": {
                 "operationId": "GET/taxCalculatorId/markets",
@@ -21391,33 +21337,6 @@
                 }
             }
         },
-        "/taxjar_accounts/{taxjarAccountId}/tax_categories": {
-            "get": {
-                "operationId": "GET/taxjarAccountId/tax_categories",
-                "summary": "Retrieve the tax categories associated to the taxjar account",
-                "description": "Retrieve the tax categories associated to the taxjar account",
-                "tags": [
-                    "has_many",
-                    "tax_categories"
-                ],
-                "parameters": [
-                    {
-                        "name": "taxjarAccountId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The tax_categories associated to the taxjar account"
-                    }
-                }
-            }
-        },
         "/taxjar_accounts/{taxjarAccountId}/markets": {
             "get": {
                 "operationId": "GET/taxjarAccountId/markets",
@@ -21468,6 +21387,33 @@
                 "responses": {
                     "200": {
                         "description": "The attachments associated to the taxjar account"
+                    }
+                }
+            }
+        },
+        "/taxjar_accounts/{taxjarAccountId}/tax_categories": {
+            "get": {
+                "operationId": "GET/taxjarAccountId/tax_categories",
+                "summary": "Retrieve the tax categories associated to the taxjar account",
+                "description": "Retrieve the tax categories associated to the taxjar account",
+                "tags": [
+                    "has_many",
+                    "tax_categories"
+                ],
+                "parameters": [
+                    {
+                        "name": "taxjarAccountId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The tax_categories associated to the taxjar account"
                     }
                 }
             }
@@ -25309,31 +25255,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "required": [
-                                            "data"
-                                        ],
-                                        "properties": {
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "tax_categories"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource's id",
-                                                        "example": "XGZwpOSrWL"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "markets": {
                                         "type": "object",
                                         "required": [
@@ -25373,6 +25294,31 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "attachments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "tax_categories": {
+                                        "type": "object",
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "tax_categories"
                                                         ]
                                                     },
                                                     "id": {
@@ -25647,43 +25593,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "properties": {
-                                            "links": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "self": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    },
-                                                    "related": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    }
-                                                }
-                                            },
-                                            "data": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "type": {
-                                                            "type": "string",
-                                                            "description": "The resource's type",
-                                                            "enum": [
-                                                                "tax_categories"
-                                                            ]
-                                                        },
-                                                        "id": {
-                                                            "type": "string",
-                                                            "description": "The resource ID"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "markets": {
                                         "type": "object",
                                         "properties": {
@@ -25747,6 +25656,43 @@
                                                             "description": "The resource's type",
                                                             "enum": [
                                                                 "attachments"
+                                                            ]
+                                                        },
+                                                        "id": {
+                                                            "type": "string",
+                                                            "description": "The resource ID"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "tax_categories": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "type": {
+                                                            "type": "string",
+                                                            "description": "The resource's type",
+                                                            "enum": [
+                                                                "tax_categories"
                                                             ]
                                                         },
                                                         "id": {
@@ -37918,31 +37864,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "required": [
-                                            "data"
-                                        ],
-                                        "properties": {
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "tax_categories"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource's id",
-                                                        "example": "XGZwpOSrWL"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "markets": {
                                         "type": "object",
                                         "required": [
@@ -38057,33 +37978,7 @@
                             },
                             "relationships": {
                                 "type": "object",
-                                "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "required": [
-                                            "data"
-                                        ],
-                                        "properties": {
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "tax_categories"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource's id",
-                                                        "example": "XGZwpOSrWL"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                "properties": {}
                             }
                         }
                     }
@@ -38149,33 +38044,7 @@
                             },
                             "relationships": {
                                 "type": "object",
-                                "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "required": [
-                                            "data"
-                                        ],
-                                        "properties": {
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "tax_categories"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource's id",
-                                                        "example": "XGZwpOSrWL"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                "properties": {}
                             }
                         }
                     }
@@ -38214,43 +38083,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "properties": {
-                                            "links": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "self": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    },
-                                                    "related": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    }
-                                                }
-                                            },
-                                            "data": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "type": {
-                                                            "type": "string",
-                                                            "description": "The resource's type",
-                                                            "enum": [
-                                                                "tax_categories"
-                                                            ]
-                                                        },
-                                                        "id": {
-                                                            "type": "string",
-                                                            "description": "The resource ID"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "markets": {
                                         "type": "object",
                                         "properties": {
@@ -49488,31 +49320,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "required": [
-                                            "data"
-                                        ],
-                                        "properties": {
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "tax_categories"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource's id",
-                                                        "example": "XGZwpOSrWL"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "markets": {
                                         "type": "object",
                                         "required": [
@@ -49647,31 +49454,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "required": [
-                                            "data"
-                                        ],
-                                        "properties": {
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "tax_categories"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource's id",
-                                                        "example": "XGZwpOSrWL"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "tax_rules": {
                                         "type": "object",
                                         "required": [
@@ -49759,31 +49541,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "required": [
-                                            "data"
-                                        ],
-                                        "properties": {
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "tax_categories"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource's id",
-                                                        "example": "XGZwpOSrWL"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "tax_rules": {
                                         "type": "object",
                                         "required": [
@@ -49848,43 +49605,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "properties": {
-                                            "links": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "self": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    },
-                                                    "related": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    }
-                                                }
-                                            },
-                                            "data": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "type": {
-                                                            "type": "string",
-                                                            "description": "The resource's type",
-                                                            "enum": [
-                                                                "tax_categories"
-                                                            ]
-                                                        },
-                                                        "id": {
-                                                            "type": "string",
-                                                            "description": "The resource ID"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "markets": {
                                         "type": "object",
                                         "properties": {
@@ -70252,6 +69972,31 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "attachments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -70637,6 +70382,43 @@
                                                             "description": "The resource's type",
                                                             "enum": [
                                                                 "bundles"
+                                                            ]
+                                                        },
+                                                        "id": {
+                                                            "type": "string",
+                                                            "description": "The resource ID"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "type": {
+                                                            "type": "string",
+                                                            "description": "The resource's type",
+                                                            "enum": [
+                                                                "attachments"
                                                             ]
                                                         },
                                                         "id": {
@@ -75377,31 +75159,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "required": [
-                                            "data"
-                                        ],
-                                        "properties": {
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "tax_categories"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource's id",
-                                                        "example": "XGZwpOSrWL"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "markets": {
                                         "type": "object",
                                         "required": [
@@ -75491,43 +75248,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "properties": {
-                                            "links": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "self": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    },
-                                                    "related": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    }
-                                                }
-                                            },
-                                            "data": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "type": {
-                                                            "type": "string",
-                                                            "description": "The resource's type",
-                                                            "enum": [
-                                                                "tax_categories"
-                                                            ]
-                                                        },
-                                                        "id": {
-                                                            "type": "string",
-                                                            "description": "The resource ID"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "markets": {
                                         "type": "object",
                                         "properties": {
@@ -76762,31 +76482,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "required": [
-                                            "data"
-                                        ],
-                                        "properties": {
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "tax_categories"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource's id",
-                                                        "example": "XGZwpOSrWL"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "markets": {
                                         "type": "object",
                                         "required": [
@@ -76826,6 +76521,31 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "attachments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "tax_categories": {
+                                        "type": "object",
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "tax_categories"
                                                         ]
                                                     },
                                                     "id": {
@@ -77058,43 +76778,6 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
-                                    "tax_categories": {
-                                        "type": "object",
-                                        "properties": {
-                                            "links": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "self": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    },
-                                                    "related": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    }
-                                                }
-                                            },
-                                            "data": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "type": {
-                                                            "type": "string",
-                                                            "description": "The resource's type",
-                                                            "enum": [
-                                                                "tax_categories"
-                                                            ]
-                                                        },
-                                                        "id": {
-                                                            "type": "string",
-                                                            "description": "The resource ID"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
                                     "markets": {
                                         "type": "object",
                                         "properties": {
@@ -77158,6 +76841,43 @@
                                                             "description": "The resource's type",
                                                             "enum": [
                                                                 "attachments"
+                                                            ]
+                                                        },
+                                                        "id": {
+                                                            "type": "string",
+                                                            "description": "The resource ID"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "tax_categories": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "type": {
+                                                            "type": "string",
+                                                            "description": "The resource's type",
+                                                            "enum": [
+                                                                "tax_categories"
                                                             ]
                                                         },
                                                         "id": {

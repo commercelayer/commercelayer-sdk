@@ -63,12 +63,12 @@ class Merchants extends ApiResource {
 	}
 
 	async address(merchantId: string | Merchant, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		const _merchantId = (merchantId as Merchant).id || merchantId
+		const _merchantId = (merchantId as Merchant).id || merchantId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `merchants/${_merchantId}/address`, params, options) as unknown as Address
 	}
 
 	async attachments(merchantId: string | Merchant, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _merchantId = (merchantId as Merchant).id || merchantId
+		const _merchantId = (merchantId as Merchant).id || merchantId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `merchants/${_merchantId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

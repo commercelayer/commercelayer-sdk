@@ -5,7 +5,7 @@ import { resourceList } from './api'
 import type { ResourceId, ResourceType } from './resource'
 
 const isResourceId = (resource: any): resource is ResourceId => {
-	return (resource && resource.type && resource.id) && resourceList.includes(resource.type)
+	return (resource?.type && resource.id) && resourceList.includes(resource.type)
 }
 
 const isResourceType = (resource: any): resource is ResourceType => {

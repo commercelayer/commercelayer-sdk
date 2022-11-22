@@ -1,13 +1,11 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import type { TaxCategory } from './tax_categories'
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
 
 
 type ExternalTaxCalculatorRel = ResourceRel & { type: typeof ExternalTaxCalculators.TYPE }
-type TaxCategoryRel = ResourceRel & { type: 'tax_categories' }
 
 
 interface ExternalTaxCalculator extends Resource {
@@ -16,7 +14,6 @@ interface ExternalTaxCalculator extends Resource {
 	tax_calculator_url?: string
 	shared_secret?: string
 
-	tax_categories?: TaxCategory[]
 	markets?: Market[]
 	attachments?: Attachment[]
 
@@ -27,9 +24,7 @@ interface ExternalTaxCalculatorCreate extends ResourceCreate {
 	
 	name: string
 	tax_calculator_url: string
-
-	tax_categories?: TaxCategoryRel[]
-
+	
 }
 
 
@@ -37,9 +32,7 @@ interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	
 	name?: string
 	tax_calculator_url?: string
-
-	tax_categories?: TaxCategoryRel[]
-
+	
 }
 
 
@@ -68,18 +61,13 @@ class ExternalTaxCalculators extends ApiResource {
 		await this.resources.delete({ type: ExternalTaxCalculators.TYPE, id }, options)
 	}
 
-	async tax_categories(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
-		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId
-		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `external_tax_calculators/${_externalTaxCalculatorId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
-	}
-
 	async markets(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId
+		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `external_tax_calculators/${_externalTaxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
 	async attachments(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId
+		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_tax_calculators/${_externalTaxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

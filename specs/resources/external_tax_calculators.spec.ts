@@ -25,9 +25,8 @@ describe('ExternalTaxCalculators resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'beta_12',
-			tax_calculator_url: 'sigma_76',
-			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
+			name: 'epsilon_30',
+			tax_calculator_url: 'gamma_67',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -151,25 +150,6 @@ describe('ExternalTaxCalculators resource', () => {
   /* spec.type.stop */
 
   
-
-	it(resourceType + '.tax_categories', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { tax_categories: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'tax_categories')
-			checkCommonParams(config, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].tax_categories(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
-	
-	})
-	
 
 	it(resourceType + '.markets', async () => {
 	

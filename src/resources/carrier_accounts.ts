@@ -34,12 +34,12 @@ class CarrierAccounts extends ApiResource {
 	}
 
 	async market(carrierAccountId: string | CarrierAccount, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId
+		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `carrier_accounts/${_carrierAccountId}/market`, params, options) as unknown as Market
 	}
 
 	async attachments(carrierAccountId: string | CarrierAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId
+		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `carrier_accounts/${_carrierAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

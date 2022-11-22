@@ -74,7 +74,7 @@ class ShippingZones extends ApiResource {
 	}
 
 	async attachments(shippingZoneId: string | ShippingZone, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId
+		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_zones/${_shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

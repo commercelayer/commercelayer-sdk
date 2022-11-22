@@ -25,7 +25,7 @@ describe('CustomerSubscriptions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			customer_email: 'beta_26',
+			customer_email: 'omega_37',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

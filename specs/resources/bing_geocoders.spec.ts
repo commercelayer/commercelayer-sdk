@@ -25,8 +25,8 @@ describe('BingGeocoders resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'sigma_0',
-			key: 'sigma_51',
+			name: 'epsilon_21',
+			key: 'epsilon_43',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

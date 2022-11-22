@@ -72,12 +72,12 @@ class BraintreePayments extends ApiResource {
 	}
 
 	async order(braintreePaymentId: string | BraintreePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId
+		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `braintree_payments/${_braintreePaymentId}/order`, params, options) as unknown as Order
 	}
 
 	async payment_gateway(braintreePaymentId: string | BraintreePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId
+		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `braintree_payments/${_braintreePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 

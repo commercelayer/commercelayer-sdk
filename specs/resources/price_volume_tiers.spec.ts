@@ -25,8 +25,8 @@ describe('PriceVolumeTiers resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_41',
-			price_amount_cents: 10,
+			name: 'delta_63',
+			price_amount_cents: 12345,
 			price: cl.prices.relationship(TestData.id),
 		}
 

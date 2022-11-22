@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 
 import apiSchema, { Resource, Operation, Component, Cardinality } from './schema'
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
@@ -604,11 +603,13 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			}
 
 			const req = r.required ? '' : '?'
-			const arr = (r.cardinality === Cardinality.to_many) ? '[]' : ''
 
-			if (r.polymorphic && (r.cardinality === Cardinality.to_many)) resName = `(${resName})`
+			if ((r.cardinality === Cardinality.to_many)) {
+				if (r.polymorphic) resName = `Array<${resName}>`
+				else resName += '[]'
+			}
 
-			rels.push(`${r.name}${req}: ${resName}${arr}`)
+			rels.push(`${r.name}${req}: ${resName}`)
 
 		}
 	})
@@ -628,6 +629,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	return { component, models }
 
 }
+
 
 
 generate(process.argv.indexOf('--local') > -1)

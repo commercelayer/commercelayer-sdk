@@ -99,32 +99,32 @@ class Skus extends ApiResource {
 	}
 
 	async shipping_category(skuId: string | Sku, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
-		const _skuId = (skuId as Sku).id || skuId
+		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `skus/${_skuId}/shipping_category`, params, options) as unknown as ShippingCategory
 	}
 
 	async prices(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Price>> {
-		const _skuId = (skuId as Sku).id || skuId
+		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<Price>({ type: 'prices' }, `skus/${_skuId}/prices`, params, options) as unknown as ListResponse<Price>
 	}
 
 	async stock_items(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
-		const _skuId = (skuId as Sku).id || skuId
+		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `skus/${_skuId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
 	}
 
 	async delivery_lead_times(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
-		const _skuId = (skuId as Sku).id || skuId
+		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `skus/${_skuId}/delivery_lead_times`, params, options) as unknown as ListResponse<DeliveryLeadTime>
 	}
 
 	async sku_options(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
-		const _skuId = (skuId as Sku).id || skuId
+		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `skus/${_skuId}/sku_options`, params, options) as unknown as ListResponse<SkuOption>
 	}
 
 	async attachments(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _skuId = (skuId as Sku).id || skuId
+		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `skus/${_skuId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

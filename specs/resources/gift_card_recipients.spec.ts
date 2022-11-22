@@ -25,7 +25,7 @@ describe('GiftCardRecipients resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			email: 'gamma_7',
+			email: 'epsilon_29',
 			customer: cl.customers.relationship(TestData.id),
 		}
 

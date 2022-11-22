@@ -60,12 +60,12 @@ class BingGeocoders extends ApiResource {
 	}
 
 	async addresses(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
-		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId
+		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `bing_geocoders/${_bingGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
 	}
 
 	async attachments(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId
+		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bing_geocoders/${_bingGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

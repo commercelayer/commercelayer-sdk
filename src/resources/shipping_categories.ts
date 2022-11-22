@@ -58,12 +58,12 @@ class ShippingCategories extends ApiResource {
 	}
 
 	async skus(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
-		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId
+		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `shipping_categories/${_shippingCategoryId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 	async attachments(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId
+		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_categories/${_shippingCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

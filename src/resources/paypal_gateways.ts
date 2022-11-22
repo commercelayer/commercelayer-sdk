@@ -62,12 +62,12 @@ class PaypalGateways extends ApiResource {
 	}
 
 	async payment_methods(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId
+		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `paypal_gateways/${_paypalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
 	async paypal_payments(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
-		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId
+		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
 		return this.resources.fetch<PaypalPayment>({ type: 'paypal_payments' }, `paypal_gateways/${_paypalGatewayId}/paypal_payments`, params, options) as unknown as ListResponse<PaypalPayment>
 	}
 

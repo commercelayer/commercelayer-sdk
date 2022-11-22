@@ -91,42 +91,42 @@ class Returns extends ApiResource {
 	}
 
 	async order(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _returnId = (returnId as Return).id || returnId
+		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `returns/${_returnId}/order`, params, options) as unknown as Order
 	}
 
 	async customer(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		const _returnId = (returnId as Return).id || returnId
+		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Customer>({ type: 'customers' }, `returns/${_returnId}/customer`, params, options) as unknown as Customer
 	}
 
 	async stock_location(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
-		const _returnId = (returnId as Return).id || returnId
+		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `returns/${_returnId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
 	async origin_address(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		const _returnId = (returnId as Return).id || returnId
+		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `returns/${_returnId}/origin_address`, params, options) as unknown as Address
 	}
 
 	async destination_address(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		const _returnId = (returnId as Return).id || returnId
+		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `returns/${_returnId}/destination_address`, params, options) as unknown as Address
 	}
 
 	async return_line_items(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
-		const _returnId = (returnId as Return).id || returnId
+		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<ReturnLineItem>({ type: 'return_line_items' }, `returns/${_returnId}/return_line_items`, params, options) as unknown as ListResponse<ReturnLineItem>
 	}
 
 	async attachments(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _returnId = (returnId as Return).id || returnId
+		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `returns/${_returnId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async events(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _returnId = (returnId as Return).id || returnId
+		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `returns/${_returnId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 

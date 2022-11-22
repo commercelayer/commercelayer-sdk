@@ -1,7 +1,6 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import type { TaxCategory } from './tax_categories'
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
 
@@ -13,7 +12,6 @@ interface TaxCalculator extends Resource {
 	
 	name?: string
 
-	tax_categories?: TaxCategory[]
 	markets?: Market[]
 	attachments?: Attachment[]
 
@@ -33,18 +31,13 @@ class TaxCalculators extends ApiResource {
 		return this.resources.retrieve<TaxCalculator>({ type: TaxCalculators.TYPE, id }, params, options)
 	}
 
-	async tax_categories(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
-		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId
-		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `tax_calculators/${_taxCalculatorId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
-	}
-
 	async markets(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId
+		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `tax_calculators/${_taxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
 	async attachments(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId
+		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_calculators/${_taxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

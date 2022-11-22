@@ -114,7 +114,7 @@ class Addresses extends ApiResource {
 	}
 
 	async geocoder(addressId: string | Address, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
-		const _addressId = (addressId as Address).id || addressId
+		const _addressId = (addressId as Address).id || addressId as string
 		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `addresses/${_addressId}/geocoder`, params, options) as unknown as Geocoder
 	}
 

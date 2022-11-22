@@ -67,17 +67,17 @@ class ExternalPayments extends ApiResource {
 	}
 
 	async order(externalPaymentId: string | ExternalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId
+		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `external_payments/${_externalPaymentId}/order`, params, options) as unknown as Order
 	}
 
 	async payment_gateway(externalPaymentId: string | ExternalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId
+		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `external_payments/${_externalPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
 	async wallet(externalPaymentId: string | ExternalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
-		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId
+		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId as string
 		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `external_payments/${_externalPaymentId}/wallet`, params, options) as unknown as CustomerPaymentSource
 	}
 

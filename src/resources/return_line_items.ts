@@ -71,12 +71,12 @@ class ReturnLineItems extends ApiResource {
 	}
 
 	async return(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
-		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId
+		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId as string
 		return this.resources.fetch<Return>({ type: 'returns' }, `return_line_items/${_returnLineItemId}/return`, params, options) as unknown as Return
 	}
 
 	async line_item(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
-		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId
+		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `return_line_items/${_returnLineItemId}/line_item`, params, options) as unknown as LineItem
 	}
 

@@ -71,17 +71,17 @@ class StockItems extends ApiResource {
 	}
 
 	async stock_location(stockItemId: string | StockItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
-		const _stockItemId = (stockItemId as StockItem).id || stockItemId
+		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
 		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_items/${_stockItemId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
 	async sku(stockItemId: string | StockItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
-		const _stockItemId = (stockItemId as StockItem).id || stockItemId
+		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_items/${_stockItemId}/sku`, params, options) as unknown as Sku
 	}
 
 	async attachments(stockItemId: string | StockItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _stockItemId = (stockItemId as StockItem).id || stockItemId
+		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_items/${_stockItemId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

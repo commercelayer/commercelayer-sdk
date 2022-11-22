@@ -55,7 +55,7 @@ class Cleanups extends ApiResource {
 	}
 
 	async events(cleanupId: string | Cleanup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _cleanupId = (cleanupId as Cleanup).id || cleanupId
+		const _cleanupId = (cleanupId as Cleanup).id || cleanupId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `cleanups/${_cleanupId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 

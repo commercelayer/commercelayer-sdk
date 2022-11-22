@@ -80,17 +80,17 @@ class Packages extends ApiResource {
 	}
 
 	async stock_location(packageId: string | Package, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
-		const _packageId = (packageId as Package).id || packageId
+		const _packageId = (packageId as Package).id || packageId as string
 		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `packages/${_packageId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
 	async parcels(packageId: string | Package, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
-		const _packageId = (packageId as Package).id || packageId
+		const _packageId = (packageId as Package).id || packageId as string
 		return this.resources.fetch<Parcel>({ type: 'parcels' }, `packages/${_packageId}/parcels`, params, options) as unknown as ListResponse<Parcel>
 	}
 
 	async attachments(packageId: string | Package, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _packageId = (packageId as Package).id || packageId
+		const _packageId = (packageId as Package).id || packageId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `packages/${_packageId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

@@ -69,12 +69,12 @@ class CouponRecipients extends ApiResource {
 	}
 
 	async customer(couponRecipientId: string | CouponRecipient, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId
+		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
 		return this.resources.fetch<Customer>({ type: 'customers' }, `coupon_recipients/${_couponRecipientId}/customer`, params, options) as unknown as Customer
 	}
 
 	async attachments(couponRecipientId: string | CouponRecipient, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId
+		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${_couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

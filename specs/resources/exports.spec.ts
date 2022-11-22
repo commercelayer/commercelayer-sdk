@@ -25,7 +25,7 @@ describe('Exports resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			resource_type: 'omega_51',
+			resource_type: 'epsilon_78',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

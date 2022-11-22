@@ -32,12 +32,12 @@ class Events extends ApiResource {
 	}
 
 	async last_event_callbacks(eventId: string | Event, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
-		const _eventId = (eventId as Event).id || eventId
+		const _eventId = (eventId as Event).id || eventId as string
 		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `events/${_eventId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
 	}
 
 	async webhooks(eventId: string | Event, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {
-		const _eventId = (eventId as Event).id || eventId
+		const _eventId = (eventId as Event).id || eventId as string
 		return this.resources.fetch<Webhook>({ type: 'webhooks' }, `events/${_eventId}/webhooks`, params, options) as unknown as ListResponse<Webhook>
 	}
 

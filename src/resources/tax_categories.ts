@@ -76,12 +76,12 @@ class TaxCategories extends ApiResource {
 	}
 
 	async sku(taxCategoryId: string | TaxCategory, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
-		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId
+		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `tax_categories/${_taxCategoryId}/sku`, params, options) as unknown as Sku
 	}
 
 	async attachments(taxCategoryId: string | TaxCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId
+		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_categories/${_taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

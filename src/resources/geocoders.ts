@@ -32,12 +32,12 @@ class Geocoders extends ApiResource {
 	}
 
 	async addresses(geocoderId: string | Geocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
-		const _geocoderId = (geocoderId as Geocoder).id || geocoderId
+		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `geocoders/${_geocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
 	}
 
 	async attachments(geocoderId: string | Geocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _geocoderId = (geocoderId as Geocoder).id || geocoderId
+		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `geocoders/${_geocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

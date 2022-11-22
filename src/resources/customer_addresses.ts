@@ -64,17 +64,17 @@ class CustomerAddresses extends ApiResource {
 	}
 
 	async customer(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId
+		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
 		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_addresses/${_customerAddressId}/customer`, params, options) as unknown as Customer
 	}
 
 	async address(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId
+		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `customer_addresses/${_customerAddressId}/address`, params, options) as unknown as Address
 	}
 
 	async events(customerAddressId: string | CustomerAddress, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId
+		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `customer_addresses/${_customerAddressId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 

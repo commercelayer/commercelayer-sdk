@@ -25,8 +25,8 @@ describe('Parcels resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			weight: 100,
-			unit_of_weight: 'lambda_67',
+			weight: 555,
+			unit_of_weight: 'alfa_21',
 			shipment: cl.shipments.relationship(TestData.id),
 			package: cl.packages.relationship(TestData.id),
 		}

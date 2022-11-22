@@ -44,17 +44,17 @@ class Refunds extends ApiResource {
 	}
 
 	async order(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _refundId = (refundId as Refund).id || refundId
+		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `refunds/${_refundId}/order`, params, options) as unknown as Order
 	}
 
 	async reference_capture(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
-		const _refundId = (refundId as Refund).id || refundId
+		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Capture>({ type: 'captures' }, `refunds/${_refundId}/reference_capture`, params, options) as unknown as Capture
 	}
 
 	async events(refundId: string | Refund, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _refundId = (refundId as Refund).id || refundId
+		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `refunds/${_refundId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 

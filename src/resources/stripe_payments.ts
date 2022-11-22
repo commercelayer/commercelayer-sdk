@@ -71,12 +71,12 @@ class StripePayments extends ApiResource {
 	}
 
 	async order(stripePaymentId: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId
+		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `stripe_payments/${_stripePaymentId}/order`, params, options) as unknown as Order
 	}
 
 	async payment_gateway(stripePaymentId: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId
+		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `stripe_payments/${_stripePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 

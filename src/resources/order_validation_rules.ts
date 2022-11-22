@@ -28,7 +28,7 @@ class OrderValidationRules extends ApiResource {
 	}
 
 	async market(orderValidationRuleId: string | OrderValidationRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		const _orderValidationRuleId = (orderValidationRuleId as OrderValidationRule).id || orderValidationRuleId
+		const _orderValidationRuleId = (orderValidationRuleId as OrderValidationRule).id || orderValidationRuleId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `order_validation_rules/${_orderValidationRuleId}/market`, params, options) as unknown as Market
 	}
 

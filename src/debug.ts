@@ -9,7 +9,7 @@ type DebuggerFactory = (namespace: string) => Debugger
 
 
 /* Nope debugger */
-const debuggerFunction = (_pattern: string, ..._args: any[]) => {
+const debuggerFunction = (_pattern: string, ..._args: any[]): void => {
 	// console.log(_pattern)
 }
 

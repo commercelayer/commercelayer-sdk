@@ -30,7 +30,7 @@ class PaymentGateways extends ApiResource {
 	}
 
 	async payment_methods(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || paymentGatewayId
+		const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || paymentGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `payment_gateways/${_paymentGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 

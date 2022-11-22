@@ -40,7 +40,7 @@ class Transactions extends ApiResource {
 	}
 
 	async order(transactionId: string | Transaction, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _transactionId = (transactionId as Transaction).id || transactionId
+		const _transactionId = (transactionId as Transaction).id || transactionId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `transactions/${_transactionId}/order`, params, options) as unknown as Order
 	}
 

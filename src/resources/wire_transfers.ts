@@ -55,7 +55,7 @@ class WireTransfers extends ApiResource {
 	}
 
 	async order(wireTransferId: string | WireTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId
+		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `wire_transfers/${_wireTransferId}/order`, params, options) as unknown as Order
 	}
 

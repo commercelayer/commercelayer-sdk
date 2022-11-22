@@ -36,12 +36,12 @@ class PriceTiers extends ApiResource {
 	}
 
 	async price(priceTierId: string | PriceTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
-		const _priceTierId = (priceTierId as PriceTier).id || priceTierId
+		const _priceTierId = (priceTierId as PriceTier).id || priceTierId as string
 		return this.resources.fetch<Price>({ type: 'prices' }, `price_tiers/${_priceTierId}/price`, params, options) as unknown as Price
 	}
 
 	async attachments(priceTierId: string | PriceTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _priceTierId = (priceTierId as PriceTier).id || priceTierId
+		const _priceTierId = (priceTierId as PriceTier).id || priceTierId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_tiers/${_priceTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

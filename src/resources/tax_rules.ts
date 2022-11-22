@@ -95,7 +95,7 @@ class TaxRules extends ApiResource {
 	}
 
 	async manual_tax_calculator(taxRuleId: string | TaxRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
-		const _taxRuleId = (taxRuleId as TaxRule).id || taxRuleId
+		const _taxRuleId = (taxRuleId as TaxRule).id || taxRuleId as string
 		return this.resources.fetch<ManualTaxCalculator>({ type: 'manual_tax_calculators' }, `tax_rules/${_taxRuleId}/manual_tax_calculator`, params, options) as unknown as ManualTaxCalculator
 	}
 

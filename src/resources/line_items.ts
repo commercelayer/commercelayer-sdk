@@ -127,22 +127,22 @@ class LineItems extends ApiResource {
 	}
 
 	async order(lineItemId: string | LineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _lineItemId = (lineItemId as LineItem).id || lineItemId
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `line_items/${_lineItemId}/order`, params, options) as unknown as Order
 	}
 
 	async line_item_options(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
-		const _lineItemId = (lineItemId as LineItem).id || lineItemId
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
 		return this.resources.fetch<LineItemOption>({ type: 'line_item_options' }, `line_items/${_lineItemId}/line_item_options`, params, options) as unknown as ListResponse<LineItemOption>
 	}
 
 	async stock_line_items(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
-		const _lineItemId = (lineItemId as LineItem).id || lineItemId
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
 		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `line_items/${_lineItemId}/stock_line_items`, params, options) as unknown as ListResponse<StockLineItem>
 	}
 
 	async stock_transfers(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
-		const _lineItemId = (lineItemId as LineItem).id || lineItemId
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
 		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `line_items/${_lineItemId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
 	}
 

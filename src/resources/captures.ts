@@ -62,17 +62,17 @@ class Captures extends ApiResource {
 	}
 
 	async order(captureId: string | Capture, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		const _captureId = (captureId as Capture).id || captureId
+		const _captureId = (captureId as Capture).id || captureId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `captures/${_captureId}/order`, params, options) as unknown as Order
 	}
 
 	async reference_authorization(captureId: string | Capture, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
-		const _captureId = (captureId as Capture).id || captureId
+		const _captureId = (captureId as Capture).id || captureId as string
 		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `captures/${_captureId}/reference_authorization`, params, options) as unknown as Authorization
 	}
 
 	async refunds(captureId: string | Capture, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
-		const _captureId = (captureId as Capture).id || captureId
+		const _captureId = (captureId as Capture).id || captureId as string
 		return this.resources.fetch<Refund>({ type: 'refunds' }, `captures/${_captureId}/refunds`, params, options) as unknown as ListResponse<Refund>
 	}
 

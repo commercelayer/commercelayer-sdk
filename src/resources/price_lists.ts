@@ -64,12 +64,12 @@ class PriceLists extends ApiResource {
 	}
 
 	async prices(priceListId: string | PriceList, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Price>> {
-		const _priceListId = (priceListId as PriceList).id || priceListId
+		const _priceListId = (priceListId as PriceList).id || priceListId as string
 		return this.resources.fetch<Price>({ type: 'prices' }, `price_lists/${_priceListId}/prices`, params, options) as unknown as ListResponse<Price>
 	}
 
 	async attachments(priceListId: string | PriceList, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _priceListId = (priceListId as PriceList).id || priceListId
+		const _priceListId = (priceListId as PriceList).id || priceListId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_lists/${_priceListId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

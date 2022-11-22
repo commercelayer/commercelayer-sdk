@@ -25,8 +25,8 @@ describe('ShippingWeightTiers resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'beta_21',
-			price_amount_cents: 1,
+			name: 'kappa_37',
+			price_amount_cents: 555,
 			shipping_method: cl.shipping_methods.relationship(TestData.id),
 		}
 

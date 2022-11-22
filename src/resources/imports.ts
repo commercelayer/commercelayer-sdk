@@ -64,7 +64,7 @@ class Imports extends ApiResource {
 	}
 
 	async events(importId: string | Import, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _importId = (importId as Import).id || importId
+		const _importId = (importId as Import).id || importId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `imports/${_importId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 

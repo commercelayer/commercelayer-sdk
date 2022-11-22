@@ -59,7 +59,7 @@ class ManualGateways extends ApiResource {
 	}
 
 	async payment_methods(manualGatewayId: string | ManualGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId
+		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `manual_gateways/${_manualGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 

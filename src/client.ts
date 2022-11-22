@@ -12,11 +12,11 @@ const debug = Debug('client')
 
 
 const baseURL = (organization: string, domain?: string): string => {
-	return `https://${organization.toLowerCase()}.${domain ? domain : config.default.domain}/api`
+	return `https://${organization.toLowerCase()}.${domain || config.default.domain}/api`
 }
 
 
-const handleError = (error: Error) => {
+const handleError = (error: Error): void => {
 
 	let sdkError = new SdkError({ message: error.message })
 
@@ -27,7 +27,7 @@ const handleError = (error: Error) => {
 			apiError.type = ErrorType.RESPONSE
 			apiError.status = error.response.status
 			apiError.code = String(apiError.status)
-			apiError.errors = (error.response.data as any).errors
+			apiError.errors = error.response.data.errors
 			sdkError = apiError
 		} else if (error.request) {
 			// The request was made but no response was received
@@ -125,7 +125,7 @@ class ApiClient {
 		if (config.organization) this.baseUrl = baseURL(config.organization, config.domain)
 		if (config.accessToken) {
 			this.#accessToken = config.accessToken
-			def.headers.common['Authorization'] = 'Bearer ' + this.#accessToken;
+			def.headers.common.Authorization = 'Bearer ' + this.#accessToken;
 		}
 
 	}

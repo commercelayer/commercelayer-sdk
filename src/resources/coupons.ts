@@ -71,7 +71,7 @@ class Coupons extends ApiResource {
 	}
 
 	async promotion_rule(couponId: string | Coupon, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		const _couponId = (couponId as Coupon).id || couponId
+		const _couponId = (couponId as Coupon).id || couponId as string
 		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `coupons/${_couponId}/promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
 	}
 

@@ -60,17 +60,17 @@ class CustomerGroups extends ApiResource {
 	}
 
 	async customers(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Customer>> {
-		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId
+		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_groups/${_customerGroupId}/customers`, params, options) as unknown as ListResponse<Customer>
 	}
 
 	async markets(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId
+		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `customer_groups/${_customerGroupId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
 	async attachments(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId
+		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customer_groups/${_customerGroupId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 

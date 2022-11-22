@@ -69,12 +69,12 @@ class SkuListItems extends ApiResource {
 	}
 
 	async sku_list(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
-		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId
+		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
 		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_items/${_skuListItemId}/sku_list`, params, options) as unknown as SkuList
 	}
 
 	async sku(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
-		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId
+		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_items/${_skuListItemId}/sku`, params, options) as unknown as Sku
 	}
 

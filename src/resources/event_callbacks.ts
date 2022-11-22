@@ -33,7 +33,7 @@ class EventCallbacks extends ApiResource {
 	}
 
 	async webhook(eventCallbackId: string | EventCallback, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
-		const _eventCallbackId = (eventCallbackId as EventCallback).id || eventCallbackId
+		const _eventCallbackId = (eventCallbackId as EventCallback).id || eventCallbackId as string
 		return this.resources.fetch<Webhook>({ type: 'webhooks' }, `event_callbacks/${_eventCallbackId}/webhook`, params, options) as unknown as Webhook
 	}
 

@@ -69,7 +69,7 @@ class Webhooks extends ApiResource {
 	}
 
 	async last_event_callbacks(webhookId: string | Webhook, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
-		const _webhookId = (webhookId as Webhook).id || webhookId
+		const _webhookId = (webhookId as Webhook).id || webhookId as string
 		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${_webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
 	}
 

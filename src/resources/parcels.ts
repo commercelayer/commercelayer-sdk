@@ -139,27 +139,27 @@ class Parcels extends ApiResource {
 	}
 
 	async shipment(parcelId: string | Parcel, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
-		const _parcelId = (parcelId as Parcel).id || parcelId
+		const _parcelId = (parcelId as Parcel).id || parcelId as string
 		return this.resources.fetch<Shipment>({ type: 'shipments' }, `parcels/${_parcelId}/shipment`, params, options) as unknown as Shipment
 	}
 
 	async package(parcelId: string | Parcel, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
-		const _parcelId = (parcelId as Parcel).id || parcelId
+		const _parcelId = (parcelId as Parcel).id || parcelId as string
 		return this.resources.fetch<Package>({ type: 'packages' }, `parcels/${_parcelId}/package`, params, options) as unknown as Package
 	}
 
 	async parcel_line_items(parcelId: string | Parcel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
-		const _parcelId = (parcelId as Parcel).id || parcelId
+		const _parcelId = (parcelId as Parcel).id || parcelId as string
 		return this.resources.fetch<ParcelLineItem>({ type: 'parcel_line_items' }, `parcels/${_parcelId}/parcel_line_items`, params, options) as unknown as ListResponse<ParcelLineItem>
 	}
 
 	async attachments(parcelId: string | Parcel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _parcelId = (parcelId as Parcel).id || parcelId
+		const _parcelId = (parcelId as Parcel).id || parcelId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `parcels/${_parcelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async events(parcelId: string | Parcel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _parcelId = (parcelId as Parcel).id || parcelId
+		const _parcelId = (parcelId as Parcel).id || parcelId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `parcels/${_parcelId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 

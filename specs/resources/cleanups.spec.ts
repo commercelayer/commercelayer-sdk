@@ -25,7 +25,7 @@ describe('Cleanups resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			resource_type: 'kappa_33',
+			resource_type: 'delta_96',
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

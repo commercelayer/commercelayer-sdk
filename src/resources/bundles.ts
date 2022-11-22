@@ -96,22 +96,22 @@ class Bundles extends ApiResource {
 	}
 
 	async market(bundleId: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		const _bundleId = (bundleId as Bundle).id || bundleId
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `bundles/${_bundleId}/market`, params, options) as unknown as Market
 	}
 
 	async sku_list(bundleId: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
-		const _bundleId = (bundleId as Bundle).id || bundleId
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
 		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `bundles/${_bundleId}/sku_list`, params, options) as unknown as SkuList
 	}
 
 	async skus(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
-		const _bundleId = (bundleId as Bundle).id || bundleId
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `bundles/${_bundleId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 	async attachments(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _bundleId = (bundleId as Bundle).id || bundleId
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bundles/${_bundleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
