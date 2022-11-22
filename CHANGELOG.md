@@ -1,3 +1,10 @@
+# [4.19.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.18.0...v4.19.0) (2022-11-22)
+
+
+### Features
+
+* **core:** add standardjs and fix polymorphic types ([e18d60b](https://github.com/commercelayer/commercelayer-sdk/commit/e18d60b0e26bde092c1d092f9b0810e2cc9895b7))
+
 # [4.18.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.17.0...v4.18.0) (2022-11-18)
 
 
