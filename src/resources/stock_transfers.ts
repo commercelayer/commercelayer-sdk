@@ -1,10 +1,11 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Sku } from './skus'
-import { StockLocation } from './stock_locations'
-import { Shipment } from './shipments'
-import { LineItem } from './line_items'
+import type { Sku } from './skus'
+import type { StockLocation } from './stock_locations'
+import type { Shipment } from './shipments'
+import type { LineItem } from './line_items'
+import type { Event } from './events'
 
 
 type StockTransferRel = ResourceRel & { type: typeof StockTransfers.TYPE }
@@ -27,6 +28,7 @@ interface StockTransfer extends Resource {
 	destination_stock_location?: StockLocation
 	shipment?: Shipment
 	line_item?: LineItem
+	events?: Event[]
 
 }
 
@@ -63,7 +65,7 @@ interface StockTransferUpdate extends ResourceUpdate {
 
 class StockTransfers extends ApiResource {
 
-	static readonly TYPE: 'stock_transfers' = 'stock_transfers'
+	static readonly TYPE: 'stock_transfers' = 'stock_transfers' as const
 	// static readonly PATH = 'stock_transfers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
@@ -71,7 +73,7 @@ class StockTransfers extends ApiResource {
 	}
 
 	async create(resource: StockTransferCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.create({ ...resource, type: StockTransfers.TYPE }, params, options)
+		return this.resources.create<StockTransferCreate, StockTransfer>({ ...resource, type: StockTransfers.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
@@ -79,31 +81,41 @@ class StockTransfers extends ApiResource {
 	}
 
 	async update(resource: StockTransferUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.update({ ...resource, type: StockTransfers.TYPE }, params, options)
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ ...resource, type: StockTransfers.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: StockTransfers.TYPE, id }, options)
 	}
 
-	async sku(stockTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
-		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_transfers/${stockTransferId}/sku`, params, options) as unknown as Sku
+	async sku(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_transfers/${_stockTransferId}/sku`, params, options) as unknown as Sku
 	}
 
-	async origin_stock_location(stockTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_transfers/${stockTransferId}/origin_stock_location`, params, options) as unknown as StockLocation
+	async origin_stock_location(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_transfers/${_stockTransferId}/origin_stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async destination_stock_location(stockTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_transfers/${stockTransferId}/destination_stock_location`, params, options) as unknown as StockLocation
+	async destination_stock_location(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_transfers/${_stockTransferId}/destination_stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async shipment(stockTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
-		return this.resources.fetch<Shipment>({ type: 'shipments' }, `stock_transfers/${stockTransferId}/shipment`, params, options) as unknown as Shipment
+	async shipment(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<Shipment>({ type: 'shipments' }, `stock_transfers/${_stockTransferId}/shipment`, params, options) as unknown as Shipment
 	}
 
-	async line_item(stockTransferId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
-		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_transfers/${stockTransferId}/line_item`, params, options) as unknown as LineItem
+	async line_item(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_transfers/${_stockTransferId}/line_item`, params, options) as unknown as LineItem
+	}
+
+	async events(stockTransferId: string | StockTransfer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `stock_transfers/${_stockTransferId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

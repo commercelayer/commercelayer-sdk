@@ -1,8 +1,9 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Order } from './orders'
-import { Capture } from './captures'
+import type { Order } from './orders'
+import type { Capture } from './captures'
+import type { Event } from './events'
 
 
 type RefundRel = ResourceRel & { type: typeof Refunds.TYPE }
@@ -24,13 +25,14 @@ interface Refund extends Resource {
 
 	order?: Order
 	reference_capture?: Capture
+	events?: Event[]
 
 }
 
 
 class Refunds extends ApiResource {
 
-	static readonly TYPE: 'refunds' = 'refunds'
+	static readonly TYPE: 'refunds' = 'refunds' as const
 	// static readonly PATH = 'refunds'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
@@ -41,12 +43,19 @@ class Refunds extends ApiResource {
 		return this.resources.retrieve<Refund>({ type: Refunds.TYPE, id }, params, options)
 	}
 
-	async order(refundId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `refunds/${refundId}/order`, params, options) as unknown as Order
+	async order(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _refundId = (refundId as Refund).id || refundId as string
+		return this.resources.fetch<Order>({ type: 'orders' }, `refunds/${_refundId}/order`, params, options) as unknown as Order
 	}
 
-	async reference_capture(refundId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
-		return this.resources.fetch<Capture>({ type: 'captures' }, `refunds/${refundId}/reference_capture`, params, options) as unknown as Capture
+	async reference_capture(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
+		const _refundId = (refundId as Refund).id || refundId as string
+		return this.resources.fetch<Capture>({ type: 'captures' }, `refunds/${_refundId}/reference_capture`, params, options) as unknown as Capture
+	}
+
+	async events(refundId: string | Refund, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _refundId = (refundId as Refund).id || refundId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `refunds/${_refundId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

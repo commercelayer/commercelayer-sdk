@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
+import type { Market } from './markets'
 
 
 type BillingInfoValidationRuleRel = ResourceRel & { type: typeof BillingInfoValidationRules.TYPE }
@@ -31,7 +31,7 @@ interface BillingInfoValidationRuleUpdate extends ResourceUpdate {
 
 class BillingInfoValidationRules extends ApiResource {
 
-	static readonly TYPE: 'billing_info_validation_rules' = 'billing_info_validation_rules'
+	static readonly TYPE: 'billing_info_validation_rules' = 'billing_info_validation_rules' as const
 	// static readonly PATH = 'billing_info_validation_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BillingInfoValidationRule>> {
@@ -39,7 +39,7 @@ class BillingInfoValidationRules extends ApiResource {
 	}
 
 	async create(resource: BillingInfoValidationRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
-		return this.resources.create({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
+		return this.resources.create<BillingInfoValidationRuleCreate, BillingInfoValidationRule>({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
@@ -47,15 +47,16 @@ class BillingInfoValidationRules extends ApiResource {
 	}
 
 	async update(resource: BillingInfoValidationRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
-		return this.resources.update({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
+		return this.resources.update<BillingInfoValidationRuleUpdate, BillingInfoValidationRule>({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: BillingInfoValidationRules.TYPE, id }, options)
 	}
 
-	async market(billingInfoValidationRuleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `billing_info_validation_rules/${billingInfoValidationRuleId}/market`, params, options) as unknown as Market
+	async market(billingInfoValidationRuleId: string | BillingInfoValidationRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _billingInfoValidationRuleId = (billingInfoValidationRuleId as BillingInfoValidationRule).id || billingInfoValidationRuleId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `billing_info_validation_rules/${_billingInfoValidationRuleId}/market`, params, options) as unknown as Market
 	}
 
 

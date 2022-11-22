@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
-import { Attachment } from './attachments'
+import type { Market } from './markets'
+import type { Attachment } from './attachments'
 
 
 type SkuOptionRel = ResourceRel & { type: typeof SkuOptions.TYPE }
@@ -36,7 +36,7 @@ interface SkuOptionCreate extends ResourceCreate {
 	delay_hours?: number
 	sku_code_regex?: string
 
-	market: MarketRel
+	market?: MarketRel
 
 }
 
@@ -57,7 +57,7 @@ interface SkuOptionUpdate extends ResourceUpdate {
 
 class SkuOptions extends ApiResource {
 
-	static readonly TYPE: 'sku_options' = 'sku_options'
+	static readonly TYPE: 'sku_options' = 'sku_options' as const
 	// static readonly PATH = 'sku_options'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
@@ -65,7 +65,7 @@ class SkuOptions extends ApiResource {
 	}
 
 	async create(resource: SkuOptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
-		return this.resources.create({ ...resource, type: SkuOptions.TYPE }, params, options)
+		return this.resources.create<SkuOptionCreate, SkuOption>({ ...resource, type: SkuOptions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
@@ -73,19 +73,21 @@ class SkuOptions extends ApiResource {
 	}
 
 	async update(resource: SkuOptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
-		return this.resources.update({ ...resource, type: SkuOptions.TYPE }, params, options)
+		return this.resources.update<SkuOptionUpdate, SkuOption>({ ...resource, type: SkuOptions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: SkuOptions.TYPE, id }, options)
 	}
 
-	async market(skuOptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `sku_options/${skuOptionId}/market`, params, options) as unknown as Market
+	async market(skuOptionId: string | SkuOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `sku_options/${_skuOptionId}/market`, params, options) as unknown as Market
 	}
 
-	async attachments(skuOptionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_options/${skuOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_options/${_skuOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

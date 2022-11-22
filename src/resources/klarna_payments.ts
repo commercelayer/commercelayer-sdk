@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Order } from './orders'
-import { PaymentGateway } from './payment_gateways'
+import type { Order } from './orders'
+import type { PaymentGateway } from './payment_gateways'
 
 
 type KlarnaPaymentRel = ResourceRel & { type: typeof KlarnaPayments.TYPE }
@@ -15,6 +15,10 @@ interface KlarnaPayment extends Resource {
 	client_token?: string
 	payment_methods?: object[]
 	auth_token?: string
+	mismatched_amounts?: boolean
+	intent_amount_cents?: number
+	intent_amount_float?: number
+	formatted_intent_amount?: string
 
 	order?: Order
 	payment_gateway?: PaymentGateway
@@ -41,7 +45,7 @@ interface KlarnaPaymentUpdate extends ResourceUpdate {
 
 class KlarnaPayments extends ApiResource {
 
-	static readonly TYPE: 'klarna_payments' = 'klarna_payments'
+	static readonly TYPE: 'klarna_payments' = 'klarna_payments' as const
 	// static readonly PATH = 'klarna_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
@@ -49,7 +53,7 @@ class KlarnaPayments extends ApiResource {
 	}
 
 	async create(resource: KlarnaPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
-		return this.resources.create({ ...resource, type: KlarnaPayments.TYPE }, params, options)
+		return this.resources.create<KlarnaPaymentCreate, KlarnaPayment>({ ...resource, type: KlarnaPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
@@ -57,19 +61,21 @@ class KlarnaPayments extends ApiResource {
 	}
 
 	async update(resource: KlarnaPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
-		return this.resources.update({ ...resource, type: KlarnaPayments.TYPE }, params, options)
+		return this.resources.update<KlarnaPaymentUpdate, KlarnaPayment>({ ...resource, type: KlarnaPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: KlarnaPayments.TYPE, id }, options)
 	}
 
-	async order(klarnaPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `klarna_payments/${klarnaPaymentId}/order`, params, options) as unknown as Order
+	async order(klarnaPaymentId: string | KlarnaPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _klarnaPaymentId = (klarnaPaymentId as KlarnaPayment).id || klarnaPaymentId as string
+		return this.resources.fetch<Order>({ type: 'orders' }, `klarna_payments/${_klarnaPaymentId}/order`, params, options) as unknown as Order
 	}
 
-	async payment_gateway(klarnaPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `klarna_payments/${klarnaPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	async payment_gateway(klarnaPaymentId: string | KlarnaPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		const _klarnaPaymentId = (klarnaPaymentId as KlarnaPayment).id || klarnaPaymentId as string
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `klarna_payments/${_klarnaPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
 

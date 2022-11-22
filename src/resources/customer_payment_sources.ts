@@ -1,15 +1,15 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Customer } from './customers'
-import { AdyenPayment } from './adyen_payments'
-import { BraintreePayment } from './braintree_payments'
-import { CheckoutComPayment } from './checkout_com_payments'
-import { ExternalPayment } from './external_payments'
-import { KlarnaPayment } from './klarna_payments'
-import { PaypalPayment } from './paypal_payments'
-import { StripePayment } from './stripe_payments'
-import { WireTransfer } from './wire_transfers'
+import type { Customer } from './customers'
+import type { AdyenPayment } from './adyen_payments'
+import type { BraintreePayment } from './braintree_payments'
+import type { CheckoutComPayment } from './checkout_com_payments'
+import type { ExternalPayment } from './external_payments'
+import type { KlarnaPayment } from './klarna_payments'
+import type { PaypalPayment } from './paypal_payments'
+import type { StripePayment } from './stripe_payments'
+import type { WireTransfer } from './wire_transfers'
 
 
 type CustomerPaymentSourceRel = ResourceRel & { type: typeof CustomerPaymentSources.TYPE }
@@ -54,7 +54,7 @@ interface CustomerPaymentSourceUpdate extends ResourceUpdate {
 
 class CustomerPaymentSources extends ApiResource {
 
-	static readonly TYPE: 'customer_payment_sources' = 'customer_payment_sources'
+	static readonly TYPE: 'customer_payment_sources' = 'customer_payment_sources' as const
 	// static readonly PATH = 'customer_payment_sources'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
@@ -62,7 +62,7 @@ class CustomerPaymentSources extends ApiResource {
 	}
 
 	async create(resource: CustomerPaymentSourceCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
-		return this.resources.create({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
+		return this.resources.create<CustomerPaymentSourceCreate, CustomerPaymentSource>({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
@@ -70,15 +70,16 @@ class CustomerPaymentSources extends ApiResource {
 	}
 
 	async update(resource: CustomerPaymentSourceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
-		return this.resources.update({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
+		return this.resources.update<CustomerPaymentSourceUpdate, CustomerPaymentSource>({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CustomerPaymentSources.TYPE, id }, options)
 	}
 
-	async customer(customerPaymentSourceId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_payment_sources/${customerPaymentSourceId}/customer`, params, options) as unknown as Customer
+	async customer(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_payment_sources/${_customerPaymentSourceId}/customer`, params, options) as unknown as Customer
 	}
 
 

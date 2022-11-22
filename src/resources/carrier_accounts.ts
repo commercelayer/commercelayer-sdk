@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
-import { Attachment } from './attachments'
+import type { Market } from './markets'
+import type { Attachment } from './attachments'
 
 
 type CarrierAccountRel = ResourceRel & { type: typeof CarrierAccounts.TYPE }
@@ -22,7 +22,7 @@ interface CarrierAccount extends Resource {
 
 class CarrierAccounts extends ApiResource {
 
-	static readonly TYPE: 'carrier_accounts' = 'carrier_accounts'
+	static readonly TYPE: 'carrier_accounts' = 'carrier_accounts' as const
 	// static readonly PATH = 'carrier_accounts'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CarrierAccount>> {
@@ -33,12 +33,14 @@ class CarrierAccounts extends ApiResource {
 		return this.resources.retrieve<CarrierAccount>({ type: CarrierAccounts.TYPE, id }, params, options)
 	}
 
-	async market(carrierAccountId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `carrier_accounts/${carrierAccountId}/market`, params, options) as unknown as Market
+	async market(carrierAccountId: string | CarrierAccount, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `carrier_accounts/${_carrierAccountId}/market`, params, options) as unknown as Market
 	}
 
-	async attachments(carrierAccountId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `carrier_accounts/${carrierAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(carrierAccountId: string | CarrierAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `carrier_accounts/${_carrierAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

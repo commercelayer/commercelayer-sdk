@@ -1,10 +1,10 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
-import { SkuList } from './sku_lists'
-import { Sku } from './skus'
-import { Attachment } from './attachments'
+import type { Market } from './markets'
+import type { SkuList } from './sku_lists'
+import type { Sku } from './skus'
+import type { Attachment } from './attachments'
 
 
 type BundleRel = ResourceRel & { type: typeof Bundles.TYPE }
@@ -19,6 +19,8 @@ interface Bundle extends Resource {
 	currency_code?: string
 	description?: string
 	image_url?: string
+	do_not_ship?: boolean
+	do_not_track?: boolean
 	price_amount_cents?: number
 	price_amount_float?: number
 	formatted_price_amount?: string
@@ -70,7 +72,7 @@ interface BundleUpdate extends ResourceUpdate {
 
 class Bundles extends ApiResource {
 
-	static readonly TYPE: 'bundles' = 'bundles'
+	static readonly TYPE: 'bundles' = 'bundles' as const
 	// static readonly PATH = 'bundles'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
@@ -78,7 +80,7 @@ class Bundles extends ApiResource {
 	}
 
 	async create(resource: BundleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
-		return this.resources.create({ ...resource, type: Bundles.TYPE }, params, options)
+		return this.resources.create<BundleCreate, Bundle>({ ...resource, type: Bundles.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
@@ -86,27 +88,31 @@ class Bundles extends ApiResource {
 	}
 
 	async update(resource: BundleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
-		return this.resources.update({ ...resource, type: Bundles.TYPE }, params, options)
+		return this.resources.update<BundleUpdate, Bundle>({ ...resource, type: Bundles.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Bundles.TYPE, id }, options)
 	}
 
-	async market(bundleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `bundles/${bundleId}/market`, params, options) as unknown as Market
+	async market(bundleId: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `bundles/${_bundleId}/market`, params, options) as unknown as Market
 	}
 
-	async sku_list(bundleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `bundles/${bundleId}/sku_list`, params, options) as unknown as SkuList
+	async sku_list(bundleId: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `bundles/${_bundleId}/sku_list`, params, options) as unknown as SkuList
 	}
 
-	async skus(bundleId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
-		return this.resources.fetch<Sku>({ type: 'skus' }, `bundles/${bundleId}/skus`, params, options) as unknown as ListResponse<Sku>
+	async skus(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `bundles/${_bundleId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
-	async attachments(bundleId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bundles/${bundleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bundles/${_bundleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PaymentMethod } from './payment_methods'
-import { ExternalPayment } from './external_payments'
+import type { PaymentMethod } from './payment_methods'
+import type { ExternalPayment } from './external_payments'
 
 
 type ExternalGatewayRel = ResourceRel & { type: typeof ExternalGateways.TYPE }
@@ -50,7 +50,7 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 
 class ExternalGateways extends ApiResource {
 
-	static readonly TYPE: 'external_gateways' = 'external_gateways'
+	static readonly TYPE: 'external_gateways' = 'external_gateways' as const
 	// static readonly PATH = 'external_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalGateway>> {
@@ -58,7 +58,7 @@ class ExternalGateways extends ApiResource {
 	}
 
 	async create(resource: ExternalGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
-		return this.resources.create({ ...resource, type: ExternalGateways.TYPE }, params, options)
+		return this.resources.create<ExternalGatewayCreate, ExternalGateway>({ ...resource, type: ExternalGateways.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
@@ -66,19 +66,21 @@ class ExternalGateways extends ApiResource {
 	}
 
 	async update(resource: ExternalGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
-		return this.resources.update({ ...resource, type: ExternalGateways.TYPE }, params, options)
+		return this.resources.update<ExternalGatewayUpdate, ExternalGateway>({ ...resource, type: ExternalGateways.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ExternalGateways.TYPE, id }, options)
 	}
 
-	async payment_methods(externalGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `external_gateways/${externalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	async payment_methods(externalGatewayId: string | ExternalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `external_gateways/${_externalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async external_payments(externalGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
-		return this.resources.fetch<ExternalPayment>({ type: 'external_payments' }, `external_gateways/${externalGatewayId}/external_payments`, params, options) as unknown as ListResponse<ExternalPayment>
+	async external_payments(externalGatewayId: string | ExternalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
+		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
+		return this.resources.fetch<ExternalPayment>({ type: 'external_payments' }, `external_gateways/${_externalGatewayId}/external_payments`, params, options) as unknown as ListResponse<ExternalPayment>
 	}
 
 

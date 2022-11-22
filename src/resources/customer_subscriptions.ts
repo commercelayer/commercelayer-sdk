@@ -1,7 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Customer } from './customers'
+import type { Customer } from './customers'
+import type { Event } from './events'
 
 
 type CustomerSubscriptionRel = ResourceRel & { type: typeof CustomerSubscriptions.TYPE }
@@ -12,6 +13,7 @@ interface CustomerSubscription extends Resource {
 	customer_email?: string
 
 	customer?: Customer
+	events?: Event[]
 
 }
 
@@ -28,7 +30,7 @@ type CustomerSubscriptionUpdate = ResourceUpdate
 
 class CustomerSubscriptions extends ApiResource {
 
-	static readonly TYPE: 'customer_subscriptions' = 'customer_subscriptions'
+	static readonly TYPE: 'customer_subscriptions' = 'customer_subscriptions' as const
 	// static readonly PATH = 'customer_subscriptions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerSubscription>> {
@@ -36,7 +38,7 @@ class CustomerSubscriptions extends ApiResource {
 	}
 
 	async create(resource: CustomerSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerSubscription> {
-		return this.resources.create({ ...resource, type: CustomerSubscriptions.TYPE }, params, options)
+		return this.resources.create<CustomerSubscriptionCreate, CustomerSubscription>({ ...resource, type: CustomerSubscriptions.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerSubscription> {
@@ -44,15 +46,21 @@ class CustomerSubscriptions extends ApiResource {
 	}
 
 	async update(resource: CustomerSubscriptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerSubscription> {
-		return this.resources.update({ ...resource, type: CustomerSubscriptions.TYPE }, params, options)
+		return this.resources.update<CustomerSubscriptionUpdate, CustomerSubscription>({ ...resource, type: CustomerSubscriptions.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CustomerSubscriptions.TYPE, id }, options)
 	}
 
-	async customer(customerSubscriptionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_subscriptions/${customerSubscriptionId}/customer`, params, options) as unknown as Customer
+	async customer(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _customerSubscriptionId = (customerSubscriptionId as CustomerSubscription).id || customerSubscriptionId as string
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_subscriptions/${_customerSubscriptionId}/customer`, params, options) as unknown as Customer
+	}
+
+	async events(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _customerSubscriptionId = (customerSubscriptionId as CustomerSubscription).id || customerSubscriptionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `customer_subscriptions/${_customerSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

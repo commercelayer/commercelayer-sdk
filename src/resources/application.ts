@@ -1,5 +1,5 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel } from '../resource'
-import { QueryParamsRetrieve } from '../query'
+import type { QueryParamsRetrieve } from '../query'
 
 
 
@@ -10,7 +10,7 @@ interface Application extends Resource {
 	
 	name?: string
 	kind?: string
-	public_access?: string
+	public_access?: boolean
 	redirect_uri?: string
 	scopes?: string
 	
@@ -19,7 +19,7 @@ interface Application extends Resource {
 
 class Applications extends ApiResource {
 
-	static readonly TYPE: 'application' = 'application'
+	static readonly TYPE: 'application' = 'application' as const
 	// static readonly PATH = 'application'
 
 	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Application> {

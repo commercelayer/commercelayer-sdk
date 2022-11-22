@@ -11,6 +11,7 @@ import { RequestConfig } from '../src/client'
 
 dotenv.config()
 
+const GLOBAL_TIMEOUT = 15000
 
 const organization = process.env.CL_SDK_ORGANIZATION as string
 const domain = process.env.CL_SDK_DOMAIN as string
@@ -57,19 +58,28 @@ export const CommonData = {
 } as const
 
 
-let cl: CommerceLayerClient
 let currentAccessToken: string
 
-
-const initClient = async (fake?: boolean): Promise<CommerceLayerClient> => {
-	const accessToken = fake ? 'fake-access-token' : (await getToken('integration')).accessToken
+const initClient = async (): Promise<CommerceLayerClient> => {
+	const token = await getToken('integration')
+	if (token === null) throw new Error('Unable to get access token')
+	const accessToken = token.accessToken
 	currentAccessToken = accessToken
-	return CommerceLayer({ organization, accessToken, domain })
+	const client = CommerceLayer({ organization, accessToken, domain })
+	client.config({ timeout: GLOBAL_TIMEOUT })
+	jest.setTimeout(GLOBAL_TIMEOUT)
+	return client
 }
 
-const getClient = async (fake?: boolean): Promise<CommerceLayerClient> => {
-	if (!cl) cl = await initClient(fake)
-	return cl
+const fakeClient = async (): Promise<CommerceLayerClient> => {
+	const accessToken = 'fake-access-token'
+	const client = CommerceLayer({ organization, accessToken, domain })
+	currentAccessToken = accessToken
+	return client
+}
+
+const getClient = (instance?: boolean): Promise<CommerceLayerClient> => {
+	return instance ?  initClient() : fakeClient()
 }
 
 const printObject = (obj: unknown): string => {
@@ -77,7 +87,7 @@ const printObject = (obj: unknown): string => {
 }
 
 
-export { initClient, getClient, printObject, currentAccessToken }
+export { initClient, fakeClient, getClient, printObject, currentAccessToken }
 
 
 
@@ -118,7 +128,7 @@ export { handleError, interceptRequest, randomAttributes }
 
 const checkCommon = (config: AxiosRequestConfig, type: string, id?: string, token?: string, relationship?: string) => {
 	expect(config.url).toBe(type + (id ? `/${id}` : '') + (relationship ? `/${relationship}`: ''))
-	expect(config.headers.Authorization).toContain('Bearer ' + (token || ''))
+	expect(config.headers?.Authorization).toContain('Bearer ' + (token || ''))
 	expect(config.timeout).toBe(REQUEST_TIMEOUT)
 }
 
@@ -161,7 +171,3 @@ const checkCommonParams = (config: AxiosRequestConfig, params: QueryParamsRetrie
 
 
 export { checkCommon, checkCommonData, checkCommonParams, checkCommonParamsList }
-
-
-
-getClient(true)

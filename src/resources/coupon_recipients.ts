@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Customer } from './customers'
-import { Attachment } from './attachments'
+import type { Customer } from './customers'
+import type { Attachment } from './attachments'
 
 
 type CouponRecipientRel = ResourceRel & { type: typeof CouponRecipients.TYPE }
@@ -45,7 +45,7 @@ interface CouponRecipientUpdate extends ResourceUpdate {
 
 class CouponRecipients extends ApiResource {
 
-	static readonly TYPE: 'coupon_recipients' = 'coupon_recipients'
+	static readonly TYPE: 'coupon_recipients' = 'coupon_recipients' as const
 	// static readonly PATH = 'coupon_recipients'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CouponRecipient>> {
@@ -53,7 +53,7 @@ class CouponRecipients extends ApiResource {
 	}
 
 	async create(resource: CouponRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
-		return this.resources.create({ ...resource, type: CouponRecipients.TYPE }, params, options)
+		return this.resources.create<CouponRecipientCreate, CouponRecipient>({ ...resource, type: CouponRecipients.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
@@ -61,19 +61,21 @@ class CouponRecipients extends ApiResource {
 	}
 
 	async update(resource: CouponRecipientUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
-		return this.resources.update({ ...resource, type: CouponRecipients.TYPE }, params, options)
+		return this.resources.update<CouponRecipientUpdate, CouponRecipient>({ ...resource, type: CouponRecipients.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CouponRecipients.TYPE, id }, options)
 	}
 
-	async customer(couponRecipientId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `coupon_recipients/${couponRecipientId}/customer`, params, options) as unknown as Customer
+	async customer(couponRecipientId: string | CouponRecipient, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
+		return this.resources.fetch<Customer>({ type: 'customers' }, `coupon_recipients/${_couponRecipientId}/customer`, params, options) as unknown as Customer
 	}
 
-	async attachments(couponRecipientId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(couponRecipientId: string | CouponRecipient, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${_couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

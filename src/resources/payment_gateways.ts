@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PaymentMethod } from './payment_methods'
+import type { PaymentMethod } from './payment_methods'
 
 
 type PaymentGatewayRel = ResourceRel & { type: typeof PaymentGateways.TYPE }
@@ -18,7 +18,7 @@ interface PaymentGateway extends Resource {
 
 class PaymentGateways extends ApiResource {
 
-	static readonly TYPE: 'payment_gateways' = 'payment_gateways'
+	static readonly TYPE: 'payment_gateways' = 'payment_gateways' as const
 	// static readonly PATH = 'payment_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentGateway>> {
@@ -29,8 +29,9 @@ class PaymentGateways extends ApiResource {
 		return this.resources.retrieve<PaymentGateway>({ type: PaymentGateways.TYPE, id }, params, options)
 	}
 
-	async payment_methods(paymentGatewayId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `payment_gateways/${paymentGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	async payment_methods(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+		const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || paymentGatewayId as string
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `payment_gateways/${_paymentGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
 

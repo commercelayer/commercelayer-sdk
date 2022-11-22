@@ -1,36 +1,36 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Bundle } from './bundles'
-import { CarrierAccount } from './carrier_accounts'
-import { CustomerGroup } from './customer_groups'
-import { Customer } from './customers'
-import { DeliveryLeadTime } from './delivery_lead_times'
-import { Geocoder } from './geocoders'
-import { GiftCardRecipient } from './gift_card_recipients'
-import { GiftCard } from './gift_cards'
-import { InventoryModel } from './inventory_models'
-import { Market } from './markets'
-import { Merchant } from './merchants'
-import { BillingInfoValidationRule } from './billing_info_validation_rules'
-import { Order } from './orders'
-import { Package } from './packages'
-import { Parcel } from './parcels'
-import { PaymentMethod } from './payment_methods'
-import { PriceList } from './price_lists'
-import { Price } from './prices'
-import { Promotion } from './promotions'
-import { Return } from './returns'
-import { Shipment } from './shipments'
-import { ShippingCategory } from './shipping_categories'
-import { ShippingMethod } from './shipping_methods'
-import { ShippingZone } from './shipping_zones'
-import { SkuOption } from './sku_options'
-import { Sku } from './skus'
-import { StockItem } from './stock_items'
-import { StockLocation } from './stock_locations'
-import { TaxCalculator } from './tax_calculators'
-import { TaxCategory } from './tax_categories'
+import type { Bundle } from './bundles'
+import type { CarrierAccount } from './carrier_accounts'
+import type { CustomerGroup } from './customer_groups'
+import type { Customer } from './customers'
+import type { DeliveryLeadTime } from './delivery_lead_times'
+import type { Geocoder } from './geocoders'
+import type { GiftCardRecipient } from './gift_card_recipients'
+import type { GiftCard } from './gift_cards'
+import type { InventoryModel } from './inventory_models'
+import type { Market } from './markets'
+import type { Merchant } from './merchants'
+import type { BillingInfoValidationRule } from './billing_info_validation_rules'
+import type { Order } from './orders'
+import type { Package } from './packages'
+import type { Parcel } from './parcels'
+import type { PaymentMethod } from './payment_methods'
+import type { PriceList } from './price_lists'
+import type { Price } from './prices'
+import type { Promotion } from './promotions'
+import type { Return } from './returns'
+import type { Shipment } from './shipments'
+import type { ShippingCategory } from './shipping_categories'
+import type { ShippingMethod } from './shipping_methods'
+import type { ShippingZone } from './shipping_zones'
+import type { SkuOption } from './sku_options'
+import type { Sku } from './skus'
+import type { StockItem } from './stock_items'
+import type { StockLocation } from './stock_locations'
+import type { TaxCalculator } from './tax_calculators'
+import type { TaxCategory } from './tax_categories'
 
 
 type AttachmentRel = ResourceRel & { type: typeof Attachments.TYPE }
@@ -101,7 +101,7 @@ interface AttachmentUpdate extends ResourceUpdate {
 
 class Attachments extends ApiResource {
 
-	static readonly TYPE: 'attachments' = 'attachments'
+	static readonly TYPE: 'attachments' = 'attachments' as const
 	// static readonly PATH = 'attachments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
@@ -109,7 +109,7 @@ class Attachments extends ApiResource {
 	}
 
 	async create(resource: AttachmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
-		return this.resources.create({ ...resource, type: Attachments.TYPE }, params, options)
+		return this.resources.create<AttachmentCreate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
@@ -117,7 +117,7 @@ class Attachments extends ApiResource {
 	}
 
 	async update(resource: AttachmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
-		return this.resources.update({ ...resource, type: Attachments.TYPE }, params, options)
+		return this.resources.update<AttachmentUpdate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {

@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { ManualTaxCalculator } from './manual_tax_calculators'
+import type { ManualTaxCalculator } from './manual_tax_calculators'
 
 
 type TaxRuleRel = ResourceRel & { type: typeof TaxRules.TYPE }
@@ -71,7 +71,7 @@ interface TaxRuleUpdate extends ResourceUpdate {
 
 class TaxRules extends ApiResource {
 
-	static readonly TYPE: 'tax_rules' = 'tax_rules'
+	static readonly TYPE: 'tax_rules' = 'tax_rules' as const
 	// static readonly PATH = 'tax_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxRule>> {
@@ -79,7 +79,7 @@ class TaxRules extends ApiResource {
 	}
 
 	async create(resource: TaxRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
-		return this.resources.create({ ...resource, type: TaxRules.TYPE }, params, options)
+		return this.resources.create<TaxRuleCreate, TaxRule>({ ...resource, type: TaxRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
@@ -87,15 +87,16 @@ class TaxRules extends ApiResource {
 	}
 
 	async update(resource: TaxRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
-		return this.resources.update({ ...resource, type: TaxRules.TYPE }, params, options)
+		return this.resources.update<TaxRuleUpdate, TaxRule>({ ...resource, type: TaxRules.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: TaxRules.TYPE, id }, options)
 	}
 
-	async manual_tax_calculator(taxRuleId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
-		return this.resources.fetch<ManualTaxCalculator>({ type: 'manual_tax_calculators' }, `tax_rules/${taxRuleId}/manual_tax_calculator`, params, options) as unknown as ManualTaxCalculator
+	async manual_tax_calculator(taxRuleId: string | TaxRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
+		const _taxRuleId = (taxRuleId as TaxRule).id || taxRuleId as string
+		return this.resources.fetch<ManualTaxCalculator>({ type: 'manual_tax_calculators' }, `tax_rules/${_taxRuleId}/manual_tax_calculator`, params, options) as unknown as ManualTaxCalculator
 	}
 
 

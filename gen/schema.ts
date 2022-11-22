@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 import { readFileSync, writeFileSync } from 'fs'
-import { camelCase, capitalize, snakeCase } from 'lodash'
+import { snakeCase } from 'lodash'
 import axios from 'axios'
+import { resolve } from 'path'
+import { sortObjectFields } from '../src/util'
 import { inspect } from 'util'
 
 
@@ -10,11 +12,22 @@ import { inspect } from 'util'
 const Inflector = require('inflector-js')
 
 
+const SCHEMA_LOCAL_PATH = resolve('./gen/openapi.json')
+const SCHEMA_NAME = 'openapi.json'
+const SCHEMA_REMOTE_URL = 'https://data.commercelayer.app/schemas/' + SCHEMA_NAME
 
-const downloadSchema = async (url?: string): Promise<string> => {
 
-	const schemaUrl = url || 'https://data.commercelayer.app/schemas/openapi.json'
-	const schemaOutPath = './gen/openapi.json'
+type SchemaInfo = {
+	remoteUrl?: string;
+	localPath?: string;
+	version?: string;
+}
+
+
+const downloadSchema = async (url?: string): Promise<SchemaInfo> => {
+
+	const schemaUrl = url || SCHEMA_REMOTE_URL
+	const schemaOutPath = SCHEMA_LOCAL_PATH
 
 	console.log(`Downloading OpenAPI schema ... [${schemaUrl}]`)
 
@@ -22,16 +35,32 @@ const downloadSchema = async (url?: string): Promise<string> => {
 	const schema = await response.data
 
 	if (schema) writeFileSync(schemaOutPath, JSON.stringify(schema, null, 4))
-	else console.log ('OpenAPI schema is empty!')
+	else console.log('OpenAPI schema is empty!')
 
-	console.log('OpenAPI schema downloaded: ' + schema.info.version)
+	const version = schema.info.version
 
-	return schemaOutPath
+	console.log('OpenAPI schema downloaded: ' + version)
+
+	return {
+		remoteUrl: schemaUrl,
+		localPath: schemaOutPath,
+		version,
+	}
 
 }
 
 
-const parseSchema = (path: string): { version: string, resources: ResourceMap, components: ComponentMap } => {
+const currentSchema = (): any => {
+
+	const currentSchema = readFileSync(SCHEMA_LOCAL_PATH, { encoding: 'utf-8' })
+	const schema = JSON.parse(currentSchema)
+
+	return schema
+
+}
+
+
+const parseSchema = (path: string): ApiSchema => {
 
 	console.log('Parsing OpenAPI schema ...')
 
@@ -51,15 +80,18 @@ const parseSchema = (path: string): { version: string, resources: ResourceMap, c
 	const components: ComponentMap = {}
 
 	Object.keys(apiSchema.paths).forEach(p => {
+		const singRes = Inflector.singularize(p)	// singularized resource name in snake case format
 		resources[p] = {
 			operations: apiSchema.paths[p],
 			components: {}
 		}
 		Object.keys(apiSchema.components).forEach(c => {
-			const resName = snakeCase(c.replace('Update', '').replace('Create', ''))
-			if (!c.endsWith('Update') && !c.endsWith('Create')) components[c] = apiSchema.components[c]
-			if (resName === Inflector.singularize(p)) resources[p].components[c] = apiSchema.components[c]
+			if (!/(Create|Update|ResponseList|Response)$/.test(c)) components[c] = apiSchema.components[c]
+			else
+			if (snakeCase(c.replace(/Create|Update|ResponseList|Response/g, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
 		})
+		// Sort components
+		resources[p].components = sortObjectFields(resources[p].components)
 	})
 
 	console.log('OpenAPI schema correctly parsed.')
@@ -82,7 +114,7 @@ const operationName = (op: string, id?: string, relationship?: string): string =
 
 
 const referenceResource = (ref: { '$ref': string }): string => {
-	const r = ref['$ref']
+	const r = getReference(ref) as string
 	return Inflector.camelize(r.substring(r.lastIndexOf('/') + 1))
 }
 
@@ -104,9 +136,9 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 
 		const id = pKey.substring(pKey.indexOf('{') + 1, pKey.indexOf('}'))
 		const path = pKey.replace(/\/{.*}/g, '').substring(1)
-		const slIdx = path.lastIndexOf('/') 
-		const res = (slIdx === -1) ? path :  path.substring(0, slIdx)
-		
+		const slIdx = path.lastIndexOf('/')
+		const res = (slIdx === -1) ? path : path.substring(0, slIdx)
+
 		const operations: OperationMap = paths[res] || {}
 
 		Object.entries(pValue as object).forEach(o => {
@@ -125,15 +157,11 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 			}
 
 			if (id) op.id = id
-			if (oValue.requestBody) {
-				// const reqType = oValue.requestBody.content["application/vnd.api+json"].schema['$ref']
-				// op.requestType = referenceResource(reqType)
-				op.requestType = referenceContent(oValue.requestBody.content)
-			}
-			if (oValue.responses['200']?.content) {
-				// const resType = oValue.responses['200'].content["application/vnd.api+json"].schema['$ref']
-				// op.responseType = referenceResource(resType)
-				op.responseType = referenceContent(oValue.responses['200'].content)
+			if (oValue.requestBody) op.requestType = referenceContent(oValue.requestBody.content)
+			if (oValue.responses) {
+				if (oValue.responses['200']?.content) op.responseType = referenceContent(oValue.responses['200'].content)
+				else
+					if (oValue.responses['201']?.content) op.responseType = referenceContent(oValue.responses['201'].content)
 			}
 
 
@@ -143,7 +171,7 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 				if (!relCard) console.log(`Relationship without cardinality: ${op.name} [${op.path}]`)
 				const relType = oValue.tags[1] as string
 				if (!relType) console.log(`Relationship without type: ${op.name} [${op.path}]`)
-				if (!relCard || ! relType) skip = true
+				if (!relCard || !relType) skip = true
 
 				if (!skip) {
 					op.relationship = {
@@ -157,7 +185,7 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 					op.responseType = Inflector.camelize(Inflector.singularize(op.relationship.type))
 				}
 			}
-			
+
 
 			if (skip) console.log(`Operation skipped: ${op.name} [${op.path}]`)
 			else operations[op.name] = op
@@ -174,6 +202,25 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 }
 
 
+const getReference = (obj: any): string | undefined => {
+	if (obj) return obj['$ref']
+	return undefined
+}
+
+
+const resolveReference = (schemaComponents: any[], ref: string): any => {
+
+	const segs = ref.replace('#/components/schemas/', '').split('/')
+	const key = Inflector.camelize(segs.shift() as string, true)
+
+	let reference: any = schemaComponents[key]
+	segs.forEach(s => reference = reference[s])
+
+	return reference
+
+}
+
+/*
 const parseComponents = (schemaComponents: any[]): ComponentMap => {
 
 	const components: ComponentMap = {}
@@ -182,12 +229,16 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 
 		const [cKey, cValue] = c
 
-		const attributes: { [key: string]: Attribute } = {}
-		const requiredAttributes: string[] = cValue.properties.data.properties.attributes.required || []
-		const relationships: { [key: string]: Relationship } = {}
-		const requiredRelationships: string[] = cValue.properties.data.properties.relationships.required || []
+		const cmpProperties = (cValue.properties.data.type === 'array') ? cValue.properties.data.items.properties : cValue.properties.data.properties
+		const ref = getReference(cmpProperties.attributes)
+		const cmpAttributes = (ref == undefined) ? cmpProperties.attributes : resolveReference(schemaComponents, ref)
 
-		Object.entries(cValue.properties.data.properties.attributes.properties as object).forEach(a => {
+		const attributes: { [key: string]: Attribute } = {}
+		const requiredAttributes: string[] = cmpAttributes.required || []
+		const relationships: { [key: string]: Relationship } = {}
+		const requiredRelationships: string[] = cmpProperties.relationships.required || []
+
+		Object.entries(cmpAttributes.properties as object).forEach(a => {
 			const [aKey, aValue] = a
 			const type = (aValue.type === 'array') ? `${aValue.items.type}[]` : aValue.type
 			attributes[aKey] = {
@@ -197,10 +248,11 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 			}
 		})
 
-		if (cValue.properties.data.properties.relationships) {
-			Object.entries(cValue.properties.data.properties.relationships.properties as object).forEach(r => {
+		if (cmpProperties.relationships) {
+			Object.entries(cmpProperties.relationships.properties as object).forEach(r => {
 				const [rKey, rValue] = r
-				const type = rValue.properties.type.default || rValue.properties.type.example
+				const typeObj = rValue.properties.data? rValue.properties.data.properties : rValue.properties
+				const type = typeObj.type.default || typeObj.type.example
 				let oneOf = rValue.oneOf
 				if (oneOf) oneOf = oneOf.map(referenceResource)
 				relationships[rKey] = {
@@ -225,6 +277,86 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 
 	return components
 
+}
+*/
+const parseComponents = (schemaComponents: any[]): ComponentMap => {
+
+	const components: ComponentMap = {}
+
+	for (const c of Object.entries(schemaComponents)) {
+
+		const [cKey, cValue] = c
+
+		// Check component reference
+		let cmp = (cValue.properties.data.type === 'array') ? cValue.properties.data.items : cValue.properties.data
+		const cmpRef = getReference(cmp)
+		if (cmpRef) cmp = resolveReference(schemaComponents, cmpRef)
+
+		// Check attributes reference
+		const attributesRef = getReference(cmp.properties.attributes)
+		const cmpAttributes = attributesRef ? resolveReference(schemaComponents, attributesRef) : cmp.properties.attributes
+		const cmpRelationships = cmp.properties.relationships
+
+/*
+		const cmpProperties = (cValue.properties.data.type === 'array') ? cValue.properties.data.items.properties : cValue.properties.data.properties
+		const ref = getReference(cmpProperties.attributes)
+		const cmpAttributes = (ref == undefined) ? cmpProperties.attributes : resolveReference(schemaComponents, ref)
+		*/
+
+		const attributes: { [key: string]: Attribute } = {}
+		const requiredAttributes: string[] = cmpAttributes.required || []
+		const relationships: { [key: string]: Relationship } = {}
+		const requiredRelationships: string[] = cmpRelationships.required || []
+
+		// Attributes
+		Object.entries(cmpAttributes.properties as object).forEach(a => {
+			const [aKey, aValue] = a
+			const type = (aValue.type === 'array') ? `${aValue.items.type}[]` : aValue.type
+			attributes[aKey] = {
+				name: aKey,
+				type,
+				required: requiredAttributes.includes(aKey)
+			}
+		})
+
+		// Relationships
+		if (cmpRelationships) {
+			Object.entries(cmpRelationships.properties as object).forEach(r => {
+				const [rKey, rValue] = r
+				const dataObj = rValue.properties.data? rValue.properties.data : rValue
+				const typeObj = dataObj.items ? dataObj.items.properties : dataObj.properties
+				const type = typeObj.type.enum[0] // typeObj.type.default || typeObj.type.example
+				let oneOf = rValue.oneOf
+				if (oneOf) oneOf = oneOf.map(referenceResource)
+				relationships[rKey] = {
+					name: rKey,
+					type,
+					required: requiredRelationships.includes(rKey),
+					cardinality: (Inflector.pluralize(rKey) === rKey) ? Cardinality.to_many : Cardinality.to_one,
+					deprecated: rValue.deprecated,
+					oneOf,
+					polymorphic: (oneOf !== undefined) && oneOf.length
+				}
+			})
+		}
+
+		components[Inflector.camelize(cKey)] = {
+			attributes,
+			relationships
+		}
+
+	}
+
+
+	return components
+
+}
+
+
+type ApiSchema = {
+	version: string,
+	resources: ResourceMap,
+	components: ComponentMap
 }
 
 
@@ -288,6 +420,9 @@ type Operation = {
 export default {
 	download: downloadSchema,
 	parse: parseSchema,
+	current: currentSchema,
+	localPath: SCHEMA_LOCAL_PATH,
+	remoteUrl: SCHEMA_REMOTE_URL,
 }
 
-export { Resource, Operation, Component, ComponentMap, Cardinality, Relationship }
+export { Resource, Operation, Component, ComponentMap, Cardinality, Relationship, ApiSchema }

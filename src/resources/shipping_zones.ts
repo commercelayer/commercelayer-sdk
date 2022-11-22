@@ -1,7 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Attachment } from './attachments'
+import type { Attachment } from './attachments'
 
 
 type ShippingZoneRel = ResourceRel & { type: typeof ShippingZones.TYPE }
@@ -50,7 +50,7 @@ interface ShippingZoneUpdate extends ResourceUpdate {
 
 class ShippingZones extends ApiResource {
 
-	static readonly TYPE: 'shipping_zones' = 'shipping_zones'
+	static readonly TYPE: 'shipping_zones' = 'shipping_zones' as const
 	// static readonly PATH = 'shipping_zones'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingZone>> {
@@ -58,7 +58,7 @@ class ShippingZones extends ApiResource {
 	}
 
 	async create(resource: ShippingZoneCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
-		return this.resources.create({ ...resource, type: ShippingZones.TYPE }, params, options)
+		return this.resources.create<ShippingZoneCreate, ShippingZone>({ ...resource, type: ShippingZones.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
@@ -66,15 +66,16 @@ class ShippingZones extends ApiResource {
 	}
 
 	async update(resource: ShippingZoneUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
-		return this.resources.update({ ...resource, type: ShippingZones.TYPE }, params, options)
+		return this.resources.update<ShippingZoneUpdate, ShippingZone>({ ...resource, type: ShippingZones.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: ShippingZones.TYPE, id }, options)
 	}
 
-	async attachments(shippingZoneId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_zones/${shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(shippingZoneId: string | ShippingZone, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_zones/${_shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

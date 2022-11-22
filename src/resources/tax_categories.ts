@@ -1,12 +1,12 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Sku } from './skus'
-import { AvalaraAccount } from './avalara_accounts'
-import { TaxjarAccount } from './taxjar_accounts'
-import { ManualTaxCalculator } from './manual_tax_calculators'
-import { ExternalTaxCalculator } from './external_tax_calculators'
-import { Attachment } from './attachments'
+import type { Sku } from './skus'
+import type { AvalaraAccount } from './avalara_accounts'
+import type { TaxjarAccount } from './taxjar_accounts'
+import type { ManualTaxCalculator } from './manual_tax_calculators'
+import type { ExternalTaxCalculator } from './external_tax_calculators'
+import type { Attachment } from './attachments'
 
 
 type TaxCategoryRel = ResourceRel & { type: typeof TaxCategories.TYPE }
@@ -52,7 +52,7 @@ interface TaxCategoryUpdate extends ResourceUpdate {
 
 class TaxCategories extends ApiResource {
 
-	static readonly TYPE: 'tax_categories' = 'tax_categories'
+	static readonly TYPE: 'tax_categories' = 'tax_categories' as const
 	// static readonly PATH = 'tax_categories'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
@@ -60,7 +60,7 @@ class TaxCategories extends ApiResource {
 	}
 
 	async create(resource: TaxCategoryCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
-		return this.resources.create({ ...resource, type: TaxCategories.TYPE }, params, options)
+		return this.resources.create<TaxCategoryCreate, TaxCategory>({ ...resource, type: TaxCategories.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
@@ -68,19 +68,21 @@ class TaxCategories extends ApiResource {
 	}
 
 	async update(resource: TaxCategoryUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
-		return this.resources.update({ ...resource, type: TaxCategories.TYPE }, params, options)
+		return this.resources.update<TaxCategoryUpdate, TaxCategory>({ ...resource, type: TaxCategories.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: TaxCategories.TYPE, id }, options)
 	}
 
-	async sku(taxCategoryId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
-		return this.resources.fetch<Sku>({ type: 'skus' }, `tax_categories/${taxCategoryId}/sku`, params, options) as unknown as Sku
+	async sku(taxCategoryId: string | TaxCategory, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `tax_categories/${_taxCategoryId}/sku`, params, options) as unknown as Sku
 	}
 
-	async attachments(taxCategoryId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_categories/${taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(taxCategoryId: string | TaxCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_categories/${_taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

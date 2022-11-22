@@ -1,12 +1,12 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Market } from './markets'
-import { PromotionRule } from './promotion_rules'
-import { OrderAmountPromotionRule } from './order_amount_promotion_rules'
-import { SkuListPromotionRule } from './sku_list_promotion_rules'
-import { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
-import { Attachment } from './attachments'
+import type { Market } from './markets'
+import type { PromotionRule } from './promotion_rules'
+import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Attachment } from './attachments'
 
 
 type PromotionRel = ResourceRel & { type: typeof Promotions.TYPE }
@@ -34,7 +34,7 @@ interface Promotion extends Resource {
 
 class Promotions extends ApiResource {
 
-	static readonly TYPE: 'promotions' = 'promotions'
+	static readonly TYPE: 'promotions' = 'promotions' as const
 	// static readonly PATH = 'promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Promotion>> {
@@ -45,24 +45,29 @@ class Promotions extends ApiResource {
 		return this.resources.retrieve<Promotion>({ type: Promotions.TYPE, id }, params, options)
 	}
 
-	async market(promotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `promotions/${promotionId}/market`, params, options) as unknown as Market
+	async market(promotionId: string | Promotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+		const _promotionId = (promotionId as Promotion).id || promotionId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `promotions/${_promotionId}/market`, params, options) as unknown as Market
 	}
 
-	async order_amount_promotion_rule(promotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
-		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `promotions/${promotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
+	async order_amount_promotion_rule(promotionId: string | Promotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
+		const _promotionId = (promotionId as Promotion).id || promotionId as string
+		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `promotions/${_promotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
 	}
 
-	async sku_list_promotion_rule(promotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
-		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `promotions/${promotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
+	async sku_list_promotion_rule(promotionId: string | Promotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
+		const _promotionId = (promotionId as Promotion).id || promotionId as string
+		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `promotions/${_promotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
 	}
 
-	async coupon_codes_promotion_rule(promotionId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `promotions/${promotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	async coupon_codes_promotion_rule(promotionId: string | Promotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
+		const _promotionId = (promotionId as Promotion).id || promotionId as string
+		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `promotions/${_promotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
 	}
 
-	async attachments(promotionId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `promotions/${promotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(promotionId: string | Promotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _promotionId = (promotionId as Promotion).id || promotionId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `promotions/${_promotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

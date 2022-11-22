@@ -1,9 +1,8 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { TaxCategory } from './tax_categories'
-import { Market } from './markets'
-import { Attachment } from './attachments'
+import type { Market } from './markets'
+import type { Attachment } from './attachments'
 
 
 type TaxCalculatorRel = ResourceRel & { type: typeof TaxCalculators.TYPE }
@@ -13,7 +12,6 @@ interface TaxCalculator extends Resource {
 	
 	name?: string
 
-	tax_categories?: TaxCategory[]
 	markets?: Market[]
 	attachments?: Attachment[]
 
@@ -22,7 +20,7 @@ interface TaxCalculator extends Resource {
 
 class TaxCalculators extends ApiResource {
 
-	static readonly TYPE: 'tax_calculators' = 'tax_calculators'
+	static readonly TYPE: 'tax_calculators' = 'tax_calculators' as const
 	// static readonly PATH = 'tax_calculators'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCalculator>> {
@@ -33,16 +31,14 @@ class TaxCalculators extends ApiResource {
 		return this.resources.retrieve<TaxCalculator>({ type: TaxCalculators.TYPE, id }, params, options)
 	}
 
-	async tax_categories(taxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
-		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `tax_calculators/${taxCalculatorId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
+	async markets(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `tax_calculators/${_taxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
-	async markets(taxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		return this.resources.fetch<Market>({ type: 'markets' }, `tax_calculators/${taxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
-	}
-
-	async attachments(taxCalculatorId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_calculators/${taxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_calculators/${_taxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

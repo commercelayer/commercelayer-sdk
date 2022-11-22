@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -26,10 +26,10 @@ describe('Addresses resource', () => {
 
     const createAttributes = {
 			line_1: 'gamma_69',
-			city: 'alfa_29',
-			state_code: 'lambda_32',
-			country_code: 'lambda_65',
-			phone: 'beta_0',
+			city: 'alfa_87',
+			state_code: 'alfa_88',
+			country_code: 'delta_25',
+			phone: 'alfa_0',
 			geocoder: cl.geocoders.relationship(TestData.id),
 		}
 

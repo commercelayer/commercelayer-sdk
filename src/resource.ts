@@ -65,7 +65,7 @@ class ListResponse<R> extends Array<R> {
 
 	readonly meta: ListMeta
 
-	constructor(meta: ListMeta, data: Array<R>) {
+	constructor(meta: ListMeta, data: R[]) {
 		super(...(data || []))
 		this.meta = meta
 	}
@@ -219,7 +219,7 @@ class ResourceAdapter {
 	}
 
 
-	async fetch<R extends Resource>(resource: ResourceType, path: string, params?: QueryParams, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
+	async fetch<R extends Resource>(resource: string | ResourceType, path: string, params?: QueryParams, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
 
 		debug('fetch: %o, %O, %O', path, params || {}, options || {})
 

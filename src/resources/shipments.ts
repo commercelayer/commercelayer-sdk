@@ -1,17 +1,18 @@
 import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Order } from './orders'
-import { ShippingCategory } from './shipping_categories'
-import { StockLocation } from './stock_locations'
-import { Address } from './addresses'
-import { ShippingMethod } from './shipping_methods'
-import { DeliveryLeadTime } from './delivery_lead_times'
-import { StockLineItem } from './stock_line_items'
-import { StockTransfer } from './stock_transfers'
-import { CarrierAccount } from './carrier_accounts'
-import { Parcel } from './parcels'
-import { Attachment } from './attachments'
+import type { Order } from './orders'
+import type { ShippingCategory } from './shipping_categories'
+import type { StockLocation } from './stock_locations'
+import type { Address } from './addresses'
+import type { ShippingMethod } from './shipping_methods'
+import type { DeliveryLeadTime } from './delivery_lead_times'
+import type { StockLineItem } from './stock_line_items'
+import type { StockTransfer } from './stock_transfers'
+import type { CarrierAccount } from './carrier_accounts'
+import type { Parcel } from './parcels'
+import type { Attachment } from './attachments'
+import type { Event } from './events'
 
 
 type ShipmentRel = ResourceRel & { type: typeof Shipments.TYPE }
@@ -31,6 +32,7 @@ interface Shipment extends Resource {
 	rates?: object[]
 	purchase_error_code?: string
 	purchase_error_message?: string
+	get_rates_errors?: object[]
 	get_rates_started_at?: string
 	get_rates_completed_at?: string
 	purchase_started_at?: string
@@ -54,6 +56,7 @@ interface Shipment extends Resource {
 	carrier_accounts?: CarrierAccount[]
 	parcels?: Parcel[]
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 
@@ -76,7 +79,7 @@ interface ShipmentUpdate extends ResourceUpdate {
 
 class Shipments extends ApiResource {
 
-	static readonly TYPE: 'shipments' = 'shipments'
+	static readonly TYPE: 'shipments' = 'shipments' as const
 	// static readonly PATH = 'shipments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Shipment>> {
@@ -88,59 +91,77 @@ class Shipments extends ApiResource {
 	}
 
 	async update(resource: ShipmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
-		return this.resources.update({ ...resource, type: Shipments.TYPE }, params, options)
+		return this.resources.update<ShipmentUpdate, Shipment>({ ...resource, type: Shipments.TYPE }, params, options)
 	}
 
-	async order(shipmentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `shipments/${shipmentId}/order`, params, options) as unknown as Order
+	async order(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<Order>({ type: 'orders' }, `shipments/${_shipmentId}/order`, params, options) as unknown as Order
 	}
 
-	async shipping_category(shipmentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
-		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `shipments/${shipmentId}/shipping_category`, params, options) as unknown as ShippingCategory
+	async shipping_category(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `shipments/${_shipmentId}/shipping_category`, params, options) as unknown as ShippingCategory
 	}
 
-	async stock_location(shipmentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `shipments/${shipmentId}/stock_location`, params, options) as unknown as StockLocation
+	async stock_location(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `shipments/${_shipmentId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async origin_address(shipmentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.fetch<Address>({ type: 'addresses' }, `shipments/${shipmentId}/origin_address`, params, options) as unknown as Address
+	async origin_address(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<Address>({ type: 'addresses' }, `shipments/${_shipmentId}/origin_address`, params, options) as unknown as Address
 	}
 
-	async shipping_address(shipmentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.fetch<Address>({ type: 'addresses' }, `shipments/${shipmentId}/shipping_address`, params, options) as unknown as Address
+	async shipping_address(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<Address>({ type: 'addresses' }, `shipments/${_shipmentId}/shipping_address`, params, options) as unknown as Address
 	}
 
-	async shipping_method(shipmentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
-		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `shipments/${shipmentId}/shipping_method`, params, options) as unknown as ShippingMethod
+	async shipping_method(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `shipments/${_shipmentId}/shipping_method`, params, options) as unknown as ShippingMethod
 	}
 
-	async delivery_lead_time(shipmentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
-		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `shipments/${shipmentId}/delivery_lead_time`, params, options) as unknown as DeliveryLeadTime
+	async delivery_lead_time(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `shipments/${_shipmentId}/delivery_lead_time`, params, options) as unknown as DeliveryLeadTime
 	}
 
-	async stock_line_items(shipmentId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
-		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `shipments/${shipmentId}/stock_line_items`, params, options) as unknown as ListResponse<StockLineItem>
+	async stock_line_items(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `shipments/${_shipmentId}/stock_line_items`, params, options) as unknown as ListResponse<StockLineItem>
 	}
 
-	async stock_transfers(shipmentId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
-		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `shipments/${shipmentId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+	async stock_transfers(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `shipments/${_shipmentId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
 	}
 
-	async available_shipping_methods(shipmentId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingMethod>> {
-		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `shipments/${shipmentId}/available_shipping_methods`, params, options) as unknown as ListResponse<ShippingMethod>
+	async available_shipping_methods(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingMethod>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `shipments/${_shipmentId}/available_shipping_methods`, params, options) as unknown as ListResponse<ShippingMethod>
 	}
 
-	async carrier_accounts(shipmentId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CarrierAccount>> {
-		return this.resources.fetch<CarrierAccount>({ type: 'carrier_accounts' }, `shipments/${shipmentId}/carrier_accounts`, params, options) as unknown as ListResponse<CarrierAccount>
+	async carrier_accounts(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CarrierAccount>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<CarrierAccount>({ type: 'carrier_accounts' }, `shipments/${_shipmentId}/carrier_accounts`, params, options) as unknown as ListResponse<CarrierAccount>
 	}
 
-	async parcels(shipmentId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
-		return this.resources.fetch<Parcel>({ type: 'parcels' }, `shipments/${shipmentId}/parcels`, params, options) as unknown as ListResponse<Parcel>
+	async parcels(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<Parcel>({ type: 'parcels' }, `shipments/${_shipmentId}/parcels`, params, options) as unknown as ListResponse<Parcel>
 	}
 
-	async attachments(shipmentId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipments/${shipmentId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipments/${_shipmentId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `shipments/${_shipmentId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

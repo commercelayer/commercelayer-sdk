@@ -1,5 +1,5 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel } from '../resource'
-import { QueryParamsRetrieve } from '../query'
+import type { QueryParamsRetrieve } from '../query'
 
 
 
@@ -30,7 +30,7 @@ interface Organization extends Resource {
 
 class Organizations extends ApiResource {
 
-	static readonly TYPE: 'organization' = 'organization'
+	static readonly TYPE: 'organization' = 'organization' as const
 	// static readonly PATH = 'organization'
 
 	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {

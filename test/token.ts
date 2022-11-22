@@ -1,5 +1,4 @@
-import { getIntegrationToken, getSalesChannelToken } from '@commercelayer/js-auth'
-import { AuthReturnType } from '@commercelayer/js-auth'
+import { getIntegrationToken, getSalesChannelToken, AuthReturnType } from '@commercelayer/js-auth'
 import dotenv from 'dotenv'
 
 dotenv.config()

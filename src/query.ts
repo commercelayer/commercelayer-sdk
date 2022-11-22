@@ -29,7 +29,7 @@ const isParamsList = (params: any): params is QueryParamsList => {
 }
 
 
-const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: ResourceType): { [key: string]: string } => {
+const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: string | ResourceType): { [key: string]: string } => {
 
 	debug('generate query string params: %O, %O', params, res)
 
@@ -37,10 +37,10 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 	if (!params) return qp
 
 	// Include
-	if (params.include) qp['include'] = params.include.join(',')
+	if (params.include) qp.include = params.include.join(',')
 	// Fields
 	if (params.fields) {
-		if (Array.isArray(params.fields)) params.fields = { [res.type]: params.fields }
+		if (Array.isArray(params.fields)) params.fields = { [(res as ResourceType).type || res]: params.fields }
 		Object.entries(params.fields).forEach(([p, v]) => {
 			qp[`fields[${p}]`] = v.join(',')
 		})
@@ -49,8 +49,8 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 	if (isParamsList(params)) {
 		// Sort
 		if (params.sort) {
-			if (Array.isArray(params.sort)) qp['sort'] = params.sort.join(',')
-			else qp['sort'] = Object.entries(params.sort).map(([k, v]) => `${v === 'desc' ? '-' : ''}${k}`).join(',')
+			if (Array.isArray(params.sort)) qp.sort = params.sort.join(',')
+			else qp.sort = Object.entries(params.sort).map(([k, v]) => `${v === 'desc' ? '-' : ''}${k}`).join(',')
 		}
 		// Page
 		if (params.pageNumber) qp['page[number]'] = String(params.pageNumber)

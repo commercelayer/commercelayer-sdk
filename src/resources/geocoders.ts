@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Address } from './addresses'
-import { Attachment } from './attachments'
+import type { Address } from './addresses'
+import type { Attachment } from './attachments'
 
 
 type GeocoderRel = ResourceRel & { type: typeof Geocoders.TYPE }
@@ -20,7 +20,7 @@ interface Geocoder extends Resource {
 
 class Geocoders extends ApiResource {
 
-	static readonly TYPE: 'geocoders' = 'geocoders'
+	static readonly TYPE: 'geocoders' = 'geocoders' as const
 	// static readonly PATH = 'geocoders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Geocoder>> {
@@ -31,12 +31,14 @@ class Geocoders extends ApiResource {
 		return this.resources.retrieve<Geocoder>({ type: Geocoders.TYPE, id }, params, options)
 	}
 
-	async addresses(geocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
-		return this.resources.fetch<Address>({ type: 'addresses' }, `geocoders/${geocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
+	async addresses(geocoderId: string | Geocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
+		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
+		return this.resources.fetch<Address>({ type: 'addresses' }, `geocoders/${_geocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
 	}
 
-	async attachments(geocoderId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `geocoders/${geocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	async attachments(geocoderId: string | Geocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `geocoders/${_geocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

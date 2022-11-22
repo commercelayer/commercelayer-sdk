@@ -1,10 +1,10 @@
-/* eslint-disable no-console */
 
 import apiSchema, { Resource, Operation, Component, Cardinality } from './schema'
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
 import { basename } from 'path'
 import { capitalize, snakeCase } from 'lodash'
 import { inspect } from 'util'
+import fixSchema from './fixer'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Inflector = require('inflector-js')
@@ -41,7 +41,28 @@ const generate = async (localSchema?: boolean) => {
 
 	console.log('>> Local schema: ' + (localSchema || false) + '\n')
 
-	const schemaPath = localSchema ? 'gen/openapi.json' : await apiSchema.download()
+	if (!localSchema) {
+
+		let currentVersion = '0.0.0'
+
+		try {
+			const currentSchema = apiSchema.current()
+			currentVersion = currentSchema.info.version
+		} catch (err) {
+			console.log('No current local schema available')
+		}
+
+		const schemaInfo = await apiSchema.download()
+
+		if (schemaInfo.version === currentVersion) {
+			console.log('No new OpenAPI schema version: ' + currentVersion)
+			return
+		}
+		else console.log(`New OpenAPI schema version: ${currentVersion} --> ${schemaInfo.version}`)
+
+	}
+
+	const schemaPath = apiSchema.localPath
 	if (!existsSync(schemaPath)) {
 		console.log('Cannot find schema file: ' + schemaPath)
 		return
@@ -51,6 +72,12 @@ const generate = async (localSchema?: boolean) => {
 
 	const schema = apiSchema.parse(schemaPath)
 	global.version = schema.version
+
+
+	// Remove redundant components and force usage of global resource component
+	fixSchema(schema)
+	// console.log(inspect(schema, false, null, true))
+
 
 	loadTemplates()
 
@@ -369,10 +396,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	}
 
-	let modelName = String(Object.keys(resource.components)[0])
-	if (modelName.endsWith('Update')) modelName = String(resource.components).slice(0, -'Update'.length)
-	else
-	if (modelName.endsWith('Create')) modelName = String(resource.components).slice(0, -'Create'.length)
+	const modelName = String(Object.keys(resource.components)[0].replace(/(Create|Update)$/g, ''))
 	spec = spec.replace(/##__RESOURCE_MODEL__##/g, modelName)
 
 
@@ -427,7 +451,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		else {
 			if (op.relationship) {
 				const tplr = templates[`relationship_${op.relationship.cardinality.replace('to_', '')}`]
-				const tplrOp = templatedOperation('', opName, op, tplr)
+				const tplrOp = templatedOperation(resName, opName, op, tplr)
 				operations.push(tplrOp.operation)
 			} else console.log('Unknown operation: ' + opName)
 		}
@@ -470,7 +494,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImports)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import { ${i} } from './${snakeCase(Inflector.pluralize(i))}'`)
+		.map(i => `import type { ${i} } from './${snakeCase(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
@@ -493,15 +517,16 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 		operation = operation.replace(/##__RESOURCE_REQUEST_CLASS__##/g, requestType)
 		if (!types.includes(requestType)) types.push(requestType)
 	}
-	if (op.responseType || ['list', 'update', 'create'].includes(name)) {
-		const responseType = op.responseType ? op.responseType : Inflector.singularize(res)
+	if (op.responseType) {
+		const responseType = op.responseType
 		operation = operation.replace(/##__RESOURCE_RESPONSE_CLASS__##/g, responseType)
 		if (!types.includes(responseType)) types.push(responseType)
 	}
 	if (op.relationship) {
 		operation = operation.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
-		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{', '${'))
+		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{', '${_'))
 		operation = operation.replace(/##__RESOURCE_ID__##/g, op.id || 'id')
+		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
 	}
 
 	operation = operation.replace(/\n/g, '\n\t')
@@ -521,7 +546,7 @@ const expType = (type: string): string => {
 
 
 const getCUDSuffix = (name: string): string => {
-	const suffixes = ['Update', 'Create', 'Delete']
+	const suffixes = ['Create', 'Update', 'Delete']
 	let suffix = ''
 	if (name) {
 		suffixes.some(x => {
@@ -578,11 +603,13 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			}
 
 			const req = r.required ? '' : '?'
-			const arr = (r.cardinality === Cardinality.to_many) ? '[]' : ''
 
-			if (r.polymorphic && (r.cardinality === Cardinality.to_many)) resName = `(${resName})`
+			if ((r.cardinality === Cardinality.to_many)) {
+				if (r.polymorphic) resName = `Array<${resName}>`
+				else resName += '[]'
+			}
 
-			rels.push(`${r.name}${req}: ${resName}${arr}`)
+			rels.push(`${r.name}${req}: ${resName}`)
 
 		}
 	})
@@ -602,6 +629,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	return { component, models }
 
 }
+
 
 
 generate(process.argv.indexOf('--local') > -1)

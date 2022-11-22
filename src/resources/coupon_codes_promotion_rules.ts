@@ -1,13 +1,13 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { PercentageDiscountPromotion } from './percentage_discount_promotions'
-import { FreeShippingPromotion } from './free_shipping_promotions'
-import { FixedAmountPromotion } from './fixed_amount_promotions'
-import { FreeGiftPromotion } from './free_gift_promotions'
-import { FixedPricePromotion } from './fixed_price_promotions'
-import { ExternalPromotion } from './external_promotions'
-import { Coupon } from './coupons'
+import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
+import type { FreeShippingPromotion } from './free_shipping_promotions'
+import type { FixedAmountPromotion } from './fixed_amount_promotions'
+import type { FreeGiftPromotion } from './free_gift_promotions'
+import type { FixedPricePromotion } from './fixed_price_promotions'
+import type { ExternalPromotion } from './external_promotions'
+import type { Coupon } from './coupons'
 
 
 type CouponCodesPromotionRuleRel = ResourceRel & { type: typeof CouponCodesPromotionRules.TYPE }
@@ -46,7 +46,7 @@ interface CouponCodesPromotionRuleUpdate extends ResourceUpdate {
 
 class CouponCodesPromotionRules extends ApiResource {
 
-	static readonly TYPE: 'coupon_codes_promotion_rules' = 'coupon_codes_promotion_rules'
+	static readonly TYPE: 'coupon_codes_promotion_rules' = 'coupon_codes_promotion_rules' as const
 	// static readonly PATH = 'coupon_codes_promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CouponCodesPromotionRule>> {
@@ -54,7 +54,7 @@ class CouponCodesPromotionRules extends ApiResource {
 	}
 
 	async create(resource: CouponCodesPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		return this.resources.create({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
+		return this.resources.create<CouponCodesPromotionRuleCreate, CouponCodesPromotionRule>({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
@@ -62,15 +62,16 @@ class CouponCodesPromotionRules extends ApiResource {
 	}
 
 	async update(resource: CouponCodesPromotionRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		return this.resources.update({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
+		return this.resources.update<CouponCodesPromotionRuleUpdate, CouponCodesPromotionRule>({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CouponCodesPromotionRules.TYPE, id }, options)
 	}
 
-	async coupons(couponCodesPromotionRuleId: string, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `coupon_codes_promotion_rules/${couponCodesPromotionRuleId}/coupons`, params, options) as unknown as ListResponse<Coupon>
+	async coupons(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+		const _couponCodesPromotionRuleId = (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || couponCodesPromotionRuleId as string
+		return this.resources.fetch<Coupon>({ type: 'coupons' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/coupons`, params, options) as unknown as ListResponse<Coupon>
 	}
 
 

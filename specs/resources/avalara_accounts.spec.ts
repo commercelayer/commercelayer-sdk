@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,10 +25,10 @@ describe('AvalaraAccounts resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'alfa_55',
-			username: 'lambda_52',
-			password: 'gamma_51',
-			company_code: 'epsilon_91',
+			name: 'delta_40',
+			username: 'gamma_54',
+			password: 'lambda_30',
+			company_code: 'sigma_19',
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 
@@ -154,25 +154,6 @@ describe('AvalaraAccounts resource', () => {
 
   
 
-	it(resourceType + '.tax_categories', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { tax_categories: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'tax_categories')
-			checkCommonParams(config, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].tax_categories(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
-	
-	})
-	
-
 	it(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
@@ -205,6 +186,25 @@ describe('AvalaraAccounts resource', () => {
 		})
 	
 		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.tax_categories', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { tax_categories: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'tax_categories')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].tax_categories(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

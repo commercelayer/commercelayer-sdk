@@ -12,13 +12,13 @@ const debug = Debug('client')
 
 
 const baseURL = (organization: string, domain?: string): string => {
-	return `https://${organization.toLowerCase()}.${domain ? domain : config.default.domain}/api`
+	return `https://${organization.toLowerCase()}.${domain || config.default.domain}/api`
 }
 
 
-const handleError = (error: Error) => {
+const handleError = (error: Error): void => {
 
-	let sdkError = new SdkError({ message: error.message, type: ErrorType.GENERIC })
+	let sdkError = new SdkError({ message: error.message })
 
 	if (axios.isAxiosError(error)) {
 		if (error.response) {
@@ -125,7 +125,7 @@ class ApiClient {
 		if (config.organization) this.baseUrl = baseURL(config.organization, config.domain)
 		if (config.accessToken) {
 			this.#accessToken = config.accessToken
-			def.headers.common['Authorization'] = 'Bearer ' + this.#accessToken;
+			def.headers.common.Authorization = 'Bearer ' + this.#accessToken;
 		}
 
 	}

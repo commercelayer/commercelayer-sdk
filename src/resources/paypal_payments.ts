@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Order } from './orders'
-import { PaymentGateway } from './payment_gateways'
+import type { Order } from './orders'
+import type { PaymentGateway } from './payment_gateways'
 
 
 type PaypalPaymentRel = ResourceRel & { type: typeof PaypalPayments.TYPE }
@@ -19,6 +19,10 @@ interface PaypalPayment extends Resource {
 	paypal_id?: string
 	status?: string
 	approval_url?: string
+	mismatched_amounts?: boolean
+	intent_amount_cents?: number
+	intent_amount_float?: number
+	formatted_intent_amount?: string
 
 	order?: Order
 	payment_gateway?: PaymentGateway
@@ -48,7 +52,7 @@ interface PaypalPaymentUpdate extends ResourceUpdate {
 
 class PaypalPayments extends ApiResource {
 
-	static readonly TYPE: 'paypal_payments' = 'paypal_payments'
+	static readonly TYPE: 'paypal_payments' = 'paypal_payments' as const
 	// static readonly PATH = 'paypal_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
@@ -56,7 +60,7 @@ class PaypalPayments extends ApiResource {
 	}
 
 	async create(resource: PaypalPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
-		return this.resources.create({ ...resource, type: PaypalPayments.TYPE }, params, options)
+		return this.resources.create<PaypalPaymentCreate, PaypalPayment>({ ...resource, type: PaypalPayments.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
@@ -64,19 +68,21 @@ class PaypalPayments extends ApiResource {
 	}
 
 	async update(resource: PaypalPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
-		return this.resources.update({ ...resource, type: PaypalPayments.TYPE }, params, options)
+		return this.resources.update<PaypalPaymentUpdate, PaypalPayment>({ ...resource, type: PaypalPayments.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: PaypalPayments.TYPE, id }, options)
 	}
 
-	async order(paypalPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.fetch<Order>({ type: 'orders' }, `paypal_payments/${paypalPaymentId}/order`, params, options) as unknown as Order
+	async order(paypalPaymentId: string | PaypalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId as string
+		return this.resources.fetch<Order>({ type: 'orders' }, `paypal_payments/${_paypalPaymentId}/order`, params, options) as unknown as Order
 	}
 
-	async payment_gateway(paypalPaymentId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `paypal_payments/${paypalPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	async payment_gateway(paypalPaymentId: string | PaypalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId as string
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `paypal_payments/${_paypalPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
 

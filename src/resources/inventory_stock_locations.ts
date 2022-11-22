@@ -1,8 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { StockLocation } from './stock_locations'
-import { InventoryModel } from './inventory_models'
+import type { StockLocation } from './stock_locations'
+import type { InventoryModel } from './inventory_models'
 
 
 type InventoryStockLocationRel = ResourceRel & { type: typeof InventoryStockLocations.TYPE }
@@ -45,7 +45,7 @@ interface InventoryStockLocationUpdate extends ResourceUpdate {
 
 class InventoryStockLocations extends ApiResource {
 
-	static readonly TYPE: 'inventory_stock_locations' = 'inventory_stock_locations'
+	static readonly TYPE: 'inventory_stock_locations' = 'inventory_stock_locations' as const
 	// static readonly PATH = 'inventory_stock_locations'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
@@ -53,7 +53,7 @@ class InventoryStockLocations extends ApiResource {
 	}
 
 	async create(resource: InventoryStockLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
-		return this.resources.create({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
+		return this.resources.create<InventoryStockLocationCreate, InventoryStockLocation>({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
@@ -61,19 +61,21 @@ class InventoryStockLocations extends ApiResource {
 	}
 
 	async update(resource: InventoryStockLocationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
-		return this.resources.update({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
+		return this.resources.update<InventoryStockLocationUpdate, InventoryStockLocation>({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: InventoryStockLocations.TYPE, id }, options)
 	}
 
-	async stock_location(inventoryStockLocationId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `inventory_stock_locations/${inventoryStockLocationId}/stock_location`, params, options) as unknown as StockLocation
+	async stock_location(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+		const _inventoryStockLocationId = (inventoryStockLocationId as InventoryStockLocation).id || inventoryStockLocationId as string
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `inventory_stock_locations/${_inventoryStockLocationId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async inventory_model(inventoryStockLocationId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
-		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `inventory_stock_locations/${inventoryStockLocationId}/inventory_model`, params, options) as unknown as InventoryModel
+	async inventory_model(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
+		const _inventoryStockLocationId = (inventoryStockLocationId as InventoryStockLocation).id || inventoryStockLocationId as string
+		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `inventory_stock_locations/${_inventoryStockLocationId}/inventory_model`, params, options) as unknown as InventoryModel
 	}
 
 

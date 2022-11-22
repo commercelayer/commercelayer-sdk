@@ -1,6 +1,6 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.3
  **/
 
 import { CommerceLayerClient } from '../../src'
@@ -25,11 +25,11 @@ describe('Packages resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'sigma_30',
-			length: 100,
-			width: 5,
-			height: 100,
-			unit_of_length: 'gamma_96',
+			name: 'beta_72',
+			length: 555,
+			width: 10,
+			height: 12345,
+			unit_of_length: 'lambda_18',
 			stock_location: cl.stock_locations.relationship(TestData.id),
 		}
 

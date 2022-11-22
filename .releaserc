@@ -2,10 +2,10 @@
 	"ci": true,
 	"dryRun": false,
 	"branches": [
-		{ "name": "main", "channel": "next" },
+		{ "name": "main", "channel": "latest" },
 		"+([0-9])?(.{+([0-9]),x}).x",
 		{ "name": "beta", "prerelease": true },
-		{ "name": "sdk4", "channel": "sdk4", "prerelease": "beta" }
+		{ "name": "sdk5", "channel": "sdk5", "prerelease": "beta" }
 	],
 	"plugins": [
 		"@semantic-release/commit-analyzer",

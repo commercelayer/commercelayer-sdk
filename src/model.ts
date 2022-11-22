@@ -3,7 +3,7 @@
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2022 Commerce Layer Inc.
- * OpenAPI schema, version 2.8.1
+ * OpenAPI schema, version 3.0.3
  **/
 export type { Address, AddressCreate, AddressUpdate } from './resources/addresses'
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate } from './resources/adjustments'
@@ -22,6 +22,7 @@ export type { Capture, CaptureUpdate } from './resources/captures'
 export type { CarrierAccount } from './resources/carrier_accounts'
 export type { CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewayUpdate } from './resources/checkout_com_gateways'
 export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate } from './resources/checkout_com_payments'
+export type { Cleanup, CleanupCreate } from './resources/cleanups'
 export type { CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRuleUpdate } from './resources/coupon_codes_promotion_rules'
 export type { CouponRecipient, CouponRecipientCreate, CouponRecipientUpdate } from './resources/coupon_recipients'
 export type { Coupon, CouponCreate, CouponUpdate } from './resources/coupons'
@@ -33,6 +34,8 @@ export type { CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscrip
 export type { Customer, CustomerCreate, CustomerUpdate } from './resources/customers'
 export type { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeUpdate } from './resources/delivery_lead_times'
 export type { EventCallback } from './resources/event_callbacks'
+export type { Event } from './resources/events'
+export type { Export, ExportCreate } from './resources/exports'
 export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate } from './resources/external_gateways'
 export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate } from './resources/external_payments'
 export type { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionUpdate } from './resources/external_promotions'
@@ -73,6 +76,8 @@ export type { PaypalGateway, PaypalGatewayCreate, PaypalGatewayUpdate } from './
 export type { PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate } from './resources/paypal_payments'
 export type { PercentageDiscountPromotion, PercentageDiscountPromotionCreate, PercentageDiscountPromotionUpdate } from './resources/percentage_discount_promotions'
 export type { PriceList, PriceListCreate, PriceListUpdate } from './resources/price_lists'
+export type { PriceTier } from './resources/price_tiers'
+export type { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate } from './resources/price_volume_tiers'
 export type { Price, PriceCreate, PriceUpdate } from './resources/prices'
 export type { PromotionRule } from './resources/promotion_rules'
 export type { Promotion } from './resources/promotions'
@@ -81,7 +86,9 @@ export type { ReturnLineItem, ReturnLineItemCreate, ReturnLineItemUpdate } from 
 export type { Return, ReturnCreate, ReturnUpdate } from './resources/returns'
 export type { Shipment, ShipmentUpdate } from './resources/shipments'
 export type { ShippingCategory, ShippingCategoryCreate, ShippingCategoryUpdate } from './resources/shipping_categories'
+export type { ShippingMethodTier } from './resources/shipping_method_tiers'
 export type { ShippingMethod, ShippingMethodCreate, ShippingMethodUpdate } from './resources/shipping_methods'
+export type { ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierUpdate } from './resources/shipping_weight_tiers'
 export type { ShippingZone, ShippingZoneCreate, ShippingZoneUpdate } from './resources/shipping_zones'
 export type { SkuListItem, SkuListItemCreate, SkuListItemUpdate } from './resources/sku_list_items'
 export type { SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRuleUpdate } from './resources/sku_list_promotion_rules'

@@ -1,7 +1,8 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
-import { Customer } from './customers'
+import type { Customer } from './customers'
+import type { Event } from './events'
 
 
 type CustomerPasswordResetRel = ResourceRel & { type: typeof CustomerPasswordResets.TYPE }
@@ -14,6 +15,7 @@ interface CustomerPasswordReset extends Resource {
 	reset_password_at?: string
 
 	customer?: Customer
+	events?: Event[]
 
 }
 
@@ -35,7 +37,7 @@ interface CustomerPasswordResetUpdate extends ResourceUpdate {
 
 class CustomerPasswordResets extends ApiResource {
 
-	static readonly TYPE: 'customer_password_resets' = 'customer_password_resets'
+	static readonly TYPE: 'customer_password_resets' = 'customer_password_resets' as const
 	// static readonly PATH = 'customer_password_resets'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPasswordReset>> {
@@ -43,7 +45,7 @@ class CustomerPasswordResets extends ApiResource {
 	}
 
 	async create(resource: CustomerPasswordResetCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
-		return this.resources.create({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
+		return this.resources.create<CustomerPasswordResetCreate, CustomerPasswordReset>({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
@@ -51,15 +53,21 @@ class CustomerPasswordResets extends ApiResource {
 	}
 
 	async update(resource: CustomerPasswordResetUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
-		return this.resources.update({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
+		return this.resources.update<CustomerPasswordResetUpdate, CustomerPasswordReset>({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
 	}
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CustomerPasswordResets.TYPE, id }, options)
 	}
 
-	async customer(customerPasswordResetId: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_password_resets/${customerPasswordResetId}/customer`, params, options) as unknown as Customer
+	async customer(customerPasswordResetId: string | CustomerPasswordReset, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _customerPasswordResetId = (customerPasswordResetId as CustomerPasswordReset).id || customerPasswordResetId as string
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_password_resets/${_customerPasswordResetId}/customer`, params, options) as unknown as Customer
+	}
+
+	async events(customerPasswordResetId: string | CustomerPasswordReset, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _customerPasswordResetId = (customerPasswordResetId as CustomerPasswordReset).id || customerPasswordResetId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `customer_password_resets/${_customerPasswordResetId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

@@ -1,6 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
+import type { Event } from './events'
 
 
 type ImportRel = ResourceRel & { type: typeof Imports.TYPE }
@@ -23,13 +24,17 @@ interface Import extends Resource {
 	errors_log?: object
 	warnings_log?: object
 	cleanup_records?: boolean
-	
+	attachment_url?: string
+
+	events?: Event[]
+
 }
 
 
 interface ImportCreate extends ResourceCreate {
 	
 	resource_type: string
+	format?: string
 	parent_resource_id?: string
 	inputs: object[]
 	cleanup_records?: boolean
@@ -39,7 +44,7 @@ interface ImportCreate extends ResourceCreate {
 
 class Imports extends ApiResource {
 
-	static readonly TYPE: 'imports' = 'imports'
+	static readonly TYPE: 'imports' = 'imports' as const
 	// static readonly PATH = 'imports'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Import>> {
@@ -47,7 +52,7 @@ class Imports extends ApiResource {
 	}
 
 	async create(resource: ImportCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {
-		return this.resources.create({ ...resource, type: Imports.TYPE }, params, options)
+		return this.resources.create<ImportCreate, Import>({ ...resource, type: Imports.TYPE }, params, options)
 	}
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {
@@ -56,6 +61,11 @@ class Imports extends ApiResource {
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Imports.TYPE, id }, options)
+	}
+
+	async events(importId: string | Import, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _importId = (importId as Import).id || importId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `imports/${_importId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 
