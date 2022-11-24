@@ -333,5 +333,6 @@ const CommerceLayer = (config: CommerceLayerInitConfig): CommerceLayerClient => 
 
 
 export default CommerceLayer
+export { CommerceLayer }
 
 export type { CommerceLayerClient, CommerceLayerConfig, CommerceLayerInitConfig }
