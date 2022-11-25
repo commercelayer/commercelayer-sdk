@@ -1,3 +1,10 @@
+# [4.20.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.19.0...v4.20.0) (2022-11-25)
+
+
+### Features
+
+* **core:** add commonjs client export ([73c8eae](https://github.com/commercelayer/commercelayer-sdk/commit/73c8eae17e82e16e1521fc191200450bd350396d))
+
 # [4.19.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.18.0...v4.19.0) (2022-11-22)
 
 
