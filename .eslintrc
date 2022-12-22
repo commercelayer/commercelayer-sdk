@@ -2,7 +2,7 @@
   "extends": [
     "@commercelayer/eslint-config-ts"
   ],
-  "ignorePatterns": ["test/**/*.test.ts", "gen/**/*.ts", "test/**/*.ts"],
+  "ignorePatterns": ["test/**/*.ts", "gen/**/*.ts", "specs/**/*.ts"],
   "rules": {
     "prettier/prettier": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",

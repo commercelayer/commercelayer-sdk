@@ -72,12 +72,15 @@ const parseSchema = (path: string): ApiSchema => {
 	const schema = JSON.parse(openApi)
 
 	apiSchema.version = schema.info?.version
+	console.log(`Schema version: ${apiSchema.version}`)
 
 	apiSchema.paths = parsePaths(schema.paths)
 	apiSchema.components = parseComponents(schema.components.schemas)
 
 	const resources: ResourceMap = {}
 	const components: ComponentMap = {}
+
+	const specialComponentMatcher = /(Create|Update|ResponseList|ResponseCreated|ResponseUpdated|Response)$/
 
 	Object.keys(apiSchema.paths).forEach(p => {
 		const singRes = Inflector.singularize(p)	// singularized resource name in snake case format
@@ -86,9 +89,9 @@ const parseSchema = (path: string): ApiSchema => {
 			components: {}
 		}
 		Object.keys(apiSchema.components).forEach(c => {
-			if (!/(Create|Update|ResponseList|Response)$/.test(c)) components[c] = apiSchema.components[c]
+			if (!specialComponentMatcher.test(c)) components[c] = apiSchema.components[c]
 			else
-			if (snakeCase(c.replace(/Create|Update|ResponseList|Response/g, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
+			if (snakeCase(c.replace(specialComponentMatcher, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
 		})
 		// Sort components
 		resources[p].components = sortObjectFields(resources[p].components)

@@ -95,6 +95,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	sku_code?: string
 	bundle_code?: string
 	quantity?: number
+	_external_price?: boolean
 	name?: string
 	image_url?: string
 	

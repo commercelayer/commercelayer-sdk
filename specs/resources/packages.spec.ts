@@ -1,12 +1,12 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.3
+ * Source code generated automatically by SDK codegen
  **/
 
 import { CommerceLayerClient } from '../../src'
 import { isEqual } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken } from '../../test/common'
+import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
 
 
@@ -25,11 +25,11 @@ describe('Packages resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'beta_72',
-			length: 555,
-			width: 10,
-			height: 12345,
-			unit_of_length: 'lambda_18',
+			name: randomValue('string', 'name'),
+			length: randomValue('number', 'length'),
+			width: randomValue('number', 'width'),
+			height: randomValue('number', 'height'),
+			unit_of_length: randomValue('string', 'unit_of_length'),
 			stock_location: cl.stock_locations.relationship(TestData.id),
 		}
 

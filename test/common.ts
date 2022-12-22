@@ -100,29 +100,42 @@ const interceptRequest = (config?: AxiosRequestConfig): AxiosRequestConfig => {
 	return config
 }
 
-const randomAttributes = (res: any, num: number): {[key: string]: any} => {
+const randomValue = (type: string, name?: string): any | Array<any> => {
 
-	const excluded = ['id', 'type', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
-	const attributes: any = {}
+	const numbers = [0, 1, 10, 100, 1000, 10000, 5, 55, 555, 12345, 6666]
+	const strings = ['alfa', 'beta', 'gamma', 'delta', 'epsilon', 'kappa', 'lambda', 'omega', 'sigma', 'zeta']
+	const booleans = [true, false, true, false, true, false, true, false, true, false]
+	const objects = [{ key11: 'val11' }, { key21: 'val21' }, { key31: 'val31' }, { key41: 'val41' }, { key51: 'val51' }]
 
-	const fields = Object.keys(res)
-	const tot = Math.max(1, Math.min(num, fields.length))
+	let values: Array<string | number | boolean | object>
 
-	do {
-		const attribute = fields[Math.floor(Math.random() * fields.length)]
-		if (!excluded.includes(attribute)) {
-			const value = 'test-data'
-			attributes[attribute] = value
-		}
+	if (name) {
+		// type = 
 	}
-	while (Object.keys(attributes).length < tot)
 
-	return attributes
+	if (type.startsWith('boolean')) values = booleans
+	else
+	if (type.startsWith('integer') || type.startsWith('number')) values = numbers
+	else
+	if (type.startsWith('fload') || type.startsWith('decimal')) values = numbers
+	else
+	if (type.startsWith('object')) values = objects
+	else
+	if (type.startsWith('string')) values = strings
+	else values = strings
+
+	let value = values[Math.floor(Math.random() * (values.length - 1))]
+
+	if (type === 'string') value = `${value}_${Math.floor(Math.random() * 100)}`
+
+	if (type.endsWith('[]')) value = [ value ]
+
+	return value
 
 }
 
 
-export { handleError, interceptRequest, randomAttributes }
+export { handleError, interceptRequest, randomValue }
 
 
 
