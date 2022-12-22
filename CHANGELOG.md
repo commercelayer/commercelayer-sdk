@@ -1,3 +1,15 @@
+# [4.21.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.20.0...v4.21.0) (2022-12-22)
+
+
+### Bug Fixes
+
+* **core:** fix package lock file ([8a1bbab](https://github.com/commercelayer/commercelayer-sdk/commit/8a1bbabcdd61f62e91db184e47103fdb8cc03f10))
+
+
+### Features
+
+* **core:** update resources to schema 3.0.4 ([a1c2ed3](https://github.com/commercelayer/commercelayer-sdk/commit/a1c2ed391c5fe9f2f3ab8bb03b899cdc683a717d))
+
 # [4.20.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.19.0...v4.20.0) (2022-11-25)
 
 
