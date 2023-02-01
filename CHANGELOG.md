@@ -1,3 +1,10 @@
+# [4.22.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.21.0...v4.22.0) (2023-02-01)
+
+
+### Features
+
+* **core:** add update reference and metadata to all resources ([6601695](https://github.com/commercelayer/commercelayer-sdk/commit/6601695d2cfb2ce8c69967dc4d8332513f747656))
+
 # [4.21.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.20.0...v4.21.0) (2022-12-22)
 
 
