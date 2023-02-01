@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 import type { Authorization } from './authorizations'
+import type { Event } from './events'
 
 
 type VoidRel = ResourceRel & { type: typeof Voids.TYPE }
@@ -24,6 +25,7 @@ interface Void extends Resource {
 
 	order?: Order
 	reference_authorization?: Authorization
+	events?: Event[]
 
 }
 
@@ -49,6 +51,11 @@ class Voids extends ApiResource {
 	async reference_authorization(voidId: string | Void, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `voids/${_voidId}/reference_authorization`, params, options) as unknown as Authorization
+	}
+
+	async events(voidId: string | Void, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _voidId = (voidId as Void).id || voidId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `voids/${_voidId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

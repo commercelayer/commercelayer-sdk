@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "3.0.4",
+        "version": "3.4.0",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -1110,6 +1110,33 @@
                 }
             }
         },
+        "/authorizations/{authorizationId}/events": {
+            "get": {
+                "operationId": "GET/authorizationId/events",
+                "summary": "Retrieve the events associated to the authorization",
+                "description": "Retrieve the events associated to the authorization",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorizationId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the authorization"
+                    }
+                }
+            }
+        },
         "/avalara_accounts": {
             "get": {
                 "operationId": "GET/avalara_accounts",
@@ -1514,6 +1541,33 @@
                 "responses": {
                     "200": {
                         "description": "The market associated to the billing info validation rule"
+                    }
+                }
+            }
+        },
+        "/billing_info_validation_rules/{billingInfoValidationRuleId}/attachments": {
+            "get": {
+                "operationId": "GET/billingInfoValidationRuleId/attachments",
+                "summary": "Retrieve the attachments associated to the billing info validation rule",
+                "description": "Retrieve the attachments associated to the billing info validation rule",
+                "tags": [
+                    "has_many",
+                    "attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "billingInfoValidationRuleId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The attachments associated to the billing info validation rule"
                     }
                 }
             }
@@ -2561,6 +2615,33 @@
                 "responses": {
                     "200": {
                         "description": "The refunds associated to the capture"
+                    }
+                }
+            }
+        },
+        "/captures/{captureId}/events": {
+            "get": {
+                "operationId": "GET/captureId/events",
+                "summary": "Retrieve the events associated to the capture",
+                "description": "Retrieve the events associated to the capture",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "captureId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the capture"
                     }
                 }
             }
@@ -6521,6 +6602,33 @@
                 }
             }
         },
+        "/external_promotions/{externalPromotionId}/events": {
+            "get": {
+                "operationId": "GET/externalPromotionId/events",
+                "summary": "Retrieve the events associated to the external promotion",
+                "description": "Retrieve the events associated to the external promotion",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "externalPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the external promotion"
+                    }
+                }
+            }
+        },
         "/external_tax_calculators": {
             "get": {
                 "operationId": "GET/external_tax_calculators",
@@ -7010,6 +7118,33 @@
                 }
             }
         },
+        "/fixed_amount_promotions/{fixedAmountPromotionId}/events": {
+            "get": {
+                "operationId": "GET/fixedAmountPromotionId/events",
+                "summary": "Retrieve the events associated to the fixed amount promotion",
+                "description": "Retrieve the events associated to the fixed amount promotion",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedAmountPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the fixed amount promotion"
+                    }
+                }
+            }
+        },
         "/fixed_price_promotions": {
             "get": {
                 "operationId": "GET/fixed_price_promotions",
@@ -7349,6 +7484,33 @@
                 }
             }
         },
+        "/fixed_price_promotions/{fixedPricePromotionId}/events": {
+            "get": {
+                "operationId": "GET/fixedPricePromotionId/events",
+                "summary": "Retrieve the events associated to the fixed price promotion",
+                "description": "Retrieve the events associated to the fixed price promotion",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixedPricePromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the fixed price promotion"
+                    }
+                }
+            }
+        },
         "/free_gift_promotions": {
             "get": {
                 "operationId": "GET/free_gift_promotions",
@@ -7684,6 +7846,33 @@
                 "responses": {
                     "200": {
                         "description": "The skus associated to the free gift promotion"
+                    }
+                }
+            }
+        },
+        "/free_gift_promotions/{freeGiftPromotionId}/events": {
+            "get": {
+                "operationId": "GET/freeGiftPromotionId/events",
+                "summary": "Retrieve the events associated to the free gift promotion",
+                "description": "Retrieve the events associated to the free gift promotion",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "freeGiftPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the free gift promotion"
                     }
                 }
             }
@@ -12336,6 +12525,33 @@
                 }
             }
         },
+        "/order_validation_rules/{orderValidationRuleId}/attachments": {
+            "get": {
+                "operationId": "GET/orderValidationRuleId/attachments",
+                "summary": "Retrieve the attachments associated to the order validation rule",
+                "description": "Retrieve the attachments associated to the order validation rule",
+                "tags": [
+                    "has_many",
+                    "attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderValidationRuleId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The attachments associated to the order validation rule"
+                    }
+                }
+            }
+        },
         "/orders": {
             "get": {
                 "operationId": "GET/orders",
@@ -12887,6 +13103,33 @@
                 "responses": {
                     "200": {
                         "description": "The refunds associated to the order"
+                    }
+                }
+            }
+        },
+        "/orders/{orderId}/returns": {
+            "get": {
+                "operationId": "GET/orderId/returns",
+                "summary": "Retrieve the returns associated to the order",
+                "description": "Retrieve the returns associated to the order",
+                "tags": [
+                    "has_many",
+                    "returns"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The returns associated to the order"
                     }
                 }
             }
@@ -14798,6 +15041,33 @@
                 "responses": {
                     "200": {
                         "description": "The skus associated to the percentage discount promotion"
+                    }
+                }
+            }
+        },
+        "/percentage_discount_promotions/{percentageDiscountPromotionId}/events": {
+            "get": {
+                "operationId": "GET/percentageDiscountPromotionId/events",
+                "summary": "Retrieve the events associated to the percentage discount promotion",
+                "description": "Retrieve the events associated to the percentage discount promotion",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "percentageDiscountPromotionId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the percentage discount promotion"
                     }
                 }
             }
@@ -21609,6 +21879,33 @@
                 }
             }
         },
+        "/voids/{voidId}/events": {
+            "get": {
+                "operationId": "GET/voidId/events",
+                "summary": "Retrieve the events associated to the void",
+                "description": "Retrieve the events associated to the void",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "voidId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the void"
+                    }
+                }
+            }
+        },
         "/webhooks": {
             "get": {
                 "operationId": "GET/webhooks",
@@ -22903,6 +23200,21 @@
                                         "type": "string",
                                         "description": "The prefix of the endpoint used for live transactions.",
                                         "example": "1797a841fbb37ca7-AdyenDemo"
+                                    },
+                                    "async_api": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the gateway will leverage on the Adyen notification webhooks.",
+                                        "example": true
+                                    },
+                                    "webhook_endpoint_secret": {
+                                        "type": "string",
+                                        "description": "The gateway webhook endpoint secret, generated by Adyen customer area.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    },
+                                    "webhook_endpoint_url": {
+                                        "type": "string",
+                                        "description": "The gateway webhook URL, generated automatically.",
+                                        "example": "https://core.commercelayer.co/webhook_callbacks/adyen_gateways/xxxxx"
                                     }
                                 }
                             },
@@ -23023,6 +23335,21 @@
                                         "type": "string",
                                         "description": "The prefix of the endpoint used for live transactions.",
                                         "example": "1797a841fbb37ca7-AdyenDemo"
+                                    },
+                                    "api_version": {
+                                        "type": "string",
+                                        "description": "The checkout API version, supported range is from 66 to 68, default is 68.",
+                                        "example": "68"
+                                    },
+                                    "async_api": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the gateway will leverage on the Adyen notification webhooks.",
+                                        "example": true
+                                    },
+                                    "webhook_endpoint_secret": {
+                                        "type": "string",
+                                        "description": "The gateway webhook endpoint secret, generated by Adyen customer area.",
+                                        "example": "xxxx-yyyy-zzzz"
                                     }
                                 },
                                 "required": [
@@ -23136,6 +23463,21 @@
                                         "type": "string",
                                         "description": "The prefix of the endpoint used for live transactions.",
                                         "example": "1797a841fbb37ca7-AdyenDemo"
+                                    },
+                                    "api_version": {
+                                        "type": "string",
+                                        "description": "The checkout API version, supported range is from 66 to 68, default is 68.",
+                                        "example": "68"
+                                    },
+                                    "async_api": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the gateway will leverage on the Adyen notification webhooks.",
+                                        "example": true
+                                    },
+                                    "webhook_endpoint_secret": {
+                                        "type": "string",
+                                        "description": "The gateway webhook endpoint secret, generated by Adyen customer area.",
+                                        "example": "xxxx-yyyy-zzzz"
                                     }
                                 }
                             },
@@ -24845,6 +25187,28 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -25048,6 +25412,40 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "voids"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
                                                         ]
                                                     },
                                                     "id": {
@@ -25673,6 +26071,28 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "attachments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -25898,6 +26318,40 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "market"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "attachments"
                                                         ]
                                                     },
                                                     "id": {
@@ -28077,6 +28531,28 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -28275,6 +28751,40 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "refunds"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
                                                         ]
                                                     },
                                                     "id": {
@@ -29823,10 +30333,10 @@
                                                         "enum": [
                                                             "percentage_discount_promotions",
                                                             "free_shipping_promotions",
-                                                            "fixed_amount_promotions",
                                                             "free_gift_promotions",
                                                             "fixed_price_promotions",
-                                                            "external_promotions"
+                                                            "external_promotions",
+                                                            "fixed_amount_promotions"
                                                         ]
                                                     },
                                                     "id": {
@@ -29845,9 +30355,6 @@
                                                 "$ref": "#/components/schemas/freeShippingPromotion"
                                             },
                                             {
-                                                "$ref": "#/components/schemas/fixedAmountPromotion"
-                                            },
-                                            {
                                                 "$ref": "#/components/schemas/freeGiftPromotion"
                                             },
                                             {
@@ -29855,6 +30362,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedAmountPromotion"
                                             }
                                         ]
                                     },
@@ -29946,10 +30456,10 @@
                                                         "enum": [
                                                             "percentage_discount_promotions",
                                                             "free_shipping_promotions",
-                                                            "fixed_amount_promotions",
                                                             "free_gift_promotions",
                                                             "fixed_price_promotions",
-                                                            "external_promotions"
+                                                            "external_promotions",
+                                                            "fixed_amount_promotions"
                                                         ]
                                                     },
                                                     "id": {
@@ -29968,9 +30478,6 @@
                                                 "$ref": "#/components/schemas/freeShippingPromotion"
                                             },
                                             {
-                                                "$ref": "#/components/schemas/fixedAmountPromotion"
-                                            },
-                                            {
                                                 "$ref": "#/components/schemas/freeGiftPromotion"
                                             },
                                             {
@@ -29978,6 +30485,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedAmountPromotion"
                                             }
                                         ]
                                     },
@@ -30081,10 +30591,10 @@
                                                         "enum": [
                                                             "percentage_discount_promotions",
                                                             "free_shipping_promotions",
-                                                            "fixed_amount_promotions",
                                                             "free_gift_promotions",
                                                             "fixed_price_promotions",
-                                                            "external_promotions"
+                                                            "external_promotions",
+                                                            "fixed_amount_promotions"
                                                         ]
                                                     },
                                                     "id": {
@@ -30103,9 +30613,6 @@
                                                 "$ref": "#/components/schemas/freeShippingPromotion"
                                             },
                                             {
-                                                "$ref": "#/components/schemas/fixedAmountPromotion"
-                                            },
-                                            {
                                                 "$ref": "#/components/schemas/freeGiftPromotion"
                                             },
                                             {
@@ -30113,6 +30620,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedAmountPromotion"
                                             }
                                         ]
                                     },
@@ -35400,7 +35910,7 @@
                                     "shared_secret": {
                                         "type": "string",
                                         "description": "The shared secret used to sign the external request payload.",
-                                        "example": "xxxx-yyyy-zzzz"
+                                        "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
                                     },
                                     "authorize_url": {
                                         "type": "string",
@@ -36330,7 +36840,7 @@
                                     "shared_secret": {
                                         "type": "string",
                                         "description": "The shared secret used to sign the external request payload.",
-                                        "example": "xxxx-yyyy-zzzz"
+                                        "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
                                     }
                                 }
                             },
@@ -36458,6 +36968,28 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "attachments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
                                                         ]
                                                     },
                                                     "id": {
@@ -37136,6 +37668,40 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -37214,7 +37780,7 @@
                                     "shared_secret": {
                                         "type": "string",
                                         "description": "The shared secret used to sign the external request payload.",
-                                        "example": "xxxx-yyyy-zzzz"
+                                        "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
                                     }
                                 }
                             },
@@ -37742,6 +38308,28 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "attachments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
                                                         ]
                                                     },
                                                     "id": {
@@ -38420,6 +39008,40 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -38705,6 +39327,28 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "skus"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
                                                         ]
                                                     },
                                                     "id": {
@@ -39504,6 +40148,40 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -39779,6 +40457,28 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "skus"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
                                                         ]
                                                     },
                                                     "id": {
@@ -40568,6 +41268,40 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "skus"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
                                                         ]
                                                     },
                                                     "id": {
@@ -48679,8 +49413,18 @@
                                     },
                                     "external_prices_url": {
                                         "type": "string",
-                                        "description": "The URL used to fetch prices from an external source",
+                                        "description": "The URL used to overwrite prices by an external source.",
                                         "example": "https://external_prices.yourbrand.com"
+                                    },
+                                    "external_order_validation_url": {
+                                        "type": "string",
+                                        "description": "The URL used to validate orders by an external source.",
+                                        "example": "https://external_validation.yourbrand.com"
+                                    },
+                                    "shared_secret": {
+                                        "type": "string",
+                                        "description": "The shared secret used to sign the external requests payload.",
+                                        "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
                                     },
                                     "private": {
                                         "type": "boolean",
@@ -48902,8 +49646,13 @@
                                     },
                                     "external_prices_url": {
                                         "type": "string",
-                                        "description": "The URL used to fetch prices from an external source",
+                                        "description": "The URL used to overwrite prices by an external source.",
                                         "example": "https://external_prices.yourbrand.com"
+                                    },
+                                    "external_order_validation_url": {
+                                        "type": "string",
+                                        "description": "The URL used to validate orders by an external source.",
+                                        "example": "https://external_validation.yourbrand.com"
                                     },
                                     "reference": {
                                         "type": "string",
@@ -49112,8 +49861,13 @@
                                     },
                                     "external_prices_url": {
                                         "type": "string",
-                                        "description": "The URL used to fetch prices from an external source",
+                                        "description": "The URL used to overwrite prices by an external source.",
                                         "example": "https://external_prices.yourbrand.com"
+                                    },
+                                    "external_order_validation_url": {
+                                        "type": "string",
+                                        "description": "The URL used to validate orders by an external source.",
+                                        "example": "https://external_validation.yourbrand.com"
                                     },
                                     "_disable": {
                                         "type": "boolean",
@@ -50010,10 +50764,10 @@
                                                         "enum": [
                                                             "percentage_discount_promotions",
                                                             "free_shipping_promotions",
-                                                            "fixed_amount_promotions",
                                                             "free_gift_promotions",
                                                             "fixed_price_promotions",
-                                                            "external_promotions"
+                                                            "external_promotions",
+                                                            "fixed_amount_promotions"
                                                         ]
                                                     },
                                                     "id": {
@@ -50032,9 +50786,6 @@
                                                 "$ref": "#/components/schemas/freeShippingPromotion"
                                             },
                                             {
-                                                "$ref": "#/components/schemas/fixedAmountPromotion"
-                                            },
-                                            {
                                                 "$ref": "#/components/schemas/freeGiftPromotion"
                                             },
                                             {
@@ -50042,6 +50793,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedAmountPromotion"
                                             }
                                         ]
                                     }
@@ -50116,10 +50870,10 @@
                                                         "enum": [
                                                             "percentage_discount_promotions",
                                                             "free_shipping_promotions",
-                                                            "fixed_amount_promotions",
                                                             "free_gift_promotions",
                                                             "fixed_price_promotions",
-                                                            "external_promotions"
+                                                            "external_promotions",
+                                                            "fixed_amount_promotions"
                                                         ]
                                                     },
                                                     "id": {
@@ -50138,9 +50892,6 @@
                                                 "$ref": "#/components/schemas/freeShippingPromotion"
                                             },
                                             {
-                                                "$ref": "#/components/schemas/fixedAmountPromotion"
-                                            },
-                                            {
                                                 "$ref": "#/components/schemas/freeGiftPromotion"
                                             },
                                             {
@@ -50148,6 +50899,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedAmountPromotion"
                                             }
                                         ]
                                     }
@@ -50231,10 +50985,10 @@
                                                         "enum": [
                                                             "percentage_discount_promotions",
                                                             "free_shipping_promotions",
-                                                            "fixed_amount_promotions",
                                                             "free_gift_promotions",
                                                             "fixed_price_promotions",
-                                                            "external_promotions"
+                                                            "external_promotions",
+                                                            "fixed_amount_promotions"
                                                         ]
                                                     },
                                                     "id": {
@@ -50253,9 +51007,6 @@
                                                 "$ref": "#/components/schemas/freeShippingPromotion"
                                             },
                                             {
-                                                "$ref": "#/components/schemas/fixedAmountPromotion"
-                                            },
-                                            {
                                                 "$ref": "#/components/schemas/freeGiftPromotion"
                                             },
                                             {
@@ -50263,6 +51014,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedAmountPromotion"
                                             }
                                         ]
                                     }
@@ -51620,6 +52374,28 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "attachments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -51684,6 +52460,40 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "market"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "attachments": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "attachments"
                                                         ]
                                                     },
                                                     "id": {
@@ -52679,6 +53489,28 @@
                                             }
                                         }
                                     },
+                                    "returns": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "returns"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
                                     "order_subscriptions": {
                                         "type": "object",
                                         "properties": {
@@ -53279,6 +54111,11 @@
                                     "_refresh": {
                                         "type": "boolean",
                                         "description": "Send this attribute if you want to manually refresh the order.",
+                                        "example": true
+                                    },
+                                    "_validate": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to trigger the external validation for the order.",
                                         "example": true
                                     },
                                     "reference": {
@@ -54093,6 +54930,40 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "refunds"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "returns": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "returns"
                                                         ]
                                                     },
                                                     "id": {
@@ -58275,6 +59146,28 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -59052,6 +59945,40 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "skus"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
                                                         ]
                                                     },
                                                     "id": {
@@ -60927,10 +61854,10 @@
                                                         "enum": [
                                                             "percentage_discount_promotions",
                                                             "free_shipping_promotions",
-                                                            "fixed_amount_promotions",
                                                             "free_gift_promotions",
                                                             "fixed_price_promotions",
-                                                            "external_promotions"
+                                                            "external_promotions",
+                                                            "fixed_amount_promotions"
                                                         ]
                                                     },
                                                     "id": {
@@ -60949,9 +61876,6 @@
                                                 "$ref": "#/components/schemas/freeShippingPromotion"
                                             },
                                             {
-                                                "$ref": "#/components/schemas/fixedAmountPromotion"
-                                            },
-                                            {
                                                 "$ref": "#/components/schemas/freeGiftPromotion"
                                             },
                                             {
@@ -60959,6 +61883,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedAmountPromotion"
                                             }
                                         ]
                                     }
@@ -67314,10 +68241,10 @@
                                                         "enum": [
                                                             "percentage_discount_promotions",
                                                             "free_shipping_promotions",
-                                                            "fixed_amount_promotions",
                                                             "free_gift_promotions",
                                                             "fixed_price_promotions",
-                                                            "external_promotions"
+                                                            "external_promotions",
+                                                            "fixed_amount_promotions"
                                                         ]
                                                     },
                                                     "id": {
@@ -67336,9 +68263,6 @@
                                                 "$ref": "#/components/schemas/freeShippingPromotion"
                                             },
                                             {
-                                                "$ref": "#/components/schemas/fixedAmountPromotion"
-                                            },
-                                            {
                                                 "$ref": "#/components/schemas/freeGiftPromotion"
                                             },
                                             {
@@ -67346,6 +68270,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedAmountPromotion"
                                             }
                                         ]
                                     },
@@ -67469,10 +68396,10 @@
                                                         "enum": [
                                                             "percentage_discount_promotions",
                                                             "free_shipping_promotions",
-                                                            "fixed_amount_promotions",
                                                             "free_gift_promotions",
                                                             "fixed_price_promotions",
-                                                            "external_promotions"
+                                                            "external_promotions",
+                                                            "fixed_amount_promotions"
                                                         ]
                                                     },
                                                     "id": {
@@ -67491,9 +68418,6 @@
                                                 "$ref": "#/components/schemas/freeShippingPromotion"
                                             },
                                             {
-                                                "$ref": "#/components/schemas/fixedAmountPromotion"
-                                            },
-                                            {
                                                 "$ref": "#/components/schemas/freeGiftPromotion"
                                             },
                                             {
@@ -67501,6 +68425,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedAmountPromotion"
                                             }
                                         ]
                                     },
@@ -67614,10 +68541,10 @@
                                                         "enum": [
                                                             "percentage_discount_promotions",
                                                             "free_shipping_promotions",
-                                                            "fixed_amount_promotions",
                                                             "free_gift_promotions",
                                                             "fixed_price_promotions",
-                                                            "external_promotions"
+                                                            "external_promotions",
+                                                            "fixed_amount_promotions"
                                                         ]
                                                     },
                                                     "id": {
@@ -67636,9 +68563,6 @@
                                                 "$ref": "#/components/schemas/freeShippingPromotion"
                                             },
                                             {
-                                                "$ref": "#/components/schemas/fixedAmountPromotion"
-                                            },
-                                            {
                                                 "$ref": "#/components/schemas/freeGiftPromotion"
                                             },
                                             {
@@ -67646,6 +68570,9 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/externalPromotion"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/fixedAmountPromotion"
                                             }
                                         ]
                                     },
@@ -72144,6 +73071,11 @@
                                             "foo": "bar"
                                         }
                                     },
+                                    "auto_payments": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.",
+                                        "example": true
+                                    },
                                     "webhook_endpoint_id": {
                                         "type": "string",
                                         "description": "The gateway webhook endpoint ID, generated automatically.",
@@ -72268,6 +73200,11 @@
                                         "type": "string",
                                         "description": "The gateway publishable API key.",
                                         "example": "pk_live_xxxx-yyyy-zzzz"
+                                    },
+                                    "auto_payments": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.",
+                                        "example": true
                                     }
                                 },
                                 "required": [
@@ -72333,6 +73270,11 @@
                                         "example": {
                                             "foo": "bar"
                                         }
+                                    },
+                                    "auto_payments": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.",
+                                        "example": true
                                     }
                                 }
                             },
@@ -75013,6 +75955,28 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -75120,6 +76084,40 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -75171,7 +76169,7 @@
                                     "callback_url": {
                                         "type": "string",
                                         "description": "URI where the webhook subscription should send the POST request when the event occurs.",
-                                        "example": ""
+                                        "example": "https://yourapp.com/webhooks"
                                     },
                                     "include_resources": {
                                         "type": "array",
@@ -75198,7 +76196,7 @@
                                     "shared_secret": {
                                         "type": "string",
                                         "description": "The shared secret used to sign the external request payload.",
-                                        "example": "https://yourapp.com/webhooks"
+                                        "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
                                     },
                                     "created_at": {
                                         "type": "string",
@@ -75296,7 +76294,7 @@
                                     "callback_url": {
                                         "type": "string",
                                         "description": "URI where the webhook subscription should send the POST request when the event occurs.",
-                                        "example": ""
+                                        "example": "https://yourapp.com/webhooks"
                                     },
                                     "include_resources": {
                                         "type": "array",
@@ -75383,7 +76381,7 @@
                                     "callback_url": {
                                         "type": "string",
                                         "description": "URI where the webhook subscription should send the POST request when the event occurs.",
-                                        "example": ""
+                                        "example": "https://yourapp.com/webhooks"
                                     },
                                     "include_resources": {
                                         "type": "array",

@@ -22,6 +22,7 @@ import type { Authorization } from './authorizations'
 import type { Void } from './voids'
 import type { Capture } from './captures'
 import type { Refund } from './refunds'
+import type { Return } from './returns'
 import type { OrderSubscription } from './order_subscriptions'
 import type { OrderCopy } from './order_copies'
 import type { Attachment } from './attachments'
@@ -161,6 +162,7 @@ interface Order extends Resource {
 	captures?: Capture[]
 	voids?: Void[]
 	refunds?: Refund[]
+	returns?: Return[]
 	order_subscriptions?: OrderSubscription[]
 	order_copies?: OrderCopy[]
 	attachments?: Attachment[]
@@ -233,6 +235,7 @@ interface OrderUpdate extends ResourceUpdate {
 	_save_shipping_address_to_customer_address_book?: boolean
 	_save_billing_address_to_customer_address_book?: boolean
 	_refresh?: boolean
+	_validate?: boolean
 
 	market?: MarketRel
 	customer?: CustomerRel
@@ -342,6 +345,11 @@ class Orders extends ApiResource {
 	async refunds(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Refund>({ type: 'refunds' }, `orders/${_orderId}/refunds`, params, options) as unknown as ListResponse<Refund>
+	}
+
+	async returns(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<Return>({ type: 'returns' }, `orders/${_orderId}/returns`, params, options) as unknown as ListResponse<Return>
 	}
 
 	async order_subscriptions(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {

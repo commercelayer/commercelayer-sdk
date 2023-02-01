@@ -2,7 +2,7 @@
 // ##__MODEL_TYPES_START__##
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
- * ©2022 Commerce Layer Inc.
+ * ©2023 Commerce Layer Inc.
  **/
 export type { Address, AddressCreate, AddressUpdate } from './resources/addresses'
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate } from './resources/adjustments'
