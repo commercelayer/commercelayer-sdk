@@ -1,3 +1,15 @@
+# [4.24.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.23.0...v4.24.0) (2023-02-02)
+
+
+### Bug Fixes
+
+* **core:** fix export of schema version ([73d762e](https://github.com/commercelayer/commercelayer-sdk/commit/73d762ebc4237b190cfb8f284292a0137f5084ca))
+
+
+### Features
+
+* **core:** update resources to schema version 3.5.0 ([2f7102d](https://github.com/commercelayer/commercelayer-sdk/commit/2f7102de74b98f5ec47670d9eb8ccf97c7978093))
+
 # [4.23.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.22.0...v4.23.0) (2023-02-02)
 
 
