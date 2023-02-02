@@ -22,6 +22,7 @@ interface CheckoutComPayment extends Resource {
 	redirect_uri?: string
 	payment_response?: object
 	mismatched_amounts?: boolean
+	payment_instrument?: object
 
 	order?: Order
 	payment_gateway?: PaymentGateway

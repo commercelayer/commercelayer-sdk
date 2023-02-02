@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "3.4.0",
+        "version": "3.5.0",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -23691,6 +23691,14 @@
                                         "description": "Indicates if the order current amount differs form the one of the associated authorization.",
                                         "example": false
                                     },
+                                    "payment_instrument": {
+                                        "type": "object",
+                                        "description": "Information about the payment instrument used in the transaction",
+                                        "example": {
+                                            "issuer": "cl bank",
+                                            "card_type": "visa"
+                                        }
+                                    },
                                     "created_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
@@ -27271,6 +27279,14 @@
                                             "customer_id": "1234567890"
                                         }
                                     },
+                                    "payment_instrument": {
+                                        "type": "object",
+                                        "description": "Information about the payment instrument used in the transaction",
+                                        "example": {
+                                            "issuer": "cl bank",
+                                            "card_type": "visa"
+                                        }
+                                    },
                                     "created_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
@@ -29556,6 +29572,14 @@
                                         "type": "boolean",
                                         "description": "Indicates if the order current amount differs form the one of the associated authorization.",
                                         "example": false
+                                    },
+                                    "payment_instrument": {
+                                        "type": "object",
+                                        "description": "Information about the payment instrument used in the transaction",
+                                        "example": {
+                                            "issuer": "cl bank",
+                                            "card_type": "visa"
+                                        }
                                     },
                                     "created_at": {
                                         "type": "string",
@@ -36309,6 +36333,14 @@
                                         "description": "External payment options.",
                                         "example": {
                                             "foo": "bar"
+                                        }
+                                    },
+                                    "payment_instrument": {
+                                        "type": "object",
+                                        "description": "Information about the payment instrument used in the transaction",
+                                        "example": {
+                                            "issuer_type": "external_payment",
+                                            "card_type": "visa"
                                         }
                                     },
                                     "created_at": {
@@ -46825,6 +46857,14 @@
                                         "type": "string",
                                         "description": "The amount of the associated payment intent, formatted.",
                                         "example": "€10,00"
+                                    },
+                                    "payment_instrument": {
+                                        "type": "object",
+                                        "description": "Information about the payment instrument used in the transaction",
+                                        "example": {
+                                            "issuer": "cl bank",
+                                            "issuer_type": "klarna"
+                                        }
                                     },
                                     "created_at": {
                                         "type": "string",
@@ -58493,6 +58533,13 @@
                                         "type": "string",
                                         "description": "The amount of the associated payment intent, formatted.",
                                         "example": "€10,00"
+                                    },
+                                    "payment_instrument": {
+                                        "type": "object",
+                                        "description": "Information about the payment instrument used in the transaction",
+                                        "example": {
+                                            "issuer": "paypal"
+                                        }
                                     },
                                     "created_at": {
                                         "type": "string",
@@ -73469,6 +73516,14 @@
                                         "description": "The amount of the associated payment intent, formatted.",
                                         "example": "€10,00"
                                     },
+                                    "payment_instrument": {
+                                        "type": "object",
+                                        "description": "Information about the payment instrument used in the transaction",
+                                        "example": {
+                                            "issuer": "cl bank",
+                                            "card_type": "visa"
+                                        }
+                                    },
                                     "created_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
@@ -76531,6 +76586,13 @@
                             "attributes": {
                                 "type": "object",
                                 "properties": {
+                                    "payment_instrument": {
+                                        "type": "object",
+                                        "description": "Information about the payment instrument used in the transaction",
+                                        "example": {
+                                            "issuer_type": "wire_transfer"
+                                        }
+                                    },
                                     "created_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was created.",

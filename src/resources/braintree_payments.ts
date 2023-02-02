@@ -16,6 +16,7 @@ interface BraintreePayment extends Resource {
 	payment_id?: string
 	local?: boolean
 	options?: object
+	payment_instrument?: object
 
 	order?: Order
 	payment_gateway?: PaymentGateway

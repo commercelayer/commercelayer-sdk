@@ -19,6 +19,7 @@ interface StripePayment extends Resource {
 	intent_amount_cents?: number
 	intent_amount_float?: number
 	formatted_intent_amount?: string
+	payment_instrument?: object
 
 	order?: Order
 	payment_gateway?: PaymentGateway

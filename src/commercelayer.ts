@@ -9,7 +9,7 @@ import Debug from './debug'
 const debug = Debug('commercelayer')
 
 
-const OPEN_API_SCHEMA_VERSION = '3.4.0'
+const OPEN_API_SCHEMA_VERSION = '3.5.0'
 
 
 type SdkConfig = {}

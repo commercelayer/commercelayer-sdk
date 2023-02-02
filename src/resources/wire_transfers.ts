@@ -10,6 +10,8 @@ type OrderRel = ResourceRel & { type: 'orders' }
 
 interface WireTransfer extends Resource {
 	
+	payment_instrument?: object
+
 	order?: Order
 
 }

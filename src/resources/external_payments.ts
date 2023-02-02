@@ -14,6 +14,7 @@ interface ExternalPayment extends Resource {
 	
 	payment_source_token?: string
 	options?: object
+	payment_instrument?: object
 
 	order?: Order
 	payment_gateway?: PaymentGateway
