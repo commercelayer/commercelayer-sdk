@@ -15,21 +15,21 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
       - name: Install dependencies
-        run: npm ci
+        run: pnpm ci
       - name: Build package
-        run: npm run build
+        run: pnpm run build
       - name: Run specs
         env:
           CL_SDK_ORGANIZATION: sdk-test-org
           CL_SDK_CLIENT_ID: yOIJ1s3ez-hi1VhIlVk30Fe7EK152ixnfGN1zEkiX0I
           CL_SDK_CLIENT_SECRET: XTP4tDrA2u-56I3NwYk1wIpmSHvl2kTqyetkSJw2KzI
-        run: npm test
+        run: pnpm test
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: pnpx semantic-release

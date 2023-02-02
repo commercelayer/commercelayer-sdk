@@ -23,6 +23,7 @@ specifiers:
   jsonapi-typescript: ^0.1.3
   lodash: ^4.17.21
   minimize-js: ^1.3.1
+  pnpm: ^7.26.3
   semantic-release: ^20.1.0
   ts-node: ^10.9.1
   typescript: ^4.9.5
@@ -49,6 +50,7 @@ devDependencies:
   jsonapi-typescript: 0.1.3
   lodash: 4.17.21
   minimize-js: 1.3.1
+  pnpm: 7.26.3
   semantic-release: 20.1.0
   ts-node: 10.9.1_bdgp3l2zgaopogaavxusmetvge
   typescript: 4.9.5
@@ -5676,6 +5678,12 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       find-up: 4.1.0
+    dev: true
+
+  /pnpm/7.26.3:
+    resolution: {integrity: sha512-Q/McJBmWoVmHMn5Nzf8Ty3gCPeOqq4fFbIP07Cg4Ygkvk01yu9LdXagydEHuvYIq0c/yU9+7EKeppUuuw1OX6Q==}
+    engines: {node: '>=14.6'}
+    hasBin: true
     dev: true
 
   /popsicle-content-encoding/1.0.0_servie@4.3.3:
