@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 'lts/*'
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm install --frozen-lockfile
       - name: Build package
         run: pnpm run build
       - name: Run specs
