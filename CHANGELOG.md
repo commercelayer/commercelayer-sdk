@@ -1,3 +1,10 @@
+## [4.24.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.24.0...v4.24.1) (2023-02-07)
+
+
+### Bug Fixes
+
+* **core:** update readme and dependencies ([5d961a3](https://github.com/commercelayer/commercelayer-sdk/commit/5d961a31730d091522153d3eb86db632c54b1467))
+
 # [4.24.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.23.0...v4.24.0) (2023-02-02)
 
 
