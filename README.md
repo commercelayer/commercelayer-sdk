@@ -22,7 +22,7 @@ A JavaScript Library wrapper that makes it quick and easy to interact with the [
 - [SDK usage](#sdk-usage)
 - [Overriding credentials](#overriding-credentials)
 - [Handling validation errors](#handling-validation-errors)
-- [Contributors Guide](#contributors-guide)
+- [Contributors guide](#contributors-guide)
 - [Need help?](#need-help)
 - [License](#license)
 
@@ -30,9 +30,9 @@ A JavaScript Library wrapper that makes it quick and easy to interact with the [
 
 ## Getting started
 
-To get started with Commerce Layer JS SDK you need to install it, then get the credentials that will allow you to perform your API calls, and import the SDK in your application's code. The sections below explain how to achieve this.
+To get started with Commerce Layer JS SDK you need to install it, get the credentials that will allow you to perform your API calls, and import the SDK into your application's code. The sections below explain how to achieve this.
 
-> If you want, you can read [this tutorial](https://commercelayer.io/blog/getting-started-with-commerce-layer-javascript-sdk) from Commerce Layer's blog.
+> If you want, you can also read [this tutorial](https://commercelayer.io/blog/getting-started-with-commerce-layer-javascript-sdk) from Commerce Layer's blog.
 
 ### Installation
 
@@ -67,9 +67,9 @@ const cl = CommerceLayer({
 
 ## SDK usage
 
-The JavaScript SDK is a wrapper around the API which means you would be making API requests but with a different syntax. For now, we don't have comprehensive SDK documentation for every single resource our API supports (about 400+ endpoints), hence you will need to rely on our comprehensive [API Reference](https://docs.commercelayer.io/core/v/api-reference) as you go about using this SDK. So for example, if you want to create an order, take a look at the [Create an order](https://docs.commercelayer.io/core/v/api-reference/orders/create) documentation to see the required attributes and/or relationships. The same goes for every other supported resource.
+The JavaScript SDK is a wrapper around Commerce Layer API which means you would still be making API requests but with a different syntax. For now, we don't have comprehensive SDK documentation for every single resource our API supports (about 400+ endpoints), hence you will need to rely on our comprehensive [API Reference](https://docs.commercelayer.io/core/v/api-reference) as you go about using this SDK. So for example, if you want to create an order, take a look at the [Order object](https://docs.commercelayer.io/core/v/api-reference/orders/object) or the [Create an order](https://docs.commercelayer.io/core/v/api-reference/orders/create) documentation to see the required attributes and/or relationships. The same goes for every other supported resource.
 
-To show you how things work, we will use the [SKUs](https://docs.commercelayer.io/core/v/api-reference/skus) and [Shipping Categories](https://docs.commercelayer.io/core/v/api-reference/shipping_categories) resource in the following examples. The code snippets below show how to use the Commerce Layer JS SDK when performing the standard CRUD operations provided by our REST API. Kindly check our [API reference](https://docs.commercelayer.io/core/v/api-reference) for the complete list of available **resources** and their **attributes**.
+To show you how things work, we will use the [SKUs](https://docs.commercelayer.io/core/v/api-reference/skus) and [Shipping Categories](https://docs.commercelayer.io/core/v/api-reference/shipping_categories) resource in the following examples. The code snippets below show how to use the SDK when performing the standard CRUD operations provided by our REST API. Kindly check our [API reference](https://docs.commercelayer.io/core/v/api-reference) for the complete list of available **resources** and their **attributes**.
 
 ### Create
 
@@ -128,7 +128,7 @@ To show you how things work, we will use the [SKUs](https://docs.commercelayer.i
   const skus = await cl.skus.list()
 ```
 
-When fetching a collection of resources you can leverage the `meta` attribute to get its `meta` information:
+When fetching a collection of resources you can leverage the `meta` attribute to get its `meta` information like so:
 
 ```javascript
   const skus = await cl.skus.list()
@@ -169,7 +169,7 @@ When fetching a collection of resources you can leverage the `meta` attribute to
 </details>
 
 <details>
-<summary>How to fetch a collection of SKUs and use sparse fieldsets</summary>
+<summary>How to fetch a collection of SKUs and return specific fields (sparse fieldsets)</summary>
 <br />
 
 ```javascript
@@ -198,11 +198,11 @@ When fetching a collection of resources you can leverage the `meta` attribute to
   const skus = await cl.skus.list({ filters: { name_cont: 'White Logo' } })
 
   // Filter all the SKUs fetching only the ones created between two specific dates
-  // (filters combined according to an AND logic)
+  // (filters combined according to the AND logic)
   const skus = await cl.skus.list({ filters: { created_at_gt: '2018-01-01', created_at_lt: '2018-01-31'} })
 
   // Filters all the SKUs fetching only the ones created or updated after a specific date
-  // (attributes combined according to an OR logic)
+  // (attributes combined according to the OR logic)
   const skus = await cl.skus.list({ filters: { updated_at_or_created_at_gt: '2019-10-10' } })
 
   // Filters all the SKUs fetching only the ones whose name contains the string "Black"
@@ -259,7 +259,7 @@ Coming soon...
 <summary>How to fetch resource relationships</summary>
 <br />
 
-Many resources have relationships with other resources and instead of including these associations as seen above, you can fetch them directly. In this way, in the case of 1-to-N relationship, you can filter or sort the resulting collection as standard resources.
+Many resources have relationships with other resources and instead of including these associations as seen above, you can fetch them directly. This way, in the case of 1-to-N relationships, you can filter or sort the resulting collection as standard resources.
 
 ```javascript
 // Fetch 1-to-1 related resource: billing address of an order
@@ -271,9 +271,9 @@ const orders = cl.customers.orders('XyzKjAbCDe', { fields: ['status', 'number'] 
 
 In general:
 
-- An endpoint like `/api/customers` or `/api/customers/<customerId>` translates to `cl.customers` or `cl.customers("<customerId>")`.
-- 1-to-1 relationship endpoints like `/api/orders/<orderId>/shipping_address` translates to `cl.orders("<orderId>", { include: ["shipping_address"] }}`.
-- 1-to-N relationship endpoints like  `/api/customers/<customerId>?include=orders` or `/api/customers/<customerId>/orders` translates to `cl.customers.retrieve("customerId", { include: ["orders"] })` or `cl.customers.orders("<customerId>")`.
+- An API endpoint like `/api/customers` or `/api/customers/<customerId>` translates to `cl.customers` or `cl.customers('<customerId>')` with the SDK.
+- 1-to-1 relationship API endpoints like `/api/orders/<orderId>/shipping_address` translates to `cl.orders('<orderId>', { include: ['shipping_address'] }}` with the SDK.
+- 1-to-N relationship API endpoints like  `/api/customers/<customerId>?include=orders` or `/api/customers/<customerId>/orders` translates to `cl.customers.retrieve('customerId', { include: ['orders'] })` or `cl.customers.orders('<customerId>')`.
 
 ℹ️ Check our API reference for more information on how to [fetch relationships](https://docs.commercelayer.io/core/fetching-relationships).
 </details>
@@ -330,12 +330,12 @@ If needed, Commerce Layer JS SDK lets you change the client configuration and se
 Commerce Layer API returns specific errors (with extra information) on each attribute of a single resource. You can inspect them to properly handle validation errors (if any). To do that, use the `errors` attribute of the catched error:
 
 ```javascript
-  // logs error messages to console:
-
+  // Log error messages to console:
   const attributes = { code: 'TSHIRTMM000000FFFFFFXL', name: '' }
 
   const newSku = await cl.skus.create(attributes).catch(error => console.log(error.errors))
 
+  // Logged errors
   /*
   [
     {
@@ -369,7 +369,7 @@ Commerce Layer API returns specific errors (with extra information) on each attr
 
 ℹ️ Check our API reference for more information about the [errors](https://docs.commercelayer.io/developers/handling-errors) returned by the API.
 
-## Contributors Guide
+## Contributors guide
 
 1. Fork [this repository](https://github.com/commercelayer/commercelayer-sdk) (learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
 
