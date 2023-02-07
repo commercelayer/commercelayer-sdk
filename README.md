@@ -246,6 +246,7 @@ To execute a function for every item of a collection, use the `map()` method lik
   const skus = await cl.skus.list()
   skus.map(p => console.log('Product: ' + p.name + ' - Code: ' + p.code))
 ```
+
 </details>
 
 <!-- <details>

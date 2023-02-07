@@ -3,11 +3,12 @@
 	"MD001": false,
 	"MD012": false,
 	"MD013": {
-		"line_length": 500 
+		"line_length": 1000 
 	},
 	"MD024": {
 		"siblings_only": true
 	},
 	"MD025": false,
+	"MD033": false,
 	"MD041": false
 }
