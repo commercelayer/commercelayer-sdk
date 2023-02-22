@@ -22,10 +22,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
+          cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build package
-        run: pnpm run build
+        run: pnpm build
       - name: Run specs
         env:
           CL_SDK_ORGANIZATION: sdk-test-org
