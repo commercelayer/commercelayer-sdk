@@ -12,6 +12,8 @@ export { default as Applications } from './resources/application'
 export { default as Attachments } from './resources/attachments'
 export { default as Authorizations } from './resources/authorizations'
 export { default as AvalaraAccounts } from './resources/avalara_accounts'
+export { default as AxerveGateways } from './resources/axerve_gateways'
+export { default as AxervePayments } from './resources/axerve_payments'
 export { default as BillingInfoValidationRules } from './resources/billing_info_validation_rules'
 export { default as BingGeocoders } from './resources/bing_geocoders'
 export { default as BraintreeGateways } from './resources/braintree_gateways'
@@ -121,6 +123,8 @@ export type ResourceTypeLock =
 |	'attachments'
 |	'authorizations'
 |	'avalara_accounts'
+|	'axerve_gateways'
+|	'axerve_payments'
 |	'billing_info_validation_rules'
 |	'bing_geocoders'
 |	'braintree_gateways'
@@ -230,6 +234,8 @@ export const resourceList = [
 	'attachments',
 	'authorizations',
 	'avalara_accounts',
+	'axerve_gateways',
+	'axerve_payments',
 	'billing_info_validation_rules',
 	'bing_geocoders',
 	'braintree_gateways',

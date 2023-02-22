@@ -9,6 +9,7 @@ import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { Sku } from './skus'
 import type { Bundle } from './bundles'
 import type { AdyenPayment } from './adyen_payments'
+import type { AxervePayment } from './axerve_payments'
 import type { BraintreePayment } from './braintree_payments'
 import type { CheckoutComPayment } from './checkout_com_payments'
 import type { ExternalPayment } from './external_payments'
@@ -35,6 +36,7 @@ type CustomerRel = ResourceRel & { type: 'customers' }
 type AddressRel = ResourceRel & { type: 'addresses' }
 type PaymentMethodRel = ResourceRel & { type: 'payment_methods' }
 type AdyenPaymentRel = ResourceRel & { type: 'adyen_payments' }
+type AxervePaymentRel = ResourceRel & { type: 'axerve_payments' }
 type BraintreePaymentRel = ResourceRel & { type: 'braintree_payments' }
 type CheckoutComPaymentRel = ResourceRel & { type: 'checkout_com_payments' }
 type ExternalPaymentRel = ResourceRel & { type: 'external_payments' }
@@ -154,7 +156,7 @@ interface Order extends Resource {
 	available_free_skus?: Sku[]
 	available_free_bundles?: Bundle[]
 	payment_method?: PaymentMethod
-	payment_source?: AdyenPayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | StripePayment | WireTransfer
+	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | StripePayment | WireTransfer
 	line_items?: LineItem[]
 	shipments?: Shipment[]
 	transactions?: Array<Authorization | Void | Capture | Refund>
@@ -192,7 +194,7 @@ interface OrderCreate extends ResourceCreate {
 	shipping_address?: AddressRel
 	billing_address?: AddressRel
 	payment_method?: PaymentMethodRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 
@@ -242,7 +244,7 @@ interface OrderUpdate extends ResourceUpdate {
 	shipping_address?: AddressRel
 	billing_address?: AddressRel
 	payment_method?: PaymentMethodRel
-	payment_source?: AdyenPaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 

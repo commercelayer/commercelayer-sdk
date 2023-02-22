@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer API",
-        "version": "3.5.0",
+        "version": "3.6.0",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -1364,6 +1364,414 @@
                 "responses": {
                     "200": {
                         "description": "The tax_categories associated to the avalara account"
+                    }
+                }
+            }
+        },
+        "/axerve_gateways": {
+            "get": {
+                "operationId": "GET/axerve_gateways",
+                "summary": "List all axerve gateways",
+                "description": "List all axerve gateways",
+                "tags": [
+                    "axerve_gateways"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of axerve gateway objects",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/axerveGatewayResponseList"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "POST/axerve_gateways",
+                "summary": "Create an axerve gateway",
+                "description": "Create an axerve gateway",
+                "tags": [
+                    "axerve_gateways"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/axerveGatewayCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created axerve gateway object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/axerveGatewayResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/axerve_gateways/{axerveGatewayId}": {
+            "get": {
+                "operationId": "GET/axerve_gateways/axerveGatewayId",
+                "summary": "Retrieve an axerve gateway",
+                "description": "Retrieve an axerve gateway",
+                "tags": [
+                    "axerve_gateways"
+                ],
+                "parameters": [
+                    {
+                        "name": "axerveGatewayId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The axerve gateway object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/axerveGatewayResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/axerve_gateways/axerveGatewayId",
+                "summary": "Update an axerve gateway",
+                "description": "Update an axerve gateway",
+                "tags": [
+                    "axerve_gateways"
+                ],
+                "parameters": [
+                    {
+                        "name": "axerveGatewayId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/axerveGatewayUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated axerve gateway object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/axerveGatewayResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/axerve_gateways/axerveGatewayId",
+                "summary": "Delete an axerve gateway",
+                "description": "Delete an axerve gateway",
+                "tags": [
+                    "axerve_gateways"
+                ],
+                "parameters": [
+                    {
+                        "name": "axerveGatewayId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/axerve_gateways/{axerveGatewayId}/payment_methods": {
+            "get": {
+                "operationId": "GET/axerveGatewayId/payment_methods",
+                "summary": "Retrieve the payment methods associated to the axerve gateway",
+                "description": "Retrieve the payment methods associated to the axerve gateway",
+                "tags": [
+                    "has_many",
+                    "payment_methods"
+                ],
+                "parameters": [
+                    {
+                        "name": "axerveGatewayId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The payment_methods associated to the axerve gateway"
+                    }
+                }
+            }
+        },
+        "/axerve_gateways/{axerveGatewayId}/axerve_payments": {
+            "get": {
+                "operationId": "GET/axerveGatewayId/axerve_payments",
+                "summary": "Retrieve the axerve payments associated to the axerve gateway",
+                "description": "Retrieve the axerve payments associated to the axerve gateway",
+                "tags": [
+                    "has_many",
+                    "axerve_payments"
+                ],
+                "parameters": [
+                    {
+                        "name": "axerveGatewayId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The axerve_payments associated to the axerve gateway"
+                    }
+                }
+            }
+        },
+        "/axerve_payments": {
+            "get": {
+                "operationId": "GET/axerve_payments",
+                "summary": "List all axerve payments",
+                "description": "List all axerve payments",
+                "tags": [
+                    "axerve_payments"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of axerve payment objects",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/axervePaymentResponseList"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "POST/axerve_payments",
+                "summary": "Create an axerve payment",
+                "description": "Create an axerve payment",
+                "tags": [
+                    "axerve_payments"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/axervePaymentCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created axerve payment object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/axervePaymentResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/axerve_payments/{axervePaymentId}": {
+            "get": {
+                "operationId": "GET/axerve_payments/axervePaymentId",
+                "summary": "Retrieve an axerve payment",
+                "description": "Retrieve an axerve payment",
+                "tags": [
+                    "axerve_payments"
+                ],
+                "parameters": [
+                    {
+                        "name": "axervePaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The axerve payment object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/axervePaymentResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/axerve_payments/axervePaymentId",
+                "summary": "Update an axerve payment",
+                "description": "Update an axerve payment",
+                "tags": [
+                    "axerve_payments"
+                ],
+                "parameters": [
+                    {
+                        "name": "axervePaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/axervePaymentUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated axerve payment object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/axervePaymentResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/axerve_payments/axervePaymentId",
+                "summary": "Delete an axerve payment",
+                "description": "Delete an axerve payment",
+                "tags": [
+                    "axerve_payments"
+                ],
+                "parameters": [
+                    {
+                        "name": "axervePaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/axerve_payments/{axervePaymentId}/order": {
+            "get": {
+                "operationId": "GET/axervePaymentId/order",
+                "summary": "Retrieve the order associated to the axerve payment",
+                "description": "Retrieve the order associated to the axerve payment",
+                "tags": [
+                    "has_one",
+                    "orders"
+                ],
+                "parameters": [
+                    {
+                        "name": "axervePaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The order associated to the axerve payment"
+                    }
+                }
+            }
+        },
+        "/axerve_payments/{axervePaymentId}/payment_gateway": {
+            "get": {
+                "operationId": "GET/axervePaymentId/payment_gateway",
+                "summary": "Retrieve the payment gateway associated to the axerve payment",
+                "description": "Retrieve the payment gateway associated to the axerve payment",
+                "tags": [
+                    "has_one",
+                    "payment_gateways"
+                ],
+                "parameters": [
+                    {
+                        "name": "axervePaymentId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The payment_gateway associated to the axerve payment"
                     }
                 }
             }
@@ -26006,6 +26414,870 @@
                     }
                 }
             },
+            "axerveGateway": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "axerve_gateways"
+                                ]
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The payment gateway's internal name.",
+                                        "example": "US payment gateway"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "login": {
+                                        "type": "string",
+                                        "description": "The gateway login ID.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "payment_methods": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "payment_methods"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "axerve_payments": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "axerve_payments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "axerveGatewayCreate": {
+                "required": [
+                    "data"
+                ],
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "axerve_gateways"
+                                ]
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The payment gateway's internal name.",
+                                        "example": "US payment gateway"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "login": {
+                                        "type": "string",
+                                        "description": "The gateway login ID.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    },
+                                    "api_key": {
+                                        "type": "string",
+                                        "description": "The gateway API key.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "login",
+                                    "api_key"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "axerve_payments": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "axerve_payments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "axerveGatewayUpdate": {
+                "required": [
+                    "data"
+                ],
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "axerve_gateways"
+                                ]
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The payment gateway's internal name.",
+                                        "example": "US payment gateway"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "login": {
+                                        "type": "string",
+                                        "description": "The gateway login ID.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    },
+                                    "api_key": {
+                                        "type": "string",
+                                        "description": "The gateway API key.",
+                                        "example": "xxxx-yyyy-zzzz"
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "axerve_payments": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "axerve_payments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "axerveGatewayResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "axerve_gateways"
+                                ]
+                            },
+                            "links": {
+                                "type": "object",
+                                "properties": {
+                                    "self": {
+                                        "type": "string",
+                                        "description": "URL"
+                                    }
+                                }
+                            },
+                            "attributes": {
+                                "$ref": "#/components/schemas/axerveGateway/properties/data/properties/attributes"
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "payment_methods": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "payment_methods"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "axerve_payments": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "axerve_payments"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "axerveGatewayResponseList": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/axerveGatewayResponse/properties/data"
+                        }
+                    }
+                }
+            },
+            "axervePayment": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "axerve_payments"
+                                ]
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "return_url": {
+                                        "type": "string",
+                                        "description": "The URL where the payer is redirected after they approve the payment.",
+                                        "example": "https://yourdomain.com/thankyou"
+                                    },
+                                    "payment_request_data": {
+                                        "type": "object",
+                                        "description": "The Axerve payment request data, collected by client.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "mismatched_amounts": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the order current amount differs form the one of the associated authorization.",
+                                        "example": false
+                                    },
+                                    "intent_amount_cents": {
+                                        "type": "integer",
+                                        "description": "The amount of the associated payment intent, in cents.",
+                                        "example": 1000
+                                    },
+                                    "intent_amount_float": {
+                                        "type": "number",
+                                        "description": "The amount of the associated payment intent, float.",
+                                        "example": 10
+                                    },
+                                    "formatted_intent_amount": {
+                                        "type": "string",
+                                        "description": "The amount of the associated payment intent, formatted.",
+                                        "example": "€10,00"
+                                    },
+                                    "payment_instrument": {
+                                        "type": "object",
+                                        "description": "Information about the payment instrument used in the transaction",
+                                        "example": {
+                                            "issuer": "cl bank",
+                                            "card_type": "visa"
+                                        }
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "order": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "orders"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "payment_gateway": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "payment_gateways"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "axervePaymentCreate": {
+                "required": [
+                    "data"
+                ],
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "axerve_payments"
+                                ]
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "return_url": {
+                                        "type": "string",
+                                        "description": "The URL where the payer is redirected after they approve the payment.",
+                                        "example": "https://yourdomain.com/thankyou"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "return_url"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "order": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "orders"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "order"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "axervePaymentUpdate": {
+                "required": [
+                    "data"
+                ],
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "axerve_payments"
+                                ]
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "payment_request_data": {
+                                        "type": "object",
+                                        "description": "The Axerve payment request data, collected by client.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "_update": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to update the payment with fresh order data.",
+                                        "example": true
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "order": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "orders"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "axervePaymentResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "axerve_payments"
+                                ]
+                            },
+                            "links": {
+                                "type": "object",
+                                "properties": {
+                                    "self": {
+                                        "type": "string",
+                                        "description": "URL"
+                                    }
+                                }
+                            },
+                            "attributes": {
+                                "$ref": "#/components/schemas/axervePayment/properties/data/properties/attributes"
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "order": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "order"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "payment_gateway": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "payment_gateway"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "axervePaymentResponseList": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/axervePaymentResponse/properties/data"
+                        }
+                    }
+                }
+            },
             "billingInfoValidationRule": {
                 "type": "object",
                 "properties": {
@@ -32971,6 +34243,7 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "adyen_payments",
+                                                            "axerve_payments",
                                                             "braintree_payments",
                                                             "checkout_com_payments",
                                                             "external_payments",
@@ -32991,6 +34264,9 @@
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/adyenPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/axervePayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/braintreePayment"
@@ -33105,6 +34381,7 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "adyen_payments",
+                                                            "axerve_payments",
                                                             "braintree_payments",
                                                             "checkout_com_payments",
                                                             "external_payments",
@@ -33125,6 +34402,9 @@
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/adyenPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/axervePayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/braintreePayment"
@@ -33249,6 +34529,7 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "adyen_payments",
+                                                            "axerve_payments",
                                                             "braintree_payments",
                                                             "checkout_com_payments",
                                                             "external_payments",
@@ -33269,6 +34550,9 @@
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/adyenPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/axervePayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/braintreePayment"
@@ -40316,7 +41600,7 @@
                                     },
                                     "max_quantity": {
                                         "type": "integer",
-                                        "description": "The max quantity of free gifts globally applicable by the promotion, default to 1",
+                                        "description": "The max quantity of free gifts globally applicable by the promotion.",
                                         "example": 3
                                     }
                                 }
@@ -40595,7 +41879,7 @@
                                     },
                                     "max_quantity": {
                                         "type": "integer",
-                                        "description": "The max quantity of free gifts globally applicable by the promotion, default to 1",
+                                        "description": "The max quantity of free gifts globally applicable by the promotion.",
                                         "example": 3
                                     }
                                 },
@@ -40841,7 +42125,7 @@
                                     },
                                     "max_quantity": {
                                         "type": "integer",
-                                        "description": "The max quantity of free gifts globally applicable by the promotion, default to 1",
+                                        "description": "The max quantity of free gifts globally applicable by the promotion.",
                                         "example": 3
                                     }
                                 }
@@ -44404,7 +45688,7 @@
                                     },
                                     "stock_threshold": {
                                         "type": "integer",
-                                        "description": "The threshold at which to trigger the back in stock notification, default to 1.",
+                                        "description": "The threshold at which to trigger the back in stock notification.",
                                         "example": 3
                                     },
                                     "created_at": {
@@ -44568,7 +45852,7 @@
                                     },
                                     "stock_threshold": {
                                         "type": "integer",
-                                        "description": "The threshold at which to trigger the back in stock notification, default to 1.",
+                                        "description": "The threshold at which to trigger the back in stock notification.",
                                         "example": 3
                                     },
                                     "reference": {
@@ -44715,7 +45999,7 @@
                                     },
                                     "stock_threshold": {
                                         "type": "integer",
-                                        "description": "The threshold at which to trigger the back in stock notification, default to 1.",
+                                        "description": "The threshold at which to trigger the back in stock notification.",
                                         "example": 3
                                     },
                                     "_activate": {
@@ -48707,11 +49991,6 @@
                                         "example": {
                                             "foo": "bar"
                                         }
-                                    },
-                                    "require_capture": {
-                                        "type": "boolean",
-                                        "description": "Indicates if the gateway requires to captured.",
-                                        "example": true
                                     }
                                 }
                             },
@@ -48790,11 +50069,6 @@
                                         "example": {
                                             "foo": "bar"
                                         }
-                                    },
-                                    "require_capture": {
-                                        "type": "boolean",
-                                        "description": "Indicates if the gateway requires to captured.",
-                                        "example": true
                                     }
                                 },
                                 "required": [
@@ -48859,11 +50133,6 @@
                                         "example": {
                                             "foo": "bar"
                                         }
-                                    },
-                                    "require_capture": {
-                                        "type": "boolean",
-                                        "description": "Indicates if the gateway requires to captured.",
-                                        "example": true
                                     }
                                 }
                             },
@@ -51662,7 +52931,7 @@
                                     },
                                     "activate_by_source_order": {
                                         "type": "boolean",
-                                        "description": "Indicates if the subscription will be activated considering the placed source order as its first run, default to true.",
+                                        "description": "Indicates if the subscription will be activated considering the placed source order as its first run.",
                                         "example": true
                                     },
                                     "customer_email": {
@@ -51907,7 +53176,7 @@
                                     },
                                     "activate_by_source_order": {
                                         "type": "boolean",
-                                        "description": "Indicates if the subscription will be activated considering the placed source order as its first run, default to true.",
+                                        "description": "Indicates if the subscription will be activated considering the placed source order as its first run.",
                                         "example": true
                                     },
                                     "starts_at": {
@@ -53314,6 +54583,7 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "adyen_payments",
+                                                            "axerve_payments",
                                                             "braintree_payments",
                                                             "checkout_com_payments",
                                                             "external_payments",
@@ -53334,6 +54604,9 @@
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/adyenPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/axervePayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/braintreePayment"
@@ -53894,6 +55167,7 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "adyen_payments",
+                                                            "axerve_payments",
                                                             "braintree_payments",
                                                             "checkout_com_payments",
                                                             "external_payments",
@@ -53914,6 +55188,9 @@
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/adyenPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/axervePayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/braintreePayment"
@@ -54319,6 +55596,7 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "adyen_payments",
+                                                            "axerve_payments",
                                                             "braintree_payments",
                                                             "checkout_com_payments",
                                                             "external_payments",
@@ -54339,6 +55617,9 @@
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/adyenPayment"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/axervePayment"
                                             },
                                             {
                                                 "$ref": "#/components/schemas/braintreePayment"
@@ -57547,6 +58828,16 @@
                                         "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
                                         "example": false
                                     },
+                                    "require_capture": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to require the payment capture before fulfillment.",
+                                        "example": true
+                                    },
+                                    "auto_capture": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to automatically capture the payment upon authorization.",
+                                        "example": false
+                                    },
                                     "disabled_at": {
                                         "type": "string",
                                         "description": "Time at which the payment method was disabled.",
@@ -57565,6 +58856,21 @@
                                     "formatted_price_amount": {
                                         "type": "string",
                                         "description": "The payment method's price, formatted",
+                                        "example": "€0,00"
+                                    },
+                                    "auto_capture_max_amount_cents": {
+                                        "type": "integer",
+                                        "description": "Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.",
+                                        "example": 0
+                                    },
+                                    "auto_capture_max_amount_float": {
+                                        "type": "number",
+                                        "description": "The automatic capture max amount, float",
+                                        "example": 0
+                                    },
+                                    "formatted_auto_capture_max_amount": {
+                                        "type": "string",
+                                        "description": "The automatic capture max amount, formatted",
                                         "example": "€0,00"
                                     },
                                     "created_at": {
@@ -57709,9 +59015,24 @@
                                         "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
                                         "example": false
                                     },
+                                    "require_capture": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to require the payment capture before fulfillment.",
+                                        "example": true
+                                    },
+                                    "auto_capture": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to automatically capture the payment upon authorization.",
+                                        "example": false
+                                    },
                                     "price_amount_cents": {
                                         "type": "integer",
                                         "description": "The payment method's price, in cents",
+                                        "example": 0
+                                    },
+                                    "auto_capture_max_amount_cents": {
+                                        "type": "integer",
+                                        "description": "Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.",
                                         "example": 0
                                     },
                                     "reference": {
@@ -57843,6 +59164,16 @@
                                         "description": "Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.",
                                         "example": false
                                     },
+                                    "require_capture": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to require the payment capture before fulfillment.",
+                                        "example": true
+                                    },
+                                    "auto_capture": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to automatically capture the payment upon authorization.",
+                                        "example": false
+                                    },
                                     "_disable": {
                                         "type": "boolean",
                                         "description": "Send this attribute if you want to mark the payment method as disabled.",
@@ -57856,6 +59187,11 @@
                                     "price_amount_cents": {
                                         "type": "integer",
                                         "description": "The payment method's price, in cents",
+                                        "example": 0
+                                    },
+                                    "auto_capture_max_amount_cents": {
+                                        "type": "integer",
+                                        "description": "Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.",
                                         "example": 0
                                     },
                                     "reference": {
@@ -76950,6 +78286,14 @@
         },
         {
             "name": "avalara_accounts",
+            "description": "resource type"
+        },
+        {
+            "name": "axerve_gateways",
+            "description": "resource type"
+        },
+        {
+            "name": "axerve_payments",
             "description": "resource type"
         },
         {
