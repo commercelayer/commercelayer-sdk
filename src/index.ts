@@ -1,6 +1,6 @@
 
 // SDK
-export { default } from './commercelayer'
+export { default, CommerceLayer } from './commercelayer'
 
 // Commerce Layer client type
 export type { CommerceLayerClient } from './commercelayer'

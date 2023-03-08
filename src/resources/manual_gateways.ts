@@ -10,7 +10,6 @@ type ManualGatewayRel = ResourceRel & { type: typeof ManualGateways.TYPE }
 interface ManualGateway extends Resource {
 	
 	name?: string
-	require_capture?: boolean
 
 	payment_methods?: PaymentMethod[]
 
@@ -20,7 +19,6 @@ interface ManualGateway extends Resource {
 interface ManualGatewayCreate extends ResourceCreate {
 	
 	name: string
-	require_capture?: boolean
 	
 }
 
@@ -28,7 +26,6 @@ interface ManualGatewayCreate extends ResourceCreate {
 interface ManualGatewayUpdate extends ResourceUpdate {
 	
 	name?: string
-	require_capture?: boolean
 	
 }
 

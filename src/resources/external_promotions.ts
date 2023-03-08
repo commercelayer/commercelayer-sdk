@@ -7,6 +7,7 @@ import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 
 
 type ExternalPromotionRel = ResourceRel & { type: typeof ExternalPromotions.TYPE }
@@ -35,6 +36,7 @@ interface ExternalPromotion extends Resource {
 	sku_list_promotion_rule?: SkuListPromotionRule
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 
@@ -123,6 +125,11 @@ class ExternalPromotions extends ApiResource {
 	async attachments(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_promotions/${_externalPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `external_promotions/${_externalPromotionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

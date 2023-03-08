@@ -9,6 +9,7 @@ import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { SkuList } from './sku_lists'
 import type { Sku } from './skus'
+import type { Event } from './events'
 
 
 type PercentageDiscountPromotionRel = ResourceRel & { type: typeof PercentageDiscountPromotions.TYPE }
@@ -39,6 +40,7 @@ interface PercentageDiscountPromotion extends Resource {
 	attachments?: Attachment[]
 	sku_list?: SkuList
 	skus?: Sku[]
+	events?: Event[]
 
 }
 
@@ -139,6 +141,11 @@ class PercentageDiscountPromotions extends ApiResource {
 	async skus(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async events(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

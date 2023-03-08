@@ -118,7 +118,7 @@ const generate = async (localSchema?: boolean) => {
 	updateSdkInterfaces(resources)
 	updateModelTypes(resources)
 
-	console.log('SDK generation completed.\n')
+	console.log(`SDK generation completed [${global.version}].\n`)
 
 }
 
@@ -291,42 +291,6 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 }
 
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const randomValue = (type: string, name?: string): any | Array<any> => {
-
-	const numbers = [0, 1, 10, 100, 1000, 10000, 5, 55, 555, 12345, 6666]
-	const strings = ['alfa', 'beta', 'gamma', 'delta', 'epsilon', 'kappa', 'lambda', 'omega', 'sigma', 'zeta']
-	const booleans = [true, false, true, false, true, false, true, false, true, false]
-	const objects = [{ key11: 'val11' }, { key21: 'val21' }, { key31: 'val31' }, { key41: 'val41' }, { key51: 'val51' }]
-
-	let values: Array<string | number | boolean | object>
-
-	if (name) {
-		// type = 
-	}
-
-	if (type.startsWith('boolean')) values = booleans
-	else
-	if (type.startsWith('integer') || type.startsWith('number')) values = numbers
-	else
-	if (type.startsWith('fload') || type.startsWith('decimal')) values = numbers
-	else
-	if (type.startsWith('object')) values = objects
-	else
-	if (type.startsWith('string')) values = strings
-	else values = strings
-
-	let value = values[Math.floor(Math.random() * (values.length - 1))]
-
-	if (type === 'string') value = `${value}_${Math.floor(Math.random() * 100)}`
-
-	if (type.endsWith('[]')) value = [ value ]
-
-	return value
-
-}
-
-
 const generateSpec = (type: string, name: string, resource: Resource): string => {
 
 	let spec = templates.spec
@@ -379,7 +343,8 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 		const reqType = resource.operations.create.requestType
 		const attributes = reqType ? resource.components[reqType].attributes : {}
 		const required = Object.values(attributes).filter(attr => attr.required)
-		required.forEach(r => obj += `\t\t\t${r.name}: ${inspect(randomValue(r.type, r.name))},\n`)
+		// required.forEach(r => obj += `\t\t\t${r.name}: ${inspect(randomValue(r.type, r.name))},\n`)
+		required.forEach(r => obj += `\t\t\t${r.name}: randomValue('${r.type}', '${r.name}'),\n`)
 
 		// Relationships
 		const relationships = reqType ? resource.components[reqType].relationships : {}

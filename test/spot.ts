@@ -17,11 +17,12 @@ import getToken from './token'
 		timeout: 5000,
 	})
 
-	const s = await cl.customers.list({
-		include: ['orders', 'orders.market'],
+	const s = await cl.skus.list({
+		include: ['prices'],
 		filters: {
-			'orders_market_name_eq': 'USA'
-		}
+			'code_in': ''
+		},
+		pageSize: 25
 	})
 
 	console.log(inspect(s, false, null, true))

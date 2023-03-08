@@ -1,12 +1,12 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.3
+ * Source code generated automatically by SDK codegen
  **/
 
 import { CommerceLayerClient } from '../../src'
 import { isEqual } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken } from '../../test/common'
+import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
 
 
@@ -25,11 +25,11 @@ describe('BraintreeGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'lambda_87',
-			merchant_account_id: 'lambda_37',
-			merchant_id: 'alfa_33',
-			public_key: 'sigma_42',
-			private_key: 'sigma_44',
+			name: randomValue('string', 'name'),
+			merchant_account_id: randomValue('string', 'merchant_account_id'),
+			merchant_id: randomValue('string', 'merchant_id'),
+			public_key: randomValue('string', 'public_key'),
+			private_key: randomValue('string', 'private_key'),
 			braintree_payments: [ cl.braintree_payments.relationship(TestData.id) ],
 		}
 

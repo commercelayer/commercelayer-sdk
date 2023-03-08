@@ -9,6 +9,7 @@ import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { SkuList } from './sku_lists'
 import type { Sku } from './skus'
+import type { Event } from './events'
 
 
 type FixedPricePromotionRel = ResourceRel & { type: typeof FixedPricePromotions.TYPE }
@@ -41,6 +42,7 @@ interface FixedPricePromotion extends Resource {
 	attachments?: Attachment[]
 	sku_list?: SkuList
 	skus?: Sku[]
+	events?: Event[]
 
 }
 
@@ -141,6 +143,11 @@ class FixedPricePromotions extends ApiResource {
 	async skus(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _fixedPricePromotionId = (fixedPricePromotionId as FixedPricePromotion).id || fixedPricePromotionId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `fixed_price_promotions/${_fixedPricePromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async events(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _fixedPricePromotionId = (fixedPricePromotionId as FixedPricePromotion).id || fixedPricePromotionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `fixed_price_promotions/${_fixedPricePromotionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

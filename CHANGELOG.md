@@ -1,3 +1,70 @@
+## [4.24.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.24.0...v4.24.1) (2023-02-07)
+
+
+### Bug Fixes
+
+* **core:** update readme and dependencies ([5d961a3](https://github.com/commercelayer/commercelayer-sdk/commit/5d961a31730d091522153d3eb86db632c54b1467))
+
+# [4.24.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.23.0...v4.24.0) (2023-02-02)
+
+
+### Bug Fixes
+
+* **core:** fix export of schema version ([73d762e](https://github.com/commercelayer/commercelayer-sdk/commit/73d762ebc4237b190cfb8f284292a0137f5084ca))
+
+
+### Features
+
+* **core:** update resources to schema version 3.5.0 ([2f7102d](https://github.com/commercelayer/commercelayer-sdk/commit/2f7102de74b98f5ec47670d9eb8ccf97c7978093))
+
+# [4.23.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.22.0...v4.23.0) (2023-02-02)
+
+
+### Bug Fixes
+
+* **core:** fix pnpm inbstall step in release action ([f60dcc9](https://github.com/commercelayer/commercelayer-sdk/commit/f60dcc9092625891301796325688255e2bde0ae2))
+* **core:** fix release action ([1c64b23](https://github.com/commercelayer/commercelayer-sdk/commit/1c64b234ffd21bc255288d6833d5fedd8f4101fa))
+* **core:** fix release action to use pnpm ([935b68e](https://github.com/commercelayer/commercelayer-sdk/commit/935b68e0e9892e2e8b1703f55366dc1ea36aca63))
+* **core:** update release action ([aeef2b4](https://github.com/commercelayer/commercelayer-sdk/commit/aeef2b417ab9f3ba326081d87450daaa1cad35ef))
+
+
+### Features
+
+* **core:** update resources to schema v3.4.0 ([c6c6516](https://github.com/commercelayer/commercelayer-sdk/commit/c6c65167e9827b2029045371e8c64384ab5ed38b))
+
+# [4.22.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.21.0...v4.22.0) (2023-02-01)
+
+
+### Features
+
+* **core:** add update reference and metadata to all resources ([6601695](https://github.com/commercelayer/commercelayer-sdk/commit/6601695d2cfb2ce8c69967dc4d8332513f747656))
+
+# [4.21.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.20.0...v4.21.0) (2022-12-22)
+
+
+### Bug Fixes
+
+* **core:** fix package lock file ([8a1bbab](https://github.com/commercelayer/commercelayer-sdk/commit/8a1bbabcdd61f62e91db184e47103fdb8cc03f10))
+
+
+### Features
+
+* **core:** update resources to schema 3.0.4 ([a1c2ed3](https://github.com/commercelayer/commercelayer-sdk/commit/a1c2ed391c5fe9f2f3ab8bb03b899cdc683a717d))
+
+# [4.20.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.19.0...v4.20.0) (2022-11-25)
+
+
+### Features
+
+* **core:** add commonjs client export ([73c8eae](https://github.com/commercelayer/commercelayer-sdk/commit/73c8eae17e82e16e1521fc191200450bd350396d))
+
+# [4.19.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.18.0...v4.19.0) (2022-11-22)
+
+
+### Features
+
+* **core:** add standardjs and fix polymorphic types ([e18d60b](https://github.com/commercelayer/commercelayer-sdk/commit/e18d60b0e26bde092c1d092f9b0810e2cc9895b7))
+
 # [4.18.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.17.0...v4.18.0) (2022-11-18)
 
 

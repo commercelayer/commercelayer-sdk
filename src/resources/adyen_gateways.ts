@@ -13,6 +13,9 @@ interface AdyenGateway extends Resource {
 	
 	name?: string
 	live_url_prefix?: string
+	async_api?: boolean
+	webhook_endpoint_secret?: string
+	webhook_endpoint_url?: string
 
 	payment_methods?: PaymentMethod[]
 	adyen_payments?: AdyenPayment[]
@@ -27,6 +30,9 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	api_key: string
 	public_key?: string
 	live_url_prefix: string
+	api_version?: string
+	async_api?: boolean
+	webhook_endpoint_secret?: string
 
 	adyen_payments?: AdyenPaymentRel[]
 
@@ -40,6 +46,9 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	api_key?: string
 	public_key?: string
 	live_url_prefix?: string
+	api_version?: string
+	async_api?: boolean
+	webhook_endpoint_secret?: string
 
 	adyen_payments?: AdyenPaymentRel[]
 

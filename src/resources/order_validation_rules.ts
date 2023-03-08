@@ -2,6 +2,7 @@ import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListRe
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Market } from './markets'
+import type { Attachment } from './attachments'
 
 
 type OrderValidationRuleRel = ResourceRel & { type: typeof OrderValidationRules.TYPE }
@@ -10,6 +11,7 @@ type OrderValidationRuleRel = ResourceRel & { type: typeof OrderValidationRules.
 interface OrderValidationRule extends Resource {
 	
 	market?: Market
+	attachments?: Attachment[]
 
 }
 
@@ -30,6 +32,11 @@ class OrderValidationRules extends ApiResource {
 	async market(orderValidationRuleId: string | OrderValidationRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		const _orderValidationRuleId = (orderValidationRuleId as OrderValidationRule).id || orderValidationRuleId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `order_validation_rules/${_orderValidationRuleId}/market`, params, options) as unknown as Market
+	}
+
+	async attachments(orderValidationRuleId: string | OrderValidationRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _orderValidationRuleId = (orderValidationRuleId as OrderValidationRule).id || orderValidationRuleId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `order_validation_rules/${_orderValidationRuleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

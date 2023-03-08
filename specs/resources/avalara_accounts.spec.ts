@@ -1,12 +1,12 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.3
+ * Source code generated automatically by SDK codegen
  **/
 
 import { CommerceLayerClient } from '../../src'
 import { isEqual } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken } from '../../test/common'
+import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
 
 
@@ -25,10 +25,10 @@ describe('AvalaraAccounts resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: 'delta_40',
-			username: 'gamma_54',
-			password: 'lambda_30',
-			company_code: 'sigma_19',
+			name: randomValue('string', 'name'),
+			username: randomValue('string', 'username'),
+			password: randomValue('string', 'password'),
+			company_code: randomValue('string', 'company_code'),
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 

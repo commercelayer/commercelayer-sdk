@@ -2,8 +2,7 @@
 // ##__MODEL_TYPES_START__##
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
- * ©2022 Commerce Layer Inc.
- * OpenAPI schema, version 3.0.3
+ * ©2023 Commerce Layer Inc.
  **/
 export type { Address, AddressCreate, AddressUpdate } from './resources/addresses'
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate } from './resources/adjustments'
@@ -13,6 +12,8 @@ export type { Application } from './resources/application'
 export type { Attachment, AttachmentCreate, AttachmentUpdate } from './resources/attachments'
 export type { Authorization, AuthorizationUpdate } from './resources/authorizations'
 export type { AvalaraAccount, AvalaraAccountCreate, AvalaraAccountUpdate } from './resources/avalara_accounts'
+export type { AxerveGateway, AxerveGatewayCreate, AxerveGatewayUpdate } from './resources/axerve_gateways'
+export type { AxervePayment, AxervePaymentCreate, AxervePaymentUpdate } from './resources/axerve_payments'
 export type { BillingInfoValidationRule, BillingInfoValidationRuleCreate, BillingInfoValidationRuleUpdate } from './resources/billing_info_validation_rules'
 export type { BingGeocoder, BingGeocoderCreate, BingGeocoderUpdate } from './resources/bing_geocoders'
 export type { BraintreeGateway, BraintreeGatewayCreate, BraintreeGatewayUpdate } from './resources/braintree_gateways'

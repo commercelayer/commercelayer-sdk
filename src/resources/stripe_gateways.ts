@@ -11,6 +11,7 @@ type StripeGatewayRel = ResourceRel & { type: typeof StripeGateways.TYPE }
 interface StripeGateway extends Resource {
 	
 	name?: string
+	auto_payments?: boolean
 	webhook_endpoint_id?: string
 	webhook_endpoint_secret?: string
 	webhook_endpoint_url?: string
@@ -26,6 +27,7 @@ interface StripeGatewayCreate extends ResourceCreate {
 	name: string
 	login: string
 	publishable_key?: string
+	auto_payments?: boolean
 	
 }
 
@@ -33,6 +35,7 @@ interface StripeGatewayCreate extends ResourceCreate {
 interface StripeGatewayUpdate extends ResourceUpdate {
 	
 	name?: string
+	auto_payments?: boolean
 	
 }
 

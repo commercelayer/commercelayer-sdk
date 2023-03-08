@@ -9,6 +9,7 @@ import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { SkuList } from './sku_lists'
 import type { Sku } from './skus'
+import type { Event } from './events'
 
 
 type FreeGiftPromotionRel = ResourceRel & { type: typeof FreeGiftPromotions.TYPE }
@@ -39,6 +40,7 @@ interface FreeGiftPromotion extends Resource {
 	attachments?: Attachment[]
 	sku_list?: SkuList
 	skus?: Sku[]
+	events?: Event[]
 
 }
 
@@ -139,6 +141,11 @@ class FreeGiftPromotions extends ApiResource {
 	async skus(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `free_gift_promotions/${_freeGiftPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async events(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `free_gift_promotions/${_freeGiftPromotionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

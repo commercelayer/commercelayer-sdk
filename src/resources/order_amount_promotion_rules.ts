@@ -3,19 +3,19 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import type { FreeShippingPromotion } from './free_shipping_promotions'
-import type { FixedAmountPromotion } from './fixed_amount_promotions'
 import type { FreeGiftPromotion } from './free_gift_promotions'
 import type { FixedPricePromotion } from './fixed_price_promotions'
 import type { ExternalPromotion } from './external_promotions'
+import type { FixedAmountPromotion } from './fixed_amount_promotions'
 
 
 type OrderAmountPromotionRuleRel = ResourceRel & { type: typeof OrderAmountPromotionRules.TYPE }
 type PercentageDiscountPromotionRel = ResourceRel & { type: 'percentage_discount_promotions' }
 type FreeShippingPromotionRel = ResourceRel & { type: 'free_shipping_promotions' }
-type FixedAmountPromotionRel = ResourceRel & { type: 'fixed_amount_promotions' }
 type FreeGiftPromotionRel = ResourceRel & { type: 'free_gift_promotions' }
 type FixedPricePromotionRel = ResourceRel & { type: 'fixed_price_promotions' }
 type ExternalPromotionRel = ResourceRel & { type: 'external_promotions' }
+type FixedAmountPromotionRel = ResourceRel & { type: 'fixed_amount_promotions' }
 
 
 interface OrderAmountPromotionRule extends Resource {
@@ -24,7 +24,7 @@ interface OrderAmountPromotionRule extends Resource {
 	order_amount_float?: number
 	formatted_order_amount?: string
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FixedAmountPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
 
 }
 
@@ -33,7 +33,7 @@ interface OrderAmountPromotionRuleCreate extends ResourceCreate {
 	
 	order_amount_cents?: number
 
-	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel
+	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
 
 }
 
@@ -42,7 +42,7 @@ interface OrderAmountPromotionRuleUpdate extends ResourceUpdate {
 	
 	order_amount_cents?: number
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FixedAmountPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
 
 }
 

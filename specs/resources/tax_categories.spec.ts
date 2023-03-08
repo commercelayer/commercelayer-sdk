@@ -1,12 +1,12 @@
 /**
  * ©2022 Commerce Layer Inc.
- * Source code generated automatically by SDK codegen from OpenAPI schema 3.0.3
+ * Source code generated automatically by SDK codegen
  **/
 
 import { CommerceLayerClient } from '../../src'
 import { isEqual } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken } from '../../test/common'
+import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
 
 
@@ -25,7 +25,7 @@ describe('TaxCategories resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			code: 'beta_66',
+			code: randomValue('string', 'code'),
 			sku: cl.skus.relationship(TestData.id),
 			tax_calculator: cl.avalara_accounts.relationship(TestData.id),
 		}

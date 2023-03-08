@@ -262,6 +262,12 @@ abstract class ApiResource {
 
 	abstract type(): string
 
+
+	// reference, reference_origin and metadata attributes are always updatable
+	async update(resource: ResourceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Resource> {
+		return this.resources.update<ResourceUpdate, Resource>({ ...resource, type: this.type() as ResourceTypeLock }, params, options)
+	}
+
 }
 
 
