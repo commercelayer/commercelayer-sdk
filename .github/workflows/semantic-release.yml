@@ -1,9 +1,9 @@
 name: Release
 on:
   push:
-    branches: [ main, sdk4, sdk5 ]
+    branches: [ main, sdk5 ]
   pull_request:
-    branches: [ main, sdk4, sdk5 ]
+    branches: [ main, sdk5 ]
 jobs:
   release:
     name: Release
