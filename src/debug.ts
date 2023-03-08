@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// import Debug from 'debug'
-
 
 type Debugger = (pattern: string, ...args: any[]) => void
 

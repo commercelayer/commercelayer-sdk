@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { ResourceType } from "./resource"
 
 import Debug from './debug'
@@ -9,7 +9,6 @@ type QueryFilter = { [key: string]: string | number | boolean }
 
 interface QueryParamsRetrieve {
 	include?: string[]
-	// fields?: { [key: string]: string[] }
 	fields?: string[] | { [key: string]: string[] }
 }
 

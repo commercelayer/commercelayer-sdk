@@ -16,7 +16,6 @@ type ResourceNull = { id: null } & ResourceType
 type ResourceRel = ResourceId | ResourceNull
 
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Metadata = { [key: string]: any }
 
 
