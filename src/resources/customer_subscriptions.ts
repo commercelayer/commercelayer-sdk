@@ -1,15 +1,18 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer } from './customers'
 import type { Event } from './events'
 
 
-type CustomerSubscriptionRel = ResourceRel & { type: typeof CustomerSubscriptions.TYPE }
+type CustomerSubscriptionType = 'customer_subscriptions'
+type CustomerSubscriptionRel = ResourceRel & { type: CustomerSubscriptionType }
 
 
 interface CustomerSubscription extends Resource {
 	
+	readonly type: CustomerSubscriptionType
+
 	customer_email?: string
 
 	customer?: Customer
@@ -28,9 +31,9 @@ interface CustomerSubscriptionCreate extends ResourceCreate {
 type CustomerSubscriptionUpdate = ResourceUpdate
 
 
-class CustomerSubscriptions extends ApiResource {
+class CustomerSubscriptions extends ApiResource<CustomerSubscription> {
 
-	static readonly TYPE: 'customer_subscriptions' = 'customer_subscriptions' as const
+	static readonly TYPE: CustomerSubscriptionType = 'customer_subscriptions' as const
 	// static readonly PATH = 'customer_subscriptions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerSubscription>> {
@@ -41,16 +44,12 @@ class CustomerSubscriptions extends ApiResource {
 		return this.resources.create<CustomerSubscriptionCreate, CustomerSubscription>({ ...resource, type: CustomerSubscriptions.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerSubscription> {
-		return this.resources.retrieve<CustomerSubscription>({ type: CustomerSubscriptions.TYPE, id }, params, options)
-	}
-
 	async update(resource: CustomerSubscriptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerSubscription> {
 		return this.resources.update<CustomerSubscriptionUpdate, CustomerSubscription>({ ...resource, type: CustomerSubscriptions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: CustomerSubscriptions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: CustomerSubscriptions.TYPE } : id, options)
 	}
 
 	async customer(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
@@ -64,7 +63,6 @@ class CustomerSubscriptions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCustomerSubscription(resource: any): resource is CustomerSubscription {
 		return resource.type && (resource.type === CustomerSubscriptions.TYPE)
 	}
@@ -75,7 +73,7 @@ class CustomerSubscriptions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CustomerSubscriptionType {
 		return CustomerSubscriptions.TYPE
 	}
 
@@ -84,4 +82,4 @@ class CustomerSubscriptions extends ApiResource {
 
 export default CustomerSubscriptions
 
-export { CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscriptionUpdate }
+export type { CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscriptionUpdate, CustomerSubscriptionType }

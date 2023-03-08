@@ -1,17 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Parcel } from './parcels'
-import type { StockLineItem } from './stock_line_items'
+import type { Parcel, ParcelType } from './parcels'
+import type { StockLineItem, StockLineItemType } from './stock_line_items'
 
 
-type ParcelLineItemRel = ResourceRel & { type: typeof ParcelLineItems.TYPE }
-type ParcelRel = ResourceRel & { type: 'parcels' }
-type StockLineItemRel = ResourceRel & { type: 'stock_line_items' }
+type ParcelLineItemType = 'parcel_line_items'
+type ParcelLineItemRel = ResourceRel & { type: ParcelLineItemType }
+type ParcelRel = ResourceRel & { type: ParcelType }
+type StockLineItemRel = ResourceRel & { type: StockLineItemType }
 
 
 interface ParcelLineItem extends Resource {
 	
+	readonly type: ParcelLineItemType
+
 	sku_code?: string
 	quantity?: number
 	name?: string
@@ -45,9 +48,9 @@ interface ParcelLineItemCreate extends ResourceCreate {
 type ParcelLineItemUpdate = ResourceUpdate
 
 
-class ParcelLineItems extends ApiResource {
+class ParcelLineItems extends ApiResource<ParcelLineItem> {
 
-	static readonly TYPE: 'parcel_line_items' = 'parcel_line_items' as const
+	static readonly TYPE: ParcelLineItemType = 'parcel_line_items' as const
 	// static readonly PATH = 'parcel_line_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
@@ -58,16 +61,12 @@ class ParcelLineItems extends ApiResource {
 		return this.resources.create<ParcelLineItemCreate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
-		return this.resources.retrieve<ParcelLineItem>({ type: ParcelLineItems.TYPE, id }, params, options)
-	}
-
 	async update(resource: ParcelLineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
 		return this.resources.update<ParcelLineItemUpdate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ParcelLineItems.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ParcelLineItems.TYPE } : id, options)
 	}
 
 	async parcel(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
@@ -81,7 +80,6 @@ class ParcelLineItems extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isParcelLineItem(resource: any): resource is ParcelLineItem {
 		return resource.type && (resource.type === ParcelLineItems.TYPE)
 	}
@@ -92,7 +90,7 @@ class ParcelLineItems extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ParcelLineItemType {
 		return ParcelLineItems.TYPE
 	}
 
@@ -101,4 +99,4 @@ class ParcelLineItems extends ApiResource {
 
 export default ParcelLineItems
 
-export { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate }
+export type { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate, ParcelLineItemType }

@@ -1,17 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { SkuList } from './sku_lists'
-import type { Sku } from './skus'
+import type { SkuList, SkuListType } from './sku_lists'
+import type { Sku, SkuType } from './skus'
 
 
-type SkuListItemRel = ResourceRel & { type: typeof SkuListItems.TYPE }
-type SkuListRel = ResourceRel & { type: 'sku_lists' }
-type SkuRel = ResourceRel & { type: 'skus' }
+type SkuListItemType = 'sku_list_items'
+type SkuListItemRel = ResourceRel & { type: SkuListItemType }
+type SkuListRel = ResourceRel & { type: SkuListType }
+type SkuRel = ResourceRel & { type: SkuType }
 
 
 interface SkuListItem extends Resource {
 	
+	readonly type: SkuListItemType
+
 	position?: number
 	sku_code?: string
 	quantity?: number
@@ -43,9 +46,9 @@ interface SkuListItemUpdate extends ResourceUpdate {
 }
 
 
-class SkuListItems extends ApiResource {
+class SkuListItems extends ApiResource<SkuListItem> {
 
-	static readonly TYPE: 'sku_list_items' = 'sku_list_items' as const
+	static readonly TYPE: SkuListItemType = 'sku_list_items' as const
 	// static readonly PATH = 'sku_list_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuListItem>> {
@@ -56,16 +59,12 @@ class SkuListItems extends ApiResource {
 		return this.resources.create<SkuListItemCreate, SkuListItem>({ ...resource, type: SkuListItems.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListItem> {
-		return this.resources.retrieve<SkuListItem>({ type: SkuListItems.TYPE, id }, params, options)
-	}
-
 	async update(resource: SkuListItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListItem> {
 		return this.resources.update<SkuListItemUpdate, SkuListItem>({ ...resource, type: SkuListItems.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: SkuListItems.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: SkuListItems.TYPE } : id, options)
 	}
 
 	async sku_list(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
@@ -79,7 +78,6 @@ class SkuListItems extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isSkuListItem(resource: any): resource is SkuListItem {
 		return resource.type && (resource.type === SkuListItems.TYPE)
 	}
@@ -90,7 +88,7 @@ class SkuListItems extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): SkuListItemType {
 		return SkuListItems.TYPE
 	}
 
@@ -99,4 +97,4 @@ class SkuListItems extends ApiResource {
 
 export default SkuListItems
 
-export { SkuListItem, SkuListItemCreate, SkuListItemUpdate }
+export type { SkuListItem, SkuListItemCreate, SkuListItemUpdate, SkuListItemType }

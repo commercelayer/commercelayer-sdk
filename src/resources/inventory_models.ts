@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { InventoryStockLocation } from './inventory_stock_locations'
 import type { InventoryReturnLocation } from './inventory_return_locations'
 import type { Attachment } from './attachments'
 
 
-type InventoryModelRel = ResourceRel & { type: typeof InventoryModels.TYPE }
+type InventoryModelType = 'inventory_models'
+type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 
 
 interface InventoryModel extends Resource {
 	
+	readonly type: InventoryModelType
+
 	name?: string
 	strategy?: string
 	stock_locations_cutoff?: number
@@ -40,9 +43,9 @@ interface InventoryModelUpdate extends ResourceUpdate {
 }
 
 
-class InventoryModels extends ApiResource {
+class InventoryModels extends ApiResource<InventoryModel> {
 
-	static readonly TYPE: 'inventory_models' = 'inventory_models' as const
+	static readonly TYPE: InventoryModelType = 'inventory_models' as const
 	// static readonly PATH = 'inventory_models'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryModel>> {
@@ -53,16 +56,12 @@ class InventoryModels extends ApiResource {
 		return this.resources.create<InventoryModelCreate, InventoryModel>({ ...resource, type: InventoryModels.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
-		return this.resources.retrieve<InventoryModel>({ type: InventoryModels.TYPE, id }, params, options)
-	}
-
 	async update(resource: InventoryModelUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
 		return this.resources.update<InventoryModelUpdate, InventoryModel>({ ...resource, type: InventoryModels.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: InventoryModels.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: InventoryModels.TYPE } : id, options)
 	}
 
 	async inventory_stock_locations(inventoryModelId: string | InventoryModel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
@@ -81,7 +80,6 @@ class InventoryModels extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isInventoryModel(resource: any): resource is InventoryModel {
 		return resource.type && (resource.type === InventoryModels.TYPE)
 	}
@@ -92,7 +90,7 @@ class InventoryModels extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): InventoryModelType {
 		return InventoryModels.TYPE
 	}
 
@@ -101,4 +99,4 @@ class InventoryModels extends ApiResource {
 
 export default InventoryModels
 
-export { InventoryModel, InventoryModelCreate, InventoryModelUpdate }
+export type { InventoryModel, InventoryModelCreate, InventoryModelUpdate, InventoryModelType }

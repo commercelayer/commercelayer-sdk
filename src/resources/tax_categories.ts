@@ -1,24 +1,27 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Sku } from './skus'
-import type { AvalaraAccount } from './avalara_accounts'
-import type { TaxjarAccount } from './taxjar_accounts'
-import type { ManualTaxCalculator } from './manual_tax_calculators'
-import type { ExternalTaxCalculator } from './external_tax_calculators'
+import type { Sku, SkuType } from './skus'
+import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
+import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
+import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
+import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
 import type { Attachment } from './attachments'
 
 
-type TaxCategoryRel = ResourceRel & { type: typeof TaxCategories.TYPE }
-type SkuRel = ResourceRel & { type: 'skus' }
-type AvalaraAccountRel = ResourceRel & { type: 'avalara_accounts' }
-type TaxjarAccountRel = ResourceRel & { type: 'taxjar_accounts' }
-type ManualTaxCalculatorRel = ResourceRel & { type: 'manual_tax_calculators' }
-type ExternalTaxCalculatorRel = ResourceRel & { type: 'external_tax_calculators' }
+type TaxCategoryType = 'tax_categories'
+type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
+type SkuRel = ResourceRel & { type: SkuType }
+type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
+type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
+type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
+type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
 
 
 interface TaxCategory extends Resource {
 	
+	readonly type: TaxCategoryType
+
 	code?: string
 	sku_code?: string
 
@@ -50,9 +53,9 @@ interface TaxCategoryUpdate extends ResourceUpdate {
 }
 
 
-class TaxCategories extends ApiResource {
+class TaxCategories extends ApiResource<TaxCategory> {
 
-	static readonly TYPE: 'tax_categories' = 'tax_categories' as const
+	static readonly TYPE: TaxCategoryType = 'tax_categories' as const
 	// static readonly PATH = 'tax_categories'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
@@ -63,16 +66,12 @@ class TaxCategories extends ApiResource {
 		return this.resources.create<TaxCategoryCreate, TaxCategory>({ ...resource, type: TaxCategories.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
-		return this.resources.retrieve<TaxCategory>({ type: TaxCategories.TYPE, id }, params, options)
-	}
-
 	async update(resource: TaxCategoryUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
 		return this.resources.update<TaxCategoryUpdate, TaxCategory>({ ...resource, type: TaxCategories.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: TaxCategories.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: TaxCategories.TYPE } : id, options)
 	}
 
 	async sku(taxCategoryId: string | TaxCategory, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
@@ -86,7 +85,6 @@ class TaxCategories extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isTaxCategory(resource: any): resource is TaxCategory {
 		return resource.type && (resource.type === TaxCategories.TYPE)
 	}
@@ -97,7 +95,7 @@ class TaxCategories extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): TaxCategoryType {
 		return TaxCategories.TYPE
 	}
 
@@ -106,4 +104,4 @@ class TaxCategories extends ApiResource {
 
 export default TaxCategories
 
-export { TaxCategory, TaxCategoryCreate, TaxCategoryUpdate }
+export type { TaxCategory, TaxCategoryCreate, TaxCategoryUpdate, TaxCategoryType }

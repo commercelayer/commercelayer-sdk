@@ -1,17 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockLocation } from './stock_locations'
+import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Parcel } from './parcels'
 import type { Attachment } from './attachments'
 
 
-type PackageRel = ResourceRel & { type: typeof Packages.TYPE }
-type StockLocationRel = ResourceRel & { type: 'stock_locations' }
+type PackageType = 'packages'
+type PackageRel = ResourceRel & { type: PackageType }
+type StockLocationRel = ResourceRel & { type: StockLocationType }
 
 
 interface Package extends Resource {
 	
+	readonly type: PackageType
+
 	name?: string
 	code?: string
 	length?: number
@@ -54,9 +57,9 @@ interface PackageUpdate extends ResourceUpdate {
 }
 
 
-class Packages extends ApiResource {
+class Packages extends ApiResource<Package> {
 
-	static readonly TYPE: 'packages' = 'packages' as const
+	static readonly TYPE: PackageType = 'packages' as const
 	// static readonly PATH = 'packages'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Package>> {
@@ -67,16 +70,12 @@ class Packages extends ApiResource {
 		return this.resources.create<PackageCreate, Package>({ ...resource, type: Packages.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
-		return this.resources.retrieve<Package>({ type: Packages.TYPE, id }, params, options)
-	}
-
 	async update(resource: PackageUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
 		return this.resources.update<PackageUpdate, Package>({ ...resource, type: Packages.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Packages.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Packages.TYPE } : id, options)
 	}
 
 	async stock_location(packageId: string | Package, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
@@ -95,7 +94,6 @@ class Packages extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPackage(resource: any): resource is Package {
 		return resource.type && (resource.type === Packages.TYPE)
 	}
@@ -106,7 +104,7 @@ class Packages extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PackageType {
 		return Packages.TYPE
 	}
 
@@ -115,4 +113,4 @@ class Packages extends ApiResource {
 
 export default Packages
 
-export { Package, PackageCreate, PackageUpdate }
+export type { Package, PackageCreate, PackageUpdate, PackageType }

@@ -1,17 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { LineItem } from './line_items'
-import type { SkuOption } from './sku_options'
+import type { LineItem, LineItemType } from './line_items'
+import type { SkuOption, SkuOptionType } from './sku_options'
 
 
-type LineItemOptionRel = ResourceRel & { type: typeof LineItemOptions.TYPE }
-type LineItemRel = ResourceRel & { type: 'line_items' }
-type SkuOptionRel = ResourceRel & { type: 'sku_options' }
+type LineItemOptionType = 'line_item_options'
+type LineItemOptionRel = ResourceRel & { type: LineItemOptionType }
+type LineItemRel = ResourceRel & { type: LineItemType }
+type SkuOptionRel = ResourceRel & { type: SkuOptionType }
 
 
 interface LineItemOption extends Resource {
 	
+	readonly type: LineItemOptionType
+
 	name?: string
 	quantity?: number
 	currency_code?: string
@@ -54,9 +57,9 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 }
 
 
-class LineItemOptions extends ApiResource {
+class LineItemOptions extends ApiResource<LineItemOption> {
 
-	static readonly TYPE: 'line_item_options' = 'line_item_options' as const
+	static readonly TYPE: LineItemOptionType = 'line_item_options' as const
 	// static readonly PATH = 'line_item_options'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
@@ -67,16 +70,12 @@ class LineItemOptions extends ApiResource {
 		return this.resources.create<LineItemOptionCreate, LineItemOption>({ ...resource, type: LineItemOptions.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
-		return this.resources.retrieve<LineItemOption>({ type: LineItemOptions.TYPE, id }, params, options)
-	}
-
 	async update(resource: LineItemOptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
 		return this.resources.update<LineItemOptionUpdate, LineItemOption>({ ...resource, type: LineItemOptions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: LineItemOptions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: LineItemOptions.TYPE } : id, options)
 	}
 
 	async line_item(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
@@ -90,7 +89,6 @@ class LineItemOptions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isLineItemOption(resource: any): resource is LineItemOption {
 		return resource.type && (resource.type === LineItemOptions.TYPE)
 	}
@@ -101,7 +99,7 @@ class LineItemOptions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): LineItemOptionType {
 		return LineItemOptions.TYPE
 	}
 
@@ -110,4 +108,4 @@ class LineItemOptions extends ApiResource {
 
 export default LineItemOptions
 
-export { LineItemOption, LineItemOptionCreate, LineItemOptionUpdate }
+export type { LineItemOption, LineItemOptionCreate, LineItemOptionUpdate, LineItemOptionType }

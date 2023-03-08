@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { ShippingMethod } from './shipping_methods'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { Attachment } from './attachments'
 
 
-type ShippingWeightTierRel = ResourceRel & { type: typeof ShippingWeightTiers.TYPE }
-type ShippingMethodRel = ResourceRel & { type: 'shipping_methods' }
+type ShippingWeightTierType = 'shipping_weight_tiers'
+type ShippingWeightTierRel = ResourceRel & { type: ShippingWeightTierType }
+type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
 interface ShippingWeightTier extends Resource {
 	
+	readonly type: ShippingWeightTierType
+
 	name?: string
 	up_to?: number
 	price_amount_cents?: number
@@ -45,9 +48,9 @@ interface ShippingWeightTierUpdate extends ResourceUpdate {
 }
 
 
-class ShippingWeightTiers extends ApiResource {
+class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 
-	static readonly TYPE: 'shipping_weight_tiers' = 'shipping_weight_tiers' as const
+	static readonly TYPE: ShippingWeightTierType = 'shipping_weight_tiers' as const
 	// static readonly PATH = 'shipping_weight_tiers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingWeightTier>> {
@@ -58,16 +61,12 @@ class ShippingWeightTiers extends ApiResource {
 		return this.resources.create<ShippingWeightTierCreate, ShippingWeightTier>({ ...resource, type: ShippingWeightTiers.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingWeightTier> {
-		return this.resources.retrieve<ShippingWeightTier>({ type: ShippingWeightTiers.TYPE, id }, params, options)
-	}
-
 	async update(resource: ShippingWeightTierUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingWeightTier> {
 		return this.resources.update<ShippingWeightTierUpdate, ShippingWeightTier>({ ...resource, type: ShippingWeightTiers.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ShippingWeightTiers.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ShippingWeightTiers.TYPE } : id, options)
 	}
 
 	async shipping_method(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
@@ -81,7 +80,6 @@ class ShippingWeightTiers extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isShippingWeightTier(resource: any): resource is ShippingWeightTier {
 		return resource.type && (resource.type === ShippingWeightTiers.TYPE)
 	}
@@ -92,7 +90,7 @@ class ShippingWeightTiers extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ShippingWeightTierType {
 		return ShippingWeightTiers.TYPE
 	}
 
@@ -101,4 +99,4 @@ class ShippingWeightTiers extends ApiResource {
 
 export default ShippingWeightTiers
 
-export { ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierUpdate }
+export type { ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierUpdate, ShippingWeightTierType }

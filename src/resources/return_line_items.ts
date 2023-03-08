@@ -1,17 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Return } from './returns'
-import type { LineItem } from './line_items'
+import type { Return, ReturnType } from './returns'
+import type { LineItem, LineItemType } from './line_items'
 
 
-type ReturnLineItemRel = ResourceRel & { type: typeof ReturnLineItems.TYPE }
-type ReturnRel = ResourceRel & { type: 'returns' }
-type LineItemRel = ResourceRel & { type: 'line_items' }
+type ReturnLineItemType = 'return_line_items'
+type ReturnLineItemRel = ResourceRel & { type: ReturnLineItemType }
+type ReturnRel = ResourceRel & { type: ReturnType }
+type LineItemRel = ResourceRel & { type: LineItemType }
 
 
 interface ReturnLineItem extends Resource {
 	
+	readonly type: ReturnLineItemType
+
 	sku_code?: string
 	bundle_code?: string
 	name?: string
@@ -45,9 +48,9 @@ interface ReturnLineItemUpdate extends ResourceUpdate {
 }
 
 
-class ReturnLineItems extends ApiResource {
+class ReturnLineItems extends ApiResource<ReturnLineItem> {
 
-	static readonly TYPE: 'return_line_items' = 'return_line_items' as const
+	static readonly TYPE: ReturnLineItemType = 'return_line_items' as const
 	// static readonly PATH = 'return_line_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
@@ -58,16 +61,12 @@ class ReturnLineItems extends ApiResource {
 		return this.resources.create<ReturnLineItemCreate, ReturnLineItem>({ ...resource, type: ReturnLineItems.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
-		return this.resources.retrieve<ReturnLineItem>({ type: ReturnLineItems.TYPE, id }, params, options)
-	}
-
 	async update(resource: ReturnLineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
 		return this.resources.update<ReturnLineItemUpdate, ReturnLineItem>({ ...resource, type: ReturnLineItems.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ReturnLineItems.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ReturnLineItems.TYPE } : id, options)
 	}
 
 	async return(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
@@ -81,7 +80,6 @@ class ReturnLineItems extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isReturnLineItem(resource: any): resource is ReturnLineItem {
 		return resource.type && (resource.type === ReturnLineItems.TYPE)
 	}
@@ -92,7 +90,7 @@ class ReturnLineItems extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ReturnLineItemType {
 		return ReturnLineItems.TYPE
 	}
 
@@ -101,4 +99,4 @@ class ReturnLineItems extends ApiResource {
 
 export default ReturnLineItems
 
-export { ReturnLineItem, ReturnLineItemCreate, ReturnLineItemUpdate }
+export type { ReturnLineItem, ReturnLineItemCreate, ReturnLineItemUpdate, ReturnLineItemType }

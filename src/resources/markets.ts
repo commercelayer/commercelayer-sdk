@@ -1,24 +1,27 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Merchant } from './merchants'
-import type { PriceList } from './price_lists'
-import type { InventoryModel } from './inventory_models'
-import type { TaxCalculator } from './tax_calculators'
-import type { CustomerGroup } from './customer_groups'
+import type { Merchant, MerchantType } from './merchants'
+import type { PriceList, PriceListType } from './price_lists'
+import type { InventoryModel, InventoryModelType } from './inventory_models'
+import type { TaxCalculator, TaxCalculatorType } from './tax_calculators'
+import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { Attachment } from './attachments'
 
 
-type MarketRel = ResourceRel & { type: typeof Markets.TYPE }
-type MerchantRel = ResourceRel & { type: 'merchants' }
-type PriceListRel = ResourceRel & { type: 'price_lists' }
-type InventoryModelRel = ResourceRel & { type: 'inventory_models' }
-type TaxCalculatorRel = ResourceRel & { type: 'tax_calculators' }
-type CustomerGroupRel = ResourceRel & { type: 'customer_groups' }
+type MarketType = 'markets'
+type MarketRel = ResourceRel & { type: MarketType }
+type MerchantRel = ResourceRel & { type: MerchantType }
+type PriceListRel = ResourceRel & { type: PriceListType }
+type InventoryModelRel = ResourceRel & { type: InventoryModelType }
+type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
+type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 
 
 interface Market extends Resource {
 	
+	readonly type: MarketType
+
 	number?: number
 	name?: string
 	facebook_pixel_id?: string
@@ -75,9 +78,9 @@ interface MarketUpdate extends ResourceUpdate {
 }
 
 
-class Markets extends ApiResource {
+class Markets extends ApiResource<Market> {
 
-	static readonly TYPE: 'markets' = 'markets' as const
+	static readonly TYPE: MarketType = 'markets' as const
 	// static readonly PATH = 'markets'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
@@ -88,16 +91,12 @@ class Markets extends ApiResource {
 		return this.resources.create<MarketCreate, Market>({ ...resource, type: Markets.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.retrieve<Market>({ type: Markets.TYPE, id }, params, options)
-	}
-
 	async update(resource: MarketUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.update<MarketUpdate, Market>({ ...resource, type: Markets.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Markets.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Markets.TYPE } : id, options)
 	}
 
 	async merchant(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
@@ -131,7 +130,6 @@ class Markets extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isMarket(resource: any): resource is Market {
 		return resource.type && (resource.type === Markets.TYPE)
 	}
@@ -142,7 +140,7 @@ class Markets extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): MarketType {
 		return Markets.TYPE
 	}
 
@@ -151,4 +149,4 @@ class Markets extends ApiResource {
 
 export default Markets
 
-export { Market, MarketCreate, MarketUpdate }
+export type { Market, MarketCreate, MarketUpdate, MarketType }

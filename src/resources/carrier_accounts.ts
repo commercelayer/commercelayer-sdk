@@ -1,15 +1,18 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
 
 
-type CarrierAccountRel = ResourceRel & { type: typeof CarrierAccounts.TYPE }
+type CarrierAccountType = 'carrier_accounts'
+type CarrierAccountRel = ResourceRel & { type: CarrierAccountType }
 
 
 interface CarrierAccount extends Resource {
 	
+	readonly type: CarrierAccountType
+
 	name?: string
 	easypost_type?: string
 	easypost_id?: string
@@ -20,17 +23,13 @@ interface CarrierAccount extends Resource {
 }
 
 
-class CarrierAccounts extends ApiResource {
+class CarrierAccounts extends ApiResource<CarrierAccount> {
 
-	static readonly TYPE: 'carrier_accounts' = 'carrier_accounts' as const
+	static readonly TYPE: CarrierAccountType = 'carrier_accounts' as const
 	// static readonly PATH = 'carrier_accounts'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CarrierAccount>> {
 		return this.resources.list<CarrierAccount>({ type: CarrierAccounts.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CarrierAccount> {
-		return this.resources.retrieve<CarrierAccount>({ type: CarrierAccounts.TYPE, id }, params, options)
 	}
 
 	async market(carrierAccountId: string | CarrierAccount, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -44,7 +43,6 @@ class CarrierAccounts extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCarrierAccount(resource: any): resource is CarrierAccount {
 		return resource.type && (resource.type === CarrierAccounts.TYPE)
 	}
@@ -55,7 +53,7 @@ class CarrierAccounts extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CarrierAccountType {
 		return CarrierAccounts.TYPE
 	}
 
@@ -64,4 +62,4 @@ class CarrierAccounts extends ApiResource {
 
 export default CarrierAccounts
 
-export { CarrierAccount }
+export type { CarrierAccount, CarrierAccountType }

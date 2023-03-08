@@ -1,11 +1,11 @@
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { ShippingCategory } from './shipping_categories'
 import type { StockLocation } from './stock_locations'
 import type { Address } from './addresses'
-import type { ShippingMethod } from './shipping_methods'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
@@ -15,14 +15,17 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type ShipmentRel = ResourceRel & { type: typeof Shipments.TYPE }
-type ShippingMethodRel = ResourceRel & { type: 'shipping_methods' }
+type ShipmentType = 'shipments'
+type ShipmentRel = ResourceRel & { type: ShipmentType }
+type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
 interface Shipment extends Resource {
 	
+	readonly type: ShipmentType
+
 	number?: string
-	status?: string
+	status?: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped'
 	currency_code?: string
 	cost_amount_cents?: number
 	cost_amount_float?: number
@@ -77,17 +80,13 @@ interface ShipmentUpdate extends ResourceUpdate {
 }
 
 
-class Shipments extends ApiResource {
+class Shipments extends ApiResource<Shipment> {
 
-	static readonly TYPE: 'shipments' = 'shipments' as const
+	static readonly TYPE: ShipmentType = 'shipments' as const
 	// static readonly PATH = 'shipments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Shipment>> {
 		return this.resources.list<Shipment>({ type: Shipments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
-		return this.resources.retrieve<Shipment>({ type: Shipments.TYPE, id }, params, options)
 	}
 
 	async update(resource: ShipmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
@@ -165,7 +164,6 @@ class Shipments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isShipment(resource: any): resource is Shipment {
 		return resource.type && (resource.type === Shipments.TYPE)
 	}
@@ -176,7 +174,7 @@ class Shipments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ShipmentType {
 		return Shipments.TYPE
 	}
 
@@ -185,4 +183,4 @@ class Shipments extends ApiResource {
 
 export default Shipments
 
-export { Shipment, ShipmentUpdate }
+export type { Shipment, ShipmentUpdate, ShipmentType }

@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type StripePaymentRel = ResourceRel & { type: typeof StripePayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type StripePaymentType = 'stripe_payments'
+type StripePaymentRel = ResourceRel & { type: StripePaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface StripePayment extends Resource {
 	
+	readonly type: StripePaymentType
+
 	client_secret?: string
 	publishable_key?: string
 	options?: object
@@ -46,9 +49,9 @@ interface StripePaymentUpdate extends ResourceUpdate {
 }
 
 
-class StripePayments extends ApiResource {
+class StripePayments extends ApiResource<StripePayment> {
 
-	static readonly TYPE: 'stripe_payments' = 'stripe_payments' as const
+	static readonly TYPE: StripePaymentType = 'stripe_payments' as const
 	// static readonly PATH = 'stripe_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
@@ -59,16 +62,12 @@ class StripePayments extends ApiResource {
 		return this.resources.create<StripePaymentCreate, StripePayment>({ ...resource, type: StripePayments.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {
-		return this.resources.retrieve<StripePayment>({ type: StripePayments.TYPE, id }, params, options)
-	}
-
 	async update(resource: StripePaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {
 		return this.resources.update<StripePaymentUpdate, StripePayment>({ ...resource, type: StripePayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: StripePayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: StripePayments.TYPE } : id, options)
 	}
 
 	async order(stripePaymentId: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -82,7 +81,6 @@ class StripePayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isStripePayment(resource: any): resource is StripePayment {
 		return resource.type && (resource.type === StripePayments.TYPE)
 	}
@@ -93,7 +91,7 @@ class StripePayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): StripePaymentType {
 		return StripePayments.TYPE
 	}
 
@@ -102,4 +100,4 @@ class StripePayments extends ApiResource {
 
 export default StripePayments
 
-export { StripePayment, StripePaymentCreate, StripePaymentUpdate }
+export type { StripePayment, StripePaymentCreate, StripePaymentUpdate, StripePaymentType }

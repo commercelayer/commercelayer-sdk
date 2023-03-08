@@ -1,28 +1,31 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { PromotionRule } from './promotion_rules'
-import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
-import type { SkuListPromotionRule } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Market, MarketType } from './markets'
+import type { PromotionRule, PromotionRuleType } from './promotion_rules'
+import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
-import type { SkuList } from './sku_lists'
+import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { Event } from './events'
 
 
-type PercentageDiscountPromotionRel = ResourceRel & { type: typeof PercentageDiscountPromotions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
-type SkuListRel = ResourceRel & { type: 'sku_lists' }
+type PercentageDiscountPromotionType = 'percentage_discount_promotions'
+type PercentageDiscountPromotionRel = ResourceRel & { type: PercentageDiscountPromotionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
+type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 
 
 interface PercentageDiscountPromotion extends Resource {
 	
+	readonly type: PercentageDiscountPromotionType
+
 	name?: string
 	currency_code?: string
 	starts_at?: string
@@ -83,9 +86,9 @@ interface PercentageDiscountPromotionUpdate extends ResourceUpdate {
 }
 
 
-class PercentageDiscountPromotions extends ApiResource {
+class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromotion> {
 
-	static readonly TYPE: 'percentage_discount_promotions' = 'percentage_discount_promotions' as const
+	static readonly TYPE: PercentageDiscountPromotionType = 'percentage_discount_promotions' as const
 	// static readonly PATH = 'percentage_discount_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PercentageDiscountPromotion>> {
@@ -96,16 +99,12 @@ class PercentageDiscountPromotions extends ApiResource {
 		return this.resources.create<PercentageDiscountPromotionCreate, PercentageDiscountPromotion>({ ...resource, type: PercentageDiscountPromotions.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
-		return this.resources.retrieve<PercentageDiscountPromotion>({ type: PercentageDiscountPromotions.TYPE, id }, params, options)
-	}
-
 	async update(resource: PercentageDiscountPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
 		return this.resources.update<PercentageDiscountPromotionUpdate, PercentageDiscountPromotion>({ ...resource, type: PercentageDiscountPromotions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: PercentageDiscountPromotions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: PercentageDiscountPromotions.TYPE } : id, options)
 	}
 
 	async market(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -149,7 +148,6 @@ class PercentageDiscountPromotions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPercentageDiscountPromotion(resource: any): resource is PercentageDiscountPromotion {
 		return resource.type && (resource.type === PercentageDiscountPromotions.TYPE)
 	}
@@ -160,7 +158,7 @@ class PercentageDiscountPromotions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PercentageDiscountPromotionType {
 		return PercentageDiscountPromotions.TYPE
 	}
 
@@ -169,4 +167,4 @@ class PercentageDiscountPromotions extends ApiResource {
 
 export default PercentageDiscountPromotions
 
-export { PercentageDiscountPromotion, PercentageDiscountPromotionCreate, PercentageDiscountPromotionUpdate }
+export type { PercentageDiscountPromotion, PercentageDiscountPromotionCreate, PercentageDiscountPromotionUpdate, PercentageDiscountPromotionType }

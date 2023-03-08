@@ -164,7 +164,7 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 			if (oValue.responses) {
 				if (oValue.responses['200']?.content) op.responseType = referenceContent(oValue.responses['200'].content)
 				else
-					if (oValue.responses['201']?.content) op.responseType = referenceContent(oValue.responses['201'].content)
+				if (oValue.responses['201']?.content) op.responseType = referenceContent(oValue.responses['201'].content)
 			}
 
 
@@ -223,65 +223,7 @@ const resolveReference = (schemaComponents: any[], ref: string): any => {
 
 }
 
-/*
-const parseComponents = (schemaComponents: any[]): ComponentMap => {
 
-	const components: ComponentMap = {}
-
-	for (const c of Object.entries(schemaComponents)) {
-
-		const [cKey, cValue] = c
-
-		const cmpProperties = (cValue.properties.data.type === 'array') ? cValue.properties.data.items.properties : cValue.properties.data.properties
-		const ref = getReference(cmpProperties.attributes)
-		const cmpAttributes = (ref == undefined) ? cmpProperties.attributes : resolveReference(schemaComponents, ref)
-
-		const attributes: { [key: string]: Attribute } = {}
-		const requiredAttributes: string[] = cmpAttributes.required || []
-		const relationships: { [key: string]: Relationship } = {}
-		const requiredRelationships: string[] = cmpProperties.relationships.required || []
-
-		Object.entries(cmpAttributes.properties as object).forEach(a => {
-			const [aKey, aValue] = a
-			const type = (aValue.type === 'array') ? `${aValue.items.type}[]` : aValue.type
-			attributes[aKey] = {
-				name: aKey,
-				type,
-				required: requiredAttributes.includes(aKey)
-			}
-		})
-
-		if (cmpProperties.relationships) {
-			Object.entries(cmpProperties.relationships.properties as object).forEach(r => {
-				const [rKey, rValue] = r
-				const typeObj = rValue.properties.data? rValue.properties.data.properties : rValue.properties
-				const type = typeObj.type.default || typeObj.type.example
-				let oneOf = rValue.oneOf
-				if (oneOf) oneOf = oneOf.map(referenceResource)
-				relationships[rKey] = {
-					name: rKey,
-					type,
-					required: requiredRelationships.includes(rKey),
-					cardinality: (Inflector.pluralize(rKey) === rKey) ? Cardinality.to_many : Cardinality.to_one,
-					deprecated: rValue.deprecated,
-					oneOf,
-					polymorphic: (oneOf !== undefined) && oneOf.length
-				}
-			})
-		}
-
-		components[Inflector.camelize(cKey)] = {
-			attributes,
-			relationships
-		}
-
-	}
-
-
-	return components
-
-}
-*/
 const parseComponents = (schemaComponents: any[]): ComponentMap => {
 
 	const components: ComponentMap = {}
@@ -300,12 +242,6 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 		const cmpAttributes = attributesRef ? resolveReference(schemaComponents, attributesRef) : cmp.properties.attributes
 		const cmpRelationships = cmp.properties.relationships
 
-/*
-		const cmpProperties = (cValue.properties.data.type === 'array') ? cValue.properties.data.items.properties : cValue.properties.data.properties
-		const ref = getReference(cmpProperties.attributes)
-		const cmpAttributes = (ref == undefined) ? cmpProperties.attributes : resolveReference(schemaComponents, ref)
-		*/
-
 		const attributes: { [key: string]: Attribute } = {}
 		const requiredAttributes: string[] = cmpAttributes.required || []
 		const relationships: { [key: string]: Relationship } = {}
@@ -314,13 +250,14 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 		// Attributes
 		Object.entries(cmpAttributes.properties as object).forEach(a => {
 			const [aKey, aValue] = a
-			const type = (aValue.type === 'array') ? `${aValue.items.type}[]` : aValue.type
 			attributes[aKey] = {
 				name: aKey,
-				type,
-				required: requiredAttributes.includes(aKey)
+				type: (aValue.type === 'array') ? `${aValue.items.type}[]` : aValue.type,
+				required: requiredAttributes.includes(aKey) || (aValue.nullable === 'false'),
+				fetchable: (aValue.nullable !== undefined),
+				enum: aValue.enum
 			}
-		})
+	})
 
 		// Relationships
 		if (cmpRelationships) {
@@ -386,6 +323,8 @@ type Attribute = {
 	type: string
 	name: string
 	required: boolean
+	fetchable: boolean
+	enum: string[]
 }
 
 enum Cardinality {
@@ -428,4 +367,4 @@ export default {
 	remoteUrl: SCHEMA_REMOTE_URL,
 }
 
-export { Resource, Operation, Component, ComponentMap, Cardinality, Relationship, ApiSchema }
+export { Resource, Operation, Component, ComponentMap, Cardinality, Relationship, ApiSchema, Attribute }

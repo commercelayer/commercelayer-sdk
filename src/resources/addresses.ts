@@ -1,15 +1,18 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Geocoder } from './geocoders'
+import type { Geocoder, GeocoderType } from './geocoders'
 
 
-type AddressRel = ResourceRel & { type: typeof Addresses.TYPE }
-type GeocoderRel = ResourceRel & { type: 'geocoders' }
+type AddressType = 'addresses'
+type AddressRel = ResourceRel & { type: AddressType }
+type GeocoderRel = ResourceRel & { type: GeocoderType }
 
 
 interface Address extends Resource {
 	
+	readonly type: AddressType
+
 	business?: boolean
 	first_name?: string
 	last_name?: string
@@ -88,9 +91,9 @@ interface AddressUpdate extends ResourceUpdate {
 }
 
 
-class Addresses extends ApiResource {
+class Addresses extends ApiResource<Address> {
 
-	static readonly TYPE: 'addresses' = 'addresses' as const
+	static readonly TYPE: AddressType = 'addresses' as const
 	// static readonly PATH = 'addresses'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
@@ -101,16 +104,12 @@ class Addresses extends ApiResource {
 		return this.resources.create<AddressCreate, Address>({ ...resource, type: Addresses.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
-		return this.resources.retrieve<Address>({ type: Addresses.TYPE, id }, params, options)
-	}
-
 	async update(resource: AddressUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		return this.resources.update<AddressUpdate, Address>({ ...resource, type: Addresses.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Addresses.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Addresses.TYPE } : id, options)
 	}
 
 	async geocoder(addressId: string | Address, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
@@ -119,7 +118,6 @@ class Addresses extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAddress(resource: any): resource is Address {
 		return resource.type && (resource.type === Addresses.TYPE)
 	}
@@ -130,7 +128,7 @@ class Addresses extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AddressType {
 		return Addresses.TYPE
 	}
 
@@ -139,4 +137,4 @@ class Addresses extends ApiResource {
 
 export default Addresses
 
-export { Address, AddressCreate, AddressUpdate }
+export type { Address, AddressCreate, AddressUpdate, AddressType }

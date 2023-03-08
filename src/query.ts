@@ -4,6 +4,9 @@ import { ResourceType } from "./resource"
 import Debug from './debug'
 const debug = Debug('query')
 
+type QueryFilter = { [key: string]: string | number | boolean }
+
+
 interface QueryParamsRetrieve {
 	include?: string[]
 	// fields?: { [key: string]: string[] }
@@ -13,14 +16,14 @@ interface QueryParamsRetrieve {
 
 interface QueryParamsList extends QueryParamsRetrieve {
 	sort?: string[] | { [key: string]: 'asc' | 'desc' }
-	filters?: { [key: string]: string | number | boolean }
+	filters?: QueryFilter
 	pageNumber?: number
 	pageSize?: number
 }
 
 type QueryParams = QueryParamsRetrieve | QueryParamsList
 
-export { QueryParamsRetrieve, QueryParamsList, QueryParams }
+export { QueryParamsRetrieve, QueryParamsList, QueryParams, QueryFilter }
 
 
 

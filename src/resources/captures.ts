@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Authorization } from './authorizations'
@@ -7,11 +7,14 @@ import type { Refund } from './refunds'
 import type { Event } from './events'
 
 
-type CaptureRel = ResourceRel & { type: typeof Captures.TYPE }
+type CaptureType = 'captures'
+type CaptureRel = ResourceRel & { type: CaptureType }
 
 
 interface Capture extends Resource {
 	
+	readonly type: CaptureType
+
 	number?: string
 	currency_code?: string
 	amount_cents?: number
@@ -46,17 +49,13 @@ interface CaptureUpdate extends ResourceUpdate {
 }
 
 
-class Captures extends ApiResource {
+class Captures extends ApiResource<Capture> {
 
-	static readonly TYPE: 'captures' = 'captures' as const
+	static readonly TYPE: CaptureType = 'captures' as const
 	// static readonly PATH = 'captures'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
 		return this.resources.list<Capture>({ type: Captures.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
-		return this.resources.retrieve<Capture>({ type: Captures.TYPE, id }, params, options)
 	}
 
 	async update(resource: CaptureUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
@@ -84,7 +83,6 @@ class Captures extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCapture(resource: any): resource is Capture {
 		return resource.type && (resource.type === Captures.TYPE)
 	}
@@ -95,7 +93,7 @@ class Captures extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CaptureType {
 		return Captures.TYPE
 	}
 
@@ -104,4 +102,4 @@ class Captures extends ApiResource {
 
 export default Captures
 
-export { Capture, CaptureUpdate }
+export type { Capture, CaptureUpdate, CaptureType }

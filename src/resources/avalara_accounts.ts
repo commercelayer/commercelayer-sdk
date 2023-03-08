@@ -1,17 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
-import type { TaxCategory } from './tax_categories'
+import type { TaxCategory, TaxCategoryType } from './tax_categories'
 
 
-type AvalaraAccountRel = ResourceRel & { type: typeof AvalaraAccounts.TYPE }
-type TaxCategoryRel = ResourceRel & { type: 'tax_categories' }
+type AvalaraAccountType = 'avalara_accounts'
+type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
+type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 
 
 interface AvalaraAccount extends Resource {
 	
+	readonly type: AvalaraAccountType
+
 	name?: string
 	username?: string
 	company_code?: string
@@ -53,9 +56,9 @@ interface AvalaraAccountUpdate extends ResourceUpdate {
 }
 
 
-class AvalaraAccounts extends ApiResource {
+class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 
-	static readonly TYPE: 'avalara_accounts' = 'avalara_accounts' as const
+	static readonly TYPE: AvalaraAccountType = 'avalara_accounts' as const
 	// static readonly PATH = 'avalara_accounts'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AvalaraAccount>> {
@@ -66,16 +69,12 @@ class AvalaraAccounts extends ApiResource {
 		return this.resources.create<AvalaraAccountCreate, AvalaraAccount>({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
-		return this.resources.retrieve<AvalaraAccount>({ type: AvalaraAccounts.TYPE, id }, params, options)
-	}
-
 	async update(resource: AvalaraAccountUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
 		return this.resources.update<AvalaraAccountUpdate, AvalaraAccount>({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: AvalaraAccounts.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: AvalaraAccounts.TYPE } : id, options)
 	}
 
 	async markets(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
@@ -94,7 +93,6 @@ class AvalaraAccounts extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAvalaraAccount(resource: any): resource is AvalaraAccount {
 		return resource.type && (resource.type === AvalaraAccounts.TYPE)
 	}
@@ -105,7 +103,7 @@ class AvalaraAccounts extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AvalaraAccountType {
 		return AvalaraAccounts.TYPE
 	}
 
@@ -114,4 +112,4 @@ class AvalaraAccounts extends ApiResource {
 
 export default AvalaraAccounts
 
-export { AvalaraAccount, AvalaraAccountCreate, AvalaraAccountUpdate }
+export type { AvalaraAccount, AvalaraAccountCreate, AvalaraAccountUpdate, AvalaraAccountType }

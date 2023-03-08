@@ -17,9 +17,7 @@ describe('SDK:error suite', () => {
 			await cl.customers.retrieve('fake-id')
 		} catch (error) {
 			expect(cl.isApiError(error)).toBeTruthy()
-			expect(error.first()).toBeUndefined()
-			expect(error.errors).toBeUndefined()
-			expect(error.status).toBeGreaterThanOrEqual(300)
+			expect(error.status).toBe(404)
 		}
 	})
 

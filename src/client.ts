@@ -16,7 +16,7 @@ const baseURL = (organization: string, domain?: string): string => {
 }
 
 
-const handleError = (error: Error): void => {
+const handleError = (error: Error): never => {
 
 	let sdkError = new SdkError({ message: error.message })
 

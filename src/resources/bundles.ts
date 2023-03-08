@@ -1,19 +1,22 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { SkuList } from './sku_lists'
+import type { Market, MarketType } from './markets'
+import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { Attachment } from './attachments'
 
 
-type BundleRel = ResourceRel & { type: typeof Bundles.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type SkuListRel = ResourceRel & { type: 'sku_lists' }
+type BundleType = 'bundles'
+type BundleRel = ResourceRel & { type: BundleType }
+type MarketRel = ResourceRel & { type: MarketType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 
 
 interface Bundle extends Resource {
 	
+	readonly type: BundleType
+
 	code?: string
 	name?: string
 	currency_code?: string
@@ -70,9 +73,9 @@ interface BundleUpdate extends ResourceUpdate {
 }
 
 
-class Bundles extends ApiResource {
+class Bundles extends ApiResource<Bundle> {
 
-	static readonly TYPE: 'bundles' = 'bundles' as const
+	static readonly TYPE: BundleType = 'bundles' as const
 	// static readonly PATH = 'bundles'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
@@ -83,16 +86,12 @@ class Bundles extends ApiResource {
 		return this.resources.create<BundleCreate, Bundle>({ ...resource, type: Bundles.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
-		return this.resources.retrieve<Bundle>({ type: Bundles.TYPE, id }, params, options)
-	}
-
 	async update(resource: BundleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
 		return this.resources.update<BundleUpdate, Bundle>({ ...resource, type: Bundles.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Bundles.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Bundles.TYPE } : id, options)
 	}
 
 	async market(bundleId: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -116,7 +115,6 @@ class Bundles extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isBundle(resource: any): resource is Bundle {
 		return resource.type && (resource.type === Bundles.TYPE)
 	}
@@ -127,7 +125,7 @@ class Bundles extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): BundleType {
 		return Bundles.TYPE
 	}
 
@@ -136,4 +134,4 @@ class Bundles extends ApiResource {
 
 export default Bundles
 
-export { Bundle, BundleCreate, BundleUpdate }
+export type { Bundle, BundleCreate, BundleUpdate, BundleType }

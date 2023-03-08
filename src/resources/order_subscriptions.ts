@@ -1,22 +1,25 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { Order } from './orders'
+import type { Market, MarketType } from './markets'
+import type { Order, OrderType } from './orders'
 import type { Customer } from './customers'
 import type { OrderCopy } from './order_copies'
 import type { Event } from './events'
 
 
-type OrderSubscriptionRel = ResourceRel & { type: typeof OrderSubscriptions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type OrderRel = ResourceRel & { type: 'orders' }
+type OrderSubscriptionType = 'order_subscriptions'
+type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface OrderSubscription extends Resource {
 	
+	readonly type: OrderSubscriptionType
+
 	number?: string
-	status?: string
+	status?: 'draft' | 'inactive' | 'active' | 'cancelled'
 	frequency?: string
 	activate_by_source_order?: boolean
 	customer_email?: string
@@ -62,9 +65,9 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 }
 
 
-class OrderSubscriptions extends ApiResource {
+class OrderSubscriptions extends ApiResource<OrderSubscription> {
 
-	static readonly TYPE: 'order_subscriptions' = 'order_subscriptions' as const
+	static readonly TYPE: OrderSubscriptionType = 'order_subscriptions' as const
 	// static readonly PATH = 'order_subscriptions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
@@ -75,16 +78,12 @@ class OrderSubscriptions extends ApiResource {
 		return this.resources.create<OrderSubscriptionCreate, OrderSubscription>({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
-		return this.resources.retrieve<OrderSubscription>({ type: OrderSubscriptions.TYPE, id }, params, options)
-	}
-
 	async update(resource: OrderSubscriptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
 		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: OrderSubscriptions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: OrderSubscriptions.TYPE } : id, options)
 	}
 
 	async market(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -118,7 +117,6 @@ class OrderSubscriptions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrderSubscription(resource: any): resource is OrderSubscription {
 		return resource.type && (resource.type === OrderSubscriptions.TYPE)
 	}
@@ -129,7 +127,7 @@ class OrderSubscriptions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrderSubscriptionType {
 		return OrderSubscriptions.TYPE
 	}
 
@@ -138,4 +136,4 @@ class OrderSubscriptions extends ApiResource {
 
 export default OrderSubscriptions
 
-export { OrderSubscription, OrderSubscriptionCreate, OrderSubscriptionUpdate }
+export type { OrderSubscription, OrderSubscriptionCreate, OrderSubscriptionUpdate, OrderSubscriptionType }

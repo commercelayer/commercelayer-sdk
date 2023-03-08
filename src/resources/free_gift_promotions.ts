@@ -1,28 +1,31 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { PromotionRule } from './promotion_rules'
-import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
-import type { SkuListPromotionRule } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Market, MarketType } from './markets'
+import type { PromotionRule, PromotionRuleType } from './promotion_rules'
+import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
-import type { SkuList } from './sku_lists'
+import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { Event } from './events'
 
 
-type FreeGiftPromotionRel = ResourceRel & { type: typeof FreeGiftPromotions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
-type SkuListRel = ResourceRel & { type: 'sku_lists' }
+type FreeGiftPromotionType = 'free_gift_promotions'
+type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
+type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 
 
 interface FreeGiftPromotion extends Resource {
 	
+	readonly type: FreeGiftPromotionType
+
 	name?: string
 	currency_code?: string
 	starts_at?: string
@@ -83,9 +86,9 @@ interface FreeGiftPromotionUpdate extends ResourceUpdate {
 }
 
 
-class FreeGiftPromotions extends ApiResource {
+class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 
-	static readonly TYPE: 'free_gift_promotions' = 'free_gift_promotions' as const
+	static readonly TYPE: FreeGiftPromotionType = 'free_gift_promotions' as const
 	// static readonly PATH = 'free_gift_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FreeGiftPromotion>> {
@@ -96,16 +99,12 @@ class FreeGiftPromotions extends ApiResource {
 		return this.resources.create<FreeGiftPromotionCreate, FreeGiftPromotion>({ ...resource, type: FreeGiftPromotions.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeGiftPromotion> {
-		return this.resources.retrieve<FreeGiftPromotion>({ type: FreeGiftPromotions.TYPE, id }, params, options)
-	}
-
 	async update(resource: FreeGiftPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeGiftPromotion> {
 		return this.resources.update<FreeGiftPromotionUpdate, FreeGiftPromotion>({ ...resource, type: FreeGiftPromotions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: FreeGiftPromotions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: FreeGiftPromotions.TYPE } : id, options)
 	}
 
 	async market(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -149,7 +148,6 @@ class FreeGiftPromotions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isFreeGiftPromotion(resource: any): resource is FreeGiftPromotion {
 		return resource.type && (resource.type === FreeGiftPromotions.TYPE)
 	}
@@ -160,7 +158,7 @@ class FreeGiftPromotions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): FreeGiftPromotionType {
 		return FreeGiftPromotions.TYPE
 	}
 
@@ -169,4 +167,4 @@ class FreeGiftPromotions extends ApiResource {
 
 export default FreeGiftPromotions
 
-export { FreeGiftPromotion, FreeGiftPromotionCreate, FreeGiftPromotionUpdate }
+export type { FreeGiftPromotion, FreeGiftPromotionCreate, FreeGiftPromotionUpdate, FreeGiftPromotionType }

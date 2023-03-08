@@ -1,15 +1,18 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 
 
-type WireTransferRel = ResourceRel & { type: typeof WireTransfers.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type WireTransferType = 'wire_transfers'
+type WireTransferRel = ResourceRel & { type: WireTransferType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface WireTransfer extends Resource {
 	
+	readonly type: WireTransferType
+
 	payment_instrument?: object
 
 	order?: Order
@@ -31,9 +34,9 @@ interface WireTransferUpdate extends ResourceUpdate {
 }
 
 
-class WireTransfers extends ApiResource {
+class WireTransfers extends ApiResource<WireTransfer> {
 
-	static readonly TYPE: 'wire_transfers' = 'wire_transfers' as const
+	static readonly TYPE: WireTransferType = 'wire_transfers' as const
 	// static readonly PATH = 'wire_transfers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<WireTransfer>> {
@@ -44,16 +47,12 @@ class WireTransfers extends ApiResource {
 		return this.resources.create<WireTransferCreate, WireTransfer>({ ...resource, type: WireTransfers.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
-		return this.resources.retrieve<WireTransfer>({ type: WireTransfers.TYPE, id }, params, options)
-	}
-
 	async update(resource: WireTransferUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
 		return this.resources.update<WireTransferUpdate, WireTransfer>({ ...resource, type: WireTransfers.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: WireTransfers.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: WireTransfers.TYPE } : id, options)
 	}
 
 	async order(wireTransferId: string | WireTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -62,7 +61,6 @@ class WireTransfers extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isWireTransfer(resource: any): resource is WireTransfer {
 		return resource.type && (resource.type === WireTransfers.TYPE)
 	}
@@ -73,7 +71,7 @@ class WireTransfers extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): WireTransferType {
 		return WireTransfers.TYPE
 	}
 
@@ -82,4 +80,4 @@ class WireTransfers extends ApiResource {
 
 export default WireTransfers
 
-export { WireTransfer, WireTransferCreate, WireTransferUpdate }
+export type { WireTransfer, WireTransferCreate, WireTransferUpdate, WireTransferType }

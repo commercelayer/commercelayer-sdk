@@ -1,16 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
+import type { Market, MarketType } from './markets'
 import type { Attachment } from './attachments'
 
 
-type BillingInfoValidationRuleRel = ResourceRel & { type: typeof BillingInfoValidationRules.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
+type BillingInfoValidationRuleType = 'billing_info_validation_rules'
+type BillingInfoValidationRuleRel = ResourceRel & { type: BillingInfoValidationRuleType }
+type MarketRel = ResourceRel & { type: MarketType }
 
 
 interface BillingInfoValidationRule extends Resource {
 	
+	readonly type: BillingInfoValidationRuleType
+
+
 	market?: Market
 	attachments?: Attachment[]
 
@@ -31,9 +35,9 @@ interface BillingInfoValidationRuleUpdate extends ResourceUpdate {
 }
 
 
-class BillingInfoValidationRules extends ApiResource {
+class BillingInfoValidationRules extends ApiResource<BillingInfoValidationRule> {
 
-	static readonly TYPE: 'billing_info_validation_rules' = 'billing_info_validation_rules' as const
+	static readonly TYPE: BillingInfoValidationRuleType = 'billing_info_validation_rules' as const
 	// static readonly PATH = 'billing_info_validation_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BillingInfoValidationRule>> {
@@ -44,16 +48,12 @@ class BillingInfoValidationRules extends ApiResource {
 		return this.resources.create<BillingInfoValidationRuleCreate, BillingInfoValidationRule>({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
-		return this.resources.retrieve<BillingInfoValidationRule>({ type: BillingInfoValidationRules.TYPE, id }, params, options)
-	}
-
 	async update(resource: BillingInfoValidationRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
 		return this.resources.update<BillingInfoValidationRuleUpdate, BillingInfoValidationRule>({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: BillingInfoValidationRules.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: BillingInfoValidationRules.TYPE } : id, options)
 	}
 
 	async market(billingInfoValidationRuleId: string | BillingInfoValidationRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -67,7 +67,6 @@ class BillingInfoValidationRules extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isBillingInfoValidationRule(resource: any): resource is BillingInfoValidationRule {
 		return resource.type && (resource.type === BillingInfoValidationRules.TYPE)
 	}
@@ -78,7 +77,7 @@ class BillingInfoValidationRules extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): BillingInfoValidationRuleType {
 		return BillingInfoValidationRules.TYPE
 	}
 
@@ -87,4 +86,4 @@ class BillingInfoValidationRules extends ApiResource {
 
 export default BillingInfoValidationRules
 
-export { BillingInfoValidationRule, BillingInfoValidationRuleCreate, BillingInfoValidationRuleUpdate }
+export type { BillingInfoValidationRule, BillingInfoValidationRuleCreate, BillingInfoValidationRuleUpdate, BillingInfoValidationRuleType }

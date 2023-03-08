@@ -1,18 +1,21 @@
-import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { OrderSubscription } from './order_subscriptions'
 import type { Event } from './events'
 
 
-type OrderCopyRel = ResourceRel & { type: typeof OrderCopies.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type OrderCopyType = 'order_copies'
+type OrderCopyRel = ResourceRel & { type: OrderCopyType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface OrderCopy extends Resource {
 	
-	status?: string
+	readonly type: OrderCopyType
+
+	status?: 'pending' | 'in_progress' | 'failed' | 'completed'
 	started_at?: string
 	completed_at?: string
 	failed_at?: string
@@ -41,9 +44,9 @@ interface OrderCopyCreate extends ResourceCreate {
 }
 
 
-class OrderCopies extends ApiResource {
+class OrderCopies extends ApiResource<OrderCopy> {
 
-	static readonly TYPE: 'order_copies' = 'order_copies' as const
+	static readonly TYPE: OrderCopyType = 'order_copies' as const
 	// static readonly PATH = 'order_copies'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
@@ -54,12 +57,8 @@ class OrderCopies extends ApiResource {
 		return this.resources.create<OrderCopyCreate, OrderCopy>({ ...resource, type: OrderCopies.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {
-		return this.resources.retrieve<OrderCopy>({ type: OrderCopies.TYPE, id }, params, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: OrderCopies.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: OrderCopies.TYPE } : id, options)
 	}
 
 	async source_order(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -83,7 +82,6 @@ class OrderCopies extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrderCopy(resource: any): resource is OrderCopy {
 		return resource.type && (resource.type === OrderCopies.TYPE)
 	}
@@ -94,7 +92,7 @@ class OrderCopies extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrderCopyType {
 		return OrderCopies.TYPE
 	}
 
@@ -103,4 +101,4 @@ class OrderCopies extends ApiResource {
 
 export default OrderCopies
 
-export { OrderCopy, OrderCopyCreate }
+export type { OrderCopy, OrderCopyCreate, OrderCopyType }

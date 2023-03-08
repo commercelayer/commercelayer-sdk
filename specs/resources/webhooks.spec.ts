@@ -1,5 +1,5 @@
 /**
- * ©2022 Commerce Layer Inc.
+ * ©2023 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 

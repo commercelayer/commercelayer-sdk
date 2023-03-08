@@ -1,15 +1,18 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
 
 
-type GoogleGeocoderRel = ResourceRel & { type: typeof GoogleGeocoders.TYPE }
+type GoogleGeocoderType = 'google_geocoders'
+type GoogleGeocoderRel = ResourceRel & { type: GoogleGeocoderType }
 
 
 interface GoogleGeocoder extends Resource {
 	
+	readonly type: GoogleGeocoderType
+
 	name?: string
 
 	addresses?: Address[]
@@ -34,9 +37,9 @@ interface GoogleGeocoderUpdate extends ResourceUpdate {
 }
 
 
-class GoogleGeocoders extends ApiResource {
+class GoogleGeocoders extends ApiResource<GoogleGeocoder> {
 
-	static readonly TYPE: 'google_geocoders' = 'google_geocoders' as const
+	static readonly TYPE: GoogleGeocoderType = 'google_geocoders' as const
 	// static readonly PATH = 'google_geocoders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GoogleGeocoder>> {
@@ -47,16 +50,12 @@ class GoogleGeocoders extends ApiResource {
 		return this.resources.create<GoogleGeocoderCreate, GoogleGeocoder>({ ...resource, type: GoogleGeocoders.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GoogleGeocoder> {
-		return this.resources.retrieve<GoogleGeocoder>({ type: GoogleGeocoders.TYPE, id }, params, options)
-	}
-
 	async update(resource: GoogleGeocoderUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GoogleGeocoder> {
 		return this.resources.update<GoogleGeocoderUpdate, GoogleGeocoder>({ ...resource, type: GoogleGeocoders.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: GoogleGeocoders.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: GoogleGeocoders.TYPE } : id, options)
 	}
 
 	async addresses(googleGeocoderId: string | GoogleGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
@@ -70,7 +69,6 @@ class GoogleGeocoders extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isGoogleGeocoder(resource: any): resource is GoogleGeocoder {
 		return resource.type && (resource.type === GoogleGeocoders.TYPE)
 	}
@@ -81,7 +79,7 @@ class GoogleGeocoders extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): GoogleGeocoderType {
 		return GoogleGeocoders.TYPE
 	}
 
@@ -90,4 +88,4 @@ class GoogleGeocoders extends ApiResource {
 
 export default GoogleGeocoders
 
-export { GoogleGeocoder, GoogleGeocoderCreate, GoogleGeocoderUpdate }
+export type { GoogleGeocoder, GoogleGeocoderCreate, GoogleGeocoderUpdate, GoogleGeocoderType }

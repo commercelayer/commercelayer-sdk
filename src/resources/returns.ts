@@ -1,24 +1,27 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { Customer } from './customers'
-import type { StockLocation } from './stock_locations'
+import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Address } from './addresses'
 import type { ReturnLineItem } from './return_line_items'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type ReturnRel = ResourceRel & { type: typeof Returns.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
-type StockLocationRel = ResourceRel & { type: 'stock_locations' }
+type ReturnType = 'returns'
+type ReturnRel = ResourceRel & { type: ReturnType }
+type OrderRel = ResourceRel & { type: OrderType }
+type StockLocationRel = ResourceRel & { type: StockLocationType }
 
 
 interface Return extends Resource {
 	
+	readonly type: ReturnType
+
 	number?: string
-	status?: string
+	status?: 'draft' | 'requested' | 'approved' | 'cancelled' | 'shipped' | 'rejected' | 'received'
 	customer_email?: string
 	skus_count?: number
 	approved_at?: string
@@ -65,9 +68,9 @@ interface ReturnUpdate extends ResourceUpdate {
 }
 
 
-class Returns extends ApiResource {
+class Returns extends ApiResource<Return> {
 
-	static readonly TYPE: 'returns' = 'returns' as const
+	static readonly TYPE: ReturnType = 'returns' as const
 	// static readonly PATH = 'returns'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
@@ -78,16 +81,12 @@ class Returns extends ApiResource {
 		return this.resources.create<ReturnCreate, Return>({ ...resource, type: Returns.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
-		return this.resources.retrieve<Return>({ type: Returns.TYPE, id }, params, options)
-	}
-
 	async update(resource: ReturnUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.update<ReturnUpdate, Return>({ ...resource, type: Returns.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Returns.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Returns.TYPE } : id, options)
 	}
 
 	async order(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -131,7 +130,6 @@ class Returns extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isReturn(resource: any): resource is Return {
 		return resource.type && (resource.type === Returns.TYPE)
 	}
@@ -142,7 +140,7 @@ class Returns extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ReturnType {
 		return Returns.TYPE
 	}
 
@@ -151,4 +149,4 @@ class Returns extends ApiResource {
 
 export default Returns
 
-export { Return, ReturnCreate, ReturnUpdate }
+export type { Return, ReturnCreate, ReturnUpdate, ReturnType }

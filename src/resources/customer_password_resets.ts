@@ -1,15 +1,18 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer } from './customers'
 import type { Event } from './events'
 
 
-type CustomerPasswordResetRel = ResourceRel & { type: typeof CustomerPasswordResets.TYPE }
+type CustomerPasswordResetType = 'customer_password_resets'
+type CustomerPasswordResetRel = ResourceRel & { type: CustomerPasswordResetType }
 
 
 interface CustomerPasswordReset extends Resource {
 	
+	readonly type: CustomerPasswordResetType
+
 	customer_email?: string
 	reset_password_token?: string
 	reset_password_at?: string
@@ -35,9 +38,9 @@ interface CustomerPasswordResetUpdate extends ResourceUpdate {
 }
 
 
-class CustomerPasswordResets extends ApiResource {
+class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 
-	static readonly TYPE: 'customer_password_resets' = 'customer_password_resets' as const
+	static readonly TYPE: CustomerPasswordResetType = 'customer_password_resets' as const
 	// static readonly PATH = 'customer_password_resets'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPasswordReset>> {
@@ -48,16 +51,12 @@ class CustomerPasswordResets extends ApiResource {
 		return this.resources.create<CustomerPasswordResetCreate, CustomerPasswordReset>({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
-		return this.resources.retrieve<CustomerPasswordReset>({ type: CustomerPasswordResets.TYPE, id }, params, options)
-	}
-
 	async update(resource: CustomerPasswordResetUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
 		return this.resources.update<CustomerPasswordResetUpdate, CustomerPasswordReset>({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: CustomerPasswordResets.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: CustomerPasswordResets.TYPE } : id, options)
 	}
 
 	async customer(customerPasswordResetId: string | CustomerPasswordReset, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
@@ -71,7 +70,6 @@ class CustomerPasswordResets extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCustomerPasswordReset(resource: any): resource is CustomerPasswordReset {
 		return resource.type && (resource.type === CustomerPasswordResets.TYPE)
 	}
@@ -82,7 +80,7 @@ class CustomerPasswordResets extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CustomerPasswordResetType {
 		return CustomerPasswordResets.TYPE
 	}
 
@@ -91,4 +89,4 @@ class CustomerPasswordResets extends ApiResource {
 
 export default CustomerPasswordResets
 
-export { CustomerPasswordReset, CustomerPasswordResetCreate, CustomerPasswordResetUpdate }
+export type { CustomerPasswordReset, CustomerPasswordResetCreate, CustomerPasswordResetUpdate, CustomerPasswordResetType }

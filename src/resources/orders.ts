@@ -1,22 +1,23 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { Customer } from './customers'
-import type { Address } from './addresses'
-import type { PaymentMethod } from './payment_methods'
+import type { Market, MarketType } from './markets'
+import type { Customer, CustomerType } from './customers'
+import type { Address, AddressType } from './addresses'
+import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { Sku } from './skus'
 import type { Bundle } from './bundles'
-import type { AdyenPayment } from './adyen_payments'
-import type { AxervePayment } from './axerve_payments'
-import type { BraintreePayment } from './braintree_payments'
-import type { CheckoutComPayment } from './checkout_com_payments'
-import type { ExternalPayment } from './external_payments'
-import type { KlarnaPayment } from './klarna_payments'
-import type { PaypalPayment } from './paypal_payments'
-import type { StripePayment } from './stripe_payments'
-import type { WireTransfer } from './wire_transfers'
+import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
+import type { AxervePayment, AxervePaymentType } from './axerve_payments'
+import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
+import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
+import type { ExternalPayment, ExternalPaymentType } from './external_payments'
+import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
+import type { PaypalPayment, PaypalPaymentType } from './paypal_payments'
+import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
+import type { StripePayment, StripePaymentType } from './stripe_payments'
+import type { WireTransfer, WireTransferType } from './wire_transfers'
 import type { LineItem } from './line_items'
 import type { Shipment } from './shipments'
 import type { Authorization } from './authorizations'
@@ -30,29 +31,33 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type OrderRel = ResourceRel & { type: typeof Orders.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type CustomerRel = ResourceRel & { type: 'customers' }
-type AddressRel = ResourceRel & { type: 'addresses' }
-type PaymentMethodRel = ResourceRel & { type: 'payment_methods' }
-type AdyenPaymentRel = ResourceRel & { type: 'adyen_payments' }
-type AxervePaymentRel = ResourceRel & { type: 'axerve_payments' }
-type BraintreePaymentRel = ResourceRel & { type: 'braintree_payments' }
-type CheckoutComPaymentRel = ResourceRel & { type: 'checkout_com_payments' }
-type ExternalPaymentRel = ResourceRel & { type: 'external_payments' }
-type KlarnaPaymentRel = ResourceRel & { type: 'klarna_payments' }
-type PaypalPaymentRel = ResourceRel & { type: 'paypal_payments' }
-type StripePaymentRel = ResourceRel & { type: 'stripe_payments' }
-type WireTransferRel = ResourceRel & { type: 'wire_transfers' }
+type OrderType = 'orders'
+type OrderRel = ResourceRel & { type: OrderType }
+type MarketRel = ResourceRel & { type: MarketType }
+type CustomerRel = ResourceRel & { type: CustomerType }
+type AddressRel = ResourceRel & { type: AddressType }
+type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
+type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
+type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
+type BraintreePaymentRel = ResourceRel & { type: BraintreePaymentType }
+type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
+type ExternalPaymentRel = ResourceRel & { type: ExternalPaymentType }
+type KlarnaPaymentRel = ResourceRel & { type: KlarnaPaymentType }
+type PaypalPaymentRel = ResourceRel & { type: PaypalPaymentType }
+type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
+type StripePaymentRel = ResourceRel & { type: StripePaymentType }
+type WireTransferRel = ResourceRel & { type: WireTransferType }
 
 
 interface Order extends Resource {
 	
+	readonly type: OrderType
+
 	number?: number
 	autorefresh?: boolean
-	status?: string
-	payment_status?: string
-	fulfillment_status?: string
+	status?: 'draft' | 'pending' | 'placed' | 'approved' | 'cancelled'
+	payment_status?: 'unpaid' | 'authorized' | 'paid' | 'voided' | 'refunded'
+	fulfillment_status?: 'unfulfilled' | 'in_progress' | 'fulfilled'
 	guest?: boolean
 	editable?: boolean
 	customer_email?: string
@@ -156,7 +161,7 @@ interface Order extends Resource {
 	available_free_skus?: Sku[]
 	available_free_bundles?: Bundle[]
 	payment_method?: PaymentMethod
-	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | StripePayment | WireTransfer
+	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer
 	line_items?: LineItem[]
 	shipments?: Shipment[]
 	transactions?: Array<Authorization | Void | Capture | Refund>
@@ -194,7 +199,7 @@ interface OrderCreate extends ResourceCreate {
 	shipping_address?: AddressRel
 	billing_address?: AddressRel
 	payment_method?: PaymentMethodRel
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 
@@ -244,14 +249,14 @@ interface OrderUpdate extends ResourceUpdate {
 	shipping_address?: AddressRel
 	billing_address?: AddressRel
 	payment_method?: PaymentMethodRel
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 
 
-class Orders extends ApiResource {
+class Orders extends ApiResource<Order> {
 
-	static readonly TYPE: 'orders' = 'orders' as const
+	static readonly TYPE: OrderType = 'orders' as const
 	// static readonly PATH = 'orders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
@@ -262,16 +267,12 @@ class Orders extends ApiResource {
 		return this.resources.create<OrderCreate, Order>({ ...resource, type: Orders.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.retrieve<Order>({ type: Orders.TYPE, id }, params, options)
-	}
-
 	async update(resource: OrderUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update<OrderUpdate, Order>({ ...resource, type: Orders.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Orders.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Orders.TYPE } : id, options)
 	}
 
 	async market(orderId: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -375,7 +376,6 @@ class Orders extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrder(resource: any): resource is Order {
 		return resource.type && (resource.type === Orders.TYPE)
 	}
@@ -386,7 +386,7 @@ class Orders extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrderType {
 		return Orders.TYPE
 	}
 
@@ -395,4 +395,4 @@ class Orders extends ApiResource {
 
 export default Orders
 
-export { Order, OrderCreate, OrderUpdate }
+export type { Order, OrderCreate, OrderUpdate, OrderType }

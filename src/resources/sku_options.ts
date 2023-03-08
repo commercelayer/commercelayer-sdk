@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
+import type { Market, MarketType } from './markets'
 import type { Attachment } from './attachments'
 
 
-type SkuOptionRel = ResourceRel & { type: typeof SkuOptions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
+type SkuOptionType = 'sku_options'
+type SkuOptionRel = ResourceRel & { type: SkuOptionType }
+type MarketRel = ResourceRel & { type: MarketType }
 
 
 interface SkuOption extends Resource {
 	
+	readonly type: SkuOptionType
+
 	name?: string
 	currency_code?: string
 	description?: string
@@ -55,9 +58,9 @@ interface SkuOptionUpdate extends ResourceUpdate {
 }
 
 
-class SkuOptions extends ApiResource {
+class SkuOptions extends ApiResource<SkuOption> {
 
-	static readonly TYPE: 'sku_options' = 'sku_options' as const
+	static readonly TYPE: SkuOptionType = 'sku_options' as const
 	// static readonly PATH = 'sku_options'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
@@ -68,16 +71,12 @@ class SkuOptions extends ApiResource {
 		return this.resources.create<SkuOptionCreate, SkuOption>({ ...resource, type: SkuOptions.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
-		return this.resources.retrieve<SkuOption>({ type: SkuOptions.TYPE, id }, params, options)
-	}
-
 	async update(resource: SkuOptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
 		return this.resources.update<SkuOptionUpdate, SkuOption>({ ...resource, type: SkuOptions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: SkuOptions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: SkuOptions.TYPE } : id, options)
 	}
 
 	async market(skuOptionId: string | SkuOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -91,7 +90,6 @@ class SkuOptions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isSkuOption(resource: any): resource is SkuOption {
 		return resource.type && (resource.type === SkuOptions.TYPE)
 	}
@@ -102,7 +100,7 @@ class SkuOptions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): SkuOptionType {
 		return SkuOptions.TYPE
 	}
 
@@ -111,4 +109,4 @@ class SkuOptions extends ApiResource {
 
 export default SkuOptions
 
-export { SkuOption, SkuOptionCreate, SkuOptionUpdate }
+export type { SkuOption, SkuOptionCreate, SkuOptionUpdate, SkuOptionType }

@@ -1,15 +1,18 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Sku } from './skus'
 import type { Attachment } from './attachments'
 
 
-type ShippingCategoryRel = ResourceRel & { type: typeof ShippingCategories.TYPE }
+type ShippingCategoryType = 'shipping_categories'
+type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
 
 
 interface ShippingCategory extends Resource {
 	
+	readonly type: ShippingCategoryType
+
 	name?: string
 
 	skus?: Sku[]
@@ -32,9 +35,9 @@ interface ShippingCategoryUpdate extends ResourceUpdate {
 }
 
 
-class ShippingCategories extends ApiResource {
+class ShippingCategories extends ApiResource<ShippingCategory> {
 
-	static readonly TYPE: 'shipping_categories' = 'shipping_categories' as const
+	static readonly TYPE: ShippingCategoryType = 'shipping_categories' as const
 	// static readonly PATH = 'shipping_categories'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingCategory>> {
@@ -45,16 +48,12 @@ class ShippingCategories extends ApiResource {
 		return this.resources.create<ShippingCategoryCreate, ShippingCategory>({ ...resource, type: ShippingCategories.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
-		return this.resources.retrieve<ShippingCategory>({ type: ShippingCategories.TYPE, id }, params, options)
-	}
-
 	async update(resource: ShippingCategoryUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
 		return this.resources.update<ShippingCategoryUpdate, ShippingCategory>({ ...resource, type: ShippingCategories.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ShippingCategories.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ShippingCategories.TYPE } : id, options)
 	}
 
 	async skus(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
@@ -68,7 +67,6 @@ class ShippingCategories extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isShippingCategory(resource: any): resource is ShippingCategory {
 		return resource.type && (resource.type === ShippingCategories.TYPE)
 	}
@@ -79,7 +77,7 @@ class ShippingCategories extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ShippingCategoryType {
 		return ShippingCategories.TYPE
 	}
 
@@ -88,4 +86,4 @@ class ShippingCategories extends ApiResource {
 
 export default ShippingCategories
 
-export { ShippingCategory, ShippingCategoryCreate, ShippingCategoryUpdate }
+export type { ShippingCategory, ShippingCategoryCreate, ShippingCategoryUpdate, ShippingCategoryType }

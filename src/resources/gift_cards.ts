@@ -1,20 +1,23 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { GiftCardRecipient } from './gift_card_recipients'
+import type { Market, MarketType } from './markets'
+import type { GiftCardRecipient, GiftCardRecipientType } from './gift_card_recipients'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type GiftCardRel = ResourceRel & { type: typeof GiftCards.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type GiftCardRecipientRel = ResourceRel & { type: 'gift_card_recipients' }
+type GiftCardType = 'gift_cards'
+type GiftCardRel = ResourceRel & { type: GiftCardType }
+type MarketRel = ResourceRel & { type: MarketType }
+type GiftCardRecipientRel = ResourceRel & { type: GiftCardRecipientType }
 
 
 interface GiftCard extends Resource {
 	
-	status?: string
+	readonly type: GiftCardType
+
+	status?: 'draft' | 'inactive' | 'active' | 'redeemed'
 	code?: string
 	currency_code?: string
 	initial_balance_cents?: number
@@ -80,9 +83,9 @@ interface GiftCardUpdate extends ResourceUpdate {
 }
 
 
-class GiftCards extends ApiResource {
+class GiftCards extends ApiResource<GiftCard> {
 
-	static readonly TYPE: 'gift_cards' = 'gift_cards' as const
+	static readonly TYPE: GiftCardType = 'gift_cards' as const
 	// static readonly PATH = 'gift_cards'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GiftCard>> {
@@ -93,16 +96,12 @@ class GiftCards extends ApiResource {
 		return this.resources.create<GiftCardCreate, GiftCard>({ ...resource, type: GiftCards.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
-		return this.resources.retrieve<GiftCard>({ type: GiftCards.TYPE, id }, params, options)
-	}
-
 	async update(resource: GiftCardUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.update<GiftCardUpdate, GiftCard>({ ...resource, type: GiftCards.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: GiftCards.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: GiftCards.TYPE } : id, options)
 	}
 
 	async market(giftCardId: string | GiftCard, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -126,7 +125,6 @@ class GiftCards extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isGiftCard(resource: any): resource is GiftCard {
 		return resource.type && (resource.type === GiftCards.TYPE)
 	}
@@ -137,7 +135,7 @@ class GiftCards extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): GiftCardType {
 		return GiftCards.TYPE
 	}
 
@@ -146,4 +144,4 @@ class GiftCards extends ApiResource {
 
 export default GiftCards
 
-export { GiftCard, GiftCardCreate, GiftCardUpdate }
+export type { GiftCard, GiftCardCreate, GiftCardUpdate, GiftCardType }

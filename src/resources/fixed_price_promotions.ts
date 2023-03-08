@@ -1,28 +1,31 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { PromotionRule } from './promotion_rules'
-import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
-import type { SkuListPromotionRule } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Market, MarketType } from './markets'
+import type { PromotionRule, PromotionRuleType } from './promotion_rules'
+import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
-import type { SkuList } from './sku_lists'
+import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { Event } from './events'
 
 
-type FixedPricePromotionRel = ResourceRel & { type: typeof FixedPricePromotions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
-type SkuListRel = ResourceRel & { type: 'sku_lists' }
+type FixedPricePromotionType = 'fixed_price_promotions'
+type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
+type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 
 
 interface FixedPricePromotion extends Resource {
 	
+	readonly type: FixedPricePromotionType
+
 	name?: string
 	currency_code?: string
 	starts_at?: string
@@ -85,9 +88,9 @@ interface FixedPricePromotionUpdate extends ResourceUpdate {
 }
 
 
-class FixedPricePromotions extends ApiResource {
+class FixedPricePromotions extends ApiResource<FixedPricePromotion> {
 
-	static readonly TYPE: 'fixed_price_promotions' = 'fixed_price_promotions' as const
+	static readonly TYPE: FixedPricePromotionType = 'fixed_price_promotions' as const
 	// static readonly PATH = 'fixed_price_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FixedPricePromotion>> {
@@ -98,16 +101,12 @@ class FixedPricePromotions extends ApiResource {
 		return this.resources.create<FixedPricePromotionCreate, FixedPricePromotion>({ ...resource, type: FixedPricePromotions.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedPricePromotion> {
-		return this.resources.retrieve<FixedPricePromotion>({ type: FixedPricePromotions.TYPE, id }, params, options)
-	}
-
 	async update(resource: FixedPricePromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedPricePromotion> {
 		return this.resources.update<FixedPricePromotionUpdate, FixedPricePromotion>({ ...resource, type: FixedPricePromotions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: FixedPricePromotions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: FixedPricePromotions.TYPE } : id, options)
 	}
 
 	async market(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -151,7 +150,6 @@ class FixedPricePromotions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isFixedPricePromotion(resource: any): resource is FixedPricePromotion {
 		return resource.type && (resource.type === FixedPricePromotions.TYPE)
 	}
@@ -162,7 +160,7 @@ class FixedPricePromotions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): FixedPricePromotionType {
 		return FixedPricePromotions.TYPE
 	}
 
@@ -171,4 +169,4 @@ class FixedPricePromotions extends ApiResource {
 
 export default FixedPricePromotions
 
-export { FixedPricePromotion, FixedPricePromotionCreate, FixedPricePromotionUpdate }
+export type { FixedPricePromotion, FixedPricePromotionCreate, FixedPricePromotionUpdate, FixedPricePromotionType }

@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { AdyenPayment } from './adyen_payments'
+import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
 
 
-type AdyenGatewayRel = ResourceRel & { type: typeof AdyenGateways.TYPE }
-type AdyenPaymentRel = ResourceRel & { type: 'adyen_payments' }
+type AdyenGatewayType = 'adyen_gateways'
+type AdyenGatewayRel = ResourceRel & { type: AdyenGatewayType }
+type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
 
 
 interface AdyenGateway extends Resource {
 	
+	readonly type: AdyenGatewayType
+
 	name?: string
 	live_url_prefix?: string
 	async_api?: boolean
@@ -55,9 +58,9 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 }
 
 
-class AdyenGateways extends ApiResource {
+class AdyenGateways extends ApiResource<AdyenGateway> {
 
-	static readonly TYPE: 'adyen_gateways' = 'adyen_gateways' as const
+	static readonly TYPE: AdyenGatewayType = 'adyen_gateways' as const
 	// static readonly PATH = 'adyen_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenGateway>> {
@@ -68,16 +71,12 @@ class AdyenGateways extends ApiResource {
 		return this.resources.create<AdyenGatewayCreate, AdyenGateway>({ ...resource, type: AdyenGateways.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
-		return this.resources.retrieve<AdyenGateway>({ type: AdyenGateways.TYPE, id }, params, options)
-	}
-
 	async update(resource: AdyenGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
 		return this.resources.update<AdyenGatewayUpdate, AdyenGateway>({ ...resource, type: AdyenGateways.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: AdyenGateways.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: AdyenGateways.TYPE } : id, options)
 	}
 
 	async payment_methods(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -91,7 +90,6 @@ class AdyenGateways extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAdyenGateway(resource: any): resource is AdyenGateway {
 		return resource.type && (resource.type === AdyenGateways.TYPE)
 	}
@@ -102,7 +100,7 @@ class AdyenGateways extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AdyenGatewayType {
 		return AdyenGateways.TYPE
 	}
 
@@ -111,4 +109,4 @@ class AdyenGateways extends ApiResource {
 
 export default AdyenGateways
 
-export { AdyenGateway, AdyenGatewayCreate, AdyenGatewayUpdate }
+export type { AdyenGateway, AdyenGatewayCreate, AdyenGatewayUpdate, AdyenGatewayType }

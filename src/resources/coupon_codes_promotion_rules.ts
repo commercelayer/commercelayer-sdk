@@ -1,27 +1,31 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
-import type { FreeShippingPromotion } from './free_shipping_promotions'
-import type { FreeGiftPromotion } from './free_gift_promotions'
-import type { FixedPricePromotion } from './fixed_price_promotions'
-import type { ExternalPromotion } from './external_promotions'
-import type { FixedAmountPromotion } from './fixed_amount_promotions'
-import type { Coupon } from './coupons'
+import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
+import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
+import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
+import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
+import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
+import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
+import type { Coupon, CouponType } from './coupons'
 
 
-type CouponCodesPromotionRuleRel = ResourceRel & { type: typeof CouponCodesPromotionRules.TYPE }
-type PercentageDiscountPromotionRel = ResourceRel & { type: 'percentage_discount_promotions' }
-type FreeShippingPromotionRel = ResourceRel & { type: 'free_shipping_promotions' }
-type FreeGiftPromotionRel = ResourceRel & { type: 'free_gift_promotions' }
-type FixedPricePromotionRel = ResourceRel & { type: 'fixed_price_promotions' }
-type ExternalPromotionRel = ResourceRel & { type: 'external_promotions' }
-type FixedAmountPromotionRel = ResourceRel & { type: 'fixed_amount_promotions' }
-type CouponRel = ResourceRel & { type: 'coupons' }
+type CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules'
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type PercentageDiscountPromotionRel = ResourceRel & { type: PercentageDiscountPromotionType }
+type FreeShippingPromotionRel = ResourceRel & { type: FreeShippingPromotionType }
+type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
+type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
+type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
+type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
+type CouponRel = ResourceRel & { type: CouponType }
 
 
 interface CouponCodesPromotionRule extends Resource {
 	
+	readonly type: CouponCodesPromotionRuleType
+
+
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
 	coupons?: Coupon[]
 
@@ -44,9 +48,9 @@ interface CouponCodesPromotionRuleUpdate extends ResourceUpdate {
 }
 
 
-class CouponCodesPromotionRules extends ApiResource {
+class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
 
-	static readonly TYPE: 'coupon_codes_promotion_rules' = 'coupon_codes_promotion_rules' as const
+	static readonly TYPE: CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules' as const
 	// static readonly PATH = 'coupon_codes_promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CouponCodesPromotionRule>> {
@@ -57,16 +61,12 @@ class CouponCodesPromotionRules extends ApiResource {
 		return this.resources.create<CouponCodesPromotionRuleCreate, CouponCodesPromotionRule>({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		return this.resources.retrieve<CouponCodesPromotionRule>({ type: CouponCodesPromotionRules.TYPE, id }, params, options)
-	}
-
 	async update(resource: CouponCodesPromotionRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		return this.resources.update<CouponCodesPromotionRuleUpdate, CouponCodesPromotionRule>({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: CouponCodesPromotionRules.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: CouponCodesPromotionRules.TYPE } : id, options)
 	}
 
 	async coupons(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
@@ -75,7 +75,6 @@ class CouponCodesPromotionRules extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCouponCodesPromotionRule(resource: any): resource is CouponCodesPromotionRule {
 		return resource.type && (resource.type === CouponCodesPromotionRules.TYPE)
 	}
@@ -86,7 +85,7 @@ class CouponCodesPromotionRules extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CouponCodesPromotionRuleType {
 		return CouponCodesPromotionRules.TYPE
 	}
 
@@ -95,4 +94,4 @@ class CouponCodesPromotionRules extends ApiResource {
 
 export default CouponCodesPromotionRules
 
-export { CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRuleUpdate }
+export type { CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRuleUpdate, CouponCodesPromotionRuleType }

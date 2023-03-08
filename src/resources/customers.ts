@@ -1,7 +1,7 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { CustomerGroup } from './customer_groups'
+import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { CustomerAddress } from './customer_addresses'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { CustomerSubscription } from './customer_subscriptions'
@@ -13,14 +13,17 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type CustomerRel = ResourceRel & { type: typeof Customers.TYPE }
-type CustomerGroupRel = ResourceRel & { type: 'customer_groups' }
+type CustomerType = 'customers'
+type CustomerRel = ResourceRel & { type: CustomerType }
+type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 
 
 interface Customer extends Resource {
 	
+	readonly type: CustomerType
+
 	email?: string
-	status?: string
+	status?: 'prospect' | 'acquired' | 'repeat'
 	has_password?: boolean
 
 	customer_group?: CustomerGroup
@@ -57,9 +60,9 @@ interface CustomerUpdate extends ResourceUpdate {
 }
 
 
-class Customers extends ApiResource {
+class Customers extends ApiResource<Customer> {
 
-	static readonly TYPE: 'customers' = 'customers' as const
+	static readonly TYPE: CustomerType = 'customers' as const
 	// static readonly PATH = 'customers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Customer>> {
@@ -70,16 +73,12 @@ class Customers extends ApiResource {
 		return this.resources.create<CustomerCreate, Customer>({ ...resource, type: Customers.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
-		return this.resources.retrieve<Customer>({ type: Customers.TYPE, id }, params, options)
-	}
-
 	async update(resource: CustomerUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
 		return this.resources.update<CustomerUpdate, Customer>({ ...resource, type: Customers.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Customers.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Customers.TYPE } : id, options)
 	}
 
 	async customer_group(customerId: string | Customer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
@@ -133,7 +132,6 @@ class Customers extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCustomer(resource: any): resource is Customer {
 		return resource.type && (resource.type === Customers.TYPE)
 	}
@@ -144,7 +142,7 @@ class Customers extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CustomerType {
 		return Customers.TYPE
 	}
 
@@ -153,4 +151,4 @@ class Customers extends ApiResource {
 
 export default Customers
 
-export { Customer, CustomerCreate, CustomerUpdate }
+export type { Customer, CustomerCreate, CustomerUpdate, CustomerType }

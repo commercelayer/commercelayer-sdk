@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Capture } from './captures'
 import type { Event } from './events'
 
 
-type RefundRel = ResourceRel & { type: typeof Refunds.TYPE }
+type RefundType = 'refunds'
+type RefundRel = ResourceRel & { type: RefundType }
 
 
 interface Refund extends Resource {
 	
+	readonly type: RefundType
+
 	number?: string
 	currency_code?: string
 	amount_cents?: number
@@ -30,17 +33,13 @@ interface Refund extends Resource {
 }
 
 
-class Refunds extends ApiResource {
+class Refunds extends ApiResource<Refund> {
 
-	static readonly TYPE: 'refunds' = 'refunds' as const
+	static readonly TYPE: RefundType = 'refunds' as const
 	// static readonly PATH = 'refunds'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
 		return this.resources.list<Refund>({ type: Refunds.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Refund> {
-		return this.resources.retrieve<Refund>({ type: Refunds.TYPE, id }, params, options)
 	}
 
 	async order(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -59,7 +58,6 @@ class Refunds extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isRefund(resource: any): resource is Refund {
 		return resource.type && (resource.type === Refunds.TYPE)
 	}
@@ -70,7 +68,7 @@ class Refunds extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): RefundType {
 		return Refunds.TYPE
 	}
 
@@ -79,4 +77,4 @@ class Refunds extends ApiResource {
 
 export default Refunds
 
-export { Refund }
+export type { Refund, RefundType }

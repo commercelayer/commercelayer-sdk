@@ -1,17 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
 
 
-type ExportRel = ResourceRel & { type: typeof Exports.TYPE }
+type ExportType = 'exports'
+type ExportRel = ResourceRel & { type: ExportType }
 
 
 interface Export extends Resource {
 	
+	readonly type: ExportType
+
 	resource_type?: string
 	format?: string
-	status?: string
+	status?: 'pending' | 'in_progress' | 'completed'
 	includes?: string[]
 	filters?: object
 	dry_data?: boolean
@@ -37,9 +40,9 @@ interface ExportCreate extends ResourceCreate {
 }
 
 
-class Exports extends ApiResource {
+class Exports extends ApiResource<Export> {
 
-	static readonly TYPE: 'exports' = 'exports' as const
+	static readonly TYPE: ExportType = 'exports' as const
 	// static readonly PATH = 'exports'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Export>> {
@@ -50,12 +53,8 @@ class Exports extends ApiResource {
 		return this.resources.create<ExportCreate, Export>({ ...resource, type: Exports.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Export> {
-		return this.resources.retrieve<Export>({ type: Exports.TYPE, id }, params, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Exports.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Exports.TYPE } : id, options)
 	}
 
 	async events(exportId: string | Export, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
@@ -64,7 +63,6 @@ class Exports extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isExport(resource: any): resource is Export {
 		return resource.type && (resource.type === Exports.TYPE)
 	}
@@ -75,7 +73,7 @@ class Exports extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ExportType {
 		return Exports.TYPE
 	}
 
@@ -84,4 +82,4 @@ class Exports extends ApiResource {
 
 export default Exports
 
-export { Export, ExportCreate }
+export type { Export, ExportCreate, ExportType }

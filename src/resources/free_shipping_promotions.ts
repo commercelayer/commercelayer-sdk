@@ -1,24 +1,27 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { PromotionRule } from './promotion_rules'
-import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
-import type { SkuListPromotionRule } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Market, MarketType } from './markets'
+import type { PromotionRule, PromotionRuleType } from './promotion_rules'
+import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 
 
-type FreeShippingPromotionRel = ResourceRel & { type: typeof FreeShippingPromotions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
+type FreeShippingPromotionType = 'free_shipping_promotions'
+type FreeShippingPromotionRel = ResourceRel & { type: FreeShippingPromotionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
+type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 
 
 interface FreeShippingPromotion extends Resource {
 	
+	readonly type: FreeShippingPromotionType
+
 	name?: string
 	currency_code?: string
 	starts_at?: string
@@ -71,9 +74,9 @@ interface FreeShippingPromotionUpdate extends ResourceUpdate {
 }
 
 
-class FreeShippingPromotions extends ApiResource {
+class FreeShippingPromotions extends ApiResource<FreeShippingPromotion> {
 
-	static readonly TYPE: 'free_shipping_promotions' = 'free_shipping_promotions' as const
+	static readonly TYPE: FreeShippingPromotionType = 'free_shipping_promotions' as const
 	// static readonly PATH = 'free_shipping_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FreeShippingPromotion>> {
@@ -84,16 +87,12 @@ class FreeShippingPromotions extends ApiResource {
 		return this.resources.create<FreeShippingPromotionCreate, FreeShippingPromotion>({ ...resource, type: FreeShippingPromotions.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
-		return this.resources.retrieve<FreeShippingPromotion>({ type: FreeShippingPromotions.TYPE, id }, params, options)
-	}
-
 	async update(resource: FreeShippingPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
 		return this.resources.update<FreeShippingPromotionUpdate, FreeShippingPromotion>({ ...resource, type: FreeShippingPromotions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: FreeShippingPromotions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: FreeShippingPromotions.TYPE } : id, options)
 	}
 
 	async market(freeShippingPromotionId: string | FreeShippingPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -122,7 +121,6 @@ class FreeShippingPromotions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isFreeShippingPromotion(resource: any): resource is FreeShippingPromotion {
 		return resource.type && (resource.type === FreeShippingPromotions.TYPE)
 	}
@@ -133,7 +131,7 @@ class FreeShippingPromotions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): FreeShippingPromotionType {
 		return FreeShippingPromotions.TYPE
 	}
 
@@ -142,4 +140,4 @@ class FreeShippingPromotions extends ApiResource {
 
 export default FreeShippingPromotions
 
-export { FreeShippingPromotion, FreeShippingPromotionCreate, FreeShippingPromotionUpdate }
+export type { FreeShippingPromotion, FreeShippingPromotionCreate, FreeShippingPromotionUpdate, FreeShippingPromotionType }

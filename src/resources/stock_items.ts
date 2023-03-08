@@ -1,18 +1,21 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockLocation } from './stock_locations'
-import type { Sku } from './skus'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Sku, SkuType } from './skus'
 import type { Attachment } from './attachments'
 
 
-type StockItemRel = ResourceRel & { type: typeof StockItems.TYPE }
-type StockLocationRel = ResourceRel & { type: 'stock_locations' }
-type SkuRel = ResourceRel & { type: 'skus' }
+type StockItemType = 'stock_items'
+type StockItemRel = ResourceRel & { type: StockItemType }
+type StockLocationRel = ResourceRel & { type: StockLocationType }
+type SkuRel = ResourceRel & { type: SkuType }
 
 
 interface StockItem extends Resource {
 	
+	readonly type: StockItemType
+
 	sku_code?: string
 	quantity?: number
 
@@ -45,9 +48,9 @@ interface StockItemUpdate extends ResourceUpdate {
 }
 
 
-class StockItems extends ApiResource {
+class StockItems extends ApiResource<StockItem> {
 
-	static readonly TYPE: 'stock_items' = 'stock_items' as const
+	static readonly TYPE: StockItemType = 'stock_items' as const
 	// static readonly PATH = 'stock_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
@@ -58,16 +61,12 @@ class StockItems extends ApiResource {
 		return this.resources.create<StockItemCreate, StockItem>({ ...resource, type: StockItems.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
-		return this.resources.retrieve<StockItem>({ type: StockItems.TYPE, id }, params, options)
-	}
-
 	async update(resource: StockItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
 		return this.resources.update<StockItemUpdate, StockItem>({ ...resource, type: StockItems.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: StockItems.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: StockItems.TYPE } : id, options)
 	}
 
 	async stock_location(stockItemId: string | StockItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
@@ -86,7 +85,6 @@ class StockItems extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isStockItem(resource: any): resource is StockItem {
 		return resource.type && (resource.type === StockItems.TYPE)
 	}
@@ -97,7 +95,7 @@ class StockItems extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): StockItemType {
 		return StockItems.TYPE
 	}
 
@@ -106,4 +104,4 @@ class StockItems extends ApiResource {
 
 export default StockItems
 
-export { StockItem, StockItemCreate, StockItemUpdate }
+export type { StockItem, StockItemCreate, StockItemUpdate, StockItemType }

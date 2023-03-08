@@ -1,32 +1,32 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
 
 
-type OrderValidationRuleRel = ResourceRel & { type: typeof OrderValidationRules.TYPE }
+type OrderValidationRuleType = 'order_validation_rules'
+type OrderValidationRuleRel = ResourceRel & { type: OrderValidationRuleType }
 
 
 interface OrderValidationRule extends Resource {
 	
+	readonly type: OrderValidationRuleType
+
+
 	market?: Market
 	attachments?: Attachment[]
 
 }
 
 
-class OrderValidationRules extends ApiResource {
+class OrderValidationRules extends ApiResource<OrderValidationRule> {
 
-	static readonly TYPE: 'order_validation_rules' = 'order_validation_rules' as const
+	static readonly TYPE: OrderValidationRuleType = 'order_validation_rules' as const
 	// static readonly PATH = 'order_validation_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderValidationRule>> {
 		return this.resources.list<OrderValidationRule>({ type: OrderValidationRules.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderValidationRule> {
-		return this.resources.retrieve<OrderValidationRule>({ type: OrderValidationRules.TYPE, id }, params, options)
 	}
 
 	async market(orderValidationRuleId: string | OrderValidationRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -40,7 +40,6 @@ class OrderValidationRules extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrderValidationRule(resource: any): resource is OrderValidationRule {
 		return resource.type && (resource.type === OrderValidationRules.TYPE)
 	}
@@ -51,7 +50,7 @@ class OrderValidationRules extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrderValidationRuleType {
 		return OrderValidationRules.TYPE
 	}
 
@@ -60,4 +59,4 @@ class OrderValidationRules extends ApiResource {
 
 export default OrderValidationRules
 
-export { OrderValidationRule }
+export type { OrderValidationRule, OrderValidationRuleType }

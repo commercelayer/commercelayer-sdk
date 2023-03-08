@@ -14,7 +14,10 @@ type RequestInterceptor = (request: RequestObj) => RequestObj | Promise<RequestO
 type ResponseObj = AxiosResponse
 type ResponseInterceptor = (response: ResponseObj) => ResponseObj
 
-type HeadersObj = AxiosResponseHeaders | RawAxiosResponseHeaders
+type ApiHeadersList = 'x-ratelimit-limit' | 'x-ratelimit-count' | 'x-ratelimit-period'
+type ApiHeaders = { [key in ApiHeadersList]: string | number | boolean }
+type HeadersObj = (AxiosResponseHeaders | RawAxiosResponseHeaders) & ApiHeaders
+
 
 type ErrorObj = AxiosError
 type ErrorInterceptor = (error: ErrorObj) => ErrorObj

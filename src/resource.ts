@@ -1,7 +1,7 @@
 
 import ApiClient, { ApiClientInitConfig } from './client'
 import { denormalize, normalize } from './jsonapi'
-import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from './query'
+import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams, QueryFilter } from './query'
 import { ResourceTypeLock } from './api'
 import config from './config'
 import { InterceptorManager } from './interceptor'
@@ -73,14 +73,14 @@ class ListResponse<R> extends Array<R> {
 	first(): R | undefined { return this.length ? this[0] : undefined }
 	last(): R | undefined { return this.length ? this[this.length - 1] : undefined }
 	get(index: number): R | undefined { return (this.length && (index >= 0)) ? this[index] : undefined }
-	// getMetaInfo(): ListMeta { return this.meta }
-	// hasNextPage(): boolean { return (this.meta.currentPage < this.meta.pageCount) }
-	// hasPrevPage(): boolean { return (this.meta.currentPage > 1) }
-	// recordCount(): number { return this.meta.recordCount }
-	// pageCount(): number { return this.meta.pageCount }
-	// get metaInfo(): ListMeta { return this.meta }
-	// get recordCount(): number { return this.meta.recordCount }
-	// get pageCount(): number { return this.meta.pageCount }
+
+	hasNextPage(): boolean { return (this.meta.currentPage < this.meta.pageCount) }
+	hasPrevPage(): boolean { return (this.meta.currentPage > 1) }
+	
+	getRecordCount(): number { return this.meta.recordCount }
+	getPageCount(): number { return this.meta.pageCount }
+	get recordCount(): number { return this.meta.recordCount }
+	get pageCount(): number { return this.meta.pageCount }
 
 }
 
@@ -247,7 +247,7 @@ class ResourceAdapter {
 
 
 
-abstract class ApiResource {
+abstract class ApiResourceBase<R extends Resource> {
 
 	static readonly TYPE: ResourceTypeLock
 	// static readonly PATH: ResourceTypeLock
@@ -260,12 +260,38 @@ abstract class ApiResource {
 
 	abstract relationship(id: string | ResourceId | null): ResourceRel
 
-	abstract type(): string
+	abstract type(): ResourceTypeLock
 
 
 	// reference, reference_origin and metadata attributes are always updatable
-	async update(resource: ResourceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Resource> {
-		return this.resources.update<ResourceUpdate, Resource>({ ...resource, type: this.type() as ResourceTypeLock }, params, options)
+	async update(resource: ResourceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+		return this.resources.update<ResourceUpdate, R>({ ...resource, type: this.type() }, params, options)
+	}
+
+	
+	async count(filter?: QueryFilter, options?: ResourcesConfig): Promise<number> {
+		const params: QueryParamsList = { filters: filter, pageNumber: 1, pageSize: 1 }
+		const response = await this.resources.list<R>({ type: this.type() }, params, options)
+		return Promise.resolve(response.meta.recordCount)
+	}
+	
+
+}
+
+
+abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
+
+	async retrieve(id: string | ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+		return this.resources.retrieve<R>((typeof id === 'string')? { type: this.type(), id } : id, params, options)
+	}
+
+}
+
+
+abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
+
+	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+		return this.resources.singleton<R>({ type: this.type() }, params, options)
 	}
 
 }
@@ -274,4 +300,4 @@ abstract class ApiResource {
 
 export default ResourceAdapter
 
-export { ApiResource, ResourcesConfig, ResourcesInitConfig }
+export { ApiResource, ApiSingleton, ResourcesConfig, ResourcesInitConfig }

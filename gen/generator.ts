@@ -1,5 +1,5 @@
 
-import apiSchema, { Resource, Operation, Component, Cardinality } from './schema'
+import apiSchema, { Resource, Operation, Component, Cardinality, Attribute } from './schema'
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
 import { basename } from 'path'
 import { capitalize, snakeCase } from 'lodash'
@@ -392,76 +392,105 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 	const resName = name
 
-	const declaredTypes: Set<string> = new Set()
-	const declaredImports: Set<string> = new Set()
+	const resModelInterface = Inflector.singularize(resName)
+	let resModelType = 'ApiResource'
+
+	const declaredTypes: Set<string> = new Set([resModelInterface])
+	// const declaredEnums: ComponentEnums = {}
+	const declaredImportsModels: Set<string> = new Set()
+	const declaredImportsCommon: Set<string> = new Set(['ResourceId'])
+
 
 	// Header
 	res = copyrightHeader(res)
 
 
 	// Operations
-	const qryMod: string[] = []
+	const qryMod = new Set<string>()
 	const resMod: string[] = []
 	Object.entries(resource.operations).forEach(([opName, op]) => {
 		const tpl = op.singleton ? templates['singleton'] : templates[opName]
+		if (op.singleton) resModelType = 'ApiSingleton'
 		if (tpl) {
-			if (['retrieve', 'list'].includes(opName)) {
-				qryMod.push('QueryParams' + capitalize(op.singleton ? 'retrieve' : opName))
-				if ((opName === 'list') && !op.singleton) resMod.push('ListResponse')
+			if (['create', 'update'].includes(opName)) qryMod.add('QueryParamsRetrieve')
+			else
+			if ((opName === 'list') && !op.singleton) {
+				resMod.push('ListResponse')
+				qryMod.add('QueryParamsList')
 			}
-			const tplOp = templatedOperation(resName, opName, op, tpl)
-			operations.push(tplOp.operation)
-			tplOp.types.forEach(t => { declaredTypes.add(t) })
+			if ((opName === 'retrieve') || ((opName === 'list' && op.singleton))) {
+				// do nothing, retrieve operation i scommon to all resoucres
+			}
+			else {
+				const tplOp = templatedOperation(resName, opName, op, tpl)
+				operations.push(tplOp.operation)
+				tplOp.types.forEach(t => { declaredTypes.add(t) })
+			}
 		}
 		else {
 			if (op.relationship) {
 				const tplr = templates[`relationship_${op.relationship.cardinality.replace('to_', '')}`]
 				const tplrOp = templatedOperation(resName, opName, op, tplr)
+				if (op.relationship.cardinality === Cardinality.to_one) qryMod.add('QueryParamsRetrieve')
+				else
+				if (op.relationship.cardinality === Cardinality.to_many) qryMod.add('QueryParamsList')
 				operations.push(tplrOp.operation)
 			} else console.log('Unknown operation: ' + opName)
 		}
 	})
-	res = res.replace(/##__QUERY_MODELS__##/g, qryMod.join(', '))
-	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.length > 0) ? `, ${resMod.join(', ')}`: '')
-	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(resName))
 
+	if (operations && (operations.length > 0)) declaredImportsCommon.add('ResourcesConfig')
+
+	res = res.replace(/##__RESOURCE_MODEL_TYPE__##/g, resModelType)
+	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.length > 0) ? `, ${resMod.join(', ')}`: '')
+	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, resModelInterface)
+	res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
+
+	const importQueryModels = (qryMod.size > 0)? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
+	res = res.replace(/##__IMPORT_QUERY_MODELS__##/, importQueryModels)
+	
 
 	// Resource definition
 	res = res.replace(/##__RESOURCE_TYPE__##/g, type)
 	res = res.replace(/##__RESOURCE_CLASS__##/g, resName)
-	if (operations && (operations.length > 0)) res = res.replace(/##__RESOURCE_OPERATIONS__##/g, operations.join('\n\n\t'))
+
+	const resourceOperations = (operations && (operations.length > 0))? operations.join('\n\n\t') : ''
+	res = res.replace(/##__RESOURCE_OPERATIONS__##/, resourceOperations)
+
 
 	// Interfaces export
 	const typesArray = Array.from(declaredTypes)
 	res = res.replace(/##__EXPORT_RESOURCE_TYPES__##/g, typesArray.join(', '))
 
-	// Interfaces definition
-	const modIntf: string[] = []
-	const resIntf: string[] = []
-	const relTypes: Set<string> = new Set()
+	// Interfaces and types definition
+	const modelInterfaces: string[] = []
+	const resourceInterfaces: string[] = []
+	const relationshipTypes: Set<string> = new Set()
 
 	typesArray.forEach(t => {
 		const cudSuffix = getCUDSuffix(t)
-		resIntf.push(`Resource${cudSuffix}`)
+		resourceInterfaces.push(`Resource${cudSuffix}`)
 		const tplCmp = templatedComponent(resName, t, resource.components[t])
-		tplCmp.models.forEach(m => declaredImports.add(m))
-		modIntf.push(tplCmp.component)
-		if (cudSuffix) tplCmp.models.forEach(t => relTypes.add(t))
+		tplCmp.models.forEach(m => declaredImportsModels.add(m))
+		modelInterfaces.push(tplCmp.component)
+		if (cudSuffix) tplCmp.models.forEach(t => relationshipTypes.add(t))
 	})
-	res = res.replace(/##__MODEL_INTERFACES__##/g, modIntf.join('\n\n\n'))
-	res = res.replace(/##__RESOURCE_INTERFACES__##/g, resIntf.join(', '))
+	res = res.replace(/##__MODEL_INTERFACES__##/g, modelInterfaces.join('\n\n\n'))
+	res = res.replace(/##__RESOURCE_INTERFACES__##/g, resourceInterfaces.join(', '))
 
 
 	// Relationships definition
-	const relTypesArray = Array.from(relTypes).map(i => `type ${i}Rel = ResourceRel & { type: '${snakeCase(Inflector.pluralize(i))}' }`)
+	const relTypesArray = Array.from(relationshipTypes).map(i => `type ${i}Rel = ResourceRel & { type: ${i}Type }`)
 	res = res.replace(/##__RELATIONSHIP_TYPES__##/g, relTypesArray.length ? (relTypesArray.join('\n') + '\n') : '')
 
 	// Resources import
-	const impResMod: string[] = Array.from(declaredImports)
+	const impResMod: string[] = Array.from(declaredImportsModels)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import type { ${i} } from './${snakeCase(Inflector.pluralize(i))}'`)
+		.map(i => `import type { ${i}${relationshipTypes.has(i)? `, ${i}Type` : ''} } from './${snakeCase(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
+
+	// Enum types definitions
 
 
 	return res
@@ -502,10 +531,12 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 }
 
 
-const expType = (type: string): string => {
-	switch (type) {
+const fixAttributeType = (attr: Attribute): string => {
+	if (attr.enum) return `${attr.enum.map(a => `'${a}'`).join(' | ')}`
+	else
+	switch (attr.type) {
 		case 'integer': return 'number'
-		default: return type
+		default: return attr.type
 	}
 }
 
@@ -530,17 +561,30 @@ const isCUDModel = (name: string): boolean => {
 }
 
 
-const templatedComponent = (res: string, name: string, cmp: Component): { component: string, models: string[] } => {
+type ComponentEnums = { [key: string]: string }
+
+const templatedComponent = (res: string, name: string, cmp: Component): { component: string, models: string[], enums: ComponentEnums } => {
+
+	const cudModel = isCUDModel(name)
 
 	const models: string[] = []
+	const enums: ComponentEnums = {}
 
 	// Attributes
 	const attributes = Object.values(cmp.attributes)
 	const fields: string[] = []
 	attributes.forEach(a => {
-		if (!['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at'].includes(a.name))
-			fields.push(`${a.name}${a.required ? '' : '?'}: ${expType(a.type)}`)
+		if (!['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at'].includes(a.name)) {
+			if (cudModel || a.fetchable) {
+				let attrType = fixAttributeType(a)
+				if (a.enum) enums[a.name] = attrType
+				fields.push(`${a.name}${a.required ? '' : '?'}: ${attrType}`)
+			}
+		}
 	})
+
+	// Specific resource type
+	if (!cudModel) fields.unshift(`readonly type: ${name}Type\n`)
 
 	// Relationships
 	const relationships = Object.values(cmp.relationships)
@@ -555,7 +599,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			let resName = r.type
 
 			if (resName !== 'object') {
-				const relStr = isCUDModel(name) ? 'Rel' : ''
+				const relStr = cudModel ? 'Rel' : ''
 				if (r.polymorphic && r.oneOf) {
 					resName = r.oneOf.map(o => `${o}${relStr}`).join(' | ')
 					models.push(...r.oneOf)
@@ -591,7 +635,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	component = component.replace(/##__RESOURCE_MODEL_RELATIONSHIPS__##/g, relsStr)
 
 
-	return { component, models }
+	return { component, models, enums }
 
 }
 

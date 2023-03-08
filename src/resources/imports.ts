@@ -1,17 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
 
 
-type ImportRel = ResourceRel & { type: typeof Imports.TYPE }
+type ImportType = 'imports'
+type ImportRel = ResourceRel & { type: ImportType }
 
 
 interface Import extends Resource {
 	
+	readonly type: ImportType
+
 	resource_type?: string
 	parent_resource_id?: string
-	status?: string
+	status?: 'pending' | 'in_progress' | 'interrupted' | 'completed'
 	started_at?: string
 	completed_at?: string
 	interrupted_at?: string
@@ -42,9 +45,9 @@ interface ImportCreate extends ResourceCreate {
 }
 
 
-class Imports extends ApiResource {
+class Imports extends ApiResource<Import> {
 
-	static readonly TYPE: 'imports' = 'imports' as const
+	static readonly TYPE: ImportType = 'imports' as const
 	// static readonly PATH = 'imports'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Import>> {
@@ -55,12 +58,8 @@ class Imports extends ApiResource {
 		return this.resources.create<ImportCreate, Import>({ ...resource, type: Imports.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {
-		return this.resources.retrieve<Import>({ type: Imports.TYPE, id }, params, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Imports.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Imports.TYPE } : id, options)
 	}
 
 	async events(importId: string | Import, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
@@ -69,7 +68,6 @@ class Imports extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isImport(resource: any): resource is Import {
 		return resource.type && (resource.type === Imports.TYPE)
 	}
@@ -80,7 +78,7 @@ class Imports extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ImportType {
 		return Imports.TYPE
 	}
 
@@ -89,4 +87,4 @@ class Imports extends ApiResource {
 
 export default Imports
 
-export { Import, ImportCreate }
+export type { Import, ImportCreate, ImportType }

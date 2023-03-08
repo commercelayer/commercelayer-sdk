@@ -1,13 +1,16 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import { ApiSingleton, Resource, ResourceId, ResourceRel } from '../resource'
 
 
 
-type OrganizationRel = ResourceRel & { type: typeof Organizations.TYPE }
+
+type OrganizationType = 'organization'
+type OrganizationRel = ResourceRel & { type: OrganizationType }
 
 
 interface Organization extends Resource {
 	
+	readonly type: OrganizationType
+
 	name?: string
 	slug?: string
 	domain?: string
@@ -28,17 +31,14 @@ interface Organization extends Resource {
 }
 
 
-class Organizations extends ApiResource {
+class Organizations extends ApiSingleton<Organization> {
 
-	static readonly TYPE: 'organization' = 'organization' as const
+	static readonly TYPE: OrganizationType = 'organization' as const
 	// static readonly PATH = 'organization'
 
-	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {
-		return this.resources.singleton<Organization>({ type: Organizations.TYPE }, params, options)
-	}
+	
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrganization(resource: any): resource is Organization {
 		return resource.type && (resource.type === Organizations.TYPE)
 	}
@@ -49,7 +49,7 @@ class Organizations extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrganizationType {
 		return Organizations.TYPE
 	}
 
@@ -58,4 +58,4 @@ class Organizations extends ApiResource {
 
 export default Organizations
 
-export { Organization }
+export type { Organization, OrganizationType }

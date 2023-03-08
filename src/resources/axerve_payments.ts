@@ -1,16 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type AxervePaymentRel = ResourceRel & { type: typeof AxervePayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type AxervePaymentType = 'axerve_payments'
+type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface AxervePayment extends Resource {
 	
+	readonly type: AxervePaymentType
+
+	login?: string
 	return_url?: string
 	payment_request_data?: object
 	mismatched_amounts?: boolean
@@ -44,9 +48,9 @@ interface AxervePaymentUpdate extends ResourceUpdate {
 }
 
 
-class AxervePayments extends ApiResource {
+class AxervePayments extends ApiResource<AxervePayment> {
 
-	static readonly TYPE: 'axerve_payments' = 'axerve_payments' as const
+	static readonly TYPE: AxervePaymentType = 'axerve_payments' as const
 	// static readonly PATH = 'axerve_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AxervePayment>> {
@@ -57,16 +61,12 @@ class AxervePayments extends ApiResource {
 		return this.resources.create<AxervePaymentCreate, AxervePayment>({ ...resource, type: AxervePayments.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AxervePayment> {
-		return this.resources.retrieve<AxervePayment>({ type: AxervePayments.TYPE, id }, params, options)
-	}
-
 	async update(resource: AxervePaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AxervePayment> {
 		return this.resources.update<AxervePaymentUpdate, AxervePayment>({ ...resource, type: AxervePayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: AxervePayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: AxervePayments.TYPE } : id, options)
 	}
 
 	async order(axervePaymentId: string | AxervePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -80,7 +80,6 @@ class AxervePayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAxervePayment(resource: any): resource is AxervePayment {
 		return resource.type && (resource.type === AxervePayments.TYPE)
 	}
@@ -91,7 +90,7 @@ class AxervePayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AxervePaymentType {
 		return AxervePayments.TYPE
 	}
 
@@ -100,4 +99,4 @@ class AxervePayments extends ApiResource {
 
 export default AxervePayments
 
-export { AxervePayment, AxervePaymentCreate, AxervePaymentUpdate }
+export type { AxervePayment, AxervePaymentCreate, AxervePaymentUpdate, AxervePaymentType }

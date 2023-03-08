@@ -1,15 +1,18 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
 
 
-type TaxCalculatorRel = ResourceRel & { type: typeof TaxCalculators.TYPE }
+type TaxCalculatorType = 'tax_calculators'
+type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 
 
 interface TaxCalculator extends Resource {
 	
+	readonly type: TaxCalculatorType
+
 	name?: string
 
 	markets?: Market[]
@@ -18,17 +21,13 @@ interface TaxCalculator extends Resource {
 }
 
 
-class TaxCalculators extends ApiResource {
+class TaxCalculators extends ApiResource<TaxCalculator> {
 
-	static readonly TYPE: 'tax_calculators' = 'tax_calculators' as const
+	static readonly TYPE: TaxCalculatorType = 'tax_calculators' as const
 	// static readonly PATH = 'tax_calculators'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCalculator>> {
 		return this.resources.list<TaxCalculator>({ type: TaxCalculators.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCalculator> {
-		return this.resources.retrieve<TaxCalculator>({ type: TaxCalculators.TYPE, id }, params, options)
 	}
 
 	async markets(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
@@ -42,7 +41,6 @@ class TaxCalculators extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isTaxCalculator(resource: any): resource is TaxCalculator {
 		return resource.type && (resource.type === TaxCalculators.TYPE)
 	}
@@ -53,7 +51,7 @@ class TaxCalculators extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): TaxCalculatorType {
 		return TaxCalculators.TYPE
 	}
 
@@ -62,4 +60,4 @@ class TaxCalculators extends ApiResource {
 
 export default TaxCalculators
 
-export { TaxCalculator }
+export type { TaxCalculator, TaxCalculatorType }

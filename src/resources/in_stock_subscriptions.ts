@@ -1,21 +1,24 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { Customer } from './customers'
-import type { Sku } from './skus'
+import type { Market, MarketType } from './markets'
+import type { Customer, CustomerType } from './customers'
+import type { Sku, SkuType } from './skus'
 import type { Event } from './events'
 
 
-type InStockSubscriptionRel = ResourceRel & { type: typeof InStockSubscriptions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type CustomerRel = ResourceRel & { type: 'customers' }
-type SkuRel = ResourceRel & { type: 'skus' }
+type InStockSubscriptionType = 'in_stock_subscriptions'
+type InStockSubscriptionRel = ResourceRel & { type: InStockSubscriptionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type CustomerRel = ResourceRel & { type: CustomerType }
+type SkuRel = ResourceRel & { type: SkuType }
 
 
 interface InStockSubscription extends Resource {
 	
-	status?: string
+	readonly type: InStockSubscriptionType
+
+	status?: 'active' | 'inactive' | 'notified'
 	customer_email?: string
 	sku_code?: string
 	stock_threshold?: number
@@ -55,9 +58,9 @@ interface InStockSubscriptionUpdate extends ResourceUpdate {
 }
 
 
-class InStockSubscriptions extends ApiResource {
+class InStockSubscriptions extends ApiResource<InStockSubscription> {
 
-	static readonly TYPE: 'in_stock_subscriptions' = 'in_stock_subscriptions' as const
+	static readonly TYPE: InStockSubscriptionType = 'in_stock_subscriptions' as const
 	// static readonly PATH = 'in_stock_subscriptions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InStockSubscription>> {
@@ -68,16 +71,12 @@ class InStockSubscriptions extends ApiResource {
 		return this.resources.create<InStockSubscriptionCreate, InStockSubscription>({ ...resource, type: InStockSubscriptions.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
-		return this.resources.retrieve<InStockSubscription>({ type: InStockSubscriptions.TYPE, id }, params, options)
-	}
-
 	async update(resource: InStockSubscriptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
 		return this.resources.update<InStockSubscriptionUpdate, InStockSubscription>({ ...resource, type: InStockSubscriptions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: InStockSubscriptions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: InStockSubscriptions.TYPE } : id, options)
 	}
 
 	async market(inStockSubscriptionId: string | InStockSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -101,7 +100,6 @@ class InStockSubscriptions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isInStockSubscription(resource: any): resource is InStockSubscription {
 		return resource.type && (resource.type === InStockSubscriptions.TYPE)
 	}
@@ -112,7 +110,7 @@ class InStockSubscriptions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): InStockSubscriptionType {
 		return InStockSubscriptions.TYPE
 	}
 
@@ -121,4 +119,4 @@ class InStockSubscriptions extends ApiResource {
 
 export default InStockSubscriptions
 
-export { InStockSubscription, InStockSubscriptionCreate, InStockSubscriptionUpdate }
+export type { InStockSubscription, InStockSubscriptionCreate, InStockSubscriptionUpdate, InStockSubscriptionType }

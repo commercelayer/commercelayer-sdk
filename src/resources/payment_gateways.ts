@@ -1,14 +1,17 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 
 
-type PaymentGatewayRel = ResourceRel & { type: typeof PaymentGateways.TYPE }
+type PaymentGatewayType = 'payment_gateways'
+type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
 
 
 interface PaymentGateway extends Resource {
 	
+	readonly type: PaymentGatewayType
+
 	name?: string
 
 	payment_methods?: PaymentMethod[]
@@ -16,17 +19,13 @@ interface PaymentGateway extends Resource {
 }
 
 
-class PaymentGateways extends ApiResource {
+class PaymentGateways extends ApiResource<PaymentGateway> {
 
-	static readonly TYPE: 'payment_gateways' = 'payment_gateways' as const
+	static readonly TYPE: PaymentGatewayType = 'payment_gateways' as const
 	// static readonly PATH = 'payment_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentGateway>> {
 		return this.resources.list<PaymentGateway>({ type: PaymentGateways.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
-		return this.resources.retrieve<PaymentGateway>({ type: PaymentGateways.TYPE, id }, params, options)
 	}
 
 	async payment_methods(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -35,7 +34,6 @@ class PaymentGateways extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPaymentGateway(resource: any): resource is PaymentGateway {
 		return resource.type && (resource.type === PaymentGateways.TYPE)
 	}
@@ -46,7 +44,7 @@ class PaymentGateways extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PaymentGatewayType {
 		return PaymentGateways.TYPE
 	}
 
@@ -55,4 +53,4 @@ class PaymentGateways extends ApiResource {
 
 export default PaymentGateways
 
-export { PaymentGateway }
+export type { PaymentGateway, PaymentGatewayType }

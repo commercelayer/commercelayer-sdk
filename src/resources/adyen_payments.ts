@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type AdyenPaymentRel = ResourceRel & { type: typeof AdyenPayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type AdyenPaymentType = 'adyen_payments'
+type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface AdyenPayment extends Resource {
 	
+	readonly type: AdyenPaymentType
+
 	public_key?: string
 	payment_methods?: object
 	payment_request_data?: object
@@ -44,9 +47,9 @@ interface AdyenPaymentUpdate extends ResourceUpdate {
 }
 
 
-class AdyenPayments extends ApiResource {
+class AdyenPayments extends ApiResource<AdyenPayment> {
 
-	static readonly TYPE: 'adyen_payments' = 'adyen_payments' as const
+	static readonly TYPE: AdyenPaymentType = 'adyen_payments' as const
 	// static readonly PATH = 'adyen_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenPayment>> {
@@ -57,16 +60,12 @@ class AdyenPayments extends ApiResource {
 		return this.resources.create<AdyenPaymentCreate, AdyenPayment>({ ...resource, type: AdyenPayments.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment> {
-		return this.resources.retrieve<AdyenPayment>({ type: AdyenPayments.TYPE, id }, params, options)
-	}
-
 	async update(resource: AdyenPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment> {
 		return this.resources.update<AdyenPaymentUpdate, AdyenPayment>({ ...resource, type: AdyenPayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: AdyenPayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: AdyenPayments.TYPE } : id, options)
 	}
 
 	async order(adyenPaymentId: string | AdyenPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -80,7 +79,6 @@ class AdyenPayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAdyenPayment(resource: any): resource is AdyenPayment {
 		return resource.type && (resource.type === AdyenPayments.TYPE)
 	}
@@ -91,7 +89,7 @@ class AdyenPayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AdyenPaymentType {
 		return AdyenPayments.TYPE
 	}
 
@@ -100,4 +98,4 @@ class AdyenPayments extends ApiResource {
 
 export default AdyenPayments
 
-export { AdyenPayment, AdyenPaymentCreate, AdyenPaymentUpdate }
+export type { AdyenPayment, AdyenPaymentCreate, AdyenPaymentUpdate, AdyenPaymentType }

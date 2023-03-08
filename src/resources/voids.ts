@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Authorization } from './authorizations'
 import type { Event } from './events'
 
 
-type VoidRel = ResourceRel & { type: typeof Voids.TYPE }
+type VoidType = 'voids'
+type VoidRel = ResourceRel & { type: VoidType }
 
 
 interface Void extends Resource {
 	
+	readonly type: VoidType
+
 	number?: string
 	currency_code?: string
 	amount_cents?: number
@@ -30,17 +33,13 @@ interface Void extends Resource {
 }
 
 
-class Voids extends ApiResource {
+class Voids extends ApiResource<Void> {
 
-	static readonly TYPE: 'voids' = 'voids' as const
+	static readonly TYPE: VoidType = 'voids' as const
 	// static readonly PATH = 'voids'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
 		return this.resources.list<Void>({ type: Voids.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Void> {
-		return this.resources.retrieve<Void>({ type: Voids.TYPE, id }, params, options)
 	}
 
 	async order(voidId: string | Void, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -59,7 +58,6 @@ class Voids extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isVoid(resource: any): resource is Void {
 		return resource.type && (resource.type === Voids.TYPE)
 	}
@@ -70,7 +68,7 @@ class Voids extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): VoidType {
 		return Voids.TYPE
 	}
 
@@ -79,4 +77,4 @@ class Voids extends ApiResource {
 
 export default Voids
 
-export { Void }
+export type { Void, VoidType }

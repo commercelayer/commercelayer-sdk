@@ -1,24 +1,27 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Sku } from './skus'
-import type { StockLocation } from './stock_locations'
-import type { Shipment } from './shipments'
-import type { LineItem } from './line_items'
+import type { Sku, SkuType } from './skus'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Shipment, ShipmentType } from './shipments'
+import type { LineItem, LineItemType } from './line_items'
 import type { Event } from './events'
 
 
-type StockTransferRel = ResourceRel & { type: typeof StockTransfers.TYPE }
-type SkuRel = ResourceRel & { type: 'skus' }
-type StockLocationRel = ResourceRel & { type: 'stock_locations' }
-type ShipmentRel = ResourceRel & { type: 'shipments' }
-type LineItemRel = ResourceRel & { type: 'line_items' }
+type StockTransferType = 'stock_transfers'
+type StockTransferRel = ResourceRel & { type: StockTransferType }
+type SkuRel = ResourceRel & { type: SkuType }
+type StockLocationRel = ResourceRel & { type: StockLocationType }
+type ShipmentRel = ResourceRel & { type: ShipmentType }
+type LineItemRel = ResourceRel & { type: LineItemType }
 
 
 interface StockTransfer extends Resource {
 	
+	readonly type: StockTransferType
+
 	sku_code?: string
-	status?: string
+	status?: 'draft' | 'upcoming' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
 	quantity?: number
 	completed_at?: string
 	cancelled_at?: string
@@ -63,9 +66,9 @@ interface StockTransferUpdate extends ResourceUpdate {
 }
 
 
-class StockTransfers extends ApiResource {
+class StockTransfers extends ApiResource<StockTransfer> {
 
-	static readonly TYPE: 'stock_transfers' = 'stock_transfers' as const
+	static readonly TYPE: StockTransferType = 'stock_transfers' as const
 	// static readonly PATH = 'stock_transfers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
@@ -76,16 +79,12 @@ class StockTransfers extends ApiResource {
 		return this.resources.create<StockTransferCreate, StockTransfer>({ ...resource, type: StockTransfers.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.retrieve<StockTransfer>({ type: StockTransfers.TYPE, id }, params, options)
-	}
-
 	async update(resource: StockTransferUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
 		return this.resources.update<StockTransferUpdate, StockTransfer>({ ...resource, type: StockTransfers.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: StockTransfers.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: StockTransfers.TYPE } : id, options)
 	}
 
 	async sku(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
@@ -119,7 +118,6 @@ class StockTransfers extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isStockTransfer(resource: any): resource is StockTransfer {
 		return resource.type && (resource.type === StockTransfers.TYPE)
 	}
@@ -130,7 +128,7 @@ class StockTransfers extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): StockTransferType {
 		return StockTransfers.TYPE
 	}
 
@@ -139,4 +137,4 @@ class StockTransfers extends ApiResource {
 
 export default StockTransfers
 
-export { StockTransfer, StockTransferCreate, StockTransferUpdate }
+export type { StockTransfer, StockTransferCreate, StockTransferUpdate, StockTransferType }

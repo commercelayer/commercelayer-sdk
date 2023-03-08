@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { AxervePayment } from './axerve_payments'
+import type { AxervePayment, AxervePaymentType } from './axerve_payments'
 
 
-type AxerveGatewayRel = ResourceRel & { type: typeof AxerveGateways.TYPE }
-type AxervePaymentRel = ResourceRel & { type: 'axerve_payments' }
+type AxerveGatewayType = 'axerve_gateways'
+type AxerveGatewayRel = ResourceRel & { type: AxerveGatewayType }
+type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
 
 
 interface AxerveGateway extends Resource {
 	
+	readonly type: AxerveGatewayType
+
 	name?: string
 	login?: string
 
@@ -42,9 +45,9 @@ interface AxerveGatewayUpdate extends ResourceUpdate {
 }
 
 
-class AxerveGateways extends ApiResource {
+class AxerveGateways extends ApiResource<AxerveGateway> {
 
-	static readonly TYPE: 'axerve_gateways' = 'axerve_gateways' as const
+	static readonly TYPE: AxerveGatewayType = 'axerve_gateways' as const
 	// static readonly PATH = 'axerve_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AxerveGateway>> {
@@ -55,16 +58,12 @@ class AxerveGateways extends ApiResource {
 		return this.resources.create<AxerveGatewayCreate, AxerveGateway>({ ...resource, type: AxerveGateways.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AxerveGateway> {
-		return this.resources.retrieve<AxerveGateway>({ type: AxerveGateways.TYPE, id }, params, options)
-	}
-
 	async update(resource: AxerveGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AxerveGateway> {
 		return this.resources.update<AxerveGatewayUpdate, AxerveGateway>({ ...resource, type: AxerveGateways.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: AxerveGateways.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: AxerveGateways.TYPE } : id, options)
 	}
 
 	async payment_methods(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -78,7 +77,6 @@ class AxerveGateways extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAxerveGateway(resource: any): resource is AxerveGateway {
 		return resource.type && (resource.type === AxerveGateways.TYPE)
 	}
@@ -89,7 +87,7 @@ class AxerveGateways extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AxerveGatewayType {
 		return AxerveGateways.TYPE
 	}
 
@@ -98,4 +96,4 @@ class AxerveGateways extends ApiResource {
 
 export default AxerveGateways
 
-export { AxerveGateway, AxerveGatewayCreate, AxerveGatewayUpdate }
+export type { AxerveGateway, AxerveGatewayCreate, AxerveGatewayUpdate, AxerveGatewayType }

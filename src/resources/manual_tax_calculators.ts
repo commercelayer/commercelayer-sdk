@@ -1,17 +1,20 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
-import type { TaxRule } from './tax_rules'
+import type { TaxRule, TaxRuleType } from './tax_rules'
 
 
-type ManualTaxCalculatorRel = ResourceRel & { type: typeof ManualTaxCalculators.TYPE }
-type TaxRuleRel = ResourceRel & { type: 'tax_rules' }
+type ManualTaxCalculatorType = 'manual_tax_calculators'
+type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
+type TaxRuleRel = ResourceRel & { type: TaxRuleType }
 
 
 interface ManualTaxCalculator extends Resource {
 	
+	readonly type: ManualTaxCalculatorType
+
 	name?: string
 
 	markets?: Market[]
@@ -39,9 +42,9 @@ interface ManualTaxCalculatorUpdate extends ResourceUpdate {
 }
 
 
-class ManualTaxCalculators extends ApiResource {
+class ManualTaxCalculators extends ApiResource<ManualTaxCalculator> {
 
-	static readonly TYPE: 'manual_tax_calculators' = 'manual_tax_calculators' as const
+	static readonly TYPE: ManualTaxCalculatorType = 'manual_tax_calculators' as const
 	// static readonly PATH = 'manual_tax_calculators'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ManualTaxCalculator>> {
@@ -52,16 +55,12 @@ class ManualTaxCalculators extends ApiResource {
 		return this.resources.create<ManualTaxCalculatorCreate, ManualTaxCalculator>({ ...resource, type: ManualTaxCalculators.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
-		return this.resources.retrieve<ManualTaxCalculator>({ type: ManualTaxCalculators.TYPE, id }, params, options)
-	}
-
 	async update(resource: ManualTaxCalculatorUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
 		return this.resources.update<ManualTaxCalculatorUpdate, ManualTaxCalculator>({ ...resource, type: ManualTaxCalculators.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ManualTaxCalculators.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ManualTaxCalculators.TYPE } : id, options)
 	}
 
 	async markets(manualTaxCalculatorId: string | ManualTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
@@ -80,7 +79,6 @@ class ManualTaxCalculators extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isManualTaxCalculator(resource: any): resource is ManualTaxCalculator {
 		return resource.type && (resource.type === ManualTaxCalculators.TYPE)
 	}
@@ -91,7 +89,7 @@ class ManualTaxCalculators extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ManualTaxCalculatorType {
 		return ManualTaxCalculators.TYPE
 	}
 
@@ -100,4 +98,4 @@ class ManualTaxCalculators extends ApiResource {
 
 export default ManualTaxCalculators
 
-export { ManualTaxCalculator, ManualTaxCalculatorCreate, ManualTaxCalculatorUpdate }
+export type { ManualTaxCalculator, ManualTaxCalculatorCreate, ManualTaxCalculatorUpdate, ManualTaxCalculatorType }

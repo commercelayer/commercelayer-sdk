@@ -1,25 +1,28 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { PromotionRule } from './promotion_rules'
-import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
-import type { SkuListPromotionRule } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Market, MarketType } from './markets'
+import type { PromotionRule, PromotionRuleType } from './promotion_rules'
+import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type ExternalPromotionRel = ResourceRel & { type: typeof ExternalPromotions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
+type ExternalPromotionType = 'external_promotions'
+type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
+type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 
 
 interface ExternalPromotion extends Resource {
 	
+	readonly type: ExternalPromotionType
+
 	name?: string
 	currency_code?: string
 	starts_at?: string
@@ -77,9 +80,9 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 }
 
 
-class ExternalPromotions extends ApiResource {
+class ExternalPromotions extends ApiResource<ExternalPromotion> {
 
-	static readonly TYPE: 'external_promotions' = 'external_promotions' as const
+	static readonly TYPE: ExternalPromotionType = 'external_promotions' as const
 	// static readonly PATH = 'external_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalPromotion>> {
@@ -90,16 +93,12 @@ class ExternalPromotions extends ApiResource {
 		return this.resources.create<ExternalPromotionCreate, ExternalPromotion>({ ...resource, type: ExternalPromotions.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
-		return this.resources.retrieve<ExternalPromotion>({ type: ExternalPromotions.TYPE, id }, params, options)
-	}
-
 	async update(resource: ExternalPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
 		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ ...resource, type: ExternalPromotions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ExternalPromotions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ExternalPromotions.TYPE } : id, options)
 	}
 
 	async market(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -133,7 +132,6 @@ class ExternalPromotions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isExternalPromotion(resource: any): resource is ExternalPromotion {
 		return resource.type && (resource.type === ExternalPromotions.TYPE)
 	}
@@ -144,7 +142,7 @@ class ExternalPromotions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ExternalPromotionType {
 		return ExternalPromotions.TYPE
 	}
 
@@ -153,4 +151,4 @@ class ExternalPromotions extends ApiResource {
 
 export default ExternalPromotions
 
-export { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionUpdate }
+export type { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionUpdate, ExternalPromotionType }

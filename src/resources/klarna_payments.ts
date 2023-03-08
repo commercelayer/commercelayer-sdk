@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type KlarnaPaymentRel = ResourceRel & { type: typeof KlarnaPayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type KlarnaPaymentType = 'klarna_payments'
+type KlarnaPaymentRel = ResourceRel & { type: KlarnaPaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface KlarnaPayment extends Resource {
 	
+	readonly type: KlarnaPaymentType
+
 	session_id?: string
 	client_token?: string
 	payment_methods?: object[]
@@ -44,9 +47,9 @@ interface KlarnaPaymentUpdate extends ResourceUpdate {
 }
 
 
-class KlarnaPayments extends ApiResource {
+class KlarnaPayments extends ApiResource<KlarnaPayment> {
 
-	static readonly TYPE: 'klarna_payments' = 'klarna_payments' as const
+	static readonly TYPE: KlarnaPaymentType = 'klarna_payments' as const
 	// static readonly PATH = 'klarna_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
@@ -57,16 +60,12 @@ class KlarnaPayments extends ApiResource {
 		return this.resources.create<KlarnaPaymentCreate, KlarnaPayment>({ ...resource, type: KlarnaPayments.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
-		return this.resources.retrieve<KlarnaPayment>({ type: KlarnaPayments.TYPE, id }, params, options)
-	}
-
 	async update(resource: KlarnaPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
 		return this.resources.update<KlarnaPaymentUpdate, KlarnaPayment>({ ...resource, type: KlarnaPayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: KlarnaPayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: KlarnaPayments.TYPE } : id, options)
 	}
 
 	async order(klarnaPaymentId: string | KlarnaPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -80,7 +79,6 @@ class KlarnaPayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isKlarnaPayment(resource: any): resource is KlarnaPayment {
 		return resource.type && (resource.type === KlarnaPayments.TYPE)
 	}
@@ -91,7 +89,7 @@ class KlarnaPayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): KlarnaPaymentType {
 		return KlarnaPayments.TYPE
 	}
 
@@ -100,4 +98,4 @@ class KlarnaPayments extends ApiResource {
 
 export default KlarnaPayments
 
-export { KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate }
+export type { KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate, KlarnaPaymentType }

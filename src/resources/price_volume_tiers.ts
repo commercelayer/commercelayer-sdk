@@ -1,16 +1,19 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Price } from './prices'
+import type { Price, PriceType } from './prices'
 import type { Attachment } from './attachments'
 
 
-type PriceVolumeTierRel = ResourceRel & { type: typeof PriceVolumeTiers.TYPE }
-type PriceRel = ResourceRel & { type: 'prices' }
+type PriceVolumeTierType = 'price_volume_tiers'
+type PriceVolumeTierRel = ResourceRel & { type: PriceVolumeTierType }
+type PriceRel = ResourceRel & { type: PriceType }
 
 
 interface PriceVolumeTier extends Resource {
 	
+	readonly type: PriceVolumeTierType
+
 	name?: string
 	up_to?: number
 	price_amount_cents?: number
@@ -45,9 +48,9 @@ interface PriceVolumeTierUpdate extends ResourceUpdate {
 }
 
 
-class PriceVolumeTiers extends ApiResource {
+class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 
-	static readonly TYPE: 'price_volume_tiers' = 'price_volume_tiers' as const
+	static readonly TYPE: PriceVolumeTierType = 'price_volume_tiers' as const
 	// static readonly PATH = 'price_volume_tiers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceVolumeTier>> {
@@ -58,16 +61,12 @@ class PriceVolumeTiers extends ApiResource {
 		return this.resources.create<PriceVolumeTierCreate, PriceVolumeTier>({ ...resource, type: PriceVolumeTiers.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceVolumeTier> {
-		return this.resources.retrieve<PriceVolumeTier>({ type: PriceVolumeTiers.TYPE, id }, params, options)
-	}
-
 	async update(resource: PriceVolumeTierUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceVolumeTier> {
 		return this.resources.update<PriceVolumeTierUpdate, PriceVolumeTier>({ ...resource, type: PriceVolumeTiers.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: PriceVolumeTiers.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: PriceVolumeTiers.TYPE } : id, options)
 	}
 
 	async price(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
@@ -81,7 +80,6 @@ class PriceVolumeTiers extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPriceVolumeTier(resource: any): resource is PriceVolumeTier {
 		return resource.type && (resource.type === PriceVolumeTiers.TYPE)
 	}
@@ -92,7 +90,7 @@ class PriceVolumeTiers extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PriceVolumeTierType {
 		return PriceVolumeTiers.TYPE
 	}
 
@@ -101,4 +99,4 @@ class PriceVolumeTiers extends ApiResource {
 
 export default PriceVolumeTiers
 
-export { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate }
+export type { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate, PriceVolumeTierType }

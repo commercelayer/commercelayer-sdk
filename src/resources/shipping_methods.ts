@@ -1,26 +1,29 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { ShippingZone } from './shipping_zones'
-import type { ShippingCategory } from './shipping_categories'
-import type { StockLocation } from './stock_locations'
+import type { Market, MarketType } from './markets'
+import type { ShippingZone, ShippingZoneType } from './shipping_zones'
+import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
+import type { StockLocation, StockLocationType } from './stock_locations'
 import type { DeliveryLeadTime } from './delivery_lead_times'
-import type { ShippingMethodTier } from './shipping_method_tiers'
+import type { ShippingMethodTier, ShippingMethodTierType } from './shipping_method_tiers'
 import type { ShippingWeightTier } from './shipping_weight_tiers'
 import type { Attachment } from './attachments'
 
 
-type ShippingMethodRel = ResourceRel & { type: typeof ShippingMethods.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type ShippingZoneRel = ResourceRel & { type: 'shipping_zones' }
-type ShippingCategoryRel = ResourceRel & { type: 'shipping_categories' }
-type StockLocationRel = ResourceRel & { type: 'stock_locations' }
-type ShippingMethodTierRel = ResourceRel & { type: 'shipping_method_tiers' }
+type ShippingMethodType = 'shipping_methods'
+type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
+type MarketRel = ResourceRel & { type: MarketType }
+type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
+type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
+type StockLocationRel = ResourceRel & { type: StockLocationType }
+type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 
 
 interface ShippingMethod extends Resource {
 	
+	readonly type: ShippingMethodType
+
 	name?: string
 	scheme?: string
 	currency_code?: string
@@ -92,9 +95,9 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 }
 
 
-class ShippingMethods extends ApiResource {
+class ShippingMethods extends ApiResource<ShippingMethod> {
 
-	static readonly TYPE: 'shipping_methods' = 'shipping_methods' as const
+	static readonly TYPE: ShippingMethodType = 'shipping_methods' as const
 	// static readonly PATH = 'shipping_methods'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingMethod>> {
@@ -105,16 +108,12 @@ class ShippingMethods extends ApiResource {
 		return this.resources.create<ShippingMethodCreate, ShippingMethod>({ ...resource, type: ShippingMethods.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
-		return this.resources.retrieve<ShippingMethod>({ type: ShippingMethods.TYPE, id }, params, options)
-	}
-
 	async update(resource: ShippingMethodUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ ...resource, type: ShippingMethods.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ShippingMethods.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ShippingMethods.TYPE } : id, options)
 	}
 
 	async market(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -158,7 +157,6 @@ class ShippingMethods extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isShippingMethod(resource: any): resource is ShippingMethod {
 		return resource.type && (resource.type === ShippingMethods.TYPE)
 	}
@@ -169,7 +167,7 @@ class ShippingMethods extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ShippingMethodType {
 		return ShippingMethods.TYPE
 	}
 
@@ -178,4 +176,4 @@ class ShippingMethods extends ApiResource {
 
 export default ShippingMethods
 
-export { ShippingMethod, ShippingMethodCreate, ShippingMethodUpdate }
+export type { ShippingMethod, ShippingMethodCreate, ShippingMethodUpdate, ShippingMethodType }

@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Capture } from './captures'
@@ -7,11 +7,14 @@ import type { Void } from './voids'
 import type { Event } from './events'
 
 
-type AuthorizationRel = ResourceRel & { type: typeof Authorizations.TYPE }
+type AuthorizationType = 'authorizations'
+type AuthorizationRel = ResourceRel & { type: AuthorizationType }
 
 
 interface Authorization extends Resource {
 	
+	readonly type: AuthorizationType
+
 	number?: string
 	currency_code?: string
 	amount_cents?: number
@@ -55,17 +58,13 @@ interface AuthorizationUpdate extends ResourceUpdate {
 }
 
 
-class Authorizations extends ApiResource {
+class Authorizations extends ApiResource<Authorization> {
 
-	static readonly TYPE: 'authorizations' = 'authorizations' as const
+	static readonly TYPE: AuthorizationType = 'authorizations' as const
 	// static readonly PATH = 'authorizations'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Authorization>> {
 		return this.resources.list<Authorization>({ type: Authorizations.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
-		return this.resources.retrieve<Authorization>({ type: Authorizations.TYPE, id }, params, options)
 	}
 
 	async update(resource: AuthorizationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
@@ -93,7 +92,6 @@ class Authorizations extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAuthorization(resource: any): resource is Authorization {
 		return resource.type && (resource.type === Authorizations.TYPE)
 	}
@@ -104,7 +102,7 @@ class Authorizations extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AuthorizationType {
 		return Authorizations.TYPE
 	}
 
@@ -113,4 +111,4 @@ class Authorizations extends ApiResource {
 
 export default Authorizations
 
-export { Authorization, AuthorizationUpdate }
+export type { Authorization, AuthorizationUpdate, AuthorizationType }

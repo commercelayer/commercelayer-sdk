@@ -1,18 +1,21 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockLocation } from './stock_locations'
-import type { ShippingMethod } from './shipping_methods'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { Attachment } from './attachments'
 
 
-type DeliveryLeadTimeRel = ResourceRel & { type: typeof DeliveryLeadTimes.TYPE }
-type StockLocationRel = ResourceRel & { type: 'stock_locations' }
-type ShippingMethodRel = ResourceRel & { type: 'shipping_methods' }
+type DeliveryLeadTimeType = 'delivery_lead_times'
+type DeliveryLeadTimeRel = ResourceRel & { type: DeliveryLeadTimeType }
+type StockLocationRel = ResourceRel & { type: StockLocationType }
+type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
 interface DeliveryLeadTime extends Resource {
 	
+	readonly type: DeliveryLeadTimeType
+
 	min_hours?: number
 	max_hours?: number
 	min_days?: number
@@ -47,9 +50,9 @@ interface DeliveryLeadTimeUpdate extends ResourceUpdate {
 }
 
 
-class DeliveryLeadTimes extends ApiResource {
+class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 
-	static readonly TYPE: 'delivery_lead_times' = 'delivery_lead_times' as const
+	static readonly TYPE: DeliveryLeadTimeType = 'delivery_lead_times' as const
 	// static readonly PATH = 'delivery_lead_times'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
@@ -60,16 +63,12 @@ class DeliveryLeadTimes extends ApiResource {
 		return this.resources.create<DeliveryLeadTimeCreate, DeliveryLeadTime>({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
-		return this.resources.retrieve<DeliveryLeadTime>({ type: DeliveryLeadTimes.TYPE, id }, params, options)
-	}
-
 	async update(resource: DeliveryLeadTimeUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
 		return this.resources.update<DeliveryLeadTimeUpdate, DeliveryLeadTime>({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: DeliveryLeadTimes.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: DeliveryLeadTimes.TYPE } : id, options)
 	}
 
 	async stock_location(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
@@ -88,7 +87,6 @@ class DeliveryLeadTimes extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isDeliveryLeadTime(resource: any): resource is DeliveryLeadTime {
 		return resource.type && (resource.type === DeliveryLeadTimes.TYPE)
 	}
@@ -99,7 +97,7 @@ class DeliveryLeadTimes extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): DeliveryLeadTimeType {
 		return DeliveryLeadTimes.TYPE
 	}
 
@@ -108,4 +106,4 @@ class DeliveryLeadTimes extends ApiResource {
 
 export default DeliveryLeadTimes
 
-export { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeUpdate }
+export type { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeUpdate, DeliveryLeadTimeType }

@@ -1,18 +1,21 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { PaymentGateway } from './payment_gateways'
+import type { Market, MarketType } from './markets'
+import type { PaymentGateway, PaymentGatewayType } from './payment_gateways'
 import type { Attachment } from './attachments'
 
 
-type PaymentMethodRel = ResourceRel & { type: typeof PaymentMethods.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type PaymentGatewayRel = ResourceRel & { type: 'payment_gateways' }
+type PaymentMethodType = 'payment_methods'
+type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
+type MarketRel = ResourceRel & { type: MarketType }
+type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
 
 
 interface PaymentMethod extends Resource {
 	
+	readonly type: PaymentMethodType
+
 	payment_source_type?: string
 	name?: string
 	currency_code?: string
@@ -68,9 +71,9 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 }
 
 
-class PaymentMethods extends ApiResource {
+class PaymentMethods extends ApiResource<PaymentMethod> {
 
-	static readonly TYPE: 'payment_methods' = 'payment_methods' as const
+	static readonly TYPE: PaymentMethodType = 'payment_methods' as const
 	// static readonly PATH = 'payment_methods'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -81,16 +84,12 @@ class PaymentMethods extends ApiResource {
 		return this.resources.create<PaymentMethodCreate, PaymentMethod>({ ...resource, type: PaymentMethods.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
-		return this.resources.retrieve<PaymentMethod>({ type: PaymentMethods.TYPE, id }, params, options)
-	}
-
 	async update(resource: PaymentMethodUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
 		return this.resources.update<PaymentMethodUpdate, PaymentMethod>({ ...resource, type: PaymentMethods.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: PaymentMethods.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: PaymentMethods.TYPE } : id, options)
 	}
 
 	async market(paymentMethodId: string | PaymentMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -109,7 +108,6 @@ class PaymentMethods extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPaymentMethod(resource: any): resource is PaymentMethod {
 		return resource.type && (resource.type === PaymentMethods.TYPE)
 	}
@@ -120,7 +118,7 @@ class PaymentMethods extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PaymentMethodType {
 		return PaymentMethods.TYPE
 	}
 
@@ -129,4 +127,4 @@ class PaymentMethods extends ApiResource {
 
 export default PaymentMethods
 
-export { PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate }
+export type { PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate, PaymentMethodType }

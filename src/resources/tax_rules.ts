@@ -1,15 +1,18 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { ManualTaxCalculator } from './manual_tax_calculators'
+import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
 
 
-type TaxRuleRel = ResourceRel & { type: typeof TaxRules.TYPE }
-type ManualTaxCalculatorRel = ResourceRel & { type: 'manual_tax_calculators' }
+type TaxRuleType = 'tax_rules'
+type TaxRuleRel = ResourceRel & { type: TaxRuleType }
+type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 
 
 interface TaxRule extends Resource {
 	
+	readonly type: TaxRuleType
+
 	name?: string
 	tax_rate?: number
 	country_code_regex?: string
@@ -69,9 +72,9 @@ interface TaxRuleUpdate extends ResourceUpdate {
 }
 
 
-class TaxRules extends ApiResource {
+class TaxRules extends ApiResource<TaxRule> {
 
-	static readonly TYPE: 'tax_rules' = 'tax_rules' as const
+	static readonly TYPE: TaxRuleType = 'tax_rules' as const
 	// static readonly PATH = 'tax_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxRule>> {
@@ -82,16 +85,12 @@ class TaxRules extends ApiResource {
 		return this.resources.create<TaxRuleCreate, TaxRule>({ ...resource, type: TaxRules.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
-		return this.resources.retrieve<TaxRule>({ type: TaxRules.TYPE, id }, params, options)
-	}
-
 	async update(resource: TaxRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
 		return this.resources.update<TaxRuleUpdate, TaxRule>({ ...resource, type: TaxRules.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: TaxRules.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: TaxRules.TYPE } : id, options)
 	}
 
 	async manual_tax_calculator(taxRuleId: string | TaxRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
@@ -100,7 +99,6 @@ class TaxRules extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isTaxRule(resource: any): resource is TaxRule {
 		return resource.type && (resource.type === TaxRules.TYPE)
 	}
@@ -111,7 +109,7 @@ class TaxRules extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): TaxRuleType {
 		return TaxRules.TYPE
 	}
 
@@ -120,4 +118,4 @@ class TaxRules extends ApiResource {
 
 export default TaxRules
 
-export { TaxRule, TaxRuleCreate, TaxRuleUpdate }
+export type { TaxRule, TaxRuleCreate, TaxRuleUpdate, TaxRuleType }

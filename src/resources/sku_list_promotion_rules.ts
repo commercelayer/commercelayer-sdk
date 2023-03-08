@@ -1,28 +1,31 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
-import type { FreeShippingPromotion } from './free_shipping_promotions'
-import type { FreeGiftPromotion } from './free_gift_promotions'
-import type { FixedPricePromotion } from './fixed_price_promotions'
-import type { ExternalPromotion } from './external_promotions'
-import type { FixedAmountPromotion } from './fixed_amount_promotions'
-import type { SkuList } from './sku_lists'
+import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
+import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
+import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
+import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
+import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
+import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
+import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 
 
-type SkuListPromotionRuleRel = ResourceRel & { type: typeof SkuListPromotionRules.TYPE }
-type PercentageDiscountPromotionRel = ResourceRel & { type: 'percentage_discount_promotions' }
-type FreeShippingPromotionRel = ResourceRel & { type: 'free_shipping_promotions' }
-type FreeGiftPromotionRel = ResourceRel & { type: 'free_gift_promotions' }
-type FixedPricePromotionRel = ResourceRel & { type: 'fixed_price_promotions' }
-type ExternalPromotionRel = ResourceRel & { type: 'external_promotions' }
-type FixedAmountPromotionRel = ResourceRel & { type: 'fixed_amount_promotions' }
-type SkuListRel = ResourceRel & { type: 'sku_lists' }
+type SkuListPromotionRuleType = 'sku_list_promotion_rules'
+type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type PercentageDiscountPromotionRel = ResourceRel & { type: PercentageDiscountPromotionType }
+type FreeShippingPromotionRel = ResourceRel & { type: FreeShippingPromotionType }
+type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
+type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
+type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
+type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 
 
 interface SkuListPromotionRule extends Resource {
 	
+	readonly type: SkuListPromotionRuleType
+
 	all_skus?: boolean
 	min_quantity?: number
 
@@ -55,9 +58,9 @@ interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 }
 
 
-class SkuListPromotionRules extends ApiResource {
+class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 
-	static readonly TYPE: 'sku_list_promotion_rules' = 'sku_list_promotion_rules' as const
+	static readonly TYPE: SkuListPromotionRuleType = 'sku_list_promotion_rules' as const
 	// static readonly PATH = 'sku_list_promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuListPromotionRule>> {
@@ -68,16 +71,12 @@ class SkuListPromotionRules extends ApiResource {
 		return this.resources.create<SkuListPromotionRuleCreate, SkuListPromotionRule>({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
-		return this.resources.retrieve<SkuListPromotionRule>({ type: SkuListPromotionRules.TYPE, id }, params, options)
-	}
-
 	async update(resource: SkuListPromotionRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		return this.resources.update<SkuListPromotionRuleUpdate, SkuListPromotionRule>({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: SkuListPromotionRules.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: SkuListPromotionRules.TYPE } : id, options)
 	}
 
 	async sku_list(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
@@ -91,7 +90,6 @@ class SkuListPromotionRules extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isSkuListPromotionRule(resource: any): resource is SkuListPromotionRule {
 		return resource.type && (resource.type === SkuListPromotionRules.TYPE)
 	}
@@ -102,7 +100,7 @@ class SkuListPromotionRules extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): SkuListPromotionRuleType {
 		return SkuListPromotionRules.TYPE
 	}
 
@@ -111,4 +109,4 @@ class SkuListPromotionRules extends ApiResource {
 
 export default SkuListPromotionRules
 
-export { SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRuleUpdate }
+export type { SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRuleUpdate, SkuListPromotionRuleType }

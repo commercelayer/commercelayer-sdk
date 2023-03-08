@@ -1,13 +1,16 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import { ApiSingleton, Resource, ResourceId, ResourceRel } from '../resource'
 
 
 
-type ApplicationRel = ResourceRel & { type: typeof Applications.TYPE }
+
+type ApplicationType = 'application'
+type ApplicationRel = ResourceRel & { type: ApplicationType }
 
 
 interface Application extends Resource {
 	
+	readonly type: ApplicationType
+
 	name?: string
 	kind?: string
 	public_access?: boolean
@@ -17,17 +20,14 @@ interface Application extends Resource {
 }
 
 
-class Applications extends ApiResource {
+class Applications extends ApiSingleton<Application> {
 
-	static readonly TYPE: 'application' = 'application' as const
+	static readonly TYPE: ApplicationType = 'application' as const
 	// static readonly PATH = 'application'
 
-	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Application> {
-		return this.resources.singleton<Application>({ type: Applications.TYPE }, params, options)
-	}
+	
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isApplication(resource: any): resource is Application {
 		return resource.type && (resource.type === Applications.TYPE)
 	}
@@ -38,7 +38,7 @@ class Applications extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ApplicationType {
 		return Applications.TYPE
 	}
 
@@ -47,4 +47,4 @@ class Applications extends ApiResource {
 
 export default Applications
 
-export { Application }
+export type { Application, ApplicationType }
