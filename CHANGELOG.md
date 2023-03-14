@@ -1,3 +1,13 @@
+# [5.0.0-beta.4](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.3...v5.0.0-beta.4) (2023-03-14)
+
+
+### Bug Fixes
+
+* **core:** fix api client creation error ([76450cb](https://github.com/commercelayer/commercelayer-sdk/commit/76450cb3eb795a6bba365606751e1375e411beda))
+* **core:** remove unused lint directives ([df5eab8](https://github.com/commercelayer/commercelayer-sdk/commit/df5eab8a2442d0d68121383610ec4ae5dd6096bb))
+* **release:** fix package version ([27d9613](https://github.com/commercelayer/commercelayer-sdk/commit/27d9613b14ae907b74383d7401a15dc14555d06a))
+* **release:** fix release channel ([a7e59c7](https://github.com/commercelayer/commercelayer-sdk/commit/a7e59c7feb088dfee2e37fdc52a106cc2fffe934))
+
 # [5.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.24.1...v5.0.0-beta.1) (2023-03-14)
 
 
