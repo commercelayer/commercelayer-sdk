@@ -64,8 +64,8 @@ type ApiClientConfig = Partial<ApiClientInitConfig>
 class ApiClient {
 
 	static create(options: ApiClientInitConfig): ApiClient {
-		if (!options?.organization) throw new Error("Undefined 'organization' parameter")
-		if (!options?.accessToken) throw new Error("Undefined 'accessToken' parameter")
+		for (const attr of config.client.requiredAttributes)
+			if (!options || !options[attr as keyof ApiClientInitConfig]) throw new SdkError({ message: `Undefined '${attr}' parameter` })
 		return new ApiClient(options)
 	}
 

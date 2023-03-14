@@ -7,6 +7,7 @@ const config = {
 	},
 	client: {
 		timeout: 15000,
+		requiredAttributes: ['organization', 'accessToken']
 	}
 } as const
 
