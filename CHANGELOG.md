@@ -1,3 +1,11 @@
+# [5.0.0-beta.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.2...v5.0.0-beta.3) (2023-03-14)
+
+
+### Bug Fixes
+
+* **core:** fix resource count function ([9fb9f97](https://github.com/commercelayer/commercelayer-sdk/commit/9fb9f974ea7235b8e367874ee853e594f17dccc3))
+* **release:** fix release channel ([ee36f3c](https://github.com/commercelayer/commercelayer-sdk/commit/ee36f3cb89a2643e572cb7bb6228409b791bce16))
+
 # [5.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.24.1...v5.0.0-beta.1) (2023-03-14)
 
 
