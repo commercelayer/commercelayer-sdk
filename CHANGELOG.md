@@ -3,6 +3,29 @@
 
 ### Bug Fixes
 
+* **core:** fix api client creation error ([76450cb](https://github.com/commercelayer/commercelayer-sdk/commit/76450cb3eb795a6bba365606751e1375e411beda))
+* **core:** fix fetchable not nullable resource fields ([b2b8225](https://github.com/commercelayer/commercelayer-sdk/commit/b2b8225ce44b72158b5e7c4884fe1feb1ba6f167))
+* **core:** fix resource count function ([9fb9f97](https://github.com/commercelayer/commercelayer-sdk/commit/9fb9f974ea7235b8e367874ee853e594f17dccc3))
+* **release:** fix release channel ([ee36f3c](https://github.com/commercelayer/commercelayer-sdk/commit/ee36f3cb89a2643e572cb7bb6228409b791bce16))
+
+
+* feat(core)!: first commit for sdk v5 ([551f782](https://github.com/commercelayer/commercelayer-sdk/commit/551f782a496cc41adc885ad9c2d075a9b7ee57e2))
+
+
+### Features
+
+* **core:** update resources to schema v 3.6.0 ([6783620](https://github.com/commercelayer/commercelayer-sdk/commit/6783620dd0a0c41995b1cae16a827542ee8e5320))
+
+
+### BREAKING CHANGES
+
+* objects returned by the API now have required fields (fields marked as not nullable in the OpenAPI schema v4) and do not contain fields that are noy fetchable.
+
+# [5.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.24.1...v5.0.0-beta.1) (2023-03-14)
+
+
+### Bug Fixes
+
 * **core:** fix fetchable not nullable resource fields ([b2b8225](https://github.com/commercelayer/commercelayer-sdk/commit/b2b8225ce44b72158b5e7c4884fe1feb1ba6f167))
 * **core:** fix resource count function ([9fb9f97](https://github.com/commercelayer/commercelayer-sdk/commit/9fb9f974ea7235b8e367874ee853e594f17dccc3))
 * **release:** fix release channel ([ee36f3c](https://github.com/commercelayer/commercelayer-sdk/commit/ee36f3cb89a2643e572cb7bb6228409b791bce16))
