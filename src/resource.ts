@@ -1,7 +1,7 @@
 
 import ApiClient, { ApiClientInitConfig } from './client'
 import { denormalize, normalize } from './jsonapi'
-import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams, QueryFilter } from './query'
+import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams, QueryFilter, isParamsList } from './query'
 import { ResourceTypeLock } from './api'
 import config from './config'
 import { InterceptorManager } from './interceptor'
@@ -268,8 +268,8 @@ abstract class ApiResourceBase<R extends Resource> {
 	}
 
 	
-	async count(filter?: QueryFilter, options?: ResourcesConfig): Promise<number> {
-		const params: QueryParamsList = { filters: filter, pageNumber: 1, pageSize: 1 }
+	async count(filter?: QueryFilter | QueryParamsList, options?: ResourcesConfig): Promise<number> {
+		const params: QueryParamsList = { filters: isParamsList(filter)? filter.filters : filter, pageNumber: 1, pageSize: 1 }
 		const response = await this.resources.list<R>({ type: this.type() }, params, options)
 		return Promise.resolve(response.meta.recordCount)
 	}

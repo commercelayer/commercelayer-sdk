@@ -72,4 +72,4 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 }
 
 
-export { generateQueryStringParams }
+export { generateQueryStringParams, isParamsList }
