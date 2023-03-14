@@ -12,7 +12,7 @@ interface PaymentGateway extends Resource {
 	
 	readonly type: PaymentGatewayType
 
-	name?: string
+	name: string
 
 	payment_methods?: PaymentMethod[]
 

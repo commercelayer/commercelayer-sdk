@@ -14,7 +14,7 @@ interface Merchant extends Resource {
 	
 	readonly type: MerchantType
 
-	name?: string
+	name: string
 
 	address?: Address
 	attachments?: Attachment[]
@@ -33,7 +33,7 @@ interface MerchantCreate extends ResourceCreate {
 
 interface MerchantUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 
 	address?: AddressRel
 

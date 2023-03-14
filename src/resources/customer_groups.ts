@@ -14,7 +14,7 @@ interface CustomerGroup extends Resource {
 	
 	readonly type: CustomerGroupType
 
-	name?: string
+	name: string
 
 	customers?: Customer[]
 	markets?: Market[]
@@ -32,7 +32,7 @@ interface CustomerGroupCreate extends ResourceCreate {
 
 interface CustomerGroupUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	
 }
 

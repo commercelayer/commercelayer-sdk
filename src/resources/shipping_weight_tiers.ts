@@ -14,9 +14,9 @@ interface ShippingWeightTier extends Resource {
 	
 	readonly type: ShippingWeightTierType
 
-	name?: string
+	name: string
 	up_to?: number
-	price_amount_cents?: number
+	price_amount_cents: number
 	price_amount_float?: number
 	formatted_price_amount?: string
 
@@ -39,9 +39,9 @@ interface ShippingWeightTierCreate extends ResourceCreate {
 
 interface ShippingWeightTierUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	up_to?: number
-	price_amount_cents?: number
+	price_amount_cents: number
 
 	shipping_method?: ShippingMethodRel
 

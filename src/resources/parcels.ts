@@ -19,8 +19,8 @@ interface Parcel extends Resource {
 	readonly type: ParcelType
 
 	number?: string
-	weight?: number
-	unit_of_weight?: string
+	weight: number
+	unit_of_weight: string
 	eel_pfc?: string
 	contents_type?: string
 	contents_explanation?: string
@@ -86,8 +86,8 @@ interface ParcelCreate extends ResourceCreate {
 
 interface ParcelUpdate extends ResourceUpdate {
 	
-	weight?: number
-	unit_of_weight?: string
+	weight: number
+	unit_of_weight: string
 	eel_pfc?: string
 	contents_type?: string
 	contents_explanation?: string

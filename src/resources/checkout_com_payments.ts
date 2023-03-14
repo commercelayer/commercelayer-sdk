@@ -15,8 +15,8 @@ interface CheckoutComPayment extends Resource {
 	readonly type: CheckoutComPaymentType
 
 	public_key?: string
-	payment_type?: string
-	token?: string
+	payment_type: string
+	token: string
 	session_id?: string
 	success_url?: string
 	failure_url?: string
@@ -48,8 +48,8 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 
 interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	
-	payment_type?: string
-	token?: string
+	payment_type: string
+	token: string
 	session_id?: string
 	success_url?: string
 	failure_url?: string

@@ -13,7 +13,7 @@ interface GoogleGeocoder extends Resource {
 	
 	readonly type: GoogleGeocoderType
 
-	name?: string
+	name: string
 
 	addresses?: Address[]
 	attachments?: Attachment[]
@@ -31,7 +31,7 @@ interface GoogleGeocoderCreate extends ResourceCreate {
 
 interface GoogleGeocoderUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	api_key?: string
 	
 }

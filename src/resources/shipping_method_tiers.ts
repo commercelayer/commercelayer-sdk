@@ -13,9 +13,9 @@ interface ShippingMethodTier extends Resource {
 	
 	readonly type: ShippingMethodTierType
 
-	name?: string
+	name: string
 	up_to?: number
-	price_amount_cents?: number
+	price_amount_cents: number
 	price_amount_float?: number
 	formatted_price_amount?: string
 

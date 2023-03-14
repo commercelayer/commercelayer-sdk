@@ -13,7 +13,7 @@ interface TaxRule extends Resource {
 	
 	readonly type: TaxRuleType
 
-	name?: string
+	name: string
 	tax_rate?: number
 	country_code_regex?: string
 	not_country_code_regex?: string
@@ -54,7 +54,7 @@ interface TaxRuleCreate extends ResourceCreate {
 
 interface TaxRuleUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	tax_rate?: number
 	country_code_regex?: string
 	not_country_code_regex?: string

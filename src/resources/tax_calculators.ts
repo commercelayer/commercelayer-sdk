@@ -13,7 +13,7 @@ interface TaxCalculator extends Resource {
 	
 	readonly type: TaxCalculatorType
 
-	name?: string
+	name: string
 
 	markets?: Market[]
 	attachments?: Attachment[]

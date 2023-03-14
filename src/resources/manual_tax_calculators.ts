@@ -15,7 +15,7 @@ interface ManualTaxCalculator extends Resource {
 	
 	readonly type: ManualTaxCalculatorType
 
-	name?: string
+	name: string
 
 	markets?: Market[]
 	attachments?: Attachment[]
@@ -35,7 +35,7 @@ interface ManualTaxCalculatorCreate extends ResourceCreate {
 
 interface ManualTaxCalculatorUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 
 	tax_rules?: TaxRuleRel[]
 

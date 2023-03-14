@@ -26,14 +26,14 @@ interface FixedPricePromotion extends Resource {
 	
 	readonly type: FixedPricePromotionType
 
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
 	total_usage_count?: number
 	active?: boolean
-	fixed_amount_cents?: number
+	fixed_amount_cents: number
 	fixed_amount_float?: number
 	formatted_fixed_amount?: string
 
@@ -71,12 +71,12 @@ interface FixedPricePromotionCreate extends ResourceCreate {
 
 interface FixedPricePromotionUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
-	fixed_amount_cents?: number
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
+	fixed_amount_cents: number
 
 	market?: MarketRel
 	promotion_rules?: PromotionRuleRel[]

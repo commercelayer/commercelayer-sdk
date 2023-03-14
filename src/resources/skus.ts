@@ -18,8 +18,8 @@ interface Sku extends Resource {
 	
 	readonly type: SkuType
 
-	code?: string
-	name?: string
+	code: string
+	name: string
 	description?: string
 	image_url?: string
 	pieces_per_pack?: number
@@ -60,8 +60,8 @@ interface SkuCreate extends ResourceCreate {
 
 interface SkuUpdate extends ResourceUpdate {
 	
-	code?: string
-	name?: string
+	code: string
+	name: string
 	description?: string
 	image_url?: string
 	pieces_per_pack?: number

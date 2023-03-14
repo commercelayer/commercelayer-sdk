@@ -24,11 +24,11 @@ interface ShippingMethod extends Resource {
 	
 	readonly type: ShippingMethodType
 
-	name?: string
+	name: string
 	scheme?: string
 	currency_code?: string
 	disabled_at?: string
-	price_amount_cents?: number
+	price_amount_cents: number
 	price_amount_float?: number
 	formatted_price_amount?: string
 	free_over_amount_cents?: number
@@ -75,12 +75,12 @@ interface ShippingMethodCreate extends ResourceCreate {
 
 interface ShippingMethodUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	scheme?: string
 	currency_code?: string
 	_disable?: boolean
 	_enable?: boolean
-	price_amount_cents?: number
+	price_amount_cents: number
 	free_over_amount_cents?: number
 	min_weight?: number
 	max_weight?: number

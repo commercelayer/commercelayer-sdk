@@ -12,7 +12,7 @@ interface EventCallback extends Resource {
 	
 	readonly type: EventCallbackType
 
-	callback_url?: string
+	callback_url: string
 	payload?: object
 	response_code?: string
 	response_message?: string

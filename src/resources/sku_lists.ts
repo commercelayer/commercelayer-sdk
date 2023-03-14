@@ -17,8 +17,8 @@ interface SkuList extends Resource {
 	
 	readonly type: SkuListType
 
-	name?: string
-	slug?: string
+	name: string
+	slug: string
 	description?: string
 	image_url?: string
 	manual?: boolean
@@ -48,7 +48,7 @@ interface SkuListCreate extends ResourceCreate {
 
 interface SkuListUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	description?: string
 	image_url?: string
 	manual?: boolean

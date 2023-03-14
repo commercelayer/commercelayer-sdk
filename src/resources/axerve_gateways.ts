@@ -14,8 +14,8 @@ interface AxerveGateway extends Resource {
 	
 	readonly type: AxerveGatewayType
 
-	name?: string
-	login?: string
+	name: string
+	login: string
 
 	payment_methods?: PaymentMethod[]
 	axerve_payments?: AxervePayment[]
@@ -36,8 +36,8 @@ interface AxerveGatewayCreate extends ResourceCreate {
 
 interface AxerveGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
-	login?: string
+	name: string
+	login: string
 	api_key?: string
 
 	axerve_payments?: AxervePaymentRel[]

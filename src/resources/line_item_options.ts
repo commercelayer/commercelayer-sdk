@@ -16,17 +16,17 @@ interface LineItemOption extends Resource {
 	readonly type: LineItemOptionType
 
 	name?: string
-	quantity?: number
+	quantity: number
 	currency_code?: string
 	unit_amount_cents?: number
 	unit_amount_float?: number
 	formatted_unit_amount?: string
 	total_amount_cents?: number
-	total_amount_float?: number
+	total_amount_float: number
 	formatted_total_amount?: string
 	delay_hours?: number
 	delay_days?: number
-	options?: object
+	options: object
 
 	line_item?: LineItem
 	sku_option?: SkuOption
@@ -49,8 +49,8 @@ interface LineItemOptionCreate extends ResourceCreate {
 interface LineItemOptionUpdate extends ResourceUpdate {
 	
 	name?: string
-	quantity?: number
-	options?: object
+	quantity: number
+	options: object
 
 	sku_option?: SkuOptionRel
 

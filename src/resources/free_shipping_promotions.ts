@@ -22,11 +22,11 @@ interface FreeShippingPromotion extends Resource {
 	
 	readonly type: FreeShippingPromotionType
 
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
 	total_usage_count?: number
 	active?: boolean
 
@@ -59,11 +59,11 @@ interface FreeShippingPromotionCreate extends ResourceCreate {
 
 interface FreeShippingPromotionUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
 
 	market?: MarketRel
 	promotion_rules?: PromotionRuleRel[]

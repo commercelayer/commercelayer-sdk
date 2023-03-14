@@ -18,7 +18,7 @@ interface ReturnLineItem extends Resource {
 	sku_code?: string
 	bundle_code?: string
 	name?: string
-	quantity?: number
+	quantity: number
 	return_reason?: object
 	restocked_at?: string
 
@@ -41,7 +41,7 @@ interface ReturnLineItemCreate extends ResourceCreate {
 
 interface ReturnLineItemUpdate extends ResourceUpdate {
 	
-	quantity?: number
+	quantity: number
 	_restock?: boolean
 	return_reason?: object
 	

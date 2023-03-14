@@ -14,9 +14,9 @@ interface PriceVolumeTier extends Resource {
 	
 	readonly type: PriceVolumeTierType
 
-	name?: string
+	name: string
 	up_to?: number
-	price_amount_cents?: number
+	price_amount_cents: number
 	price_amount_float?: number
 	formatted_price_amount?: string
 
@@ -39,9 +39,9 @@ interface PriceVolumeTierCreate extends ResourceCreate {
 
 interface PriceVolumeTierUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	up_to?: number
-	price_amount_cents?: number
+	price_amount_cents: number
 
 	price?: PriceRel
 

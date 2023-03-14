@@ -12,13 +12,13 @@ interface Import extends Resource {
 	
 	readonly type: ImportType
 
-	resource_type?: string
+	resource_type: string
 	parent_resource_id?: string
 	status?: 'pending' | 'in_progress' | 'interrupted' | 'completed'
 	started_at?: string
 	completed_at?: string
 	interrupted_at?: string
-	inputs?: object[]
+	inputs: object[]
 	inputs_size?: number
 	errors_count?: number
 	warnings_count?: number

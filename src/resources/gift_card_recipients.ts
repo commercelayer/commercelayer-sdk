@@ -14,7 +14,7 @@ interface GiftCardRecipient extends Resource {
 	
 	readonly type: GiftCardRecipientType
 
-	email?: string
+	email: string
 	first_name?: string
 	last_name?: string
 
@@ -37,7 +37,7 @@ interface GiftCardRecipientCreate extends ResourceCreate {
 
 interface GiftCardRecipientUpdate extends ResourceUpdate {
 	
-	email?: string
+	email: string
 	first_name?: string
 	last_name?: string
 

@@ -22,7 +22,7 @@ interface StockTransfer extends Resource {
 
 	sku_code?: string
 	status?: 'draft' | 'upcoming' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
-	quantity?: number
+	quantity: number
 	completed_at?: string
 	cancelled_at?: string
 

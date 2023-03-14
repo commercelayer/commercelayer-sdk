@@ -14,12 +14,12 @@ interface StripePayment extends Resource {
 	
 	readonly type: StripePaymentType
 
-	client_secret?: string
+	client_secret: string
 	publishable_key?: string
 	options?: object
 	payment_method?: object
 	mismatched_amounts?: boolean
-	intent_amount_cents?: number
+	intent_amount_cents: number
 	intent_amount_float?: number
 	formatted_intent_amount?: string
 	payment_instrument?: object

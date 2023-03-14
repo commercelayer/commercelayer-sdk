@@ -16,14 +16,14 @@ interface PaymentMethod extends Resource {
 	
 	readonly type: PaymentMethodType
 
-	payment_source_type?: string
+	payment_source_type: string
 	name?: string
 	currency_code?: string
 	moto?: boolean
 	require_capture?: boolean
 	auto_capture?: boolean
 	disabled_at?: string
-	price_amount_cents?: number
+	price_amount_cents: number
 	price_amount_float?: number
 	formatted_price_amount?: string
 	auto_capture_max_amount_cents?: number
@@ -55,14 +55,14 @@ interface PaymentMethodCreate extends ResourceCreate {
 
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
-	payment_source_type?: string
+	payment_source_type: string
 	currency_code?: string
 	moto?: boolean
 	require_capture?: boolean
 	auto_capture?: boolean
 	_disable?: boolean
 	_enable?: boolean
-	price_amount_cents?: number
+	price_amount_cents: number
 	auto_capture_max_amount_cents?: number
 
 	market?: MarketRel

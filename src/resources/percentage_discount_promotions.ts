@@ -26,14 +26,14 @@ interface PercentageDiscountPromotion extends Resource {
 	
 	readonly type: PercentageDiscountPromotionType
 
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
 	total_usage_count?: number
 	active?: boolean
-	percentage?: number
+	percentage: number
 
 	market?: Market
 	promotion_rules?: PromotionRule[]
@@ -69,12 +69,12 @@ interface PercentageDiscountPromotionCreate extends ResourceCreate {
 
 interface PercentageDiscountPromotionUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
-	percentage?: number
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
+	percentage: number
 
 	market?: MarketRel
 	promotion_rules?: PromotionRuleRel[]

@@ -15,7 +15,7 @@ interface ExternalPayment extends Resource {
 	
 	readonly type: ExternalPaymentType
 
-	payment_source_token?: string
+	payment_source_token: string
 	options?: object
 	payment_instrument?: object
 

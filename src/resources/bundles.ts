@@ -17,19 +17,19 @@ interface Bundle extends Resource {
 	
 	readonly type: BundleType
 
-	code?: string
-	name?: string
+	code: string
+	name: string
 	currency_code?: string
 	description?: string
 	image_url?: string
 	do_not_ship?: boolean
 	do_not_track?: boolean
-	price_amount_cents?: number
-	price_amount_float?: number
-	formatted_price_amount?: string
-	compare_at_amount_cents?: number
-	compare_at_amount_float?: number
-	formatted_compare_at_amount?: string
+	price_amount_cents: number
+	price_amount_float: number
+	formatted_price_amount: string
+	compare_at_amount_cents: number
+	compare_at_amount_float: number
+	formatted_compare_at_amount: string
 	skus_count?: number
 
 	market?: Market
@@ -60,13 +60,13 @@ interface BundleCreate extends ResourceCreate {
 
 interface BundleUpdate extends ResourceUpdate {
 	
-	code?: string
-	name?: string
+	code: string
+	name: string
 	currency_code?: string
 	description?: string
 	image_url?: string
-	price_amount_cents?: number
-	compare_at_amount_cents?: number
+	price_amount_cents: number
+	compare_at_amount_cents: number
 	_compute_price_amount?: boolean
 	_compute_compare_at_amount?: boolean
 	

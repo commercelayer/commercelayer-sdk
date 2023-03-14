@@ -13,7 +13,7 @@ interface CustomerPasswordReset extends Resource {
 	
 	readonly type: CustomerPasswordResetType
 
-	customer_email?: string
+	customer_email: string
 	reset_password_token?: string
 	reset_password_at?: string
 

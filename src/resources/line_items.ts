@@ -38,7 +38,7 @@ interface LineItem extends Resource {
 
 	sku_code?: string
 	bundle_code?: string
-	quantity?: number
+	quantity: number
 	currency_code?: string
 	unit_amount_cents?: number
 	unit_amount_float?: number
@@ -50,10 +50,10 @@ interface LineItem extends Resource {
 	discount_float?: number
 	formatted_discount?: string
 	total_amount_cents?: number
-	total_amount_float?: number
+	total_amount_float: number
 	formatted_total_amount?: string
 	tax_amount_cents?: number
-	tax_amount_float?: number
+	tax_amount_float: number
 	formatted_tax_amount?: string
 	name?: string
 	image_url?: string
@@ -97,7 +97,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	
 	sku_code?: string
 	bundle_code?: string
-	quantity?: number
+	quantity: number
 	_external_price?: boolean
 	name?: string
 	image_url?: string

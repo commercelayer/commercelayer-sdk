@@ -16,7 +16,7 @@ interface StockLineItem extends Resource {
 
 	sku_code?: string
 	bundle_code?: string
-	quantity?: number
+	quantity: number
 
 	shipment?: Shipment
 	line_item?: LineItem

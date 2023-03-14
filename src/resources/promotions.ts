@@ -17,11 +17,11 @@ interface Promotion extends Resource {
 	
 	readonly type: PromotionType
 
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
 	total_usage_count?: number
 	active?: boolean
 

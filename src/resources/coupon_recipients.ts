@@ -14,7 +14,7 @@ interface CouponRecipient extends Resource {
 	
 	readonly type: CouponRecipientType
 
-	email?: string
+	email: string
 	first_name?: string
 	last_name?: string
 
@@ -37,7 +37,7 @@ interface CouponRecipientCreate extends ResourceCreate {
 
 interface CouponRecipientUpdate extends ResourceUpdate {
 	
-	email?: string
+	email: string
 	first_name?: string
 	last_name?: string
 

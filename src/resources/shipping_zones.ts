@@ -12,7 +12,7 @@ interface ShippingZone extends Resource {
 	
 	readonly type: ShippingZoneType
 
-	name?: string
+	name: string
 	country_code_regex?: string
 	not_country_code_regex?: string
 	state_code_regex?: string
@@ -40,7 +40,7 @@ interface ShippingZoneCreate extends ResourceCreate {
 
 interface ShippingZoneUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	country_code_regex?: string
 	not_country_code_regex?: string
 	state_code_regex?: string

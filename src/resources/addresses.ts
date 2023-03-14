@@ -18,13 +18,13 @@ interface Address extends Resource {
 	last_name?: string
 	company?: string
 	full_name?: string
-	line_1?: string
+	line_1: string
 	line_2?: string
-	city?: string
+	city: string
 	zip_code?: string
-	state_code?: string
-	country_code?: string
-	phone?: string
+	state_code: string
+	country_code: string
+	phone: string
 	full_address?: string
 	name?: string
 	email?: string
@@ -73,13 +73,13 @@ interface AddressUpdate extends ResourceUpdate {
 	first_name?: string
 	last_name?: string
 	company?: string
-	line_1?: string
+	line_1: string
 	line_2?: string
-	city?: string
+	city: string
 	zip_code?: string
-	state_code?: string
-	country_code?: string
-	phone?: string
+	state_code: string
+	country_code: string
+	phone: string
 	email?: string
 	notes?: string
 	lat?: number

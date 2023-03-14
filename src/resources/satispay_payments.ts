@@ -15,7 +15,7 @@ interface SatispayPayment extends Resource {
 	readonly type: SatispayPaymentType
 
 	token?: string
-	key_id?: string
+	key_id: string
 	payment_id?: string
 	redirect_url?: string
 

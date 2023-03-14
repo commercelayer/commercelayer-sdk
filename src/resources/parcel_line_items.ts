@@ -16,8 +16,8 @@ interface ParcelLineItem extends Resource {
 	readonly type: ParcelLineItemType
 
 	sku_code?: string
-	quantity?: number
-	name?: string
+	quantity: number
+	name: string
 	image_url?: string
 
 	parcel?: Parcel

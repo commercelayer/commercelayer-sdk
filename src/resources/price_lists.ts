@@ -13,8 +13,8 @@ interface PriceList extends Resource {
 	
 	readonly type: PriceListType
 
-	name?: string
-	currency_code?: string
+	name: string
+	currency_code: string
 	tax_included?: boolean
 
 	prices?: Price[]
@@ -34,8 +34,8 @@ interface PriceListCreate extends ResourceCreate {
 
 interface PriceListUpdate extends ResourceUpdate {
 	
-	name?: string
-	currency_code?: string
+	name: string
+	currency_code: string
 	tax_included?: boolean
 	
 }

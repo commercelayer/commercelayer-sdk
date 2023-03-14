@@ -14,7 +14,7 @@ interface InventoryModel extends Resource {
 	
 	readonly type: InventoryModelType
 
-	name?: string
+	name: string
 	strategy?: string
 	stock_locations_cutoff?: number
 
@@ -36,7 +36,7 @@ interface InventoryModelCreate extends ResourceCreate {
 
 interface InventoryModelUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	strategy?: string
 	stock_locations_cutoff?: number
 	

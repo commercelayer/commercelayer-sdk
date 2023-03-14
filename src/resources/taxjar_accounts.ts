@@ -15,7 +15,7 @@ interface TaxjarAccount extends Resource {
 	
 	readonly type: TaxjarAccountType
 
-	name?: string
+	name: string
 
 	markets?: Market[]
 	attachments?: Attachment[]
@@ -36,7 +36,7 @@ interface TaxjarAccountCreate extends ResourceCreate {
 
 interface TaxjarAccountUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	api_key?: string
 
 	tax_categories?: TaxCategoryRel[]

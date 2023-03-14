@@ -13,7 +13,7 @@ interface StripeGateway extends Resource {
 	
 	readonly type: StripeGatewayType
 
-	name?: string
+	name: string
 	auto_payments?: boolean
 	webhook_endpoint_id?: string
 	webhook_endpoint_secret?: string
@@ -37,7 +37,7 @@ interface StripeGatewayCreate extends ResourceCreate {
 
 interface StripeGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	auto_payments?: boolean
 	
 }

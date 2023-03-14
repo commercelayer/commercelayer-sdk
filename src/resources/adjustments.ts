@@ -11,11 +11,11 @@ interface Adjustment extends Resource {
 	
 	readonly type: AdjustmentType
 
-	name?: string
-	currency_code?: string
-	amount_cents?: number
-	amount_float?: number
-	formatted_amount?: string
+	name: string
+	currency_code: string
+	amount_cents: number
+	amount_float: number
+	formatted_amount: string
 	
 }
 
@@ -31,9 +31,9 @@ interface AdjustmentCreate extends ResourceCreate {
 
 interface AdjustmentUpdate extends ResourceUpdate {
 	
-	name?: string
-	currency_code?: string
-	amount_cents?: number
+	name: string
+	currency_code: string
+	amount_cents: number
 	
 }
 

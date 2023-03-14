@@ -21,12 +21,12 @@ interface Price extends Resource {
 
 	currency_code?: string
 	sku_code?: string
-	amount_cents?: number
-	amount_float?: number
-	formatted_amount?: string
-	compare_at_amount_cents?: number
-	compare_at_amount_float?: number
-	formatted_compare_at_amount?: string
+	amount_cents: number
+	amount_float: number
+	formatted_amount: string
+	compare_at_amount_cents: number
+	compare_at_amount_float: number
+	formatted_compare_at_amount: string
 
 	price_list?: PriceList
 	sku?: Sku
@@ -53,8 +53,8 @@ interface PriceCreate extends ResourceCreate {
 interface PriceUpdate extends ResourceUpdate {
 	
 	sku_code?: string
-	amount_cents?: number
-	compare_at_amount_cents?: number
+	amount_cents: number
+	compare_at_amount_cents: number
 
 	price_list?: PriceListRel
 	sku?: SkuRel

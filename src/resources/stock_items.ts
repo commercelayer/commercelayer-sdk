@@ -17,7 +17,7 @@ interface StockItem extends Resource {
 	readonly type: StockItemType
 
 	sku_code?: string
-	quantity?: number
+	quantity: number
 
 	stock_location?: StockLocation
 	sku?: Sku
@@ -40,7 +40,7 @@ interface StockItemCreate extends ResourceCreate {
 interface StockItemUpdate extends ResourceUpdate {
 	
 	sku_code?: string
-	quantity?: number
+	quantity: number
 
 	stock_location?: StockLocationRel
 	sku?: SkuRel

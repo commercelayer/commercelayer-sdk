@@ -13,8 +13,8 @@ interface ExternalGateway extends Resource {
 	
 	readonly type: ExternalGatewayType
 
-	name?: string
-	shared_secret?: string
+	name: string
+	shared_secret: string
 	authorize_url?: string
 	capture_url?: string
 	void_url?: string
@@ -41,7 +41,7 @@ interface ExternalGatewayCreate extends ResourceCreate {
 
 interface ExternalGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	authorize_url?: string
 	capture_url?: string
 	void_url?: string

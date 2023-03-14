@@ -71,7 +71,7 @@ interface Attachment extends Resource {
 	
 	readonly type: AttachmentType
 
-	name?: string
+	name: string
 	description?: string
 	url?: string
 
@@ -93,7 +93,7 @@ interface AttachmentCreate extends ResourceCreate {
 
 interface AttachmentUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	description?: string
 	url?: string
 

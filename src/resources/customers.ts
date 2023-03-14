@@ -22,7 +22,7 @@ interface Customer extends Resource {
 	
 	readonly type: CustomerType
 
-	email?: string
+	email: string
 	status?: 'prospect' | 'acquired' | 'repeat'
 	has_password?: boolean
 
@@ -52,7 +52,7 @@ interface CustomerCreate extends ResourceCreate {
 
 interface CustomerUpdate extends ResourceUpdate {
 	
-	email?: string
+	email: string
 	password?: string
 
 	customer_group?: CustomerGroupRel

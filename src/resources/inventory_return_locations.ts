@@ -15,7 +15,7 @@ interface InventoryReturnLocation extends Resource {
 	
 	readonly type: InventoryReturnLocationType
 
-	priority?: number
+	priority: number
 
 	stock_location?: StockLocation
 	inventory_model?: InventoryModel
@@ -35,7 +35,7 @@ interface InventoryReturnLocationCreate extends ResourceCreate {
 
 interface InventoryReturnLocationUpdate extends ResourceUpdate {
 	
-	priority?: number
+	priority: number
 
 	stock_location?: StockLocationRel
 	inventory_model?: InventoryModelRel

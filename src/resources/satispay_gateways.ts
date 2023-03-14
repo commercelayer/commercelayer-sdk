@@ -14,7 +14,7 @@ interface SatispayGateway extends Resource {
 	
 	readonly type: SatispayGatewayType
 
-	name?: string
+	name: string
 	webhook_endpoint_url?: string
 
 	payment_methods?: PaymentMethod[]
@@ -34,7 +34,7 @@ interface SatispayGatewayCreate extends ResourceCreate {
 
 interface SatispayGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 
 	satispay_payments?: SatispayPaymentRel[]
 

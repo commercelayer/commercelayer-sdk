@@ -14,8 +14,8 @@ interface AdyenGateway extends Resource {
 	
 	readonly type: AdyenGatewayType
 
-	name?: string
-	live_url_prefix?: string
+	name: string
+	live_url_prefix: string
 	async_api?: boolean
 	webhook_endpoint_secret?: string
 	webhook_endpoint_url?: string
@@ -44,11 +44,11 @@ interface AdyenGatewayCreate extends ResourceCreate {
 
 interface AdyenGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	merchant_account?: string
 	api_key?: string
 	public_key?: string
-	live_url_prefix?: string
+	live_url_prefix: string
 	api_version?: string
 	async_api?: boolean
 	webhook_endpoint_secret?: string

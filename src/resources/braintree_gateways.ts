@@ -14,7 +14,7 @@ interface BraintreeGateway extends Resource {
 	
 	readonly type: BraintreeGatewayType
 
-	name?: string
+	name: string
 	descriptor_name?: string
 	descriptor_phone?: string
 	descriptor_url?: string
@@ -44,7 +44,7 @@ interface BraintreeGatewayCreate extends ResourceCreate {
 
 interface BraintreeGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	merchant_account_id?: string
 	merchant_id?: string
 	public_key?: string

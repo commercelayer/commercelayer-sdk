@@ -13,7 +13,7 @@ interface Event extends Resource {
 	
 	readonly type: EventType
 
-	name?: string
+	name: string
 
 	last_event_callbacks?: EventCallback[]
 	webhooks?: Webhook[]

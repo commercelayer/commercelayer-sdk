@@ -20,7 +20,7 @@ interface OrderSubscription extends Resource {
 
 	number?: string
 	status?: 'draft' | 'inactive' | 'active' | 'cancelled'
-	frequency?: string
+	frequency: string
 	activate_by_source_order?: boolean
 	customer_email?: string
 	starts_at?: string

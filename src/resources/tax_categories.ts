@@ -22,7 +22,7 @@ interface TaxCategory extends Resource {
 	
 	readonly type: TaxCategoryType
 
-	code?: string
+	code: string
 	sku_code?: string
 
 	sku?: Sku
@@ -45,7 +45,7 @@ interface TaxCategoryCreate extends ResourceCreate {
 
 interface TaxCategoryUpdate extends ResourceUpdate {
 	
-	code?: string
+	code: string
 	sku_code?: string
 
 	sku?: SkuRel

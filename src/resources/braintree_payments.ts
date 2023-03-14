@@ -14,7 +14,7 @@ interface BraintreePayment extends Resource {
 	
 	readonly type: BraintreePaymentType
 
-	client_token?: string
+	client_token: string
 	payment_method_nonce?: string
 	payment_id?: string
 	local?: boolean

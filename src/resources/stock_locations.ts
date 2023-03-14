@@ -19,7 +19,7 @@ interface StockLocation extends Resource {
 	readonly type: StockLocationType
 
 	number?: number
-	name?: string
+	name: string
 	label_format?: string
 	suppress_etd?: boolean
 
@@ -46,7 +46,7 @@ interface StockLocationCreate extends ResourceCreate {
 
 interface StockLocationUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	label_format?: string
 	suppress_etd?: boolean
 

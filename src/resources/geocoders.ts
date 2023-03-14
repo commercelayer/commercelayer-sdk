@@ -13,7 +13,7 @@ interface Geocoder extends Resource {
 	
 	readonly type: GeocoderType
 
-	name?: string
+	name: string
 
 	addresses?: Address[]
 	attachments?: Attachment[]

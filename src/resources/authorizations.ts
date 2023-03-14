@@ -15,12 +15,12 @@ interface Authorization extends Resource {
 	
 	readonly type: AuthorizationType
 
-	number?: string
-	currency_code?: string
-	amount_cents?: number
-	amount_float?: number
-	formatted_amount?: string
-	succeeded?: boolean
+	number: string
+	currency_code: string
+	amount_cents: number
+	amount_float: number
+	formatted_amount: string
+	succeeded: boolean
 	message?: string
 	error_code?: string
 	error_detail?: string

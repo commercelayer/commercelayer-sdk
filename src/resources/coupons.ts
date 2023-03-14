@@ -13,9 +13,9 @@ interface Coupon extends Resource {
 	
 	readonly type: CouponType
 
-	code?: string
+	code: string
 	customer_single_use?: boolean
-	usage_limit?: number
+	usage_limit: number
 	usage_count?: number
 	recipient_email?: string
 
@@ -38,9 +38,9 @@ interface CouponCreate extends ResourceCreate {
 
 interface CouponUpdate extends ResourceUpdate {
 	
-	code?: string
+	code: string
 	customer_single_use?: boolean
-	usage_limit?: number
+	usage_limit: number
 	recipient_email?: string
 
 	promotion_rule?: CouponCodesPromotionRuleRel

@@ -13,7 +13,7 @@ interface CustomerSubscription extends Resource {
 	
 	readonly type: CustomerSubscriptionType
 
-	customer_email?: string
+	customer_email: string
 
 	customer?: Customer
 	events?: Event[]

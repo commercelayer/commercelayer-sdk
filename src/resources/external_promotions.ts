@@ -23,15 +23,15 @@ interface ExternalPromotion extends Resource {
 	
 	readonly type: ExternalPromotionType
 
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
 	total_usage_count?: number
 	active?: boolean
-	promotion_url?: string
-	shared_secret?: string
+	promotion_url: string
+	shared_secret: string
 
 	market?: Market
 	promotion_rules?: PromotionRule[]
@@ -64,12 +64,12 @@ interface ExternalPromotionCreate extends ResourceCreate {
 
 interface ExternalPromotionUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
-	promotion_url?: string
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
+	promotion_url: string
 
 	market?: MarketRel
 	promotion_rules?: PromotionRuleRel[]

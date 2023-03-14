@@ -26,11 +26,11 @@ interface FreeGiftPromotion extends Resource {
 	
 	readonly type: FreeGiftPromotionType
 
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
 	total_usage_count?: number
 	active?: boolean
 	max_quantity?: number
@@ -69,11 +69,11 @@ interface FreeGiftPromotionCreate extends ResourceCreate {
 
 interface FreeGiftPromotionUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
 	max_quantity?: number
 
 	market?: MarketRel

@@ -20,16 +20,16 @@ interface GiftCard extends Resource {
 	status?: 'draft' | 'inactive' | 'active' | 'redeemed'
 	code?: string
 	currency_code?: string
-	initial_balance_cents?: number
-	initial_balance_float?: number
-	formatted_initial_balance?: string
-	balance_cents?: number
-	balance_float?: number
-	formatted_balance?: string
+	initial_balance_cents: number
+	initial_balance_float: number
+	formatted_initial_balance: string
+	balance_cents: number
+	balance_float: number
+	formatted_balance: string
 	balance_max_cents?: string
 	balance_max_float?: number
 	formatted_balance_max?: string
-	balance_log?: object[]
+	balance_log: object[]
 	single_use?: boolean
 	rechargeable?: boolean
 	image_url?: string
@@ -65,7 +65,7 @@ interface GiftCardCreate extends ResourceCreate {
 interface GiftCardUpdate extends ResourceUpdate {
 	
 	currency_code?: string
-	balance_cents?: number
+	balance_cents: number
 	balance_max_cents?: string
 	single_use?: boolean
 	rechargeable?: boolean

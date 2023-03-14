@@ -14,7 +14,7 @@ interface KlarnaGateway extends Resource {
 	
 	readonly type: KlarnaGatewayType
 
-	name?: string
+	name: string
 
 	payment_methods?: PaymentMethod[]
 	klarna_payments?: KlarnaPayment[]
@@ -36,7 +36,7 @@ interface KlarnaGatewayCreate extends ResourceCreate {
 
 interface KlarnaGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	country_code?: string
 	api_key?: string
 	api_secret?: string

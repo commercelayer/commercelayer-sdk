@@ -14,7 +14,7 @@ interface CheckoutComGateway extends Resource {
 	
 	readonly type: CheckoutComGatewayType
 
-	name?: string
+	name: string
 	webhook_endpoint_id?: string
 	webhook_endpoint_secret?: string
 	webhook_endpoint_url?: string
@@ -38,7 +38,7 @@ interface CheckoutComGatewayCreate extends ResourceCreate {
 
 interface CheckoutComGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	secret_key?: string
 	public_key?: string
 

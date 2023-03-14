@@ -14,8 +14,8 @@ interface PaypalPayment extends Resource {
 	
 	readonly type: PaypalPaymentType
 
-	return_url?: string
-	cancel_url?: string
+	return_url: string
+	cancel_url: string
 	note_to_payer?: string
 	paypal_payer_id?: string
 	name?: string
@@ -23,7 +23,7 @@ interface PaypalPayment extends Resource {
 	status?: 'created' | 'approved'
 	approval_url?: string
 	mismatched_amounts?: boolean
-	intent_amount_cents?: number
+	intent_amount_cents: number
 	intent_amount_float?: number
 	formatted_intent_amount?: string
 	payment_instrument?: object

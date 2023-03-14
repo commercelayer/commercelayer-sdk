@@ -15,9 +15,9 @@ interface AvalaraAccount extends Resource {
 	
 	readonly type: AvalaraAccountType
 
-	name?: string
-	username?: string
-	company_code?: string
+	name: string
+	username: string
+	company_code: string
 	commit_invoice?: string
 	ddp?: string
 
@@ -44,10 +44,10 @@ interface AvalaraAccountCreate extends ResourceCreate {
 
 interface AvalaraAccountUpdate extends ResourceUpdate {
 	
-	name?: string
-	username?: string
+	name: string
+	username: string
 	password?: string
-	company_code?: string
+	company_code: string
 	commit_invoice?: string
 	ddp?: string
 

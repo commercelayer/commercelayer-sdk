@@ -13,7 +13,7 @@ interface PaypalGateway extends Resource {
 	
 	readonly type: PaypalGatewayType
 
-	name?: string
+	name: string
 
 	payment_methods?: PaymentMethod[]
 	paypal_payments?: PaypalPayment[]
@@ -32,7 +32,7 @@ interface PaypalGatewayCreate extends ResourceCreate {
 
 interface PaypalGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	client_id?: string
 	client_secret?: string
 	

@@ -23,12 +23,12 @@ interface Market extends Resource {
 	readonly type: MarketType
 
 	number?: number
-	name?: string
+	name: string
 	facebook_pixel_id?: string
 	checkout_url?: string
 	external_prices_url?: string
 	external_order_validation_url?: string
-	shared_secret?: string
+	shared_secret: string
 	private?: boolean
 	disabled_at?: string
 
@@ -61,7 +61,7 @@ interface MarketCreate extends ResourceCreate {
 
 interface MarketUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	facebook_pixel_id?: string
 	checkout_url?: string
 	external_prices_url?: string

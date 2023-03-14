@@ -12,7 +12,7 @@ interface ManualGateway extends Resource {
 	
 	readonly type: ManualGatewayType
 
-	name?: string
+	name: string
 
 	payment_methods?: PaymentMethod[]
 
@@ -28,7 +28,7 @@ interface ManualGatewayCreate extends ResourceCreate {
 
 interface ManualGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	
 }
 

@@ -15,7 +15,7 @@ interface InventoryStockLocation extends Resource {
 	
 	readonly type: InventoryStockLocationType
 
-	priority?: number
+	priority: number
 	on_hold?: boolean
 
 	stock_location?: StockLocation
@@ -37,7 +37,7 @@ interface InventoryStockLocationCreate extends ResourceCreate {
 
 interface InventoryStockLocationUpdate extends ResourceUpdate {
 	
-	priority?: number
+	priority: number
 	on_hold?: boolean
 
 	stock_location?: StockLocationRel

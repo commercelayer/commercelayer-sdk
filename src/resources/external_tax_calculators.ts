@@ -13,9 +13,9 @@ interface ExternalTaxCalculator extends Resource {
 	
 	readonly type: ExternalTaxCalculatorType
 
-	name?: string
-	tax_calculator_url?: string
-	shared_secret?: string
+	name: string
+	tax_calculator_url: string
+	shared_secret: string
 
 	markets?: Market[]
 	attachments?: Attachment[]
@@ -33,8 +33,8 @@ interface ExternalTaxCalculatorCreate extends ResourceCreate {
 
 interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	
-	name?: string
-	tax_calculator_url?: string
+	name: string
+	tax_calculator_url: string
 	
 }
 

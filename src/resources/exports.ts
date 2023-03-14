@@ -12,7 +12,7 @@ interface Export extends Resource {
 	
 	readonly type: ExportType
 
-	resource_type?: string
+	resource_type: string
 	format?: string
 	status?: 'pending' | 'in_progress' | 'completed'
 	includes?: string[]

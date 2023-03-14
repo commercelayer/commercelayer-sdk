@@ -14,7 +14,7 @@ interface SkuOption extends Resource {
 	
 	readonly type: SkuOptionType
 
-	name?: string
+	name: string
 	currency_code?: string
 	description?: string
 	price_amount_cents?: number
@@ -46,7 +46,7 @@ interface SkuOptionCreate extends ResourceCreate {
 
 interface SkuOptionUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	currency_code?: string
 	description?: string
 	price_amount_cents?: number

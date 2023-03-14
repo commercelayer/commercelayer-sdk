@@ -13,7 +13,7 @@ interface ShippingCategory extends Resource {
 	
 	readonly type: ShippingCategoryType
 
-	name?: string
+	name: string
 
 	skus?: Sku[]
 	attachments?: Attachment[]
@@ -30,7 +30,7 @@ interface ShippingCategoryCreate extends ResourceCreate {
 
 interface ShippingCategoryUpdate extends ResourceUpdate {
 	
-	name?: string
+	name: string
 	
 }
 

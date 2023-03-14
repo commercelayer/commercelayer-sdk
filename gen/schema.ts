@@ -250,11 +250,12 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 		// Attributes
 		Object.entries(cmpAttributes.properties as object).forEach(a => {
 			const [aKey, aValue] = a
+			const fetchable = (aValue.nullable !== undefined)
 			attributes[aKey] = {
 				name: aKey,
 				type: (aValue.type === 'array') ? `${aValue.items.type}[]` : aValue.type,
-				required: requiredAttributes.includes(aKey) || (aValue.nullable === 'false'),
-				fetchable: (aValue.nullable !== undefined),
+				required: requiredAttributes.includes(aKey) || (fetchable && !aValue.nullable),
+				fetchable,
 				enum: aValue.enum
 			}
 	})

@@ -13,9 +13,9 @@ interface PriceTier extends Resource {
 	
 	readonly type: PriceTierType
 
-	name?: string
+	name: string
 	up_to?: number
-	price_amount_cents?: number
+	price_amount_cents: number
 	price_amount_float?: number
 	formatted_price_amount?: string
 

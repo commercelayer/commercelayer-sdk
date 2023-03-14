@@ -15,7 +15,7 @@ interface AdyenPayment extends Resource {
 	readonly type: AdyenPaymentType
 
 	public_key?: string
-	payment_methods?: object
+	payment_methods: object
 	payment_request_data?: object
 	payment_request_details?: object
 	payment_response?: object
