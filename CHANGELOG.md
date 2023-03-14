@@ -1,3 +1,10 @@
+# [5.0.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.1...v5.0.0-beta.2) (2023-03-14)
+
+
+### Bug Fixes
+
+* **core:** fix fetchable not nullable resource fields ([b2b8225](https://github.com/commercelayer/commercelayer-sdk/commit/b2b8225ce44b72158b5e7c4884fe1feb1ba6f167))
+
 # [5.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.24.1...v5.0.0-beta.1) (2023-03-08)
 
 
