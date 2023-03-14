@@ -14,7 +14,6 @@ let debuggerFactory: DebuggerFactory = (_namespace: string): Debugger => debugge
 
 /* Try loading 'debug' module */
 try {
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
 	const debugModule = require('debug')
 	if (debugModule && (typeof debugModule === 'function')) debuggerFactory = debugModule
 } catch (error) {

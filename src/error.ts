@@ -12,7 +12,6 @@ class SdkError extends Error {
 
 	static NAME = 'SdkError'
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	static isSdkError(error: any): error is ApiError {
 		return error && [SdkError.NAME, ApiError.NAME].includes(error.name) && Object.values(ErrorType).includes(error.type)
 	}
@@ -34,7 +33,6 @@ class ApiError extends SdkError {
 
 	static NAME = 'ApiError'
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	static isApiError(error: any): error is ApiError {
 		return SdkError.isSdkError(error) && (error.name === ApiError.NAME) && (error.type === ErrorType.RESPONSE)
 	}
