@@ -48,7 +48,6 @@ interface AxerveGatewayUpdate extends ResourceUpdate {
 class AxerveGateways extends ApiResource<AxerveGateway> {
 
 	static readonly TYPE: AxerveGatewayType = 'axerve_gateways' as const
-	// static readonly PATH = 'axerve_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AxerveGateway>> {
 		return this.resources.list<AxerveGateway>({ type: AxerveGateways.TYPE }, params, options)

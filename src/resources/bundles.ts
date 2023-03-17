@@ -76,7 +76,6 @@ interface BundleUpdate extends ResourceUpdate {
 class Bundles extends ApiResource<Bundle> {
 
 	static readonly TYPE: BundleType = 'bundles' as const
-	// static readonly PATH = 'bundles'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
 		return this.resources.list<Bundle>({ type: Bundles.TYPE }, params, options)

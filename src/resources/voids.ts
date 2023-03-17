@@ -36,7 +36,6 @@ interface Void extends Resource {
 class Voids extends ApiResource<Void> {
 
 	static readonly TYPE: VoidType = 'voids' as const
-	// static readonly PATH = 'voids'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
 		return this.resources.list<Void>({ type: Voids.TYPE }, params, options)

@@ -34,7 +34,6 @@ interface Organization extends Resource {
 class Organizations extends ApiSingleton<Organization> {
 
 	static readonly TYPE: OrganizationType = 'organization' as const
-	// static readonly PATH = 'organization'
 
 	
 

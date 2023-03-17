@@ -51,7 +51,6 @@ interface CouponUpdate extends ResourceUpdate {
 class Coupons extends ApiResource<Coupon> {
 
 	static readonly TYPE: CouponType = 'coupons' as const
-	// static readonly PATH = 'coupons'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
 		return this.resources.list<Coupon>({ type: Coupons.TYPE }, params, options)

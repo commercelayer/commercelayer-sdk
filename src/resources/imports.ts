@@ -48,7 +48,6 @@ interface ImportCreate extends ResourceCreate {
 class Imports extends ApiResource<Import> {
 
 	static readonly TYPE: ImportType = 'imports' as const
-	// static readonly PATH = 'imports'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Import>> {
 		return this.resources.list<Import>({ type: Imports.TYPE }, params, options)

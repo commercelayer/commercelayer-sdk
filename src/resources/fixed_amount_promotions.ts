@@ -84,7 +84,6 @@ interface FixedAmountPromotionUpdate extends ResourceUpdate {
 class FixedAmountPromotions extends ApiResource<FixedAmountPromotion> {
 
 	static readonly TYPE: FixedAmountPromotionType = 'fixed_amount_promotions' as const
-	// static readonly PATH = 'fixed_amount_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FixedAmountPromotion>> {
 		return this.resources.list<FixedAmountPromotion>({ type: FixedAmountPromotions.TYPE }, params, options)

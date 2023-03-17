@@ -47,7 +47,6 @@ interface OrderCopyCreate extends ResourceCreate {
 class OrderCopies extends ApiResource<OrderCopy> {
 
 	static readonly TYPE: OrderCopyType = 'order_copies' as const
-	// static readonly PATH = 'order_copies'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
 		return this.resources.list<OrderCopy>({ type: OrderCopies.TYPE }, params, options)

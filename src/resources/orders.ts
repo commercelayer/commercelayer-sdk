@@ -56,8 +56,8 @@ interface Order extends Resource {
 	number?: number
 	autorefresh?: boolean
 	status?: 'draft' | 'pending' | 'placed' | 'approved' | 'cancelled'
-	payment_status?: 'unpaid' | 'authorized' | 'paid' | 'voided' | 'refunded'
-	fulfillment_status?: 'unfulfilled' | 'in_progress' | 'fulfilled'
+	payment_status?: 'unpaid' | 'authorized' | 'paid' | 'voided' | 'refunded' | 'free'
+	fulfillment_status?: 'unfulfilled' | 'in_progress' | 'fulfilled' | 'not_required'
 	guest?: boolean
 	editable?: boolean
 	customer_email?: string
@@ -257,7 +257,6 @@ interface OrderUpdate extends ResourceUpdate {
 class Orders extends ApiResource<Order> {
 
 	static readonly TYPE: OrderType = 'orders' as const
-	// static readonly PATH = 'orders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
 		return this.resources.list<Order>({ type: Orders.TYPE }, params, options)

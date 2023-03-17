@@ -48,7 +48,6 @@ interface ExternalPaymentUpdate extends ResourceUpdate {
 class ExternalPayments extends ApiResource<ExternalPayment> {
 
 	static readonly TYPE: ExternalPaymentType = 'external_payments' as const
-	// static readonly PATH = 'external_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
 		return this.resources.list<ExternalPayment>({ type: ExternalPayments.TYPE }, params, options)

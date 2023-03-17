@@ -26,7 +26,6 @@ interface CarrierAccount extends Resource {
 class CarrierAccounts extends ApiResource<CarrierAccount> {
 
 	static readonly TYPE: CarrierAccountType = 'carrier_accounts' as const
-	// static readonly PATH = 'carrier_accounts'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CarrierAccount>> {
 		return this.resources.list<CarrierAccount>({ type: CarrierAccounts.TYPE }, params, options)

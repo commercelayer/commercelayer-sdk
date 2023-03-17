@@ -42,7 +42,6 @@ interface PaypalGatewayUpdate extends ResourceUpdate {
 class PaypalGateways extends ApiResource<PaypalGateway> {
 
 	static readonly TYPE: PaypalGatewayType = 'paypal_gateways' as const
-	// static readonly PATH = 'paypal_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalGateway>> {
 		return this.resources.list<PaypalGateway>({ type: PaypalGateways.TYPE }, params, options)

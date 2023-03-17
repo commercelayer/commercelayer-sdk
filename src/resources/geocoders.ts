@@ -24,7 +24,6 @@ interface Geocoder extends Resource {
 class Geocoders extends ApiResource<Geocoder> {
 
 	static readonly TYPE: GeocoderType = 'geocoders' as const
-	// static readonly PATH = 'geocoders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Geocoder>> {
 		return this.resources.list<Geocoder>({ type: Geocoders.TYPE }, params, options)

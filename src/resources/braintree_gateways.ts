@@ -61,7 +61,6 @@ interface BraintreeGatewayUpdate extends ResourceUpdate {
 class BraintreeGateways extends ApiResource<BraintreeGateway> {
 
 	static readonly TYPE: BraintreeGatewayType = 'braintree_gateways' as const
-	// static readonly PATH = 'braintree_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BraintreeGateway>> {
 		return this.resources.list<BraintreeGateway>({ type: BraintreeGateways.TYPE }, params, options)

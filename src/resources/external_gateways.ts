@@ -54,7 +54,6 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 class ExternalGateways extends ApiResource<ExternalGateway> {
 
 	static readonly TYPE: ExternalGatewayType = 'external_gateways' as const
-	// static readonly PATH = 'external_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalGateway>> {
 		return this.resources.list<ExternalGateway>({ type: ExternalGateways.TYPE }, params, options)

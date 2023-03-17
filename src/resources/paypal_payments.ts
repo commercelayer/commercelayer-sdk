@@ -57,7 +57,6 @@ interface PaypalPaymentUpdate extends ResourceUpdate {
 class PaypalPayments extends ApiResource<PaypalPayment> {
 
 	static readonly TYPE: PaypalPaymentType = 'paypal_payments' as const
-	// static readonly PATH = 'paypal_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
 		return this.resources.list<PaypalPayment>({ type: PaypalPayments.TYPE }, params, options)

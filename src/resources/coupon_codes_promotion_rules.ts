@@ -51,7 +51,6 @@ interface CouponCodesPromotionRuleUpdate extends ResourceUpdate {
 class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
 
 	static readonly TYPE: CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules' as const
-	// static readonly PATH = 'coupon_codes_promotion_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CouponCodesPromotionRule>> {
 		return this.resources.list<CouponCodesPromotionRule>({ type: CouponCodesPromotionRules.TYPE }, params, options)

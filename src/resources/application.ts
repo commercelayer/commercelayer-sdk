@@ -23,7 +23,6 @@ interface Application extends Resource {
 class Applications extends ApiSingleton<Application> {
 
 	static readonly TYPE: ApplicationType = 'application' as const
-	// static readonly PATH = 'application'
 
 	
 

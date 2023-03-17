@@ -25,7 +25,6 @@ interface EventCallback extends Resource {
 class EventCallbacks extends ApiResource<EventCallback> {
 
 	static readonly TYPE: EventCallbackType = 'event_callbacks' as const
-	// static readonly PATH = 'event_callbacks'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		return this.resources.list<EventCallback>({ type: EventCallbacks.TYPE }, params, options)

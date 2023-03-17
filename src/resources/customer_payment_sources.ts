@@ -62,7 +62,6 @@ interface CustomerPaymentSourceUpdate extends ResourceUpdate {
 class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
 
 	static readonly TYPE: CustomerPaymentSourceType = 'customer_payment_sources' as const
-	// static readonly PATH = 'customer_payment_sources'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
 		return this.resources.list<CustomerPaymentSource>({ type: CustomerPaymentSources.TYPE }, params, options)

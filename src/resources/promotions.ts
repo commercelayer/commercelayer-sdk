@@ -38,7 +38,6 @@ interface Promotion extends Resource {
 class Promotions extends ApiResource<Promotion> {
 
 	static readonly TYPE: PromotionType = 'promotions' as const
-	// static readonly PATH = 'promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Promotion>> {
 		return this.resources.list<Promotion>({ type: Promotions.TYPE }, params, options)

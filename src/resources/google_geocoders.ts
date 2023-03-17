@@ -40,7 +40,6 @@ interface GoogleGeocoderUpdate extends ResourceUpdate {
 class GoogleGeocoders extends ApiResource<GoogleGeocoder> {
 
 	static readonly TYPE: GoogleGeocoderType = 'google_geocoders' as const
-	// static readonly PATH = 'google_geocoders'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GoogleGeocoder>> {
 		return this.resources.list<GoogleGeocoder>({ type: GoogleGeocoders.TYPE }, params, options)

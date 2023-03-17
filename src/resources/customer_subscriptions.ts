@@ -34,7 +34,6 @@ type CustomerSubscriptionUpdate = ResourceUpdate
 class CustomerSubscriptions extends ApiResource<CustomerSubscription> {
 
 	static readonly TYPE: CustomerSubscriptionType = 'customer_subscriptions' as const
-	// static readonly PATH = 'customer_subscriptions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerSubscription>> {
 		return this.resources.list<CustomerSubscription>({ type: CustomerSubscriptions.TYPE }, params, options)

@@ -49,7 +49,6 @@ interface WebhookUpdate extends ResourceUpdate {
 class Webhooks extends ApiResource<Webhook> {
 
 	static readonly TYPE: WebhookType = 'webhooks' as const
-	// static readonly PATH = 'webhooks'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {
 		return this.resources.list<Webhook>({ type: Webhooks.TYPE }, params, options)

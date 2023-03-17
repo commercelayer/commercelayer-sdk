@@ -47,7 +47,6 @@ interface TaxjarAccountUpdate extends ResourceUpdate {
 class TaxjarAccounts extends ApiResource<TaxjarAccount> {
 
 	static readonly TYPE: TaxjarAccountType = 'taxjar_accounts' as const
-	// static readonly PATH = 'taxjar_accounts'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxjarAccount>> {
 		return this.resources.list<TaxjarAccount>({ type: TaxjarAccounts.TYPE }, params, options)

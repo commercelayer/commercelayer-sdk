@@ -28,7 +28,6 @@ interface StockLineItem extends Resource {
 class StockLineItems extends ApiResource<StockLineItem> {
 
 	static readonly TYPE: StockLineItemType = 'stock_line_items' as const
-	// static readonly PATH = 'stock_line_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
 		return this.resources.list<StockLineItem>({ type: StockLineItems.TYPE }, params, options)

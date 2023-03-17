@@ -51,7 +51,6 @@ type ParcelLineItemUpdate = ResourceUpdate
 class ParcelLineItems extends ApiResource<ParcelLineItem> {
 
 	static readonly TYPE: ParcelLineItemType = 'parcel_line_items' as const
-	// static readonly PATH = 'parcel_line_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
 		return this.resources.list<ParcelLineItem>({ type: ParcelLineItems.TYPE }, params, options)

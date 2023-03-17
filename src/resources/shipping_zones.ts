@@ -54,7 +54,6 @@ interface ShippingZoneUpdate extends ResourceUpdate {
 class ShippingZones extends ApiResource<ShippingZone> {
 
 	static readonly TYPE: ShippingZoneType = 'shipping_zones' as const
-	// static readonly PATH = 'shipping_zones'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingZone>> {
 		return this.resources.list<ShippingZone>({ type: ShippingZones.TYPE }, params, options)

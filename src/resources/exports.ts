@@ -43,7 +43,6 @@ interface ExportCreate extends ResourceCreate {
 class Exports extends ApiResource<Export> {
 
 	static readonly TYPE: ExportType = 'exports' as const
-	// static readonly PATH = 'exports'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Export>> {
 		return this.resources.list<Export>({ type: Exports.TYPE }, params, options)

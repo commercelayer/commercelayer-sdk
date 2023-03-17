@@ -52,7 +52,6 @@ interface CaptureUpdate extends ResourceUpdate {
 class Captures extends ApiResource<Capture> {
 
 	static readonly TYPE: CaptureType = 'captures' as const
-	// static readonly PATH = 'captures'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
 		return this.resources.list<Capture>({ type: Captures.TYPE }, params, options)

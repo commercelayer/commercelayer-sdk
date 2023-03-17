@@ -41,7 +41,6 @@ interface CustomerPasswordResetUpdate extends ResourceUpdate {
 class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 
 	static readonly TYPE: CustomerPasswordResetType = 'customer_password_resets' as const
-	// static readonly PATH = 'customer_password_resets'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPasswordReset>> {
 		return this.resources.list<CustomerPasswordReset>({ type: CustomerPasswordResets.TYPE }, params, options)

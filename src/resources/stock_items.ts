@@ -51,7 +51,6 @@ interface StockItemUpdate extends ResourceUpdate {
 class StockItems extends ApiResource<StockItem> {
 
 	static readonly TYPE: StockItemType = 'stock_items' as const
-	// static readonly PATH = 'stock_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
 		return this.resources.list<StockItem>({ type: StockItems.TYPE }, params, options)

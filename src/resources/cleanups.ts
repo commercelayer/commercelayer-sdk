@@ -39,7 +39,6 @@ interface CleanupCreate extends ResourceCreate {
 class Cleanups extends ApiResource<Cleanup> {
 
 	static readonly TYPE: CleanupType = 'cleanups' as const
-	// static readonly PATH = 'cleanups'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Cleanup>> {
 		return this.resources.list<Cleanup>({ type: Cleanups.TYPE }, params, options)

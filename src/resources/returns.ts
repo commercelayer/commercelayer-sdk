@@ -71,7 +71,6 @@ interface ReturnUpdate extends ResourceUpdate {
 class Returns extends ApiResource<Return> {
 
 	static readonly TYPE: ReturnType = 'returns' as const
-	// static readonly PATH = 'returns'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
 		return this.resources.list<Return>({ type: Returns.TYPE }, params, options)

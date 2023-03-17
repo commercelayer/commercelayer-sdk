@@ -44,7 +44,6 @@ interface CustomerAddressUpdate extends ResourceUpdate {
 class CustomerAddresses extends ApiResource<CustomerAddress> {
 
 	static readonly TYPE: CustomerAddressType = 'customer_addresses' as const
-	// static readonly PATH = 'customer_addresses'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerAddress>> {
 		return this.resources.list<CustomerAddress>({ type: CustomerAddresses.TYPE }, params, options)

@@ -13,7 +13,6 @@ type ##__MODEL_RESOURCE_INTERFACE__##Rel = ResourceRel & { type: ##__MODEL_RESOU
 class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOURCE_INTERFACE__##> {
 
 	static readonly TYPE: ##__MODEL_RESOURCE_INTERFACE__##Type = '##__RESOURCE_TYPE__##' as const
-	// static readonly PATH = '##__RESOURCE_TYPE__##'
 
 	##__RESOURCE_OPERATIONS__##
 

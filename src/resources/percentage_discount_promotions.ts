@@ -89,7 +89,6 @@ interface PercentageDiscountPromotionUpdate extends ResourceUpdate {
 class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromotion> {
 
 	static readonly TYPE: PercentageDiscountPromotionType = 'percentage_discount_promotions' as const
-	// static readonly PATH = 'percentage_discount_promotions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PercentageDiscountPromotion>> {
 		return this.resources.list<PercentageDiscountPromotion>({ type: PercentageDiscountPromotions.TYPE }, params, options)

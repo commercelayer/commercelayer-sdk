@@ -43,7 +43,6 @@ interface MerchantUpdate extends ResourceUpdate {
 class Merchants extends ApiResource<Merchant> {
 
 	static readonly TYPE: MerchantType = 'merchants' as const
-	// static readonly PATH = 'merchants'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Merchant>> {
 		return this.resources.list<Merchant>({ type: Merchants.TYPE }, params, options)

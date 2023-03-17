@@ -56,7 +56,6 @@ interface TaxCategoryUpdate extends ResourceUpdate {
 class TaxCategories extends ApiResource<TaxCategory> {
 
 	static readonly TYPE: TaxCategoryType = 'tax_categories' as const
-	// static readonly PATH = 'tax_categories'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
 		return this.resources.list<TaxCategory>({ type: TaxCategories.TYPE }, params, options)

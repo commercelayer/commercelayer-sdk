@@ -50,7 +50,6 @@ interface KlarnaPaymentUpdate extends ResourceUpdate {
 class KlarnaPayments extends ApiResource<KlarnaPayment> {
 
 	static readonly TYPE: KlarnaPaymentType = 'klarna_payments' as const
-	// static readonly PATH = 'klarna_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
 		return this.resources.list<KlarnaPayment>({ type: KlarnaPayments.TYPE }, params, options)

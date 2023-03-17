@@ -53,7 +53,6 @@ interface DeliveryLeadTimeUpdate extends ResourceUpdate {
 class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 
 	static readonly TYPE: DeliveryLeadTimeType = 'delivery_lead_times' as const
-	// static readonly PATH = 'delivery_lead_times'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
 		return this.resources.list<DeliveryLeadTime>({ type: DeliveryLeadTimes.TYPE }, params, options)

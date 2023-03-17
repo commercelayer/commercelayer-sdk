@@ -59,7 +59,6 @@ interface AvalaraAccountUpdate extends ResourceUpdate {
 class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 
 	static readonly TYPE: AvalaraAccountType = 'avalara_accounts' as const
-	// static readonly PATH = 'avalara_accounts'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AvalaraAccount>> {
 		return this.resources.list<AvalaraAccount>({ type: AvalaraAccounts.TYPE }, params, options)

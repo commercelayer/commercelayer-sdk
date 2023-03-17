@@ -28,7 +28,6 @@ interface ShippingMethodTier extends Resource {
 class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
 
 	static readonly TYPE: ShippingMethodTierType = 'shipping_method_tiers' as const
-	// static readonly PATH = 'shipping_method_tiers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingMethodTier>> {
 		return this.resources.list<ShippingMethodTier>({ type: ShippingMethodTiers.TYPE }, params, options)

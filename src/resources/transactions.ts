@@ -32,7 +32,6 @@ interface Transaction extends Resource {
 class Transactions extends ApiResource<Transaction> {
 
 	static readonly TYPE: TransactionType = 'transactions' as const
-	// static readonly PATH = 'transactions'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Transaction>> {
 		return this.resources.list<Transaction>({ type: Transactions.TYPE }, params, options)

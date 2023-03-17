@@ -60,7 +60,7 @@ interface LineItem extends Resource {
 	discount_breakdown?: object
 	tax_rate?: number
 	tax_breakdown?: object
-	item_type?: string
+	item_type?: 'sku' | 'bundle' | 'shipment' | 'payment_method' | 'adjustment' | 'gift_card' | 'percentage_discount_promotion' | 'free_shipping_promotion' | 'free_gift_promotion' | 'fixed_price_promotion' | 'external_promotion' | 'fixed_amount_promotion'
 
 	order?: Order
 	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku
@@ -85,7 +85,7 @@ interface LineItemCreate extends ResourceCreate {
 	unit_amount_cents?: number
 	name?: string
 	image_url?: string
-	item_type?: string
+	item_type?: 'sku' | 'bundle' | 'shipment' | 'payment_method' | 'adjustment' | 'gift_card' | 'percentage_discount_promotion' | 'free_shipping_promotion' | 'free_gift_promotion' | 'fixed_price_promotion' | 'external_promotion' | 'fixed_amount_promotion'
 
 	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel
@@ -108,7 +108,6 @@ interface LineItemUpdate extends ResourceUpdate {
 class LineItems extends ApiResource<LineItem> {
 
 	static readonly TYPE: LineItemType = 'line_items' as const
-	// static readonly PATH = 'line_items'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {
 		return this.resources.list<LineItem>({ type: LineItems.TYPE }, params, options)

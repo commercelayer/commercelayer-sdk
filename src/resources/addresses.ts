@@ -94,7 +94,6 @@ interface AddressUpdate extends ResourceUpdate {
 class Addresses extends ApiResource<Address> {
 
 	static readonly TYPE: AddressType = 'addresses' as const
-	// static readonly PATH = 'addresses'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
 		return this.resources.list<Address>({ type: Addresses.TYPE }, params, options)

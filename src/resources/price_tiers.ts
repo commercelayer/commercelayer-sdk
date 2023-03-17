@@ -28,7 +28,6 @@ interface PriceTier extends Resource {
 class PriceTiers extends ApiResource<PriceTier> {
 
 	static readonly TYPE: PriceTierType = 'price_tiers' as const
-	// static readonly PATH = 'price_tiers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceTier>> {
 		return this.resources.list<PriceTier>({ type: PriceTiers.TYPE }, params, options)

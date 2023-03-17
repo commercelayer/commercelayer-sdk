@@ -38,7 +38,6 @@ interface BillingInfoValidationRuleUpdate extends ResourceUpdate {
 class BillingInfoValidationRules extends ApiResource<BillingInfoValidationRule> {
 
 	static readonly TYPE: BillingInfoValidationRuleType = 'billing_info_validation_rules' as const
-	// static readonly PATH = 'billing_info_validation_rules'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BillingInfoValidationRule>> {
 		return this.resources.list<BillingInfoValidationRule>({ type: BillingInfoValidationRules.TYPE }, params, options)

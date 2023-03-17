@@ -24,7 +24,6 @@ interface Event extends Resource {
 class Events extends ApiResource<Event> {
 
 	static readonly TYPE: EventType = 'events' as const
-	// static readonly PATH = 'events'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		return this.resources.list<Event>({ type: Events.TYPE }, params, options)

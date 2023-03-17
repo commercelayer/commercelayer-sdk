@@ -61,7 +61,6 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 class AdyenGateways extends ApiResource<AdyenGateway> {
 
 	static readonly TYPE: AdyenGatewayType = 'adyen_gateways' as const
-	// static readonly PATH = 'adyen_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenGateway>> {
 		return this.resources.list<AdyenGateway>({ type: AdyenGateways.TYPE }, params, options)

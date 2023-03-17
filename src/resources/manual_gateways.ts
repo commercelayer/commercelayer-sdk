@@ -36,7 +36,6 @@ interface ManualGatewayUpdate extends ResourceUpdate {
 class ManualGateways extends ApiResource<ManualGateway> {
 
 	static readonly TYPE: ManualGatewayType = 'manual_gateways' as const
-	// static readonly PATH = 'manual_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ManualGateway>> {
 		return this.resources.list<ManualGateway>({ type: ManualGateways.TYPE }, params, options)

@@ -61,7 +61,6 @@ interface SkuOptionUpdate extends ResourceUpdate {
 class SkuOptions extends ApiResource<SkuOption> {
 
 	static readonly TYPE: SkuOptionType = 'sku_options' as const
-	// static readonly PATH = 'sku_options'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
 		return this.resources.list<SkuOption>({ type: SkuOptions.TYPE }, params, options)

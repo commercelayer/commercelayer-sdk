@@ -60,7 +60,6 @@ interface PackageUpdate extends ResourceUpdate {
 class Packages extends ApiResource<Package> {
 
 	static readonly TYPE: PackageType = 'packages' as const
-	// static readonly PATH = 'packages'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Package>> {
 		return this.resources.list<Package>({ type: Packages.TYPE }, params, options)

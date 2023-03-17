@@ -49,7 +49,6 @@ interface GiftCardRecipientUpdate extends ResourceUpdate {
 class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
 
 	static readonly TYPE: GiftCardRecipientType = 'gift_card_recipients' as const
-	// static readonly PATH = 'gift_card_recipients'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GiftCardRecipient>> {
 		return this.resources.list<GiftCardRecipient>({ type: GiftCardRecipients.TYPE }, params, options)

@@ -44,7 +44,6 @@ interface SatispayGatewayUpdate extends ResourceUpdate {
 class SatispayGateways extends ApiResource<SatispayGateway> {
 
 	static readonly TYPE: SatispayGatewayType = 'satispay_gateways' as const
-	// static readonly PATH = 'satispay_gateways'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SatispayGateway>> {
 		return this.resources.list<SatispayGateway>({ type: SatispayGateways.TYPE }, params, options)

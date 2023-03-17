@@ -69,7 +69,6 @@ interface StockTransferUpdate extends ResourceUpdate {
 class StockTransfers extends ApiResource<StockTransfer> {
 
 	static readonly TYPE: StockTransferType = 'stock_transfers' as const
-	// static readonly PATH = 'stock_transfers'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		return this.resources.list<StockTransfer>({ type: StockTransfers.TYPE }, params, options)

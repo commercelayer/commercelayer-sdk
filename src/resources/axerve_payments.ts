@@ -51,7 +51,6 @@ interface AxervePaymentUpdate extends ResourceUpdate {
 class AxervePayments extends ApiResource<AxervePayment> {
 
 	static readonly TYPE: AxervePaymentType = 'axerve_payments' as const
-	// static readonly PATH = 'axerve_payments'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AxervePayment>> {
 		return this.resources.list<AxervePayment>({ type: AxervePayments.TYPE }, params, options)

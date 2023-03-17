@@ -60,7 +60,6 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 class LineItemOptions extends ApiResource<LineItemOption> {
 
 	static readonly TYPE: LineItemOptionType = 'line_item_options' as const
-	// static readonly PATH = 'line_item_options'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
 		return this.resources.list<LineItemOption>({ type: LineItemOptions.TYPE }, params, options)

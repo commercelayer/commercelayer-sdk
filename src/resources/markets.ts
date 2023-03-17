@@ -81,7 +81,6 @@ interface MarketUpdate extends ResourceUpdate {
 class Markets extends ApiResource<Market> {
 
 	static readonly TYPE: MarketType = 'markets' as const
-	// static readonly PATH = 'markets'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
 		return this.resources.list<Market>({ type: Markets.TYPE }, params, options)

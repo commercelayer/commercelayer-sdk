@@ -119,7 +119,6 @@ interface ParcelUpdate extends ResourceUpdate {
 class Parcels extends ApiResource<Parcel> {
 
 	static readonly TYPE: ParcelType = 'parcels' as const
-	// static readonly PATH = 'parcels'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
 		return this.resources.list<Parcel>({ type: Parcels.TYPE }, params, options)

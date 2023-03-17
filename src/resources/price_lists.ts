@@ -44,7 +44,6 @@ interface PriceListUpdate extends ResourceUpdate {
 class PriceLists extends ApiResource<PriceList> {
 
 	static readonly TYPE: PriceListType = 'price_lists' as const
-	// static readonly PATH = 'price_lists'
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceList>> {
 		return this.resources.list<PriceList>({ type: PriceLists.TYPE }, params, options)
