@@ -1,3 +1,10 @@
+# [5.0.0-beta.5](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.4...v5.0.0-beta.5) (2023-03-17)
+
+
+### Features
+
+* **core:** upgrade to typescript 5 ([e115ba7](https://github.com/commercelayer/commercelayer-sdk/commit/e115ba74e003ad1bfdc883838d1d10d196615cfb))
+
 # [5.0.0-beta.4](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.3...v5.0.0-beta.4) (2023-03-14)
 
 
