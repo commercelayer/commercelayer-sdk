@@ -1,3 +1,15 @@
+# [4.26.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.25.0...v4.26.0) (2023-03-17)
+
+
+### Bug Fixes
+
+* **release:** fix semantic-release config ([b78fabf](https://github.com/commercelayer/commercelayer-sdk/commit/b78fabfb45e3ac5c3dd383c75856b60da6772f35))
+
+
+### Features
+
+* **core:** update resources to schema 4.0.1 ([0a8bbe9](https://github.com/commercelayer/commercelayer-sdk/commit/0a8bbe90dd05f6620137ce812cc39157b7843e58))
+
 # [4.25.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.24.1...v4.25.0) (2023-02-22)
 
 
