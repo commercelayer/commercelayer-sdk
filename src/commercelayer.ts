@@ -25,7 +25,7 @@ class CommerceLayerClient {
 	static get openApiSchemaVersion(): string { return OPEN_API_SCHEMA_VERSION }
 	readonly openApiSchemaVersion = OPEN_API_SCHEMA_VERSION
 
-	#adapter: ResourceAdapter
+	readonly #adapter: ResourceAdapter
 	#organization: string
 
 	// ##__CL_RESOURCES_DEF_START__##

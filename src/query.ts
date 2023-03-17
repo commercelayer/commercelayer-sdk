@@ -27,7 +27,7 @@ export { QueryParamsRetrieve, QueryParamsList, QueryParams, QueryFilter }
 
 
 const isParamsList = (params: any): params is QueryParamsList => {
-	return (params.filters || params.pageNumber || params.pageSize || params.sort)
+	return params && (params.filters || params.pageNumber || params.pageSize || params.sort)
 }
 
 

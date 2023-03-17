@@ -249,8 +249,7 @@ class ResourceAdapter {
 abstract class ApiResourceBase<R extends Resource> {
 
 	static readonly TYPE: ResourceTypeLock
-	// static readonly PATH: ResourceTypeLock
-	protected resources: ResourceAdapter
+	protected readonly resources: ResourceAdapter
 
 	constructor(adapter: ResourceAdapter) {
 		debug('new resource instance: %s', this.type())
