@@ -1,3 +1,10 @@
+# [5.0.0-beta.7](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.6...v5.0.0-beta.7) (2023-03-17)
+
+
+### Bug Fixes
+
+* **core:** query params check issue ([8868810](https://github.com/commercelayer/commercelayer-sdk/commit/8868810742df64228ba430d0547c6b9419333955))
+
 # [5.0.0-beta.6](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.5...v5.0.0-beta.6) (2023-03-17)
 
 
