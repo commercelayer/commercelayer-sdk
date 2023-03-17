@@ -9,6 +9,7 @@ import type { CheckoutComPayment } from './checkout_com_payments'
 import type { ExternalPayment } from './external_payments'
 import type { KlarnaPayment } from './klarna_payments'
 import type { PaypalPayment } from './paypal_payments'
+import type { SatispayPayment } from './satispay_payments'
 import type { StripePayment } from './stripe_payments'
 import type { WireTransfer } from './wire_transfers'
 
@@ -22,6 +23,7 @@ type CheckoutComPaymentRel = ResourceRel & { type: 'checkout_com_payments' }
 type ExternalPaymentRel = ResourceRel & { type: 'external_payments' }
 type KlarnaPaymentRel = ResourceRel & { type: 'klarna_payments' }
 type PaypalPaymentRel = ResourceRel & { type: 'paypal_payments' }
+type SatispayPaymentRel = ResourceRel & { type: 'satispay_payments' }
 type StripePaymentRel = ResourceRel & { type: 'stripe_payments' }
 type WireTransferRel = ResourceRel & { type: 'wire_transfers' }
 
@@ -33,7 +35,7 @@ interface CustomerPaymentSource extends Resource {
 	payment_source_token?: string
 
 	customer?: Customer
-	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | StripePayment | WireTransfer
+	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer
 
 }
 
@@ -41,7 +43,7 @@ interface CustomerPaymentSource extends Resource {
 interface CustomerPaymentSourceCreate extends ResourceCreate {
 	
 	customer: CustomerRel
-	payment_source: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 
@@ -49,7 +51,7 @@ interface CustomerPaymentSourceCreate extends ResourceCreate {
 interface CustomerPaymentSourceUpdate extends ResourceUpdate {
 	
 	customer?: CustomerRel
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
 
 }
 

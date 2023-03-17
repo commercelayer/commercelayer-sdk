@@ -1,5 +1,5 @@
 /**
- * ©2022 Commerce Layer Inc.
+ * ©2023 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
@@ -434,6 +434,25 @@ describe('Orders resource', () => {
 		})
 	
 		await cl[resourceType].refunds(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.returns', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { returns: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'returns')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].returns(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

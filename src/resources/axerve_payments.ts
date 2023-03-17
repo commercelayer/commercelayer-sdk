@@ -11,6 +11,7 @@ type OrderRel = ResourceRel & { type: 'orders' }
 
 interface AxervePayment extends Resource {
 	
+	login?: string
 	return_url?: string
 	payment_request_data?: object
 	mismatched_amounts?: boolean

@@ -1,5 +1,5 @@
 /**
- * ©2022 Commerce Layer Inc.
+ * ©2023 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
@@ -114,6 +114,25 @@ describe('Voids resource', () => {
 		})
 	
 		await cl[resourceType].reference_authorization(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'events')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

@@ -85,6 +85,8 @@ export { default as Promotions } from './resources/promotions'
 export { default as Refunds } from './resources/refunds'
 export { default as ReturnLineItems } from './resources/return_line_items'
 export { default as Returns } from './resources/returns'
+export { default as SatispayGateways } from './resources/satispay_gateways'
+export { default as SatispayPayments } from './resources/satispay_payments'
 export { default as Shipments } from './resources/shipments'
 export { default as ShippingCategories } from './resources/shipping_categories'
 export { default as ShippingMethodTiers } from './resources/shipping_method_tiers'
@@ -196,6 +198,8 @@ export type ResourceTypeLock =
 |	'refunds'
 |	'return_line_items'
 |	'returns'
+|	'satispay_gateways'
+|	'satispay_payments'
 |	'shipments'
 |	'shipping_categories'
 |	'shipping_method_tiers'
@@ -307,6 +311,8 @@ export const resourceList = [
 	'refunds',
 	'return_line_items',
 	'returns',
+	'satispay_gateways',
+	'satispay_payments',
 	'shipments',
 	'shipping_categories',
 	'shipping_method_tiers',
