@@ -1,9 +1,10 @@
 
 import * as api from './api'
-import { ApiError } from './error'
+import type { ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj } from './interceptor'
 import { CommerceLayerStatic } from './static'
-import ResourceAdapter, { ResourcesInitConfig } from './resource'
+import ResourceAdapter from './resource'
+import type { ResourcesInitConfig } from './resource'
 
 import Debug from './debug'
 const debug = Debug('commercelayer')

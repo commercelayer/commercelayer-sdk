@@ -1,10 +1,12 @@
 
-import ApiClient, { ApiClientInitConfig } from './client'
+import ApiClient from './client'
+import type { ApiClientInitConfig } from './client'
 import { denormalize, normalize } from './jsonapi'
-import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams, QueryFilter, isParamsList } from './query'
-import { ResourceTypeLock } from './api'
+import type { QueryParamsRetrieve, QueryParamsList, QueryFilter } from './query'
+import { generateQueryStringParams, isParamsList } from './query'
+import type { ResourceTypeLock } from './api'
 import config from './config'
-import { InterceptorManager } from './interceptor'
+import type { InterceptorManager } from './interceptor'
 
 import Debug from './debug'
 import { QueryParams } from '.'

@@ -1,5 +1,5 @@
 
-import { ResourceType } from "./resource"
+import type { ResourceType } from "./resource"
 
 import Debug from './debug'
 const debug = Debug('query')
