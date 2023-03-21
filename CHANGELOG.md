@@ -1,3 +1,10 @@
+# [5.0.0-beta.8](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.7...v5.0.0-beta.8) (2023-03-21)
+
+
+### Features
+
+* **core:** make list operation common to all non singleton resources ([0c40fbc](https://github.com/commercelayer/commercelayer-sdk/commit/0c40fbc029784a728d41485056bedc1289e6e6ca))
+
 # [5.0.0-beta.7](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.6...v5.0.0-beta.7) (2023-03-17)
 
 
