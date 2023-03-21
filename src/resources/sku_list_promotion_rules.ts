@@ -62,10 +62,6 @@ class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 
 	static readonly TYPE: SkuListPromotionRuleType = 'sku_list_promotion_rules' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuListPromotionRule>> {
-		return this.resources.list<SkuListPromotionRule>({ type: SkuListPromotionRules.TYPE }, params, options)
-	}
-
 	async create(resource: SkuListPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		return this.resources.create<SkuListPromotionRuleCreate, SkuListPromotionRule>({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
 	}

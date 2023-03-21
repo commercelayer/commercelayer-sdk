@@ -43,10 +43,6 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 
 	static readonly TYPE: PaypalGatewayType = 'paypal_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalGateway>> {
-		return this.resources.list<PaypalGateway>({ type: PaypalGateways.TYPE }, params, options)
-	}
-
 	async create(resource: PaypalGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalGateway> {
 		return this.resources.create<PaypalGatewayCreate, PaypalGateway>({ ...resource, type: PaypalGateways.TYPE }, params, options)
 	}

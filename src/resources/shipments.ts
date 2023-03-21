@@ -84,10 +84,6 @@ class Shipments extends ApiResource<Shipment> {
 
 	static readonly TYPE: ShipmentType = 'shipments' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Shipment>> {
-		return this.resources.list<Shipment>({ type: Shipments.TYPE }, params, options)
-	}
-
 	async update(resource: ShipmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ ...resource, type: Shipments.TYPE }, params, options)
 	}

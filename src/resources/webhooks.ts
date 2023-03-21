@@ -50,10 +50,6 @@ class Webhooks extends ApiResource<Webhook> {
 
 	static readonly TYPE: WebhookType = 'webhooks' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {
-		return this.resources.list<Webhook>({ type: Webhooks.TYPE }, params, options)
-	}
-
 	async create(resource: WebhookCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.create<WebhookCreate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
 	}

@@ -40,10 +40,6 @@ class Cleanups extends ApiResource<Cleanup> {
 
 	static readonly TYPE: CleanupType = 'cleanups' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Cleanup>> {
-		return this.resources.list<Cleanup>({ type: Cleanups.TYPE }, params, options)
-	}
-
 	async create(resource: CleanupCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Cleanup> {
 		return this.resources.create<CleanupCreate, Cleanup>({ ...resource, type: Cleanups.TYPE }, params, options)
 	}

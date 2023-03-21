@@ -41,10 +41,6 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 
 	static readonly TYPE: BingGeocoderType = 'bing_geocoders' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BingGeocoder>> {
-		return this.resources.list<BingGeocoder>({ type: BingGeocoders.TYPE }, params, options)
-	}
-
 	async create(resource: BingGeocoderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BingGeocoder> {
 		return this.resources.create<BingGeocoderCreate, BingGeocoder>({ ...resource, type: BingGeocoders.TYPE }, params, options)
 	}

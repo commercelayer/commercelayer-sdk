@@ -99,10 +99,6 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 
 	static readonly TYPE: ShippingMethodType = 'shipping_methods' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingMethod>> {
-		return this.resources.list<ShippingMethod>({ type: ShippingMethods.TYPE }, params, options)
-	}
-
 	async create(resource: ShippingMethodCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.create<ShippingMethodCreate, ShippingMethod>({ ...resource, type: ShippingMethods.TYPE }, params, options)
 	}

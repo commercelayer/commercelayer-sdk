@@ -62,10 +62,6 @@ class InStockSubscriptions extends ApiResource<InStockSubscription> {
 
 	static readonly TYPE: InStockSubscriptionType = 'in_stock_subscriptions' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InStockSubscription>> {
-		return this.resources.list<InStockSubscription>({ type: InStockSubscriptions.TYPE }, params, options)
-	}
-
 	async create(resource: InStockSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
 		return this.resources.create<InStockSubscriptionCreate, InStockSubscription>({ ...resource, type: InStockSubscriptions.TYPE }, params, options)
 	}

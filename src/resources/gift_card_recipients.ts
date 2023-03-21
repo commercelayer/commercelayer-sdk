@@ -50,10 +50,6 @@ class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
 
 	static readonly TYPE: GiftCardRecipientType = 'gift_card_recipients' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GiftCardRecipient>> {
-		return this.resources.list<GiftCardRecipient>({ type: GiftCardRecipients.TYPE }, params, options)
-	}
-
 	async create(resource: GiftCardRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
 		return this.resources.create<GiftCardRecipientCreate, GiftCardRecipient>({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
 	}

@@ -52,10 +52,6 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 
 	static readonly TYPE: PriceVolumeTierType = 'price_volume_tiers' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceVolumeTier>> {
-		return this.resources.list<PriceVolumeTier>({ type: PriceVolumeTiers.TYPE }, params, options)
-	}
-
 	async create(resource: PriceVolumeTierCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceVolumeTier> {
 		return this.resources.create<PriceVolumeTierCreate, PriceVolumeTier>({ ...resource, type: PriceVolumeTiers.TYPE }, params, options)
 	}

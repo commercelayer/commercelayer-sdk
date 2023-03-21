@@ -55,10 +55,6 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 
 	static readonly TYPE: ExternalGatewayType = 'external_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalGateway>> {
-		return this.resources.list<ExternalGateway>({ type: ExternalGateways.TYPE }, params, options)
-	}
-
 	async create(resource: ExternalGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
 		return this.resources.create<ExternalGatewayCreate, ExternalGateway>({ ...resource, type: ExternalGateways.TYPE }, params, options)
 	}

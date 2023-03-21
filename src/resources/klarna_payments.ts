@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
@@ -50,10 +50,6 @@ interface KlarnaPaymentUpdate extends ResourceUpdate {
 class KlarnaPayments extends ApiResource<KlarnaPayment> {
 
 	static readonly TYPE: KlarnaPaymentType = 'klarna_payments' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
-		return this.resources.list<KlarnaPayment>({ type: KlarnaPayments.TYPE }, params, options)
-	}
 
 	async create(resource: KlarnaPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
 		return this.resources.create<KlarnaPaymentCreate, KlarnaPayment>({ ...resource, type: KlarnaPayments.TYPE }, params, options)

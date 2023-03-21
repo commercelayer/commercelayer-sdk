@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Order, OrderType } from './orders'
 
@@ -37,10 +37,6 @@ interface WireTransferUpdate extends ResourceUpdate {
 class WireTransfers extends ApiResource<WireTransfer> {
 
 	static readonly TYPE: WireTransferType = 'wire_transfers' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<WireTransfer>> {
-		return this.resources.list<WireTransfer>({ type: WireTransfers.TYPE }, params, options)
-	}
 
 	async create(resource: WireTransferCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
 		return this.resources.create<WireTransferCreate, WireTransfer>({ ...resource, type: WireTransfers.TYPE }, params, options)

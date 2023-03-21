@@ -57,10 +57,6 @@ class TaxCategories extends ApiResource<TaxCategory> {
 
 	static readonly TYPE: TaxCategoryType = 'tax_categories' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
-		return this.resources.list<TaxCategory>({ type: TaxCategories.TYPE }, params, options)
-	}
-
 	async create(resource: TaxCategoryCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCategory> {
 		return this.resources.create<TaxCategoryCreate, TaxCategory>({ ...resource, type: TaxCategories.TYPE }, params, options)
 	}

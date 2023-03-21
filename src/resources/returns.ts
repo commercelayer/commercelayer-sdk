@@ -72,10 +72,6 @@ class Returns extends ApiResource<Return> {
 
 	static readonly TYPE: ReturnType = 'returns' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
-		return this.resources.list<Return>({ type: Returns.TYPE }, params, options)
-	}
-
 	async create(resource: ReturnCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.create<ReturnCreate, Return>({ ...resource, type: Returns.TYPE }, params, options)
 	}

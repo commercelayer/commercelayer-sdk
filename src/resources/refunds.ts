@@ -37,10 +37,6 @@ class Refunds extends ApiResource<Refund> {
 
 	static readonly TYPE: RefundType = 'refunds' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
-		return this.resources.list<Refund>({ type: Refunds.TYPE }, params, options)
-	}
-
 	async order(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `refunds/${_refundId}/order`, params, options) as unknown as Order

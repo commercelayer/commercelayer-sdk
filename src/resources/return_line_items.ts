@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Return, ReturnType } from './returns'
 import type { LineItem, LineItemType } from './line_items'
@@ -51,10 +51,6 @@ interface ReturnLineItemUpdate extends ResourceUpdate {
 class ReturnLineItems extends ApiResource<ReturnLineItem> {
 
 	static readonly TYPE: ReturnLineItemType = 'return_line_items' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
-		return this.resources.list<ReturnLineItem>({ type: ReturnLineItems.TYPE }, params, options)
-	}
 
 	async create(resource: ReturnLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
 		return this.resources.create<ReturnLineItemCreate, ReturnLineItem>({ ...resource, type: ReturnLineItems.TYPE }, params, options)

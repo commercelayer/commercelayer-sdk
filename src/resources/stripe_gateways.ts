@@ -47,10 +47,6 @@ class StripeGateways extends ApiResource<StripeGateway> {
 
 	static readonly TYPE: StripeGatewayType = 'stripe_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripeGateway>> {
-		return this.resources.list<StripeGateway>({ type: StripeGateways.TYPE }, params, options)
-	}
-
 	async create(resource: StripeGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.create<StripeGatewayCreate, StripeGateway>({ ...resource, type: StripeGateways.TYPE }, params, options)
 	}

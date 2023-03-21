@@ -52,10 +52,6 @@ class StockItems extends ApiResource<StockItem> {
 
 	static readonly TYPE: StockItemType = 'stock_items' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
-		return this.resources.list<StockItem>({ type: StockItems.TYPE }, params, options)
-	}
-
 	async create(resource: StockItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
 		return this.resources.create<StockItemCreate, StockItem>({ ...resource, type: StockItems.TYPE }, params, options)
 	}

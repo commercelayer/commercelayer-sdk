@@ -48,10 +48,6 @@ class TaxjarAccounts extends ApiResource<TaxjarAccount> {
 
 	static readonly TYPE: TaxjarAccountType = 'taxjar_accounts' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxjarAccount>> {
-		return this.resources.list<TaxjarAccount>({ type: TaxjarAccounts.TYPE }, params, options)
-	}
-
 	async create(resource: TaxjarAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
 		return this.resources.create<TaxjarAccountCreate, TaxjarAccount>({ ...resource, type: TaxjarAccounts.TYPE }, params, options)
 	}

@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { StockLocation, StockLocationType } from './stock_locations'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
@@ -46,10 +46,6 @@ interface InventoryReturnLocationUpdate extends ResourceUpdate {
 class InventoryReturnLocations extends ApiResource<InventoryReturnLocation> {
 
 	static readonly TYPE: InventoryReturnLocationType = 'inventory_return_locations' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
-		return this.resources.list<InventoryReturnLocation>({ type: InventoryReturnLocations.TYPE }, params, options)
-	}
 
 	async create(resource: InventoryReturnLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
 		return this.resources.create<InventoryReturnLocationCreate, InventoryReturnLocation>({ ...resource, type: InventoryReturnLocations.TYPE }, params, options)

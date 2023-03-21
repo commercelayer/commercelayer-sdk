@@ -39,10 +39,6 @@ class BillingInfoValidationRules extends ApiResource<BillingInfoValidationRule> 
 
 	static readonly TYPE: BillingInfoValidationRuleType = 'billing_info_validation_rules' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BillingInfoValidationRule>> {
-		return this.resources.list<BillingInfoValidationRule>({ type: BillingInfoValidationRules.TYPE }, params, options)
-	}
-
 	async create(resource: BillingInfoValidationRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BillingInfoValidationRule> {
 		return this.resources.create<BillingInfoValidationRuleCreate, BillingInfoValidationRule>({ ...resource, type: BillingInfoValidationRules.TYPE }, params, options)
 	}

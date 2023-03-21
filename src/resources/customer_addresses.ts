@@ -45,10 +45,6 @@ class CustomerAddresses extends ApiResource<CustomerAddress> {
 
 	static readonly TYPE: CustomerAddressType = 'customer_addresses' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerAddress>> {
-		return this.resources.list<CustomerAddress>({ type: CustomerAddresses.TYPE }, params, options)
-	}
-
 	async create(resource: CustomerAddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
 		return this.resources.create<CustomerAddressCreate, CustomerAddress>({ ...resource, type: CustomerAddresses.TYPE }, params, options)
 	}

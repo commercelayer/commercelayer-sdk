@@ -27,10 +27,6 @@ class CarrierAccounts extends ApiResource<CarrierAccount> {
 
 	static readonly TYPE: CarrierAccountType = 'carrier_accounts' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CarrierAccount>> {
-		return this.resources.list<CarrierAccount>({ type: CarrierAccounts.TYPE }, params, options)
-	}
-
 	async market(carrierAccountId: string | CarrierAccount, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `carrier_accounts/${_carrierAccountId}/market`, params, options) as unknown as Market

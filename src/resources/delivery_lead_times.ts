@@ -54,10 +54,6 @@ class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 
 	static readonly TYPE: DeliveryLeadTimeType = 'delivery_lead_times' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
-		return this.resources.list<DeliveryLeadTime>({ type: DeliveryLeadTimes.TYPE }, params, options)
-	}
-
 	async create(resource: DeliveryLeadTimeCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
 		return this.resources.create<DeliveryLeadTimeCreate, DeliveryLeadTime>({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
 	}

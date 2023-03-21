@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
 
@@ -75,10 +75,6 @@ interface TaxRuleUpdate extends ResourceUpdate {
 class TaxRules extends ApiResource<TaxRule> {
 
 	static readonly TYPE: TaxRuleType = 'tax_rules' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxRule>> {
-		return this.resources.list<TaxRule>({ type: TaxRules.TYPE }, params, options)
-	}
 
 	async create(resource: TaxRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
 		return this.resources.create<TaxRuleCreate, TaxRule>({ ...resource, type: TaxRules.TYPE }, params, options)

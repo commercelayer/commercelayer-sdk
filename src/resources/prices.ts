@@ -67,10 +67,6 @@ class Prices extends ApiResource<Price> {
 
 	static readonly TYPE: PriceType = 'prices' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Price>> {
-		return this.resources.list<Price>({ type: Prices.TYPE }, params, options)
-	}
-
 	async create(resource: PriceCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
 		return this.resources.create<PriceCreate, Price>({ ...resource, type: Prices.TYPE }, params, options)
 	}

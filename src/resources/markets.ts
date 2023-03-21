@@ -82,10 +82,6 @@ class Markets extends ApiResource<Market> {
 
 	static readonly TYPE: MarketType = 'markets' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		return this.resources.list<Market>({ type: Markets.TYPE }, params, options)
-	}
-
 	async create(resource: MarketCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.create<MarketCreate, Market>({ ...resource, type: Markets.TYPE }, params, options)
 	}

@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { LineItem, LineItemType } from './line_items'
 import type { SkuOption, SkuOptionType } from './sku_options'
@@ -60,10 +60,6 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 class LineItemOptions extends ApiResource<LineItemOption> {
 
 	static readonly TYPE: LineItemOptionType = 'line_item_options' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
-		return this.resources.list<LineItemOption>({ type: LineItemOptions.TYPE }, params, options)
-	}
 
 	async create(resource: LineItemOptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItemOption> {
 		return this.resources.create<LineItemOptionCreate, LineItemOption>({ ...resource, type: LineItemOptions.TYPE }, params, options)

@@ -62,10 +62,6 @@ class Authorizations extends ApiResource<Authorization> {
 
 	static readonly TYPE: AuthorizationType = 'authorizations' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Authorization>> {
-		return this.resources.list<Authorization>({ type: Authorizations.TYPE }, params, options)
-	}
-
 	async update(resource: AuthorizationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
 		return this.resources.update<AuthorizationUpdate, Authorization>({ ...resource, type: Authorizations.TYPE }, params, options)
 	}

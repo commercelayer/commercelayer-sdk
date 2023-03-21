@@ -60,10 +60,6 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 
 	static readonly TYPE: AvalaraAccountType = 'avalara_accounts' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AvalaraAccount>> {
-		return this.resources.list<AvalaraAccount>({ type: AvalaraAccounts.TYPE }, params, options)
-	}
-
 	async create(resource: AvalaraAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
 		return this.resources.create<AvalaraAccountCreate, AvalaraAccount>({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}

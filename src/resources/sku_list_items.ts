@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku, SkuType } from './skus'
@@ -49,10 +49,6 @@ interface SkuListItemUpdate extends ResourceUpdate {
 class SkuListItems extends ApiResource<SkuListItem> {
 
 	static readonly TYPE: SkuListItemType = 'sku_list_items' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuListItem>> {
-		return this.resources.list<SkuListItem>({ type: SkuListItems.TYPE }, params, options)
-	}
 
 	async create(resource: SkuListItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListItem> {
 		return this.resources.create<SkuListItemCreate, SkuListItem>({ ...resource, type: SkuListItems.TYPE }, params, options)

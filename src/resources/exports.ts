@@ -44,10 +44,6 @@ class Exports extends ApiResource<Export> {
 
 	static readonly TYPE: ExportType = 'exports' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Export>> {
-		return this.resources.list<Export>({ type: Exports.TYPE }, params, options)
-	}
-
 	async create(resource: ExportCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Export> {
 		return this.resources.create<ExportCreate, Export>({ ...resource, type: Exports.TYPE }, params, options)
 	}

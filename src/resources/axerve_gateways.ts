@@ -49,10 +49,6 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 
 	static readonly TYPE: AxerveGatewayType = 'axerve_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AxerveGateway>> {
-		return this.resources.list<AxerveGateway>({ type: AxerveGateways.TYPE }, params, options)
-	}
-
 	async create(resource: AxerveGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AxerveGateway> {
 		return this.resources.create<AxerveGatewayCreate, AxerveGateway>({ ...resource, type: AxerveGateways.TYPE }, params, options)
 	}

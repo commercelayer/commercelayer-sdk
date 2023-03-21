@@ -41,10 +41,6 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 
 	static readonly TYPE: CustomerGroupType = 'customer_groups' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerGroup>> {
-		return this.resources.list<CustomerGroup>({ type: CustomerGroups.TYPE }, params, options)
-	}
-
 	async create(resource: CustomerGroupCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
 		return this.resources.create<CustomerGroupCreate, CustomerGroup>({ ...resource, type: CustomerGroups.TYPE }, params, options)
 	}

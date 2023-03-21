@@ -47,10 +47,6 @@ class InventoryModels extends ApiResource<InventoryModel> {
 
 	static readonly TYPE: InventoryModelType = 'inventory_models' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryModel>> {
-		return this.resources.list<InventoryModel>({ type: InventoryModels.TYPE }, params, options)
-	}
-
 	async create(resource: InventoryModelCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
 		return this.resources.create<InventoryModelCreate, InventoryModel>({ ...resource, type: InventoryModels.TYPE }, params, options)
 	}

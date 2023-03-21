@@ -90,10 +90,6 @@ class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 
 	static readonly TYPE: FreeGiftPromotionType = 'free_gift_promotions' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FreeGiftPromotion>> {
-		return this.resources.list<FreeGiftPromotion>({ type: FreeGiftPromotions.TYPE }, params, options)
-	}
-
 	async create(resource: FreeGiftPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeGiftPromotion> {
 		return this.resources.create<FreeGiftPromotionCreate, FreeGiftPromotion>({ ...resource, type: FreeGiftPromotions.TYPE }, params, options)
 	}

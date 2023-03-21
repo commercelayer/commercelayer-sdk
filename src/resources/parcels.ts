@@ -120,10 +120,6 @@ class Parcels extends ApiResource<Parcel> {
 
 	static readonly TYPE: ParcelType = 'parcels' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
-		return this.resources.list<Parcel>({ type: Parcels.TYPE }, params, options)
-	}
-
 	async create(resource: ParcelCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
 		return this.resources.create<ParcelCreate, Parcel>({ ...resource, type: Parcels.TYPE }, params, options)
 	}

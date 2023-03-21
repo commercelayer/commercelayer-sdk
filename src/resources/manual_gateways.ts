@@ -37,10 +37,6 @@ class ManualGateways extends ApiResource<ManualGateway> {
 
 	static readonly TYPE: ManualGatewayType = 'manual_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ManualGateway>> {
-		return this.resources.list<ManualGateway>({ type: ManualGateways.TYPE }, params, options)
-	}
-
 	async create(resource: ManualGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
 		return this.resources.create<ManualGatewayCreate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}

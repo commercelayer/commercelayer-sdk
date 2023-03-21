@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceId, ResourceRel } from '../resource'
+
 
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import type { FreeShippingPromotion } from './free_shipping_promotions'
@@ -27,9 +27,7 @@ class PromotionRules extends ApiResource<PromotionRule> {
 
 	static readonly TYPE: PromotionRuleType = 'promotion_rules' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PromotionRule>> {
-		return this.resources.list<PromotionRule>({ type: PromotionRules.TYPE }, params, options)
-	}
+	
 
 
 	isPromotionRule(resource: any): resource is PromotionRule {

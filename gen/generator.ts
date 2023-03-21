@@ -407,19 +407,17 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 	// Operations
 	const qryMod = new Set<string>()
-	const resMod: string[] = []
+	const resMod = new Set<string>()
 	Object.entries(resource.operations).forEach(([opName, op]) => {
 		const tpl = op.singleton ? templates['singleton'] : templates[opName]
 		if (op.singleton) resModelType = 'ApiSingleton'
 		if (tpl) {
 			if (['create', 'update'].includes(opName)) qryMod.add('QueryParamsRetrieve')
-			else
-			if ((opName === 'list') && !op.singleton) {
-				resMod.push('ListResponse')
-				qryMod.add('QueryParamsList')
-			}
-			if ((opName === 'retrieve') || ((opName === 'list' && op.singleton))) {
-				// do nothing, retrieve operation i scommon to all resoucres
+			if (['retrieve', 'list'].includes(opName)) {
+				/* do nothing:
+				   retrieve operation iscommon to all resoucres
+				   list operation iscommon to all non singleton resoucres
+				*/
 			}
 			else {
 				const tplOp = templatedOperation(resName, opName, op, tpl)
@@ -433,7 +431,10 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 				const tplrOp = templatedOperation(resName, opName, op, tplr)
 				if (op.relationship.cardinality === Cardinality.to_one) qryMod.add('QueryParamsRetrieve')
 				else
-				if (op.relationship.cardinality === Cardinality.to_many) qryMod.add('QueryParamsList')
+				if (op.relationship.cardinality === Cardinality.to_many) {
+					qryMod.add('QueryParamsList')
+					resMod.add('ListResponse')
+				}
 				operations.push(tplrOp.operation)
 			} else console.log('Unknown operation: ' + opName)
 		}
@@ -442,7 +443,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	if (operations && (operations.length > 0)) declaredImportsCommon.add('ResourcesConfig')
 
 	res = res.replace(/##__RESOURCE_MODEL_TYPE__##/g, resModelType)
-	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.length > 0) ? `, ${resMod.join(', ')}`: '')
+	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.size > 0) ? `, ${Array.from(resMod).join(', ')}`: '')
 	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, resModelInterface)
 	res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
 

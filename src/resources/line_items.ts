@@ -109,10 +109,6 @@ class LineItems extends ApiResource<LineItem> {
 
 	static readonly TYPE: LineItemType = 'line_items' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {
-		return this.resources.list<LineItem>({ type: LineItems.TYPE }, params, options)
-	}
-
 	async create(resource: LineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
 		return this.resources.create<LineItemCreate, LineItem>({ ...resource, type: LineItems.TYPE }, params, options)
 	}

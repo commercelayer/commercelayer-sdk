@@ -90,10 +90,6 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 
 	static readonly TYPE: PercentageDiscountPromotionType = 'percentage_discount_promotions' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PercentageDiscountPromotion>> {
-		return this.resources.list<PercentageDiscountPromotion>({ type: PercentageDiscountPromotions.TYPE }, params, options)
-	}
-
 	async create(resource: PercentageDiscountPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
 		return this.resources.create<PercentageDiscountPromotionCreate, PercentageDiscountPromotion>({ ...resource, type: PercentageDiscountPromotions.TYPE }, params, options)
 	}

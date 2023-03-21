@@ -44,10 +44,6 @@ class Merchants extends ApiResource<Merchant> {
 
 	static readonly TYPE: MerchantType = 'merchants' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Merchant>> {
-		return this.resources.list<Merchant>({ type: Merchants.TYPE }, params, options)
-	}
-
 	async create(resource: MerchantCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
 		return this.resources.create<MerchantCreate, Merchant>({ ...resource, type: Merchants.TYPE }, params, options)
 	}

@@ -283,6 +283,10 @@ abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 		return this.resources.retrieve<R>((typeof id === 'string')? { type: this.type(), id } : id, params, options)
 	}
 
+	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
+		return this.resources.list<R>({ type: this.type() }, params, options)
+	}
+
 }
 
 

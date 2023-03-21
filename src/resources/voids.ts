@@ -37,10 +37,6 @@ class Voids extends ApiResource<Void> {
 
 	static readonly TYPE: VoidType = 'voids' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
-		return this.resources.list<Void>({ type: Voids.TYPE }, params, options)
-	}
-
 	async order(voidId: string | Void, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `voids/${_voidId}/order`, params, options) as unknown as Order

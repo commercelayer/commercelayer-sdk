@@ -25,10 +25,6 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
 
 	static readonly TYPE: TaxCalculatorType = 'tax_calculators' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCalculator>> {
-		return this.resources.list<TaxCalculator>({ type: TaxCalculators.TYPE }, params, options)
-	}
-
 	async markets(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
 		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `tax_calculators/${_taxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>

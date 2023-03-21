@@ -258,10 +258,6 @@ class Orders extends ApiResource<Order> {
 
 	static readonly TYPE: OrderType = 'orders' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
-		return this.resources.list<Order>({ type: Orders.TYPE }, params, options)
-	}
-
 	async create(resource: OrderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.create<OrderCreate, Order>({ ...resource, type: Orders.TYPE }, params, options)
 	}

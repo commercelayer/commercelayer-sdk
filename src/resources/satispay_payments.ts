@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
@@ -48,10 +48,6 @@ interface SatispayPaymentUpdate extends ResourceUpdate {
 class SatispayPayments extends ApiResource<SatispayPayment> {
 
 	static readonly TYPE: SatispayPaymentType = 'satispay_payments' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SatispayPayment>> {
-		return this.resources.list<SatispayPayment>({ type: SatispayPayments.TYPE }, params, options)
-	}
 
 	async create(resource: SatispayPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SatispayPayment> {
 		return this.resources.create<SatispayPaymentCreate, SatispayPayment>({ ...resource, type: SatispayPayments.TYPE }, params, options)

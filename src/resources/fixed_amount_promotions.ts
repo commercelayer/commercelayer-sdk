@@ -85,10 +85,6 @@ class FixedAmountPromotions extends ApiResource<FixedAmountPromotion> {
 
 	static readonly TYPE: FixedAmountPromotionType = 'fixed_amount_promotions' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FixedAmountPromotion>> {
-		return this.resources.list<FixedAmountPromotion>({ type: FixedAmountPromotions.TYPE }, params, options)
-	}
-
 	async create(resource: FixedAmountPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
 		return this.resources.create<FixedAmountPromotionCreate, FixedAmountPromotion>({ ...resource, type: FixedAmountPromotions.TYPE }, params, options)
 	}

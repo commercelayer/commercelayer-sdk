@@ -78,10 +78,6 @@ class FreeShippingPromotions extends ApiResource<FreeShippingPromotion> {
 
 	static readonly TYPE: FreeShippingPromotionType = 'free_shipping_promotions' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FreeShippingPromotion>> {
-		return this.resources.list<FreeShippingPromotion>({ type: FreeShippingPromotions.TYPE }, params, options)
-	}
-
 	async create(resource: FreeShippingPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
 		return this.resources.create<FreeShippingPromotionCreate, FreeShippingPromotion>({ ...resource, type: FreeShippingPromotions.TYPE }, params, options)
 	}

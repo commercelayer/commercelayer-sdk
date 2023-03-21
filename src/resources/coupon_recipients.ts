@@ -50,10 +50,6 @@ class CouponRecipients extends ApiResource<CouponRecipient> {
 
 	static readonly TYPE: CouponRecipientType = 'coupon_recipients' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CouponRecipient>> {
-		return this.resources.list<CouponRecipient>({ type: CouponRecipients.TYPE }, params, options)
-	}
-
 	async create(resource: CouponRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
 		return this.resources.create<CouponRecipientCreate, CouponRecipient>({ ...resource, type: CouponRecipients.TYPE }, params, options)
 	}

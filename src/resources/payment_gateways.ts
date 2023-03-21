@@ -23,10 +23,6 @@ class PaymentGateways extends ApiResource<PaymentGateway> {
 
 	static readonly TYPE: PaymentGatewayType = 'payment_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentGateway>> {
-		return this.resources.list<PaymentGateway>({ type: PaymentGateways.TYPE }, params, options)
-	}
-
 	async payment_methods(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || paymentGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `payment_gateways/${_paymentGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>

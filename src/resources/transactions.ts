@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 
@@ -32,10 +32,6 @@ interface Transaction extends Resource {
 class Transactions extends ApiResource<Transaction> {
 
 	static readonly TYPE: TransactionType = 'transactions' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Transaction>> {
-		return this.resources.list<Transaction>({ type: Transactions.TYPE }, params, options)
-	}
 
 	async order(transactionId: string | Transaction, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _transactionId = (transactionId as Transaction).id || transactionId as string

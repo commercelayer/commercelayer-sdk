@@ -52,10 +52,6 @@ class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
 
 	static readonly TYPE: CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CouponCodesPromotionRule>> {
-		return this.resources.list<CouponCodesPromotionRule>({ type: CouponCodesPromotionRules.TYPE }, params, options)
-	}
-
 	async create(resource: CouponCodesPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		return this.resources.create<CouponCodesPromotionRuleCreate, CouponCodesPromotionRule>({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
 	}

@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Geocoder, GeocoderType } from './geocoders'
 
@@ -94,10 +94,6 @@ interface AddressUpdate extends ResourceUpdate {
 class Addresses extends ApiResource<Address> {
 
 	static readonly TYPE: AddressType = 'addresses' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
-		return this.resources.list<Address>({ type: Addresses.TYPE }, params, options)
-	}
 
 	async create(resource: AddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		return this.resources.create<AddressCreate, Address>({ ...resource, type: Addresses.TYPE }, params, options)

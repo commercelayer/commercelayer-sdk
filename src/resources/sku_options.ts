@@ -62,10 +62,6 @@ class SkuOptions extends ApiResource<SkuOption> {
 
 	static readonly TYPE: SkuOptionType = 'sku_options' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
-		return this.resources.list<SkuOption>({ type: SkuOptions.TYPE }, params, options)
-	}
-
 	async create(resource: SkuOptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
 		return this.resources.create<SkuOptionCreate, SkuOption>({ ...resource, type: SkuOptions.TYPE }, params, options)
 	}

@@ -25,10 +25,6 @@ class Events extends ApiResource<Event> {
 
 	static readonly TYPE: EventType = 'events' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		return this.resources.list<Event>({ type: Events.TYPE }, params, options)
-	}
-
 	async last_event_callbacks(eventId: string | Event, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		const _eventId = (eventId as Event).id || eventId as string
 		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `events/${_eventId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>

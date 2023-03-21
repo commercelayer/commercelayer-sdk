@@ -70,10 +70,6 @@ class StockTransfers extends ApiResource<StockTransfer> {
 
 	static readonly TYPE: StockTransferType = 'stock_transfers' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
-		return this.resources.list<StockTransfer>({ type: StockTransfers.TYPE }, params, options)
-	}
-
 	async create(resource: StockTransferCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
 		return this.resources.create<StockTransferCreate, StockTransfer>({ ...resource, type: StockTransfers.TYPE }, params, options)
 	}

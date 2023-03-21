@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Bundle, BundleType } from './bundles'
 import type { CarrierAccount, CarrierAccountType } from './carrier_accounts'
@@ -105,10 +105,6 @@ interface AttachmentUpdate extends ResourceUpdate {
 class Attachments extends ApiResource<Attachment> {
 
 	static readonly TYPE: AttachmentType = 'attachments' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		return this.resources.list<Attachment>({ type: Attachments.TYPE }, params, options)
-	}
 
 	async create(resource: AttachmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
 		return this.resources.create<AttachmentCreate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)

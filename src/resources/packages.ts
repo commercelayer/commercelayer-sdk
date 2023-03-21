@@ -61,10 +61,6 @@ class Packages extends ApiResource<Package> {
 
 	static readonly TYPE: PackageType = 'packages' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Package>> {
-		return this.resources.list<Package>({ type: Packages.TYPE }, params, options)
-	}
-
 	async create(resource: PackageCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
 		return this.resources.create<PackageCreate, Package>({ ...resource, type: Packages.TYPE }, params, options)
 	}

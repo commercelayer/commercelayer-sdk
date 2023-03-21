@@ -35,10 +35,6 @@ class CustomerSubscriptions extends ApiResource<CustomerSubscription> {
 
 	static readonly TYPE: CustomerSubscriptionType = 'customer_subscriptions' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerSubscription>> {
-		return this.resources.list<CustomerSubscription>({ type: CustomerSubscriptions.TYPE }, params, options)
-	}
-
 	async create(resource: CustomerSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerSubscription> {
 		return this.resources.create<CustomerSubscriptionCreate, CustomerSubscription>({ ...resource, type: CustomerSubscriptions.TYPE }, params, options)
 	}

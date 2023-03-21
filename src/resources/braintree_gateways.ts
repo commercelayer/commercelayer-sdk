@@ -62,10 +62,6 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 
 	static readonly TYPE: BraintreeGatewayType = 'braintree_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BraintreeGateway>> {
-		return this.resources.list<BraintreeGateway>({ type: BraintreeGateways.TYPE }, params, options)
-	}
-
 	async create(resource: BraintreeGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreeGateway> {
 		return this.resources.create<BraintreeGatewayCreate, BraintreeGateway>({ ...resource, type: BraintreeGateways.TYPE }, params, options)
 	}

@@ -39,10 +39,6 @@ class Promotions extends ApiResource<Promotion> {
 
 	static readonly TYPE: PromotionType = 'promotions' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Promotion>> {
-		return this.resources.list<Promotion>({ type: Promotions.TYPE }, params, options)
-	}
-
 	async market(promotionId: string | Promotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		const _promotionId = (promotionId as Promotion).id || promotionId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `promotions/${_promotionId}/market`, params, options) as unknown as Market

@@ -59,10 +59,6 @@ class StockLocations extends ApiResource<StockLocation> {
 
 	static readonly TYPE: StockLocationType = 'stock_locations' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {
-		return this.resources.list<StockLocation>({ type: StockLocations.TYPE }, params, options)
-	}
-
 	async create(resource: StockLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
 		return this.resources.create<StockLocationCreate, StockLocation>({ ...resource, type: StockLocations.TYPE }, params, options)
 	}

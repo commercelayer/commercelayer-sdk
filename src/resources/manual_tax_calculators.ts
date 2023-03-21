@@ -46,10 +46,6 @@ class ManualTaxCalculators extends ApiResource<ManualTaxCalculator> {
 
 	static readonly TYPE: ManualTaxCalculatorType = 'manual_tax_calculators' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ManualTaxCalculator>> {
-		return this.resources.list<ManualTaxCalculator>({ type: ManualTaxCalculators.TYPE }, params, options)
-	}
-
 	async create(resource: ManualTaxCalculatorCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
 		return this.resources.create<ManualTaxCalculatorCreate, ManualTaxCalculator>({ ...resource, type: ManualTaxCalculators.TYPE }, params, options)
 	}

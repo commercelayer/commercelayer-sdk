@@ -25,10 +25,6 @@ class Geocoders extends ApiResource<Geocoder> {
 
 	static readonly TYPE: GeocoderType = 'geocoders' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Geocoder>> {
-		return this.resources.list<Geocoder>({ type: Geocoders.TYPE }, params, options)
-	}
-
 	async addresses(geocoderId: string | Geocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
 		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `geocoders/${_geocoderId}/addresses`, params, options) as unknown as ListResponse<Address>

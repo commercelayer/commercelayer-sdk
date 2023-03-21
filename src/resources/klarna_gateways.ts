@@ -50,10 +50,6 @@ class KlarnaGateways extends ApiResource<KlarnaGateway> {
 
 	static readonly TYPE: KlarnaGatewayType = 'klarna_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaGateway>> {
-		return this.resources.list<KlarnaGateway>({ type: KlarnaGateways.TYPE }, params, options)
-	}
-
 	async create(resource: KlarnaGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway> {
 		return this.resources.create<KlarnaGatewayCreate, KlarnaGateway>({ ...resource, type: KlarnaGateways.TYPE }, params, options)
 	}

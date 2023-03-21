@@ -29,10 +29,6 @@ class PriceTiers extends ApiResource<PriceTier> {
 
 	static readonly TYPE: PriceTierType = 'price_tiers' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceTier>> {
-		return this.resources.list<PriceTier>({ type: PriceTiers.TYPE }, params, options)
-	}
-
 	async price(priceTierId: string | PriceTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
 		const _priceTierId = (priceTierId as PriceTier).id || priceTierId as string
 		return this.resources.fetch<Price>({ type: 'prices' }, `price_tiers/${_priceTierId}/price`, params, options) as unknown as Price

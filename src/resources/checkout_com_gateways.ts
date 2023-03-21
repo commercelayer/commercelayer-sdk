@@ -51,10 +51,6 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 
 	static readonly TYPE: CheckoutComGatewayType = 'checkout_com_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CheckoutComGateway>> {
-		return this.resources.list<CheckoutComGateway>({ type: CheckoutComGateways.TYPE }, params, options)
-	}
-
 	async create(resource: CheckoutComGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {
 		return this.resources.create<CheckoutComGatewayCreate, CheckoutComGateway>({ ...resource, type: CheckoutComGateways.TYPE }, params, options)
 	}

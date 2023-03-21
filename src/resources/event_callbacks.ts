@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Webhook } from './webhooks'
 
@@ -25,10 +25,6 @@ interface EventCallback extends Resource {
 class EventCallbacks extends ApiResource<EventCallback> {
 
 	static readonly TYPE: EventCallbackType = 'event_callbacks' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
-		return this.resources.list<EventCallback>({ type: EventCallbacks.TYPE }, params, options)
-	}
 
 	async webhook(eventCallbackId: string | EventCallback, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
 		const _eventCallbackId = (eventCallbackId as EventCallback).id || eventCallbackId as string

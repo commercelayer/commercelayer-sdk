@@ -39,10 +39,6 @@ class ShippingCategories extends ApiResource<ShippingCategory> {
 
 	static readonly TYPE: ShippingCategoryType = 'shipping_categories' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingCategory>> {
-		return this.resources.list<ShippingCategory>({ type: ShippingCategories.TYPE }, params, options)
-	}
-
 	async create(resource: ShippingCategoryCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
 		return this.resources.create<ShippingCategoryCreate, ShippingCategory>({ ...resource, type: ShippingCategories.TYPE }, params, options)
 	}

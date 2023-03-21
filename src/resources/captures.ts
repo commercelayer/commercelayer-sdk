@@ -53,10 +53,6 @@ class Captures extends ApiResource<Capture> {
 
 	static readonly TYPE: CaptureType = 'captures' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
-		return this.resources.list<Capture>({ type: Captures.TYPE }, params, options)
-	}
-
 	async update(resource: CaptureUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.update<CaptureUpdate, Capture>({ ...resource, type: Captures.TYPE }, params, options)
 	}

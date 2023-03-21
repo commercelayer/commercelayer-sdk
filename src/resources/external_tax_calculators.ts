@@ -43,10 +43,6 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 
 	static readonly TYPE: ExternalTaxCalculatorType = 'external_tax_calculators' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalTaxCalculator>> {
-		return this.resources.list<ExternalTaxCalculator>({ type: ExternalTaxCalculators.TYPE }, params, options)
-	}
-
 	async create(resource: ExternalTaxCalculatorCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
 		return this.resources.create<ExternalTaxCalculatorCreate, ExternalTaxCalculator>({ ...resource, type: ExternalTaxCalculators.TYPE }, params, options)
 	}

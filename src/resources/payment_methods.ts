@@ -75,10 +75,6 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 
 	static readonly TYPE: PaymentMethodType = 'payment_methods' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		return this.resources.list<PaymentMethod>({ type: PaymentMethods.TYPE }, params, options)
-	}
-
 	async create(resource: PaymentMethodCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
 		return this.resources.create<PaymentMethodCreate, PaymentMethod>({ ...resource, type: PaymentMethods.TYPE }, params, options)
 	}

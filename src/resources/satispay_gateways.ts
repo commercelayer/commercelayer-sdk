@@ -45,10 +45,6 @@ class SatispayGateways extends ApiResource<SatispayGateway> {
 
 	static readonly TYPE: SatispayGatewayType = 'satispay_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SatispayGateway>> {
-		return this.resources.list<SatispayGateway>({ type: SatispayGateways.TYPE }, params, options)
-	}
-
 	async create(resource: SatispayGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SatispayGateway> {
 		return this.resources.create<SatispayGatewayCreate, SatispayGateway>({ ...resource, type: SatispayGateways.TYPE }, params, options)
 	}

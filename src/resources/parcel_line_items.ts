@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Parcel, ParcelType } from './parcels'
 import type { StockLineItem, StockLineItemType } from './stock_line_items'
@@ -51,10 +51,6 @@ type ParcelLineItemUpdate = ResourceUpdate
 class ParcelLineItems extends ApiResource<ParcelLineItem> {
 
 	static readonly TYPE: ParcelLineItemType = 'parcel_line_items' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
-		return this.resources.list<ParcelLineItem>({ type: ParcelLineItems.TYPE }, params, options)
-	}
 
 	async create(resource: ParcelLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
 		return this.resources.create<ParcelLineItemCreate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)

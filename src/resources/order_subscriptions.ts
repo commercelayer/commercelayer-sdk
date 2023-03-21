@@ -69,10 +69,6 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 
 	static readonly TYPE: OrderSubscriptionType = 'order_subscriptions' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
-		return this.resources.list<OrderSubscription>({ type: OrderSubscriptions.TYPE }, params, options)
-	}
-
 	async create(resource: OrderSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
 		return this.resources.create<OrderSubscriptionCreate, OrderSubscription>({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
 	}

@@ -52,10 +52,6 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 
 	static readonly TYPE: ShippingWeightTierType = 'shipping_weight_tiers' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingWeightTier>> {
-		return this.resources.list<ShippingWeightTier>({ type: ShippingWeightTiers.TYPE }, params, options)
-	}
-
 	async create(resource: ShippingWeightTierCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingWeightTier> {
 		return this.resources.create<ShippingWeightTierCreate, ShippingWeightTier>({ ...resource, type: ShippingWeightTiers.TYPE }, params, options)
 	}

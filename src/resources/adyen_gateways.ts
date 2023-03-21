@@ -62,10 +62,6 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 
 	static readonly TYPE: AdyenGatewayType = 'adyen_gateways' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenGateway>> {
-		return this.resources.list<AdyenGateway>({ type: AdyenGateways.TYPE }, params, options)
-	}
-
 	async create(resource: AdyenGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
 		return this.resources.create<AdyenGatewayCreate, AdyenGateway>({ ...resource, type: AdyenGateways.TYPE }, params, options)
 	}

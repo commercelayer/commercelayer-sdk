@@ -55,10 +55,6 @@ class ShippingZones extends ApiResource<ShippingZone> {
 
 	static readonly TYPE: ShippingZoneType = 'shipping_zones' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingZone>> {
-		return this.resources.list<ShippingZone>({ type: ShippingZones.TYPE }, params, options)
-	}
-
 	async create(resource: ShippingZoneCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
 		return this.resources.create<ShippingZoneCreate, ShippingZone>({ ...resource, type: ShippingZones.TYPE }, params, options)
 	}

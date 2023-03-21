@@ -1,5 +1,5 @@
-import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Shipment } from './shipments'
 import type { LineItem } from './line_items'
@@ -28,10 +28,6 @@ interface StockLineItem extends Resource {
 class StockLineItems extends ApiResource<StockLineItem> {
 
 	static readonly TYPE: StockLineItemType = 'stock_line_items' as const
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
-		return this.resources.list<StockLineItem>({ type: StockLineItems.TYPE }, params, options)
-	}
 
 	async shipment(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string

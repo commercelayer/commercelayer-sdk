@@ -29,10 +29,6 @@ class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
 
 	static readonly TYPE: ShippingMethodTierType = 'shipping_method_tiers' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingMethodTier>> {
-		return this.resources.list<ShippingMethodTier>({ type: ShippingMethodTiers.TYPE }, params, options)
-	}
-
 	async shipping_method(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
 		const _shippingMethodTierId = (shippingMethodTierId as ShippingMethodTier).id || shippingMethodTierId as string
 		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `shipping_method_tiers/${_shippingMethodTierId}/shipping_method`, params, options) as unknown as ShippingMethod

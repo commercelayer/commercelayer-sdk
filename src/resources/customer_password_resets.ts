@@ -42,10 +42,6 @@ class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 
 	static readonly TYPE: CustomerPasswordResetType = 'customer_password_resets' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPasswordReset>> {
-		return this.resources.list<CustomerPasswordReset>({ type: CustomerPasswordResets.TYPE }, params, options)
-	}
-
 	async create(resource: CustomerPasswordResetCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
 		return this.resources.create<CustomerPasswordResetCreate, CustomerPasswordReset>({ ...resource, type: CustomerPasswordResets.TYPE }, params, options)
 	}

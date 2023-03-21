@@ -84,10 +84,6 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 
 	static readonly TYPE: ExternalPromotionType = 'external_promotions' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalPromotion>> {
-		return this.resources.list<ExternalPromotion>({ type: ExternalPromotions.TYPE }, params, options)
-	}
-
 	async create(resource: ExternalPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
 		return this.resources.create<ExternalPromotionCreate, ExternalPromotion>({ ...resource, type: ExternalPromotions.TYPE }, params, options)
 	}

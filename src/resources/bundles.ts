@@ -77,10 +77,6 @@ class Bundles extends ApiResource<Bundle> {
 
 	static readonly TYPE: BundleType = 'bundles' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
-		return this.resources.list<Bundle>({ type: Bundles.TYPE }, params, options)
-	}
-
 	async create(resource: BundleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
 		return this.resources.create<BundleCreate, Bundle>({ ...resource, type: Bundles.TYPE }, params, options)
 	}
