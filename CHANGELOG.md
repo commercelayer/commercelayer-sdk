@@ -1,3 +1,10 @@
+# [5.0.0-beta.10](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.9...v5.0.0-beta.10) (2023-03-22)
+
+
+### Features
+
+* **core:** add nullable resource fields ([479e94c](https://github.com/commercelayer/commercelayer-sdk/commit/479e94c5c014a74535cbf605b293c9be3fc13d7b))
+
 # [5.0.0-beta.9](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.8...v5.0.0-beta.9) (2023-03-22)
 
 
