@@ -15,17 +15,17 @@ interface SkuOption extends Resource {
 	readonly type: SkuOptionType
 
 	name: string
-	currency_code?: string
-	description?: string
-	price_amount_cents?: number
-	price_amount_float?: number
-	formatted_price_amount?: string
-	delay_hours?: number
-	delay_days?: number
-	sku_code_regex?: string
+	currency_code?: string | null
+	description?: string | null
+	price_amount_cents?: number | null
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
+	delay_hours?: number | null
+	delay_days?: number | null
+	sku_code_regex?: string | null
 
-	market?: Market
-	attachments?: Attachment[]
+	market?: Market | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -33,27 +33,27 @@ interface SkuOption extends Resource {
 interface SkuOptionCreate extends ResourceCreate {
 	
 	name: string
-	currency_code?: string
-	description?: string
-	price_amount_cents?: number
-	delay_hours?: number
-	sku_code_regex?: string
+	currency_code?: string | null
+	description?: string | null
+	price_amount_cents?: number | null
+	delay_hours?: number | null
+	sku_code_regex?: string | null
 
-	market?: MarketRel
+	market?: MarketRel | null
 
 }
 
 
 interface SkuOptionUpdate extends ResourceUpdate {
 	
-	name: string
-	currency_code?: string
-	description?: string
-	price_amount_cents?: number
-	delay_hours?: number
-	sku_code_regex?: string
+	name?: string | null
+	currency_code?: string | null
+	description?: string | null
+	price_amount_cents?: number | null
+	delay_hours?: number | null
+	sku_code_regex?: string | null
 
-	market?: MarketRel
+	market?: MarketRel | null
 
 }
 

@@ -15,23 +15,23 @@ interface BraintreePayment extends Resource {
 	readonly type: BraintreePaymentType
 
 	client_token: string
-	payment_method_nonce?: string
-	payment_id?: string
-	local?: boolean
-	options?: object
-	payment_instrument?: object
+	payment_method_nonce?: string | null
+	payment_id?: string | null
+	local?: boolean | null
+	options?: object | null
+	payment_instrument?: object | null
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
 
 interface BraintreePaymentCreate extends ResourceCreate {
 	
-	payment_id?: string
-	local?: boolean
-	options?: object
+	payment_id?: string | null
+	local?: boolean | null
+	options?: object | null
 
 	order: OrderRel
 
@@ -40,12 +40,12 @@ interface BraintreePaymentCreate extends ResourceCreate {
 
 interface BraintreePaymentUpdate extends ResourceUpdate {
 	
-	payment_method_nonce?: string
-	payment_id?: string
-	local?: boolean
-	options?: object
+	payment_method_nonce?: string | null
+	payment_id?: string | null
+	local?: boolean | null
+	options?: object | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 

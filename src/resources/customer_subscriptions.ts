@@ -15,8 +15,8 @@ interface CustomerSubscription extends Resource {
 
 	customer_email: string
 
-	customer?: Customer
-	events?: Event[]
+	customer?: Customer | null
+	events?: Event[] | null
 
 }
 

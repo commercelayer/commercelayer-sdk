@@ -15,21 +15,21 @@ interface SkuListItem extends Resource {
 	
 	readonly type: SkuListItemType
 
-	position?: number
-	sku_code?: string
-	quantity?: number
+	position?: number | null
+	sku_code?: string | null
+	quantity?: number | null
 
-	sku_list?: SkuList
-	sku?: Sku
+	sku_list?: SkuList | null
+	sku?: Sku | null
 
 }
 
 
 interface SkuListItemCreate extends ResourceCreate {
 	
-	position?: number
-	sku_code?: string
-	quantity?: number
+	position?: number | null
+	sku_code?: string | null
+	quantity?: number | null
 
 	sku_list: SkuListRel
 	sku: SkuRel
@@ -39,9 +39,9 @@ interface SkuListItemCreate extends ResourceCreate {
 
 interface SkuListItemUpdate extends ResourceUpdate {
 	
-	position?: number
-	sku_code?: string
-	quantity?: number
+	position?: number | null
+	sku_code?: string | null
+	quantity?: number | null
 	
 }
 

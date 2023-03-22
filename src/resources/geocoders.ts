@@ -15,8 +15,8 @@ interface Geocoder extends Resource {
 
 	name: string
 
-	addresses?: Address[]
-	attachments?: Attachment[]
+	addresses?: Address[] | null
+	attachments?: Attachment[] | null
 
 }
 

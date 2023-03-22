@@ -27,23 +27,23 @@ interface FreeGiftPromotion extends Resource {
 	readonly type: FreeGiftPromotionType
 
 	name: string
-	currency_code?: string
+	currency_code?: string | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
-	total_usage_count?: number
-	active?: boolean
-	max_quantity?: number
+	total_usage_count?: number | null
+	active?: boolean | null
+	max_quantity?: number | null
 
-	market?: Market
-	promotion_rules?: PromotionRule[]
-	order_amount_promotion_rule?: OrderAmountPromotionRule
-	sku_list_promotion_rule?: SkuListPromotionRule
-	coupon_codes_promotion_rule?: CouponCodesPromotionRule
-	attachments?: Attachment[]
-	sku_list?: SkuList
-	skus?: Sku[]
-	events?: Event[]
+	market?: Market | null
+	promotion_rules?: PromotionRule[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRule | null
+	sku_list_promotion_rule?: SkuListPromotionRule | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
+	attachments?: Attachment[] | null
+	sku_list?: SkuList | null
+	skus?: Sku[] | null
+	events?: Event[] | null
 
 }
 
@@ -51,17 +51,17 @@ interface FreeGiftPromotion extends Resource {
 interface FreeGiftPromotionCreate extends ResourceCreate {
 	
 	name: string
-	currency_code?: string
+	currency_code?: string | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
-	max_quantity?: number
+	max_quantity?: number | null
 
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	market?: MarketRel | null
+	promotion_rules?: PromotionRuleRel[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
+	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	sku_list: SkuListRel
 
 }
@@ -69,19 +69,19 @@ interface FreeGiftPromotionCreate extends ResourceCreate {
 
 interface FreeGiftPromotionUpdate extends ResourceUpdate {
 	
-	name: string
-	currency_code?: string
-	starts_at: string
-	expires_at: string
-	total_usage_limit: number
-	max_quantity?: number
+	name?: string | null
+	currency_code?: string | null
+	starts_at?: string | null
+	expires_at?: string | null
+	total_usage_limit?: number | null
+	max_quantity?: number | null
 
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
-	sku_list?: SkuListRel
+	market?: MarketRel | null
+	promotion_rules?: PromotionRuleRel[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
+	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	sku_list?: SkuListRel | null
 
 }
 

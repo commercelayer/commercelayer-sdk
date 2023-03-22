@@ -15,15 +15,15 @@ interface ReturnLineItem extends Resource {
 	
 	readonly type: ReturnLineItemType
 
-	sku_code?: string
-	bundle_code?: string
-	name?: string
+	sku_code?: string | null
+	bundle_code?: string | null
+	name?: string | null
 	quantity: number
-	return_reason?: object
-	restocked_at?: string
+	return_reason?: object | null
+	restocked_at?: string | null
 
-	return?: Return
-	line_item?: LineItem
+	return?: Return | null
+	line_item?: LineItem | null
 
 }
 
@@ -31,7 +31,7 @@ interface ReturnLineItem extends Resource {
 interface ReturnLineItemCreate extends ResourceCreate {
 	
 	quantity: number
-	return_reason?: object
+	return_reason?: object | null
 
 	return: ReturnRel
 	line_item: LineItemRel
@@ -41,9 +41,9 @@ interface ReturnLineItemCreate extends ResourceCreate {
 
 interface ReturnLineItemUpdate extends ResourceUpdate {
 	
-	quantity: number
-	_restock?: boolean
-	return_reason?: object
+	quantity?: number | null
+	_restock?: boolean | null
+	return_reason?: object | null
 	
 }
 

@@ -14,13 +14,13 @@ interface StockLineItem extends Resource {
 	
 	readonly type: StockLineItemType
 
-	sku_code?: string
-	bundle_code?: string
+	sku_code?: string | null
+	bundle_code?: string | null
 	quantity: number
 
-	shipment?: Shipment
-	line_item?: LineItem
-	stock_item?: StockItem
+	shipment?: Shipment | null
+	line_item?: LineItem | null
+	stock_item?: StockItem | null
 
 }
 

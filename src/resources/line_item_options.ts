@@ -15,28 +15,28 @@ interface LineItemOption extends Resource {
 	
 	readonly type: LineItemOptionType
 
-	name?: string
+	name?: string | null
 	quantity: number
-	currency_code?: string
-	unit_amount_cents?: number
-	unit_amount_float?: number
-	formatted_unit_amount?: string
-	total_amount_cents?: number
+	currency_code?: string | null
+	unit_amount_cents?: number | null
+	unit_amount_float?: number | null
+	formatted_unit_amount?: string | null
+	total_amount_cents?: number | null
 	total_amount_float: number
-	formatted_total_amount?: string
-	delay_hours?: number
-	delay_days?: number
+	formatted_total_amount?: string | null
+	delay_hours?: number | null
+	delay_days?: number | null
 	options: object
 
-	line_item?: LineItem
-	sku_option?: SkuOption
+	line_item?: LineItem | null
+	sku_option?: SkuOption | null
 
 }
 
 
 interface LineItemOptionCreate extends ResourceCreate {
 	
-	name?: string
+	name?: string | null
 	quantity: number
 	options: object
 
@@ -48,11 +48,11 @@ interface LineItemOptionCreate extends ResourceCreate {
 
 interface LineItemOptionUpdate extends ResourceUpdate {
 	
-	name?: string
-	quantity: number
-	options: object
+	name?: string | null
+	quantity?: number | null
+	options?: object | null
 
-	sku_option?: SkuOptionRel
+	sku_option?: SkuOptionRel | null
 
 }
 

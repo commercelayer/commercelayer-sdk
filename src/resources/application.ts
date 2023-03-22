@@ -11,11 +11,11 @@ interface Application extends Resource {
 	
 	readonly type: ApplicationType
 
-	name?: string
-	kind?: string
-	public_access?: boolean
-	redirect_uri?: string
-	scopes?: string
+	name?: string | null
+	kind?: string | null
+	public_access?: boolean | null
+	redirect_uri?: string | null
+	scopes?: string | null
 	
 }
 

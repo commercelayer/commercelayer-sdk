@@ -14,12 +14,12 @@ interface Coupon extends Resource {
 	readonly type: CouponType
 
 	code: string
-	customer_single_use?: boolean
+	customer_single_use?: boolean | null
 	usage_limit: number
-	usage_count?: number
-	recipient_email?: string
+	usage_count?: number | null
+	recipient_email?: string | null
 
-	promotion_rule?: CouponCodesPromotionRule
+	promotion_rule?: CouponCodesPromotionRule | null
 
 }
 
@@ -27,9 +27,9 @@ interface Coupon extends Resource {
 interface CouponCreate extends ResourceCreate {
 	
 	code: string
-	customer_single_use?: boolean
+	customer_single_use?: boolean | null
 	usage_limit: number
-	recipient_email?: string
+	recipient_email?: string | null
 
 	promotion_rule: CouponCodesPromotionRuleRel
 
@@ -38,12 +38,12 @@ interface CouponCreate extends ResourceCreate {
 
 interface CouponUpdate extends ResourceUpdate {
 	
-	code: string
-	customer_single_use?: boolean
-	usage_limit: number
-	recipient_email?: string
+	code?: string | null
+	customer_single_use?: boolean | null
+	usage_limit?: number | null
+	recipient_email?: string | null
 
-	promotion_rule?: CouponCodesPromotionRuleRel
+	promotion_rule?: CouponCodesPromotionRuleRel | null
 
 }
 

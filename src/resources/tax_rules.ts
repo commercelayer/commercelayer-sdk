@@ -14,20 +14,20 @@ interface TaxRule extends Resource {
 	readonly type: TaxRuleType
 
 	name: string
-	tax_rate?: number
-	country_code_regex?: string
-	not_country_code_regex?: string
-	state_code_regex?: string
-	not_state_code_regex?: string
-	zip_code_regex?: string
-	not_zip_code_regex?: string
-	freight_taxable?: boolean
-	payment_method_taxable?: boolean
-	gift_card_taxable?: boolean
-	adjustment_taxable?: boolean
-	breakdown?: object
+	tax_rate?: number | null
+	country_code_regex?: string | null
+	not_country_code_regex?: string | null
+	state_code_regex?: string | null
+	not_state_code_regex?: string | null
+	zip_code_regex?: string | null
+	not_zip_code_regex?: string | null
+	freight_taxable?: boolean | null
+	payment_method_taxable?: boolean | null
+	gift_card_taxable?: boolean | null
+	adjustment_taxable?: boolean | null
+	breakdown?: object | null
 
-	manual_tax_calculator?: ManualTaxCalculator
+	manual_tax_calculator?: ManualTaxCalculator | null
 
 }
 
@@ -35,17 +35,17 @@ interface TaxRule extends Resource {
 interface TaxRuleCreate extends ResourceCreate {
 	
 	name: string
-	tax_rate?: number
-	country_code_regex?: string
-	not_country_code_regex?: string
-	state_code_regex?: string
-	not_state_code_regex?: string
-	zip_code_regex?: string
-	not_zip_code_regex?: string
-	freight_taxable?: boolean
-	payment_method_taxable?: boolean
-	gift_card_taxable?: boolean
-	adjustment_taxable?: boolean
+	tax_rate?: number | null
+	country_code_regex?: string | null
+	not_country_code_regex?: string | null
+	state_code_regex?: string | null
+	not_state_code_regex?: string | null
+	zip_code_regex?: string | null
+	not_zip_code_regex?: string | null
+	freight_taxable?: boolean | null
+	payment_method_taxable?: boolean | null
+	gift_card_taxable?: boolean | null
+	adjustment_taxable?: boolean | null
 
 	manual_tax_calculator: ManualTaxCalculatorRel
 
@@ -54,20 +54,20 @@ interface TaxRuleCreate extends ResourceCreate {
 
 interface TaxRuleUpdate extends ResourceUpdate {
 	
-	name: string
-	tax_rate?: number
-	country_code_regex?: string
-	not_country_code_regex?: string
-	state_code_regex?: string
-	not_state_code_regex?: string
-	zip_code_regex?: string
-	not_zip_code_regex?: string
-	freight_taxable?: boolean
-	payment_method_taxable?: boolean
-	gift_card_taxable?: boolean
-	adjustment_taxable?: boolean
+	name?: string | null
+	tax_rate?: number | null
+	country_code_regex?: string | null
+	not_country_code_regex?: string | null
+	state_code_regex?: string | null
+	not_state_code_regex?: string | null
+	zip_code_regex?: string | null
+	not_zip_code_regex?: string | null
+	freight_taxable?: boolean | null
+	payment_method_taxable?: boolean | null
+	gift_card_taxable?: boolean | null
+	adjustment_taxable?: boolean | null
 
-	manual_tax_calculator?: ManualTaxCalculatorRel
+	manual_tax_calculator?: ManualTaxCalculatorRel | null
 
 }
 

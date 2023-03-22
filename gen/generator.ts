@@ -2,11 +2,10 @@
 import apiSchema, { Resource, Operation, Component, Cardinality, Attribute } from './schema'
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
 import { basename } from 'path'
-import { capitalize, snakeCase } from 'lodash'
-import { inspect } from 'util'
+import { snakeCase } from 'lodash'
 import fixSchema from './fixer'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
 const Inflector = require('inflector-js')
 
 
@@ -207,9 +206,6 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 	const iniStopIdx = findLine('##__CL_RESOURCES_INIT_STOP__##', lines).index
 	lines.splice(iniStartIdx, iniStopIdx - iniStartIdx, ...initializations)
 
-
-	// console.log(definitions)
-	// console.log(initializations)
 
 	writeFileSync('src/commercelayer.ts', lines.join('\n'), { encoding: 'utf-8' })
 
@@ -623,7 +619,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			if (cudModel || a.fetchable) {
 				let attrType = fixAttributeType(a)
 				if (a.enum) enums[a.name] = attrType
-				fields.push(`${a.name}${a.required ? '' : '?'}: ${attrType}`)
+				fields.push(`${a.name}${a.required ? '' : '?'}: ${attrType}${a.required ? '' : ' | null'}`)
 			}
 		}
 	})
@@ -656,14 +652,12 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 				}
 			}
 
-			const req = r.required ? '' : '?'
-
 			if ((r.cardinality === Cardinality.to_many)) {
 				if (r.polymorphic) resName = `Array<${resName}>`
 				else resName += '[]'
 			}
 
-			rels.push(`${r.name}${req}: ${resName}`)
+			rels.push(`${r.name}${r.required ? '' : '?'}: ${resName}${r.required ? '' : ' | null'}`)
 
 		}
 	})

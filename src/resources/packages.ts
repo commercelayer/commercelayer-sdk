@@ -16,15 +16,15 @@ interface Package extends Resource {
 	readonly type: PackageType
 
 	name: string
-	code?: string
+	code?: string | null
 	length: number
 	width: number
 	height: number
 	unit_of_length: string
 
-	stock_location?: StockLocation
-	parcels?: Parcel[]
-	attachments?: Attachment[]
+	stock_location?: StockLocation | null
+	parcels?: Parcel[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -32,7 +32,7 @@ interface Package extends Resource {
 interface PackageCreate extends ResourceCreate {
 	
 	name: string
-	code?: string
+	code?: string | null
 	length: number
 	width: number
 	height: number
@@ -45,14 +45,14 @@ interface PackageCreate extends ResourceCreate {
 
 interface PackageUpdate extends ResourceUpdate {
 	
-	name: string
-	code?: string
-	length: number
-	width: number
-	height: number
-	unit_of_length: string
+	name?: string | null
+	code?: string | null
+	length?: number | null
+	width?: number | null
+	height?: number | null
+	unit_of_length?: string | null
 
-	stock_location?: StockLocationRel
+	stock_location?: StockLocationRel | null
 
 }
 

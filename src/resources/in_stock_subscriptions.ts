@@ -18,24 +18,24 @@ interface InStockSubscription extends Resource {
 	
 	readonly type: InStockSubscriptionType
 
-	status?: 'active' | 'inactive' | 'notified'
-	customer_email?: string
-	sku_code?: string
-	stock_threshold?: number
+	status?: 'active' | 'inactive' | 'notified' | null
+	customer_email?: string | null
+	sku_code?: string | null
+	stock_threshold?: number | null
 
-	market?: Market
-	customer?: Customer
-	sku?: Sku
-	events?: Event[]
+	market?: Market | null
+	customer?: Customer | null
+	sku?: Sku | null
+	events?: Event[] | null
 
 }
 
 
 interface InStockSubscriptionCreate extends ResourceCreate {
 	
-	customer_email?: string
-	sku_code?: string
-	stock_threshold?: number
+	customer_email?: string | null
+	sku_code?: string | null
+	stock_threshold?: number | null
 
 	market: MarketRel
 	customer: CustomerRel
@@ -46,14 +46,14 @@ interface InStockSubscriptionCreate extends ResourceCreate {
 
 interface InStockSubscriptionUpdate extends ResourceUpdate {
 	
-	sku_code?: string
-	stock_threshold?: number
-	_activate?: boolean
-	_deactivate?: boolean
+	sku_code?: string | null
+	stock_threshold?: number | null
+	_activate?: boolean | null
+	_deactivate?: boolean | null
 
-	market?: MarketRel
-	customer?: CustomerRel
-	sku?: SkuRel
+	market?: MarketRel | null
+	customer?: CustomerRel | null
+	sku?: SkuRel | null
 
 }
 

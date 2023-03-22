@@ -33,12 +33,12 @@ interface CustomerPaymentSource extends Resource {
 	
 	readonly type: CustomerPaymentSourceType
 
-	name?: string
-	customer_token?: string
-	payment_source_token?: string
+	name?: string | null
+	customer_token?: string | null
+	payment_source_token?: string | null
 
-	customer?: Customer
-	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer
+	customer?: Customer | null
+	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
 
 }
 
@@ -53,8 +53,8 @@ interface CustomerPaymentSourceCreate extends ResourceCreate {
 
 interface CustomerPaymentSourceUpdate extends ResourceUpdate {
 	
-	customer?: CustomerRel
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
+	customer?: CustomerRel | null
+	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel | null
 
 }
 

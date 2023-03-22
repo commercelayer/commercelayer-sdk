@@ -13,12 +13,12 @@ interface CarrierAccount extends Resource {
 	
 	readonly type: CarrierAccountType
 
-	name?: string
-	easypost_type?: string
-	easypost_id?: string
+	name?: string | null
+	easypost_type?: string | null
+	easypost_id?: string | null
 
-	market?: Market
-	attachments?: Attachment[]
+	market?: Market | null
+	attachments?: Attachment[] | null
 
 }
 

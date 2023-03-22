@@ -18,17 +18,17 @@ interface StockLocation extends Resource {
 	
 	readonly type: StockLocationType
 
-	number?: number
+	number?: number | null
 	name: string
-	label_format?: string
-	suppress_etd?: boolean
+	label_format?: string | null
+	suppress_etd?: boolean | null
 
-	address?: Address
-	inventory_stock_locations?: InventoryStockLocation[]
-	inventory_return_locations?: InventoryReturnLocation[]
-	stock_items?: StockItem[]
-	stock_transfers?: StockTransfer[]
-	attachments?: Attachment[]
+	address?: Address | null
+	inventory_stock_locations?: InventoryStockLocation[] | null
+	inventory_return_locations?: InventoryReturnLocation[] | null
+	stock_items?: StockItem[] | null
+	stock_transfers?: StockTransfer[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -36,8 +36,8 @@ interface StockLocation extends Resource {
 interface StockLocationCreate extends ResourceCreate {
 	
 	name: string
-	label_format?: string
-	suppress_etd?: boolean
+	label_format?: string | null
+	suppress_etd?: boolean | null
 
 	address: AddressRel
 
@@ -46,11 +46,11 @@ interface StockLocationCreate extends ResourceCreate {
 
 interface StockLocationUpdate extends ResourceUpdate {
 	
-	name: string
-	label_format?: string
-	suppress_etd?: boolean
+	name?: string | null
+	label_format?: string | null
+	suppress_etd?: boolean | null
 
-	address?: AddressRel
+	address?: AddressRel | null
 
 }
 

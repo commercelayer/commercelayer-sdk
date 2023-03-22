@@ -20,22 +20,22 @@ interface Sku extends Resource {
 
 	code: string
 	name: string
-	description?: string
-	image_url?: string
-	pieces_per_pack?: number
-	weight?: number
-	unit_of_weight?: string
-	hs_tariff_number?: string
-	do_not_ship?: boolean
-	do_not_track?: boolean
-	inventory?: object
+	description?: string | null
+	image_url?: string | null
+	pieces_per_pack?: number | null
+	weight?: number | null
+	unit_of_weight?: string | null
+	hs_tariff_number?: string | null
+	do_not_ship?: boolean | null
+	do_not_track?: boolean | null
+	inventory?: object | null
 
-	shipping_category?: ShippingCategory
-	prices?: Price[]
-	stock_items?: StockItem[]
-	delivery_lead_times?: DeliveryLeadTime[]
-	sku_options?: SkuOption[]
-	attachments?: Attachment[]
+	shipping_category?: ShippingCategory | null
+	prices?: Price[] | null
+	stock_items?: StockItem[] | null
+	delivery_lead_times?: DeliveryLeadTime[] | null
+	sku_options?: SkuOption[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -44,14 +44,14 @@ interface SkuCreate extends ResourceCreate {
 	
 	code: string
 	name: string
-	description?: string
-	image_url?: string
-	pieces_per_pack?: number
-	weight?: number
-	unit_of_weight?: string
-	hs_tariff_number?: string
-	do_not_ship?: boolean
-	do_not_track?: boolean
+	description?: string | null
+	image_url?: string | null
+	pieces_per_pack?: number | null
+	weight?: number | null
+	unit_of_weight?: string | null
+	hs_tariff_number?: string | null
+	do_not_ship?: boolean | null
+	do_not_track?: boolean | null
 
 	shipping_category: ShippingCategoryRel
 
@@ -60,18 +60,18 @@ interface SkuCreate extends ResourceCreate {
 
 interface SkuUpdate extends ResourceUpdate {
 	
-	code: string
-	name: string
-	description?: string
-	image_url?: string
-	pieces_per_pack?: number
-	weight?: number
-	unit_of_weight?: string
-	hs_tariff_number?: string
-	do_not_ship?: boolean
-	do_not_track?: boolean
+	code?: string | null
+	name?: string | null
+	description?: string | null
+	image_url?: string | null
+	pieces_per_pack?: number | null
+	weight?: number | null
+	unit_of_weight?: string | null
+	hs_tariff_number?: string | null
+	do_not_ship?: boolean | null
+	do_not_track?: boolean | null
 
-	shipping_category?: ShippingCategoryRel
+	shipping_category?: ShippingCategoryRel | null
 
 }
 

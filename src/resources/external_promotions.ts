@@ -24,22 +24,22 @@ interface ExternalPromotion extends Resource {
 	readonly type: ExternalPromotionType
 
 	name: string
-	currency_code?: string
+	currency_code?: string | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
-	total_usage_count?: number
-	active?: boolean
+	total_usage_count?: number | null
+	active?: boolean | null
 	promotion_url: string
 	shared_secret: string
 
-	market?: Market
-	promotion_rules?: PromotionRule[]
-	order_amount_promotion_rule?: OrderAmountPromotionRule
-	sku_list_promotion_rule?: SkuListPromotionRule
-	coupon_codes_promotion_rule?: CouponCodesPromotionRule
-	attachments?: Attachment[]
-	events?: Event[]
+	market?: Market | null
+	promotion_rules?: PromotionRule[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRule | null
+	sku_list_promotion_rule?: SkuListPromotionRule | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
@@ -47,35 +47,35 @@ interface ExternalPromotion extends Resource {
 interface ExternalPromotionCreate extends ResourceCreate {
 	
 	name: string
-	currency_code?: string
+	currency_code?: string | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
 	promotion_url: string
 
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	market?: MarketRel | null
+	promotion_rules?: PromotionRuleRel[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
+	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 
 }
 
 
 interface ExternalPromotionUpdate extends ResourceUpdate {
 	
-	name: string
-	currency_code?: string
-	starts_at: string
-	expires_at: string
-	total_usage_limit: number
-	promotion_url: string
+	name?: string | null
+	currency_code?: string | null
+	starts_at?: string | null
+	expires_at?: string | null
+	total_usage_limit?: number | null
+	promotion_url?: string | null
 
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	market?: MarketRel | null
+	promotion_rules?: PromotionRuleRel[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
+	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 
 }
 

@@ -24,58 +24,58 @@ interface Shipment extends Resource {
 	
 	readonly type: ShipmentType
 
-	number?: string
-	status?: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped'
-	currency_code?: string
-	cost_amount_cents?: number
-	cost_amount_float?: number
-	formatted_cost_amount?: string
-	skus_count?: number
-	selected_rate_id?: string
-	rates?: object[]
-	purchase_error_code?: string
-	purchase_error_message?: string
-	get_rates_errors?: object[]
-	get_rates_started_at?: string
-	get_rates_completed_at?: string
-	purchase_started_at?: string
-	purchase_completed_at?: string
-	purchase_failed_at?: string
+	number?: string | null
+	status?: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped' | null
+	currency_code?: string | null
+	cost_amount_cents?: number | null
+	cost_amount_float?: number | null
+	formatted_cost_amount?: string | null
+	skus_count?: number | null
+	selected_rate_id?: string | null
+	rates?: object[] | null
+	purchase_error_code?: string | null
+	purchase_error_message?: string | null
+	get_rates_errors?: object[] | null
+	get_rates_started_at?: string | null
+	get_rates_completed_at?: string | null
+	purchase_started_at?: string | null
+	purchase_completed_at?: string | null
+	purchase_failed_at?: string | null
 
-	order?: Order
-	shipping_category?: ShippingCategory
-	stock_location?: StockLocation
-	origin_address?: Address
-	shipping_address?: Address
-	shipping_method?: ShippingMethod
-	delivery_lead_time?: DeliveryLeadTime
+	order?: Order | null
+	shipping_category?: ShippingCategory | null
+	stock_location?: StockLocation | null
+	origin_address?: Address | null
+	shipping_address?: Address | null
+	shipping_method?: ShippingMethod | null
+	delivery_lead_time?: DeliveryLeadTime | null
 	/**
 	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
 	shipment_line_items?: object[]
-	stock_line_items?: StockLineItem[]
-	stock_transfers?: StockTransfer[]
-	available_shipping_methods?: ShippingMethod[]
-	carrier_accounts?: CarrierAccount[]
-	parcels?: Parcel[]
-	attachments?: Attachment[]
-	events?: Event[]
+	stock_line_items?: StockLineItem[] | null
+	stock_transfers?: StockTransfer[] | null
+	available_shipping_methods?: ShippingMethod[] | null
+	carrier_accounts?: CarrierAccount[] | null
+	parcels?: Parcel[] | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
 
 interface ShipmentUpdate extends ResourceUpdate {
 	
-	_on_hold?: boolean
-	_picking?: boolean
-	_packing?: boolean
-	_ready_to_ship?: boolean
-	_ship?: boolean
-	_get_rates?: boolean
-	selected_rate_id?: string
-	_purchase?: boolean
+	_on_hold?: boolean | null
+	_picking?: boolean | null
+	_packing?: boolean | null
+	_ready_to_ship?: boolean | null
+	_ship?: boolean | null
+	_get_rates?: boolean | null
+	selected_rate_id?: string | null
+	_purchase?: boolean | null
 
-	shipping_method?: ShippingMethodRel
+	shipping_method?: ShippingMethodRel | null
 
 }
 

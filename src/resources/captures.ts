@@ -21,30 +21,30 @@ interface Capture extends Resource {
 	amount_float: number
 	formatted_amount: string
 	succeeded: boolean
-	message?: string
-	error_code?: string
-	error_detail?: string
-	token?: string
-	gateway_transaction_id?: string
-	refund_amount_cents?: number
-	refund_amount_float?: number
-	formatted_refund_amount?: string
-	refund_balance_cents?: number
-	refund_balance_float?: number
-	formatted_refund_balance?: string
+	message?: string | null
+	error_code?: string | null
+	error_detail?: string | null
+	token?: string | null
+	gateway_transaction_id?: string | null
+	refund_amount_cents?: number | null
+	refund_amount_float?: number | null
+	formatted_refund_amount?: string | null
+	refund_balance_cents?: number | null
+	refund_balance_float?: number | null
+	formatted_refund_balance?: string | null
 
-	order?: Order
-	reference_authorization?: Authorization
-	refunds?: Refund[]
-	events?: Event[]
+	order?: Order | null
+	reference_authorization?: Authorization | null
+	refunds?: Refund[] | null
+	events?: Event[] | null
 
 }
 
 
 interface CaptureUpdate extends ResourceUpdate {
 	
-	_refund?: boolean
-	_refund_amount_cents?: number
+	_refund?: boolean | null
+	_refund_amount_cents?: number | null
 	
 }
 

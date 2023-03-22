@@ -17,68 +17,68 @@ interface GiftCard extends Resource {
 	
 	readonly type: GiftCardType
 
-	status?: 'draft' | 'inactive' | 'active' | 'redeemed'
-	code?: string
-	currency_code?: string
+	status?: 'draft' | 'inactive' | 'active' | 'redeemed' | null
+	code?: string | null
+	currency_code?: string | null
 	initial_balance_cents: number
 	initial_balance_float: number
 	formatted_initial_balance: string
 	balance_cents: number
 	balance_float: number
 	formatted_balance: string
-	balance_max_cents?: string
-	balance_max_float?: number
-	formatted_balance_max?: string
+	balance_max_cents?: string | null
+	balance_max_float?: number | null
+	formatted_balance_max?: string | null
 	balance_log: object[]
-	single_use?: boolean
-	rechargeable?: boolean
-	image_url?: string
-	expires_at?: string
-	recipient_email?: string
+	single_use?: boolean | null
+	rechargeable?: boolean | null
+	image_url?: string | null
+	expires_at?: string | null
+	recipient_email?: string | null
 
-	market?: Market
-	gift_card_recipient?: GiftCardRecipient
-	attachments?: Attachment[]
-	events?: Event[]
+	market?: Market | null
+	gift_card_recipient?: GiftCardRecipient | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
 
 interface GiftCardCreate extends ResourceCreate {
 	
-	code?: string
-	currency_code?: string
+	code?: string | null
+	currency_code?: string | null
 	balance_cents: number
-	balance_max_cents?: string
-	single_use?: boolean
-	rechargeable?: boolean
-	image_url?: string
-	expires_at?: string
-	recipient_email?: string
+	balance_max_cents?: string | null
+	single_use?: boolean | null
+	rechargeable?: boolean | null
+	image_url?: string | null
+	expires_at?: string | null
+	recipient_email?: string | null
 
-	market?: MarketRel
-	gift_card_recipient?: GiftCardRecipientRel
+	market?: MarketRel | null
+	gift_card_recipient?: GiftCardRecipientRel | null
 
 }
 
 
 interface GiftCardUpdate extends ResourceUpdate {
 	
-	currency_code?: string
-	balance_cents: number
-	balance_max_cents?: string
-	single_use?: boolean
-	rechargeable?: boolean
-	image_url?: string
-	expires_at?: string
-	recipient_email?: string
-	_purchase?: boolean
-	_activate?: boolean
-	_deactivate?: boolean
-	_balance_change_cents?: number
+	currency_code?: string | null
+	balance_cents?: number | null
+	balance_max_cents?: string | null
+	single_use?: boolean | null
+	rechargeable?: boolean | null
+	image_url?: string | null
+	expires_at?: string | null
+	recipient_email?: string | null
+	_purchase?: boolean | null
+	_activate?: boolean | null
+	_deactivate?: boolean | null
+	_balance_change_cents?: number | null
 
-	market?: MarketRel
-	gift_card_recipient?: GiftCardRecipientRel
+	market?: MarketRel | null
+	gift_card_recipient?: GiftCardRecipientRel | null
 
 }
 

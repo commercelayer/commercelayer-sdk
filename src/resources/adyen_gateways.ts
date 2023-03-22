@@ -16,12 +16,12 @@ interface AdyenGateway extends Resource {
 
 	name: string
 	live_url_prefix: string
-	async_api?: boolean
-	webhook_endpoint_secret?: string
-	webhook_endpoint_url?: string
+	async_api?: boolean | null
+	webhook_endpoint_secret?: string | null
+	webhook_endpoint_url?: string | null
 
-	payment_methods?: PaymentMethod[]
-	adyen_payments?: AdyenPayment[]
+	payment_methods?: PaymentMethod[] | null
+	adyen_payments?: AdyenPayment[] | null
 
 }
 
@@ -31,29 +31,29 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	name: string
 	merchant_account: string
 	api_key: string
-	public_key?: string
+	public_key?: string | null
 	live_url_prefix: string
-	api_version?: string
-	async_api?: boolean
-	webhook_endpoint_secret?: string
+	api_version?: string | null
+	async_api?: boolean | null
+	webhook_endpoint_secret?: string | null
 
-	adyen_payments?: AdyenPaymentRel[]
+	adyen_payments?: AdyenPaymentRel[] | null
 
 }
 
 
 interface AdyenGatewayUpdate extends ResourceUpdate {
 	
-	name: string
-	merchant_account?: string
-	api_key?: string
-	public_key?: string
-	live_url_prefix: string
-	api_version?: string
-	async_api?: boolean
-	webhook_endpoint_secret?: string
+	name?: string | null
+	merchant_account?: string | null
+	api_key?: string | null
+	public_key?: string | null
+	live_url_prefix?: string | null
+	api_version?: string | null
+	async_api?: boolean | null
+	webhook_endpoint_secret?: string | null
 
-	adyen_payments?: AdyenPaymentRel[]
+	adyen_payments?: AdyenPaymentRel[] | null
 
 }
 

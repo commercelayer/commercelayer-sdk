@@ -15,29 +15,29 @@ interface OrderCopy extends Resource {
 	
 	readonly type: OrderCopyType
 
-	status?: 'pending' | 'in_progress' | 'failed' | 'completed'
-	started_at?: string
-	completed_at?: string
-	failed_at?: string
-	place_target_order?: boolean
-	cancel_source_order?: boolean
-	reuse_wallet?: boolean
-	errors_log?: object
-	errors_count?: number
+	status?: 'pending' | 'in_progress' | 'failed' | 'completed' | null
+	started_at?: string | null
+	completed_at?: string | null
+	failed_at?: string | null
+	place_target_order?: boolean | null
+	cancel_source_order?: boolean | null
+	reuse_wallet?: boolean | null
+	errors_log?: object | null
+	errors_count?: number | null
 
-	source_order?: Order
-	target_order?: Order
-	order_subscription?: OrderSubscription
-	events?: Event[]
+	source_order?: Order | null
+	target_order?: Order | null
+	order_subscription?: OrderSubscription | null
+	events?: Event[] | null
 
 }
 
 
 interface OrderCopyCreate extends ResourceCreate {
 	
-	place_target_order?: boolean
-	cancel_source_order?: boolean
-	reuse_wallet?: boolean
+	place_target_order?: boolean | null
+	cancel_source_order?: boolean | null
+	reuse_wallet?: boolean | null
 
 	source_order: OrderRel
 

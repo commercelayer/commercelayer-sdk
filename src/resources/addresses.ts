@@ -13,80 +13,80 @@ interface Address extends Resource {
 	
 	readonly type: AddressType
 
-	business?: boolean
-	first_name?: string
-	last_name?: string
-	company?: string
-	full_name?: string
+	business?: boolean | null
+	first_name?: string | null
+	last_name?: string | null
+	company?: string | null
+	full_name?: string | null
 	line_1: string
-	line_2?: string
+	line_2?: string | null
 	city: string
-	zip_code?: string
+	zip_code?: string | null
 	state_code: string
 	country_code: string
 	phone: string
-	full_address?: string
-	name?: string
-	email?: string
-	notes?: string
-	lat?: number
-	lng?: number
-	is_localized?: boolean
-	is_geocoded?: boolean
-	provider_name?: string
-	map_url?: string
-	static_map_url?: string
-	billing_info?: string
+	full_address?: string | null
+	name?: string | null
+	email?: string | null
+	notes?: string | null
+	lat?: number | null
+	lng?: number | null
+	is_localized?: boolean | null
+	is_geocoded?: boolean | null
+	provider_name?: string | null
+	map_url?: string | null
+	static_map_url?: string | null
+	billing_info?: string | null
 
-	geocoder?: Geocoder
+	geocoder?: Geocoder | null
 
 }
 
 
 interface AddressCreate extends ResourceCreate {
 	
-	business?: boolean
-	first_name?: string
-	last_name?: string
-	company?: string
+	business?: boolean | null
+	first_name?: string | null
+	last_name?: string | null
+	company?: string | null
 	line_1: string
-	line_2?: string
+	line_2?: string | null
 	city: string
-	zip_code?: string
+	zip_code?: string | null
 	state_code: string
 	country_code: string
 	phone: string
-	email?: string
-	notes?: string
-	lat?: number
-	lng?: number
-	billing_info?: string
+	email?: string | null
+	notes?: string | null
+	lat?: number | null
+	lng?: number | null
+	billing_info?: string | null
 
-	geocoder?: GeocoderRel
+	geocoder?: GeocoderRel | null
 
 }
 
 
 interface AddressUpdate extends ResourceUpdate {
 	
-	business?: boolean
-	first_name?: string
-	last_name?: string
-	company?: string
-	line_1: string
-	line_2?: string
-	city: string
-	zip_code?: string
-	state_code: string
-	country_code: string
-	phone: string
-	email?: string
-	notes?: string
-	lat?: number
-	lng?: number
-	billing_info?: string
+	business?: boolean | null
+	first_name?: string | null
+	last_name?: string | null
+	company?: string | null
+	line_1?: string | null
+	line_2?: string | null
+	city?: string | null
+	zip_code?: string | null
+	state_code?: string | null
+	country_code?: string | null
+	phone?: string | null
+	email?: string | null
+	notes?: string | null
+	lat?: number | null
+	lng?: number | null
+	billing_info?: string | null
 
-	geocoder?: GeocoderRel
+	geocoder?: GeocoderRel | null
 
 }
 

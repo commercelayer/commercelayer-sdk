@@ -20,48 +20,48 @@ interface StockTransfer extends Resource {
 	
 	readonly type: StockTransferType
 
-	sku_code?: string
-	status?: 'draft' | 'upcoming' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
+	sku_code?: string | null
+	status?: 'draft' | 'upcoming' | 'picking' | 'in_transit' | 'completed' | 'cancelled' | null
 	quantity: number
-	completed_at?: string
-	cancelled_at?: string
+	completed_at?: string | null
+	cancelled_at?: string | null
 
-	sku?: Sku
-	origin_stock_location?: StockLocation
-	destination_stock_location?: StockLocation
-	shipment?: Shipment
-	line_item?: LineItem
-	events?: Event[]
+	sku?: Sku | null
+	origin_stock_location?: StockLocation | null
+	destination_stock_location?: StockLocation | null
+	shipment?: Shipment | null
+	line_item?: LineItem | null
+	events?: Event[] | null
 
 }
 
 
 interface StockTransferCreate extends ResourceCreate {
 	
-	sku_code?: string
+	sku_code?: string | null
 	quantity: number
 
 	sku: SkuRel
 	origin_stock_location: StockLocationRel
 	destination_stock_location: StockLocationRel
-	shipment?: ShipmentRel
-	line_item?: LineItemRel
+	shipment?: ShipmentRel | null
+	line_item?: LineItemRel | null
 
 }
 
 
 interface StockTransferUpdate extends ResourceUpdate {
 	
-	sku_code?: string
-	_upcoming?: boolean
-	_picking?: boolean
-	_in_transit?: boolean
-	_complete?: boolean
-	_cancel?: boolean
+	sku_code?: string | null
+	_upcoming?: boolean | null
+	_picking?: boolean | null
+	_in_transit?: boolean | null
+	_complete?: boolean | null
+	_cancel?: boolean | null
 
-	sku?: SkuRel
-	origin_stock_location?: StockLocationRel
-	destination_stock_location?: StockLocationRel
+	sku?: SkuRel | null
+	origin_stock_location?: StockLocationRel | null
+	destination_stock_location?: StockLocationRel | null
 
 }
 

@@ -16,10 +16,10 @@ interface InventoryStockLocation extends Resource {
 	readonly type: InventoryStockLocationType
 
 	priority: number
-	on_hold?: boolean
+	on_hold?: boolean | null
 
-	stock_location?: StockLocation
-	inventory_model?: InventoryModel
+	stock_location?: StockLocation | null
+	inventory_model?: InventoryModel | null
 
 }
 
@@ -27,7 +27,7 @@ interface InventoryStockLocation extends Resource {
 interface InventoryStockLocationCreate extends ResourceCreate {
 	
 	priority: number
-	on_hold?: boolean
+	on_hold?: boolean | null
 
 	stock_location: StockLocationRel
 	inventory_model: InventoryModelRel
@@ -37,11 +37,11 @@ interface InventoryStockLocationCreate extends ResourceCreate {
 
 interface InventoryStockLocationUpdate extends ResourceUpdate {
 	
-	priority: number
-	on_hold?: boolean
+	priority?: number | null
+	on_hold?: boolean | null
 
-	stock_location?: StockLocationRel
-	inventory_model?: InventoryModelRel
+	stock_location?: StockLocationRel | null
+	inventory_model?: InventoryModelRel | null
 
 }
 

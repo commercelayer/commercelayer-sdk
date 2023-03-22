@@ -21,39 +21,39 @@ interface Authorization extends Resource {
 	amount_float: number
 	formatted_amount: string
 	succeeded: boolean
-	message?: string
-	error_code?: string
-	error_detail?: string
-	token?: string
-	gateway_transaction_id?: string
-	cvv_code?: string
-	cvv_message?: string
-	avs_code?: string
-	avs_message?: string
-	fraud_review?: string
-	capture_amount_cents?: number
-	capture_amount_float?: number
-	formatted_capture_amount?: string
-	capture_balance_cents?: number
-	capture_balance_float?: number
-	formatted_capture_balance?: string
-	void_balance_cents?: number
-	void_balance_float?: number
-	formatted_void_balance?: string
+	message?: string | null
+	error_code?: string | null
+	error_detail?: string | null
+	token?: string | null
+	gateway_transaction_id?: string | null
+	cvv_code?: string | null
+	cvv_message?: string | null
+	avs_code?: string | null
+	avs_message?: string | null
+	fraud_review?: string | null
+	capture_amount_cents?: number | null
+	capture_amount_float?: number | null
+	formatted_capture_amount?: string | null
+	capture_balance_cents?: number | null
+	capture_balance_float?: number | null
+	formatted_capture_balance?: string | null
+	void_balance_cents?: number | null
+	void_balance_float?: number | null
+	formatted_void_balance?: string | null
 
-	order?: Order
-	captures?: Capture[]
-	voids?: Void[]
-	events?: Event[]
+	order?: Order | null
+	captures?: Capture[] | null
+	voids?: Void[] | null
+	events?: Event[] | null
 
 }
 
 
 interface AuthorizationUpdate extends ResourceUpdate {
 	
-	_capture?: boolean
-	_capture_amount_cents?: number
-	_void?: boolean
+	_capture?: boolean | null
+	_capture_amount_cents?: number | null
+	_void?: boolean | null
 	
 }
 

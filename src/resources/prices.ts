@@ -19,8 +19,8 @@ interface Price extends Resource {
 	
 	readonly type: PriceType
 
-	currency_code?: string
-	sku_code?: string
+	currency_code?: string | null
+	sku_code?: string | null
 	amount_cents: number
 	amount_float: number
 	formatted_amount: string
@@ -28,37 +28,37 @@ interface Price extends Resource {
 	compare_at_amount_float: number
 	formatted_compare_at_amount: string
 
-	price_list?: PriceList
-	sku?: Sku
-	price_tiers?: PriceTier[]
-	price_volume_tiers?: PriceVolumeTier[]
-	attachments?: Attachment[]
+	price_list?: PriceList | null
+	sku?: Sku | null
+	price_tiers?: PriceTier[] | null
+	price_volume_tiers?: PriceVolumeTier[] | null
+	attachments?: Attachment[] | null
 
 }
 
 
 interface PriceCreate extends ResourceCreate {
 	
-	sku_code?: string
+	sku_code?: string | null
 	amount_cents: number
 	compare_at_amount_cents: number
 
 	price_list: PriceListRel
 	sku: SkuRel
-	price_tiers?: PriceTierRel[]
+	price_tiers?: PriceTierRel[] | null
 
 }
 
 
 interface PriceUpdate extends ResourceUpdate {
 	
-	sku_code?: string
-	amount_cents: number
-	compare_at_amount_cents: number
+	sku_code?: string | null
+	amount_cents?: number | null
+	compare_at_amount_cents?: number | null
 
-	price_list?: PriceListRel
-	sku?: SkuRel
-	price_tiers?: PriceTierRel[]
+	price_list?: PriceListRel | null
+	sku?: SkuRel | null
+	price_tiers?: PriceTierRel[] | null
 
 }
 

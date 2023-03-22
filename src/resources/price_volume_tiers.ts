@@ -15,13 +15,13 @@ interface PriceVolumeTier extends Resource {
 	readonly type: PriceVolumeTierType
 
 	name: string
-	up_to?: number
+	up_to?: number | null
 	price_amount_cents: number
-	price_amount_float?: number
-	formatted_price_amount?: string
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
 
-	price?: Price
-	attachments?: Attachment[]
+	price?: Price | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -29,7 +29,7 @@ interface PriceVolumeTier extends Resource {
 interface PriceVolumeTierCreate extends ResourceCreate {
 	
 	name: string
-	up_to?: number
+	up_to?: number | null
 	price_amount_cents: number
 
 	price: PriceRel
@@ -39,11 +39,11 @@ interface PriceVolumeTierCreate extends ResourceCreate {
 
 interface PriceVolumeTierUpdate extends ResourceUpdate {
 	
-	name: string
-	up_to?: number
-	price_amount_cents: number
+	name?: string | null
+	up_to?: number | null
+	price_amount_cents?: number | null
 
-	price?: PriceRel
+	price?: PriceRel | null
 
 }
 

@@ -23,11 +23,11 @@ interface TaxCategory extends Resource {
 	readonly type: TaxCategoryType
 
 	code: string
-	sku_code?: string
+	sku_code?: string | null
 
-	sku?: Sku
-	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator
-	attachments?: Attachment[]
+	sku?: Sku | null
+	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -35,7 +35,7 @@ interface TaxCategory extends Resource {
 interface TaxCategoryCreate extends ResourceCreate {
 	
 	code: string
-	sku_code?: string
+	sku_code?: string | null
 
 	sku: SkuRel
 	tax_calculator: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
@@ -45,10 +45,10 @@ interface TaxCategoryCreate extends ResourceCreate {
 
 interface TaxCategoryUpdate extends ResourceUpdate {
 	
-	code: string
-	sku_code?: string
+	code?: string | null
+	sku_code?: string | null
 
-	sku?: SkuRel
+	sku?: SkuRel | null
 
 }
 

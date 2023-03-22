@@ -17,22 +17,22 @@ interface PaymentMethod extends Resource {
 	readonly type: PaymentMethodType
 
 	payment_source_type: string
-	name?: string
-	currency_code?: string
-	moto?: boolean
-	require_capture?: boolean
-	auto_capture?: boolean
-	disabled_at?: string
+	name?: string | null
+	currency_code?: string | null
+	moto?: boolean | null
+	require_capture?: boolean | null
+	auto_capture?: boolean | null
+	disabled_at?: string | null
 	price_amount_cents: number
-	price_amount_float?: number
-	formatted_price_amount?: string
-	auto_capture_max_amount_cents?: number
-	auto_capture_max_amount_float?: number
-	formatted_auto_capture_max_amount?: string
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
+	auto_capture_max_amount_cents?: number | null
+	auto_capture_max_amount_float?: number | null
+	formatted_auto_capture_max_amount?: string | null
 
-	market?: Market
-	payment_gateway?: PaymentGateway
-	attachments?: Attachment[]
+	market?: Market | null
+	payment_gateway?: PaymentGateway | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -40,14 +40,14 @@ interface PaymentMethod extends Resource {
 interface PaymentMethodCreate extends ResourceCreate {
 	
 	payment_source_type: string
-	currency_code?: string
-	moto?: boolean
-	require_capture?: boolean
-	auto_capture?: boolean
+	currency_code?: string | null
+	moto?: boolean | null
+	require_capture?: boolean | null
+	auto_capture?: boolean | null
 	price_amount_cents: number
-	auto_capture_max_amount_cents?: number
+	auto_capture_max_amount_cents?: number | null
 
-	market?: MarketRel
+	market?: MarketRel | null
 	payment_gateway: PaymentGatewayRel
 
 }
@@ -55,18 +55,18 @@ interface PaymentMethodCreate extends ResourceCreate {
 
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
-	payment_source_type: string
-	currency_code?: string
-	moto?: boolean
-	require_capture?: boolean
-	auto_capture?: boolean
-	_disable?: boolean
-	_enable?: boolean
-	price_amount_cents: number
-	auto_capture_max_amount_cents?: number
+	payment_source_type?: string | null
+	currency_code?: string | null
+	moto?: boolean | null
+	require_capture?: boolean | null
+	auto_capture?: boolean | null
+	_disable?: boolean | null
+	_enable?: boolean | null
+	price_amount_cents?: number | null
+	auto_capture_max_amount_cents?: number | null
 
-	market?: MarketRel
-	payment_gateway?: PaymentGatewayRel
+	market?: MarketRel | null
+	payment_gateway?: PaymentGatewayRel | null
 
 }
 

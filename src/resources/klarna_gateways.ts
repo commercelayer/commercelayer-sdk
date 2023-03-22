@@ -16,8 +16,8 @@ interface KlarnaGateway extends Resource {
 
 	name: string
 
-	payment_methods?: PaymentMethod[]
-	klarna_payments?: KlarnaPayment[]
+	payment_methods?: PaymentMethod[] | null
+	klarna_payments?: KlarnaPayment[] | null
 
 }
 
@@ -29,19 +29,19 @@ interface KlarnaGatewayCreate extends ResourceCreate {
 	api_key: string
 	api_secret: string
 
-	klarna_payments?: KlarnaPaymentRel[]
+	klarna_payments?: KlarnaPaymentRel[] | null
 
 }
 
 
 interface KlarnaGatewayUpdate extends ResourceUpdate {
 	
-	name: string
-	country_code?: string
-	api_key?: string
-	api_secret?: string
+	name?: string | null
+	country_code?: string | null
+	api_key?: string | null
+	api_secret?: string | null
 
-	klarna_payments?: KlarnaPaymentRel[]
+	klarna_payments?: KlarnaPaymentRel[] | null
 
 }
 

@@ -13,11 +13,11 @@ interface EventCallback extends Resource {
 	readonly type: EventCallbackType
 
 	callback_url: string
-	payload?: object
-	response_code?: string
-	response_message?: string
+	payload?: object | null
+	response_code?: string | null
+	response_message?: string | null
 
-	webhook?: Webhook
+	webhook?: Webhook | null
 
 }
 

@@ -15,12 +15,12 @@ interface CheckoutComGateway extends Resource {
 	readonly type: CheckoutComGatewayType
 
 	name: string
-	webhook_endpoint_id?: string
-	webhook_endpoint_secret?: string
-	webhook_endpoint_url?: string
+	webhook_endpoint_id?: string | null
+	webhook_endpoint_secret?: string | null
+	webhook_endpoint_url?: string | null
 
-	payment_methods?: PaymentMethod[]
-	checkout_com_payments?: CheckoutComPayment[]
+	payment_methods?: PaymentMethod[] | null
+	checkout_com_payments?: CheckoutComPayment[] | null
 
 }
 
@@ -31,18 +31,18 @@ interface CheckoutComGatewayCreate extends ResourceCreate {
 	secret_key: string
 	public_key: string
 
-	checkout_com_payments?: CheckoutComPaymentRel[]
+	checkout_com_payments?: CheckoutComPaymentRel[] | null
 
 }
 
 
 interface CheckoutComGatewayUpdate extends ResourceUpdate {
 	
-	name: string
-	secret_key?: string
-	public_key?: string
+	name?: string | null
+	secret_key?: string | null
+	public_key?: string | null
 
-	checkout_com_payments?: CheckoutComPaymentRel[]
+	checkout_com_payments?: CheckoutComPaymentRel[] | null
 
 }
 

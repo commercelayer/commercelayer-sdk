@@ -19,16 +19,16 @@ interface SkuList extends Resource {
 
 	name: string
 	slug: string
-	description?: string
-	image_url?: string
-	manual?: boolean
-	sku_code_regex?: string
+	description?: string | null
+	image_url?: string | null
+	manual?: boolean | null
+	sku_code_regex?: string | null
 
-	customer?: Customer
-	skus?: Sku[]
-	sku_list_items?: SkuListItem[]
-	bundles?: Bundle[]
-	attachments?: Attachment[]
+	customer?: Customer | null
+	skus?: Sku[] | null
+	sku_list_items?: SkuListItem[] | null
+	bundles?: Bundle[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -36,25 +36,25 @@ interface SkuList extends Resource {
 interface SkuListCreate extends ResourceCreate {
 	
 	name: string
-	description?: string
-	image_url?: string
-	manual?: boolean
-	sku_code_regex?: string
+	description?: string | null
+	image_url?: string | null
+	manual?: boolean | null
+	sku_code_regex?: string | null
 
-	customer?: CustomerRel
+	customer?: CustomerRel | null
 
 }
 
 
 interface SkuListUpdate extends ResourceUpdate {
 	
-	name: string
-	description?: string
-	image_url?: string
-	manual?: boolean
-	sku_code_regex?: string
+	name?: string | null
+	description?: string | null
+	image_url?: string | null
+	manual?: boolean | null
+	sku_code_regex?: string | null
 
-	customer?: CustomerRel
+	customer?: CustomerRel | null
 
 }
 

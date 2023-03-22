@@ -15,8 +15,8 @@ interface PaypalGateway extends Resource {
 
 	name: string
 
-	payment_methods?: PaymentMethod[]
-	paypal_payments?: PaypalPayment[]
+	payment_methods?: PaymentMethod[] | null
+	paypal_payments?: PaypalPayment[] | null
 
 }
 
@@ -32,9 +32,9 @@ interface PaypalGatewayCreate extends ResourceCreate {
 
 interface PaypalGatewayUpdate extends ResourceUpdate {
 	
-	name: string
-	client_id?: string
-	client_secret?: string
+	name?: string | null
+	client_id?: string | null
+	client_secret?: string | null
 	
 }
 

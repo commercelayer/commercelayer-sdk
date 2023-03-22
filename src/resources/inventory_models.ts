@@ -15,12 +15,12 @@ interface InventoryModel extends Resource {
 	readonly type: InventoryModelType
 
 	name: string
-	strategy?: string
-	stock_locations_cutoff?: number
+	strategy?: string | null
+	stock_locations_cutoff?: number | null
 
-	inventory_stock_locations?: InventoryStockLocation[]
-	inventory_return_locations?: InventoryReturnLocation[]
-	attachments?: Attachment[]
+	inventory_stock_locations?: InventoryStockLocation[] | null
+	inventory_return_locations?: InventoryReturnLocation[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -28,17 +28,17 @@ interface InventoryModel extends Resource {
 interface InventoryModelCreate extends ResourceCreate {
 	
 	name: string
-	strategy?: string
-	stock_locations_cutoff?: number
+	strategy?: string | null
+	stock_locations_cutoff?: number | null
 	
 }
 
 
 interface InventoryModelUpdate extends ResourceUpdate {
 	
-	name: string
-	strategy?: string
-	stock_locations_cutoff?: number
+	name?: string | null
+	strategy?: string | null
+	stock_locations_cutoff?: number | null
 	
 }
 

@@ -18,36 +18,36 @@ interface Parcel extends Resource {
 	
 	readonly type: ParcelType
 
-	number?: string
+	number?: string | null
 	weight: number
 	unit_of_weight: string
-	eel_pfc?: string
-	contents_type?: string
-	contents_explanation?: string
-	customs_certify?: boolean
-	customs_signer?: string
-	non_delivery_option?: string
-	restriction_type?: string
-	restriction_comments?: string
-	customs_info_required?: boolean
-	shipping_label_url?: string
-	shipping_label_file_type?: string
-	shipping_label_size?: string
-	shipping_label_resolution?: string
-	tracking_number?: string
-	tracking_status?: string
-	tracking_status_detail?: string
-	tracking_status_updated_at?: string
-	tracking_details?: string
-	carrier_weight_oz?: string
-	signed_by?: string
-	incoterm?: string
+	eel_pfc?: string | null
+	contents_type?: string | null
+	contents_explanation?: string | null
+	customs_certify?: boolean | null
+	customs_signer?: string | null
+	non_delivery_option?: string | null
+	restriction_type?: string | null
+	restriction_comments?: string | null
+	customs_info_required?: boolean | null
+	shipping_label_url?: string | null
+	shipping_label_file_type?: string | null
+	shipping_label_size?: string | null
+	shipping_label_resolution?: string | null
+	tracking_number?: string | null
+	tracking_status?: string | null
+	tracking_status_detail?: string | null
+	tracking_status_updated_at?: string | null
+	tracking_details?: string | null
+	carrier_weight_oz?: string | null
+	signed_by?: string | null
+	incoterm?: string | null
 
-	shipment?: Shipment
-	package?: Package
-	parcel_line_items?: ParcelLineItem[]
-	attachments?: Attachment[]
-	events?: Event[]
+	shipment?: Shipment | null
+	package?: Package | null
+	parcel_line_items?: ParcelLineItem[] | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
@@ -56,27 +56,27 @@ interface ParcelCreate extends ResourceCreate {
 	
 	weight: number
 	unit_of_weight: string
-	eel_pfc?: string
-	contents_type?: string
-	contents_explanation?: string
-	customs_certify?: boolean
-	customs_signer?: string
-	non_delivery_option?: string
-	restriction_type?: string
-	restriction_comments?: string
-	customs_info_required?: boolean
-	shipping_label_url?: string
-	shipping_label_file_type?: string
-	shipping_label_size?: string
-	shipping_label_resolution?: string
-	tracking_number?: string
-	tracking_status?: string
-	tracking_status_detail?: string
-	tracking_status_updated_at?: string
-	tracking_details?: string
-	carrier_weight_oz?: string
-	signed_by?: string
-	incoterm?: string
+	eel_pfc?: string | null
+	contents_type?: string | null
+	contents_explanation?: string | null
+	customs_certify?: boolean | null
+	customs_signer?: string | null
+	non_delivery_option?: string | null
+	restriction_type?: string | null
+	restriction_comments?: string | null
+	customs_info_required?: boolean | null
+	shipping_label_url?: string | null
+	shipping_label_file_type?: string | null
+	shipping_label_size?: string | null
+	shipping_label_resolution?: string | null
+	tracking_number?: string | null
+	tracking_status?: string | null
+	tracking_status_detail?: string | null
+	tracking_status_updated_at?: string | null
+	tracking_details?: string | null
+	carrier_weight_oz?: string | null
+	signed_by?: string | null
+	incoterm?: string | null
 
 	shipment: ShipmentRel
 	package: PackageRel
@@ -86,32 +86,32 @@ interface ParcelCreate extends ResourceCreate {
 
 interface ParcelUpdate extends ResourceUpdate {
 	
-	weight: number
-	unit_of_weight: string
-	eel_pfc?: string
-	contents_type?: string
-	contents_explanation?: string
-	customs_certify?: boolean
-	customs_signer?: string
-	non_delivery_option?: string
-	restriction_type?: string
-	restriction_comments?: string
-	customs_info_required?: boolean
-	shipping_label_url?: string
-	shipping_label_file_type?: string
-	shipping_label_size?: string
-	shipping_label_resolution?: string
-	tracking_number?: string
-	tracking_status?: string
-	tracking_status_detail?: string
-	tracking_status_updated_at?: string
-	tracking_details?: string
-	carrier_weight_oz?: string
-	signed_by?: string
-	incoterm?: string
+	weight?: number | null
+	unit_of_weight?: string | null
+	eel_pfc?: string | null
+	contents_type?: string | null
+	contents_explanation?: string | null
+	customs_certify?: boolean | null
+	customs_signer?: string | null
+	non_delivery_option?: string | null
+	restriction_type?: string | null
+	restriction_comments?: string | null
+	customs_info_required?: boolean | null
+	shipping_label_url?: string | null
+	shipping_label_file_type?: string | null
+	shipping_label_size?: string | null
+	shipping_label_resolution?: string | null
+	tracking_number?: string | null
+	tracking_status?: string | null
+	tracking_status_detail?: string | null
+	tracking_status_updated_at?: string | null
+	tracking_details?: string | null
+	carrier_weight_oz?: string | null
+	signed_by?: string | null
+	incoterm?: string | null
 
-	shipment?: ShipmentRel
-	package?: PackageRel
+	shipment?: ShipmentRel | null
+	package?: PackageRel | null
 
 }
 

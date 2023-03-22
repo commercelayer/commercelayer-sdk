@@ -25,30 +25,30 @@ interface ShippingMethod extends Resource {
 	readonly type: ShippingMethodType
 
 	name: string
-	scheme?: string
-	currency_code?: string
-	disabled_at?: string
+	scheme?: string | null
+	currency_code?: string | null
+	disabled_at?: string | null
 	price_amount_cents: number
-	price_amount_float?: number
-	formatted_price_amount?: string
-	free_over_amount_cents?: number
-	free_over_amount_float?: number
-	formatted_free_over_amount?: string
-	price_amount_for_shipment_cents?: number
-	price_amount_for_shipment_float?: number
-	formatted_price_amount_for_shipment?: string
-	min_weight?: number
-	max_weight?: number
-	unit_of_weight?: string
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
+	free_over_amount_cents?: number | null
+	free_over_amount_float?: number | null
+	formatted_free_over_amount?: string | null
+	price_amount_for_shipment_cents?: number | null
+	price_amount_for_shipment_float?: number | null
+	formatted_price_amount_for_shipment?: string | null
+	min_weight?: number | null
+	max_weight?: number | null
+	unit_of_weight?: string | null
 
-	market?: Market
-	shipping_zone?: ShippingZone
-	shipping_category?: ShippingCategory
-	stock_location?: StockLocation
-	delivery_lead_time_for_shipment?: DeliveryLeadTime
-	shipping_method_tiers?: ShippingMethodTier[]
-	shipping_weight_tiers?: ShippingWeightTier[]
-	attachments?: Attachment[]
+	market?: Market | null
+	shipping_zone?: ShippingZone | null
+	shipping_category?: ShippingCategory | null
+	stock_location?: StockLocation | null
+	delivery_lead_time_for_shipment?: DeliveryLeadTime | null
+	shipping_method_tiers?: ShippingMethodTier[] | null
+	shipping_weight_tiers?: ShippingWeightTier[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -56,41 +56,41 @@ interface ShippingMethod extends Resource {
 interface ShippingMethodCreate extends ResourceCreate {
 	
 	name: string
-	scheme?: string
-	currency_code?: string
+	scheme?: string | null
+	currency_code?: string | null
 	price_amount_cents: number
-	free_over_amount_cents?: number
-	min_weight?: number
-	max_weight?: number
-	unit_of_weight?: string
+	free_over_amount_cents?: number | null
+	min_weight?: number | null
+	max_weight?: number | null
+	unit_of_weight?: string | null
 
-	market?: MarketRel
-	shipping_zone?: ShippingZoneRel
-	shipping_category?: ShippingCategoryRel
-	stock_location?: StockLocationRel
-	shipping_method_tiers?: ShippingMethodTierRel[]
+	market?: MarketRel | null
+	shipping_zone?: ShippingZoneRel | null
+	shipping_category?: ShippingCategoryRel | null
+	stock_location?: StockLocationRel | null
+	shipping_method_tiers?: ShippingMethodTierRel[] | null
 
 }
 
 
 interface ShippingMethodUpdate extends ResourceUpdate {
 	
-	name: string
-	scheme?: string
-	currency_code?: string
-	_disable?: boolean
-	_enable?: boolean
-	price_amount_cents: number
-	free_over_amount_cents?: number
-	min_weight?: number
-	max_weight?: number
-	unit_of_weight?: string
+	name?: string | null
+	scheme?: string | null
+	currency_code?: string | null
+	_disable?: boolean | null
+	_enable?: boolean | null
+	price_amount_cents?: number | null
+	free_over_amount_cents?: number | null
+	min_weight?: number | null
+	max_weight?: number | null
+	unit_of_weight?: string | null
 
-	market?: MarketRel
-	shipping_zone?: ShippingZoneRel
-	shipping_category?: ShippingCategoryRel
-	stock_location?: StockLocationRel
-	shipping_method_tiers?: ShippingMethodTierRel[]
+	market?: MarketRel | null
+	shipping_zone?: ShippingZoneRel | null
+	shipping_category?: ShippingCategoryRel | null
+	stock_location?: StockLocationRel | null
+	shipping_method_tiers?: ShippingMethodTierRel[] | null
 
 }
 

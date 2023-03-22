@@ -16,15 +16,15 @@ interface AxervePayment extends Resource {
 
 	login: string
 	return_url: string
-	payment_request_data?: object
-	mismatched_amounts?: boolean
+	payment_request_data?: object | null
+	mismatched_amounts?: boolean | null
 	intent_amount_cents: number
-	intent_amount_float?: number
-	formatted_intent_amount?: string
-	payment_instrument?: object
+	intent_amount_float?: number | null
+	formatted_intent_amount?: string | null
+	payment_instrument?: object | null
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
@@ -40,10 +40,10 @@ interface AxervePaymentCreate extends ResourceCreate {
 
 interface AxervePaymentUpdate extends ResourceUpdate {
 	
-	payment_request_data?: object
-	_update?: boolean
+	payment_request_data?: object | null
+	_update?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 

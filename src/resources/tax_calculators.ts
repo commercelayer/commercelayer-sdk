@@ -15,8 +15,8 @@ interface TaxCalculator extends Resource {
 
 	name: string
 
-	markets?: Market[]
-	attachments?: Attachment[]
+	markets?: Market[] | null
+	attachments?: Attachment[] | null
 
 }
 

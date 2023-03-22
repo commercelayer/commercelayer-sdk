@@ -15,14 +15,14 @@ interface ExternalGateway extends Resource {
 
 	name: string
 	shared_secret: string
-	authorize_url?: string
-	capture_url?: string
-	void_url?: string
-	refund_url?: string
-	token_url?: string
+	authorize_url?: string | null
+	capture_url?: string | null
+	void_url?: string | null
+	refund_url?: string | null
+	token_url?: string | null
 
-	payment_methods?: PaymentMethod[]
-	external_payments?: ExternalPayment[]
+	payment_methods?: PaymentMethod[] | null
+	external_payments?: ExternalPayment[] | null
 
 }
 
@@ -30,23 +30,23 @@ interface ExternalGateway extends Resource {
 interface ExternalGatewayCreate extends ResourceCreate {
 	
 	name: string
-	authorize_url?: string
-	capture_url?: string
-	void_url?: string
-	refund_url?: string
-	token_url?: string
+	authorize_url?: string | null
+	capture_url?: string | null
+	void_url?: string | null
+	refund_url?: string | null
+	token_url?: string | null
 	
 }
 
 
 interface ExternalGatewayUpdate extends ResourceUpdate {
 	
-	name: string
-	authorize_url?: string
-	capture_url?: string
-	void_url?: string
-	refund_url?: string
-	token_url?: string
+	name?: string | null
+	authorize_url?: string | null
+	capture_url?: string | null
+	void_url?: string | null
+	refund_url?: string | null
+	token_url?: string | null
 	
 }
 

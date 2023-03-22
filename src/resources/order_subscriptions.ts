@@ -18,25 +18,25 @@ interface OrderSubscription extends Resource {
 	
 	readonly type: OrderSubscriptionType
 
-	number?: string
-	status?: 'draft' | 'inactive' | 'active' | 'cancelled'
+	number?: string | null
+	status?: 'draft' | 'inactive' | 'active' | 'cancelled' | null
 	frequency: string
-	activate_by_source_order?: boolean
-	customer_email?: string
-	starts_at?: string
-	expires_at?: string
-	next_run_at?: string
-	occurrencies?: number
-	errors_count?: number
-	succeeded_on_last_run?: boolean
-	options?: object
+	activate_by_source_order?: boolean | null
+	customer_email?: string | null
+	starts_at?: string | null
+	expires_at?: string | null
+	next_run_at?: string | null
+	occurrencies?: number | null
+	errors_count?: number | null
+	succeeded_on_last_run?: boolean | null
+	options?: object | null
 
-	market?: Market
-	source_order?: Order
-	customer?: Customer
-	order_copies?: OrderCopy[]
-	orders?: Order[]
-	events?: Event[]
+	market?: Market | null
+	source_order?: Order | null
+	customer?: Customer | null
+	order_copies?: OrderCopy[] | null
+	orders?: Order[] | null
+	events?: Event[] | null
 
 }
 
@@ -44,12 +44,12 @@ interface OrderSubscription extends Resource {
 interface OrderSubscriptionCreate extends ResourceCreate {
 	
 	frequency: string
-	activate_by_source_order?: boolean
-	starts_at?: string
-	expires_at?: string
-	options?: object
+	activate_by_source_order?: boolean | null
+	starts_at?: string | null
+	expires_at?: string | null
+	options?: object | null
 
-	market?: MarketRel
+	market?: MarketRel | null
 	source_order: OrderRel
 
 }
@@ -57,10 +57,10 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 
 interface OrderSubscriptionUpdate extends ResourceUpdate {
 	
-	expires_at?: string
-	_activate?: boolean
-	_deactivate?: boolean
-	_cancel?: boolean
+	expires_at?: string | null
+	_activate?: boolean | null
+	_deactivate?: boolean | null
+	_cancel?: boolean | null
 	
 }
 

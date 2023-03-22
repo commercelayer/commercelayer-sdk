@@ -17,9 +17,9 @@ interface TaxjarAccount extends Resource {
 
 	name: string
 
-	markets?: Market[]
-	attachments?: Attachment[]
-	tax_categories?: TaxCategory[]
+	markets?: Market[] | null
+	attachments?: Attachment[] | null
+	tax_categories?: TaxCategory[] | null
 
 }
 
@@ -29,17 +29,17 @@ interface TaxjarAccountCreate extends ResourceCreate {
 	name: string
 	api_key: string
 
-	tax_categories?: TaxCategoryRel[]
+	tax_categories?: TaxCategoryRel[] | null
 
 }
 
 
 interface TaxjarAccountUpdate extends ResourceUpdate {
 	
-	name: string
-	api_key?: string
+	name?: string | null
+	api_key?: string | null
 
-	tax_categories?: TaxCategoryRel[]
+	tax_categories?: TaxCategoryRel[] | null
 
 }
 

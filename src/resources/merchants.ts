@@ -16,8 +16,8 @@ interface Merchant extends Resource {
 
 	name: string
 
-	address?: Address
-	attachments?: Attachment[]
+	address?: Address | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -33,9 +33,9 @@ interface MerchantCreate extends ResourceCreate {
 
 interface MerchantUpdate extends ResourceUpdate {
 	
-	name: string
+	name?: string | null
 
-	address?: AddressRel
+	address?: AddressRel | null
 
 }
 

@@ -254,7 +254,7 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 			attributes[aKey] = {
 				name: aKey,
 				type: (aValue.type === 'array') ? `${aValue.items.type}[]` : aValue.type,
-				required: requiredAttributes.includes(aKey) || (fetchable && !aValue.nullable),
+				required: requiredAttributes.includes(aKey) || (fetchable && !aValue.nullable && !cKey.match(/(Create|Update)$/)),
 				fetchable,
 				enum: aValue.enum
 			}

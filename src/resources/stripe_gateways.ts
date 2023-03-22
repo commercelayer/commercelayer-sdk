@@ -14,13 +14,13 @@ interface StripeGateway extends Resource {
 	readonly type: StripeGatewayType
 
 	name: string
-	auto_payments?: boolean
-	webhook_endpoint_id?: string
-	webhook_endpoint_secret?: string
-	webhook_endpoint_url?: string
+	auto_payments?: boolean | null
+	webhook_endpoint_id?: string | null
+	webhook_endpoint_secret?: string | null
+	webhook_endpoint_url?: string | null
 
-	payment_methods?: PaymentMethod[]
-	stripe_payments?: StripePayment[]
+	payment_methods?: PaymentMethod[] | null
+	stripe_payments?: StripePayment[] | null
 
 }
 
@@ -29,16 +29,16 @@ interface StripeGatewayCreate extends ResourceCreate {
 	
 	name: string
 	login: string
-	publishable_key?: string
-	auto_payments?: boolean
+	publishable_key?: string | null
+	auto_payments?: boolean | null
 	
 }
 
 
 interface StripeGatewayUpdate extends ResourceUpdate {
 	
-	name: string
-	auto_payments?: boolean
+	name?: string | null
+	auto_payments?: boolean | null
 	
 }
 

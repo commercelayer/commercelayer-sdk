@@ -17,9 +17,9 @@ interface ManualTaxCalculator extends Resource {
 
 	name: string
 
-	markets?: Market[]
-	attachments?: Attachment[]
-	tax_rules?: TaxRule[]
+	markets?: Market[] | null
+	attachments?: Attachment[] | null
+	tax_rules?: TaxRule[] | null
 
 }
 
@@ -28,16 +28,16 @@ interface ManualTaxCalculatorCreate extends ResourceCreate {
 	
 	name: string
 
-	tax_rules?: TaxRuleRel[]
+	tax_rules?: TaxRuleRel[] | null
 
 }
 
 
 interface ManualTaxCalculatorUpdate extends ResourceUpdate {
 	
-	name: string
+	name?: string | null
 
-	tax_rules?: TaxRuleRel[]
+	tax_rules?: TaxRuleRel[] | null
 
 }
 

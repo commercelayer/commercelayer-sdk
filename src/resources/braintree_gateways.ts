@@ -15,13 +15,13 @@ interface BraintreeGateway extends Resource {
 	readonly type: BraintreeGatewayType
 
 	name: string
-	descriptor_name?: string
-	descriptor_phone?: string
-	descriptor_url?: string
-	webhook_endpoint_url?: string
+	descriptor_name?: string | null
+	descriptor_phone?: string | null
+	descriptor_url?: string | null
+	webhook_endpoint_url?: string | null
 
-	payment_methods?: PaymentMethod[]
-	braintree_payments?: BraintreePayment[]
+	payment_methods?: PaymentMethod[] | null
+	braintree_payments?: BraintreePayment[] | null
 
 }
 
@@ -33,27 +33,27 @@ interface BraintreeGatewayCreate extends ResourceCreate {
 	merchant_id: string
 	public_key: string
 	private_key: string
-	descriptor_name?: string
-	descriptor_phone?: string
-	descriptor_url?: string
+	descriptor_name?: string | null
+	descriptor_phone?: string | null
+	descriptor_url?: string | null
 
-	braintree_payments?: BraintreePaymentRel[]
+	braintree_payments?: BraintreePaymentRel[] | null
 
 }
 
 
 interface BraintreeGatewayUpdate extends ResourceUpdate {
 	
-	name: string
-	merchant_account_id?: string
-	merchant_id?: string
-	public_key?: string
-	private_key?: string
-	descriptor_name?: string
-	descriptor_phone?: string
-	descriptor_url?: string
+	name?: string | null
+	merchant_account_id?: string | null
+	merchant_id?: string | null
+	public_key?: string | null
+	private_key?: string | null
+	descriptor_name?: string | null
+	descriptor_phone?: string | null
+	descriptor_url?: string | null
 
-	braintree_payments?: BraintreePaymentRel[]
+	braintree_payments?: BraintreePaymentRel[] | null
 
 }
 

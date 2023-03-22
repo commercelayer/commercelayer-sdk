@@ -14,11 +14,11 @@ interface CustomerPasswordReset extends Resource {
 	readonly type: CustomerPasswordResetType
 
 	customer_email: string
-	reset_password_token?: string
-	reset_password_at?: string
+	reset_password_token?: string | null
+	reset_password_at?: string | null
 
-	customer?: Customer
-	events?: Event[]
+	customer?: Customer | null
+	events?: Event[] | null
 
 }
 
@@ -32,8 +32,8 @@ interface CustomerPasswordResetCreate extends ResourceCreate {
 
 interface CustomerPasswordResetUpdate extends ResourceUpdate {
 	
-	customer_password?: string
-	_reset_password_token?: string
+	customer_password?: string | null
+	_reset_password_token?: string | null
 	
 }
 

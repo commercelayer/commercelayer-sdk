@@ -13,14 +13,14 @@ interface ShippingZone extends Resource {
 	readonly type: ShippingZoneType
 
 	name: string
-	country_code_regex?: string
-	not_country_code_regex?: string
-	state_code_regex?: string
-	not_state_code_regex?: string
-	zip_code_regex?: string
-	not_zip_code_regex?: string
+	country_code_regex?: string | null
+	not_country_code_regex?: string | null
+	state_code_regex?: string | null
+	not_state_code_regex?: string | null
+	zip_code_regex?: string | null
+	not_zip_code_regex?: string | null
 
-	attachments?: Attachment[]
+	attachments?: Attachment[] | null
 
 }
 
@@ -28,25 +28,25 @@ interface ShippingZone extends Resource {
 interface ShippingZoneCreate extends ResourceCreate {
 	
 	name: string
-	country_code_regex?: string
-	not_country_code_regex?: string
-	state_code_regex?: string
-	not_state_code_regex?: string
-	zip_code_regex?: string
-	not_zip_code_regex?: string
+	country_code_regex?: string | null
+	not_country_code_regex?: string | null
+	state_code_regex?: string | null
+	not_state_code_regex?: string | null
+	zip_code_regex?: string | null
+	not_zip_code_regex?: string | null
 	
 }
 
 
 interface ShippingZoneUpdate extends ResourceUpdate {
 	
-	name: string
-	country_code_regex?: string
-	not_country_code_regex?: string
-	state_code_regex?: string
-	not_state_code_regex?: string
-	zip_code_regex?: string
-	not_zip_code_regex?: string
+	name?: string | null
+	country_code_regex?: string | null
+	not_country_code_regex?: string | null
+	state_code_regex?: string | null
+	not_state_code_regex?: string | null
+	zip_code_regex?: string | null
+	not_zip_code_regex?: string | null
 	
 }
 

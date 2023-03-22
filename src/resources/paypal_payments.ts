@@ -16,20 +16,20 @@ interface PaypalPayment extends Resource {
 
 	return_url: string
 	cancel_url: string
-	note_to_payer?: string
-	paypal_payer_id?: string
-	name?: string
-	paypal_id?: string
-	status?: 'created' | 'approved'
-	approval_url?: string
-	mismatched_amounts?: boolean
+	note_to_payer?: string | null
+	paypal_payer_id?: string | null
+	name?: string | null
+	paypal_id?: string | null
+	status?: 'created' | 'approved' | null
+	approval_url?: string | null
+	mismatched_amounts?: boolean | null
 	intent_amount_cents: number
-	intent_amount_float?: number
-	formatted_intent_amount?: string
-	payment_instrument?: object
+	intent_amount_float?: number | null
+	formatted_intent_amount?: string | null
+	payment_instrument?: object | null
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
@@ -38,7 +38,7 @@ interface PaypalPaymentCreate extends ResourceCreate {
 	
 	return_url: string
 	cancel_url: string
-	note_to_payer?: string
+	note_to_payer?: string | null
 
 	order: OrderRel
 
@@ -47,9 +47,9 @@ interface PaypalPaymentCreate extends ResourceCreate {
 
 interface PaypalPaymentUpdate extends ResourceUpdate {
 	
-	paypal_payer_id?: string
+	paypal_payer_id?: string | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 

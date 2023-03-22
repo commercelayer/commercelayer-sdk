@@ -18,12 +18,12 @@ interface AvalaraAccount extends Resource {
 	name: string
 	username: string
 	company_code: string
-	commit_invoice?: string
-	ddp?: string
+	commit_invoice?: string | null
+	ddp?: string | null
 
-	markets?: Market[]
-	attachments?: Attachment[]
-	tax_categories?: TaxCategory[]
+	markets?: Market[] | null
+	attachments?: Attachment[] | null
+	tax_categories?: TaxCategory[] | null
 
 }
 
@@ -34,24 +34,24 @@ interface AvalaraAccountCreate extends ResourceCreate {
 	username: string
 	password: string
 	company_code: string
-	commit_invoice?: string
-	ddp?: string
+	commit_invoice?: string | null
+	ddp?: string | null
 
-	tax_categories?: TaxCategoryRel[]
+	tax_categories?: TaxCategoryRel[] | null
 
 }
 
 
 interface AvalaraAccountUpdate extends ResourceUpdate {
 	
-	name: string
-	username: string
-	password?: string
-	company_code: string
-	commit_invoice?: string
-	ddp?: string
+	name?: string | null
+	username?: string | null
+	password?: string | null
+	company_code?: string | null
+	commit_invoice?: string | null
+	ddp?: string | null
 
-	tax_categories?: TaxCategoryRel[]
+	tax_categories?: TaxCategoryRel[] | null
 
 }
 

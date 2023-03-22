@@ -16,9 +16,9 @@ interface CustomerGroup extends Resource {
 
 	name: string
 
-	customers?: Customer[]
-	markets?: Market[]
-	attachments?: Attachment[]
+	customers?: Customer[] | null
+	markets?: Market[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -32,7 +32,7 @@ interface CustomerGroupCreate extends ResourceCreate {
 
 interface CustomerGroupUpdate extends ResourceUpdate {
 	
-	name: string
+	name?: string | null
 	
 }
 

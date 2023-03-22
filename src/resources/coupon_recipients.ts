@@ -15,11 +15,11 @@ interface CouponRecipient extends Resource {
 	readonly type: CouponRecipientType
 
 	email: string
-	first_name?: string
-	last_name?: string
+	first_name?: string | null
+	last_name?: string | null
 
-	customer?: Customer
-	attachments?: Attachment[]
+	customer?: Customer | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -27,21 +27,21 @@ interface CouponRecipient extends Resource {
 interface CouponRecipientCreate extends ResourceCreate {
 	
 	email: string
-	first_name?: string
-	last_name?: string
+	first_name?: string | null
+	last_name?: string | null
 
-	customer?: CustomerRel
+	customer?: CustomerRel | null
 
 }
 
 
 interface CouponRecipientUpdate extends ResourceUpdate {
 	
-	email: string
-	first_name?: string
-	last_name?: string
+	email?: string | null
+	first_name?: string | null
+	last_name?: string | null
 
-	customer?: CustomerRel
+	customer?: CustomerRel | null
 
 }
 

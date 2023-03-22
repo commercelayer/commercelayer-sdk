@@ -15,8 +15,8 @@ interface Event extends Resource {
 
 	name: string
 
-	last_event_callbacks?: EventCallback[]
-	webhooks?: Webhook[]
+	last_event_callbacks?: EventCallback[] | null
+	webhooks?: Webhook[] | null
 
 }
 

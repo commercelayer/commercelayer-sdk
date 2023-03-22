@@ -14,7 +14,7 @@ interface PaymentGateway extends Resource {
 
 	name: string
 
-	payment_methods?: PaymentMethod[]
+	payment_methods?: PaymentMethod[] | null
 
 }
 

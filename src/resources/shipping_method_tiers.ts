@@ -14,13 +14,13 @@ interface ShippingMethodTier extends Resource {
 	readonly type: ShippingMethodTierType
 
 	name: string
-	up_to?: number
+	up_to?: number | null
 	price_amount_cents: number
-	price_amount_float?: number
-	formatted_price_amount?: string
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
 
-	shipping_method?: ShippingMethod
-	attachments?: Attachment[]
+	shipping_method?: ShippingMethod | null
+	attachments?: Attachment[] | null
 
 }
 

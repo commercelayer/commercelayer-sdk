@@ -20,15 +20,15 @@ interface Refund extends Resource {
 	amount_float: number
 	formatted_amount: string
 	succeeded: boolean
-	message?: string
-	error_code?: string
-	error_detail?: string
-	token?: string
-	gateway_transaction_id?: string
+	message?: string | null
+	error_code?: string | null
+	error_detail?: string | null
+	token?: string | null
+	gateway_transaction_id?: string | null
 
-	order?: Order
-	reference_capture?: Capture
-	events?: Event[]
+	order?: Order | null
+	reference_capture?: Capture | null
+	events?: Event[] | null
 
 }
 

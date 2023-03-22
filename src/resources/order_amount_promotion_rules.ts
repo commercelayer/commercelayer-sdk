@@ -23,18 +23,18 @@ interface OrderAmountPromotionRule extends Resource {
 	
 	readonly type: OrderAmountPromotionRuleType
 
-	order_amount_cents?: number
-	order_amount_float?: number
-	formatted_order_amount?: string
+	order_amount_cents?: number | null
+	order_amount_float?: number | null
+	formatted_order_amount?: string | null
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
 
 }
 
 
 interface OrderAmountPromotionRuleCreate extends ResourceCreate {
 	
-	order_amount_cents?: number
+	order_amount_cents?: number | null
 
 	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
 
@@ -43,9 +43,9 @@ interface OrderAmountPromotionRuleCreate extends ResourceCreate {
 
 interface OrderAmountPromotionRuleUpdate extends ResourceUpdate {
 	
-	order_amount_cents?: number
+	order_amount_cents?: number | null
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
 
 }
 

@@ -18,12 +18,12 @@ interface DeliveryLeadTime extends Resource {
 
 	min_hours: number
 	max_hours: number
-	min_days?: number
-	max_days?: number
+	min_days?: number | null
+	max_days?: number | null
 
-	stock_location?: StockLocation
-	shipping_method?: ShippingMethod
-	attachments?: Attachment[]
+	stock_location?: StockLocation | null
+	shipping_method?: ShippingMethod | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -41,11 +41,11 @@ interface DeliveryLeadTimeCreate extends ResourceCreate {
 
 interface DeliveryLeadTimeUpdate extends ResourceUpdate {
 	
-	min_hours: number
-	max_hours: number
+	min_hours?: number | null
+	max_hours?: number | null
 
-	stock_location?: StockLocationRel
-	shipping_method?: ShippingMethodRel
+	stock_location?: StockLocationRel | null
+	shipping_method?: ShippingMethodRel | null
 
 }
 

@@ -22,22 +22,22 @@ interface Market extends Resource {
 	
 	readonly type: MarketType
 
-	number?: number
+	number?: number | null
 	name: string
-	facebook_pixel_id?: string
-	checkout_url?: string
-	external_prices_url?: string
-	external_order_validation_url?: string
+	facebook_pixel_id?: string | null
+	checkout_url?: string | null
+	external_prices_url?: string | null
+	external_order_validation_url?: string | null
 	shared_secret: string
-	private?: boolean
-	disabled_at?: string
+	private?: boolean | null
+	disabled_at?: string | null
 
-	merchant?: Merchant
-	price_list?: PriceList
-	inventory_model?: InventoryModel
-	tax_calculator?: TaxCalculator
-	customer_group?: CustomerGroup
-	attachments?: Attachment[]
+	merchant?: Merchant | null
+	price_list?: PriceList | null
+	inventory_model?: InventoryModel | null
+	tax_calculator?: TaxCalculator | null
+	customer_group?: CustomerGroup | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -45,35 +45,35 @@ interface Market extends Resource {
 interface MarketCreate extends ResourceCreate {
 	
 	name: string
-	facebook_pixel_id?: string
-	checkout_url?: string
-	external_prices_url?: string
-	external_order_validation_url?: string
+	facebook_pixel_id?: string | null
+	checkout_url?: string | null
+	external_prices_url?: string | null
+	external_order_validation_url?: string | null
 
 	merchant: MerchantRel
 	price_list: PriceListRel
 	inventory_model: InventoryModelRel
-	tax_calculator?: TaxCalculatorRel
-	customer_group?: CustomerGroupRel
+	tax_calculator?: TaxCalculatorRel | null
+	customer_group?: CustomerGroupRel | null
 
 }
 
 
 interface MarketUpdate extends ResourceUpdate {
 	
-	name: string
-	facebook_pixel_id?: string
-	checkout_url?: string
-	external_prices_url?: string
-	external_order_validation_url?: string
-	_disable?: boolean
-	_enable?: boolean
+	name?: string | null
+	facebook_pixel_id?: string | null
+	checkout_url?: string | null
+	external_prices_url?: string | null
+	external_order_validation_url?: string | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 
-	merchant?: MerchantRel
-	price_list?: PriceListRel
-	inventory_model?: InventoryModelRel
-	tax_calculator?: TaxCalculatorRel
-	customer_group?: CustomerGroupRel
+	merchant?: MerchantRel | null
+	price_list?: PriceListRel | null
+	inventory_model?: InventoryModelRel | null
+	tax_calculator?: TaxCalculatorRel | null
+	customer_group?: CustomerGroupRel | null
 
 }
 

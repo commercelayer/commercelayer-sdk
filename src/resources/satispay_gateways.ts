@@ -15,10 +15,10 @@ interface SatispayGateway extends Resource {
 	readonly type: SatispayGatewayType
 
 	name: string
-	webhook_endpoint_url?: string
+	webhook_endpoint_url?: string | null
 
-	payment_methods?: PaymentMethod[]
-	satispay_payments?: SatispayPayment[]
+	payment_methods?: PaymentMethod[] | null
+	satispay_payments?: SatispayPayment[] | null
 
 }
 
@@ -27,16 +27,16 @@ interface SatispayGatewayCreate extends ResourceCreate {
 	
 	name: string
 
-	satispay_payments?: SatispayPaymentRel[]
+	satispay_payments?: SatispayPaymentRel[] | null
 
 }
 
 
 interface SatispayGatewayUpdate extends ResourceUpdate {
 	
-	name: string
+	name?: string | null
 
-	satispay_payments?: SatispayPaymentRel[]
+	satispay_payments?: SatispayPaymentRel[] | null
 
 }
 

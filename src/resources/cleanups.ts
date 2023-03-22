@@ -13,17 +13,17 @@ interface Cleanup extends Resource {
 	readonly type: CleanupType
 
 	resource_type: string
-	status?: 'pending' | 'in_progress' | 'interrupted' | 'completed'
-	started_at?: string
-	completed_at?: string
-	interrupted_at?: string
-	filters?: object
-	records_count?: number
-	errors_count?: number
-	processed_count?: number
-	errors_log?: object
+	status?: 'pending' | 'in_progress' | 'interrupted' | 'completed' | null
+	started_at?: string | null
+	completed_at?: string | null
+	interrupted_at?: string | null
+	filters?: object | null
+	records_count?: number | null
+	errors_count?: number | null
+	processed_count?: number | null
+	errors_log?: object | null
 
-	events?: Event[]
+	events?: Event[] | null
 
 }
 
@@ -31,7 +31,7 @@ interface Cleanup extends Resource {
 interface CleanupCreate extends ResourceCreate {
 	
 	resource_type: string
-	filters?: object
+	filters?: object | null
 	
 }
 

@@ -13,18 +13,18 @@ interface Export extends Resource {
 	readonly type: ExportType
 
 	resource_type: string
-	format?: string
-	status?: 'pending' | 'in_progress' | 'completed'
-	includes?: string[]
-	filters?: object
-	dry_data?: boolean
-	started_at?: string
-	completed_at?: string
-	interrupted_at?: string
-	records_count?: number
-	attachment_url?: string
+	format?: string | null
+	status?: 'pending' | 'in_progress' | 'completed' | null
+	includes?: string[] | null
+	filters?: object | null
+	dry_data?: boolean | null
+	started_at?: string | null
+	completed_at?: string | null
+	interrupted_at?: string | null
+	records_count?: number | null
+	attachment_url?: string | null
 
-	events?: Event[]
+	events?: Event[] | null
 
 }
 
@@ -32,10 +32,10 @@ interface Export extends Resource {
 interface ExportCreate extends ResourceCreate {
 	
 	resource_type: string
-	format?: string
-	includes?: string[]
-	filters?: object
-	dry_data?: boolean
+	format?: string | null
+	includes?: string[] | null
+	filters?: object | null
+	dry_data?: boolean | null
 	
 }
 

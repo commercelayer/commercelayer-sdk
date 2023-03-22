@@ -26,8 +26,8 @@ interface CouponCodesPromotionRule extends Resource {
 	readonly type: CouponCodesPromotionRuleType
 
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
-	coupons?: Coupon[]
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
+	coupons?: Coupon[] | null
 
 }
 
@@ -35,15 +35,15 @@ interface CouponCodesPromotionRule extends Resource {
 interface CouponCodesPromotionRuleCreate extends ResourceCreate {
 	
 	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
-	coupons?: CouponRel[]
+	coupons?: CouponRel[] | null
 
 }
 
 
 interface CouponCodesPromotionRuleUpdate extends ResourceUpdate {
 	
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
-	coupons?: CouponRel[]
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
+	coupons?: CouponRel[] | null
 
 }
 

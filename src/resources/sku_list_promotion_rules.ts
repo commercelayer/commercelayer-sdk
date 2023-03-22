@@ -26,34 +26,34 @@ interface SkuListPromotionRule extends Resource {
 	
 	readonly type: SkuListPromotionRuleType
 
-	all_skus?: boolean
-	min_quantity?: number
+	all_skus?: boolean | null
+	min_quantity?: number | null
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
-	sku_list?: SkuList
-	skus?: Sku[]
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
+	sku_list?: SkuList | null
+	skus?: Sku[] | null
 
 }
 
 
 interface SkuListPromotionRuleCreate extends ResourceCreate {
 	
-	all_skus?: boolean
-	min_quantity?: number
+	all_skus?: boolean | null
+	min_quantity?: number | null
 
 	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
-	sku_list?: SkuListRel
+	sku_list?: SkuListRel | null
 
 }
 
 
 interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 	
-	all_skus?: boolean
-	min_quantity?: number
+	all_skus?: boolean | null
+	min_quantity?: number | null
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
-	sku_list?: SkuListRel
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
+	sku_list?: SkuListRel | null
 
 }
 

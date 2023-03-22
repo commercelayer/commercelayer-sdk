@@ -15,8 +15,8 @@ interface BillingInfoValidationRule extends Resource {
 	readonly type: BillingInfoValidationRuleType
 
 
-	market?: Market
-	attachments?: Attachment[]
+	market?: Market | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -30,7 +30,7 @@ interface BillingInfoValidationRuleCreate extends ResourceCreate {
 
 interface BillingInfoValidationRuleUpdate extends ResourceUpdate {
 	
-	market?: MarketRel
+	market?: MarketRel | null
 
 }
 

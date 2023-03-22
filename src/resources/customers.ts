@@ -23,19 +23,19 @@ interface Customer extends Resource {
 	readonly type: CustomerType
 
 	email: string
-	status?: 'prospect' | 'acquired' | 'repeat'
-	has_password?: boolean
+	status?: 'prospect' | 'acquired' | 'repeat' | null
+	has_password?: boolean | null
 
-	customer_group?: CustomerGroup
-	customer_addresses?: CustomerAddress[]
-	customer_payment_sources?: CustomerPaymentSource[]
-	customer_subscriptions?: CustomerSubscription[]
-	orders?: Order[]
-	order_subscriptions?: OrderSubscription[]
-	returns?: Return[]
-	sku_lists?: SkuList[]
-	attachments?: Attachment[]
-	events?: Event[]
+	customer_group?: CustomerGroup | null
+	customer_addresses?: CustomerAddress[] | null
+	customer_payment_sources?: CustomerPaymentSource[] | null
+	customer_subscriptions?: CustomerSubscription[] | null
+	orders?: Order[] | null
+	order_subscriptions?: OrderSubscription[] | null
+	returns?: Return[] | null
+	sku_lists?: SkuList[] | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
@@ -43,19 +43,19 @@ interface Customer extends Resource {
 interface CustomerCreate extends ResourceCreate {
 	
 	email: string
-	password?: string
+	password?: string | null
 
-	customer_group?: CustomerGroupRel
+	customer_group?: CustomerGroupRel | null
 
 }
 
 
 interface CustomerUpdate extends ResourceUpdate {
 	
-	email: string
-	password?: string
+	email?: string | null
+	password?: string | null
 
-	customer_group?: CustomerGroupRel
+	customer_group?: CustomerGroupRel | null
 
 }
 

@@ -36,71 +36,71 @@ interface LineItem extends Resource {
 	
 	readonly type: LineItemType
 
-	sku_code?: string
-	bundle_code?: string
+	sku_code?: string | null
+	bundle_code?: string | null
 	quantity: number
-	currency_code?: string
-	unit_amount_cents?: number
-	unit_amount_float?: number
-	formatted_unit_amount?: string
-	options_amount_cents?: number
-	options_amount_float?: number
-	formatted_options_amount?: string
-	discount_cents?: number
-	discount_float?: number
-	formatted_discount?: string
-	total_amount_cents?: number
+	currency_code?: string | null
+	unit_amount_cents?: number | null
+	unit_amount_float?: number | null
+	formatted_unit_amount?: string | null
+	options_amount_cents?: number | null
+	options_amount_float?: number | null
+	formatted_options_amount?: string | null
+	discount_cents?: number | null
+	discount_float?: number | null
+	formatted_discount?: string | null
+	total_amount_cents?: number | null
 	total_amount_float: number
-	formatted_total_amount?: string
-	tax_amount_cents?: number
+	formatted_total_amount?: string | null
+	tax_amount_cents?: number | null
 	tax_amount_float: number
-	formatted_tax_amount?: string
-	name?: string
-	image_url?: string
-	discount_breakdown?: object
-	tax_rate?: number
-	tax_breakdown?: object
-	item_type?: 'sku' | 'bundle' | 'shipment' | 'payment_method' | 'adjustment' | 'gift_card' | 'percentage_discount_promotion' | 'free_shipping_promotion' | 'free_gift_promotion' | 'fixed_price_promotion' | 'external_promotion' | 'fixed_amount_promotion'
+	formatted_tax_amount?: string | null
+	name?: string | null
+	image_url?: string | null
+	discount_breakdown?: object | null
+	tax_rate?: number | null
+	tax_breakdown?: object | null
+	item_type?: 'sku' | 'bundle' | 'shipment' | 'payment_method' | 'adjustment' | 'gift_card' | 'percentage_discount_promotion' | 'free_shipping_promotion' | 'free_gift_promotion' | 'fixed_price_promotion' | 'external_promotion' | 'fixed_amount_promotion' | null
 
-	order?: Order
-	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku
-	line_item_options?: LineItemOption[]
+	order?: Order | null
+	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku | null
+	line_item_options?: LineItemOption[] | null
 	/**
 	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
 	shipment_line_items?: object[]
-	stock_line_items?: StockLineItem[]
-	stock_transfers?: StockTransfer[]
+	stock_line_items?: StockLineItem[] | null
+	stock_transfers?: StockTransfer[] | null
 
 }
 
 
 interface LineItemCreate extends ResourceCreate {
 	
-	sku_code?: string
-	bundle_code?: string
+	sku_code?: string | null
+	bundle_code?: string | null
 	quantity: number
-	_external_price?: boolean
-	_update_quantity?: boolean
-	unit_amount_cents?: number
-	name?: string
-	image_url?: string
-	item_type?: 'sku' | 'bundle' | 'shipment' | 'payment_method' | 'adjustment' | 'gift_card' | 'percentage_discount_promotion' | 'free_shipping_promotion' | 'free_gift_promotion' | 'fixed_price_promotion' | 'external_promotion' | 'fixed_amount_promotion'
+	_external_price?: boolean | null
+	_update_quantity?: boolean | null
+	unit_amount_cents?: number | null
+	name?: string | null
+	image_url?: string | null
+	item_type?: 'sku' | 'bundle' | 'shipment' | 'payment_method' | 'adjustment' | 'gift_card' | 'percentage_discount_promotion' | 'free_shipping_promotion' | 'free_gift_promotion' | 'fixed_price_promotion' | 'external_promotion' | 'fixed_amount_promotion' | null
 
 	order: OrderRel
-	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel
+	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel | null
 
 }
 
 
 interface LineItemUpdate extends ResourceUpdate {
 	
-	sku_code?: string
-	bundle_code?: string
-	quantity: number
-	_external_price?: boolean
-	name?: string
-	image_url?: string
+	sku_code?: string | null
+	bundle_code?: string | null
+	quantity?: number | null
+	_external_price?: boolean | null
+	name?: string | null
+	image_url?: string | null
 	
 }
 

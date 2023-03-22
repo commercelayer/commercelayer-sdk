@@ -15,8 +15,8 @@ interface ShippingCategory extends Resource {
 
 	name: string
 
-	skus?: Sku[]
-	attachments?: Attachment[]
+	skus?: Sku[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -30,7 +30,7 @@ interface ShippingCategoryCreate extends ResourceCreate {
 
 interface ShippingCategoryUpdate extends ResourceUpdate {
 	
-	name: string
+	name?: string | null
 	
 }
 

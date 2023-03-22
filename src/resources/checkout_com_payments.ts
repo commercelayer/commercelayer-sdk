@@ -14,21 +14,21 @@ interface CheckoutComPayment extends Resource {
 	
 	readonly type: CheckoutComPaymentType
 
-	public_key?: string
+	public_key?: string | null
 	payment_type: string
 	token: string
-	session_id?: string
-	success_url?: string
-	failure_url?: string
-	source_id?: string
-	customer_token?: string
-	redirect_uri?: string
-	payment_response?: object
-	mismatched_amounts?: boolean
-	payment_instrument?: object
+	session_id?: string | null
+	success_url?: string | null
+	failure_url?: string | null
+	source_id?: string | null
+	customer_token?: string | null
+	redirect_uri?: string | null
+	payment_response?: object | null
+	mismatched_amounts?: boolean | null
+	payment_instrument?: object | null
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
@@ -37,9 +37,9 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 	
 	payment_type: string
 	token: string
-	session_id?: string
-	success_url?: string
-	failure_url?: string
+	session_id?: string | null
+	success_url?: string | null
+	failure_url?: string | null
 
 	order: OrderRel
 
@@ -48,15 +48,15 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 
 interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	
-	payment_type: string
-	token: string
-	session_id?: string
-	success_url?: string
-	failure_url?: string
-	_details?: boolean
-	_refresh?: boolean
+	payment_type?: string | null
+	token?: string | null
+	session_id?: string | null
+	success_url?: string | null
+	failure_url?: string | null
+	_details?: boolean | null
+	_refresh?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 

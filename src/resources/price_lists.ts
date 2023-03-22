@@ -15,10 +15,10 @@ interface PriceList extends Resource {
 
 	name: string
 	currency_code: string
-	tax_included?: boolean
+	tax_included?: boolean | null
 
-	prices?: Price[]
-	attachments?: Attachment[]
+	prices?: Price[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -27,16 +27,16 @@ interface PriceListCreate extends ResourceCreate {
 	
 	name: string
 	currency_code: string
-	tax_included?: boolean
+	tax_included?: boolean | null
 	
 }
 
 
 interface PriceListUpdate extends ResourceUpdate {
 	
-	name: string
-	currency_code: string
-	tax_included?: boolean
+	name?: string | null
+	currency_code?: string | null
+	tax_included?: boolean | null
 	
 }
 

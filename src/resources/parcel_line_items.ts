@@ -15,13 +15,13 @@ interface ParcelLineItem extends Resource {
 	
 	readonly type: ParcelLineItemType
 
-	sku_code?: string
+	sku_code?: string | null
 	quantity: number
 	name: string
-	image_url?: string
+	image_url?: string | null
 
-	parcel?: Parcel
-	stock_line_item?: StockLineItem
+	parcel?: Parcel | null
+	stock_line_item?: StockLineItem | null
 	/**
 	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
@@ -32,7 +32,7 @@ interface ParcelLineItem extends Resource {
 
 interface ParcelLineItemCreate extends ResourceCreate {
 	
-	sku_code?: string
+	sku_code?: string | null
 	quantity: number
 
 	parcel: ParcelRel

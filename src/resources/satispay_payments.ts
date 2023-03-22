@@ -14,21 +14,21 @@ interface SatispayPayment extends Resource {
 	
 	readonly type: SatispayPaymentType
 
-	token?: string
+	token?: string | null
 	key_id: string
-	payment_id?: string
-	redirect_url?: string
+	payment_id?: string | null
+	redirect_url?: string | null
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
 
 interface SatispayPaymentCreate extends ResourceCreate {
 	
-	token?: string
-	redirect_url?: string
+	token?: string | null
+	redirect_url?: string | null
 
 	order: OrderRel
 
@@ -37,10 +37,10 @@ interface SatispayPaymentCreate extends ResourceCreate {
 
 interface SatispayPaymentUpdate extends ResourceUpdate {
 	
-	redirect_url?: string
-	_refresh?: boolean
+	redirect_url?: string | null
+	_refresh?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 

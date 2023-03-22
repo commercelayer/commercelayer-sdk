@@ -15,24 +15,24 @@ interface StripePayment extends Resource {
 	readonly type: StripePaymentType
 
 	client_secret: string
-	publishable_key?: string
-	options?: object
-	payment_method?: object
-	mismatched_amounts?: boolean
+	publishable_key?: string | null
+	options?: object | null
+	payment_method?: object | null
+	mismatched_amounts?: boolean | null
 	intent_amount_cents: number
-	intent_amount_float?: number
-	formatted_intent_amount?: string
-	payment_instrument?: object
+	intent_amount_float?: number | null
+	formatted_intent_amount?: string | null
+	payment_instrument?: object | null
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
 
 interface StripePaymentCreate extends ResourceCreate {
 	
-	options?: object
+	options?: object | null
 
 	order: OrderRel
 
@@ -41,10 +41,10 @@ interface StripePaymentCreate extends ResourceCreate {
 
 interface StripePaymentUpdate extends ResourceUpdate {
 	
-	options?: object
-	_refresh?: boolean
+	options?: object | null
+	_refresh?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 

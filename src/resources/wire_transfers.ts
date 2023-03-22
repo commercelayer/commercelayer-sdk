@@ -13,9 +13,9 @@ interface WireTransfer extends Resource {
 	
 	readonly type: WireTransferType
 
-	payment_instrument?: object
+	payment_instrument?: object | null
 
-	order?: Order
+	order?: Order | null
 
 }
 
@@ -29,7 +29,7 @@ interface WireTransferCreate extends ResourceCreate {
 
 interface WireTransferUpdate extends ResourceUpdate {
 	
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 

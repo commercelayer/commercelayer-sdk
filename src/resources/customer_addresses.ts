@@ -16,11 +16,11 @@ interface CustomerAddress extends Resource {
 	
 	readonly type: CustomerAddressType
 
-	name?: string
+	name?: string | null
 
-	customer?: Customer
-	address?: Address
-	events?: Event[]
+	customer?: Customer | null
+	address?: Address | null
+	events?: Event[] | null
 
 }
 
@@ -35,8 +35,8 @@ interface CustomerAddressCreate extends ResourceCreate {
 
 interface CustomerAddressUpdate extends ResourceUpdate {
 	
-	customer?: CustomerRel
-	address?: AddressRel
+	customer?: CustomerRel | null
+	address?: AddressRel | null
 
 }
 

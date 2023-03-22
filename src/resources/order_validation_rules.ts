@@ -14,8 +14,8 @@ interface OrderValidationRule extends Resource {
 	readonly type: OrderValidationRuleType
 
 
-	market?: Market
-	attachments?: Attachment[]
+	market?: Market | null
+	attachments?: Attachment[] | null
 
 }
 

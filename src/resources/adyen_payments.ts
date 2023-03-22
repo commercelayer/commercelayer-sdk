@@ -14,16 +14,16 @@ interface AdyenPayment extends Resource {
 	
 	readonly type: AdyenPaymentType
 
-	public_key?: string
+	public_key?: string | null
 	payment_methods: object
-	payment_request_data?: object
-	payment_request_details?: object
-	payment_response?: object
-	mismatched_amounts?: boolean
-	payment_instrument?: object
+	payment_request_data?: object | null
+	payment_request_details?: object | null
+	payment_response?: object | null
+	mismatched_amounts?: boolean | null
+	payment_instrument?: object | null
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
@@ -37,12 +37,12 @@ interface AdyenPaymentCreate extends ResourceCreate {
 
 interface AdyenPaymentUpdate extends ResourceUpdate {
 	
-	payment_request_data?: object
-	payment_request_details?: object
-	payment_response?: object
-	_details?: boolean
+	payment_request_data?: object | null
+	payment_request_details?: object | null
+	payment_response?: object | null
+	_details?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 

@@ -15,8 +15,8 @@ interface BingGeocoder extends Resource {
 
 	name: string
 
-	addresses?: Address[]
-	attachments?: Attachment[]
+	addresses?: Address[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -31,8 +31,8 @@ interface BingGeocoderCreate extends ResourceCreate {
 
 interface BingGeocoderUpdate extends ResourceUpdate {
 	
-	name: string
-	key?: string
+	name?: string | null
+	key?: string | null
 	
 }
 

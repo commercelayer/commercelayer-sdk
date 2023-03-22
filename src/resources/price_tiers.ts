@@ -14,13 +14,13 @@ interface PriceTier extends Resource {
 	readonly type: PriceTierType
 
 	name: string
-	up_to?: number
+	up_to?: number | null
 	price_amount_cents: number
-	price_amount_float?: number
-	formatted_price_amount?: string
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
 
-	price?: Price
-	attachments?: Attachment[]
+	price?: Price | null
+	attachments?: Attachment[] | null
 
 }
 

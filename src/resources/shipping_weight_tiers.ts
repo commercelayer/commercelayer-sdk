@@ -15,13 +15,13 @@ interface ShippingWeightTier extends Resource {
 	readonly type: ShippingWeightTierType
 
 	name: string
-	up_to?: number
+	up_to?: number | null
 	price_amount_cents: number
-	price_amount_float?: number
-	formatted_price_amount?: string
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
 
-	shipping_method?: ShippingMethod
-	attachments?: Attachment[]
+	shipping_method?: ShippingMethod | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -29,7 +29,7 @@ interface ShippingWeightTier extends Resource {
 interface ShippingWeightTierCreate extends ResourceCreate {
 	
 	name: string
-	up_to?: number
+	up_to?: number | null
 	price_amount_cents: number
 
 	shipping_method: ShippingMethodRel
@@ -39,11 +39,11 @@ interface ShippingWeightTierCreate extends ResourceCreate {
 
 interface ShippingWeightTierUpdate extends ResourceUpdate {
 	
-	name: string
-	up_to?: number
-	price_amount_cents: number
+	name?: string | null
+	up_to?: number | null
+	price_amount_cents?: number | null
 
-	shipping_method?: ShippingMethodRel
+	shipping_method?: ShippingMethodRel | null
 
 }
 

@@ -31,9 +31,9 @@ interface AdjustmentCreate extends ResourceCreate {
 
 interface AdjustmentUpdate extends ResourceUpdate {
 	
-	name: string
-	currency_code: string
-	amount_cents: number
+	name?: string | null
+	currency_code?: string | null
+	amount_cents?: number | null
 	
 }
 

@@ -14,18 +14,18 @@ interface KlarnaPayment extends Resource {
 	
 	readonly type: KlarnaPaymentType
 
-	session_id?: string
-	client_token?: string
+	session_id?: string | null
+	client_token?: string | null
 	payment_methods: object[]
-	auth_token?: string
-	mismatched_amounts?: boolean
+	auth_token?: string | null
+	mismatched_amounts?: boolean | null
 	intent_amount_cents: number
-	intent_amount_float?: number
-	formatted_intent_amount?: string
-	payment_instrument?: object
+	intent_amount_float?: number | null
+	formatted_intent_amount?: string | null
+	payment_instrument?: object | null
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
@@ -39,10 +39,10 @@ interface KlarnaPaymentCreate extends ResourceCreate {
 
 interface KlarnaPaymentUpdate extends ResourceUpdate {
 	
-	auth_token?: string
-	_update?: boolean
+	auth_token?: string | null
+	_update?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 

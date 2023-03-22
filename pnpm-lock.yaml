@@ -2776,7 +2776,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001469
-      electron-to-chromium: 1.4.334
+      electron-to-chromium: 1.4.335
       node-releases: 2.0.10
       update-browserslist-db: 1.0.10_browserslist@4.21.5
     dev: true
@@ -3216,8 +3216,8 @@ packages:
       readable-stream: 2.3.8
     dev: true
 
-  /electron-to-chromium/1.4.334:
-    resolution: {integrity: sha512-laZ1odk+TRen6q0GeyQx/JEkpD3iSZT7ewopCpKqg9bTjP1l8XRfU3Bg20CFjNPZkp5+NDBl3iqd4o/kPO+Vew==}
+  /electron-to-chromium/1.4.335:
+    resolution: {integrity: sha512-l/eowQqTnrq3gu+WSrdfkhfNHnPgYqlKAwxz7MTOj6mom19vpEDHNXl6dxDxyTiYuhemydprKr/HCrHfgk+OfQ==}
     dev: true
 
   /emittery/0.13.1:
@@ -3615,7 +3615,7 @@ packages:
       imurmurhash: 0.1.4
       is-glob: 4.0.3
       is-path-inside: 3.0.3
-      js-sdsl: 4.3.0
+      js-sdsl: 4.4.0
       js-yaml: 4.1.0
       json-stable-stringify-without-jsonify: 1.0.1
       levn: 0.4.1
@@ -4919,8 +4919,8 @@ packages:
       - ts-node
     dev: true
 
-  /js-sdsl/4.3.0:
-    resolution: {integrity: sha512-mifzlm2+5nZ+lEcLJMoBK0/IH/bDg8XnJfd/Wq6IP+xoCjLZsTOnV2QpxlVbX9bMnkl5PdEjNtBJ9Cj1NjifhQ==}
+  /js-sdsl/4.4.0:
+    resolution: {integrity: sha512-FfVSdx6pJ41Oa+CF7RDaFmTnCaFhua+SNYQX74riGOpl96x+2jQCqEfQ2bnXu/5DPCqlRuiqyvTJM0Qjz26IVg==}
     dev: true
 
   /js-tokens/4.0.0:
@@ -5166,7 +5166,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /marked-terminal/5.1.1_marked@4.2.12:
+  /marked-terminal/5.1.1_marked@4.3.0:
     resolution: {integrity: sha512-+cKTOx9P4l7HwINYhzbrBSyzgxO2HaHKGZGuB1orZsMIgXYaJyfidT81VXRdpelW/PcHEWxywscePVgI/oUF6g==}
     engines: {node: '>=14.13.1 || >=16.0.0'}
     peerDependencies:
@@ -5176,13 +5176,13 @@ packages:
       cardinal: 2.1.1
       chalk: 5.2.0
       cli-table3: 0.6.3
-      marked: 4.2.12
+      marked: 4.3.0
       node-emoji: 1.11.0
       supports-hyperlinks: 2.3.0
     dev: true
 
-  /marked/4.2.12:
-    resolution: {integrity: sha512-yr8hSKa3Fv4D3jdZmtMMPghgVt6TWbk86WQaWhDloQjRSQhMMYCAro7jP7VDJrjjdV8pxVxMssXS8B8Y5DZ5aw==}
+  /marked/4.3.0:
+    resolution: {integrity: sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==}
     engines: {node: '>= 12'}
     hasBin: true
     dev: true
@@ -6134,8 +6134,8 @@ packages:
       hook-std: 3.0.0
       hosted-git-info: 6.1.1
       lodash-es: 4.17.21
-      marked: 4.2.12
-      marked-terminal: 5.1.1_marked@4.2.12
+      marked: 4.3.0
+      marked-terminal: 5.1.1_marked@4.3.0
       micromatch: 4.0.5
       p-each-series: 3.0.0
       p-reduce: 3.0.0

@@ -12,36 +12,36 @@ interface Webhook extends Resource {
 	
 	readonly type: WebhookType
 
-	name?: string
+	name?: string | null
 	topic: string
 	callback_url: string
-	include_resources?: string[]
-	circuit_state?: string
-	circuit_failure_count?: number
+	include_resources?: string[] | null
+	circuit_state?: string | null
+	circuit_failure_count?: number | null
 	shared_secret: string
 
-	last_event_callbacks?: EventCallback[]
+	last_event_callbacks?: EventCallback[] | null
 
 }
 
 
 interface WebhookCreate extends ResourceCreate {
 	
-	name?: string
+	name?: string | null
 	topic: string
 	callback_url: string
-	include_resources?: string[]
+	include_resources?: string[] | null
 	
 }
 
 
 interface WebhookUpdate extends ResourceUpdate {
 	
-	name?: string
-	topic: string
-	callback_url: string
-	include_resources?: string[]
-	_reset_circuit?: boolean
+	name?: string | null
+	topic?: string | null
+	callback_url?: string | null
+	include_resources?: string[] | null
+	_reset_circuit?: boolean | null
 	
 }
 

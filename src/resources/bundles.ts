@@ -19,23 +19,23 @@ interface Bundle extends Resource {
 
 	code: string
 	name: string
-	currency_code?: string
-	description?: string
-	image_url?: string
-	do_not_ship?: boolean
-	do_not_track?: boolean
+	currency_code?: string | null
+	description?: string | null
+	image_url?: string | null
+	do_not_ship?: boolean | null
+	do_not_track?: boolean | null
 	price_amount_cents: number
 	price_amount_float: number
 	formatted_price_amount: string
 	compare_at_amount_cents: number
 	compare_at_amount_float: number
 	formatted_compare_at_amount: string
-	skus_count?: number
+	skus_count?: number | null
 
-	market?: Market
-	sku_list?: SkuList
-	skus?: Sku[]
-	attachments?: Attachment[]
+	market?: Market | null
+	sku_list?: SkuList | null
+	skus?: Sku[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -44,15 +44,15 @@ interface BundleCreate extends ResourceCreate {
 	
 	code: string
 	name: string
-	currency_code?: string
-	description?: string
-	image_url?: string
+	currency_code?: string | null
+	description?: string | null
+	image_url?: string | null
 	price_amount_cents: number
 	compare_at_amount_cents: number
-	_compute_price_amount?: boolean
-	_compute_compare_at_amount?: boolean
+	_compute_price_amount?: boolean | null
+	_compute_compare_at_amount?: boolean | null
 
-	market?: MarketRel
+	market?: MarketRel | null
 	sku_list: SkuListRel
 
 }
@@ -60,15 +60,15 @@ interface BundleCreate extends ResourceCreate {
 
 interface BundleUpdate extends ResourceUpdate {
 	
-	code: string
-	name: string
-	currency_code?: string
-	description?: string
-	image_url?: string
-	price_amount_cents: number
-	compare_at_amount_cents: number
-	_compute_price_amount?: boolean
-	_compute_compare_at_amount?: boolean
+	code?: string | null
+	name?: string | null
+	currency_code?: string | null
+	description?: string | null
+	image_url?: string | null
+	price_amount_cents?: number | null
+	compare_at_amount_cents?: number | null
+	_compute_price_amount?: boolean | null
+	_compute_compare_at_amount?: boolean | null
 	
 }
 

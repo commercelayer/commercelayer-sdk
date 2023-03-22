@@ -13,23 +13,23 @@ interface Import extends Resource {
 	readonly type: ImportType
 
 	resource_type: string
-	parent_resource_id?: string
-	status?: 'pending' | 'in_progress' | 'interrupted' | 'completed'
-	started_at?: string
-	completed_at?: string
-	interrupted_at?: string
+	parent_resource_id?: string | null
+	status?: 'pending' | 'in_progress' | 'interrupted' | 'completed' | null
+	started_at?: string | null
+	completed_at?: string | null
+	interrupted_at?: string | null
 	inputs: object[]
-	inputs_size?: number
-	errors_count?: number
-	warnings_count?: number
-	destroyed_count?: number
-	processed_count?: number
-	errors_log?: object
-	warnings_log?: object
-	cleanup_records?: boolean
-	attachment_url?: string
+	inputs_size?: number | null
+	errors_count?: number | null
+	warnings_count?: number | null
+	destroyed_count?: number | null
+	processed_count?: number | null
+	errors_log?: object | null
+	warnings_log?: object | null
+	cleanup_records?: boolean | null
+	attachment_url?: string | null
 
-	events?: Event[]
+	events?: Event[] | null
 
 }
 
@@ -37,10 +37,10 @@ interface Import extends Resource {
 interface ImportCreate extends ResourceCreate {
 	
 	resource_type: string
-	format?: string
-	parent_resource_id?: string
+	format?: string | null
+	parent_resource_id?: string | null
 	inputs: object[]
-	cleanup_records?: boolean
+	cleanup_records?: boolean | null
 	
 }
 

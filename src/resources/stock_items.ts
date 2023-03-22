@@ -16,34 +16,34 @@ interface StockItem extends Resource {
 	
 	readonly type: StockItemType
 
-	sku_code?: string
+	sku_code?: string | null
 	quantity: number
 
-	stock_location?: StockLocation
-	sku?: Sku
-	attachments?: Attachment[]
+	stock_location?: StockLocation | null
+	sku?: Sku | null
+	attachments?: Attachment[] | null
 
 }
 
 
 interface StockItemCreate extends ResourceCreate {
 	
-	sku_code?: string
+	sku_code?: string | null
 	quantity: number
 
 	stock_location: StockLocationRel
-	sku?: SkuRel
+	sku?: SkuRel | null
 
 }
 
 
 interface StockItemUpdate extends ResourceUpdate {
 	
-	sku_code?: string
-	quantity: number
+	sku_code?: string | null
+	quantity?: number | null
 
-	stock_location?: StockLocationRel
-	sku?: SkuRel
+	stock_location?: StockLocationRel | null
+	sku?: SkuRel | null
 
 }
 

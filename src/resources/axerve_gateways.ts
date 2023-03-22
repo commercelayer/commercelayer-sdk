@@ -17,8 +17,8 @@ interface AxerveGateway extends Resource {
 	name: string
 	login: string
 
-	payment_methods?: PaymentMethod[]
-	axerve_payments?: AxervePayment[]
+	payment_methods?: PaymentMethod[] | null
+	axerve_payments?: AxervePayment[] | null
 
 }
 
@@ -29,18 +29,18 @@ interface AxerveGatewayCreate extends ResourceCreate {
 	login: string
 	api_key: string
 
-	axerve_payments?: AxervePaymentRel[]
+	axerve_payments?: AxervePaymentRel[] | null
 
 }
 
 
 interface AxerveGatewayUpdate extends ResourceUpdate {
 	
-	name: string
-	login: string
-	api_key?: string
+	name?: string | null
+	login?: string | null
+	api_key?: string | null
 
-	axerve_payments?: AxervePaymentRel[]
+	axerve_payments?: AxervePaymentRel[] | null
 
 }
 
