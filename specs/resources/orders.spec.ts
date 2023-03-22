@@ -478,6 +478,25 @@ describe('Orders resource', () => {
 	})
 	
 
+	it(resourceType + '.order_factories', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { order_factories: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'order_factories')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].order_factories(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
 	it(resourceType + '.order_copies', async () => {
 	
 		const id = TestData.id
@@ -491,6 +510,25 @@ describe('Orders resource', () => {
 		})
 	
 		await cl[resourceType].order_copies(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.recurring_order_copies', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { recurring_order_copies: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'recurring_order_copies')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].recurring_order_copies(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	
