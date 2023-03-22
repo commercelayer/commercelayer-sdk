@@ -230,6 +230,25 @@ describe('Prices resource', () => {
 	})
 	
 
+	it(resourceType + '.price_frequency_tiers', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { price_frequency_tiers: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'price_frequency_tiers')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].price_frequency_tiers(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id

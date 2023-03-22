@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Merchant, MerchantType } from './merchants'
 import type { PriceList, PriceListType } from './price_lists'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
+import type { SubscriptionModel, SubscriptionModelType } from './subscription_models'
 import type { TaxCalculator, TaxCalculatorType } from './tax_calculators'
 import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { Attachment } from './attachments'
@@ -14,6 +15,7 @@ type MarketRel = ResourceRel & { type: MarketType }
 type MerchantRel = ResourceRel & { type: MerchantType }
 type PriceListRel = ResourceRel & { type: PriceListType }
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
+type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
 type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 
@@ -35,6 +37,7 @@ interface Market extends Resource {
 	merchant?: Merchant | null
 	price_list?: PriceList | null
 	inventory_model?: InventoryModel | null
+	subscription_model?: SubscriptionModel | null
 	tax_calculator?: TaxCalculator | null
 	customer_group?: CustomerGroup | null
 	attachments?: Attachment[] | null
@@ -53,6 +56,7 @@ interface MarketCreate extends ResourceCreate {
 	merchant: MerchantRel
 	price_list: PriceListRel
 	inventory_model: InventoryModelRel
+	subscription_model?: SubscriptionModelRel | null
 	tax_calculator?: TaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
 
@@ -72,6 +76,7 @@ interface MarketUpdate extends ResourceUpdate {
 	merchant?: MerchantRel | null
 	price_list?: PriceListRel | null
 	inventory_model?: InventoryModelRel | null
+	subscription_model?: SubscriptionModelRel | null
 	tax_calculator?: TaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
 
@@ -107,6 +112,11 @@ class Markets extends ApiResource<Market> {
 	async inventory_model(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `markets/${_marketId}/inventory_model`, params, options) as unknown as InventoryModel
+	}
+
+	async subscription_model(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SubscriptionModel> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<SubscriptionModel>({ type: 'subscription_models' }, `markets/${_marketId}/subscription_model`, params, options) as unknown as SubscriptionModel
 	}
 
 	async tax_calculator(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCalculator> {

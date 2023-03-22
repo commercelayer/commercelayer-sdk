@@ -26,7 +26,9 @@ import type { Capture } from './captures'
 import type { Refund } from './refunds'
 import type { Return } from './returns'
 import type { OrderSubscription } from './order_subscriptions'
+import type { OrderFactory } from './order_factories'
 import type { OrderCopy } from './order_copies'
+import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
@@ -56,7 +58,7 @@ interface Order extends Resource {
 	number?: number | null
 	autorefresh?: boolean | null
 	status?: 'draft' | 'pending' | 'placed' | 'approved' | 'cancelled' | null
-	payment_status?: 'unpaid' | 'authorized' | 'paid' | 'voided' | 'refunded' | 'free' | null
+	payment_status?: 'unpaid' | 'authorized' | 'partially_authorized' | 'paid' | 'partially_paid' | 'voided' | 'partially_voided' | 'refunded' | 'partially_refunded' | 'free' | null
 	fulfillment_status?: 'unfulfilled' | 'in_progress' | 'fulfilled' | 'not_required' | null
 	guest?: boolean | null
 	editable?: boolean | null
@@ -151,6 +153,7 @@ interface Order extends Resource {
 	refreshed_at?: string | null
 	archived_at?: string | null
 	expires_at?: string | null
+	subscription_created_at?: string | null
 
 	market?: Market | null
 	customer?: Customer | null
@@ -171,7 +174,9 @@ interface Order extends Resource {
 	refunds?: Refund[] | null
 	returns?: Return[] | null
 	order_subscriptions?: OrderSubscription[] | null
+	order_factories?: OrderFactory[] | null
 	order_copies?: OrderCopy[] | null
+	recurring_order_copies?: RecurringOrderCopy[] | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 
@@ -243,6 +248,7 @@ interface OrderUpdate extends ResourceUpdate {
 	_save_billing_address_to_customer_address_book?: boolean | null
 	_refresh?: boolean | null
 	_validate?: boolean | null
+	_create_subscriptions?: boolean | null
 
 	market?: MarketRel | null
 	customer?: CustomerRel | null
@@ -355,9 +361,19 @@ class Orders extends ApiResource<Order> {
 		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `orders/${_orderId}/order_subscriptions`, params, options) as unknown as ListResponse<OrderSubscription>
 	}
 
+	async order_factories(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderFactory>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<OrderFactory>({ type: 'order_factories' }, `orders/${_orderId}/order_factories`, params, options) as unknown as ListResponse<OrderFactory>
+	}
+
 	async order_copies(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<OrderCopy>({ type: 'order_copies' }, `orders/${_orderId}/order_copies`, params, options) as unknown as ListResponse<OrderCopy>
+	}
+
+	async recurring_order_copies(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<RecurringOrderCopy>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<RecurringOrderCopy>({ type: 'recurring_order_copies' }, `orders/${_orderId}/recurring_order_copies`, params, options) as unknown as ListResponse<RecurringOrderCopy>
 	}
 
 	async attachments(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

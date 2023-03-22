@@ -2,9 +2,13 @@ import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, Reso
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
+import type { SubscriptionModel } from './subscription_models'
 import type { Order, OrderType } from './orders'
 import type { Customer } from './customers'
-import type { OrderCopy } from './order_copies'
+import type { CustomerPaymentSource, CustomerPaymentSourceType } from './customer_payment_sources'
+import type { OrderSubscriptionItem } from './order_subscription_items'
+import type { OrderFactory } from './order_factories'
+import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Event } from './events'
 
 
@@ -12,6 +16,7 @@ type OrderSubscriptionType = 'order_subscriptions'
 type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
 type MarketRel = ResourceRel & { type: MarketType }
 type OrderRel = ResourceRel & { type: OrderType }
+type CustomerPaymentSourceRel = ResourceRel & { type: CustomerPaymentSourceType }
 
 
 interface OrderSubscription extends Resource {
@@ -32,9 +37,17 @@ interface OrderSubscription extends Resource {
 	options?: object | null
 
 	market?: Market | null
+	subscription_model?: SubscriptionModel | null
 	source_order?: Order | null
 	customer?: Customer | null
-	order_copies?: OrderCopy[] | null
+	customer_payment_source?: CustomerPaymentSource | null
+	order_subscription_items?: OrderSubscriptionItem[] | null
+	order_factories?: OrderFactory[] | null
+	/**
+	* @deprecated This field should not be used as it may be removed in the future without notice
+	*/
+	order_copies?: object[]
+	recurring_order_copies?: RecurringOrderCopy[] | null
 	orders?: Order[] | null
 	events?: Event[] | null
 
@@ -57,11 +70,15 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 
 interface OrderSubscriptionUpdate extends ResourceUpdate {
 	
+	frequency?: string | null
 	expires_at?: string | null
+	next_run_at?: string | null
 	_activate?: boolean | null
 	_deactivate?: boolean | null
 	_cancel?: boolean | null
-	
+
+	customer_payment_source?: CustomerPaymentSourceRel | null
+
 }
 
 
@@ -86,6 +103,11 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 		return this.resources.fetch<Market>({ type: 'markets' }, `order_subscriptions/${_orderSubscriptionId}/market`, params, options) as unknown as Market
 	}
 
+	async subscription_model(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SubscriptionModel> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
+		return this.resources.fetch<SubscriptionModel>({ type: 'subscription_models' }, `order_subscriptions/${_orderSubscriptionId}/subscription_model`, params, options) as unknown as SubscriptionModel
+	}
+
 	async source_order(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `order_subscriptions/${_orderSubscriptionId}/source_order`, params, options) as unknown as Order
@@ -96,9 +118,24 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 		return this.resources.fetch<Customer>({ type: 'customers' }, `order_subscriptions/${_orderSubscriptionId}/customer`, params, options) as unknown as Customer
 	}
 
-	async order_copies(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
+	async customer_payment_source(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
 		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
-		return this.resources.fetch<OrderCopy>({ type: 'order_copies' }, `order_subscriptions/${_orderSubscriptionId}/order_copies`, params, options) as unknown as ListResponse<OrderCopy>
+		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `order_subscriptions/${_orderSubscriptionId}/customer_payment_source`, params, options) as unknown as CustomerPaymentSource
+	}
+
+	async order_subscription_items(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscriptionItem>> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
+		return this.resources.fetch<OrderSubscriptionItem>({ type: 'order_subscription_items' }, `order_subscriptions/${_orderSubscriptionId}/order_subscription_items`, params, options) as unknown as ListResponse<OrderSubscriptionItem>
+	}
+
+	async order_factories(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderFactory>> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
+		return this.resources.fetch<OrderFactory>({ type: 'order_factories' }, `order_subscriptions/${_orderSubscriptionId}/order_factories`, params, options) as unknown as ListResponse<OrderFactory>
+	}
+
+	async recurring_order_copies(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<RecurringOrderCopy>> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
+		return this.resources.fetch<RecurringOrderCopy>({ type: 'recurring_order_copies' }, `order_subscriptions/${_orderSubscriptionId}/recurring_order_copies`, params, options) as unknown as ListResponse<RecurringOrderCopy>
 	}
 
 	async orders(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {

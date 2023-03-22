@@ -61,6 +61,7 @@ interface LineItem extends Resource {
 	tax_rate?: number | null
 	tax_breakdown?: object | null
 	item_type?: 'sku' | 'bundle' | 'shipment' | 'payment_method' | 'adjustment' | 'gift_card' | 'percentage_discount_promotion' | 'free_shipping_promotion' | 'free_gift_promotion' | 'fixed_price_promotion' | 'external_promotion' | 'fixed_amount_promotion' | null
+	frequency?: string | null
 
 	order?: Order | null
 	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku | null
@@ -86,6 +87,7 @@ interface LineItemCreate extends ResourceCreate {
 	name?: string | null
 	image_url?: string | null
 	item_type?: 'sku' | 'bundle' | 'shipment' | 'payment_method' | 'adjustment' | 'gift_card' | 'percentage_discount_promotion' | 'free_shipping_promotion' | 'free_gift_promotion' | 'fixed_price_promotion' | 'external_promotion' | 'fixed_amount_promotion' | null
+	frequency?: string | null
 
 	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel | null
@@ -101,6 +103,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	_external_price?: boolean | null
 	name?: string | null
 	image_url?: string | null
+	frequency?: string | null
 	
 }
 

@@ -1,0 +1,100 @@
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
+
+import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
+import type { Adjustment, AdjustmentType } from './adjustments'
+import type { Bundle, BundleType } from './bundles'
+import type { Sku, SkuType } from './skus'
+
+
+type OrderSubscriptionItemType = 'order_subscription_items'
+type OrderSubscriptionItemRel = ResourceRel & { type: OrderSubscriptionItemType }
+type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
+type AdjustmentRel = ResourceRel & { type: AdjustmentType }
+type BundleRel = ResourceRel & { type: BundleType }
+type SkuRel = ResourceRel & { type: SkuType }
+
+
+interface OrderSubscriptionItem extends Resource {
+	
+	readonly type: OrderSubscriptionItemType
+
+	quantity: number
+	unit_amount_cents?: number | null
+	unit_amount_float?: number | null
+	formatted_unit_amount?: string | null
+	total_amount_cents?: number | null
+	total_amount_float: number
+	formatted_total_amount?: string | null
+
+	order_subscription?: OrderSubscription | null
+	item?: Adjustment | Bundle | Sku | null
+
+}
+
+
+interface OrderSubscriptionItemCreate extends ResourceCreate {
+	
+	sku_code?: string | null
+	bundle_code?: string | null
+	quantity: number
+	unit_amount_cents?: number | null
+
+	order_subscription: OrderSubscriptionRel
+	item: AdjustmentRel | BundleRel | SkuRel
+
+}
+
+
+interface OrderSubscriptionItemUpdate extends ResourceUpdate {
+	
+	sku_code?: string | null
+	bundle_code?: string | null
+	quantity?: number | null
+	unit_amount_cents?: number | null
+	
+}
+
+
+class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
+
+	static readonly TYPE: OrderSubscriptionItemType = 'order_subscription_items' as const
+
+	async create(resource: OrderSubscriptionItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
+		return this.resources.create<OrderSubscriptionItemCreate, OrderSubscriptionItem>({ ...resource, type: OrderSubscriptionItems.TYPE }, params, options)
+	}
+
+	async update(resource: OrderSubscriptionItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
+		return this.resources.update<OrderSubscriptionItemUpdate, OrderSubscriptionItem>({ ...resource, type: OrderSubscriptionItems.TYPE }, params, options)
+	}
+
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: OrderSubscriptionItems.TYPE } : id, options)
+	}
+
+	async order_subscription(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
+		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_subscription_items/${_orderSubscriptionItemId}/order_subscription`, params, options) as unknown as OrderSubscription
+	}
+
+
+	isOrderSubscriptionItem(resource: any): resource is OrderSubscriptionItem {
+		return resource.type && (resource.type === OrderSubscriptionItems.TYPE)
+	}
+
+
+	relationship(id: string | ResourceId | null): OrderSubscriptionItemRel {
+		return ((id === null) || (typeof id === 'string')) ? { id, type: OrderSubscriptionItems.TYPE } : { id: id.id, type: OrderSubscriptionItems.TYPE }
+	}
+
+
+	type(): OrderSubscriptionItemType {
+		return OrderSubscriptionItems.TYPE
+	}
+
+}
+
+
+export default OrderSubscriptionItems
+
+export type { OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItemUpdate, OrderSubscriptionItemType }
