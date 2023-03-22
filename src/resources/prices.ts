@@ -5,6 +5,7 @@ import type { PriceList } from './price_lists'
 import type { Sku } from './skus'
 import type { PriceTier } from './price_tiers'
 import type { PriceVolumeTier } from './price_volume_tiers'
+import type { PriceFrequencyTier } from './price_frequency_tiers'
 import type { Attachment } from './attachments'
 
 
@@ -29,6 +30,7 @@ interface Price extends Resource {
 	sku?: Sku
 	price_tiers?: PriceTier[]
 	price_volume_tiers?: PriceVolumeTier[]
+	price_frequency_tiers?: PriceFrequencyTier[]
 	attachments?: Attachment[]
 
 }
@@ -103,6 +105,11 @@ class Prices extends ApiResource {
 	async price_volume_tiers(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceVolumeTier>> {
 		const _priceId = (priceId as Price).id || priceId as string
 		return this.resources.fetch<PriceVolumeTier>({ type: 'price_volume_tiers' }, `prices/${_priceId}/price_volume_tiers`, params, options) as unknown as ListResponse<PriceVolumeTier>
+	}
+
+	async price_frequency_tiers(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceFrequencyTier>> {
+		const _priceId = (priceId as Price).id || priceId as string
+		return this.resources.fetch<PriceFrequencyTier>({ type: 'price_frequency_tiers' }, `prices/${_priceId}/price_frequency_tiers`, params, options) as unknown as ListResponse<PriceFrequencyTier>
 	}
 
 	async attachments(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

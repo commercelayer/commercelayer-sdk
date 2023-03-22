@@ -29,6 +29,7 @@ describe('Markets resource', () => {
 			merchant: cl.merchants.relationship(TestData.id),
 			price_list: cl.price_lists.relationship(TestData.id),
 			inventory_model: cl.inventory_models.relationship(TestData.id),
+			subscription_model: cl.subscription_models.relationship(TestData.id),
 			tax_calculator: cl.tax_calculators.relationship(TestData.id),
 			customer_group: cl.customer_groups.relationship(TestData.id),
 		}
@@ -206,6 +207,25 @@ describe('Markets resource', () => {
 		})
 	
 		await cl[resourceType].inventory_model(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.subscription_model', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { subscription_models: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'subscription_model')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].subscription_model(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

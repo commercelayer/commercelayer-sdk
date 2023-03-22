@@ -58,6 +58,7 @@ interface LineItem extends Resource {
 	tax_rate?: number
 	tax_breakdown?: object
 	item_type?: string
+	frequency?: string
 
 	order?: Order
 	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku
@@ -83,6 +84,7 @@ interface LineItemCreate extends ResourceCreate {
 	name?: string
 	image_url?: string
 	item_type?: string
+	frequency?: string
 
 	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel
@@ -98,6 +100,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	_external_price?: boolean
 	name?: string
 	image_url?: string
+	frequency?: string
 	
 }
 

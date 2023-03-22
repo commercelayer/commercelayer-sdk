@@ -64,6 +64,8 @@ export { default as Markets } from './resources/markets'
 export { default as Merchants } from './resources/merchants'
 export { default as OrderAmountPromotionRules } from './resources/order_amount_promotion_rules'
 export { default as OrderCopies } from './resources/order_copies'
+export { default as OrderFactories } from './resources/order_factories'
+export { default as OrderSubscriptionItems } from './resources/order_subscription_items'
 export { default as OrderSubscriptions } from './resources/order_subscriptions'
 export { default as OrderValidationRules } from './resources/order_validation_rules'
 export { default as Orders } from './resources/orders'
@@ -76,12 +78,14 @@ export { default as PaymentMethods } from './resources/payment_methods'
 export { default as PaypalGateways } from './resources/paypal_gateways'
 export { default as PaypalPayments } from './resources/paypal_payments'
 export { default as PercentageDiscountPromotions } from './resources/percentage_discount_promotions'
+export { default as PriceFrequencyTiers } from './resources/price_frequency_tiers'
 export { default as PriceLists } from './resources/price_lists'
 export { default as PriceTiers } from './resources/price_tiers'
 export { default as PriceVolumeTiers } from './resources/price_volume_tiers'
 export { default as Prices } from './resources/prices'
 export { default as PromotionRules } from './resources/promotion_rules'
 export { default as Promotions } from './resources/promotions'
+export { default as RecurringOrderCopies } from './resources/recurring_order_copies'
 export { default as Refunds } from './resources/refunds'
 export { default as ReturnLineItems } from './resources/return_line_items'
 export { default as Returns } from './resources/returns'
@@ -104,6 +108,7 @@ export { default as StockLocations } from './resources/stock_locations'
 export { default as StockTransfers } from './resources/stock_transfers'
 export { default as StripeGateways } from './resources/stripe_gateways'
 export { default as StripePayments } from './resources/stripe_payments'
+export { default as SubscriptionModels } from './resources/subscription_models'
 export { default as TaxCalculators } from './resources/tax_calculators'
 export { default as TaxCategories } from './resources/tax_categories'
 export { default as TaxRules } from './resources/tax_rules'
@@ -177,6 +182,8 @@ export type ResourceTypeLock =
 |	'merchants'
 |	'order_amount_promotion_rules'
 |	'order_copies'
+|	'order_factories'
+|	'order_subscription_items'
 |	'order_subscriptions'
 |	'order_validation_rules'
 |	'orders'
@@ -189,12 +196,14 @@ export type ResourceTypeLock =
 |	'paypal_gateways'
 |	'paypal_payments'
 |	'percentage_discount_promotions'
+|	'price_frequency_tiers'
 |	'price_lists'
 |	'price_tiers'
 |	'price_volume_tiers'
 |	'prices'
 |	'promotion_rules'
 |	'promotions'
+|	'recurring_order_copies'
 |	'refunds'
 |	'return_line_items'
 |	'returns'
@@ -217,6 +226,7 @@ export type ResourceTypeLock =
 |	'stock_transfers'
 |	'stripe_gateways'
 |	'stripe_payments'
+|	'subscription_models'
 |	'tax_calculators'
 |	'tax_categories'
 |	'tax_rules'
@@ -290,6 +300,8 @@ export const resourceList = [
 	'merchants',
 	'order_amount_promotion_rules',
 	'order_copies',
+	'order_factories',
+	'order_subscription_items',
 	'order_subscriptions',
 	'order_validation_rules',
 	'orders',
@@ -302,12 +314,14 @@ export const resourceList = [
 	'paypal_gateways',
 	'paypal_payments',
 	'percentage_discount_promotions',
+	'price_frequency_tiers',
 	'price_lists',
 	'price_tiers',
 	'price_volume_tiers',
 	'prices',
 	'promotion_rules',
 	'promotions',
+	'recurring_order_copies',
 	'refunds',
 	'return_line_items',
 	'returns',
@@ -330,6 +344,7 @@ export const resourceList = [
 	'stock_transfers',
 	'stripe_gateways',
 	'stripe_payments',
+	'subscription_models',
 	'tax_calculators',
 	'tax_categories',
 	'tax_rules',

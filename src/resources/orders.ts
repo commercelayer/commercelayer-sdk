@@ -26,7 +26,9 @@ import type { Capture } from './captures'
 import type { Refund } from './refunds'
 import type { Return } from './returns'
 import type { OrderSubscription } from './order_subscriptions'
+import type { OrderFactory } from './order_factories'
 import type { OrderCopy } from './order_copies'
+import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
@@ -148,6 +150,7 @@ interface Order extends Resource {
 	refreshed_at?: string
 	archived_at?: string
 	expires_at?: string
+	subscription_created_at?: string
 
 	market?: Market
 	customer?: Customer
@@ -168,7 +171,9 @@ interface Order extends Resource {
 	refunds?: Refund[]
 	returns?: Return[]
 	order_subscriptions?: OrderSubscription[]
+	order_factories?: OrderFactory[]
 	order_copies?: OrderCopy[]
+	recurring_order_copies?: RecurringOrderCopy[]
 	attachments?: Attachment[]
 	events?: Event[]
 
@@ -240,6 +245,7 @@ interface OrderUpdate extends ResourceUpdate {
 	_save_billing_address_to_customer_address_book?: boolean
 	_refresh?: boolean
 	_validate?: boolean
+	_create_subscriptions?: boolean
 
 	market?: MarketRel
 	customer?: CustomerRel
@@ -361,9 +367,19 @@ class Orders extends ApiResource {
 		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `orders/${_orderId}/order_subscriptions`, params, options) as unknown as ListResponse<OrderSubscription>
 	}
 
+	async order_factories(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderFactory>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<OrderFactory>({ type: 'order_factories' }, `orders/${_orderId}/order_factories`, params, options) as unknown as ListResponse<OrderFactory>
+	}
+
 	async order_copies(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<OrderCopy>({ type: 'order_copies' }, `orders/${_orderId}/order_copies`, params, options) as unknown as ListResponse<OrderCopy>
+	}
+
+	async recurring_order_copies(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<RecurringOrderCopy>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<RecurringOrderCopy>({ type: 'recurring_order_copies' }, `orders/${_orderId}/recurring_order_copies`, params, options) as unknown as ListResponse<RecurringOrderCopy>
 	}
 
 	async attachments(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

@@ -69,6 +69,28 @@ describe('OrderCopies resource', () => {
   /* spec.retrieve.stop */
 
 
+  /* spec.update.start */
+  it(resourceType + '.update', async () => {
+
+    const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { order_copies: CommonData.paramsFields } }
+    const resData = { id: TestData.id, ...attributes}
+
+    const intId = cl.addRequestInterceptor((config) => {
+      expect(config.method).toBe('patch')
+      checkCommon(config, resourceType, resData.id, currentAccessToken)
+      checkCommonData(config, resourceType, attributes, resData.id)
+      return interceptRequest()
+    })
+
+    await cl[resourceType].update(resData, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request', intId))
+
+  })
+  /* spec.update.stop */
+
+
   /* spec.delete.start */
   it(resourceType + '.delete', async () => {
 
@@ -166,25 +188,6 @@ describe('OrderCopies resource', () => {
 	})
 	
 
-	it(resourceType + '.order_subscription', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { order_subscriptions: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'order_subscription')
-			checkCommonParams(config, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].order_subscription(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
-	
-	})
-	
-
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -198,6 +201,25 @@ describe('OrderCopies resource', () => {
 		})
 	
 		await cl[resourceType].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.order_subscription', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { order_subscriptions: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'order_subscription')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].order_subscription(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

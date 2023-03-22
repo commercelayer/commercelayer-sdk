@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Price } from './prices'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 
 
 type PriceVolumeTierRel = ResourceRel & { type: typeof PriceVolumeTiers.TYPE }
@@ -19,6 +20,7 @@ interface PriceVolumeTier extends Resource {
 
 	price?: Price
 	attachments?: Attachment[]
+	events?: Event[]
 
 }
 
@@ -78,6 +80,11 @@ class PriceVolumeTiers extends ApiResource {
 	async attachments(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_volume_tiers/${_priceVolumeTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `price_volume_tiers/${_priceVolumeTierId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 
