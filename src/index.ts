@@ -19,3 +19,6 @@ export type { RequestObj, ResponseObj, ErrorObj, HeadersObj } from './intercepto
 
 // Error types
 export type { SdkError, ApiError, ErrorType } from './error'
+
+// Resource types
+export type { ResourceRetrievable, ResourceListable, ResourceCreatable, ResourceUpdatable, ResourceDeletable } from './api'

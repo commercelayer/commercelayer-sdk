@@ -31,27 +31,26 @@ interface ResourceId extends ResourceType {
 }
 
 
-interface Resource extends ResourceId {
-	reference?: string;
-	reference_origin?: string;
+interface ResourceBase {
+	reference?: string
+	reference_origin?: string
 	metadata?: Metadata
+}
+
+
+interface Resource extends ResourceBase, ResourceId {
 	readonly created_at: string
 	readonly updated_at: string
 }
 
 
-interface ResourceCreate {
-	reference?: string;
-	reference_origin?: string;
-	metadata?: Metadata
+interface ResourceCreate extends ResourceBase {
+	
 }
 
 
-interface ResourceUpdate {
+interface ResourceUpdate extends ResourceBase {
 	readonly id: string
-	reference?: string;
-	reference_origin?: string;
-	metadata?: Metadata
 }
 
 

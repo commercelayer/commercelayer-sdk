@@ -10,11 +10,14 @@ import fixSchema from './fixer'
 const Inflector = require('inflector-js')
 
 
+type OperationType = 'retrieve' | 'list' | 'create' | 'update' | 'delete'
 
 type ApiRes = {
-	type: string;
-	apiClass: string;
-	models: Array<String>;
+	type: string
+	apiClass: string
+	models: Array<String>
+	singleton: boolean
+	operations: Array<OperationType>
 }
 
 
@@ -106,13 +109,21 @@ const generate = async (localSchema?: boolean) => {
 		writeFileSync(`${testDir}/${type}.spec.ts`, tplSpec)
 		console.log('Generated spec ' + name)
 
+
+		const models = Object.keys(res.components)
+		const singleton = Object.values(res.operations).some(op => op.singleton)
+		const operations = Object.keys(res.operations).filter(op => ['retrieve', 'list', 'create', 'update', 'delete'].includes(op)) as OperationType[]
+
 		resources[type] = {
 			type,
 			apiClass: name,
-			models: Object.keys(res.components)
+			models,
+			singleton,
+			operations: singleton? [] : operations
 		}
 
 	})
+
 
 	updateApiResources(resources)
 	updateSdkInterfaces(resources)
@@ -252,15 +263,32 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const expTplIdx = expTplLine.offset + '##__API_RESOURCES_TEMPLATE::'.length + 1
 	const expTpl = expTplLine.text.substring(expTplIdx)
 
+
 	const exports: string[] = [copyrightHeader(templates.header)]
 	const types: string[] = []
+
+	const singletons: string[] = []
+	const listables: string[] = []
+	const creatables: string[] = []
+	const updatables: string[] = []
+	const deletables: string[] = []
+
 	Object.entries(resources).forEach(([type, res]) => {
+
 		let exp = expTpl
 		exp = exp.replace(/##__TAB__##/g, '\t')
 		exp = exp.replace('##__RESOURCE_TYPE__##', type)
 		exp = exp.replace('##__RESOURCE_CLASS__##', res.apiClass)
 		exports.push(exp)
-		types.push(`\t'${type}'`)
+		const tabType = `\t'${type}'`
+		types.push(tabType)
+
+		if (res.singleton) singletons.push(tabType)
+		if (res.operations.includes('list')) listables.push(tabType)
+		if (res.operations.includes('create')) creatables.push(tabType)
+		if (res.operations.includes('update')) updatables.push(tabType)
+		if (res.operations.includes('delete')) deletables.push(tabType)
+
 	})
 
 	const expStartIdx = findLine('##__API_RESOURCES_START__##', lines).index + 2
@@ -282,6 +310,22 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 		Object.keys(resources).map(t => `\t${t}: { name: '${Inflector.singularize(t)}', type: '${t}', api: '${t}' }`).join(',\n')
 	)
 	*/
+
+	const rsStartIdx = findLine('##__API_RESOURCE_SINGLETON_START__##', lines).index + 1
+	const rsStopIdx = findLine('##__API_RESOURCE_SINGLETON_STOP__##', lines).index
+	lines.splice(rsStartIdx, rsStopIdx - rsStartIdx, singletons.join('\n|'))
+
+	const rcStartIdx = findLine('##__API_RESOURCE_CREATABLE_START__##', lines).index + 1
+	const rcStopIdx = findLine('##__API_RESOURCE_CREATABLE_STOP__##', lines).index
+	lines.splice(rcStartIdx, rcStopIdx - rcStartIdx, creatables.join('\n|'))
+
+	const ruStartIdx = findLine('##__API_RESOURCE_UPDATABLE_START__##', lines).index + 1
+	const ruStopIdx = findLine('##__API_RESOURCE_UPDATABLE_STOP__##', lines).index
+	lines.splice(ruStartIdx, ruStopIdx - ruStartIdx, updatables.join('\n|'))
+
+	const rdStartIdx = findLine('##__API_RESOURCE_DELETABLE_START__##', lines).index + 1
+	const rdStopIdx = findLine('##__API_RESOURCE_DELETABLE_STOP__##', lines).index
+	lines.splice(rdStartIdx, rdStopIdx - rdStartIdx, deletables.join('\n|'))
 
 
 	writeFileSync('src/api.ts', lines.join('\n'), { encoding: 'utf-8' })
