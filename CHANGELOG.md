@@ -1,3 +1,10 @@
+# [5.0.0-beta.9](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.8...v5.0.0-beta.9) (2023-03-22)
+
+
+### Features
+
+* **core:** add resource types based on available operations ([e69d7cb](https://github.com/commercelayer/commercelayer-sdk/commit/e69d7cbb6048251bc7c6691da71d5dca5439104e))
+
 # [5.0.0-beta.8](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.7...v5.0.0-beta.8) (2023-03-21)
 
 
