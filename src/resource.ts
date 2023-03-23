@@ -2,14 +2,15 @@
 import ApiClient from './client'
 import type { ApiClientInitConfig } from './client'
 import { denormalize, normalize } from './jsonapi'
-import type { QueryParamsRetrieve, QueryParamsList, QueryFilter } from './query'
+import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } from './query'
 import { generateQueryStringParams, isParamsList } from './query'
 import type { ResourceTypeLock } from './api'
 import config from './config'
 import type { InterceptorManager } from './interceptor'
 
 import Debug from './debug'
-import { QueryParams } from '.'
+
+
 const debug = Debug('resource')
 
 
@@ -32,8 +33,8 @@ interface ResourceId extends ResourceType {
 
 
 interface ResourceBase {
-	reference?: string
-	reference_origin?: string
+	reference?: string | null
+	reference_origin?: string | null
 	metadata?: Metadata
 }
 
