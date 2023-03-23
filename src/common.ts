@@ -1,6 +1,6 @@
 
 import { resourceList } from './api'
-import type { Resource, ResourceId, ResourceType } from './resource'
+import type { ResourceId, ResourceType } from './resource'
 
 const isResourceId = (resource: any): resource is ResourceId => {
 	return (resource?.type && resource.id) && resourceList.includes(resource.type)
