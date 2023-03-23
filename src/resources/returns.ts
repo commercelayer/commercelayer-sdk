@@ -21,7 +21,7 @@ interface Return extends Resource {
 	readonly type: ReturnType
 
 	number?: string | null
-	status?: 'draft' | 'requested' | 'approved' | 'cancelled' | 'shipped' | 'rejected' | 'received' | null
+	status: 'draft' | 'requested' | 'approved' | 'cancelled' | 'shipped' | 'rejected' | 'received'
 	customer_email?: string | null
 	skus_count?: number | null
 	approved_at?: string | null

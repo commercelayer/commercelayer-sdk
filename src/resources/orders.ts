@@ -57,9 +57,9 @@ interface Order extends Resource {
 
 	number?: number | null
 	autorefresh?: boolean | null
-	status?: 'draft' | 'pending' | 'placed' | 'approved' | 'cancelled' | null
-	payment_status?: 'unpaid' | 'authorized' | 'partially_authorized' | 'paid' | 'partially_paid' | 'voided' | 'partially_voided' | 'refunded' | 'partially_refunded' | 'free' | null
-	fulfillment_status?: 'unfulfilled' | 'in_progress' | 'fulfilled' | 'not_required' | null
+	status: 'draft' | 'pending' | 'placed' | 'approved' | 'cancelled'
+	payment_status: 'unpaid' | 'authorized' | 'partially_authorized' | 'paid' | 'partially_paid' | 'voided' | 'partially_voided' | 'refunded' | 'partially_refunded' | 'free'
+	fulfillment_status: 'unfulfilled' | 'in_progress' | 'fulfilled' | 'not_required'
 	guest?: boolean | null
 	editable?: boolean | null
 	customer_email?: string | null

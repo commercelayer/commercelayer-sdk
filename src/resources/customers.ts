@@ -23,7 +23,7 @@ interface Customer extends Resource {
 	readonly type: CustomerType
 
 	email: string
-	status?: 'prospect' | 'acquired' | 'repeat' | null
+	status: 'prospect' | 'acquired' | 'repeat'
 	has_password?: boolean | null
 
 	customer_group?: CustomerGroup | null

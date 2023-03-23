@@ -14,7 +14,7 @@ interface Import extends Resource {
 
 	resource_type: string
 	parent_resource_id?: string | null
-	status?: 'pending' | 'in_progress' | 'interrupted' | 'completed' | null
+	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
 	started_at?: string | null
 	completed_at?: string | null
 	interrupted_at?: string | null

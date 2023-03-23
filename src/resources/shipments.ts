@@ -25,7 +25,7 @@ interface Shipment extends Resource {
 	readonly type: ShipmentType
 
 	number?: string | null
-	status?: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped' | null
+	status: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped'
 	currency_code?: string | null
 	cost_amount_cents?: number | null
 	cost_amount_float?: number | null

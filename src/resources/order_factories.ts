@@ -13,7 +13,7 @@ interface OrderFactory extends Resource {
 	
 	readonly type: OrderFactoryType
 
-	status?: string | null
+	status: 'pending' | 'in_progress' | 'failed' | 'completed'
 	started_at?: string | null
 	completed_at?: string | null
 	failed_at?: string | null

@@ -60,7 +60,7 @@ interface LineItem extends Resource {
 	discount_breakdown?: object | null
 	tax_rate?: number | null
 	tax_breakdown?: object | null
-	item_type?: 'sku' | 'bundle' | 'shipment' | 'payment_method' | 'adjustment' | 'gift_card' | 'percentage_discount_promotion' | 'free_shipping_promotion' | 'free_gift_promotion' | 'fixed_price_promotion' | 'external_promotion' | 'fixed_amount_promotion' | null
+	item_type?: 'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
 	frequency?: string | null
 
 	order?: Order | null
@@ -86,7 +86,7 @@ interface LineItemCreate extends ResourceCreate {
 	unit_amount_cents?: number | null
 	name?: string | null
 	image_url?: string | null
-	item_type?: 'sku' | 'bundle' | 'shipment' | 'payment_method' | 'adjustment' | 'gift_card' | 'percentage_discount_promotion' | 'free_shipping_promotion' | 'free_gift_promotion' | 'fixed_price_promotion' | 'external_promotion' | 'fixed_amount_promotion' | null
+	item_type?: 'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
 	frequency?: string | null
 
 	order: OrderRel

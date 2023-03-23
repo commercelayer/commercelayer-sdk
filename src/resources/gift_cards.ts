@@ -17,7 +17,7 @@ interface GiftCard extends Resource {
 	
 	readonly type: GiftCardType
 
-	status?: 'draft' | 'inactive' | 'active' | 'redeemed' | null
+	status: 'draft' | 'inactive' | 'active' | 'redeemed'
 	code?: string | null
 	currency_code?: string | null
 	initial_balance_cents: number

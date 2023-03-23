@@ -14,7 +14,7 @@ interface Export extends Resource {
 
 	resource_type: string
 	format?: string | null
-	status?: 'pending' | 'in_progress' | 'completed' | null
+	status: 'pending' | 'in_progress' | 'completed'
 	includes?: string[] | null
 	filters?: object | null
 	dry_data?: boolean | null

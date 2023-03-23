@@ -21,7 +21,7 @@ interface StockTransfer extends Resource {
 	readonly type: StockTransferType
 
 	sku_code?: string | null
-	status?: 'draft' | 'upcoming' | 'picking' | 'in_transit' | 'completed' | 'cancelled' | null
+	status: 'draft' | 'upcoming' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
 	quantity: number
 	completed_at?: string | null
 	cancelled_at?: string | null

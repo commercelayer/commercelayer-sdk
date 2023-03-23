@@ -13,7 +13,7 @@ interface Cleanup extends Resource {
 	readonly type: CleanupType
 
 	resource_type: string
-	status?: 'pending' | 'in_progress' | 'interrupted' | 'completed' | null
+	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
 	started_at?: string | null
 	completed_at?: string | null
 	interrupted_at?: string | null

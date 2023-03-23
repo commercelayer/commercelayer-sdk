@@ -16,7 +16,7 @@ interface RecurringOrderCopy extends Resource {
 	
 	readonly type: RecurringOrderCopyType
 
-	status?: string | null
+	status: 'pending' | 'in_progress' | 'failed' | 'completed'
 	started_at?: string | null
 	completed_at?: string | null
 	failed_at?: string | null

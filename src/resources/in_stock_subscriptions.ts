@@ -18,7 +18,7 @@ interface InStockSubscription extends Resource {
 	
 	readonly type: InStockSubscriptionType
 
-	status?: 'active' | 'inactive' | 'notified' | null
+	status: 'active' | 'inactive' | 'notified'
 	customer_email?: string | null
 	sku_code?: string | null
 	stock_threshold?: number | null

@@ -15,7 +15,7 @@ interface OrderCopy extends Resource {
 	
 	readonly type: OrderCopyType
 
-	status?: 'pending' | 'in_progress' | 'failed' | 'completed' | null
+	status: 'pending' | 'in_progress' | 'failed' | 'completed'
 	started_at?: string | null
 	completed_at?: string | null
 	failed_at?: string | null

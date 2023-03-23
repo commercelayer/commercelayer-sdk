@@ -24,7 +24,7 @@ interface OrderSubscription extends Resource {
 	readonly type: OrderSubscriptionType
 
 	number?: string | null
-	status?: 'draft' | 'inactive' | 'active' | 'cancelled' | null
+	status: 'draft' | 'inactive' | 'active' | 'cancelled'
 	frequency: string
 	activate_by_source_order?: boolean | null
 	customer_email?: string | null
