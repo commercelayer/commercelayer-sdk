@@ -1,3 +1,10 @@
+# [5.0.0-beta.12](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.11...v5.0.0-beta.12) (2023-03-23)
+
+
+### Bug Fixes
+
+* **core:** fix nullable common attributes ([d7b1911](https://github.com/commercelayer/commercelayer-sdk/commit/d7b191152e4c4522a90d6fdcaebdec4a762311f9))
+
 # [5.0.0-beta.11](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.10...v5.0.0-beta.11) (2023-03-22)
 
 
