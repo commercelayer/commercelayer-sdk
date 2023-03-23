@@ -4,6 +4,7 @@ import type { ResourceType } from "./resource"
 import Debug from './debug'
 const debug = Debug('query')
 
+
 type QueryFilter = { [key: string]: string | number | boolean }
 
 

@@ -13,6 +13,9 @@ const isResourceType = (resource: any): resource is ResourceType => {
 
 export { isResourceId, isResourceType }
 
+
+export type ObjectType = { [key: string]: any }
+
 /*
 // Nullable types
 type StringNullable = string | null

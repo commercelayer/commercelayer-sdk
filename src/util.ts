@@ -1,5 +1,5 @@
+import type { ObjectType } from "./common";
 
-type ObjectType = { [key: string]: any }
 
 
 const sleep = async (ms: number): Promise<NodeJS.Timeout> => {

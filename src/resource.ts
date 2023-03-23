@@ -9,8 +9,6 @@ import config from './config'
 import type { InterceptorManager } from './interceptor'
 
 import Debug from './debug'
-
-
 const debug = Debug('resource')
 
 
