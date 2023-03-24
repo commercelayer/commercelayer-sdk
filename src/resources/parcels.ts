@@ -35,9 +35,9 @@ interface Parcel extends Resource {
 	shipping_label_size?: string | null
 	shipping_label_resolution?: string | null
 	tracking_number?: string | null
-	tracking_status: string
-	tracking_status_detail: string
-	tracking_status_updated_at: string
+	tracking_status?: string | null
+	tracking_status_detail?: string | null
+	tracking_status_updated_at?: string | null
 	tracking_details?: string | null
 	carrier_weight_oz?: string | null
 	signed_by?: string | null
