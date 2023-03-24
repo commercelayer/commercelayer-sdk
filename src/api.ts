@@ -373,22 +373,29 @@ export const resourceMap: { [res: string]: ResourceInfo } = {
 */
 
 
+// Retrievable resources
+export type RetrievableResourceType = ResourceTypeLock
 
-export type ResourceRetrievable = {
-	type: ResourceTypeLock
+export type RetrievableResource = {
+	type: RetrievableResourceType
 }
 
-export type ResourceListable = {
-	type: Exclude<ResourceTypeLock,
+
+// Listable resources
+export type ListableResourceType = Exclude<ResourceTypeLock,
 	// ##__API_RESOURCE_SINGLETON_START__##
 	'application'
 |	'organization'
 	// ##__API_RESOURCE_SINGLETON_STOP__##
-	>
+>
+
+export type ListableResource = {
+	type: ListableResourceType
 }
 
-export type ResourceCreatable = {
-	type:
+
+// Creatable resources
+export type CreatableResourceType =
 	// ##__API_RESOURCE_CREATABLE_START__##
 	'addresses'
 |	'adjustments'
@@ -483,10 +490,14 @@ export type ResourceCreatable = {
 |	'webhooks'
 |	'wire_transfers'
 	// ##__API_RESOURCE_CREATABLE_STOP__##
+
+export type CreatableResource = {
+	type: CreatableResourceType
 }
 
-export type ResourceUpdatable = {
-	type:
+
+// Updatable resources
+export type UpdatableResourceType =
 	// ##__API_RESOURCE_UPDATABLE_START__##
 	'addresses'
 |	'adjustments'
@@ -581,10 +592,14 @@ export type ResourceUpdatable = {
 |	'webhooks'
 |	'wire_transfers'
 	// ##__API_RESOURCE_UPDATABLE_STOP__##
+
+export type UpdatableResource = {
+	type: UpdatableResourceType
 }
 
-export type ResourceDeletable = {
-	type:
+
+// Deletable resources
+export type DeletableResourceType =
 	// ##__API_RESOURCE_DELETABLE_START__##
 	'addresses'
 |	'adjustments'
@@ -679,4 +694,7 @@ export type ResourceDeletable = {
 |	'webhooks'
 |	'wire_transfers'
 // ##__API_RESOURCE_DELETABLE_STOP__##
+
+export type DeletableResource = {
+	type: DeletableResourceType
 }
