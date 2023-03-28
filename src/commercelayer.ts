@@ -3,8 +3,7 @@ import * as api from './api'
 import type { ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj } from './interceptor'
 import { CommerceLayerStatic } from './static'
-import ResourceAdapter from './resource'
-import type { ResourcesInitConfig } from './resource'
+import ResourceAdapter, { type ResourcesInitConfig } from './resource'
 
 import Debug from './debug'
 const debug = Debug('commercelayer')
@@ -15,7 +14,7 @@ const OPEN_API_SCHEMA_VERSION = '4.1.3'
 export { OPEN_API_SCHEMA_VERSION }
 
 
-type SdkConfig = {}
+type SdkConfig = Record<string, unknown>
 
 type CommerceLayerInitConfig = SdkConfig & ResourcesInitConfig
 type CommerceLayerConfig = Partial<CommerceLayerInitConfig>
@@ -314,7 +313,7 @@ class CommerceLayerClient {
 	}
 
 	removeInterceptor(type: InterceptorType, id: number): void {
-		return this.#adapter.interceptors[type].eject(id)
+		this.#adapter.interceptors[type].eject(id)
 	}
 
 
@@ -341,7 +340,7 @@ class CommerceLayerClient {
 
 	removeRawResponseReader(reader: number | RawResponseReader): void {
 		const id = (typeof reader === 'number') ? reader : reader?.id
-		if (id && (id >= 0)) return this.removeInterceptor('response', id)
+		if (id && (id >= 0)) this.removeInterceptor('response', id)
 	}
 
 }

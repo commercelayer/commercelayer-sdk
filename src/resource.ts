@@ -1,6 +1,5 @@
 
-import ApiClient from './client'
-import type { ApiClientInitConfig } from './client'
+import ApiClient, { type ApiClientInitConfig } from './client'
 import { denormalize, normalize } from './jsonapi'
 import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } from './query'
 import { generateQueryStringParams, isParamsList } from './query'
@@ -17,7 +16,7 @@ type ResourceNull = { id: null } & ResourceType
 type ResourceRel = ResourceId | ResourceNull
 
 
-type Metadata = { [key: string]: any }
+type Metadata = Record<string, any>
 
 
 interface ResourceType {
@@ -302,4 +301,5 @@ abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 export default ResourceAdapter
 
-export { ApiResource, ApiSingleton, ResourcesConfig, ResourcesInitConfig }
+export { ApiResource, ApiSingleton }
+export type { ResourcesConfig, ResourcesInitConfig }

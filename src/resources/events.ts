@@ -1,4 +1,5 @@
-import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsList } from '../query'
 
 import type { EventCallback } from './event_callbacks'

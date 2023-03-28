@@ -1,4 +1,5 @@
-import { ##__RESOURCE_MODEL_TYPE__##, ##__RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__## } from '../resource'
+import { ##__RESOURCE_MODEL_TYPE__## } from '../resource'
+import type { ##__RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__## } from '../resource'
 ##__IMPORT_QUERY_MODELS__##
 
 ##__IMPORT_RESOURCE_MODELS__##

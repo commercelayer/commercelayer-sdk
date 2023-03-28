@@ -12,7 +12,7 @@ export { CommerceLayerStatic } from './static'
 export type { QueryParamsRetrieve, QueryParamsList, QueryParams } from './query'
 
 // Resource model types
-export * from './model'
+export type * from './model'
 // Typescript 5! --> export type * from './model'
 
 // Raw response reader and request/response interceptors

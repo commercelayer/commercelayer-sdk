@@ -5,17 +5,17 @@ import Debug from './debug'
 const debug = Debug('query')
 
 
-type QueryFilter = { [key: string]: string | number | boolean }
+type QueryFilter = Record<string, string | number | boolean>
 
 
 interface QueryParamsRetrieve {
 	include?: string[]
-	fields?: string[] | { [key: string]: string[] }
+	fields?: string[] | Record<string, string[]>
 }
 
 
 interface QueryParamsList extends QueryParamsRetrieve {
-	sort?: string[] | { [key: string]: 'asc' | 'desc' }
+	sort?: string[] | Record<string, 'asc' | 'desc'>
 	filters?: QueryFilter
 	pageNumber?: number
 	pageSize?: number
@@ -23,7 +23,7 @@ interface QueryParamsList extends QueryParamsRetrieve {
 
 type QueryParams = QueryParamsRetrieve | QueryParamsList
 
-export { QueryParamsRetrieve, QueryParamsList, QueryParams, QueryFilter }
+export type { QueryParamsRetrieve, QueryParamsList, QueryParams, QueryFilter }
 
 
 
@@ -32,11 +32,11 @@ const isParamsList = (params: any): params is QueryParamsList => {
 }
 
 
-const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: string | ResourceType): { [key: string]: string } => {
+const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: string | ResourceType): Record<string, string> => {
 
 	debug('generate query string params: %O, %O', params, res)
 
-	const qp: { [key: string]: string } = {}
+	const qp: Record<string, string> = {}
 	if (!params) return qp
 
 	// Include

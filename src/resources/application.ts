@@ -1,4 +1,5 @@
-import { ApiSingleton, Resource, ResourceId, ResourceRel } from '../resource'
+import { ApiSingleton } from '../resource'
+import type { Resource, ResourceId, ResourceRel } from '../resource'
 
 
 

@@ -1,5 +1,5 @@
 
-import axios, { AxiosInstance, AxiosProxyConfig, Method } from 'axios'
+import axios, { type AxiosInstance, type AxiosProxyConfig, type Method } from 'axios'
 import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
@@ -51,7 +51,7 @@ type ProxyConfig = AxiosProxyConfig | false
 // Subset of AxiosRequestConfig
 type RequestConfig = {
 	timeout?: number;
-	params?: { [key: string]: string | number | boolean };
+	params?: Record<string, string | number | boolean>;
 	httpAgent?: HttpAgent;
 	httpsAgent?: HttpsAgent;
 	proxy?: ProxyConfig;
@@ -161,4 +161,4 @@ class ApiClient {
 
 export default ApiClient
 
-export { ApiClientInitConfig, ApiClientConfig, RequestConfig }
+export type { ApiClientInitConfig, ApiClientConfig, RequestConfig }

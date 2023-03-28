@@ -1,4 +1,5 @@
-import { ApiResource, Resource, ResourceId, ResourceRel } from '../resource'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourceRel } from '../resource'
 
 
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'

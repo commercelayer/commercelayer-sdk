@@ -1,4 +1,5 @@
-import { ApiResource, Resource, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { Webhook } from './webhooks'
