@@ -1,3 +1,10 @@
+# [5.0.0-beta.16](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.15...v5.0.0-beta.16) (2023-03-28)
+
+
+### Bug Fixes
+
+* **core:** fix eslint errors for typescript 5 ([b4435ba](https://github.com/commercelayer/commercelayer-sdk/commit/b4435bad1455e9c274fe26838c552d8118b60904))
+
 # [5.0.0-beta.15](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.14...v5.0.0-beta.15) (2023-03-24)
 
 
