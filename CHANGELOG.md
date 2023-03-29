@@ -1,3 +1,10 @@
+# [5.0.0-beta.17](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.16...v5.0.0-beta.17) (2023-03-29)
+
+
+### Bug Fixes
+
+* **core:** update license ([c20890a](https://github.com/commercelayer/commercelayer-sdk/commit/c20890ae1d4402cd8937b2caf22294e278947051))
+
 # [5.0.0-beta.16](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.15...v5.0.0-beta.16) (2023-03-28)
 
 
