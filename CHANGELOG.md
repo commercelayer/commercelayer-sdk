@@ -1,3 +1,10 @@
+# [5.0.0-beta.19](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.18...v5.0.0-beta.19) (2023-03-30)
+
+
+### Bug Fixes
+
+* **doc:** update readme ([f268e83](https://github.com/commercelayer/commercelayer-sdk/commit/f268e83febbb6bb5201c0b1b8fd0e3babb9b3d22))
+
 # [5.0.0-beta.18](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.17...v5.0.0-beta.18) (2023-03-29)
 
 
