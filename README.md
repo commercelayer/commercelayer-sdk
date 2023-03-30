@@ -280,6 +280,23 @@ In general:
 ℹ️ Check our API reference for more information on how to [fetch relationships](https://docs.commercelayer.io/core/fetching-relationships).
 </details>
 
+<details>
+<summary>How to count resources</summary>
+<br />
+
+Many times you simply need to count how many resources exist with
+certain characteristics. You can then call the special `count`
+function passing a filter to get as result the total number of
+resources.
+
+```javascript
+// Get the total number of placed orders
+const placedOrders = cl.orders.count({ filters: { status_eq: 'placed' } })
+
+```
+
+</details>
+
 ### Update
 
 <details>
