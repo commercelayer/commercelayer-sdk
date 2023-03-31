@@ -13,7 +13,6 @@ export type { QueryParamsRetrieve, QueryParamsList, QueryParams } from './query'
 
 // Resource model types
 export type * from './model'
-// Typescript 5! --> export type * from './model'
 
 // Raw response reader and request/response interceptors
 export type { RequestObj, ResponseObj, ErrorObj, HeadersObj } from './interceptor'
