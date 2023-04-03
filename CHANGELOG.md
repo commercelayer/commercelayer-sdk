@@ -1,3 +1,10 @@
+# [5.0.0-beta.21](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.20...v5.0.0-beta.21) (2023-04-03)
+
+
+### Bug Fixes
+
+* **core:** update dependencies ([7731f56](https://github.com/commercelayer/commercelayer-sdk/commit/7731f56c03de98364b07ff1f00a35b157af5f2f4))
+
 # [5.0.0-beta.20](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0-beta.19...v5.0.0-beta.20) (2023-03-31)
 
 
