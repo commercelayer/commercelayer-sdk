@@ -1,18 +1,22 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 
 
-type AdjustmentRel = ResourceRel & { type: typeof Adjustments.TYPE }
+type AdjustmentType = 'adjustments'
+type AdjustmentRel = ResourceRel & { type: AdjustmentType }
 
 
 interface Adjustment extends Resource {
 	
-	name?: string
-	currency_code?: string
-	amount_cents?: number
-	amount_float?: number
-	formatted_amount?: string
+	readonly type: AdjustmentType
+
+	name: string
+	currency_code: string
+	amount_cents: number
+	amount_float: number
+	formatted_amount: string
 	
 }
 
@@ -28,40 +32,30 @@ interface AdjustmentCreate extends ResourceCreate {
 
 interface AdjustmentUpdate extends ResourceUpdate {
 	
-	name?: string
-	currency_code?: string
-	amount_cents?: number
+	name?: string | null
+	currency_code?: string | null
+	amount_cents?: number | null
 	
 }
 
 
-class Adjustments extends ApiResource {
+class Adjustments extends ApiResource<Adjustment> {
 
-	static readonly TYPE: 'adjustments' = 'adjustments' as const
-	// static readonly PATH = 'adjustments'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Adjustment>> {
-		return this.resources.list<Adjustment>({ type: Adjustments.TYPE }, params, options)
-	}
+	static readonly TYPE: AdjustmentType = 'adjustments' as const
 
 	async create(resource: AdjustmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {
 		return this.resources.create<AdjustmentCreate, Adjustment>({ ...resource, type: Adjustments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {
-		return this.resources.retrieve<Adjustment>({ type: Adjustments.TYPE, id }, params, options)
 	}
 
 	async update(resource: AdjustmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {
 		return this.resources.update<AdjustmentUpdate, Adjustment>({ ...resource, type: Adjustments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Adjustments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Adjustments.TYPE } : id, options)
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAdjustment(resource: any): resource is Adjustment {
 		return resource.type && (resource.type === Adjustments.TYPE)
 	}
@@ -72,7 +66,7 @@ class Adjustments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AdjustmentType {
 		return Adjustments.TYPE
 	}
 
@@ -81,4 +75,4 @@ class Adjustments extends ApiResource {
 
 export default Adjustments
 
-export { Adjustment, AdjustmentCreate, AdjustmentUpdate }
+export type { Adjustment, AdjustmentCreate, AdjustmentUpdate, AdjustmentType }

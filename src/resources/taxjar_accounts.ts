@@ -1,22 +1,26 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
-import type { TaxCategory } from './tax_categories'
+import type { TaxCategory, TaxCategoryType } from './tax_categories'
 
 
-type TaxjarAccountRel = ResourceRel & { type: typeof TaxjarAccounts.TYPE }
-type TaxCategoryRel = ResourceRel & { type: 'tax_categories' }
+type TaxjarAccountType = 'taxjar_accounts'
+type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
+type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 
 
 interface TaxjarAccount extends Resource {
 	
-	name?: string
+	readonly type: TaxjarAccountType
 
-	markets?: Market[]
-	attachments?: Attachment[]
-	tax_categories?: TaxCategory[]
+	name: string
+
+	markets?: Market[] | null
+	attachments?: Attachment[] | null
+	tax_categories?: TaxCategory[] | null
 
 }
 
@@ -26,44 +30,35 @@ interface TaxjarAccountCreate extends ResourceCreate {
 	name: string
 	api_key: string
 
-	tax_categories?: TaxCategoryRel[]
+	tax_categories?: TaxCategoryRel[] | null
 
 }
 
 
 interface TaxjarAccountUpdate extends ResourceUpdate {
 	
-	name?: string
-	api_key?: string
+	name?: string | null
+	api_key?: string | null
 
-	tax_categories?: TaxCategoryRel[]
+	tax_categories?: TaxCategoryRel[] | null
 
 }
 
 
-class TaxjarAccounts extends ApiResource {
+class TaxjarAccounts extends ApiResource<TaxjarAccount> {
 
-	static readonly TYPE: 'taxjar_accounts' = 'taxjar_accounts' as const
-	// static readonly PATH = 'taxjar_accounts'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxjarAccount>> {
-		return this.resources.list<TaxjarAccount>({ type: TaxjarAccounts.TYPE }, params, options)
-	}
+	static readonly TYPE: TaxjarAccountType = 'taxjar_accounts' as const
 
 	async create(resource: TaxjarAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
 		return this.resources.create<TaxjarAccountCreate, TaxjarAccount>({ ...resource, type: TaxjarAccounts.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
-		return this.resources.retrieve<TaxjarAccount>({ type: TaxjarAccounts.TYPE, id }, params, options)
 	}
 
 	async update(resource: TaxjarAccountUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxjarAccount> {
 		return this.resources.update<TaxjarAccountUpdate, TaxjarAccount>({ ...resource, type: TaxjarAccounts.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: TaxjarAccounts.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: TaxjarAccounts.TYPE } : id, options)
 	}
 
 	async markets(taxjarAccountId: string | TaxjarAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
@@ -82,7 +77,6 @@ class TaxjarAccounts extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isTaxjarAccount(resource: any): resource is TaxjarAccount {
 		return resource.type && (resource.type === TaxjarAccounts.TYPE)
 	}
@@ -93,7 +87,7 @@ class TaxjarAccounts extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): TaxjarAccountType {
 		return TaxjarAccounts.TYPE
 	}
 
@@ -102,4 +96,4 @@ class TaxjarAccounts extends ApiResource {
 
 export default TaxjarAccounts
 
-export { TaxjarAccount, TaxjarAccountCreate, TaxjarAccountUpdate }
+export type { TaxjarAccount, TaxjarAccountCreate, TaxjarAccountUpdate, TaxjarAccountType }

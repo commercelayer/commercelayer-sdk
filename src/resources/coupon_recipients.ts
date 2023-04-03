@@ -1,22 +1,26 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer } from './customers'
+import type { Customer, CustomerType } from './customers'
 import type { Attachment } from './attachments'
 
 
-type CouponRecipientRel = ResourceRel & { type: typeof CouponRecipients.TYPE }
-type CustomerRel = ResourceRel & { type: 'customers' }
+type CouponRecipientType = 'coupon_recipients'
+type CouponRecipientRel = ResourceRel & { type: CouponRecipientType }
+type CustomerRel = ResourceRel & { type: CustomerType }
 
 
 interface CouponRecipient extends Resource {
 	
-	email?: string
-	first_name?: string
-	last_name?: string
+	readonly type: CouponRecipientType
 
-	customer?: Customer
-	attachments?: Attachment[]
+	email: string
+	first_name?: string | null
+	last_name?: string | null
+
+	customer?: Customer | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -24,48 +28,39 @@ interface CouponRecipient extends Resource {
 interface CouponRecipientCreate extends ResourceCreate {
 	
 	email: string
-	first_name?: string
-	last_name?: string
+	first_name?: string | null
+	last_name?: string | null
 
-	customer?: CustomerRel
+	customer?: CustomerRel | null
 
 }
 
 
 interface CouponRecipientUpdate extends ResourceUpdate {
 	
-	email?: string
-	first_name?: string
-	last_name?: string
+	email?: string | null
+	first_name?: string | null
+	last_name?: string | null
 
-	customer?: CustomerRel
+	customer?: CustomerRel | null
 
 }
 
 
-class CouponRecipients extends ApiResource {
+class CouponRecipients extends ApiResource<CouponRecipient> {
 
-	static readonly TYPE: 'coupon_recipients' = 'coupon_recipients' as const
-	// static readonly PATH = 'coupon_recipients'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CouponRecipient>> {
-		return this.resources.list<CouponRecipient>({ type: CouponRecipients.TYPE }, params, options)
-	}
+	static readonly TYPE: CouponRecipientType = 'coupon_recipients' as const
 
 	async create(resource: CouponRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
 		return this.resources.create<CouponRecipientCreate, CouponRecipient>({ ...resource, type: CouponRecipients.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
-		return this.resources.retrieve<CouponRecipient>({ type: CouponRecipients.TYPE, id }, params, options)
 	}
 
 	async update(resource: CouponRecipientUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
 		return this.resources.update<CouponRecipientUpdate, CouponRecipient>({ ...resource, type: CouponRecipients.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: CouponRecipients.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: CouponRecipients.TYPE } : id, options)
 	}
 
 	async customer(couponRecipientId: string | CouponRecipient, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
@@ -79,7 +74,6 @@ class CouponRecipients extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCouponRecipient(resource: any): resource is CouponRecipient {
 		return resource.type && (resource.type === CouponRecipients.TYPE)
 	}
@@ -90,7 +84,7 @@ class CouponRecipients extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CouponRecipientType {
 		return CouponRecipients.TYPE
 	}
 
@@ -99,4 +93,4 @@ class CouponRecipients extends ApiResource {
 
 export default CouponRecipients
 
-export { CouponRecipient, CouponRecipientCreate, CouponRecipientUpdate }
+export type { CouponRecipient, CouponRecipientCreate, CouponRecipientUpdate, CouponRecipientType }

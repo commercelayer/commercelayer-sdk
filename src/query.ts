@@ -1,39 +1,42 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { ResourceType } from "./resource"
+
+import type { ResourceType } from "./resource"
 
 import Debug from './debug'
 const debug = Debug('query')
 
+
+type QueryFilter = Record<string, string | number | boolean>
+
+
 interface QueryParamsRetrieve {
 	include?: string[]
-	// fields?: { [key: string]: string[] }
-	fields?: string[] | { [key: string]: string[] }
+	fields?: string[] | Record<string, string[]>
 }
 
 
 interface QueryParamsList extends QueryParamsRetrieve {
-	sort?: string[] | { [key: string]: 'asc' | 'desc' }
-	filters?: { [key: string]: string | number | boolean }
+	sort?: string[] | Record<string, 'asc' | 'desc'>
+	filters?: QueryFilter
 	pageNumber?: number
 	pageSize?: number
 }
 
 type QueryParams = QueryParamsRetrieve | QueryParamsList
 
-export { QueryParamsRetrieve, QueryParamsList, QueryParams }
+export type { QueryParamsRetrieve, QueryParamsList, QueryParams, QueryFilter }
 
 
 
 const isParamsList = (params: any): params is QueryParamsList => {
-	return (params.filters || params.pageNumber || params.pageSize || params.sort)
+	return params && (params.filters || params.pageNumber || params.pageSize || params.sort)
 }
 
 
-const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: string | ResourceType): { [key: string]: string } => {
+const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: string | ResourceType): Record<string, string> => {
 
 	debug('generate query string params: %O, %O', params, res)
 
-	const qp: { [key: string]: string } = {}
+	const qp: Record<string, string> = {}
 	if (!params) return qp
 
 	// Include
@@ -70,4 +73,4 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 }
 
 
-export { generateQueryStringParams }
+export { generateQueryStringParams, isParamsList }

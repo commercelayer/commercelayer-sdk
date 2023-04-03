@@ -1,5 +1,6 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourceRel } from '../resource'
+
 
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import type { FreeShippingPromotion } from './free_shipping_promotions'
@@ -9,31 +10,27 @@ import type { ExternalPromotion } from './external_promotions'
 import type { FixedAmountPromotion } from './fixed_amount_promotions'
 
 
-type PromotionRuleRel = ResourceRel & { type: typeof PromotionRules.TYPE }
+type PromotionRuleType = 'promotion_rules'
+type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
 
 
 interface PromotionRule extends Resource {
 	
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
+	readonly type: PromotionRuleType
+
+
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
 
 }
 
 
-class PromotionRules extends ApiResource {
+class PromotionRules extends ApiResource<PromotionRule> {
 
-	static readonly TYPE: 'promotion_rules' = 'promotion_rules' as const
-	// static readonly PATH = 'promotion_rules'
+	static readonly TYPE: PromotionRuleType = 'promotion_rules' as const
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PromotionRule>> {
-		return this.resources.list<PromotionRule>({ type: PromotionRules.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PromotionRule> {
-		return this.resources.retrieve<PromotionRule>({ type: PromotionRules.TYPE, id }, params, options)
-	}
+	
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPromotionRule(resource: any): resource is PromotionRule {
 		return resource.type && (resource.type === PromotionRules.TYPE)
 	}
@@ -44,7 +41,7 @@ class PromotionRules extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PromotionRuleType {
 		return PromotionRules.TYPE
 	}
 
@@ -53,4 +50,4 @@ class PromotionRules extends ApiResource {
 
 export default PromotionRules
 
-export { PromotionRule }
+export type { PromotionRule, PromotionRuleType }

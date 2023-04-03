@@ -1,41 +1,45 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { OrderSubscription } from './order_subscriptions'
-import type { Adjustment } from './adjustments'
-import type { Bundle } from './bundles'
-import type { Sku } from './skus'
+import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
+import type { Adjustment, AdjustmentType } from './adjustments'
+import type { Bundle, BundleType } from './bundles'
+import type { Sku, SkuType } from './skus'
 
 
-type OrderSubscriptionItemRel = ResourceRel & { type: typeof OrderSubscriptionItems.TYPE }
-type OrderSubscriptionRel = ResourceRel & { type: 'order_subscriptions' }
-type AdjustmentRel = ResourceRel & { type: 'adjustments' }
-type BundleRel = ResourceRel & { type: 'bundles' }
-type SkuRel = ResourceRel & { type: 'skus' }
+type OrderSubscriptionItemType = 'order_subscription_items'
+type OrderSubscriptionItemRel = ResourceRel & { type: OrderSubscriptionItemType }
+type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
+type AdjustmentRel = ResourceRel & { type: AdjustmentType }
+type BundleRel = ResourceRel & { type: BundleType }
+type SkuRel = ResourceRel & { type: SkuType }
 
 
 interface OrderSubscriptionItem extends Resource {
 	
-	quantity?: number
-	unit_amount_cents?: number
-	unit_amount_float?: number
-	formatted_unit_amount?: string
-	total_amount_cents?: number
-	total_amount_float?: number
-	formatted_total_amount?: string
+	readonly type: OrderSubscriptionItemType
 
-	order_subscription?: OrderSubscription
-	item?: Adjustment | Bundle | Sku
+	quantity: number
+	unit_amount_cents?: number | null
+	unit_amount_float?: number | null
+	formatted_unit_amount?: string | null
+	total_amount_cents?: number | null
+	total_amount_float: number
+	formatted_total_amount?: string | null
+
+	order_subscription?: OrderSubscription | null
+	item?: Adjustment | Bundle | Sku | null
 
 }
 
 
 interface OrderSubscriptionItemCreate extends ResourceCreate {
 	
-	sku_code?: string
-	bundle_code?: string
+	sku_code?: string | null
+	bundle_code?: string | null
 	quantity: number
-	unit_amount_cents?: number
+	unit_amount_cents?: number | null
 
 	order_subscription: OrderSubscriptionRel
 	item: AdjustmentRel | BundleRel | SkuRel
@@ -45,37 +49,28 @@ interface OrderSubscriptionItemCreate extends ResourceCreate {
 
 interface OrderSubscriptionItemUpdate extends ResourceUpdate {
 	
-	sku_code?: string
-	bundle_code?: string
-	quantity?: number
-	unit_amount_cents?: number
+	sku_code?: string | null
+	bundle_code?: string | null
+	quantity?: number | null
+	unit_amount_cents?: number | null
 	
 }
 
 
-class OrderSubscriptionItems extends ApiResource {
+class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 
-	static readonly TYPE: 'order_subscription_items' = 'order_subscription_items' as const
-	// static readonly PATH = 'order_subscription_items'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscriptionItem>> {
-		return this.resources.list<OrderSubscriptionItem>({ type: OrderSubscriptionItems.TYPE }, params, options)
-	}
+	static readonly TYPE: OrderSubscriptionItemType = 'order_subscription_items' as const
 
 	async create(resource: OrderSubscriptionItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
 		return this.resources.create<OrderSubscriptionItemCreate, OrderSubscriptionItem>({ ...resource, type: OrderSubscriptionItems.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
-		return this.resources.retrieve<OrderSubscriptionItem>({ type: OrderSubscriptionItems.TYPE, id }, params, options)
 	}
 
 	async update(resource: OrderSubscriptionItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
 		return this.resources.update<OrderSubscriptionItemUpdate, OrderSubscriptionItem>({ ...resource, type: OrderSubscriptionItems.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: OrderSubscriptionItems.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: OrderSubscriptionItems.TYPE } : id, options)
 	}
 
 	async order_subscription(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
@@ -84,7 +79,6 @@ class OrderSubscriptionItems extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrderSubscriptionItem(resource: any): resource is OrderSubscriptionItem {
 		return resource.type && (resource.type === OrderSubscriptionItems.TYPE)
 	}
@@ -95,7 +89,7 @@ class OrderSubscriptionItems extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrderSubscriptionItemType {
 		return OrderSubscriptionItems.TYPE
 	}
 
@@ -104,4 +98,4 @@ class OrderSubscriptionItems extends ApiResource {
 
 export default OrderSubscriptionItems
 
-export { OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItemUpdate }
+export type { OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItemUpdate, OrderSubscriptionItemType }

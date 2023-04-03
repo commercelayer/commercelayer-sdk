@@ -1,22 +1,26 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { StockLocation } from './stock_locations'
-import type { InventoryModel } from './inventory_models'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { InventoryModel, InventoryModelType } from './inventory_models'
 
 
-type InventoryStockLocationRel = ResourceRel & { type: typeof InventoryStockLocations.TYPE }
-type StockLocationRel = ResourceRel & { type: 'stock_locations' }
-type InventoryModelRel = ResourceRel & { type: 'inventory_models' }
+type InventoryStockLocationType = 'inventory_stock_locations'
+type InventoryStockLocationRel = ResourceRel & { type: InventoryStockLocationType }
+type StockLocationRel = ResourceRel & { type: StockLocationType }
+type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 
 
 interface InventoryStockLocation extends Resource {
 	
-	priority?: number
-	on_hold?: boolean
+	readonly type: InventoryStockLocationType
 
-	stock_location?: StockLocation
-	inventory_model?: InventoryModel
+	priority: number
+	on_hold?: boolean | null
+
+	stock_location?: StockLocation | null
+	inventory_model?: InventoryModel | null
 
 }
 
@@ -24,7 +28,7 @@ interface InventoryStockLocation extends Resource {
 interface InventoryStockLocationCreate extends ResourceCreate {
 	
 	priority: number
-	on_hold?: boolean
+	on_hold?: boolean | null
 
 	stock_location: StockLocationRel
 	inventory_model: InventoryModelRel
@@ -34,38 +38,29 @@ interface InventoryStockLocationCreate extends ResourceCreate {
 
 interface InventoryStockLocationUpdate extends ResourceUpdate {
 	
-	priority?: number
-	on_hold?: boolean
+	priority?: number | null
+	on_hold?: boolean | null
 
-	stock_location?: StockLocationRel
-	inventory_model?: InventoryModelRel
+	stock_location?: StockLocationRel | null
+	inventory_model?: InventoryModelRel | null
 
 }
 
 
-class InventoryStockLocations extends ApiResource {
+class InventoryStockLocations extends ApiResource<InventoryStockLocation> {
 
-	static readonly TYPE: 'inventory_stock_locations' = 'inventory_stock_locations' as const
-	// static readonly PATH = 'inventory_stock_locations'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
-		return this.resources.list<InventoryStockLocation>({ type: InventoryStockLocations.TYPE }, params, options)
-	}
+	static readonly TYPE: InventoryStockLocationType = 'inventory_stock_locations' as const
 
 	async create(resource: InventoryStockLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
 		return this.resources.create<InventoryStockLocationCreate, InventoryStockLocation>({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
-		return this.resources.retrieve<InventoryStockLocation>({ type: InventoryStockLocations.TYPE, id }, params, options)
 	}
 
 	async update(resource: InventoryStockLocationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
 		return this.resources.update<InventoryStockLocationUpdate, InventoryStockLocation>({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: InventoryStockLocations.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: InventoryStockLocations.TYPE } : id, options)
 	}
 
 	async stock_location(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
@@ -79,7 +74,6 @@ class InventoryStockLocations extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isInventoryStockLocation(resource: any): resource is InventoryStockLocation {
 		return resource.type && (resource.type === InventoryStockLocations.TYPE)
 	}
@@ -90,7 +84,7 @@ class InventoryStockLocations extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): InventoryStockLocationType {
 		return InventoryStockLocations.TYPE
 	}
 
@@ -99,4 +93,4 @@ class InventoryStockLocations extends ApiResource {
 
 export default InventoryStockLocations
 
-export { InventoryStockLocation, InventoryStockLocationCreate, InventoryStockLocationUpdate }
+export type { InventoryStockLocation, InventoryStockLocationCreate, InventoryStockLocationUpdate, InventoryStockLocationType }

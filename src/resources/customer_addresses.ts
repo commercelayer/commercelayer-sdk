@@ -1,23 +1,27 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer } from './customers'
-import type { Address } from './addresses'
+import type { Customer, CustomerType } from './customers'
+import type { Address, AddressType } from './addresses'
 import type { Event } from './events'
 
 
-type CustomerAddressRel = ResourceRel & { type: typeof CustomerAddresses.TYPE }
-type CustomerRel = ResourceRel & { type: 'customers' }
-type AddressRel = ResourceRel & { type: 'addresses' }
+type CustomerAddressType = 'customer_addresses'
+type CustomerAddressRel = ResourceRel & { type: CustomerAddressType }
+type CustomerRel = ResourceRel & { type: CustomerType }
+type AddressRel = ResourceRel & { type: AddressType }
 
 
 interface CustomerAddress extends Resource {
 	
-	name?: string
+	readonly type: CustomerAddressType
 
-	customer?: Customer
-	address?: Address
-	events?: Event[]
+	name?: string | null
+
+	customer?: Customer | null
+	address?: Address | null
+	events?: Event[] | null
 
 }
 
@@ -32,35 +36,26 @@ interface CustomerAddressCreate extends ResourceCreate {
 
 interface CustomerAddressUpdate extends ResourceUpdate {
 	
-	customer?: CustomerRel
-	address?: AddressRel
+	customer?: CustomerRel | null
+	address?: AddressRel | null
 
 }
 
 
-class CustomerAddresses extends ApiResource {
+class CustomerAddresses extends ApiResource<CustomerAddress> {
 
-	static readonly TYPE: 'customer_addresses' = 'customer_addresses' as const
-	// static readonly PATH = 'customer_addresses'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerAddress>> {
-		return this.resources.list<CustomerAddress>({ type: CustomerAddresses.TYPE }, params, options)
-	}
+	static readonly TYPE: CustomerAddressType = 'customer_addresses' as const
 
 	async create(resource: CustomerAddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
 		return this.resources.create<CustomerAddressCreate, CustomerAddress>({ ...resource, type: CustomerAddresses.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
-		return this.resources.retrieve<CustomerAddress>({ type: CustomerAddresses.TYPE, id }, params, options)
 	}
 
 	async update(resource: CustomerAddressUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
 		return this.resources.update<CustomerAddressUpdate, CustomerAddress>({ ...resource, type: CustomerAddresses.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: CustomerAddresses.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: CustomerAddresses.TYPE } : id, options)
 	}
 
 	async customer(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
@@ -79,7 +74,6 @@ class CustomerAddresses extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCustomerAddress(resource: any): resource is CustomerAddress {
 		return resource.type && (resource.type === CustomerAddresses.TYPE)
 	}
@@ -90,7 +84,7 @@ class CustomerAddresses extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CustomerAddressType {
 		return CustomerAddresses.TYPE
 	}
 
@@ -99,4 +93,4 @@ class CustomerAddresses extends ApiResource {
 
 export default CustomerAddresses
 
-export { CustomerAddress, CustomerAddressCreate, CustomerAddressUpdate }
+export type { CustomerAddress, CustomerAddressCreate, CustomerAddressUpdate, CustomerAddressType }

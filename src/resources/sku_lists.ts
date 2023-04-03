@@ -1,31 +1,35 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer } from './customers'
+import type { Customer, CustomerType } from './customers'
 import type { Sku } from './skus'
 import type { SkuListItem } from './sku_list_items'
 import type { Bundle } from './bundles'
 import type { Attachment } from './attachments'
 
 
-type SkuListRel = ResourceRel & { type: typeof SkuLists.TYPE }
-type CustomerRel = ResourceRel & { type: 'customers' }
+type SkuListType = 'sku_lists'
+type SkuListRel = ResourceRel & { type: SkuListType }
+type CustomerRel = ResourceRel & { type: CustomerType }
 
 
 interface SkuList extends Resource {
 	
-	name?: string
-	slug?: string
-	description?: string
-	image_url?: string
-	manual?: boolean
-	sku_code_regex?: string
+	readonly type: SkuListType
 
-	customer?: Customer
-	skus?: Sku[]
-	sku_list_items?: SkuListItem[]
-	bundles?: Bundle[]
-	attachments?: Attachment[]
+	name: string
+	slug: string
+	description?: string | null
+	image_url?: string | null
+	manual?: boolean | null
+	sku_code_regex?: string | null
+
+	customer?: Customer | null
+	skus?: Sku[] | null
+	sku_list_items?: SkuListItem[] | null
+	bundles?: Bundle[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -33,52 +37,43 @@ interface SkuList extends Resource {
 interface SkuListCreate extends ResourceCreate {
 	
 	name: string
-	description?: string
-	image_url?: string
-	manual?: boolean
-	sku_code_regex?: string
+	description?: string | null
+	image_url?: string | null
+	manual?: boolean | null
+	sku_code_regex?: string | null
 
-	customer?: CustomerRel
+	customer?: CustomerRel | null
 
 }
 
 
 interface SkuListUpdate extends ResourceUpdate {
 	
-	name?: string
-	description?: string
-	image_url?: string
-	manual?: boolean
-	sku_code_regex?: string
+	name?: string | null
+	description?: string | null
+	image_url?: string | null
+	manual?: boolean | null
+	sku_code_regex?: string | null
 
-	customer?: CustomerRel
+	customer?: CustomerRel | null
 
 }
 
 
-class SkuLists extends ApiResource {
+class SkuLists extends ApiResource<SkuList> {
 
-	static readonly TYPE: 'sku_lists' = 'sku_lists' as const
-	// static readonly PATH = 'sku_lists'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuList>> {
-		return this.resources.list<SkuList>({ type: SkuLists.TYPE }, params, options)
-	}
+	static readonly TYPE: SkuListType = 'sku_lists' as const
 
 	async create(resource: SkuListCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		return this.resources.create<SkuListCreate, SkuList>({ ...resource, type: SkuLists.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
-		return this.resources.retrieve<SkuList>({ type: SkuLists.TYPE, id }, params, options)
 	}
 
 	async update(resource: SkuListUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		return this.resources.update<SkuListUpdate, SkuList>({ ...resource, type: SkuLists.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: SkuLists.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: SkuLists.TYPE } : id, options)
 	}
 
 	async customer(skuListId: string | SkuList, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
@@ -107,7 +102,6 @@ class SkuLists extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isSkuList(resource: any): resource is SkuList {
 		return resource.type && (resource.type === SkuLists.TYPE)
 	}
@@ -118,7 +112,7 @@ class SkuLists extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): SkuListType {
 		return SkuLists.TYPE
 	}
 
@@ -127,4 +121,4 @@ class SkuLists extends ApiResource {
 
 export default SkuLists
 
-export { SkuList, SkuListCreate, SkuListUpdate }
+export type { SkuList, SkuListCreate, SkuListUpdate, SkuListType }

@@ -1,39 +1,43 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { Event } from './events'
-import type { OrderSubscription } from './order_subscriptions'
+import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
 
 
-type RecurringOrderCopyRel = ResourceRel & { type: typeof RecurringOrderCopies.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
-type OrderSubscriptionRel = ResourceRel & { type: 'order_subscriptions' }
+type RecurringOrderCopyType = 'recurring_order_copies'
+type RecurringOrderCopyRel = ResourceRel & { type: RecurringOrderCopyType }
+type OrderRel = ResourceRel & { type: OrderType }
+type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
 
 
 interface RecurringOrderCopy extends Resource {
 	
-	status?: string
-	started_at?: string
-	completed_at?: string
-	failed_at?: string
-	errors_log?: object
-	errors_count?: number
-	place_target_order?: boolean
-	reuse_wallet?: boolean
+	readonly type: RecurringOrderCopyType
 
-	source_order?: Order
-	target_order?: Order
-	events?: Event[]
-	order_subscription?: OrderSubscription
+	status: 'pending' | 'in_progress' | 'failed' | 'completed'
+	started_at?: string | null
+	completed_at?: string | null
+	failed_at?: string | null
+	errors_log?: object | null
+	errors_count?: number | null
+	place_target_order?: boolean | null
+	reuse_wallet?: boolean | null
+
+	source_order?: Order | null
+	target_order?: Order | null
+	events?: Event[] | null
+	order_subscription?: OrderSubscription | null
 
 }
 
 
 interface RecurringOrderCopyCreate extends ResourceCreate {
 	
-	place_target_order?: boolean
-	reuse_wallet?: boolean
+	place_target_order?: boolean | null
+	reuse_wallet?: boolean | null
 
 	source_order: OrderRel
 	order_subscription: OrderSubscriptionRel
@@ -44,29 +48,20 @@ interface RecurringOrderCopyCreate extends ResourceCreate {
 type RecurringOrderCopyUpdate = ResourceUpdate
 
 
-class RecurringOrderCopies extends ApiResource {
+class RecurringOrderCopies extends ApiResource<RecurringOrderCopy> {
 
-	static readonly TYPE: 'recurring_order_copies' = 'recurring_order_copies' as const
-	// static readonly PATH = 'recurring_order_copies'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<RecurringOrderCopy>> {
-		return this.resources.list<RecurringOrderCopy>({ type: RecurringOrderCopies.TYPE }, params, options)
-	}
+	static readonly TYPE: RecurringOrderCopyType = 'recurring_order_copies' as const
 
 	async create(resource: RecurringOrderCopyCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<RecurringOrderCopy> {
 		return this.resources.create<RecurringOrderCopyCreate, RecurringOrderCopy>({ ...resource, type: RecurringOrderCopies.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<RecurringOrderCopy> {
-		return this.resources.retrieve<RecurringOrderCopy>({ type: RecurringOrderCopies.TYPE, id }, params, options)
 	}
 
 	async update(resource: RecurringOrderCopyUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<RecurringOrderCopy> {
 		return this.resources.update<RecurringOrderCopyUpdate, RecurringOrderCopy>({ ...resource, type: RecurringOrderCopies.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: RecurringOrderCopies.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: RecurringOrderCopies.TYPE } : id, options)
 	}
 
 	async source_order(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -90,7 +85,6 @@ class RecurringOrderCopies extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isRecurringOrderCopy(resource: any): resource is RecurringOrderCopy {
 		return resource.type && (resource.type === RecurringOrderCopies.TYPE)
 	}
@@ -101,7 +95,7 @@ class RecurringOrderCopies extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): RecurringOrderCopyType {
 		return RecurringOrderCopies.TYPE
 	}
 
@@ -110,4 +104,4 @@ class RecurringOrderCopies extends ApiResource {
 
 export default RecurringOrderCopies
 
-export { RecurringOrderCopy, RecurringOrderCopyCreate, RecurringOrderCopyUpdate }
+export type { RecurringOrderCopy, RecurringOrderCopyCreate, RecurringOrderCopyUpdate, RecurringOrderCopyType }

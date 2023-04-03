@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios'
+
+import type { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios'
 
 
 type InterceptorManager = {
@@ -8,13 +8,19 @@ type InterceptorManager = {
 }
 
 
+// Request
 type RequestObj = AxiosRequestConfig
 type RequestInterceptor = (request: RequestObj) => RequestObj | Promise<RequestObj>
 
+// Response
 type ResponseObj = AxiosResponse
 type ResponseInterceptor = (response: ResponseObj) => ResponseObj
 
-type HeadersObj = AxiosResponseHeaders | RawAxiosResponseHeaders
+// Headers
+type ApiHeadersList = 'x-ratelimit-limit' | 'x-ratelimit-count' | 'x-ratelimit-period'
+type ApiHeaders = { [key in ApiHeadersList]: string | number | boolean }
+type HeadersObj = (AxiosResponseHeaders | RawAxiosResponseHeaders) & ApiHeaders
+
 
 type ErrorObj = AxiosError
 type ErrorInterceptor = (error: ErrorObj) => ErrorObj

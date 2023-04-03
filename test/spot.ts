@@ -17,14 +17,10 @@ import getToken from './token'
 		timeout: 5000,
 	})
 
-	const s = await cl.skus.list({
-		include: ['prices'],
-		filters: {
-			'code_in': ''
-		},
-		pageSize: 25
-	})
+	const c = await cl.customers.count()
+	console.log('customers: ' + c)
 
-	console.log(inspect(s, false, null, true))
+	const customers = await cl.customers.list()
+	console.log(inspect(customers, false, null, true))
 
 })()

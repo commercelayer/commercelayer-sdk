@@ -1,23 +1,27 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { StripePayment } from './stripe_payments'
 
 
-type StripeGatewayRel = ResourceRel & { type: typeof StripeGateways.TYPE }
+type StripeGatewayType = 'stripe_gateways'
+type StripeGatewayRel = ResourceRel & { type: StripeGatewayType }
 
 
 interface StripeGateway extends Resource {
 	
-	name?: string
-	auto_payments?: boolean
-	webhook_endpoint_id?: string
-	webhook_endpoint_secret?: string
-	webhook_endpoint_url?: string
+	readonly type: StripeGatewayType
 
-	payment_methods?: PaymentMethod[]
-	stripe_payments?: StripePayment[]
+	name: string
+	auto_payments?: boolean | null
+	webhook_endpoint_id?: string | null
+	webhook_endpoint_secret?: string | null
+	webhook_endpoint_url?: string | null
+
+	payment_methods?: PaymentMethod[] | null
+	stripe_payments?: StripePayment[] | null
 
 }
 
@@ -26,43 +30,34 @@ interface StripeGatewayCreate extends ResourceCreate {
 	
 	name: string
 	login: string
-	publishable_key?: string
-	auto_payments?: boolean
+	publishable_key?: string | null
+	auto_payments?: boolean | null
 	
 }
 
 
 interface StripeGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
-	auto_payments?: boolean
+	name?: string | null
+	auto_payments?: boolean | null
 	
 }
 
 
-class StripeGateways extends ApiResource {
+class StripeGateways extends ApiResource<StripeGateway> {
 
-	static readonly TYPE: 'stripe_gateways' = 'stripe_gateways' as const
-	// static readonly PATH = 'stripe_gateways'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripeGateway>> {
-		return this.resources.list<StripeGateway>({ type: StripeGateways.TYPE }, params, options)
-	}
+	static readonly TYPE: StripeGatewayType = 'stripe_gateways' as const
 
 	async create(resource: StripeGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.create<StripeGatewayCreate, StripeGateway>({ ...resource, type: StripeGateways.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
-		return this.resources.retrieve<StripeGateway>({ type: StripeGateways.TYPE, id }, params, options)
 	}
 
 	async update(resource: StripeGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.update<StripeGatewayUpdate, StripeGateway>({ ...resource, type: StripeGateways.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: StripeGateways.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: StripeGateways.TYPE } : id, options)
 	}
 
 	async payment_methods(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -76,7 +71,6 @@ class StripeGateways extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isStripeGateway(resource: any): resource is StripeGateway {
 		return resource.type && (resource.type === StripeGateways.TYPE)
 	}
@@ -87,7 +81,7 @@ class StripeGateways extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): StripeGatewayType {
 		return StripeGateways.TYPE
 	}
 
@@ -96,4 +90,4 @@ class StripeGateways extends ApiResource {
 
 export default StripeGateways
 
-export { StripeGateway, StripeGatewayCreate, StripeGatewayUpdate }
+export type { StripeGateway, StripeGatewayCreate, StripeGatewayUpdate, StripeGatewayType }

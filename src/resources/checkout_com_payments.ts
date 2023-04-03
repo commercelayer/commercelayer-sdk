@@ -1,31 +1,35 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type CheckoutComPaymentRel = ResourceRel & { type: typeof CheckoutComPayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type CheckoutComPaymentType = 'checkout_com_payments'
+type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface CheckoutComPayment extends Resource {
 	
-	public_key?: string
-	payment_type?: string
-	token?: string
-	session_id?: string
-	success_url?: string
-	failure_url?: string
-	source_id?: string
-	customer_token?: string
-	redirect_uri?: string
-	payment_response?: object
-	mismatched_amounts?: boolean
-	payment_instrument?: object
+	readonly type: CheckoutComPaymentType
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	public_key?: string | null
+	payment_type: string
+	token: string
+	session_id?: string | null
+	success_url?: string | null
+	failure_url?: string | null
+	source_id?: string | null
+	customer_token?: string | null
+	redirect_uri?: string | null
+	payment_response?: object | null
+	mismatched_amounts?: boolean | null
+	payment_instrument?: object | null
+
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
@@ -34,9 +38,9 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 	
 	payment_type: string
 	token: string
-	session_id?: string
-	success_url?: string
-	failure_url?: string
+	session_id?: string | null
+	success_url?: string | null
+	failure_url?: string | null
 
 	order: OrderRel
 
@@ -45,42 +49,33 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 
 interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	
-	payment_type?: string
-	token?: string
-	session_id?: string
-	success_url?: string
-	failure_url?: string
-	_details?: boolean
-	_refresh?: boolean
+	payment_type?: string | null
+	token?: string | null
+	session_id?: string | null
+	success_url?: string | null
+	failure_url?: string | null
+	_details?: boolean | null
+	_refresh?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 
 
-class CheckoutComPayments extends ApiResource {
+class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 
-	static readonly TYPE: 'checkout_com_payments' = 'checkout_com_payments' as const
-	// static readonly PATH = 'checkout_com_payments'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CheckoutComPayment>> {
-		return this.resources.list<CheckoutComPayment>({ type: CheckoutComPayments.TYPE }, params, options)
-	}
+	static readonly TYPE: CheckoutComPaymentType = 'checkout_com_payments' as const
 
 	async create(resource: CheckoutComPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
 		return this.resources.create<CheckoutComPaymentCreate, CheckoutComPayment>({ ...resource, type: CheckoutComPayments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.retrieve<CheckoutComPayment>({ type: CheckoutComPayments.TYPE, id }, params, options)
 	}
 
 	async update(resource: CheckoutComPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
 		return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>({ ...resource, type: CheckoutComPayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: CheckoutComPayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: CheckoutComPayments.TYPE } : id, options)
 	}
 
 	async order(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -94,7 +89,6 @@ class CheckoutComPayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCheckoutComPayment(resource: any): resource is CheckoutComPayment {
 		return resource.type && (resource.type === CheckoutComPayments.TYPE)
 	}
@@ -105,7 +99,7 @@ class CheckoutComPayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CheckoutComPaymentType {
 		return CheckoutComPayments.TYPE
 	}
 
@@ -114,4 +108,4 @@ class CheckoutComPayments extends ApiResource {
 
 export default CheckoutComPayments
 
-export { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate }
+export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate, CheckoutComPaymentType }

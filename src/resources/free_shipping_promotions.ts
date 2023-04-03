@@ -1,40 +1,44 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { PromotionRule } from './promotion_rules'
-import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
-import type { SkuListPromotionRule } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Market, MarketType } from './markets'
+import type { PromotionRule, PromotionRuleType } from './promotion_rules'
+import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type FreeShippingPromotionRel = ResourceRel & { type: typeof FreeShippingPromotions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
+type FreeShippingPromotionType = 'free_shipping_promotions'
+type FreeShippingPromotionRel = ResourceRel & { type: FreeShippingPromotionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
+type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 
 
 interface FreeShippingPromotion extends Resource {
 	
-	name?: string
-	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
-	total_usage_count?: number
-	active?: boolean
+	readonly type: FreeShippingPromotionType
 
-	market?: Market
-	promotion_rules?: PromotionRule[]
-	order_amount_promotion_rule?: OrderAmountPromotionRule
-	sku_list_promotion_rule?: SkuListPromotionRule
-	coupon_codes_promotion_rule?: CouponCodesPromotionRule
-	attachments?: Attachment[]
-	events?: Event[]
+	name: string
+	currency_code?: string | null
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
+	total_usage_count?: number | null
+	active?: boolean | null
+
+	market?: Market | null
+	promotion_rules?: PromotionRule[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRule | null
+	sku_list_promotion_rule?: SkuListPromotionRule | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
@@ -42,60 +46,51 @@ interface FreeShippingPromotion extends Resource {
 interface FreeShippingPromotionCreate extends ResourceCreate {
 	
 	name: string
-	currency_code?: string
+	currency_code?: string | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
 
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	market?: MarketRel | null
+	promotion_rules?: PromotionRuleRel[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
+	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 
 }
 
 
 interface FreeShippingPromotionUpdate extends ResourceUpdate {
 	
-	name?: string
-	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
+	name?: string | null
+	currency_code?: string | null
+	starts_at?: string | null
+	expires_at?: string | null
+	total_usage_limit?: number | null
 
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	market?: MarketRel | null
+	promotion_rules?: PromotionRuleRel[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
+	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 
 }
 
 
-class FreeShippingPromotions extends ApiResource {
+class FreeShippingPromotions extends ApiResource<FreeShippingPromotion> {
 
-	static readonly TYPE: 'free_shipping_promotions' = 'free_shipping_promotions' as const
-	// static readonly PATH = 'free_shipping_promotions'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FreeShippingPromotion>> {
-		return this.resources.list<FreeShippingPromotion>({ type: FreeShippingPromotions.TYPE }, params, options)
-	}
+	static readonly TYPE: FreeShippingPromotionType = 'free_shipping_promotions' as const
 
 	async create(resource: FreeShippingPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
 		return this.resources.create<FreeShippingPromotionCreate, FreeShippingPromotion>({ ...resource, type: FreeShippingPromotions.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
-		return this.resources.retrieve<FreeShippingPromotion>({ type: FreeShippingPromotions.TYPE, id }, params, options)
 	}
 
 	async update(resource: FreeShippingPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
 		return this.resources.update<FreeShippingPromotionUpdate, FreeShippingPromotion>({ ...resource, type: FreeShippingPromotions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: FreeShippingPromotions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: FreeShippingPromotions.TYPE } : id, options)
 	}
 
 	async market(freeShippingPromotionId: string | FreeShippingPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -129,7 +124,6 @@ class FreeShippingPromotions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isFreeShippingPromotion(resource: any): resource is FreeShippingPromotion {
 		return resource.type && (resource.type === FreeShippingPromotions.TYPE)
 	}
@@ -140,7 +134,7 @@ class FreeShippingPromotions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): FreeShippingPromotionType {
 		return FreeShippingPromotions.TYPE
 	}
 
@@ -149,4 +143,4 @@ class FreeShippingPromotions extends ApiResource {
 
 export default FreeShippingPromotions
 
-export { FreeShippingPromotion, FreeShippingPromotionCreate, FreeShippingPromotionUpdate }
+export type { FreeShippingPromotion, FreeShippingPromotionCreate, FreeShippingPromotionUpdate, FreeShippingPromotionType }

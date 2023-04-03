@@ -1,7 +1,8 @@
 
 import * as api from './api'
 import { SdkError, ApiError} from './error'
-import CommerceLayer, { CommerceLayerClient, CommerceLayerInitConfig, OPEN_API_SCHEMA_VERSION } from './commercelayer'
+import CommerceLayer, { OPEN_API_SCHEMA_VERSION } from './commercelayer'
+import type { CommerceLayerClient, CommerceLayerInitConfig } from './commercelayer'
 
 
 /* Static functions */

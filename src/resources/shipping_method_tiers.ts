@@ -1,39 +1,34 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { ShippingMethod } from './shipping_methods'
 import type { Attachment } from './attachments'
 
 
-type ShippingMethodTierRel = ResourceRel & { type: typeof ShippingMethodTiers.TYPE }
+type ShippingMethodTierType = 'shipping_method_tiers'
+type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 
 
 interface ShippingMethodTier extends Resource {
 	
-	name?: string
-	up_to?: number
-	price_amount_cents?: number
-	price_amount_float?: number
-	formatted_price_amount?: string
+	readonly type: ShippingMethodTierType
 
-	shipping_method?: ShippingMethod
-	attachments?: Attachment[]
+	name: string
+	up_to?: number | null
+	price_amount_cents: number
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
+
+	shipping_method?: ShippingMethod | null
+	attachments?: Attachment[] | null
 
 }
 
 
-class ShippingMethodTiers extends ApiResource {
+class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
 
-	static readonly TYPE: 'shipping_method_tiers' = 'shipping_method_tiers' as const
-	// static readonly PATH = 'shipping_method_tiers'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingMethodTier>> {
-		return this.resources.list<ShippingMethodTier>({ type: ShippingMethodTiers.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethodTier> {
-		return this.resources.retrieve<ShippingMethodTier>({ type: ShippingMethodTiers.TYPE, id }, params, options)
-	}
+	static readonly TYPE: ShippingMethodTierType = 'shipping_method_tiers' as const
 
 	async shipping_method(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
 		const _shippingMethodTierId = (shippingMethodTierId as ShippingMethodTier).id || shippingMethodTierId as string
@@ -46,7 +41,6 @@ class ShippingMethodTiers extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isShippingMethodTier(resource: any): resource is ShippingMethodTier {
 		return resource.type && (resource.type === ShippingMethodTiers.TYPE)
 	}
@@ -57,7 +51,7 @@ class ShippingMethodTiers extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ShippingMethodTierType {
 		return ShippingMethodTiers.TYPE
 	}
 
@@ -66,4 +60,4 @@ class ShippingMethodTiers extends ApiResource {
 
 export default ShippingMethodTiers
 
-export { ShippingMethodTier }
+export type { ShippingMethodTier, ShippingMethodTierType }

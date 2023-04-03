@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// import Debug from 'debug'
-
 
 type Debugger = (pattern: string, ...args: any[]) => void
 
@@ -18,7 +14,6 @@ let debuggerFactory: DebuggerFactory = (_namespace: string): Debugger => debugge
 
 /* Try loading 'debug' module */
 try {
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
 	const debugModule = require('debug')
 	if (debugModule && (typeof debugModule === 'function')) debuggerFactory = debugModule
 } catch (error) {

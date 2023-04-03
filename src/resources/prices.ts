@@ -1,90 +1,85 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PriceList } from './price_lists'
-import type { Sku } from './skus'
-import type { PriceTier } from './price_tiers'
+import type { PriceList, PriceListType } from './price_lists'
+import type { Sku, SkuType } from './skus'
+import type { PriceTier, PriceTierType } from './price_tiers'
 import type { PriceVolumeTier } from './price_volume_tiers'
 import type { PriceFrequencyTier } from './price_frequency_tiers'
 import type { Attachment } from './attachments'
 
 
-type PriceRel = ResourceRel & { type: typeof Prices.TYPE }
-type PriceListRel = ResourceRel & { type: 'price_lists' }
-type SkuRel = ResourceRel & { type: 'skus' }
-type PriceTierRel = ResourceRel & { type: 'price_tiers' }
+type PriceType = 'prices'
+type PriceRel = ResourceRel & { type: PriceType }
+type PriceListRel = ResourceRel & { type: PriceListType }
+type SkuRel = ResourceRel & { type: SkuType }
+type PriceTierRel = ResourceRel & { type: PriceTierType }
 
 
 interface Price extends Resource {
 	
-	currency_code?: string
-	sku_code?: string
-	amount_cents?: number
-	amount_float?: number
-	formatted_amount?: string
-	compare_at_amount_cents?: number
-	compare_at_amount_float?: number
-	formatted_compare_at_amount?: string
+	readonly type: PriceType
 
-	price_list?: PriceList
-	sku?: Sku
-	price_tiers?: PriceTier[]
-	price_volume_tiers?: PriceVolumeTier[]
-	price_frequency_tiers?: PriceFrequencyTier[]
-	attachments?: Attachment[]
+	currency_code?: string | null
+	sku_code?: string | null
+	amount_cents: number
+	amount_float: number
+	formatted_amount: string
+	compare_at_amount_cents: number
+	compare_at_amount_float: number
+	formatted_compare_at_amount: string
+
+	price_list?: PriceList | null
+	sku?: Sku | null
+	price_tiers?: PriceTier[] | null
+	price_volume_tiers?: PriceVolumeTier[] | null
+	price_frequency_tiers?: PriceFrequencyTier[] | null
+	attachments?: Attachment[] | null
 
 }
 
 
 interface PriceCreate extends ResourceCreate {
 	
-	sku_code?: string
+	sku_code?: string | null
 	amount_cents: number
 	compare_at_amount_cents: number
 
 	price_list: PriceListRel
 	sku: SkuRel
-	price_tiers?: PriceTierRel[]
+	price_tiers?: PriceTierRel[] | null
 
 }
 
 
 interface PriceUpdate extends ResourceUpdate {
 	
-	sku_code?: string
-	amount_cents?: number
-	compare_at_amount_cents?: number
+	sku_code?: string | null
+	amount_cents?: number | null
+	compare_at_amount_cents?: number | null
 
-	price_list?: PriceListRel
-	sku?: SkuRel
-	price_tiers?: PriceTierRel[]
+	price_list?: PriceListRel | null
+	sku?: SkuRel | null
+	price_tiers?: PriceTierRel[] | null
 
 }
 
 
-class Prices extends ApiResource {
+class Prices extends ApiResource<Price> {
 
-	static readonly TYPE: 'prices' = 'prices' as const
-	// static readonly PATH = 'prices'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Price>> {
-		return this.resources.list<Price>({ type: Prices.TYPE }, params, options)
-	}
+	static readonly TYPE: PriceType = 'prices' as const
 
 	async create(resource: PriceCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
 		return this.resources.create<PriceCreate, Price>({ ...resource, type: Prices.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
-		return this.resources.retrieve<Price>({ type: Prices.TYPE, id }, params, options)
 	}
 
 	async update(resource: PriceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
 		return this.resources.update<PriceUpdate, Price>({ ...resource, type: Prices.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Prices.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Prices.TYPE } : id, options)
 	}
 
 	async price_list(priceId: string | Price, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
@@ -118,7 +113,6 @@ class Prices extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPrice(resource: any): resource is Price {
 		return resource.type && (resource.type === Prices.TYPE)
 	}
@@ -129,7 +123,7 @@ class Prices extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PriceType {
 		return Prices.TYPE
 	}
 
@@ -138,4 +132,4 @@ class Prices extends ApiResource {
 
 export default Prices
 
-export { Price, PriceCreate, PriceUpdate }
+export type { Price, PriceCreate, PriceUpdate, PriceType }

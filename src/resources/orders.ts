@@ -1,23 +1,24 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { Customer } from './customers'
-import type { Address } from './addresses'
-import type { PaymentMethod } from './payment_methods'
+import type { Market, MarketType } from './markets'
+import type { Customer, CustomerType } from './customers'
+import type { Address, AddressType } from './addresses'
+import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { Sku } from './skus'
 import type { Bundle } from './bundles'
-import type { AdyenPayment } from './adyen_payments'
-import type { AxervePayment } from './axerve_payments'
-import type { BraintreePayment } from './braintree_payments'
-import type { CheckoutComPayment } from './checkout_com_payments'
-import type { ExternalPayment } from './external_payments'
-import type { KlarnaPayment } from './klarna_payments'
-import type { PaypalPayment } from './paypal_payments'
-import type { SatispayPayment } from './satispay_payments'
-import type { StripePayment } from './stripe_payments'
-import type { WireTransfer } from './wire_transfers'
+import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
+import type { AxervePayment, AxervePaymentType } from './axerve_payments'
+import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
+import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
+import type { ExternalPayment, ExternalPaymentType } from './external_payments'
+import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
+import type { PaypalPayment, PaypalPaymentType } from './paypal_payments'
+import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
+import type { StripePayment, StripePaymentType } from './stripe_payments'
+import type { WireTransfer, WireTransferType } from './wire_transfers'
 import type { LineItem } from './line_items'
 import type { Shipment } from './shipments'
 import type { Authorization } from './authorizations'
@@ -33,253 +34,247 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type OrderRel = ResourceRel & { type: typeof Orders.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type CustomerRel = ResourceRel & { type: 'customers' }
-type AddressRel = ResourceRel & { type: 'addresses' }
-type PaymentMethodRel = ResourceRel & { type: 'payment_methods' }
-type AdyenPaymentRel = ResourceRel & { type: 'adyen_payments' }
-type AxervePaymentRel = ResourceRel & { type: 'axerve_payments' }
-type BraintreePaymentRel = ResourceRel & { type: 'braintree_payments' }
-type CheckoutComPaymentRel = ResourceRel & { type: 'checkout_com_payments' }
-type ExternalPaymentRel = ResourceRel & { type: 'external_payments' }
-type KlarnaPaymentRel = ResourceRel & { type: 'klarna_payments' }
-type PaypalPaymentRel = ResourceRel & { type: 'paypal_payments' }
-type SatispayPaymentRel = ResourceRel & { type: 'satispay_payments' }
-type StripePaymentRel = ResourceRel & { type: 'stripe_payments' }
-type WireTransferRel = ResourceRel & { type: 'wire_transfers' }
+type OrderType = 'orders'
+type OrderRel = ResourceRel & { type: OrderType }
+type MarketRel = ResourceRel & { type: MarketType }
+type CustomerRel = ResourceRel & { type: CustomerType }
+type AddressRel = ResourceRel & { type: AddressType }
+type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
+type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
+type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
+type BraintreePaymentRel = ResourceRel & { type: BraintreePaymentType }
+type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
+type ExternalPaymentRel = ResourceRel & { type: ExternalPaymentType }
+type KlarnaPaymentRel = ResourceRel & { type: KlarnaPaymentType }
+type PaypalPaymentRel = ResourceRel & { type: PaypalPaymentType }
+type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
+type StripePaymentRel = ResourceRel & { type: StripePaymentType }
+type WireTransferRel = ResourceRel & { type: WireTransferType }
 
 
 interface Order extends Resource {
 	
-	number?: number
-	autorefresh?: boolean
-	status?: string
-	payment_status?: string
-	fulfillment_status?: string
-	guest?: boolean
-	editable?: boolean
-	customer_email?: string
-	language_code?: string
-	currency_code?: string
-	tax_included?: boolean
-	tax_rate?: number
-	freight_taxable?: boolean
-	requires_billing_info?: boolean
-	country_code?: string
-	shipping_country_code_lock?: string
-	coupon_code?: string
-	gift_card_code?: string
-	gift_card_or_coupon_code?: string
-	subtotal_amount_cents?: number
-	subtotal_amount_float?: number
-	formatted_subtotal_amount?: string
-	shipping_amount_cents?: number
-	shipping_amount_float?: number
-	formatted_shipping_amount?: string
-	payment_method_amount_cents?: number
-	payment_method_amount_float?: number
-	formatted_payment_method_amount?: string
-	discount_amount_cents?: number
-	discount_amount_float?: number
-	formatted_discount_amount?: string
-	adjustment_amount_cents?: number
-	adjustment_amount_float?: number
-	formatted_adjustment_amount?: string
-	gift_card_amount_cents?: number
-	gift_card_amount_float?: number
-	formatted_gift_card_amount?: string
-	total_tax_amount_cents?: number
-	total_tax_amount_float?: number
-	formatted_total_tax_amount?: string
-	subtotal_tax_amount_cents?: number
-	subtotal_tax_amount_float?: number
-	formatted_subtotal_tax_amount?: string
-	shipping_tax_amount_cents?: number
-	shipping_tax_amount_float?: number
-	formatted_shipping_tax_amount?: string
-	payment_method_tax_amount_cents?: number
-	payment_method_tax_amount_float?: number
-	formatted_payment_method_tax_amount?: string
-	adjustment_tax_amount_cents?: number
-	adjustment_tax_amount_float?: number
-	formatted_adjustment_tax_amount?: string
-	total_amount_cents?: number
-	total_amount_float?: number
-	formatted_total_amount?: string
-	total_taxable_amount_cents?: number
-	total_taxable_amount_float?: number
-	formatted_total_taxable_amount?: string
-	subtotal_taxable_amount_cents?: number
-	subtotal_taxable_amount_float?: number
-	formatted_subtotal_taxable_amount?: string
-	shipping_taxable_amount_cents?: number
-	shipping_taxable_amount_float?: number
-	formatted_shipping_taxable_amount?: string
-	payment_method_taxable_amount_cents?: number
-	payment_method_taxable_amount_float?: number
-	formatted_payment_method_taxable_amount?: string
-	adjustment_taxable_amount_cents?: number
-	adjustment_taxable_amount_float?: number
-	formatted_adjustment_taxable_amount?: string
-	total_amount_with_taxes_cents?: number
-	total_amount_with_taxes_float?: number
-	formatted_total_amount_with_taxes?: string
-	fees_amount_cents?: number
-	fees_amount_float?: number
-	formatted_fees_amount?: string
-	duty_amount_cents?: number
-	duty_amount_float?: number
-	formatted_duty_amount?: string
-	skus_count?: number
-	line_item_options_count?: number
-	shipments_count?: number
-	tax_calculations_count?: number
-	payment_source_details?: object
-	token?: string
-	cart_url?: string
-	return_url?: string
-	terms_url?: string
-	privacy_url?: string
-	checkout_url?: string
-	placed_at?: string
-	approved_at?: string
-	cancelled_at?: string
-	payment_updated_at?: string
-	fulfillment_updated_at?: string
-	refreshed_at?: string
-	archived_at?: string
-	expires_at?: string
-	subscription_created_at?: string
+	readonly type: OrderType
 
-	market?: Market
-	customer?: Customer
-	shipping_address?: Address
-	billing_address?: Address
-	available_payment_methods?: PaymentMethod[]
-	available_customer_payment_sources?: CustomerPaymentSource[]
-	available_free_skus?: Sku[]
-	available_free_bundles?: Bundle[]
-	payment_method?: PaymentMethod
-	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer
-	line_items?: LineItem[]
-	shipments?: Shipment[]
-	transactions?: Array<Authorization | Void | Capture | Refund>
-	authorizations?: Authorization[]
-	captures?: Capture[]
-	voids?: Void[]
-	refunds?: Refund[]
-	returns?: Return[]
-	order_subscriptions?: OrderSubscription[]
-	order_factories?: OrderFactory[]
-	order_copies?: OrderCopy[]
-	recurring_order_copies?: RecurringOrderCopy[]
-	attachments?: Attachment[]
-	events?: Event[]
+	number?: number | null
+	autorefresh?: boolean | null
+	status: 'draft' | 'pending' | 'placed' | 'approved' | 'cancelled'
+	payment_status: 'unpaid' | 'authorized' | 'partially_authorized' | 'paid' | 'partially_paid' | 'voided' | 'partially_voided' | 'refunded' | 'partially_refunded' | 'free'
+	fulfillment_status: 'unfulfilled' | 'in_progress' | 'fulfilled' | 'not_required'
+	guest?: boolean | null
+	editable?: boolean | null
+	customer_email?: string | null
+	language_code?: string | null
+	currency_code?: string | null
+	tax_included?: boolean | null
+	tax_rate?: number | null
+	freight_taxable?: boolean | null
+	requires_billing_info?: boolean | null
+	country_code?: string | null
+	shipping_country_code_lock?: string | null
+	coupon_code?: string | null
+	gift_card_code?: string | null
+	gift_card_or_coupon_code?: string | null
+	subtotal_amount_cents?: number | null
+	subtotal_amount_float?: number | null
+	formatted_subtotal_amount?: string | null
+	shipping_amount_cents?: number | null
+	shipping_amount_float?: number | null
+	formatted_shipping_amount?: string | null
+	payment_method_amount_cents?: number | null
+	payment_method_amount_float?: number | null
+	formatted_payment_method_amount?: string | null
+	discount_amount_cents?: number | null
+	discount_amount_float?: number | null
+	formatted_discount_amount?: string | null
+	adjustment_amount_cents?: number | null
+	adjustment_amount_float?: number | null
+	formatted_adjustment_amount?: string | null
+	gift_card_amount_cents?: number | null
+	gift_card_amount_float?: number | null
+	formatted_gift_card_amount?: string | null
+	total_tax_amount_cents?: number | null
+	total_tax_amount_float?: number | null
+	formatted_total_tax_amount?: string | null
+	subtotal_tax_amount_cents?: number | null
+	subtotal_tax_amount_float?: number | null
+	formatted_subtotal_tax_amount?: string | null
+	shipping_tax_amount_cents?: number | null
+	shipping_tax_amount_float?: number | null
+	formatted_shipping_tax_amount?: string | null
+	payment_method_tax_amount_cents?: number | null
+	payment_method_tax_amount_float?: number | null
+	formatted_payment_method_tax_amount?: string | null
+	adjustment_tax_amount_cents?: number | null
+	adjustment_tax_amount_float?: number | null
+	formatted_adjustment_tax_amount?: string | null
+	total_amount_cents?: number | null
+	total_amount_float?: number | null
+	formatted_total_amount?: string | null
+	total_taxable_amount_cents?: number | null
+	total_taxable_amount_float?: number | null
+	formatted_total_taxable_amount?: string | null
+	subtotal_taxable_amount_cents?: number | null
+	subtotal_taxable_amount_float?: number | null
+	formatted_subtotal_taxable_amount?: string | null
+	shipping_taxable_amount_cents?: number | null
+	shipping_taxable_amount_float?: number | null
+	formatted_shipping_taxable_amount?: string | null
+	payment_method_taxable_amount_cents?: number | null
+	payment_method_taxable_amount_float?: number | null
+	formatted_payment_method_taxable_amount?: string | null
+	adjustment_taxable_amount_cents?: number | null
+	adjustment_taxable_amount_float?: number | null
+	formatted_adjustment_taxable_amount?: string | null
+	total_amount_with_taxes_cents?: number | null
+	total_amount_with_taxes_float?: number | null
+	formatted_total_amount_with_taxes?: string | null
+	fees_amount_cents?: number | null
+	fees_amount_float?: number | null
+	formatted_fees_amount?: string | null
+	duty_amount_cents?: number | null
+	duty_amount_float?: number | null
+	formatted_duty_amount?: string | null
+	skus_count?: number | null
+	line_item_options_count?: number | null
+	shipments_count?: number | null
+	tax_calculations_count?: number | null
+	payment_source_details?: object | null
+	token?: string | null
+	cart_url?: string | null
+	return_url?: string | null
+	terms_url?: string | null
+	privacy_url?: string | null
+	checkout_url?: string | null
+	placed_at?: string | null
+	approved_at?: string | null
+	cancelled_at?: string | null
+	payment_updated_at?: string | null
+	fulfillment_updated_at?: string | null
+	refreshed_at?: string | null
+	archived_at?: string | null
+	expires_at?: string | null
+	subscription_created_at?: string | null
+
+	market?: Market | null
+	customer?: Customer | null
+	shipping_address?: Address | null
+	billing_address?: Address | null
+	available_payment_methods?: PaymentMethod[] | null
+	available_customer_payment_sources?: CustomerPaymentSource[] | null
+	available_free_skus?: Sku[] | null
+	available_free_bundles?: Bundle[] | null
+	payment_method?: PaymentMethod | null
+	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
+	line_items?: LineItem[] | null
+	shipments?: Shipment[] | null
+	transactions?: Array<Authorization | Void | Capture | Refund> | null
+	authorizations?: Authorization[] | null
+	captures?: Capture[] | null
+	voids?: Void[] | null
+	refunds?: Refund[] | null
+	returns?: Return[] | null
+	order_subscriptions?: OrderSubscription[] | null
+	order_factories?: OrderFactory[] | null
+	order_copies?: OrderCopy[] | null
+	recurring_order_copies?: RecurringOrderCopy[] | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
 
 interface OrderCreate extends ResourceCreate {
 	
-	autorefresh?: boolean
-	guest?: boolean
-	customer_email?: string
-	customer_password?: string
-	language_code?: string
-	shipping_country_code_lock?: string
-	coupon_code?: string
-	gift_card_code?: string
-	gift_card_or_coupon_code?: string
-	cart_url?: string
-	return_url?: string
-	terms_url?: string
-	privacy_url?: string
+	autorefresh?: boolean | null
+	guest?: boolean | null
+	customer_email?: string | null
+	customer_password?: string | null
+	language_code?: string | null
+	shipping_country_code_lock?: string | null
+	coupon_code?: string | null
+	gift_card_code?: string | null
+	gift_card_or_coupon_code?: string | null
+	cart_url?: string | null
+	return_url?: string | null
+	terms_url?: string | null
+	privacy_url?: string | null
 
-	market?: MarketRel
-	customer?: CustomerRel
-	shipping_address?: AddressRel
-	billing_address?: AddressRel
-	payment_method?: PaymentMethodRel
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
+	market?: MarketRel | null
+	customer?: CustomerRel | null
+	shipping_address?: AddressRel | null
+	billing_address?: AddressRel | null
+	payment_method?: PaymentMethodRel | null
+	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel | null
 
 }
 
 
 interface OrderUpdate extends ResourceUpdate {
 	
-	autorefresh?: boolean
-	guest?: boolean
-	customer_email?: string
-	customer_password?: string
-	language_code?: string
-	shipping_country_code_lock?: string
-	coupon_code?: string
-	gift_card_code?: string
-	gift_card_or_coupon_code?: string
-	cart_url?: string
-	return_url?: string
-	terms_url?: string
-	privacy_url?: string
-	_archive?: boolean
-	_unarchive?: boolean
-	_place?: boolean
-	_cancel?: boolean
-	_approve?: boolean
-	_approve_and_capture?: boolean
-	_authorize?: boolean
-	_authorization_amount_cents?: number
-	_capture?: boolean
-	_refund?: boolean
-	_update_taxes?: boolean
-	_nullify_payment_source?: boolean
-	_billing_address_clone_id?: string
-	_shipping_address_clone_id?: string
-	_customer_payment_source_id?: string
-	_shipping_address_same_as_billing?: boolean
-	_billing_address_same_as_shipping?: boolean
-	_commit_invoice?: boolean
-	_refund_invoice?: boolean
-	_save_payment_source_to_customer_wallet?: boolean
-	_save_shipping_address_to_customer_address_book?: boolean
-	_save_billing_address_to_customer_address_book?: boolean
-	_refresh?: boolean
-	_validate?: boolean
-	_create_subscriptions?: boolean
+	autorefresh?: boolean | null
+	guest?: boolean | null
+	customer_email?: string | null
+	customer_password?: string | null
+	language_code?: string | null
+	shipping_country_code_lock?: string | null
+	coupon_code?: string | null
+	gift_card_code?: string | null
+	gift_card_or_coupon_code?: string | null
+	cart_url?: string | null
+	return_url?: string | null
+	terms_url?: string | null
+	privacy_url?: string | null
+	_archive?: boolean | null
+	_unarchive?: boolean | null
+	_place?: boolean | null
+	_cancel?: boolean | null
+	_approve?: boolean | null
+	_approve_and_capture?: boolean | null
+	_authorize?: boolean | null
+	_authorization_amount_cents?: number | null
+	_capture?: boolean | null
+	_refund?: boolean | null
+	_update_taxes?: boolean | null
+	_nullify_payment_source?: boolean | null
+	_billing_address_clone_id?: string | null
+	_shipping_address_clone_id?: string | null
+	_customer_payment_source_id?: string | null
+	_shipping_address_same_as_billing?: boolean | null
+	_billing_address_same_as_shipping?: boolean | null
+	_commit_invoice?: boolean | null
+	_refund_invoice?: boolean | null
+	_save_payment_source_to_customer_wallet?: boolean | null
+	_save_shipping_address_to_customer_address_book?: boolean | null
+	_save_billing_address_to_customer_address_book?: boolean | null
+	_refresh?: boolean | null
+	_validate?: boolean | null
+	_create_subscriptions?: boolean | null
 
-	market?: MarketRel
-	customer?: CustomerRel
-	shipping_address?: AddressRel
-	billing_address?: AddressRel
-	payment_method?: PaymentMethodRel
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
+	market?: MarketRel | null
+	customer?: CustomerRel | null
+	shipping_address?: AddressRel | null
+	billing_address?: AddressRel | null
+	payment_method?: PaymentMethodRel | null
+	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel | null
 
 }
 
 
-class Orders extends ApiResource {
+class Orders extends ApiResource<Order> {
 
-	static readonly TYPE: 'orders' = 'orders' as const
-	// static readonly PATH = 'orders'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
-		return this.resources.list<Order>({ type: Orders.TYPE }, params, options)
-	}
+	static readonly TYPE: OrderType = 'orders' as const
 
 	async create(resource: OrderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.create<OrderCreate, Order>({ ...resource, type: Orders.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
-		return this.resources.retrieve<Order>({ type: Orders.TYPE, id }, params, options)
 	}
 
 	async update(resource: OrderUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update<OrderUpdate, Order>({ ...resource, type: Orders.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Orders.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Orders.TYPE } : id, options)
 	}
 
 	async market(orderId: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -393,7 +388,6 @@ class Orders extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrder(resource: any): resource is Order {
 		return resource.type && (resource.type === Orders.TYPE)
 	}
@@ -404,7 +398,7 @@ class Orders extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrderType {
 		return Orders.TYPE
 	}
 
@@ -413,4 +407,4 @@ class Orders extends ApiResource {
 
 export default Orders
 
-export { Order, OrderCreate, OrderUpdate }
+export type { Order, OrderCreate, OrderUpdate, OrderType }

@@ -1,41 +1,45 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { Customer } from './customers'
-import type { StockLocation } from './stock_locations'
+import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Address } from './addresses'
 import type { ReturnLineItem } from './return_line_items'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type ReturnRel = ResourceRel & { type: typeof Returns.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
-type StockLocationRel = ResourceRel & { type: 'stock_locations' }
+type ReturnType = 'returns'
+type ReturnRel = ResourceRel & { type: ReturnType }
+type OrderRel = ResourceRel & { type: OrderType }
+type StockLocationRel = ResourceRel & { type: StockLocationType }
 
 
 interface Return extends Resource {
 	
-	number?: string
-	status?: string
-	customer_email?: string
-	skus_count?: number
-	approved_at?: string
-	cancelled_at?: string
-	shipped_at?: string
-	rejected_at?: string
-	received_at?: string
-	archived_at?: string
+	readonly type: ReturnType
 
-	order?: Order
-	customer?: Customer
-	stock_location?: StockLocation
-	origin_address?: Address
-	destination_address?: Address
-	return_line_items?: ReturnLineItem[]
-	attachments?: Attachment[]
-	events?: Event[]
+	number?: string | null
+	status: 'draft' | 'requested' | 'approved' | 'cancelled' | 'shipped' | 'rejected' | 'received'
+	customer_email?: string | null
+	skus_count?: number | null
+	approved_at?: string | null
+	cancelled_at?: string | null
+	shipped_at?: string | null
+	rejected_at?: string | null
+	received_at?: string | null
+	archived_at?: string | null
+
+	order?: Order | null
+	customer?: Customer | null
+	stock_location?: StockLocation | null
+	origin_address?: Address | null
+	destination_address?: Address | null
+	return_line_items?: ReturnLineItem[] | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
@@ -43,51 +47,42 @@ interface Return extends Resource {
 interface ReturnCreate extends ResourceCreate {
 	
 	order: OrderRel
-	stock_location?: StockLocationRel
+	stock_location?: StockLocationRel | null
 
 }
 
 
 interface ReturnUpdate extends ResourceUpdate {
 	
-	_request?: boolean
-	_approve?: boolean
-	_cancel?: boolean
-	_ship?: boolean
-	_reject?: boolean
-	_receive?: boolean
-	_restock?: boolean
-	_archive?: boolean
-	_unarchive?: boolean
+	_request?: boolean | null
+	_approve?: boolean | null
+	_cancel?: boolean | null
+	_ship?: boolean | null
+	_reject?: boolean | null
+	_receive?: boolean | null
+	_restock?: boolean | null
+	_archive?: boolean | null
+	_unarchive?: boolean | null
 
-	stock_location?: StockLocationRel
+	stock_location?: StockLocationRel | null
 
 }
 
 
-class Returns extends ApiResource {
+class Returns extends ApiResource<Return> {
 
-	static readonly TYPE: 'returns' = 'returns' as const
-	// static readonly PATH = 'returns'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
-		return this.resources.list<Return>({ type: Returns.TYPE }, params, options)
-	}
+	static readonly TYPE: ReturnType = 'returns' as const
 
 	async create(resource: ReturnCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.create<ReturnCreate, Return>({ ...resource, type: Returns.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
-		return this.resources.retrieve<Return>({ type: Returns.TYPE, id }, params, options)
 	}
 
 	async update(resource: ReturnUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.update<ReturnUpdate, Return>({ ...resource, type: Returns.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Returns.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Returns.TYPE } : id, options)
 	}
 
 	async order(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -131,7 +126,6 @@ class Returns extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isReturn(resource: any): resource is Return {
 		return resource.type && (resource.type === Returns.TYPE)
 	}
@@ -142,7 +136,7 @@ class Returns extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ReturnType {
 		return Returns.TYPE
 	}
 
@@ -151,4 +145,4 @@ class Returns extends ApiResource {
 
 export default Returns
 
-export { Return, ReturnCreate, ReturnUpdate }
+export type { Return, ReturnCreate, ReturnUpdate, ReturnType }

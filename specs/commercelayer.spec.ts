@@ -48,13 +48,12 @@ describe('SDK:commercelayer suite', () => {
 		expect(reader.id).toBeGreaterThanOrEqual(0)
 
 		await cli.customers.list({ pageSize: 1 })
-		expect(reader.rawResponse.data).not.toBeUndefined()
+		expect(reader.rawResponse?.data).not.toBeUndefined()
 		if (headers) expect(reader.headers).not.toBeUndefined()
 		else expect(reader.headers).toBeUndefined()
 
-		cli.removeRawResponseReader(reader.id)
+		cli.removeRawResponseReader(reader.id as number)
 		cli.removeRawResponseReader(reader)
-		cli.removeRawResponseReader(undefined)
 		cli.removeRawResponseReader(0)
 		cli.removeRawResponseReader({ id: undefined } as RawResponseReader)
 

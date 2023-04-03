@@ -1,27 +1,31 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type AxervePaymentRel = ResourceRel & { type: typeof AxervePayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type AxervePaymentType = 'axerve_payments'
+type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface AxervePayment extends Resource {
 	
-	login?: string
-	return_url?: string
-	payment_request_data?: object
-	mismatched_amounts?: boolean
-	intent_amount_cents?: number
-	intent_amount_float?: number
-	formatted_intent_amount?: string
-	payment_instrument?: object
+	readonly type: AxervePaymentType
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	login: string
+	return_url: string
+	payment_request_data?: object | null
+	mismatched_amounts?: boolean | null
+	intent_amount_cents: number
+	intent_amount_float?: number | null
+	formatted_intent_amount?: string | null
+	payment_instrument?: object | null
+
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
@@ -37,37 +41,28 @@ interface AxervePaymentCreate extends ResourceCreate {
 
 interface AxervePaymentUpdate extends ResourceUpdate {
 	
-	payment_request_data?: object
-	_update?: boolean
+	payment_request_data?: object | null
+	_update?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 
 
-class AxervePayments extends ApiResource {
+class AxervePayments extends ApiResource<AxervePayment> {
 
-	static readonly TYPE: 'axerve_payments' = 'axerve_payments' as const
-	// static readonly PATH = 'axerve_payments'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AxervePayment>> {
-		return this.resources.list<AxervePayment>({ type: AxervePayments.TYPE }, params, options)
-	}
+	static readonly TYPE: AxervePaymentType = 'axerve_payments' as const
 
 	async create(resource: AxervePaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AxervePayment> {
 		return this.resources.create<AxervePaymentCreate, AxervePayment>({ ...resource, type: AxervePayments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AxervePayment> {
-		return this.resources.retrieve<AxervePayment>({ type: AxervePayments.TYPE, id }, params, options)
 	}
 
 	async update(resource: AxervePaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AxervePayment> {
 		return this.resources.update<AxervePaymentUpdate, AxervePayment>({ ...resource, type: AxervePayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: AxervePayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: AxervePayments.TYPE } : id, options)
 	}
 
 	async order(axervePaymentId: string | AxervePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -81,7 +76,6 @@ class AxervePayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAxervePayment(resource: any): resource is AxervePayment {
 		return resource.type && (resource.type === AxervePayments.TYPE)
 	}
@@ -92,7 +86,7 @@ class AxervePayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AxervePaymentType {
 		return AxervePayments.TYPE
 	}
 
@@ -101,4 +95,4 @@ class AxervePayments extends ApiResource {
 
 export default AxervePayments
 
-export { AxervePayment, AxervePaymentCreate, AxervePaymentUpdate }
+export type { AxervePayment, AxervePaymentCreate, AxervePaymentUpdate, AxervePaymentType }

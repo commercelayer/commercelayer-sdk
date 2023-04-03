@@ -1,19 +1,23 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
 
 
-type BingGeocoderRel = ResourceRel & { type: typeof BingGeocoders.TYPE }
+type BingGeocoderType = 'bing_geocoders'
+type BingGeocoderRel = ResourceRel & { type: BingGeocoderType }
 
 
 interface BingGeocoder extends Resource {
 	
-	name?: string
+	readonly type: BingGeocoderType
 
-	addresses?: Address[]
-	attachments?: Attachment[]
+	name: string
+
+	addresses?: Address[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -28,35 +32,26 @@ interface BingGeocoderCreate extends ResourceCreate {
 
 interface BingGeocoderUpdate extends ResourceUpdate {
 	
-	name?: string
-	key?: string
+	name?: string | null
+	key?: string | null
 	
 }
 
 
-class BingGeocoders extends ApiResource {
+class BingGeocoders extends ApiResource<BingGeocoder> {
 
-	static readonly TYPE: 'bing_geocoders' = 'bing_geocoders' as const
-	// static readonly PATH = 'bing_geocoders'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BingGeocoder>> {
-		return this.resources.list<BingGeocoder>({ type: BingGeocoders.TYPE }, params, options)
-	}
+	static readonly TYPE: BingGeocoderType = 'bing_geocoders' as const
 
 	async create(resource: BingGeocoderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BingGeocoder> {
 		return this.resources.create<BingGeocoderCreate, BingGeocoder>({ ...resource, type: BingGeocoders.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BingGeocoder> {
-		return this.resources.retrieve<BingGeocoder>({ type: BingGeocoders.TYPE, id }, params, options)
 	}
 
 	async update(resource: BingGeocoderUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BingGeocoder> {
 		return this.resources.update<BingGeocoderUpdate, BingGeocoder>({ ...resource, type: BingGeocoders.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: BingGeocoders.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: BingGeocoders.TYPE } : id, options)
 	}
 
 	async addresses(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
@@ -70,7 +65,6 @@ class BingGeocoders extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isBingGeocoder(resource: any): resource is BingGeocoder {
 		return resource.type && (resource.type === BingGeocoders.TYPE)
 	}
@@ -81,7 +75,7 @@ class BingGeocoders extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): BingGeocoderType {
 		return BingGeocoders.TYPE
 	}
 
@@ -90,4 +84,4 @@ class BingGeocoders extends ApiResource {
 
 export default BingGeocoders
 
-export { BingGeocoder, BingGeocoderCreate, BingGeocoderUpdate }
+export type { BingGeocoder, BingGeocoderCreate, BingGeocoderUpdate, BingGeocoderType }

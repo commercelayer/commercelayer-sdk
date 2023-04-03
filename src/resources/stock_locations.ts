@@ -1,7 +1,8 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Address } from './addresses'
+import type { Address, AddressType } from './addresses'
 import type { InventoryStockLocation } from './inventory_stock_locations'
 import type { InventoryReturnLocation } from './inventory_return_locations'
 import type { StockItem } from './stock_items'
@@ -9,23 +10,26 @@ import type { StockTransfer } from './stock_transfers'
 import type { Attachment } from './attachments'
 
 
-type StockLocationRel = ResourceRel & { type: typeof StockLocations.TYPE }
-type AddressRel = ResourceRel & { type: 'addresses' }
+type StockLocationType = 'stock_locations'
+type StockLocationRel = ResourceRel & { type: StockLocationType }
+type AddressRel = ResourceRel & { type: AddressType }
 
 
 interface StockLocation extends Resource {
 	
-	number?: number
-	name?: string
-	label_format?: string
-	suppress_etd?: boolean
+	readonly type: StockLocationType
 
-	address?: Address
-	inventory_stock_locations?: InventoryStockLocation[]
-	inventory_return_locations?: InventoryReturnLocation[]
-	stock_items?: StockItem[]
-	stock_transfers?: StockTransfer[]
-	attachments?: Attachment[]
+	number?: number | null
+	name: string
+	label_format?: string | null
+	suppress_etd?: boolean | null
+
+	address?: Address | null
+	inventory_stock_locations?: InventoryStockLocation[] | null
+	inventory_return_locations?: InventoryReturnLocation[] | null
+	stock_items?: StockItem[] | null
+	stock_transfers?: StockTransfer[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -33,8 +37,8 @@ interface StockLocation extends Resource {
 interface StockLocationCreate extends ResourceCreate {
 	
 	name: string
-	label_format?: string
-	suppress_etd?: boolean
+	label_format?: string | null
+	suppress_etd?: boolean | null
 
 	address: AddressRel
 
@@ -43,38 +47,29 @@ interface StockLocationCreate extends ResourceCreate {
 
 interface StockLocationUpdate extends ResourceUpdate {
 	
-	name?: string
-	label_format?: string
-	suppress_etd?: boolean
+	name?: string | null
+	label_format?: string | null
+	suppress_etd?: boolean | null
 
-	address?: AddressRel
+	address?: AddressRel | null
 
 }
 
 
-class StockLocations extends ApiResource {
+class StockLocations extends ApiResource<StockLocation> {
 
-	static readonly TYPE: 'stock_locations' = 'stock_locations' as const
-	// static readonly PATH = 'stock_locations'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {
-		return this.resources.list<StockLocation>({ type: StockLocations.TYPE }, params, options)
-	}
+	static readonly TYPE: StockLocationType = 'stock_locations' as const
 
 	async create(resource: StockLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
 		return this.resources.create<StockLocationCreate, StockLocation>({ ...resource, type: StockLocations.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
-		return this.resources.retrieve<StockLocation>({ type: StockLocations.TYPE, id }, params, options)
 	}
 
 	async update(resource: StockLocationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
 		return this.resources.update<StockLocationUpdate, StockLocation>({ ...resource, type: StockLocations.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: StockLocations.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: StockLocations.TYPE } : id, options)
 	}
 
 	async address(stockLocationId: string | StockLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
@@ -108,7 +103,6 @@ class StockLocations extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isStockLocation(resource: any): resource is StockLocation {
 		return resource.type && (resource.type === StockLocations.TYPE)
 	}
@@ -119,7 +113,7 @@ class StockLocations extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): StockLocationType {
 		return StockLocations.TYPE
 	}
 
@@ -128,4 +122,4 @@ class StockLocations extends ApiResource {
 
 export default StockLocations
 
-export { StockLocation, StockLocationCreate, StockLocationUpdate }
+export type { StockLocation, StockLocationCreate, StockLocationUpdate, StockLocationType }

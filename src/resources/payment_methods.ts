@@ -1,35 +1,39 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { PaymentGateway } from './payment_gateways'
+import type { Market, MarketType } from './markets'
+import type { PaymentGateway, PaymentGatewayType } from './payment_gateways'
 import type { Attachment } from './attachments'
 
 
-type PaymentMethodRel = ResourceRel & { type: typeof PaymentMethods.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type PaymentGatewayRel = ResourceRel & { type: 'payment_gateways' }
+type PaymentMethodType = 'payment_methods'
+type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
+type MarketRel = ResourceRel & { type: MarketType }
+type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
 
 
 interface PaymentMethod extends Resource {
 	
-	payment_source_type?: string
-	name?: string
-	currency_code?: string
-	moto?: boolean
-	require_capture?: boolean
-	auto_capture?: boolean
-	disabled_at?: string
-	price_amount_cents?: number
-	price_amount_float?: number
-	formatted_price_amount?: string
-	auto_capture_max_amount_cents?: number
-	auto_capture_max_amount_float?: number
-	formatted_auto_capture_max_amount?: string
+	readonly type: PaymentMethodType
 
-	market?: Market
-	payment_gateway?: PaymentGateway
-	attachments?: Attachment[]
+	payment_source_type: string
+	name?: string | null
+	currency_code?: string | null
+	moto?: boolean | null
+	require_capture?: boolean | null
+	auto_capture?: boolean | null
+	disabled_at?: string | null
+	price_amount_cents: number
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
+	auto_capture_max_amount_cents?: number | null
+	auto_capture_max_amount_float?: number | null
+	formatted_auto_capture_max_amount?: string | null
+
+	market?: Market | null
+	payment_gateway?: PaymentGateway | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -37,14 +41,14 @@ interface PaymentMethod extends Resource {
 interface PaymentMethodCreate extends ResourceCreate {
 	
 	payment_source_type: string
-	currency_code?: string
-	moto?: boolean
-	require_capture?: boolean
-	auto_capture?: boolean
+	currency_code?: string | null
+	moto?: boolean | null
+	require_capture?: boolean | null
+	auto_capture?: boolean | null
 	price_amount_cents: number
-	auto_capture_max_amount_cents?: number
+	auto_capture_max_amount_cents?: number | null
 
-	market?: MarketRel
+	market?: MarketRel | null
 	payment_gateway: PaymentGatewayRel
 
 }
@@ -52,45 +56,36 @@ interface PaymentMethodCreate extends ResourceCreate {
 
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
-	payment_source_type?: string
-	currency_code?: string
-	moto?: boolean
-	require_capture?: boolean
-	auto_capture?: boolean
-	_disable?: boolean
-	_enable?: boolean
-	price_amount_cents?: number
-	auto_capture_max_amount_cents?: number
+	payment_source_type?: string | null
+	currency_code?: string | null
+	moto?: boolean | null
+	require_capture?: boolean | null
+	auto_capture?: boolean | null
+	_disable?: boolean | null
+	_enable?: boolean | null
+	price_amount_cents?: number | null
+	auto_capture_max_amount_cents?: number | null
 
-	market?: MarketRel
-	payment_gateway?: PaymentGatewayRel
+	market?: MarketRel | null
+	payment_gateway?: PaymentGatewayRel | null
 
 }
 
 
-class PaymentMethods extends ApiResource {
+class PaymentMethods extends ApiResource<PaymentMethod> {
 
-	static readonly TYPE: 'payment_methods' = 'payment_methods' as const
-	// static readonly PATH = 'payment_methods'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		return this.resources.list<PaymentMethod>({ type: PaymentMethods.TYPE }, params, options)
-	}
+	static readonly TYPE: PaymentMethodType = 'payment_methods' as const
 
 	async create(resource: PaymentMethodCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
 		return this.resources.create<PaymentMethodCreate, PaymentMethod>({ ...resource, type: PaymentMethods.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
-		return this.resources.retrieve<PaymentMethod>({ type: PaymentMethods.TYPE, id }, params, options)
 	}
 
 	async update(resource: PaymentMethodUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
 		return this.resources.update<PaymentMethodUpdate, PaymentMethod>({ ...resource, type: PaymentMethods.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: PaymentMethods.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: PaymentMethods.TYPE } : id, options)
 	}
 
 	async market(paymentMethodId: string | PaymentMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -109,7 +104,6 @@ class PaymentMethods extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPaymentMethod(resource: any): resource is PaymentMethod {
 		return resource.type && (resource.type === PaymentMethods.TYPE)
 	}
@@ -120,7 +114,7 @@ class PaymentMethods extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PaymentMethodType {
 		return PaymentMethods.TYPE
 	}
 
@@ -129,4 +123,4 @@ class PaymentMethods extends ApiResource {
 
 export default PaymentMethods
 
-export { PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate }
+export type { PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate, PaymentMethodType }

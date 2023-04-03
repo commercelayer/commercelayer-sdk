@@ -1,39 +1,34 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Shipment } from './shipments'
 import type { LineItem } from './line_items'
 import type { StockItem } from './stock_items'
 
 
-type StockLineItemRel = ResourceRel & { type: typeof StockLineItems.TYPE }
+type StockLineItemType = 'stock_line_items'
+type StockLineItemRel = ResourceRel & { type: StockLineItemType }
 
 
 interface StockLineItem extends Resource {
 	
-	sku_code?: string
-	bundle_code?: string
-	quantity?: number
+	readonly type: StockLineItemType
 
-	shipment?: Shipment
-	line_item?: LineItem
-	stock_item?: StockItem
+	sku_code?: string | null
+	bundle_code?: string | null
+	quantity: number
+
+	shipment?: Shipment | null
+	line_item?: LineItem | null
+	stock_item?: StockItem | null
 
 }
 
 
-class StockLineItems extends ApiResource {
+class StockLineItems extends ApiResource<StockLineItem> {
 
-	static readonly TYPE: 'stock_line_items' = 'stock_line_items' as const
-	// static readonly PATH = 'stock_line_items'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
-		return this.resources.list<StockLineItem>({ type: StockLineItems.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
-		return this.resources.retrieve<StockLineItem>({ type: StockLineItems.TYPE, id }, params, options)
-	}
+	static readonly TYPE: StockLineItemType = 'stock_line_items' as const
 
 	async shipment(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
@@ -51,7 +46,6 @@ class StockLineItems extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isStockLineItem(resource: any): resource is StockLineItem {
 		return resource.type && (resource.type === StockLineItems.TYPE)
 	}
@@ -62,7 +56,7 @@ class StockLineItems extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): StockLineItemType {
 		return StockLineItems.TYPE
 	}
 
@@ -71,4 +65,4 @@ class StockLineItems extends ApiResource {
 
 export default StockLineItems
 
-export { StockLineItem }
+export type { StockLineItem, StockLineItemType }

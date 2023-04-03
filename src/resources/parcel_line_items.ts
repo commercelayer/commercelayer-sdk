@@ -1,24 +1,28 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { Parcel } from './parcels'
-import type { StockLineItem } from './stock_line_items'
+import type { Parcel, ParcelType } from './parcels'
+import type { StockLineItem, StockLineItemType } from './stock_line_items'
 
 
-type ParcelLineItemRel = ResourceRel & { type: typeof ParcelLineItems.TYPE }
-type ParcelRel = ResourceRel & { type: 'parcels' }
-type StockLineItemRel = ResourceRel & { type: 'stock_line_items' }
+type ParcelLineItemType = 'parcel_line_items'
+type ParcelLineItemRel = ResourceRel & { type: ParcelLineItemType }
+type ParcelRel = ResourceRel & { type: ParcelType }
+type StockLineItemRel = ResourceRel & { type: StockLineItemType }
 
 
 interface ParcelLineItem extends Resource {
 	
-	sku_code?: string
-	quantity?: number
-	name?: string
-	image_url?: string
+	readonly type: ParcelLineItemType
 
-	parcel?: Parcel
-	stock_line_item?: StockLineItem
+	sku_code?: string | null
+	quantity: number
+	name: string
+	image_url?: string | null
+
+	parcel?: Parcel | null
+	stock_line_item?: StockLineItem | null
 	/**
 	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
@@ -29,7 +33,7 @@ interface ParcelLineItem extends Resource {
 
 interface ParcelLineItemCreate extends ResourceCreate {
 	
-	sku_code?: string
+	sku_code?: string | null
 	quantity: number
 
 	parcel: ParcelRel
@@ -45,29 +49,20 @@ interface ParcelLineItemCreate extends ResourceCreate {
 type ParcelLineItemUpdate = ResourceUpdate
 
 
-class ParcelLineItems extends ApiResource {
+class ParcelLineItems extends ApiResource<ParcelLineItem> {
 
-	static readonly TYPE: 'parcel_line_items' = 'parcel_line_items' as const
-	// static readonly PATH = 'parcel_line_items'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
-		return this.resources.list<ParcelLineItem>({ type: ParcelLineItems.TYPE }, params, options)
-	}
+	static readonly TYPE: ParcelLineItemType = 'parcel_line_items' as const
 
 	async create(resource: ParcelLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
 		return this.resources.create<ParcelLineItemCreate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
-		return this.resources.retrieve<ParcelLineItem>({ type: ParcelLineItems.TYPE, id }, params, options)
 	}
 
 	async update(resource: ParcelLineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
 		return this.resources.update<ParcelLineItemUpdate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ParcelLineItems.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ParcelLineItems.TYPE } : id, options)
 	}
 
 	async parcel(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
@@ -81,7 +76,6 @@ class ParcelLineItems extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isParcelLineItem(resource: any): resource is ParcelLineItem {
 		return resource.type && (resource.type === ParcelLineItems.TYPE)
 	}
@@ -92,7 +86,7 @@ class ParcelLineItems extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ParcelLineItemType {
 		return ParcelLineItems.TYPE
 	}
 
@@ -101,4 +95,4 @@ class ParcelLineItems extends ApiResource {
 
 export default ParcelLineItems
 
-export { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate }
+export type { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate, ParcelLineItemType }

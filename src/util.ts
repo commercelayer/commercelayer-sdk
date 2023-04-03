@@ -1,5 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ObjectType = { [key: string]: any }
+import type { ObjectType } from "./common";
+
 
 
 const sleep = async (ms: number): Promise<NodeJS.Timeout> => {

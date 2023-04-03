@@ -1,43 +1,47 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Merchant } from './merchants'
-import type { PriceList } from './price_lists'
-import type { InventoryModel } from './inventory_models'
-import type { SubscriptionModel } from './subscription_models'
-import type { TaxCalculator } from './tax_calculators'
-import type { CustomerGroup } from './customer_groups'
+import type { Merchant, MerchantType } from './merchants'
+import type { PriceList, PriceListType } from './price_lists'
+import type { InventoryModel, InventoryModelType } from './inventory_models'
+import type { SubscriptionModel, SubscriptionModelType } from './subscription_models'
+import type { TaxCalculator, TaxCalculatorType } from './tax_calculators'
+import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { Attachment } from './attachments'
 
 
-type MarketRel = ResourceRel & { type: typeof Markets.TYPE }
-type MerchantRel = ResourceRel & { type: 'merchants' }
-type PriceListRel = ResourceRel & { type: 'price_lists' }
-type InventoryModelRel = ResourceRel & { type: 'inventory_models' }
-type SubscriptionModelRel = ResourceRel & { type: 'subscription_models' }
-type TaxCalculatorRel = ResourceRel & { type: 'tax_calculators' }
-type CustomerGroupRel = ResourceRel & { type: 'customer_groups' }
+type MarketType = 'markets'
+type MarketRel = ResourceRel & { type: MarketType }
+type MerchantRel = ResourceRel & { type: MerchantType }
+type PriceListRel = ResourceRel & { type: PriceListType }
+type InventoryModelRel = ResourceRel & { type: InventoryModelType }
+type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
+type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
+type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 
 
 interface Market extends Resource {
 	
-	number?: number
-	name?: string
-	facebook_pixel_id?: string
-	checkout_url?: string
-	external_prices_url?: string
-	external_order_validation_url?: string
-	shared_secret?: string
-	private?: boolean
-	disabled_at?: string
+	readonly type: MarketType
 
-	merchant?: Merchant
-	price_list?: PriceList
-	inventory_model?: InventoryModel
-	subscription_model?: SubscriptionModel
-	tax_calculator?: TaxCalculator
-	customer_group?: CustomerGroup
-	attachments?: Attachment[]
+	number?: number | null
+	name: string
+	facebook_pixel_id?: string | null
+	checkout_url?: string | null
+	external_prices_url?: string | null
+	external_order_validation_url?: string | null
+	shared_secret: string
+	private?: boolean | null
+	disabled_at?: string | null
+
+	merchant?: Merchant | null
+	price_list?: PriceList | null
+	inventory_model?: InventoryModel | null
+	subscription_model?: SubscriptionModel | null
+	tax_calculator?: TaxCalculator | null
+	customer_group?: CustomerGroup | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -45,64 +49,55 @@ interface Market extends Resource {
 interface MarketCreate extends ResourceCreate {
 	
 	name: string
-	facebook_pixel_id?: string
-	checkout_url?: string
-	external_prices_url?: string
-	external_order_validation_url?: string
+	facebook_pixel_id?: string | null
+	checkout_url?: string | null
+	external_prices_url?: string | null
+	external_order_validation_url?: string | null
 
 	merchant: MerchantRel
 	price_list: PriceListRel
 	inventory_model: InventoryModelRel
-	subscription_model?: SubscriptionModelRel
-	tax_calculator?: TaxCalculatorRel
-	customer_group?: CustomerGroupRel
+	subscription_model?: SubscriptionModelRel | null
+	tax_calculator?: TaxCalculatorRel | null
+	customer_group?: CustomerGroupRel | null
 
 }
 
 
 interface MarketUpdate extends ResourceUpdate {
 	
-	name?: string
-	facebook_pixel_id?: string
-	checkout_url?: string
-	external_prices_url?: string
-	external_order_validation_url?: string
-	_disable?: boolean
-	_enable?: boolean
+	name?: string | null
+	facebook_pixel_id?: string | null
+	checkout_url?: string | null
+	external_prices_url?: string | null
+	external_order_validation_url?: string | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 
-	merchant?: MerchantRel
-	price_list?: PriceListRel
-	inventory_model?: InventoryModelRel
-	subscription_model?: SubscriptionModelRel
-	tax_calculator?: TaxCalculatorRel
-	customer_group?: CustomerGroupRel
+	merchant?: MerchantRel | null
+	price_list?: PriceListRel | null
+	inventory_model?: InventoryModelRel | null
+	subscription_model?: SubscriptionModelRel | null
+	tax_calculator?: TaxCalculatorRel | null
+	customer_group?: CustomerGroupRel | null
 
 }
 
 
-class Markets extends ApiResource {
+class Markets extends ApiResource<Market> {
 
-	static readonly TYPE: 'markets' = 'markets' as const
-	// static readonly PATH = 'markets'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		return this.resources.list<Market>({ type: Markets.TYPE }, params, options)
-	}
+	static readonly TYPE: MarketType = 'markets' as const
 
 	async create(resource: MarketCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.create<MarketCreate, Market>({ ...resource, type: Markets.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.retrieve<Market>({ type: Markets.TYPE, id }, params, options)
 	}
 
 	async update(resource: MarketUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.update<MarketUpdate, Market>({ ...resource, type: Markets.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Markets.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Markets.TYPE } : id, options)
 	}
 
 	async merchant(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
@@ -141,7 +136,6 @@ class Markets extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isMarket(resource: any): resource is Market {
 		return resource.type && (resource.type === Markets.TYPE)
 	}
@@ -152,7 +146,7 @@ class Markets extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): MarketType {
 		return Markets.TYPE
 	}
 
@@ -161,4 +155,4 @@ class Markets extends ApiResource {
 
 export default Markets
 
-export { Market, MarketCreate, MarketUpdate }
+export type { Market, MarketCreate, MarketUpdate, MarketType }

@@ -1,25 +1,29 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { ExternalPayment } from './external_payments'
 
 
-type ExternalGatewayRel = ResourceRel & { type: typeof ExternalGateways.TYPE }
+type ExternalGatewayType = 'external_gateways'
+type ExternalGatewayRel = ResourceRel & { type: ExternalGatewayType }
 
 
 interface ExternalGateway extends Resource {
 	
-	name?: string
-	shared_secret?: string
-	authorize_url?: string
-	capture_url?: string
-	void_url?: string
-	refund_url?: string
-	token_url?: string
+	readonly type: ExternalGatewayType
 
-	payment_methods?: PaymentMethod[]
-	external_payments?: ExternalPayment[]
+	name: string
+	shared_secret: string
+	authorize_url?: string | null
+	capture_url?: string | null
+	void_url?: string | null
+	refund_url?: string | null
+	token_url?: string | null
+
+	payment_methods?: PaymentMethod[] | null
+	external_payments?: ExternalPayment[] | null
 
 }
 
@@ -27,50 +31,41 @@ interface ExternalGateway extends Resource {
 interface ExternalGatewayCreate extends ResourceCreate {
 	
 	name: string
-	authorize_url?: string
-	capture_url?: string
-	void_url?: string
-	refund_url?: string
-	token_url?: string
+	authorize_url?: string | null
+	capture_url?: string | null
+	void_url?: string | null
+	refund_url?: string | null
+	token_url?: string | null
 	
 }
 
 
 interface ExternalGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
-	authorize_url?: string
-	capture_url?: string
-	void_url?: string
-	refund_url?: string
-	token_url?: string
+	name?: string | null
+	authorize_url?: string | null
+	capture_url?: string | null
+	void_url?: string | null
+	refund_url?: string | null
+	token_url?: string | null
 	
 }
 
 
-class ExternalGateways extends ApiResource {
+class ExternalGateways extends ApiResource<ExternalGateway> {
 
-	static readonly TYPE: 'external_gateways' = 'external_gateways' as const
-	// static readonly PATH = 'external_gateways'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalGateway>> {
-		return this.resources.list<ExternalGateway>({ type: ExternalGateways.TYPE }, params, options)
-	}
+	static readonly TYPE: ExternalGatewayType = 'external_gateways' as const
 
 	async create(resource: ExternalGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
 		return this.resources.create<ExternalGatewayCreate, ExternalGateway>({ ...resource, type: ExternalGateways.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
-		return this.resources.retrieve<ExternalGateway>({ type: ExternalGateways.TYPE, id }, params, options)
 	}
 
 	async update(resource: ExternalGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
 		return this.resources.update<ExternalGatewayUpdate, ExternalGateway>({ ...resource, type: ExternalGateways.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ExternalGateways.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ExternalGateways.TYPE } : id, options)
 	}
 
 	async payment_methods(externalGatewayId: string | ExternalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -84,7 +79,6 @@ class ExternalGateways extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isExternalGateway(resource: any): resource is ExternalGateway {
 		return resource.type && (resource.type === ExternalGateways.TYPE)
 	}
@@ -95,7 +89,7 @@ class ExternalGateways extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ExternalGatewayType {
 		return ExternalGateways.TYPE
 	}
 
@@ -104,4 +98,4 @@ class ExternalGateways extends ApiResource {
 
 export default ExternalGateways
 
-export { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate }
+export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate, ExternalGatewayType }

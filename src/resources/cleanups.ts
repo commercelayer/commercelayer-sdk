@@ -1,26 +1,30 @@
-import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
 
 
-type CleanupRel = ResourceRel & { type: typeof Cleanups.TYPE }
+type CleanupType = 'cleanups'
+type CleanupRel = ResourceRel & { type: CleanupType }
 
 
 interface Cleanup extends Resource {
 	
-	resource_type?: string
-	status?: string
-	started_at?: string
-	completed_at?: string
-	interrupted_at?: string
-	filters?: object
-	records_count?: number
-	errors_count?: number
-	processed_count?: number
-	errors_log?: object
+	readonly type: CleanupType
 
-	events?: Event[]
+	resource_type: string
+	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
+	started_at?: string | null
+	completed_at?: string | null
+	interrupted_at?: string | null
+	filters?: object | null
+	records_count?: number | null
+	errors_count?: number | null
+	processed_count?: number | null
+	errors_log?: object | null
+
+	events?: Event[] | null
 
 }
 
@@ -28,30 +32,21 @@ interface Cleanup extends Resource {
 interface CleanupCreate extends ResourceCreate {
 	
 	resource_type: string
-	filters?: object
+	filters?: object | null
 	
 }
 
 
-class Cleanups extends ApiResource {
+class Cleanups extends ApiResource<Cleanup> {
 
-	static readonly TYPE: 'cleanups' = 'cleanups' as const
-	// static readonly PATH = 'cleanups'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Cleanup>> {
-		return this.resources.list<Cleanup>({ type: Cleanups.TYPE }, params, options)
-	}
+	static readonly TYPE: CleanupType = 'cleanups' as const
 
 	async create(resource: CleanupCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Cleanup> {
 		return this.resources.create<CleanupCreate, Cleanup>({ ...resource, type: Cleanups.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Cleanup> {
-		return this.resources.retrieve<Cleanup>({ type: Cleanups.TYPE, id }, params, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Cleanups.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Cleanups.TYPE } : id, options)
 	}
 
 	async events(cleanupId: string | Cleanup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
@@ -60,7 +55,6 @@ class Cleanups extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCleanup(resource: any): resource is Cleanup {
 		return resource.type && (resource.type === Cleanups.TYPE)
 	}
@@ -71,7 +65,7 @@ class Cleanups extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CleanupType {
 		return Cleanups.TYPE
 	}
 
@@ -80,4 +74,4 @@ class Cleanups extends ApiResource {
 
 export default Cleanups
 
-export { Cleanup, CleanupCreate }
+export type { Cleanup, CleanupCreate, CleanupType }

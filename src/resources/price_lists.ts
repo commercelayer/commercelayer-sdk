@@ -1,21 +1,25 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Price } from './prices'
 import type { Attachment } from './attachments'
 
 
-type PriceListRel = ResourceRel & { type: typeof PriceLists.TYPE }
+type PriceListType = 'price_lists'
+type PriceListRel = ResourceRel & { type: PriceListType }
 
 
 interface PriceList extends Resource {
 	
-	name?: string
-	currency_code?: string
-	tax_included?: boolean
+	readonly type: PriceListType
 
-	prices?: Price[]
-	attachments?: Attachment[]
+	name: string
+	currency_code: string
+	tax_included?: boolean | null
+
+	prices?: Price[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -24,43 +28,34 @@ interface PriceListCreate extends ResourceCreate {
 	
 	name: string
 	currency_code: string
-	tax_included?: boolean
+	tax_included?: boolean | null
 	
 }
 
 
 interface PriceListUpdate extends ResourceUpdate {
 	
-	name?: string
-	currency_code?: string
-	tax_included?: boolean
+	name?: string | null
+	currency_code?: string | null
+	tax_included?: boolean | null
 	
 }
 
 
-class PriceLists extends ApiResource {
+class PriceLists extends ApiResource<PriceList> {
 
-	static readonly TYPE: 'price_lists' = 'price_lists' as const
-	// static readonly PATH = 'price_lists'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceList>> {
-		return this.resources.list<PriceList>({ type: PriceLists.TYPE }, params, options)
-	}
+	static readonly TYPE: PriceListType = 'price_lists' as const
 
 	async create(resource: PriceListCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
 		return this.resources.create<PriceListCreate, PriceList>({ ...resource, type: PriceLists.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
-		return this.resources.retrieve<PriceList>({ type: PriceLists.TYPE, id }, params, options)
 	}
 
 	async update(resource: PriceListUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
 		return this.resources.update<PriceListUpdate, PriceList>({ ...resource, type: PriceLists.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: PriceLists.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: PriceLists.TYPE } : id, options)
 	}
 
 	async prices(priceListId: string | PriceList, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Price>> {
@@ -74,7 +69,6 @@ class PriceLists extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPriceList(resource: any): resource is PriceList {
 		return resource.type && (resource.type === PriceLists.TYPE)
 	}
@@ -85,7 +79,7 @@ class PriceLists extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PriceListType {
 		return PriceLists.TYPE
 	}
 
@@ -94,4 +88,4 @@ class PriceLists extends ApiResource {
 
 export default PriceLists
 
-export { PriceList, PriceListCreate, PriceListUpdate }
+export type { PriceList, PriceListCreate, PriceListUpdate, PriceListType }

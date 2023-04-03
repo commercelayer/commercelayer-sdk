@@ -1,27 +1,31 @@
-import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
 
 
-type ExportRel = ResourceRel & { type: typeof Exports.TYPE }
+type ExportType = 'exports'
+type ExportRel = ResourceRel & { type: ExportType }
 
 
 interface Export extends Resource {
 	
-	resource_type?: string
-	format?: string
-	status?: string
-	includes?: string[]
-	filters?: object
-	dry_data?: boolean
-	started_at?: string
-	completed_at?: string
-	interrupted_at?: string
-	records_count?: number
-	attachment_url?: string
+	readonly type: ExportType
 
-	events?: Event[]
+	resource_type: string
+	format?: string | null
+	status: 'pending' | 'in_progress' | 'completed'
+	includes?: string[] | null
+	filters?: object | null
+	dry_data?: boolean | null
+	started_at?: string | null
+	completed_at?: string | null
+	interrupted_at?: string | null
+	records_count?: number | null
+	attachment_url?: string | null
+
+	events?: Event[] | null
 
 }
 
@@ -29,33 +33,24 @@ interface Export extends Resource {
 interface ExportCreate extends ResourceCreate {
 	
 	resource_type: string
-	format?: string
-	includes?: string[]
-	filters?: object
-	dry_data?: boolean
+	format?: string | null
+	includes?: string[] | null
+	filters?: object | null
+	dry_data?: boolean | null
 	
 }
 
 
-class Exports extends ApiResource {
+class Exports extends ApiResource<Export> {
 
-	static readonly TYPE: 'exports' = 'exports' as const
-	// static readonly PATH = 'exports'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Export>> {
-		return this.resources.list<Export>({ type: Exports.TYPE }, params, options)
-	}
+	static readonly TYPE: ExportType = 'exports' as const
 
 	async create(resource: ExportCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Export> {
 		return this.resources.create<ExportCreate, Export>({ ...resource, type: Exports.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Export> {
-		return this.resources.retrieve<Export>({ type: Exports.TYPE, id }, params, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Exports.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Exports.TYPE } : id, options)
 	}
 
 	async events(exportId: string | Export, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
@@ -64,7 +59,6 @@ class Exports extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isExport(resource: any): resource is Export {
 		return resource.type && (resource.type === Exports.TYPE)
 	}
@@ -75,7 +69,7 @@ class Exports extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ExportType {
 		return Exports.TYPE
 	}
 
@@ -84,4 +78,4 @@ class Exports extends ApiResource {
 
 export default Exports
 
-export { Export, ExportCreate }
+export type { Export, ExportCreate, ExportType }

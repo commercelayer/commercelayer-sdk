@@ -1,25 +1,29 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { OrderSubscription } from './order_subscriptions'
 import type { Attachment } from './attachments'
 
 
-type SubscriptionModelRel = ResourceRel & { type: typeof SubscriptionModels.TYPE }
+type SubscriptionModelType = 'subscription_models'
+type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
 
 
 interface SubscriptionModel extends Resource {
 	
-	name?: string
-	strategy?: string
-	frequencies?: string[]
-	auto_activate?: boolean
-	auto_cancel?: boolean
+	readonly type: SubscriptionModelType
 
-	markets?: Market[]
-	order_subscriptions?: OrderSubscription[]
-	attachments?: Attachment[]
+	name: string
+	strategy?: string | null
+	frequencies: string[]
+	auto_activate?: boolean | null
+	auto_cancel?: boolean | null
+
+	markets?: Market[] | null
+	order_subscriptions?: OrderSubscription[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -27,48 +31,39 @@ interface SubscriptionModel extends Resource {
 interface SubscriptionModelCreate extends ResourceCreate {
 	
 	name: string
-	strategy?: string
+	strategy?: string | null
 	frequencies: string[]
-	auto_activate?: boolean
-	auto_cancel?: boolean
+	auto_activate?: boolean | null
+	auto_cancel?: boolean | null
 	
 }
 
 
 interface SubscriptionModelUpdate extends ResourceUpdate {
 	
-	name?: string
-	strategy?: string
-	frequencies?: string[]
-	auto_activate?: boolean
-	auto_cancel?: boolean
+	name?: string | null
+	strategy?: string | null
+	frequencies?: string[] | null
+	auto_activate?: boolean | null
+	auto_cancel?: boolean | null
 	
 }
 
 
-class SubscriptionModels extends ApiResource {
+class SubscriptionModels extends ApiResource<SubscriptionModel> {
 
-	static readonly TYPE: 'subscription_models' = 'subscription_models' as const
-	// static readonly PATH = 'subscription_models'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SubscriptionModel>> {
-		return this.resources.list<SubscriptionModel>({ type: SubscriptionModels.TYPE }, params, options)
-	}
+	static readonly TYPE: SubscriptionModelType = 'subscription_models' as const
 
 	async create(resource: SubscriptionModelCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SubscriptionModel> {
 		return this.resources.create<SubscriptionModelCreate, SubscriptionModel>({ ...resource, type: SubscriptionModels.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SubscriptionModel> {
-		return this.resources.retrieve<SubscriptionModel>({ type: SubscriptionModels.TYPE, id }, params, options)
 	}
 
 	async update(resource: SubscriptionModelUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SubscriptionModel> {
 		return this.resources.update<SubscriptionModelUpdate, SubscriptionModel>({ ...resource, type: SubscriptionModels.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: SubscriptionModels.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: SubscriptionModels.TYPE } : id, options)
 	}
 
 	async markets(subscriptionModelId: string | SubscriptionModel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
@@ -87,7 +82,6 @@ class SubscriptionModels extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isSubscriptionModel(resource: any): resource is SubscriptionModel {
 		return resource.type && (resource.type === SubscriptionModels.TYPE)
 	}
@@ -98,7 +92,7 @@ class SubscriptionModels extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): SubscriptionModelType {
 		return SubscriptionModels.TYPE
 	}
 
@@ -107,4 +101,4 @@ class SubscriptionModels extends ApiResource {
 
 export default SubscriptionModels
 
-export { SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate }
+export type { SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate, SubscriptionModelType }

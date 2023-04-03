@@ -1,5 +1,6 @@
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Authorization } from './authorizations'
@@ -7,57 +8,51 @@ import type { Refund } from './refunds'
 import type { Event } from './events'
 
 
-type CaptureRel = ResourceRel & { type: typeof Captures.TYPE }
+type CaptureType = 'captures'
+type CaptureRel = ResourceRel & { type: CaptureType }
 
 
 interface Capture extends Resource {
 	
-	number?: string
-	currency_code?: string
-	amount_cents?: number
-	amount_float?: number
-	formatted_amount?: string
-	succeeded?: boolean
-	message?: string
-	error_code?: string
-	error_detail?: string
-	token?: string
-	gateway_transaction_id?: string
-	refund_amount_cents?: number
-	refund_amount_float?: number
-	formatted_refund_amount?: string
-	refund_balance_cents?: number
-	refund_balance_float?: number
-	formatted_refund_balance?: string
+	readonly type: CaptureType
 
-	order?: Order
-	reference_authorization?: Authorization
-	refunds?: Refund[]
-	events?: Event[]
+	number: string
+	currency_code: string
+	amount_cents: number
+	amount_float: number
+	formatted_amount: string
+	succeeded: boolean
+	message?: string | null
+	error_code?: string | null
+	error_detail?: string | null
+	token?: string | null
+	gateway_transaction_id?: string | null
+	refund_amount_cents?: number | null
+	refund_amount_float?: number | null
+	formatted_refund_amount?: string | null
+	refund_balance_cents?: number | null
+	refund_balance_float?: number | null
+	formatted_refund_balance?: string | null
+
+	order?: Order | null
+	reference_authorization?: Authorization | null
+	refunds?: Refund[] | null
+	events?: Event[] | null
 
 }
 
 
 interface CaptureUpdate extends ResourceUpdate {
 	
-	_refund?: boolean
-	_refund_amount_cents?: number
+	_refund?: boolean | null
+	_refund_amount_cents?: number | null
 	
 }
 
 
-class Captures extends ApiResource {
+class Captures extends ApiResource<Capture> {
 
-	static readonly TYPE: 'captures' = 'captures' as const
-	// static readonly PATH = 'captures'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
-		return this.resources.list<Capture>({ type: Captures.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
-		return this.resources.retrieve<Capture>({ type: Captures.TYPE, id }, params, options)
-	}
+	static readonly TYPE: CaptureType = 'captures' as const
 
 	async update(resource: CaptureUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.update<CaptureUpdate, Capture>({ ...resource, type: Captures.TYPE }, params, options)
@@ -84,7 +79,6 @@ class Captures extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCapture(resource: any): resource is Capture {
 		return resource.type && (resource.type === Captures.TYPE)
 	}
@@ -95,7 +89,7 @@ class Captures extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CaptureType {
 		return Captures.TYPE
 	}
 
@@ -104,4 +98,4 @@ class Captures extends ApiResource {
 
 export default Captures
 
-export { Capture, CaptureUpdate }
+export type { Capture, CaptureUpdate, CaptureType }

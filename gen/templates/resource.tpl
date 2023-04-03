@@ -1,23 +1,23 @@
-import { ApiResource, ##__RESOURCE_INTERFACES__##, ResourcesConfig, ResourceId, ResourceRel##__RESPONSE_MODELS__## } from '../resource'
-import type { ##__QUERY_MODELS__## } from '../query'
+import { ##__RESOURCE_MODEL_TYPE__## } from '../resource'
+import type { ##__RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__## } from '../resource'
+##__IMPORT_QUERY_MODELS__##
 
 ##__IMPORT_RESOURCE_MODELS__##
 
-type ##__MODEL_RESOURCE_INTERFACE__##Rel = ResourceRel & { type: typeof ##__RESOURCE_CLASS__##.TYPE }
+type ##__MODEL_RESOURCE_INTERFACE__##Type = '##__RESOURCE_TYPE__##'
+type ##__MODEL_RESOURCE_INTERFACE__##Rel = ResourceRel & { type: ##__MODEL_RESOURCE_INTERFACE__##Type }
 ##__RELATIONSHIP_TYPES__##
 
 ##__MODEL_INTERFACES__##
 
 
-class ##__RESOURCE_CLASS__## extends ApiResource {
+class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOURCE_INTERFACE__##> {
 
-	static readonly TYPE: '##__RESOURCE_TYPE__##' = '##__RESOURCE_TYPE__##' as const
-	// static readonly PATH = '##__RESOURCE_TYPE__##'
+	static readonly TYPE: ##__MODEL_RESOURCE_INTERFACE__##Type = '##__RESOURCE_TYPE__##' as const
 
 	##__RESOURCE_OPERATIONS__##
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	is##__MODEL_RESOURCE_INTERFACE__##(resource: any): resource is ##__MODEL_RESOURCE_INTERFACE__## {
 		return resource.type && (resource.type === ##__RESOURCE_CLASS__##.TYPE)
 	}
@@ -28,7 +28,7 @@ class ##__RESOURCE_CLASS__## extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ##__MODEL_RESOURCE_INTERFACE__##Type {
 		return ##__RESOURCE_CLASS__##.TYPE
 	}
 
@@ -37,4 +37,4 @@ class ##__RESOURCE_CLASS__## extends ApiResource {
 
 export default ##__RESOURCE_CLASS__##
 
-export { ##__EXPORT_RESOURCE_TYPES__## }
+export type { ##__EXPORT_RESOURCE_TYPES__##, ##__MODEL_RESOURCE_INTERFACE__##Type }

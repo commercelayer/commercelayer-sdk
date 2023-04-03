@@ -1,5 +1,6 @@
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Capture } from './captures'
@@ -7,66 +8,60 @@ import type { Void } from './voids'
 import type { Event } from './events'
 
 
-type AuthorizationRel = ResourceRel & { type: typeof Authorizations.TYPE }
+type AuthorizationType = 'authorizations'
+type AuthorizationRel = ResourceRel & { type: AuthorizationType }
 
 
 interface Authorization extends Resource {
 	
-	number?: string
-	currency_code?: string
-	amount_cents?: number
-	amount_float?: number
-	formatted_amount?: string
-	succeeded?: boolean
-	message?: string
-	error_code?: string
-	error_detail?: string
-	token?: string
-	gateway_transaction_id?: string
-	cvv_code?: string
-	cvv_message?: string
-	avs_code?: string
-	avs_message?: string
-	fraud_review?: string
-	capture_amount_cents?: number
-	capture_amount_float?: number
-	formatted_capture_amount?: string
-	capture_balance_cents?: number
-	capture_balance_float?: number
-	formatted_capture_balance?: string
-	void_balance_cents?: number
-	void_balance_float?: number
-	formatted_void_balance?: string
+	readonly type: AuthorizationType
 
-	order?: Order
-	captures?: Capture[]
-	voids?: Void[]
-	events?: Event[]
+	number: string
+	currency_code: string
+	amount_cents: number
+	amount_float: number
+	formatted_amount: string
+	succeeded: boolean
+	message?: string | null
+	error_code?: string | null
+	error_detail?: string | null
+	token?: string | null
+	gateway_transaction_id?: string | null
+	cvv_code?: string | null
+	cvv_message?: string | null
+	avs_code?: string | null
+	avs_message?: string | null
+	fraud_review?: string | null
+	capture_amount_cents?: number | null
+	capture_amount_float?: number | null
+	formatted_capture_amount?: string | null
+	capture_balance_cents?: number | null
+	capture_balance_float?: number | null
+	formatted_capture_balance?: string | null
+	void_balance_cents?: number | null
+	void_balance_float?: number | null
+	formatted_void_balance?: string | null
+
+	order?: Order | null
+	captures?: Capture[] | null
+	voids?: Void[] | null
+	events?: Event[] | null
 
 }
 
 
 interface AuthorizationUpdate extends ResourceUpdate {
 	
-	_capture?: boolean
-	_capture_amount_cents?: number
-	_void?: boolean
+	_capture?: boolean | null
+	_capture_amount_cents?: number | null
+	_void?: boolean | null
 	
 }
 
 
-class Authorizations extends ApiResource {
+class Authorizations extends ApiResource<Authorization> {
 
-	static readonly TYPE: 'authorizations' = 'authorizations' as const
-	// static readonly PATH = 'authorizations'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Authorization>> {
-		return this.resources.list<Authorization>({ type: Authorizations.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
-		return this.resources.retrieve<Authorization>({ type: Authorizations.TYPE, id }, params, options)
-	}
+	static readonly TYPE: AuthorizationType = 'authorizations' as const
 
 	async update(resource: AuthorizationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
 		return this.resources.update<AuthorizationUpdate, Authorization>({ ...resource, type: Authorizations.TYPE }, params, options)
@@ -93,7 +88,6 @@ class Authorizations extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAuthorization(resource: any): resource is Authorization {
 		return resource.type && (resource.type === Authorizations.TYPE)
 	}
@@ -104,7 +98,7 @@ class Authorizations extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AuthorizationType {
 		return Authorizations.TYPE
 	}
 
@@ -113,4 +107,4 @@ class Authorizations extends ApiResource {
 
 export default Authorizations
 
-export { Authorization, AuthorizationUpdate }
+export type { Authorization, AuthorizationUpdate, AuthorizationType }

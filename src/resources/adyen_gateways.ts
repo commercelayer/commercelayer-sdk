@@ -1,24 +1,28 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { AdyenPayment } from './adyen_payments'
+import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
 
 
-type AdyenGatewayRel = ResourceRel & { type: typeof AdyenGateways.TYPE }
-type AdyenPaymentRel = ResourceRel & { type: 'adyen_payments' }
+type AdyenGatewayType = 'adyen_gateways'
+type AdyenGatewayRel = ResourceRel & { type: AdyenGatewayType }
+type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
 
 
 interface AdyenGateway extends Resource {
 	
-	name?: string
-	live_url_prefix?: string
-	async_api?: boolean
-	webhook_endpoint_secret?: string
-	webhook_endpoint_url?: string
+	readonly type: AdyenGatewayType
 
-	payment_methods?: PaymentMethod[]
-	adyen_payments?: AdyenPayment[]
+	name: string
+	live_url_prefix: string
+	async_api?: boolean | null
+	webhook_endpoint_secret?: string | null
+	webhook_endpoint_url?: string | null
+
+	payment_methods?: PaymentMethod[] | null
+	adyen_payments?: AdyenPayment[] | null
 
 }
 
@@ -28,56 +32,47 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	name: string
 	merchant_account: string
 	api_key: string
-	public_key?: string
+	public_key?: string | null
 	live_url_prefix: string
-	api_version?: string
-	async_api?: boolean
-	webhook_endpoint_secret?: string
+	api_version?: string | null
+	async_api?: boolean | null
+	webhook_endpoint_secret?: string | null
 
-	adyen_payments?: AdyenPaymentRel[]
+	adyen_payments?: AdyenPaymentRel[] | null
 
 }
 
 
 interface AdyenGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
-	merchant_account?: string
-	api_key?: string
-	public_key?: string
-	live_url_prefix?: string
-	api_version?: string
-	async_api?: boolean
-	webhook_endpoint_secret?: string
+	name?: string | null
+	merchant_account?: string | null
+	api_key?: string | null
+	public_key?: string | null
+	live_url_prefix?: string | null
+	api_version?: string | null
+	async_api?: boolean | null
+	webhook_endpoint_secret?: string | null
 
-	adyen_payments?: AdyenPaymentRel[]
+	adyen_payments?: AdyenPaymentRel[] | null
 
 }
 
 
-class AdyenGateways extends ApiResource {
+class AdyenGateways extends ApiResource<AdyenGateway> {
 
-	static readonly TYPE: 'adyen_gateways' = 'adyen_gateways' as const
-	// static readonly PATH = 'adyen_gateways'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenGateway>> {
-		return this.resources.list<AdyenGateway>({ type: AdyenGateways.TYPE }, params, options)
-	}
+	static readonly TYPE: AdyenGatewayType = 'adyen_gateways' as const
 
 	async create(resource: AdyenGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
 		return this.resources.create<AdyenGatewayCreate, AdyenGateway>({ ...resource, type: AdyenGateways.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
-		return this.resources.retrieve<AdyenGateway>({ type: AdyenGateways.TYPE, id }, params, options)
 	}
 
 	async update(resource: AdyenGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
 		return this.resources.update<AdyenGatewayUpdate, AdyenGateway>({ ...resource, type: AdyenGateways.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: AdyenGateways.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: AdyenGateways.TYPE } : id, options)
 	}
 
 	async payment_methods(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -91,7 +86,6 @@ class AdyenGateways extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAdyenGateway(resource: any): resource is AdyenGateway {
 		return resource.type && (resource.type === AdyenGateways.TYPE)
 	}
@@ -102,7 +96,7 @@ class AdyenGateways extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AdyenGatewayType {
 		return AdyenGateways.TYPE
 	}
 
@@ -111,4 +105,4 @@ class AdyenGateways extends ApiResource {
 
 export default AdyenGateways
 
-export { AdyenGateway, AdyenGatewayCreate, AdyenGatewayUpdate }
+export type { AdyenGateway, AdyenGatewayCreate, AdyenGatewayUpdate, AdyenGatewayType }

@@ -1,31 +1,35 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type SatispayPaymentRel = ResourceRel & { type: typeof SatispayPayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type SatispayPaymentType = 'satispay_payments'
+type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface SatispayPayment extends Resource {
 	
-	token?: string
-	key_id?: string
-	payment_id?: string
-	redirect_url?: string
+	readonly type: SatispayPaymentType
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	token?: string | null
+	key_id: string
+	payment_id?: string | null
+	redirect_url?: string | null
+
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
 
 interface SatispayPaymentCreate extends ResourceCreate {
 	
-	token?: string
-	redirect_url?: string
+	token?: string | null
+	redirect_url?: string | null
 
 	order: OrderRel
 
@@ -34,37 +38,28 @@ interface SatispayPaymentCreate extends ResourceCreate {
 
 interface SatispayPaymentUpdate extends ResourceUpdate {
 	
-	redirect_url?: string
-	_refresh?: boolean
+	redirect_url?: string | null
+	_refresh?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 
 
-class SatispayPayments extends ApiResource {
+class SatispayPayments extends ApiResource<SatispayPayment> {
 
-	static readonly TYPE: 'satispay_payments' = 'satispay_payments' as const
-	// static readonly PATH = 'satispay_payments'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SatispayPayment>> {
-		return this.resources.list<SatispayPayment>({ type: SatispayPayments.TYPE }, params, options)
-	}
+	static readonly TYPE: SatispayPaymentType = 'satispay_payments' as const
 
 	async create(resource: SatispayPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SatispayPayment> {
 		return this.resources.create<SatispayPaymentCreate, SatispayPayment>({ ...resource, type: SatispayPayments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SatispayPayment> {
-		return this.resources.retrieve<SatispayPayment>({ type: SatispayPayments.TYPE, id }, params, options)
 	}
 
 	async update(resource: SatispayPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SatispayPayment> {
 		return this.resources.update<SatispayPaymentUpdate, SatispayPayment>({ ...resource, type: SatispayPayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: SatispayPayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: SatispayPayments.TYPE } : id, options)
 	}
 
 	async order(satispayPaymentId: string | SatispayPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -78,7 +73,6 @@ class SatispayPayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isSatispayPayment(resource: any): resource is SatispayPayment {
 		return resource.type && (resource.type === SatispayPayments.TYPE)
 	}
@@ -89,7 +83,7 @@ class SatispayPayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): SatispayPaymentType {
 		return SatispayPayments.TYPE
 	}
 
@@ -98,4 +92,4 @@ class SatispayPayments extends ApiResource {
 
 export default SatispayPayments
 
-export { SatispayPayment, SatispayPaymentCreate, SatispayPaymentUpdate }
+export type { SatispayPayment, SatispayPaymentCreate, SatispayPaymentUpdate, SatispayPaymentType }

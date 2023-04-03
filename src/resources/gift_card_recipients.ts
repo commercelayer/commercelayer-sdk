@@ -1,22 +1,26 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer } from './customers'
+import type { Customer, CustomerType } from './customers'
 import type { Attachment } from './attachments'
 
 
-type GiftCardRecipientRel = ResourceRel & { type: typeof GiftCardRecipients.TYPE }
-type CustomerRel = ResourceRel & { type: 'customers' }
+type GiftCardRecipientType = 'gift_card_recipients'
+type GiftCardRecipientRel = ResourceRel & { type: GiftCardRecipientType }
+type CustomerRel = ResourceRel & { type: CustomerType }
 
 
 interface GiftCardRecipient extends Resource {
 	
-	email?: string
-	first_name?: string
-	last_name?: string
+	readonly type: GiftCardRecipientType
 
-	customer?: Customer
-	attachments?: Attachment[]
+	email: string
+	first_name?: string | null
+	last_name?: string | null
+
+	customer?: Customer | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -24,48 +28,39 @@ interface GiftCardRecipient extends Resource {
 interface GiftCardRecipientCreate extends ResourceCreate {
 	
 	email: string
-	first_name?: string
-	last_name?: string
+	first_name?: string | null
+	last_name?: string | null
 
-	customer?: CustomerRel
+	customer?: CustomerRel | null
 
 }
 
 
 interface GiftCardRecipientUpdate extends ResourceUpdate {
 	
-	email?: string
-	first_name?: string
-	last_name?: string
+	email?: string | null
+	first_name?: string | null
+	last_name?: string | null
 
-	customer?: CustomerRel
+	customer?: CustomerRel | null
 
 }
 
 
-class GiftCardRecipients extends ApiResource {
+class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
 
-	static readonly TYPE: 'gift_card_recipients' = 'gift_card_recipients' as const
-	// static readonly PATH = 'gift_card_recipients'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GiftCardRecipient>> {
-		return this.resources.list<GiftCardRecipient>({ type: GiftCardRecipients.TYPE }, params, options)
-	}
+	static readonly TYPE: GiftCardRecipientType = 'gift_card_recipients' as const
 
 	async create(resource: GiftCardRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
 		return this.resources.create<GiftCardRecipientCreate, GiftCardRecipient>({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
-		return this.resources.retrieve<GiftCardRecipient>({ type: GiftCardRecipients.TYPE, id }, params, options)
 	}
 
 	async update(resource: GiftCardRecipientUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
 		return this.resources.update<GiftCardRecipientUpdate, GiftCardRecipient>({ ...resource, type: GiftCardRecipients.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: GiftCardRecipients.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: GiftCardRecipients.TYPE } : id, options)
 	}
 
 	async customer(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
@@ -79,7 +74,6 @@ class GiftCardRecipients extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isGiftCardRecipient(resource: any): resource is GiftCardRecipient {
 		return resource.type && (resource.type === GiftCardRecipients.TYPE)
 	}
@@ -90,7 +84,7 @@ class GiftCardRecipients extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): GiftCardRecipientType {
 		return GiftCardRecipients.TYPE
 	}
 
@@ -99,4 +93,4 @@ class GiftCardRecipients extends ApiResource {
 
 export default GiftCardRecipients
 
-export { GiftCardRecipient, GiftCardRecipientCreate, GiftCardRecipientUpdate }
+export type { GiftCardRecipient, GiftCardRecipientCreate, GiftCardRecipientUpdate, GiftCardRecipientType }

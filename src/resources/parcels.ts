@@ -1,50 +1,54 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Shipment } from './shipments'
-import type { Package } from './packages'
+import type { Shipment, ShipmentType } from './shipments'
+import type { Package, PackageType } from './packages'
 import type { ParcelLineItem } from './parcel_line_items'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type ParcelRel = ResourceRel & { type: typeof Parcels.TYPE }
-type ShipmentRel = ResourceRel & { type: 'shipments' }
-type PackageRel = ResourceRel & { type: 'packages' }
+type ParcelType = 'parcels'
+type ParcelRel = ResourceRel & { type: ParcelType }
+type ShipmentRel = ResourceRel & { type: ShipmentType }
+type PackageRel = ResourceRel & { type: PackageType }
 
 
 interface Parcel extends Resource {
 	
-	number?: string
-	weight?: number
-	unit_of_weight?: string
-	eel_pfc?: string
-	contents_type?: string
-	contents_explanation?: string
-	customs_certify?: boolean
-	customs_signer?: string
-	non_delivery_option?: string
-	restriction_type?: string
-	restriction_comments?: string
-	customs_info_required?: boolean
-	shipping_label_url?: string
-	shipping_label_file_type?: string
-	shipping_label_size?: string
-	shipping_label_resolution?: string
-	tracking_number?: string
-	tracking_status?: string
-	tracking_status_detail?: string
-	tracking_status_updated_at?: string
-	tracking_details?: string
-	carrier_weight_oz?: string
-	signed_by?: string
-	incoterm?: string
+	readonly type: ParcelType
 
-	shipment?: Shipment
-	package?: Package
-	parcel_line_items?: ParcelLineItem[]
-	attachments?: Attachment[]
-	events?: Event[]
+	number?: string | null
+	weight: number
+	unit_of_weight: string
+	eel_pfc?: string | null
+	contents_type?: string | null
+	contents_explanation?: string | null
+	customs_certify?: boolean | null
+	customs_signer?: string | null
+	non_delivery_option?: string | null
+	restriction_type?: string | null
+	restriction_comments?: string | null
+	customs_info_required?: boolean | null
+	shipping_label_url?: string | null
+	shipping_label_file_type?: string | null
+	shipping_label_size?: string | null
+	shipping_label_resolution?: string | null
+	tracking_number?: string | null
+	tracking_status?: string | null
+	tracking_status_detail?: string | null
+	tracking_status_updated_at?: string | null
+	tracking_details?: string | null
+	carrier_weight_oz?: string | null
+	signed_by?: string | null
+	incoterm?: string | null
+
+	shipment?: Shipment | null
+	package?: Package | null
+	parcel_line_items?: ParcelLineItem[] | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
@@ -53,27 +57,27 @@ interface ParcelCreate extends ResourceCreate {
 	
 	weight: number
 	unit_of_weight: string
-	eel_pfc?: string
-	contents_type?: string
-	contents_explanation?: string
-	customs_certify?: boolean
-	customs_signer?: string
-	non_delivery_option?: string
-	restriction_type?: string
-	restriction_comments?: string
-	customs_info_required?: boolean
-	shipping_label_url?: string
-	shipping_label_file_type?: string
-	shipping_label_size?: string
-	shipping_label_resolution?: string
-	tracking_number?: string
-	tracking_status?: string
-	tracking_status_detail?: string
-	tracking_status_updated_at?: string
-	tracking_details?: string
-	carrier_weight_oz?: string
-	signed_by?: string
-	incoterm?: string
+	eel_pfc?: string | null
+	contents_type?: string | null
+	contents_explanation?: string | null
+	customs_certify?: boolean | null
+	customs_signer?: string | null
+	non_delivery_option?: string | null
+	restriction_type?: string | null
+	restriction_comments?: string | null
+	customs_info_required?: boolean | null
+	shipping_label_url?: string | null
+	shipping_label_file_type?: string | null
+	shipping_label_size?: string | null
+	shipping_label_resolution?: string | null
+	tracking_number?: string | null
+	tracking_status?: string | null
+	tracking_status_detail?: string | null
+	tracking_status_updated_at?: string | null
+	tracking_details?: string | null
+	carrier_weight_oz?: string | null
+	signed_by?: string | null
+	incoterm?: string | null
 
 	shipment: ShipmentRel
 	package: PackageRel
@@ -83,59 +87,50 @@ interface ParcelCreate extends ResourceCreate {
 
 interface ParcelUpdate extends ResourceUpdate {
 	
-	weight?: number
-	unit_of_weight?: string
-	eel_pfc?: string
-	contents_type?: string
-	contents_explanation?: string
-	customs_certify?: boolean
-	customs_signer?: string
-	non_delivery_option?: string
-	restriction_type?: string
-	restriction_comments?: string
-	customs_info_required?: boolean
-	shipping_label_url?: string
-	shipping_label_file_type?: string
-	shipping_label_size?: string
-	shipping_label_resolution?: string
-	tracking_number?: string
-	tracking_status?: string
-	tracking_status_detail?: string
-	tracking_status_updated_at?: string
-	tracking_details?: string
-	carrier_weight_oz?: string
-	signed_by?: string
-	incoterm?: string
+	weight?: number | null
+	unit_of_weight?: string | null
+	eel_pfc?: string | null
+	contents_type?: string | null
+	contents_explanation?: string | null
+	customs_certify?: boolean | null
+	customs_signer?: string | null
+	non_delivery_option?: string | null
+	restriction_type?: string | null
+	restriction_comments?: string | null
+	customs_info_required?: boolean | null
+	shipping_label_url?: string | null
+	shipping_label_file_type?: string | null
+	shipping_label_size?: string | null
+	shipping_label_resolution?: string | null
+	tracking_number?: string | null
+	tracking_status?: string | null
+	tracking_status_detail?: string | null
+	tracking_status_updated_at?: string | null
+	tracking_details?: string | null
+	carrier_weight_oz?: string | null
+	signed_by?: string | null
+	incoterm?: string | null
 
-	shipment?: ShipmentRel
-	package?: PackageRel
+	shipment?: ShipmentRel | null
+	package?: PackageRel | null
 
 }
 
 
-class Parcels extends ApiResource {
+class Parcels extends ApiResource<Parcel> {
 
-	static readonly TYPE: 'parcels' = 'parcels' as const
-	// static readonly PATH = 'parcels'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
-		return this.resources.list<Parcel>({ type: Parcels.TYPE }, params, options)
-	}
+	static readonly TYPE: ParcelType = 'parcels' as const
 
 	async create(resource: ParcelCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
 		return this.resources.create<ParcelCreate, Parcel>({ ...resource, type: Parcels.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
-		return this.resources.retrieve<Parcel>({ type: Parcels.TYPE, id }, params, options)
 	}
 
 	async update(resource: ParcelUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
 		return this.resources.update<ParcelUpdate, Parcel>({ ...resource, type: Parcels.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Parcels.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Parcels.TYPE } : id, options)
 	}
 
 	async shipment(parcelId: string | Parcel, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
@@ -164,7 +159,6 @@ class Parcels extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isParcel(resource: any): resource is Parcel {
 		return resource.type && (resource.type === Parcels.TYPE)
 	}
@@ -175,7 +169,7 @@ class Parcels extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ParcelType {
 		return Parcels.TYPE
 	}
 
@@ -184,4 +178,4 @@ class Parcels extends ApiResource {
 
 export default Parcels
 
-export { Parcel, ParcelCreate, ParcelUpdate }
+export type { Parcel, ParcelCreate, ParcelUpdate, ParcelType }

@@ -1,21 +1,25 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { SatispayPayment } from './satispay_payments'
+import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
 
 
-type SatispayGatewayRel = ResourceRel & { type: typeof SatispayGateways.TYPE }
-type SatispayPaymentRel = ResourceRel & { type: 'satispay_payments' }
+type SatispayGatewayType = 'satispay_gateways'
+type SatispayGatewayRel = ResourceRel & { type: SatispayGatewayType }
+type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
 
 
 interface SatispayGateway extends Resource {
 	
-	name?: string
-	webhook_endpoint_url?: string
+	readonly type: SatispayGatewayType
 
-	payment_methods?: PaymentMethod[]
-	satispay_payments?: SatispayPayment[]
+	name: string
+	webhook_endpoint_url?: string | null
+
+	payment_methods?: PaymentMethod[] | null
+	satispay_payments?: SatispayPayment[] | null
 
 }
 
@@ -24,43 +28,34 @@ interface SatispayGatewayCreate extends ResourceCreate {
 	
 	name: string
 
-	satispay_payments?: SatispayPaymentRel[]
+	satispay_payments?: SatispayPaymentRel[] | null
 
 }
 
 
 interface SatispayGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name?: string | null
 
-	satispay_payments?: SatispayPaymentRel[]
+	satispay_payments?: SatispayPaymentRel[] | null
 
 }
 
 
-class SatispayGateways extends ApiResource {
+class SatispayGateways extends ApiResource<SatispayGateway> {
 
-	static readonly TYPE: 'satispay_gateways' = 'satispay_gateways' as const
-	// static readonly PATH = 'satispay_gateways'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SatispayGateway>> {
-		return this.resources.list<SatispayGateway>({ type: SatispayGateways.TYPE }, params, options)
-	}
+	static readonly TYPE: SatispayGatewayType = 'satispay_gateways' as const
 
 	async create(resource: SatispayGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SatispayGateway> {
 		return this.resources.create<SatispayGatewayCreate, SatispayGateway>({ ...resource, type: SatispayGateways.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SatispayGateway> {
-		return this.resources.retrieve<SatispayGateway>({ type: SatispayGateways.TYPE, id }, params, options)
 	}
 
 	async update(resource: SatispayGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SatispayGateway> {
 		return this.resources.update<SatispayGatewayUpdate, SatispayGateway>({ ...resource, type: SatispayGateways.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: SatispayGateways.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: SatispayGateways.TYPE } : id, options)
 	}
 
 	async payment_methods(satispayGatewayId: string | SatispayGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -74,7 +69,6 @@ class SatispayGateways extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isSatispayGateway(resource: any): resource is SatispayGateway {
 		return resource.type && (resource.type === SatispayGateways.TYPE)
 	}
@@ -85,7 +79,7 @@ class SatispayGateways extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): SatispayGatewayType {
 		return SatispayGateways.TYPE
 	}
 
@@ -94,4 +88,4 @@ class SatispayGateways extends ApiResource {
 
 export default SatispayGateways
 
-export { SatispayGateway, SatispayGatewayCreate, SatispayGatewayUpdate }
+export type { SatispayGateway, SatispayGatewayCreate, SatispayGatewayUpdate, SatispayGatewayType }

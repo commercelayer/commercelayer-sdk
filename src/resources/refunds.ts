@@ -1,47 +1,42 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Capture } from './captures'
 import type { Event } from './events'
 
 
-type RefundRel = ResourceRel & { type: typeof Refunds.TYPE }
+type RefundType = 'refunds'
+type RefundRel = ResourceRel & { type: RefundType }
 
 
 interface Refund extends Resource {
 	
-	number?: string
-	currency_code?: string
-	amount_cents?: number
-	amount_float?: number
-	formatted_amount?: string
-	succeeded?: boolean
-	message?: string
-	error_code?: string
-	error_detail?: string
-	token?: string
-	gateway_transaction_id?: string
+	readonly type: RefundType
 
-	order?: Order
-	reference_capture?: Capture
-	events?: Event[]
+	number: string
+	currency_code: string
+	amount_cents: number
+	amount_float: number
+	formatted_amount: string
+	succeeded: boolean
+	message?: string | null
+	error_code?: string | null
+	error_detail?: string | null
+	token?: string | null
+	gateway_transaction_id?: string | null
+
+	order?: Order | null
+	reference_capture?: Capture | null
+	events?: Event[] | null
 
 }
 
 
-class Refunds extends ApiResource {
+class Refunds extends ApiResource<Refund> {
 
-	static readonly TYPE: 'refunds' = 'refunds' as const
-	// static readonly PATH = 'refunds'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
-		return this.resources.list<Refund>({ type: Refunds.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Refund> {
-		return this.resources.retrieve<Refund>({ type: Refunds.TYPE, id }, params, options)
-	}
+	static readonly TYPE: RefundType = 'refunds' as const
 
 	async order(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _refundId = (refundId as Refund).id || refundId as string
@@ -59,7 +54,6 @@ class Refunds extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isRefund(resource: any): resource is Refund {
 		return resource.type && (resource.type === Refunds.TYPE)
 	}
@@ -70,7 +64,7 @@ class Refunds extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): RefundType {
 		return Refunds.TYPE
 	}
 
@@ -79,4 +73,4 @@ class Refunds extends ApiResource {
 
 export default Refunds
 
-export { Refund }
+export type { Refund, RefundType }

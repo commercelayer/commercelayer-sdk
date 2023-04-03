@@ -36,7 +36,9 @@ describe('SDK suite', () => {
 			id: TestData.id,
 			type: 'customers',
 			created_at: new Date().toISOString(),
-			updated_at: new Date().toISOString()
+			updated_at: new Date().toISOString(),
+			email: 'user@test.org',
+			status: 'prospect'
 		}
 
 		expect(isResourceType(customer)).toBeTruthy()

@@ -1,32 +1,36 @@
-import { ApiResource, Resource, ResourceCreate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
 
 
-type ImportRel = ResourceRel & { type: typeof Imports.TYPE }
+type ImportType = 'imports'
+type ImportRel = ResourceRel & { type: ImportType }
 
 
 interface Import extends Resource {
 	
-	resource_type?: string
-	parent_resource_id?: string
-	status?: string
-	started_at?: string
-	completed_at?: string
-	interrupted_at?: string
-	inputs?: object[]
-	inputs_size?: number
-	errors_count?: number
-	warnings_count?: number
-	destroyed_count?: number
-	processed_count?: number
-	errors_log?: object
-	warnings_log?: object
-	cleanup_records?: boolean
-	attachment_url?: string
+	readonly type: ImportType
 
-	events?: Event[]
+	resource_type: string
+	parent_resource_id?: string | null
+	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
+	started_at?: string | null
+	completed_at?: string | null
+	interrupted_at?: string | null
+	inputs: object[]
+	inputs_size?: number | null
+	errors_count?: number | null
+	warnings_count?: number | null
+	destroyed_count?: number | null
+	processed_count?: number | null
+	errors_log?: object | null
+	warnings_log?: object | null
+	cleanup_records?: boolean | null
+	attachment_url?: string | null
+
+	events?: Event[] | null
 
 }
 
@@ -34,33 +38,24 @@ interface Import extends Resource {
 interface ImportCreate extends ResourceCreate {
 	
 	resource_type: string
-	format?: string
-	parent_resource_id?: string
+	format?: string | null
+	parent_resource_id?: string | null
 	inputs: object[]
-	cleanup_records?: boolean
+	cleanup_records?: boolean | null
 	
 }
 
 
-class Imports extends ApiResource {
+class Imports extends ApiResource<Import> {
 
-	static readonly TYPE: 'imports' = 'imports' as const
-	// static readonly PATH = 'imports'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Import>> {
-		return this.resources.list<Import>({ type: Imports.TYPE }, params, options)
-	}
+	static readonly TYPE: ImportType = 'imports' as const
 
 	async create(resource: ImportCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {
 		return this.resources.create<ImportCreate, Import>({ ...resource, type: Imports.TYPE }, params, options)
 	}
 
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {
-		return this.resources.retrieve<Import>({ type: Imports.TYPE, id }, params, options)
-	}
-
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Imports.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Imports.TYPE } : id, options)
 	}
 
 	async events(importId: string | Import, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
@@ -69,7 +64,6 @@ class Imports extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isImport(resource: any): resource is Import {
 		return resource.type && (resource.type === Imports.TYPE)
 	}
@@ -80,7 +74,7 @@ class Imports extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ImportType {
 		return Imports.TYPE
 	}
 
@@ -89,4 +83,4 @@ class Imports extends ApiResource {
 
 export default Imports
 
-export { Import, ImportCreate }
+export type { Import, ImportCreate, ImportType }

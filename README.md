@@ -6,6 +6,7 @@
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 [![Release](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml/badge.svg)](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml)
 [![CodeQL](https://github.com/commercelayer/commercelayer-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/commercelayer/commercelayer-cli/actions/workflows/codeql-analysis.yml)
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript%205-%230074c1.svg)](https://www.typescriptlang.org/)
 
 A JavaScript Library wrapper that makes it quick and easy to interact with the [Commerce Layer API](https://docs.commercelayer.io/developers).
 
@@ -277,6 +278,23 @@ In general:
 - 1-to-N relationship API endpoints like  `/api/customers/<customerId>?include=orders` or `/api/customers/<customerId>/orders` translates to `cl.customers.retrieve('customerId', { include: ['orders'] })` or `cl.customers.orders('<customerId>')` with the SDK.
 
 ℹ️ Check our API reference for more information on how to [fetch relationships](https://docs.commercelayer.io/core/fetching-relationships).
+</details>
+
+<details>
+<summary>How to count resources</summary>
+<br />
+
+Many times you simply need to count how many resources exist with
+certain characteristics. You can then call the special `count`
+function passing a filter to get as result the total number of
+resources.
+
+```javascript
+// Get the total number of placed orders
+const placedOrders = cl.orders.count({ filters: { status_eq: 'placed' } })
+
+```
+
 </details>
 
 ### Update

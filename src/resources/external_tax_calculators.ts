@@ -1,21 +1,25 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
 
 
-type ExternalTaxCalculatorRel = ResourceRel & { type: typeof ExternalTaxCalculators.TYPE }
+type ExternalTaxCalculatorType = 'external_tax_calculators'
+type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
 
 
 interface ExternalTaxCalculator extends Resource {
 	
-	name?: string
-	tax_calculator_url?: string
-	shared_secret?: string
+	readonly type: ExternalTaxCalculatorType
 
-	markets?: Market[]
-	attachments?: Attachment[]
+	name: string
+	tax_calculator_url: string
+	shared_secret: string
+
+	markets?: Market[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -30,35 +34,26 @@ interface ExternalTaxCalculatorCreate extends ResourceCreate {
 
 interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	
-	name?: string
-	tax_calculator_url?: string
+	name?: string | null
+	tax_calculator_url?: string | null
 	
 }
 
 
-class ExternalTaxCalculators extends ApiResource {
+class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 
-	static readonly TYPE: 'external_tax_calculators' = 'external_tax_calculators' as const
-	// static readonly PATH = 'external_tax_calculators'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalTaxCalculator>> {
-		return this.resources.list<ExternalTaxCalculator>({ type: ExternalTaxCalculators.TYPE }, params, options)
-	}
+	static readonly TYPE: ExternalTaxCalculatorType = 'external_tax_calculators' as const
 
 	async create(resource: ExternalTaxCalculatorCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
 		return this.resources.create<ExternalTaxCalculatorCreate, ExternalTaxCalculator>({ ...resource, type: ExternalTaxCalculators.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
-		return this.resources.retrieve<ExternalTaxCalculator>({ type: ExternalTaxCalculators.TYPE, id }, params, options)
 	}
 
 	async update(resource: ExternalTaxCalculatorUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
 		return this.resources.update<ExternalTaxCalculatorUpdate, ExternalTaxCalculator>({ ...resource, type: ExternalTaxCalculators.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ExternalTaxCalculators.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ExternalTaxCalculators.TYPE } : id, options)
 	}
 
 	async markets(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
@@ -72,7 +67,6 @@ class ExternalTaxCalculators extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isExternalTaxCalculator(resource: any): resource is ExternalTaxCalculator {
 		return resource.type && (resource.type === ExternalTaxCalculators.TYPE)
 	}
@@ -83,7 +77,7 @@ class ExternalTaxCalculators extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ExternalTaxCalculatorType {
 		return ExternalTaxCalculators.TYPE
 	}
 
@@ -92,4 +86,4 @@ class ExternalTaxCalculators extends ApiResource {
 
 export default ExternalTaxCalculators
 
-export { ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorUpdate }
+export type { ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorUpdate, ExternalTaxCalculatorType }

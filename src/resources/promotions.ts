@@ -1,5 +1,6 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { PromotionRule } from './promotion_rules'
@@ -10,42 +11,36 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type PromotionRel = ResourceRel & { type: typeof Promotions.TYPE }
+type PromotionType = 'promotions'
+type PromotionRel = ResourceRel & { type: PromotionType }
 
 
 interface Promotion extends Resource {
 	
-	name?: string
-	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
-	total_usage_count?: number
-	active?: boolean
+	readonly type: PromotionType
 
-	market?: Market
-	promotion_rules?: PromotionRule[]
-	order_amount_promotion_rule?: OrderAmountPromotionRule
-	sku_list_promotion_rule?: SkuListPromotionRule
-	coupon_codes_promotion_rule?: CouponCodesPromotionRule
-	attachments?: Attachment[]
-	events?: Event[]
+	name: string
+	currency_code?: string | null
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
+	total_usage_count?: number | null
+	active?: boolean | null
+
+	market?: Market | null
+	promotion_rules?: PromotionRule[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRule | null
+	sku_list_promotion_rule?: SkuListPromotionRule | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
 
-class Promotions extends ApiResource {
+class Promotions extends ApiResource<Promotion> {
 
-	static readonly TYPE: 'promotions' = 'promotions' as const
-	// static readonly PATH = 'promotions'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Promotion>> {
-		return this.resources.list<Promotion>({ type: Promotions.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Promotion> {
-		return this.resources.retrieve<Promotion>({ type: Promotions.TYPE, id }, params, options)
-	}
+	static readonly TYPE: PromotionType = 'promotions' as const
 
 	async market(promotionId: string | Promotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		const _promotionId = (promotionId as Promotion).id || promotionId as string
@@ -78,7 +73,6 @@ class Promotions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPromotion(resource: any): resource is Promotion {
 		return resource.type && (resource.type === Promotions.TYPE)
 	}
@@ -89,7 +83,7 @@ class Promotions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PromotionType {
 		return Promotions.TYPE
 	}
 
@@ -98,4 +92,4 @@ class Promotions extends ApiResource {
 
 export default Promotions
 
-export { Promotion }
+export type { Promotion, PromotionType }

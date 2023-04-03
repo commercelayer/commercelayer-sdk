@@ -1,27 +1,31 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockLocation } from './stock_locations'
+import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Parcel } from './parcels'
 import type { Attachment } from './attachments'
 
 
-type PackageRel = ResourceRel & { type: typeof Packages.TYPE }
-type StockLocationRel = ResourceRel & { type: 'stock_locations' }
+type PackageType = 'packages'
+type PackageRel = ResourceRel & { type: PackageType }
+type StockLocationRel = ResourceRel & { type: StockLocationType }
 
 
 interface Package extends Resource {
 	
-	name?: string
-	code?: string
-	length?: number
-	width?: number
-	height?: number
-	unit_of_length?: string
+	readonly type: PackageType
 
-	stock_location?: StockLocation
-	parcels?: Parcel[]
-	attachments?: Attachment[]
+	name: string
+	code?: string | null
+	length: number
+	width: number
+	height: number
+	unit_of_length: string
+
+	stock_location?: StockLocation | null
+	parcels?: Parcel[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -29,7 +33,7 @@ interface Package extends Resource {
 interface PackageCreate extends ResourceCreate {
 	
 	name: string
-	code?: string
+	code?: string | null
 	length: number
 	width: number
 	height: number
@@ -42,41 +46,32 @@ interface PackageCreate extends ResourceCreate {
 
 interface PackageUpdate extends ResourceUpdate {
 	
-	name?: string
-	code?: string
-	length?: number
-	width?: number
-	height?: number
-	unit_of_length?: string
+	name?: string | null
+	code?: string | null
+	length?: number | null
+	width?: number | null
+	height?: number | null
+	unit_of_length?: string | null
 
-	stock_location?: StockLocationRel
+	stock_location?: StockLocationRel | null
 
 }
 
 
-class Packages extends ApiResource {
+class Packages extends ApiResource<Package> {
 
-	static readonly TYPE: 'packages' = 'packages' as const
-	// static readonly PATH = 'packages'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Package>> {
-		return this.resources.list<Package>({ type: Packages.TYPE }, params, options)
-	}
+	static readonly TYPE: PackageType = 'packages' as const
 
 	async create(resource: PackageCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
 		return this.resources.create<PackageCreate, Package>({ ...resource, type: Packages.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
-		return this.resources.retrieve<Package>({ type: Packages.TYPE, id }, params, options)
 	}
 
 	async update(resource: PackageUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
 		return this.resources.update<PackageUpdate, Package>({ ...resource, type: Packages.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Packages.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Packages.TYPE } : id, options)
 	}
 
 	async stock_location(packageId: string | Package, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
@@ -95,7 +90,6 @@ class Packages extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPackage(resource: any): resource is Package {
 		return resource.type && (resource.type === Packages.TYPE)
 	}
@@ -106,7 +100,7 @@ class Packages extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PackageType {
 		return Packages.TYPE
 	}
 
@@ -115,4 +109,4 @@ class Packages extends ApiResource {
 
 export default Packages
 
-export { Package, PackageCreate, PackageUpdate }
+export type { Package, PackageCreate, PackageUpdate, PackageType }

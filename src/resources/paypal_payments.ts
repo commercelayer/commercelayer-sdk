@@ -1,32 +1,36 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type PaypalPaymentRel = ResourceRel & { type: typeof PaypalPayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type PaypalPaymentType = 'paypal_payments'
+type PaypalPaymentRel = ResourceRel & { type: PaypalPaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface PaypalPayment extends Resource {
 	
-	return_url?: string
-	cancel_url?: string
-	note_to_payer?: string
-	paypal_payer_id?: string
-	name?: string
-	paypal_id?: string
-	status?: string
-	approval_url?: string
-	mismatched_amounts?: boolean
-	intent_amount_cents?: number
-	intent_amount_float?: number
-	formatted_intent_amount?: string
-	payment_instrument?: object
+	readonly type: PaypalPaymentType
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	return_url: string
+	cancel_url: string
+	note_to_payer?: string | null
+	paypal_payer_id?: string | null
+	name?: string | null
+	paypal_id?: string | null
+	status: 'created' | 'approved'
+	approval_url?: string | null
+	mismatched_amounts?: boolean | null
+	intent_amount_cents: number
+	intent_amount_float?: number | null
+	formatted_intent_amount?: string | null
+	payment_instrument?: object | null
+
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
@@ -35,7 +39,7 @@ interface PaypalPaymentCreate extends ResourceCreate {
 	
 	return_url: string
 	cancel_url: string
-	note_to_payer?: string
+	note_to_payer?: string | null
 
 	order: OrderRel
 
@@ -44,36 +48,27 @@ interface PaypalPaymentCreate extends ResourceCreate {
 
 interface PaypalPaymentUpdate extends ResourceUpdate {
 	
-	paypal_payer_id?: string
+	paypal_payer_id?: string | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 
 
-class PaypalPayments extends ApiResource {
+class PaypalPayments extends ApiResource<PaypalPayment> {
 
-	static readonly TYPE: 'paypal_payments' = 'paypal_payments' as const
-	// static readonly PATH = 'paypal_payments'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
-		return this.resources.list<PaypalPayment>({ type: PaypalPayments.TYPE }, params, options)
-	}
+	static readonly TYPE: PaypalPaymentType = 'paypal_payments' as const
 
 	async create(resource: PaypalPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
 		return this.resources.create<PaypalPaymentCreate, PaypalPayment>({ ...resource, type: PaypalPayments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
-		return this.resources.retrieve<PaypalPayment>({ type: PaypalPayments.TYPE, id }, params, options)
 	}
 
 	async update(resource: PaypalPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalPayment> {
 		return this.resources.update<PaypalPaymentUpdate, PaypalPayment>({ ...resource, type: PaypalPayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: PaypalPayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: PaypalPayments.TYPE } : id, options)
 	}
 
 	async order(paypalPaymentId: string | PaypalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -87,7 +82,6 @@ class PaypalPayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPaypalPayment(resource: any): resource is PaypalPayment {
 		return resource.type && (resource.type === PaypalPayments.TYPE)
 	}
@@ -98,7 +92,7 @@ class PaypalPayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PaypalPaymentType {
 		return PaypalPayments.TYPE
 	}
 
@@ -107,4 +101,4 @@ class PaypalPayments extends ApiResource {
 
 export default PaypalPayments
 
-export { PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate }
+export type { PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate, PaypalPaymentType }

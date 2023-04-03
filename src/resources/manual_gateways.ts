@@ -1,17 +1,21 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 
 
-type ManualGatewayRel = ResourceRel & { type: typeof ManualGateways.TYPE }
+type ManualGatewayType = 'manual_gateways'
+type ManualGatewayRel = ResourceRel & { type: ManualGatewayType }
 
 
 interface ManualGateway extends Resource {
 	
-	name?: string
+	readonly type: ManualGatewayType
 
-	payment_methods?: PaymentMethod[]
+	name: string
+
+	payment_methods?: PaymentMethod[] | null
 
 }
 
@@ -25,34 +29,25 @@ interface ManualGatewayCreate extends ResourceCreate {
 
 interface ManualGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
+	name?: string | null
 	
 }
 
 
-class ManualGateways extends ApiResource {
+class ManualGateways extends ApiResource<ManualGateway> {
 
-	static readonly TYPE: 'manual_gateways' = 'manual_gateways' as const
-	// static readonly PATH = 'manual_gateways'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ManualGateway>> {
-		return this.resources.list<ManualGateway>({ type: ManualGateways.TYPE }, params, options)
-	}
+	static readonly TYPE: ManualGatewayType = 'manual_gateways' as const
 
 	async create(resource: ManualGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
 		return this.resources.create<ManualGatewayCreate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
-		return this.resources.retrieve<ManualGateway>({ type: ManualGateways.TYPE, id }, params, options)
 	}
 
 	async update(resource: ManualGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
 		return this.resources.update<ManualGatewayUpdate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ManualGateways.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ManualGateways.TYPE } : id, options)
 	}
 
 	async payment_methods(manualGatewayId: string | ManualGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -61,7 +56,6 @@ class ManualGateways extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isManualGateway(resource: any): resource is ManualGateway {
 		return resource.type && (resource.type === ManualGateways.TYPE)
 	}
@@ -72,7 +66,7 @@ class ManualGateways extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ManualGatewayType {
 		return ManualGateways.TYPE
 	}
 
@@ -81,4 +75,4 @@ class ManualGateways extends ApiResource {
 
 export default ManualGateways
 
-export { ManualGateway, ManualGatewayCreate, ManualGatewayUpdate }
+export type { ManualGateway, ManualGatewayCreate, ManualGatewayUpdate, ManualGatewayType }

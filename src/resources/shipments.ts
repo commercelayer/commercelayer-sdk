@@ -1,11 +1,12 @@
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { ShippingCategory } from './shipping_categories'
 import type { StockLocation } from './stock_locations'
 import type { Address } from './addresses'
-import type { ShippingMethod } from './shipping_methods'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
@@ -15,80 +16,74 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type ShipmentRel = ResourceRel & { type: typeof Shipments.TYPE }
-type ShippingMethodRel = ResourceRel & { type: 'shipping_methods' }
+type ShipmentType = 'shipments'
+type ShipmentRel = ResourceRel & { type: ShipmentType }
+type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
 interface Shipment extends Resource {
 	
-	number?: string
-	status?: string
-	currency_code?: string
-	cost_amount_cents?: number
-	cost_amount_float?: number
-	formatted_cost_amount?: string
-	skus_count?: number
-	selected_rate_id?: string
-	rates?: object[]
-	purchase_error_code?: string
-	purchase_error_message?: string
-	get_rates_errors?: object[]
-	get_rates_started_at?: string
-	get_rates_completed_at?: string
-	purchase_started_at?: string
-	purchase_completed_at?: string
-	purchase_failed_at?: string
+	readonly type: ShipmentType
 
-	order?: Order
-	shipping_category?: ShippingCategory
-	stock_location?: StockLocation
-	origin_address?: Address
-	shipping_address?: Address
-	shipping_method?: ShippingMethod
-	delivery_lead_time?: DeliveryLeadTime
+	number?: string | null
+	status: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped'
+	currency_code?: string | null
+	cost_amount_cents?: number | null
+	cost_amount_float?: number | null
+	formatted_cost_amount?: string | null
+	skus_count?: number | null
+	selected_rate_id?: string | null
+	rates?: object[] | null
+	purchase_error_code?: string | null
+	purchase_error_message?: string | null
+	get_rates_errors?: object[] | null
+	get_rates_started_at?: string | null
+	get_rates_completed_at?: string | null
+	purchase_started_at?: string | null
+	purchase_completed_at?: string | null
+	purchase_failed_at?: string | null
+
+	order?: Order | null
+	shipping_category?: ShippingCategory | null
+	stock_location?: StockLocation | null
+	origin_address?: Address | null
+	shipping_address?: Address | null
+	shipping_method?: ShippingMethod | null
+	delivery_lead_time?: DeliveryLeadTime | null
 	/**
 	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
 	shipment_line_items?: object[]
-	stock_line_items?: StockLineItem[]
-	stock_transfers?: StockTransfer[]
-	available_shipping_methods?: ShippingMethod[]
-	carrier_accounts?: CarrierAccount[]
-	parcels?: Parcel[]
-	attachments?: Attachment[]
-	events?: Event[]
+	stock_line_items?: StockLineItem[] | null
+	stock_transfers?: StockTransfer[] | null
+	available_shipping_methods?: ShippingMethod[] | null
+	carrier_accounts?: CarrierAccount[] | null
+	parcels?: Parcel[] | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
 
 interface ShipmentUpdate extends ResourceUpdate {
 	
-	_on_hold?: boolean
-	_picking?: boolean
-	_packing?: boolean
-	_ready_to_ship?: boolean
-	_ship?: boolean
-	_get_rates?: boolean
-	selected_rate_id?: string
-	_purchase?: boolean
+	_on_hold?: boolean | null
+	_picking?: boolean | null
+	_packing?: boolean | null
+	_ready_to_ship?: boolean | null
+	_ship?: boolean | null
+	_get_rates?: boolean | null
+	selected_rate_id?: string | null
+	_purchase?: boolean | null
 
-	shipping_method?: ShippingMethodRel
+	shipping_method?: ShippingMethodRel | null
 
 }
 
 
-class Shipments extends ApiResource {
+class Shipments extends ApiResource<Shipment> {
 
-	static readonly TYPE: 'shipments' = 'shipments' as const
-	// static readonly PATH = 'shipments'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Shipment>> {
-		return this.resources.list<Shipment>({ type: Shipments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
-		return this.resources.retrieve<Shipment>({ type: Shipments.TYPE, id }, params, options)
-	}
+	static readonly TYPE: ShipmentType = 'shipments' as const
 
 	async update(resource: ShipmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ ...resource, type: Shipments.TYPE }, params, options)
@@ -165,7 +160,6 @@ class Shipments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isShipment(resource: any): resource is Shipment {
 		return resource.type && (resource.type === Shipments.TYPE)
 	}
@@ -176,7 +170,7 @@ class Shipments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ShipmentType {
 		return Shipments.TYPE
 	}
 
@@ -185,4 +179,4 @@ class Shipments extends ApiResource {
 
 export default Shipments
 
-export { Shipment, ShipmentUpdate }
+export type { Shipment, ShipmentUpdate, ShipmentType }

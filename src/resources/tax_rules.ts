@@ -1,30 +1,34 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { ManualTaxCalculator } from './manual_tax_calculators'
+import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
 
 
-type TaxRuleRel = ResourceRel & { type: typeof TaxRules.TYPE }
-type ManualTaxCalculatorRel = ResourceRel & { type: 'manual_tax_calculators' }
+type TaxRuleType = 'tax_rules'
+type TaxRuleRel = ResourceRel & { type: TaxRuleType }
+type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 
 
 interface TaxRule extends Resource {
 	
-	name?: string
-	tax_rate?: number
-	country_code_regex?: string
-	not_country_code_regex?: string
-	state_code_regex?: string
-	not_state_code_regex?: string
-	zip_code_regex?: string
-	not_zip_code_regex?: string
-	freight_taxable?: boolean
-	payment_method_taxable?: boolean
-	gift_card_taxable?: boolean
-	adjustment_taxable?: boolean
-	breakdown?: object
+	readonly type: TaxRuleType
 
-	manual_tax_calculator?: ManualTaxCalculator
+	name: string
+	tax_rate?: number | null
+	country_code_regex?: string | null
+	not_country_code_regex?: string | null
+	state_code_regex?: string | null
+	not_state_code_regex?: string | null
+	zip_code_regex?: string | null
+	not_zip_code_regex?: string | null
+	freight_taxable?: boolean | null
+	payment_method_taxable?: boolean | null
+	gift_card_taxable?: boolean | null
+	adjustment_taxable?: boolean | null
+	breakdown?: object | null
+
+	manual_tax_calculator?: ManualTaxCalculator | null
 
 }
 
@@ -32,17 +36,17 @@ interface TaxRule extends Resource {
 interface TaxRuleCreate extends ResourceCreate {
 	
 	name: string
-	tax_rate?: number
-	country_code_regex?: string
-	not_country_code_regex?: string
-	state_code_regex?: string
-	not_state_code_regex?: string
-	zip_code_regex?: string
-	not_zip_code_regex?: string
-	freight_taxable?: boolean
-	payment_method_taxable?: boolean
-	gift_card_taxable?: boolean
-	adjustment_taxable?: boolean
+	tax_rate?: number | null
+	country_code_regex?: string | null
+	not_country_code_regex?: string | null
+	state_code_regex?: string | null
+	not_state_code_regex?: string | null
+	zip_code_regex?: string | null
+	not_zip_code_regex?: string | null
+	freight_taxable?: boolean | null
+	payment_method_taxable?: boolean | null
+	gift_card_taxable?: boolean | null
+	adjustment_taxable?: boolean | null
 
 	manual_tax_calculator: ManualTaxCalculatorRel
 
@@ -51,47 +55,38 @@ interface TaxRuleCreate extends ResourceCreate {
 
 interface TaxRuleUpdate extends ResourceUpdate {
 	
-	name?: string
-	tax_rate?: number
-	country_code_regex?: string
-	not_country_code_regex?: string
-	state_code_regex?: string
-	not_state_code_regex?: string
-	zip_code_regex?: string
-	not_zip_code_regex?: string
-	freight_taxable?: boolean
-	payment_method_taxable?: boolean
-	gift_card_taxable?: boolean
-	adjustment_taxable?: boolean
+	name?: string | null
+	tax_rate?: number | null
+	country_code_regex?: string | null
+	not_country_code_regex?: string | null
+	state_code_regex?: string | null
+	not_state_code_regex?: string | null
+	zip_code_regex?: string | null
+	not_zip_code_regex?: string | null
+	freight_taxable?: boolean | null
+	payment_method_taxable?: boolean | null
+	gift_card_taxable?: boolean | null
+	adjustment_taxable?: boolean | null
 
-	manual_tax_calculator?: ManualTaxCalculatorRel
+	manual_tax_calculator?: ManualTaxCalculatorRel | null
 
 }
 
 
-class TaxRules extends ApiResource {
+class TaxRules extends ApiResource<TaxRule> {
 
-	static readonly TYPE: 'tax_rules' = 'tax_rules' as const
-	// static readonly PATH = 'tax_rules'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxRule>> {
-		return this.resources.list<TaxRule>({ type: TaxRules.TYPE }, params, options)
-	}
+	static readonly TYPE: TaxRuleType = 'tax_rules' as const
 
 	async create(resource: TaxRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
 		return this.resources.create<TaxRuleCreate, TaxRule>({ ...resource, type: TaxRules.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
-		return this.resources.retrieve<TaxRule>({ type: TaxRules.TYPE, id }, params, options)
 	}
 
 	async update(resource: TaxRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxRule> {
 		return this.resources.update<TaxRuleUpdate, TaxRule>({ ...resource, type: TaxRules.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: TaxRules.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: TaxRules.TYPE } : id, options)
 	}
 
 	async manual_tax_calculator(taxRuleId: string | TaxRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
@@ -100,7 +95,6 @@ class TaxRules extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isTaxRule(resource: any): resource is TaxRule {
 		return resource.type && (resource.type === TaxRules.TYPE)
 	}
@@ -111,7 +105,7 @@ class TaxRules extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): TaxRuleType {
 		return TaxRules.TYPE
 	}
 
@@ -120,4 +114,4 @@ class TaxRules extends ApiResource {
 
 export default TaxRules
 
-export { TaxRule, TaxRuleCreate, TaxRuleUpdate }
+export type { TaxRule, TaxRuleCreate, TaxRuleUpdate, TaxRuleType }

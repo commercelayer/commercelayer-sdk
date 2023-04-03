@@ -1,20 +1,24 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { KlarnaPayment } from './klarna_payments'
+import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
 
 
-type KlarnaGatewayRel = ResourceRel & { type: typeof KlarnaGateways.TYPE }
-type KlarnaPaymentRel = ResourceRel & { type: 'klarna_payments' }
+type KlarnaGatewayType = 'klarna_gateways'
+type KlarnaGatewayRel = ResourceRel & { type: KlarnaGatewayType }
+type KlarnaPaymentRel = ResourceRel & { type: KlarnaPaymentType }
 
 
 interface KlarnaGateway extends Resource {
 	
-	name?: string
+	readonly type: KlarnaGatewayType
 
-	payment_methods?: PaymentMethod[]
-	klarna_payments?: KlarnaPayment[]
+	name: string
+
+	payment_methods?: PaymentMethod[] | null
+	klarna_payments?: KlarnaPayment[] | null
 
 }
 
@@ -26,46 +30,37 @@ interface KlarnaGatewayCreate extends ResourceCreate {
 	api_key: string
 	api_secret: string
 
-	klarna_payments?: KlarnaPaymentRel[]
+	klarna_payments?: KlarnaPaymentRel[] | null
 
 }
 
 
 interface KlarnaGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
-	country_code?: string
-	api_key?: string
-	api_secret?: string
+	name?: string | null
+	country_code?: string | null
+	api_key?: string | null
+	api_secret?: string | null
 
-	klarna_payments?: KlarnaPaymentRel[]
+	klarna_payments?: KlarnaPaymentRel[] | null
 
 }
 
 
-class KlarnaGateways extends ApiResource {
+class KlarnaGateways extends ApiResource<KlarnaGateway> {
 
-	static readonly TYPE: 'klarna_gateways' = 'klarna_gateways' as const
-	// static readonly PATH = 'klarna_gateways'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaGateway>> {
-		return this.resources.list<KlarnaGateway>({ type: KlarnaGateways.TYPE }, params, options)
-	}
+	static readonly TYPE: KlarnaGatewayType = 'klarna_gateways' as const
 
 	async create(resource: KlarnaGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway> {
 		return this.resources.create<KlarnaGatewayCreate, KlarnaGateway>({ ...resource, type: KlarnaGateways.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway> {
-		return this.resources.retrieve<KlarnaGateway>({ type: KlarnaGateways.TYPE, id }, params, options)
 	}
 
 	async update(resource: KlarnaGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway> {
 		return this.resources.update<KlarnaGatewayUpdate, KlarnaGateway>({ ...resource, type: KlarnaGateways.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: KlarnaGateways.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: KlarnaGateways.TYPE } : id, options)
 	}
 
 	async payment_methods(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -79,7 +74,6 @@ class KlarnaGateways extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isKlarnaGateway(resource: any): resource is KlarnaGateway {
 		return resource.type && (resource.type === KlarnaGateways.TYPE)
 	}
@@ -90,7 +84,7 @@ class KlarnaGateways extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): KlarnaGatewayType {
 		return KlarnaGateways.TYPE
 	}
 
@@ -99,4 +93,4 @@ class KlarnaGateways extends ApiResource {
 
 export default KlarnaGateways
 
-export { KlarnaGateway, KlarnaGatewayCreate, KlarnaGatewayUpdate }
+export type { KlarnaGateway, KlarnaGatewayCreate, KlarnaGatewayUpdate, KlarnaGatewayType }

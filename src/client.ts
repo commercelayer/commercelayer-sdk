@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosInstance, AxiosProxyConfig, Method } from 'axios'
+
+import axios, { type AxiosInstance, type AxiosProxyConfig, type Method } from 'axios'
 import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
@@ -16,7 +16,7 @@ const baseURL = (organization: string, domain?: string): string => {
 }
 
 
-const handleError = (error: Error): void => {
+const handleError = (error: Error): never => {
 
 	let sdkError = new SdkError({ message: error.message })
 
@@ -51,7 +51,7 @@ type ProxyConfig = AxiosProxyConfig | false
 // Subset of AxiosRequestConfig
 type RequestConfig = {
 	timeout?: number;
-	params?: { [key: string]: string | number | boolean };
+	params?: Record<string, string | number | boolean>;
 	httpAgent?: HttpAgent;
 	httpsAgent?: HttpsAgent;
 	proxy?: ProxyConfig;
@@ -64,8 +64,8 @@ type ApiClientConfig = Partial<ApiClientInitConfig>
 class ApiClient {
 
 	static create(options: ApiClientInitConfig): ApiClient {
-		if (!options?.organization) throw new Error("Undefined 'organization' parameter")
-		if (!options?.accessToken) throw new Error("Undefined 'accessToken' parameter")
+		for (const attr of config.client.requiredAttributes)
+			if (!options || !options[attr as keyof ApiClientInitConfig]) throw new SdkError({ message: `Undefined '${attr}' parameter` })
 		return new ApiClient(options)
 	}
 
@@ -161,4 +161,4 @@ class ApiClient {
 
 export default ApiClient
 
-export { ApiClientInitConfig, ApiClientConfig, RequestConfig }
+export type { ApiClientInitConfig, ApiClientConfig, RequestConfig }

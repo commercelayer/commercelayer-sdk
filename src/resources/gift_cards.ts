@@ -1,108 +1,103 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { GiftCardRecipient } from './gift_card_recipients'
+import type { Market, MarketType } from './markets'
+import type { GiftCardRecipient, GiftCardRecipientType } from './gift_card_recipients'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type GiftCardRel = ResourceRel & { type: typeof GiftCards.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type GiftCardRecipientRel = ResourceRel & { type: 'gift_card_recipients' }
+type GiftCardType = 'gift_cards'
+type GiftCardRel = ResourceRel & { type: GiftCardType }
+type MarketRel = ResourceRel & { type: MarketType }
+type GiftCardRecipientRel = ResourceRel & { type: GiftCardRecipientType }
 
 
 interface GiftCard extends Resource {
 	
-	status?: string
-	code?: string
-	currency_code?: string
-	initial_balance_cents?: number
-	initial_balance_float?: number
-	formatted_initial_balance?: string
-	balance_cents?: number
-	balance_float?: number
-	formatted_balance?: string
-	balance_max_cents?: string
-	balance_max_float?: number
-	formatted_balance_max?: string
-	balance_log?: object[]
-	single_use?: boolean
-	rechargeable?: boolean
-	image_url?: string
-	expires_at?: string
-	recipient_email?: string
+	readonly type: GiftCardType
 
-	market?: Market
-	gift_card_recipient?: GiftCardRecipient
-	attachments?: Attachment[]
-	events?: Event[]
+	status: 'draft' | 'inactive' | 'active' | 'redeemed'
+	code?: string | null
+	currency_code?: string | null
+	initial_balance_cents: number
+	initial_balance_float: number
+	formatted_initial_balance: string
+	balance_cents: number
+	balance_float: number
+	formatted_balance: string
+	balance_max_cents?: string | null
+	balance_max_float?: number | null
+	formatted_balance_max?: string | null
+	balance_log: object[]
+	single_use?: boolean | null
+	rechargeable?: boolean | null
+	image_url?: string | null
+	expires_at?: string | null
+	recipient_email?: string | null
+
+	market?: Market | null
+	gift_card_recipient?: GiftCardRecipient | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
 
 interface GiftCardCreate extends ResourceCreate {
 	
-	code?: string
-	currency_code?: string
+	code?: string | null
+	currency_code?: string | null
 	balance_cents: number
-	balance_max_cents?: string
-	single_use?: boolean
-	rechargeable?: boolean
-	image_url?: string
-	expires_at?: string
-	recipient_email?: string
+	balance_max_cents?: string | null
+	single_use?: boolean | null
+	rechargeable?: boolean | null
+	image_url?: string | null
+	expires_at?: string | null
+	recipient_email?: string | null
 
-	market?: MarketRel
-	gift_card_recipient?: GiftCardRecipientRel
+	market?: MarketRel | null
+	gift_card_recipient?: GiftCardRecipientRel | null
 
 }
 
 
 interface GiftCardUpdate extends ResourceUpdate {
 	
-	currency_code?: string
-	balance_cents?: number
-	balance_max_cents?: string
-	single_use?: boolean
-	rechargeable?: boolean
-	image_url?: string
-	expires_at?: string
-	recipient_email?: string
-	_purchase?: boolean
-	_activate?: boolean
-	_deactivate?: boolean
-	_balance_change_cents?: number
+	currency_code?: string | null
+	balance_cents?: number | null
+	balance_max_cents?: string | null
+	single_use?: boolean | null
+	rechargeable?: boolean | null
+	image_url?: string | null
+	expires_at?: string | null
+	recipient_email?: string | null
+	_purchase?: boolean | null
+	_activate?: boolean | null
+	_deactivate?: boolean | null
+	_balance_change_cents?: number | null
 
-	market?: MarketRel
-	gift_card_recipient?: GiftCardRecipientRel
+	market?: MarketRel | null
+	gift_card_recipient?: GiftCardRecipientRel | null
 
 }
 
 
-class GiftCards extends ApiResource {
+class GiftCards extends ApiResource<GiftCard> {
 
-	static readonly TYPE: 'gift_cards' = 'gift_cards' as const
-	// static readonly PATH = 'gift_cards'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<GiftCard>> {
-		return this.resources.list<GiftCard>({ type: GiftCards.TYPE }, params, options)
-	}
+	static readonly TYPE: GiftCardType = 'gift_cards' as const
 
 	async create(resource: GiftCardCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.create<GiftCardCreate, GiftCard>({ ...resource, type: GiftCards.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
-		return this.resources.retrieve<GiftCard>({ type: GiftCards.TYPE, id }, params, options)
 	}
 
 	async update(resource: GiftCardUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.update<GiftCardUpdate, GiftCard>({ ...resource, type: GiftCards.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: GiftCards.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: GiftCards.TYPE } : id, options)
 	}
 
 	async market(giftCardId: string | GiftCard, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -126,7 +121,6 @@ class GiftCards extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isGiftCard(resource: any): resource is GiftCard {
 		return resource.type && (resource.type === GiftCards.TYPE)
 	}
@@ -137,7 +131,7 @@ class GiftCards extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): GiftCardType {
 		return GiftCards.TYPE
 	}
 
@@ -146,4 +140,4 @@ class GiftCards extends ApiResource {
 
 export default GiftCards
 
-export { GiftCard, GiftCardCreate, GiftCardUpdate }
+export type { GiftCard, GiftCardCreate, GiftCardUpdate, GiftCardType }

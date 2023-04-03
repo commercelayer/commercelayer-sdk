@@ -1,44 +1,44 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import { ApiSingleton } from '../resource'
+import type { Resource, ResourceId, ResourceRel } from '../resource'
 
 
 
-type OrganizationRel = ResourceRel & { type: typeof Organizations.TYPE }
+
+type OrganizationType = 'organization'
+type OrganizationRel = ResourceRel & { type: OrganizationType }
 
 
 interface Organization extends Resource {
 	
-	name?: string
-	slug?: string
-	domain?: string
-	support_phone?: string
-	support_email?: string
-	logo_url?: string
-	favicon_url?: string
-	primary_color?: string
-	contrast_color?: string
-	gtm_id?: string
-	gtm_id_test?: string
-	discount_disabled?: boolean
-	account_disabled?: boolean
-	acceptance_disabled?: boolean
-	max_concurrent_promotions?: number
-	max_concurrent_imports?: number
+	readonly type: OrganizationType
+
+	name?: string | null
+	slug?: string | null
+	domain?: string | null
+	support_phone?: string | null
+	support_email?: string | null
+	logo_url?: string | null
+	favicon_url?: string | null
+	primary_color?: string | null
+	contrast_color?: string | null
+	gtm_id?: string | null
+	gtm_id_test?: string | null
+	discount_disabled?: boolean | null
+	account_disabled?: boolean | null
+	acceptance_disabled?: boolean | null
+	max_concurrent_promotions?: number | null
+	max_concurrent_imports?: number | null
 	
 }
 
 
-class Organizations extends ApiResource {
+class Organizations extends ApiSingleton<Organization> {
 
-	static readonly TYPE: 'organization' = 'organization' as const
-	// static readonly PATH = 'organization'
+	static readonly TYPE: OrganizationType = 'organization' as const
 
-	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {
-		return this.resources.singleton<Organization>({ type: Organizations.TYPE }, params, options)
-	}
+	
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrganization(resource: any): resource is Organization {
 		return resource.type && (resource.type === Organizations.TYPE)
 	}
@@ -49,7 +49,7 @@ class Organizations extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrganizationType {
 		return Organizations.TYPE
 	}
 
@@ -58,4 +58,4 @@ class Organizations extends ApiResource {
 
 export default Organizations
 
-export { Organization }
+export type { Organization, OrganizationType }

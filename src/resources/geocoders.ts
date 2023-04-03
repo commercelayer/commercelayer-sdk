@@ -1,35 +1,30 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsList } from '../query'
 
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
 
 
-type GeocoderRel = ResourceRel & { type: typeof Geocoders.TYPE }
+type GeocoderType = 'geocoders'
+type GeocoderRel = ResourceRel & { type: GeocoderType }
 
 
 interface Geocoder extends Resource {
 	
-	name?: string
+	readonly type: GeocoderType
 
-	addresses?: Address[]
-	attachments?: Attachment[]
+	name: string
+
+	addresses?: Address[] | null
+	attachments?: Attachment[] | null
 
 }
 
 
-class Geocoders extends ApiResource {
+class Geocoders extends ApiResource<Geocoder> {
 
-	static readonly TYPE: 'geocoders' = 'geocoders' as const
-	// static readonly PATH = 'geocoders'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Geocoder>> {
-		return this.resources.list<Geocoder>({ type: Geocoders.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
-		return this.resources.retrieve<Geocoder>({ type: Geocoders.TYPE, id }, params, options)
-	}
+	static readonly TYPE: GeocoderType = 'geocoders' as const
 
 	async addresses(geocoderId: string | Geocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
 		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
@@ -42,7 +37,6 @@ class Geocoders extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isGeocoder(resource: any): resource is Geocoder {
 		return resource.type && (resource.type === Geocoders.TYPE)
 	}
@@ -53,7 +47,7 @@ class Geocoders extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): GeocoderType {
 		return Geocoders.TYPE
 	}
 
@@ -62,4 +56,4 @@ class Geocoders extends ApiResource {
 
 export default Geocoders
 
-export { Geocoder }
+export type { Geocoder, GeocoderType }

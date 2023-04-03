@@ -1,43 +1,47 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { PromotionRule } from './promotion_rules'
-import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
-import type { SkuListPromotionRule } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Market, MarketType } from './markets'
+import type { PromotionRule, PromotionRuleType } from './promotion_rules'
+import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type FixedAmountPromotionRel = ResourceRel & { type: typeof FixedAmountPromotions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
+type FixedAmountPromotionType = 'fixed_amount_promotions'
+type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
+type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 
 
 interface FixedAmountPromotion extends Resource {
 	
-	name?: string
-	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
-	total_usage_count?: number
-	active?: boolean
-	fixed_amount_cents?: number
-	fixed_amount_float?: number
-	formatted_fixed_amount?: string
+	readonly type: FixedAmountPromotionType
 
-	market?: Market
-	promotion_rules?: PromotionRule[]
-	order_amount_promotion_rule?: OrderAmountPromotionRule
-	sku_list_promotion_rule?: SkuListPromotionRule
-	coupon_codes_promotion_rule?: CouponCodesPromotionRule
-	attachments?: Attachment[]
-	events?: Event[]
+	name: string
+	currency_code?: string | null
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
+	total_usage_count?: number | null
+	active?: boolean | null
+	fixed_amount_cents: number
+	fixed_amount_float?: number | null
+	formatted_fixed_amount?: string | null
+
+	market?: Market | null
+	promotion_rules?: PromotionRule[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRule | null
+	sku_list_promotion_rule?: SkuListPromotionRule | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
@@ -45,62 +49,53 @@ interface FixedAmountPromotion extends Resource {
 interface FixedAmountPromotionCreate extends ResourceCreate {
 	
 	name: string
-	currency_code?: string
+	currency_code?: string | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
 	fixed_amount_cents: number
 
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	market?: MarketRel | null
+	promotion_rules?: PromotionRuleRel[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
+	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 
 }
 
 
 interface FixedAmountPromotionUpdate extends ResourceUpdate {
 	
-	name?: string
-	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
-	fixed_amount_cents?: number
+	name?: string | null
+	currency_code?: string | null
+	starts_at?: string | null
+	expires_at?: string | null
+	total_usage_limit?: number | null
+	fixed_amount_cents?: number | null
 
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	market?: MarketRel | null
+	promotion_rules?: PromotionRuleRel[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
+	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 
 }
 
 
-class FixedAmountPromotions extends ApiResource {
+class FixedAmountPromotions extends ApiResource<FixedAmountPromotion> {
 
-	static readonly TYPE: 'fixed_amount_promotions' = 'fixed_amount_promotions' as const
-	// static readonly PATH = 'fixed_amount_promotions'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FixedAmountPromotion>> {
-		return this.resources.list<FixedAmountPromotion>({ type: FixedAmountPromotions.TYPE }, params, options)
-	}
+	static readonly TYPE: FixedAmountPromotionType = 'fixed_amount_promotions' as const
 
 	async create(resource: FixedAmountPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
 		return this.resources.create<FixedAmountPromotionCreate, FixedAmountPromotion>({ ...resource, type: FixedAmountPromotions.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
-		return this.resources.retrieve<FixedAmountPromotion>({ type: FixedAmountPromotions.TYPE, id }, params, options)
 	}
 
 	async update(resource: FixedAmountPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
 		return this.resources.update<FixedAmountPromotionUpdate, FixedAmountPromotion>({ ...resource, type: FixedAmountPromotions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: FixedAmountPromotions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: FixedAmountPromotions.TYPE } : id, options)
 	}
 
 	async market(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -134,7 +129,6 @@ class FixedAmountPromotions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isFixedAmountPromotion(resource: any): resource is FixedAmountPromotion {
 		return resource.type && (resource.type === FixedAmountPromotions.TYPE)
 	}
@@ -145,7 +139,7 @@ class FixedAmountPromotions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): FixedAmountPromotionType {
 		return FixedAmountPromotions.TYPE
 	}
 
@@ -154,4 +148,4 @@ class FixedAmountPromotions extends ApiResource {
 
 export default FixedAmountPromotions
 
-export { FixedAmountPromotion, FixedAmountPromotionCreate, FixedAmountPromotionUpdate }
+export type { FixedAmountPromotion, FixedAmountPromotionCreate, FixedAmountPromotionUpdate, FixedAmountPromotionType }

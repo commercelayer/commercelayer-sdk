@@ -1,46 +1,50 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { PromotionRule } from './promotion_rules'
-import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
-import type { SkuListPromotionRule } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Market, MarketType } from './markets'
+import type { PromotionRule, PromotionRuleType } from './promotion_rules'
+import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
-import type { SkuList } from './sku_lists'
+import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 
 
-type FreeGiftPromotionRel = ResourceRel & { type: typeof FreeGiftPromotions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
-type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
-type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
-type SkuListRel = ResourceRel & { type: 'sku_lists' }
+type FreeGiftPromotionType = 'free_gift_promotions'
+type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
+type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
+type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 
 
 interface FreeGiftPromotion extends Resource {
 	
-	name?: string
-	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
-	total_usage_count?: number
-	active?: boolean
-	max_quantity?: number
+	readonly type: FreeGiftPromotionType
 
-	market?: Market
-	promotion_rules?: PromotionRule[]
-	order_amount_promotion_rule?: OrderAmountPromotionRule
-	sku_list_promotion_rule?: SkuListPromotionRule
-	coupon_codes_promotion_rule?: CouponCodesPromotionRule
-	attachments?: Attachment[]
-	events?: Event[]
-	sku_list?: SkuList
-	skus?: Sku[]
+	name: string
+	currency_code?: string | null
+	starts_at: string
+	expires_at: string
+	total_usage_limit: number
+	total_usage_count?: number | null
+	active?: boolean | null
+	max_quantity?: number | null
+
+	market?: Market | null
+	promotion_rules?: PromotionRule[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRule | null
+	sku_list_promotion_rule?: SkuListPromotionRule | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
+	sku_list?: SkuList | null
+	skus?: Sku[] | null
 
 }
 
@@ -48,17 +52,17 @@ interface FreeGiftPromotion extends Resource {
 interface FreeGiftPromotionCreate extends ResourceCreate {
 	
 	name: string
-	currency_code?: string
+	currency_code?: string | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
-	max_quantity?: number
+	max_quantity?: number | null
 
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	market?: MarketRel | null
+	promotion_rules?: PromotionRuleRel[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
+	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	sku_list: SkuListRel
 
 }
@@ -66,46 +70,37 @@ interface FreeGiftPromotionCreate extends ResourceCreate {
 
 interface FreeGiftPromotionUpdate extends ResourceUpdate {
 	
-	name?: string
-	currency_code?: string
-	starts_at?: string
-	expires_at?: string
-	total_usage_limit?: number
-	max_quantity?: number
+	name?: string | null
+	currency_code?: string | null
+	starts_at?: string | null
+	expires_at?: string | null
+	total_usage_limit?: number | null
+	max_quantity?: number | null
 
-	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
-	sku_list_promotion_rule?: SkuListPromotionRuleRel
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
-	sku_list?: SkuListRel
+	market?: MarketRel | null
+	promotion_rules?: PromotionRuleRel[] | null
+	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
+	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	sku_list?: SkuListRel | null
 
 }
 
 
-class FreeGiftPromotions extends ApiResource {
+class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 
-	static readonly TYPE: 'free_gift_promotions' = 'free_gift_promotions' as const
-	// static readonly PATH = 'free_gift_promotions'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<FreeGiftPromotion>> {
-		return this.resources.list<FreeGiftPromotion>({ type: FreeGiftPromotions.TYPE }, params, options)
-	}
+	static readonly TYPE: FreeGiftPromotionType = 'free_gift_promotions' as const
 
 	async create(resource: FreeGiftPromotionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeGiftPromotion> {
 		return this.resources.create<FreeGiftPromotionCreate, FreeGiftPromotion>({ ...resource, type: FreeGiftPromotions.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeGiftPromotion> {
-		return this.resources.retrieve<FreeGiftPromotion>({ type: FreeGiftPromotions.TYPE, id }, params, options)
 	}
 
 	async update(resource: FreeGiftPromotionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeGiftPromotion> {
 		return this.resources.update<FreeGiftPromotionUpdate, FreeGiftPromotion>({ ...resource, type: FreeGiftPromotions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: FreeGiftPromotions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: FreeGiftPromotions.TYPE } : id, options)
 	}
 
 	async market(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -149,7 +144,6 @@ class FreeGiftPromotions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isFreeGiftPromotion(resource: any): resource is FreeGiftPromotion {
 		return resource.type && (resource.type === FreeGiftPromotions.TYPE)
 	}
@@ -160,7 +154,7 @@ class FreeGiftPromotions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): FreeGiftPromotionType {
 		return FreeGiftPromotions.TYPE
 	}
 
@@ -169,4 +163,4 @@ class FreeGiftPromotions extends ApiResource {
 
 export default FreeGiftPromotions
 
-export { FreeGiftPromotion, FreeGiftPromotionCreate, FreeGiftPromotionUpdate }
+export type { FreeGiftPromotion, FreeGiftPromotionCreate, FreeGiftPromotionUpdate, FreeGiftPromotionType }

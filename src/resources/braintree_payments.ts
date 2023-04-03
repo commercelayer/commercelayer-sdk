@@ -1,34 +1,38 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type BraintreePaymentRel = ResourceRel & { type: typeof BraintreePayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type BraintreePaymentType = 'braintree_payments'
+type BraintreePaymentRel = ResourceRel & { type: BraintreePaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface BraintreePayment extends Resource {
 	
-	client_token?: string
-	payment_method_nonce?: string
-	payment_id?: string
-	local?: boolean
-	options?: object
-	payment_instrument?: object
+	readonly type: BraintreePaymentType
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	client_token: string
+	payment_method_nonce?: string | null
+	payment_id?: string | null
+	local?: boolean | null
+	options?: object | null
+	payment_instrument?: object | null
+
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
 
 interface BraintreePaymentCreate extends ResourceCreate {
 	
-	payment_id?: string
-	local?: boolean
-	options?: object
+	payment_id?: string | null
+	local?: boolean | null
+	options?: object | null
 
 	order: OrderRel
 
@@ -37,39 +41,30 @@ interface BraintreePaymentCreate extends ResourceCreate {
 
 interface BraintreePaymentUpdate extends ResourceUpdate {
 	
-	payment_method_nonce?: string
-	payment_id?: string
-	local?: boolean
-	options?: object
+	payment_method_nonce?: string | null
+	payment_id?: string | null
+	local?: boolean | null
+	options?: object | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 
 
-class BraintreePayments extends ApiResource {
+class BraintreePayments extends ApiResource<BraintreePayment> {
 
-	static readonly TYPE: 'braintree_payments' = 'braintree_payments' as const
-	// static readonly PATH = 'braintree_payments'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BraintreePayment>> {
-		return this.resources.list<BraintreePayment>({ type: BraintreePayments.TYPE }, params, options)
-	}
+	static readonly TYPE: BraintreePaymentType = 'braintree_payments' as const
 
 	async create(resource: BraintreePaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {
 		return this.resources.create<BraintreePaymentCreate, BraintreePayment>({ ...resource, type: BraintreePayments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {
-		return this.resources.retrieve<BraintreePayment>({ type: BraintreePayments.TYPE, id }, params, options)
 	}
 
 	async update(resource: BraintreePaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {
 		return this.resources.update<BraintreePaymentUpdate, BraintreePayment>({ ...resource, type: BraintreePayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: BraintreePayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: BraintreePayments.TYPE } : id, options)
 	}
 
 	async order(braintreePaymentId: string | BraintreePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -83,7 +78,6 @@ class BraintreePayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isBraintreePayment(resource: any): resource is BraintreePayment {
 		return resource.type && (resource.type === BraintreePayments.TYPE)
 	}
@@ -94,7 +88,7 @@ class BraintreePayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): BraintreePaymentType {
 		return BraintreePayments.TYPE
 	}
 
@@ -103,4 +97,4 @@ class BraintreePayments extends ApiResource {
 
 export default BraintreePayments
 
-export { BraintreePayment, BraintreePaymentCreate, BraintreePaymentUpdate }
+export type { BraintreePayment, BraintreePaymentCreate, BraintreePaymentUpdate, BraintreePaymentType }

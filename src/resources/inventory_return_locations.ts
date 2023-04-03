@@ -1,21 +1,25 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { StockLocation } from './stock_locations'
-import type { InventoryModel } from './inventory_models'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { InventoryModel, InventoryModelType } from './inventory_models'
 
 
-type InventoryReturnLocationRel = ResourceRel & { type: typeof InventoryReturnLocations.TYPE }
-type StockLocationRel = ResourceRel & { type: 'stock_locations' }
-type InventoryModelRel = ResourceRel & { type: 'inventory_models' }
+type InventoryReturnLocationType = 'inventory_return_locations'
+type InventoryReturnLocationRel = ResourceRel & { type: InventoryReturnLocationType }
+type StockLocationRel = ResourceRel & { type: StockLocationType }
+type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 
 
 interface InventoryReturnLocation extends Resource {
 	
-	priority?: number
+	readonly type: InventoryReturnLocationType
 
-	stock_location?: StockLocation
-	inventory_model?: InventoryModel
+	priority: number
+
+	stock_location?: StockLocation | null
+	inventory_model?: InventoryModel | null
 
 }
 
@@ -32,37 +36,28 @@ interface InventoryReturnLocationCreate extends ResourceCreate {
 
 interface InventoryReturnLocationUpdate extends ResourceUpdate {
 	
-	priority?: number
+	priority?: number | null
 
-	stock_location?: StockLocationRel
-	inventory_model?: InventoryModelRel
+	stock_location?: StockLocationRel | null
+	inventory_model?: InventoryModelRel | null
 
 }
 
 
-class InventoryReturnLocations extends ApiResource {
+class InventoryReturnLocations extends ApiResource<InventoryReturnLocation> {
 
-	static readonly TYPE: 'inventory_return_locations' = 'inventory_return_locations' as const
-	// static readonly PATH = 'inventory_return_locations'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
-		return this.resources.list<InventoryReturnLocation>({ type: InventoryReturnLocations.TYPE }, params, options)
-	}
+	static readonly TYPE: InventoryReturnLocationType = 'inventory_return_locations' as const
 
 	async create(resource: InventoryReturnLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
 		return this.resources.create<InventoryReturnLocationCreate, InventoryReturnLocation>({ ...resource, type: InventoryReturnLocations.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
-		return this.resources.retrieve<InventoryReturnLocation>({ type: InventoryReturnLocations.TYPE, id }, params, options)
 	}
 
 	async update(resource: InventoryReturnLocationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
 		return this.resources.update<InventoryReturnLocationUpdate, InventoryReturnLocation>({ ...resource, type: InventoryReturnLocations.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: InventoryReturnLocations.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: InventoryReturnLocations.TYPE } : id, options)
 	}
 
 	async stock_location(inventoryReturnLocationId: string | InventoryReturnLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
@@ -76,7 +71,6 @@ class InventoryReturnLocations extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isInventoryReturnLocation(resource: any): resource is InventoryReturnLocation {
 		return resource.type && (resource.type === InventoryReturnLocations.TYPE)
 	}
@@ -87,7 +81,7 @@ class InventoryReturnLocations extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): InventoryReturnLocationType {
 		return InventoryReturnLocations.TYPE
 	}
 
@@ -96,4 +90,4 @@ class InventoryReturnLocations extends ApiResource {
 
 export default InventoryReturnLocations
 
-export { InventoryReturnLocation, InventoryReturnLocationCreate, InventoryReturnLocationUpdate }
+export type { InventoryReturnLocation, InventoryReturnLocationCreate, InventoryReturnLocationUpdate, InventoryReturnLocationType }

@@ -1,26 +1,30 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Price } from './prices'
+import type { Price, PriceType } from './prices'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 
 
-type PriceVolumeTierRel = ResourceRel & { type: typeof PriceVolumeTiers.TYPE }
-type PriceRel = ResourceRel & { type: 'prices' }
+type PriceVolumeTierType = 'price_volume_tiers'
+type PriceVolumeTierRel = ResourceRel & { type: PriceVolumeTierType }
+type PriceRel = ResourceRel & { type: PriceType }
 
 
 interface PriceVolumeTier extends Resource {
 	
-	name?: string
-	up_to?: number
-	price_amount_cents?: number
-	price_amount_float?: number
-	formatted_price_amount?: string
+	readonly type: PriceVolumeTierType
 
-	price?: Price
-	attachments?: Attachment[]
-	events?: Event[]
+	name: string
+	up_to?: number | null
+	price_amount_cents: number
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
+
+	price?: Price | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 
 }
 
@@ -28,7 +32,7 @@ interface PriceVolumeTier extends Resource {
 interface PriceVolumeTierCreate extends ResourceCreate {
 	
 	name: string
-	up_to?: number
+	up_to?: number | null
 	price_amount_cents: number
 
 	price: PriceRel
@@ -38,38 +42,29 @@ interface PriceVolumeTierCreate extends ResourceCreate {
 
 interface PriceVolumeTierUpdate extends ResourceUpdate {
 	
-	name?: string
-	up_to?: number
-	price_amount_cents?: number
+	name?: string | null
+	up_to?: number | null
+	price_amount_cents?: number | null
 
-	price?: PriceRel
+	price?: PriceRel | null
 
 }
 
 
-class PriceVolumeTiers extends ApiResource {
+class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 
-	static readonly TYPE: 'price_volume_tiers' = 'price_volume_tiers' as const
-	// static readonly PATH = 'price_volume_tiers'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceVolumeTier>> {
-		return this.resources.list<PriceVolumeTier>({ type: PriceVolumeTiers.TYPE }, params, options)
-	}
+	static readonly TYPE: PriceVolumeTierType = 'price_volume_tiers' as const
 
 	async create(resource: PriceVolumeTierCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceVolumeTier> {
 		return this.resources.create<PriceVolumeTierCreate, PriceVolumeTier>({ ...resource, type: PriceVolumeTiers.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceVolumeTier> {
-		return this.resources.retrieve<PriceVolumeTier>({ type: PriceVolumeTiers.TYPE, id }, params, options)
 	}
 
 	async update(resource: PriceVolumeTierUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceVolumeTier> {
 		return this.resources.update<PriceVolumeTierUpdate, PriceVolumeTier>({ ...resource, type: PriceVolumeTiers.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: PriceVolumeTiers.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: PriceVolumeTiers.TYPE } : id, options)
 	}
 
 	async price(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
@@ -88,7 +83,6 @@ class PriceVolumeTiers extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isPriceVolumeTier(resource: any): resource is PriceVolumeTier {
 		return resource.type && (resource.type === PriceVolumeTiers.TYPE)
 	}
@@ -99,7 +93,7 @@ class PriceVolumeTiers extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): PriceVolumeTierType {
 		return PriceVolumeTiers.TYPE
 	}
 
@@ -108,4 +102,4 @@ class PriceVolumeTiers extends ApiResource {
 
 export default PriceVolumeTiers
 
-export { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate }
+export type { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate, PriceVolumeTierType }

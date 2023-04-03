@@ -1,52 +1,56 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
+import type { Market, MarketType } from './markets'
 import type { SubscriptionModel } from './subscription_models'
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { Customer } from './customers'
-import type { CustomerPaymentSource } from './customer_payment_sources'
+import type { CustomerPaymentSource, CustomerPaymentSourceType } from './customer_payment_sources'
 import type { OrderSubscriptionItem } from './order_subscription_items'
 import type { OrderFactory } from './order_factories'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Event } from './events'
 
 
-type OrderSubscriptionRel = ResourceRel & { type: typeof OrderSubscriptions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type OrderRel = ResourceRel & { type: 'orders' }
-type CustomerPaymentSourceRel = ResourceRel & { type: 'customer_payment_sources' }
+type OrderSubscriptionType = 'order_subscriptions'
+type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
+type MarketRel = ResourceRel & { type: MarketType }
+type OrderRel = ResourceRel & { type: OrderType }
+type CustomerPaymentSourceRel = ResourceRel & { type: CustomerPaymentSourceType }
 
 
 interface OrderSubscription extends Resource {
 	
-	number?: string
-	status?: string
-	frequency?: string
-	activate_by_source_order?: boolean
-	customer_email?: string
-	starts_at?: string
-	expires_at?: string
-	next_run_at?: string
-	occurrencies?: number
-	errors_count?: number
-	succeeded_on_last_run?: boolean
-	options?: object
+	readonly type: OrderSubscriptionType
 
-	market?: Market
-	subscription_model?: SubscriptionModel
-	source_order?: Order
-	customer?: Customer
-	customer_payment_source?: CustomerPaymentSource
-	order_subscription_items?: OrderSubscriptionItem[]
-	order_factories?: OrderFactory[]
+	number?: string | null
+	status: 'draft' | 'inactive' | 'active' | 'cancelled'
+	frequency: string
+	activate_by_source_order?: boolean | null
+	customer_email?: string | null
+	starts_at?: string | null
+	expires_at?: string | null
+	next_run_at?: string | null
+	occurrencies?: number | null
+	errors_count?: number | null
+	succeeded_on_last_run?: boolean | null
+	options?: object | null
+
+	market?: Market | null
+	subscription_model?: SubscriptionModel | null
+	source_order?: Order | null
+	customer?: Customer | null
+	customer_payment_source?: CustomerPaymentSource | null
+	order_subscription_items?: OrderSubscriptionItem[] | null
+	order_factories?: OrderFactory[] | null
 	/**
 	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
 	order_copies?: object[]
-	recurring_order_copies?: RecurringOrderCopy[]
-	orders?: Order[]
-	events?: Event[]
+	recurring_order_copies?: RecurringOrderCopy[] | null
+	orders?: Order[] | null
+	events?: Event[] | null
 
 }
 
@@ -54,12 +58,12 @@ interface OrderSubscription extends Resource {
 interface OrderSubscriptionCreate extends ResourceCreate {
 	
 	frequency: string
-	activate_by_source_order?: boolean
-	starts_at?: string
-	expires_at?: string
-	options?: object
+	activate_by_source_order?: boolean | null
+	starts_at?: string | null
+	expires_at?: string | null
+	options?: object | null
 
-	market?: MarketRel
+	market?: MarketRel | null
 	source_order: OrderRel
 
 }
@@ -67,41 +71,32 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 
 interface OrderSubscriptionUpdate extends ResourceUpdate {
 	
-	frequency?: string
-	expires_at?: string
-	next_run_at?: string
-	_activate?: boolean
-	_deactivate?: boolean
-	_cancel?: boolean
+	frequency?: string | null
+	expires_at?: string | null
+	next_run_at?: string | null
+	_activate?: boolean | null
+	_deactivate?: boolean | null
+	_cancel?: boolean | null
 
-	customer_payment_source?: CustomerPaymentSourceRel
+	customer_payment_source?: CustomerPaymentSourceRel | null
 
 }
 
 
-class OrderSubscriptions extends ApiResource {
+class OrderSubscriptions extends ApiResource<OrderSubscription> {
 
-	static readonly TYPE: 'order_subscriptions' = 'order_subscriptions' as const
-	// static readonly PATH = 'order_subscriptions'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
-		return this.resources.list<OrderSubscription>({ type: OrderSubscriptions.TYPE }, params, options)
-	}
+	static readonly TYPE: OrderSubscriptionType = 'order_subscriptions' as const
 
 	async create(resource: OrderSubscriptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
 		return this.resources.create<OrderSubscriptionCreate, OrderSubscription>({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
-		return this.resources.retrieve<OrderSubscription>({ type: OrderSubscriptions.TYPE, id }, params, options)
 	}
 
 	async update(resource: OrderSubscriptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
 		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ ...resource, type: OrderSubscriptions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: OrderSubscriptions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: OrderSubscriptions.TYPE } : id, options)
 	}
 
 	async market(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -155,7 +150,6 @@ class OrderSubscriptions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrderSubscription(resource: any): resource is OrderSubscription {
 		return resource.type && (resource.type === OrderSubscriptions.TYPE)
 	}
@@ -166,7 +160,7 @@ class OrderSubscriptions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrderSubscriptionType {
 		return OrderSubscriptions.TYPE
 	}
 
@@ -175,4 +169,4 @@ class OrderSubscriptions extends ApiResource {
 
 export default OrderSubscriptions
 
-export { OrderSubscription, OrderSubscriptionCreate, OrderSubscriptionUpdate }
+export type { OrderSubscription, OrderSubscriptionCreate, OrderSubscriptionUpdate, OrderSubscriptionType }

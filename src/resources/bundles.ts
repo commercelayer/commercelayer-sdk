@@ -1,38 +1,42 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { SkuList } from './sku_lists'
+import type { Market, MarketType } from './markets'
+import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { Attachment } from './attachments'
 
 
-type BundleRel = ResourceRel & { type: typeof Bundles.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
-type SkuListRel = ResourceRel & { type: 'sku_lists' }
+type BundleType = 'bundles'
+type BundleRel = ResourceRel & { type: BundleType }
+type MarketRel = ResourceRel & { type: MarketType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 
 
 interface Bundle extends Resource {
 	
-	code?: string
-	name?: string
-	currency_code?: string
-	description?: string
-	image_url?: string
-	do_not_ship?: boolean
-	do_not_track?: boolean
-	price_amount_cents?: number
-	price_amount_float?: number
-	formatted_price_amount?: string
-	compare_at_amount_cents?: number
-	compare_at_amount_float?: number
-	formatted_compare_at_amount?: string
-	skus_count?: number
+	readonly type: BundleType
 
-	market?: Market
-	sku_list?: SkuList
-	skus?: Sku[]
-	attachments?: Attachment[]
+	code: string
+	name: string
+	currency_code?: string | null
+	description?: string | null
+	image_url?: string | null
+	do_not_ship?: boolean | null
+	do_not_track?: boolean | null
+	price_amount_cents: number
+	price_amount_float: number
+	formatted_price_amount: string
+	compare_at_amount_cents: number
+	compare_at_amount_float: number
+	formatted_compare_at_amount: string
+	skus_count?: number | null
+
+	market?: Market | null
+	sku_list?: SkuList | null
+	skus?: Sku[] | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -41,15 +45,15 @@ interface BundleCreate extends ResourceCreate {
 	
 	code: string
 	name: string
-	currency_code?: string
-	description?: string
-	image_url?: string
+	currency_code?: string | null
+	description?: string | null
+	image_url?: string | null
 	price_amount_cents: number
 	compare_at_amount_cents: number
-	_compute_price_amount?: boolean
-	_compute_compare_at_amount?: boolean
+	_compute_price_amount?: boolean | null
+	_compute_compare_at_amount?: boolean | null
 
-	market?: MarketRel
+	market?: MarketRel | null
 	sku_list: SkuListRel
 
 }
@@ -57,42 +61,33 @@ interface BundleCreate extends ResourceCreate {
 
 interface BundleUpdate extends ResourceUpdate {
 	
-	code?: string
-	name?: string
-	currency_code?: string
-	description?: string
-	image_url?: string
-	price_amount_cents?: number
-	compare_at_amount_cents?: number
-	_compute_price_amount?: boolean
-	_compute_compare_at_amount?: boolean
+	code?: string | null
+	name?: string | null
+	currency_code?: string | null
+	description?: string | null
+	image_url?: string | null
+	price_amount_cents?: number | null
+	compare_at_amount_cents?: number | null
+	_compute_price_amount?: boolean | null
+	_compute_compare_at_amount?: boolean | null
 	
 }
 
 
-class Bundles extends ApiResource {
+class Bundles extends ApiResource<Bundle> {
 
-	static readonly TYPE: 'bundles' = 'bundles' as const
-	// static readonly PATH = 'bundles'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
-		return this.resources.list<Bundle>({ type: Bundles.TYPE }, params, options)
-	}
+	static readonly TYPE: BundleType = 'bundles' as const
 
 	async create(resource: BundleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
 		return this.resources.create<BundleCreate, Bundle>({ ...resource, type: Bundles.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
-		return this.resources.retrieve<Bundle>({ type: Bundles.TYPE, id }, params, options)
 	}
 
 	async update(resource: BundleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
 		return this.resources.update<BundleUpdate, Bundle>({ ...resource, type: Bundles.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Bundles.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Bundles.TYPE } : id, options)
 	}
 
 	async market(bundleId: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -116,7 +111,6 @@ class Bundles extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isBundle(resource: any): resource is Bundle {
 		return resource.type && (resource.type === Bundles.TYPE)
 	}
@@ -127,7 +121,7 @@ class Bundles extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): BundleType {
 		return Bundles.TYPE
 	}
 
@@ -136,4 +130,4 @@ class Bundles extends ApiResource {
 
 export default Bundles
 
-export { Bundle, BundleCreate, BundleUpdate }
+export type { Bundle, BundleCreate, BundleUpdate, BundleType }

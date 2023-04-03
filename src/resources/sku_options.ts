@@ -1,28 +1,32 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
+import type { Market, MarketType } from './markets'
 import type { Attachment } from './attachments'
 
 
-type SkuOptionRel = ResourceRel & { type: typeof SkuOptions.TYPE }
-type MarketRel = ResourceRel & { type: 'markets' }
+type SkuOptionType = 'sku_options'
+type SkuOptionRel = ResourceRel & { type: SkuOptionType }
+type MarketRel = ResourceRel & { type: MarketType }
 
 
 interface SkuOption extends Resource {
 	
-	name?: string
-	currency_code?: string
-	description?: string
-	price_amount_cents?: number
-	price_amount_float?: number
-	formatted_price_amount?: string
-	delay_hours?: number
-	delay_days?: number
-	sku_code_regex?: string
+	readonly type: SkuOptionType
 
-	market?: Market
-	attachments?: Attachment[]
+	name: string
+	currency_code?: string | null
+	description?: string | null
+	price_amount_cents?: number | null
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
+	delay_hours?: number | null
+	delay_days?: number | null
+	sku_code_regex?: string | null
+
+	market?: Market | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -30,54 +34,45 @@ interface SkuOption extends Resource {
 interface SkuOptionCreate extends ResourceCreate {
 	
 	name: string
-	currency_code?: string
-	description?: string
-	price_amount_cents?: number
-	delay_hours?: number
-	sku_code_regex?: string
+	currency_code?: string | null
+	description?: string | null
+	price_amount_cents?: number | null
+	delay_hours?: number | null
+	sku_code_regex?: string | null
 
-	market?: MarketRel
+	market?: MarketRel | null
 
 }
 
 
 interface SkuOptionUpdate extends ResourceUpdate {
 	
-	name?: string
-	currency_code?: string
-	description?: string
-	price_amount_cents?: number
-	delay_hours?: number
-	sku_code_regex?: string
+	name?: string | null
+	currency_code?: string | null
+	description?: string | null
+	price_amount_cents?: number | null
+	delay_hours?: number | null
+	sku_code_regex?: string | null
 
-	market?: MarketRel
+	market?: MarketRel | null
 
 }
 
 
-class SkuOptions extends ApiResource {
+class SkuOptions extends ApiResource<SkuOption> {
 
-	static readonly TYPE: 'sku_options' = 'sku_options' as const
-	// static readonly PATH = 'sku_options'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
-		return this.resources.list<SkuOption>({ type: SkuOptions.TYPE }, params, options)
-	}
+	static readonly TYPE: SkuOptionType = 'sku_options' as const
 
 	async create(resource: SkuOptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
 		return this.resources.create<SkuOptionCreate, SkuOption>({ ...resource, type: SkuOptions.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
-		return this.resources.retrieve<SkuOption>({ type: SkuOptions.TYPE, id }, params, options)
 	}
 
 	async update(resource: SkuOptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
 		return this.resources.update<SkuOptionUpdate, SkuOption>({ ...resource, type: SkuOptions.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: SkuOptions.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: SkuOptions.TYPE } : id, options)
 	}
 
 	async market(skuOptionId: string | SkuOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -91,7 +86,6 @@ class SkuOptions extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isSkuOption(resource: any): resource is SkuOption {
 		return resource.type && (resource.type === SkuOptions.TYPE)
 	}
@@ -102,7 +96,7 @@ class SkuOptions extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): SkuOptionType {
 		return SkuOptions.TYPE
 	}
 
@@ -111,4 +105,4 @@ class SkuOptions extends ApiResource {
 
 export default SkuOptions
 
-export { SkuOption, SkuOptionCreate, SkuOptionUpdate }
+export type { SkuOption, SkuOptionCreate, SkuOptionUpdate, SkuOptionType }

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { resourceList } from './api'
 import type { ResourceId, ResourceType } from './resource'
@@ -14,3 +12,18 @@ const isResourceType = (resource: any): resource is ResourceType => {
 
 
 export { isResourceId, isResourceType }
+
+
+export type ObjectType = Record<string, any>
+
+/*
+// Nullable types
+type StringNullable = string | null
+type NumberNullable = number | null
+type BooleanNullable = boolean | null
+type ResourceNullable<R extends Resource> = R | null
+type ResourceArrayNullable<R extends Resource> = R[] | null
+
+
+export type { StringNullable, NumberNullable, BooleanNullable, ResourceNullable, ResourceArrayNullable }
+*/

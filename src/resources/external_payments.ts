@@ -1,24 +1,28 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 
 
-type ExternalPaymentRel = ResourceRel & { type: typeof ExternalPayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type ExternalPaymentType = 'external_payments'
+type ExternalPaymentRel = ResourceRel & { type: ExternalPaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface ExternalPayment extends Resource {
 	
-	payment_source_token?: string
-	options?: object
-	payment_instrument?: object
+	readonly type: ExternalPaymentType
 
-	order?: Order
-	payment_gateway?: PaymentGateway
-	wallet?: CustomerPaymentSource
+	payment_source_token: string
+	options?: object | null
+	payment_instrument?: object | null
+
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
+	wallet?: CustomerPaymentSource | null
 
 }
 
@@ -26,7 +30,7 @@ interface ExternalPayment extends Resource {
 interface ExternalPaymentCreate extends ResourceCreate {
 	
 	payment_source_token: string
-	options?: object
+	options?: object | null
 
 	order: OrderRel
 
@@ -35,36 +39,27 @@ interface ExternalPaymentCreate extends ResourceCreate {
 
 interface ExternalPaymentUpdate extends ResourceUpdate {
 	
-	options?: object
+	options?: object | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 
 
-class ExternalPayments extends ApiResource {
+class ExternalPayments extends ApiResource<ExternalPayment> {
 
-	static readonly TYPE: 'external_payments' = 'external_payments' as const
-	// static readonly PATH = 'external_payments'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
-		return this.resources.list<ExternalPayment>({ type: ExternalPayments.TYPE }, params, options)
-	}
+	static readonly TYPE: ExternalPaymentType = 'external_payments' as const
 
 	async create(resource: ExternalPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
 		return this.resources.create<ExternalPaymentCreate, ExternalPayment>({ ...resource, type: ExternalPayments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
-		return this.resources.retrieve<ExternalPayment>({ type: ExternalPayments.TYPE, id }, params, options)
 	}
 
 	async update(resource: ExternalPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPayment> {
 		return this.resources.update<ExternalPaymentUpdate, ExternalPayment>({ ...resource, type: ExternalPayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: ExternalPayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: ExternalPayments.TYPE } : id, options)
 	}
 
 	async order(externalPaymentId: string | ExternalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -83,7 +78,6 @@ class ExternalPayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isExternalPayment(resource: any): resource is ExternalPayment {
 		return resource.type && (resource.type === ExternalPayments.TYPE)
 	}
@@ -94,7 +88,7 @@ class ExternalPayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): ExternalPaymentType {
 		return ExternalPayments.TYPE
 	}
 
@@ -103,4 +97,4 @@ class ExternalPayments extends ApiResource {
 
 export default ExternalPayments
 
-export { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate }
+export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate, ExternalPaymentType }

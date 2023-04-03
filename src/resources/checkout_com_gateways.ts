@@ -1,23 +1,27 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { CheckoutComPayment } from './checkout_com_payments'
+import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
 
 
-type CheckoutComGatewayRel = ResourceRel & { type: typeof CheckoutComGateways.TYPE }
-type CheckoutComPaymentRel = ResourceRel & { type: 'checkout_com_payments' }
+type CheckoutComGatewayType = 'checkout_com_gateways'
+type CheckoutComGatewayRel = ResourceRel & { type: CheckoutComGatewayType }
+type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
 
 
 interface CheckoutComGateway extends Resource {
 	
-	name?: string
-	webhook_endpoint_id?: string
-	webhook_endpoint_secret?: string
-	webhook_endpoint_url?: string
+	readonly type: CheckoutComGatewayType
 
-	payment_methods?: PaymentMethod[]
-	checkout_com_payments?: CheckoutComPayment[]
+	name: string
+	webhook_endpoint_id?: string | null
+	webhook_endpoint_secret?: string | null
+	webhook_endpoint_url?: string | null
+
+	payment_methods?: PaymentMethod[] | null
+	checkout_com_payments?: CheckoutComPayment[] | null
 
 }
 
@@ -28,45 +32,36 @@ interface CheckoutComGatewayCreate extends ResourceCreate {
 	secret_key: string
 	public_key: string
 
-	checkout_com_payments?: CheckoutComPaymentRel[]
+	checkout_com_payments?: CheckoutComPaymentRel[] | null
 
 }
 
 
 interface CheckoutComGatewayUpdate extends ResourceUpdate {
 	
-	name?: string
-	secret_key?: string
-	public_key?: string
+	name?: string | null
+	secret_key?: string | null
+	public_key?: string | null
 
-	checkout_com_payments?: CheckoutComPaymentRel[]
+	checkout_com_payments?: CheckoutComPaymentRel[] | null
 
 }
 
 
-class CheckoutComGateways extends ApiResource {
+class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 
-	static readonly TYPE: 'checkout_com_gateways' = 'checkout_com_gateways' as const
-	// static readonly PATH = 'checkout_com_gateways'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CheckoutComGateway>> {
-		return this.resources.list<CheckoutComGateway>({ type: CheckoutComGateways.TYPE }, params, options)
-	}
+	static readonly TYPE: CheckoutComGatewayType = 'checkout_com_gateways' as const
 
 	async create(resource: CheckoutComGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {
 		return this.resources.create<CheckoutComGatewayCreate, CheckoutComGateway>({ ...resource, type: CheckoutComGateways.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {
-		return this.resources.retrieve<CheckoutComGateway>({ type: CheckoutComGateways.TYPE, id }, params, options)
 	}
 
 	async update(resource: CheckoutComGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {
 		return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>({ ...resource, type: CheckoutComGateways.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: CheckoutComGateways.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: CheckoutComGateways.TYPE } : id, options)
 	}
 
 	async payment_methods(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -80,7 +75,6 @@ class CheckoutComGateways extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCheckoutComGateway(resource: any): resource is CheckoutComGateway {
 		return resource.type && (resource.type === CheckoutComGateways.TYPE)
 	}
@@ -91,7 +85,7 @@ class CheckoutComGateways extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CheckoutComGatewayType {
 		return CheckoutComGateways.TYPE
 	}
 
@@ -100,4 +94,4 @@ class CheckoutComGateways extends ApiResource {
 
 export default CheckoutComGateways
 
-export { CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewayUpdate }
+export type { CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewayUpdate, CheckoutComGatewayType }

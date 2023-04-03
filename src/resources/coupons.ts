@@ -1,22 +1,26 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 
 
-type CouponRel = ResourceRel & { type: typeof Coupons.TYPE }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
+type CouponType = 'coupons'
+type CouponRel = ResourceRel & { type: CouponType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 
 
 interface Coupon extends Resource {
 	
-	code?: string
-	customer_single_use?: boolean
-	usage_limit?: number
-	usage_count?: number
-	recipient_email?: string
+	readonly type: CouponType
 
-	promotion_rule?: CouponCodesPromotionRule
+	code: string
+	customer_single_use?: boolean | null
+	usage_limit: number
+	usage_count?: number | null
+	recipient_email?: string | null
+
+	promotion_rule?: CouponCodesPromotionRule | null
 
 }
 
@@ -24,9 +28,9 @@ interface Coupon extends Resource {
 interface CouponCreate extends ResourceCreate {
 	
 	code: string
-	customer_single_use?: boolean
+	customer_single_use?: boolean | null
 	usage_limit: number
-	recipient_email?: string
+	recipient_email?: string | null
 
 	promotion_rule: CouponCodesPromotionRuleRel
 
@@ -35,39 +39,30 @@ interface CouponCreate extends ResourceCreate {
 
 interface CouponUpdate extends ResourceUpdate {
 	
-	code?: string
-	customer_single_use?: boolean
-	usage_limit?: number
-	recipient_email?: string
+	code?: string | null
+	customer_single_use?: boolean | null
+	usage_limit?: number | null
+	recipient_email?: string | null
 
-	promotion_rule?: CouponCodesPromotionRuleRel
+	promotion_rule?: CouponCodesPromotionRuleRel | null
 
 }
 
 
-class Coupons extends ApiResource {
+class Coupons extends ApiResource<Coupon> {
 
-	static readonly TYPE: 'coupons' = 'coupons' as const
-	// static readonly PATH = 'coupons'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
-		return this.resources.list<Coupon>({ type: Coupons.TYPE }, params, options)
-	}
+	static readonly TYPE: CouponType = 'coupons' as const
 
 	async create(resource: CouponCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Coupon> {
 		return this.resources.create<CouponCreate, Coupon>({ ...resource, type: Coupons.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Coupon> {
-		return this.resources.retrieve<Coupon>({ type: Coupons.TYPE, id }, params, options)
 	}
 
 	async update(resource: CouponUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Coupon> {
 		return this.resources.update<CouponUpdate, Coupon>({ ...resource, type: Coupons.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: Coupons.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Coupons.TYPE } : id, options)
 	}
 
 	async promotion_rule(couponId: string | Coupon, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
@@ -76,7 +71,6 @@ class Coupons extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isCoupon(resource: any): resource is Coupon {
 		return resource.type && (resource.type === Coupons.TYPE)
 	}
@@ -87,7 +81,7 @@ class Coupons extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): CouponType {
 		return Coupons.TYPE
 	}
 
@@ -96,4 +90,4 @@ class Coupons extends ApiResource {
 
 export default Coupons
 
-export { Coupon, CouponCreate, CouponUpdate }
+export type { Coupon, CouponCreate, CouponUpdate, CouponType }

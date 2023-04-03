@@ -1,35 +1,30 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsList } from '../query'
 
 import type { EventCallback } from './event_callbacks'
 import type { Webhook } from './webhooks'
 
 
-type EventRel = ResourceRel & { type: typeof Events.TYPE }
+type EventType = 'events'
+type EventRel = ResourceRel & { type: EventType }
 
 
 interface Event extends Resource {
 	
-	name?: string
+	readonly type: EventType
 
-	last_event_callbacks?: EventCallback[]
-	webhooks?: Webhook[]
+	name: string
+
+	last_event_callbacks?: EventCallback[] | null
+	webhooks?: Webhook[] | null
 
 }
 
 
-class Events extends ApiResource {
+class Events extends ApiResource<Event> {
 
-	static readonly TYPE: 'events' = 'events' as const
-	// static readonly PATH = 'events'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		return this.resources.list<Event>({ type: Events.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Event> {
-		return this.resources.retrieve<Event>({ type: Events.TYPE, id }, params, options)
-	}
+	static readonly TYPE: EventType = 'events' as const
 
 	async last_event_callbacks(eventId: string | Event, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		const _eventId = (eventId as Event).id || eventId as string
@@ -42,7 +37,6 @@ class Events extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isEvent(resource: any): resource is Event {
 		return resource.type && (resource.type === Events.TYPE)
 	}
@@ -53,7 +47,7 @@ class Events extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): EventType {
 		return Events.TYPE
 	}
 
@@ -62,4 +56,4 @@ class Events extends ApiResource {
 
 export default Events
 
-export { Event }
+export type { Event, EventType }

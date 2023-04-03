@@ -1,26 +1,30 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type AdyenPaymentRel = ResourceRel & { type: typeof AdyenPayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type AdyenPaymentType = 'adyen_payments'
+type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface AdyenPayment extends Resource {
 	
-	public_key?: string
-	payment_methods?: object
-	payment_request_data?: object
-	payment_request_details?: object
-	payment_response?: object
-	mismatched_amounts?: boolean
-	payment_instrument?: object
+	readonly type: AdyenPaymentType
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	public_key?: string | null
+	payment_methods: object
+	payment_request_data?: object | null
+	payment_request_details?: object | null
+	payment_response?: object | null
+	mismatched_amounts?: boolean | null
+	payment_instrument?: object | null
+
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
@@ -34,39 +38,30 @@ interface AdyenPaymentCreate extends ResourceCreate {
 
 interface AdyenPaymentUpdate extends ResourceUpdate {
 	
-	payment_request_data?: object
-	payment_request_details?: object
-	payment_response?: object
-	_details?: boolean
+	payment_request_data?: object | null
+	payment_request_details?: object | null
+	payment_response?: object | null
+	_details?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 
 
-class AdyenPayments extends ApiResource {
+class AdyenPayments extends ApiResource<AdyenPayment> {
 
-	static readonly TYPE: 'adyen_payments' = 'adyen_payments' as const
-	// static readonly PATH = 'adyen_payments'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenPayment>> {
-		return this.resources.list<AdyenPayment>({ type: AdyenPayments.TYPE }, params, options)
-	}
+	static readonly TYPE: AdyenPaymentType = 'adyen_payments' as const
 
 	async create(resource: AdyenPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment> {
 		return this.resources.create<AdyenPaymentCreate, AdyenPayment>({ ...resource, type: AdyenPayments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment> {
-		return this.resources.retrieve<AdyenPayment>({ type: AdyenPayments.TYPE, id }, params, options)
 	}
 
 	async update(resource: AdyenPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment> {
 		return this.resources.update<AdyenPaymentUpdate, AdyenPayment>({ ...resource, type: AdyenPayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: AdyenPayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: AdyenPayments.TYPE } : id, options)
 	}
 
 	async order(adyenPaymentId: string | AdyenPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -80,7 +75,6 @@ class AdyenPayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isAdyenPayment(resource: any): resource is AdyenPayment {
 		return resource.type && (resource.type === AdyenPayments.TYPE)
 	}
@@ -91,7 +85,7 @@ class AdyenPayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): AdyenPaymentType {
 		return AdyenPayments.TYPE
 	}
 
@@ -100,4 +94,4 @@ class AdyenPayments extends ApiResource {
 
 export default AdyenPayments
 
-export { AdyenPayment, AdyenPaymentCreate, AdyenPaymentUpdate }
+export type { AdyenPayment, AdyenPaymentCreate, AdyenPaymentUpdate, AdyenPaymentType }

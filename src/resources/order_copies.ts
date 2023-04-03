@@ -1,40 +1,44 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { Event } from './events'
 import type { OrderSubscription } from './order_subscriptions'
 
 
-type OrderCopyRel = ResourceRel & { type: typeof OrderCopies.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type OrderCopyType = 'order_copies'
+type OrderCopyRel = ResourceRel & { type: OrderCopyType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface OrderCopy extends Resource {
 	
-	status?: string
-	started_at?: string
-	completed_at?: string
-	failed_at?: string
-	errors_log?: object
-	errors_count?: number
-	place_target_order?: boolean
-	reuse_wallet?: boolean
-	cancel_source_order?: boolean
+	readonly type: OrderCopyType
 
-	source_order?: Order
-	target_order?: Order
-	events?: Event[]
-	order_subscription?: OrderSubscription
+	status: 'pending' | 'in_progress' | 'failed' | 'completed'
+	started_at?: string | null
+	completed_at?: string | null
+	failed_at?: string | null
+	errors_log?: object | null
+	errors_count?: number | null
+	place_target_order?: boolean | null
+	reuse_wallet?: boolean | null
+	cancel_source_order?: boolean | null
+
+	source_order?: Order | null
+	target_order?: Order | null
+	events?: Event[] | null
+	order_subscription?: OrderSubscription | null
 
 }
 
 
 interface OrderCopyCreate extends ResourceCreate {
 	
-	place_target_order?: boolean
-	reuse_wallet?: boolean
-	cancel_source_order?: boolean
+	place_target_order?: boolean | null
+	reuse_wallet?: boolean | null
+	cancel_source_order?: boolean | null
 
 	source_order: OrderRel
 
@@ -44,29 +48,20 @@ interface OrderCopyCreate extends ResourceCreate {
 type OrderCopyUpdate = ResourceUpdate
 
 
-class OrderCopies extends ApiResource {
+class OrderCopies extends ApiResource<OrderCopy> {
 
-	static readonly TYPE: 'order_copies' = 'order_copies' as const
-	// static readonly PATH = 'order_copies'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
-		return this.resources.list<OrderCopy>({ type: OrderCopies.TYPE }, params, options)
-	}
+	static readonly TYPE: OrderCopyType = 'order_copies' as const
 
 	async create(resource: OrderCopyCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {
 		return this.resources.create<OrderCopyCreate, OrderCopy>({ ...resource, type: OrderCopies.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {
-		return this.resources.retrieve<OrderCopy>({ type: OrderCopies.TYPE, id }, params, options)
 	}
 
 	async update(resource: OrderCopyUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {
 		return this.resources.update<OrderCopyUpdate, OrderCopy>({ ...resource, type: OrderCopies.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: OrderCopies.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: OrderCopies.TYPE } : id, options)
 	}
 
 	async source_order(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -90,7 +85,6 @@ class OrderCopies extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrderCopy(resource: any): resource is OrderCopy {
 		return resource.type && (resource.type === OrderCopies.TYPE)
 	}
@@ -101,7 +95,7 @@ class OrderCopies extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrderCopyType {
 		return OrderCopies.TYPE
 	}
 
@@ -110,4 +104,4 @@ class OrderCopies extends ApiResource {
 
 export default OrderCopies
 
-export { OrderCopy, OrderCopyCreate, OrderCopyUpdate }
+export type { OrderCopy, OrderCopyCreate, OrderCopyUpdate, OrderCopyType }

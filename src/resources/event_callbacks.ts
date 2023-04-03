@@ -1,36 +1,31 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
 import type { Webhook } from './webhooks'
 
 
-type EventCallbackRel = ResourceRel & { type: typeof EventCallbacks.TYPE }
+type EventCallbackType = 'event_callbacks'
+type EventCallbackRel = ResourceRel & { type: EventCallbackType }
 
 
 interface EventCallback extends Resource {
 	
-	callback_url?: string
-	payload?: object
-	response_code?: string
-	response_message?: string
+	readonly type: EventCallbackType
 
-	webhook?: Webhook
+	callback_url: string
+	payload?: object | null
+	response_code?: string | null
+	response_message?: string | null
+
+	webhook?: Webhook | null
 
 }
 
 
-class EventCallbacks extends ApiResource {
+class EventCallbacks extends ApiResource<EventCallback> {
 
-	static readonly TYPE: 'event_callbacks' = 'event_callbacks' as const
-	// static readonly PATH = 'event_callbacks'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
-		return this.resources.list<EventCallback>({ type: EventCallbacks.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<EventCallback> {
-		return this.resources.retrieve<EventCallback>({ type: EventCallbacks.TYPE, id }, params, options)
-	}
+	static readonly TYPE: EventCallbackType = 'event_callbacks' as const
 
 	async webhook(eventCallbackId: string | EventCallback, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
 		const _eventCallbackId = (eventCallbackId as EventCallback).id || eventCallbackId as string
@@ -38,7 +33,6 @@ class EventCallbacks extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isEventCallback(resource: any): resource is EventCallback {
 		return resource.type && (resource.type === EventCallbacks.TYPE)
 	}
@@ -49,7 +43,7 @@ class EventCallbacks extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): EventCallbackType {
 		return EventCallbacks.TYPE
 	}
 
@@ -58,4 +52,4 @@ class EventCallbacks extends ApiResource {
 
 export default EventCallbacks
 
-export { EventCallback }
+export type { EventCallback, EventCallbackType }

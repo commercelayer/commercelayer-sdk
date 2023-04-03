@@ -1,43 +1,38 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Event } from './events'
 
 
-type OrderFactoryRel = ResourceRel & { type: typeof OrderFactories.TYPE }
+type OrderFactoryType = 'order_factories'
+type OrderFactoryRel = ResourceRel & { type: OrderFactoryType }
 
 
 interface OrderFactory extends Resource {
 	
-	status?: string
-	started_at?: string
-	completed_at?: string
-	failed_at?: string
-	errors_log?: object
-	errors_count?: number
-	place_target_order?: boolean
-	reuse_wallet?: boolean
+	readonly type: OrderFactoryType
 
-	source_order?: Order
-	target_order?: Order
-	events?: Event[]
+	status: 'pending' | 'in_progress' | 'failed' | 'completed'
+	started_at?: string | null
+	completed_at?: string | null
+	failed_at?: string | null
+	errors_log?: object | null
+	errors_count?: number | null
+	place_target_order?: boolean | null
+	reuse_wallet?: boolean | null
+
+	source_order?: Order | null
+	target_order?: Order | null
+	events?: Event[] | null
 
 }
 
 
-class OrderFactories extends ApiResource {
+class OrderFactories extends ApiResource<OrderFactory> {
 
-	static readonly TYPE: 'order_factories' = 'order_factories' as const
-	// static readonly PATH = 'order_factories'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderFactory>> {
-		return this.resources.list<OrderFactory>({ type: OrderFactories.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderFactory> {
-		return this.resources.retrieve<OrderFactory>({ type: OrderFactories.TYPE, id }, params, options)
-	}
+	static readonly TYPE: OrderFactoryType = 'order_factories' as const
 
 	async source_order(orderFactoryId: string | OrderFactory, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _orderFactoryId = (orderFactoryId as OrderFactory).id || orderFactoryId as string
@@ -55,7 +50,6 @@ class OrderFactories extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isOrderFactory(resource: any): resource is OrderFactory {
 		return resource.type && (resource.type === OrderFactories.TYPE)
 	}
@@ -66,7 +60,7 @@ class OrderFactories extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): OrderFactoryType {
 		return OrderFactories.TYPE
 	}
 
@@ -75,4 +69,4 @@ class OrderFactories extends ApiResource {
 
 export default OrderFactories
 
-export { OrderFactory }
+export type { OrderFactory, OrderFactoryType }

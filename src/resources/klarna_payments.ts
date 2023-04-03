@@ -1,28 +1,32 @@
-import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { QueryParamsRetrieve } from '../query'
 
-import type { Order } from './orders'
+import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
 
-type KlarnaPaymentRel = ResourceRel & { type: typeof KlarnaPayments.TYPE }
-type OrderRel = ResourceRel & { type: 'orders' }
+type KlarnaPaymentType = 'klarna_payments'
+type KlarnaPaymentRel = ResourceRel & { type: KlarnaPaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
 
 
 interface KlarnaPayment extends Resource {
 	
-	session_id?: string
-	client_token?: string
-	payment_methods?: object[]
-	auth_token?: string
-	mismatched_amounts?: boolean
-	intent_amount_cents?: number
-	intent_amount_float?: number
-	formatted_intent_amount?: string
-	payment_instrument?: object
+	readonly type: KlarnaPaymentType
 
-	order?: Order
-	payment_gateway?: PaymentGateway
+	session_id?: string | null
+	client_token?: string | null
+	payment_methods: object[]
+	auth_token?: string | null
+	mismatched_amounts?: boolean | null
+	intent_amount_cents: number
+	intent_amount_float?: number | null
+	formatted_intent_amount?: string | null
+	payment_instrument?: object | null
+
+	order?: Order | null
+	payment_gateway?: PaymentGateway | null
 
 }
 
@@ -36,37 +40,28 @@ interface KlarnaPaymentCreate extends ResourceCreate {
 
 interface KlarnaPaymentUpdate extends ResourceUpdate {
 	
-	auth_token?: string
-	_update?: boolean
+	auth_token?: string | null
+	_update?: boolean | null
 
-	order?: OrderRel
+	order?: OrderRel | null
 
 }
 
 
-class KlarnaPayments extends ApiResource {
+class KlarnaPayments extends ApiResource<KlarnaPayment> {
 
-	static readonly TYPE: 'klarna_payments' = 'klarna_payments' as const
-	// static readonly PATH = 'klarna_payments'
-
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
-		return this.resources.list<KlarnaPayment>({ type: KlarnaPayments.TYPE }, params, options)
-	}
+	static readonly TYPE: KlarnaPaymentType = 'klarna_payments' as const
 
 	async create(resource: KlarnaPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
 		return this.resources.create<KlarnaPaymentCreate, KlarnaPayment>({ ...resource, type: KlarnaPayments.TYPE }, params, options)
-	}
-
-	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
-		return this.resources.retrieve<KlarnaPayment>({ type: KlarnaPayments.TYPE, id }, params, options)
 	}
 
 	async update(resource: KlarnaPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
 		return this.resources.update<KlarnaPaymentUpdate, KlarnaPayment>({ ...resource, type: KlarnaPayments.TYPE }, params, options)
 	}
 
-	async delete(id: string, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete({ type: KlarnaPayments.TYPE, id }, options)
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: KlarnaPayments.TYPE } : id, options)
 	}
 
 	async order(klarnaPaymentId: string | KlarnaPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -80,7 +75,6 @@ class KlarnaPayments extends ApiResource {
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isKlarnaPayment(resource: any): resource is KlarnaPayment {
 		return resource.type && (resource.type === KlarnaPayments.TYPE)
 	}
@@ -91,7 +85,7 @@ class KlarnaPayments extends ApiResource {
 	}
 
 
-	type(): string {
+	type(): KlarnaPaymentType {
 		return KlarnaPayments.TYPE
 	}
 
@@ -100,4 +94,4 @@ class KlarnaPayments extends ApiResource {
 
 export default KlarnaPayments
 
-export { KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate }
+export type { KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate, KlarnaPaymentType }
