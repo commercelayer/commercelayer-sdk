@@ -6,12 +6,15 @@ import type { Market, MarketType } from './markets'
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type BundleType = 'bundles'
 type BundleRel = ResourceRel & { type: BundleType }
 type MarketRel = ResourceRel & { type: MarketType }
 type SkuListRel = ResourceRel & { type: SkuListType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface Bundle extends Resource {
@@ -37,6 +40,8 @@ interface Bundle extends Resource {
 	sku_list?: SkuList | null
 	skus?: Sku[] | null
 	attachments?: Attachment[] | null
+	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -55,6 +60,7 @@ interface BundleCreate extends ResourceCreate {
 
 	market?: MarketRel | null
 	sku_list: SkuListRel
+	tags?: TagRel[] | null
 
 }
 
@@ -70,7 +76,9 @@ interface BundleUpdate extends ResourceUpdate {
 	compare_at_amount_cents?: number | null
 	_compute_price_amount?: boolean | null
 	_compute_compare_at_amount?: boolean | null
-	
+
+	tags?: TagRel[] | null
+
 }
 
 
@@ -108,6 +116,16 @@ class Bundles extends ApiResource<Bundle> {
 	async attachments(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bundles/${_bundleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `bundles/${_bundleId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `bundles/${_bundleId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

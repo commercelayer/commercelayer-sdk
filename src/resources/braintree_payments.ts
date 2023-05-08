@@ -19,8 +19,8 @@ interface BraintreePayment extends Resource {
 	payment_method_nonce?: string | null
 	payment_id?: string | null
 	local?: boolean | null
-	options?: object | null
-	payment_instrument?: object | null
+	options?: Record<string, any> | null
+	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
@@ -32,7 +32,7 @@ interface BraintreePaymentCreate extends ResourceCreate {
 	
 	payment_id?: string | null
 	local?: boolean | null
-	options?: object | null
+	options?: Record<string, any> | null
 
 	order: OrderRel
 
@@ -44,7 +44,7 @@ interface BraintreePaymentUpdate extends ResourceUpdate {
 	payment_method_nonce?: string | null
 	payment_id?: string | null
 	local?: boolean | null
-	options?: object | null
+	options?: Record<string, any> | null
 
 	order?: OrderRel | null
 

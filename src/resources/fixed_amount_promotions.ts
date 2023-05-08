@@ -9,6 +9,7 @@ import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type FixedAmountPromotionType = 'fixed_amount_promotions'
@@ -18,6 +19,7 @@ type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface FixedAmountPromotion extends Resource {
@@ -42,6 +44,7 @@ interface FixedAmountPromotion extends Resource {
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -60,6 +63,7 @@ interface FixedAmountPromotionCreate extends ResourceCreate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -78,6 +82,7 @@ interface FixedAmountPromotionUpdate extends ResourceUpdate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -126,6 +131,11 @@ class FixedAmountPromotions extends ApiResource<FixedAmountPromotion> {
 	async events(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

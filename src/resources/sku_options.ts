@@ -4,11 +4,14 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type SkuOptionType = 'sku_options'
 type SkuOptionRel = ResourceRel & { type: SkuOptionType }
 type MarketRel = ResourceRel & { type: MarketType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface SkuOption extends Resource {
@@ -27,6 +30,8 @@ interface SkuOption extends Resource {
 
 	market?: Market | null
 	attachments?: Attachment[] | null
+	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -41,6 +46,7 @@ interface SkuOptionCreate extends ResourceCreate {
 	sku_code_regex?: string | null
 
 	market?: MarketRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -55,6 +61,7 @@ interface SkuOptionUpdate extends ResourceUpdate {
 	sku_code_regex?: string | null
 
 	market?: MarketRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -83,6 +90,16 @@ class SkuOptions extends ApiResource<SkuOption> {
 	async attachments(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_options/${_skuOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `sku_options/${_skuOptionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `sku_options/${_skuOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

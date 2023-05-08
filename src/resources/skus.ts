@@ -8,11 +8,14 @@ import type { StockItem } from './stock_items'
 import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { SkuOption } from './sku_options'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type SkuType = 'skus'
 type SkuRel = ResourceRel & { type: SkuType }
 type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface Sku extends Resource {
@@ -29,7 +32,7 @@ interface Sku extends Resource {
 	hs_tariff_number?: string | null
 	do_not_ship?: boolean | null
 	do_not_track?: boolean | null
-	inventory?: object | null
+	inventory?: Record<string, any> | null
 
 	shipping_category?: ShippingCategory | null
 	prices?: Price[] | null
@@ -37,6 +40,8 @@ interface Sku extends Resource {
 	delivery_lead_times?: DeliveryLeadTime[] | null
 	sku_options?: SkuOption[] | null
 	attachments?: Attachment[] | null
+	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -55,6 +60,7 @@ interface SkuCreate extends ResourceCreate {
 	do_not_track?: boolean | null
 
 	shipping_category: ShippingCategoryRel
+	tags?: TagRel[] | null
 
 }
 
@@ -73,6 +79,7 @@ interface SkuUpdate extends ResourceUpdate {
 	do_not_track?: boolean | null
 
 	shipping_category?: ShippingCategoryRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -121,6 +128,16 @@ class Skus extends ApiResource<Sku> {
 	async attachments(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `skus/${_skuId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `skus/${_skuId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `skus/${_skuId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

@@ -109,6 +109,7 @@ export { default as StockTransfers } from './resources/stock_transfers'
 export { default as StripeGateways } from './resources/stripe_gateways'
 export { default as StripePayments } from './resources/stripe_payments'
 export { default as SubscriptionModels } from './resources/subscription_models'
+export { default as Tags } from './resources/tags'
 export { default as TaxCalculators } from './resources/tax_calculators'
 export { default as TaxCategories } from './resources/tax_categories'
 export { default as TaxRules } from './resources/tax_rules'
@@ -227,6 +228,7 @@ export type ResourceTypeLock =
 |	'stripe_gateways'
 |	'stripe_payments'
 |	'subscription_models'
+|	'tags'
 |	'tax_calculators'
 |	'tax_categories'
 |	'tax_rules'
@@ -345,6 +347,7 @@ export const resourceList = [
 	'stripe_gateways',
 	'stripe_payments',
 	'subscription_models',
+	'tags',
 	'tax_calculators',
 	'tax_categories',
 	'tax_rules',
@@ -484,6 +487,7 @@ export type CreatableResourceType =
 |	'stripe_gateways'
 |	'stripe_payments'
 |	'subscription_models'
+|	'tags'
 |	'tax_categories'
 |	'tax_rules'
 |	'taxjar_accounts'
@@ -586,6 +590,7 @@ export type UpdatableResourceType =
 |	'stripe_gateways'
 |	'stripe_payments'
 |	'subscription_models'
+|	'tags'
 |	'tax_categories'
 |	'tax_rules'
 |	'taxjar_accounts'
@@ -688,6 +693,7 @@ export type DeletableResourceType =
 |	'stripe_gateways'
 |	'stripe_payments'
 |	'subscription_models'
+|	'tags'
 |	'tax_categories'
 |	'tax_rules'
 |	'taxjar_accounts'

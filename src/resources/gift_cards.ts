@@ -6,12 +6,14 @@ import type { Market, MarketType } from './markets'
 import type { GiftCardRecipient, GiftCardRecipientType } from './gift_card_recipients'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type GiftCardType = 'gift_cards'
 type GiftCardRel = ResourceRel & { type: GiftCardType }
 type MarketRel = ResourceRel & { type: MarketType }
 type GiftCardRecipientRel = ResourceRel & { type: GiftCardRecipientType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface GiftCard extends Resource {
@@ -30,7 +32,7 @@ interface GiftCard extends Resource {
 	balance_max_cents?: string | null
 	balance_max_float?: number | null
 	formatted_balance_max?: string | null
-	balance_log: object[]
+	balance_log: Array<Record<string, any>>
 	single_use?: boolean | null
 	rechargeable?: boolean | null
 	image_url?: string | null
@@ -41,6 +43,7 @@ interface GiftCard extends Resource {
 	gift_card_recipient?: GiftCardRecipient | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -59,6 +62,7 @@ interface GiftCardCreate extends ResourceCreate {
 
 	market?: MarketRel | null
 	gift_card_recipient?: GiftCardRecipientRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -80,6 +84,7 @@ interface GiftCardUpdate extends ResourceUpdate {
 
 	market?: MarketRel | null
 	gift_card_recipient?: GiftCardRecipientRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -118,6 +123,11 @@ class GiftCards extends ApiResource<GiftCard> {
 	async events(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `gift_cards/${_giftCardId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `gift_cards/${_giftCardId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

@@ -9,6 +9,7 @@ import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type PromotionType = 'promotions'
@@ -34,6 +35,7 @@ interface Promotion extends Resource {
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -70,6 +72,11 @@ class Promotions extends ApiResource<Promotion> {
 	async events(promotionId: string | Promotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _promotionId = (promotionId as Promotion).id || promotionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `promotions/${_promotionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(promotionId: string | Promotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _promotionId = (promotionId as Promotion).id || promotionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `promotions/${_promotionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

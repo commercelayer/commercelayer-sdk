@@ -18,11 +18,11 @@ interface Cleanup extends Resource {
 	started_at?: string | null
 	completed_at?: string | null
 	interrupted_at?: string | null
-	filters?: object | null
+	filters?: Record<string, any> | null
 	records_count?: number | null
 	errors_count?: number | null
 	processed_count?: number | null
-	errors_log?: object | null
+	errors_log?: Record<string, any> | null
 
 	events?: Event[] | null
 
@@ -32,7 +32,7 @@ interface Cleanup extends Resource {
 interface CleanupCreate extends ResourceCreate {
 	
 	resource_type: string
-	filters?: object | null
+	filters?: Record<string, any> | null
 	
 }
 

@@ -16,6 +16,8 @@ interface SatispayGateway extends Resource {
 	readonly type: SatispayGatewayType
 
 	name: string
+	token: string
+	key_id: string
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
@@ -27,6 +29,7 @@ interface SatispayGateway extends Resource {
 interface SatispayGatewayCreate extends ResourceCreate {
 	
 	name: string
+	token: string
 
 	satispay_payments?: SatispayPaymentRel[] | null
 

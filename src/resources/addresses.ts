@@ -1,13 +1,16 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Geocoder, GeocoderType } from './geocoders'
+import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type AddressType = 'addresses'
 type AddressRel = ResourceRel & { type: AddressType }
 type GeocoderRel = ResourceRel & { type: GeocoderType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface Address extends Resource {
@@ -40,6 +43,8 @@ interface Address extends Resource {
 	billing_info?: string | null
 
 	geocoder?: Geocoder | null
+	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -64,6 +69,7 @@ interface AddressCreate extends ResourceCreate {
 	billing_info?: string | null
 
 	geocoder?: GeocoderRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -88,6 +94,7 @@ interface AddressUpdate extends ResourceUpdate {
 	billing_info?: string | null
 
 	geocoder?: GeocoderRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -111,6 +118,16 @@ class Addresses extends ApiResource<Address> {
 	async geocoder(addressId: string | Address, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
 		const _addressId = (addressId as Address).id || addressId as string
 		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `addresses/${_addressId}/geocoder`, params, options) as unknown as Geocoder
+	}
+
+	async events(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _addressId = (addressId as Address).id || addressId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `addresses/${_addressId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _addressId = (addressId as Address).id || addressId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `addresses/${_addressId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

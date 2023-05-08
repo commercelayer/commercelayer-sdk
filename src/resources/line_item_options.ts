@@ -1,15 +1,18 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { LineItem, LineItemType } from './line_items'
 import type { SkuOption, SkuOptionType } from './sku_options'
+import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type LineItemOptionType = 'line_item_options'
 type LineItemOptionRel = ResourceRel & { type: LineItemOptionType }
 type LineItemRel = ResourceRel & { type: LineItemType }
 type SkuOptionRel = ResourceRel & { type: SkuOptionType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface LineItemOption extends Resource {
@@ -27,10 +30,12 @@ interface LineItemOption extends Resource {
 	formatted_total_amount?: string | null
 	delay_hours?: number | null
 	delay_days?: number | null
-	options: object
+	options: Record<string, any>
 
 	line_item?: LineItem | null
 	sku_option?: SkuOption | null
+	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -39,10 +44,11 @@ interface LineItemOptionCreate extends ResourceCreate {
 	
 	name?: string | null
 	quantity: number
-	options: object
+	options: Record<string, any>
 
 	line_item: LineItemRel
 	sku_option: SkuOptionRel
+	tags?: TagRel[] | null
 
 }
 
@@ -51,9 +57,10 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 	
 	name?: string | null
 	quantity?: number | null
-	options?: object | null
+	options?: Record<string, any> | null
 
 	sku_option?: SkuOptionRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -82,6 +89,16 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 	async sku_option(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
 		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
 		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `line_item_options/${_lineItemOptionId}/sku_option`, params, options) as unknown as SkuOption
+	}
+
+	async events(lineItemOptionId: string | LineItemOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `line_item_options/${_lineItemOptionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(lineItemOptionId: string | LineItemOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `line_item_options/${_lineItemOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

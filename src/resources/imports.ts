@@ -19,14 +19,14 @@ interface Import extends Resource {
 	started_at?: string | null
 	completed_at?: string | null
 	interrupted_at?: string | null
-	inputs: object[]
+	inputs: Array<Record<string, any>>
 	inputs_size?: number | null
 	errors_count?: number | null
 	warnings_count?: number | null
 	destroyed_count?: number | null
 	processed_count?: number | null
-	errors_log?: object | null
-	warnings_log?: object | null
+	errors_log?: Record<string, any> | null
+	warnings_log?: Record<string, any> | null
 	cleanup_records?: boolean | null
 	attachment_url?: string | null
 
@@ -40,7 +40,7 @@ interface ImportCreate extends ResourceCreate {
 	resource_type: string
 	format?: string | null
 	parent_resource_id?: string | null
-	inputs: object[]
+	inputs: Array<Record<string, any>>
 	cleanup_records?: boolean | null
 	
 }

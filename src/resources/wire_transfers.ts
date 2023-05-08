@@ -14,7 +14,7 @@ interface WireTransfer extends Resource {
 	
 	readonly type: WireTransferType
 
-	payment_instrument?: object | null
+	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
 

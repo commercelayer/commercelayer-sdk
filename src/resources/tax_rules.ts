@@ -26,7 +26,7 @@ interface TaxRule extends Resource {
 	payment_method_taxable?: boolean | null
 	gift_card_taxable?: boolean | null
 	adjustment_taxable?: boolean | null
-	breakdown?: object | null
+	breakdown?: Record<string, any> | null
 
 	manual_tax_calculator?: ManualTaxCalculator | null
 

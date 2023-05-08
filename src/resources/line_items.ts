@@ -16,6 +16,8 @@ import type { Sku, SkuType } from './skus'
 import type { LineItemOption } from './line_item_options'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
+import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type LineItemType = 'line_items'
@@ -31,6 +33,7 @@ type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 type PercentageDiscountPromotionRel = ResourceRel & { type: PercentageDiscountPromotionType }
 type ShipmentRel = ResourceRel & { type: ShipmentType }
 type SkuRel = ResourceRel & { type: SkuType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface LineItem extends Resource {
@@ -58,9 +61,9 @@ interface LineItem extends Resource {
 	formatted_tax_amount?: string | null
 	name?: string | null
 	image_url?: string | null
-	discount_breakdown?: object | null
+	discount_breakdown?: Record<string, any> | null
 	tax_rate?: number | null
-	tax_breakdown?: object | null
+	tax_breakdown?: Record<string, any> | null
 	item_type?: 'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
 	frequency?: string | null
 
@@ -73,6 +76,8 @@ interface LineItem extends Resource {
 	shipment_line_items?: object[]
 	stock_line_items?: StockLineItem[] | null
 	stock_transfers?: StockTransfer[] | null
+	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -92,6 +97,7 @@ interface LineItemCreate extends ResourceCreate {
 
 	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -105,7 +111,9 @@ interface LineItemUpdate extends ResourceUpdate {
 	name?: string | null
 	image_url?: string | null
 	frequency?: string | null
-	
+
+	tags?: TagRel[] | null
+
 }
 
 
@@ -143,6 +151,16 @@ class LineItems extends ApiResource<LineItem> {
 	async stock_transfers(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
 		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `line_items/${_lineItemId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+	}
+
+	async events(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `line_items/${_lineItemId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `line_items/${_lineItemId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

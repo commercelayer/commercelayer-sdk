@@ -12,11 +12,13 @@ import type { Return } from './returns'
 import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type CustomerType = 'customers'
 type CustomerRel = ResourceRel & { type: CustomerType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface Customer extends Resource {
@@ -37,6 +39,7 @@ interface Customer extends Resource {
 	sku_lists?: SkuList[] | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -47,6 +50,7 @@ interface CustomerCreate extends ResourceCreate {
 	password?: string | null
 
 	customer_group?: CustomerGroupRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -57,6 +61,7 @@ interface CustomerUpdate extends ResourceUpdate {
 	password?: string | null
 
 	customer_group?: CustomerGroupRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -125,6 +130,11 @@ class Customers extends ApiResource<Customer> {
 	async events(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `customers/${_customerId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _customerId = (customerId as Customer).id || customerId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `customers/${_customerId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

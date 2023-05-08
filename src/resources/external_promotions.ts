@@ -9,6 +9,7 @@ import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type ExternalPromotionType = 'external_promotions'
@@ -18,6 +19,7 @@ type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface ExternalPromotion extends Resource {
@@ -41,6 +43,7 @@ interface ExternalPromotion extends Resource {
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -59,6 +62,7 @@ interface ExternalPromotionCreate extends ResourceCreate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -77,6 +81,7 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -125,6 +130,11 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 	async events(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `external_promotions/${_externalPromotionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `external_promotions/${_externalPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

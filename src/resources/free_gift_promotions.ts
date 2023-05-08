@@ -9,6 +9,7 @@ import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 
@@ -20,6 +21,7 @@ type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type TagRel = ResourceRel & { type: TagType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 
 
@@ -43,6 +45,7 @@ interface FreeGiftPromotion extends Resource {
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
+	tags?: Tag[] | null
 	sku_list?: SkuList | null
 	skus?: Sku[] | null
 
@@ -63,6 +66,7 @@ interface FreeGiftPromotionCreate extends ResourceCreate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	tags?: TagRel[] | null
 	sku_list: SkuListRel
 
 }
@@ -82,6 +86,7 @@ interface FreeGiftPromotionUpdate extends ResourceUpdate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	tags?: TagRel[] | null
 	sku_list?: SkuListRel | null
 
 }
@@ -131,6 +136,11 @@ class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 	async events(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `free_gift_promotions/${_freeGiftPromotionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `free_gift_promotions/${_freeGiftPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 	async sku_list(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {

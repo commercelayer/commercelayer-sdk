@@ -20,7 +20,7 @@ interface ReturnLineItem extends Resource {
 	bundle_code?: string | null
 	name?: string | null
 	quantity: number
-	return_reason?: object | null
+	return_reason?: Record<string, any> | null
 	restocked_at?: string | null
 
 	return?: Return | null
@@ -32,7 +32,7 @@ interface ReturnLineItem extends Resource {
 interface ReturnLineItemCreate extends ResourceCreate {
 	
 	quantity: number
-	return_reason?: object | null
+	return_reason?: Record<string, any> | null
 
 	return: ReturnRel
 	line_item: LineItemRel
@@ -44,7 +44,7 @@ interface ReturnLineItemUpdate extends ResourceUpdate {
 	
 	quantity?: number | null
 	_restock?: boolean | null
-	return_reason?: object | null
+	return_reason?: Record<string, any> | null
 	
 }
 

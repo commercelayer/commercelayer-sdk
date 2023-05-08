@@ -43,6 +43,7 @@ interface Parcel extends Resource {
 	carrier_weight_oz?: string | null
 	signed_by?: string | null
 	incoterm?: string | null
+	delivery_confirmation?: string | null
 
 	shipment?: Shipment | null
 	package?: Package | null
@@ -78,6 +79,7 @@ interface ParcelCreate extends ResourceCreate {
 	carrier_weight_oz?: string | null
 	signed_by?: string | null
 	incoterm?: string | null
+	delivery_confirmation?: string | null
 
 	shipment: ShipmentRel
 	package: PackageRel
@@ -110,6 +112,7 @@ interface ParcelUpdate extends ResourceUpdate {
 	carrier_weight_oz?: string | null
 	signed_by?: string | null
 	incoterm?: string | null
+	delivery_confirmation?: string | null
 
 	shipment?: ShipmentRel | null
 	package?: PackageRel | null

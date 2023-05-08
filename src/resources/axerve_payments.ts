@@ -17,12 +17,12 @@ interface AxervePayment extends Resource {
 
 	login: string
 	return_url: string
-	payment_request_data?: object | null
+	payment_request_data?: Record<string, any> | null
 	mismatched_amounts?: boolean | null
 	intent_amount_cents: number
 	intent_amount_float?: number | null
 	formatted_intent_amount?: string | null
-	payment_instrument?: object | null
+	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
@@ -41,7 +41,7 @@ interface AxervePaymentCreate extends ResourceCreate {
 
 interface AxervePaymentUpdate extends ResourceUpdate {
 	
-	payment_request_data?: object | null
+	payment_request_data?: Record<string, any> | null
 	_update?: boolean | null
 
 	order?: OrderRel | null

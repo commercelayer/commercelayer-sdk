@@ -17,13 +17,13 @@ interface StripePayment extends Resource {
 
 	client_secret: string
 	publishable_key?: string | null
-	options?: object | null
-	payment_method?: object | null
+	options?: Record<string, any> | null
+	payment_method?: Record<string, any> | null
 	mismatched_amounts?: boolean | null
 	intent_amount_cents: number
 	intent_amount_float?: number | null
 	formatted_intent_amount?: string | null
-	payment_instrument?: object | null
+	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
@@ -33,7 +33,7 @@ interface StripePayment extends Resource {
 
 interface StripePaymentCreate extends ResourceCreate {
 	
-	options?: object | null
+	options?: Record<string, any> | null
 
 	order: OrderRel
 
@@ -42,7 +42,7 @@ interface StripePaymentCreate extends ResourceCreate {
 
 interface StripePaymentUpdate extends ResourceUpdate {
 	
-	options?: object | null
+	options?: Record<string, any> | null
 	_refresh?: boolean | null
 
 	order?: OrderRel | null

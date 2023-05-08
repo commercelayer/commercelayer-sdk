@@ -17,7 +17,7 @@ interface Export extends Resource {
 	format?: string | null
 	status: 'pending' | 'in_progress' | 'completed'
 	includes?: string[] | null
-	filters?: object | null
+	filters?: Record<string, any> | null
 	dry_data?: boolean | null
 	started_at?: string | null
 	completed_at?: string | null
@@ -35,7 +35,7 @@ interface ExportCreate extends ResourceCreate {
 	resource_type: string
 	format?: string | null
 	includes?: string[] | null
-	filters?: object | null
+	filters?: Record<string, any> | null
 	dry_data?: boolean | null
 	
 }

@@ -15,8 +15,6 @@ interface SatispayPayment extends Resource {
 	
 	readonly type: SatispayPaymentType
 
-	token?: string | null
-	key_id: string
 	payment_id?: string | null
 	redirect_url?: string | null
 
@@ -28,7 +26,6 @@ interface SatispayPayment extends Resource {
 
 interface SatispayPaymentCreate extends ResourceCreate {
 	
-	token?: string | null
 	redirect_url?: string | null
 
 	order: OrderRel

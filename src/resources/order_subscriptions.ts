@@ -35,7 +35,7 @@ interface OrderSubscription extends Resource {
 	occurrencies?: number | null
 	errors_count?: number | null
 	succeeded_on_last_run?: boolean | null
-	options?: object | null
+	options?: Record<string, any> | null
 
 	market?: Market | null
 	subscription_model?: SubscriptionModel | null
@@ -61,7 +61,7 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 	activate_by_source_order?: boolean | null
 	starts_at?: string | null
 	expires_at?: string | null
-	options?: object | null
+	options?: Record<string, any> | null
 
 	market?: MarketRel | null
 	source_order: OrderRel

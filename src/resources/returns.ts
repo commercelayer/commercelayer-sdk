@@ -9,12 +9,14 @@ import type { Address } from './addresses'
 import type { ReturnLineItem } from './return_line_items'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type ReturnType = 'returns'
 type ReturnRel = ResourceRel & { type: ReturnType }
 type OrderRel = ResourceRel & { type: OrderType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface Return extends Resource {
@@ -40,6 +42,7 @@ interface Return extends Resource {
 	return_line_items?: ReturnLineItem[] | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
+	tags?: Tag[] | null
 
 }
 
@@ -48,6 +51,7 @@ interface ReturnCreate extends ResourceCreate {
 	
 	order: OrderRel
 	stock_location?: StockLocationRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -65,6 +69,7 @@ interface ReturnUpdate extends ResourceUpdate {
 	_unarchive?: boolean | null
 
 	stock_location?: StockLocationRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -123,6 +128,11 @@ class Returns extends ApiResource<Return> {
 	async events(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `returns/${_returnId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _returnId = (returnId as Return).id || returnId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `returns/${_returnId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

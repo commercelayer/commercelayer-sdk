@@ -109,6 +109,7 @@ export type { StockTransfer, StockTransferCreate, StockTransferUpdate } from './
 export type { StripeGateway, StripeGatewayCreate, StripeGatewayUpdate } from './resources/stripe_gateways'
 export type { StripePayment, StripePaymentCreate, StripePaymentUpdate } from './resources/stripe_payments'
 export type { SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate } from './resources/subscription_models'
+export type { Tag, TagCreate, TagUpdate } from './resources/tags'
 export type { TaxCalculator } from './resources/tax_calculators'
 export type { TaxCategory, TaxCategoryCreate, TaxCategoryUpdate } from './resources/tax_categories'
 export type { TaxRule, TaxRuleCreate, TaxRuleUpdate } from './resources/tax_rules'

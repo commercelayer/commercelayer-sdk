@@ -33,10 +33,10 @@ interface Shipment extends Resource {
 	formatted_cost_amount?: string | null
 	skus_count?: number | null
 	selected_rate_id?: string | null
-	rates?: object[] | null
+	rates?: Array<Record<string, any>> | null
 	purchase_error_code?: string | null
 	purchase_error_message?: string | null
-	get_rates_errors?: object[] | null
+	get_rates_errors?: Array<Record<string, any>> | null
 	get_rates_started_at?: string | null
 	get_rates_completed_at?: string | null
 	purchase_started_at?: string | null

@@ -14,7 +14,7 @@ interface EventCallback extends Resource {
 	readonly type: EventCallbackType
 
 	callback_url: string
-	payload?: object | null
+	payload?: Record<string, any> | null
 	response_code?: string | null
 	response_message?: string | null
 

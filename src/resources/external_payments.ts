@@ -17,8 +17,8 @@ interface ExternalPayment extends Resource {
 	readonly type: ExternalPaymentType
 
 	payment_source_token: string
-	options?: object | null
-	payment_instrument?: object | null
+	options?: Record<string, any> | null
+	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
@@ -30,7 +30,7 @@ interface ExternalPayment extends Resource {
 interface ExternalPaymentCreate extends ResourceCreate {
 	
 	payment_source_token: string
-	options?: object | null
+	options?: Record<string, any> | null
 
 	order: OrderRel
 
@@ -39,7 +39,7 @@ interface ExternalPaymentCreate extends ResourceCreate {
 
 interface ExternalPaymentUpdate extends ResourceUpdate {
 	
-	options?: object | null
+	options?: Record<string, any> | null
 
 	order?: OrderRel | null
 

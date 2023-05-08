@@ -195,4 +195,23 @@ describe('Promotions resource', () => {
 	
 	})
 	
+
+	it(resourceType + '.tags', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { tags: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'tags')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].tags(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
 })

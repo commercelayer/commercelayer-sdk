@@ -84,7 +84,7 @@ class ListResponse<R> extends Array<R> {
 
 
 
-export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse, ResourceRel }
+export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse, ListMeta, ResourceRel }
 
 
 // Resource adapters local configuration

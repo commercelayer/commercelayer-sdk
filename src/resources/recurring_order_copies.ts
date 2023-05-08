@@ -21,7 +21,7 @@ interface RecurringOrderCopy extends Resource {
 	started_at?: string | null
 	completed_at?: string | null
 	failed_at?: string | null
-	errors_log?: object | null
+	errors_log?: Record<string, any> | null
 	errors_count?: number | null
 	place_target_order?: boolean | null
 	reuse_wallet?: boolean | null

@@ -27,7 +27,7 @@ interface PaypalPayment extends Resource {
 	intent_amount_cents: number
 	intent_amount_float?: number | null
 	formatted_intent_amount?: string | null
-	payment_instrument?: object | null
+	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null

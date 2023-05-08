@@ -24,9 +24,9 @@ interface CheckoutComPayment extends Resource {
 	source_id?: string | null
 	customer_token?: string | null
 	redirect_uri?: string | null
-	payment_response?: object | null
+	payment_response?: Record<string, any> | null
 	mismatched_amounts?: boolean | null
-	payment_instrument?: object | null
+	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
