@@ -1,3 +1,11 @@
+# [5.1.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0...v5.1.0) (2023-05-08)
+
+
+### Features
+
+* **core:** replace object type with Record ([dcc0a09](https://github.com/commercelayer/commercelayer-sdk/commit/dcc0a096f14bc95bc737dfe5fbef762f08b4dab2))
+* **core:** update resources to schema 4.2.4 ([2abb1bb](https://github.com/commercelayer/commercelayer-sdk/commit/2abb1bb1548263403da87ff1ff04769bbef3d1c7))
+
 # [5.0.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.27.0...v5.0.0) (2023-04-03)
 
 
