@@ -17,7 +17,7 @@ type ResponseObj = AxiosResponse
 type ResponseInterceptor = (response: ResponseObj) => ResponseObj
 
 // Headers
-type ApiHeadersList = 'x-ratelimit-limit' | 'x-ratelimit-count' | 'x-ratelimit-period'
+type ApiHeadersList = 'x-ratelimit-limit' | 'x-ratelimit-count' | 'x-ratelimit-period' | 'x-ratelimit-interval' | 'x-ratelimit-remaining'
 type ApiHeaders = { [key in ApiHeadersList]: string | number | boolean }
 type HeadersObj = (AxiosResponseHeaders | RawAxiosResponseHeaders) & ApiHeaders
 
