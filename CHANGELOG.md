@@ -1,3 +1,10 @@
+## [5.1.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.1.0...v5.1.1) (2023-05-09)
+
+
+### Bug Fixes
+
+* **core:** update rate limit headers ([675ed98](https://github.com/commercelayer/commercelayer-sdk/commit/675ed9894358a82e0e9ef08e200e9bd966901d5e))
+
 # [5.1.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.0.0...v5.1.0) (2023-05-08)
 
 
