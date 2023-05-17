@@ -25,7 +25,7 @@ describe('PromotionRules resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { promotion_rules: CommonData.paramsFields } }
+    const params = { fields: {[resourceType]: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')

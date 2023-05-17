@@ -25,7 +25,7 @@ describe('Captures resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { captures: CommonData.paramsFields } }
+    const params = { fields: {[resourceType]: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
@@ -46,7 +46,7 @@ describe('Captures resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
-    const params = { fields: { captures: CommonData.paramsFields } }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {

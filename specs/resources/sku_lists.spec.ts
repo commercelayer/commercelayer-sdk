@@ -30,7 +30,7 @@ describe('SkuLists resource', () => {
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
-    const params = { fields: { sku_lists: CommonData.paramsFields } }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -53,7 +53,7 @@ describe('SkuLists resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { sku_lists: CommonData.paramsFields } }
+    const params = { fields: {[resourceType]: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
@@ -74,7 +74,7 @@ describe('SkuLists resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
-    const params = { fields: { sku_lists: CommonData.paramsFields } }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {

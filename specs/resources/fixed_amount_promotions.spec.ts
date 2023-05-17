@@ -39,7 +39,7 @@ describe('FixedAmountPromotions resource', () => {
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
-    const params = { fields: { fixed_amount_promotions: CommonData.paramsFields } }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -62,7 +62,7 @@ describe('FixedAmountPromotions resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { fixed_amount_promotions: CommonData.paramsFields } }
+    const params = { fields: {[resourceType]: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
@@ -83,7 +83,7 @@ describe('FixedAmountPromotions resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
-    const params = { fields: { fixed_amount_promotions: CommonData.paramsFields } }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {

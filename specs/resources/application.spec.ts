@@ -24,7 +24,7 @@ describe('Applications resource', () => {
   /* spec.singleton.start */
   it(resourceType + '.singleton', async () => {
 
-    const params = { fields: { application: CommonData.paramsFields } }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')

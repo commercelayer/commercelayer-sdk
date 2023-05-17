@@ -38,7 +38,7 @@ describe('FreeShippingPromotions resource', () => {
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
-    const params = { fields: { free_shipping_promotions: CommonData.paramsFields } }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -61,7 +61,7 @@ describe('FreeShippingPromotions resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { free_shipping_promotions: CommonData.paramsFields } }
+    const params = { fields: {[resourceType]: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
@@ -82,7 +82,7 @@ describe('FreeShippingPromotions resource', () => {
   it(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
-    const params = { fields: { free_shipping_promotions: CommonData.paramsFields } }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
     const intId = cl.addRequestInterceptor((config) => {

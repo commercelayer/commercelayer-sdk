@@ -48,13 +48,17 @@ const handleError = (error: Error): never => {
 
 type ProxyConfig = AxiosProxyConfig | false
 
+type RequestParams = Record<string, string | number | boolean>
+type RequestHeaders = Record<string, string>
+
 // Subset of AxiosRequestConfig
 type RequestConfig = {
 	timeout?: number;
-	params?: Record<string, string | number | boolean>;
+	params?: RequestParams;
 	httpAgent?: HttpAgent;
 	httpsAgent?: HttpsAgent;
 	proxy?: ProxyConfig;
+	headers?: RequestHeaders
 }
 
 type ApiClientInitConfig = { organization: string, domain?: string, accessToken: string } & RequestConfig
@@ -89,13 +93,17 @@ class ApiClient {
 			httpsAgent: options.httpsAgent,
 		}
 
+		// Set custom headers
+		const customHeaders = this.customHeaders(options.headers)
+
 		const axiosOptions = {
 			baseURL: this.baseUrl,
 			timeout: config.client.timeout,
 			headers: {
+				...customHeaders,
 				'Accept': 'application/vnd.api+json',
 				'Content-Type': 'application/vnd.api+json',
-				'Authorization': 'Bearer ' + this.#accessToken,
+				'Authorization': 'Bearer ' + this.#accessToken
 			},
 			...axiosConfig
 		}
@@ -127,6 +135,7 @@ class ApiClient {
 			this.#accessToken = config.accessToken
 			def.headers.common.Authorization = 'Bearer ' + this.#accessToken;
 		}
+		if (config.headers) def.headers.common = this.customHeaders(config.headers)
 
 	}
 
@@ -141,7 +150,9 @@ class ApiClient {
 		// Runtime request parameters
 		const baseUrl = options?.organization ? baseURL(options.organization, options.domain) : undefined
 		const accessToken = options?.accessToken || this.#accessToken
-		const headers = accessToken ? { 'Authorization': 'Bearer ' + accessToken } : undefined
+
+		const headers = this.customHeaders(options?.headers)
+		if (accessToken) headers.Authorization = 'Bearer ' + accessToken
 
 		const requestParams = { method, baseURL: baseUrl, url, data, headers, ...options }
 
@@ -153,6 +164,16 @@ class ApiClient {
 			.catch(error => handleError(error))
 		// .finally(() => console.log(`<<-- ${method} ${path} ${Date.now() - start}`))
 
+	}
+
+
+	private customHeaders(headers?: RequestHeaders): RequestHeaders {
+		const customHeaders: RequestHeaders = {}
+		if (headers) {
+			for (const [name, value] of Object.entries(headers))
+				if (!['accept', 'content-type', 'authorization'].includes(value.toLowerCase())) customHeaders[name] = value
+		}
+		return customHeaders
 	}
 
 }

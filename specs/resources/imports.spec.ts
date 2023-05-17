@@ -30,7 +30,7 @@ describe('Imports resource', () => {
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
-    const params = { fields: { imports: CommonData.paramsFields } }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = attributes
 
     const intId = cl.addRequestInterceptor((config) => {
@@ -53,7 +53,7 @@ describe('Imports resource', () => {
   it(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
-    const params = { fields: { imports: CommonData.paramsFields } }
+    const params = { fields: {[resourceType]: CommonData.paramsFields } }
 
     const intId = cl.addRequestInterceptor((config) => {
       expect(config.method).toBe('get')
