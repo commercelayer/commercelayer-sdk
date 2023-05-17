@@ -1,3 +1,10 @@
+# [5.2.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.1.1...v5.2.0) (2023-05-17)
+
+
+### Features
+
+* **core:** add request custom headers ([87da537](https://github.com/commercelayer/commercelayer-sdk/commit/87da5373919fb8fde9d332f41cac320d7d42b37b))
+
 ## [5.1.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.1.0...v5.1.1) (2023-05-09)
 
 
