@@ -154,7 +154,7 @@ class ApiClient {
 		const headers = this.customHeaders(options?.headers)
 		if (accessToken) headers.Authorization = 'Bearer ' + accessToken
 
-		const requestParams = { method, baseURL: baseUrl, url, data, headers, ...options }
+		const requestParams = { method, baseURL: baseUrl, url, data, ...options, headers }
 
 		debug('request params: %O', requestParams)
 
@@ -171,7 +171,7 @@ class ApiClient {
 		const customHeaders: RequestHeaders = {}
 		if (headers) {
 			for (const [name, value] of Object.entries(headers))
-				if (!['accept', 'content-type', 'authorization'].includes(value.toLowerCase())) customHeaders[name] = value
+				if (!['accept', 'content-type', 'authorization'].includes(name.toLowerCase())) customHeaders[name] = value
 		}
 		return customHeaders
 	}
