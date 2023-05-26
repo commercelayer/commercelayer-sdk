@@ -1,3 +1,11 @@
+## [5.2.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.2.0...v5.2.1) (2023-05-19)
+
+
+### Bug Fixes
+
+* **core:** fix custom headers management ([5bf73cf](https://github.com/commercelayer/commercelayer-sdk/commit/5bf73cfbaca05138ee64495844d370f350bc29c4))
+* **spec:** fix timeout test ([f077e80](https://github.com/commercelayer/commercelayer-sdk/commit/f077e8065d162d1decbf4b8100794b8426d4f9c9))
+
 # [5.2.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.1.1...v5.2.0) (2023-05-17)
 
 
