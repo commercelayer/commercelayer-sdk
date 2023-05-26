@@ -35,8 +35,8 @@ describe('PercentageDiscountPromotions resource', () => {
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
 			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
 			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
 			sku_list: cl.sku_lists.relationship(TestData.id),
+			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -237,6 +237,25 @@ describe('PercentageDiscountPromotions resource', () => {
 	})
 	
 
+	it(resourceType + '.sku_list', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { sku_lists: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'sku_list')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku_list(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -288,25 +307,6 @@ describe('PercentageDiscountPromotions resource', () => {
 		})
 	
 		await cl[resourceType].tags(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
-	
-	})
-	
-
-	it(resourceType + '.sku_list', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { sku_lists: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'sku_list')
-			checkCommonParams(config, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].sku_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

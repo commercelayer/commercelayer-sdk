@@ -7,6 +7,7 @@ import type { PromotionRule, PromotionRuleType } from './promotion_rules'
 import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
+import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
@@ -42,6 +43,7 @@ interface FixedAmountPromotion extends Resource {
 	order_amount_promotion_rule?: OrderAmountPromotionRule | null
 	sku_list_promotion_rule?: SkuListPromotionRule | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
+	sku_list?: SkuList | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
@@ -121,6 +123,11 @@ class FixedAmountPromotions extends ApiResource<FixedAmountPromotion> {
 	async coupon_codes_promotion_rule(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
 		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	}
+
+	async sku_list(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/sku_list`, params, options) as unknown as SkuList
 	}
 
 	async attachments(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

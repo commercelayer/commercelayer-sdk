@@ -43,6 +43,7 @@ interface StripePaymentCreate extends ResourceCreate {
 interface StripePaymentUpdate extends ResourceUpdate {
 	
 	options?: Record<string, any> | null
+	_update?: boolean | null
 	_refresh?: boolean | null
 
 	order?: OrderRel | null

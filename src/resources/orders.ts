@@ -141,6 +141,7 @@ interface Order extends Resource {
 	line_item_options_count?: number | null
 	shipments_count?: number | null
 	tax_calculations_count?: number | null
+	validations_count?: number | null
 	payment_source_details?: Record<string, any> | null
 	token?: string | null
 	cart_url?: string | null
