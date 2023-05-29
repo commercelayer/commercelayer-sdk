@@ -36,7 +36,7 @@
     "axios": "1.4.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.21.5",
+    "@babel/preset-env": "^7.22.2",
     "@babel/preset-typescript": "^7.21.5",
     "@commercelayer/eslint-config-ts": "1.0.0",
     "@commercelayer/js-auth": "^2.3.0",
@@ -45,7 +45,7 @@
     "@types/debug": "^4.1.8",
     "@types/jest": "^29.5.1",
     "@types/lodash": "^4.14.195",
-    "@types/node": "^20.2.4",
+    "@types/node": "^20.2.5",
     "dotenv": "^16.0.3",
     "eslint": "^8.41.0",
     "inflector-js": "^1.0.1",

@@ -9,7 +9,7 @@ import getToken from './token'
 
 	const organization = process.env.CL_SDK_ORGANIZATION || ''
 	const auth = await getToken('integration')
-	const accessToken = auth? auth.accessToken : ''
+	const accessToken = auth ? auth.accessToken : ''
 
 	const cl = commercelayer({
 		organization,
@@ -17,10 +17,17 @@ import getToken from './token'
 		timeout: 5000,
 	})
 
-	const c = await cl.customers.count()
-	console.log('customers: ' + c)
-
-	const customers = await cl.customers.list()
-	console.log(inspect(customers, false, null, true))
+	try {
+		const list = await cl.customers.list()
+		if (list.length > 0) {
+			const id = list[0].id
+			for (let i = 0; i < 1000; i++) {
+				const c = await cl.customers.retrieve(id)
+			}
+		}
+	} catch (error: any) {
+		console.log(inspect(error, false, null, true))
+		console.log(error.message)
+	}
 
 })()

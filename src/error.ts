@@ -39,6 +39,7 @@ class ApiError extends SdkError {
 
 	errors: any[] = []
 	status?: number
+	statusText?: string
 
 	constructor(error: SdkError)
 	constructor(error: { message: string }) {
