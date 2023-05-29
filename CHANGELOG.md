@@ -1,3 +1,10 @@
+## [5.2.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.2.2...v5.2.3) (2023-05-29)
+
+
+### Bug Fixes
+
+* **core:** fix error handler in case of 429 ([84a19c8](https://github.com/commercelayer/commercelayer-sdk/commit/84a19c82fcace2aa41429db842fb648c29704738))
+
 ## [5.2.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.2.1...v5.2.2) (2023-05-26)
 
 
