@@ -14,6 +14,7 @@ import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } fro
 import type { Shipment, ShipmentType } from './shipments'
 import type { Sku, SkuType } from './skus'
 import type { LineItemOption } from './line_item_options'
+import type { StockReservation } from './stock_reservations'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
 import type { Event } from './events'
@@ -74,6 +75,7 @@ interface LineItem extends Resource {
 	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
 	shipment_line_items?: object[]
+	stock_reservations?: StockReservation[] | null
 	stock_line_items?: StockLineItem[] | null
 	stock_transfers?: StockTransfer[] | null
 	events?: Event[] | null
@@ -89,6 +91,7 @@ interface LineItemCreate extends ResourceCreate {
 	quantity: number
 	_external_price?: boolean | null
 	_update_quantity?: boolean | null
+	_reserve_stock?: boolean | null
 	unit_amount_cents?: number | null
 	name?: string | null
 	image_url?: string | null
@@ -108,6 +111,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	bundle_code?: string | null
 	quantity?: number | null
 	_external_price?: boolean | null
+	_reserve_stock?: boolean | null
 	name?: string | null
 	image_url?: string | null
 	frequency?: string | null
@@ -141,6 +145,11 @@ class LineItems extends ApiResource<LineItem> {
 	async line_item_options(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
 		return this.resources.fetch<LineItemOption>({ type: 'line_item_options' }, `line_items/${_lineItemId}/line_item_options`, params, options) as unknown as ListResponse<LineItemOption>
+	}
+
+	async stock_reservations(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
+		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `line_items/${_lineItemId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
 	}
 
 	async stock_line_items(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {

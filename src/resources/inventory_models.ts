@@ -18,6 +18,7 @@ interface InventoryModel extends Resource {
 	name: string
 	strategy?: string | null
 	stock_locations_cutoff?: number | null
+	stock_reservation_cutoff?: number | null
 
 	inventory_stock_locations?: InventoryStockLocation[] | null
 	inventory_return_locations?: InventoryReturnLocation[] | null
@@ -31,6 +32,7 @@ interface InventoryModelCreate extends ResourceCreate {
 	name: string
 	strategy?: string | null
 	stock_locations_cutoff?: number | null
+	stock_reservation_cutoff?: number | null
 	
 }
 
@@ -40,6 +42,7 @@ interface InventoryModelUpdate extends ResourceUpdate {
 	name?: string | null
 	strategy?: string | null
 	stock_locations_cutoff?: number | null
+	stock_reservation_cutoff?: number | null
 	
 }
 
