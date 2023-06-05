@@ -27,6 +27,7 @@ describe('Coupons resource', () => {
     const createAttributes = {
 			code: randomValue('string', 'code'),
 			promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
+			coupon_recipient: cl.coupon_recipients.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
@@ -165,6 +166,25 @@ describe('Coupons resource', () => {
 		})
 	
 		await cl[resourceType].promotion_rule(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.coupon_recipient', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { coupon_recipients: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'coupon_recipient')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].coupon_recipient(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

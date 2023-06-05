@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
+import type { CouponRecipient, CouponRecipientType } from './coupon_recipients'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 
@@ -10,6 +11,7 @@ import type { Tag, TagType } from './tags'
 type CouponType = 'coupons'
 type CouponRel = ResourceRel & { type: CouponType }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type CouponRecipientRel = ResourceRel & { type: CouponRecipientType }
 type TagRel = ResourceRel & { type: TagType }
 
 
@@ -24,6 +26,7 @@ interface Coupon extends Resource {
 	recipient_email?: string | null
 
 	promotion_rule?: CouponCodesPromotionRule | null
+	coupon_recipient?: CouponRecipient | null
 	events?: Event[] | null
 	tags?: Tag[] | null
 
@@ -38,6 +41,7 @@ interface CouponCreate extends ResourceCreate {
 	recipient_email?: string | null
 
 	promotion_rule: CouponCodesPromotionRuleRel
+	coupon_recipient?: CouponRecipientRel | null
 	tags?: TagRel[] | null
 
 }
@@ -51,6 +55,7 @@ interface CouponUpdate extends ResourceUpdate {
 	recipient_email?: string | null
 
 	promotion_rule?: CouponCodesPromotionRuleRel | null
+	coupon_recipient?: CouponRecipientRel | null
 	tags?: TagRel[] | null
 
 }
@@ -75,6 +80,11 @@ class Coupons extends ApiResource<Coupon> {
 	async promotion_rule(couponId: string | Coupon, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		const _couponId = (couponId as Coupon).id || couponId as string
 		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `coupons/${_couponId}/promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	}
+
+	async coupon_recipient(couponId: string | Coupon, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
+		const _couponId = (couponId as Coupon).id || couponId as string
+		return this.resources.fetch<CouponRecipient>({ type: 'coupon_recipients' }, `coupons/${_couponId}/coupon_recipient`, params, options) as unknown as CouponRecipient
 	}
 
 	async events(couponId: string | Coupon, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
