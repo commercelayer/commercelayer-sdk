@@ -105,6 +105,7 @@ export { default as Skus } from './resources/skus'
 export { default as StockItems } from './resources/stock_items'
 export { default as StockLineItems } from './resources/stock_line_items'
 export { default as StockLocations } from './resources/stock_locations'
+export { default as StockReservations } from './resources/stock_reservations'
 export { default as StockTransfers } from './resources/stock_transfers'
 export { default as StripeGateways } from './resources/stripe_gateways'
 export { default as StripePayments } from './resources/stripe_payments'
@@ -224,6 +225,7 @@ export type ResourceTypeLock =
 |	'stock_items'
 |	'stock_line_items'
 |	'stock_locations'
+|	'stock_reservations'
 |	'stock_transfers'
 |	'stripe_gateways'
 |	'stripe_payments'
@@ -343,6 +345,7 @@ export const resourceList = [
 	'stock_items',
 	'stock_line_items',
 	'stock_locations',
+	'stock_reservations',
 	'stock_transfers',
 	'stripe_gateways',
 	'stripe_payments',

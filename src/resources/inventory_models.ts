@@ -14,6 +14,7 @@ interface InventoryModel extends Resource {
 	name?: string
 	strategy?: string
 	stock_locations_cutoff?: number
+	stock_reservation_cutoff?: number
 
 	inventory_stock_locations?: InventoryStockLocation[]
 	inventory_return_locations?: InventoryReturnLocation[]
@@ -27,6 +28,7 @@ interface InventoryModelCreate extends ResourceCreate {
 	name: string
 	strategy?: string
 	stock_locations_cutoff?: number
+	stock_reservation_cutoff?: number
 	
 }
 
@@ -36,6 +38,7 @@ interface InventoryModelUpdate extends ResourceUpdate {
 	name?: string
 	strategy?: string
 	stock_locations_cutoff?: number
+	stock_reservation_cutoff?: number
 	
 }
 
