@@ -26,6 +26,7 @@ describe('SatispayGateways resource', () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
+			token: randomValue('string', 'token'),
 			satispay_payments: [ cl.satispay_payments.relationship(TestData.id) ],
 		}
 

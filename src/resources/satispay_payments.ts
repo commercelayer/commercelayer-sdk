@@ -11,8 +11,6 @@ type OrderRel = ResourceRel & { type: 'orders' }
 
 interface SatispayPayment extends Resource {
 	
-	token?: string
-	key_id?: string
 	payment_id?: string
 	redirect_url?: string
 
@@ -24,7 +22,6 @@ interface SatispayPayment extends Resource {
 
 interface SatispayPaymentCreate extends ResourceCreate {
 	
-	token?: string
 	redirect_url?: string
 
 	order: OrderRel

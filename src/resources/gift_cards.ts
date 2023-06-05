@@ -5,11 +5,13 @@ import type { Market } from './markets'
 import type { GiftCardRecipient } from './gift_card_recipients'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type GiftCardRel = ResourceRel & { type: typeof GiftCards.TYPE }
 type MarketRel = ResourceRel & { type: 'markets' }
 type GiftCardRecipientRel = ResourceRel & { type: 'gift_card_recipients' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface GiftCard extends Resource {
@@ -37,6 +39,7 @@ interface GiftCard extends Resource {
 	gift_card_recipient?: GiftCardRecipient
 	attachments?: Attachment[]
 	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -55,6 +58,7 @@ interface GiftCardCreate extends ResourceCreate {
 
 	market?: MarketRel
 	gift_card_recipient?: GiftCardRecipientRel
+	tags?: TagRel[]
 
 }
 
@@ -76,6 +80,7 @@ interface GiftCardUpdate extends ResourceUpdate {
 
 	market?: MarketRel
 	gift_card_recipient?: GiftCardRecipientRel
+	tags?: TagRel[]
 
 }
 
@@ -123,6 +128,11 @@ class GiftCards extends ApiResource {
 	async events(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `gift_cards/${_giftCardId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `gift_cards/${_giftCardId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

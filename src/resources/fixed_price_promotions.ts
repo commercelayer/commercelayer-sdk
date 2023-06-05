@@ -6,9 +6,10 @@ import type { PromotionRule } from './promotion_rules'
 import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
-import type { SkuList } from './sku_lists'
+import type { Tag } from './tags'
 import type { Sku } from './skus'
 
 
@@ -19,6 +20,7 @@ type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion
 type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
 type SkuListRel = ResourceRel & { type: 'sku_lists' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface FixedPricePromotion extends Resource {
@@ -39,9 +41,10 @@ interface FixedPricePromotion extends Resource {
 	order_amount_promotion_rule?: OrderAmountPromotionRule
 	sku_list_promotion_rule?: SkuListPromotionRule
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule
+	sku_list?: SkuList
 	attachments?: Attachment[]
 	events?: Event[]
-	sku_list?: SkuList
+	tags?: Tag[]
 	skus?: Sku[]
 
 }
@@ -62,6 +65,7 @@ interface FixedPricePromotionCreate extends ResourceCreate {
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
 	sku_list: SkuListRel
+	tags?: TagRel[]
 
 }
 
@@ -81,6 +85,7 @@ interface FixedPricePromotionUpdate extends ResourceUpdate {
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
 	sku_list?: SkuListRel
+	tags?: TagRel[]
 
 }
 
@@ -130,6 +135,11 @@ class FixedPricePromotions extends ApiResource {
 		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `fixed_price_promotions/${_fixedPricePromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
 	}
 
+	async sku_list(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		const _fixedPricePromotionId = (fixedPricePromotionId as FixedPricePromotion).id || fixedPricePromotionId as string
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `fixed_price_promotions/${_fixedPricePromotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
 	async attachments(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _fixedPricePromotionId = (fixedPricePromotionId as FixedPricePromotion).id || fixedPricePromotionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `fixed_price_promotions/${_fixedPricePromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
@@ -140,9 +150,9 @@ class FixedPricePromotions extends ApiResource {
 		return this.resources.fetch<Event>({ type: 'events' }, `fixed_price_promotions/${_fixedPricePromotionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async sku_list(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+	async tags(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _fixedPricePromotionId = (fixedPricePromotionId as FixedPricePromotion).id || fixedPricePromotionId as string
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `fixed_price_promotions/${_fixedPricePromotionId}/sku_list`, params, options) as unknown as SkuList
+		return this.resources.fetch<Tag>({ type: 'tags' }, `fixed_price_promotions/${_fixedPricePromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 	async skus(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {

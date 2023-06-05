@@ -28,6 +28,7 @@ describe('GiftCards resource', () => {
 			balance_cents: randomValue('integer', 'balance_cents'),
 			market: cl.markets.relationship(TestData.id),
 			gift_card_recipient: cl.gift_card_recipients.relationship(TestData.id),
+			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -222,6 +223,25 @@ describe('GiftCards resource', () => {
 		})
 	
 		await cl[resourceType].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.tags', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { tags: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'tags')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

@@ -3,10 +3,13 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type SkuOptionRel = ResourceRel & { type: typeof SkuOptions.TYPE }
 type MarketRel = ResourceRel & { type: 'markets' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface SkuOption extends Resource {
@@ -23,6 +26,8 @@ interface SkuOption extends Resource {
 
 	market?: Market
 	attachments?: Attachment[]
+	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -37,6 +42,7 @@ interface SkuOptionCreate extends ResourceCreate {
 	sku_code_regex?: string
 
 	market?: MarketRel
+	tags?: TagRel[]
 
 }
 
@@ -51,6 +57,7 @@ interface SkuOptionUpdate extends ResourceUpdate {
 	sku_code_regex?: string
 
 	market?: MarketRel
+	tags?: TagRel[]
 
 }
 
@@ -88,6 +95,16 @@ class SkuOptions extends ApiResource {
 	async attachments(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_options/${_skuOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `sku_options/${_skuOptionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `sku_options/${_skuOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

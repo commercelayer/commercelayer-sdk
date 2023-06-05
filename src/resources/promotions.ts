@@ -6,8 +6,10 @@ import type { PromotionRule } from './promotion_rules'
 import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type PromotionRel = ResourceRel & { type: typeof Promotions.TYPE }
@@ -28,8 +30,10 @@ interface Promotion extends Resource {
 	order_amount_promotion_rule?: OrderAmountPromotionRule
 	sku_list_promotion_rule?: SkuListPromotionRule
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule
+	sku_list?: SkuList
 	attachments?: Attachment[]
 	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -67,6 +71,11 @@ class Promotions extends ApiResource {
 		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `promotions/${_promotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
 	}
 
+	async sku_list(promotionId: string | Promotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		const _promotionId = (promotionId as Promotion).id || promotionId as string
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `promotions/${_promotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
 	async attachments(promotionId: string | Promotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _promotionId = (promotionId as Promotion).id || promotionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `promotions/${_promotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
@@ -75,6 +84,11 @@ class Promotions extends ApiResource {
 	async events(promotionId: string | Promotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _promotionId = (promotionId as Promotion).id || promotionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `promotions/${_promotionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(promotionId: string | Promotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _promotionId = (promotionId as Promotion).id || promotionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `promotions/${_promotionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

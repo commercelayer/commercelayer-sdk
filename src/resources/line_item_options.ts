@@ -3,11 +3,14 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { LineItem } from './line_items'
 import type { SkuOption } from './sku_options'
+import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type LineItemOptionRel = ResourceRel & { type: typeof LineItemOptions.TYPE }
 type LineItemRel = ResourceRel & { type: 'line_items' }
 type SkuOptionRel = ResourceRel & { type: 'sku_options' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface LineItemOption extends Resource {
@@ -27,6 +30,8 @@ interface LineItemOption extends Resource {
 
 	line_item?: LineItem
 	sku_option?: SkuOption
+	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -39,6 +44,7 @@ interface LineItemOptionCreate extends ResourceCreate {
 
 	line_item: LineItemRel
 	sku_option: SkuOptionRel
+	tags?: TagRel[]
 
 }
 
@@ -50,6 +56,7 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 	options?: object
 
 	sku_option?: SkuOptionRel
+	tags?: TagRel[]
 
 }
 
@@ -87,6 +94,16 @@ class LineItemOptions extends ApiResource {
 	async sku_option(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
 		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
 		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `line_item_options/${_lineItemOptionId}/sku_option`, params, options) as unknown as SkuOption
+	}
+
+	async events(lineItemOptionId: string | LineItemOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `line_item_options/${_lineItemOptionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(lineItemOptionId: string | LineItemOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `line_item_options/${_lineItemOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

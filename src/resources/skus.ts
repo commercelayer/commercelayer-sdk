@@ -7,10 +7,13 @@ import type { StockItem } from './stock_items'
 import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { SkuOption } from './sku_options'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type SkuRel = ResourceRel & { type: typeof Skus.TYPE }
 type ShippingCategoryRel = ResourceRel & { type: 'shipping_categories' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface Sku extends Resource {
@@ -33,6 +36,8 @@ interface Sku extends Resource {
 	delivery_lead_times?: DeliveryLeadTime[]
 	sku_options?: SkuOption[]
 	attachments?: Attachment[]
+	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -51,6 +56,7 @@ interface SkuCreate extends ResourceCreate {
 	do_not_track?: boolean
 
 	shipping_category: ShippingCategoryRel
+	tags?: TagRel[]
 
 }
 
@@ -69,6 +75,7 @@ interface SkuUpdate extends ResourceUpdate {
 	do_not_track?: boolean
 
 	shipping_category?: ShippingCategoryRel
+	tags?: TagRel[]
 
 }
 
@@ -126,6 +133,16 @@ class Skus extends ApiResource {
 	async attachments(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `skus/${_skuId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `skus/${_skuId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `skus/${_skuId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

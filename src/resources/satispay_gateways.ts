@@ -12,6 +12,8 @@ type SatispayPaymentRel = ResourceRel & { type: 'satispay_payments' }
 interface SatispayGateway extends Resource {
 	
 	name?: string
+	token?: string
+	key_id?: string
 	webhook_endpoint_url?: string
 
 	payment_methods?: PaymentMethod[]
@@ -23,6 +25,7 @@ interface SatispayGateway extends Resource {
 interface SatispayGatewayCreate extends ResourceCreate {
 	
 	name: string
+	token: string
 
 	satispay_payments?: SatispayPaymentRel[]
 

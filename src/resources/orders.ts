@@ -31,6 +31,7 @@ import type { OrderCopy } from './order_copies'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type OrderRel = ResourceRel & { type: typeof Orders.TYPE }
@@ -48,6 +49,7 @@ type PaypalPaymentRel = ResourceRel & { type: 'paypal_payments' }
 type SatispayPaymentRel = ResourceRel & { type: 'satispay_payments' }
 type StripePaymentRel = ResourceRel & { type: 'stripe_payments' }
 type WireTransferRel = ResourceRel & { type: 'wire_transfers' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface Order extends Resource {
@@ -135,6 +137,7 @@ interface Order extends Resource {
 	line_item_options_count?: number
 	shipments_count?: number
 	tax_calculations_count?: number
+	validations_count?: number
 	payment_source_details?: object
 	token?: string
 	cart_url?: string
@@ -176,6 +179,7 @@ interface Order extends Resource {
 	recurring_order_copies?: RecurringOrderCopy[]
 	attachments?: Attachment[]
 	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -202,6 +206,7 @@ interface OrderCreate extends ResourceCreate {
 	billing_address?: AddressRel
 	payment_method?: PaymentMethodRel
 	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
+	tags?: TagRel[]
 
 }
 
@@ -253,6 +258,7 @@ interface OrderUpdate extends ResourceUpdate {
 	billing_address?: AddressRel
 	payment_method?: PaymentMethodRel
 	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
+	tags?: TagRel[]
 
 }
 
@@ -390,6 +396,11 @@ class Orders extends ApiResource {
 	async events(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `orders/${_orderId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `orders/${_orderId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

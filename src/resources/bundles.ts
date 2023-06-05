@@ -5,11 +5,14 @@ import type { Market } from './markets'
 import type { SkuList } from './sku_lists'
 import type { Sku } from './skus'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type BundleRel = ResourceRel & { type: typeof Bundles.TYPE }
 type MarketRel = ResourceRel & { type: 'markets' }
 type SkuListRel = ResourceRel & { type: 'sku_lists' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface Bundle extends Resource {
@@ -33,6 +36,8 @@ interface Bundle extends Resource {
 	sku_list?: SkuList
 	skus?: Sku[]
 	attachments?: Attachment[]
+	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -51,6 +56,7 @@ interface BundleCreate extends ResourceCreate {
 
 	market?: MarketRel
 	sku_list: SkuListRel
+	tags?: TagRel[]
 
 }
 
@@ -66,7 +72,9 @@ interface BundleUpdate extends ResourceUpdate {
 	compare_at_amount_cents?: number
 	_compute_price_amount?: boolean
 	_compute_compare_at_amount?: boolean
-	
+
+	tags?: TagRel[]
+
 }
 
 
@@ -113,6 +121,16 @@ class Bundles extends ApiResource {
 	async attachments(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bundles/${_bundleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `bundles/${_bundleId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `bundles/${_bundleId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

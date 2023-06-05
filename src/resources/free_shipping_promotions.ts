@@ -6,8 +6,10 @@ import type { PromotionRule } from './promotion_rules'
 import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type FreeShippingPromotionRel = ResourceRel & { type: typeof FreeShippingPromotions.TYPE }
@@ -16,6 +18,7 @@ type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
 type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface FreeShippingPromotion extends Resource {
@@ -33,8 +36,10 @@ interface FreeShippingPromotion extends Resource {
 	order_amount_promotion_rule?: OrderAmountPromotionRule
 	sku_list_promotion_rule?: SkuListPromotionRule
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule
+	sku_list?: SkuList
 	attachments?: Attachment[]
 	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -52,6 +57,7 @@ interface FreeShippingPromotionCreate extends ResourceCreate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	tags?: TagRel[]
 
 }
 
@@ -69,6 +75,7 @@ interface FreeShippingPromotionUpdate extends ResourceUpdate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	tags?: TagRel[]
 
 }
 
@@ -118,6 +125,11 @@ class FreeShippingPromotions extends ApiResource {
 		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `free_shipping_promotions/${_freeShippingPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
 	}
 
+	async sku_list(freeShippingPromotionId: string | FreeShippingPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		const _freeShippingPromotionId = (freeShippingPromotionId as FreeShippingPromotion).id || freeShippingPromotionId as string
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `free_shipping_promotions/${_freeShippingPromotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
 	async attachments(freeShippingPromotionId: string | FreeShippingPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _freeShippingPromotionId = (freeShippingPromotionId as FreeShippingPromotion).id || freeShippingPromotionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `free_shipping_promotions/${_freeShippingPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
@@ -126,6 +138,11 @@ class FreeShippingPromotions extends ApiResource {
 	async events(freeShippingPromotionId: string | FreeShippingPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _freeShippingPromotionId = (freeShippingPromotionId as FreeShippingPromotion).id || freeShippingPromotionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `free_shipping_promotions/${_freeShippingPromotionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(freeShippingPromotionId: string | FreeShippingPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _freeShippingPromotionId = (freeShippingPromotionId as FreeShippingPromotion).id || freeShippingPromotionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `free_shipping_promotions/${_freeShippingPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

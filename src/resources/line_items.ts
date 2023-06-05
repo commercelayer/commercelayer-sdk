@@ -15,6 +15,8 @@ import type { Sku } from './skus'
 import type { LineItemOption } from './line_item_options'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
+import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type LineItemRel = ResourceRel & { type: typeof LineItems.TYPE }
@@ -29,6 +31,7 @@ type PaymentMethodRel = ResourceRel & { type: 'payment_methods' }
 type PercentageDiscountPromotionRel = ResourceRel & { type: 'percentage_discount_promotions' }
 type ShipmentRel = ResourceRel & { type: 'shipments' }
 type SkuRel = ResourceRel & { type: 'skus' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface LineItem extends Resource {
@@ -69,6 +72,8 @@ interface LineItem extends Resource {
 	shipment_line_items?: object[]
 	stock_line_items?: StockLineItem[]
 	stock_transfers?: StockTransfer[]
+	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -88,6 +93,7 @@ interface LineItemCreate extends ResourceCreate {
 
 	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel
+	tags?: TagRel[]
 
 }
 
@@ -101,7 +107,9 @@ interface LineItemUpdate extends ResourceUpdate {
 	name?: string
 	image_url?: string
 	frequency?: string
-	
+
+	tags?: TagRel[]
+
 }
 
 
@@ -148,6 +156,16 @@ class LineItems extends ApiResource {
 	async stock_transfers(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
 		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `line_items/${_lineItemId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+	}
+
+	async events(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `line_items/${_lineItemId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `line_items/${_lineItemId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

@@ -39,6 +39,7 @@ interface StripePaymentCreate extends ResourceCreate {
 interface StripePaymentUpdate extends ResourceUpdate {
 	
 	options?: object
+	_update?: boolean
 	_refresh?: boolean
 
 	order?: OrderRel

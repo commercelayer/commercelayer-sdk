@@ -6,8 +6,10 @@ import type { PromotionRule } from './promotion_rules'
 import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type FixedAmountPromotionRel = ResourceRel & { type: typeof FixedAmountPromotions.TYPE }
@@ -16,6 +18,7 @@ type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
 type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface FixedAmountPromotion extends Resource {
@@ -36,8 +39,10 @@ interface FixedAmountPromotion extends Resource {
 	order_amount_promotion_rule?: OrderAmountPromotionRule
 	sku_list_promotion_rule?: SkuListPromotionRule
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule
+	sku_list?: SkuList
 	attachments?: Attachment[]
 	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -56,6 +61,7 @@ interface FixedAmountPromotionCreate extends ResourceCreate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	tags?: TagRel[]
 
 }
 
@@ -74,6 +80,7 @@ interface FixedAmountPromotionUpdate extends ResourceUpdate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	tags?: TagRel[]
 
 }
 
@@ -123,6 +130,11 @@ class FixedAmountPromotions extends ApiResource {
 		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
 	}
 
+	async sku_list(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
 	async attachments(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
@@ -131,6 +143,11 @@ class FixedAmountPromotions extends ApiResource {
 	async events(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 

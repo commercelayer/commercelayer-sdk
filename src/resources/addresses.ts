@@ -2,10 +2,13 @@ import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig,
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Geocoder } from './geocoders'
+import type { Event } from './events'
+import type { Tag } from './tags'
 
 
 type AddressRel = ResourceRel & { type: typeof Addresses.TYPE }
 type GeocoderRel = ResourceRel & { type: 'geocoders' }
+type TagRel = ResourceRel & { type: 'tags' }
 
 
 interface Address extends Resource {
@@ -36,6 +39,8 @@ interface Address extends Resource {
 	billing_info?: string
 
 	geocoder?: Geocoder
+	events?: Event[]
+	tags?: Tag[]
 
 }
 
@@ -60,6 +65,7 @@ interface AddressCreate extends ResourceCreate {
 	billing_info?: string
 
 	geocoder?: GeocoderRel
+	tags?: TagRel[]
 
 }
 
@@ -84,6 +90,7 @@ interface AddressUpdate extends ResourceUpdate {
 	billing_info?: string
 
 	geocoder?: GeocoderRel
+	tags?: TagRel[]
 
 }
 
@@ -116,6 +123,16 @@ class Addresses extends ApiResource {
 	async geocoder(addressId: string | Address, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
 		const _addressId = (addressId as Address).id || addressId as string
 		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `addresses/${_addressId}/geocoder`, params, options) as unknown as Geocoder
+	}
+
+	async events(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _addressId = (addressId as Address).id || addressId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `addresses/${_addressId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _addressId = (addressId as Address).id || addressId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `addresses/${_addressId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 
