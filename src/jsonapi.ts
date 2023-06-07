@@ -1,7 +1,7 @@
 
 import type { Value as JSONValue } from 'json-typescript'
 import type { DocWithData, Included, ResourceIdentifierObject, ResourceObject as JSONAPIObject, AttributesObject, RelationshipsObject } from 'jsonapi-typescript'
-import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource } from './resource'
+import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource, ResourceRel } from './resource'
 import { isResourceId, isResourceType } from './common'
 
 import Debug from './debug'
@@ -78,7 +78,11 @@ const normalize = (resource: (ResourceCreate & ResourceType) | (ResourceUpdate &
 	for (const field in resource) {
 		if (['type', 'id'].includes(field)) continue
 		const value = resource[field as keyof (ResourceCreate | ResourceUpdate)]
-		if (value && isResourceType(value) && (value as any).id === null) {
+		if (Array.isArray(value) && (value.length === 1) && isResourceType(value[0]) && ((value[0] as ResourceRel).id === null)) {
+			relationships[field] = { data: [] }
+		}
+		else
+		if (value && isResourceType(value) && ((value as ResourceRel).id === null)) {
 			relationships[field] = { data: null }
 		}
 		else
