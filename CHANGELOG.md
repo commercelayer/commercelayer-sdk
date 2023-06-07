@@ -1,3 +1,10 @@
+## [5.4.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.4.0...v5.4.1) (2023-06-07)
+
+
+### Bug Fixes
+
+* **core:** fix normalization of 1-n relationships ([c25c04a](https://github.com/commercelayer/commercelayer-sdk/commit/c25c04a09272000eb5d5fca0e63671c8bbc8c1c2))
+
 # [5.4.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.3.0...v5.4.0) (2023-06-05)
 
 
