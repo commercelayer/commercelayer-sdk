@@ -28,6 +28,7 @@ interface Customer extends Resource {
 	email: string
 	status: 'prospect' | 'acquired' | 'repeat'
 	has_password?: boolean | null
+	total_orders_count?: number | null
 
 	customer_group?: CustomerGroup | null
 	customer_addresses?: CustomerAddress[] | null

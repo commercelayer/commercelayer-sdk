@@ -39,7 +39,7 @@ interface Parcel extends Resource {
 	tracking_status?: string | null
 	tracking_status_detail?: string | null
 	tracking_status_updated_at?: string | null
-	tracking_details?: string | null
+	tracking_details?: Record<string, any> | null
 	carrier_weight_oz?: string | null
 	signed_by?: string | null
 	incoterm?: string | null
@@ -75,7 +75,7 @@ interface ParcelCreate extends ResourceCreate {
 	tracking_status?: string | null
 	tracking_status_detail?: string | null
 	tracking_status_updated_at?: string | null
-	tracking_details?: string | null
+	tracking_details?: Record<string, any> | null
 	carrier_weight_oz?: string | null
 	signed_by?: string | null
 	incoterm?: string | null
@@ -108,7 +108,7 @@ interface ParcelUpdate extends ResourceUpdate {
 	tracking_status?: string | null
 	tracking_status_detail?: string | null
 	tracking_status_updated_at?: string | null
-	tracking_details?: string | null
+	tracking_details?: Record<string, any> | null
 	carrier_weight_oz?: string | null
 	signed_by?: string | null
 	incoterm?: string | null

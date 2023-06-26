@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
 import type { Price } from './prices'
 import type { StockItem } from './stock_items'
+import type { StockReservation } from './stock_reservations'
 import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { SkuOption } from './sku_options'
 import type { Attachment } from './attachments'
@@ -37,6 +38,7 @@ interface Sku extends Resource {
 	shipping_category?: ShippingCategory | null
 	prices?: Price[] | null
 	stock_items?: StockItem[] | null
+	stock_reservations?: StockReservation[] | null
 	delivery_lead_times?: DeliveryLeadTime[] | null
 	sku_options?: SkuOption[] | null
 	attachments?: Attachment[] | null
@@ -113,6 +115,11 @@ class Skus extends ApiResource<Sku> {
 	async stock_items(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
 		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `skus/${_skuId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
+	}
+
+	async stock_reservations(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `skus/${_skuId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
 	}
 
 	async delivery_lead_times(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
