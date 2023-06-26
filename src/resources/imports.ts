@@ -23,11 +23,9 @@ interface Import extends Resource {
 	inputs_size?: number | null
 	errors_count?: number | null
 	warnings_count?: number | null
-	destroyed_count?: number | null
 	processed_count?: number | null
 	errors_log?: Record<string, any> | null
 	warnings_log?: Record<string, any> | null
-	cleanup_records?: boolean | null
 	attachment_url?: string | null
 
 	events?: Event[] | null
@@ -41,7 +39,6 @@ interface ImportCreate extends ResourceCreate {
 	format?: string | null
 	parent_resource_id?: string | null
 	inputs: Array<Record<string, any>>
-	cleanup_records?: boolean | null
 	
 }
 

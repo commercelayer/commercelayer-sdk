@@ -16,7 +16,10 @@ interface SatispayPayment extends Resource {
 	readonly type: SatispayPaymentType
 
 	payment_id?: string | null
+	flow?: string | null
 	redirect_url?: string | null
+	payment_url?: string | null
+	payment_response?: Record<string, any> | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
@@ -26,6 +29,7 @@ interface SatispayPayment extends Resource {
 
 interface SatispayPaymentCreate extends ResourceCreate {
 	
+	flow?: string | null
 	redirect_url?: string | null
 
 	order: OrderRel
