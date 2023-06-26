@@ -2,7 +2,9 @@ import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListRe
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { LineItem } from './line_items'
+import type { Order } from './orders'
 import type { StockItem } from './stock_items'
+import type { Sku } from './skus'
 
 
 type StockReservationRel = ResourceRel & { type: typeof StockReservations.TYPE }
@@ -15,7 +17,9 @@ interface StockReservation extends Resource {
 	expires_at?: string
 
 	line_item?: LineItem
+	order?: Order
 	stock_item?: StockItem
+	sku?: Sku
 
 }
 
@@ -38,9 +42,19 @@ class StockReservations extends ApiResource {
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_reservations/${_stockReservationId}/line_item`, params, options) as unknown as LineItem
 	}
 
+	async order(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
+		return this.resources.fetch<Order>({ type: 'orders' }, `stock_reservations/${_stockReservationId}/order`, params, options) as unknown as Order
+	}
+
 	async stock_item(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
 		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
 		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `stock_reservations/${_stockReservationId}/stock_item`, params, options) as unknown as StockItem
+	}
+
+	async sku(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_reservations/${_stockReservationId}/sku`, params, options) as unknown as Sku
 	}
 
 

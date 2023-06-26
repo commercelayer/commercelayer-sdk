@@ -19,11 +19,9 @@ interface Import extends Resource {
 	inputs_size?: number
 	errors_count?: number
 	warnings_count?: number
-	destroyed_count?: number
 	processed_count?: number
 	errors_log?: object
 	warnings_log?: object
-	cleanup_records?: boolean
 	attachment_url?: string
 
 	events?: Event[]
@@ -37,7 +35,6 @@ interface ImportCreate extends ResourceCreate {
 	format?: string
 	parent_resource_id?: string
 	inputs: object[]
-	cleanup_records?: boolean
 	
 }
 

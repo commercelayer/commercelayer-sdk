@@ -24,6 +24,7 @@ interface Customer extends Resource {
 	email?: string
 	status?: string
 	has_password?: boolean
+	total_orders_count?: number
 
 	customer_group?: CustomerGroup
 	customer_addresses?: CustomerAddress[]

@@ -12,7 +12,10 @@ type OrderRel = ResourceRel & { type: 'orders' }
 interface SatispayPayment extends Resource {
 	
 	payment_id?: string
+	flow?: string
 	redirect_url?: string
+	payment_url?: string
+	payment_response?: object
 
 	order?: Order
 	payment_gateway?: PaymentGateway
@@ -22,6 +25,7 @@ interface SatispayPayment extends Resource {
 
 interface SatispayPaymentCreate extends ResourceCreate {
 	
+	flow?: string
 	redirect_url?: string
 
 	order: OrderRel
