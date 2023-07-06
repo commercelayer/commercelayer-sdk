@@ -72,7 +72,6 @@ interface Order extends Resource {
 	shipping_country_code_lock?: string
 	coupon_code?: string
 	gift_card_code?: string
-	gift_card_or_coupon_code?: string
 	subtotal_amount_cents?: number
 	subtotal_amount_float?: number
 	formatted_subtotal_amount?: string
@@ -194,7 +193,6 @@ interface OrderCreate extends ResourceCreate {
 	shipping_country_code_lock?: string
 	coupon_code?: string
 	gift_card_code?: string
-	gift_card_or_coupon_code?: string
 	cart_url?: string
 	return_url?: string
 	terms_url?: string
@@ -221,7 +219,6 @@ interface OrderUpdate extends ResourceUpdate {
 	shipping_country_code_lock?: string
 	coupon_code?: string
 	gift_card_code?: string
-	gift_card_or_coupon_code?: string
 	cart_url?: string
 	return_url?: string
 	terms_url?: string
@@ -251,6 +248,8 @@ interface OrderUpdate extends ResourceUpdate {
 	_refresh?: boolean
 	_validate?: boolean
 	_create_subscriptions?: boolean
+	_start_editing?: boolean
+	_stop_editing?: boolean
 
 	market?: MarketRel
 	customer?: CustomerRel

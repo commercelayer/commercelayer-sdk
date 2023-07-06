@@ -15,6 +15,9 @@ interface SatispayPayment extends Resource {
 	flow?: string
 	redirect_url?: string
 	payment_url?: string
+	intent_amount_cents?: number
+	intent_amount_float?: number
+	formatted_intent_amount?: string
 	payment_response?: object
 
 	order?: Order
