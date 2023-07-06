@@ -60,7 +60,7 @@ interface Order extends Resource {
 
 	number?: number | null
 	autorefresh?: boolean | null
-	status: 'draft' | 'pending' | 'placed' | 'approved' | 'cancelled'
+	status: 'draft' | 'pending' | 'placed' | 'editing' | 'approved' | 'cancelled'
 	payment_status: 'unpaid' | 'authorized' | 'partially_authorized' | 'paid' | 'partially_paid' | 'voided' | 'partially_voided' | 'refunded' | 'partially_refunded' | 'free'
 	fulfillment_status: 'unfulfilled' | 'in_progress' | 'fulfilled' | 'not_required'
 	guest?: boolean | null
@@ -76,7 +76,6 @@ interface Order extends Resource {
 	shipping_country_code_lock?: string | null
 	coupon_code?: string | null
 	gift_card_code?: string | null
-	gift_card_or_coupon_code?: string | null
 	subtotal_amount_cents?: number | null
 	subtotal_amount_float?: number | null
 	formatted_subtotal_amount?: string | null
@@ -198,7 +197,6 @@ interface OrderCreate extends ResourceCreate {
 	shipping_country_code_lock?: string | null
 	coupon_code?: string | null
 	gift_card_code?: string | null
-	gift_card_or_coupon_code?: string | null
 	cart_url?: string | null
 	return_url?: string | null
 	terms_url?: string | null
@@ -225,7 +223,6 @@ interface OrderUpdate extends ResourceUpdate {
 	shipping_country_code_lock?: string | null
 	coupon_code?: string | null
 	gift_card_code?: string | null
-	gift_card_or_coupon_code?: string | null
 	cart_url?: string | null
 	return_url?: string | null
 	terms_url?: string | null
@@ -255,6 +252,8 @@ interface OrderUpdate extends ResourceUpdate {
 	_refresh?: boolean | null
 	_validate?: boolean | null
 	_create_subscriptions?: boolean | null
+	_start_editing?: boolean | null
+	_stop_editing?: boolean | null
 
 	market?: MarketRel | null
 	customer?: CustomerRel | null
