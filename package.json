@@ -38,7 +38,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.22.7",
     "@babel/preset-typescript": "^7.22.5",
-    "@commercelayer/eslint-config-ts": "1.0.0",
+    "@commercelayer/eslint-config-ts": "1.0.1",
     "@commercelayer/js-auth": "^2.3.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
