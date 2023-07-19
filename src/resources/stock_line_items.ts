@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve } from '../query'
 import type { Shipment } from './shipments'
 import type { LineItem } from './line_items'
 import type { StockItem } from './stock_items'
+import type { Sku } from './skus'
 
 
 type StockLineItemType = 'stock_line_items'
@@ -22,6 +23,7 @@ interface StockLineItem extends Resource {
 	shipment?: Shipment | null
 	line_item?: LineItem | null
 	stock_item?: StockItem | null
+	sku?: Sku | null
 
 }
 
@@ -43,6 +45,11 @@ class StockLineItems extends ApiResource<StockLineItem> {
 	async stock_item(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
 		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
 		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `stock_line_items/${_stockLineItemId}/stock_item`, params, options) as unknown as StockItem
+	}
+
+	async sku(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_line_items/${_stockLineItemId}/sku`, params, options) as unknown as Sku
 	}
 
 

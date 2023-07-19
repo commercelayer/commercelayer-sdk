@@ -17,6 +17,7 @@ interface ParcelLineItem extends Resource {
 	readonly type: ParcelLineItemType
 
 	sku_code?: string | null
+	bundle_code?: string | null
 	quantity: number
 	name: string
 	image_url?: string | null
@@ -33,7 +34,6 @@ interface ParcelLineItem extends Resource {
 
 interface ParcelLineItemCreate extends ResourceCreate {
 	
-	sku_code?: string | null
 	quantity: number
 
 	parcel: ParcelRel

@@ -18,8 +18,9 @@ interface ReturnLineItem extends Resource {
 
 	sku_code?: string | null
 	bundle_code?: string | null
-	name?: string | null
 	quantity: number
+	name?: string | null
+	image_url?: string | null
 	return_reason?: Record<string, any> | null
 	restocked_at?: string | null
 

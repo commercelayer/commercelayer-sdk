@@ -25,6 +25,7 @@ describe('CustomerAddresses resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
+			customer_email: randomValue('string', 'customer_email'),
 			customer: cl.customers.relationship(TestData.id),
 			address: cl.addresses.relationship(TestData.id),
 		}

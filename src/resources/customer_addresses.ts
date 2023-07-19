@@ -18,6 +18,7 @@ interface CustomerAddress extends Resource {
 	readonly type: CustomerAddressType
 
 	name?: string | null
+	customer_email: string
 
 	customer?: Customer | null
 	address?: Address | null
@@ -28,6 +29,8 @@ interface CustomerAddress extends Resource {
 
 interface CustomerAddressCreate extends ResourceCreate {
 	
+	customer_email: string
+
 	customer: CustomerRel
 	address: AddressRel
 

@@ -3,6 +3,7 @@ import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse }
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
+import type { Attachment } from './attachments'
 import type { Authorization } from './authorizations'
 import type { Event } from './events'
 
@@ -28,6 +29,7 @@ interface Void extends Resource {
 	gateway_transaction_id?: string | null
 
 	order?: Order | null
+	attachments?: Attachment[] | null
 	reference_authorization?: Authorization | null
 	events?: Event[] | null
 
@@ -41,6 +43,11 @@ class Voids extends ApiResource<Void> {
 	async order(voidId: string | Void, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `voids/${_voidId}/order`, params, options) as unknown as Order
+	}
+
+	async attachments(voidId: string | Void, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _voidId = (voidId as Void).id || voidId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `voids/${_voidId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async reference_authorization(voidId: string | Void, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {

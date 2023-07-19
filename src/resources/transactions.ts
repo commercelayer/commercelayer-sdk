@@ -1,8 +1,9 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
+import type { Attachment } from './attachments'
 
 
 type TransactionType = 'transactions'
@@ -26,6 +27,7 @@ interface Transaction extends Resource {
 	gateway_transaction_id?: string | null
 
 	order?: Order | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -37,6 +39,11 @@ class Transactions extends ApiResource<Transaction> {
 	async order(transactionId: string | Transaction, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _transactionId = (transactionId as Transaction).id || transactionId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `transactions/${_transactionId}/order`, params, options) as unknown as Order
+	}
+
+	async attachments(transactionId: string | Transaction, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _transactionId = (transactionId as Transaction).id || transactionId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `transactions/${_transactionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

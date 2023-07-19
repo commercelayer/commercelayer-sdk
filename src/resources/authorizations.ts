@@ -3,6 +3,7 @@ import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
+import type { Attachment } from './attachments'
 import type { Capture } from './captures'
 import type { Void } from './voids'
 import type { Event } from './events'
@@ -43,6 +44,7 @@ interface Authorization extends Resource {
 	formatted_void_balance?: string | null
 
 	order?: Order | null
+	attachments?: Attachment[] | null
 	captures?: Capture[] | null
 	voids?: Void[] | null
 	events?: Event[] | null
@@ -70,6 +72,11 @@ class Authorizations extends ApiResource<Authorization> {
 	async order(authorizationId: string | Authorization, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `authorizations/${_authorizationId}/order`, params, options) as unknown as Order
+	}
+
+	async attachments(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `authorizations/${_authorizationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async captures(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
