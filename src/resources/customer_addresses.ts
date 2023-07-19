@@ -14,6 +14,7 @@ type AddressRel = ResourceRel & { type: 'addresses' }
 interface CustomerAddress extends Resource {
 	
 	name?: string
+	customer_email?: string
 
 	customer?: Customer
 	address?: Address
@@ -24,6 +25,8 @@ interface CustomerAddress extends Resource {
 
 interface CustomerAddressCreate extends ResourceCreate {
 	
+	customer_email: string
+
 	customer: CustomerRel
 	address: AddressRel
 

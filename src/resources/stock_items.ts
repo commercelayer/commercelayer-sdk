@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { StockLocation } from './stock_locations'
 import type { Sku } from './skus'
+import type { ReservedStock } from './reserved_stocks'
 import type { StockReservation } from './stock_reservations'
 import type { Attachment } from './attachments'
 
@@ -19,6 +20,7 @@ interface StockItem extends Resource {
 
 	stock_location?: StockLocation
 	sku?: Sku
+	reserved_stock?: ReservedStock
 	stock_reservations?: StockReservation[]
 	attachments?: Attachment[]
 
@@ -80,6 +82,11 @@ class StockItems extends ApiResource {
 	async sku(stockItemId: string | StockItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_items/${_stockItemId}/sku`, params, options) as unknown as Sku
+	}
+
+	async reserved_stock(stockItemId: string | StockItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReservedStock> {
+		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
+		return this.resources.fetch<ReservedStock>({ type: 'reserved_stocks' }, `stock_items/${_stockItemId}/reserved_stock`, params, options) as unknown as ReservedStock
 	}
 
 	async stock_reservations(stockItemId: string | StockItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {

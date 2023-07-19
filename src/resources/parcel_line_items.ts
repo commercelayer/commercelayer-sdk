@@ -13,6 +13,7 @@ type StockLineItemRel = ResourceRel & { type: 'stock_line_items' }
 interface ParcelLineItem extends Resource {
 	
 	sku_code?: string
+	bundle_code?: string
 	quantity?: number
 	name?: string
 	image_url?: string
@@ -29,7 +30,6 @@ interface ParcelLineItem extends Resource {
 
 interface ParcelLineItemCreate extends ResourceCreate {
 	
-	sku_code?: string
 	quantity: number
 
 	parcel: ParcelRel

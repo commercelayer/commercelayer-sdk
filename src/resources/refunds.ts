@@ -2,6 +2,7 @@ import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListRe
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
+import type { Attachment } from './attachments'
 import type { Capture } from './captures'
 import type { Event } from './events'
 
@@ -24,6 +25,7 @@ interface Refund extends Resource {
 	gateway_transaction_id?: string
 
 	order?: Order
+	attachments?: Attachment[]
 	reference_capture?: Capture
 	events?: Event[]
 
@@ -46,6 +48,11 @@ class Refunds extends ApiResource {
 	async order(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `refunds/${_refundId}/order`, params, options) as unknown as Order
+	}
+
+	async attachments(refundId: string | Refund, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _refundId = (refundId as Refund).id || refundId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `refunds/${_refundId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async reference_capture(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
