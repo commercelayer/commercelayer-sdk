@@ -1,3 +1,10 @@
+## [5.9.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.9.0...v5.9.1) (2023-07-21)
+
+
+### Bug Fixes
+
+* **core:** fix types import ([a6f97cf](https://github.com/commercelayer/commercelayer-sdk/commit/a6f97cfbf8c0aa6abbc7ee13c4b1c0a5c9c246f8))
+
 # [5.9.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.8.0...v5.9.0) (2023-07-21)
 
 
