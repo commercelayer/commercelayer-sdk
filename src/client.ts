@@ -1,5 +1,6 @@
 
-import axios, { AxiosAdapter, CreateAxiosDefaults, type AxiosInstance, type AxiosProxyConfig, type Method } from 'axios'
+import axios from 'axios'
+import type { AxiosAdapter, CreateAxiosDefaults, AxiosInstance, AxiosProxyConfig, Method } from 'axios'
 import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
