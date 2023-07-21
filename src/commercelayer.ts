@@ -14,7 +14,10 @@ const OPEN_API_SCHEMA_VERSION = '4.10.0'
 export { OPEN_API_SCHEMA_VERSION }
 
 
-type SdkConfig = Record<string, unknown>
+// SDK local configuration
+type SdkConfig = {
+	// abc?: string
+}
 
 type CommerceLayerInitConfig = SdkConfig & ResourcesInitConfig
 type CommerceLayerConfig = Partial<CommerceLayerInitConfig>

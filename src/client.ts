@@ -1,5 +1,5 @@
 
-import axios, { type AxiosInstance, type AxiosProxyConfig, type Method } from 'axios'
+import axios, { AxiosAdapter, CreateAxiosDefaults, type AxiosInstance, type AxiosProxyConfig, type Method } from 'axios'
 import { SdkError, ApiError, ErrorType } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
@@ -49,6 +49,7 @@ const handleError = (error: Error): never => {
 
 
 type ProxyConfig = AxiosProxyConfig | false
+type Adapter = AxiosAdapter
 
 type RequestParams = Record<string, string | number | boolean>
 type RequestHeaders = Record<string, string>
@@ -63,7 +64,13 @@ type RequestConfig = {
 	headers?: RequestHeaders
 }
 
-type ApiClientInitConfig = { organization: string, domain?: string, accessToken: string } & RequestConfig
+type ApiConfig = {
+	organization: string,
+	domain?: string,
+	accessToken: string
+}
+
+type ApiClientInitConfig = ApiConfig & RequestConfig & { adapter?: Adapter }
 type ApiClientConfig = Partial<ApiClientInitConfig>
 
 
@@ -98,7 +105,7 @@ class ApiClient {
 		// Set custom headers
 		const customHeaders = this.customHeaders(options.headers)
 
-		const axiosOptions = {
+		const axiosOptions: CreateAxiosDefaults = {
 			baseURL: this.baseUrl,
 			timeout: config.client.timeout,
 			headers: {
@@ -110,6 +117,8 @@ class ApiClient {
 			...axiosConfig
 		}
 
+		if (options.adapter) axiosOptions.adapter = options.adapter
+
 		debug('axios options: %O', axiosOptions)
 
 		this.#client = axios.create(axiosOptions)
@@ -119,7 +128,7 @@ class ApiClient {
 	}
 
 
-	config(config: ApiClientConfig): void {
+	config(config: ApiClientConfig): ApiClient {
 
 		debug('config %o', config)
 
@@ -138,7 +147,16 @@ class ApiClient {
 			def.headers.common.Authorization = 'Bearer ' + this.#accessToken;
 		}
 		if (config.headers) def.headers.common = this.customHeaders(config.headers)
+		if (config.adapter) this.adapter(config.adapter)
 
+		return this
+
+	}
+
+
+	adapter(adapter: Adapter): ApiClient {
+		if (adapter) this.#client.defaults.adapter = adapter
+		return this
 	}
 
 
