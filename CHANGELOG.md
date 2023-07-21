@@ -1,3 +1,10 @@
+# [5.9.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.8.0...v5.9.0) (2023-07-21)
+
+
+### Features
+
+* **core:** add support for Axios adapter ([5db0fd3](https://github.com/commercelayer/commercelayer-sdk/commit/5db0fd35c4173a58aa0b5c28a9003d41eb72b474))
+
 # [5.8.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.7.0...v5.8.0) (2023-07-19)
 
 
