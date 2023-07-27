@@ -38,6 +38,11 @@ interface Shipment extends Resource {
 	purchase_started_at?: string
 	purchase_completed_at?: string
 	purchase_failed_at?: string
+	on_hold_at?: string
+	picking_at?: string
+	packing_at?: string
+	ready_to_ship_at?: string
+	shipped_at?: string
 
 	order?: Order
 	shipping_category?: ShippingCategory
