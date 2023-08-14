@@ -705,8 +705,36 @@ export type DeletableResourceType =
 |	'taxjar_accounts'
 |	'webhooks'
 |	'wire_transfers'
-// ##__API_RESOURCE_DELETABLE_STOP__##
+	// ##__API_RESOURCE_DELETABLE_STOP__##
 
 export type DeletableResource = {
 	type: DeletableResourceType
+}
+
+
+// Taggable resources
+export type TaggableResourceType =
+	// ##__API_RESOURCE_TAGGABLE_START__##
+	'addresses'
+|	'bundles'
+|	'coupons'
+|	'customers'
+|	'external_promotions'
+|	'fixed_amount_promotions'
+|	'fixed_price_promotions'
+|	'free_gift_promotions'
+|	'free_shipping_promotions'
+|	'gift_cards'
+|	'line_item_options'
+|	'line_items'
+|	'orders'
+|	'percentage_discount_promotions'
+|	'promotions'
+|	'returns'
+|	'sku_options'
+|	'skus'
+	// ##__API_RESOURCE_TAGGABLE_STOP__##
+
+export type TaggableResource = {
+	type: TaggableResourceType
 }

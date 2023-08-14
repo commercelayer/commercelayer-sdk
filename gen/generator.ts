@@ -17,6 +17,7 @@ type ApiRes = {
 	models: Array<String>
 	singleton: boolean
 	operations: Array<OperationType>
+	taggable: boolean
 }
 
 
@@ -112,13 +113,15 @@ const generate = async (localSchema?: boolean) => {
 		const models = Object.keys(res.components)
 		const singleton = Object.values(res.operations).some(op => op.singleton)
 		const operations = Object.keys(res.operations).filter(op => ['retrieve', 'list', 'create', 'update', 'delete'].includes(op)) as OperationType[]
+		const taggable = Object.keys(res.operations).includes('tags')
 
 		resources[type] = {
 			type,
 			apiClass: name,
 			models,
 			singleton,
-			operations: singleton? [] : operations
+			operations: singleton? [] : operations,
+			taggable
 		}
 
 	})
@@ -268,6 +271,7 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const creatables: string[] = []
 	const updatables: string[] = []
 	const deletables: string[] = []
+	const taggables: string[] = []
 
 	Object.entries(resources).forEach(([type, res]) => {
 
@@ -284,6 +288,7 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 		if (res.operations.includes('create')) creatables.push(tabType)
 		if (res.operations.includes('update')) updatables.push(tabType)
 		if (res.operations.includes('delete')) deletables.push(tabType)
+		if (res.taggable) taggables.push(tabType)
 
 	})
 
@@ -322,6 +327,10 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const rdStartIdx = findLine('##__API_RESOURCE_DELETABLE_START__##', lines).index + 1
 	const rdStopIdx = findLine('##__API_RESOURCE_DELETABLE_STOP__##', lines).index
 	lines.splice(rdStartIdx, rdStopIdx - rdStartIdx, deletables.join('\n|'))
+
+	const rtStartIdx = findLine('##__API_RESOURCE_TAGGABLE_START__##', lines).index + 1
+	const rtStopIdx = findLine('##__API_RESOURCE_TAGGABLE_STOP__##', lines).index
+	lines.splice(rtStartIdx, rtStopIdx - rtStartIdx, taggables.join('\n|'))
 
 
 	writeFileSync('src/api.ts', lines.join('\n'), { encoding: 'utf-8' })
