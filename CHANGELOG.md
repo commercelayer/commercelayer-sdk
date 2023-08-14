@@ -1,3 +1,10 @@
+# [5.11.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.10.0...v5.11.0) (2023-08-14)
+
+
+### Features
+
+* **core:** add type for taggable resources ([e137269](https://github.com/commercelayer/commercelayer-sdk/commit/e1372692a8ac301b760a1399db6baa2daa587482))
+
 # [5.10.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.9.1...v5.10.0) (2023-07-27)
 
 
