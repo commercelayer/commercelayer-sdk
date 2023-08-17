@@ -76,6 +76,10 @@ class SatispayPayments extends ApiResource<SatispayPayment> {
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `satispay_payments/${_satispayPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
+	async _refresh(id: string | SatispayPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SatispayPayment> {
+		return this.resources.update<SatispayPaymentUpdate, SatispayPayment>({ id: (typeof id === 'string')? id: id.id, type: SatispayPayments.TYPE, _refresh: true }, params, options)
+	}
+
 
 	isSatispayPayment(resource: any): resource is SatispayPayment {
 		return resource.type && (resource.type === SatispayPayments.TYPE)

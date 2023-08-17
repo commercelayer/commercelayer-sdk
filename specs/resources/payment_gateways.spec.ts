@@ -82,6 +82,7 @@ describe('PaymentGateways resource', () => {
 
   
 
+	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
@@ -99,5 +100,7 @@ describe('PaymentGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.payment_methods stop */
 	
+  
 })

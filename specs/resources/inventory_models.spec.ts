@@ -150,6 +150,7 @@ describe('InventoryModels resource', () => {
 
   
 
+	/* relationship.inventory_stock_locations start */
 	it(resourceType + '.inventory_stock_locations', async () => {
 	
 		const id = TestData.id
@@ -167,8 +168,10 @@ describe('InventoryModels resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.inventory_stock_locations stop */
 	
 
+	/* relationship.inventory_return_locations start */
 	it(resourceType + '.inventory_return_locations', async () => {
 	
 		const id = TestData.id
@@ -186,8 +189,10 @@ describe('InventoryModels resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.inventory_return_locations stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -205,5 +210,7 @@ describe('InventoryModels resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

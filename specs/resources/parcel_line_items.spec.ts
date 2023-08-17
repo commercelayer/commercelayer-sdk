@@ -152,6 +152,7 @@ describe('ParcelLineItems resource', () => {
 
   
 
+	/* relationship.parcel start */
 	it(resourceType + '.parcel', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('ParcelLineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.parcel stop */
 	
 
+	/* relationship.stock_line_item start */
 	it(resourceType + '.stock_line_item', async () => {
 	
 		const id = TestData.id
@@ -188,5 +191,7 @@ describe('ParcelLineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_line_item stop */
 	
+  
 })

@@ -152,6 +152,7 @@ describe('StockItems resource', () => {
 
   
 
+	/* relationship.stock_location start */
 	it(resourceType + '.stock_location', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('StockItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_location stop */
 	
 
+	/* relationship.sku start */
 	it(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
@@ -188,8 +191,10 @@ describe('StockItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku stop */
 	
 
+	/* relationship.reserved_stock start */
 	it(resourceType + '.reserved_stock', async () => {
 	
 		const id = TestData.id
@@ -207,8 +212,10 @@ describe('StockItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.reserved_stock stop */
 	
 
+	/* relationship.stock_reservations start */
 	it(resourceType + '.stock_reservations', async () => {
 	
 		const id = TestData.id
@@ -226,8 +233,10 @@ describe('StockItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_reservations stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -245,5 +254,7 @@ describe('StockItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

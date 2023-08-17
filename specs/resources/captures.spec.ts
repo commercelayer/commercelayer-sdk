@@ -104,6 +104,7 @@ describe('Captures resource', () => {
 
   
 
+	/* relationship.order start */
 	it(resourceType + '.order', async () => {
 	
 		const id = TestData.id
@@ -121,8 +122,10 @@ describe('Captures resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -140,8 +143,10 @@ describe('Captures resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
 
+	/* relationship.reference_authorization start */
 	it(resourceType + '.reference_authorization', async () => {
 	
 		const id = TestData.id
@@ -159,8 +164,10 @@ describe('Captures resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.reference_authorization stop */
 	
 
+	/* relationship.refunds start */
 	it(resourceType + '.refunds', async () => {
 	
 		const id = TestData.id
@@ -178,8 +185,10 @@ describe('Captures resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.refunds stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -197,5 +206,57 @@ describe('Captures resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
+	
+  
+
+	/* trigger._refund start */
+	it(resourceType + '._refund', async () => {
+	
+		let triggerAttr = '_refund'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._refund(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._refund stop */
+	
+
+	/* trigger._refund_amount_cents start */
+	it(resourceType + '._refund_amount_cents', async () => {
+	
+		let triggerAttr = '_refund_amount_cents'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = randomValue('integer')
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._refund_amount_cents(id, triggerValue, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._refund_amount_cents stop */
 	
 })

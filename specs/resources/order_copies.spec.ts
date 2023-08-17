@@ -150,6 +150,7 @@ describe('OrderCopies resource', () => {
 
   
 
+	/* relationship.source_order start */
 	it(resourceType + '.source_order', async () => {
 	
 		const id = TestData.id
@@ -167,8 +168,10 @@ describe('OrderCopies resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.source_order stop */
 	
 
+	/* relationship.target_order start */
 	it(resourceType + '.target_order', async () => {
 	
 		const id = TestData.id
@@ -186,8 +189,10 @@ describe('OrderCopies resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.target_order stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -205,8 +210,10 @@ describe('OrderCopies resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.order_subscription start */
 	it(resourceType + '.order_subscription', async () => {
 	
 		const id = TestData.id
@@ -224,5 +231,7 @@ describe('OrderCopies resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order_subscription stop */
 	
+  
 })

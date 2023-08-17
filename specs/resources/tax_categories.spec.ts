@@ -152,6 +152,7 @@ describe('TaxCategories resource', () => {
 
   
 
+	/* relationship.sku start */
 	it(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('TaxCategories resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -188,5 +191,7 @@ describe('TaxCategories resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

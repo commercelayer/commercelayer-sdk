@@ -150,6 +150,7 @@ describe('ShippingZones resource', () => {
 
   
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -167,5 +168,7 @@ describe('ShippingZones resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

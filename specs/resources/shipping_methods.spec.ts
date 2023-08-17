@@ -156,6 +156,7 @@ describe('ShippingMethods resource', () => {
 
   
 
+	/* relationship.market start */
 	it(resourceType + '.market', async () => {
 	
 		const id = TestData.id
@@ -173,8 +174,10 @@ describe('ShippingMethods resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.market stop */
 	
 
+	/* relationship.shipping_zone start */
 	it(resourceType + '.shipping_zone', async () => {
 	
 		const id = TestData.id
@@ -192,8 +195,10 @@ describe('ShippingMethods resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.shipping_zone stop */
 	
 
+	/* relationship.shipping_category start */
 	it(resourceType + '.shipping_category', async () => {
 	
 		const id = TestData.id
@@ -211,8 +216,10 @@ describe('ShippingMethods resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.shipping_category stop */
 	
 
+	/* relationship.stock_location start */
 	it(resourceType + '.stock_location', async () => {
 	
 		const id = TestData.id
@@ -230,8 +237,10 @@ describe('ShippingMethods resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_location stop */
 	
 
+	/* relationship.delivery_lead_time_for_shipment start */
 	it(resourceType + '.delivery_lead_time_for_shipment', async () => {
 	
 		const id = TestData.id
@@ -249,8 +258,10 @@ describe('ShippingMethods resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.delivery_lead_time_for_shipment stop */
 	
 
+	/* relationship.shipping_method_tiers start */
 	it(resourceType + '.shipping_method_tiers', async () => {
 	
 		const id = TestData.id
@@ -268,8 +279,10 @@ describe('ShippingMethods resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.shipping_method_tiers stop */
 	
 
+	/* relationship.shipping_weight_tiers start */
 	it(resourceType + '.shipping_weight_tiers', async () => {
 	
 		const id = TestData.id
@@ -287,8 +300,10 @@ describe('ShippingMethods resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.shipping_weight_tiers stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -306,5 +321,57 @@ describe('ShippingMethods resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
+	
+  
+
+	/* trigger._disable start */
+	it(resourceType + '._disable', async () => {
+	
+		let triggerAttr = '_disable'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._disable(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._disable stop */
+	
+
+	/* trigger._enable start */
+	it(resourceType + '._enable', async () => {
+	
+		let triggerAttr = '_enable'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._enable(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._enable stop */
 	
 })

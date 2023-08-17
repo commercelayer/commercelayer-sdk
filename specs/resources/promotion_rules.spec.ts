@@ -81,4 +81,5 @@ describe('PromotionRules resource', () => {
   /* spec.type.stop */
 
   
+  
 })

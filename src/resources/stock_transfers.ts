@@ -113,6 +113,26 @@ class StockTransfers extends ApiResource<StockTransfer> {
 		return this.resources.fetch<Event>({ type: 'events' }, `stock_transfers/${_stockTransferId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async _upcoming(id: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _upcoming: true }, params, options)
+	}
+
+	async _picking(id: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _picking: true }, params, options)
+	}
+
+	async _in_transit(id: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _in_transit: true }, params, options)
+	}
+
+	async _complete(id: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _complete: true }, params, options)
+	}
+
+	async _cancel(id: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _cancel: true }, params, options)
+	}
+
 
 	isStockTransfer(resource: any): resource is StockTransfer {
 		return resource.type && (resource.type === StockTransfers.TYPE)

@@ -26,7 +26,7 @@ type CommerceLayerConfig = Partial<CommerceLayerInitConfig>
 
 class CommerceLayerClient {
 
-	static get openApiSchemaVersion(): string { return OPEN_API_SCHEMA_VERSION }
+	// static get openApiSchemaVersion(): string { return OPEN_API_SCHEMA_VERSION }
 	readonly openApiSchemaVersion = OPEN_API_SCHEMA_VERSION
 
 	readonly #adapter: ResourceAdapter

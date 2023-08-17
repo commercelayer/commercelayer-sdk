@@ -74,6 +74,10 @@ class KlarnaPayments extends ApiResource<KlarnaPayment> {
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `klarna_payments/${_klarnaPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
+	async _update(id: string | KlarnaPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {
+		return this.resources.update<KlarnaPaymentUpdate, KlarnaPayment>({ id: (typeof id === 'string')? id: id.id, type: KlarnaPayments.TYPE, _update: true }, params, options)
+	}
+
 
 	isKlarnaPayment(resource: any): resource is KlarnaPayment {
 		return resource.type && (resource.type === KlarnaPayments.TYPE)

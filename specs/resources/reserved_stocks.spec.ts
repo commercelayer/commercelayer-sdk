@@ -82,6 +82,7 @@ describe('ReservedStocks resource', () => {
 
   
 
+	/* relationship.stock_item start */
 	it(resourceType + '.stock_item', async () => {
 	
 		const id = TestData.id
@@ -99,8 +100,10 @@ describe('ReservedStocks resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_item stop */
 	
 
+	/* relationship.sku start */
 	it(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
@@ -118,8 +121,10 @@ describe('ReservedStocks resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku stop */
 	
 
+	/* relationship.stock_reservations start */
 	it(resourceType + '.stock_reservations', async () => {
 	
 		const id = TestData.id
@@ -137,5 +142,7 @@ describe('ReservedStocks resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_reservations stop */
 	
+  
 })

@@ -1,0 +1,3 @@
+async ##__OPERATION_NAME__##(id: string | ##__RESOURCE_RESPONSE_CLASS__##,##__TRIGGER_VALUE__## params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<##__RESOURCE_RESPONSE_CLASS__##> {
+	return this.resources.update<##__RESOURCE_REQUEST_CLASS__##, ##__RESOURCE_RESPONSE_CLASS__##>({ id: (typeof id === 'string')? id: id.id, type: ##__RESOURCE_CLASS__##.TYPE, ##__OPERATION_NAME__##: ##__TRIGGER_VALUE_TYPE__## }, params, options)
+}

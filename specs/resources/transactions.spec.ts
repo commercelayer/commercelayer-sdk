@@ -82,6 +82,7 @@ describe('Transactions resource', () => {
 
   
 
+	/* relationship.order start */
 	it(resourceType + '.order', async () => {
 	
 		const id = TestData.id
@@ -99,8 +100,10 @@ describe('Transactions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -118,5 +121,7 @@ describe('Transactions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

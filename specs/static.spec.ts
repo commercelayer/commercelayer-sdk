@@ -1,5 +1,6 @@
 
 import { CommerceLayerClient, CommerceLayerStatic } from '../src'
+import { OPEN_API_SCHEMA_VERSION } from '../src/commercelayer'
 import { getClient, organization } from '../test/common'
 
 
@@ -33,6 +34,11 @@ describe('SDK:static suite', () => {
 	it('static.init', async () => {
 		const client = CommerceLayerStatic.init({ organization: organization, accessToken: 'fake-access-token' })
 		expect(client).not.toBeNull()
+	})
+
+	it('static.schema', async () => {
+		const sver = CommerceLayerStatic.schemaVersion
+		expect(sver).toBe(OPEN_API_SCHEMA_VERSION)
 	})
 
 })

@@ -356,6 +356,7 @@ type Operation = {
 	responseType?: any
 	singleton: boolean
 	relationship?: Relationship
+	trigger?: boolean
 }
 
 

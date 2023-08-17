@@ -156,6 +156,7 @@ describe('Markets resource', () => {
 
   
 
+	/* relationship.merchant start */
 	it(resourceType + '.merchant', async () => {
 	
 		const id = TestData.id
@@ -173,8 +174,10 @@ describe('Markets resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.merchant stop */
 	
 
+	/* relationship.price_list start */
 	it(resourceType + '.price_list', async () => {
 	
 		const id = TestData.id
@@ -192,8 +195,10 @@ describe('Markets resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.price_list stop */
 	
 
+	/* relationship.inventory_model start */
 	it(resourceType + '.inventory_model', async () => {
 	
 		const id = TestData.id
@@ -211,8 +216,10 @@ describe('Markets resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.inventory_model stop */
 	
 
+	/* relationship.subscription_model start */
 	it(resourceType + '.subscription_model', async () => {
 	
 		const id = TestData.id
@@ -230,8 +237,10 @@ describe('Markets resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.subscription_model stop */
 	
 
+	/* relationship.tax_calculator start */
 	it(resourceType + '.tax_calculator', async () => {
 	
 		const id = TestData.id
@@ -249,8 +258,10 @@ describe('Markets resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tax_calculator stop */
 	
 
+	/* relationship.customer_group start */
 	it(resourceType + '.customer_group', async () => {
 	
 		const id = TestData.id
@@ -268,8 +279,10 @@ describe('Markets resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer_group stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -287,5 +300,57 @@ describe('Markets resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
+	
+  
+
+	/* trigger._disable start */
+	it(resourceType + '._disable', async () => {
+	
+		let triggerAttr = '_disable'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._disable(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._disable stop */
+	
+
+	/* trigger._enable start */
+	it(resourceType + '._enable', async () => {
+	
+		let triggerAttr = '_enable'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._enable(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._enable stop */
 	
 })

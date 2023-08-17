@@ -154,6 +154,7 @@ describe('AdyenGateways resource', () => {
 
   
 
+	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
@@ -171,8 +172,10 @@ describe('AdyenGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.payment_methods stop */
 	
 
+	/* relationship.adyen_payments start */
 	it(resourceType + '.adyen_payments', async () => {
 	
 		const id = TestData.id
@@ -190,5 +193,7 @@ describe('AdyenGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.adyen_payments stop */
 	
+  
 })

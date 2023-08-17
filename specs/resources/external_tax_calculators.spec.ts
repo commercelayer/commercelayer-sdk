@@ -151,6 +151,7 @@ describe('ExternalTaxCalculators resource', () => {
 
   
 
+	/* relationship.markets start */
 	it(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
@@ -168,8 +169,10 @@ describe('ExternalTaxCalculators resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.markets stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -187,5 +190,7 @@ describe('ExternalTaxCalculators resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

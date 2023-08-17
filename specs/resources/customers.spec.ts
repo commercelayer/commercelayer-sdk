@@ -152,6 +152,7 @@ describe('Customers resource', () => {
 
   
 
+	/* relationship.customer_group start */
 	it(resourceType + '.customer_group', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer_group stop */
 	
 
+	/* relationship.customer_addresses start */
 	it(resourceType + '.customer_addresses', async () => {
 	
 		const id = TestData.id
@@ -188,8 +191,10 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer_addresses stop */
 	
 
+	/* relationship.customer_payment_sources start */
 	it(resourceType + '.customer_payment_sources', async () => {
 	
 		const id = TestData.id
@@ -207,8 +212,10 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer_payment_sources stop */
 	
 
+	/* relationship.customer_subscriptions start */
 	it(resourceType + '.customer_subscriptions', async () => {
 	
 		const id = TestData.id
@@ -226,8 +233,10 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer_subscriptions stop */
 	
 
+	/* relationship.orders start */
 	it(resourceType + '.orders', async () => {
 	
 		const id = TestData.id
@@ -245,8 +254,10 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.orders stop */
 	
 
+	/* relationship.order_subscriptions start */
 	it(resourceType + '.order_subscriptions', async () => {
 	
 		const id = TestData.id
@@ -264,8 +275,10 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order_subscriptions stop */
 	
 
+	/* relationship.returns start */
 	it(resourceType + '.returns', async () => {
 	
 		const id = TestData.id
@@ -283,8 +296,10 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.returns stop */
 	
 
+	/* relationship.sku_lists start */
 	it(resourceType + '.sku_lists', async () => {
 	
 		const id = TestData.id
@@ -302,8 +317,10 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku_lists stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -321,8 +338,10 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -340,8 +359,10 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
@@ -359,5 +380,7 @@ describe('Customers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tags stop */
 	
+  
 })

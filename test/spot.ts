@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-// import commercelayer from '../lib/cjs'
+import commercelayer from '../lib/cjs'
 import { inspect } from 'util'
-import commercelayer from '../src'
+// import commercelayer from '../src'
 import getToken from './token'
 
 
@@ -18,12 +18,11 @@ import getToken from './token'
 	})
 
 	try {
-		const list = await cl.customers.list()
+		const list = await cl.orders.list()
 		if (list.length > 0) {
 			const id = list[0].id
-			for (let i = 0; i < 1000; i++) {
-				const c = await cl.customers.retrieve(id)
-			}
+			const o = await cl.orders._approve(id)
+			console.log(o)
 		}
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))

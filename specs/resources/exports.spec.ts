@@ -128,6 +128,7 @@ describe('Exports resource', () => {
 
   
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -145,5 +146,7 @@ describe('Exports resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
+  
 })

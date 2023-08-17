@@ -397,6 +397,114 @@ class Orders extends ApiResource<Order> {
 		return this.resources.fetch<Tag>({ type: 'tags' }, `orders/${_orderId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
+	async _archive(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _archive: true }, params, options)
+	}
+
+	async _unarchive(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _unarchive: true }, params, options)
+	}
+
+	async _place(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _place: true }, params, options)
+	}
+
+	async _cancel(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _cancel: true }, params, options)
+	}
+
+	async _approve(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _approve: true }, params, options)
+	}
+
+	async _approve_and_capture(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _approve_and_capture: true }, params, options)
+	}
+
+	async _authorize(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _authorize: true }, params, options)
+	}
+
+	async _authorization_amount_cents(id: string | Order, triggerValue: number, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _authorization_amount_cents: triggerValue }, params, options)
+	}
+
+	async _capture(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _capture: true }, params, options)
+	}
+
+	async _refund(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _refund: true }, params, options)
+	}
+
+	async _update_taxes(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _update_taxes: true }, params, options)
+	}
+
+	async _nullify_payment_source(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _nullify_payment_source: true }, params, options)
+	}
+
+	async _billing_address_clone_id(id: string | Order, triggerValue: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _billing_address_clone_id: triggerValue }, params, options)
+	}
+
+	async _shipping_address_clone_id(id: string | Order, triggerValue: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _shipping_address_clone_id: triggerValue }, params, options)
+	}
+
+	async _customer_payment_source_id(id: string | Order, triggerValue: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _customer_payment_source_id: triggerValue }, params, options)
+	}
+
+	async _shipping_address_same_as_billing(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _shipping_address_same_as_billing: true }, params, options)
+	}
+
+	async _billing_address_same_as_shipping(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _billing_address_same_as_shipping: true }, params, options)
+	}
+
+	async _commit_invoice(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _commit_invoice: true }, params, options)
+	}
+
+	async _refund_invoice(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _refund_invoice: true }, params, options)
+	}
+
+	async _save_payment_source_to_customer_wallet(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _save_payment_source_to_customer_wallet: true }, params, options)
+	}
+
+	async _save_shipping_address_to_customer_address_book(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _save_shipping_address_to_customer_address_book: true }, params, options)
+	}
+
+	async _save_billing_address_to_customer_address_book(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _save_billing_address_to_customer_address_book: true }, params, options)
+	}
+
+	async _refresh(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _refresh: true }, params, options)
+	}
+
+	async _validate(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _validate: true }, params, options)
+	}
+
+	async _create_subscriptions(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _create_subscriptions: true }, params, options)
+	}
+
+	async _start_editing(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _start_editing: true }, params, options)
+	}
+
+	async _stop_editing(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _stop_editing: true }, params, options)
+	}
+
 
 	isOrder(resource: any): resource is Order {
 		return resource.type && (resource.type === Orders.TYPE)

@@ -6,6 +6,13 @@ import { snakeCase } from 'lodash'
 import fixSchema from './fixer'
 
 
+/**** SDK source code generator settings ****/
+const CONFIG = {
+	TRIGGER_FUNCTIONS: true
+}
+/**** **** **** **** **** **** **** **** ****/
+
+
 const Inflector = require('inflector-js')
 
 
@@ -363,6 +370,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	spec = lines.join('\n')
 
+
 	// Generate relationships operations specs
 	Object.keys(resource.operations).filter(o => !allOperations.includes(o)).forEach(o => {
 		const op = resource.operations[o]
@@ -377,12 +385,35 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 		}
 	})
 
+
+	// Generate triggers operations specs
+	const compUpdKey = Object.keys(resource.components).find(c => c.endsWith('Update'))
+	if (compUpdKey) {
+		const compUpd = resource.components[compUpdKey]
+		const triggers = Object.values(compUpd.attributes).filter(a => a.name.startsWith('_') )
+		if (triggers.length > 0) {
+			const tplt = templates.spec_trigger.split('\n').join('\n\t')
+			for (const trigger of triggers) {
+				const triggerValue = (trigger.type === 'boolean')? 'true' : `randomValue('${trigger.type}')`
+				const triggerParams = (trigger.type === 'boolean')? 'id' : 'id, triggerValue'
+				let specTrg = tplt
+				specTrg = specTrg.replace(/##__OPERATION_NAME__##/g, trigger.name)
+				specTrg = specTrg.replace(/##__TRIGGER_VALUE__##/g, triggerValue)
+				specTrg = specTrg.replace(/##__TRIGGER_PARAMS__##/g, triggerParams)
+				spec = spec.replace(/##__TRIGGER_SPECS__##/g, '\n\n\t' + specTrg + '\n\t##__TRIGGER_SPECS__##')
+			}
+		}
+	}
+
+
 	// Header
 	spec = copyrightHeader(spec)
 
 	spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
 	spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
+	// Clear unused placeholders
 	spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '')
+	spec = spec.replace(/##__TRIGGER_SPECS__##/g, '')
 
 	if (resource.operations.create) {
 
@@ -434,6 +465,44 @@ const copyrightHeader = (template: string): string => {
 }
 
 
+const triggerFunctions = (type: string, name: string, resource: Resource, operations: string[]): void => {
+
+	const resName = name
+	const compSuffix = 'Update'
+
+	const compUpdKey = Object.keys(resource.components).find(c => c.endsWith(compSuffix))
+	if (compUpdKey) {
+		const compUpd = resource.components[compUpdKey]
+		const triggers = Object.values(compUpd.attributes).filter(a => a.name.startsWith('_') )
+		if (triggers.length > 0) {
+			const tplt = templates.trigger
+			for (const trigger of triggers) {
+
+				const resId = `${snakeCase(type)}Id`
+				const op: Operation = {
+					type,
+					path: `/${type}/{${resId}}`,
+					name: trigger.name,
+					singleton: false,
+					requestType: compUpdKey,
+					responseType: compUpdKey.replace(compSuffix, ''),
+					id: resId,
+					trigger: true
+				}
+
+				const placeholders: Record<string, string> = {}
+				if (trigger.type !== 'boolean') placeholders.trigger_value = fixAttributeType({ name: '', type: trigger.type, fetchable: true, required: false, enum: [] })
+
+				const tpltOp = templatedOperation(resName, trigger.name, op, tplt, placeholders)
+				operations.push(tpltOp.operation)
+
+			}
+		}
+	}
+
+}
+
+
 const generateResource = (type: string, name: string, resource: Resource): string => {
 
 	let res = templates.resource
@@ -464,8 +533,8 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			if (['create', 'update'].includes(opName)) qryMod.add('QueryParamsRetrieve')
 			if (['retrieve', 'list'].includes(opName)) {
 				/* do nothing:
-				   retrieve operation iscommon to all resoucres
-				   list operation iscommon to all non singleton resoucres
+				   retrieve operation is common to all resoucres
+				   list operation is common to all non singleton resoucres
 				*/
 			}
 			else {
@@ -489,6 +558,11 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		}
 	})
 
+
+	// Trigger functions (only boolean)
+	if (CONFIG.TRIGGER_FUNCTIONS) triggerFunctions(type, resName, resource, operations)
+
+	
 	if (operations && (operations.length > 0)) declaredImportsCommon.add('ResourcesConfig')
 
 	res = res.replace(/##__RESOURCE_MODEL_TYPE__##/g, resModelType)
@@ -548,7 +622,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 }
 
 
-const templatedOperation = (res: string, name: string, op: Operation, tpl: string): { operation: string, types: string[] } => {
+const templatedOperation = (res: string, name: string, op: Operation, tpl: string, placeholders?: Record<string, string>): { operation: string, types: string[] } => {
 
 	let operation = tpl
 	const types: string[] = []
@@ -566,12 +640,24 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 		operation = operation.replace(/##__RESOURCE_RESPONSE_CLASS__##/g, responseType)
 		if (!types.includes(responseType)) types.push(responseType)
 	}
-	if (op.relationship) {
+	if (op.relationship) {	// Relationship
 		operation = operation.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
 		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{', '${_'))
 		operation = operation.replace(/##__RESOURCE_ID__##/g, op.id || 'id')
 		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
 	}
+	else
+	if (op.trigger) {	// Trigger
+		operation = operation.replace(/##__RESOURCE_ID__##/g, op.id || 'id')
+		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
+		operation = operation.replace(/##__TRIGGER_VALUE__##/, placeholders?.trigger_value? ` triggerValue: ${ placeholders.trigger_value},` : '')
+		operation = operation.replace(/##__TRIGGER_VALUE_TYPE__##/, placeholders?.trigger_value? 'triggerValue' : 'true')
+	}
+
+	if (placeholders) Object.entries(placeholders).forEach(([key, val]) => {
+		const plh = (key.startsWith('##__') && key.endsWith('__##'))? key : `##__${key.toUpperCase()}__##`
+		operation = operation.replace(key, val)
+	})
 
 	operation = operation.replace(/\n/g, '\n\t')
 
@@ -582,7 +668,7 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 
 
 const fixAttributeType = (attr: Attribute): string => {
-	if (attr.enum) return `${attr.enum.map(a => `'${a}'`).join(' | ')}`
+	if (attr.enum?.length > 0) return `${attr.enum.map(a => `'${a}'`).join(' | ')}`
 	else
 	switch (attr.type) {
 		case 'integer': return 'number'

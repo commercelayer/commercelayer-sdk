@@ -94,6 +94,18 @@ class Authorizations extends ApiResource<Authorization> {
 		return this.resources.fetch<Event>({ type: 'events' }, `authorizations/${_authorizationId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async _capture(id: string | Authorization, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
+		return this.resources.update<AuthorizationUpdate, Authorization>({ id: (typeof id === 'string')? id: id.id, type: Authorizations.TYPE, _capture: true }, params, options)
+	}
+
+	async _capture_amount_cents(id: string | Authorization, triggerValue: number, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
+		return this.resources.update<AuthorizationUpdate, Authorization>({ id: (typeof id === 'string')? id: id.id, type: Authorizations.TYPE, _capture_amount_cents: triggerValue }, params, options)
+	}
+
+	async _void(id: string | Authorization, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
+		return this.resources.update<AuthorizationUpdate, Authorization>({ id: (typeof id === 'string')? id: id.id, type: Authorizations.TYPE, _void: true }, params, options)
+	}
+
 
 	isAuthorization(resource: any): resource is Authorization {
 		return resource.type && (resource.type === Authorizations.TYPE)

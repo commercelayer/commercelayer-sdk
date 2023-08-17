@@ -74,6 +74,10 @@ class AdyenPayments extends ApiResource<AdyenPayment> {
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `adyen_payments/${_adyenPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
+	async _details(id: string | AdyenPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenPayment> {
+		return this.resources.update<AdyenPaymentUpdate, AdyenPayment>({ id: (typeof id === 'string')? id: id.id, type: AdyenPayments.TYPE, _details: true }, params, options)
+	}
+
 
 	isAdyenPayment(resource: any): resource is AdyenPayment {
 		return resource.type && (resource.type === AdyenPayments.TYPE)

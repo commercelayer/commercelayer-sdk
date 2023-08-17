@@ -152,6 +152,7 @@ describe('TaxjarAccounts resource', () => {
 
   
 
+	/* relationship.markets start */
 	it(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('TaxjarAccounts resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.markets stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -188,8 +191,10 @@ describe('TaxjarAccounts resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
 
+	/* relationship.tax_categories start */
 	it(resourceType + '.tax_categories', async () => {
 	
 		const id = TestData.id
@@ -207,5 +212,7 @@ describe('TaxjarAccounts resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tax_categories stop */
 	
+  
 })

@@ -75,6 +75,10 @@ class AxervePayments extends ApiResource<AxervePayment> {
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `axerve_payments/${_axervePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
+	async _update(id: string | AxervePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AxervePayment> {
+		return this.resources.update<AxervePaymentUpdate, AxervePayment>({ id: (typeof id === 'string')? id: id.id, type: AxervePayments.TYPE, _update: true }, params, options)
+	}
+
 
 	isAxervePayment(resource: any): resource is AxervePayment {
 		return resource.type && (resource.type === AxervePayments.TYPE)

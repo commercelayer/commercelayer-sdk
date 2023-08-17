@@ -128,6 +128,14 @@ class Bundles extends ApiResource<Bundle> {
 		return this.resources.fetch<Tag>({ type: 'tags' }, `bundles/${_bundleId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
+	async _compute_price_amount(id: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
+		return this.resources.update<BundleUpdate, Bundle>({ id: (typeof id === 'string')? id: id.id, type: Bundles.TYPE, _compute_price_amount: true }, params, options)
+	}
+
+	async _compute_compare_at_amount(id: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
+		return this.resources.update<BundleUpdate, Bundle>({ id: (typeof id === 'string')? id: id.id, type: Bundles.TYPE, _compute_compare_at_amount: true }, params, options)
+	}
+
 
 	isBundle(resource: any): resource is Bundle {
 		return resource.type && (resource.type === Bundles.TYPE)

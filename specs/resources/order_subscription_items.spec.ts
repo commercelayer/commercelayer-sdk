@@ -152,6 +152,7 @@ describe('OrderSubscriptionItems resource', () => {
 
   
 
+	/* relationship.order_subscription start */
 	it(resourceType + '.order_subscription', async () => {
 	
 		const id = TestData.id
@@ -169,5 +170,7 @@ describe('OrderSubscriptionItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order_subscription stop */
 	
+  
 })

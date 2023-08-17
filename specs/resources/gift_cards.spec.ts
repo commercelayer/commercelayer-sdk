@@ -153,6 +153,7 @@ describe('GiftCards resource', () => {
 
   
 
+	/* relationship.market start */
 	it(resourceType + '.market', async () => {
 	
 		const id = TestData.id
@@ -170,8 +171,10 @@ describe('GiftCards resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.market stop */
 	
 
+	/* relationship.gift_card_recipient start */
 	it(resourceType + '.gift_card_recipient', async () => {
 	
 		const id = TestData.id
@@ -189,8 +192,10 @@ describe('GiftCards resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.gift_card_recipient stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -208,8 +213,10 @@ describe('GiftCards resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -227,8 +234,10 @@ describe('GiftCards resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
@@ -246,5 +255,107 @@ describe('GiftCards resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tags stop */
+	
+  
+
+	/* trigger._purchase start */
+	it(resourceType + '._purchase', async () => {
+	
+		let triggerAttr = '_purchase'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._purchase(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._purchase stop */
+	
+
+	/* trigger._activate start */
+	it(resourceType + '._activate', async () => {
+	
+		let triggerAttr = '_activate'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._activate(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._activate stop */
+	
+
+	/* trigger._deactivate start */
+	it(resourceType + '._deactivate', async () => {
+	
+		let triggerAttr = '_deactivate'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._deactivate(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._deactivate stop */
+	
+
+	/* trigger._balance_change_cents start */
+	it(resourceType + '._balance_change_cents', async () => {
+	
+		let triggerAttr = '_balance_change_cents'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = randomValue('integer')
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._balance_change_cents(id, triggerValue, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._balance_change_cents stop */
 	
 })

@@ -68,6 +68,10 @@ class Webhooks extends ApiResource<Webhook> {
 		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${_webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
 	}
 
+	async _reset_circuit(id: string | Webhook, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _reset_circuit: true }, params, options)
+	}
+
 
 	isWebhook(resource: any): resource is Webhook {
 		return resource.type && (resource.type === Webhooks.TYPE)

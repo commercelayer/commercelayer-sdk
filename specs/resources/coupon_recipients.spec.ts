@@ -151,6 +151,7 @@ describe('CouponRecipients resource', () => {
 
   
 
+	/* relationship.customer start */
 	it(resourceType + '.customer', async () => {
 	
 		const id = TestData.id
@@ -168,8 +169,10 @@ describe('CouponRecipients resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -187,5 +190,7 @@ describe('CouponRecipients resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

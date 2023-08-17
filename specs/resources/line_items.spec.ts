@@ -153,6 +153,7 @@ describe('LineItems resource', () => {
 
   
 
+	/* relationship.order start */
 	it(resourceType + '.order', async () => {
 	
 		const id = TestData.id
@@ -170,8 +171,10 @@ describe('LineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order stop */
 	
 
+	/* relationship.line_item_options start */
 	it(resourceType + '.line_item_options', async () => {
 	
 		const id = TestData.id
@@ -189,8 +192,10 @@ describe('LineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.line_item_options stop */
 	
 
+	/* relationship.stock_reservations start */
 	it(resourceType + '.stock_reservations', async () => {
 	
 		const id = TestData.id
@@ -208,8 +213,10 @@ describe('LineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_reservations stop */
 	
 
+	/* relationship.stock_line_items start */
 	it(resourceType + '.stock_line_items', async () => {
 	
 		const id = TestData.id
@@ -227,8 +234,10 @@ describe('LineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_line_items stop */
 	
 
+	/* relationship.stock_transfers start */
 	it(resourceType + '.stock_transfers', async () => {
 	
 		const id = TestData.id
@@ -246,8 +255,10 @@ describe('LineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_transfers stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -265,8 +276,10 @@ describe('LineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
@@ -284,5 +297,57 @@ describe('LineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tags stop */
+	
+  
+
+	/* trigger._external_price start */
+	it(resourceType + '._external_price', async () => {
+	
+		let triggerAttr = '_external_price'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._external_price(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._external_price stop */
+	
+
+	/* trigger._reserve_stock start */
+	it(resourceType + '._reserve_stock', async () => {
+	
+		let triggerAttr = '_reserve_stock'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._reserve_stock(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._reserve_stock stop */
 	
 })

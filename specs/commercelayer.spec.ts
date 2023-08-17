@@ -2,6 +2,7 @@
 import { CommerceLayerClient, CommerceLayerStatic } from '../src'
 import { getClient, initClient, organization, } from '../test/common'
 import { RawResponseReader } from '../src/interceptor'
+import { OPEN_API_SCHEMA_VERSION } from '../src/commercelayer'
 
 
 let cl: CommerceLayerClient

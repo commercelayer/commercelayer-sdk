@@ -152,6 +152,7 @@ describe('ReturnLineItems resource', () => {
 
   
 
+	/* relationship.return start */
 	it(resourceType + '.return', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('ReturnLineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.return stop */
 	
 
+	/* relationship.line_item start */
 	it(resourceType + '.line_item', async () => {
 	
 		const id = TestData.id
@@ -188,5 +191,32 @@ describe('ReturnLineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.line_item stop */
+	
+  
+
+	/* trigger._restock start */
+	it(resourceType + '._restock', async () => {
+	
+		let triggerAttr = '_restock'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._restock(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._restock stop */
 	
 })

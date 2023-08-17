@@ -1,3 +1,4 @@
+import axios from 'axios'
 
 enum ErrorType {
 	CLIENT = 'client',
@@ -54,4 +55,37 @@ class ApiError extends SdkError {
 }
 
 
-export { SdkError, ApiError, ErrorType }
+
+const handleError = (error: Error): never => {
+
+	let sdkError = new SdkError({ message: error.message })
+
+	if (axios.isAxiosError(error)) {
+		if (error.response) {
+			// The request was made and the server responded with a status code that falls out of the range of 2xx
+			const apiError = new ApiError(sdkError)
+			apiError.type = ErrorType.RESPONSE
+			apiError.status = error.response.status
+			apiError.statusText = error.response.statusText
+			apiError.code = String(apiError.status)
+			apiError.errors = error.response.data.errors
+			if (!apiError.message && apiError.statusText) apiError.message = apiError.statusText
+			sdkError = apiError
+		} else if (error.request) {
+			// The request was made but no response was received
+			// `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
+			sdkError.type = ErrorType.REQUEST
+			sdkError.request = error.request
+		} else {
+			// Something happened in setting up the request that triggered an Error
+			sdkError.type = ErrorType.CLIENT
+		}
+	} else if (axios.isCancel(error)) sdkError.type = ErrorType.CANCEL
+	else sdkError.source = error
+
+	throw sdkError
+
+}
+
+
+export { SdkError, ApiError, ErrorType, handleError }

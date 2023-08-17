@@ -150,6 +150,7 @@ describe('AdyenPayments resource', () => {
 
   
 
+	/* relationship.order start */
 	it(resourceType + '.order', async () => {
 	
 		const id = TestData.id
@@ -167,8 +168,10 @@ describe('AdyenPayments resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order stop */
 	
 
+	/* relationship.payment_gateway start */
 	it(resourceType + '.payment_gateway', async () => {
 	
 		const id = TestData.id
@@ -186,5 +189,32 @@ describe('AdyenPayments resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.payment_gateway stop */
+	
+  
+
+	/* trigger._details start */
+	it(resourceType + '._details', async () => {
+	
+		let triggerAttr = '_details'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._details(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._details stop */
 	
 })

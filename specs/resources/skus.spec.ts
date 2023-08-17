@@ -153,6 +153,7 @@ describe('Skus resource', () => {
 
   
 
+	/* relationship.shipping_category start */
 	it(resourceType + '.shipping_category', async () => {
 	
 		const id = TestData.id
@@ -170,8 +171,10 @@ describe('Skus resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.shipping_category stop */
 	
 
+	/* relationship.prices start */
 	it(resourceType + '.prices', async () => {
 	
 		const id = TestData.id
@@ -189,8 +192,10 @@ describe('Skus resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.prices stop */
 	
 
+	/* relationship.stock_items start */
 	it(resourceType + '.stock_items', async () => {
 	
 		const id = TestData.id
@@ -208,8 +213,10 @@ describe('Skus resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_items stop */
 	
 
+	/* relationship.stock_reservations start */
 	it(resourceType + '.stock_reservations', async () => {
 	
 		const id = TestData.id
@@ -227,8 +234,10 @@ describe('Skus resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_reservations stop */
 	
 
+	/* relationship.delivery_lead_times start */
 	it(resourceType + '.delivery_lead_times', async () => {
 	
 		const id = TestData.id
@@ -246,8 +255,10 @@ describe('Skus resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.delivery_lead_times stop */
 	
 
+	/* relationship.sku_options start */
 	it(resourceType + '.sku_options', async () => {
 	
 		const id = TestData.id
@@ -265,8 +276,10 @@ describe('Skus resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku_options stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -284,8 +297,10 @@ describe('Skus resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -303,8 +318,10 @@ describe('Skus resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
@@ -322,5 +339,7 @@ describe('Skus resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tags stop */
 	
+  
 })

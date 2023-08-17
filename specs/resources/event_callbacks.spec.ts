@@ -82,6 +82,7 @@ describe('EventCallbacks resource', () => {
 
   
 
+	/* relationship.webhook start */
 	it(resourceType + '.webhook', async () => {
 	
 		const id = TestData.id
@@ -99,5 +100,7 @@ describe('EventCallbacks resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.webhook stop */
 	
+  
 })

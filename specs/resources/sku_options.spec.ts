@@ -152,6 +152,7 @@ describe('SkuOptions resource', () => {
 
   
 
+	/* relationship.market start */
 	it(resourceType + '.market', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('SkuOptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.market stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -188,8 +191,10 @@ describe('SkuOptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -207,8 +212,10 @@ describe('SkuOptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
@@ -226,5 +233,7 @@ describe('SkuOptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tags stop */
 	
+  
 })

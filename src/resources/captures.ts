@@ -85,6 +85,14 @@ class Captures extends ApiResource<Capture> {
 		return this.resources.fetch<Event>({ type: 'events' }, `captures/${_captureId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async _refund(id: string | Capture, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
+		return this.resources.update<CaptureUpdate, Capture>({ id: (typeof id === 'string')? id: id.id, type: Captures.TYPE, _refund: true }, params, options)
+	}
+
+	async _refund_amount_cents(id: string | Capture, triggerValue: number, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
+		return this.resources.update<CaptureUpdate, Capture>({ id: (typeof id === 'string')? id: id.id, type: Captures.TYPE, _refund_amount_cents: triggerValue }, params, options)
+	}
+
 
 	isCapture(resource: any): resource is Capture {
 		return resource.type && (resource.type === Captures.TYPE)

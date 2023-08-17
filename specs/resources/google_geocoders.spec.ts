@@ -151,6 +151,7 @@ describe('GoogleGeocoders resource', () => {
 
   
 
+	/* relationship.addresses start */
 	it(resourceType + '.addresses', async () => {
 	
 		const id = TestData.id
@@ -168,8 +169,10 @@ describe('GoogleGeocoders resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.addresses stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -187,5 +190,7 @@ describe('GoogleGeocoders resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

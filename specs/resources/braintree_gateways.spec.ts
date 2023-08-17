@@ -155,6 +155,7 @@ describe('BraintreeGateways resource', () => {
 
   
 
+	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
@@ -172,8 +173,10 @@ describe('BraintreeGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.payment_methods stop */
 	
 
+	/* relationship.braintree_payments start */
 	it(resourceType + '.braintree_payments', async () => {
 	
 		const id = TestData.id
@@ -191,5 +194,7 @@ describe('BraintreeGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.braintree_payments stop */
 	
+  
 })

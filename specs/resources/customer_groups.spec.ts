@@ -150,6 +150,7 @@ describe('CustomerGroups resource', () => {
 
   
 
+	/* relationship.customers start */
 	it(resourceType + '.customers', async () => {
 	
 		const id = TestData.id
@@ -167,8 +168,10 @@ describe('CustomerGroups resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customers stop */
 	
 
+	/* relationship.markets start */
 	it(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
@@ -186,8 +189,10 @@ describe('CustomerGroups resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.markets stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -205,5 +210,7 @@ describe('CustomerGroups resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

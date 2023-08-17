@@ -154,6 +154,7 @@ describe('LineItemOptions resource', () => {
 
   
 
+	/* relationship.line_item start */
 	it(resourceType + '.line_item', async () => {
 	
 		const id = TestData.id
@@ -171,8 +172,10 @@ describe('LineItemOptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.line_item stop */
 	
 
+	/* relationship.sku_option start */
 	it(resourceType + '.sku_option', async () => {
 	
 		const id = TestData.id
@@ -190,8 +193,10 @@ describe('LineItemOptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku_option stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -209,8 +214,10 @@ describe('LineItemOptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
@@ -228,5 +235,7 @@ describe('LineItemOptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tags stop */
 	
+  
 })

@@ -151,6 +151,7 @@ describe('SkuListItems resource', () => {
 
   
 
+	/* relationship.sku_list start */
 	it(resourceType + '.sku_list', async () => {
 	
 		const id = TestData.id
@@ -168,8 +169,10 @@ describe('SkuListItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku_list stop */
 	
 
+	/* relationship.sku start */
 	it(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
@@ -187,5 +190,7 @@ describe('SkuListItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku stop */
 	
+  
 })

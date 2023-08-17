@@ -156,6 +156,7 @@ describe('Bundles resource', () => {
 
   
 
+	/* relationship.market start */
 	it(resourceType + '.market', async () => {
 	
 		const id = TestData.id
@@ -173,8 +174,10 @@ describe('Bundles resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.market stop */
 	
 
+	/* relationship.sku_list start */
 	it(resourceType + '.sku_list', async () => {
 	
 		const id = TestData.id
@@ -192,8 +195,10 @@ describe('Bundles resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku_list stop */
 	
 
+	/* relationship.skus start */
 	it(resourceType + '.skus', async () => {
 	
 		const id = TestData.id
@@ -211,8 +216,10 @@ describe('Bundles resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.skus stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -230,8 +237,10 @@ describe('Bundles resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -249,8 +258,10 @@ describe('Bundles resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
@@ -268,5 +279,57 @@ describe('Bundles resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tags stop */
+	
+  
+
+	/* trigger._compute_price_amount start */
+	it(resourceType + '._compute_price_amount', async () => {
+	
+		let triggerAttr = '_compute_price_amount'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._compute_price_amount(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._compute_price_amount stop */
+	
+
+	/* trigger._compute_compare_at_amount start */
+	it(resourceType + '._compute_compare_at_amount', async () => {
+	
+		let triggerAttr = '_compute_compare_at_amount'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._compute_compare_at_amount(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._compute_compare_at_amount stop */
 	
 })

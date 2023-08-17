@@ -150,6 +150,7 @@ describe('CustomerPasswordResets resource', () => {
 
   
 
+	/* relationship.customer start */
 	it(resourceType + '.customer', async () => {
 	
 		const id = TestData.id
@@ -167,8 +168,10 @@ describe('CustomerPasswordResets resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -186,5 +189,32 @@ describe('CustomerPasswordResets resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
+	
+  
+
+	/* trigger._reset_password_token start */
+	it(resourceType + '._reset_password_token', async () => {
+	
+		let triggerAttr = '_reset_password_token'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = randomValue('string')
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._reset_password_token(id, triggerValue, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._reset_password_token stop */
 	
 })

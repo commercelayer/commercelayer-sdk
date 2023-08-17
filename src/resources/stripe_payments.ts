@@ -77,6 +77,14 @@ class StripePayments extends ApiResource<StripePayment> {
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `stripe_payments/${_stripePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
+	async _update(id: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {
+		return this.resources.update<StripePaymentUpdate, StripePayment>({ id: (typeof id === 'string')? id: id.id, type: StripePayments.TYPE, _update: true }, params, options)
+	}
+
+	async _refresh(id: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {
+		return this.resources.update<StripePaymentUpdate, StripePayment>({ id: (typeof id === 'string')? id: id.id, type: StripePayments.TYPE, _refresh: true }, params, options)
+	}
+
 
 	isStripePayment(resource: any): resource is StripePayment {
 		return resource.type && (resource.type === StripePayments.TYPE)

@@ -153,6 +153,7 @@ describe('Coupons resource', () => {
 
   
 
+	/* relationship.promotion_rule start */
 	it(resourceType + '.promotion_rule', async () => {
 	
 		const id = TestData.id
@@ -170,8 +171,10 @@ describe('Coupons resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.promotion_rule stop */
 	
 
+	/* relationship.coupon_recipient start */
 	it(resourceType + '.coupon_recipient', async () => {
 	
 		const id = TestData.id
@@ -189,8 +192,10 @@ describe('Coupons resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.coupon_recipient stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -208,8 +213,10 @@ describe('Coupons resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
@@ -227,5 +234,7 @@ describe('Coupons resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tags stop */
 	
+  
 })

@@ -135,6 +135,42 @@ class Returns extends ApiResource<Return> {
 		return this.resources.fetch<Tag>({ type: 'tags' }, `returns/${_returnId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
+	async _request(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _request: true }, params, options)
+	}
+
+	async _approve(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _approve: true }, params, options)
+	}
+
+	async _cancel(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _cancel: true }, params, options)
+	}
+
+	async _ship(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _ship: true }, params, options)
+	}
+
+	async _reject(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _reject: true }, params, options)
+	}
+
+	async _receive(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _receive: true }, params, options)
+	}
+
+	async _restock(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _restock: true }, params, options)
+	}
+
+	async _archive(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _archive: true }, params, options)
+	}
+
+	async _unarchive(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _unarchive: true }, params, options)
+	}
+
 
 	isReturn(resource: any): resource is Return {
 		return resource.type && (resource.type === Returns.TYPE)

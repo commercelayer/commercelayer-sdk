@@ -60,4 +60,5 @@ describe('Organizations resource', () => {
   /* spec.type.stop */
 
   
+  
 })

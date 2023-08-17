@@ -153,6 +153,7 @@ describe('AxerveGateways resource', () => {
 
   
 
+	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
@@ -170,8 +171,10 @@ describe('AxerveGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.payment_methods stop */
 	
 
+	/* relationship.axerve_payments start */
 	it(resourceType + '.axerve_payments', async () => {
 	
 		const id = TestData.id
@@ -189,5 +192,7 @@ describe('AxerveGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.axerve_payments stop */
 	
+  
 })

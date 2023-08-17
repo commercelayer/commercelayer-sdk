@@ -154,6 +154,7 @@ describe('Prices resource', () => {
 
   
 
+	/* relationship.price_list start */
 	it(resourceType + '.price_list', async () => {
 	
 		const id = TestData.id
@@ -171,8 +172,10 @@ describe('Prices resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.price_list stop */
 	
 
+	/* relationship.sku start */
 	it(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
@@ -190,8 +193,10 @@ describe('Prices resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku stop */
 	
 
+	/* relationship.price_tiers start */
 	it(resourceType + '.price_tiers', async () => {
 	
 		const id = TestData.id
@@ -209,8 +214,10 @@ describe('Prices resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.price_tiers stop */
 	
 
+	/* relationship.price_volume_tiers start */
 	it(resourceType + '.price_volume_tiers', async () => {
 	
 		const id = TestData.id
@@ -228,8 +235,10 @@ describe('Prices resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.price_volume_tiers stop */
 	
 
+	/* relationship.price_frequency_tiers start */
 	it(resourceType + '.price_frequency_tiers', async () => {
 	
 		const id = TestData.id
@@ -247,8 +256,10 @@ describe('Prices resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.price_frequency_tiers stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -266,5 +277,7 @@ describe('Prices resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

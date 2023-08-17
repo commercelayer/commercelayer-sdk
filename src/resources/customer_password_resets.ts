@@ -65,6 +65,10 @@ class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 		return this.resources.fetch<Event>({ type: 'events' }, `customer_password_resets/${_customerPasswordResetId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async _reset_password_token(id: string | CustomerPasswordReset, triggerValue: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
+		return this.resources.update<CustomerPasswordResetUpdate, CustomerPasswordReset>({ id: (typeof id === 'string')? id: id.id, type: CustomerPasswordResets.TYPE, _reset_password_token: triggerValue }, params, options)
+	}
+
 
 	isCustomerPasswordReset(resource: any): resource is CustomerPasswordReset {
 		return resource.type && (resource.type === CustomerPasswordResets.TYPE)

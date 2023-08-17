@@ -155,6 +155,7 @@ describe('StockTransfers resource', () => {
 
   
 
+	/* relationship.sku start */
 	it(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
@@ -172,8 +173,10 @@ describe('StockTransfers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku stop */
 	
 
+	/* relationship.origin_stock_location start */
 	it(resourceType + '.origin_stock_location', async () => {
 	
 		const id = TestData.id
@@ -191,8 +194,10 @@ describe('StockTransfers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.origin_stock_location stop */
 	
 
+	/* relationship.destination_stock_location start */
 	it(resourceType + '.destination_stock_location', async () => {
 	
 		const id = TestData.id
@@ -210,8 +215,10 @@ describe('StockTransfers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.destination_stock_location stop */
 	
 
+	/* relationship.shipment start */
 	it(resourceType + '.shipment', async () => {
 	
 		const id = TestData.id
@@ -229,8 +236,10 @@ describe('StockTransfers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.shipment stop */
 	
 
+	/* relationship.line_item start */
 	it(resourceType + '.line_item', async () => {
 	
 		const id = TestData.id
@@ -248,8 +257,10 @@ describe('StockTransfers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.line_item stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -267,5 +278,132 @@ describe('StockTransfers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
+	
+  
+
+	/* trigger._upcoming start */
+	it(resourceType + '._upcoming', async () => {
+	
+		let triggerAttr = '_upcoming'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._upcoming(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._upcoming stop */
+	
+
+	/* trigger._picking start */
+	it(resourceType + '._picking', async () => {
+	
+		let triggerAttr = '_picking'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._picking(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._picking stop */
+	
+
+	/* trigger._in_transit start */
+	it(resourceType + '._in_transit', async () => {
+	
+		let triggerAttr = '_in_transit'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._in_transit(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._in_transit stop */
+	
+
+	/* trigger._complete start */
+	it(resourceType + '._complete', async () => {
+	
+		let triggerAttr = '_complete'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._complete(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._complete stop */
+	
+
+	/* trigger._cancel start */
+	it(resourceType + '._cancel', async () => {
+	
+		let triggerAttr = '_cancel'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._cancel(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._cancel stop */
 	
 })

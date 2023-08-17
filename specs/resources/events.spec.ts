@@ -82,6 +82,7 @@ describe('Events resource', () => {
 
   
 
+	/* relationship.last_event_callbacks start */
 	it(resourceType + '.last_event_callbacks', async () => {
 	
 		const id = TestData.id
@@ -99,8 +100,10 @@ describe('Events resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.last_event_callbacks stop */
 	
 
+	/* relationship.webhooks start */
 	it(resourceType + '.webhooks', async () => {
 	
 		const id = TestData.id
@@ -118,5 +121,7 @@ describe('Events resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.webhooks stop */
 	
+  
 })

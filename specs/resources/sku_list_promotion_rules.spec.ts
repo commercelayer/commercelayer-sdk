@@ -151,6 +151,7 @@ describe('SkuListPromotionRules resource', () => {
 
   
 
+	/* relationship.sku_list start */
 	it(resourceType + '.sku_list', async () => {
 	
 		const id = TestData.id
@@ -168,8 +169,10 @@ describe('SkuListPromotionRules resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku_list stop */
 	
 
+	/* relationship.skus start */
 	it(resourceType + '.skus', async () => {
 	
 		const id = TestData.id
@@ -187,5 +190,7 @@ describe('SkuListPromotionRules resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.skus stop */
 	
+  
 })

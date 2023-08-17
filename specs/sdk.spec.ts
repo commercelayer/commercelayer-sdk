@@ -1,8 +1,8 @@
 
 import { CommerceLayerClient, Customer } from '../src'
-import { sleep } from '../src/util'
+import { sleep, sortObjectFields } from '../src/util'
 import { getClient, TestData } from '../test/common'
-import { isResourceType } from '../src/common'
+import { ObjectType, isResourceType } from '../src/common'
 
 
 let cl: CommerceLayerClient
@@ -26,6 +26,29 @@ describe('SDK suite', () => {
 
 		expect(delay).toBeGreaterThanOrEqual(ms - 10)
 		expect(delay).toBeLessThan(ms + 50)
+
+	})
+
+
+	it('util.sortObjectFields', async () => {
+
+		const obj: ObjectType = {
+			beta: 'beta',
+			delta: 'delta',
+			alfa: 'alfa',
+			gamma: 'gamma'			
+		}
+
+		const exp: ObjectType = {
+			alfa: 'alfa',
+			beta: 'beta',
+			gamma: 'gamma',
+			delta: 'delta'
+		}
+
+		const sorted = sortObjectFields(obj)
+
+		expect(sorted).toEqual(exp)
 
 	})
 

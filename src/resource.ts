@@ -265,14 +265,6 @@ abstract class ApiResourceBase<R extends Resource> {
 		return this.resources.update<ResourceUpdate, R>({ ...resource, type: this.type() }, params, options)
 	}
 
-	
-	async count(filter?: QueryFilter | QueryParamsList, options?: ResourcesConfig): Promise<number> {
-		const params: QueryParamsList = { filters: isParamsList(filter)? filter.filters : filter, pageNumber: 1, pageSize: 1 }
-		const response = await this.resources.list<R>({ type: this.type() }, params, options)
-		return Promise.resolve(response.meta.recordCount)
-	}
-	
-
 }
 
 
@@ -284,6 +276,12 @@ abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
 		return this.resources.list<R>({ type: this.type() }, params, options)
+	}
+
+	async count(filter?: QueryFilter | QueryParamsList, options?: ResourcesConfig): Promise<number> {
+		const params: QueryParamsList = { filters: isParamsList(filter)? filter.filters : filter, pageNumber: 1, pageSize: 1 }
+		const response = await this.list(params, options)
+		return Promise.resolve(response.meta.recordCount)
 	}
 
 }

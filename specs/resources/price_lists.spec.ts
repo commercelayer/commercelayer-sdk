@@ -151,6 +151,7 @@ describe('PriceLists resource', () => {
 
   
 
+	/* relationship.prices start */
 	it(resourceType + '.prices', async () => {
 	
 		const id = TestData.id
@@ -168,8 +169,10 @@ describe('PriceLists resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.prices stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -187,5 +190,7 @@ describe('PriceLists resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

@@ -150,6 +150,7 @@ describe('WireTransfers resource', () => {
 
   
 
+	/* relationship.order start */
 	it(resourceType + '.order', async () => {
 	
 		const id = TestData.id
@@ -167,5 +168,7 @@ describe('WireTransfers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order stop */
 	
+  
 })

@@ -130,6 +130,22 @@ class GiftCards extends ApiResource<GiftCard> {
 		return this.resources.fetch<Tag>({ type: 'tags' }, `gift_cards/${_giftCardId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
+	async _purchase(id: string | GiftCard, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _purchase: true }, params, options)
+	}
+
+	async _activate(id: string | GiftCard, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _activate: true }, params, options)
+	}
+
+	async _deactivate(id: string | GiftCard, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _deactivate: true }, params, options)
+	}
+
+	async _balance_change_cents(id: string | GiftCard, triggerValue: number, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _balance_change_cents: triggerValue }, params, options)
+	}
+
 
 	isGiftCard(resource: any): resource is GiftCard {
 		return resource.type && (resource.type === GiftCards.TYPE)

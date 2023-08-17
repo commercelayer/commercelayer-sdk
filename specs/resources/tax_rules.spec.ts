@@ -151,6 +151,7 @@ describe('TaxRules resource', () => {
 
   
 
+	/* relationship.manual_tax_calculator start */
 	it(resourceType + '.manual_tax_calculator', async () => {
 	
 		const id = TestData.id
@@ -168,5 +169,7 @@ describe('TaxRules resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.manual_tax_calculator stop */
 	
+  
 })

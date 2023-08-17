@@ -156,6 +156,7 @@ describe('Addresses resource', () => {
 
   
 
+	/* relationship.geocoder start */
 	it(resourceType + '.geocoder', async () => {
 	
 		const id = TestData.id
@@ -173,8 +174,10 @@ describe('Addresses resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.geocoder stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -192,8 +195,10 @@ describe('Addresses resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
@@ -211,5 +216,7 @@ describe('Addresses resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tags stop */
 	
+  
 })

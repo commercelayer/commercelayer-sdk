@@ -152,6 +152,7 @@ describe('OrderSubscriptions resource', () => {
 
   
 
+	/* relationship.market start */
 	it(resourceType + '.market', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('OrderSubscriptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.market stop */
 	
 
+	/* relationship.subscription_model start */
 	it(resourceType + '.subscription_model', async () => {
 	
 		const id = TestData.id
@@ -188,8 +191,10 @@ describe('OrderSubscriptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.subscription_model stop */
 	
 
+	/* relationship.source_order start */
 	it(resourceType + '.source_order', async () => {
 	
 		const id = TestData.id
@@ -207,8 +212,10 @@ describe('OrderSubscriptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.source_order stop */
 	
 
+	/* relationship.customer start */
 	it(resourceType + '.customer', async () => {
 	
 		const id = TestData.id
@@ -226,8 +233,10 @@ describe('OrderSubscriptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer stop */
 	
 
+	/* relationship.customer_payment_source start */
 	it(resourceType + '.customer_payment_source', async () => {
 	
 		const id = TestData.id
@@ -245,8 +254,10 @@ describe('OrderSubscriptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer_payment_source stop */
 	
 
+	/* relationship.order_subscription_items start */
 	it(resourceType + '.order_subscription_items', async () => {
 	
 		const id = TestData.id
@@ -264,8 +275,10 @@ describe('OrderSubscriptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order_subscription_items stop */
 	
 
+	/* relationship.order_factories start */
 	it(resourceType + '.order_factories', async () => {
 	
 		const id = TestData.id
@@ -283,8 +296,10 @@ describe('OrderSubscriptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order_factories stop */
 	
 
+	/* relationship.recurring_order_copies start */
 	it(resourceType + '.recurring_order_copies', async () => {
 	
 		const id = TestData.id
@@ -302,8 +317,10 @@ describe('OrderSubscriptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.recurring_order_copies stop */
 	
 
+	/* relationship.orders start */
 	it(resourceType + '.orders', async () => {
 	
 		const id = TestData.id
@@ -321,8 +338,10 @@ describe('OrderSubscriptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.orders stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -340,5 +359,82 @@ describe('OrderSubscriptions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
+	
+  
+
+	/* trigger._activate start */
+	it(resourceType + '._activate', async () => {
+	
+		let triggerAttr = '_activate'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._activate(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._activate stop */
+	
+
+	/* trigger._deactivate start */
+	it(resourceType + '._deactivate', async () => {
+	
+		let triggerAttr = '_deactivate'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._deactivate(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._deactivate stop */
+	
+
+	/* trigger._cancel start */
+	it(resourceType + '._cancel', async () => {
+	
+		let triggerAttr = '_cancel'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._cancel(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._cancel stop */
 	
 })

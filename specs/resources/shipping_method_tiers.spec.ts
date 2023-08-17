@@ -82,6 +82,7 @@ describe('ShippingMethodTiers resource', () => {
 
   
 
+	/* relationship.shipping_method start */
 	it(resourceType + '.shipping_method', async () => {
 	
 		const id = TestData.id
@@ -99,8 +100,10 @@ describe('ShippingMethodTiers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.shipping_method stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -118,5 +121,7 @@ describe('ShippingMethodTiers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

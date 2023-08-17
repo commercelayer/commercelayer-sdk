@@ -103,6 +103,14 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_methods/${_paymentMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
+	async _disable(id: string | PaymentMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
+		return this.resources.update<PaymentMethodUpdate, PaymentMethod>({ id: (typeof id === 'string')? id: id.id, type: PaymentMethods.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | PaymentMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
+		return this.resources.update<PaymentMethodUpdate, PaymentMethod>({ id: (typeof id === 'string')? id: id.id, type: PaymentMethods.TYPE, _enable: true }, params, options)
+	}
+
 
 	isPaymentMethod(resource: any): resource is PaymentMethod {
 		return resource.type && (resource.type === PaymentMethods.TYPE)

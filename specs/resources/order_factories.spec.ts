@@ -82,6 +82,7 @@ describe('OrderFactories resource', () => {
 
   
 
+	/* relationship.source_order start */
 	it(resourceType + '.source_order', async () => {
 	
 		const id = TestData.id
@@ -99,8 +100,10 @@ describe('OrderFactories resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.source_order stop */
 	
 
+	/* relationship.target_order start */
 	it(resourceType + '.target_order', async () => {
 	
 		const id = TestData.id
@@ -118,8 +121,10 @@ describe('OrderFactories resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.target_order stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -137,5 +142,7 @@ describe('OrderFactories resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
+  
 })

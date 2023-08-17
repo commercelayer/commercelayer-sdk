@@ -76,6 +76,10 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `return_line_items/${_returnLineItemId}/line_item`, params, options) as unknown as LineItem
 	}
 
+	async _restock(id: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
+		return this.resources.update<ReturnLineItemUpdate, ReturnLineItem>({ id: (typeof id === 'string')? id: id.id, type: ReturnLineItems.TYPE, _restock: true }, params, options)
+	}
+
 
 	isReturnLineItem(resource: any): resource is ReturnLineItem {
 		return resource.type && (resource.type === ReturnLineItems.TYPE)

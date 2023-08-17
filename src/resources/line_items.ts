@@ -172,6 +172,14 @@ class LineItems extends ApiResource<LineItem> {
 		return this.resources.fetch<Tag>({ type: 'tags' }, `line_items/${_lineItemId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
+	async _external_price(id: string | LineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _external_price: true }, params, options)
+	}
+
+	async _reserve_stock(id: string | LineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _reserve_stock: true }, params, options)
+	}
+
 
 	isLineItem(resource: any): resource is LineItem {
 		return resource.type && (resource.type === LineItems.TYPE)

@@ -151,6 +151,7 @@ describe('CustomerPaymentSources resource', () => {
 
   
 
+	/* relationship.customer start */
 	it(resourceType + '.customer', async () => {
 	
 		const id = TestData.id
@@ -168,5 +169,7 @@ describe('CustomerPaymentSources resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer stop */
 	
+  
 })

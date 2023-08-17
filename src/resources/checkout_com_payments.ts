@@ -88,6 +88,14 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `checkout_com_payments/${_checkoutComPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
+	async _details(id: string | CheckoutComPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
+		return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComPayments.TYPE, _details: true }, params, options)
+	}
+
+	async _refresh(id: string | CheckoutComPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
+		return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComPayments.TYPE, _refresh: true }, params, options)
+	}
+
 
 	isCheckoutComPayment(resource: any): resource is CheckoutComPayment {
 		return resource.type && (resource.type === CheckoutComPayments.TYPE)

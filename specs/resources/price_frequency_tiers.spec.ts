@@ -152,6 +152,7 @@ describe('PriceFrequencyTiers resource', () => {
 
   
 
+	/* relationship.price start */
 	it(resourceType + '.price', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('PriceFrequencyTiers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.price stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -188,8 +191,10 @@ describe('PriceFrequencyTiers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -207,5 +212,7 @@ describe('PriceFrequencyTiers resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
+  
 })

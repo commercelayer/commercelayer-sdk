@@ -95,6 +95,14 @@ class InStockSubscriptions extends ApiResource<InStockSubscription> {
 		return this.resources.fetch<Event>({ type: 'events' }, `in_stock_subscriptions/${_inStockSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async _activate(id: string | InStockSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
+		return this.resources.update<InStockSubscriptionUpdate, InStockSubscription>({ id: (typeof id === 'string')? id: id.id, type: InStockSubscriptions.TYPE, _activate: true }, params, options)
+	}
+
+	async _deactivate(id: string | InStockSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InStockSubscription> {
+		return this.resources.update<InStockSubscriptionUpdate, InStockSubscription>({ id: (typeof id === 'string')? id: id.id, type: InStockSubscriptions.TYPE, _deactivate: true }, params, options)
+	}
+
 
 	isInStockSubscription(resource: any): resource is InStockSubscription {
 		return resource.type && (resource.type === InStockSubscriptions.TYPE)

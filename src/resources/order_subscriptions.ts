@@ -149,6 +149,18 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 		return this.resources.fetch<Event>({ type: 'events' }, `order_subscriptions/${_orderSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async _activate(id: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ id: (typeof id === 'string')? id: id.id, type: OrderSubscriptions.TYPE, _activate: true }, params, options)
+	}
+
+	async _deactivate(id: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ id: (typeof id === 'string')? id: id.id, type: OrderSubscriptions.TYPE, _deactivate: true }, params, options)
+	}
+
+	async _cancel(id: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ id: (typeof id === 'string')? id: id.id, type: OrderSubscriptions.TYPE, _cancel: true }, params, options)
+	}
+
 
 	isOrderSubscription(resource: any): resource is OrderSubscription {
 		return resource.type && (resource.type === OrderSubscriptions.TYPE)

@@ -153,6 +153,7 @@ describe('DeliveryLeadTimes resource', () => {
 
   
 
+	/* relationship.stock_location start */
 	it(resourceType + '.stock_location', async () => {
 	
 		const id = TestData.id
@@ -170,8 +171,10 @@ describe('DeliveryLeadTimes resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_location stop */
 	
 
+	/* relationship.shipping_method start */
 	it(resourceType + '.shipping_method', async () => {
 	
 		const id = TestData.id
@@ -189,8 +192,10 @@ describe('DeliveryLeadTimes resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.shipping_method stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -208,5 +213,7 @@ describe('DeliveryLeadTimes resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

@@ -166,4 +166,5 @@ describe('##__RESOURCE_CLASS__## resource', () => {
   /* spec.type.stop */
 
   ##__RELATIONSHIP_SPECS__##
+  ##__TRIGGER_SPECS__##
 })

@@ -151,6 +151,7 @@ describe('Merchants resource', () => {
 
   
 
+	/* relationship.address start */
 	it(resourceType + '.address', async () => {
 	
 		const id = TestData.id
@@ -168,8 +169,10 @@ describe('Merchants resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.address stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -187,5 +190,7 @@ describe('Merchants resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

@@ -153,6 +153,7 @@ describe('CheckoutComGateways resource', () => {
 
   
 
+	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
@@ -170,8 +171,10 @@ describe('CheckoutComGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.payment_methods stop */
 	
 
+	/* relationship.checkout_com_payments start */
 	it(resourceType + '.checkout_com_payments', async () => {
 	
 		const id = TestData.id
@@ -189,5 +192,7 @@ describe('CheckoutComGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.checkout_com_payments stop */
 	
+  
 })

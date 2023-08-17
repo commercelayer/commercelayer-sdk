@@ -160,6 +160,7 @@ describe('FreeGiftPromotions resource', () => {
 
   
 
+	/* relationship.market start */
 	it(resourceType + '.market', async () => {
 	
 		const id = TestData.id
@@ -177,8 +178,10 @@ describe('FreeGiftPromotions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.market stop */
 	
 
+	/* relationship.order_amount_promotion_rule start */
 	it(resourceType + '.order_amount_promotion_rule', async () => {
 	
 		const id = TestData.id
@@ -196,8 +199,10 @@ describe('FreeGiftPromotions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order_amount_promotion_rule stop */
 	
 
+	/* relationship.sku_list_promotion_rule start */
 	it(resourceType + '.sku_list_promotion_rule', async () => {
 	
 		const id = TestData.id
@@ -215,8 +220,10 @@ describe('FreeGiftPromotions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku_list_promotion_rule stop */
 	
 
+	/* relationship.coupon_codes_promotion_rule start */
 	it(resourceType + '.coupon_codes_promotion_rule', async () => {
 	
 		const id = TestData.id
@@ -234,8 +241,10 @@ describe('FreeGiftPromotions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.coupon_codes_promotion_rule stop */
 	
 
+	/* relationship.sku_list start */
 	it(resourceType + '.sku_list', async () => {
 	
 		const id = TestData.id
@@ -253,8 +262,10 @@ describe('FreeGiftPromotions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku_list stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -272,8 +283,10 @@ describe('FreeGiftPromotions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -291,8 +304,10 @@ describe('FreeGiftPromotions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
@@ -310,8 +325,10 @@ describe('FreeGiftPromotions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.tags stop */
 	
 
+	/* relationship.skus start */
 	it(resourceType + '.skus', async () => {
 	
 		const id = TestData.id
@@ -329,5 +346,7 @@ describe('FreeGiftPromotions resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.skus stop */
 	
+  
 })

@@ -155,6 +155,7 @@ describe('Packages resource', () => {
 
   
 
+	/* relationship.stock_location start */
 	it(resourceType + '.stock_location', async () => {
 	
 		const id = TestData.id
@@ -172,8 +173,10 @@ describe('Packages resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_location stop */
 	
 
+	/* relationship.parcels start */
 	it(resourceType + '.parcels', async () => {
 	
 		const id = TestData.id
@@ -191,8 +194,10 @@ describe('Packages resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.parcels stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -210,5 +215,7 @@ describe('Packages resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

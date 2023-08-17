@@ -82,6 +82,7 @@ describe('StockLineItems resource', () => {
 
   
 
+	/* relationship.shipment start */
 	it(resourceType + '.shipment', async () => {
 	
 		const id = TestData.id
@@ -99,8 +100,10 @@ describe('StockLineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.shipment stop */
 	
 
+	/* relationship.line_item start */
 	it(resourceType + '.line_item', async () => {
 	
 		const id = TestData.id
@@ -118,8 +121,10 @@ describe('StockLineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.line_item stop */
 	
 
+	/* relationship.stock_item start */
 	it(resourceType + '.stock_item', async () => {
 	
 		const id = TestData.id
@@ -137,8 +142,10 @@ describe('StockLineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_item stop */
 	
 
+	/* relationship.sku start */
 	it(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
@@ -156,5 +163,7 @@ describe('StockLineItems resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku stop */
 	
+  
 })

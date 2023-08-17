@@ -152,6 +152,7 @@ describe('SatispayGateways resource', () => {
 
   
 
+	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('SatispayGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.payment_methods stop */
 	
 
+	/* relationship.satispay_payments start */
 	it(resourceType + '.satispay_payments', async () => {
 	
 		const id = TestData.id
@@ -188,5 +191,7 @@ describe('SatispayGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.satispay_payments stop */
 	
+  
 })

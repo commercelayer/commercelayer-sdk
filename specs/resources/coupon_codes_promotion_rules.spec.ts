@@ -151,6 +151,7 @@ describe('CouponCodesPromotionRules resource', () => {
 
   
 
+	/* relationship.coupons start */
 	it(resourceType + '.coupons', async () => {
 	
 		const id = TestData.id
@@ -168,5 +169,7 @@ describe('CouponCodesPromotionRules resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.coupons stop */
 	
+  
 })

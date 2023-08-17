@@ -150,6 +150,7 @@ describe('ExternalGateways resource', () => {
 
   
 
+	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
@@ -167,8 +168,10 @@ describe('ExternalGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.payment_methods stop */
 	
 
+	/* relationship.external_payments start */
 	it(resourceType + '.external_payments', async () => {
 	
 		const id = TestData.id
@@ -186,5 +189,7 @@ describe('ExternalGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.external_payments stop */
 	
+  
 })

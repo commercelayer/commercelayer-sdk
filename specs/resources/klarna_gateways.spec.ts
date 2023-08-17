@@ -154,6 +154,7 @@ describe('KlarnaGateways resource', () => {
 
   
 
+	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
@@ -171,8 +172,10 @@ describe('KlarnaGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.payment_methods stop */
 	
 
+	/* relationship.klarna_payments start */
 	it(resourceType + '.klarna_payments', async () => {
 	
 		const id = TestData.id
@@ -190,5 +193,7 @@ describe('KlarnaGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.klarna_payments stop */
 	
+  
 })

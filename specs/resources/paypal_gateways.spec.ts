@@ -152,6 +152,7 @@ describe('PaypalGateways resource', () => {
 
   
 
+	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('PaypalGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.payment_methods stop */
 	
 
+	/* relationship.paypal_payments start */
 	it(resourceType + '.paypal_payments', async () => {
 	
 		const id = TestData.id
@@ -188,5 +191,7 @@ describe('PaypalGateways resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.paypal_payments stop */
 	
+  
 })

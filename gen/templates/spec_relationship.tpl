@@ -1,3 +1,4 @@
+/* relationship.##__OPERATION_NAME__## start */
 it(resourceType + '.##__OPERATION_NAME__##', async () => {
 
 	const id = TestData.id
@@ -15,3 +16,4 @@ it(resourceType + '.##__OPERATION_NAME__##', async () => {
 		.finally(() => cl.removeInterceptor('request', intId))
 
 })
+/* relationship.##__OPERATION_NAME__## stop */

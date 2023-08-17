@@ -152,6 +152,7 @@ describe('InventoryReturnLocations resource', () => {
 
   
 
+	/* relationship.stock_location start */
 	it(resourceType + '.stock_location', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('InventoryReturnLocations resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_location stop */
 	
 
+	/* relationship.inventory_model start */
 	it(resourceType + '.inventory_model', async () => {
 	
 		const id = TestData.id
@@ -188,5 +191,7 @@ describe('InventoryReturnLocations resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.inventory_model stop */
 	
+  
 })

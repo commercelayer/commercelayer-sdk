@@ -152,6 +152,7 @@ describe('CustomerAddresses resource', () => {
 
   
 
+	/* relationship.customer start */
 	it(resourceType + '.customer', async () => {
 	
 		const id = TestData.id
@@ -169,8 +170,10 @@ describe('CustomerAddresses resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer stop */
 	
 
+	/* relationship.address start */
 	it(resourceType + '.address', async () => {
 	
 		const id = TestData.id
@@ -188,8 +191,10 @@ describe('CustomerAddresses resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.address stop */
 	
 
+	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
@@ -207,5 +212,7 @@ describe('CustomerAddresses resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.events stop */
 	
+  
 })

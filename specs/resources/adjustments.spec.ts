@@ -151,4 +151,5 @@ describe('Adjustments resource', () => {
   /* spec.type.stop */
 
   
+  
 })

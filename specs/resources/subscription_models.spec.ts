@@ -151,6 +151,7 @@ describe('SubscriptionModels resource', () => {
 
   
 
+	/* relationship.markets start */
 	it(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
@@ -168,8 +169,10 @@ describe('SubscriptionModels resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.markets stop */
 	
 
+	/* relationship.order_subscriptions start */
 	it(resourceType + '.order_subscriptions', async () => {
 	
 		const id = TestData.id
@@ -187,8 +190,10 @@ describe('SubscriptionModels resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.order_subscriptions stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -206,5 +211,7 @@ describe('SubscriptionModels resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

@@ -158,6 +158,14 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_methods/${_shippingMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
+	async _disable(id: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ id: (typeof id === 'string')? id: id.id, type: ShippingMethods.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ id: (typeof id === 'string')? id: id.id, type: ShippingMethods.TYPE, _enable: true }, params, options)
+	}
+
 
 	isShippingMethod(resource: any): resource is ShippingMethod {
 		return resource.type && (resource.type === ShippingMethods.TYPE)

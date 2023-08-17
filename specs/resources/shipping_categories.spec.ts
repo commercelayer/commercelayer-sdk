@@ -150,6 +150,7 @@ describe('ShippingCategories resource', () => {
 
   
 
+	/* relationship.skus start */
 	it(resourceType + '.skus', async () => {
 	
 		const id = TestData.id
@@ -167,8 +168,10 @@ describe('ShippingCategories resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.skus stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -186,5 +189,7 @@ describe('ShippingCategories resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

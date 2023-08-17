@@ -151,6 +151,7 @@ describe('StockLocations resource', () => {
 
   
 
+	/* relationship.address start */
 	it(resourceType + '.address', async () => {
 	
 		const id = TestData.id
@@ -168,8 +169,10 @@ describe('StockLocations resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.address stop */
 	
 
+	/* relationship.inventory_stock_locations start */
 	it(resourceType + '.inventory_stock_locations', async () => {
 	
 		const id = TestData.id
@@ -187,8 +190,10 @@ describe('StockLocations resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.inventory_stock_locations stop */
 	
 
+	/* relationship.inventory_return_locations start */
 	it(resourceType + '.inventory_return_locations', async () => {
 	
 		const id = TestData.id
@@ -206,8 +211,10 @@ describe('StockLocations resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.inventory_return_locations stop */
 	
 
+	/* relationship.stock_items start */
 	it(resourceType + '.stock_items', async () => {
 	
 		const id = TestData.id
@@ -225,8 +232,10 @@ describe('StockLocations resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_items stop */
 	
 
+	/* relationship.stock_transfers start */
 	it(resourceType + '.stock_transfers', async () => {
 	
 		const id = TestData.id
@@ -244,8 +253,10 @@ describe('StockLocations resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.stock_transfers stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -263,5 +274,7 @@ describe('StockLocations resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })

@@ -151,6 +151,7 @@ describe('SkuLists resource', () => {
 
   
 
+	/* relationship.customer start */
 	it(resourceType + '.customer', async () => {
 	
 		const id = TestData.id
@@ -168,8 +169,10 @@ describe('SkuLists resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.customer stop */
 	
 
+	/* relationship.skus start */
 	it(resourceType + '.skus', async () => {
 	
 		const id = TestData.id
@@ -187,8 +190,10 @@ describe('SkuLists resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.skus stop */
 	
 
+	/* relationship.sku_list_items start */
 	it(resourceType + '.sku_list_items', async () => {
 	
 		const id = TestData.id
@@ -206,8 +211,10 @@ describe('SkuLists resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.sku_list_items stop */
 	
 
+	/* relationship.bundles start */
 	it(resourceType + '.bundles', async () => {
 	
 		const id = TestData.id
@@ -225,8 +232,10 @@ describe('SkuLists resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.bundles stop */
 	
 
+	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
@@ -244,5 +253,7 @@ describe('SkuLists resource', () => {
 			.finally(() => cl.removeInterceptor('request', intId))
 	
 	})
+	/* relationship.attachments stop */
 	
+  
 })
