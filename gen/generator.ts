@@ -8,6 +8,7 @@ import fixSchema from './fixer'
 
 /**** SDK source code generator settings ****/
 const CONFIG = {
+	RELATIONSHIP_FUNCTIONS: true,
 	TRIGGER_FUNCTIONS: true
 }
 /**** **** **** **** **** **** **** **** ****/
@@ -371,36 +372,40 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 	spec = lines.join('\n')
 
 
-	// Generate relationships operations specs
-	Object.keys(resource.operations).filter(o => !allOperations.includes(o)).forEach(o => {
-		const op = resource.operations[o]
-		if (op.relationship) {
+	if (CONFIG.RELATIONSHIP_FUNCTIONS) {
+		// Generate relationships operations specs
+		Object.keys(resource.operations).filter(o => !allOperations.includes(o)).forEach(o => {
+			const op = resource.operations[o]
+			if (op.relationship) {
 
-			let specRel = templates.spec_relationship.split('\n').join('\n\t')
+				let specRel = templates.spec_relationship.split('\n').join('\n\t')
 
-			specRel = specRel.replace(/##__OPERATION_NAME__##/g, op.name)
-			specRel = specRel.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
-			spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '\n\n\t' + specRel + '\n\t##__RELATIONSHIP_SPECS__##')
+				specRel = specRel.replace(/##__OPERATION_NAME__##/g, op.name)
+				specRel = specRel.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
+				spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '\n\n\t' + specRel + '\n\t##__RELATIONSHIP_SPECS__##')
 
-		}
-	})
+			}
+		})
+	}
 
 
-	// Generate triggers operations specs
-	const compUpdKey = Object.keys(resource.components).find(c => c.endsWith('Update'))
-	if (compUpdKey) {
-		const compUpd = resource.components[compUpdKey]
-		const triggers = Object.values(compUpd.attributes).filter(a => a.name.startsWith('_') )
-		if (triggers.length > 0) {
-			const tplt = templates.spec_trigger.split('\n').join('\n\t')
-			for (const trigger of triggers) {
-				const triggerValue = (trigger.type === 'boolean')? 'true' : `randomValue('${trigger.type}')`
-				const triggerParams = (trigger.type === 'boolean')? 'id' : 'id, triggerValue'
-				let specTrg = tplt
-				specTrg = specTrg.replace(/##__OPERATION_NAME__##/g, trigger.name)
-				specTrg = specTrg.replace(/##__TRIGGER_VALUE__##/g, triggerValue)
-				specTrg = specTrg.replace(/##__TRIGGER_PARAMS__##/g, triggerParams)
-				spec = spec.replace(/##__TRIGGER_SPECS__##/g, '\n\n\t' + specTrg + '\n\t##__TRIGGER_SPECS__##')
+	if (CONFIG.TRIGGER_FUNCTIONS) {
+		// Generate triggers operations specs
+		const compUpdKey = Object.keys(resource.components).find(c => c.endsWith('Update'))
+		if (compUpdKey) {
+			const compUpd = resource.components[compUpdKey]
+			const triggers = Object.values(compUpd.attributes).filter(a => a.name.startsWith('_') )
+			if (triggers.length > 0) {
+				const tplt = templates.spec_trigger.split('\n').join('\n\t')
+				for (const trigger of triggers) {
+					const triggerValue = (trigger.type === 'boolean')? 'true' : `randomValue('${trigger.type}')`
+					const triggerParams = (trigger.type === 'boolean')? 'id' : 'id, triggerValue'
+					let specTrg = tplt
+					specTrg = specTrg.replace(/##__OPERATION_NAME__##/g, trigger.name)
+					specTrg = specTrg.replace(/##__TRIGGER_VALUE__##/g, triggerValue)
+					specTrg = specTrg.replace(/##__TRIGGER_PARAMS__##/g, triggerParams)
+					spec = spec.replace(/##__TRIGGER_SPECS__##/g, '\n\n\t' + specTrg + '\n\t##__TRIGGER_SPECS__##')
+				}
 			}
 		}
 	}
@@ -544,7 +549,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			}
 		}
 		else {
-			if (op.relationship) {
+			if (op.relationship && CONFIG.RELATIONSHIP_FUNCTIONS) {
 				const tplr = templates[`relationship_${op.relationship.cardinality.replace('to_', '')}`]
 				const tplrOp = templatedOperation(resName, opName, op, tplr)
 				if (op.relationship.cardinality === Cardinality.to_one) qryMod.add('QueryParamsRetrieve')
