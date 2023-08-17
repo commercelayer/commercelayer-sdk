@@ -1,3 +1,10 @@
+# [5.12.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.11.0...v5.12.0) (2023-08-17)
+
+
+### Features
+
+* **core:** add resource trigger functions ([93978b8](https://github.com/commercelayer/commercelayer-sdk/commit/93978b8ecd46477f422ea85f0ad4adb43294776c))
+
 # [5.11.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.10.0...v5.11.0) (2023-08-14)
 
 
