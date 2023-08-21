@@ -1,3 +1,10 @@
+## [5.12.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.1...v5.12.2) (2023-08-21)
+
+
+### Bug Fixes
+
+* **core:** fix TaggableResource type ([dd04080](https://github.com/commercelayer/commercelayer-sdk/commit/dd04080d6520ce1c5060cafe8afd29a8a9881fa1))
+
 ## [5.12.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.0...v5.12.1) (2023-08-21)
 
 
