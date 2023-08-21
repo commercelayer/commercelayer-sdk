@@ -1,4 +1,4 @@
-import type { ResourceRel } from './resource'
+import type { ResourceId, ResourceRel } from './resource'
 import type { TagType } from './resources/tags'
 
 // ##__API_RESOURCES_START__##
@@ -387,7 +387,7 @@ export const resourceMap: { [res: string]: ResourceInfo } = {
 // Retrievable resources
 export type RetrievableResourceType = ResourceTypeLock
 
-export type RetrievableResource = {
+export type RetrievableResource = ResourceId & {
 	type: RetrievableResourceType
 }
 
@@ -400,7 +400,7 @@ export type ListableResourceType = Exclude<ResourceTypeLock,
 	// ##__API_RESOURCE_SINGLETON_STOP__##
 >
 
-export type ListableResource = {
+export type ListableResource = ResourceId & {
 	type: ListableResourceType
 }
 
@@ -503,7 +503,7 @@ export type CreatableResourceType =
 |	'wire_transfers'
 	// ##__API_RESOURCE_CREATABLE_STOP__##
 
-export type CreatableResource = {
+export type CreatableResource = ResourceId & {
 	type: CreatableResourceType
 }
 
@@ -606,7 +606,7 @@ export type UpdatableResourceType =
 |	'wire_transfers'
 	// ##__API_RESOURCE_UPDATABLE_STOP__##
 
-export type UpdatableResource = {
+export type UpdatableResource = ResourceId & {
 	type: UpdatableResourceType
 }
 
@@ -709,7 +709,7 @@ export type DeletableResourceType =
 |	'wire_transfers'
 	// ##__API_RESOURCE_DELETABLE_STOP__##
 
-export type DeletableResource = {
+export type DeletableResource = ResourceId & {
 	type: DeletableResourceType
 }
 
@@ -737,7 +737,7 @@ export type TaggableResourceType =
 |	'skus'
 	// ##__API_RESOURCE_TAGGABLE_STOP__##
 
-export type TaggableResource = {
+export type TaggableResource = ResourceId & {
 	type: TaggableResourceType,
 	tags?: Array<ResourceRel & { type: TagType }> | null
 }
