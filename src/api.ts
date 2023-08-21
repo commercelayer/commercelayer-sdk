@@ -1,6 +1,10 @@
 
 // ##__API_RESOURCES_START__##
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
+
+import type { ResourceRel } from './resource'
+import type { TagType } from './resources/tags'
+
 /**
  * ©2023 Commerce Layer Inc.
  **/
@@ -736,5 +740,6 @@ export type TaggableResourceType =
 	// ##__API_RESOURCE_TAGGABLE_STOP__##
 
 export type TaggableResource = {
-	type: TaggableResourceType
+	type: TaggableResourceType,
+	tags?: Array<ResourceRel & { type: TagType }> | null
 }
