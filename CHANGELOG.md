@@ -1,3 +1,10 @@
+## [5.12.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.2...v5.12.3) (2023-08-21)
+
+
+### Bug Fixes
+
+* **core:** fix xable resource types ([e2cfc4a](https://github.com/commercelayer/commercelayer-sdk/commit/e2cfc4aaf753c20838c3887960b2b63bf8672e1e))
+
 ## [5.12.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.1...v5.12.2) (2023-08-21)
 
 
