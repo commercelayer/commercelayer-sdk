@@ -1,10 +1,8 @@
-
-// ##__API_RESOURCES_START__##
-// ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
-
 import type { ResourceRel } from './resource'
 import type { TagType } from './resources/tags'
 
+// ##__API_RESOURCES_START__##
+// ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
  * ©2023 Commerce Layer Inc.
  **/
