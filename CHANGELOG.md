@@ -1,3 +1,10 @@
+## [5.12.4](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.3...v5.12.4) (2023-08-22)
+
+
+### Bug Fixes
+
+* **core:** fix *Able resource types ([2ea7785](https://github.com/commercelayer/commercelayer-sdk/commit/2ea7785ac0327b0863fe3c9e66be2f15f1701669))
+
 ## [5.12.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.2...v5.12.3) (2023-08-21)
 
 
