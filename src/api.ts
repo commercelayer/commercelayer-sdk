@@ -1,4 +1,4 @@
-import type { Resource, ResourceId, ResourceRel } from './resource'
+import type { Resource, ResourceRel } from './resource'
 import type { TagType } from './resources/tags'
 
 // ##__API_RESOURCES_START__##
