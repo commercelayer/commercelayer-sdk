@@ -1,13 +1,13 @@
 
-import ApiClient, { ApiClientInitConfig } from './client'
+import ApiClient, { type ApiClientInitConfig } from './client'
 import { denormalize, normalize } from './jsonapi'
-import { QueryParamsRetrieve, QueryParamsList, generateQueryStringParams } from './query'
-import { ResourceTypeLock } from './api'
+import { type QueryParamsRetrieve, type QueryParamsList, generateQueryStringParams } from './query'
+import type { ResourceTypeLock } from './api'
 import config from './config'
-import { InterceptorManager } from './interceptor'
+import type { InterceptorManager } from './interceptor'
+import type { QueryParams } from '.'
 
 import Debug from './debug'
-import { QueryParams } from '.'
 const debug = Debug('resource')
 
 
@@ -16,8 +16,7 @@ type ResourceNull = { id: null } & ResourceType
 type ResourceRel = ResourceId | ResourceNull
 
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Metadata = { [key: string]: any }
+type Metadata = Record<string, any>
 
 
 interface ResourceType {
@@ -274,4 +273,4 @@ abstract class ApiResource {
 
 export default ResourceAdapter
 
-export { ApiResource, ResourcesConfig, ResourcesInitConfig }
+export { ApiResource , type ResourcesConfig, type ResourcesInitConfig }
