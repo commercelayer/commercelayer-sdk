@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Parcel } from './parcels'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type PackageType = 'packages'
@@ -26,6 +27,7 @@ interface Package extends Resource {
 	stock_location?: StockLocation | null
 	parcels?: Parcel[] | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -87,6 +89,11 @@ class Packages extends ApiResource<Package> {
 	async attachments(packageId: string | Package, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _packageId = (packageId as Package).id || packageId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `packages/${_packageId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(packageId: string | Package, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _packageId = (packageId as Package).id || packageId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `packages/${_packageId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

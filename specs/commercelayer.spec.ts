@@ -1,6 +1,6 @@
 
 import { CommerceLayerClient, CommerceLayerStatic } from '../src'
-import { getClient, initClient, organization, } from '../test/common'
+import { currentAccessToken, getClient, initClient, organization, } from '../test/common'
 import { RawResponseReader } from '../src/interceptor'
 import { OPEN_API_SCHEMA_VERSION } from '../src/commercelayer'
 
@@ -37,12 +37,22 @@ describe('SDK:commercelayer suite', () => {
 	})
 
 
+	it('commercelayer.accessToken', async () => {
+
+		expect(cl.currentAccessToken).toEqual(currentAccessToken)
+	
+		cl.config({ accessToken: 'fake-token' })
+		expect(cl.currentAccessToken).toEqual('fake-token')
+
+	})
+
+
 	it('commercelayer.rawResponse', async () => {
 
 		jest.setTimeout(10000)
 		const headers = true
 
-		const cli = await initClient()
+		const cli = await getClient(true)
 
 		const reader = cli.addRawResponseReader({ headers })
 		expect(reader).not.toBeUndefined()
@@ -58,6 +68,9 @@ describe('SDK:commercelayer suite', () => {
 		cli.removeRawResponseReader(0)
 		cli.removeRawResponseReader({ id: undefined } as RawResponseReader)
 
+		cl = await getClient()
+
 	})
+
 
 })

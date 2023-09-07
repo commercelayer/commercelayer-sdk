@@ -1,9 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
+import type { Version } from './versions'
 
 
 type BraintreePaymentType = 'braintree_payments'
@@ -24,6 +25,7 @@ interface BraintreePayment extends Resource {
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
+	versions?: Version[] | null
 
 }
 
@@ -75,6 +77,11 @@ class BraintreePayments extends ApiResource<BraintreePayment> {
 	async payment_gateway(braintreePaymentId: string | BraintreePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `braintree_payments/${_braintreePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async versions(braintreePaymentId: string | BraintreePayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `braintree_payments/${_braintreePaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

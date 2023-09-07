@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Price } from './prices'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type PriceListType = 'price_lists'
@@ -20,6 +21,7 @@ interface PriceList extends Resource {
 
 	prices?: Price[] | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -66,6 +68,11 @@ class PriceLists extends ApiResource<PriceList> {
 	async attachments(priceListId: string | PriceList, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceListId = (priceListId as PriceList).id || priceListId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_lists/${_priceListId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(priceListId: string | PriceList, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _priceListId = (priceListId as PriceList).id || priceListId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `price_lists/${_priceListId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

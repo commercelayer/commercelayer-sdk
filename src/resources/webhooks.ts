@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { EventCallback } from './event_callbacks'
+import type { Version } from './versions'
 
 
 type WebhookType = 'webhooks'
@@ -22,6 +23,7 @@ interface Webhook extends Resource {
 	shared_secret: string
 
 	last_event_callbacks?: EventCallback[] | null
+	versions?: Version[] | null
 
 }
 
@@ -66,6 +68,11 @@ class Webhooks extends ApiResource<Webhook> {
 	async last_event_callbacks(webhookId: string | Webhook, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		const _webhookId = (webhookId as Webhook).id || webhookId as string
 		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${_webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
+	}
+
+	async versions(webhookId: string | Webhook, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _webhookId = (webhookId as Webhook).id || webhookId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `webhooks/${_webhookId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _reset_circuit(id: string | Webhook, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {

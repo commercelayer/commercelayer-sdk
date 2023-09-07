@@ -9,6 +9,7 @@ import type { SubscriptionModel, SubscriptionModelType } from './subscription_mo
 import type { TaxCalculator, TaxCalculatorType } from './tax_calculators'
 import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type MarketType = 'markets'
@@ -42,6 +43,7 @@ interface Market extends Resource {
 	tax_calculator?: TaxCalculator | null
 	customer_group?: CustomerGroup | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -133,6 +135,11 @@ class Markets extends ApiResource<Market> {
 	async attachments(marketId: string | Market, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `markets/${_marketId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(marketId: string | Market, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `markets/${_marketId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _disable(id: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {

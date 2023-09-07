@@ -7,6 +7,7 @@ import type { Sku } from './skus'
 import type { SkuListItem } from './sku_list_items'
 import type { Bundle } from './bundles'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type SkuListType = 'sku_lists'
@@ -30,6 +31,7 @@ interface SkuList extends Resource {
 	sku_list_items?: SkuListItem[] | null
 	bundles?: Bundle[] | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -99,6 +101,11 @@ class SkuLists extends ApiResource<SkuList> {
 	async attachments(skuListId: string | SkuList, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _skuListId = (skuListId as SkuList).id || skuListId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_lists/${_skuListId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(skuListId: string | SkuList, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _skuListId = (skuListId as SkuList).id || skuListId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `sku_lists/${_skuListId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

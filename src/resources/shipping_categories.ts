@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Sku } from './skus'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type ShippingCategoryType = 'shipping_categories'
@@ -18,6 +19,7 @@ interface ShippingCategory extends Resource {
 
 	skus?: Sku[] | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -60,6 +62,11 @@ class ShippingCategories extends ApiResource<ShippingCategory> {
 	async attachments(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_categories/${_shippingCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_categories/${_shippingCategoryId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

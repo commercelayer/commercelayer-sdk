@@ -6,6 +6,7 @@ import type { Market, MarketType } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
+import type { Version } from './versions'
 
 
 type SkuOptionType = 'sku_options'
@@ -32,6 +33,7 @@ interface SkuOption extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
+	versions?: Version[] | null
 
 }
 
@@ -100,6 +102,11 @@ class SkuOptions extends ApiResource<SkuOption> {
 	async tags(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `sku_options/${_skuOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async versions(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `sku_options/${_skuOptionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

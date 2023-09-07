@@ -1,9 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
+import type { Version } from './versions'
 
 
 type CheckoutComPaymentType = 'checkout_com_payments'
@@ -30,6 +31,7 @@ interface CheckoutComPayment extends Resource {
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
+	versions?: Version[] | null
 
 }
 
@@ -86,6 +88,11 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 	async payment_gateway(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `checkout_com_payments/${_checkoutComPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async versions(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `checkout_com_payments/${_checkoutComPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _details(id: string | CheckoutComPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {

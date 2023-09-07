@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type ShippingWeightTierType = 'shipping_weight_tiers'
@@ -23,6 +24,7 @@ interface ShippingWeightTier extends Resource {
 
 	shipping_method?: ShippingMethod | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -73,6 +75,11 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 	async attachments(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_weight_tiers/${_shippingWeightTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_weight_tiers/${_shippingWeightTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

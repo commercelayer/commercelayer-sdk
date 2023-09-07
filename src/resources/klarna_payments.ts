@@ -1,9 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
+import type { Version } from './versions'
 
 
 type KlarnaPaymentType = 'klarna_payments'
@@ -27,6 +28,7 @@ interface KlarnaPayment extends Resource {
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
+	versions?: Version[] | null
 
 }
 
@@ -72,6 +74,11 @@ class KlarnaPayments extends ApiResource<KlarnaPayment> {
 	async payment_gateway(klarnaPaymentId: string | KlarnaPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _klarnaPaymentId = (klarnaPaymentId as KlarnaPayment).id || klarnaPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `klarna_payments/${_klarnaPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async versions(klarnaPaymentId: string | KlarnaPayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _klarnaPaymentId = (klarnaPaymentId as KlarnaPayment).id || klarnaPaymentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `klarna_payments/${_klarnaPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _update(id: string | KlarnaPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment> {

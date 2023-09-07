@@ -22,8 +22,8 @@ import type { WireTransfer, WireTransferType } from './wire_transfers'
 import type { LineItem } from './line_items'
 import type { Shipment } from './shipments'
 import type { Authorization } from './authorizations'
-import type { Void } from './voids'
 import type { Capture } from './captures'
+import type { Void } from './voids'
 import type { Refund } from './refunds'
 import type { Return } from './returns'
 import type { OrderSubscription } from './order_subscriptions'
@@ -33,6 +33,7 @@ import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
+import type { Version } from './versions'
 
 
 type OrderType = 'orders'
@@ -136,6 +137,9 @@ interface Order extends Resource {
 	duty_amount_cents?: number | null
 	duty_amount_float?: number | null
 	formatted_duty_amount?: string | null
+	place_total_amount_cents?: number | null
+	place_total_amount_float?: number | null
+	formatted_place_total_amount?: string | null
 	skus_count?: number | null
 	line_item_options_count?: number | null
 	shipments_count?: number | null
@@ -170,7 +174,7 @@ interface Order extends Resource {
 	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
 	line_items?: LineItem[] | null
 	shipments?: Shipment[] | null
-	transactions?: Array<Authorization | Void | Capture | Refund> | null
+	transactions?: Array<Authorization | Capture | Void | Refund> | null
 	authorizations?: Authorization[] | null
 	captures?: Capture[] | null
 	voids?: Void[] | null
@@ -183,6 +187,7 @@ interface Order extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
+	versions?: Version[] | null
 
 }
 
@@ -395,6 +400,11 @@ class Orders extends ApiResource<Order> {
 	async tags(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `orders/${_orderId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async versions(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `orders/${_orderId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _archive(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {

@@ -8,6 +8,7 @@ import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promo
 import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
 import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
 import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
+import type { Version } from './versions'
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 
@@ -31,6 +32,7 @@ interface SkuListPromotionRule extends Resource {
 	min_quantity?: number | null
 
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
+	versions?: Version[] | null
 	sku_list?: SkuList | null
 	skus?: Sku[] | null
 
@@ -73,6 +75,11 @@ class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 
 	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete((typeof id === 'string')? { id, type: SkuListPromotionRules.TYPE } : id, options)
+	}
+
+	async versions(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async sku_list(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {

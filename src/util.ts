@@ -1,4 +1,4 @@
-import type { ObjectType } from "./common";
+import type { ObjectType } from "../src/common";
 
 
 

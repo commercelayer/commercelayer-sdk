@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Address, AddressType } from './addresses'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type MerchantType = 'merchants'
@@ -19,6 +20,7 @@ interface Merchant extends Resource {
 
 	address?: Address | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -65,6 +67,11 @@ class Merchants extends ApiResource<Merchant> {
 	async attachments(merchantId: string | Merchant, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _merchantId = (merchantId as Merchant).id || merchantId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `merchants/${_merchantId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(merchantId: string | Merchant, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _merchantId = (merchantId as Merchant).id || merchantId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `merchants/${_merchantId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

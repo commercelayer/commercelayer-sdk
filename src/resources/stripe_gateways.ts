@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
+import type { Version } from './versions'
 import type { StripePayment } from './stripe_payments'
 
 
@@ -21,6 +22,7 @@ interface StripeGateway extends Resource {
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
+	versions?: Version[] | null
 	stripe_payments?: StripePayment[] | null
 
 }
@@ -63,6 +65,11 @@ class StripeGateways extends ApiResource<StripeGateway> {
 	async payment_methods(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `stripe_gateways/${_stripeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
+
+	async versions(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_gateways/${_stripeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async stripe_payments(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {

@@ -1,9 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
+import type { Version } from './versions'
 
 
 type StripePaymentType = 'stripe_payments'
@@ -23,10 +24,12 @@ interface StripePayment extends Resource {
 	intent_amount_cents: number
 	intent_amount_float?: number | null
 	formatted_intent_amount?: string | null
+	return_url?: string | null
 	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
+	versions?: Version[] | null
 
 }
 
@@ -34,6 +37,7 @@ interface StripePayment extends Resource {
 interface StripePaymentCreate extends ResourceCreate {
 	
 	options?: Record<string, any> | null
+	return_url?: string | null
 
 	order: OrderRel
 
@@ -43,6 +47,7 @@ interface StripePaymentCreate extends ResourceCreate {
 interface StripePaymentUpdate extends ResourceUpdate {
 	
 	options?: Record<string, any> | null
+	return_url?: string | null
 	_update?: boolean | null
 	_refresh?: boolean | null
 
@@ -75,6 +80,11 @@ class StripePayments extends ApiResource<StripePayment> {
 	async payment_gateway(stripePaymentId: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `stripe_payments/${_stripePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async versions(stripePaymentId: string | StripePayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_payments/${_stripePaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _update(id: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {

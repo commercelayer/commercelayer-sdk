@@ -11,6 +11,7 @@ import type { SkuList, SkuListType } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
+import type { Version } from './versions'
 import type { Sku } from './skus'
 
 
@@ -47,6 +48,7 @@ interface PercentageDiscountPromotion extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
+	versions?: Version[] | null
 	skus?: Sku[] | null
 
 }
@@ -146,6 +148,11 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 	async tags(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async versions(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async skus(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {

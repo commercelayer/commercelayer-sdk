@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type CarrierAccountType = 'carrier_accounts'
@@ -20,6 +21,7 @@ interface CarrierAccount extends Resource {
 
 	market?: Market | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -36,6 +38,11 @@ class CarrierAccounts extends ApiResource<CarrierAccount> {
 	async attachments(carrierAccountId: string | CarrierAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `carrier_accounts/${_carrierAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(carrierAccountId: string | CarrierAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `carrier_accounts/${_carrierAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

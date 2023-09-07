@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 import type { Authorization } from './authorizations'
 import type { Event } from './events'
 
@@ -30,6 +31,7 @@ interface Void extends Resource {
 
 	order?: Order | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 	reference_authorization?: Authorization | null
 	events?: Event[] | null
 
@@ -48,6 +50,11 @@ class Voids extends ApiResource<Void> {
 	async attachments(voidId: string | Void, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `voids/${_voidId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(voidId: string | Void, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _voidId = (voidId as Void).id || voidId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `voids/${_voidId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async reference_authorization(voidId: string | Void, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {

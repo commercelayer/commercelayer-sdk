@@ -1,8 +1,9 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
+import type { Version } from './versions'
 
 
 type TaxRuleType = 'tax_rules'
@@ -29,6 +30,7 @@ interface TaxRule extends Resource {
 	breakdown?: Record<string, any> | null
 
 	manual_tax_calculator?: ManualTaxCalculator | null
+	versions?: Version[] | null
 
 }
 
@@ -92,6 +94,11 @@ class TaxRules extends ApiResource<TaxRule> {
 	async manual_tax_calculator(taxRuleId: string | TaxRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
 		const _taxRuleId = (taxRuleId as TaxRule).id || taxRuleId as string
 		return this.resources.fetch<ManualTaxCalculator>({ type: 'manual_tax_calculators' }, `tax_rules/${_taxRuleId}/manual_tax_calculator`, params, options) as unknown as ManualTaxCalculator
+	}
+
+	async versions(taxRuleId: string | TaxRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _taxRuleId = (taxRuleId as TaxRule).id || taxRuleId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `tax_rules/${_taxRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

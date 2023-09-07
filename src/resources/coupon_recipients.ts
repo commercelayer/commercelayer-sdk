@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer, CustomerType } from './customers'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type CouponRecipientType = 'coupon_recipients'
@@ -21,6 +22,7 @@ interface CouponRecipient extends Resource {
 
 	customer?: Customer | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -71,6 +73,11 @@ class CouponRecipients extends ApiResource<CouponRecipient> {
 	async attachments(couponRecipientId: string | CouponRecipient, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${_couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(couponRecipientId: string | CouponRecipient, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `coupon_recipients/${_couponRecipientId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

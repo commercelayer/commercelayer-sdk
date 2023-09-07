@@ -10,6 +10,7 @@ import type { ReturnLineItem } from './return_line_items'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
+import type { Version } from './versions'
 
 
 type ReturnType = 'returns'
@@ -43,6 +44,7 @@ interface Return extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
+	versions?: Version[] | null
 
 }
 
@@ -133,6 +135,11 @@ class Returns extends ApiResource<Return> {
 	async tags(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `returns/${_returnId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async versions(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _returnId = (returnId as Return).id || returnId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `returns/${_returnId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _request(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {

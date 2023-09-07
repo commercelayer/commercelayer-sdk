@@ -118,13 +118,25 @@ class ResourceAdapter {
 	}
 
 
-	config(config: ResourcesConfig): void {
+	config(config: ResourcesConfig): ResourceAdapter {
+
 		debug('config %o', config)
+
 		// ResourceAdapter config
 		this.localConfig(config)
 		// Client config
 		this.#client.config(config)
+
+		return this
+
 	}
+
+
+	/*
+	get clientInstance(): ApiClient {
+		return this.#client
+	}
+	*/
 
 
 	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {

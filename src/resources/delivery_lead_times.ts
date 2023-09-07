@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { StockLocation, StockLocationType } from './stock_locations'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type DeliveryLeadTimeType = 'delivery_lead_times'
@@ -25,6 +26,7 @@ interface DeliveryLeadTime extends Resource {
 	stock_location?: StockLocation | null
 	shipping_method?: ShippingMethod | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -80,6 +82,11 @@ class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 	async attachments(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `delivery_lead_times/${_deliveryLeadTimeId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `delivery_lead_times/${_deliveryLeadTimeId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

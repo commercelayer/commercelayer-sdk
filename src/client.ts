@@ -165,6 +165,13 @@ class ApiClient {
 		return customHeaders
 	}
 
+
+	/*
+	get currentAccessToken(): string {
+		return this.#accessToken
+	}
+	*/
+
 }
 
 

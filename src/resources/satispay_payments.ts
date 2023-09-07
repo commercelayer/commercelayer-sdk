@@ -1,9 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
+import type { Version } from './versions'
 
 
 type SatispayPaymentType = 'satispay_payments'
@@ -17,6 +18,7 @@ interface SatispayPayment extends Resource {
 
 	payment_id?: string | null
 	flow?: string | null
+	status?: string | null
 	redirect_url?: string | null
 	payment_url?: string | null
 	intent_amount_cents: number
@@ -26,6 +28,7 @@ interface SatispayPayment extends Resource {
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
+	versions?: Version[] | null
 
 }
 
@@ -74,6 +77,11 @@ class SatispayPayments extends ApiResource<SatispayPayment> {
 	async payment_gateway(satispayPaymentId: string | SatispayPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _satispayPaymentId = (satispayPaymentId as SatispayPayment).id || satispayPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `satispay_payments/${_satispayPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async versions(satispayPaymentId: string | SatispayPayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _satispayPaymentId = (satispayPaymentId as SatispayPayment).id || satispayPaymentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `satispay_payments/${_satispayPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _refresh(id: string | SatispayPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SatispayPayment> {

@@ -1,9 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
+import type { Version } from './versions'
 
 
 type AxervePaymentType = 'axerve_payments'
@@ -26,6 +27,7 @@ interface AxervePayment extends Resource {
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
+	versions?: Version[] | null
 
 }
 
@@ -73,6 +75,11 @@ class AxervePayments extends ApiResource<AxervePayment> {
 	async payment_gateway(axervePaymentId: string | AxervePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _axervePaymentId = (axervePaymentId as AxervePayment).id || axervePaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `axerve_payments/${_axervePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async versions(axervePaymentId: string | AxervePayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _axervePaymentId = (axervePaymentId as AxervePayment).id || axervePaymentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `axerve_payments/${_axervePaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _update(id: string | AxervePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AxervePayment> {

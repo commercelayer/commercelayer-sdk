@@ -18,12 +18,17 @@ import getToken from './token'
 	})
 
 	try {
-		const list = await cl.orders.list()
-		if (list.length > 0) {
-			const id = list[0].id
-			const o = await cl.orders._approve(id)
-			console.log(o)
+
+		const rr = cl.addRawResponseReader({ headers: true })
+		for (let i = 1; i <= 100; i++) {
+			const customers = await cl.customers.list()
+			const headers = rr.headers
+			console.log(i + ' ----------------------------------------')
+			console.log(headers)
 		}
+
+		cl.removeRawResponseReader(rr)
+
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))
 		console.log(error.message)

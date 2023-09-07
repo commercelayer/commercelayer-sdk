@@ -1,10 +1,11 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { CustomerPaymentSource } from './customer_payment_sources'
+import type { Version } from './versions'
 
 
 type ExternalPaymentType = 'external_payments'
@@ -23,6 +24,7 @@ interface ExternalPayment extends Resource {
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
 	wallet?: CustomerPaymentSource | null
+	versions?: Version[] | null
 
 }
 
@@ -75,6 +77,11 @@ class ExternalPayments extends ApiResource<ExternalPayment> {
 	async wallet(externalPaymentId: string | ExternalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
 		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId as string
 		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `external_payments/${_externalPaymentId}/wallet`, params, options) as unknown as CustomerPaymentSource
+	}
+
+	async versions(externalPaymentId: string | ExternalPayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `external_payments/${_externalPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

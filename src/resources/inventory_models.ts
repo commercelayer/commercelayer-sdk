@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { InventoryStockLocation } from './inventory_stock_locations'
 import type { InventoryReturnLocation } from './inventory_return_locations'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type InventoryModelType = 'inventory_models'
@@ -23,6 +24,7 @@ interface InventoryModel extends Resource {
 	inventory_stock_locations?: InventoryStockLocation[] | null
 	inventory_return_locations?: InventoryReturnLocation[] | null
 	attachments?: Attachment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -76,6 +78,11 @@ class InventoryModels extends ApiResource<InventoryModel> {
 	async attachments(inventoryModelId: string | InventoryModel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _inventoryModelId = (inventoryModelId as InventoryModel).id || inventoryModelId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `inventory_models/${_inventoryModelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(inventoryModelId: string | InventoryModel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _inventoryModelId = (inventoryModelId as InventoryModel).id || inventoryModelId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `inventory_models/${_inventoryModelId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
