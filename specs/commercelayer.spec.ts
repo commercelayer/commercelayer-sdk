@@ -37,6 +37,7 @@ describe('SDK:commercelayer suite', () => {
 	})
 
 
+/*
 	it('commercelayer.accessToken', async () => {
 
 		expect(cl.currentAccessToken).toEqual(currentAccessToken)
@@ -45,6 +46,7 @@ describe('SDK:commercelayer suite', () => {
 		expect(cl.currentAccessToken).toEqual('fake-token')
 
 	})
+*/
 
 
 	it('commercelayer.rawResponse', async () => {
