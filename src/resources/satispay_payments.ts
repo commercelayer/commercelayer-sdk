@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 import type { PaymentGateway } from './payment_gateways'
+import type { Version } from './versions'
 
 
 type SatispayPaymentRel = ResourceRel & { type: typeof SatispayPayments.TYPE }
@@ -13,6 +14,7 @@ interface SatispayPayment extends Resource {
 	
 	payment_id?: string
 	flow?: string
+	status?: string
 	redirect_url?: string
 	payment_url?: string
 	intent_amount_cents?: number
@@ -22,6 +24,7 @@ interface SatispayPayment extends Resource {
 
 	order?: Order
 	payment_gateway?: PaymentGateway
+	versions?: Version[]
 
 }
 
@@ -79,6 +82,11 @@ class SatispayPayments extends ApiResource {
 	async payment_gateway(satispayPaymentId: string | SatispayPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _satispayPaymentId = (satispayPaymentId as SatispayPayment).id || satispayPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `satispay_payments/${_satispayPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async versions(satispayPaymentId: string | SatispayPayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _satispayPaymentId = (satispayPaymentId as SatispayPayment).id || satispayPaymentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `satispay_payments/${_satispayPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

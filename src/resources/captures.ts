@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 import type { Authorization } from './authorizations'
 import type { Refund } from './refunds'
 import type { Event } from './events'
@@ -33,6 +34,7 @@ interface Capture extends Resource {
 
 	order?: Order
 	attachments?: Attachment[]
+	versions?: Version[]
 	reference_authorization?: Authorization
 	refunds?: Refund[]
 	events?: Event[]
@@ -73,6 +75,11 @@ class Captures extends ApiResource {
 	async attachments(captureId: string | Capture, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _captureId = (captureId as Capture).id || captureId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `captures/${_captureId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(captureId: string | Capture, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _captureId = (captureId as Capture).id || captureId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `captures/${_captureId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async reference_authorization(captureId: string | Capture, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {

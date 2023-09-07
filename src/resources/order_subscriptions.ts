@@ -10,6 +10,7 @@ import type { OrderSubscriptionItem } from './order_subscription_items'
 import type { OrderFactory } from './order_factories'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Event } from './events'
+import type { Version } from './versions'
 
 
 type OrderSubscriptionRel = ResourceRel & { type: typeof OrderSubscriptions.TYPE }
@@ -47,6 +48,7 @@ interface OrderSubscription extends Resource {
 	recurring_order_copies?: RecurringOrderCopy[]
 	orders?: Order[]
 	events?: Event[]
+	versions?: Version[]
 
 }
 
@@ -152,6 +154,11 @@ class OrderSubscriptions extends ApiResource {
 	async events(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `order_subscriptions/${_orderSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async versions(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `order_subscriptions/${_orderSubscriptionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

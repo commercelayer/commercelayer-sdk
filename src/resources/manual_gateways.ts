@@ -2,6 +2,7 @@ import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig,
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
+import type { Version } from './versions'
 
 
 type ManualGatewayRel = ResourceRel & { type: typeof ManualGateways.TYPE }
@@ -12,6 +13,7 @@ interface ManualGateway extends Resource {
 	name?: string
 
 	payment_methods?: PaymentMethod[]
+	versions?: Version[]
 
 }
 
@@ -58,6 +60,11 @@ class ManualGateways extends ApiResource {
 	async payment_methods(manualGatewayId: string | ManualGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `manual_gateways/${_manualGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
+
+	async versions(manualGatewayId: string | ManualGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `manual_gateways/${_manualGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

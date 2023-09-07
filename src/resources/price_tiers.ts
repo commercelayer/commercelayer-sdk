@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Price } from './prices'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type PriceTierRel = ResourceRel & { type: typeof PriceTiers.TYPE }
@@ -18,6 +19,7 @@ interface PriceTier extends Resource {
 
 	price?: Price
 	attachments?: Attachment[]
+	versions?: Version[]
 
 }
 
@@ -43,6 +45,11 @@ class PriceTiers extends ApiResource {
 	async attachments(priceTierId: string | PriceTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceTierId = (priceTierId as PriceTier).id || priceTierId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_tiers/${_priceTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(priceTierId: string | PriceTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _priceTierId = (priceTierId as PriceTier).id || priceTierId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `price_tiers/${_priceTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

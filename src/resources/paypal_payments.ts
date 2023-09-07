@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 import type { PaymentGateway } from './payment_gateways'
+import type { Version } from './versions'
 
 
 type PaypalPaymentRel = ResourceRel & { type: typeof PaypalPayments.TYPE }
@@ -27,6 +28,7 @@ interface PaypalPayment extends Resource {
 
 	order?: Order
 	payment_gateway?: PaymentGateway
+	versions?: Version[]
 
 }
 
@@ -84,6 +86,11 @@ class PaypalPayments extends ApiResource {
 	async payment_gateway(paypalPaymentId: string | PaypalPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `paypal_payments/${_paypalPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async versions(paypalPaymentId: string | PaypalPayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `paypal_payments/${_paypalPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

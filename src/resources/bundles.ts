@@ -7,6 +7,7 @@ import type { Sku } from './skus'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
+import type { Version } from './versions'
 
 
 type BundleRel = ResourceRel & { type: typeof Bundles.TYPE }
@@ -38,6 +39,7 @@ interface Bundle extends Resource {
 	attachments?: Attachment[]
 	events?: Event[]
 	tags?: Tag[]
+	versions?: Version[]
 
 }
 
@@ -131,6 +133,11 @@ class Bundles extends ApiResource {
 	async tags(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `bundles/${_bundleId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async versions(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `bundles/${_bundleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

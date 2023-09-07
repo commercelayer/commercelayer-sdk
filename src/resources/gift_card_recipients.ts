@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Customer } from './customers'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type GiftCardRecipientRel = ResourceRel & { type: typeof GiftCardRecipients.TYPE }
@@ -17,6 +18,7 @@ interface GiftCardRecipient extends Resource {
 
 	customer?: Customer
 	attachments?: Attachment[]
+	versions?: Version[]
 
 }
 
@@ -76,6 +78,11 @@ class GiftCardRecipients extends ApiResource {
 	async attachments(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `gift_card_recipients/${_giftCardRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `gift_card_recipients/${_giftCardRecipientId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

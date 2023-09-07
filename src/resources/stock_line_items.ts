@@ -5,6 +5,7 @@ import type { Shipment } from './shipments'
 import type { LineItem } from './line_items'
 import type { StockItem } from './stock_items'
 import type { Sku } from './skus'
+import type { Version } from './versions'
 
 
 type StockLineItemRel = ResourceRel & { type: typeof StockLineItems.TYPE }
@@ -20,6 +21,7 @@ interface StockLineItem extends Resource {
 	line_item?: LineItem
 	stock_item?: StockItem
 	sku?: Sku
+	versions?: Version[]
 
 }
 
@@ -55,6 +57,11 @@ class StockLineItems extends ApiResource {
 	async sku(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
 		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_line_items/${_stockLineItemId}/sku`, params, options) as unknown as Sku
+	}
+
+	async versions(stockLineItemId: string | StockLineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `stock_line_items/${_stockLineItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

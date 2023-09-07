@@ -6,6 +6,7 @@ import type { Package } from './packages'
 import type { ParcelLineItem } from './parcel_line_items'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Version } from './versions'
 
 
 type ParcelRel = ResourceRel & { type: typeof Parcels.TYPE }
@@ -46,6 +47,7 @@ interface Parcel extends Resource {
 	parcel_line_items?: ParcelLineItem[]
 	attachments?: Attachment[]
 	events?: Event[]
+	versions?: Version[]
 
 }
 
@@ -164,6 +166,11 @@ class Parcels extends ApiResource {
 	async events(parcelId: string | Parcel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _parcelId = (parcelId as Parcel).id || parcelId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `parcels/${_parcelId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async versions(parcelId: string | Parcel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _parcelId = (parcelId as Parcel).id || parcelId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `parcels/${_parcelId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

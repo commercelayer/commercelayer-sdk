@@ -5,6 +5,7 @@ import type { OrderSubscription } from './order_subscriptions'
 import type { Adjustment } from './adjustments'
 import type { Bundle } from './bundles'
 import type { Sku } from './skus'
+import type { LineItem } from './line_items'
 
 
 type OrderSubscriptionItemRel = ResourceRel & { type: typeof OrderSubscriptionItems.TYPE }
@@ -26,6 +27,7 @@ interface OrderSubscriptionItem extends Resource {
 
 	order_subscription?: OrderSubscription
 	item?: Adjustment | Bundle | Sku
+	source_line_item?: LineItem
 
 }
 
@@ -81,6 +83,11 @@ class OrderSubscriptionItems extends ApiResource {
 	async order_subscription(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
 		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
 		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_subscription_items/${_orderSubscriptionItemId}/order_subscription`, params, options) as unknown as OrderSubscription
+	}
+
+	async source_line_item(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `order_subscription_items/${_orderSubscriptionItemId}/source_line_item`, params, options) as unknown as LineItem
 	}
 
 

@@ -117,6 +117,7 @@ export { default as TaxCategories } from './resources/tax_categories'
 export { default as TaxRules } from './resources/tax_rules'
 export { default as TaxjarAccounts } from './resources/taxjar_accounts'
 export { default as Transactions } from './resources/transactions'
+export { default as Versions } from './resources/versions'
 export { default as Voids } from './resources/voids'
 export { default as Webhooks } from './resources/webhooks'
 export { default as WireTransfers } from './resources/wire_transfers'
@@ -238,6 +239,7 @@ export type ResourceTypeLock =
 |	'tax_rules'
 |	'taxjar_accounts'
 |	'transactions'
+|	'versions'
 |	'voids'
 |	'webhooks'
 |	'wire_transfers'
@@ -359,6 +361,7 @@ export const resourceList = [
 	'tax_rules',
 	'taxjar_accounts',
 	'transactions',
+	'versions',
 	'voids',
 	'webhooks',
 	'wire_transfers'

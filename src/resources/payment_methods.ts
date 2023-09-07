@@ -4,6 +4,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 import type { Market } from './markets'
 import type { PaymentGateway } from './payment_gateways'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type PaymentMethodRel = ResourceRel & { type: typeof PaymentMethods.TYPE }
@@ -30,6 +31,7 @@ interface PaymentMethod extends Resource {
 	market?: Market
 	payment_gateway?: PaymentGateway
 	attachments?: Attachment[]
+	versions?: Version[]
 
 }
 
@@ -106,6 +108,11 @@ class PaymentMethods extends ApiResource {
 	async attachments(paymentMethodId: string | PaymentMethod, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_methods/${_paymentMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(paymentMethodId: string | PaymentMethod, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `payment_methods/${_paymentMethodId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

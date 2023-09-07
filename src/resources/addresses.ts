@@ -4,6 +4,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 import type { Geocoder } from './geocoders'
 import type { Event } from './events'
 import type { Tag } from './tags'
+import type { Version } from './versions'
 
 
 type AddressRel = ResourceRel & { type: typeof Addresses.TYPE }
@@ -41,6 +42,7 @@ interface Address extends Resource {
 	geocoder?: Geocoder
 	events?: Event[]
 	tags?: Tag[]
+	versions?: Version[]
 
 }
 
@@ -133,6 +135,11 @@ class Addresses extends ApiResource {
 	async tags(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _addressId = (addressId as Address).id || addressId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `addresses/${_addressId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async versions(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _addressId = (addressId as Address).id || addressId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `addresses/${_addressId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

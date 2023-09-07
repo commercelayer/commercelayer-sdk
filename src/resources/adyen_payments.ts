@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 import type { PaymentGateway } from './payment_gateways'
+import type { Version } from './versions'
 
 
 type AdyenPaymentRel = ResourceRel & { type: typeof AdyenPayments.TYPE }
@@ -21,6 +22,7 @@ interface AdyenPayment extends Resource {
 
 	order?: Order
 	payment_gateway?: PaymentGateway
+	versions?: Version[]
 
 }
 
@@ -77,6 +79,11 @@ class AdyenPayments extends ApiResource {
 	async payment_gateway(adyenPaymentId: string | AdyenPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _adyenPaymentId = (adyenPaymentId as AdyenPayment).id || adyenPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `adyen_payments/${_adyenPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async versions(adyenPaymentId: string | AdyenPayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _adyenPaymentId = (adyenPaymentId as AdyenPayment).id || adyenPaymentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `adyen_payments/${_adyenPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

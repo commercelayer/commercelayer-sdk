@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type MerchantRel = ResourceRel & { type: typeof Merchants.TYPE }
@@ -15,6 +16,7 @@ interface Merchant extends Resource {
 
 	address?: Address
 	attachments?: Attachment[]
+	versions?: Version[]
 
 }
 
@@ -70,6 +72,11 @@ class Merchants extends ApiResource {
 	async attachments(merchantId: string | Merchant, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _merchantId = (merchantId as Merchant).id || merchantId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `merchants/${_merchantId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(merchantId: string | Merchant, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _merchantId = (merchantId as Merchant).id || merchantId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `merchants/${_merchantId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

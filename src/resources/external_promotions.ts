@@ -10,6 +10,7 @@ import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
+import type { Version } from './versions'
 
 
 type ExternalPromotionRel = ResourceRel & { type: typeof ExternalPromotions.TYPE }
@@ -42,6 +43,7 @@ interface ExternalPromotion extends Resource {
 	attachments?: Attachment[]
 	events?: Event[]
 	tags?: Tag[]
+	versions?: Version[]
 
 }
 
@@ -147,6 +149,11 @@ class ExternalPromotions extends ApiResource {
 	async tags(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `external_promotions/${_externalPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async versions(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `external_promotions/${_externalPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

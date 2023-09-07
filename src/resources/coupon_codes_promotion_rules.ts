@@ -7,6 +7,7 @@ import type { FreeGiftPromotion } from './free_gift_promotions'
 import type { FixedPricePromotion } from './fixed_price_promotions'
 import type { ExternalPromotion } from './external_promotions'
 import type { FixedAmountPromotion } from './fixed_amount_promotions'
+import type { Version } from './versions'
 import type { Coupon } from './coupons'
 
 
@@ -23,6 +24,7 @@ type CouponRel = ResourceRel & { type: 'coupons' }
 interface CouponCodesPromotionRule extends Resource {
 	
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
+	versions?: Version[]
 	coupons?: Coupon[]
 
 }
@@ -67,6 +69,11 @@ class CouponCodesPromotionRules extends ApiResource {
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: CouponCodesPromotionRules.TYPE, id }, options)
+	}
+
+	async versions(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _couponCodesPromotionRuleId = (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || couponCodesPromotionRuleId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async coupons(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {

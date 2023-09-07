@@ -10,6 +10,7 @@ import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
+import type { Version } from './versions'
 
 
 type FreeShippingPromotionRel = ResourceRel & { type: typeof FreeShippingPromotions.TYPE }
@@ -40,6 +41,7 @@ interface FreeShippingPromotion extends Resource {
 	attachments?: Attachment[]
 	events?: Event[]
 	tags?: Tag[]
+	versions?: Version[]
 
 }
 
@@ -143,6 +145,11 @@ class FreeShippingPromotions extends ApiResource {
 	async tags(freeShippingPromotionId: string | FreeShippingPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _freeShippingPromotionId = (freeShippingPromotionId as FreeShippingPromotion).id || freeShippingPromotionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `free_shipping_promotions/${_freeShippingPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async versions(freeShippingPromotionId: string | FreeShippingPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _freeShippingPromotionId = (freeShippingPromotionId as FreeShippingPromotion).id || freeShippingPromotionId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `free_shipping_promotions/${_freeShippingPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

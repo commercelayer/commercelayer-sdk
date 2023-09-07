@@ -1,6 +1,7 @@
 import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
+import type { Version } from './versions'
 
 
 type AdjustmentRel = ResourceRel & { type: typeof Adjustments.TYPE }
@@ -13,7 +14,9 @@ interface Adjustment extends Resource {
 	amount_cents?: number
 	amount_float?: number
 	formatted_amount?: string
-	
+
+	versions?: Version[]
+
 }
 
 
@@ -58,6 +61,11 @@ class Adjustments extends ApiResource {
 
 	async delete(id: string, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete({ type: Adjustments.TYPE, id }, options)
+	}
+
+	async versions(adjustmentId: string | Adjustment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _adjustmentId = (adjustmentId as Adjustment).id || adjustmentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `adjustments/${_adjustmentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

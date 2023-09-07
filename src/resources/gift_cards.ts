@@ -6,6 +6,7 @@ import type { GiftCardRecipient } from './gift_card_recipients'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
+import type { Version } from './versions'
 
 
 type GiftCardRel = ResourceRel & { type: typeof GiftCards.TYPE }
@@ -40,6 +41,7 @@ interface GiftCard extends Resource {
 	attachments?: Attachment[]
 	events?: Event[]
 	tags?: Tag[]
+	versions?: Version[]
 
 }
 
@@ -133,6 +135,11 @@ class GiftCards extends ApiResource {
 	async tags(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `gift_cards/${_giftCardId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async versions(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `gift_cards/${_giftCardId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

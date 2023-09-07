@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { SkuList } from './sku_lists'
 import type { Sku } from './skus'
+import type { Version } from './versions'
 
 
 type SkuListItemRel = ResourceRel & { type: typeof SkuListItems.TYPE }
@@ -18,6 +19,7 @@ interface SkuListItem extends Resource {
 
 	sku_list?: SkuList
 	sku?: Sku
+	versions?: Version[]
 
 }
 
@@ -76,6 +78,11 @@ class SkuListItems extends ApiResource {
 	async sku(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
 		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_items/${_skuListItemId}/sku`, params, options) as unknown as Sku
+	}
+
+	async versions(skuListItemId: string | SkuListItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `sku_list_items/${_skuListItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

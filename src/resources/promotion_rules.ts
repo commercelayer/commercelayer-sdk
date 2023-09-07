@@ -7,6 +7,7 @@ import type { FreeGiftPromotion } from './free_gift_promotions'
 import type { FixedPricePromotion } from './fixed_price_promotions'
 import type { ExternalPromotion } from './external_promotions'
 import type { FixedAmountPromotion } from './fixed_amount_promotions'
+import type { Version } from './versions'
 
 
 type PromotionRuleRel = ResourceRel & { type: typeof PromotionRules.TYPE }
@@ -15,6 +16,7 @@ type PromotionRuleRel = ResourceRel & { type: typeof PromotionRules.TYPE }
 interface PromotionRule extends Resource {
 	
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
+	versions?: Version[]
 
 }
 
@@ -30,6 +32,11 @@ class PromotionRules extends ApiResource {
 
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PromotionRule> {
 		return this.resources.retrieve<PromotionRule>({ type: PromotionRules.TYPE, id }, params, options)
+	}
+
+	async versions(promotionRuleId: string | PromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _promotionRuleId = (promotionRuleId as PromotionRule).id || promotionRuleId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `promotion_rules/${_promotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

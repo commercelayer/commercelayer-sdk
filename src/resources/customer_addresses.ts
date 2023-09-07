@@ -4,6 +4,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 import type { Customer } from './customers'
 import type { Address } from './addresses'
 import type { Event } from './events'
+import type { Version } from './versions'
 
 
 type CustomerAddressRel = ResourceRel & { type: typeof CustomerAddresses.TYPE }
@@ -19,6 +20,7 @@ interface CustomerAddress extends Resource {
 	customer?: Customer
 	address?: Address
 	events?: Event[]
+	versions?: Version[]
 
 }
 
@@ -79,6 +81,11 @@ class CustomerAddresses extends ApiResource {
 	async events(customerAddressId: string | CustomerAddress, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `customer_addresses/${_customerAddressId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async versions(customerAddressId: string | CustomerAddress, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `customer_addresses/${_customerAddressId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

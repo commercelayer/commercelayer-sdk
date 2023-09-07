@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type BillingInfoValidationRuleRel = ResourceRel & { type: typeof BillingInfoValidationRules.TYPE }
@@ -13,6 +14,7 @@ interface BillingInfoValidationRule extends Resource {
 	
 	market?: Market
 	attachments?: Attachment[]
+	versions?: Version[]
 
 }
 
@@ -64,6 +66,11 @@ class BillingInfoValidationRules extends ApiResource {
 	async attachments(billingInfoValidationRuleId: string | BillingInfoValidationRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _billingInfoValidationRuleId = (billingInfoValidationRuleId as BillingInfoValidationRule).id || billingInfoValidationRuleId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `billing_info_validation_rules/${_billingInfoValidationRuleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(billingInfoValidationRuleId: string | BillingInfoValidationRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _billingInfoValidationRuleId = (billingInfoValidationRuleId as BillingInfoValidationRule).id || billingInfoValidationRuleId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `billing_info_validation_rules/${_billingInfoValidationRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

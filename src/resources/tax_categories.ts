@@ -7,6 +7,7 @@ import type { TaxjarAccount } from './taxjar_accounts'
 import type { ManualTaxCalculator } from './manual_tax_calculators'
 import type { ExternalTaxCalculator } from './external_tax_calculators'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type TaxCategoryRel = ResourceRel & { type: typeof TaxCategories.TYPE }
@@ -25,6 +26,7 @@ interface TaxCategory extends Resource {
 	sku?: Sku
 	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator
 	attachments?: Attachment[]
+	versions?: Version[]
 
 }
 
@@ -83,6 +85,11 @@ class TaxCategories extends ApiResource {
 	async attachments(taxCategoryId: string | TaxCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_categories/${_taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(taxCategoryId: string | TaxCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `tax_categories/${_taxCategoryId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

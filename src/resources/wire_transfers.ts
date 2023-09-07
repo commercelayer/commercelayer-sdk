@@ -2,6 +2,7 @@ import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig,
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
+import type { Version } from './versions'
 
 
 type WireTransferRel = ResourceRel & { type: typeof WireTransfers.TYPE }
@@ -13,6 +14,7 @@ interface WireTransfer extends Resource {
 	payment_instrument?: object
 
 	order?: Order
+	versions?: Version[]
 
 }
 
@@ -59,6 +61,11 @@ class WireTransfers extends ApiResource {
 	async order(wireTransferId: string | WireTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `wire_transfers/${_wireTransferId}/order`, params, options) as unknown as Order
+	}
+
+	async versions(wireTransferId: string | WireTransfer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `wire_transfers/${_wireTransferId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type ExternalTaxCalculatorRel = ResourceRel & { type: typeof ExternalTaxCalculators.TYPE }
@@ -16,6 +17,7 @@ interface ExternalTaxCalculator extends Resource {
 
 	markets?: Market[]
 	attachments?: Attachment[]
+	versions?: Version[]
 
 }
 
@@ -69,6 +71,11 @@ class ExternalTaxCalculators extends ApiResource {
 	async attachments(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_tax_calculators/${_externalTaxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `external_tax_calculators/${_externalTaxCalculatorId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

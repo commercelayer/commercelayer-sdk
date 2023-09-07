@@ -9,6 +9,7 @@ import type { ReturnLineItem } from './return_line_items'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
+import type { Version } from './versions'
 
 
 type ReturnRel = ResourceRel & { type: typeof Returns.TYPE }
@@ -39,6 +40,7 @@ interface Return extends Resource {
 	attachments?: Attachment[]
 	events?: Event[]
 	tags?: Tag[]
+	versions?: Version[]
 
 }
 
@@ -138,6 +140,11 @@ class Returns extends ApiResource {
 	async tags(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `returns/${_returnId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async versions(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _returnId = (returnId as Return).id || returnId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `returns/${_returnId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

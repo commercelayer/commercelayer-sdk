@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Parcel } from './parcels'
 import type { StockLineItem } from './stock_line_items'
+import type { Version } from './versions'
 
 
 type ParcelLineItemRel = ResourceRel & { type: typeof ParcelLineItems.TYPE }
@@ -24,6 +25,7 @@ interface ParcelLineItem extends Resource {
 	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
 	shipment_line_item?: object
+	versions?: Version[]
 
 }
 
@@ -78,6 +80,11 @@ class ParcelLineItems extends ApiResource {
 	async stock_line_item(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
 		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
 		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `parcel_line_items/${_parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
+	}
+
+	async versions(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `parcel_line_items/${_parcelLineItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

@@ -13,6 +13,7 @@ import type { CarrierAccount } from './carrier_accounts'
 import type { Parcel } from './parcels'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Version } from './versions'
 
 
 type ShipmentRel = ResourceRel & { type: typeof Shipments.TYPE }
@@ -62,6 +63,7 @@ interface Shipment extends Resource {
 	parcels?: Parcel[]
 	attachments?: Attachment[]
 	events?: Event[]
+	versions?: Version[]
 
 }
 
@@ -167,6 +169,11 @@ class Shipments extends ApiResource {
 	async events(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `shipments/${_shipmentId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async versions(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `shipments/${_shipmentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

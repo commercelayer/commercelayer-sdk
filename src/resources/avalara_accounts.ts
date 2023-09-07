@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 import type { TaxCategory } from './tax_categories'
 
 
@@ -20,6 +21,7 @@ interface AvalaraAccount extends Resource {
 
 	markets?: Market[]
 	attachments?: Attachment[]
+	versions?: Version[]
 	tax_categories?: TaxCategory[]
 
 }
@@ -86,6 +88,11 @@ class AvalaraAccounts extends ApiResource {
 	async attachments(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `avalara_accounts/${_avalaraAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `avalara_accounts/${_avalaraAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async tax_categories(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {

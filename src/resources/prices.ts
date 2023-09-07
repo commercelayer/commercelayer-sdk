@@ -7,6 +7,7 @@ import type { PriceTier } from './price_tiers'
 import type { PriceVolumeTier } from './price_volume_tiers'
 import type { PriceFrequencyTier } from './price_frequency_tiers'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type PriceRel = ResourceRel & { type: typeof Prices.TYPE }
@@ -32,6 +33,7 @@ interface Price extends Resource {
 	price_volume_tiers?: PriceVolumeTier[]
 	price_frequency_tiers?: PriceFrequencyTier[]
 	attachments?: Attachment[]
+	versions?: Version[]
 
 }
 
@@ -115,6 +117,11 @@ class Prices extends ApiResource {
 	async attachments(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceId = (priceId as Price).id || priceId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `prices/${_priceId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _priceId = (priceId as Price).id || priceId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `prices/${_priceId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

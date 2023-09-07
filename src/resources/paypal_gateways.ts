@@ -2,6 +2,7 @@ import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig,
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
+import type { Version } from './versions'
 import type { PaypalPayment } from './paypal_payments'
 
 
@@ -13,6 +14,7 @@ interface PaypalGateway extends Resource {
 	name?: string
 
 	payment_methods?: PaymentMethod[]
+	versions?: Version[]
 	paypal_payments?: PaypalPayment[]
 
 }
@@ -64,6 +66,11 @@ class PaypalGateways extends ApiResource {
 	async payment_methods(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `paypal_gateways/${_paypalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+	}
+
+	async versions(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `paypal_gateways/${_paypalGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async paypal_payments(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {

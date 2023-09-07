@@ -9,6 +9,7 @@ import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { ShippingMethodTier } from './shipping_method_tiers'
 import type { ShippingWeightTier } from './shipping_weight_tiers'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type ShippingMethodRel = ResourceRel & { type: typeof ShippingMethods.TYPE }
@@ -48,6 +49,7 @@ interface ShippingMethod extends Resource {
 	shipping_method_tiers?: ShippingMethodTier[]
 	shipping_weight_tiers?: ShippingWeightTier[]
 	attachments?: Attachment[]
+	versions?: Version[]
 
 }
 
@@ -161,6 +163,11 @@ class ShippingMethods extends ApiResource {
 	async attachments(shippingMethodId: string | ShippingMethod, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_methods/${_shippingMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(shippingMethodId: string | ShippingMethod, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_methods/${_shippingMethodId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

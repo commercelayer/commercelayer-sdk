@@ -117,6 +117,7 @@ export type { TaxCategory, TaxCategoryCreate, TaxCategoryUpdate } from './resour
 export type { TaxRule, TaxRuleCreate, TaxRuleUpdate } from './resources/tax_rules'
 export type { TaxjarAccount, TaxjarAccountCreate, TaxjarAccountUpdate } from './resources/taxjar_accounts'
 export type { Transaction } from './resources/transactions'
+export type { Version } from './resources/versions'
 export type { Void } from './resources/voids'
 export type { Webhook, WebhookCreate, WebhookUpdate } from './resources/webhooks'
 export type { WireTransfer, WireTransferCreate, WireTransferUpdate } from './resources/wire_transfers'

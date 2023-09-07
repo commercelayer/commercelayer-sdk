@@ -4,6 +4,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 import type { Customer } from './customers'
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type CustomerGroupRel = ResourceRel & { type: typeof CustomerGroups.TYPE }
@@ -16,6 +17,7 @@ interface CustomerGroup extends Resource {
 	customers?: Customer[]
 	markets?: Market[]
 	attachments?: Attachment[]
+	versions?: Version[]
 
 }
 
@@ -72,6 +74,11 @@ class CustomerGroups extends ApiResource {
 	async attachments(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customer_groups/${_customerGroupId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async versions(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `customer_groups/${_customerGroupId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

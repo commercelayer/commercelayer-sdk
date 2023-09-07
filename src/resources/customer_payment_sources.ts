@@ -8,10 +8,9 @@ import type { BraintreePayment } from './braintree_payments'
 import type { CheckoutComPayment } from './checkout_com_payments'
 import type { ExternalPayment } from './external_payments'
 import type { KlarnaPayment } from './klarna_payments'
-import type { PaypalPayment } from './paypal_payments'
 import type { SatispayPayment } from './satispay_payments'
 import type { StripePayment } from './stripe_payments'
-import type { WireTransfer } from './wire_transfers'
+import type { Version } from './versions'
 
 
 type CustomerPaymentSourceRel = ResourceRel & { type: typeof CustomerPaymentSources.TYPE }
@@ -22,10 +21,8 @@ type BraintreePaymentRel = ResourceRel & { type: 'braintree_payments' }
 type CheckoutComPaymentRel = ResourceRel & { type: 'checkout_com_payments' }
 type ExternalPaymentRel = ResourceRel & { type: 'external_payments' }
 type KlarnaPaymentRel = ResourceRel & { type: 'klarna_payments' }
-type PaypalPaymentRel = ResourceRel & { type: 'paypal_payments' }
 type SatispayPaymentRel = ResourceRel & { type: 'satispay_payments' }
 type StripePaymentRel = ResourceRel & { type: 'stripe_payments' }
-type WireTransferRel = ResourceRel & { type: 'wire_transfers' }
 
 
 interface CustomerPaymentSource extends Resource {
@@ -35,7 +32,8 @@ interface CustomerPaymentSource extends Resource {
 	payment_source_token?: string
 
 	customer?: Customer
-	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer
+	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | SatispayPayment | StripePayment
+	versions?: Version[]
 
 }
 
@@ -43,7 +41,7 @@ interface CustomerPaymentSource extends Resource {
 interface CustomerPaymentSourceCreate extends ResourceCreate {
 	
 	customer: CustomerRel
-	payment_source: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | SatispayPaymentRel | StripePaymentRel
 
 }
 
@@ -51,7 +49,7 @@ interface CustomerPaymentSourceCreate extends ResourceCreate {
 interface CustomerPaymentSourceUpdate extends ResourceUpdate {
 	
 	customer?: CustomerRel
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel
+	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | SatispayPaymentRel | StripePaymentRel
 
 }
 
@@ -84,6 +82,11 @@ class CustomerPaymentSources extends ApiResource {
 	async customer(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
 		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
 		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_payment_sources/${_customerPaymentSourceId}/customer`, params, options) as unknown as Customer
+	}
+
+	async versions(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `customer_payment_sources/${_customerPaymentSourceId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
