@@ -1,3 +1,10 @@
+## [5.13.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.13.0...v5.13.1) (2023-09-07)
+
+
+### Bug Fixes
+
+* **core:** upgrade axios to 1.5.0 ([7129b62](https://github.com/commercelayer/commercelayer-sdk/commit/7129b62f720a102fe9ba195e63e832601cd32a86))
+
 # [5.13.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.5...v5.13.0) (2023-09-07)
 
 
