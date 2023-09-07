@@ -1,3 +1,10 @@
+## [5.13.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.13.1...v5.13.2) (2023-09-07)
+
+
+### Bug Fixes
+
+* **test:** upgrade js-auth library ([0e78f76](https://github.com/commercelayer/commercelayer-sdk/commit/0e78f762ca0483e203995a3fdf30d326480b663e))
+
 ## [5.13.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.13.0...v5.13.1) (2023-09-07)
 
 
