@@ -1,3 +1,10 @@
+## [5.12.5](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.4...v5.12.5) (2023-08-22)
+
+
+### Bug Fixes
+
+* **core:** fix api resources ([e03e2e6](https://github.com/commercelayer/commercelayer-sdk/commit/e03e2e6d20f2338bfe09632681fee6b5de783898))
+
 ## [5.12.4](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.3...v5.12.4) (2023-08-22)
 
 
