@@ -1,3 +1,15 @@
+# [5.13.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.5...v5.13.0) (2023-09-07)
+
+
+### Bug Fixes
+
+* **core:** fix regression in specs ([8c6fdfa](https://github.com/commercelayer/commercelayer-sdk/commit/8c6fdfa92331d791632deffb54d8bd1ccd574b67))
+
+
+### Features
+
+* **vore:** update resources to schema 4.11.0 ([e5a3f55](https://github.com/commercelayer/commercelayer-sdk/commit/e5a3f559fa0d1dc24f8ab131e16ee016f81714d8))
+
 ## [5.12.5](https://github.com/commercelayer/commercelayer-sdk/compare/v5.12.4...v5.12.5) (2023-08-22)
 
 
