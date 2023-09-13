@@ -199,6 +199,7 @@ interface OrderCreate extends ResourceCreate {
 	customer_email?: string | null
 	customer_password?: string | null
 	language_code?: string | null
+	freight_taxable?: boolean | null
 	shipping_country_code_lock?: string | null
 	coupon_code?: string | null
 	gift_card_code?: string | null
@@ -225,6 +226,7 @@ interface OrderUpdate extends ResourceUpdate {
 	customer_email?: string | null
 	customer_password?: string | null
 	language_code?: string | null
+	freight_taxable?: boolean | null
 	shipping_country_code_lock?: string | null
 	coupon_code?: string | null
 	gift_card_code?: string | null

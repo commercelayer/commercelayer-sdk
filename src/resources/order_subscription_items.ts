@@ -31,6 +31,8 @@ interface OrderSubscriptionItem extends Resource {
 
 	order_subscription?: OrderSubscription | null
 	item?: Adjustment | Bundle | Sku | null
+	sku?: Sku | null
+	bundle?: Bundle | null
 	source_line_item?: LineItem | null
 
 }
@@ -45,6 +47,8 @@ interface OrderSubscriptionItemCreate extends ResourceCreate {
 
 	order_subscription: OrderSubscriptionRel
 	item: AdjustmentRel | BundleRel | SkuRel
+	sku?: SkuRel | null
+	bundle?: BundleRel | null
 
 }
 

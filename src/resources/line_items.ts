@@ -70,6 +70,8 @@ interface LineItem extends Resource {
 
 	order?: Order | null
 	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku | null
+	sku?: Sku | null
+	bundle?: Bundle | null
 	line_item_options?: LineItemOption[] | null
 	/**
 	* @deprecated This field should not be used as it may be removed in the future without notice
@@ -100,6 +102,8 @@ interface LineItemCreate extends ResourceCreate {
 
 	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel | null
+	sku?: SkuRel | null
+	bundle?: BundleRel | null
 	tags?: TagRel[] | null
 
 }
