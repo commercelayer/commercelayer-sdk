@@ -30,11 +30,14 @@ interface FixedPricePromotion extends Resource {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
 	total_usage_count?: number
 	active?: boolean
+	disabled_at?: string
 	fixed_amount_cents?: number
 	fixed_amount_float?: number
 	formatted_fixed_amount?: string
@@ -59,6 +62,8 @@ interface FixedPricePromotionCreate extends ResourceCreate {
 	
 	name: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -80,9 +85,13 @@ interface FixedPricePromotionUpdate extends ResourceUpdate {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
+	_disable?: boolean
+	_enable?: boolean
 	fixed_amount_cents?: number
 
 	market?: MarketRel

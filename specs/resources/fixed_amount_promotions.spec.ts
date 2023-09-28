@@ -36,6 +36,7 @@ describe('FixedAmountPromotions resource', () => {
 			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
 			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
 			coupons: [ cl.coupons.relationship(TestData.id) ],
+			sku_list: cl.sku_lists.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
@@ -345,6 +346,25 @@ describe('FixedAmountPromotions resource', () => {
 		})
 	
 		await cl[resourceType].versions(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.skus', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { skus: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'skus')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].skus(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	

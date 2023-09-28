@@ -21,11 +21,14 @@ interface Promotion extends Resource {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
 	total_usage_count?: number
 	active?: boolean
+	disabled_at?: string
 
 	market?: Market
 	promotion_rules?: PromotionRule[]

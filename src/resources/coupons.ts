@@ -21,6 +21,7 @@ interface Coupon extends Resource {
 	usage_limit?: number
 	usage_count?: number
 	recipient_email?: string
+	expires_at?: string
 
 	promotion_rule?: CouponCodesPromotionRule
 	coupon_recipient?: CouponRecipient
@@ -37,6 +38,7 @@ interface CouponCreate extends ResourceCreate {
 	customer_single_use?: boolean
 	usage_limit?: number
 	recipient_email?: string
+	expires_at?: string
 
 	promotion_rule: CouponCodesPromotionRuleRel
 	coupon_recipient?: CouponRecipientRel
@@ -51,6 +53,7 @@ interface CouponUpdate extends ResourceUpdate {
 	customer_single_use?: boolean
 	usage_limit?: number
 	recipient_email?: string
+	expires_at?: string
 
 	promotion_rule?: CouponCodesPromotionRuleRel
 	coupon_recipient?: CouponRecipientRel

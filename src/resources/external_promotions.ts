@@ -12,6 +12,7 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
 import type { Version } from './versions'
+import type { Sku } from './skus'
 
 
 type ExternalPromotionRel = ResourceRel & { type: typeof ExternalPromotions.TYPE }
@@ -21,6 +22,7 @@ type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion
 type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
 type CouponRel = ResourceRel & { type: 'coupons' }
+type SkuListRel = ResourceRel & { type: 'sku_lists' }
 type TagRel = ResourceRel & { type: 'tags' }
 
 
@@ -28,11 +30,14 @@ interface ExternalPromotion extends Resource {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
 	total_usage_count?: number
 	active?: boolean
+	disabled_at?: string
 	promotion_url?: string
 	shared_secret?: string
 
@@ -47,6 +52,7 @@ interface ExternalPromotion extends Resource {
 	events?: Event[]
 	tags?: Tag[]
 	versions?: Version[]
+	skus?: Sku[]
 
 }
 
@@ -55,6 +61,8 @@ interface ExternalPromotionCreate extends ResourceCreate {
 	
 	name: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -66,6 +74,7 @@ interface ExternalPromotionCreate extends ResourceCreate {
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
 	coupons?: CouponRel[]
+	sku_list?: SkuListRel
 	tags?: TagRel[]
 
 }
@@ -75,9 +84,13 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
+	_disable?: boolean
+	_enable?: boolean
 	promotion_url?: string
 
 	market?: MarketRel
@@ -86,6 +99,7 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
 	coupons?: CouponRel[]
+	sku_list?: SkuListRel
 	tags?: TagRel[]
 
 }
@@ -164,6 +178,11 @@ class ExternalPromotions extends ApiResource {
 	async versions(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `external_promotions/${_externalPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async skus(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `external_promotions/${_externalPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 

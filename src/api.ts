@@ -19,6 +19,7 @@ export { default as BingGeocoders } from './resources/bing_geocoders'
 export { default as BraintreeGateways } from './resources/braintree_gateways'
 export { default as BraintreePayments } from './resources/braintree_payments'
 export { default as Bundles } from './resources/bundles'
+export { default as BuyXPayYPromotions } from './resources/buy_x_pay_y_promotions'
 export { default as Captures } from './resources/captures'
 export { default as CarrierAccounts } from './resources/carrier_accounts'
 export { default as CheckoutComGateways } from './resources/checkout_com_gateways'
@@ -27,6 +28,7 @@ export { default as Cleanups } from './resources/cleanups'
 export { default as CouponCodesPromotionRules } from './resources/coupon_codes_promotion_rules'
 export { default as CouponRecipients } from './resources/coupon_recipients'
 export { default as Coupons } from './resources/coupons'
+export { default as CustomPromotionRules } from './resources/custom_promotion_rules'
 export { default as CustomerAddresses } from './resources/customer_addresses'
 export { default as CustomerGroups } from './resources/customer_groups'
 export { default as CustomerPasswordResets } from './resources/customer_password_resets'
@@ -141,6 +143,7 @@ export type ResourceTypeLock =
 |	'braintree_gateways'
 |	'braintree_payments'
 |	'bundles'
+|	'buy_x_pay_y_promotions'
 |	'captures'
 |	'carrier_accounts'
 |	'checkout_com_gateways'
@@ -149,6 +152,7 @@ export type ResourceTypeLock =
 |	'coupon_codes_promotion_rules'
 |	'coupon_recipients'
 |	'coupons'
+|	'custom_promotion_rules'
 |	'customer_addresses'
 |	'customer_groups'
 |	'customer_password_resets'
@@ -263,6 +267,7 @@ export const resourceList = [
 	'braintree_gateways',
 	'braintree_payments',
 	'bundles',
+	'buy_x_pay_y_promotions',
 	'captures',
 	'carrier_accounts',
 	'checkout_com_gateways',
@@ -271,6 +276,7 @@ export const resourceList = [
 	'coupon_codes_promotion_rules',
 	'coupon_recipients',
 	'coupons',
+	'custom_promotion_rules',
 	'customer_addresses',
 	'customer_groups',
 	'customer_password_resets',

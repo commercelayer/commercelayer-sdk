@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import type { FreeShippingPromotion } from './free_shipping_promotions'
+import type { BuyXPayYPromotion } from './buy_x_pay_y_promotions'
 import type { FreeGiftPromotion } from './free_gift_promotions'
 import type { FixedPricePromotion } from './fixed_price_promotions'
 import type { ExternalPromotion } from './external_promotions'
@@ -15,7 +16,7 @@ type PromotionRuleRel = ResourceRel & { type: typeof PromotionRules.TYPE }
 
 interface PromotionRule extends Resource {
 	
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
 	versions?: Version[]
 
 }

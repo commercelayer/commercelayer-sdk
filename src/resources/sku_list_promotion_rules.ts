@@ -3,6 +3,7 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import type { FreeShippingPromotion } from './free_shipping_promotions'
+import type { BuyXPayYPromotion } from './buy_x_pay_y_promotions'
 import type { FreeGiftPromotion } from './free_gift_promotions'
 import type { FixedPricePromotion } from './fixed_price_promotions'
 import type { ExternalPromotion } from './external_promotions'
@@ -15,6 +16,7 @@ import type { Sku } from './skus'
 type SkuListPromotionRuleRel = ResourceRel & { type: typeof SkuListPromotionRules.TYPE }
 type PercentageDiscountPromotionRel = ResourceRel & { type: 'percentage_discount_promotions' }
 type FreeShippingPromotionRel = ResourceRel & { type: 'free_shipping_promotions' }
+type BuyXPayYPromotionRel = ResourceRel & { type: 'buy_x_pay_y_promotions' }
 type FreeGiftPromotionRel = ResourceRel & { type: 'free_gift_promotions' }
 type FixedPricePromotionRel = ResourceRel & { type: 'fixed_price_promotions' }
 type ExternalPromotionRel = ResourceRel & { type: 'external_promotions' }
@@ -27,7 +29,7 @@ interface SkuListPromotionRule extends Resource {
 	all_skus?: boolean
 	min_quantity?: number
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion
 	versions?: Version[]
 	sku_list?: SkuList
 	skus?: Sku[]
@@ -40,7 +42,7 @@ interface SkuListPromotionRuleCreate extends ResourceCreate {
 	all_skus?: boolean
 	min_quantity?: number
 
-	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
+	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
 	sku_list?: SkuListRel
 
 }
@@ -51,7 +53,7 @@ interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 	all_skus?: boolean
 	min_quantity?: number
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
 	sku_list?: SkuListRel
 
 }

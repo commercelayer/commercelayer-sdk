@@ -12,6 +12,7 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
 import type { Version } from './versions'
+import type { Sku } from './skus'
 
 
 type FixedAmountPromotionRel = ResourceRel & { type: typeof FixedAmountPromotions.TYPE }
@@ -21,6 +22,7 @@ type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion
 type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
 type CouponRel = ResourceRel & { type: 'coupons' }
+type SkuListRel = ResourceRel & { type: 'sku_lists' }
 type TagRel = ResourceRel & { type: 'tags' }
 
 
@@ -28,11 +30,14 @@ interface FixedAmountPromotion extends Resource {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
 	total_usage_count?: number
 	active?: boolean
+	disabled_at?: string
 	fixed_amount_cents?: number
 	fixed_amount_float?: number
 	formatted_fixed_amount?: string
@@ -48,6 +53,7 @@ interface FixedAmountPromotion extends Resource {
 	events?: Event[]
 	tags?: Tag[]
 	versions?: Version[]
+	skus?: Sku[]
 
 }
 
@@ -56,6 +62,8 @@ interface FixedAmountPromotionCreate extends ResourceCreate {
 	
 	name: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -67,6 +75,7 @@ interface FixedAmountPromotionCreate extends ResourceCreate {
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
 	coupons?: CouponRel[]
+	sku_list?: SkuListRel
 	tags?: TagRel[]
 
 }
@@ -76,9 +85,13 @@ interface FixedAmountPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
+	_disable?: boolean
+	_enable?: boolean
 	fixed_amount_cents?: number
 
 	market?: MarketRel
@@ -87,6 +100,7 @@ interface FixedAmountPromotionUpdate extends ResourceUpdate {
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
 	coupons?: CouponRel[]
+	sku_list?: SkuListRel
 	tags?: TagRel[]
 
 }
@@ -165,6 +179,11 @@ class FixedAmountPromotions extends ApiResource {
 	async versions(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async skus(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 

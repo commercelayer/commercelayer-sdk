@@ -19,6 +19,10 @@ import type { SatispayPayment } from './satispay_payments'
 import type { StripePayment } from './stripe_payments'
 import type { WireTransfer } from './wire_transfers'
 import type { LineItem } from './line_items'
+import type { LineItemOption } from './line_item_options'
+import type { StockReservation } from './stock_reservations'
+import type { StockLineItem } from './stock_line_items'
+import type { StockTransfer } from './stock_transfers'
 import type { Shipment } from './shipments'
 import type { Authorization } from './authorizations'
 import type { Capture } from './captures'
@@ -68,6 +72,9 @@ interface Order extends Resource {
 	tax_included?: boolean
 	tax_rate?: number
 	freight_taxable?: boolean
+	payment_method_taxable?: boolean
+	adjustment_taxable?: boolean
+	gift_card_taxable?: boolean
 	requires_billing_info?: boolean
 	country_code?: string
 	shipping_country_code_lock?: string
@@ -169,6 +176,10 @@ interface Order extends Resource {
 	payment_method?: PaymentMethod
 	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer
 	line_items?: LineItem[]
+	line_item_options?: LineItemOption[]
+	stock_reservations?: StockReservation[]
+	stock_line_items?: StockLineItem[]
+	stock_transfers?: StockTransfer[]
 	shipments?: Shipment[]
 	transactions?: Array<Authorization | Capture | Void | Refund>
 	authorizations?: Authorization[]
@@ -196,6 +207,9 @@ interface OrderCreate extends ResourceCreate {
 	customer_password?: string
 	language_code?: string
 	freight_taxable?: boolean
+	payment_method_taxable?: boolean
+	adjustment_taxable?: boolean
+	gift_card_taxable?: boolean
 	shipping_country_code_lock?: string
 	coupon_code?: string
 	gift_card_code?: string
@@ -223,6 +237,9 @@ interface OrderUpdate extends ResourceUpdate {
 	customer_password?: string
 	language_code?: string
 	freight_taxable?: boolean
+	payment_method_taxable?: boolean
+	adjustment_taxable?: boolean
+	gift_card_taxable?: boolean
 	shipping_country_code_lock?: string
 	coupon_code?: string
 	gift_card_code?: string
@@ -342,6 +359,26 @@ class Orders extends ApiResource {
 	async line_items(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `orders/${_orderId}/line_items`, params, options) as unknown as ListResponse<LineItem>
+	}
+
+	async line_item_options(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<LineItemOption>({ type: 'line_item_options' }, `orders/${_orderId}/line_item_options`, params, options) as unknown as ListResponse<LineItemOption>
+	}
+
+	async stock_reservations(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `orders/${_orderId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
+	}
+
+	async stock_line_items(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `orders/${_orderId}/stock_line_items`, params, options) as unknown as ListResponse<StockLineItem>
+	}
+
+	async stock_transfers(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `orders/${_orderId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
 	}
 
 	async shipments(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Shipment>> {

@@ -63,6 +63,7 @@ interface LineItem extends Resource {
 	tax_breakdown?: object
 	item_type?: string
 	frequency?: string
+	coupon_code?: string
 
 	order?: Order
 	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku

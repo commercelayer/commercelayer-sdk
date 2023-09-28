@@ -30,11 +30,14 @@ interface PercentageDiscountPromotion extends Resource {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
 	total_usage_count?: number
 	active?: boolean
+	disabled_at?: string
 	percentage?: number
 
 	market?: Market
@@ -57,6 +60,8 @@ interface PercentageDiscountPromotionCreate extends ResourceCreate {
 	
 	name: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -78,9 +83,13 @@ interface PercentageDiscountPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
+	_disable?: boolean
+	_enable?: boolean
 	percentage?: number
 
 	market?: MarketRel

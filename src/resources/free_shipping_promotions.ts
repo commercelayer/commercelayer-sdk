@@ -28,11 +28,14 @@ interface FreeShippingPromotion extends Resource {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
 	total_usage_count?: number
 	active?: boolean
+	disabled_at?: string
 
 	market?: Market
 	promotion_rules?: PromotionRule[]
@@ -53,6 +56,8 @@ interface FreeShippingPromotionCreate extends ResourceCreate {
 	
 	name: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -72,9 +77,13 @@ interface FreeShippingPromotionUpdate extends ResourceUpdate {
 	
 	name?: string
 	currency_code?: string
+	exclusive?: boolean
+	priority?: number
 	starts_at?: string
 	expires_at?: string
 	total_usage_limit?: number
+	_disable?: boolean
+	_enable?: boolean
 
 	market?: MarketRel
 	promotion_rules?: PromotionRuleRel[]
