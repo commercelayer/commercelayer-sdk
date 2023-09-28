@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
 import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
+import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
 import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
 import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
 import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
@@ -16,6 +17,7 @@ type CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules'
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 type PercentageDiscountPromotionRel = ResourceRel & { type: PercentageDiscountPromotionType }
 type FreeShippingPromotionRel = ResourceRel & { type: FreeShippingPromotionType }
+type BuyXPayYPromotionRel = ResourceRel & { type: BuyXPayYPromotionType }
 type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
 type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
@@ -28,7 +30,7 @@ interface CouponCodesPromotionRule extends Resource {
 	readonly type: CouponCodesPromotionRuleType
 
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
 	versions?: Version[] | null
 	coupons?: Coupon[] | null
 
@@ -37,7 +39,7 @@ interface CouponCodesPromotionRule extends Resource {
 
 interface CouponCodesPromotionRuleCreate extends ResourceCreate {
 	
-	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
+	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
 	coupons?: CouponRel[] | null
 
 }
@@ -45,7 +47,7 @@ interface CouponCodesPromotionRuleCreate extends ResourceCreate {
 
 interface CouponCodesPromotionRuleUpdate extends ResourceUpdate {
 	
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
 	coupons?: CouponRel[] | null
 
 }

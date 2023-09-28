@@ -34,11 +34,14 @@ interface FixedPricePromotion extends Resource {
 
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
 	total_usage_count?: number | null
 	active?: boolean | null
+	disabled_at?: string | null
 	fixed_amount_cents: number
 	fixed_amount_float?: number | null
 	formatted_fixed_amount?: string | null
@@ -63,6 +66,8 @@ interface FixedPricePromotionCreate extends ResourceCreate {
 	
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -84,9 +89,13 @@ interface FixedPricePromotionUpdate extends ResourceUpdate {
 	
 	name?: string | null
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at?: string | null
 	expires_at?: string | null
 	total_usage_limit?: number | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 	fixed_amount_cents?: number | null
 
 	market?: MarketRel | null
@@ -170,6 +179,14 @@ class FixedPricePromotions extends ApiResource<FixedPricePromotion> {
 	async skus(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _fixedPricePromotionId = (fixedPricePromotionId as FixedPricePromotion).id || fixedPricePromotionId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `fixed_price_promotions/${_fixedPricePromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async _disable(id: string | FixedPricePromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedPricePromotion> {
+		return this.resources.update<FixedPricePromotionUpdate, FixedPricePromotion>({ id: (typeof id === 'string')? id: id.id, type: FixedPricePromotions.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | FixedPricePromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedPricePromotion> {
+		return this.resources.update<FixedPricePromotionUpdate, FixedPricePromotion>({ id: (typeof id === 'string')? id: id.id, type: FixedPricePromotions.TYPE, _enable: true }, params, options)
 	}
 
 

@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
 import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
+import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
 import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
 import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
 import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
@@ -17,6 +18,7 @@ type SkuListPromotionRuleType = 'sku_list_promotion_rules'
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
 type PercentageDiscountPromotionRel = ResourceRel & { type: PercentageDiscountPromotionType }
 type FreeShippingPromotionRel = ResourceRel & { type: FreeShippingPromotionType }
+type BuyXPayYPromotionRel = ResourceRel & { type: BuyXPayYPromotionType }
 type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
 type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
@@ -31,7 +33,7 @@ interface SkuListPromotionRule extends Resource {
 	all_skus?: boolean | null
 	min_quantity?: number | null
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
 	versions?: Version[] | null
 	sku_list?: SkuList | null
 	skus?: Sku[] | null
@@ -44,7 +46,7 @@ interface SkuListPromotionRuleCreate extends ResourceCreate {
 	all_skus?: boolean | null
 	min_quantity?: number | null
 
-	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
+	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
 	sku_list?: SkuListRel | null
 
 }
@@ -55,7 +57,7 @@ interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 	all_skus?: boolean | null
 	min_quantity?: number | null
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
 	sku_list?: SkuListRel | null
 
 }

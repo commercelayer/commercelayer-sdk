@@ -32,11 +32,14 @@ interface FreeShippingPromotion extends Resource {
 
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
 	total_usage_count?: number | null
 	active?: boolean | null
+	disabled_at?: string | null
 
 	market?: Market | null
 	promotion_rules?: PromotionRule[] | null
@@ -57,6 +60,8 @@ interface FreeShippingPromotionCreate extends ResourceCreate {
 	
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -76,9 +81,13 @@ interface FreeShippingPromotionUpdate extends ResourceUpdate {
 	
 	name?: string | null
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at?: string | null
 	expires_at?: string | null
 	total_usage_limit?: number | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 
 	market?: MarketRel | null
 	promotion_rules?: PromotionRuleRel[] | null
@@ -155,6 +164,14 @@ class FreeShippingPromotions extends ApiResource<FreeShippingPromotion> {
 	async versions(freeShippingPromotionId: string | FreeShippingPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _freeShippingPromotionId = (freeShippingPromotionId as FreeShippingPromotion).id || freeShippingPromotionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `free_shipping_promotions/${_freeShippingPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _disable(id: string | FreeShippingPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
+		return this.resources.update<FreeShippingPromotionUpdate, FreeShippingPromotion>({ id: (typeof id === 'string')? id: id.id, type: FreeShippingPromotions.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | FreeShippingPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
+		return this.resources.update<FreeShippingPromotionUpdate, FreeShippingPromotion>({ id: (typeof id === 'string')? id: id.id, type: FreeShippingPromotions.TYPE, _enable: true }, params, options)
 	}
 
 

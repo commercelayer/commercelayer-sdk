@@ -8,11 +8,12 @@ import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './o
 import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Coupon, CouponType } from './coupons'
-import type { SkuList } from './sku_lists'
+import type { SkuList, SkuListType } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { Sku } from './skus'
 
 
 type ExternalPromotionType = 'external_promotions'
@@ -23,6 +24,7 @@ type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRul
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 type CouponRel = ResourceRel & { type: CouponType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
@@ -32,11 +34,14 @@ interface ExternalPromotion extends Resource {
 
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
 	total_usage_count?: number | null
 	active?: boolean | null
+	disabled_at?: string | null
 	promotion_url: string
 	shared_secret: string
 
@@ -51,6 +56,7 @@ interface ExternalPromotion extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	skus?: Sku[] | null
 
 }
 
@@ -59,6 +65,8 @@ interface ExternalPromotionCreate extends ResourceCreate {
 	
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -70,6 +78,7 @@ interface ExternalPromotionCreate extends ResourceCreate {
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	coupons?: CouponRel[] | null
+	sku_list?: SkuListRel | null
 	tags?: TagRel[] | null
 
 }
@@ -79,9 +88,13 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	
 	name?: string | null
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at?: string | null
 	expires_at?: string | null
 	total_usage_limit?: number | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 	promotion_url?: string | null
 
 	market?: MarketRel | null
@@ -90,6 +103,7 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	coupons?: CouponRel[] | null
+	sku_list?: SkuListRel | null
 	tags?: TagRel[] | null
 
 }
@@ -159,6 +173,19 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 	async versions(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `external_promotions/${_externalPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async skus(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `external_promotions/${_externalPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async _disable(id: string | ExternalPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
+		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ id: (typeof id === 'string')? id: id.id, type: ExternalPromotions.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | ExternalPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
+		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ id: (typeof id === 'string')? id: id.id, type: ExternalPromotions.TYPE, _enable: true }, params, options)
 	}
 
 

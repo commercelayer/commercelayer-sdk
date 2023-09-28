@@ -36,6 +36,7 @@ describe('FixedAmountPromotions resource', () => {
 			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
 			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
 			coupons: [ cl.coupons.relationship(TestData.id) ],
+			sku_list: cl.sku_lists.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
@@ -370,5 +371,76 @@ describe('FixedAmountPromotions resource', () => {
 	})
 	/* relationship.versions stop */
 	
+
+	/* relationship.skus start */
+	it(resourceType + '.skus', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { skus: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'skus')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].skus(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.skus stop */
+	
   
+
+	/* trigger._disable start */
+	it(resourceType + '._disable', async () => {
+	
+		let triggerAttr = '_disable'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._disable(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._disable stop */
+	
+
+	/* trigger._enable start */
+	it(resourceType + '._enable', async () => {
+	
+		let triggerAttr = '_enable'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._enable(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._enable stop */
+	
 })

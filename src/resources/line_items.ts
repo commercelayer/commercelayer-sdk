@@ -67,6 +67,7 @@ interface LineItem extends Resource {
 	tax_breakdown?: Record<string, any> | null
 	item_type?: 'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
 	frequency?: string | null
+	coupon_code?: string | null
 
 	order?: Order | null
 	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku | null

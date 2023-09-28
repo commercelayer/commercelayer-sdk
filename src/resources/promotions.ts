@@ -25,11 +25,14 @@ interface Promotion extends Resource {
 
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
 	total_usage_count?: number | null
 	active?: boolean | null
+	disabled_at?: string | null
 
 	market?: Market | null
 	promotion_rules?: PromotionRule[] | null

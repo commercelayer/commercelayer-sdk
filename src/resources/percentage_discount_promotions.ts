@@ -34,11 +34,14 @@ interface PercentageDiscountPromotion extends Resource {
 
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
 	total_usage_count?: number | null
 	active?: boolean | null
+	disabled_at?: string | null
 	percentage: number
 
 	market?: Market | null
@@ -61,6 +64,8 @@ interface PercentageDiscountPromotionCreate extends ResourceCreate {
 	
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -82,9 +87,13 @@ interface PercentageDiscountPromotionUpdate extends ResourceUpdate {
 	
 	name?: string | null
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at?: string | null
 	expires_at?: string | null
 	total_usage_limit?: number | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 	percentage?: number | null
 
 	market?: MarketRel | null
@@ -168,6 +177,14 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 	async skus(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async _disable(id: string | PercentageDiscountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
+		return this.resources.update<PercentageDiscountPromotionUpdate, PercentageDiscountPromotion>({ id: (typeof id === 'string')? id: id.id, type: PercentageDiscountPromotions.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | PercentageDiscountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
+		return this.resources.update<PercentageDiscountPromotionUpdate, PercentageDiscountPromotion>({ id: (typeof id === 'string')? id: id.id, type: PercentageDiscountPromotions.TYPE, _enable: true }, params, options)
 	}
 
 

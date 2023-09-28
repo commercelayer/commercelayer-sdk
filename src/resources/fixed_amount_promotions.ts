@@ -8,11 +8,12 @@ import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './o
 import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Coupon, CouponType } from './coupons'
-import type { SkuList } from './sku_lists'
+import type { SkuList, SkuListType } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { Sku } from './skus'
 
 
 type FixedAmountPromotionType = 'fixed_amount_promotions'
@@ -23,6 +24,7 @@ type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRul
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 type CouponRel = ResourceRel & { type: CouponType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
@@ -32,11 +34,14 @@ interface FixedAmountPromotion extends Resource {
 
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
 	total_usage_count?: number | null
 	active?: boolean | null
+	disabled_at?: string | null
 	fixed_amount_cents: number
 	fixed_amount_float?: number | null
 	formatted_fixed_amount?: string | null
@@ -52,6 +57,7 @@ interface FixedAmountPromotion extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	skus?: Sku[] | null
 
 }
 
@@ -60,6 +66,8 @@ interface FixedAmountPromotionCreate extends ResourceCreate {
 	
 	name: string
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at: string
 	expires_at: string
 	total_usage_limit: number
@@ -71,6 +79,7 @@ interface FixedAmountPromotionCreate extends ResourceCreate {
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	coupons?: CouponRel[] | null
+	sku_list?: SkuListRel | null
 	tags?: TagRel[] | null
 
 }
@@ -80,9 +89,13 @@ interface FixedAmountPromotionUpdate extends ResourceUpdate {
 	
 	name?: string | null
 	currency_code?: string | null
+	exclusive?: boolean | null
+	priority?: number | null
 	starts_at?: string | null
 	expires_at?: string | null
 	total_usage_limit?: number | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 	fixed_amount_cents?: number | null
 
 	market?: MarketRel | null
@@ -91,6 +104,7 @@ interface FixedAmountPromotionUpdate extends ResourceUpdate {
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	coupons?: CouponRel[] | null
+	sku_list?: SkuListRel | null
 	tags?: TagRel[] | null
 
 }
@@ -160,6 +174,19 @@ class FixedAmountPromotions extends ApiResource<FixedAmountPromotion> {
 	async versions(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async skus(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+	}
+
+	async _disable(id: string | FixedAmountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
+		return this.resources.update<FixedAmountPromotionUpdate, FixedAmountPromotion>({ id: (typeof id === 'string')? id: id.id, type: FixedAmountPromotions.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | FixedAmountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
+		return this.resources.update<FixedAmountPromotionUpdate, FixedAmountPromotion>({ id: (typeof id === 'string')? id: id.id, type: FixedAmountPromotions.TYPE, _enable: true }, params, options)
 	}
 
 
