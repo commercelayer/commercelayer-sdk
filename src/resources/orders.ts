@@ -25,6 +25,7 @@ import type { StockReservation } from './stock_reservations'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
 import type { Shipment } from './shipments'
+import type { PaymentOption } from './payment_options'
 import type { Authorization } from './authorizations'
 import type { Capture } from './captures'
 import type { Void } from './voids'
@@ -185,6 +186,7 @@ interface Order extends Resource {
 	stock_line_items?: StockLineItem[] | null
 	stock_transfers?: StockTransfer[] | null
 	shipments?: Shipment[] | null
+	payment_options?: PaymentOption[] | null
 	transactions?: Array<Authorization | Capture | Void | Refund> | null
 	authorizations?: Authorization[] | null
 	captures?: Capture[] | null
@@ -379,6 +381,11 @@ class Orders extends ApiResource<Order> {
 	async shipments(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Shipment>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Shipment>({ type: 'shipments' }, `orders/${_orderId}/shipments`, params, options) as unknown as ListResponse<Shipment>
+	}
+
+	async payment_options(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentOption>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<PaymentOption>({ type: 'payment_options' }, `orders/${_orderId}/payment_options`, params, options) as unknown as ListResponse<PaymentOption>
 	}
 
 	async authorizations(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Authorization>> {

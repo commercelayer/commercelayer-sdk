@@ -471,6 +471,27 @@ describe('Orders resource', () => {
 	/* relationship.shipments stop */
 	
 
+	/* relationship.payment_options start */
+	it(resourceType + '.payment_options', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_options: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'payment_options')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].payment_options(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.payment_options stop */
+	
+
 	/* relationship.authorizations start */
 	it(resourceType + '.authorizations', async () => {
 	

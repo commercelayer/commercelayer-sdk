@@ -18,8 +18,8 @@ interface PaymentMethod extends Resource {
 	
 	readonly type: PaymentMethodType
 
-	payment_source_type: string
 	name?: string | null
+	payment_source_type: 'AdyenPayment' | 'AxervePayment' | 'BraintreePayment' | 'CheckoutComPayment' | 'CreditCard' | 'ExternalPayment' | 'KlarnaPayment' | 'PaypalPayment' | 'SatispayPayment' | 'StripePayment' | 'WireTransfer'
 	currency_code?: string | null
 	moto?: boolean | null
 	require_capture?: boolean | null
@@ -42,7 +42,7 @@ interface PaymentMethod extends Resource {
 
 interface PaymentMethodCreate extends ResourceCreate {
 	
-	payment_source_type: string
+	payment_source_type: 'AdyenPayment' | 'AxervePayment' | 'BraintreePayment' | 'CheckoutComPayment' | 'CreditCard' | 'ExternalPayment' | 'KlarnaPayment' | 'PaypalPayment' | 'SatispayPayment' | 'StripePayment' | 'WireTransfer'
 	currency_code?: string | null
 	moto?: boolean | null
 	require_capture?: boolean | null
@@ -58,7 +58,7 @@ interface PaymentMethodCreate extends ResourceCreate {
 
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
-	payment_source_type?: string | null
+	payment_source_type?: 'AdyenPayment' | 'AxervePayment' | 'BraintreePayment' | 'CheckoutComPayment' | 'CreditCard' | 'ExternalPayment' | 'KlarnaPayment' | 'PaypalPayment' | 'SatispayPayment' | 'StripePayment' | 'WireTransfer' | null
 	currency_code?: string | null
 	moto?: boolean | null
 	require_capture?: boolean | null

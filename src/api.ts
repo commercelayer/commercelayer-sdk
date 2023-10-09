@@ -80,6 +80,7 @@ export { default as ParcelLineItems } from './resources/parcel_line_items'
 export { default as Parcels } from './resources/parcels'
 export { default as PaymentGateways } from './resources/payment_gateways'
 export { default as PaymentMethods } from './resources/payment_methods'
+export { default as PaymentOptions } from './resources/payment_options'
 export { default as PaypalGateways } from './resources/paypal_gateways'
 export { default as PaypalPayments } from './resources/paypal_payments'
 export { default as PercentageDiscountPromotions } from './resources/percentage_discount_promotions'
@@ -204,6 +205,7 @@ export type ResourceTypeLock =
 |	'parcels'
 |	'payment_gateways'
 |	'payment_methods'
+|	'payment_options'
 |	'paypal_gateways'
 |	'paypal_payments'
 |	'percentage_discount_promotions'
@@ -328,6 +330,7 @@ export const resourceList = [
 	'parcels',
 	'payment_gateways',
 	'payment_methods',
+	'payment_options',
 	'paypal_gateways',
 	'paypal_payments',
 	'percentage_discount_promotions',
@@ -480,6 +483,7 @@ export type CreatableResourceType =
 |	'parcel_line_items'
 |	'parcels'
 |	'payment_methods'
+|	'payment_options'
 |	'paypal_gateways'
 |	'paypal_payments'
 |	'percentage_discount_promotions'
@@ -584,6 +588,7 @@ export type UpdatableResourceType =
 |	'parcel_line_items'
 |	'parcels'
 |	'payment_methods'
+|	'payment_options'
 |	'paypal_gateways'
 |	'paypal_payments'
 |	'percentage_discount_promotions'
@@ -690,6 +695,7 @@ export type DeletableResourceType =
 |	'parcel_line_items'
 |	'parcels'
 |	'payment_methods'
+|	'payment_options'
 |	'paypal_gateways'
 |	'paypal_payments'
 |	'percentage_discount_promotions'
