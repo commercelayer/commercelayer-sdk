@@ -77,6 +77,7 @@ export type { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate } from 
 export type { Parcel, ParcelCreate, ParcelUpdate } from './resources/parcels'
 export type { PaymentGateway } from './resources/payment_gateways'
 export type { PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate } from './resources/payment_methods'
+export type { PaymentOption, PaymentOptionCreate, PaymentOptionUpdate } from './resources/payment_options'
 export type { PaypalGateway, PaypalGatewayCreate, PaypalGatewayUpdate } from './resources/paypal_gateways'
 export type { PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate } from './resources/paypal_payments'
 export type { PercentageDiscountPromotion, PercentageDiscountPromotionCreate, PercentageDiscountPromotionUpdate } from './resources/percentage_discount_promotions'

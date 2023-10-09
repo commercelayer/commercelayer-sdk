@@ -14,8 +14,8 @@ type PaymentGatewayRel = ResourceRel & { type: 'payment_gateways' }
 
 interface PaymentMethod extends Resource {
 	
-	payment_source_type?: string
 	name?: string
+	payment_source_type?: string
 	currency_code?: string
 	moto?: boolean
 	require_capture?: boolean
