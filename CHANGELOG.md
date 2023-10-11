@@ -1,3 +1,10 @@
+# [5.17.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.16.0...v5.17.0) (2023-10-11)
+
+
+### Features
+
+* **core:** add parse function to resources ([73854b8](https://github.com/commercelayer/commercelayer-sdk/commit/73854b85c1183315aa51b1eac1abf95a273ecb53))
+
 # [5.16.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.15.0...v5.16.0) (2023-10-09)
 
 
