@@ -57,11 +57,6 @@ class OrderValidationRules extends ApiResource<OrderValidationRule> {
 		return OrderValidationRules.TYPE
 	}
 
-
-	parse(payload: any): OrderValidationRule | OrderValidationRule[] {
-		return super.parse(payload)
-	}
-
 }
 
 

@@ -152,11 +152,6 @@ class Addresses extends ApiResource<Address> {
 		return Addresses.TYPE
 	}
 
-
-	parse(payload: any): Address | Address[] {
-		return super.parse(payload)
-	}
-
 }
 
 

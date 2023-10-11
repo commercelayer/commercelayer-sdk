@@ -76,11 +76,6 @@ class Cleanups extends ApiResource<Cleanup> {
 		return Cleanups.TYPE
 	}
 
-
-	parse(payload: any): Cleanup | Cleanup[] {
-		return super.parse(payload)
-	}
-
 }
 
 

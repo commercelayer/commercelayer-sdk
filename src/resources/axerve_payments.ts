@@ -101,11 +101,6 @@ class AxervePayments extends ApiResource<AxervePayment> {
 		return AxervePayments.TYPE
 	}
 
-
-	parse(payload: any): AxervePayment | AxervePayment[] {
-		return super.parse(payload)
-	}
-
 }
 
 

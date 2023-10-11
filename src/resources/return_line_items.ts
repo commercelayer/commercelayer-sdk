@@ -95,11 +95,6 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 		return ReturnLineItems.TYPE
 	}
 
-
-	parse(payload: any): ReturnLineItem | ReturnLineItem[] {
-		return super.parse(payload)
-	}
-
 }
 
 

@@ -80,11 +80,6 @@ class CustomerSubscriptions extends ApiResource<CustomerSubscription> {
 		return CustomerSubscriptions.TYPE
 	}
 
-
-	parse(payload: any): CustomerSubscription | CustomerSubscription[] {
-		return super.parse(payload)
-	}
-
 }
 
 

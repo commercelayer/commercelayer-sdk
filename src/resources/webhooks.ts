@@ -94,11 +94,6 @@ class Webhooks extends ApiResource<Webhook> {
 		return Webhooks.TYPE
 	}
 
-
-	parse(payload: any): Webhook | Webhook[] {
-		return super.parse(payload)
-	}
-
 }
 
 

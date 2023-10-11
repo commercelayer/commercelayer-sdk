@@ -96,11 +96,6 @@ class ManualTaxCalculators extends ApiResource<ManualTaxCalculator> {
 		return ManualTaxCalculators.TYPE
 	}
 
-
-	parse(payload: any): ManualTaxCalculator | ManualTaxCalculator[] {
-		return super.parse(payload)
-	}
-
 }
 
 

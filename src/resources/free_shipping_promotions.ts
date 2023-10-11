@@ -189,11 +189,6 @@ class FreeShippingPromotions extends ApiResource<FreeShippingPromotion> {
 		return FreeShippingPromotions.TYPE
 	}
 
-
-	parse(payload: any): FreeShippingPromotion | FreeShippingPromotion[] {
-		return super.parse(payload)
-	}
-
 }
 
 

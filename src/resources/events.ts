@@ -51,11 +51,6 @@ class Events extends ApiResource<Event> {
 		return Events.TYPE
 	}
 
-
-	parse(payload: any): Event | Event[] {
-		return super.parse(payload)
-	}
-
 }
 
 

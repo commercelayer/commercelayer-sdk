@@ -100,11 +100,6 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 		return ExternalGateways.TYPE
 	}
 
-
-	parse(payload: any): ExternalGateway | ExternalGateway[] {
-		return super.parse(payload)
-	}
-
 }
 
 

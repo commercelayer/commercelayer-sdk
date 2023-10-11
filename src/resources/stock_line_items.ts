@@ -74,11 +74,6 @@ class StockLineItems extends ApiResource<StockLineItem> {
 		return StockLineItems.TYPE
 	}
 
-
-	parse(payload: any): StockLineItem | StockLineItem[] {
-		return super.parse(payload)
-	}
-
 }
 
 

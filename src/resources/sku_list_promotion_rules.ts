@@ -109,11 +109,6 @@ class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 		return SkuListPromotionRules.TYPE
 	}
 
-
-	parse(payload: any): SkuListPromotionRule | SkuListPromotionRule[] {
-		return super.parse(payload)
-	}
-
 }
 
 

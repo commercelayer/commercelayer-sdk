@@ -183,11 +183,6 @@ class Parcels extends ApiResource<Parcel> {
 		return Parcels.TYPE
 	}
 
-
-	parse(payload: any): Parcel | Parcel[] {
-		return super.parse(payload)
-	}
-
 }
 
 

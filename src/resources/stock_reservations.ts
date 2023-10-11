@@ -74,11 +74,6 @@ class StockReservations extends ApiResource<StockReservation> {
 		return StockReservations.TYPE
 	}
 
-
-	parse(payload: any): StockReservation | StockReservation[] {
-		return super.parse(payload)
-	}
-
 }
 
 

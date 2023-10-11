@@ -110,11 +110,6 @@ class StripePayments extends ApiResource<StripePayment> {
 		return StripePayments.TYPE
 	}
 
-
-	parse(payload: any): StripePayment | StripePayment[] {
-		return super.parse(payload)
-	}
-
 }
 
 

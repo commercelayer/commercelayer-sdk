@@ -90,11 +90,6 @@ class PriceLists extends ApiResource<PriceList> {
 		return PriceLists.TYPE
 	}
 
-
-	parse(payload: any): PriceList | PriceList[] {
-		return super.parse(payload)
-	}
-
 }
 
 

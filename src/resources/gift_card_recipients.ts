@@ -95,11 +95,6 @@ class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
 		return GiftCardRecipients.TYPE
 	}
 
-
-	parse(payload: any): GiftCardRecipient | GiftCardRecipient[] {
-		return super.parse(payload)
-	}
-
 }
 
 

@@ -272,7 +272,7 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	abstract type(): ResourceTypeLock
 
-	protected parse(resource: any): R | R[] {
+	parse(resource: any): R | R[] {
 		try {
 			const res = JSON.parse(resource)
 			if (res.data?.type !== this.type()) throw new SdkError({ message: `Invalid resource type [${res.data?.type}]`, type: ErrorType.PARSE })

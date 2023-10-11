@@ -153,11 +153,6 @@ class Customers extends ApiResource<Customer> {
 		return Customers.TYPE
 	}
 
-
-	parse(payload: any): Customer | Customer[] {
-		return super.parse(payload)
-	}
-
 }
 
 

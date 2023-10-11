@@ -110,11 +110,6 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 		return AvalaraAccounts.TYPE
 	}
 
-
-	parse(payload: any): AvalaraAccount | AvalaraAccount[] {
-		return super.parse(payload)
-	}
-
 }
 
 

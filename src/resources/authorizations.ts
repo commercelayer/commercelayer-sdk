@@ -128,11 +128,6 @@ class Authorizations extends ApiResource<Authorization> {
 		return Authorizations.TYPE
 	}
 
-
-	parse(payload: any): Authorization | Authorization[] {
-		return super.parse(payload)
-	}
-
 }
 
 

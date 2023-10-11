@@ -104,11 +104,6 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 		return PriceVolumeTiers.TYPE
 	}
 
-
-	parse(payload: any): PriceVolumeTier | PriceVolumeTier[] {
-		return super.parse(payload)
-	}
-
 }
 
 

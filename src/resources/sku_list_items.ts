@@ -95,11 +95,6 @@ class SkuListItems extends ApiResource<SkuListItem> {
 		return SkuListItems.TYPE
 	}
 
-
-	parse(payload: any): SkuListItem | SkuListItem[] {
-		return super.parse(payload)
-	}
-
 }
 
 

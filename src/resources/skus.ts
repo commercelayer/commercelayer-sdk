@@ -169,11 +169,6 @@ class Skus extends ApiResource<Sku> {
 		return Skus.TYPE
 	}
 
-
-	parse(payload: any): Sku | Sku[] {
-		return super.parse(payload)
-	}
-
 }
 
 

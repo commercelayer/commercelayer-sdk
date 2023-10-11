@@ -68,11 +68,6 @@ class Transactions extends ApiResource<Transaction> {
 		return Transactions.TYPE
 	}
 
-
-	parse(payload: any): Transaction | Transaction[] {
-		return super.parse(payload)
-	}
-
 }
 
 

@@ -122,11 +122,6 @@ class Coupons extends ApiResource<Coupon> {
 		return Coupons.TYPE
 	}
 
-
-	parse(payload: any): Coupon | Coupon[] {
-		return super.parse(payload)
-	}
-
 }
 
 

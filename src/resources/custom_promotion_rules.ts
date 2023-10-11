@@ -89,11 +89,6 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 		return CustomPromotionRules.TYPE
 	}
 
-
-	parse(payload: any): CustomPromotionRule | CustomPromotionRule[] {
-		return super.parse(payload)
-	}
-
 }
 
 

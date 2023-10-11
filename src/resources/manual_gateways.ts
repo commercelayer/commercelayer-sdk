@@ -77,11 +77,6 @@ class ManualGateways extends ApiResource<ManualGateway> {
 		return ManualGateways.TYPE
 	}
 
-
-	parse(payload: any): ManualGateway | ManualGateway[] {
-		return super.parse(payload)
-	}
-
 }
 
 

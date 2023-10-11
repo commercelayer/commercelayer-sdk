@@ -97,11 +97,6 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
 		return ParcelLineItems.TYPE
 	}
 
-
-	parse(payload: any): ParcelLineItem | ParcelLineItem[] {
-		return super.parse(payload)
-	}
-
 }
 
 

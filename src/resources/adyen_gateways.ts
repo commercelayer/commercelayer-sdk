@@ -107,11 +107,6 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 		return AdyenGateways.TYPE
 	}
 
-
-	parse(payload: any): AdyenGateway | AdyenGateway[] {
-		return super.parse(payload)
-	}
-
 }
 
 

@@ -93,11 +93,6 @@ class SatispayGateways extends ApiResource<SatispayGateway> {
 		return SatispayGateways.TYPE
 	}
 
-
-	parse(payload: any): SatispayGateway | SatispayGateway[] {
-		return super.parse(payload)
-	}
-
 }
 
 

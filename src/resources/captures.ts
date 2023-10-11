@@ -115,11 +115,6 @@ class Captures extends ApiResource<Capture> {
 		return Captures.TYPE
 	}
 
-
-	parse(payload: any): Capture | Capture[] {
-		return super.parse(payload)
-	}
-
 }
 
 

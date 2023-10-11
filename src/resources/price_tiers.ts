@@ -62,11 +62,6 @@ class PriceTiers extends ApiResource<PriceTier> {
 		return PriceTiers.TYPE
 	}
 
-
-	parse(payload: any): PriceTier | PriceTier[] {
-		return super.parse(payload)
-	}
-
 }
 
 

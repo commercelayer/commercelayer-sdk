@@ -214,11 +214,6 @@ class Shipments extends ApiResource<Shipment> {
 		return Shipments.TYPE
 	}
 
-
-	parse(payload: any): Shipment | Shipment[] {
-		return super.parse(payload)
-	}
-
 }
 
 

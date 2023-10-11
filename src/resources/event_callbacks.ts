@@ -47,11 +47,6 @@ class EventCallbacks extends ApiResource<EventCallback> {
 		return EventCallbacks.TYPE
 	}
 
-
-	parse(payload: any): EventCallback | EventCallback[] {
-		return super.parse(payload)
-	}
-
 }
 
 

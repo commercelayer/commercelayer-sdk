@@ -51,11 +51,6 @@ class PromotionRules extends ApiResource<PromotionRule> {
 		return PromotionRules.TYPE
 	}
 
-
-	parse(payload: any): PromotionRule | PromotionRule[] {
-		return super.parse(payload)
-	}
-
 }
 
 

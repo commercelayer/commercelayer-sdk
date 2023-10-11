@@ -94,11 +94,6 @@ class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
 		return CouponCodesPromotionRules.TYPE
 	}
 
-
-	parse(payload: any): CouponCodesPromotionRule | CouponCodesPromotionRule[] {
-		return super.parse(payload)
-	}
-
 }
 
 

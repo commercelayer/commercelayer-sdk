@@ -78,11 +78,6 @@ class WireTransfers extends ApiResource<WireTransfer> {
 		return WireTransfers.TYPE
 	}
 
-
-	parse(payload: any): WireTransfer | WireTransfer[] {
-		return super.parse(payload)
-	}
-
 }
 
 

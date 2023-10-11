@@ -111,11 +111,6 @@ class Packages extends ApiResource<Package> {
 		return Packages.TYPE
 	}
 
-
-	parse(payload: any): Package | Package[] {
-		return super.parse(payload)
-	}
-
 }
 
 

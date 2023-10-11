@@ -84,11 +84,6 @@ class BillingInfoValidationRules extends ApiResource<BillingInfoValidationRule> 
 		return BillingInfoValidationRules.TYPE
 	}
 
-
-	parse(payload: any): BillingInfoValidationRule | BillingInfoValidationRule[] {
-		return super.parse(payload)
-	}
-
 }
 
 

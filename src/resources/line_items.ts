@@ -200,11 +200,6 @@ class LineItems extends ApiResource<LineItem> {
 		return LineItems.TYPE
 	}
 
-
-	parse(payload: any): LineItem | LineItem[] {
-		return super.parse(payload)
-	}
-
 }
 
 

@@ -100,11 +100,6 @@ class InventoryModels extends ApiResource<InventoryModel> {
 		return InventoryModels.TYPE
 	}
 
-
-	parse(payload: any): InventoryModel | InventoryModel[] {
-		return super.parse(payload)
-	}
-
 }
 
 

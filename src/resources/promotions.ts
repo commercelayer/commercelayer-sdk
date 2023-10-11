@@ -118,11 +118,6 @@ class Promotions extends ApiResource<Promotion> {
 		return Promotions.TYPE
 	}
 
-
-	parse(payload: any): Promotion | Promotion[] {
-		return super.parse(payload)
-	}
-
 }
 
 

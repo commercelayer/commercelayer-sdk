@@ -92,11 +92,6 @@ class StripeGateways extends ApiResource<StripeGateway> {
 		return StripeGateways.TYPE
 	}
 
-
-	parse(payload: any): StripeGateway | StripeGateway[] {
-		return super.parse(payload)
-	}
-
 }
 
 

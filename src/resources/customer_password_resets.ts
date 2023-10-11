@@ -84,11 +84,6 @@ class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 		return CustomerPasswordResets.TYPE
 	}
 
-
-	parse(payload: any): CustomerPasswordReset | CustomerPasswordReset[] {
-		return super.parse(payload)
-	}
-
 }
 
 

@@ -82,11 +82,6 @@ class Refunds extends ApiResource<Refund> {
 		return Refunds.TYPE
 	}
 
-
-	parse(payload: any): Refund | Refund[] {
-		return super.parse(payload)
-	}
-
 }
 
 

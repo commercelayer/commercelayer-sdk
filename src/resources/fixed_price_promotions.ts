@@ -204,11 +204,6 @@ class FixedPricePromotions extends ApiResource<FixedPricePromotion> {
 		return FixedPricePromotions.TYPE
 	}
 
-
-	parse(payload: any): FixedPricePromotion | FixedPricePromotion[] {
-		return super.parse(payload)
-	}
-
 }
 
 

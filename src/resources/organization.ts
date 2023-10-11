@@ -53,11 +53,6 @@ class Organizations extends ApiSingleton<Organization> {
 		return Organizations.TYPE
 	}
 
-
-	parse(payload: any): Organization | Organization[] {
-		return super.parse(payload)
-	}
-
 }
 
 

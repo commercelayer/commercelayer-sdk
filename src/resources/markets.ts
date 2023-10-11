@@ -165,11 +165,6 @@ class Markets extends ApiResource<Market> {
 		return Markets.TYPE
 	}
 
-
-	parse(payload: any): Market | Market[] {
-		return super.parse(payload)
-	}
-
 }
 
 

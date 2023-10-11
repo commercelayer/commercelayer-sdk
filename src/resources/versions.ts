@@ -42,11 +42,6 @@ class Versions extends ApiResource<Version> {
 		return Versions.TYPE
 	}
 
-
-	parse(payload: any): Version | Version[] {
-		return super.parse(payload)
-	}
-
 }
 
 

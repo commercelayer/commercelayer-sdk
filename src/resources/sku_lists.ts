@@ -123,11 +123,6 @@ class SkuLists extends ApiResource<SkuList> {
 		return SkuLists.TYPE
 	}
 
-
-	parse(payload: any): SkuList | SkuList[] {
-		return super.parse(payload)
-	}
-
 }
 
 
