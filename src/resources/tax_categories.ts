@@ -102,6 +102,11 @@ class TaxCategories extends ApiResource<TaxCategory> {
 		return TaxCategories.TYPE
 	}
 
+
+	parse(payload: any): TaxCategory | TaxCategory[] {
+		return super.parse(payload)
+	}
+
 }
 
 

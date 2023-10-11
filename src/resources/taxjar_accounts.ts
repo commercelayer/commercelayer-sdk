@@ -98,6 +98,11 @@ class TaxjarAccounts extends ApiResource<TaxjarAccount> {
 		return TaxjarAccounts.TYPE
 	}
 
+
+	parse(payload: any): TaxjarAccount | TaxjarAccount[] {
+		return super.parse(payload)
+	}
+
 }
 
 

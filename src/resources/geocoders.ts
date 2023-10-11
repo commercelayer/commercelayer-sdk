@@ -51,6 +51,11 @@ class Geocoders extends ApiResource<Geocoder> {
 		return Geocoders.TYPE
 	}
 
+
+	parse(payload: any): Geocoder | Geocoder[] {
+		return super.parse(payload)
+	}
+
 }
 
 

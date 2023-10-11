@@ -62,6 +62,11 @@ class Tags extends ApiResource<Tag> {
 		return Tags.TYPE
 	}
 
+
+	parse(payload: any): Tag | Tag[] {
+		return super.parse(payload)
+	}
+
 }
 
 

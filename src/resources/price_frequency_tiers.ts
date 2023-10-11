@@ -104,6 +104,11 @@ class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier> {
 		return PriceFrequencyTiers.TYPE
 	}
 
+
+	parse(payload: any): PriceFrequencyTier | PriceFrequencyTier[] {
+		return super.parse(payload)
+	}
+
 }
 
 

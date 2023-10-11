@@ -64,6 +64,11 @@ class OrderFactories extends ApiResource<OrderFactory> {
 		return OrderFactories.TYPE
 	}
 
+
+	parse(payload: any): OrderFactory | OrderFactory[] {
+		return super.parse(payload)
+	}
+
 }
 
 

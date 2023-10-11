@@ -82,6 +82,11 @@ class Voids extends ApiResource<Void> {
 		return Voids.TYPE
 	}
 
+
+	parse(payload: any): Void | Void[] {
+		return super.parse(payload)
+	}
+
 }
 
 

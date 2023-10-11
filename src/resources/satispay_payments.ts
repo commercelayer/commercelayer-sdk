@@ -103,6 +103,11 @@ class SatispayPayments extends ApiResource<SatispayPayment> {
 		return SatispayPayments.TYPE
 	}
 
+
+	parse(payload: any): SatispayPayment | SatispayPayment[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -116,6 +116,11 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 		return LineItemOptions.TYPE
 	}
 
+
+	parse(payload: any): LineItemOption | LineItemOption[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -208,6 +208,11 @@ class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
 		return BuyXPayYPromotions.TYPE
 	}
 
+
+	parse(payload: any): BuyXPayYPromotion | BuyXPayYPromotion[] {
+		return super.parse(payload)
+	}
+
 }
 
 

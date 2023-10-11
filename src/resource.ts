@@ -8,6 +8,7 @@ import config from './config'
 import type { InterceptorManager } from './interceptor'
 
 import Debug from './debug'
+import { ErrorType, SdkError } from './error'
 const debug = Debug('resource')
 
 
@@ -43,7 +44,7 @@ interface Resource extends ResourceBase, ResourceId {
 
 
 interface ResourceCreate extends ResourceBase {
-	
+
 }
 
 
@@ -74,7 +75,7 @@ class ListResponse<R> extends Array<R> {
 
 	hasNextPage(): boolean { return (this.meta.currentPage < this.meta.pageCount) }
 	hasPrevPage(): boolean { return (this.meta.currentPage > 1) }
-	
+
 	getRecordCount(): number { return this.meta.recordCount }
 	getPageCount(): number { return this.meta.pageCount }
 	get recordCount(): number { return this.meta.recordCount }
@@ -271,6 +272,17 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	abstract type(): ResourceTypeLock
 
+	protected parse(resource: any): R | R[] {
+		try {
+			const res = JSON.parse(resource)
+			if (res.data?.type !== this.type()) throw new SdkError({ message: `Invalid resource type [${res.data?.type}]`, type: ErrorType.PARSE })
+			return denormalize<R>(res)
+		} catch (error: any) {
+			if (SdkError.isSdkError(error)) throw error
+			else throw new SdkError({ message: `Payload parse error [${error.message}]`, type: ErrorType.PARSE })
+		}
+	}
+
 
 	// reference, reference_origin and metadata attributes are always updatable
 	async update(resource: ResourceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
@@ -283,7 +295,7 @@ abstract class ApiResourceBase<R extends Resource> {
 abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 
 	async retrieve(id: string | ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
-		return this.resources.retrieve<R>((typeof id === 'string')? { type: this.type(), id } : id, params, options)
+		return this.resources.retrieve<R>((typeof id === 'string') ? { type: this.type(), id } : id, params, options)
 	}
 
 	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
@@ -291,7 +303,7 @@ abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 	}
 
 	async count(filter?: QueryFilter | QueryParamsList, options?: ResourcesConfig): Promise<number> {
-		const params: QueryParamsList = { filters: isParamsList(filter)? filter.filters : filter, pageNumber: 1, pageSize: 1 }
+		const params: QueryParamsList = { filters: isParamsList(filter) ? filter.filters : filter, pageNumber: 1, pageSize: 1 }
 		const response = await this.list(params, options)
 		return Promise.resolve(response.meta.recordCount)
 	}

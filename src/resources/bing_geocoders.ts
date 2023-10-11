@@ -79,6 +79,11 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 		return BingGeocoders.TYPE
 	}
 
+
+	parse(payload: any): BingGeocoder | BingGeocoder[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -202,6 +202,11 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 		return PercentageDiscountPromotions.TYPE
 	}
 
+
+	parse(payload: any): PercentageDiscountPromotion | PercentageDiscountPromotion[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -124,6 +124,11 @@ class SkuOptions extends ApiResource<SkuOption> {
 		return SkuOptions.TYPE
 	}
 
+
+	parse(payload: any): SkuOption | SkuOption[] {
+		return super.parse(payload)
+	}
+
 }
 
 

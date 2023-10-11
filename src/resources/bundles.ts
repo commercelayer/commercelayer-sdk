@@ -158,6 +158,11 @@ class Bundles extends ApiResource<Bundle> {
 		return Bundles.TYPE
 	}
 
+
+	parse(payload: any): Bundle | Bundle[] {
+		return super.parse(payload)
+	}
+
 }
 
 

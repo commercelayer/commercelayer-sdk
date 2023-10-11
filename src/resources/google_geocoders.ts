@@ -79,6 +79,11 @@ class GoogleGeocoders extends ApiResource<GoogleGeocoder> {
 		return GoogleGeocoders.TYPE
 	}
 
+
+	parse(payload: any): GoogleGeocoder | GoogleGeocoder[] {
+		return super.parse(payload)
+	}
+
 }
 
 

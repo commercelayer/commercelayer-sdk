@@ -95,6 +95,11 @@ class KlarnaGateways extends ApiResource<KlarnaGateway> {
 		return KlarnaGateways.TYPE
 	}
 
+
+	parse(payload: any): KlarnaGateway | KlarnaGateway[] {
+		return super.parse(payload)
+	}
+
 }
 
 

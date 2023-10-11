@@ -95,6 +95,11 @@ class CouponRecipients extends ApiResource<CouponRecipient> {
 		return CouponRecipients.TYPE
 	}
 
+
+	parse(payload: any): CouponRecipient | CouponRecipient[] {
+		return super.parse(payload)
+	}
+
 }
 
 

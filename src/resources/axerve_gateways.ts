@@ -95,6 +95,11 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 		return AxerveGateways.TYPE
 	}
 
+
+	parse(payload: any): AxerveGateway | AxerveGateway[] {
+		return super.parse(payload)
+	}
+
 }
 
 

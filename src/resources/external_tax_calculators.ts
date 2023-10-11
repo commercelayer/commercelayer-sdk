@@ -88,6 +88,11 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 		return ExternalTaxCalculators.TYPE
 	}
 
+
+	parse(payload: any): ExternalTaxCalculator | ExternalTaxCalculator[] {
+		return super.parse(payload)
+	}
+
 }
 
 

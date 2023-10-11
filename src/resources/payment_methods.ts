@@ -133,6 +133,11 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 		return PaymentMethods.TYPE
 	}
 
+
+	parse(payload: any): PaymentMethod | PaymentMethod[] {
+		return super.parse(payload)
+	}
+
 }
 
 

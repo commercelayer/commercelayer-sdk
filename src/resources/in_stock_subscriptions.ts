@@ -125,6 +125,11 @@ class InStockSubscriptions extends ApiResource<InStockSubscription> {
 		return InStockSubscriptions.TYPE
 	}
 
+
+	parse(payload: any): InStockSubscription | InStockSubscription[] {
+		return super.parse(payload)
+	}
+
 }
 
 

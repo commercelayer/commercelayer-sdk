@@ -134,6 +134,11 @@ class Attachments extends ApiResource<Attachment> {
 		return Attachments.TYPE
 	}
 
+
+	parse(payload: any): Attachment | Attachment[] {
+		return super.parse(payload)
+	}
+
 }
 
 

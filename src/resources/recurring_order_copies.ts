@@ -99,6 +99,11 @@ class RecurringOrderCopies extends ApiResource<RecurringOrderCopy> {
 		return RecurringOrderCopies.TYPE
 	}
 
+
+	parse(payload: any): RecurringOrderCopy | RecurringOrderCopy[] {
+		return super.parse(payload)
+	}
+
 }
 
 

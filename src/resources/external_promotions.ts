@@ -203,6 +203,11 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 		return ExternalPromotions.TYPE
 	}
 
+
+	parse(payload: any): ExternalPromotion | ExternalPromotion[] {
+		return super.parse(payload)
+	}
+
 }
 
 

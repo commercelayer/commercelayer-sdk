@@ -100,6 +100,11 @@ class AdyenPayments extends ApiResource<AdyenPayment> {
 		return AdyenPayments.TYPE
 	}
 
+
+	parse(payload: any): AdyenPayment | AdyenPayment[] {
+		return super.parse(payload)
+	}
+
 }
 
 

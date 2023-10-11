@@ -99,6 +99,11 @@ class ExternalPayments extends ApiResource<ExternalPayment> {
 		return ExternalPayments.TYPE
 	}
 
+
+	parse(payload: any): ExternalPayment | ExternalPayment[] {
+		return super.parse(payload)
+	}
+
 }
 
 

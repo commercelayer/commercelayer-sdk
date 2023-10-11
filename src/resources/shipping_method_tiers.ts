@@ -62,6 +62,11 @@ class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
 		return ShippingMethodTiers.TYPE
 	}
 
+
+	parse(payload: any): ShippingMethodTier | ShippingMethodTier[] {
+		return super.parse(payload)
+	}
+
 }
 
 

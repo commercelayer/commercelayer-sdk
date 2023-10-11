@@ -32,6 +32,11 @@ class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOU
 		return ##__RESOURCE_CLASS__##.TYPE
 	}
 
+
+	parse(payload: any): ##__MODEL_RESOURCE_INTERFACE__## | ##__MODEL_RESOURCE_INTERFACE__##[] {
+		return super.parse(payload)
+	}
+
 }
 
 

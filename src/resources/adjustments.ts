@@ -78,6 +78,11 @@ class Adjustments extends ApiResource<Adjustment> {
 		return Adjustments.TYPE
 	}
 
+
+	parse(payload: any): Adjustment | Adjustment[] {
+		return super.parse(payload)
+	}
+
 }
 
 

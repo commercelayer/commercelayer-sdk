@@ -99,6 +99,11 @@ class BraintreePayments extends ApiResource<BraintreePayment> {
 		return BraintreePayments.TYPE
 	}
 
+
+	parse(payload: any): BraintreePayment | BraintreePayment[] {
+		return super.parse(payload)
+	}
+
 }
 
 

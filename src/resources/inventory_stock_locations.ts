@@ -95,6 +95,11 @@ class InventoryStockLocations extends ApiResource<InventoryStockLocation> {
 		return InventoryStockLocations.TYPE
 	}
 
+
+	parse(payload: any): InventoryStockLocation | InventoryStockLocation[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -58,6 +58,11 @@ class ReservedStocks extends ApiResource<ReservedStock> {
 		return ReservedStocks.TYPE
 	}
 
+
+	parse(payload: any): ReservedStock | ReservedStock[] {
+		return super.parse(payload)
+	}
+
 }
 
 

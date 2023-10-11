@@ -78,6 +78,11 @@ class Imports extends ApiResource<Import> {
 		return Imports.TYPE
 	}
 
+
+	parse(payload: any): Import | Import[] {
+		return super.parse(payload)
+	}
+
 }
 
 

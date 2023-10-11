@@ -124,6 +124,11 @@ class StockLocations extends ApiResource<StockLocation> {
 		return StockLocations.TYPE
 	}
 
+
+	parse(payload: any): StockLocation | StockLocation[] {
+		return super.parse(payload)
+	}
+
 }
 
 

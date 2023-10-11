@@ -107,6 +107,11 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 		return BraintreeGateways.TYPE
 	}
 
+
+	parse(payload: any): BraintreeGateway | BraintreeGateway[] {
+		return super.parse(payload)
+	}
+
 }
 
 

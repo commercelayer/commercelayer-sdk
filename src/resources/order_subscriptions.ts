@@ -183,6 +183,11 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 		return OrderSubscriptions.TYPE
 	}
 
+
+	parse(payload: any): OrderSubscription | OrderSubscription[] {
+		return super.parse(payload)
+	}
+
 }
 
 

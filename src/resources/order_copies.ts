@@ -99,6 +99,11 @@ class OrderCopies extends ApiResource<OrderCopy> {
 		return OrderCopies.TYPE
 	}
 
+
+	parse(payload: any): OrderCopy | OrderCopy[] {
+		return super.parse(payload)
+	}
+
 }
 
 

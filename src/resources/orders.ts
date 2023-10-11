@@ -576,6 +576,11 @@ class Orders extends ApiResource<Order> {
 		return Orders.TYPE
 	}
 
+
+	parse(payload: any): Order | Order[] {
+		return super.parse(payload)
+	}
+
 }
 
 

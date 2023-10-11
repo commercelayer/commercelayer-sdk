@@ -104,6 +104,11 @@ class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 		return DeliveryLeadTimes.TYPE
 	}
 
+
+	parse(payload: any): DeliveryLeadTime | DeliveryLeadTime[] {
+		return super.parse(payload)
+	}
+
 }
 
 

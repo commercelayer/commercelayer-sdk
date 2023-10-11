@@ -88,6 +88,11 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 		return PaypalGateways.TYPE
 	}
 
+
+	parse(payload: any): PaypalGateway | PaypalGateway[] {
+		return super.parse(payload)
+	}
+
 }
 
 

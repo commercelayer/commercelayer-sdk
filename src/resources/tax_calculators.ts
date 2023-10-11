@@ -58,6 +58,11 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
 		return TaxCalculators.TYPE
 	}
 
+
+	parse(payload: any): TaxCalculator | TaxCalculator[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -95,6 +95,11 @@ class ShippingZones extends ApiResource<ShippingZone> {
 		return ShippingZones.TYPE
 	}
 
+
+	parse(payload: any): ShippingZone | ShippingZone[] {
+		return super.parse(payload)
+	}
+
 }
 
 

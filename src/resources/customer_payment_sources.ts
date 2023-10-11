@@ -99,6 +99,11 @@ class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
 		return CustomerPaymentSources.TYPE
 	}
 
+
+	parse(payload: any): CustomerPaymentSource | CustomerPaymentSource[] {
+		return super.parse(payload)
+	}
+
 }
 
 

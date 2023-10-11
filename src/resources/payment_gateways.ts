@@ -51,6 +51,11 @@ class PaymentGateways extends ApiResource<PaymentGateway> {
 		return PaymentGateways.TYPE
 	}
 
+
+	parse(payload: any): PaymentGateway | PaymentGateway[] {
+		return super.parse(payload)
+	}
+
 }
 
 

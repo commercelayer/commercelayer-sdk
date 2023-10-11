@@ -91,6 +91,11 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 		return CustomerGroups.TYPE
 	}
 
+
+	parse(payload: any): CustomerGroup | CustomerGroup[] {
+		return super.parse(payload)
+	}
+
 }
 
 

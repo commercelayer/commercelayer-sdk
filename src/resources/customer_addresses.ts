@@ -98,6 +98,11 @@ class CustomerAddresses extends ApiResource<CustomerAddress> {
 		return CustomerAddresses.TYPE
 	}
 
+
+	parse(payload: any): CustomerAddress | CustomerAddress[] {
+		return super.parse(payload)
+	}
+
 }
 
 

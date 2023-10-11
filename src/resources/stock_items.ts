@@ -116,6 +116,11 @@ class StockItems extends ApiResource<StockItem> {
 		return StockItems.TYPE
 	}
 
+
+	parse(payload: any): StockItem | StockItem[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -73,6 +73,11 @@ class Exports extends ApiResource<Export> {
 		return Exports.TYPE
 	}
 
+
+	parse(payload: any): Export | Export[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -188,6 +188,11 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 		return ShippingMethods.TYPE
 	}
 
+
+	parse(payload: any): ShippingMethod | ShippingMethod[] {
+		return super.parse(payload)
+	}
+
 }
 
 

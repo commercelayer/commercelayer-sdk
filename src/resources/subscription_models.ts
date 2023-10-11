@@ -96,6 +96,11 @@ class SubscriptionModels extends ApiResource<SubscriptionModel> {
 		return SubscriptionModels.TYPE
 	}
 
+
+	parse(payload: any): SubscriptionModel | SubscriptionModel[] {
+		return super.parse(payload)
+	}
+
 }
 
 

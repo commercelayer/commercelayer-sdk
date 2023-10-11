@@ -193,6 +193,11 @@ class Returns extends ApiResource<Return> {
 		return Returns.TYPE
 	}
 
+
+	parse(payload: any): Return | Return[] {
+		return super.parse(payload)
+	}
+
 }
 
 

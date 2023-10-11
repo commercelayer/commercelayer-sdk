@@ -1,11 +1,12 @@
 import axios from 'axios'
 
 enum ErrorType {
-	CLIENT = 'client',
-	REQUEST = 'request',
-	RESPONSE = 'response',
-	GENERIC = 'generic',
-	CANCEL = 'cancel',
+	CLIENT 		= 'client',		// Error instantiating the client
+	REQUEST 	= 'request',	// Error preparing API request
+	RESPONSE 	= 'response',	// Error response from API
+	CANCEL 		= 'cancel',		// Forced request abort using interceptor
+	PARSE 		= 'parse',		// Error parsing API resource
+	GENERIC 	= 'generic',	// Other not specified errors
 }
 
 

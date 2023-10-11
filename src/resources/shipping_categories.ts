@@ -84,6 +84,11 @@ class ShippingCategories extends ApiResource<ShippingCategory> {
 		return ShippingCategories.TYPE
 	}
 
+
+	parse(payload: any): ShippingCategory | ShippingCategory[] {
+		return super.parse(payload)
+	}
+
 }
 
 

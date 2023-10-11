@@ -94,6 +94,11 @@ class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule> {
 		return OrderAmountPromotionRules.TYPE
 	}
 
+
+	parse(payload: any): OrderAmountPromotionRule | OrderAmountPromotionRule[] {
+		return super.parse(payload)
+	}
+
 }
 
 

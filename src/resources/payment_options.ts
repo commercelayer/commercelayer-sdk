@@ -87,6 +87,11 @@ class PaymentOptions extends ApiResource<PaymentOption> {
 		return PaymentOptions.TYPE
 	}
 
+
+	parse(payload: any): PaymentOption | PaymentOption[] {
+		return super.parse(payload)
+	}
+
 }
 
 

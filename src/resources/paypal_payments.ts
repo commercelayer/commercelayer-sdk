@@ -103,6 +103,11 @@ class PaypalPayments extends ApiResource<PaypalPayment> {
 		return PaypalPayments.TYPE
 	}
 
+
+	parse(payload: any): PaypalPayment | PaypalPayment[] {
+		return super.parse(payload)
+	}
+
 }
 
 

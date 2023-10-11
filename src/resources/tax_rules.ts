@@ -116,6 +116,11 @@ class TaxRules extends ApiResource<TaxRule> {
 		return TaxRules.TYPE
 	}
 
+
+	parse(payload: any): TaxRule | TaxRule[] {
+		return super.parse(payload)
+	}
+
 }
 
 

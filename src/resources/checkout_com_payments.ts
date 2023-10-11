@@ -118,6 +118,11 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 		return CheckoutComPayments.TYPE
 	}
 
+
+	parse(payload: any): CheckoutComPayment | CheckoutComPayment[] {
+		return super.parse(payload)
+	}
+
 }
 
 

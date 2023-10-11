@@ -97,6 +97,11 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 		return ShippingWeightTiers.TYPE
 	}
 
+
+	parse(payload: any): ShippingWeightTier | ShippingWeightTier[] {
+		return super.parse(payload)
+	}
+
 }
 
 

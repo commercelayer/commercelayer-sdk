@@ -89,6 +89,11 @@ class Merchants extends ApiResource<Merchant> {
 		return Merchants.TYPE
 	}
 
+
+	parse(payload: any): Merchant | Merchant[] {
+		return super.parse(payload)
+	}
+
 }
 
 

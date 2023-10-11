@@ -104,6 +104,11 @@ class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 		return OrderSubscriptionItems.TYPE
 	}
 
+
+	parse(payload: any): OrderSubscriptionItem | OrderSubscriptionItem[] {
+		return super.parse(payload)
+	}
+
 }
 
 

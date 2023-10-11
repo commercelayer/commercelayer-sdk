@@ -60,6 +60,11 @@ class CarrierAccounts extends ApiResource<CarrierAccount> {
 		return CarrierAccounts.TYPE
 	}
 
+
+	parse(payload: any): CarrierAccount | CarrierAccount[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -96,6 +96,11 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 		return CheckoutComGateways.TYPE
 	}
 
+
+	parse(payload: any): CheckoutComGateway | CheckoutComGateway[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -42,6 +42,11 @@ class Applications extends ApiSingleton<Application> {
 		return Applications.TYPE
 	}
 
+
+	parse(payload: any): Application | Application[] {
+		return super.parse(payload)
+	}
+
 }
 
 

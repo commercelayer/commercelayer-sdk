@@ -100,6 +100,11 @@ class KlarnaPayments extends ApiResource<KlarnaPayment> {
 		return KlarnaPayments.TYPE
 	}
 
+
+	parse(payload: any): KlarnaPayment | KlarnaPayment[] {
+		return super.parse(payload)
+	}
+
 }
 
 

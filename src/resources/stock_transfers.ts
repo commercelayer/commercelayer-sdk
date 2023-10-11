@@ -155,6 +155,11 @@ class StockTransfers extends ApiResource<StockTransfer> {
 		return StockTransfers.TYPE
 	}
 
+
+	parse(payload: any): StockTransfer | StockTransfer[] {
+		return super.parse(payload)
+	}
+
 }
 
 

@@ -134,6 +134,11 @@ class Prices extends ApiResource<Price> {
 		return Prices.TYPE
 	}
 
+
+	parse(payload: any): Price | Price[] {
+		return super.parse(payload)
+	}
+
 }
 
 
