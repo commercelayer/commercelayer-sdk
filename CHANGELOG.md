@@ -1,3 +1,10 @@
+## [5.17.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.17.0...v5.17.1) (2023-10-11)
+
+
+### Bug Fixes
+
+* **core:** optimize parse function ([e3d76ee](https://github.com/commercelayer/commercelayer-sdk/commit/e3d76eef42d47981820054dd35f31d5fb542823c))
+
 # [5.17.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.16.0...v5.17.0) (2023-10-11)
 
 
