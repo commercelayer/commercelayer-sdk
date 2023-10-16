@@ -19,6 +19,8 @@ interface AxervePayment extends Resource {
 	login: string
 	return_url: string
 	payment_request_data?: Record<string, any> | null
+	client_ip?: string | null
+	buyer_details?: Record<string, any> | null
 	mismatched_amounts?: boolean | null
 	intent_amount_cents: number
 	intent_amount_float?: number | null
@@ -35,6 +37,8 @@ interface AxervePayment extends Resource {
 interface AxervePaymentCreate extends ResourceCreate {
 	
 	return_url: string
+	client_ip?: string | null
+	buyer_details?: Record<string, any> | null
 
 	order: OrderRel
 

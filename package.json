@@ -36,8 +36,8 @@
     "axios": "1.5.1"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.22.20",
-    "@babel/preset-typescript": "^7.23.0",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-typescript": "^7.23.2",
     "@commercelayer/eslint-config-ts": "1.1.0",
     "@commercelayer/js-auth": "^4.1.1",
     "@semantic-release/changelog": "^6.0.3",
@@ -45,7 +45,7 @@
     "@types/debug": "^4.1.9",
     "@types/jest": "^29.5.5",
     "@types/lodash": "^4.14.199",
-    "@types/node": "^20.8.4",
+    "@types/node": "^20.8.6",
     "dotenv": "^16.3.1",
     "eslint": "^8.51.0",
     "inflector-js": "^1.0.1",
