@@ -16,7 +16,7 @@ interface PaymentOption extends Resource {
 	readonly type: PaymentOptionType
 
 	name?: string | null
-	payment_source_type: 'AdyenPayment' | 'AxervePayment' | 'BraintreePayment' | 'CheckoutComPayment' | 'CreditCard' | 'ExternalPayment' | 'KlarnaPayment' | 'PaypalPayment' | 'SatispayPayment' | 'StripePayment' | 'WireTransfer'
+	payment_source_type: 'adyen_payment' | 'axerve_payment' | 'braintree_payment' | 'checkout_com_payment' | 'credit_card' | 'external_payment' | 'klarna_payment' | 'paypal_payment' | 'satispay_payment' | 'stripe_payment' | 'wire_transfer'
 	data: Record<string, any>
 
 	order?: Order | null
@@ -28,7 +28,7 @@ interface PaymentOption extends Resource {
 interface PaymentOptionCreate extends ResourceCreate {
 	
 	name?: string | null
-	payment_source_type: 'AdyenPayment' | 'AxervePayment' | 'BraintreePayment' | 'CheckoutComPayment' | 'CreditCard' | 'ExternalPayment' | 'KlarnaPayment' | 'PaypalPayment' | 'SatispayPayment' | 'StripePayment' | 'WireTransfer'
+	payment_source_type: 'adyen_payment' | 'axerve_payment' | 'braintree_payment' | 'checkout_com_payment' | 'credit_card' | 'external_payment' | 'klarna_payment' | 'paypal_payment' | 'satispay_payment' | 'stripe_payment' | 'wire_transfer'
 	data: Record<string, any>
 
 	order: OrderRel
