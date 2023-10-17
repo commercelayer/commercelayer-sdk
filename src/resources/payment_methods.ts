@@ -19,7 +19,7 @@ interface PaymentMethod extends Resource {
 	readonly type: PaymentMethodType
 
 	name?: string | null
-	payment_source_type: 'AdyenPayment' | 'AxervePayment' | 'BraintreePayment' | 'CheckoutComPayment' | 'CreditCard' | 'ExternalPayment' | 'KlarnaPayment' | 'PaypalPayment' | 'SatispayPayment' | 'StripePayment' | 'WireTransfer'
+	payment_source_type: 'adyen_payment' | 'axerve_payment' | 'braintree_payment' | 'checkout_com_payment' | 'credit_card' | 'external_payment' | 'klarna_payment' | 'paypal_payment' | 'satispay_payment' | 'stripe_payment' | 'wire_transfer'
 	currency_code?: string | null
 	moto?: boolean | null
 	require_capture?: boolean | null
@@ -42,7 +42,7 @@ interface PaymentMethod extends Resource {
 
 interface PaymentMethodCreate extends ResourceCreate {
 	
-	payment_source_type: 'AdyenPayment' | 'AxervePayment' | 'BraintreePayment' | 'CheckoutComPayment' | 'CreditCard' | 'ExternalPayment' | 'KlarnaPayment' | 'PaypalPayment' | 'SatispayPayment' | 'StripePayment' | 'WireTransfer'
+	payment_source_type: 'adyen_payment' | 'axerve_payment' | 'braintree_payment' | 'checkout_com_payment' | 'credit_card' | 'external_payment' | 'klarna_payment' | 'paypal_payment' | 'satispay_payment' | 'stripe_payment' | 'wire_transfer'
 	currency_code?: string | null
 	moto?: boolean | null
 	require_capture?: boolean | null
@@ -58,7 +58,7 @@ interface PaymentMethodCreate extends ResourceCreate {
 
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
-	payment_source_type?: 'AdyenPayment' | 'AxervePayment' | 'BraintreePayment' | 'CheckoutComPayment' | 'CreditCard' | 'ExternalPayment' | 'KlarnaPayment' | 'PaypalPayment' | 'SatispayPayment' | 'StripePayment' | 'WireTransfer' | null
+	payment_source_type?: 'adyen_payment' | 'axerve_payment' | 'braintree_payment' | 'checkout_com_payment' | 'credit_card' | 'external_payment' | 'klarna_payment' | 'paypal_payment' | 'satispay_payment' | 'stripe_payment' | 'wire_transfer' | null
 	currency_code?: string | null
 	moto?: boolean | null
 	require_capture?: boolean | null
