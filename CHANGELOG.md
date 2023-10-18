@@ -1,3 +1,15 @@
+# [5.19.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.18.1...v5.19.0) (2023-10-18)
+
+
+### Bug Fixes
+
+* payment_source_type enum ([f886c28](https://github.com/commercelayer/commercelayer-sdk/commit/f886c28c47448fdf51dc61661d6a7cc4c3cd66e8))
+
+
+### Features
+
+* update resources to schema v4.16.0 ([dcb3185](https://github.com/commercelayer/commercelayer-sdk/commit/dcb3185e87e18d0d34f3c49ca54bae44c8042667))
+
 ## [5.18.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.18.0...v5.18.1) (2023-10-17)
 
 
