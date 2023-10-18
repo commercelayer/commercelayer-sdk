@@ -23,7 +23,7 @@ interface StockTransfer extends Resource {
 	readonly type: StockTransferType
 
 	sku_code?: string | null
-	status: 'draft' | 'upcoming' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
+	status: 'draft' | 'upcoming' | 'on_hold' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
 	quantity: number
 	completed_at?: string | null
 	cancelled_at?: string | null
@@ -57,6 +57,7 @@ interface StockTransferUpdate extends ResourceUpdate {
 	
 	sku_code?: string | null
 	_upcoming?: boolean | null
+	_on_hold?: boolean | null
 	_picking?: boolean | null
 	_in_transit?: boolean | null
 	_complete?: boolean | null
@@ -122,6 +123,10 @@ class StockTransfers extends ApiResource<StockTransfer> {
 
 	async _upcoming(id: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
 		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _upcoming: true }, params, options)
+	}
+
+	async _on_hold(id: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _on_hold: true }, params, options)
 	}
 
 	async _picking(id: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockTransfer> {

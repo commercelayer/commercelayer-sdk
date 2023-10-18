@@ -21,6 +21,37 @@ describe('Shipments resource', () => {
   const resourceType = 'shipments'
 
 
+  /* spec.create.start */
+  it(resourceType + '.create', async () => {
+
+    const createAttributes = {
+			order: cl.orders.relationship(TestData.id),
+			shipping_category: cl.shipping_categories.relationship(TestData.id),
+			inventory_stock_location: cl.inventory_stock_locations.relationship(TestData.id),
+			shipping_address: cl.addresses.relationship(TestData.id),
+			shipping_method: cl.shipping_methods.relationship(TestData.id),
+		}
+
+    const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
+    const resData = attributes
+
+    const intId = cl.addRequestInterceptor((config) => {
+      expect(config.method).toBe('post')
+      checkCommon(config, resourceType)
+      checkCommonData(config, resourceType, attributes)
+      expect(cl[resourceType].isShipment(config.data.data)).toBeTruthy()
+      return interceptRequest()
+    })
+
+    await cl[resourceType].create(resData, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request', intId))
+
+  })
+  /* spec.create.stop */
+
+
   /* spec.retrieve.start */
   it(resourceType + '.retrieve', async () => {
 
@@ -62,6 +93,25 @@ describe('Shipments resource', () => {
 
   })
   /* spec.update.stop */
+
+
+  /* spec.delete.start */
+  it(resourceType + '.delete', async () => {
+
+    const id = TestData.id
+
+    const intId = cl.addRequestInterceptor((config) => {
+      expect(config.method).toBe('delete')
+      checkCommon(config, resourceType, id, currentAccessToken)
+      return interceptRequest()
+    })
+
+    await cl[resourceType].delete(id, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request', intId))
+
+  })
+  /* spec.delete.stop */
 
 
   /* spec.list.start */
@@ -187,6 +237,27 @@ describe('Shipments resource', () => {
 	
 	})
 	/* relationship.shipping_category stop */
+	
+
+	/* relationship.inventory_stock_location start */
+	it(resourceType + '.inventory_stock_location', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { inventory_stock_locations: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'inventory_stock_location')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].inventory_stock_location(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.inventory_stock_location stop */
 	
 
 	/* relationship.stock_location start */
@@ -586,6 +657,81 @@ describe('Shipments resource', () => {
 	
 	})
 	/* trigger._ship stop */
+	
+
+	/* trigger._reserve_stock start */
+	it(resourceType + '._reserve_stock', async () => {
+	
+		let triggerAttr = '_reserve_stock'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._reserve_stock(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._reserve_stock stop */
+	
+
+	/* trigger._release_stock start */
+	it(resourceType + '._release_stock', async () => {
+	
+		let triggerAttr = '_release_stock'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._release_stock(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._release_stock stop */
+	
+
+	/* trigger._decrement_stock start */
+	it(resourceType + '._decrement_stock', async () => {
+	
+		let triggerAttr = '_decrement_stock'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._decrement_stock(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._decrement_stock stop */
 	
 
 	/* trigger._get_rates start */

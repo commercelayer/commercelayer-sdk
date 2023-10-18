@@ -1,11 +1,12 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
-import type { ShippingCategory } from './shipping_categories'
+import type { Order, OrderType } from './orders'
+import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
+import type { InventoryStockLocation, InventoryStockLocationType } from './inventory_stock_locations'
 import type { StockLocation } from './stock_locations'
-import type { Address } from './addresses'
+import type { Address, AddressType } from './addresses'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { StockLineItem } from './stock_line_items'
@@ -19,6 +20,10 @@ import type { Version } from './versions'
 
 type ShipmentType = 'shipments'
 type ShipmentRel = ResourceRel & { type: ShipmentType }
+type OrderRel = ResourceRel & { type: OrderType }
+type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
+type InventoryStockLocationRel = ResourceRel & { type: InventoryStockLocationType }
+type AddressRel = ResourceRel & { type: AddressType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
@@ -51,6 +56,7 @@ interface Shipment extends Resource {
 
 	order?: Order | null
 	shipping_category?: ShippingCategory | null
+	inventory_stock_location?: InventoryStockLocation | null
 	stock_location?: StockLocation | null
 	origin_address?: Address | null
 	shipping_address?: Address | null
@@ -72,6 +78,17 @@ interface Shipment extends Resource {
 }
 
 
+interface ShipmentCreate extends ResourceCreate {
+	
+	order: OrderRel
+	shipping_category?: ShippingCategoryRel | null
+	inventory_stock_location?: InventoryStockLocationRel | null
+	shipping_address?: AddressRel | null
+	shipping_method?: ShippingMethodRel | null
+
+}
+
+
 interface ShipmentUpdate extends ResourceUpdate {
 	
 	_on_hold?: boolean | null
@@ -79,10 +96,16 @@ interface ShipmentUpdate extends ResourceUpdate {
 	_packing?: boolean | null
 	_ready_to_ship?: boolean | null
 	_ship?: boolean | null
+	_reserve_stock?: boolean | null
+	_release_stock?: boolean | null
+	_decrement_stock?: boolean | null
 	_get_rates?: boolean | null
 	selected_rate_id?: string | null
 	_purchase?: boolean | null
 
+	shipping_category?: ShippingCategoryRel | null
+	inventory_stock_location?: InventoryStockLocationRel | null
+	shipping_address?: AddressRel | null
 	shipping_method?: ShippingMethodRel | null
 
 }
@@ -92,8 +115,16 @@ class Shipments extends ApiResource<Shipment> {
 
 	static readonly TYPE: ShipmentType = 'shipments' as const
 
+	async create(resource: ShipmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.create<ShipmentCreate, Shipment>({ ...resource, type: Shipments.TYPE }, params, options)
+	}
+
 	async update(resource: ShipmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ ...resource, type: Shipments.TYPE }, params, options)
+	}
+
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Shipments.TYPE } : id, options)
 	}
 
 	async order(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -104,6 +135,11 @@ class Shipments extends ApiResource<Shipment> {
 	async shipping_category(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
 		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
 		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `shipments/${_shipmentId}/shipping_category`, params, options) as unknown as ShippingCategory
+	}
+
+	async inventory_stock_location(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `shipments/${_shipmentId}/inventory_stock_location`, params, options) as unknown as InventoryStockLocation
 	}
 
 	async stock_location(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
@@ -191,6 +227,18 @@ class Shipments extends ApiResource<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _ship: true }, params, options)
 	}
 
+	async _reserve_stock(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _reserve_stock: true }, params, options)
+	}
+
+	async _release_stock(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _release_stock: true }, params, options)
+	}
+
+	async _decrement_stock(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _decrement_stock: true }, params, options)
+	}
+
 	async _get_rates(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _get_rates: true }, params, options)
 	}
@@ -219,4 +267,4 @@ class Shipments extends ApiResource<Shipment> {
 
 export default Shipments
 
-export type { Shipment, ShipmentUpdate, ShipmentType }
+export type { Shipment, ShipmentCreate, ShipmentUpdate, ShipmentType }

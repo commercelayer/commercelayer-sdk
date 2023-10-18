@@ -371,6 +371,31 @@ describe('StockTransfers resource', () => {
 	/* trigger._upcoming stop */
 	
 
+	/* trigger._on_hold start */
+	it(resourceType + '._on_hold', async () => {
+	
+		let triggerAttr = '_on_hold'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._on_hold(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._on_hold stop */
+	
+
 	/* trigger._picking start */
 	it(resourceType + '._picking', async () => {
 	
