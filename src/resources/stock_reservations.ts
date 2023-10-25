@@ -1,4 +1,4 @@
-import { ApiResource, Resource, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { LineItem } from './line_items'
@@ -9,6 +9,7 @@ import type { Sku } from './skus'
 
 
 type StockReservationRel = ResourceRel & { type: typeof StockReservations.TYPE }
+type StockItemRel = ResourceRel & { type: 'stock_items' }
 
 
 interface StockReservation extends Resource {
@@ -26,6 +27,25 @@ interface StockReservation extends Resource {
 }
 
 
+interface StockReservationCreate extends ResourceCreate {
+	
+	quantity: number
+
+	stock_item: StockItemRel
+
+}
+
+
+interface StockReservationUpdate extends ResourceUpdate {
+	
+	quantity?: number
+	_pending?: boolean
+
+	stock_item?: StockItemRel
+
+}
+
+
 class StockReservations extends ApiResource {
 
 	static readonly TYPE: 'stock_reservations' = 'stock_reservations' as const
@@ -35,8 +55,20 @@ class StockReservations extends ApiResource {
 		return this.resources.list<StockReservation>({ type: StockReservations.TYPE }, params, options)
 	}
 
+	async create(resource: StockReservationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockReservation> {
+		return this.resources.create<StockReservationCreate, StockReservation>({ ...resource, type: StockReservations.TYPE }, params, options)
+	}
+
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockReservation> {
 		return this.resources.retrieve<StockReservation>({ type: StockReservations.TYPE, id }, params, options)
+	}
+
+	async update(resource: StockReservationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockReservation> {
+		return this.resources.update<StockReservationUpdate, StockReservation>({ ...resource, type: StockReservations.TYPE }, params, options)
+	}
+
+	async delete(id: string, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete({ type: StockReservations.TYPE, id }, options)
 	}
 
 	async line_item(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
@@ -85,4 +117,4 @@ class StockReservations extends ApiResource {
 
 export default StockReservations
 
-export { StockReservation }
+export { StockReservation, StockReservationCreate, StockReservationUpdate }

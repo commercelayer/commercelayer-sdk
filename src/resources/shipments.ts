@@ -1,8 +1,9 @@
-import { ApiResource, Resource, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 import type { ShippingCategory } from './shipping_categories'
+import type { InventoryStockLocation } from './inventory_stock_locations'
 import type { StockLocation } from './stock_locations'
 import type { Address } from './addresses'
 import type { ShippingMethod } from './shipping_methods'
@@ -17,6 +18,10 @@ import type { Version } from './versions'
 
 
 type ShipmentRel = ResourceRel & { type: typeof Shipments.TYPE }
+type OrderRel = ResourceRel & { type: 'orders' }
+type ShippingCategoryRel = ResourceRel & { type: 'shipping_categories' }
+type InventoryStockLocationRel = ResourceRel & { type: 'inventory_stock_locations' }
+type AddressRel = ResourceRel & { type: 'addresses' }
 type ShippingMethodRel = ResourceRel & { type: 'shipping_methods' }
 
 
@@ -47,6 +52,7 @@ interface Shipment extends Resource {
 
 	order?: Order
 	shipping_category?: ShippingCategory
+	inventory_stock_location?: InventoryStockLocation
 	stock_location?: StockLocation
 	origin_address?: Address
 	shipping_address?: Address
@@ -68,6 +74,17 @@ interface Shipment extends Resource {
 }
 
 
+interface ShipmentCreate extends ResourceCreate {
+	
+	order: OrderRel
+	shipping_category?: ShippingCategoryRel
+	inventory_stock_location?: InventoryStockLocationRel
+	shipping_address?: AddressRel
+	shipping_method?: ShippingMethodRel
+
+}
+
+
 interface ShipmentUpdate extends ResourceUpdate {
 	
 	_on_hold?: boolean
@@ -75,10 +92,16 @@ interface ShipmentUpdate extends ResourceUpdate {
 	_packing?: boolean
 	_ready_to_ship?: boolean
 	_ship?: boolean
+	_reserve_stock?: boolean
+	_release_stock?: boolean
+	_decrement_stock?: boolean
 	_get_rates?: boolean
 	selected_rate_id?: string
 	_purchase?: boolean
 
+	shipping_category?: ShippingCategoryRel
+	inventory_stock_location?: InventoryStockLocationRel
+	shipping_address?: AddressRel
 	shipping_method?: ShippingMethodRel
 
 }
@@ -93,12 +116,20 @@ class Shipments extends ApiResource {
 		return this.resources.list<Shipment>({ type: Shipments.TYPE }, params, options)
 	}
 
+	async create(resource: ShipmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.create<ShipmentCreate, Shipment>({ ...resource, type: Shipments.TYPE }, params, options)
+	}
+
 	async retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.retrieve<Shipment>({ type: Shipments.TYPE, id }, params, options)
 	}
 
 	async update(resource: ShipmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ ...resource, type: Shipments.TYPE }, params, options)
+	}
+
+	async delete(id: string, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete({ type: Shipments.TYPE, id }, options)
 	}
 
 	async order(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -109,6 +140,11 @@ class Shipments extends ApiResource {
 	async shipping_category(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
 		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
 		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `shipments/${_shipmentId}/shipping_category`, params, options) as unknown as ShippingCategory
+	}
+
+	async inventory_stock_location(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryStockLocation> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `shipments/${_shipmentId}/inventory_stock_location`, params, options) as unknown as InventoryStockLocation
 	}
 
 	async stock_location(shipmentId: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
@@ -197,4 +233,4 @@ class Shipments extends ApiResource {
 
 export default Shipments
 
-export { Shipment, ShipmentUpdate }
+export { Shipment, ShipmentCreate, ShipmentUpdate }

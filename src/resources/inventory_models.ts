@@ -16,6 +16,7 @@ interface InventoryModel extends Resource {
 	strategy?: string
 	stock_locations_cutoff?: number
 	stock_reservation_cutoff?: number
+	put_stock_transfers_on_hold?: boolean
 
 	inventory_stock_locations?: InventoryStockLocation[]
 	inventory_return_locations?: InventoryReturnLocation[]
@@ -31,6 +32,7 @@ interface InventoryModelCreate extends ResourceCreate {
 	strategy?: string
 	stock_locations_cutoff?: number
 	stock_reservation_cutoff?: number
+	put_stock_transfers_on_hold?: boolean
 	
 }
 
@@ -41,6 +43,7 @@ interface InventoryModelUpdate extends ResourceUpdate {
 	strategy?: string
 	stock_locations_cutoff?: number
 	stock_reservation_cutoff?: number
+	put_stock_transfers_on_hold?: boolean
 	
 }
 

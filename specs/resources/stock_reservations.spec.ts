@@ -21,6 +21,34 @@ describe('StockReservations resource', () => {
   const resourceType = 'stock_reservations'
 
 
+  /* spec.create.start */
+  it(resourceType + '.create', async () => {
+
+    const createAttributes = {
+			quantity: randomValue('integer', 'quantity'),
+			stock_item: cl.stock_items.relationship(TestData.id),
+		}
+
+    const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { stock_reservations: CommonData.paramsFields } }
+    const resData = attributes
+
+    const intId = cl.addRequestInterceptor((config) => {
+      expect(config.method).toBe('post')
+      checkCommon(config, resourceType)
+      checkCommonData(config, resourceType, attributes)
+      expect(cl[resourceType].isStockReservation(config.data.data)).toBeTruthy()
+      return interceptRequest()
+    })
+
+    await cl[resourceType].create(resData, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request', intId))
+
+  })
+  /* spec.create.stop */
+
+
   /* spec.retrieve.start */
   it(resourceType + '.retrieve', async () => {
 
@@ -40,6 +68,47 @@ describe('StockReservations resource', () => {
 
   })
   /* spec.retrieve.stop */
+
+
+  /* spec.update.start */
+  it(resourceType + '.update', async () => {
+
+    const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { stock_reservations: CommonData.paramsFields } }
+    const resData = { id: TestData.id, ...attributes}
+
+    const intId = cl.addRequestInterceptor((config) => {
+      expect(config.method).toBe('patch')
+      checkCommon(config, resourceType, resData.id, currentAccessToken)
+      checkCommonData(config, resourceType, attributes, resData.id)
+      return interceptRequest()
+    })
+
+    await cl[resourceType].update(resData, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request', intId))
+
+  })
+  /* spec.update.stop */
+
+
+  /* spec.delete.start */
+  it(resourceType + '.delete', async () => {
+
+    const id = TestData.id
+
+    const intId = cl.addRequestInterceptor((config) => {
+      expect(config.method).toBe('delete')
+      checkCommon(config, resourceType, id, currentAccessToken)
+      return interceptRequest()
+    })
+
+    await cl[resourceType].delete(id, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request', intId))
+
+  })
+  /* spec.delete.stop */
 
 
   /* spec.list.start */

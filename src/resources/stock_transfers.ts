@@ -53,6 +53,7 @@ interface StockTransferUpdate extends ResourceUpdate {
 	
 	sku_code?: string
 	_upcoming?: boolean
+	_on_hold?: boolean
 	_picking?: boolean
 	_in_transit?: boolean
 	_complete?: boolean
