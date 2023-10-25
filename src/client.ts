@@ -53,7 +53,7 @@ class ApiClient {
 
 	baseUrl: string
 	#accessToken: string
-	#client: AxiosInstance
+	readonly #client: AxiosInstance
 
 	public interceptors: InterceptorManager
 

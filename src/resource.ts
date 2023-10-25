@@ -99,9 +99,9 @@ type ResourcesConfig = Partial<ResourcesInitConfig>
 
 class ResourceAdapter {
 
-	#client: ApiClient
+	readonly #client: ApiClient
 
-	#config: ResourceAdapterConfig = {}
+	readonly #config: ResourceAdapterConfig = {}
 
 
 	constructor(config: ResourcesInitConfig) {
