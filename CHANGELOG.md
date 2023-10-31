@@ -1,3 +1,10 @@
+## [5.19.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.19.0...v5.19.1) (2023-10-31)
+
+
+### Bug Fixes
+
+* sdk resources generator ([1eec66c](https://github.com/commercelayer/commercelayer-sdk/commit/1eec66c34e60397f51e04480fe6339d46505ffcf))
+
 # [5.19.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.18.1...v5.19.0) (2023-10-18)
 
 
