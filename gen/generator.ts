@@ -654,15 +654,17 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 		operation = operation.replace(/##__RESOURCE_RESPONSE_CLASS__##/g, responseType)
 		if (!types.includes(responseType)) types.push(responseType)
 	}
+
+	const opIdVar = op.id? Inflector.camelize(op.id, true) : ''
 	if (op.relationship) {	// Relationship
 		operation = operation.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
-		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{', '${_'))
-		operation = operation.replace(/##__RESOURCE_ID__##/g, op.id || 'id')
+		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{' + op.id, '${_' + opIdVar))
+		operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
 		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
 	}
 	else
 	if (op.trigger) {	// Trigger
-		operation = operation.replace(/##__RESOURCE_ID__##/g, op.id || 'id')
+		operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
 		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
 		operation = operation.replace(/##__TRIGGER_VALUE__##/, placeholders?.trigger_value? ` triggerValue: ${ placeholders.trigger_value},` : '')
 		operation = operation.replace(/##__TRIGGER_VALUE_TYPE__##/, placeholders?.trigger_value? 'triggerValue' : 'true')

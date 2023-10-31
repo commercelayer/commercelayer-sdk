@@ -170,9 +170,10 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 
 			if (relationship) {
 
-				const relCard = oValue.tags[0] as string
+				const tags = oValue.tags as string[]
+				const relCard = tags.find(t => t.startsWith('has_')) as string
 				if (!relCard) console.log(`Relationship without cardinality: ${op.name} [${op.path}]`)
-				const relType = oValue.tags[1] as string
+				const relType = tags.find(t => !t.startsWith('has_')) as string
 				if (!relType) console.log(`Relationship without type: ${op.name} [${op.path}]`)
 				if (!relCard || !relType) skip = true
 
