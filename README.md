@@ -275,7 +275,7 @@ In general:
 
 - An API endpoint like `/api/customers` or `/api/customers/<customerId>` translates to `cl.customers` or `cl.customers('<customerId>')` with the SDK.
 - 1-to-1 relationship API endpoints like `/api/orders/<orderId>/shipping_address` translates to `cl.orders('<orderId>', { include: ['shipping_address'] }}` with the SDK.
-- 1-to-N relationship API endpoints like  `/api/customers/<customerId>?include=orders` or `/api/customers/<customerId>/orders` translates to `cl.customers.retrieve('customerId', { include: ['orders'] })` or `cl.customers.orders('<customerId>')` with the SDK.
+- 1-to-N relationship API endpoints like  `/api/customers/<customerId>?include=orders` or `/api/customers/<customerId>/orders` translates to `cl.customers.retrieve('<customerId>', { include: ['orders'] })` or `cl.customers.orders('<customerId>')` with the SDK.
 
 ℹ️ Check our API reference for more information on how to [fetch relationships](https://docs.commercelayer.io/core/fetching-relationships).
 </details>
@@ -406,7 +406,7 @@ Commerce Layer API returns specific errors (with extra information) on each attr
 
 1. Join [Commerce Layer's Slack community](https://slack.commercelayer.app).
 
-2. Create an [issue](https://github.com/commercelayer/commercelayer-cli/issues) in this repository.
+2. Create an [issue](https://github.com/commercelayer/commercelayer-sdk/issues) in this repository.
 
 3. Ping us [on Twitter](https://twitter.com/commercelayer).
 
