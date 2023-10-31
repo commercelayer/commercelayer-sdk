@@ -7,7 +7,6 @@ import { getClient, organization } from '../test/common'
 let cl: CommerceLayerClient
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 beforeAll(async () => { cl = await getClient() })
 
 

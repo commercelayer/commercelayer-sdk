@@ -55,5 +55,4 @@ describe('Test headers', () => {
 
 	})
 
-
 })

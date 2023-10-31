@@ -1,8 +1,7 @@
 
 import { CommerceLayerClient, CommerceLayerStatic } from '../src'
-import { currentAccessToken, getClient, initClient, organization, } from '../test/common'
+import { getClient, organization, } from '../test/common'
 import { RawResponseReader } from '../src/interceptor'
-import { OPEN_API_SCHEMA_VERSION } from '../src/commercelayer'
 
 
 let cl: CommerceLayerClient
@@ -37,18 +36,6 @@ describe('SDK:commercelayer suite', () => {
 	})
 
 
-/*
-	it('commercelayer.accessToken', async () => {
-
-		expect(cl.currentAccessToken).toEqual(currentAccessToken)
-	
-		cl.config({ accessToken: 'fake-token' })
-		expect(cl.currentAccessToken).toEqual('fake-token')
-
-	})
-*/
-
-
 	it('commercelayer.rawResponse', async () => {
 
 		jest.setTimeout(10000)
@@ -73,6 +60,5 @@ describe('SDK:commercelayer suite', () => {
 		cl = await getClient()
 
 	})
-
 
 })
