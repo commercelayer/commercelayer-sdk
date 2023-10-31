@@ -1,3 +1,10 @@
+## [5.19.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.19.1...v5.19.2) (2023-10-31)
+
+
+### Bug Fixes
+
+* **doc:** fix readme ([8070ecd](https://github.com/commercelayer/commercelayer-sdk/commit/8070ecd7c91b867cc41e40ed3b23dd6aa439cdcb))
+
 ## [5.19.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.19.0...v5.19.1) (2023-10-31)
 
 
