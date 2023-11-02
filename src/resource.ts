@@ -6,9 +6,9 @@ import { generateQueryStringParams, isParamsList } from './query'
 import type { ResourceTypeLock } from './api'
 import config from './config'
 import type { InterceptorManager } from './interceptor'
+import { ErrorType, SdkError } from './error'
 
 import Debug from './debug'
-import { ErrorType, SdkError } from './error'
 const debug = Debug('resource')
 
 
