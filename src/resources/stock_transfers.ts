@@ -18,6 +18,7 @@ type LineItemRel = ResourceRel & { type: 'line_items' }
 
 interface StockTransfer extends Resource {
 	
+	number?: number
 	sku_code?: string
 	status?: string
 	quantity?: number

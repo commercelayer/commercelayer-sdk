@@ -3,10 +3,10 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Version } from './versions'
 import type { Capture } from './captures'
 import type { Void } from './voids'
-import type { Event } from './events'
 
 
 type AuthorizationRel = ResourceRel & { type: typeof Authorizations.TYPE }
@@ -42,10 +42,10 @@ interface Authorization extends Resource {
 
 	order?: Order
 	attachments?: Attachment[]
+	events?: Event[]
 	versions?: Version[]
 	captures?: Capture[]
 	voids?: Void[]
-	events?: Event[]
 
 }
 
@@ -86,6 +86,11 @@ class Authorizations extends ApiResource {
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `authorizations/${_authorizationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
+	async events(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `authorizations/${_authorizationId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
 	async versions(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `authorizations/${_authorizationId}/versions`, params, options) as unknown as ListResponse<Version>
@@ -99,11 +104,6 @@ class Authorizations extends ApiResource {
 	async voids(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Void>({ type: 'voids' }, `authorizations/${_authorizationId}/voids`, params, options) as unknown as ListResponse<Void>
-	}
-
-	async events(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `authorizations/${_authorizationId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

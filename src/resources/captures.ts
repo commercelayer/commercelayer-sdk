@@ -3,10 +3,10 @@ import type { QueryParamsList, QueryParamsRetrieve } from '../query'
 
 import type { Order } from './orders'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Version } from './versions'
 import type { Authorization } from './authorizations'
 import type { Refund } from './refunds'
-import type { Event } from './events'
 
 
 type CaptureRel = ResourceRel & { type: typeof Captures.TYPE }
@@ -34,10 +34,10 @@ interface Capture extends Resource {
 
 	order?: Order
 	attachments?: Attachment[]
+	events?: Event[]
 	versions?: Version[]
 	reference_authorization?: Authorization
 	refunds?: Refund[]
-	events?: Event[]
 
 }
 
@@ -77,6 +77,11 @@ class Captures extends ApiResource {
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `captures/${_captureId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
+	async events(captureId: string | Capture, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _captureId = (captureId as Capture).id || captureId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `captures/${_captureId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
 	async versions(captureId: string | Capture, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _captureId = (captureId as Capture).id || captureId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `captures/${_captureId}/versions`, params, options) as unknown as ListResponse<Version>
@@ -90,11 +95,6 @@ class Captures extends ApiResource {
 	async refunds(captureId: string | Capture, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
 		const _captureId = (captureId as Capture).id || captureId as string
 		return this.resources.fetch<Refund>({ type: 'refunds' }, `captures/${_captureId}/refunds`, params, options) as unknown as ListResponse<Refund>
-	}
-
-	async events(captureId: string | Capture, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _captureId = (captureId as Capture).id || captureId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `captures/${_captureId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

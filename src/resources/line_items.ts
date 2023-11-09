@@ -44,6 +44,9 @@ interface LineItem extends Resource {
 	unit_amount_cents?: number
 	unit_amount_float?: number
 	formatted_unit_amount?: string
+	compare_at_amount_cents?: number
+	compare_at_amount_float?: number
+	formatted_compare_at_amount?: string
 	options_amount_cents?: number
 	options_amount_float?: number
 	formatted_options_amount?: string
@@ -92,6 +95,7 @@ interface LineItemCreate extends ResourceCreate {
 	_update_quantity?: boolean
 	_reserve_stock?: boolean
 	unit_amount_cents?: number
+	compare_at_amount_cents: number
 	name?: string
 	image_url?: string
 	item_type?: string
@@ -113,6 +117,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	quantity?: number
 	_external_price?: boolean
 	_reserve_stock?: boolean
+	compare_at_amount_cents?: number
 	name?: string
 	image_url?: string
 	frequency?: string

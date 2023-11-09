@@ -18,6 +18,7 @@ type SkuRel = ResourceRel & { type: 'skus' }
 interface StockLineItem extends Resource {
 	
 	sku_code?: string
+	bundle_code?: string
 	quantity?: number
 
 	shipment?: Shipment

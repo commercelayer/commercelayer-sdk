@@ -26,6 +26,7 @@ describe('CustomerPaymentSources resource', () => {
 
     const createAttributes = {
 			customer: cl.customers.relationship(TestData.id),
+			payment_method: cl.payment_methods.relationship(TestData.id),
 			payment_source: cl.adyen_payments.relationship(TestData.id),
 		}
 
@@ -164,6 +165,25 @@ describe('CustomerPaymentSources resource', () => {
 		})
 	
 		await cl[resourceType].customer(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.payment_method', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'payment_method')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].payment_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	
