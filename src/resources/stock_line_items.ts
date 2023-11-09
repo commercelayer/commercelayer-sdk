@@ -22,6 +22,7 @@ interface StockLineItem extends Resource {
 	readonly type: StockLineItemType
 
 	sku_code?: string | null
+	bundle_code?: string | null
 	quantity: number
 
 	shipment?: Shipment | null

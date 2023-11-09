@@ -4,9 +4,9 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Version } from './versions'
 import type { Capture } from './captures'
-import type { Event } from './events'
 
 
 type RefundType = 'refunds'
@@ -31,9 +31,9 @@ interface Refund extends Resource {
 
 	order?: Order | null
 	attachments?: Attachment[] | null
+	events?: Event[] | null
 	versions?: Version[] | null
 	reference_capture?: Capture | null
-	events?: Event[] | null
 
 }
 
@@ -52,6 +52,11 @@ class Refunds extends ApiResource<Refund> {
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `refunds/${_refundId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
+	async events(refundId: string | Refund, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _refundId = (refundId as Refund).id || refundId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `refunds/${_refundId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
 	async versions(refundId: string | Refund, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `refunds/${_refundId}/versions`, params, options) as unknown as ListResponse<Version>
@@ -60,11 +65,6 @@ class Refunds extends ApiResource<Refund> {
 	async reference_capture(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
 		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Capture>({ type: 'captures' }, `refunds/${_refundId}/reference_capture`, params, options) as unknown as Capture
-	}
-
-	async events(refundId: string | Refund, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _refundId = (refundId as Refund).id || refundId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `refunds/${_refundId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Version } from './versions'
 
 
@@ -29,6 +30,7 @@ interface Transaction extends Resource {
 
 	order?: Order | null
 	attachments?: Attachment[] | null
+	events?: Event[] | null
 	versions?: Version[] | null
 
 }
@@ -46,6 +48,11 @@ class Transactions extends ApiResource<Transaction> {
 	async attachments(transactionId: string | Transaction, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _transactionId = (transactionId as Transaction).id || transactionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `transactions/${_transactionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(transactionId: string | Transaction, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _transactionId = (transactionId as Transaction).id || transactionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `transactions/${_transactionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async versions(transactionId: string | Transaction, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
