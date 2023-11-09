@@ -30,6 +30,7 @@ describe('Shipments resource', () => {
 			inventory_stock_location: cl.inventory_stock_locations.relationship(TestData.id),
 			shipping_address: cl.addresses.relationship(TestData.id),
 			shipping_method: cl.shipping_methods.relationship(TestData.id),
+			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -512,6 +513,27 @@ describe('Shipments resource', () => {
 	/* relationship.events stop */
 	
 
+	/* relationship.tags start */
+	it(resourceType + '.tags', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { tags: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'tags')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].tags(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.tags stop */
+	
+
 	/* relationship.versions start */
 	it(resourceType + '.versions', async () => {
 	
@@ -533,6 +555,31 @@ describe('Shipments resource', () => {
 	/* relationship.versions stop */
 	
   
+
+	/* trigger._upcoming start */
+	it(resourceType + '._upcoming', async () => {
+	
+		let triggerAttr = '_upcoming'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._upcoming(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._upcoming stop */
+	
 
 	/* trigger._on_hold start */
 	it(resourceType + '._on_hold', async () => {

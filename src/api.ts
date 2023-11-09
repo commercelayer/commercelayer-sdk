@@ -764,6 +764,7 @@ export type TaggableResourceType =
 |	'percentage_discount_promotions'
 |	'promotions'
 |	'returns'
+|	'shipments'
 |	'sku_options'
 |	'skus'
 	// ##__API_RESOURCE_TAGGABLE_STOP__##

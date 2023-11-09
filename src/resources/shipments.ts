@@ -15,6 +15,7 @@ import type { CarrierAccount } from './carrier_accounts'
 import type { Parcel } from './parcels'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
 
 
@@ -25,6 +26,7 @@ type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
 type InventoryStockLocationRel = ResourceRel & { type: InventoryStockLocationType }
 type AddressRel = ResourceRel & { type: AddressType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 interface Shipment extends Resource {
@@ -73,6 +75,7 @@ interface Shipment extends Resource {
 	parcels?: Parcel[] | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
+	tags?: Tag[] | null
 	versions?: Version[] | null
 
 }
@@ -82,15 +85,17 @@ interface ShipmentCreate extends ResourceCreate {
 	
 	order: OrderRel
 	shipping_category?: ShippingCategoryRel | null
-	inventory_stock_location?: InventoryStockLocationRel | null
+	inventory_stock_location: InventoryStockLocationRel
 	shipping_address?: AddressRel | null
 	shipping_method?: ShippingMethodRel | null
+	tags?: TagRel[] | null
 
 }
 
 
 interface ShipmentUpdate extends ResourceUpdate {
 	
+	_upcoming?: boolean | null
 	_on_hold?: boolean | null
 	_picking?: boolean | null
 	_packing?: boolean | null
@@ -107,6 +112,7 @@ interface ShipmentUpdate extends ResourceUpdate {
 	inventory_stock_location?: InventoryStockLocationRel | null
 	shipping_address?: AddressRel | null
 	shipping_method?: ShippingMethodRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -202,9 +208,18 @@ class Shipments extends ApiResource<Shipment> {
 		return this.resources.fetch<Event>({ type: 'events' }, `shipments/${_shipmentId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async tags(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `shipments/${_shipmentId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
 	async versions(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `shipments/${_shipmentId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _upcoming(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _upcoming: true }, params, options)
 	}
 
 	async _on_hold(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
