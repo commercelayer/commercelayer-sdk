@@ -9,8 +9,8 @@ overrides:
 
 dependencies:
   axios:
-    specifier: 1.5.1
-    version: 1.5.1
+    specifier: 1.6.1
+    version: 1.6.1
 
 devDependencies:
   '@babel/preset-env':
@@ -20,8 +20,8 @@ devDependencies:
     specifier: ^7.23.3
     version: 7.23.3(@babel/core@7.23.3)
   '@commercelayer/eslint-config-ts':
-    specifier: 1.1.0
-    version: 1.1.0(eslint@8.53.0)(typescript@5.2.2)
+    specifier: 1.2.0
+    version: 1.2.0(eslint@8.53.0)(typescript@5.2.2)
   '@commercelayer/js-auth':
     specifier: ^4.2.0
     version: 4.2.0
@@ -1324,8 +1324,8 @@ packages:
     dev: true
     optional: true
 
-  /@commercelayer/eslint-config-ts@1.1.0(eslint@8.53.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-OOzV3RPN7JlEZkwNxWVHdRRknjuLboB/CwxeS832/Kd5sMvOHyaYymNVSpG2tiQj7aFsvtfK8m1umM7Lhod6AA==}
+  /@commercelayer/eslint-config-ts@1.2.0(eslint@8.53.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-F49LqnNyGpSrijYgYfV/sztu0G4aRpw/vZrdapCu9qwAJt/y1wZcRlXRGhJJ9kN0Ag9+vDC+ZN8EOH7cjSseDA==}
     peerDependencies:
       eslint: '>=8.0'
       typescript: '>=5.0'
@@ -2691,8 +2691,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /axios@1.5.1:
-    resolution: {integrity: sha512-Q28iYCWzNHjAm+yEAot5QaAMxhMghWLFVf7rRdwhUI+c2jix2DUXjAHXVi+s1ibs3mjPO/cCgbA++3BjD0vP/A==}
+  /axios@1.6.1:
+    resolution: {integrity: sha512-vfBmhDpKafglh0EldBEbVuoe7DyAavGSLWhuSm5ZSEKQnHhBf0xAAwybbNH1IkrJNGnS/VG4I5yxig1pCEXE4g==}
     dependencies:
       follow-redirects: 1.15.3
       form-data: 4.0.0
