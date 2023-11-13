@@ -95,7 +95,7 @@ interface LineItemCreate extends ResourceCreate {
 	_update_quantity?: boolean
 	_reserve_stock?: boolean
 	unit_amount_cents?: number
-	compare_at_amount_cents: number
+	compare_at_amount_cents?: number
 	name?: string
 	image_url?: string
 	item_type?: string

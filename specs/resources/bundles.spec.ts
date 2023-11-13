@@ -27,8 +27,6 @@ describe('Bundles resource', () => {
     const createAttributes = {
 			code: randomValue('string', 'code'),
 			name: randomValue('string', 'name'),
-			price_amount_cents: randomValue('integer', 'price_amount_cents'),
-			compare_at_amount_cents: randomValue('integer', 'compare_at_amount_cents'),
 			market: cl.markets.relationship(TestData.id),
 			sku_list: cl.sku_lists.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],

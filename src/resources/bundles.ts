@@ -51,8 +51,8 @@ interface BundleCreate extends ResourceCreate {
 	currency_code?: string
 	description?: string
 	image_url?: string
-	price_amount_cents: number
-	compare_at_amount_cents: number
+	price_amount_cents?: number
+	compare_at_amount_cents?: number
 	_compute_price_amount?: boolean
 	_compute_compare_at_amount?: boolean
 
