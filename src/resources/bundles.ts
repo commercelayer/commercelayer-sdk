@@ -29,12 +29,12 @@ interface Bundle extends Resource {
 	image_url?: string | null
 	do_not_ship?: boolean | null
 	do_not_track?: boolean | null
-	price_amount_cents: number
-	price_amount_float: number
-	formatted_price_amount: string
-	compare_at_amount_cents: number
-	compare_at_amount_float: number
-	formatted_compare_at_amount: string
+	price_amount_cents?: number | null
+	price_amount_float?: number | null
+	formatted_price_amount?: string | null
+	compare_at_amount_cents?: number | null
+	compare_at_amount_float?: number | null
+	formatted_compare_at_amount?: string | null
 	skus_count?: number | null
 
 	market?: Market | null
@@ -55,8 +55,8 @@ interface BundleCreate extends ResourceCreate {
 	currency_code?: string | null
 	description?: string | null
 	image_url?: string | null
-	price_amount_cents: number
-	compare_at_amount_cents: number
+	price_amount_cents?: number | null
+	compare_at_amount_cents?: number | null
 	_compute_price_amount?: boolean | null
 	_compute_compare_at_amount?: boolean | null
 

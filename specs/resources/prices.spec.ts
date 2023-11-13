@@ -26,7 +26,6 @@ describe('Prices resource', () => {
 
     const createAttributes = {
 			amount_cents: randomValue('integer', 'amount_cents'),
-			compare_at_amount_cents: randomValue('integer', 'compare_at_amount_cents'),
 			price_list: cl.price_lists.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 			price_tiers: [ cl.price_tiers.relationship(TestData.id) ],

@@ -26,7 +26,6 @@ describe('LineItems resource', () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
-			compare_at_amount_cents: randomValue('integer', 'compare_at_amount_cents'),
 			order: cl.orders.relationship(TestData.id),
 			item: cl.adjustments.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
