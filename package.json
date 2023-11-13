@@ -33,12 +33,12 @@
     "node": ">=16 || ^14.17"
   },
   "dependencies": {
-    "axios": "1.5.1"
+    "axios": "1.6.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
-    "@commercelayer/eslint-config-ts": "1.1.0",
+    "@commercelayer/eslint-config-ts": "1.2.0",
     "@commercelayer/js-auth": "^4.2.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
