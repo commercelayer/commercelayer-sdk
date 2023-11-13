@@ -48,9 +48,9 @@ interface LineItem extends Resource {
 	unit_amount_cents?: number | null
 	unit_amount_float?: number | null
 	formatted_unit_amount?: string | null
-	compare_at_amount_cents: number
-	compare_at_amount_float: number
-	formatted_compare_at_amount: string
+	compare_at_amount_cents?: number | null
+	compare_at_amount_float?: number | null
+	formatted_compare_at_amount?: string | null
 	options_amount_cents?: number | null
 	options_amount_float?: number | null
 	formatted_options_amount?: string | null
@@ -99,7 +99,7 @@ interface LineItemCreate extends ResourceCreate {
 	_update_quantity?: boolean | null
 	_reserve_stock?: boolean | null
 	unit_amount_cents?: number | null
-	compare_at_amount_cents: number
+	compare_at_amount_cents?: number | null
 	name?: string | null
 	image_url?: string | null
 	item_type?: 'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
