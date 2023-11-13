@@ -1,3 +1,11 @@
+## [5.21.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.21.0...v5.21.1) (2023-11-13)
+
+
+### Bug Fixes
+
+* update dependencies ([87b8901](https://github.com/commercelayer/commercelayer-sdk/commit/87b8901f3212c4fc6681eabf9cb764aca4a6fce9))
+* update dependencies ([#307](https://github.com/commercelayer/commercelayer-sdk/issues/307)) ([563fb51](https://github.com/commercelayer/commercelayer-sdk/commit/563fb512b7e4254264fd86b6217af6a54b1315b3))
+
 # [5.21.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.20.0...v5.21.0) (2023-11-13)
 
 
