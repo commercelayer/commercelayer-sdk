@@ -6,9 +6,9 @@ import type { InterceptorManager } from './interceptor'
 import config from './config'
 import type { Agent as HttpAgent } from 'http'
 import type { Agent as HttpsAgent } from 'https'
+import { packageInfo } from './util'
 
 import Debug from './debug'
-import { packageInfo } from './util'
 const debug = Debug('client')
 
 
@@ -169,7 +169,7 @@ class ApiClient {
 		const url = path
 
 		// Runtime request parameters
-		const baseUrl = options?.organization ? baseURL(options.organization, options.domain) : undefined
+		const baseUrl = options?.organization? baseURL(options.organization, options.domain) : undefined
 		const accessToken = options?.accessToken || this.#accessToken
 
 		const headers = this.customHeaders(options?.headers)

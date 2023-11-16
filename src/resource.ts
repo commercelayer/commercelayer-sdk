@@ -113,7 +113,6 @@ class ResourceAdapter {
 	get interceptors(): InterceptorManager { return this.#client.interceptors }
 
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	private localConfig(config: ResourceAdapterConfig): void {
 		// if (typeof config.xyz !== 'undefined') this.#config.xyz = config.xyz
 	}
