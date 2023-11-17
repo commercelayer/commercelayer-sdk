@@ -6,7 +6,7 @@ import type { InterceptorManager } from './interceptor'
 import config from './config'
 import type { Agent as HttpAgent } from 'http'
 import type { Agent as HttpsAgent } from 'https'
-import { packageInfo } from './util'
+// import { packageInfo } from './util'
 
 import Debug from './debug'
 const debug = Debug('client')
@@ -81,9 +81,9 @@ class ApiClient {
 		const customHeaders = this.customHeaders(options.headers)
 
 		// Set User-Agent
-		const userAgentData = packageInfo(['version', 'dependencies.axios'], { nestedName: true })
-		let userAgent = options.userAgent || `SDK/${userAgentData.version} axios/${userAgentData.axios}`
-		if (!userAgent.includes('axios/')) userAgent += ` axios/${userAgentData.axios}`
+		// const userAgentData = packageInfo(['version', 'dependencies.axios'], { nestedName: true })
+		let userAgent = options.userAgent || `SDK-core axios/${axios.VERSION}`
+		if (!userAgent.includes('axios/')) userAgent += ` axios/${axios.VERSION}`
 
 		const axiosOptions: CreateAxiosDefaults = {
 			baseURL: this.baseUrl,
@@ -142,8 +142,8 @@ class ApiClient {
 		if (userAgent) {
 			let ua = userAgent
 			if (!ua.includes('axios/')) {
-				const axiosVer = packageInfo(['dependencies.axios'], { nestedName: true })
-				if (axiosVer) ua += ` axios/${axiosVer.axios}`
+				// const axiosVer = packageInfo(['dependencies.axios'], { nestedName: true })
+				if (axios.VERSION) ua += ` axios/${axios.VERSION}`
 			}
 			this.#client.defaults.headers['User-Agent'] = ua
 		}

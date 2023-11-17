@@ -1,5 +1,5 @@
 import type { ObjectType } from "../src/common"
-import path from 'node:path'
+// import path from 'node:path'
 
 
 
@@ -16,7 +16,7 @@ const sortObjectFields = (obj: ObjectType): ObjectType => {
 	return sorted
 }
 
-
+/*
 const nestedField = (obj: any, field: string): { key: string, val: any } => {
 
 	let fp = field
@@ -30,8 +30,9 @@ const nestedField = (obj: any, field: string): { key: string, val: any } => {
     
 	return { key, val }
 }
+*/
 
-
+/*
 const packageInfo = (fields?: string | string[], options?: any): Record<string, any>  => {
 	const pjson = require(path.resolve('./', 'package.json'))
 	return fields? (Array.isArray(fields)? fields : [ fields ]).reduce((info: any, field) => {
@@ -40,6 +41,7 @@ const packageInfo = (fields?: string | string[], options?: any): Record<string, 
 		return info
 	  }, {}) : pjson
 }
+*/
 
 
-export { sleep, sortObjectFields, packageInfo }
+export { sleep, sortObjectFields, /* packageInfo */ }
