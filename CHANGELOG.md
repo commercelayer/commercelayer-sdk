@@ -1,3 +1,10 @@
+## [5.22.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.22.0...v5.22.1) (2023-11-17)
+
+
+### Bug Fixes
+
+* user agent setting function ([a6e27a1](https://github.com/commercelayer/commercelayer-sdk/commit/a6e27a1a82a28ccd93e866859b9f35cbbe8f006e))
+
 # [5.22.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.21.1...v5.22.0) (2023-11-14)
 
 
