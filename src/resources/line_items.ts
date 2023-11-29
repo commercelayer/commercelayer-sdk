@@ -44,6 +44,7 @@ interface LineItem extends Resource {
 	sku_code?: string | null
 	bundle_code?: string | null
 	quantity: number
+	_external_price?: boolean | null
 	currency_code?: string | null
 	unit_amount_cents?: number | null
 	unit_amount_float?: number | null
