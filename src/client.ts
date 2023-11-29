@@ -4,8 +4,8 @@ import type { AxiosAdapter, CreateAxiosDefaults, AxiosInstance, AxiosProxyConfig
 import { SdkError, handleError } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
-import type { Agent as HttpAgent } from 'http'
-import type { Agent as HttpsAgent } from 'https'
+// import type { Agent as HttpAgent } from 'http'
+// import type { Agent as HttpsAgent } from 'https'
 // import { packageInfo } from './util'
 
 import Debug from './debug'
@@ -28,8 +28,8 @@ type RequestHeaders = Record<string, string>
 type RequestConfig = {
 	timeout?: number
 	params?: RequestParams
-	httpAgent?: HttpAgent
-	httpsAgent?: HttpsAgent
+	httpAgent?: any
+	httpsAgent?: any
 	proxy?: ProxyConfig
 	headers?: RequestHeaders
 }
