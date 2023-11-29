@@ -1,3 +1,26 @@
+## [5.22.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.22.0...v5.22.1) (2023-11-17)
+
+
+### Bug Fixes
+
+* user agent setting function ([a6e27a1](https://github.com/commercelayer/commercelayer-sdk/commit/a6e27a1a82a28ccd93e866859b9f35cbbe8f006e))
+
+# [5.22.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.21.1...v5.22.0) (2023-11-14)
+
+
+### Features
+
+* add user-agent header as client setting ([1946a69](https://github.com/commercelayer/commercelayer-sdk/commit/1946a69da4c8d462107e4b3dd10d883f3542fa8e))
+* add user-agent header as client setting ([#309](https://github.com/commercelayer/commercelayer-sdk/issues/309)) ([fc9681f](https://github.com/commercelayer/commercelayer-sdk/commit/fc9681f9bc9965fe837c4ad346f71bc52e830975))
+
+## [5.21.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.21.0...v5.21.1) (2023-11-13)
+
+
+### Bug Fixes
+
+* update dependencies ([87b8901](https://github.com/commercelayer/commercelayer-sdk/commit/87b8901f3212c4fc6681eabf9cb764aca4a6fce9))
+* update dependencies ([#307](https://github.com/commercelayer/commercelayer-sdk/issues/307)) ([563fb51](https://github.com/commercelayer/commercelayer-sdk/commit/563fb512b7e4254264fd86b6217af6a54b1315b3))
+
 # [5.21.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.20.0...v5.21.0) (2023-11-13)
 
 
