@@ -1,3 +1,10 @@
+## [5.23.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.23.1...v5.23.2) (2023-11-30)
+
+
+### Bug Fixes
+
+* resource list can be sorted ([702fefa](https://github.com/commercelayer/commercelayer-sdk/commit/702fefa041fbf14b904348cddcea61ab3c8667e3))
+
 ## [5.23.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.23.0...v5.23.1) (2023-11-30)
 
 
