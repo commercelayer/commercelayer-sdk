@@ -64,7 +64,7 @@ interface Order extends Resource {
 	
 	readonly type: OrderType
 
-	number?: number | null
+	number?: string | null
 	autorefresh?: boolean | null
 	status: 'draft' | 'pending' | 'placed' | 'editing' | 'approved' | 'cancelled'
 	payment_status: 'unpaid' | 'authorized' | 'partially_authorized' | 'paid' | 'partially_paid' | 'voided' | 'partially_voided' | 'refunded' | 'partially_refunded' | 'free'
@@ -207,6 +207,7 @@ interface Order extends Resource {
 
 interface OrderCreate extends ResourceCreate {
 	
+	number?: string | null
 	autorefresh?: boolean | null
 	guest?: boolean | null
 	customer_email?: string | null
@@ -237,6 +238,7 @@ interface OrderCreate extends ResourceCreate {
 
 interface OrderUpdate extends ResourceUpdate {
 	
+	number?: string | null
 	autorefresh?: boolean | null
 	guest?: boolean | null
 	customer_email?: string | null
