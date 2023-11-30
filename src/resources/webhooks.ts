@@ -21,6 +21,7 @@ interface Webhook extends Resource {
 	circuit_state?: string | null
 	circuit_failure_count?: number | null
 	shared_secret: string
+	disabled_at?: string | null
 
 	last_event_callbacks?: EventCallback[] | null
 	versions?: Version[] | null
@@ -45,6 +46,8 @@ interface WebhookUpdate extends ResourceUpdate {
 	callback_url?: string | null
 	include_resources?: string[] | null
 	_reset_circuit?: boolean | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 	
 }
 
@@ -77,6 +80,14 @@ class Webhooks extends ApiResource<Webhook> {
 
 	async _reset_circuit(id: string | Webhook, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _reset_circuit: true }, params, options)
+	}
+
+	async _disable(id: string | Webhook, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | Webhook, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _enable: true }, params, options)
 	}
 
 

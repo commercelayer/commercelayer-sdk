@@ -20,14 +20,14 @@ interface Organization extends Resource {
 	logo_url?: string | null
 	favicon_url?: string | null
 	primary_color?: string | null
-	contrast_color?: string | null
 	gtm_id?: string | null
 	gtm_id_test?: string | null
-	discount_disabled?: boolean | null
-	account_disabled?: boolean | null
-	acceptance_disabled?: boolean | null
 	max_concurrent_promotions?: number | null
 	max_concurrent_imports?: number | null
+	max_concurrent_exports?: number | null
+	max_concurrent_cleanups?: number | null
+	order_number_editable_test?: boolean | null
+	order_number_editable_live?: boolean | null
 	
 }
 
