@@ -8,8 +8,8 @@ import type { CommerceLayerClient, CommerceLayerInitConfig } from './commercelay
 /* Static functions */
 export const CommerceLayerStatic = {
 
-	resources: (): readonly string[] => {
-		return api.resourceList
+	resources: (sort?: boolean): readonly string[] => {
+		return sort? [ ...api.resourceList ].sort() : api.resourceList
 	},
 
 	isSdkError: (error: unknown): error is SdkError => {
