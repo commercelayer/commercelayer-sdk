@@ -307,7 +307,6 @@ type Resource = {
 	operations: OperationMap
 }
 
-
 type ResourceMap = {
 	[resource: string]: Resource
 }
