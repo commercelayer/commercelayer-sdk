@@ -80,21 +80,25 @@ class ApiClient {
 		// Set custom headers
 		const customHeaders = this.customHeaders(options.headers)
 
+		// Set headers
+		const headers: any = {
+			...customHeaders,
+			'Accept': 'application/vnd.api+json',
+			'Content-Type': 'application/vnd.api+json',
+			'Authorization': 'Bearer ' + this.#accessToken
+		}
+
 		// Set User-Agent
-		// const userAgentData = packageInfo(['version', 'dependencies.axios'], { nestedName: true })
-		let userAgent = options.userAgent || `SDK-core axios/${axios.VERSION}`
-		if (!userAgent.includes('axios/')) userAgent += ` axios/${axios.VERSION}`
+		let userAgent = options.userAgent // || `SDK-core axios/${axios.VERSION}`
+		if (userAgent) {
+			if (!userAgent.includes('axios/')) userAgent += ` axios/${axios.VERSION}`
+			headers['User-Agent'] = userAgent
+		}
 
 		const axiosOptions: CreateAxiosDefaults = {
 			baseURL: this.baseUrl,
 			timeout: config.client.timeout,
-			headers: {
-				...customHeaders,
-				'Accept': 'application/vnd.api+json',
-				'Content-Type': 'application/vnd.api+json',
-				'Authorization': 'Bearer ' + this.#accessToken,
-				'User-Agent': userAgent
-			},
+			headers,
 			...axiosConfig
 		}
 
