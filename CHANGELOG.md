@@ -1,3 +1,10 @@
+## [5.23.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.23.2...v5.23.3) (2023-12-13)
+
+
+### Bug Fixes
+
+* remove default custom user agent ([750f695](https://github.com/commercelayer/commercelayer-sdk/commit/750f695dc7ec29b9a696a47b39f29bf7df31a1e4))
+
 ## [5.23.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.23.1...v5.23.2) (2023-11-30)
 
 
