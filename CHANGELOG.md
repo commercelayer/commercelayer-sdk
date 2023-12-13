@@ -1,3 +1,24 @@
+## [5.23.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.23.2...v5.23.3) (2023-12-13)
+
+
+### Bug Fixes
+
+* remove default custom user agent ([750f695](https://github.com/commercelayer/commercelayer-sdk/commit/750f695dc7ec29b9a696a47b39f29bf7df31a1e4))
+
+## [5.23.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.23.1...v5.23.2) (2023-11-30)
+
+
+### Bug Fixes
+
+* resource list can be sorted ([702fefa](https://github.com/commercelayer/commercelayer-sdk/commit/702fefa041fbf14b904348cddcea61ab3c8667e3))
+
+## [5.23.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.23.0...v5.23.1) (2023-11-30)
+
+
+### Bug Fixes
+
+* update resources to schema v4.21.0 ([5f63700](https://github.com/commercelayer/commercelayer-sdk/commit/5f63700393efcf2d2e7f2457dc897d658a4d9665))
+
 # [5.23.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.22.1...v5.23.0) (2023-11-29)
 
 
