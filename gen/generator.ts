@@ -317,6 +317,10 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const resStopIdx = findLine('##__API_RESOURCE_LIST_STOP__##', lines).index
 	lines.splice(resStartIdx, resStopIdx - resStartIdx, types.join(',\n'))
 
+	const rsStartIdx = findLine('##__API_RESOURCE_SINGLETON_START__##', lines).index + 1
+	const rsStopIdx = findLine('##__API_RESOURCE_SINGLETON_STOP__##', lines).index
+	lines.splice(rsStartIdx, rsStopIdx - rsStartIdx, singletons.join(',\n'))
+
 	/*
 	const mapStartIdx = findLine('##__API_RESOURCE_MAP_START__##', lines).index + 1
 	const mapStopIdx = findLine('##__API_RESOURCE_MAP_STOP__##', lines).index
@@ -325,9 +329,9 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	)
 	*/
 
-	const rsStartIdx = findLine('##__API_RESOURCE_SINGLETON_START__##', lines).index + 1
-	const rsStopIdx = findLine('##__API_RESOURCE_SINGLETON_STOP__##', lines).index
-	lines.splice(rsStartIdx, rsStopIdx - rsStartIdx, singletons.join('\n|'))
+	const rlStartIdx = findLine('##__API_RESOURCE_NOT_LISTABLE_START__##', lines).index + 1
+	const rlStopIdx = findLine('##__API_RESOURCE_NOT_LISTABLE_STOP__##', lines).index
+	lines.splice(rlStartIdx, rlStopIdx - rlStartIdx, singletons.join('\n|'))
 
 	const rcStartIdx = findLine('##__API_RESOURCE_CREATABLE_START__##', lines).index + 1
 	const rcStopIdx = findLine('##__API_RESOURCE_CREATABLE_STOP__##', lines).index

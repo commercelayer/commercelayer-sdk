@@ -35,6 +35,8 @@ interface WebhookCreate extends ResourceCreate {
 	topic: string
 	callback_url: string
 	include_resources?: string[] | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 	
 }
 
