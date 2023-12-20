@@ -1,3 +1,12 @@
+# [5.25.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.24.0...v5.25.0) (2023-12-20)
+
+
+### Features
+
+* add singleton list ([b510e61](https://github.com/commercelayer/commercelayer-sdk/commit/b510e610dbd8fcab51b183d3bd11cb8ffd165fb3))
+* add singletons static functions ([e745bcb](https://github.com/commercelayer/commercelayer-sdk/commit/e745bcb608f3d066e498e4b482cbc5a59aa45a18))
+* update resources to dchema 4.22.0 ([bc3463d](https://github.com/commercelayer/commercelayer-sdk/commit/bc3463dda9bbc55f31cd54235a93c0cadac924b3))
+
 # [5.24.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.23.3...v5.24.0) (2023-12-13)
 
 
