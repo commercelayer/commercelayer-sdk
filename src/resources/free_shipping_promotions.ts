@@ -36,7 +36,7 @@ interface FreeShippingPromotion extends Resource {
 	priority?: number | null
 	starts_at: string
 	expires_at: string
-	total_usage_limit: number
+	total_usage_limit?: number | null
 	total_usage_count?: number | null
 	active?: boolean | null
 	disabled_at?: string | null
@@ -64,7 +64,9 @@ interface FreeShippingPromotionCreate extends ResourceCreate {
 	priority?: number | null
 	starts_at: string
 	expires_at: string
-	total_usage_limit: number
+	total_usage_limit?: number | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 
 	market?: MarketRel | null
 	promotion_rules?: PromotionRuleRel[] | null

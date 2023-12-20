@@ -381,6 +381,13 @@ export const resourceList = [
 ] as const
 
 
+export const singletonList = [
+	// ##__API_RESOURCE_SINGLETON_START__##
+	'application',
+	'organization'
+	// ##__API_RESOURCE_SINGLETON_STOP__##
+] as const
+
 
 /*
 type ResourceInfo = {
@@ -407,10 +414,10 @@ export type RetrievableResource = Resource & {
 
 // Listable resources
 export type ListableResourceType = Exclude<ResourceTypeLock,
-	// ##__API_RESOURCE_SINGLETON_START__##
+	// ##__API_RESOURCE_NOT_LISTABLE_START__##
 	'application'
 |	'organization'
-	// ##__API_RESOURCE_SINGLETON_STOP__##
+	// ##__API_RESOURCE_NOT_LISTABLE_STOP__##
 >
 
 export type ListableResource = Resource & {

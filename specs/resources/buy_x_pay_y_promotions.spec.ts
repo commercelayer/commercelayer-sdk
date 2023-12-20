@@ -28,7 +28,6 @@ describe('BuyXPayYPromotions resource', () => {
 			name: randomValue('string', 'name'),
 			starts_at: randomValue('string', 'starts_at'),
 			expires_at: randomValue('string', 'expires_at'),
-			total_usage_limit: randomValue('integer', 'total_usage_limit'),
 			x: randomValue('integer', 'x'),
 			y: randomValue('integer', 'y'),
 			market: cl.markets.relationship(TestData.id),

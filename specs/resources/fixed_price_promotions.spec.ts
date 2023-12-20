@@ -28,7 +28,6 @@ describe('FixedPricePromotions resource', () => {
 			name: randomValue('string', 'name'),
 			starts_at: randomValue('string', 'starts_at'),
 			expires_at: randomValue('string', 'expires_at'),
-			total_usage_limit: randomValue('integer', 'total_usage_limit'),
 			fixed_amount_cents: randomValue('integer', 'fixed_amount_cents'),
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],

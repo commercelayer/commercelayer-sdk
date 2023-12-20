@@ -55,6 +55,8 @@ interface MarketCreate extends ResourceCreate {
 	checkout_url?: string | null
 	external_prices_url?: string | null
 	external_order_validation_url?: string | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 
 	merchant: MerchantRel
 	price_list: PriceListRel
