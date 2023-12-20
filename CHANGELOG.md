@@ -1,3 +1,10 @@
+# [5.26.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.25.0...v5.26.0) (2023-12-20)
+
+
+### Features
+
+* add singleton functions to client instance ([3cce481](https://github.com/commercelayer/commercelayer-sdk/commit/3cce481e87b61c9459536ef86c5d55f49e1ed341))
+
 # [5.25.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.24.0...v5.25.0) (2023-12-20)
 
 
