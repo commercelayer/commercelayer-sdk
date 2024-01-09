@@ -12,6 +12,7 @@ type PriceListRel = ResourceRel & { type: typeof PriceLists.TYPE }
 interface PriceList extends Resource {
 	
 	name?: string
+	code?: string
 	currency_code?: string
 	tax_included?: boolean
 
@@ -25,6 +26,7 @@ interface PriceList extends Resource {
 interface PriceListCreate extends ResourceCreate {
 	
 	name: string
+	code?: string
 	currency_code: string
 	tax_included?: boolean
 	
@@ -34,6 +36,7 @@ interface PriceListCreate extends ResourceCreate {
 interface PriceListUpdate extends ResourceUpdate {
 	
 	name?: string
+	code?: string
 	currency_code?: string
 	tax_included?: boolean
 	

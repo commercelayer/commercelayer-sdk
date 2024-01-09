@@ -24,6 +24,7 @@ interface Market extends Resource {
 	
 	number?: number
 	name?: string
+	code?: string
 	facebook_pixel_id?: string
 	checkout_url?: string
 	external_prices_url?: string
@@ -47,10 +48,13 @@ interface Market extends Resource {
 interface MarketCreate extends ResourceCreate {
 	
 	name: string
+	code?: string
 	facebook_pixel_id?: string
 	checkout_url?: string
 	external_prices_url?: string
 	external_order_validation_url?: string
+	_disable?: boolean
+	_enable?: boolean
 
 	merchant: MerchantRel
 	price_list: PriceListRel
@@ -65,6 +69,7 @@ interface MarketCreate extends ResourceCreate {
 interface MarketUpdate extends ResourceUpdate {
 	
 	name?: string
+	code?: string
 	facebook_pixel_id?: string
 	checkout_url?: string
 	external_prices_url?: string

@@ -40,6 +40,7 @@ interface LineItem extends Resource {
 	sku_code?: string
 	bundle_code?: string
 	quantity?: number
+	_external_price?: boolean
 	currency_code?: string
 	unit_amount_cents?: number
 	unit_amount_float?: number

@@ -17,6 +17,7 @@ interface Webhook extends Resource {
 	circuit_state?: string
 	circuit_failure_count?: number
 	shared_secret?: string
+	disabled_at?: string
 
 	last_event_callbacks?: EventCallback[]
 	versions?: Version[]
@@ -30,6 +31,8 @@ interface WebhookCreate extends ResourceCreate {
 	topic: string
 	callback_url: string
 	include_resources?: string[]
+	_disable?: boolean
+	_enable?: boolean
 	
 }
 
@@ -41,6 +44,8 @@ interface WebhookUpdate extends ResourceUpdate {
 	callback_url?: string
 	include_resources?: string[]
 	_reset_circuit?: boolean
+	_disable?: boolean
+	_enable?: boolean
 	
 }
 

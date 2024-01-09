@@ -66,7 +66,9 @@ interface FixedPricePromotionCreate extends ResourceCreate {
 	priority?: number
 	starts_at: string
 	expires_at: string
-	total_usage_limit: number
+	total_usage_limit?: number
+	_disable?: boolean
+	_enable?: boolean
 	fixed_amount_cents: number
 
 	market?: MarketRel

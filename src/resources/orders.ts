@@ -60,7 +60,7 @@ type TagRel = ResourceRel & { type: 'tags' }
 
 interface Order extends Resource {
 	
-	number?: number
+	number?: string
 	autorefresh?: boolean
 	status?: string
 	payment_status?: string
@@ -203,6 +203,7 @@ interface Order extends Resource {
 
 interface OrderCreate extends ResourceCreate {
 	
+	number?: string
 	autorefresh?: boolean
 	guest?: boolean
 	customer_email?: string
@@ -233,6 +234,7 @@ interface OrderCreate extends ResourceCreate {
 
 interface OrderUpdate extends ResourceUpdate {
 	
+	number?: string
 	autorefresh?: boolean
 	guest?: boolean
 	customer_email?: string

@@ -18,6 +18,7 @@ interface StockLocation extends Resource {
 	
 	number?: number
 	name?: string
+	code?: string
 	label_format?: string
 	suppress_etd?: boolean
 
@@ -35,6 +36,7 @@ interface StockLocation extends Resource {
 interface StockLocationCreate extends ResourceCreate {
 	
 	name: string
+	code?: string
 	label_format?: string
 	suppress_etd?: boolean
 
@@ -46,6 +48,7 @@ interface StockLocationCreate extends ResourceCreate {
 interface StockLocationUpdate extends ResourceUpdate {
 	
 	name?: string
+	code?: string
 	label_format?: string
 	suppress_etd?: boolean
 

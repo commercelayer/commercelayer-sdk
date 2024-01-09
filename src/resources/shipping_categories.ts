@@ -12,6 +12,7 @@ type ShippingCategoryRel = ResourceRel & { type: typeof ShippingCategories.TYPE 
 interface ShippingCategory extends Resource {
 	
 	name?: string
+	code?: string
 
 	skus?: Sku[]
 	attachments?: Attachment[]
@@ -23,6 +24,7 @@ interface ShippingCategory extends Resource {
 interface ShippingCategoryCreate extends ResourceCreate {
 	
 	name: string
+	code?: string
 	
 }
 
@@ -30,6 +32,7 @@ interface ShippingCategoryCreate extends ResourceCreate {
 interface ShippingCategoryUpdate extends ResourceUpdate {
 	
 	name?: string
+	code?: string
 	
 }
 
