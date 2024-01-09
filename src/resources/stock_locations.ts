@@ -22,6 +22,7 @@ interface StockLocation extends Resource {
 
 	number?: number | null
 	name: string
+	code?: string | null
 	label_format?: string | null
 	suppress_etd?: boolean | null
 
@@ -39,6 +40,7 @@ interface StockLocation extends Resource {
 interface StockLocationCreate extends ResourceCreate {
 	
 	name: string
+	code?: string | null
 	label_format?: string | null
 	suppress_etd?: boolean | null
 
@@ -50,6 +52,7 @@ interface StockLocationCreate extends ResourceCreate {
 interface StockLocationUpdate extends ResourceUpdate {
 	
 	name?: string | null
+	code?: string | null
 	label_format?: string | null
 	suppress_etd?: boolean | null
 

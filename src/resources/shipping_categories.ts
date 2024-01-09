@@ -16,6 +16,7 @@ interface ShippingCategory extends Resource {
 	readonly type: ShippingCategoryType
 
 	name: string
+	code?: string | null
 
 	skus?: Sku[] | null
 	attachments?: Attachment[] | null
@@ -27,6 +28,7 @@ interface ShippingCategory extends Resource {
 interface ShippingCategoryCreate extends ResourceCreate {
 	
 	name: string
+	code?: string | null
 	
 }
 
@@ -34,6 +36,7 @@ interface ShippingCategoryCreate extends ResourceCreate {
 interface ShippingCategoryUpdate extends ResourceUpdate {
 	
 	name?: string | null
+	code?: string | null
 	
 }
 

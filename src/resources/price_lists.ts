@@ -16,6 +16,7 @@ interface PriceList extends Resource {
 	readonly type: PriceListType
 
 	name: string
+	code?: string | null
 	currency_code: string
 	tax_included?: boolean | null
 
@@ -29,6 +30,7 @@ interface PriceList extends Resource {
 interface PriceListCreate extends ResourceCreate {
 	
 	name: string
+	code?: string | null
 	currency_code: string
 	tax_included?: boolean | null
 	
@@ -38,6 +40,7 @@ interface PriceListCreate extends ResourceCreate {
 interface PriceListUpdate extends ResourceUpdate {
 	
 	name?: string | null
+	code?: string | null
 	currency_code?: string | null
 	tax_included?: boolean | null
 	
