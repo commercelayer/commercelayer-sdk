@@ -1,3 +1,32 @@
+# [5.26.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.25.0...v5.26.0) (2023-12-20)
+
+
+### Features
+
+* add singleton functions to client instance ([3cce481](https://github.com/commercelayer/commercelayer-sdk/commit/3cce481e87b61c9459536ef86c5d55f49e1ed341))
+
+# [5.25.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.24.0...v5.25.0) (2023-12-20)
+
+
+### Features
+
+* add singleton list ([b510e61](https://github.com/commercelayer/commercelayer-sdk/commit/b510e610dbd8fcab51b183d3bd11cb8ffd165fb3))
+* add singletons static functions ([e745bcb](https://github.com/commercelayer/commercelayer-sdk/commit/e745bcb608f3d066e498e4b482cbc5a59aa45a18))
+* update resources to dchema 4.22.0 ([bc3463d](https://github.com/commercelayer/commercelayer-sdk/commit/bc3463dda9bbc55f31cd54235a93c0cadac924b3))
+
+# [5.24.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.23.3...v5.24.0) (2023-12-13)
+
+
+### Bug Fixes
+
+* fix dependencies ([095f28a](https://github.com/commercelayer/commercelayer-sdk/commit/095f28a81dbed02146d7532874de1525bf6ad6a2))
+
+
+### Features
+
+* update resources to schema v4.20.0 ([86bcdec](https://github.com/commercelayer/commercelayer-sdk/commit/86bcdec10d5e18ebe0593979dfdcddd4313722f9))
+* update resources to schema v4.21.0 ([3ae4b0c](https://github.com/commercelayer/commercelayer-sdk/commit/3ae4b0c0fea03347aed3cf93eedab811f1760831))
+
 ## [5.23.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.23.2...v5.23.3) (2023-12-13)
 
 

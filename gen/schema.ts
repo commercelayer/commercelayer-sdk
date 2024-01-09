@@ -91,7 +91,7 @@ const parseSchema = (path: string): ApiSchema => {
 		Object.keys(apiSchema.components).forEach(c => {
 			if (!specialComponentMatcher.test(c)) components[c] = apiSchema.components[c]
 			else
-			if (snakeCase(c.replace(specialComponentMatcher, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
+				if (snakeCase(c.replace(specialComponentMatcher, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
 		})
 		// Sort components
 		resources[p].components = sortObjectFields(resources[p].components)
@@ -259,13 +259,13 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 				fetchable,
 				enum: aValue.enum
 			}
-	})
+		})
 
 		// Relationships
 		if (cmpRelationships) {
 			Object.entries(cmpRelationships.properties as object).forEach(r => {
 				const [rKey, rValue] = r
-				const dataObj = rValue.properties.data? rValue.properties.data : rValue
+				const dataObj = rValue.properties.data ? rValue.properties.data : rValue
 				const typeObj = dataObj.items ? dataObj.items.properties : dataObj.properties
 				const type = typeObj.type.enum[0] // typeObj.type.default || typeObj.type.example
 				let oneOf = rValue.oneOf

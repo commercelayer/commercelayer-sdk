@@ -322,6 +322,14 @@ class CommerceLayerClient {
 	resources(): readonly string[] {
 		return CommerceLayerStatic.resources()
 	}
+
+	singletons(): readonly string[] {
+		return CommerceLayerStatic.singletons()
+	}
+
+	isSingleton(resource: api.ResourceTypeLock): boolean {
+		return CommerceLayerStatic.isSingleton(resource)
+	}
 	
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
