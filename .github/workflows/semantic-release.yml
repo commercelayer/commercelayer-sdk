@@ -38,3 +38,54 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpx semantic-release
+      - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.22.0
+        with:
+          # Slack channel id, channel name, or user id to post message.
+          # See also: https://api.slack.com/methods/chat.postMessage#channels
+          # channel-id: 'pipeline'
+          # For posting a rich message using Block Kit
+          payload: |
+            {
+              "text": "New release ${{github.ref_name}} for ${{github.event.repository.name}}.",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "New release for <${{github.event.repository.html_url}}|`${{github.event.repository.name}}`>\n*<${{github.event.release.html_url}}|release notes>*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Project:*\n${{github.event.repository.name}}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Version:*\n${{github.ref_name}}"
+                    }
+                  ]
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "image",
+                      "image_url": "${{github.event.sender.avatar_url}}",
+                      "alt_text": "${{github.event.sender.login}}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*${{github.event.sender.login}}* has triggered this release."
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.PIPELINE_SLACK_CHANNEL_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
