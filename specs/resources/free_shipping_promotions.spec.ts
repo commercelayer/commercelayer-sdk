@@ -1,5 +1,5 @@
 /**
- * ©2023 Commerce Layer Inc.
+ * ©2024 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
@@ -28,7 +28,6 @@ describe('FreeShippingPromotions resource', () => {
 			name: randomValue('string', 'name'),
 			starts_at: randomValue('string', 'starts_at'),
 			expires_at: randomValue('string', 'expires_at'),
-			total_usage_limit: randomValue('integer', 'total_usage_limit'),
 			market: cl.markets.relationship(TestData.id),
 			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),

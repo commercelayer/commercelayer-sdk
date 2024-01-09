@@ -25,6 +25,7 @@ interface StripePayment extends Resource {
 	intent_amount_float?: number | null
 	formatted_intent_amount?: string | null
 	return_url?: string | null
+	receipt_email?: string | null
 	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
@@ -38,6 +39,7 @@ interface StripePaymentCreate extends ResourceCreate {
 	
 	options?: Record<string, any> | null
 	return_url?: string | null
+	receipt_email?: string | null
 
 	order: OrderRel
 

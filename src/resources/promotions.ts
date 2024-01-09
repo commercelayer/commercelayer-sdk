@@ -29,7 +29,7 @@ interface Promotion extends Resource {
 	priority?: number | null
 	starts_at: string
 	expires_at: string
-	total_usage_limit: number
+	total_usage_limit?: number | null
 	total_usage_count?: number | null
 	active?: boolean | null
 	disabled_at?: string | null

@@ -64,6 +64,8 @@ interface ShippingMethodCreate extends ResourceCreate {
 	scheme?: string | null
 	currency_code?: string | null
 	external_prices_url?: string | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 	price_amount_cents: number
 	free_over_amount_cents?: number | null
 	use_subtotal?: boolean | null

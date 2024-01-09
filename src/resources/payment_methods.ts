@@ -47,6 +47,8 @@ interface PaymentMethodCreate extends ResourceCreate {
 	moto?: boolean | null
 	require_capture?: boolean | null
 	auto_capture?: boolean | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 	price_amount_cents: number
 	auto_capture_max_amount_cents?: number | null
 
