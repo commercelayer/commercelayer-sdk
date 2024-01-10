@@ -1,3 +1,10 @@
+## [5.27.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.27.1...v5.27.2) (2024-01-09)
+
+
+### Bug Fixes
+
+* remove slack release message ([1032faa](https://github.com/commercelayer/commercelayer-sdk/commit/1032faa313e05a401fba99810467a5bc74ccbdf5))
+
 ## [5.27.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.27.0...v5.27.1) (2024-01-09)
 
 
