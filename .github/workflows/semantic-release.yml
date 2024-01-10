@@ -1,7 +1,7 @@
 name: Release
 on:
   push:
-    branches: [ main ]
+    branches: [ main, beta ]
   pull_request:
     branches: [ main ]
 jobs:
@@ -9,37 +9,30 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
           persist-credentials: false
-
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: latest
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
           cache: 'pnpm'
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
       - name: Build package
         run: pnpm build
-
       - name: Run specs
         env:
           CL_SDK_ORGANIZATION: sdk-test-org
           CL_SDK_CLIENT_ID: yOIJ1s3ez-hi1VhIlVk30Fe7EK152ixnfGN1zEkiX0I
           CL_SDK_CLIENT_SECRET: XTP4tDrA2u-56I3NwYk1wIpmSHvl2kTqyetkSJw2KzI
         run: pnpm test
-
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

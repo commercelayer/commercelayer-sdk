@@ -7,14 +7,9 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     steps:
-
- #     - name: Get package version
- #       id: package-version
- #       uses: martinbeentjes/npm-get-version-action@v1.3.1
-
       - name: Post to a Slack channel
         id: slack
-        uses: slackapi/slack-github-action@v1.22.0
+        uses: slackapi/slack-github-action@v1
         with:
           payload: |
             {
