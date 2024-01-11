@@ -1,6 +1,6 @@
 
 import ApiClient, { type ApiClientInitConfig } from './client'
-import { denormalize, normalize } from './jsonapi'
+import { denormalize, normalize, type DocWithData } from './jsonapi'
 import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } from './query'
 import { generateQueryStringParams, isParamsList } from './query'
 import type { ResourceTypeLock } from './api'
@@ -147,7 +147,7 @@ class ResourceAdapter {
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
-		const r = denormalize<R>(res) as R
+		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
 
@@ -162,7 +162,7 @@ class ResourceAdapter {
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('get', `${resource.type}/${resource.id}`, undefined, { ...options, params: queryParams })
-		const r = denormalize<R>(res) as R
+		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
 
@@ -177,7 +177,7 @@ class ResourceAdapter {
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
-		const r = denormalize<R>(res) as R[]
+		const r = denormalize<R>(res as DocWithData) as R[]
 
 		const meta: ListMeta = {
 			pageCount: Number(res.meta?.page_count),
@@ -200,7 +200,7 @@ class ResourceAdapter {
 
 		const data = normalize(resource)
 		const res = await this.#client.request('post', resource.type, data, { ...options, params: queryParams })
-		const r = denormalize<R>(res) as R
+		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
 
@@ -216,7 +216,7 @@ class ResourceAdapter {
 
 		const data = normalize(resource)
 		const res = await this.#client.request('patch', `${resource.type}/${resource.id}`, data, { ...options, params: queryParams })
-		const r = denormalize<R>(res) as R
+		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
 
@@ -237,7 +237,7 @@ class ResourceAdapter {
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('get', path, undefined, { ...options, params: queryParams })
-		const r = denormalize<R>(res)
+		const r = denormalize<R>(res as DocWithData)
 
 		if (Array.isArray(r)) {
 			const p = params as QueryParamsList
@@ -271,11 +271,11 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	abstract type(): ResourceTypeLock
 
-	parse(resource: any): R | R[] {
+	parse(resource: string): R | R[] {
 		try {
 			const res = JSON.parse(resource)
 			if (res.data?.type !== this.type()) throw new SdkError({ message: `Invalid resource type [${res.data?.type}]`, type: ErrorType.PARSE })
-			return denormalize<R>(res)
+			return denormalize<R>(res as DocWithData)
 		} catch (error: any) {
 			if (SdkError.isSdkError(error)) throw error
 			else throw new SdkError({ message: `Payload parse error [${error.message}]`, type: ErrorType.PARSE })

@@ -1,3 +1,31 @@
+## [5.27.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.27.2...v5.27.3) (2024-01-10)
+
+
+### Bug Fixes
+
+* update dependencies and fix lint errors ([06d5c6e](https://github.com/commercelayer/commercelayer-sdk/commit/06d5c6e04ba6e755dd109d8bc7cfc0081c67e5bf))
+
+## [5.27.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.27.1...v5.27.2) (2024-01-09)
+
+
+### Bug Fixes
+
+* remove slack release message ([1032faa](https://github.com/commercelayer/commercelayer-sdk/commit/1032faa313e05a401fba99810467a5bc74ccbdf5))
+
+## [5.27.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.27.0...v5.27.1) (2024-01-09)
+
+
+### Bug Fixes
+
+* add slack release message ([7a53f03](https://github.com/commercelayer/commercelayer-sdk/commit/7a53f031cdb5fb1599df44cceee2bc36af7efe3f))
+
+# [5.27.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.26.0...v5.27.0) (2024-01-09)
+
+
+### Features
+
+* update resources to schema 4.23.0 ([#313](https://github.com/commercelayer/commercelayer-sdk/issues/313)) ([cd72bac](https://github.com/commercelayer/commercelayer-sdk/commit/cd72bac4c9628fdea9603d768b71330c8b4fd506))
+
 # [5.26.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.25.0...v5.26.0) (2023-12-20)
 
 

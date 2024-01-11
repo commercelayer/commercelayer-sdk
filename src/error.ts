@@ -14,11 +14,11 @@ class SdkError extends Error {
 
 	static NAME = 'SdkError'
 
-	static isSdkError(error: any): error is ApiError {
-		return error && [SdkError.NAME, ApiError.NAME].includes(error.name) && Object.values(ErrorType).includes(error.type)
+	static isSdkError(error: any): error is SdkError {
+		return error && [SdkError.NAME, ApiError.NAME].includes(error.name as string) && Object.values(ErrorType).includes(error.type as ErrorType)
 	}
 
-	type: string
+	type: ErrorType
 	code?: string
 	source?: Error
 	request?: any

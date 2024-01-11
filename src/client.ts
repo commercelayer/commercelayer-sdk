@@ -186,7 +186,7 @@ class ApiClient {
 		// const start = Date.now()
 		return this.#client.request(requestParams)
 			.then(response => response.data)
-			.catch(error => handleError(error))
+			.catch((error: Error) => handleError(error))
 		// .finally(() => console.log(`<<-- ${method} ${path} ${Date.now() - start}`))
 
 	}

@@ -7,6 +7,8 @@ import { isResourceId, isResourceType } from './common'
 import Debug from './debug'
 const debug = Debug('jsonapi')
 
+export type { DocWithData }
+
 
 
 // DENORMALIZATION
@@ -51,10 +53,10 @@ const denormalizeResource = <T extends ResourceType>(res: any, included?: Includ
 		...res.attributes,
 	}
 
-	if (res.relationships) Object.keys(res.relationships).forEach(key => {
-		const rel = res.relationships[key].data
+	if (res.relationships) Object.keys(res.relationships as object).forEach(key => {
+		const rel = res.relationships[key].data as ResourceIdentifierObject
 		if (rel) {
-			if (Array.isArray(rel)) resource[key] = rel.map(r => denormalizeResource<ResourceType>(findIncluded(r, included), included))
+			if (Array.isArray(rel)) resource[key] = rel.map((r: ResourceIdentifierObject) => denormalizeResource<ResourceType>(findIncluded(r, included), included))
 			else resource[key] = denormalizeResource<ResourceType>(findIncluded(rel, included), included)
 		} else if (rel === null) resource[key] = null
 	})

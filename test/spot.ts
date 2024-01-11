@@ -1,19 +1,25 @@
-import { packageInfo } from '../src/util'
-import commercelayer from '../src/index'
+
+import commercelayer, { CommerceLayerStatic, SdkError } from '../src/index'
 
 
 (async () => {
 
-	console.log(packageInfo(['version', 'dependencies.axios'], { nestedName: true }))
+	enum ErrorType {
+		CLIENT 		= 'client',		// Error instantiating the client
+		REQUEST 	= 'request',	// Error preparing API request
+		RESPONSE 	= 'response',	// Error response from API
+		CANCEL 		= 'cancel',		// Forced request abort using interceptor
+		PARSE 		= 'parse',		// Error parsing API resource
+		GENERIC 	= 'generic',	// Other not specified errors
+	}
 
-	const cl = commercelayer({
-		organization: 'org',
-		accessToken: 'at',
-		userAgent: 'PLUTO'
-	})
+	const values = Object.values(ErrorType)
 
-	cl.config({userAgent: 'PIPPO'})
+	const err = {
+		name: 'SdkError',
+		type: 'cancel'
+	}
 
-	cl.addresses.retrieve('id', undefined, { userAgent: 'PAPERINA'})
+	console.log(CommerceLayerStatic.isSdkError(err))
 
 })()
