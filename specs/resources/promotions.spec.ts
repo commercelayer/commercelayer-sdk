@@ -209,6 +209,27 @@ describe('Promotions resource', () => {
 	/* relationship.coupon_codes_promotion_rule stop */
 	
 
+	/* relationship.custom_promotion_rule start */
+	it(resourceType + '.custom_promotion_rule', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { custom_promotion_rules: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'custom_promotion_rule')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].custom_promotion_rule(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.custom_promotion_rule stop */
+	
+
 	/* relationship.coupons start */
 	it(resourceType + '.coupons', async () => {
 	

@@ -34,6 +34,7 @@ describe('FixedAmountPromotions resource', () => {
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
 			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
 			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
+			custom_promotion_rule: cl.custom_promotion_rules.relationship(TestData.id),
 			coupons: [ cl.coupons.relationship(TestData.id) ],
 			sku_list: cl.sku_lists.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
@@ -286,6 +287,27 @@ describe('FixedAmountPromotions resource', () => {
 	
 	})
 	/* relationship.coupon_codes_promotion_rule stop */
+	
+
+	/* relationship.custom_promotion_rule start */
+	it(resourceType + '.custom_promotion_rule', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { custom_promotion_rules: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'custom_promotion_rule')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].custom_promotion_rule(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.custom_promotion_rule stop */
 	
 
 	/* relationship.coupons start */

@@ -21,6 +21,7 @@ interface InventoryModel extends Resource {
 	stock_locations_cutoff?: number | null
 	stock_reservation_cutoff?: number | null
 	put_stock_transfers_on_hold?: boolean | null
+	manual_stock_decrement?: boolean | null
 
 	inventory_stock_locations?: InventoryStockLocation[] | null
 	inventory_return_locations?: InventoryReturnLocation[] | null
@@ -37,6 +38,7 @@ interface InventoryModelCreate extends ResourceCreate {
 	stock_locations_cutoff?: number | null
 	stock_reservation_cutoff?: number | null
 	put_stock_transfers_on_hold?: boolean | null
+	manual_stock_decrement?: boolean | null
 	
 }
 
@@ -48,6 +50,7 @@ interface InventoryModelUpdate extends ResourceUpdate {
 	stock_locations_cutoff?: number | null
 	stock_reservation_cutoff?: number | null
 	put_stock_transfers_on_hold?: boolean | null
+	manual_stock_decrement?: boolean | null
 	
 }
 
