@@ -40,9 +40,7 @@ interface StockReservationUpdate extends ResourceUpdate {
 	
 	quantity?: number
 	_pending?: boolean
-
-	stock_item?: StockItemRel
-
+	
 }
 
 

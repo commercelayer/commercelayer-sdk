@@ -189,6 +189,7 @@ interface Order extends Resource {
 	voids?: Void[]
 	refunds?: Refund[]
 	returns?: Return[]
+	order_subscription?: OrderSubscription
 	order_subscriptions?: OrderSubscription[]
 	order_factories?: OrderFactory[]
 	order_copies?: OrderCopy[]
@@ -418,6 +419,11 @@ class Orders extends ApiResource {
 	async returns(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Return>({ type: 'returns' }, `orders/${_orderId}/returns`, params, options) as unknown as ListResponse<Return>
+	}
+
+	async order_subscription(orderId: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `orders/${_orderId}/order_subscription`, params, options) as unknown as OrderSubscription
 	}
 
 	async order_subscriptions(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {

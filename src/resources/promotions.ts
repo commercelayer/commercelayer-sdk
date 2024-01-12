@@ -6,6 +6,7 @@ import type { PromotionRule } from './promotion_rules'
 import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { CustomPromotionRule } from './custom_promotion_rules'
 import type { Coupon } from './coupons'
 import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
@@ -35,6 +36,7 @@ interface Promotion extends Resource {
 	order_amount_promotion_rule?: OrderAmountPromotionRule
 	sku_list_promotion_rule?: SkuListPromotionRule
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule
+	custom_promotion_rule?: CustomPromotionRule
 	coupons?: Coupon[]
 	sku_list?: SkuList
 	attachments?: Attachment[]
@@ -76,6 +78,11 @@ class Promotions extends ApiResource {
 	async coupon_codes_promotion_rule(promotionId: string | Promotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		const _promotionId = (promotionId as Promotion).id || promotionId as string
 		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `promotions/${_promotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	}
+
+	async custom_promotion_rule(promotionId: string | Promotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomPromotionRule> {
+		const _promotionId = (promotionId as Promotion).id || promotionId as string
+		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `promotions/${_promotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
 	}
 
 	async coupons(promotionId: string | Promotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {

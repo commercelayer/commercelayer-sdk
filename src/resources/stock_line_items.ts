@@ -47,6 +47,9 @@ interface StockLineItemUpdate extends ResourceUpdate {
 	
 	sku_code?: string
 	quantity?: number
+	_reserve_stock?: boolean
+	_release_stock?: boolean
+	_decrement_stock?: boolean
 
 	shipment?: ShipmentRel
 	line_item?: LineItemRel

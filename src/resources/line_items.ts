@@ -13,6 +13,7 @@ import type { PercentageDiscountPromotion } from './percentage_discount_promotio
 import type { Shipment } from './shipments'
 import type { Sku } from './skus'
 import type { LineItemOption } from './line_item_options'
+import type { ReturnLineItem } from './return_line_items'
 import type { StockReservation } from './stock_reservations'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
@@ -74,6 +75,7 @@ interface LineItem extends Resource {
 	sku?: Sku
 	bundle?: Bundle
 	line_item_options?: LineItemOption[]
+	return_line_items?: ReturnLineItem[]
 	/**
 	* @deprecated This field should not be used as it may be removed in the future without notice
 	*/
@@ -161,6 +163,11 @@ class LineItems extends ApiResource {
 	async line_item_options(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
 		return this.resources.fetch<LineItemOption>({ type: 'line_item_options' }, `line_items/${_lineItemId}/line_item_options`, params, options) as unknown as ListResponse<LineItemOption>
+	}
+
+	async return_line_items(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
+		return this.resources.fetch<ReturnLineItem>({ type: 'return_line_items' }, `line_items/${_lineItemId}/return_line_items`, params, options) as unknown as ListResponse<ReturnLineItem>
 	}
 
 	async stock_reservations(lineItemId: string | LineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {

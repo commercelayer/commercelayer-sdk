@@ -193,6 +193,25 @@ describe('LineItems resource', () => {
 	})
 	
 
+	it(resourceType + '.return_line_items', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { return_line_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'return_line_items')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].return_line_items(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
 	it(resourceType + '.stock_reservations', async () => {
 	
 		const id = TestData.id

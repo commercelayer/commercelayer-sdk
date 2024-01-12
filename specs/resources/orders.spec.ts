@@ -555,6 +555,25 @@ describe('Orders resource', () => {
 	})
 	
 
+	it(resourceType + '.order_subscription', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { order_subscriptions: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'order_subscription')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].order_subscription(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
 	it(resourceType + '.order_subscriptions', async () => {
 	
 		const id = TestData.id

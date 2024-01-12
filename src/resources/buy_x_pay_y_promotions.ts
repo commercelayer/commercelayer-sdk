@@ -6,6 +6,7 @@ import type { PromotionRule } from './promotion_rules'
 import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { CustomPromotionRule } from './custom_promotion_rules'
 import type { Coupon } from './coupons'
 import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
@@ -21,6 +22,7 @@ type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
 type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
+type CustomPromotionRuleRel = ResourceRel & { type: 'custom_promotion_rules' }
 type CouponRel = ResourceRel & { type: 'coupons' }
 type SkuListRel = ResourceRel & { type: 'sku_lists' }
 type TagRel = ResourceRel & { type: 'tags' }
@@ -47,6 +49,7 @@ interface BuyXPayYPromotion extends Resource {
 	order_amount_promotion_rule?: OrderAmountPromotionRule
 	sku_list_promotion_rule?: SkuListPromotionRule
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule
+	custom_promotion_rule?: CustomPromotionRule
 	coupons?: Coupon[]
 	sku_list?: SkuList
 	attachments?: Attachment[]
@@ -78,6 +81,7 @@ interface BuyXPayYPromotionCreate extends ResourceCreate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	custom_promotion_rule?: CustomPromotionRuleRel
 	coupons?: CouponRel[]
 	sku_list: SkuListRel
 	tags?: TagRel[]
@@ -105,6 +109,7 @@ interface BuyXPayYPromotionUpdate extends ResourceUpdate {
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
+	custom_promotion_rule?: CustomPromotionRuleRel
 	coupons?: CouponRel[]
 	sku_list?: SkuListRel
 	tags?: TagRel[]
@@ -155,6 +160,11 @@ class BuyXPayYPromotions extends ApiResource {
 	async coupon_codes_promotion_rule(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
 		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	}
+
+	async custom_promotion_rule(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomPromotionRule> {
+		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
+		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
 	}
 
 	async coupons(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {

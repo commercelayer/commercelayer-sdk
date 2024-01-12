@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "4.41.0",
+  "version": "4.42.0",
   "main": "lib/cjs/index.js",
   "types": "lib/cjs/index.d.ts",
   "module": "lib/esm/index.js",
@@ -44,7 +44,7 @@
     "@types/debug": "^4.1.12",
     "@types/jest": "^29.5.11",
     "@types/lodash": "^4.14.202",
-    "@types/node": "^18.19.5",
+    "@types/node": "^18.19.6",
     "dotenv": "^16.3.1",
     "eslint": "^8.56.0",
     "inflector-js": "^1.0.1",
