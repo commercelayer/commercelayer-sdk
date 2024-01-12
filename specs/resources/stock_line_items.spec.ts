@@ -302,4 +302,79 @@ describe('StockLineItems resource', () => {
 	/* relationship.versions stop */
 	
   
+
+	/* trigger._reserve_stock start */
+	it(resourceType + '._reserve_stock', async () => {
+	
+		let triggerAttr = '_reserve_stock'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._reserve_stock(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._reserve_stock stop */
+	
+
+	/* trigger._release_stock start */
+	it(resourceType + '._release_stock', async () => {
+	
+		let triggerAttr = '_release_stock'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._release_stock(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._release_stock stop */
+	
+
+	/* trigger._decrement_stock start */
+	it(resourceType + '._decrement_stock', async () => {
+	
+		let triggerAttr = '_decrement_stock'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._decrement_stock(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._decrement_stock stop */
+	
 })

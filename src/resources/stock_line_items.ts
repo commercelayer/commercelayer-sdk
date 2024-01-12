@@ -51,6 +51,9 @@ interface StockLineItemUpdate extends ResourceUpdate {
 	
 	sku_code?: string | null
 	quantity?: number | null
+	_reserve_stock?: boolean | null
+	_release_stock?: boolean | null
+	_decrement_stock?: boolean | null
 
 	shipment?: ShipmentRel | null
 	line_item?: LineItemRel | null
@@ -99,6 +102,18 @@ class StockLineItems extends ApiResource<StockLineItem> {
 	async versions(stockLineItemId: string | StockLineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `stock_line_items/${_stockLineItemId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _reserve_stock(id: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
+		return this.resources.update<StockLineItemUpdate, StockLineItem>({ id: (typeof id === 'string')? id: id.id, type: StockLineItems.TYPE, _reserve_stock: true }, params, options)
+	}
+
+	async _release_stock(id: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
+		return this.resources.update<StockLineItemUpdate, StockLineItem>({ id: (typeof id === 'string')? id: id.id, type: StockLineItems.TYPE, _release_stock: true }, params, options)
+	}
+
+	async _decrement_stock(id: string | StockLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
+		return this.resources.update<StockLineItemUpdate, StockLineItem>({ id: (typeof id === 'string')? id: id.id, type: StockLineItems.TYPE, _decrement_stock: true }, params, options)
 	}
 
 
