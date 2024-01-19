@@ -1,25 +1,28 @@
 
-import commercelayer, { CommerceLayerStatic, SdkError } from '../src/index'
+import { inspect } from 'util'
+import commercelayer from '../src/index'
+import getToken from './token'
 
 
 (async () => {
 
-	enum ErrorType {
-		CLIENT 		= 'client',		// Error instantiating the client
-		REQUEST 	= 'request',	// Error preparing API request
-		RESPONSE 	= 'response',	// Error response from API
-		CANCEL 		= 'cancel',		// Forced request abort using interceptor
-		PARSE 		= 'parse',		// Error parsing API resource
-		GENERIC 	= 'generic',	// Other not specified errors
+	const auth = await getToken('integration')
+	const accessToken = auth ? auth.accessToken : ''
+	const organization = process.env.CL_SDK_ORGANIZATION || 'sdk-test-org'
+
+	const cl = commercelayer({
+		organization,
+		accessToken
+	})
+
+	try {
+
+		const customers = await cl.customers.list({ filters: { email_eq: 'userx2@server.com' }})
+		console.log(inspect(customers, false, null, true))
+
+	} catch (error: any) {
+		console.log(inspect(error, false, null, true))
+		console.log(error.message)
 	}
-
-	const values = Object.values(ErrorType)
-
-	const err = {
-		name: 'SdkError',
-		type: 'cancel'
-	}
-
-	console.log(CommerceLayerStatic.isSdkError(err))
 
 })()
