@@ -1,14 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-console */
 import { readFileSync, writeFileSync } from 'fs'
 import { snakeCase } from 'lodash'
 import axios from 'axios'
 import { resolve } from 'path'
 import { sortObjectFields } from '../src/util'
-import { inspect } from 'util'
 
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const Inflector = require('inflector-js')
 
 
