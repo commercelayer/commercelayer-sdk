@@ -1,3 +1,10 @@
+# [5.29.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.28.0...v5.29.0) (2024-01-19)
+
+
+### Features
+
+* add support for jcont filter as object ([f1f83d6](https://github.com/commercelayer/commercelayer-sdk/commit/f1f83d6aabc3bcd1568ac2cef04423e2be1e1562))
+
 # [5.28.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.27.3...v5.28.0) (2024-01-12)
 
 
