@@ -36,7 +36,7 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	api_key: string
 	public_key?: string | null
 	live_url_prefix: string
-	api_version?: string | null
+	api_version?: number | null
 	async_api?: boolean | null
 	webhook_endpoint_secret?: string | null
 
@@ -52,7 +52,7 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	api_key?: string | null
 	public_key?: string | null
 	live_url_prefix?: string | null
-	api_version?: string | null
+	api_version?: number | null
 	async_api?: boolean | null
 	webhook_endpoint_secret?: string | null
 
