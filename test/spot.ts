@@ -1,6 +1,6 @@
 
 import { inspect } from 'util'
-import commercelayer from '../src/index'
+import commercelayer, { Tag } from '../src/index'
 import getToken from './token'
 
 
@@ -17,8 +17,30 @@ import getToken from './token'
 
 	try {
 
-		const customers = await cl.customers.list({ filters: { email_eq: 'userx2@server.com' }})
-		console.log(inspect(customers, false, null, true))
+		let tags = await cl.tags.list()
+		console.log(inspect(tags, false, null, true))
+		const tag = tags.first()
+
+		tags = await cl.customers.tags('OqzZhVzyaQ')
+		console.log(inspect(tags, false, null, true))
+
+		let customer = await cl.customers.update({
+			id: 'OqzZhVzyaQ',
+			tags: [ cl.tags.relationship(tag as Tag) ]
+		}, {
+			include: ['tags']
+		})
+		console.log(inspect(customer, false, null, true))
+
+		customer = await cl.customers.update({
+			id: 'OqzZhVzyaQ',
+			tags: [ cl.tags.relationship(null) ]
+		}, {
+			include: ['tags']
+		})
+		console.log(inspect(customer, false, null, true))
+
+
 
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))

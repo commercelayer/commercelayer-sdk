@@ -32,6 +32,7 @@ interface OrderSubscription extends Resource {
 	customer_email?: string | null
 	starts_at?: string | null
 	expires_at?: string | null
+	last_run_at?: string | null
 	next_run_at?: string | null
 	occurrencies?: number | null
 	errors_count?: number | null
