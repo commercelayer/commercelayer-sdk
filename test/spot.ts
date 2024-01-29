@@ -17,29 +17,14 @@ import getToken from './token'
 
 	try {
 
-		let tags = await cl.tags.list()
-		console.log(inspect(tags, false, null, true))
-		const tag = tags.first()
+		let customers = await cl.customers.list({ filters: { 'email_cont_any': ['userx2@server.com','userx@server.com'] } })
+		console.log(customers)
 
-		tags = await cl.customers.tags('OqzZhVzyaQ')
-		console.log(inspect(tags, false, null, true))
+		customers = await cl.customers.list({ filters: { 'email_cont_any': 'userx2@server.com,userx@server.com' } })
+		console.log(customers)
 
-		let customer = await cl.customers.update({
-			id: 'OqzZhVzyaQ',
-			tags: [ cl.tags.relationship(tag as Tag) ]
-		}, {
-			include: ['tags']
-		})
-		console.log(inspect(customer, false, null, true))
-
-		customer = await cl.customers.update({
-			id: 'OqzZhVzyaQ',
-			tags: [ cl.tags.relationship(null) ]
-		}, {
-			include: ['tags']
-		})
-		console.log(inspect(customer, false, null, true))
-
+		customers = await cl.customers.list({ filters: { 'email_cont': 'userx2@server.com' } })
+		console.log(customers)
 
 
 	} catch (error: any) {

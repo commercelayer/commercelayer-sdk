@@ -5,7 +5,7 @@ import Debug from './debug'
 const debug = Debug('query')
 
 
-type QueryFilter = Record<string, string | number | boolean | object>
+type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>
 
 
 interface QueryParamsRetrieve {
@@ -61,7 +61,7 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 		// Filters
 		if (params.filters) {
 			Object.entries(params.filters).forEach(([p, v]) => {
-				qp[`filter[q][${p}]`] = (typeof v === 'object')? JSON.stringify(v) : String(v)
+				qp[`filter[q][${p}]`] = Array.isArray(v)? v.join(',') : ((typeof v === 'object')? JSON.stringify(v) : String(v))
 			})
 		}
 	}
