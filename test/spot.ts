@@ -26,6 +26,18 @@ import getToken from './token'
 		customers = await cl.customers.list({ filters: { 'email_cont': 'userx2@server.com' } })
 		console.log(customers)
 
+		customers = await cl.customers.list({ filters: { 'metadata_jcont': { testkey: 'meta' } } })
+		console.log(customers)
+
+		customers = await cl.customers.list({ filters: { 'metadata_jcont': '{ "testkey": "meta" }' } })
+		console.log(customers)
+
+		customers = await cl.customers.list({ filters: { 'email_eq': ['a', 'b'] } })
+		console.log(customers)
+
+		customers = await cl.customers.list({ filters: { 'metadata_eq': { testkey: 'meta' } } })
+		console.log(customers)
+
 
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))
