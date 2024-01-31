@@ -1,3 +1,10 @@
+# [5.31.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.30.0...v5.31.0) (2024-01-31)
+
+
+### Features
+
+* add support for array and object query filters ([653531a](https://github.com/commercelayer/commercelayer-sdk/commit/653531afc0c0e8c2ea412e170598afab5caef329))
+
 # [5.30.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.29.0...v5.30.0) (2024-01-25)
 
 
