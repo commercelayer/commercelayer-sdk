@@ -17,27 +17,31 @@ import getToken from './token'
 
 	try {
 
-		let customers = await cl.customers.list({ filters: { 'email_cont_any': ['userx2@server.com','userx@server.com'] } })
-		console.log(customers)
+		const payload = `
+    {
+	    "data": {
+        "id": "AbcdEfgHiL",
+        "meta": {
+          "mode": "test",
+          "organization_id": "myOrgId"
+        },
+        "type": "customers2",
+        "links": {
+          "self": "https://sdk2-test-org.commercelayer.io/api/customers/AbcdEfgHiL"
+        },
+        "attributes": {
+          "metadata": {},
+          "reference": "ref_test",
+          "created_at": "2023-10-01T05:53:29.296Z",
+          "updated_at": "2023-10-10T08:52:13.251Z"
+        }
+      }
+    }
+    `
 
-		customers = await cl.customers.list({ filters: { 'email_cont_any': 'userx2@server.com,userx@server.com' } })
-		console.log(customers)
-
-		customers = await cl.customers.list({ filters: { 'email_cont': 'userx2@server.com' } })
-		console.log(customers)
-
-		customers = await cl.customers.list({ filters: { 'metadata_jcont': { testkey: 'meta' } } })
-		console.log(customers)
-
-		customers = await cl.customers.list({ filters: { 'metadata_jcont': '{ "testkey": "meta" }' } })
-		console.log(customers)
-
-		customers = await cl.customers.list({ filters: { 'email_eq': ['a', 'b'] } })
-		console.log(customers)
-
-		customers = await cl.customers.list({ filters: { 'metadata_eq': { testkey: 'meta' } } })
-		console.log(customers)
-
+	const c = cl.customers.parse(payload, { ignoreSlug: true })
+	console.log('----------')
+	console.log(c)
 
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))
