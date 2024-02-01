@@ -1,3 +1,11 @@
+## [5.31.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.31.0...v5.31.1) (2024-02-01)
+
+
+### Bug Fixes
+
+* enforce checks in query filters and resource parser ([87f52f5](https://github.com/commercelayer/commercelayer-sdk/commit/87f52f5032b24c3ad8b3a59012ae485ecd1fc9ad))
+* fix parse spec ([89795a6](https://github.com/commercelayer/commercelayer-sdk/commit/89795a67686c0e7fb13def73a86831b9ef9da555))
+
 # [5.31.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.30.0...v5.31.0) (2024-01-31)
 
 
