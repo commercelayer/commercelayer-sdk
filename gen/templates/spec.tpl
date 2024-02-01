@@ -188,7 +188,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
         },
         "type": "${resourceType}",
         "links": {
-          "self": "https://cli-test-org.commercelayer.io/api/${resourceType}/AbcdEfgHiL"
+          "self": "https://sdk-test-org.commercelayer.io/api/${resourceType}/AbcdEfgHiL"
         },
         "attributes": {
           "metadata": {},

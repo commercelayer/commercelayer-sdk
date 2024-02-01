@@ -172,7 +172,7 @@ describe('Attachments resource', () => {
         },
         "type": "${resourceType}",
         "links": {
-          "self": "/api/${resourceType}/AbcdEfgHiL"
+          "self": "https://sdk-test-org.commercelayer.io/api/${resourceType}/AbcdEfgHiL"
         },
         "attributes": {
           "metadata": {},
