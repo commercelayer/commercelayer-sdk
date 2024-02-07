@@ -17,31 +17,9 @@ import getToken from './token'
 
 	try {
 
-		const payload = `
-    {
-	    "data": {
-        "id": "AbcdEfgHiL",
-        "meta": {
-          "mode": "test",
-          "organization_id": "myOrgId"
-        },
-        "type": "customers2",
-        "links": {
-          "self": "https://sdk2-test-org.commercelayer.io/api/customers/AbcdEfgHiL"
-        },
-        "attributes": {
-          "metadata": {},
-          "reference": "ref_test",
-          "created_at": "2023-10-01T05:53:29.296Z",
-          "updated_at": "2023-10-10T08:52:13.251Z"
-        }
-      }
-    }
-    `
+		const customers = await cl.customers.list({ filters: { metadata_jcont: { testkey: 'meta' }}})
 
-	const c = cl.customers.parse(payload, { ignoreSlug: true })
-	console.log('----------')
-	console.log(c)
+	console.log(customers)
 
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))
