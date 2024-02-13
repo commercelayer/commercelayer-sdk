@@ -1,6 +1,6 @@
 
 import { inspect } from 'util'
-import commercelayer from '../src/index'
+import commercelayer from '../lib/esm'
 import getToken from './token'
 
 
