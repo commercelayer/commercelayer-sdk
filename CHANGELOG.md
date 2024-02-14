@@ -1,3 +1,36 @@
+# [4.28.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.27.0...v4.28.0) (2024-02-14)
+
+
+### Bug Fixes
+
+* bump version to v4.41.0 ([76ac8ad](https://github.com/commercelayer/commercelayer-sdk/commit/76ac8ad013dae98edbeacd02c1326ed22144b634))
+* **core:** disable release script ([4ffda8b](https://github.com/commercelayer/commercelayer-sdk/commit/4ffda8bd524ff6534ccb1e8d065dba1d4923ddf9))
+* **core:** fix release script ([b12de32](https://github.com/commercelayer/commercelayer-sdk/commit/b12de32c640eaadaf597028e7ac7f3badd29e30d))
+* **core:** fix type export ([f67d571](https://github.com/commercelayer/commercelayer-sdk/commit/f67d571abefe9b6cfe063f554f5a845cf79b564e))
+* **core:** update resources to schema 4.1.3 ([fce379e](https://github.com/commercelayer/commercelayer-sdk/commit/fce379e64b6657301f9171006cf31a8159bf2a32))
+* fix release configuration ([5849d31](https://github.com/commercelayer/commercelayer-sdk/commit/5849d3142d7ab2c0c303c45d3127dad61fba29b9))
+* fix release configuration ([a7f7554](https://github.com/commercelayer/commercelayer-sdk/commit/a7f75548db1ce25e57412a92ecb54de5f4a5edc9))
+
+
+### Features
+
+* **core:** update resources to schema 4.11.0 ([3834640](https://github.com/commercelayer/commercelayer-sdk/commit/3834640bd57fc04b52ac529c6ab225fe24354ae9))
+* **core:** update resources to schema 4.12.0 ([2d4595d](https://github.com/commercelayer/commercelayer-sdk/commit/2d4595d8e4fad9100235836120aba7353d64ab21))
+* **core:** update resources to schema 4.13.0 ([647e442](https://github.com/commercelayer/commercelayer-sdk/commit/647e442b3d5f5c41dd8256f21acb76e1aec84440))
+* **core:** update resources to schema 4.14.0 ([7affa7d](https://github.com/commercelayer/commercelayer-sdk/commit/7affa7dade08fe628b5187f4844c3be7dbbcf7ce))
+* **core:** update resources to schema 4.4.0 ([a46e81e](https://github.com/commercelayer/commercelayer-sdk/commit/a46e81e966bc1fcb251aafadcdea076096911d82))
+* **core:** update resources to schema 4.5.0 ([61008fd](https://github.com/commercelayer/commercelayer-sdk/commit/61008fd8d2a910f015c6159988676cd145cfb722))
+* **core:** update resources to schema 4.9.0 ([240b106](https://github.com/commercelayer/commercelayer-sdk/commit/240b106fdb5cd442610e8a93bdf2df255b436237))
+* **core:** update resources to schema v4.10.0 ([160f081](https://github.com/commercelayer/commercelayer-sdk/commit/160f0814bf111ab3efdcce5041616a8c26a73034))
+* **core:** update resources to schema v4.10.1 ([37756ed](https://github.com/commercelayer/commercelayer-sdk/commit/37756edfd47bf9b481c8154f9ca4236482204a42))
+* **core:** update resources to schema v4.16.0 ([2e277c9](https://github.com/commercelayer/commercelayer-sdk/commit/2e277c92756c8e7430567f93fb4aec9083f45ad9))
+* **core:** update resources to version 4.8.0 ([5795eac](https://github.com/commercelayer/commercelayer-sdk/commit/5795eac62103f406b19dfda2c99eab65b6bd194e))
+* update resources to schema 4.23.0 ([94d5586](https://github.com/commercelayer/commercelayer-sdk/commit/94d558625af4a58b7cc7108560172d00e95f75c8))
+* update resources to schema 4.26.0 ([496b616](https://github.com/commercelayer/commercelayer-sdk/commit/496b616b520a1af84aa7050f507a19b87121ac9d))
+* update resources to schema v4.18.0 ([208af34](https://github.com/commercelayer/commercelayer-sdk/commit/208af340f89201ec9831613311673aecee5644aa))
+* update resources to schema v4.19.0 ([58b7d6e](https://github.com/commercelayer/commercelayer-sdk/commit/58b7d6e45d5aedcb3358cb7aff9291bb01c1ac70))
+* update resources to schema v4.24.0 ([aab9c11](https://github.com/commercelayer/commercelayer-sdk/commit/aab9c113ad2d032f4cd18883174da234e9c126bf))
+
 # [4.27.0](https://github.com/commercelayer/commercelayer-sdk/compare/v4.26.0...v4.27.0) (2023-03-22)
 
 
