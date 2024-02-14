@@ -3,13 +3,13 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
-import type { PromotionRule, PromotionRuleType } from './promotion_rules'
+import type { PromotionRule } from './promotion_rules'
 import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { CustomPromotionRule, CustomPromotionRuleType } from './custom_promotion_rules'
-import type { Coupon, CouponType } from './coupons'
 import type { SkuList, SkuListType } from './sku_lists'
+import type { Coupon } from './coupons'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
@@ -20,12 +20,10 @@ import type { Sku } from './skus'
 type BuyXPayYPromotionType = 'buy_x_pay_y_promotions'
 type BuyXPayYPromotionRel = ResourceRel & { type: BuyXPayYPromotionType }
 type MarketRel = ResourceRel & { type: MarketType }
-type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 type CustomPromotionRuleRel = ResourceRel & { type: CustomPromotionRuleType }
-type CouponRel = ResourceRel & { type: CouponType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
@@ -54,8 +52,8 @@ interface BuyXPayYPromotion extends Resource {
 	sku_list_promotion_rule?: SkuListPromotionRule | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
 	custom_promotion_rule?: CustomPromotionRule | null
-	coupons?: Coupon[] | null
 	sku_list?: SkuList | null
+	coupons?: Coupon[] | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
@@ -81,12 +79,10 @@ interface BuyXPayYPromotionCreate extends ResourceCreate {
 	cheapest_free?: boolean | null
 
 	market?: MarketRel | null
-	promotion_rules?: PromotionRuleRel[] | null
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	custom_promotion_rule?: CustomPromotionRuleRel | null
-	coupons?: CouponRel[] | null
 	sku_list: SkuListRel
 	tags?: TagRel[] | null
 
@@ -109,12 +105,10 @@ interface BuyXPayYPromotionUpdate extends ResourceUpdate {
 	cheapest_free?: boolean | null
 
 	market?: MarketRel | null
-	promotion_rules?: PromotionRuleRel[] | null
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	custom_promotion_rule?: CustomPromotionRuleRel | null
-	coupons?: CouponRel[] | null
 	sku_list?: SkuListRel | null
 	tags?: TagRel[] | null
 
@@ -162,14 +156,14 @@ class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
 		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
 	}
 
-	async coupons(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
-		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
-	}
-
 	async sku_list(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
 		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async coupons(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
+		return this.resources.fetch<Coupon>({ type: 'coupons' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
 	}
 
 	async attachments(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

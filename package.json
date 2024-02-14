@@ -46,7 +46,7 @@
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.17",
-    "dotenv": "^16.4.1",
+    "dotenv": "^16.4.4",
     "eslint": "^8.56.0",
     "inflector-js": "^1.0.1",
     "jest": "^29.7.0",
