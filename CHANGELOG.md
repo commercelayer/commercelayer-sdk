@@ -1,3 +1,10 @@
+## [4.44.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.44.0...v4.44.1) (2024-02-14)
+
+
+### Bug Fixes
+
+* fix release tag ([89c13dc](https://github.com/commercelayer/commercelayer-sdk/commit/89c13dc2fff1eab71b9ceea2025f627cef39f5dd))
+
 ## [4.28.1](https://github.com/commercelayer/commercelayer-sdk/compare/v4.28.0...v4.28.1) (2024-02-14)
 
 
