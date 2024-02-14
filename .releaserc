@@ -2,7 +2,7 @@
 	"ci": true,
 	"dryRun": false,
 	"branches": [
-		{ "name": "sdk4", "channel": "sdk4", "prerelease": "false" }
+		{ "name": "sdk4", "channel": "sdk4", "range": "4.x" }
 	],
 	"plugins": [
 		"@semantic-release/commit-analyzer",
