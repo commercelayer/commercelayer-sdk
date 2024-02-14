@@ -7,8 +7,8 @@ import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import type { CustomPromotionRule } from './custom_promotion_rules'
-import type { Coupon } from './coupons'
 import type { SkuList } from './sku_lists'
+import type { Coupon } from './coupons'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
@@ -18,12 +18,10 @@ import type { Sku } from './skus'
 
 type FixedAmountPromotionRel = ResourceRel & { type: typeof FixedAmountPromotions.TYPE }
 type MarketRel = ResourceRel & { type: 'markets' }
-type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
 type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
 type CustomPromotionRuleRel = ResourceRel & { type: 'custom_promotion_rules' }
-type CouponRel = ResourceRel & { type: 'coupons' }
 type SkuListRel = ResourceRel & { type: 'sku_lists' }
 type TagRel = ResourceRel & { type: 'tags' }
 
@@ -50,8 +48,8 @@ interface FixedAmountPromotion extends Resource {
 	sku_list_promotion_rule?: SkuListPromotionRule
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule
 	custom_promotion_rule?: CustomPromotionRule
-	coupons?: Coupon[]
 	sku_list?: SkuList
+	coupons?: Coupon[]
 	attachments?: Attachment[]
 	events?: Event[]
 	tags?: Tag[]
@@ -75,12 +73,10 @@ interface FixedAmountPromotionCreate extends ResourceCreate {
 	fixed_amount_cents: number
 
 	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
 	custom_promotion_rule?: CustomPromotionRuleRel
-	coupons?: CouponRel[]
 	sku_list?: SkuListRel
 	tags?: TagRel[]
 
@@ -101,12 +97,10 @@ interface FixedAmountPromotionUpdate extends ResourceUpdate {
 	fixed_amount_cents?: number
 
 	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
 	custom_promotion_rule?: CustomPromotionRuleRel
-	coupons?: CouponRel[]
 	sku_list?: SkuListRel
 	tags?: TagRel[]
 
@@ -163,14 +157,14 @@ class FixedAmountPromotions extends ApiResource {
 		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
 	}
 
-	async coupons(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
-		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
-	}
-
 	async sku_list(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
 		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async coupons(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
+		return this.resources.fetch<Coupon>({ type: 'coupons' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
 	}
 
 	async attachments(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

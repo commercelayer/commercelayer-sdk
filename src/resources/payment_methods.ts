@@ -19,6 +19,7 @@ interface PaymentMethod extends Resource {
 	currency_code?: string
 	moto?: boolean
 	require_capture?: boolean
+	auto_place?: boolean
 	auto_capture?: boolean
 	disabled_at?: string
 	price_amount_cents?: number
@@ -42,6 +43,7 @@ interface PaymentMethodCreate extends ResourceCreate {
 	currency_code?: string
 	moto?: boolean
 	require_capture?: boolean
+	auto_place?: boolean
 	auto_capture?: boolean
 	_disable?: boolean
 	_enable?: boolean
@@ -60,6 +62,7 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 	currency_code?: string
 	moto?: boolean
 	require_capture?: boolean
+	auto_place?: boolean
 	auto_capture?: boolean
 	_disable?: boolean
 	_enable?: boolean

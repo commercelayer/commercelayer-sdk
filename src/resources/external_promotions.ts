@@ -7,8 +7,8 @@ import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import type { CustomPromotionRule } from './custom_promotion_rules'
-import type { Coupon } from './coupons'
 import type { SkuList } from './sku_lists'
+import type { Coupon } from './coupons'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
@@ -18,12 +18,10 @@ import type { Sku } from './skus'
 
 type ExternalPromotionRel = ResourceRel & { type: typeof ExternalPromotions.TYPE }
 type MarketRel = ResourceRel & { type: 'markets' }
-type PromotionRuleRel = ResourceRel & { type: 'promotion_rules' }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: 'order_amount_promotion_rules' }
 type SkuListPromotionRuleRel = ResourceRel & { type: 'sku_list_promotion_rules' }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: 'coupon_codes_promotion_rules' }
 type CustomPromotionRuleRel = ResourceRel & { type: 'custom_promotion_rules' }
-type CouponRel = ResourceRel & { type: 'coupons' }
 type SkuListRel = ResourceRel & { type: 'sku_lists' }
 type TagRel = ResourceRel & { type: 'tags' }
 
@@ -49,8 +47,8 @@ interface ExternalPromotion extends Resource {
 	sku_list_promotion_rule?: SkuListPromotionRule
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule
 	custom_promotion_rule?: CustomPromotionRule
-	coupons?: Coupon[]
 	sku_list?: SkuList
+	coupons?: Coupon[]
 	attachments?: Attachment[]
 	events?: Event[]
 	tags?: Tag[]
@@ -74,12 +72,10 @@ interface ExternalPromotionCreate extends ResourceCreate {
 	promotion_url: string
 
 	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
 	custom_promotion_rule?: CustomPromotionRuleRel
-	coupons?: CouponRel[]
 	sku_list?: SkuListRel
 	tags?: TagRel[]
 
@@ -100,12 +96,10 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	promotion_url?: string
 
 	market?: MarketRel
-	promotion_rules?: PromotionRuleRel[]
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel
 	custom_promotion_rule?: CustomPromotionRuleRel
-	coupons?: CouponRel[]
 	sku_list?: SkuListRel
 	tags?: TagRel[]
 
@@ -162,14 +156,14 @@ class ExternalPromotions extends ApiResource {
 		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `external_promotions/${_externalPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
 	}
 
-	async coupons(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
-		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `external_promotions/${_externalPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
-	}
-
 	async sku_list(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `external_promotions/${_externalPromotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async coupons(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<Coupon>({ type: 'coupons' }, `external_promotions/${_externalPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
 	}
 
 	async attachments(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

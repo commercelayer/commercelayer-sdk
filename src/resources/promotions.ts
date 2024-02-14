@@ -7,8 +7,8 @@ import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import type { CustomPromotionRule } from './custom_promotion_rules'
-import type { Coupon } from './coupons'
 import type { SkuList } from './sku_lists'
+import type { Coupon } from './coupons'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
@@ -37,8 +37,8 @@ interface Promotion extends Resource {
 	sku_list_promotion_rule?: SkuListPromotionRule
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule
 	custom_promotion_rule?: CustomPromotionRule
-	coupons?: Coupon[]
 	sku_list?: SkuList
+	coupons?: Coupon[]
 	attachments?: Attachment[]
 	events?: Event[]
 	tags?: Tag[]
@@ -85,14 +85,14 @@ class Promotions extends ApiResource {
 		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `promotions/${_promotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
 	}
 
-	async coupons(promotionId: string | Promotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
-		const _promotionId = (promotionId as Promotion).id || promotionId as string
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `promotions/${_promotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
-	}
-
 	async sku_list(promotionId: string | Promotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		const _promotionId = (promotionId as Promotion).id || promotionId as string
 		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `promotions/${_promotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async coupons(promotionId: string | Promotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+		const _promotionId = (promotionId as Promotion).id || promotionId as string
+		return this.resources.fetch<Coupon>({ type: 'coupons' }, `promotions/${_promotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
 	}
 
 	async attachments(promotionId: string | Promotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

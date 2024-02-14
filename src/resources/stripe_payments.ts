@@ -12,6 +12,7 @@ type OrderRel = ResourceRel & { type: 'orders' }
 
 interface StripePayment extends Resource {
 	
+	stripe_id?: string
 	client_secret?: string
 	publishable_key?: string
 	options?: object
@@ -33,6 +34,8 @@ interface StripePayment extends Resource {
 
 interface StripePaymentCreate extends ResourceCreate {
 	
+	stripe_id?: string
+	client_secret?: string
 	options?: object
 	return_url?: string
 	receipt_email?: string
