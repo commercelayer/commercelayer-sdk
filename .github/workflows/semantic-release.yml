@@ -1,9 +1,9 @@
 name: Release
 on:
   push:
-    branches: [ main ]
+    branches: [ sdk4 ]
   pull_request:
-    branches: [ main ]
+    branches: [ sdk4 ]
 jobs:
   release:
     name: Release
@@ -24,7 +24,7 @@ jobs:
           node-version: 'lts/*'
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Build package
         run: pnpm build
       - name: Run specs
