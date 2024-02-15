@@ -2,6 +2,7 @@
 import { inspect } from 'util'
 import commercelayer, { Tag } from '../src/index'
 import getToken from './token'
+import { error } from 'console'
 
 
 (async () => {
@@ -17,10 +18,10 @@ import getToken from './token'
 
 	try {
 
-		const customers = await cl.customers.list({ filters: { metadata_jcont: { testkey: 'meta' }}})
-
-	console.log(customers)
-
+		cl.customers.create({ email: 'fake' }).catch(error => {
+			if (cl.isApiError(error)) console.log(error.errors)
+		})
+	
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))
 		console.log(error.message)
