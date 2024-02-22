@@ -18,9 +18,14 @@ import { error } from 'console'
 
 	try {
 
-		cl.customers.create({ email: 'fake' }).catch(error => {
-			if (cl.isApiError(error)) console.log(error.errors)
-		})
+		fetch("http://httpstat.us/429")
+    .then(res => {
+		console.log('RESPONSE')
+        console.log(res)
+    }).catch(err => {
+		console.log('ERROR')
+        console.log(err)
+    });
 	
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))
