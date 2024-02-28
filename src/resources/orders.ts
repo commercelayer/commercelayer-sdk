@@ -35,6 +35,7 @@ import type { OrderFactory } from './order_factories'
 import type { OrderCopy } from './order_copies'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Attachment } from './attachments'
+import type { ResourceError } from './resource_errors'
 import type { Event } from './events'
 import type { Tag } from './tags'
 import type { Version } from './versions'
@@ -62,6 +63,7 @@ interface Order extends Resource {
 	
 	number?: string
 	autorefresh?: boolean
+	place_async?: boolean
 	status?: string
 	payment_status?: string
 	fulfillment_status?: string
@@ -149,6 +151,7 @@ interface Order extends Resource {
 	shipments_count?: number
 	tax_calculations_count?: number
 	validations_count?: number
+	errors_count?: number
 	payment_source_details?: object
 	token?: string
 	cart_url?: string
@@ -195,6 +198,7 @@ interface Order extends Resource {
 	order_copies?: OrderCopy[]
 	recurring_order_copies?: RecurringOrderCopy[]
 	attachments?: Attachment[]
+	resource_errors?: ResourceError[]
 	events?: Event[]
 	tags?: Tag[]
 	versions?: Version[]
@@ -206,6 +210,7 @@ interface OrderCreate extends ResourceCreate {
 	
 	number?: string
 	autorefresh?: boolean
+	place_async?: boolean
 	guest?: boolean
 	customer_email?: string
 	customer_password?: string
@@ -237,6 +242,7 @@ interface OrderUpdate extends ResourceUpdate {
 	
 	number?: string
 	autorefresh?: boolean
+	place_async?: boolean
 	guest?: boolean
 	customer_email?: string
 	customer_password?: string
@@ -254,6 +260,7 @@ interface OrderUpdate extends ResourceUpdate {
 	privacy_url?: string
 	_archive?: boolean
 	_unarchive?: boolean
+	_pending?: boolean
 	_place?: boolean
 	_cancel?: boolean
 	_approve?: boolean
@@ -449,6 +456,11 @@ class Orders extends ApiResource {
 	async attachments(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `orders/${_orderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async resource_errors(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ResourceError>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<ResourceError>({ type: 'resource_errors' }, `orders/${_orderId}/resource_errors`, params, options) as unknown as ListResponse<ResourceError>
 	}
 
 	async events(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
