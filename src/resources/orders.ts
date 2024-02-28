@@ -36,6 +36,7 @@ import type { OrderFactory } from './order_factories'
 import type { OrderCopy } from './order_copies'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Attachment } from './attachments'
+import type { ResourceError } from './resource_errors'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
@@ -66,7 +67,8 @@ interface Order extends Resource {
 
 	number?: string | null
 	autorefresh?: boolean | null
-	status: 'draft' | 'pending' | 'placed' | 'editing' | 'approved' | 'cancelled'
+	place_async?: boolean | null
+	status: 'draft' | 'pending' | 'placing' | 'placed' | 'editing' | 'approved' | 'cancelled'
 	payment_status: 'unpaid' | 'authorized' | 'partially_authorized' | 'paid' | 'partially_paid' | 'voided' | 'partially_voided' | 'refunded' | 'partially_refunded' | 'free'
 	fulfillment_status: 'unfulfilled' | 'in_progress' | 'fulfilled' | 'not_required'
 	guest?: boolean | null
@@ -153,6 +155,7 @@ interface Order extends Resource {
 	shipments_count?: number | null
 	tax_calculations_count?: number | null
 	validations_count?: number | null
+	errors_count?: number | null
 	payment_source_details?: Record<string, any> | null
 	token?: string | null
 	cart_url?: string | null
@@ -199,6 +202,7 @@ interface Order extends Resource {
 	order_copies?: OrderCopy[] | null
 	recurring_order_copies?: RecurringOrderCopy[] | null
 	attachments?: Attachment[] | null
+	resource_errors?: ResourceError[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
@@ -210,6 +214,7 @@ interface OrderCreate extends ResourceCreate {
 	
 	number?: string | null
 	autorefresh?: boolean | null
+	place_async?: boolean | null
 	guest?: boolean | null
 	customer_email?: string | null
 	customer_password?: string | null
@@ -241,6 +246,7 @@ interface OrderUpdate extends ResourceUpdate {
 	
 	number?: string | null
 	autorefresh?: boolean | null
+	place_async?: boolean | null
 	guest?: boolean | null
 	customer_email?: string | null
 	customer_password?: string | null
@@ -258,6 +264,7 @@ interface OrderUpdate extends ResourceUpdate {
 	privacy_url?: string | null
 	_archive?: boolean | null
 	_unarchive?: boolean | null
+	_pending?: boolean | null
 	_place?: boolean | null
 	_cancel?: boolean | null
 	_approve?: boolean | null
@@ -446,6 +453,11 @@ class Orders extends ApiResource<Order> {
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `orders/${_orderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
+	async resource_errors(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ResourceError>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<ResourceError>({ type: 'resource_errors' }, `orders/${_orderId}/resource_errors`, params, options) as unknown as ListResponse<ResourceError>
+	}
+
 	async events(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `orders/${_orderId}/events`, params, options) as unknown as ListResponse<Event>
@@ -467,6 +479,10 @@ class Orders extends ApiResource<Order> {
 
 	async _unarchive(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _unarchive: true }, params, options)
+	}
+
+	async _pending(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _pending: true }, params, options)
 	}
 
 	async _place(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {

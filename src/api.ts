@@ -94,6 +94,7 @@ export { default as Promotions } from './resources/promotions'
 export { default as RecurringOrderCopies } from './resources/recurring_order_copies'
 export { default as Refunds } from './resources/refunds'
 export { default as ReservedStocks } from './resources/reserved_stocks'
+export { default as ResourceErrors } from './resources/resource_errors'
 export { default as ReturnLineItems } from './resources/return_line_items'
 export { default as Returns } from './resources/returns'
 export { default as SatispayGateways } from './resources/satispay_gateways'
@@ -219,6 +220,7 @@ export type ResourceTypeLock =
 |	'recurring_order_copies'
 |	'refunds'
 |	'reserved_stocks'
+|	'resource_errors'
 |	'return_line_items'
 |	'returns'
 |	'satispay_gateways'
@@ -344,6 +346,7 @@ export const resourceList = [
 	'recurring_order_copies',
 	'refunds',
 	'reserved_stocks',
+	'resource_errors',
 	'return_line_items',
 	'returns',
 	'satispay_gateways',

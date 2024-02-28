@@ -36,6 +36,7 @@ interface GiftCard extends Resource {
 	balance_log: Array<Record<string, any>>
 	single_use?: boolean | null
 	rechargeable?: boolean | null
+	distribute_discount?: boolean | null
 	image_url?: string | null
 	expires_at?: string | null
 	recipient_email?: string | null
@@ -58,6 +59,7 @@ interface GiftCardCreate extends ResourceCreate {
 	balance_max_cents?: string | null
 	single_use?: boolean | null
 	rechargeable?: boolean | null
+	distribute_discount?: boolean | null
 	image_url?: string | null
 	expires_at?: string | null
 	recipient_email?: string | null
@@ -76,6 +78,7 @@ interface GiftCardUpdate extends ResourceUpdate {
 	balance_max_cents?: string | null
 	single_use?: boolean | null
 	rechargeable?: boolean | null
+	distribute_discount?: boolean | null
 	image_url?: string | null
 	expires_at?: string | null
 	recipient_email?: string | null
