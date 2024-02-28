@@ -31,12 +31,10 @@ describe('BuyXPayYPromotions resource', () => {
 			x: randomValue('integer', 'x'),
 			y: randomValue('integer', 'y'),
 			market: cl.markets.relationship(TestData.id),
-			promotion_rules: [ cl.promotion_rules.relationship(TestData.id) ],
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
 			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
 			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
 			custom_promotion_rule: cl.custom_promotion_rules.relationship(TestData.id),
-			coupons: [ cl.coupons.relationship(TestData.id) ],
 			sku_list: cl.sku_lists.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
@@ -311,27 +309,6 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.custom_promotion_rule stop */
 	
 
-	/* relationship.coupons start */
-	it(resourceType + '.coupons', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { coupons: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'coupons')
-			checkCommonParams(config, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].coupons(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
-	
-	})
-	/* relationship.coupons stop */
-	
-
 	/* relationship.sku_list start */
 	it(resourceType + '.sku_list', async () => {
 	
@@ -351,6 +328,27 @@ describe('BuyXPayYPromotions resource', () => {
 	
 	})
 	/* relationship.sku_list stop */
+	
+
+	/* relationship.coupons start */
+	it(resourceType + '.coupons', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { coupons: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'coupons')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].coupons(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.coupons stop */
 	
 
 	/* relationship.attachments start */

@@ -16,7 +16,8 @@ interface StripePayment extends Resource {
 	
 	readonly type: StripePaymentType
 
-	client_secret: string
+	stripe_id?: string | null
+	client_secret?: string | null
 	publishable_key?: string | null
 	options?: Record<string, any> | null
 	payment_method?: Record<string, any> | null
@@ -37,6 +38,8 @@ interface StripePayment extends Resource {
 
 interface StripePaymentCreate extends ResourceCreate {
 	
+	stripe_id?: string | null
+	client_secret?: string | null
 	options?: Record<string, any> | null
 	return_url?: string | null
 	receipt_email?: string | null

@@ -766,6 +766,27 @@ describe('Orders resource', () => {
 	/* relationship.attachments stop */
 	
 
+	/* relationship.resource_errors start */
+	it(resourceType + '.resource_errors', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { resource_errors: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'resource_errors')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].resource_errors(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.resource_errors stop */
+	
+
 	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
@@ -878,6 +899,31 @@ describe('Orders resource', () => {
 	
 	})
 	/* trigger._unarchive stop */
+	
+
+	/* trigger._pending start */
+	it(resourceType + '._pending', async () => {
+	
+		let triggerAttr = '_pending'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._pending(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._pending stop */
 	
 
 	/* trigger._place start */
