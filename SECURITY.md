@@ -9,7 +9,6 @@
 | 4.x.x   | :x:                |
 | 3.5.x   | :x:                |
 | < 3.5.x | :x:                |
-| < 2.x.x | :x:                |
 
 ## Reporting a Vulnerability
 
