@@ -30,8 +30,8 @@ jobs:
       - name: Run specs
         env:
           CL_SDK_ORGANIZATION: sdk-test-org
-          CL_SDK_CLIENT_ID: yOIJ1s3ez-hi1VhIlVk30Fe7EK152ixnfGN1zEkiX0I
-          CL_SDK_CLIENT_SECRET: XTP4tDrA2u-56I3NwYk1wIpmSHvl2kTqyetkSJw2KzI
+          CL_SDK_CLIENT_ID: ${{secrets.CL_SDK_CLIENT_ID}}
+          CL_SDK_CLIENT_SECRET: ${{secrets.CL_SDK_CLIENT_SECRET}}
         run: pnpm test
       - name: Release
         env:
