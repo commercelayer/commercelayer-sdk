@@ -1,3 +1,10 @@
+## [5.33.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.33.0...v5.33.1) (2024-03-01)
+
+
+### Bug Fixes
+
+* fix env secrets ([8f99269](https://github.com/commercelayer/commercelayer-sdk/commit/8f992699c00e7a57d758eece49b92030e7fa951e))
+
 # [5.33.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.32.0...v5.33.0) (2024-02-28)
 
 
