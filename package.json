@@ -4,10 +4,6 @@
   "main": "lib/cjs/index.js",
   "types": "lib/cjs/index.d.ts",
   "module": "lib/esm/index.js",
-  "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
-  },
   "scripts": {
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
     "build": "tsc -b tsconfig.json tsconfig.esm.json --verbose",
