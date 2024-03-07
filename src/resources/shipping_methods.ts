@@ -30,7 +30,6 @@ interface ShippingMethod extends Resource {
 	scheme?: string | null
 	currency_code?: string | null
 	external_prices_url?: string | null
-	disabled_at?: string | null
 	price_amount_cents: number
 	price_amount_float?: number | null
 	formatted_price_amount?: string | null
@@ -44,6 +43,9 @@ interface ShippingMethod extends Resource {
 	min_weight?: number | null
 	max_weight?: number | null
 	unit_of_weight?: string | null
+	disabled_at?: string | null
+	circuit_state?: string | null
+	circuit_failure_count?: number | null
 
 	market?: Market | null
 	shipping_zone?: ShippingZone | null
@@ -64,14 +66,14 @@ interface ShippingMethodCreate extends ResourceCreate {
 	scheme?: string | null
 	currency_code?: string | null
 	external_prices_url?: string | null
-	_disable?: boolean | null
-	_enable?: boolean | null
 	price_amount_cents: number
 	free_over_amount_cents?: number | null
 	use_subtotal?: boolean | null
 	min_weight?: number | null
 	max_weight?: number | null
 	unit_of_weight?: string | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 
 	market?: MarketRel | null
 	shipping_zone?: ShippingZoneRel | null
@@ -88,14 +90,15 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	scheme?: string | null
 	currency_code?: string | null
 	external_prices_url?: string | null
-	_disable?: boolean | null
-	_enable?: boolean | null
 	price_amount_cents?: number | null
 	free_over_amount_cents?: number | null
 	use_subtotal?: boolean | null
 	min_weight?: number | null
 	max_weight?: number | null
 	unit_of_weight?: string | null
+	_disable?: boolean | null
+	_enable?: boolean | null
+	_reset_circuit?: boolean | null
 
 	market?: MarketRel | null
 	shipping_zone?: ShippingZoneRel | null
@@ -173,6 +176,10 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 
 	async _enable(id: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ id: (typeof id === 'string')? id: id.id, type: ShippingMethods.TYPE, _enable: true }, params, options)
+	}
+
+	async _reset_circuit(id: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ id: (typeof id === 'string')? id: id.id, type: ShippingMethods.TYPE, _reset_circuit: true }, params, options)
 	}
 
 

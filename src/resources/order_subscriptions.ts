@@ -46,10 +46,6 @@ interface OrderSubscription extends Resource {
 	customer_payment_source?: CustomerPaymentSource | null
 	order_subscription_items?: OrderSubscriptionItem[] | null
 	order_factories?: OrderFactory[] | null
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	order_copies?: object[]
 	recurring_order_copies?: RecurringOrderCopy[] | null
 	orders?: Order[] | null
 	events?: Event[] | null

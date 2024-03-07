@@ -43,6 +43,8 @@ interface ExternalPromotion extends Resource {
 	active?: boolean | null
 	disabled_at?: string | null
 	promotion_url: string
+	circuit_state?: string | null
+	circuit_failure_count?: number | null
 	shared_secret: string
 
 	market?: Market | null
@@ -98,6 +100,7 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	_disable?: boolean | null
 	_enable?: boolean | null
 	promotion_url?: string | null
+	_reset_circuit?: boolean | null
 
 	market?: MarketRel | null
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
@@ -192,6 +195,10 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 
 	async _enable(id: string | ExternalPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
 		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ id: (typeof id === 'string')? id: id.id, type: ExternalPromotions.TYPE, _enable: true }, params, options)
+	}
+
+	async _reset_circuit(id: string | ExternalPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalPromotion> {
+		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ id: (typeof id === 'string')? id: id.id, type: ExternalPromotions.TYPE, _reset_circuit: true }, params, options)
 	}
 
 

@@ -25,10 +25,6 @@ interface ParcelLineItem extends Resource {
 
 	parcel?: Parcel | null
 	stock_line_item?: StockLineItem | null
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	shipment_line_item?: object
 	versions?: Version[] | null
 
 }
@@ -40,10 +36,6 @@ interface ParcelLineItemCreate extends ResourceCreate {
 
 	parcel: ParcelRel
 	stock_line_item: StockLineItemRel
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	shipment_line_item?: object
 
 }
 
