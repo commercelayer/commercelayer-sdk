@@ -172,6 +172,8 @@ interface Order extends Resource {
 	archived_at?: string | null
 	expires_at?: string | null
 	subscription_created_at?: string | null
+	circuit_state?: string | null
+	circuit_failure_count?: number | null
 
 	market?: Market | null
 	customer?: Customer | null
@@ -290,6 +292,7 @@ interface OrderUpdate extends ResourceUpdate {
 	_create_subscriptions?: boolean | null
 	_start_editing?: boolean | null
 	_stop_editing?: boolean | null
+	_reset_circuit?: boolean | null
 
 	market?: MarketRel | null
 	customer?: CustomerRel | null
@@ -583,6 +586,10 @@ class Orders extends ApiResource<Order> {
 
 	async _stop_editing(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _stop_editing: true }, params, options)
+	}
+
+	async _reset_circuit(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _reset_circuit: true }, params, options)
 	}
 
 

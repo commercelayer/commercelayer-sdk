@@ -16,12 +16,14 @@ interface ExternalGateway extends Resource {
 	readonly type: ExternalGatewayType
 
 	name: string
-	shared_secret: string
 	authorize_url?: string | null
 	capture_url?: string | null
 	void_url?: string | null
 	refund_url?: string | null
 	token_url?: string | null
+	circuit_state?: string | null
+	circuit_failure_count?: number | null
+	shared_secret: string
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
@@ -50,6 +52,7 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 	void_url?: string | null
 	refund_url?: string | null
 	token_url?: string | null
+	_reset_circuit?: boolean | null
 	
 }
 
@@ -83,6 +86,10 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 	async external_payments(externalGatewayId: string | ExternalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
 		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
 		return this.resources.fetch<ExternalPayment>({ type: 'external_payments' }, `external_gateways/${_externalGatewayId}/external_payments`, params, options) as unknown as ListResponse<ExternalPayment>
+	}
+
+	async _reset_circuit(id: string | ExternalGateway, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
+		return this.resources.update<ExternalGatewayUpdate, ExternalGateway>({ id: (typeof id === 'string')? id: id.id, type: ExternalGateways.TYPE, _reset_circuit: true }, params, options)
 	}
 
 

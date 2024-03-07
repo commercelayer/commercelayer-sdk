@@ -17,6 +17,8 @@ interface ExternalTaxCalculator extends Resource {
 
 	name: string
 	tax_calculator_url: string
+	circuit_state?: string | null
+	circuit_failure_count?: number | null
 	shared_secret: string
 
 	markets?: Market[] | null
@@ -38,6 +40,7 @@ interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	
 	name?: string | null
 	tax_calculator_url?: string | null
+	_reset_circuit?: boolean | null
 	
 }
 
@@ -71,6 +74,10 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 	async versions(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `external_tax_calculators/${_externalTaxCalculatorId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _reset_circuit(id: string | ExternalTaxCalculator, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
+		return this.resources.update<ExternalTaxCalculatorUpdate, ExternalTaxCalculator>({ id: (typeof id === 'string')? id: id.id, type: ExternalTaxCalculators.TYPE, _reset_circuit: true }, params, options)
 	}
 
 
