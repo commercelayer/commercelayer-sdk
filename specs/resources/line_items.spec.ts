@@ -30,6 +30,10 @@ describe('LineItems resource', () => {
 			item: cl.adjustments.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 			bundle: cl.bundles.relationship(TestData.id),
+			adjustment: cl.adjustments.relationship(TestData.id),
+			gift_card: cl.gift_cards.relationship(TestData.id),
+			shipment: cl.shipments.relationship(TestData.id),
+			payment_method: cl.payment_methods.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 

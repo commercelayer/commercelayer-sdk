@@ -39,6 +39,8 @@ interface ExternalPromotion extends Resource {
 	active?: boolean
 	disabled_at?: string
 	promotion_url?: string
+	circuit_state?: string
+	circuit_failure_count?: number
 	shared_secret?: string
 
 	market?: Market
@@ -94,6 +96,7 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	_disable?: boolean
 	_enable?: boolean
 	promotion_url?: string
+	_reset_circuit?: boolean
 
 	market?: MarketRel
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel

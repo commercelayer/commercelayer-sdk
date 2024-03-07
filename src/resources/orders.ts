@@ -168,6 +168,8 @@ interface Order extends Resource {
 	archived_at?: string
 	expires_at?: string
 	subscription_created_at?: string
+	circuit_state?: string
+	circuit_failure_count?: number
 
 	market?: Market
 	customer?: Customer
@@ -286,6 +288,7 @@ interface OrderUpdate extends ResourceUpdate {
 	_create_subscriptions?: boolean
 	_start_editing?: boolean
 	_stop_editing?: boolean
+	_reset_circuit?: boolean
 
 	market?: MarketRel
 	customer?: CustomerRel

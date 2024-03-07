@@ -26,7 +26,6 @@ interface ShippingMethod extends Resource {
 	scheme?: string
 	currency_code?: string
 	external_prices_url?: string
-	disabled_at?: string
 	price_amount_cents?: number
 	price_amount_float?: number
 	formatted_price_amount?: string
@@ -40,6 +39,9 @@ interface ShippingMethod extends Resource {
 	min_weight?: number
 	max_weight?: number
 	unit_of_weight?: string
+	disabled_at?: string
+	circuit_state?: string
+	circuit_failure_count?: number
 
 	market?: Market
 	shipping_zone?: ShippingZone
@@ -60,14 +62,14 @@ interface ShippingMethodCreate extends ResourceCreate {
 	scheme?: string
 	currency_code?: string
 	external_prices_url?: string
-	_disable?: boolean
-	_enable?: boolean
 	price_amount_cents: number
 	free_over_amount_cents?: number
 	use_subtotal?: boolean
 	min_weight?: number
 	max_weight?: number
 	unit_of_weight?: string
+	_disable?: boolean
+	_enable?: boolean
 
 	market?: MarketRel
 	shipping_zone?: ShippingZoneRel
@@ -84,14 +86,15 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	scheme?: string
 	currency_code?: string
 	external_prices_url?: string
-	_disable?: boolean
-	_enable?: boolean
 	price_amount_cents?: number
 	free_over_amount_cents?: number
 	use_subtotal?: boolean
 	min_weight?: number
 	max_weight?: number
 	unit_of_weight?: string
+	_disable?: boolean
+	_enable?: boolean
+	_reset_circuit?: boolean
 
 	market?: MarketRel
 	shipping_zone?: ShippingZoneRel

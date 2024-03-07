@@ -29,9 +29,9 @@ interface Market extends Resource {
 	checkout_url?: string
 	external_prices_url?: string
 	external_order_validation_url?: string
-	shared_secret?: string
 	private?: boolean
 	disabled_at?: string
+	shared_secret?: string
 
 	merchant?: Merchant
 	price_list?: PriceList

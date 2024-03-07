@@ -14,10 +14,10 @@ interface Webhook extends Resource {
 	topic?: string
 	callback_url?: string
 	include_resources?: string[]
+	disabled_at?: string
 	circuit_state?: string
 	circuit_failure_count?: number
 	shared_secret?: string
-	disabled_at?: string
 
 	last_event_callbacks?: EventCallback[]
 	versions?: Version[]
@@ -43,9 +43,9 @@ interface WebhookUpdate extends ResourceUpdate {
 	topic?: string
 	callback_url?: string
 	include_resources?: string[]
-	_reset_circuit?: boolean
 	_disable?: boolean
 	_enable?: boolean
+	_reset_circuit?: boolean
 	
 }
 

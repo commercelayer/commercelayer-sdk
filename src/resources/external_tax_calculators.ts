@@ -13,6 +13,8 @@ interface ExternalTaxCalculator extends Resource {
 	
 	name?: string
 	tax_calculator_url?: string
+	circuit_state?: string
+	circuit_failure_count?: number
 	shared_secret?: string
 
 	markets?: Market[]
@@ -34,6 +36,7 @@ interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	
 	name?: string
 	tax_calculator_url?: string
+	_reset_circuit?: boolean
 	
 }
 

@@ -12,12 +12,14 @@ type ExternalGatewayRel = ResourceRel & { type: typeof ExternalGateways.TYPE }
 interface ExternalGateway extends Resource {
 	
 	name?: string
-	shared_secret?: string
 	authorize_url?: string
 	capture_url?: string
 	void_url?: string
 	refund_url?: string
 	token_url?: string
+	circuit_state?: string
+	circuit_failure_count?: number
+	shared_secret?: string
 
 	payment_methods?: PaymentMethod[]
 	versions?: Version[]
@@ -46,6 +48,7 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 	void_url?: string
 	refund_url?: string
 	token_url?: string
+	_reset_circuit?: boolean
 	
 }
 

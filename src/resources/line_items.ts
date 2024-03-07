@@ -69,17 +69,19 @@ interface LineItem extends Resource {
 	item_type?: string
 	frequency?: string
 	coupon_code?: string
+	circuit_state?: string
+	circuit_failure_count?: number
 
 	order?: Order
 	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku
 	sku?: Sku
 	bundle?: Bundle
+	adjustment?: Adjustment
+	gift_card?: GiftCard
+	shipment?: Shipment
+	payment_method?: PaymentMethod
 	line_item_options?: LineItemOption[]
 	return_line_items?: ReturnLineItem[]
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	shipment_line_items?: object[]
 	stock_reservations?: StockReservation[]
 	stock_line_items?: StockLineItem[]
 	stock_transfers?: StockTransfer[]
@@ -108,6 +110,10 @@ interface LineItemCreate extends ResourceCreate {
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel
 	sku?: SkuRel
 	bundle?: BundleRel
+	adjustment?: AdjustmentRel
+	gift_card?: GiftCardRel
+	shipment?: ShipmentRel
+	payment_method?: PaymentMethodRel
 	tags?: TagRel[]
 
 }
@@ -124,6 +130,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	name?: string
 	image_url?: string
 	frequency?: string
+	_reset_circuit?: boolean
 
 	tags?: TagRel[]
 
