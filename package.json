@@ -30,7 +30,7 @@
     "lib/**/*"
   ],
   "engines": {
-    "node": ">=16 || ^14.17"
+    "node": ">=20"
   },
   "dependencies": {
     "axios": "1.6.7"

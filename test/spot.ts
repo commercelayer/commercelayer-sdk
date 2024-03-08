@@ -1,6 +1,6 @@
 
+import commercelayer from '../lib/esm'
 import { inspect } from 'util'
-import commercelayer, { Tag } from '../src/index'
 import getToken from './token'
 import { error } from 'console'
 
