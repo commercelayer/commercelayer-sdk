@@ -117,7 +117,11 @@ class InStockSubscriptions extends ApiResource<InStockSubscription> {
 
 
 	relationship(id: string | ResourceId | null): InStockSubscriptionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: InStockSubscriptions.TYPE } : { id: id.id, type: InStockSubscriptions.TYPE }
+		return super.relationshipOneToOne<InStockSubscriptionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): InStockSubscriptionRel[] {
+		return super.relationshipOneToMany<InStockSubscriptionRel>(...ids)
 	}
 
 

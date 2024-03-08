@@ -265,7 +265,11 @@ class Shipments extends ApiResource<Shipment> {
 
 
 	relationship(id: string | ResourceId | null): ShipmentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Shipments.TYPE } : { id: id.id, type: Shipments.TYPE }
+		return super.relationshipOneToOne<ShipmentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ShipmentRel[] {
+		return super.relationshipOneToMany<ShipmentRel>(...ids)
 	}
 
 

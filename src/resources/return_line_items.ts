@@ -87,7 +87,11 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 
 
 	relationship(id: string | ResourceId | null): ReturnLineItemRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ReturnLineItems.TYPE } : { id: id.id, type: ReturnLineItems.TYPE }
+		return super.relationshipOneToOne<ReturnLineItemRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ReturnLineItemRel[] {
+		return super.relationshipOneToMany<ReturnLineItemRel>(...ids)
 	}
 
 

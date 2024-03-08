@@ -45,7 +45,11 @@ class Organizations extends ApiSingleton<Organization> {
 
 
 	relationship(id: string | ResourceId | null): OrganizationRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Organizations.TYPE } : { id: id.id, type: Organizations.TYPE }
+		return super.relationshipOneToOne<OrganizationRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): OrganizationRel[] {
+		return super.relationshipOneToMany<OrganizationRel>(...ids)
 	}
 
 

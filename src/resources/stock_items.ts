@@ -108,7 +108,11 @@ class StockItems extends ApiResource<StockItem> {
 
 
 	relationship(id: string | ResourceId | null): StockItemRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: StockItems.TYPE } : { id: id.id, type: StockItems.TYPE }
+		return super.relationshipOneToOne<StockItemRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): StockItemRel[] {
+		return super.relationshipOneToMany<StockItemRel>(...ids)
 	}
 
 

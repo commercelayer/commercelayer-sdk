@@ -94,7 +94,11 @@ class TaxCategories extends ApiResource<TaxCategory> {
 
 
 	relationship(id: string | ResourceId | null): TaxCategoryRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: TaxCategories.TYPE } : { id: id.id, type: TaxCategories.TYPE }
+		return super.relationshipOneToOne<TaxCategoryRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): TaxCategoryRel[] {
+		return super.relationshipOneToMany<TaxCategoryRel>(...ids)
 	}
 
 

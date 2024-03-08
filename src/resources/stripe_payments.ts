@@ -107,7 +107,11 @@ class StripePayments extends ApiResource<StripePayment> {
 
 
 	relationship(id: string | ResourceId | null): StripePaymentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: StripePayments.TYPE } : { id: id.id, type: StripePayments.TYPE }
+		return super.relationshipOneToOne<StripePaymentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): StripePaymentRel[] {
+		return super.relationshipOneToMany<StripePaymentRel>(...ids)
 	}
 
 

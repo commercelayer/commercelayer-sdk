@@ -74,7 +74,11 @@ class Refunds extends ApiResource<Refund> {
 
 
 	relationship(id: string | ResourceId | null): RefundRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Refunds.TYPE } : { id: id.id, type: Refunds.TYPE }
+		return super.relationshipOneToOne<RefundRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): RefundRel[] {
+		return super.relationshipOneToMany<RefundRel>(...ids)
 	}
 
 

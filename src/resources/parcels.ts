@@ -175,7 +175,11 @@ class Parcels extends ApiResource<Parcel> {
 
 
 	relationship(id: string | ResourceId | null): ParcelRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Parcels.TYPE } : { id: id.id, type: Parcels.TYPE }
+		return super.relationshipOneToOne<ParcelRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ParcelRel[] {
+		return super.relationshipOneToMany<ParcelRel>(...ids)
 	}
 
 

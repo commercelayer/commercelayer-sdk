@@ -99,7 +99,11 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 
 
 	relationship(id: string | ResourceId | null): AdyenGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: AdyenGateways.TYPE } : { id: id.id, type: AdyenGateways.TYPE }
+		return super.relationshipOneToOne<AdyenGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AdyenGatewayRel[] {
+		return super.relationshipOneToMany<AdyenGatewayRel>(...ids)
 	}
 
 

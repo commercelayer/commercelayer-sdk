@@ -76,7 +76,11 @@ class BillingInfoValidationRules extends ApiResource<BillingInfoValidationRule> 
 
 
 	relationship(id: string | ResourceId | null): BillingInfoValidationRuleRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: BillingInfoValidationRules.TYPE } : { id: id.id, type: BillingInfoValidationRules.TYPE }
+		return super.relationshipOneToOne<BillingInfoValidationRuleRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): BillingInfoValidationRuleRel[] {
+		return super.relationshipOneToMany<BillingInfoValidationRuleRel>(...ids)
 	}
 
 

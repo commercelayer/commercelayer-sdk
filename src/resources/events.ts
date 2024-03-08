@@ -43,7 +43,11 @@ class Events extends ApiResource<Event> {
 
 
 	relationship(id: string | ResourceId | null): EventRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Events.TYPE } : { id: id.id, type: Events.TYPE }
+		return super.relationshipOneToOne<EventRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): EventRel[] {
+		return super.relationshipOneToMany<EventRel>(...ids)
 	}
 
 

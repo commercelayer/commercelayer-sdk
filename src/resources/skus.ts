@@ -161,7 +161,11 @@ class Skus extends ApiResource<Sku> {
 
 
 	relationship(id: string | ResourceId | null): SkuRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Skus.TYPE } : { id: id.id, type: Skus.TYPE }
+		return super.relationshipOneToOne<SkuRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): SkuRel[] {
+		return super.relationshipOneToMany<SkuRel>(...ids)
 	}
 
 

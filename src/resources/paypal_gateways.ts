@@ -80,7 +80,11 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 
 
 	relationship(id: string | ResourceId | null): PaypalGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PaypalGateways.TYPE } : { id: id.id, type: PaypalGateways.TYPE }
+		return super.relationshipOneToOne<PaypalGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PaypalGatewayRel[] {
+		return super.relationshipOneToMany<PaypalGatewayRel>(...ids)
 	}
 
 

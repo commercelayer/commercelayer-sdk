@@ -126,7 +126,11 @@ class Attachments extends ApiResource<Attachment> {
 
 
 	relationship(id: string | ResourceId | null): AttachmentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Attachments.TYPE } : { id: id.id, type: Attachments.TYPE }
+		return super.relationshipOneToOne<AttachmentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AttachmentRel[] {
+		return super.relationshipOneToMany<AttachmentRel>(...ids)
 	}
 
 

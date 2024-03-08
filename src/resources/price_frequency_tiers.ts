@@ -96,7 +96,11 @@ class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier> {
 
 
 	relationship(id: string | ResourceId | null): PriceFrequencyTierRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PriceFrequencyTiers.TYPE } : { id: id.id, type: PriceFrequencyTiers.TYPE }
+		return super.relationshipOneToOne<PriceFrequencyTierRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PriceFrequencyTierRel[] {
+		return super.relationshipOneToMany<PriceFrequencyTierRel>(...ids)
 	}
 
 

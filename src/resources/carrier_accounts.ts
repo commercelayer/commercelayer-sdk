@@ -52,7 +52,11 @@ class CarrierAccounts extends ApiResource<CarrierAccount> {
 
 
 	relationship(id: string | ResourceId | null): CarrierAccountRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CarrierAccounts.TYPE } : { id: id.id, type: CarrierAccounts.TYPE }
+		return super.relationshipOneToOne<CarrierAccountRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CarrierAccountRel[] {
+		return super.relationshipOneToMany<CarrierAccountRel>(...ids)
 	}
 
 

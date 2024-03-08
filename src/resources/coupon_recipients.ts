@@ -87,7 +87,11 @@ class CouponRecipients extends ApiResource<CouponRecipient> {
 
 
 	relationship(id: string | ResourceId | null): CouponRecipientRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CouponRecipients.TYPE } : { id: id.id, type: CouponRecipients.TYPE }
+		return super.relationshipOneToOne<CouponRecipientRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CouponRecipientRel[] {
+		return super.relationshipOneToMany<CouponRecipientRel>(...ids)
 	}
 
 

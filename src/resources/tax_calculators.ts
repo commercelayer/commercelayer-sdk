@@ -50,7 +50,11 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
 
 
 	relationship(id: string | ResourceId | null): TaxCalculatorRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: TaxCalculators.TYPE } : { id: id.id, type: TaxCalculators.TYPE }
+		return super.relationshipOneToOne<TaxCalculatorRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): TaxCalculatorRel[] {
+		return super.relationshipOneToMany<TaxCalculatorRel>(...ids)
 	}
 
 

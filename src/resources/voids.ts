@@ -74,7 +74,11 @@ class Voids extends ApiResource<Void> {
 
 
 	relationship(id: string | ResourceId | null): VoidRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Voids.TYPE } : { id: id.id, type: Voids.TYPE }
+		return super.relationshipOneToOne<VoidRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): VoidRel[] {
+		return super.relationshipOneToMany<VoidRel>(...ids)
 	}
 
 

@@ -43,7 +43,11 @@ class PaymentGateways extends ApiResource<PaymentGateway> {
 
 
 	relationship(id: string | ResourceId | null): PaymentGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PaymentGateways.TYPE } : { id: id.id, type: PaymentGateways.TYPE }
+		return super.relationshipOneToOne<PaymentGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PaymentGatewayRel[] {
+		return super.relationshipOneToMany<PaymentGatewayRel>(...ids)
 	}
 
 

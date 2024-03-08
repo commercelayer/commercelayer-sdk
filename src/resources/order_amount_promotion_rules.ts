@@ -86,7 +86,11 @@ class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule> {
 
 
 	relationship(id: string | ResourceId | null): OrderAmountPromotionRuleRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: OrderAmountPromotionRules.TYPE } : { id: id.id, type: OrderAmountPromotionRules.TYPE }
+		return super.relationshipOneToOne<OrderAmountPromotionRuleRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): OrderAmountPromotionRuleRel[] {
+		return super.relationshipOneToMany<OrderAmountPromotionRuleRel>(...ids)
 	}
 
 

@@ -56,7 +56,11 @@ class OrderFactories extends ApiResource<OrderFactory> {
 
 
 	relationship(id: string | ResourceId | null): OrderFactoryRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: OrderFactories.TYPE } : { id: id.id, type: OrderFactories.TYPE }
+		return super.relationshipOneToOne<OrderFactoryRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): OrderFactoryRel[] {
+		return super.relationshipOneToMany<OrderFactoryRel>(...ids)
 	}
 
 

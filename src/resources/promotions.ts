@@ -117,7 +117,11 @@ class Promotions extends ApiResource<Promotion> {
 
 
 	relationship(id: string | ResourceId | null): PromotionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Promotions.TYPE } : { id: id.id, type: Promotions.TYPE }
+		return super.relationshipOneToOne<PromotionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PromotionRel[] {
+		return super.relationshipOneToMany<PromotionRel>(...ids)
 	}
 
 

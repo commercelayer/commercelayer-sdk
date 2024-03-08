@@ -103,7 +103,11 @@ class Packages extends ApiResource<Package> {
 
 
 	relationship(id: string | ResourceId | null): PackageRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Packages.TYPE } : { id: id.id, type: Packages.TYPE }
+		return super.relationshipOneToOne<PackageRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PackageRel[] {
+		return super.relationshipOneToMany<PackageRel>(...ids)
 	}
 
 

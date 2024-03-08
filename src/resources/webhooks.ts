@@ -99,7 +99,11 @@ class Webhooks extends ApiResource<Webhook> {
 
 
 	relationship(id: string | ResourceId | null): WebhookRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Webhooks.TYPE } : { id: id.id, type: Webhooks.TYPE }
+		return super.relationshipOneToOne<WebhookRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): WebhookRel[] {
+		return super.relationshipOneToMany<WebhookRel>(...ids)
 	}
 
 

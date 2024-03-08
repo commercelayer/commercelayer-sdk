@@ -87,7 +87,11 @@ class KlarnaGateways extends ApiResource<KlarnaGateway> {
 
 
 	relationship(id: string | ResourceId | null): KlarnaGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: KlarnaGateways.TYPE } : { id: id.id, type: KlarnaGateways.TYPE }
+		return super.relationshipOneToOne<KlarnaGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): KlarnaGatewayRel[] {
+		return super.relationshipOneToMany<KlarnaGatewayRel>(...ids)
 	}
 
 

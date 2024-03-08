@@ -91,7 +91,11 @@ class OrderCopies extends ApiResource<OrderCopy> {
 
 
 	relationship(id: string | ResourceId | null): OrderCopyRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: OrderCopies.TYPE } : { id: id.id, type: OrderCopies.TYPE }
+		return super.relationshipOneToOne<OrderCopyRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): OrderCopyRel[] {
+		return super.relationshipOneToMany<OrderCopyRel>(...ids)
 	}
 
 

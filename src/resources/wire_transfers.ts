@@ -70,7 +70,11 @@ class WireTransfers extends ApiResource<WireTransfer> {
 
 
 	relationship(id: string | ResourceId | null): WireTransferRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: WireTransfers.TYPE } : { id: id.id, type: WireTransfers.TYPE }
+		return super.relationshipOneToOne<WireTransferRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): WireTransferRel[] {
+		return super.relationshipOneToMany<WireTransferRel>(...ids)
 	}
 
 

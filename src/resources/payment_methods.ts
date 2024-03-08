@@ -130,7 +130,11 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 
 
 	relationship(id: string | ResourceId | null): PaymentMethodRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PaymentMethods.TYPE } : { id: id.id, type: PaymentMethods.TYPE }
+		return super.relationshipOneToOne<PaymentMethodRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PaymentMethodRel[] {
+		return super.relationshipOneToMany<PaymentMethodRel>(...ids)
 	}
 
 

@@ -65,7 +65,11 @@ class Exports extends ApiResource<Export> {
 
 
 	relationship(id: string | ResourceId | null): ExportRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Exports.TYPE } : { id: id.id, type: Exports.TYPE }
+		return super.relationshipOneToOne<ExportRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ExportRel[] {
+		return super.relationshipOneToMany<ExportRel>(...ids)
 	}
 
 

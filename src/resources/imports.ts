@@ -68,7 +68,11 @@ class Imports extends ApiResource<Import> {
 
 
 	relationship(id: string | ResourceId | null): ImportRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Imports.TYPE } : { id: id.id, type: Imports.TYPE }
+		return super.relationshipOneToOne<ImportRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ImportRel[] {
+		return super.relationshipOneToMany<ImportRel>(...ids)
 	}
 
 

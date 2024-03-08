@@ -206,7 +206,11 @@ class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
 
 
 	relationship(id: string | ResourceId | null): BuyXPayYPromotionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: BuyXPayYPromotions.TYPE } : { id: id.id, type: BuyXPayYPromotions.TYPE }
+		return super.relationshipOneToOne<BuyXPayYPromotionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): BuyXPayYPromotionRel[] {
+		return super.relationshipOneToMany<BuyXPayYPromotionRel>(...ids)
 	}
 
 

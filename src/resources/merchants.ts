@@ -81,7 +81,11 @@ class Merchants extends ApiResource<Merchant> {
 
 
 	relationship(id: string | ResourceId | null): MerchantRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Merchants.TYPE } : { id: id.id, type: Merchants.TYPE }
+		return super.relationshipOneToOne<MerchantRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): MerchantRel[] {
+		return super.relationshipOneToMany<MerchantRel>(...ids)
 	}
 
 

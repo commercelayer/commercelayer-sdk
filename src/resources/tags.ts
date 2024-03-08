@@ -54,7 +54,11 @@ class Tags extends ApiResource<Tag> {
 
 
 	relationship(id: string | ResourceId | null): TagRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Tags.TYPE } : { id: id.id, type: Tags.TYPE }
+		return super.relationshipOneToOne<TagRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): TagRel[] {
+		return super.relationshipOneToMany<TagRel>(...ids)
 	}
 
 

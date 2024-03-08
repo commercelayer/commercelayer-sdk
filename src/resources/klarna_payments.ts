@@ -92,7 +92,11 @@ class KlarnaPayments extends ApiResource<KlarnaPayment> {
 
 
 	relationship(id: string | ResourceId | null): KlarnaPaymentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: KlarnaPayments.TYPE } : { id: id.id, type: KlarnaPayments.TYPE }
+		return super.relationshipOneToOne<KlarnaPaymentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): KlarnaPaymentRel[] {
+		return super.relationshipOneToMany<KlarnaPaymentRel>(...ids)
 	}
 
 

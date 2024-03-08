@@ -96,7 +96,11 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 
 
 	relationship(id: string | ResourceId | null): PriceVolumeTierRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PriceVolumeTiers.TYPE } : { id: id.id, type: PriceVolumeTiers.TYPE }
+		return super.relationshipOneToOne<PriceVolumeTierRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PriceVolumeTierRel[] {
+		return super.relationshipOneToMany<PriceVolumeTierRel>(...ids)
 	}
 
 

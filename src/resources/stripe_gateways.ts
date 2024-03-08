@@ -84,7 +84,11 @@ class StripeGateways extends ApiResource<StripeGateway> {
 
 
 	relationship(id: string | ResourceId | null): StripeGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: StripeGateways.TYPE } : { id: id.id, type: StripeGateways.TYPE }
+		return super.relationshipOneToOne<StripeGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): StripeGatewayRel[] {
+		return super.relationshipOneToMany<StripeGatewayRel>(...ids)
 	}
 
 

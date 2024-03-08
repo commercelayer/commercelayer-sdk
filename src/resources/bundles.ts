@@ -150,7 +150,11 @@ class Bundles extends ApiResource<Bundle> {
 
 
 	relationship(id: string | ResourceId | null): BundleRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Bundles.TYPE } : { id: id.id, type: Bundles.TYPE }
+		return super.relationshipOneToOne<BundleRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): BundleRel[] {
+		return super.relationshipOneToMany<BundleRel>(...ids)
 	}
 
 

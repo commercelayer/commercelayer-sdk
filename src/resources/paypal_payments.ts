@@ -95,7 +95,11 @@ class PaypalPayments extends ApiResource<PaypalPayment> {
 
 
 	relationship(id: string | ResourceId | null): PaypalPaymentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PaypalPayments.TYPE } : { id: id.id, type: PaypalPayments.TYPE }
+		return super.relationshipOneToOne<PaypalPaymentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PaypalPaymentRel[] {
+		return super.relationshipOneToMany<PaypalPaymentRel>(...ids)
 	}
 
 

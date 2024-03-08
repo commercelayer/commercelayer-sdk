@@ -102,7 +102,11 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 
 
 	relationship(id: string | ResourceId | null): AvalaraAccountRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: AvalaraAccounts.TYPE } : { id: id.id, type: AvalaraAccounts.TYPE }
+		return super.relationshipOneToOne<AvalaraAccountRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AvalaraAccountRel[] {
+		return super.relationshipOneToMany<AvalaraAccountRel>(...ids)
 	}
 
 

@@ -88,7 +88,11 @@ class ManualTaxCalculators extends ApiResource<ManualTaxCalculator> {
 
 
 	relationship(id: string | ResourceId | null): ManualTaxCalculatorRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ManualTaxCalculators.TYPE } : { id: id.id, type: ManualTaxCalculators.TYPE }
+		return super.relationshipOneToOne<ManualTaxCalculatorRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ManualTaxCalculatorRel[] {
+		return super.relationshipOneToMany<ManualTaxCalculatorRel>(...ids)
 	}
 
 

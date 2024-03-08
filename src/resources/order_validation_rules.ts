@@ -49,7 +49,11 @@ class OrderValidationRules extends ApiResource<OrderValidationRule> {
 
 
 	relationship(id: string | ResourceId | null): OrderValidationRuleRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: OrderValidationRules.TYPE } : { id: id.id, type: OrderValidationRules.TYPE }
+		return super.relationshipOneToOne<OrderValidationRuleRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): OrderValidationRuleRel[] {
+		return super.relationshipOneToMany<OrderValidationRuleRel>(...ids)
 	}
 
 

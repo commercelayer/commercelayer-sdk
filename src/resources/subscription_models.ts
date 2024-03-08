@@ -88,7 +88,11 @@ class SubscriptionModels extends ApiResource<SubscriptionModel> {
 
 
 	relationship(id: string | ResourceId | null): SubscriptionModelRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: SubscriptionModels.TYPE } : { id: id.id, type: SubscriptionModels.TYPE }
+		return super.relationshipOneToOne<SubscriptionModelRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): SubscriptionModelRel[] {
+		return super.relationshipOneToMany<SubscriptionModelRel>(...ids)
 	}
 
 

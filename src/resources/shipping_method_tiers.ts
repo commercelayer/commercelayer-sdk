@@ -54,7 +54,11 @@ class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
 
 
 	relationship(id: string | ResourceId | null): ShippingMethodTierRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ShippingMethodTiers.TYPE } : { id: id.id, type: ShippingMethodTiers.TYPE }
+		return super.relationshipOneToOne<ShippingMethodTierRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ShippingMethodTierRel[] {
+		return super.relationshipOneToMany<ShippingMethodTierRel>(...ids)
 	}
 
 

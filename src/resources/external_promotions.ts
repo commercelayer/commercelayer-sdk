@@ -208,7 +208,11 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 
 
 	relationship(id: string | ResourceId | null): ExternalPromotionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ExternalPromotions.TYPE } : { id: id.id, type: ExternalPromotions.TYPE }
+		return super.relationshipOneToOne<ExternalPromotionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ExternalPromotionRel[] {
+		return super.relationshipOneToMany<ExternalPromotionRel>(...ids)
 	}
 
 

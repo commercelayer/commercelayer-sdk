@@ -144,7 +144,11 @@ class Addresses extends ApiResource<Address> {
 
 
 	relationship(id: string | ResourceId | null): AddressRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Addresses.TYPE } : { id: id.id, type: Addresses.TYPE }
+		return super.relationshipOneToOne<AddressRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AddressRel[] {
+		return super.relationshipOneToMany<AddressRel>(...ids)
 	}
 
 

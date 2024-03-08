@@ -87,7 +87,11 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 
 
 	relationship(id: string | ResourceId | null): ExternalTaxCalculatorRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ExternalTaxCalculators.TYPE } : { id: id.id, type: ExternalTaxCalculators.TYPE }
+		return super.relationshipOneToOne<ExternalTaxCalculatorRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ExternalTaxCalculatorRel[] {
+		return super.relationshipOneToMany<ExternalTaxCalculatorRel>(...ids)
 	}
 
 

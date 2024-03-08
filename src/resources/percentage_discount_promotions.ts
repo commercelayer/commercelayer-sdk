@@ -200,7 +200,11 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 
 
 	relationship(id: string | ResourceId | null): PercentageDiscountPromotionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PercentageDiscountPromotions.TYPE } : { id: id.id, type: PercentageDiscountPromotions.TYPE }
+		return super.relationshipOneToOne<PercentageDiscountPromotionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PercentageDiscountPromotionRel[] {
+		return super.relationshipOneToMany<PercentageDiscountPromotionRel>(...ids)
 	}
 
 

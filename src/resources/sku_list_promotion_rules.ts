@@ -101,7 +101,11 @@ class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 
 
 	relationship(id: string | ResourceId | null): SkuListPromotionRuleRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: SkuListPromotionRules.TYPE } : { id: id.id, type: SkuListPromotionRules.TYPE }
+		return super.relationshipOneToOne<SkuListPromotionRuleRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): SkuListPromotionRuleRel[] {
+		return super.relationshipOneToMany<SkuListPromotionRuleRel>(...ids)
 	}
 
 

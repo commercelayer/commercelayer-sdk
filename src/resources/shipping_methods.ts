@@ -189,7 +189,11 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 
 
 	relationship(id: string | ResourceId | null): ShippingMethodRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ShippingMethods.TYPE } : { id: id.id, type: ShippingMethods.TYPE }
+		return super.relationshipOneToOne<ShippingMethodRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ShippingMethodRel[] {
+		return super.relationshipOneToMany<ShippingMethodRel>(...ids)
 	}
 
 

@@ -54,7 +54,11 @@ class PriceTiers extends ApiResource<PriceTier> {
 
 
 	relationship(id: string | ResourceId | null): PriceTierRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PriceTiers.TYPE } : { id: id.id, type: PriceTiers.TYPE }
+		return super.relationshipOneToOne<PriceTierRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PriceTierRel[] {
+		return super.relationshipOneToMany<PriceTierRel>(...ids)
 	}
 
 

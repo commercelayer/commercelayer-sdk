@@ -96,7 +96,11 @@ class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 
 
 	relationship(id: string | ResourceId | null): DeliveryLeadTimeRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: DeliveryLeadTimes.TYPE } : { id: id.id, type: DeliveryLeadTimes.TYPE }
+		return super.relationshipOneToOne<DeliveryLeadTimeRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): DeliveryLeadTimeRel[] {
+		return super.relationshipOneToMany<DeliveryLeadTimeRel>(...ids)
 	}
 
 

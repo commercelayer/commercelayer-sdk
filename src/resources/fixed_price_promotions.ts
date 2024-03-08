@@ -202,7 +202,11 @@ class FixedPricePromotions extends ApiResource<FixedPricePromotion> {
 
 
 	relationship(id: string | ResourceId | null): FixedPricePromotionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: FixedPricePromotions.TYPE } : { id: id.id, type: FixedPricePromotions.TYPE }
+		return super.relationshipOneToOne<FixedPricePromotionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): FixedPricePromotionRel[] {
+		return super.relationshipOneToMany<FixedPricePromotionRel>(...ids)
 	}
 
 

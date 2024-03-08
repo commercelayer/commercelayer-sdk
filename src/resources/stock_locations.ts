@@ -119,7 +119,11 @@ class StockLocations extends ApiResource<StockLocation> {
 
 
 	relationship(id: string | ResourceId | null): StockLocationRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: StockLocations.TYPE } : { id: id.id, type: StockLocations.TYPE }
+		return super.relationshipOneToOne<StockLocationRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): StockLocationRel[] {
+		return super.relationshipOneToMany<StockLocationRel>(...ids)
 	}
 
 

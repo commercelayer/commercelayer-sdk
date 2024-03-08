@@ -120,7 +120,11 @@ class Authorizations extends ApiResource<Authorization> {
 
 
 	relationship(id: string | ResourceId | null): AuthorizationRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Authorizations.TYPE } : { id: id.id, type: Authorizations.TYPE }
+		return super.relationshipOneToOne<AuthorizationRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AuthorizationRel[] {
+		return super.relationshipOneToMany<AuthorizationRel>(...ids)
 	}
 
 

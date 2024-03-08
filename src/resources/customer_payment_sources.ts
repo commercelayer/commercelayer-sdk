@@ -107,7 +107,11 @@ class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
 
 
 	relationship(id: string | ResourceId | null): CustomerPaymentSourceRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CustomerPaymentSources.TYPE } : { id: id.id, type: CustomerPaymentSources.TYPE }
+		return super.relationshipOneToOne<CustomerPaymentSourceRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CustomerPaymentSourceRel[] {
+		return super.relationshipOneToMany<CustomerPaymentSourceRel>(...ids)
 	}
 
 
