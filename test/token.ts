@@ -32,22 +32,27 @@ export type AccessToken = {
 
 
 
-const organization = process.env.CL_SDK_ORGANIZATION || ''
-const domain = process.env.CL_SDK_DOMAIN
-const clientId = process.env.CL_SDK_CLIENT_ID || ''
-const clientSecret = process.env.CL_SDK_CLIENT_SECRET || ''
-const scope = process.env.CL_SDK_SCOPE || ''
-
-
-const endpoint = `https://${organization.toLowerCase()}.${domain ? domain : 'commercelayer.io'}`
+// const endpoint = `https://${organization.toLowerCase()}.${domain ? domain : 'commercelayer.io'}`
 
 
 export default async (type: TokenType): Promise<AccessToken> => {
+
+	const env = process.env.CL_SDK_ENVIRONMENT || undefined
+
+	if (env) dotenv.config({ path: `env/.env.${env}` })
+
+	const organization = process.env.CL_SDK_ORGANIZATION || ''
+	const domain = process.env.CL_SDK_DOMAIN
+	const clientId = process.env.CL_SDK_CLIENT_ID || ''
+	const clientSecret = process.env.CL_SDK_CLIENT_SECRET || ''
+	const scope = process.env.CL_SDK_SCOPE || ''
+
 	switch (type) {
-		case 'integration': return getAccessToken({ slug: organization, clientId, clientSecret, scope })
+		case 'integration': return getAccessToken({ slug: organization, clientId, clientSecret, scope, domain })
 		case 'sales_channel':
-		default: return getAccessToken({ slug: organization, clientId, scope })
+		default: return getAccessToken({ slug: organization, clientId, scope, domain })
 	}
+
 }
 
 
@@ -62,7 +67,7 @@ const getAccessToken = async (auth: AuthData): Promise<AccessToken> => {
 	  clientId: auth.clientId,
 	  clientSecret: auth.clientSecret,
 	  slug: auth.slug,
-	  domain: auth.domain,
+	  domain: auth.domain || undefined,
 	  scope
 	}
   

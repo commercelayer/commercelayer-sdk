@@ -1,11 +1,10 @@
-
+import commercelayer from '../lib/cjs'
 import { inspect } from 'util'
-import commercelayer, { Tag } from '../src/index'
 import getToken from './token'
-import { error } from 'console'
 
+const ENV = 'topfarmacia'
 
-(async () => {
+;(async () => {
 
 	const auth = await getToken('integration')
 	const accessToken = auth ? auth.accessToken : ''
@@ -18,14 +17,8 @@ import { error } from 'console'
 
 	try {
 
-		fetch("http://httpstat.us/429")
-    .then(res => {
-		console.log('RESPONSE')
-        console.log(res)
-    }).catch(err => {
-		console.log('ERROR')
-        console.log(err)
-    });
+		const orders = await cl.orders.list({ pageSize: 1 })
+		console.log(orders)
 	
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))
