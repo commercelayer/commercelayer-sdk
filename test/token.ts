@@ -35,11 +35,12 @@ export type AccessToken = {
 // const endpoint = `https://${organization.toLowerCase()}.${domain ? domain : 'commercelayer.io'}`
 
 
-export default async (type: TokenType): Promise<AccessToken> => {
+export default async (type: TokenType, env?: string): Promise<AccessToken> => {
 
-	const env = process.env.CL_SDK_ENVIRONMENT || undefined
-
-	if (env) dotenv.config({ path: `env/.env.${env}` })
+	if (env) {
+		const cfg = dotenv.config({ path: `./test/env/.env.${env}`, override: true })
+		if (cfg.error) throw cfg.error
+	}
 
 	const organization = process.env.CL_SDK_ORGANIZATION || ''
 	const domain = process.env.CL_SDK_DOMAIN
