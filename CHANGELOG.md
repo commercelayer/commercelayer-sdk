@@ -1,3 +1,20 @@
+## [5.34.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.34.0...v5.34.1) (2024-03-11)
+
+
+### Bug Fixes
+
+* fix multiple test env ([47ec8b7](https://github.com/commercelayer/commercelayer-sdk/commit/47ec8b7defcb6d4175df92d97ebb8fc5390a85e7))
+* manage multiple test env ([94d5d9d](https://github.com/commercelayer/commercelayer-sdk/commit/94d5d9d88fb7e266cf04225c3d8ffd6d4a00626f))
+* manage multiple test env ([#328](https://github.com/commercelayer/commercelayer-sdk/issues/328)) ([f470fdd](https://github.com/commercelayer/commercelayer-sdk/commit/f470fdd4aead41559545df4dbe56d4126bff1b56))
+
+# [5.34.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.33.1...v5.34.0) (2024-03-07)
+
+
+### Features
+
+* update resources to schema 5.0.0 ([2fd9b9d](https://github.com/commercelayer/commercelayer-sdk/commit/2fd9b9db2753791a27d62c28eb7aa54635cb3923))
+* update resources to schema 5.0.0 ([#327](https://github.com/commercelayer/commercelayer-sdk/issues/327)) ([c337ce2](https://github.com/commercelayer/commercelayer-sdk/commit/c337ce27c8a86c3de11a92ce42821ac9440d2557))
+
 ## [5.33.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.33.0...v5.33.1) (2024-03-01)
 
 

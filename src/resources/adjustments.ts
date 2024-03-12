@@ -18,6 +18,7 @@ interface Adjustment extends Resource {
 	amount_cents: number
 	amount_float: number
 	formatted_amount: string
+	distribute_discount?: boolean | null
 
 	versions?: Version[] | null
 
@@ -29,6 +30,7 @@ interface AdjustmentCreate extends ResourceCreate {
 	name: string
 	currency_code: string
 	amount_cents: number
+	distribute_discount?: boolean | null
 	
 }
 
@@ -38,6 +40,7 @@ interface AdjustmentUpdate extends ResourceUpdate {
 	name?: string | null
 	currency_code?: string | null
 	amount_cents?: number | null
+	distribute_discount?: boolean | null
 	
 }
 
