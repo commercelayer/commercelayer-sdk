@@ -1,3 +1,10 @@
+## [5.34.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.34.1...v5.34.2) (2024-03-12)
+
+
+### Bug Fixes
+
+* fix circular inclusion ([5f6d34a](https://github.com/commercelayer/commercelayer-sdk/commit/5f6d34aa03a21852f653e15fd297fc7f8a44eddd))
+
 ## [5.34.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.34.0...v5.34.1) (2024-03-11)
 
 
