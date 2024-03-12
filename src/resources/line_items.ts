@@ -73,17 +73,19 @@ interface LineItem extends Resource {
 	item_type?: 'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
 	frequency?: string | null
 	coupon_code?: string | null
+	circuit_state?: string | null
+	circuit_failure_count?: number | null
 
 	order?: Order | null
 	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku | null
 	sku?: Sku | null
 	bundle?: Bundle | null
+	adjustment?: Adjustment | null
+	gift_card?: GiftCard | null
+	shipment?: Shipment | null
+	payment_method?: PaymentMethod | null
 	line_item_options?: LineItemOption[] | null
 	return_line_items?: ReturnLineItem[] | null
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	shipment_line_items?: object[]
 	stock_reservations?: StockReservation[] | null
 	stock_line_items?: StockLineItem[] | null
 	stock_transfers?: StockTransfer[] | null
@@ -112,6 +114,10 @@ interface LineItemCreate extends ResourceCreate {
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel | null
 	sku?: SkuRel | null
 	bundle?: BundleRel | null
+	adjustment?: AdjustmentRel | null
+	gift_card?: GiftCardRel | null
+	shipment?: ShipmentRel | null
+	payment_method?: PaymentMethodRel | null
 	tags?: TagRel[] | null
 
 }
@@ -128,6 +134,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	name?: string | null
 	image_url?: string | null
 	frequency?: string | null
+	_reset_circuit?: boolean | null
 
 	tags?: TagRel[] | null
 
@@ -196,6 +203,10 @@ class LineItems extends ApiResource<LineItem> {
 
 	async _reserve_stock(id: string | LineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
 		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _reserve_stock: true }, params, options)
+	}
+
+	async _reset_circuit(id: string | LineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _reset_circuit: true }, params, options)
 	}
 
 

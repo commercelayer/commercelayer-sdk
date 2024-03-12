@@ -25,13 +25,13 @@ interface PaymentMethod extends Resource {
 	require_capture?: boolean | null
 	auto_place?: boolean | null
 	auto_capture?: boolean | null
-	disabled_at?: string | null
 	price_amount_cents: number
 	price_amount_float?: number | null
 	formatted_price_amount?: string | null
 	auto_capture_max_amount_cents?: number | null
 	auto_capture_max_amount_float?: number | null
 	formatted_auto_capture_max_amount?: string | null
+	disabled_at?: string | null
 
 	market?: Market | null
 	payment_gateway?: PaymentGateway | null
@@ -49,10 +49,10 @@ interface PaymentMethodCreate extends ResourceCreate {
 	require_capture?: boolean | null
 	auto_place?: boolean | null
 	auto_capture?: boolean | null
-	_disable?: boolean | null
-	_enable?: boolean | null
 	price_amount_cents: number
 	auto_capture_max_amount_cents?: number | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 
 	market?: MarketRel | null
 	payment_gateway: PaymentGatewayRel
@@ -68,10 +68,10 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 	require_capture?: boolean | null
 	auto_place?: boolean | null
 	auto_capture?: boolean | null
-	_disable?: boolean | null
-	_enable?: boolean | null
 	price_amount_cents?: number | null
 	auto_capture_max_amount_cents?: number | null
+	_disable?: boolean | null
+	_enable?: boolean | null
 
 	market?: MarketRel | null
 	payment_gateway?: PaymentGatewayRel | null

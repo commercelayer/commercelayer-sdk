@@ -257,4 +257,29 @@ describe('ExternalTaxCalculators resource', () => {
 	/* relationship.versions stop */
 	
   
+
+	/* trigger._reset_circuit start */
+	it(resourceType + '._reset_circuit', async () => {
+	
+		let triggerAttr = '_reset_circuit'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._reset_circuit(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._reset_circuit stop */
+	
 })
