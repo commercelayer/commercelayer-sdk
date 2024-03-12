@@ -1,3 +1,15 @@
+# [6.0.0-alfa.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.29.0-alfa.2...v6.0.0-alfa.1) (2024-03-12)
+
+
+### Performance Improvements
+
+* remove support to node.js <20.x ([250f5df](https://github.com/commercelayer/commercelayer-sdk/commit/250f5df109670c0748969c6355c8123191bfa5ae))
+
+
+### BREAKING CHANGES
+
+* remove support to node.js <20.x
+
 # [5.29.0-alfa.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.29.0-alfa.1...v5.29.0-alfa.2) (2024-03-12)
 
 
