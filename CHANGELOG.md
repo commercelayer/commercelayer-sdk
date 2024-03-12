@@ -1,3 +1,10 @@
+# [5.29.0-alfa.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.29.0-alfa.1...v5.29.0-alfa.2) (2024-03-12)
+
+
+### Bug Fixes
+
+* fix codeql action ([d74782e](https://github.com/commercelayer/commercelayer-sdk/commit/d74782eb47e08f2a80f895be1e6ec07b0bba00d2))
+
 # [5.29.0-alfa.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.28.0...v5.29.0-alfa.1) (2024-03-12)
 
 
