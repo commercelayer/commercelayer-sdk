@@ -1,3 +1,19 @@
+# [5.29.0-alfa.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.28.0...v5.29.0-alfa.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* fix env secrets ([b2db11d](https://github.com/commercelayer/commercelayer-sdk/commit/b2db11db909d1b18a63a2c359d7a70d7c2e74741))
+* fix import/export config ([5fd205a](https://github.com/commercelayer/commercelayer-sdk/commit/5fd205a0446256794e646ae910ec708564ee4040))
+* fix release config ([82c9bf9](https://github.com/commercelayer/commercelayer-sdk/commit/82c9bf974048367cfbf381544078aaf86aa0a2b8))
+
+
+### Features
+
+* add support for jcont filter as object ([f1f83d6](https://github.com/commercelayer/commercelayer-sdk/commit/f1f83d6aabc3bcd1568ac2cef04423e2be1e1562))
+* update resources to schema 4.27.0 ([bb20b86](https://github.com/commercelayer/commercelayer-sdk/commit/bb20b86ffbcf3162704705d967897161db9d3d80))
+* update resources to schema v5.0.0 ([2fab465](https://github.com/commercelayer/commercelayer-sdk/commit/2fab465773ac72003a0ff813d446b220b443fa67))
+
 # [5.28.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.27.3...v5.28.0) (2024-01-12)
 
 
