@@ -340,11 +340,11 @@ class CommerceLayerClient {
 	}
 
 
-	addRequestInterceptor(onFulfilled?: RequestInterceptor, onRejected?: ErrorInterceptor): number {
+	addRequestInterceptor(onFulfilled?: RequestInterceptor | null, onRejected?: ErrorInterceptor | null): number {
 		return this.#adapter.interceptors.request.use(onFulfilled, onRejected)
 	}
 
-	addResponseInterceptor(onFulfilled?: ResponseInterceptor, onRejected?: ErrorInterceptor): number {
+	addResponseInterceptor(onFulfilled?: ResponseInterceptor | null, onRejected?: ErrorInterceptor | null): number {
 		return this.#adapter.interceptors.response.use(onFulfilled, onRejected)
 	}
 
