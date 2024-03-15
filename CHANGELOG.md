@@ -1,3 +1,10 @@
+# [6.0.0-alfa.4](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.3...v6.0.0-alfa.4) (2024-03-15)
+
+
+### Bug Fixes
+
+* update dependencies ([3f54279](https://github.com/commercelayer/commercelayer-sdk/commit/3f542795eac9db5f55d57033e3e69efa741353a6))
+
 # [6.0.0-alfa.3](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.2...v6.0.0-alfa.3) (2024-03-15)
 
 
