@@ -2,8 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsList } from '../query'
 
-import type { EventCallback } from './event_callbacks'
 import type { Webhook } from './webhooks'
+import type { EventCallback } from './event_callbacks'
 
 
 type EventType = 'events'
@@ -16,8 +16,8 @@ interface Event extends Resource {
 
 	name: string
 
-	last_event_callbacks?: EventCallback[] | null
 	webhooks?: Webhook[] | null
+	last_event_callbacks?: EventCallback[] | null
 
 }
 
@@ -26,14 +26,14 @@ class Events extends ApiResource<Event> {
 
 	static readonly TYPE: EventType = 'events' as const
 
-	async last_event_callbacks(eventId: string | Event, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
-		const _eventId = (eventId as Event).id || eventId as string
-		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `events/${_eventId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
-	}
-
 	async webhooks(eventId: string | Event, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {
 		const _eventId = (eventId as Event).id || eventId as string
 		return this.resources.fetch<Webhook>({ type: 'webhooks' }, `events/${_eventId}/webhooks`, params, options) as unknown as ListResponse<Webhook>
+	}
+
+	async last_event_callbacks(eventId: string | Event, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
+		const _eventId = (eventId as Event).id || eventId as string
+		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `events/${_eventId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
 	}
 
 

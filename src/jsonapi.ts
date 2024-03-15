@@ -3,6 +3,7 @@ import type { Value as JSONValue } from 'json-typescript'
 import type { DocWithData, Included, ResourceIdentifierObject, ResourceObject as JSONAPIObject, AttributesObject, RelationshipsObject } from 'jsonapi-typescript'
 import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource, ResourceRel } from './resource'
 import { isResourceId, isResourceType } from './common'
+import config from './config'
 
 import Debug from './debug'
 const debug = Debug('jsonapi')
@@ -41,7 +42,7 @@ const findIncluded = (rel: ResourceIdentifierObject, included: Included = []): J
 }
 
 
-const denormalizeResource = <T extends ResourceType>(res: any, included?: Included): T => {
+const denormalizeResource = <T extends ResourceType>(res: any, included?: Included, chain: ResourceIdentifierObject[] = []): T => {
 
 	debug('denormalize resource: %O, %o', res, included || {})
 
@@ -54,13 +55,16 @@ const denormalizeResource = <T extends ResourceType>(res: any, included?: Includ
 	}
 
 	if (res.relationships) Object.keys(res.relationships as object).forEach(key => {
-		const rel = res.relationships[key].data as ResourceIdentifierObject
+		const rel: ResourceIdentifierObject = res.relationships[key].data
 		if (rel) {
-			if (Array.isArray(rel)) resource[key] = rel.map((r: ResourceIdentifierObject) => denormalizeResource<ResourceType>(findIncluded(r, included), included))
-			else resource[key] = denormalizeResource<ResourceType>(findIncluded(rel, included), included)
+			if (chain.filter(r => (r.id === rel.id) && (r.type === rel.type)).length >= config.jsonapi.maxResourceIncluded) resource[key] = rel
+			else {
+				if (Array.isArray(rel)) resource[key] = rel.map((r: ResourceIdentifierObject) => denormalizeResource<ResourceType>(findIncluded(r, included), included, [...chain, r]))
+				else resource[key] = denormalizeResource<ResourceType>(findIncluded(rel, included), included, [...chain, rel])
+			}
 		} else if (rel === null) resource[key] = null
 	})
-	
+
 	debug('denormalized resource: %O', resource)
 
 	return resource

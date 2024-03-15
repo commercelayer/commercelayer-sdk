@@ -11,6 +11,7 @@ import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
+import type { LineItem } from './line_items'
 import type { CarrierAccount } from './carrier_accounts'
 import type { Parcel } from './parcels'
 import type { Attachment } from './attachments'
@@ -66,6 +67,7 @@ interface Shipment extends Resource {
 	delivery_lead_time?: DeliveryLeadTime | null
 	stock_line_items?: StockLineItem[] | null
 	stock_transfers?: StockTransfer[] | null
+	line_items?: LineItem[] | null
 	available_shipping_methods?: ShippingMethod[] | null
 	carrier_accounts?: CarrierAccount[] | null
 	parcels?: Parcel[] | null
@@ -177,6 +179,11 @@ class Shipments extends ApiResource<Shipment> {
 	async stock_transfers(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
 		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `shipments/${_shipmentId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+	}
+
+	async line_items(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `shipments/${_shipmentId}/line_items`, params, options) as unknown as ListResponse<LineItem>
 	}
 
 	async available_shipping_methods(shipmentId: string | Shipment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ShippingMethod>> {
