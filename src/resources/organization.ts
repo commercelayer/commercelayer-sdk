@@ -24,6 +24,7 @@ interface Organization extends Resource {
 	max_concurrent_cleanups?: number
 	order_number_editable_test?: boolean
 	order_number_editable_live?: boolean
+	config?: object
 	
 }
 
