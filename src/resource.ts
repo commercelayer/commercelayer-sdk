@@ -6,7 +6,7 @@ import { generateQueryStringParams, isParamsList } from './query'
 import type { ResourceTypeLock } from './api'
 import config from './config'
 import type { InterceptorManager } from './interceptor'
-import { ErrorType, SdkError } from './error'
+// import { ErrorType, SdkError } from './error'
 
 import Debug from './debug'
 const debug = Debug('resource')
@@ -279,7 +279,7 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	abstract type(): ResourceTypeLock
 
-
+/*
 	parse(resource: string, options?: { ignoreSlug?: boolean }): R | R[] {
 
 		try {
@@ -308,6 +308,7 @@ abstract class ApiResourceBase<R extends Resource> {
 		}
 
 	}
+	*/
 
 
 	// reference, reference_origin and metadata attributes are always updatable
