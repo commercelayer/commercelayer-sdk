@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "5.34.2",
+  "version": "5.34.3",
   "main": "lib/cjs/index.js",
   "types": "lib/cjs/index.d.ts",
   "module": "lib/esm/index.js",

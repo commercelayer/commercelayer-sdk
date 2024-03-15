@@ -1,3 +1,10 @@
+## [5.34.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.34.2...v5.34.3) (2024-03-15)
+
+
+### Bug Fixes
+
+* update dependencies ([c63b72c](https://github.com/commercelayer/commercelayer-sdk/commit/c63b72cf7fbf864d6698f0797ac01e1d9c287f1a))
+
 ## [5.34.2](https://github.com/commercelayer/commercelayer-sdk/compare/v5.34.1...v5.34.2) (2024-03-12)
 
 
