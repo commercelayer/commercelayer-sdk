@@ -1,3 +1,10 @@
+# [6.0.0-alfa.3](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.2...v6.0.0-alfa.3) (2024-03-15)
+
+
+### Features
+
+* merge feature/317_relationships-interface ([1140c97](https://github.com/commercelayer/commercelayer-sdk/commit/1140c97575154b28ab995f2576951f2b2abd912d))
+
 # [6.0.0-alfa.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.1...v6.0.0-alfa.2) (2024-03-15)
 
 
