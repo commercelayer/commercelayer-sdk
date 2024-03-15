@@ -43,7 +43,11 @@ class Geocoders extends ApiResource<Geocoder> {
 
 
 	relationship(id: string | ResourceId | null): GeocoderRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Geocoders.TYPE } : { id: id.id, type: Geocoders.TYPE }
+		return super.relationshipOneToOne<GeocoderRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): GeocoderRel[] {
+		return super.relationshipOneToMany<GeocoderRel>(...ids)
 	}
 
 

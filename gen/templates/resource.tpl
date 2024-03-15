@@ -24,7 +24,11 @@ class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOU
 
 
 	relationship(id: string | ResourceId | null): ##__MODEL_RESOURCE_INTERFACE__##Rel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ##__RESOURCE_CLASS__##.TYPE } : { id: id.id, type: ##__RESOURCE_CLASS__##.TYPE }
+		return super.relationshipOneToOne<##__MODEL_RESOURCE_INTERFACE__##Rel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ##__MODEL_RESOURCE_INTERFACE__##Rel[] {
+		return super.relationshipOneToMany<##__MODEL_RESOURCE_INTERFACE__##Rel>(...ids)
 	}
 
 

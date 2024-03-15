@@ -34,7 +34,11 @@ class Applications extends ApiSingleton<Application> {
 
 
 	relationship(id: string | ResourceId | null): ApplicationRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Applications.TYPE } : { id: id.id, type: Applications.TYPE }
+		return super.relationshipOneToOne<ApplicationRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ApplicationRel[] {
+		return super.relationshipOneToMany<ApplicationRel>(...ids)
 	}
 
 

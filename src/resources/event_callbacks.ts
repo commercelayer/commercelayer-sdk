@@ -39,7 +39,11 @@ class EventCallbacks extends ApiResource<EventCallback> {
 
 
 	relationship(id: string | ResourceId | null): EventCallbackRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: EventCallbacks.TYPE } : { id: id.id, type: EventCallbacks.TYPE }
+		return super.relationshipOneToOne<EventCallbackRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): EventCallbackRel[] {
+		return super.relationshipOneToMany<EventCallbackRel>(...ids)
 	}
 
 

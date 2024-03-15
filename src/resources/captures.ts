@@ -107,7 +107,11 @@ class Captures extends ApiResource<Capture> {
 
 
 	relationship(id: string | ResourceId | null): CaptureRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Captures.TYPE } : { id: id.id, type: Captures.TYPE }
+		return super.relationshipOneToOne<CaptureRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CaptureRel[] {
+		return super.relationshipOneToMany<CaptureRel>(...ids)
 	}
 
 

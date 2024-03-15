@@ -79,7 +79,11 @@ class ShippingCategories extends ApiResource<ShippingCategory> {
 
 
 	relationship(id: string | ResourceId | null): ShippingCategoryRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ShippingCategories.TYPE } : { id: id.id, type: ShippingCategories.TYPE }
+		return super.relationshipOneToOne<ShippingCategoryRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ShippingCategoryRel[] {
+		return super.relationshipOneToMany<ShippingCategoryRel>(...ids)
 	}
 
 

@@ -81,7 +81,11 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
 
 
 	relationship(id: string | ResourceId | null): ParcelLineItemRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ParcelLineItems.TYPE } : { id: id.id, type: ParcelLineItems.TYPE }
+		return super.relationshipOneToOne<ParcelLineItemRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ParcelLineItemRel[] {
+		return super.relationshipOneToMany<ParcelLineItemRel>(...ids)
 	}
 
 

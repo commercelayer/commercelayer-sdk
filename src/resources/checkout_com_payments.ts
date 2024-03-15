@@ -110,7 +110,11 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 
 
 	relationship(id: string | ResourceId | null): CheckoutComPaymentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CheckoutComPayments.TYPE } : { id: id.id, type: CheckoutComPayments.TYPE }
+		return super.relationshipOneToOne<CheckoutComPaymentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CheckoutComPaymentRel[] {
+		return super.relationshipOneToMany<CheckoutComPaymentRel>(...ids)
 	}
 
 

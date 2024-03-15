@@ -84,7 +84,11 @@ class InventoryReturnLocations extends ApiResource<InventoryReturnLocation> {
 
 
 	relationship(id: string | ResourceId | null): InventoryReturnLocationRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: InventoryReturnLocations.TYPE } : { id: id.id, type: InventoryReturnLocations.TYPE }
+		return super.relationshipOneToOne<InventoryReturnLocationRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): InventoryReturnLocationRel[] {
+		return super.relationshipOneToMany<InventoryReturnLocationRel>(...ids)
 	}
 
 

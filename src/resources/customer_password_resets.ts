@@ -76,7 +76,11 @@ class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 
 
 	relationship(id: string | ResourceId | null): CustomerPasswordResetRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CustomerPasswordResets.TYPE } : { id: id.id, type: CustomerPasswordResets.TYPE }
+		return super.relationshipOneToOne<CustomerPasswordResetRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CustomerPasswordResetRel[] {
+		return super.relationshipOneToMany<CustomerPasswordResetRel>(...ids)
 	}
 
 

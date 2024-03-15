@@ -126,7 +126,11 @@ class Prices extends ApiResource<Price> {
 
 
 	relationship(id: string | ResourceId | null): PriceRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Prices.TYPE } : { id: id.id, type: Prices.TYPE }
+		return super.relationshipOneToOne<PriceRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PriceRel[] {
+		return super.relationshipOneToMany<PriceRel>(...ids)
 	}
 
 

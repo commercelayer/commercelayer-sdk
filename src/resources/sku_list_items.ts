@@ -87,7 +87,11 @@ class SkuListItems extends ApiResource<SkuListItem> {
 
 
 	relationship(id: string | ResourceId | null): SkuListItemRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: SkuListItems.TYPE } : { id: id.id, type: SkuListItems.TYPE }
+		return super.relationshipOneToOne<SkuListItemRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): SkuListItemRel[] {
+		return super.relationshipOneToMany<SkuListItemRel>(...ids)
 	}
 
 

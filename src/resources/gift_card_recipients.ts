@@ -87,7 +87,11 @@ class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
 
 
 	relationship(id: string | ResourceId | null): GiftCardRecipientRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: GiftCardRecipients.TYPE } : { id: id.id, type: GiftCardRecipients.TYPE }
+		return super.relationshipOneToOne<GiftCardRecipientRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): GiftCardRecipientRel[] {
+		return super.relationshipOneToMany<GiftCardRecipientRel>(...ids)
 	}
 
 

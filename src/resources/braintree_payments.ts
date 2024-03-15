@@ -91,7 +91,11 @@ class BraintreePayments extends ApiResource<BraintreePayment> {
 
 
 	relationship(id: string | ResourceId | null): BraintreePaymentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: BraintreePayments.TYPE } : { id: id.id, type: BraintreePayments.TYPE }
+		return super.relationshipOneToOne<BraintreePaymentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): BraintreePaymentRel[] {
+		return super.relationshipOneToMany<BraintreePaymentRel>(...ids)
 	}
 
 

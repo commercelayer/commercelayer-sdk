@@ -99,7 +99,11 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 
 
 	relationship(id: string | ResourceId | null): BraintreeGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: BraintreeGateways.TYPE } : { id: id.id, type: BraintreeGateways.TYPE }
+		return super.relationshipOneToOne<BraintreeGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): BraintreeGatewayRel[] {
+		return super.relationshipOneToMany<BraintreeGatewayRel>(...ids)
 	}
 
 

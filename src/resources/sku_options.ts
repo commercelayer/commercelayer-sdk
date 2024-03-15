@@ -116,7 +116,11 @@ class SkuOptions extends ApiResource<SkuOption> {
 
 
 	relationship(id: string | ResourceId | null): SkuOptionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: SkuOptions.TYPE } : { id: id.id, type: SkuOptions.TYPE }
+		return super.relationshipOneToOne<SkuOptionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): SkuOptionRel[] {
+		return super.relationshipOneToMany<SkuOptionRel>(...ids)
 	}
 
 

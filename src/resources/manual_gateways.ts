@@ -69,7 +69,11 @@ class ManualGateways extends ApiResource<ManualGateway> {
 
 
 	relationship(id: string | ResourceId | null): ManualGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ManualGateways.TYPE } : { id: id.id, type: ManualGateways.TYPE }
+		return super.relationshipOneToOne<ManualGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ManualGatewayRel[] {
+		return super.relationshipOneToMany<ManualGatewayRel>(...ids)
 	}
 
 

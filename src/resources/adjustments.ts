@@ -73,7 +73,11 @@ class Adjustments extends ApiResource<Adjustment> {
 
 
 	relationship(id: string | ResourceId | null): AdjustmentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Adjustments.TYPE } : { id: id.id, type: Adjustments.TYPE }
+		return super.relationshipOneToOne<AdjustmentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AdjustmentRel[] {
+		return super.relationshipOneToMany<AdjustmentRel>(...ids)
 	}
 
 

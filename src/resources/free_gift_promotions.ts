@@ -200,7 +200,11 @@ class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 
 
 	relationship(id: string | ResourceId | null): FreeGiftPromotionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: FreeGiftPromotions.TYPE } : { id: id.id, type: FreeGiftPromotions.TYPE }
+		return super.relationshipOneToOne<FreeGiftPromotionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): FreeGiftPromotionRel[] {
+		return super.relationshipOneToMany<FreeGiftPromotionRel>(...ids)
 	}
 
 

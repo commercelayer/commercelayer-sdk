@@ -92,7 +92,11 @@ class AdyenPayments extends ApiResource<AdyenPayment> {
 
 
 	relationship(id: string | ResourceId | null): AdyenPaymentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: AdyenPayments.TYPE } : { id: id.id, type: AdyenPayments.TYPE }
+		return super.relationshipOneToOne<AdyenPaymentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AdyenPaymentRel[] {
+		return super.relationshipOneToMany<AdyenPaymentRel>(...ids)
 	}
 
 

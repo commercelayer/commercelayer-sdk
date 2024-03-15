@@ -153,7 +153,11 @@ class StockTransfers extends ApiResource<StockTransfer> {
 
 
 	relationship(id: string | ResourceId | null): StockTransferRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: StockTransfers.TYPE } : { id: id.id, type: StockTransfers.TYPE }
+		return super.relationshipOneToOne<StockTransferRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): StockTransferRel[] {
+		return super.relationshipOneToMany<StockTransferRel>(...ids)
 	}
 
 

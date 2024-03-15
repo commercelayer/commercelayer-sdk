@@ -99,7 +99,11 @@ class AxervePayments extends ApiResource<AxervePayment> {
 
 
 	relationship(id: string | ResourceId | null): AxervePaymentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: AxervePayments.TYPE } : { id: id.id, type: AxervePayments.TYPE }
+		return super.relationshipOneToOne<AxervePaymentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AxervePaymentRel[] {
+		return super.relationshipOneToMany<AxervePaymentRel>(...ids)
 	}
 
 

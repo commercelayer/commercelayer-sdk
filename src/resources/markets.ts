@@ -162,7 +162,11 @@ class Markets extends ApiResource<Market> {
 
 
 	relationship(id: string | ResourceId | null): MarketRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Markets.TYPE } : { id: id.id, type: Markets.TYPE }
+		return super.relationshipOneToOne<MarketRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): MarketRel[] {
+		return super.relationshipOneToMany<MarketRel>(...ids)
 	}
 
 

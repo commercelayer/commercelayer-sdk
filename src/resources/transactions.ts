@@ -67,7 +67,11 @@ class Transactions extends ApiResource<Transaction> {
 
 
 	relationship(id: string | ResourceId | null): TransactionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Transactions.TYPE } : { id: id.id, type: Transactions.TYPE }
+		return super.relationshipOneToOne<TransactionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): TransactionRel[] {
+		return super.relationshipOneToMany<TransactionRel>(...ids)
 	}
 
 

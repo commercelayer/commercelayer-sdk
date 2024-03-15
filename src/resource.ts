@@ -269,6 +269,14 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	abstract relationship(id: string | ResourceId | null): ResourceRel
 
+	protected relationshipOneToOne<RR extends ResourceRel>(id: string | ResourceId | null): RR {
+		return (((id === null) || (typeof id === 'string')) ? { id, type: this.type() } : { id: id.id, type: this.type() }) as RR
+	}
+
+	protected relationshipOneToMany<RR extends ResourceRel>(...ids: string[]): RR[] {
+		return (((ids === null) || (ids.length === 0) || (ids[0] === null))? [ { id: null, type: this.type() } ] : ids.map(id => { return { id, type: this.type() } })) as RR[]
+	}
+
 	abstract type(): ResourceTypeLock
 
 

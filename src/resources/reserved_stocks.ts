@@ -50,7 +50,11 @@ class ReservedStocks extends ApiResource<ReservedStock> {
 
 
 	relationship(id: string | ResourceId | null): ReservedStockRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ReservedStocks.TYPE } : { id: id.id, type: ReservedStocks.TYPE }
+		return super.relationshipOneToOne<ReservedStockRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ReservedStockRel[] {
+		return super.relationshipOneToMany<ReservedStockRel>(...ids)
 	}
 
 

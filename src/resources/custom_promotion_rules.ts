@@ -81,7 +81,11 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 
 
 	relationship(id: string | ResourceId | null): CustomPromotionRuleRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CustomPromotionRules.TYPE } : { id: id.id, type: CustomPromotionRules.TYPE }
+		return super.relationshipOneToOne<CustomPromotionRuleRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CustomPromotionRuleRel[] {
+		return super.relationshipOneToMany<CustomPromotionRuleRel>(...ids)
 	}
 
 

@@ -85,7 +85,11 @@ class SatispayGateways extends ApiResource<SatispayGateway> {
 
 
 	relationship(id: string | ResourceId | null): SatispayGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: SatispayGateways.TYPE } : { id: id.id, type: SatispayGateways.TYPE }
+		return super.relationshipOneToOne<SatispayGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): SatispayGatewayRel[] {
+		return super.relationshipOneToMany<SatispayGatewayRel>(...ids)
 	}
 
 

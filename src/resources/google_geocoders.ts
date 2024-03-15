@@ -71,7 +71,11 @@ class GoogleGeocoders extends ApiResource<GoogleGeocoder> {
 
 
 	relationship(id: string | ResourceId | null): GoogleGeocoderRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: GoogleGeocoders.TYPE } : { id: id.id, type: GoogleGeocoders.TYPE }
+		return super.relationshipOneToOne<GoogleGeocoderRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): GoogleGeocoderRel[] {
+		return super.relationshipOneToMany<GoogleGeocoderRel>(...ids)
 	}
 
 

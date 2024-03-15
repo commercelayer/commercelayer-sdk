@@ -95,7 +95,11 @@ class SatispayPayments extends ApiResource<SatispayPayment> {
 
 
 	relationship(id: string | ResourceId | null): SatispayPaymentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: SatispayPayments.TYPE } : { id: id.id, type: SatispayPayments.TYPE }
+		return super.relationshipOneToOne<SatispayPaymentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): SatispayPaymentRel[] {
+		return super.relationshipOneToMany<SatispayPaymentRel>(...ids)
 	}
 
 

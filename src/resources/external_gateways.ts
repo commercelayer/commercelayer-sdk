@@ -99,7 +99,11 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 
 
 	relationship(id: string | ResourceId | null): ExternalGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ExternalGateways.TYPE } : { id: id.id, type: ExternalGateways.TYPE }
+		return super.relationshipOneToOne<ExternalGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ExternalGatewayRel[] {
+		return super.relationshipOneToMany<ExternalGatewayRel>(...ids)
 	}
 
 

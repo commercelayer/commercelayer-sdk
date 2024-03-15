@@ -90,7 +90,11 @@ class TaxjarAccounts extends ApiResource<TaxjarAccount> {
 
 
 	relationship(id: string | ResourceId | null): TaxjarAccountRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: TaxjarAccounts.TYPE } : { id: id.id, type: TaxjarAccounts.TYPE }
+		return super.relationshipOneToOne<TaxjarAccountRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): TaxjarAccountRel[] {
+		return super.relationshipOneToMany<TaxjarAccountRel>(...ids)
 	}
 
 

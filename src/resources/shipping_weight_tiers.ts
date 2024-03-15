@@ -89,7 +89,11 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 
 
 	relationship(id: string | ResourceId | null): ShippingWeightTierRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ShippingWeightTiers.TYPE } : { id: id.id, type: ShippingWeightTiers.TYPE }
+		return super.relationshipOneToOne<ShippingWeightTierRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ShippingWeightTierRel[] {
+		return super.relationshipOneToMany<ShippingWeightTierRel>(...ids)
 	}
 
 

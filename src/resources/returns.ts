@@ -185,7 +185,11 @@ class Returns extends ApiResource<Return> {
 
 
 	relationship(id: string | ResourceId | null): ReturnRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Returns.TYPE } : { id: id.id, type: Returns.TYPE }
+		return super.relationshipOneToOne<ReturnRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ReturnRel[] {
+		return super.relationshipOneToMany<ReturnRel>(...ids)
 	}
 
 

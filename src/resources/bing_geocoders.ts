@@ -71,7 +71,11 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 
 
 	relationship(id: string | ResourceId | null): BingGeocoderRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: BingGeocoders.TYPE } : { id: id.id, type: BingGeocoders.TYPE }
+		return super.relationshipOneToOne<BingGeocoderRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): BingGeocoderRel[] {
+		return super.relationshipOneToMany<BingGeocoderRel>(...ids)
 	}
 
 

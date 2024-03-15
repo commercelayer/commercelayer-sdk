@@ -79,7 +79,11 @@ class PaymentOptions extends ApiResource<PaymentOption> {
 
 
 	relationship(id: string | ResourceId | null): PaymentOptionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PaymentOptions.TYPE } : { id: id.id, type: PaymentOptions.TYPE }
+		return super.relationshipOneToOne<PaymentOptionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PaymentOptionRel[] {
+		return super.relationshipOneToMany<PaymentOptionRel>(...ids)
 	}
 
 

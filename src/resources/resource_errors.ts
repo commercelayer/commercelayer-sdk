@@ -35,7 +35,11 @@ class ResourceErrors extends ApiResource<ResourceError> {
 
 
 	relationship(id: string | ResourceId | null): ResourceErrorRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ResourceErrors.TYPE } : { id: id.id, type: ResourceErrors.TYPE }
+		return super.relationshipOneToOne<ResourceErrorRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ResourceErrorRel[] {
+		return super.relationshipOneToMany<ResourceErrorRel>(...ids)
 	}
 
 

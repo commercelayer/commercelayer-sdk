@@ -87,7 +87,11 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 
 
 	relationship(id: string | ResourceId | null): AxerveGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: AxerveGateways.TYPE } : { id: id.id, type: AxerveGateways.TYPE }
+		return super.relationshipOneToOne<AxerveGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AxerveGatewayRel[] {
+		return super.relationshipOneToMany<AxerveGatewayRel>(...ids)
 	}
 
 

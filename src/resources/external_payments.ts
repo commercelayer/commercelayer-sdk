@@ -91,7 +91,11 @@ class ExternalPayments extends ApiResource<ExternalPayment> {
 
 
 	relationship(id: string | ResourceId | null): ExternalPaymentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ExternalPayments.TYPE } : { id: id.id, type: ExternalPayments.TYPE }
+		return super.relationshipOneToOne<ExternalPaymentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ExternalPaymentRel[] {
+		return super.relationshipOneToMany<ExternalPaymentRel>(...ids)
 	}
 
 

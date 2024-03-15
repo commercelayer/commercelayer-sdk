@@ -90,7 +90,11 @@ class CustomerAddresses extends ApiResource<CustomerAddress> {
 
 
 	relationship(id: string | ResourceId | null): CustomerAddressRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CustomerAddresses.TYPE } : { id: id.id, type: CustomerAddresses.TYPE }
+		return super.relationshipOneToOne<CustomerAddressRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CustomerAddressRel[] {
+		return super.relationshipOneToMany<CustomerAddressRel>(...ids)
 	}
 
 

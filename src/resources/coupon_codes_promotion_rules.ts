@@ -86,7 +86,11 @@ class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
 
 
 	relationship(id: string | ResourceId | null): CouponCodesPromotionRuleRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CouponCodesPromotionRules.TYPE } : { id: id.id, type: CouponCodesPromotionRules.TYPE }
+		return super.relationshipOneToOne<CouponCodesPromotionRuleRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CouponCodesPromotionRuleRel[] {
+		return super.relationshipOneToMany<CouponCodesPromotionRuleRel>(...ids)
 	}
 
 

@@ -108,7 +108,11 @@ class TaxRules extends ApiResource<TaxRule> {
 
 
 	relationship(id: string | ResourceId | null): TaxRuleRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: TaxRules.TYPE } : { id: id.id, type: TaxRules.TYPE }
+		return super.relationshipOneToOne<TaxRuleRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): TaxRuleRel[] {
+		return super.relationshipOneToMany<TaxRuleRel>(...ids)
 	}
 
 

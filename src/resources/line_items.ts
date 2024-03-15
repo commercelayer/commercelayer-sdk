@@ -216,7 +216,11 @@ class LineItems extends ApiResource<LineItem> {
 
 
 	relationship(id: string | ResourceId | null): LineItemRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: LineItems.TYPE } : { id: id.id, type: LineItems.TYPE }
+		return super.relationshipOneToOne<LineItemRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): LineItemRel[] {
+		return super.relationshipOneToMany<LineItemRel>(...ids)
 	}
 
 

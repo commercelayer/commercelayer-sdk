@@ -114,7 +114,11 @@ class Coupons extends ApiResource<Coupon> {
 
 
 	relationship(id: string | ResourceId | null): CouponRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Coupons.TYPE } : { id: id.id, type: Coupons.TYPE }
+		return super.relationshipOneToOne<CouponRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CouponRel[] {
+		return super.relationshipOneToMany<CouponRel>(...ids)
 	}
 
 

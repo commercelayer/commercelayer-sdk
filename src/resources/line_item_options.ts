@@ -108,7 +108,11 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 
 
 	relationship(id: string | ResourceId | null): LineItemOptionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: LineItemOptions.TYPE } : { id: id.id, type: LineItemOptions.TYPE }
+		return super.relationshipOneToOne<LineItemOptionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): LineItemOptionRel[] {
+		return super.relationshipOneToMany<LineItemOptionRel>(...ids)
 	}
 
 

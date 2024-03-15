@@ -68,7 +68,11 @@ class Cleanups extends ApiResource<Cleanup> {
 
 
 	relationship(id: string | ResourceId | null): CleanupRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Cleanups.TYPE } : { id: id.id, type: Cleanups.TYPE }
+		return super.relationshipOneToOne<CleanupRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CleanupRel[] {
+		return super.relationshipOneToMany<CleanupRel>(...ids)
 	}
 
 

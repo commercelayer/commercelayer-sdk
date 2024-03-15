@@ -98,7 +98,11 @@ class InventoryModels extends ApiResource<InventoryModel> {
 
 
 	relationship(id: string | ResourceId | null): InventoryModelRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: InventoryModels.TYPE } : { id: id.id, type: InventoryModels.TYPE }
+		return super.relationshipOneToOne<InventoryModelRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): InventoryModelRel[] {
+		return super.relationshipOneToMany<InventoryModelRel>(...ids)
 	}
 
 

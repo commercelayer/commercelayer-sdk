@@ -43,7 +43,11 @@ class PromotionRules extends ApiResource<PromotionRule> {
 
 
 	relationship(id: string | ResourceId | null): PromotionRuleRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PromotionRules.TYPE } : { id: id.id, type: PromotionRules.TYPE }
+		return super.relationshipOneToOne<PromotionRuleRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PromotionRuleRel[] {
+		return super.relationshipOneToMany<PromotionRuleRel>(...ids)
 	}
 
 

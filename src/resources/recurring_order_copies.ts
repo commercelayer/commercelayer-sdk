@@ -91,7 +91,11 @@ class RecurringOrderCopies extends ApiResource<RecurringOrderCopy> {
 
 
 	relationship(id: string | ResourceId | null): RecurringOrderCopyRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: RecurringOrderCopies.TYPE } : { id: id.id, type: RecurringOrderCopies.TYPE }
+		return super.relationshipOneToOne<RecurringOrderCopyRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): RecurringOrderCopyRel[] {
+		return super.relationshipOneToMany<RecurringOrderCopyRel>(...ids)
 	}
 
 

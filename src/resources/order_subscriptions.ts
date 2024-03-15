@@ -172,7 +172,11 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 
 
 	relationship(id: string | ResourceId | null): OrderSubscriptionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: OrderSubscriptions.TYPE } : { id: id.id, type: OrderSubscriptions.TYPE }
+		return super.relationshipOneToOne<OrderSubscriptionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): OrderSubscriptionRel[] {
+		return super.relationshipOneToMany<OrderSubscriptionRel>(...ids)
 	}
 
 

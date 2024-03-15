@@ -88,7 +88,11 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 
 
 	relationship(id: string | ResourceId | null): CheckoutComGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CheckoutComGateways.TYPE } : { id: id.id, type: CheckoutComGateways.TYPE }
+		return super.relationshipOneToOne<CheckoutComGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CheckoutComGatewayRel[] {
+		return super.relationshipOneToMany<CheckoutComGatewayRel>(...ids)
 	}
 
 
