@@ -408,6 +408,27 @@ describe('Shipments resource', () => {
 	/* relationship.stock_transfers stop */
 	
 
+	/* relationship.line_items start */
+	it(resourceType + '.line_items', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { line_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'line_items')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].line_items(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.line_items stop */
+	
+
 	/* relationship.available_shipping_methods start */
 	it(resourceType + '.available_shipping_methods', async () => {
 	
