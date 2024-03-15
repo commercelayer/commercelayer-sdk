@@ -132,11 +132,11 @@ class ResourceAdapter {
 	}
 
 
-	/*
-	get clientInstance(): ApiClient {
+
+	get client(): Readonly<ApiClient> {
 		return this.#client
 	}
-	*/
+
 
 
 	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
@@ -271,15 +271,34 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	abstract type(): ResourceTypeLock
 
-	parse(resource: string): R | R[] {
+
+	parse(resource: string, options?: { ignoreSlug?: boolean }): R | R[] {
+
 		try {
+
 			const res = JSON.parse(resource)
-			if (res.data?.type !== this.type()) throw new SdkError({ message: `Invalid resource type [${res.data?.type}]`, type: ErrorType.PARSE })
+
+			// Resource type always checked
+			const rtype = res.data?.type
+			if (rtype !== this.type()) throw new SdkError({ message: `Invalid resource type [${rtype}]`, type: ErrorType.PARSE })
+			
+			// Parse options
+			const { ignoreSlug } = options || {}
+
+			if (!ignoreSlug) {
+				const links = res.data.links.self
+				if (!links || !String(links).match(`^${this.resources.client.baseUrl}/${this.type()}/*`))
+					throw new SdkError({ message: `Resource contains invalid links [${links}]`, type: ErrorType.PARSE })
+			}
+
+
 			return denormalize<R>(res as DocWithData)
+
 		} catch (error: any) {
 			if (SdkError.isSdkError(error)) throw error
 			else throw new SdkError({ message: `Payload parse error [${error.message}]`, type: ErrorType.PARSE })
 		}
+
 	}
 
 

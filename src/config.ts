@@ -11,6 +11,9 @@ const config = {
 	client: {
 		timeout: 15000,
 		requiredAttributes: ['organization', 'accessToken'],
+	},
+	jsonapi: {
+		maxResourceIncluded: 2
 	}
 } as const
 

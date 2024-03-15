@@ -2,10 +2,14 @@
 import type { ResourceType } from "./resource"
 
 import Debug from './debug'
+import { ErrorType, SdkError } from "./error"
 const debug = Debug('query')
 
 
-type QueryFilter = Record<string, string | number | boolean | object>
+type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>
+
+const arrayFilters = ['_any', '_all', '_in']
+const objectFilters = ['_jcont']
 
 
 interface QueryParamsRetrieve {
@@ -61,7 +65,18 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 		// Filters
 		if (params.filters) {
 			Object.entries(params.filters).forEach(([p, v]) => {
-				qp[`filter[q][${p}]`] = (typeof v === 'object')? JSON.stringify(v) : String(v)
+				const filter = p.substring(p.lastIndexOf('_'))
+				let val
+				if (Array.isArray(v)) {
+					if (!arrayFilters.includes(filter)) throw new SdkError({ message: `Wrong ${filter} filter: Array value is supported only for the following filters: ${arrayFilters.join(', ')}`, type: ErrorType.REQUEST })
+					val = v.join(',')
+				}
+				else if (typeof v === 'object') {
+					if (!objectFilters.includes(filter)) throw new SdkError({ message: `Wrong ${filter} filter: Object value is supported only for the following filters: ${objectFilters.join(', ')}`, type: ErrorType.REQUEST })
+					val = JSON.stringify(v)
+				}
+				else val = String(v)
+				qp[`filter[q][${p}]`] = val
 			})
 		}
 	}

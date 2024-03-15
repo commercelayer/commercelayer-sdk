@@ -103,7 +103,7 @@ describe('Events resource', () => {
         },
         "type": "${resourceType}",
         "links": {
-          "self": "/api/${resourceType}/AbcdEfgHiL"
+          "self": "https://sdk-test-org.commercelayer.io/api/${resourceType}/AbcdEfgHiL"
         },
         "attributes": {
           "metadata": {},
@@ -125,27 +125,6 @@ describe('Events resource', () => {
 
   
 
-	/* relationship.last_event_callbacks start */
-	it(resourceType + '.last_event_callbacks', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { event_callbacks: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'last_event_callbacks')
-			checkCommonParams(config, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].last_event_callbacks(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
-	
-	})
-	/* relationship.last_event_callbacks stop */
-	
-
 	/* relationship.webhooks start */
 	it(resourceType + '.webhooks', async () => {
 	
@@ -165,6 +144,27 @@ describe('Events resource', () => {
 	
 	})
 	/* relationship.webhooks stop */
+	
+
+	/* relationship.last_event_callbacks start */
+	it(resourceType + '.last_event_callbacks', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_callbacks: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'last_event_callbacks')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].last_event_callbacks(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.last_event_callbacks stop */
 	
   
 })

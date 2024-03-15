@@ -1,12 +1,16 @@
-
+import commercelayer, { CommerceLayerStatic } from '../lib/cjs'
 import { inspect } from 'util'
-import commercelayer from '../lib/esm'
 import getToken from './token'
 
+const ENV = 'topfarmacia'
 
-(async () => {
+;(async () => {
 
-	const auth = await getToken('integration')
+	const auth = await getToken('integration', ENV).catch(err => {
+		console.log(`${err.message}\n`)
+		process.exit()
+	})
+
 	const accessToken = auth ? auth.accessToken : ''
 	const organization = process.env.CL_SDK_ORGANIZATION || 'sdk-test-org'
 
@@ -16,13 +20,18 @@ import getToken from './token'
 	})
 
 	try {
+		
+		const order = await cl.orders.retrieve('nlKhmzozJO')
+		console.log(order)
 
-		const customers = await cl.customers.list({ filters: { email_eq: 'userx2@server.com' }})
-		console.log(inspect(customers, false, null, true))
-
+	
 	} catch (error: any) {
-		console.log(inspect(error, false, null, true))
-		console.log(error.message)
+		console.log('\n\n --xx  ERROR  xx--\n')
+		if (CommerceLayerStatic.isApiError(error)) console.log(error.errors)
+		else {
+			console.log(inspect(error, false, null, true))
+			console.log(error.message)
+		}
 	}
 
 })()
