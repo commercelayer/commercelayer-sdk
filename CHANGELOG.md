@@ -1,3 +1,10 @@
+## [5.34.4](https://github.com/commercelayer/commercelayer-sdk/compare/v5.34.3...v5.34.4) (2024-03-15)
+
+
+### Bug Fixes
+
+* fix interceptor response ([c85718e](https://github.com/commercelayer/commercelayer-sdk/commit/c85718e231572a787e9497e31bdb598cb82c38ca))
+
 ## [5.34.3](https://github.com/commercelayer/commercelayer-sdk/compare/v5.34.2...v5.34.3) (2024-03-15)
 
 
