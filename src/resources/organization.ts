@@ -28,6 +28,7 @@ interface Organization extends Resource {
 	max_concurrent_cleanups?: number | null
 	order_number_editable_test?: boolean | null
 	order_number_editable_live?: boolean | null
+	config?: Record<string, any> | null
 	
 }
 
