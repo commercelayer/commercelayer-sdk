@@ -3,7 +3,7 @@ import type { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResp
 
 
 type InterceptorManager = {
-	request: AxiosInterceptorManager<AxiosRequestConfig>;
+	request: AxiosInterceptorManager<AxiosRequestConfig>
 	response: AxiosInterceptorManager<any>
 }
 

@@ -1,8 +1,8 @@
 
 import type { ResourceType } from "./resource"
+import { ErrorType, SdkError } from "./error"
 
 import Debug from './debug'
-import { ErrorType, SdkError } from "./error"
 const debug = Debug('query')
 
 

@@ -4,9 +4,6 @@ import type { AxiosAdapter, CreateAxiosDefaults, AxiosInstance, AxiosProxyConfig
 import { SdkError, handleError } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
-// import type { Agent as HttpAgent } from 'http'
-// import type { Agent as HttpsAgent } from 'https'
-// import { packageInfo } from './util'
 
 import Debug from './debug'
 const debug = Debug('client')

@@ -335,7 +335,6 @@ class CommerceLayerClient {
 	}
 	
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isApiError(error: any): error is ApiError {
 		return CommerceLayerStatic.isApiError(error)
 	}
