@@ -2,7 +2,6 @@
 import apiSchema, { Resource, Operation, Component, Cardinality, Attribute } from './schema'
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
 import { basename } from 'path'
-import { snakeCase } from 'lodash'
 import fixSchema from './fixer'
 import Inflector from './inflector'
 
@@ -514,7 +513,7 @@ const triggerFunctions = (type: string, name: string, resource: Resource, operat
 			const tplt = templates.trigger
 			for (const trigger of triggers) {
 
-				const resId = `${snakeCase(type)}Id`
+				const resId = `${Inflector.underscore(type)}Id`
 				const op: Operation = {
 					type,
 					path: `/${type}/{${resId}}`,
@@ -646,7 +645,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImportsModels)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import type { ${i}${relationshipTypes.has(i)? `, ${i}Type` : ''} } from './${snakeCase(Inflector.pluralize(i))}'`)
+		.map(i => `import type { ${i}${relationshipTypes.has(i)? `, ${i}Type` : ''} } from './${Inflector.underscore(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
