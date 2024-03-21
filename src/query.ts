@@ -36,6 +36,7 @@ const isParamsList = (params: any): params is QueryParamsList => {
 }
 
 
+
 const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: string | ResourceType): Record<string, string> => {
 
 	debug('generate query string params: %O, %O', params, res)
@@ -88,4 +89,10 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 }
 
 
-export { generateQueryStringParams, isParamsList }
+const generateSearchString = (params?: QueryParams, questionMark: boolean = true): string => {
+	if (!params || (Object.keys(params).length === 0)) return ''
+	return `${questionMark? '?' : ''}${Object.entries(params).map(([key, val]) => `${key}=${String(val)}`).join('&')}`
+}
+
+
+export { generateQueryStringParams, isParamsList, generateSearchString }

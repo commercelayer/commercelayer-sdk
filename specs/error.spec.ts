@@ -36,7 +36,7 @@ describe('SDK:error suite', () => {
 			cl.config({ domain: 'fake.domain.xx', accessToken: 'fake-access-token' })
 			await cl.customers.list({ pageSize: 1})
 		} catch (error) {
-			expect(error.type).toEqual(ErrorType.RESPONSE)
+			expect(error.type).toEqual(ErrorType.CLIENT)
 		}
 	})
 
