@@ -45,9 +45,9 @@ export const fetchURL = async (url: URL, options: FetchOptions, interceptors?: I
 
   if (interceptors?.request?.onSuccess) ( { url, options } = await interceptors.request.onSuccess({ url, options }) )
 
-  // const request: Request = new Request(url, options)
+  const request: Request = new Request(url, options)
 
-  let response = await fetch(url, options)
+  let response = await fetch(request)
 
   if (response.ok) {
     if (interceptors?.rawReader?.onSuccess) await interceptors.rawReader.onSuccess(response)

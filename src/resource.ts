@@ -261,7 +261,6 @@ abstract class ApiResourceBase<R extends Resource> {
 	constructor(adapter: ResourceAdapter) {
 		debug('new resource instance: %s', this.type())
 		this.resources = adapter
-		console.log('CONSTRUCTOR ' + this.type())
 	}
 
 	abstract relationship(id: string | ResourceId | null): ResourceRel
