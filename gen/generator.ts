@@ -4,17 +4,16 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync
 import { basename } from 'path'
 import { snakeCase } from 'lodash'
 import fixSchema from './fixer'
+import Inflector from './inflector'
 
 
 /**** SDK source code generator settings ****/
 const CONFIG = {
 	RELATIONSHIP_FUNCTIONS: true,
-	TRIGGER_FUNCTIONS: true
+	TRIGGER_FUNCTIONS: true,
+	LEAZY_LOADING: true
 }
 /**** **** **** **** **** **** **** **** ****/
-
-
-const Inflector = require('inflector-js')
 
 
 type OperationType = 'retrieve' | 'list' | 'create' | 'update' | 'delete'
@@ -208,7 +207,7 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 	const iniTpl = iniTplLine.text.substring(iniTplIdx)
 
 	const initializations: string[] = []
-	Object.entries(resources).forEach(([type, res]) => {
+	if (!CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
 		let ini = iniTpl
 		ini = ini.replace(/##__TAB__##/g, '\t')
 		ini = ini.replace('##__RESOURCE_TYPE__##', type)
@@ -219,6 +218,25 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 	const iniStartIdx = findLine('##__CL_RESOURCES_INIT_START__##', lines).index + 2
 	const iniStopIdx = findLine('##__CL_RESOURCES_INIT_STOP__##', lines).index
 	lines.splice(iniStartIdx, iniStopIdx - iniStartIdx, ...initializations)
+
+
+	// Leazy Loading
+	const llTplLine = findLine('##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::', lines)
+	const llTplIdx = llTplLine.offset + '##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::'.length + 1
+	const llTpl = llTplLine.text.substring(llTplIdx)
+
+	const leazyLoaders: string[] = []
+	if (CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+		let ll = llTpl
+		ll = ll.replace(/##__TAB__##/g, '\t')
+		ll = ll.replace(/##__RESOURCE_TYPE__##/g, type)
+		ll = ll.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
+		leazyLoaders.push(ll)
+	})
+
+	const llStartIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_START__##', lines).index + 2
+	const llStopIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_STOP__##', lines).index
+	lines.splice(llStartIdx, llStopIdx - llStartIdx, ...leazyLoaders)
 
 
 	writeFileSync('src/commercelayer.ts', lines.join('\n'), { encoding: 'utf-8' })

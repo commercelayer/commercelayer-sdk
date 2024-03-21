@@ -5,8 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } f
 import { generateQueryStringParams, isParamsList } from './query'
 import type { ResourceTypeLock } from './api'
 import config from './config'
-import type { InterceptorManager } from './interceptor'
-// import { ErrorType, SdkError } from './error'
+
 
 import Debug from './debug'
 const debug = Debug('resource')
@@ -110,9 +109,6 @@ class ResourceAdapter {
 	}
 
 
-	get interceptors(): InterceptorManager { return this.#client.interceptors }
-
-
 	private localConfig(config: ResourceAdapterConfig): void {
 		// if (typeof config.xyz !== 'undefined') this.#config.xyz = config.xyz
 	}
@@ -146,7 +142,7 @@ class ResourceAdapter {
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
+		const res = await this.#client.request('GET', `${resource.type}`, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
@@ -161,7 +157,7 @@ class ResourceAdapter {
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const res = await this.#client.request('get', `${resource.type}/${resource.id}`, undefined, { ...options, params: queryParams })
+		const res = await this.#client.request('GET', `${resource.type}/${resource.id}`, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
@@ -176,7 +172,7 @@ class ResourceAdapter {
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
+		const res = await this.#client.request('GET', `${resource.type}`, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res as DocWithData) as R[]
 
 		const meta: ListMeta = {
@@ -199,7 +195,7 @@ class ResourceAdapter {
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
-		const res = await this.#client.request('post', resource.type, data, { ...options, params: queryParams })
+		const res = await this.#client.request('POST', resource.type, data, { ...options, params: queryParams })
 		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
@@ -215,7 +211,7 @@ class ResourceAdapter {
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
-		const res = await this.#client.request('patch', `${resource.type}/${resource.id}`, data, { ...options, params: queryParams })
+		const res = await this.#client.request('PATCH', `${resource.type}/${resource.id}`, data, { ...options, params: queryParams })
 		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
@@ -225,7 +221,7 @@ class ResourceAdapter {
 
 	async delete(resource: ResourceId, options?: ResourcesConfig): Promise<void> {
 		debug('delete: %o, %O', resource, options || {})
-		await this.#client.request('delete', `${resource.type}/${resource.id}`, undefined, options)
+		await this.#client.request('DELETE', `${resource.type}/${resource.id}`, undefined, options)
 	}
 
 
@@ -236,7 +232,7 @@ class ResourceAdapter {
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const res = await this.#client.request('get', path, undefined, { ...options, params: queryParams })
+		const res = await this.#client.request('GET', path, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res as DocWithData)
 
 		if (Array.isArray(r)) {
@@ -265,6 +261,7 @@ abstract class ApiResourceBase<R extends Resource> {
 	constructor(adapter: ResourceAdapter) {
 		debug('new resource instance: %s', this.type())
 		this.resources = adapter
+		console.log('CONSTRUCTOR ' + this.type())
 	}
 
 	abstract relationship(id: string | ResourceId | null): ResourceRel

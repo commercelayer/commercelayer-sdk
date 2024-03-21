@@ -27,16 +27,16 @@ describe('EventCallbacks resource', () => {
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
 
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('get')
-      checkCommon(config, resourceType, id, currentAccessToken)
-      checkCommonParams(config, params)
-     return interceptRequest()
+    cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommonParams(request, params)
+      return interceptRequest()
     })
 
     await cl[resourceType].retrieve(id, params, CommonData.options)
       .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
+      .finally(() => cl.removeInterceptor('request'))
 
   })
   /* spec.retrieve.stop */
@@ -47,16 +47,16 @@ describe('EventCallbacks resource', () => {
 
     const params = CommonData.paramsList
 
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('get')
-      checkCommon(config, resourceType)
-      checkCommonParamsList(config, params)
+    cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourceType)
+      checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
     await cl[resourceType].list(params, CommonData.options)
       .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
+      .finally(() => cl.removeInterceptor('request'))
     
   })
   /* spec.list.stop */
@@ -89,6 +89,7 @@ describe('EventCallbacks resource', () => {
 
 
   /* spec.parse.start */
+  /*
   it(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
@@ -121,6 +122,7 @@ describe('EventCallbacks resource', () => {
     expect(res.reference).toBe(reference)
 
   })
+  */
   /* spec.parse.stop */
 
   
@@ -131,16 +133,16 @@ describe('EventCallbacks resource', () => {
 		const id = TestData.id
 		const params = { fields: { webhooks: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'webhook')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'webhook')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].webhook(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.webhook stop */

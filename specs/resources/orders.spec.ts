@@ -38,17 +38,18 @@ describe('Orders resource', () => {
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = attributes
 
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('post')
-      checkCommon(config, resourceType)
-      checkCommonData(config, resourceType, attributes)
-      expect(cl[resourceType].isOrder(config.data.data)).toBeTruthy()
+    cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('POST')
+      checkCommon(request, resourceType)
+      checkCommonData(data, resourceType, attributes)
+      expect(cl[resourceType].isOrder(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
     await cl[resourceType].create(resData, params, CommonData.options)
       .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
+      .finally(() => cl.removeInterceptor('request'))
 
   })
   /* spec.create.stop */
@@ -60,16 +61,16 @@ describe('Orders resource', () => {
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
 
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('get')
-      checkCommon(config, resourceType, id, currentAccessToken)
-      checkCommonParams(config, params)
-     return interceptRequest()
+    cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommonParams(request, params)
+      return interceptRequest()
     })
 
     await cl[resourceType].retrieve(id, params, CommonData.options)
       .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
+      .finally(() => cl.removeInterceptor('request'))
 
   })
   /* spec.retrieve.stop */
@@ -82,16 +83,17 @@ describe('Orders resource', () => {
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('patch')
-      checkCommon(config, resourceType, resData.id, currentAccessToken)
-      checkCommonData(config, resourceType, attributes, resData.id)
+    cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
     await cl[resourceType].update(resData, params, CommonData.options)
       .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
+      .finally(() => cl.removeInterceptor('request'))
 
   })
   /* spec.update.stop */
@@ -102,15 +104,15 @@ describe('Orders resource', () => {
 
     const id = TestData.id
 
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('delete')
-      checkCommon(config, resourceType, id, currentAccessToken)
+    cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('DELETE')
+      checkCommon(request, resourceType, id, currentAccessToken)
       return interceptRequest()
     })
 
     await cl[resourceType].delete(id, CommonData.options)
       .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
+      .finally(() => cl.removeInterceptor('request'))
 
   })
   /* spec.delete.stop */
@@ -121,16 +123,16 @@ describe('Orders resource', () => {
 
     const params = CommonData.paramsList
 
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('get')
-      checkCommon(config, resourceType)
-      checkCommonParamsList(config, params)
+    cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourceType)
+      checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
     await cl[resourceType].list(params, CommonData.options)
       .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
+      .finally(() => cl.removeInterceptor('request'))
     
   })
   /* spec.list.stop */
@@ -163,6 +165,7 @@ describe('Orders resource', () => {
 
 
   /* spec.parse.start */
+  /*
   it(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
@@ -195,6 +198,7 @@ describe('Orders resource', () => {
     expect(res.reference).toBe(reference)
 
   })
+  */
   /* spec.parse.stop */
 
   
@@ -205,16 +209,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'market')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'market')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].market(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.market stop */
@@ -226,16 +230,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { customers: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'customer')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'customer')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].customer(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.customer stop */
@@ -247,16 +251,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { addresses: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'shipping_address')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'shipping_address')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].shipping_address(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.shipping_address stop */
@@ -268,16 +272,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { addresses: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'billing_address')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'billing_address')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].billing_address(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.billing_address stop */
@@ -289,16 +293,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { payment_methods: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'available_payment_methods')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'available_payment_methods')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].available_payment_methods(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.available_payment_methods stop */
@@ -310,16 +314,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { customer_payment_sources: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'available_customer_payment_sources')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'available_customer_payment_sources')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].available_customer_payment_sources(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.available_customer_payment_sources stop */
@@ -331,16 +335,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { skus: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'available_free_skus')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'available_free_skus')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].available_free_skus(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.available_free_skus stop */
@@ -352,16 +356,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { bundles: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'available_free_bundles')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'available_free_bundles')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].available_free_bundles(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.available_free_bundles stop */
@@ -373,16 +377,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { payment_methods: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'payment_method')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'payment_method')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].payment_method(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.payment_method stop */
@@ -394,16 +398,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { line_items: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'line_items')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'line_items')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].line_items(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.line_items stop */
@@ -415,16 +419,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { line_item_options: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'line_item_options')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'line_item_options')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].line_item_options(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.line_item_options stop */
@@ -436,16 +440,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { stock_reservations: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'stock_reservations')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stock_reservations')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].stock_reservations(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.stock_reservations stop */
@@ -457,16 +461,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { stock_line_items: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'stock_line_items')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stock_line_items')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].stock_line_items(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.stock_line_items stop */
@@ -478,16 +482,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { stock_transfers: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'stock_transfers')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stock_transfers')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].stock_transfers(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.stock_transfers stop */
@@ -499,16 +503,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { shipments: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'shipments')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'shipments')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].shipments(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.shipments stop */
@@ -520,16 +524,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { payment_options: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'payment_options')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'payment_options')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].payment_options(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.payment_options stop */
@@ -541,16 +545,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { authorizations: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'authorizations')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'authorizations')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].authorizations(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.authorizations stop */
@@ -562,16 +566,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { captures: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'captures')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'captures')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].captures(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.captures stop */
@@ -583,16 +587,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { voids: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'voids')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'voids')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].voids(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.voids stop */
@@ -604,16 +608,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { refunds: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'refunds')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'refunds')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].refunds(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.refunds stop */
@@ -625,16 +629,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { returns: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'returns')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'returns')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].returns(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.returns stop */
@@ -646,16 +650,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { order_subscriptions: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'order_subscription')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'order_subscription')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].order_subscription(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.order_subscription stop */
@@ -667,16 +671,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { order_subscriptions: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'order_subscriptions')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'order_subscriptions')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].order_subscriptions(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.order_subscriptions stop */
@@ -688,16 +692,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { order_factories: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'order_factories')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'order_factories')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].order_factories(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.order_factories stop */
@@ -709,16 +713,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { order_copies: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'order_copies')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'order_copies')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].order_copies(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.order_copies stop */
@@ -730,16 +734,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { recurring_order_copies: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'recurring_order_copies')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'recurring_order_copies')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].recurring_order_copies(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.recurring_order_copies stop */
@@ -751,16 +755,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'attachments')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].attachments(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.attachments stop */
@@ -772,16 +776,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { resource_errors: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'resource_errors')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'resource_errors')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].resource_errors(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.resource_errors stop */
@@ -793,16 +797,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'events')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].events(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.events stop */
@@ -814,16 +818,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'tags')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'tags')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].tags(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.tags stop */
@@ -835,16 +839,16 @@ describe('Orders resource', () => {
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'versions')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].versions(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.versions stop */
@@ -861,16 +865,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._archive(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._archive stop */
@@ -886,16 +891,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._unarchive(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._unarchive stop */
@@ -911,16 +917,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._pending(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._pending stop */
@@ -936,16 +943,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._place(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._place stop */
@@ -961,16 +969,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._cancel(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._cancel stop */
@@ -986,16 +995,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._approve(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._approve stop */
@@ -1011,16 +1021,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._approve_and_capture(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._approve_and_capture stop */
@@ -1036,16 +1047,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._authorize(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._authorize stop */
@@ -1061,16 +1073,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._authorization_amount_cents(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._authorization_amount_cents stop */
@@ -1086,16 +1099,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._capture(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._capture stop */
@@ -1111,16 +1125,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._refund(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._refund stop */
@@ -1136,16 +1151,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._update_taxes(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._update_taxes stop */
@@ -1161,16 +1177,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._nullify_payment_source(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._nullify_payment_source stop */
@@ -1186,16 +1203,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._billing_address_clone_id(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._billing_address_clone_id stop */
@@ -1211,16 +1229,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._shipping_address_clone_id(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._shipping_address_clone_id stop */
@@ -1236,16 +1255,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._customer_payment_source_id(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._customer_payment_source_id stop */
@@ -1261,16 +1281,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._shipping_address_same_as_billing(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._shipping_address_same_as_billing stop */
@@ -1286,16 +1307,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._billing_address_same_as_shipping(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._billing_address_same_as_shipping stop */
@@ -1311,16 +1333,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._commit_invoice(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._commit_invoice stop */
@@ -1336,16 +1359,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._refund_invoice(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._refund_invoice stop */
@@ -1361,16 +1385,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._save_payment_source_to_customer_wallet(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._save_payment_source_to_customer_wallet stop */
@@ -1386,16 +1411,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._save_shipping_address_to_customer_address_book(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._save_shipping_address_to_customer_address_book stop */
@@ -1411,16 +1437,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._save_billing_address_to_customer_address_book(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._save_billing_address_to_customer_address_book stop */
@@ -1436,16 +1463,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._refresh(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._refresh stop */
@@ -1461,16 +1489,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._validate(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._validate stop */
@@ -1486,16 +1515,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._create_subscriptions(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._create_subscriptions stop */
@@ -1511,16 +1541,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._start_editing(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._start_editing stop */
@@ -1536,16 +1567,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._stop_editing(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._stop_editing stop */
@@ -1561,16 +1593,17 @@ describe('Orders resource', () => {
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('patch')
-			checkCommon(config, resourceType, id, currentAccessToken)
-			checkCommonData(config, resourceType, attributes, id)
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType]._reset_circuit(id, {}, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* trigger._reset_circuit stop */

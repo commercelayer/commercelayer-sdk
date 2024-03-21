@@ -1,8 +1,8 @@
 
 import type { ResourceType } from "./resource"
+import { ErrorType, SdkError } from "./error"
 
 import Debug from './debug'
-import { ErrorType, SdkError } from "./error"
 const debug = Debug('query')
 
 
@@ -34,6 +34,7 @@ export type { QueryParamsRetrieve, QueryParamsList, QueryParams, QueryFilter }
 const isParamsList = (params: any): params is QueryParamsList => {
 	return params && (params.filters || params.pageNumber || params.pageSize || params.sort)
 }
+
 
 
 const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList | undefined, res: string | ResourceType): Record<string, string> => {
@@ -88,4 +89,10 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 }
 
 
-export { generateQueryStringParams, isParamsList }
+const generateSearchString = (params?: QueryParams, questionMark: boolean = true): string => {
+	if (!params || (Object.keys(params).length === 0)) return ''
+	return `${questionMark? '?' : ''}${Object.entries(params).map(([key, val]) => `${key}=${String(val)}`).join('&')}`
+}
+
+
+export { generateQueryStringParams, isParamsList, generateSearchString }

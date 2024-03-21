@@ -1,7 +1,7 @@
 
 import * as api from './api'
 import type { ApiError } from './error'
-import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj } from './interceptor'
+import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj, InterceptorManager } from './interceptor'
 import { CommerceLayerStatic } from './static'
 import ResourceAdapter, { type ResourcesInitConfig } from './resource'
 
@@ -31,132 +31,132 @@ class CommerceLayerClient {
 	readonly openApiSchemaVersion = OPEN_API_SCHEMA_VERSION
 
 	readonly #adapter: ResourceAdapter
-	#organization: string
+	#slug: string
 	// #environment: ApiMode = sdkConfig.default.environment
 
 	// ##__CL_RESOURCES_DEF_START__##
-	// ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__####__RESOURCE_TYPE__##: api.##__RESOURCE_CLASS__##
-	addresses: api.Addresses
-	adjustments: api.Adjustments
-	adyen_gateways: api.AdyenGateways
-	adyen_payments: api.AdyenPayments
-	application: api.Applications
-	attachments: api.Attachments
-	authorizations: api.Authorizations
-	avalara_accounts: api.AvalaraAccounts
-	axerve_gateways: api.AxerveGateways
-	axerve_payments: api.AxervePayments
-	billing_info_validation_rules: api.BillingInfoValidationRules
-	bing_geocoders: api.BingGeocoders
-	braintree_gateways: api.BraintreeGateways
-	braintree_payments: api.BraintreePayments
-	bundles: api.Bundles
-	buy_x_pay_y_promotions: api.BuyXPayYPromotions
-	captures: api.Captures
-	carrier_accounts: api.CarrierAccounts
-	checkout_com_gateways: api.CheckoutComGateways
-	checkout_com_payments: api.CheckoutComPayments
-	cleanups: api.Cleanups
-	coupon_codes_promotion_rules: api.CouponCodesPromotionRules
-	coupon_recipients: api.CouponRecipients
-	coupons: api.Coupons
-	custom_promotion_rules: api.CustomPromotionRules
-	customer_addresses: api.CustomerAddresses
-	customer_groups: api.CustomerGroups
-	customer_password_resets: api.CustomerPasswordResets
-	customer_payment_sources: api.CustomerPaymentSources
-	customer_subscriptions: api.CustomerSubscriptions
-	customers: api.Customers
-	delivery_lead_times: api.DeliveryLeadTimes
-	event_callbacks: api.EventCallbacks
-	events: api.Events
-	exports: api.Exports
-	external_gateways: api.ExternalGateways
-	external_payments: api.ExternalPayments
-	external_promotions: api.ExternalPromotions
-	external_tax_calculators: api.ExternalTaxCalculators
-	fixed_amount_promotions: api.FixedAmountPromotions
-	fixed_price_promotions: api.FixedPricePromotions
-	free_gift_promotions: api.FreeGiftPromotions
-	free_shipping_promotions: api.FreeShippingPromotions
-	geocoders: api.Geocoders
-	gift_card_recipients: api.GiftCardRecipients
-	gift_cards: api.GiftCards
-	google_geocoders: api.GoogleGeocoders
-	imports: api.Imports
-	in_stock_subscriptions: api.InStockSubscriptions
-	inventory_models: api.InventoryModels
-	inventory_return_locations: api.InventoryReturnLocations
-	inventory_stock_locations: api.InventoryStockLocations
-	klarna_gateways: api.KlarnaGateways
-	klarna_payments: api.KlarnaPayments
-	line_item_options: api.LineItemOptions
-	line_items: api.LineItems
-	manual_gateways: api.ManualGateways
-	manual_tax_calculators: api.ManualTaxCalculators
-	markets: api.Markets
-	merchants: api.Merchants
-	order_amount_promotion_rules: api.OrderAmountPromotionRules
-	order_copies: api.OrderCopies
-	order_factories: api.OrderFactories
-	order_subscription_items: api.OrderSubscriptionItems
-	order_subscriptions: api.OrderSubscriptions
-	order_validation_rules: api.OrderValidationRules
-	orders: api.Orders
-	organization: api.Organizations
-	packages: api.Packages
-	parcel_line_items: api.ParcelLineItems
-	parcels: api.Parcels
-	payment_gateways: api.PaymentGateways
-	payment_methods: api.PaymentMethods
-	payment_options: api.PaymentOptions
-	paypal_gateways: api.PaypalGateways
-	paypal_payments: api.PaypalPayments
-	percentage_discount_promotions: api.PercentageDiscountPromotions
-	price_frequency_tiers: api.PriceFrequencyTiers
-	price_lists: api.PriceLists
-	price_tiers: api.PriceTiers
-	price_volume_tiers: api.PriceVolumeTiers
-	prices: api.Prices
-	promotion_rules: api.PromotionRules
-	promotions: api.Promotions
-	recurring_order_copies: api.RecurringOrderCopies
-	refunds: api.Refunds
-	reserved_stocks: api.ReservedStocks
-	resource_errors: api.ResourceErrors
-	return_line_items: api.ReturnLineItems
-	returns: api.Returns
-	satispay_gateways: api.SatispayGateways
-	satispay_payments: api.SatispayPayments
-	shipments: api.Shipments
-	shipping_categories: api.ShippingCategories
-	shipping_method_tiers: api.ShippingMethodTiers
-	shipping_methods: api.ShippingMethods
-	shipping_weight_tiers: api.ShippingWeightTiers
-	shipping_zones: api.ShippingZones
-	sku_list_items: api.SkuListItems
-	sku_list_promotion_rules: api.SkuListPromotionRules
-	sku_lists: api.SkuLists
-	sku_options: api.SkuOptions
-	skus: api.Skus
-	stock_items: api.StockItems
-	stock_line_items: api.StockLineItems
-	stock_locations: api.StockLocations
-	stock_reservations: api.StockReservations
-	stock_transfers: api.StockTransfers
-	stripe_gateways: api.StripeGateways
-	stripe_payments: api.StripePayments
-	subscription_models: api.SubscriptionModels
-	tags: api.Tags
-	tax_calculators: api.TaxCalculators
-	tax_categories: api.TaxCategories
-	tax_rules: api.TaxRules
-	taxjar_accounts: api.TaxjarAccounts
-	transactions: api.Transactions
-	versions: api.Versions
-	voids: api.Voids
-	webhooks: api.Webhooks
-	wire_transfers: api.WireTransfers
+	// ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##
+	#addresses?: api.Addresses
+	#adjustments?: api.Adjustments
+	#adyen_gateways?: api.AdyenGateways
+	#adyen_payments?: api.AdyenPayments
+	#application?: api.Applications
+	#attachments?: api.Attachments
+	#authorizations?: api.Authorizations
+	#avalara_accounts?: api.AvalaraAccounts
+	#axerve_gateways?: api.AxerveGateways
+	#axerve_payments?: api.AxervePayments
+	#billing_info_validation_rules?: api.BillingInfoValidationRules
+	#bing_geocoders?: api.BingGeocoders
+	#braintree_gateways?: api.BraintreeGateways
+	#braintree_payments?: api.BraintreePayments
+	#bundles?: api.Bundles
+	#buy_x_pay_y_promotions?: api.BuyXPayYPromotions
+	#captures?: api.Captures
+	#carrier_accounts?: api.CarrierAccounts
+	#checkout_com_gateways?: api.CheckoutComGateways
+	#checkout_com_payments?: api.CheckoutComPayments
+	#cleanups?: api.Cleanups
+	#coupon_codes_promotion_rules?: api.CouponCodesPromotionRules
+	#coupon_recipients?: api.CouponRecipients
+	#coupons?: api.Coupons
+	#custom_promotion_rules?: api.CustomPromotionRules
+	#customer_addresses?: api.CustomerAddresses
+	#customer_groups?: api.CustomerGroups
+	#customer_password_resets?: api.CustomerPasswordResets
+	#customer_payment_sources?: api.CustomerPaymentSources
+	#customer_subscriptions?: api.CustomerSubscriptions
+	#customers?: api.Customers
+	#delivery_lead_times?: api.DeliveryLeadTimes
+	#event_callbacks?: api.EventCallbacks
+	#events?: api.Events
+	#exports?: api.Exports
+	#external_gateways?: api.ExternalGateways
+	#external_payments?: api.ExternalPayments
+	#external_promotions?: api.ExternalPromotions
+	#external_tax_calculators?: api.ExternalTaxCalculators
+	#fixed_amount_promotions?: api.FixedAmountPromotions
+	#fixed_price_promotions?: api.FixedPricePromotions
+	#free_gift_promotions?: api.FreeGiftPromotions
+	#free_shipping_promotions?: api.FreeShippingPromotions
+	#geocoders?: api.Geocoders
+	#gift_card_recipients?: api.GiftCardRecipients
+	#gift_cards?: api.GiftCards
+	#google_geocoders?: api.GoogleGeocoders
+	#imports?: api.Imports
+	#in_stock_subscriptions?: api.InStockSubscriptions
+	#inventory_models?: api.InventoryModels
+	#inventory_return_locations?: api.InventoryReturnLocations
+	#inventory_stock_locations?: api.InventoryStockLocations
+	#klarna_gateways?: api.KlarnaGateways
+	#klarna_payments?: api.KlarnaPayments
+	#line_item_options?: api.LineItemOptions
+	#line_items?: api.LineItems
+	#manual_gateways?: api.ManualGateways
+	#manual_tax_calculators?: api.ManualTaxCalculators
+	#markets?: api.Markets
+	#merchants?: api.Merchants
+	#order_amount_promotion_rules?: api.OrderAmountPromotionRules
+	#order_copies?: api.OrderCopies
+	#order_factories?: api.OrderFactories
+	#order_subscription_items?: api.OrderSubscriptionItems
+	#order_subscriptions?: api.OrderSubscriptions
+	#order_validation_rules?: api.OrderValidationRules
+	#orders?: api.Orders
+	#organization?: api.Organizations
+	#packages?: api.Packages
+	#parcel_line_items?: api.ParcelLineItems
+	#parcels?: api.Parcels
+	#payment_gateways?: api.PaymentGateways
+	#payment_methods?: api.PaymentMethods
+	#payment_options?: api.PaymentOptions
+	#paypal_gateways?: api.PaypalGateways
+	#paypal_payments?: api.PaypalPayments
+	#percentage_discount_promotions?: api.PercentageDiscountPromotions
+	#price_frequency_tiers?: api.PriceFrequencyTiers
+	#price_lists?: api.PriceLists
+	#price_tiers?: api.PriceTiers
+	#price_volume_tiers?: api.PriceVolumeTiers
+	#prices?: api.Prices
+	#promotion_rules?: api.PromotionRules
+	#promotions?: api.Promotions
+	#recurring_order_copies?: api.RecurringOrderCopies
+	#refunds?: api.Refunds
+	#reserved_stocks?: api.ReservedStocks
+	#resource_errors?: api.ResourceErrors
+	#return_line_items?: api.ReturnLineItems
+	#returns?: api.Returns
+	#satispay_gateways?: api.SatispayGateways
+	#satispay_payments?: api.SatispayPayments
+	#shipments?: api.Shipments
+	#shipping_categories?: api.ShippingCategories
+	#shipping_method_tiers?: api.ShippingMethodTiers
+	#shipping_methods?: api.ShippingMethods
+	#shipping_weight_tiers?: api.ShippingWeightTiers
+	#shipping_zones?: api.ShippingZones
+	#sku_list_items?: api.SkuListItems
+	#sku_list_promotion_rules?: api.SkuListPromotionRules
+	#sku_lists?: api.SkuLists
+	#sku_options?: api.SkuOptions
+	#skus?: api.Skus
+	#stock_items?: api.StockItems
+	#stock_line_items?: api.StockLineItems
+	#stock_locations?: api.StockLocations
+	#stock_reservations?: api.StockReservations
+	#stock_transfers?: api.StockTransfers
+	#stripe_gateways?: api.StripeGateways
+	#stripe_payments?: api.StripePayments
+	#subscription_models?: api.SubscriptionModels
+	#tags?: api.Tags
+	#tax_calculators?: api.TaxCalculators
+	#tax_categories?: api.TaxCategories
+	#tax_rules?: api.TaxRules
+	#taxjar_accounts?: api.TaxjarAccounts
+	#transactions?: api.Transactions
+	#versions?: api.Versions
+	#voids?: api.Voids
+	#webhooks?: api.Webhooks
+	#wire_transfers?: api.WireTransfers
 	// ##__CL_RESOURCES_DEF_STOP__##
 
 
@@ -165,144 +165,148 @@ class CommerceLayerClient {
 		debug('new commercelayer instance %O', config)
 
 		this.#adapter = new ResourceAdapter(config)
-		this.#organization = config.organization
+		this.#slug = config.organization
 		// this.#environment = 'test'
 
 		// ##__CL_RESOURCES_INIT_START__##
 		// ##__CL_RESOURCES_INIT_TEMPLATE:: ##__TAB__####__TAB__##this.##__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)
-		this.addresses = new api.Addresses(this.#adapter)
-		this.adjustments = new api.Adjustments(this.#adapter)
-		this.adyen_gateways = new api.AdyenGateways(this.#adapter)
-		this.adyen_payments = new api.AdyenPayments(this.#adapter)
-		this.application = new api.Applications(this.#adapter)
-		this.attachments = new api.Attachments(this.#adapter)
-		this.authorizations = new api.Authorizations(this.#adapter)
-		this.avalara_accounts = new api.AvalaraAccounts(this.#adapter)
-		this.axerve_gateways = new api.AxerveGateways(this.#adapter)
-		this.axerve_payments = new api.AxervePayments(this.#adapter)
-		this.billing_info_validation_rules = new api.BillingInfoValidationRules(this.#adapter)
-		this.bing_geocoders = new api.BingGeocoders(this.#adapter)
-		this.braintree_gateways = new api.BraintreeGateways(this.#adapter)
-		this.braintree_payments = new api.BraintreePayments(this.#adapter)
-		this.bundles = new api.Bundles(this.#adapter)
-		this.buy_x_pay_y_promotions = new api.BuyXPayYPromotions(this.#adapter)
-		this.captures = new api.Captures(this.#adapter)
-		this.carrier_accounts = new api.CarrierAccounts(this.#adapter)
-		this.checkout_com_gateways = new api.CheckoutComGateways(this.#adapter)
-		this.checkout_com_payments = new api.CheckoutComPayments(this.#adapter)
-		this.cleanups = new api.Cleanups(this.#adapter)
-		this.coupon_codes_promotion_rules = new api.CouponCodesPromotionRules(this.#adapter)
-		this.coupon_recipients = new api.CouponRecipients(this.#adapter)
-		this.coupons = new api.Coupons(this.#adapter)
-		this.custom_promotion_rules = new api.CustomPromotionRules(this.#adapter)
-		this.customer_addresses = new api.CustomerAddresses(this.#adapter)
-		this.customer_groups = new api.CustomerGroups(this.#adapter)
-		this.customer_password_resets = new api.CustomerPasswordResets(this.#adapter)
-		this.customer_payment_sources = new api.CustomerPaymentSources(this.#adapter)
-		this.customer_subscriptions = new api.CustomerSubscriptions(this.#adapter)
-		this.customers = new api.Customers(this.#adapter)
-		this.delivery_lead_times = new api.DeliveryLeadTimes(this.#adapter)
-		this.event_callbacks = new api.EventCallbacks(this.#adapter)
-		this.events = new api.Events(this.#adapter)
-		this.exports = new api.Exports(this.#adapter)
-		this.external_gateways = new api.ExternalGateways(this.#adapter)
-		this.external_payments = new api.ExternalPayments(this.#adapter)
-		this.external_promotions = new api.ExternalPromotions(this.#adapter)
-		this.external_tax_calculators = new api.ExternalTaxCalculators(this.#adapter)
-		this.fixed_amount_promotions = new api.FixedAmountPromotions(this.#adapter)
-		this.fixed_price_promotions = new api.FixedPricePromotions(this.#adapter)
-		this.free_gift_promotions = new api.FreeGiftPromotions(this.#adapter)
-		this.free_shipping_promotions = new api.FreeShippingPromotions(this.#adapter)
-		this.geocoders = new api.Geocoders(this.#adapter)
-		this.gift_card_recipients = new api.GiftCardRecipients(this.#adapter)
-		this.gift_cards = new api.GiftCards(this.#adapter)
-		this.google_geocoders = new api.GoogleGeocoders(this.#adapter)
-		this.imports = new api.Imports(this.#adapter)
-		this.in_stock_subscriptions = new api.InStockSubscriptions(this.#adapter)
-		this.inventory_models = new api.InventoryModels(this.#adapter)
-		this.inventory_return_locations = new api.InventoryReturnLocations(this.#adapter)
-		this.inventory_stock_locations = new api.InventoryStockLocations(this.#adapter)
-		this.klarna_gateways = new api.KlarnaGateways(this.#adapter)
-		this.klarna_payments = new api.KlarnaPayments(this.#adapter)
-		this.line_item_options = new api.LineItemOptions(this.#adapter)
-		this.line_items = new api.LineItems(this.#adapter)
-		this.manual_gateways = new api.ManualGateways(this.#adapter)
-		this.manual_tax_calculators = new api.ManualTaxCalculators(this.#adapter)
-		this.markets = new api.Markets(this.#adapter)
-		this.merchants = new api.Merchants(this.#adapter)
-		this.order_amount_promotion_rules = new api.OrderAmountPromotionRules(this.#adapter)
-		this.order_copies = new api.OrderCopies(this.#adapter)
-		this.order_factories = new api.OrderFactories(this.#adapter)
-		this.order_subscription_items = new api.OrderSubscriptionItems(this.#adapter)
-		this.order_subscriptions = new api.OrderSubscriptions(this.#adapter)
-		this.order_validation_rules = new api.OrderValidationRules(this.#adapter)
-		this.orders = new api.Orders(this.#adapter)
-		this.organization = new api.Organizations(this.#adapter)
-		this.packages = new api.Packages(this.#adapter)
-		this.parcel_line_items = new api.ParcelLineItems(this.#adapter)
-		this.parcels = new api.Parcels(this.#adapter)
-		this.payment_gateways = new api.PaymentGateways(this.#adapter)
-		this.payment_methods = new api.PaymentMethods(this.#adapter)
-		this.payment_options = new api.PaymentOptions(this.#adapter)
-		this.paypal_gateways = new api.PaypalGateways(this.#adapter)
-		this.paypal_payments = new api.PaypalPayments(this.#adapter)
-		this.percentage_discount_promotions = new api.PercentageDiscountPromotions(this.#adapter)
-		this.price_frequency_tiers = new api.PriceFrequencyTiers(this.#adapter)
-		this.price_lists = new api.PriceLists(this.#adapter)
-		this.price_tiers = new api.PriceTiers(this.#adapter)
-		this.price_volume_tiers = new api.PriceVolumeTiers(this.#adapter)
-		this.prices = new api.Prices(this.#adapter)
-		this.promotion_rules = new api.PromotionRules(this.#adapter)
-		this.promotions = new api.Promotions(this.#adapter)
-		this.recurring_order_copies = new api.RecurringOrderCopies(this.#adapter)
-		this.refunds = new api.Refunds(this.#adapter)
-		this.reserved_stocks = new api.ReservedStocks(this.#adapter)
-		this.resource_errors = new api.ResourceErrors(this.#adapter)
-		this.return_line_items = new api.ReturnLineItems(this.#adapter)
-		this.returns = new api.Returns(this.#adapter)
-		this.satispay_gateways = new api.SatispayGateways(this.#adapter)
-		this.satispay_payments = new api.SatispayPayments(this.#adapter)
-		this.shipments = new api.Shipments(this.#adapter)
-		this.shipping_categories = new api.ShippingCategories(this.#adapter)
-		this.shipping_method_tiers = new api.ShippingMethodTiers(this.#adapter)
-		this.shipping_methods = new api.ShippingMethods(this.#adapter)
-		this.shipping_weight_tiers = new api.ShippingWeightTiers(this.#adapter)
-		this.shipping_zones = new api.ShippingZones(this.#adapter)
-		this.sku_list_items = new api.SkuListItems(this.#adapter)
-		this.sku_list_promotion_rules = new api.SkuListPromotionRules(this.#adapter)
-		this.sku_lists = new api.SkuLists(this.#adapter)
-		this.sku_options = new api.SkuOptions(this.#adapter)
-		this.skus = new api.Skus(this.#adapter)
-		this.stock_items = new api.StockItems(this.#adapter)
-		this.stock_line_items = new api.StockLineItems(this.#adapter)
-		this.stock_locations = new api.StockLocations(this.#adapter)
-		this.stock_reservations = new api.StockReservations(this.#adapter)
-		this.stock_transfers = new api.StockTransfers(this.#adapter)
-		this.stripe_gateways = new api.StripeGateways(this.#adapter)
-		this.stripe_payments = new api.StripePayments(this.#adapter)
-		this.subscription_models = new api.SubscriptionModels(this.#adapter)
-		this.tags = new api.Tags(this.#adapter)
-		this.tax_calculators = new api.TaxCalculators(this.#adapter)
-		this.tax_categories = new api.TaxCategories(this.#adapter)
-		this.tax_rules = new api.TaxRules(this.#adapter)
-		this.taxjar_accounts = new api.TaxjarAccounts(this.#adapter)
-		this.transactions = new api.Transactions(this.#adapter)
-		this.versions = new api.Versions(this.#adapter)
-		this.voids = new api.Voids(this.#adapter)
-		this.webhooks = new api.Webhooks(this.#adapter)
-		this.wire_transfers = new api.WireTransfers(this.#adapter)
 		// ##__CL_RESOURCES_INIT_STOP__##
 
 	}
 
+	// ##__CL_RESOURCES_LEAZY_LOADING_START__##
+	// ##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return this.###__RESOURCE_TYPE__## || (this.###__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)) }
+	get addresses(): api.Addresses { return this.#addresses || (this.#addresses = new api.Addresses(this.#adapter)) }
+	get adjustments(): api.Adjustments { return this.#adjustments || (this.#adjustments = new api.Adjustments(this.#adapter)) }
+	get adyen_gateways(): api.AdyenGateways { return this.#adyen_gateways || (this.#adyen_gateways = new api.AdyenGateways(this.#adapter)) }
+	get adyen_payments(): api.AdyenPayments { return this.#adyen_payments || (this.#adyen_payments = new api.AdyenPayments(this.#adapter)) }
+	get application(): api.Applications { return this.#application || (this.#application = new api.Applications(this.#adapter)) }
+	get attachments(): api.Attachments { return this.#attachments || (this.#attachments = new api.Attachments(this.#adapter)) }
+	get authorizations(): api.Authorizations { return this.#authorizations || (this.#authorizations = new api.Authorizations(this.#adapter)) }
+	get avalara_accounts(): api.AvalaraAccounts { return this.#avalara_accounts || (this.#avalara_accounts = new api.AvalaraAccounts(this.#adapter)) }
+	get axerve_gateways(): api.AxerveGateways { return this.#axerve_gateways || (this.#axerve_gateways = new api.AxerveGateways(this.#adapter)) }
+	get axerve_payments(): api.AxervePayments { return this.#axerve_payments || (this.#axerve_payments = new api.AxervePayments(this.#adapter)) }
+	get billing_info_validation_rules(): api.BillingInfoValidationRules { return this.#billing_info_validation_rules || (this.#billing_info_validation_rules = new api.BillingInfoValidationRules(this.#adapter)) }
+	get bing_geocoders(): api.BingGeocoders { return this.#bing_geocoders || (this.#bing_geocoders = new api.BingGeocoders(this.#adapter)) }
+	get braintree_gateways(): api.BraintreeGateways { return this.#braintree_gateways || (this.#braintree_gateways = new api.BraintreeGateways(this.#adapter)) }
+	get braintree_payments(): api.BraintreePayments { return this.#braintree_payments || (this.#braintree_payments = new api.BraintreePayments(this.#adapter)) }
+	get bundles(): api.Bundles { return this.#bundles || (this.#bundles = new api.Bundles(this.#adapter)) }
+	get buy_x_pay_y_promotions(): api.BuyXPayYPromotions { return this.#buy_x_pay_y_promotions || (this.#buy_x_pay_y_promotions = new api.BuyXPayYPromotions(this.#adapter)) }
+	get captures(): api.Captures { return this.#captures || (this.#captures = new api.Captures(this.#adapter)) }
+	get carrier_accounts(): api.CarrierAccounts { return this.#carrier_accounts || (this.#carrier_accounts = new api.CarrierAccounts(this.#adapter)) }
+	get checkout_com_gateways(): api.CheckoutComGateways { return this.#checkout_com_gateways || (this.#checkout_com_gateways = new api.CheckoutComGateways(this.#adapter)) }
+	get checkout_com_payments(): api.CheckoutComPayments { return this.#checkout_com_payments || (this.#checkout_com_payments = new api.CheckoutComPayments(this.#adapter)) }
+	get cleanups(): api.Cleanups { return this.#cleanups || (this.#cleanups = new api.Cleanups(this.#adapter)) }
+	get coupon_codes_promotion_rules(): api.CouponCodesPromotionRules { return this.#coupon_codes_promotion_rules || (this.#coupon_codes_promotion_rules = new api.CouponCodesPromotionRules(this.#adapter)) }
+	get coupon_recipients(): api.CouponRecipients { return this.#coupon_recipients || (this.#coupon_recipients = new api.CouponRecipients(this.#adapter)) }
+	get coupons(): api.Coupons { return this.#coupons || (this.#coupons = new api.Coupons(this.#adapter)) }
+	get custom_promotion_rules(): api.CustomPromotionRules { return this.#custom_promotion_rules || (this.#custom_promotion_rules = new api.CustomPromotionRules(this.#adapter)) }
+	get customer_addresses(): api.CustomerAddresses { return this.#customer_addresses || (this.#customer_addresses = new api.CustomerAddresses(this.#adapter)) }
+	get customer_groups(): api.CustomerGroups { return this.#customer_groups || (this.#customer_groups = new api.CustomerGroups(this.#adapter)) }
+	get customer_password_resets(): api.CustomerPasswordResets { return this.#customer_password_resets || (this.#customer_password_resets = new api.CustomerPasswordResets(this.#adapter)) }
+	get customer_payment_sources(): api.CustomerPaymentSources { return this.#customer_payment_sources || (this.#customer_payment_sources = new api.CustomerPaymentSources(this.#adapter)) }
+	get customer_subscriptions(): api.CustomerSubscriptions { return this.#customer_subscriptions || (this.#customer_subscriptions = new api.CustomerSubscriptions(this.#adapter)) }
+	get customers(): api.Customers { return this.#customers || (this.#customers = new api.Customers(this.#adapter)) }
+	get delivery_lead_times(): api.DeliveryLeadTimes { return this.#delivery_lead_times || (this.#delivery_lead_times = new api.DeliveryLeadTimes(this.#adapter)) }
+	get event_callbacks(): api.EventCallbacks { return this.#event_callbacks || (this.#event_callbacks = new api.EventCallbacks(this.#adapter)) }
+	get events(): api.Events { return this.#events || (this.#events = new api.Events(this.#adapter)) }
+	get exports(): api.Exports { return this.#exports || (this.#exports = new api.Exports(this.#adapter)) }
+	get external_gateways(): api.ExternalGateways { return this.#external_gateways || (this.#external_gateways = new api.ExternalGateways(this.#adapter)) }
+	get external_payments(): api.ExternalPayments { return this.#external_payments || (this.#external_payments = new api.ExternalPayments(this.#adapter)) }
+	get external_promotions(): api.ExternalPromotions { return this.#external_promotions || (this.#external_promotions = new api.ExternalPromotions(this.#adapter)) }
+	get external_tax_calculators(): api.ExternalTaxCalculators { return this.#external_tax_calculators || (this.#external_tax_calculators = new api.ExternalTaxCalculators(this.#adapter)) }
+	get fixed_amount_promotions(): api.FixedAmountPromotions { return this.#fixed_amount_promotions || (this.#fixed_amount_promotions = new api.FixedAmountPromotions(this.#adapter)) }
+	get fixed_price_promotions(): api.FixedPricePromotions { return this.#fixed_price_promotions || (this.#fixed_price_promotions = new api.FixedPricePromotions(this.#adapter)) }
+	get free_gift_promotions(): api.FreeGiftPromotions { return this.#free_gift_promotions || (this.#free_gift_promotions = new api.FreeGiftPromotions(this.#adapter)) }
+	get free_shipping_promotions(): api.FreeShippingPromotions { return this.#free_shipping_promotions || (this.#free_shipping_promotions = new api.FreeShippingPromotions(this.#adapter)) }
+	get geocoders(): api.Geocoders { return this.#geocoders || (this.#geocoders = new api.Geocoders(this.#adapter)) }
+	get gift_card_recipients(): api.GiftCardRecipients { return this.#gift_card_recipients || (this.#gift_card_recipients = new api.GiftCardRecipients(this.#adapter)) }
+	get gift_cards(): api.GiftCards { return this.#gift_cards || (this.#gift_cards = new api.GiftCards(this.#adapter)) }
+	get google_geocoders(): api.GoogleGeocoders { return this.#google_geocoders || (this.#google_geocoders = new api.GoogleGeocoders(this.#adapter)) }
+	get imports(): api.Imports { return this.#imports || (this.#imports = new api.Imports(this.#adapter)) }
+	get in_stock_subscriptions(): api.InStockSubscriptions { return this.#in_stock_subscriptions || (this.#in_stock_subscriptions = new api.InStockSubscriptions(this.#adapter)) }
+	get inventory_models(): api.InventoryModels { return this.#inventory_models || (this.#inventory_models = new api.InventoryModels(this.#adapter)) }
+	get inventory_return_locations(): api.InventoryReturnLocations { return this.#inventory_return_locations || (this.#inventory_return_locations = new api.InventoryReturnLocations(this.#adapter)) }
+	get inventory_stock_locations(): api.InventoryStockLocations { return this.#inventory_stock_locations || (this.#inventory_stock_locations = new api.InventoryStockLocations(this.#adapter)) }
+	get klarna_gateways(): api.KlarnaGateways { return this.#klarna_gateways || (this.#klarna_gateways = new api.KlarnaGateways(this.#adapter)) }
+	get klarna_payments(): api.KlarnaPayments { return this.#klarna_payments || (this.#klarna_payments = new api.KlarnaPayments(this.#adapter)) }
+	get line_item_options(): api.LineItemOptions { return this.#line_item_options || (this.#line_item_options = new api.LineItemOptions(this.#adapter)) }
+	get line_items(): api.LineItems { return this.#line_items || (this.#line_items = new api.LineItems(this.#adapter)) }
+	get manual_gateways(): api.ManualGateways { return this.#manual_gateways || (this.#manual_gateways = new api.ManualGateways(this.#adapter)) }
+	get manual_tax_calculators(): api.ManualTaxCalculators { return this.#manual_tax_calculators || (this.#manual_tax_calculators = new api.ManualTaxCalculators(this.#adapter)) }
+	get markets(): api.Markets { return this.#markets || (this.#markets = new api.Markets(this.#adapter)) }
+	get merchants(): api.Merchants { return this.#merchants || (this.#merchants = new api.Merchants(this.#adapter)) }
+	get order_amount_promotion_rules(): api.OrderAmountPromotionRules { return this.#order_amount_promotion_rules || (this.#order_amount_promotion_rules = new api.OrderAmountPromotionRules(this.#adapter)) }
+	get order_copies(): api.OrderCopies { return this.#order_copies || (this.#order_copies = new api.OrderCopies(this.#adapter)) }
+	get order_factories(): api.OrderFactories { return this.#order_factories || (this.#order_factories = new api.OrderFactories(this.#adapter)) }
+	get order_subscription_items(): api.OrderSubscriptionItems { return this.#order_subscription_items || (this.#order_subscription_items = new api.OrderSubscriptionItems(this.#adapter)) }
+	get order_subscriptions(): api.OrderSubscriptions { return this.#order_subscriptions || (this.#order_subscriptions = new api.OrderSubscriptions(this.#adapter)) }
+	get order_validation_rules(): api.OrderValidationRules { return this.#order_validation_rules || (this.#order_validation_rules = new api.OrderValidationRules(this.#adapter)) }
+	get orders(): api.Orders { return this.#orders || (this.#orders = new api.Orders(this.#adapter)) }
+	get organization(): api.Organizations { return this.#organization || (this.#organization = new api.Organizations(this.#adapter)) }
+	get packages(): api.Packages { return this.#packages || (this.#packages = new api.Packages(this.#adapter)) }
+	get parcel_line_items(): api.ParcelLineItems { return this.#parcel_line_items || (this.#parcel_line_items = new api.ParcelLineItems(this.#adapter)) }
+	get parcels(): api.Parcels { return this.#parcels || (this.#parcels = new api.Parcels(this.#adapter)) }
+	get payment_gateways(): api.PaymentGateways { return this.#payment_gateways || (this.#payment_gateways = new api.PaymentGateways(this.#adapter)) }
+	get payment_methods(): api.PaymentMethods { return this.#payment_methods || (this.#payment_methods = new api.PaymentMethods(this.#adapter)) }
+	get payment_options(): api.PaymentOptions { return this.#payment_options || (this.#payment_options = new api.PaymentOptions(this.#adapter)) }
+	get paypal_gateways(): api.PaypalGateways { return this.#paypal_gateways || (this.#paypal_gateways = new api.PaypalGateways(this.#adapter)) }
+	get paypal_payments(): api.PaypalPayments { return this.#paypal_payments || (this.#paypal_payments = new api.PaypalPayments(this.#adapter)) }
+	get percentage_discount_promotions(): api.PercentageDiscountPromotions { return this.#percentage_discount_promotions || (this.#percentage_discount_promotions = new api.PercentageDiscountPromotions(this.#adapter)) }
+	get price_frequency_tiers(): api.PriceFrequencyTiers { return this.#price_frequency_tiers || (this.#price_frequency_tiers = new api.PriceFrequencyTiers(this.#adapter)) }
+	get price_lists(): api.PriceLists { return this.#price_lists || (this.#price_lists = new api.PriceLists(this.#adapter)) }
+	get price_tiers(): api.PriceTiers { return this.#price_tiers || (this.#price_tiers = new api.PriceTiers(this.#adapter)) }
+	get price_volume_tiers(): api.PriceVolumeTiers { return this.#price_volume_tiers || (this.#price_volume_tiers = new api.PriceVolumeTiers(this.#adapter)) }
+	get prices(): api.Prices { return this.#prices || (this.#prices = new api.Prices(this.#adapter)) }
+	get promotion_rules(): api.PromotionRules { return this.#promotion_rules || (this.#promotion_rules = new api.PromotionRules(this.#adapter)) }
+	get promotions(): api.Promotions { return this.#promotions || (this.#promotions = new api.Promotions(this.#adapter)) }
+	get recurring_order_copies(): api.RecurringOrderCopies { return this.#recurring_order_copies || (this.#recurring_order_copies = new api.RecurringOrderCopies(this.#adapter)) }
+	get refunds(): api.Refunds { return this.#refunds || (this.#refunds = new api.Refunds(this.#adapter)) }
+	get reserved_stocks(): api.ReservedStocks { return this.#reserved_stocks || (this.#reserved_stocks = new api.ReservedStocks(this.#adapter)) }
+	get resource_errors(): api.ResourceErrors { return this.#resource_errors || (this.#resource_errors = new api.ResourceErrors(this.#adapter)) }
+	get return_line_items(): api.ReturnLineItems { return this.#return_line_items || (this.#return_line_items = new api.ReturnLineItems(this.#adapter)) }
+	get returns(): api.Returns { return this.#returns || (this.#returns = new api.Returns(this.#adapter)) }
+	get satispay_gateways(): api.SatispayGateways { return this.#satispay_gateways || (this.#satispay_gateways = new api.SatispayGateways(this.#adapter)) }
+	get satispay_payments(): api.SatispayPayments { return this.#satispay_payments || (this.#satispay_payments = new api.SatispayPayments(this.#adapter)) }
+	get shipments(): api.Shipments { return this.#shipments || (this.#shipments = new api.Shipments(this.#adapter)) }
+	get shipping_categories(): api.ShippingCategories { return this.#shipping_categories || (this.#shipping_categories = new api.ShippingCategories(this.#adapter)) }
+	get shipping_method_tiers(): api.ShippingMethodTiers { return this.#shipping_method_tiers || (this.#shipping_method_tiers = new api.ShippingMethodTiers(this.#adapter)) }
+	get shipping_methods(): api.ShippingMethods { return this.#shipping_methods || (this.#shipping_methods = new api.ShippingMethods(this.#adapter)) }
+	get shipping_weight_tiers(): api.ShippingWeightTiers { return this.#shipping_weight_tiers || (this.#shipping_weight_tiers = new api.ShippingWeightTiers(this.#adapter)) }
+	get shipping_zones(): api.ShippingZones { return this.#shipping_zones || (this.#shipping_zones = new api.ShippingZones(this.#adapter)) }
+	get sku_list_items(): api.SkuListItems { return this.#sku_list_items || (this.#sku_list_items = new api.SkuListItems(this.#adapter)) }
+	get sku_list_promotion_rules(): api.SkuListPromotionRules { return this.#sku_list_promotion_rules || (this.#sku_list_promotion_rules = new api.SkuListPromotionRules(this.#adapter)) }
+	get sku_lists(): api.SkuLists { return this.#sku_lists || (this.#sku_lists = new api.SkuLists(this.#adapter)) }
+	get sku_options(): api.SkuOptions { return this.#sku_options || (this.#sku_options = new api.SkuOptions(this.#adapter)) }
+	get skus(): api.Skus { return this.#skus || (this.#skus = new api.Skus(this.#adapter)) }
+	get stock_items(): api.StockItems { return this.#stock_items || (this.#stock_items = new api.StockItems(this.#adapter)) }
+	get stock_line_items(): api.StockLineItems { return this.#stock_line_items || (this.#stock_line_items = new api.StockLineItems(this.#adapter)) }
+	get stock_locations(): api.StockLocations { return this.#stock_locations || (this.#stock_locations = new api.StockLocations(this.#adapter)) }
+	get stock_reservations(): api.StockReservations { return this.#stock_reservations || (this.#stock_reservations = new api.StockReservations(this.#adapter)) }
+	get stock_transfers(): api.StockTransfers { return this.#stock_transfers || (this.#stock_transfers = new api.StockTransfers(this.#adapter)) }
+	get stripe_gateways(): api.StripeGateways { return this.#stripe_gateways || (this.#stripe_gateways = new api.StripeGateways(this.#adapter)) }
+	get stripe_payments(): api.StripePayments { return this.#stripe_payments || (this.#stripe_payments = new api.StripePayments(this.#adapter)) }
+	get subscription_models(): api.SubscriptionModels { return this.#subscription_models || (this.#subscription_models = new api.SubscriptionModels(this.#adapter)) }
+	get tags(): api.Tags { return this.#tags || (this.#tags = new api.Tags(this.#adapter)) }
+	get tax_calculators(): api.TaxCalculators { return this.#tax_calculators || (this.#tax_calculators = new api.TaxCalculators(this.#adapter)) }
+	get tax_categories(): api.TaxCategories { return this.#tax_categories || (this.#tax_categories = new api.TaxCategories(this.#adapter)) }
+	get tax_rules(): api.TaxRules { return this.#tax_rules || (this.#tax_rules = new api.TaxRules(this.#adapter)) }
+	get taxjar_accounts(): api.TaxjarAccounts { return this.#taxjar_accounts || (this.#taxjar_accounts = new api.TaxjarAccounts(this.#adapter)) }
+	get transactions(): api.Transactions { return this.#transactions || (this.#transactions = new api.Transactions(this.#adapter)) }
+	get versions(): api.Versions { return this.#versions || (this.#versions = new api.Versions(this.#adapter)) }
+	get voids(): api.Voids { return this.#voids || (this.#voids = new api.Voids(this.#adapter)) }
+	get webhooks(): api.Webhooks { return this.#webhooks || (this.#webhooks = new api.Webhooks(this.#adapter)) }
+	get wire_transfers(): api.WireTransfers { return this.#wire_transfers || (this.#wire_transfers = new api.WireTransfers(this.#adapter)) }
+	// ##__CL_RESOURCES_LEAZY_LOADING_STOP__##
 
-	get currentOrganization(): string { return this.#organization }
+	get currentOrganization(): string { return this.#slug }
 	// get currentAccessToken(): string { return this.#adapter?.clientInstance?.currentAccessToken}
 	// get environment(): ApiMode { return this.#environment }
+	private get interceptors(): InterceptorManager { return this.#adapter.client.interceptors }
 
 
 	private localConfig(config: SdkConfig & { organization?: string }): void {
-		if (config.organization) this.#organization = config.organization
+		if (config.organization) this.#slug = config.organization
 	}
 
 
@@ -341,18 +345,17 @@ class CommerceLayerClient {
 	}
 
 
-	addRequestInterceptor(onFulfilled?: RequestInterceptor, onRejected?: ErrorInterceptor): number {
-		return this.#adapter.interceptors.request.use(onFulfilled, onRejected)
+	addRequestInterceptor(onSuccess?: RequestInterceptor, onFailure?: ErrorInterceptor): void {
+		this.interceptors.request = { onSuccess, onFailure }
 	}
 
-	addResponseInterceptor(onFulfilled?: ResponseInterceptor, onRejected?: ErrorInterceptor): number {
-		return this.#adapter.interceptors.response.use(onFulfilled, onRejected)
+	addResponseInterceptor(onSuccess?: ResponseInterceptor, onFailure?: ErrorInterceptor): void {
+		this.interceptors.response = { onSuccess, onFailure }
 	}
 
-	removeInterceptor(type: InterceptorType, id: number): void {
-		this.#adapter.interceptors[type].eject(id)
+	removeInterceptor(type: InterceptorType, id: number = 1): void {
+		this.interceptors[type] = undefined
 	}
-
 
 	addRawResponseReader(options?: { headers: boolean }): RawResponseReader {
 
@@ -360,24 +363,33 @@ class CommerceLayerClient {
 			id: undefined,
 			rawResponse: undefined,
 			headers: undefined,
+			ok: true
 		}
 
-		function rawResponseInterceptor(response: ResponseObj): ResponseObj {
-			reader.rawResponse = response?.data
-			if (options?.headers) reader.headers = (response.headers as HeadersObj)
+		async function rawResponseInterceptor(response: ResponseObj): Promise<ResponseObj> {
+			reader.rawResponse = await response?.clone().json().catch(() => {})
+			reader.ok = response.ok
+			if (options?.headers) {
+				const ho: HeadersObj = {}
+				response.headers.forEach((value, key) => { ho[key] = value })
+				reader.headers = ho
+			}
 			return response
 		}
 		
-		const interceptor = this.addResponseInterceptor(rawResponseInterceptor)
-		reader.id = interceptor
+		/* const interceptor = */this.interceptors.rawReader = { onSuccess: rawResponseInterceptor, onFailure: rawResponseInterceptor }
+		reader.id = 1 // interceptor
 
 		return reader
 
 	}
 
-	removeRawResponseReader(reader: number | RawResponseReader): void {
+	removeRawResponseReader(/* reader: number | RawResponseReader */): void {
+		/*
 		const id = (typeof reader === 'number') ? reader : reader?.id
 		if (id && (id >= 0)) this.removeInterceptor('response', id)
+		*/
+		this.interceptors.rawReader = undefined
 	}
 
 }
