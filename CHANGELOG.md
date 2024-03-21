@@ -1,3 +1,10 @@
+# [6.0.0-alfa.6](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.5...v6.0.0-alfa.6) (2024-03-21)
+
+
+### Bug Fixes
+
+* fix config ([4e5cf51](https://github.com/commercelayer/commercelayer-sdk/commit/4e5cf51dd7aef8391cb96ade4308c0d250e0a413))
+
 # [6.0.0-alfa.5](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.4...v6.0.0-alfa.5) (2024-03-21)
 
 
