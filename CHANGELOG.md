@@ -1,3 +1,23 @@
+# [6.0.0-alfa.5](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.4...v6.0.0-alfa.5) (2024-03-21)
+
+
+### Bug Fixes
+
+* fix inflector and remove lodash dependency ([47b4d58](https://github.com/commercelayer/commercelayer-sdk/commit/47b4d584cd60ab55bf0f731ba55efe08085e1f07))
+* fix lodash in specs ([dd6eacd](https://github.com/commercelayer/commercelayer-sdk/commit/dd6eacd50a431184b9e94cd80c7ec21063807ba6))
+* fix package config ([5ac5a10](https://github.com/commercelayer/commercelayer-sdk/commit/5ac5a102035ec93bd6b617caf52fa5416237f689))
+
+
+### Performance Improvements
+
+* remove axios dependency ([19b680a](https://github.com/commercelayer/commercelayer-sdk/commit/19b680a6f43d11a037ac8ee0b9d6f90048e0281f))
+* remove parse function ([477a390](https://github.com/commercelayer/commercelayer-sdk/commit/477a390f826757a414c5a6c8492044eccea4050f))
+
+
+### BREAKING CHANGES
+
+* parse function has been removed from all resources, use sdk-utils/webhoos.parse to denormalize webhooks payload
+
 # [6.0.0-alfa.4](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.3...v6.0.0-alfa.4) (2024-03-15)
 
 
