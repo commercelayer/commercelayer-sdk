@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "6.0.0-alfa.5",
+  "version": "6.0.0-alfa.4",
   "main": "lib/cjs/index.js",
   "types": "lib/cjs/index.d.ts",
   "module": "lib/esm/index.js",
@@ -51,7 +51,6 @@
     "@types/node": "^20.11.30",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
-    "inflector-js": "^1.0.1",
     "jest": "^29.7.0",
     "json-typescript": "^1.1.2",
     "jsonapi-typescript": "^0.1.3",
