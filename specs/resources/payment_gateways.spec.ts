@@ -4,7 +4,7 @@
  **/
 
 import { CommerceLayerClient, PaymentGateway } from '../../src'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash.isequal'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -35,6 +35,7 @@ describe('PaymentGateways resource', () => {
     })
 
     await cl[resourceType].retrieve(id, params, CommonData.options)
+      .then((res: PaymentGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 

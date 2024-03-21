@@ -3,7 +3,7 @@ import getToken from './token'
 import CommerceLayer, { CommerceLayerClient, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
 import dotenv from 'dotenv'
 import { inspect } from 'util'
-import { isEqual } from 'lodash.isequal'
+import isEqual from 'lodash.isequal'
 import { RequestConfig } from '../src/client'
 
 

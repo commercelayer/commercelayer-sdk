@@ -4,7 +4,7 @@
  **/
 
 import { CommerceLayerClient, BraintreeGateway } from '../../src'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash.isequal'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -47,6 +47,7 @@ describe('BraintreeGateways resource', () => {
     })
 
     await cl[resourceType].create(resData, params, CommonData.options)
+      .then((res: BraintreeGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -68,6 +69,7 @@ describe('BraintreeGateways resource', () => {
     })
 
     await cl[resourceType].retrieve(id, params, CommonData.options)
+      .then((res: BraintreeGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -91,6 +93,7 @@ describe('BraintreeGateways resource', () => {
     })
 
     await cl[resourceType].update(resData, params, CommonData.options)
+      .then((res: BraintreeGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 

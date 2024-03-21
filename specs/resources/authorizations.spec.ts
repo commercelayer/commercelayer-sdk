@@ -4,7 +4,7 @@
  **/
 
 import { CommerceLayerClient, Authorization } from '../../src'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash.isequal'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -35,6 +35,7 @@ describe('Authorizations resource', () => {
     })
 
     await cl[resourceType].retrieve(id, params, CommonData.options)
+      .then((res: Authorization) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -58,6 +59,7 @@ describe('Authorizations resource', () => {
     })
 
     await cl[resourceType].update(resData, params, CommonData.options)
+      .then((res: Authorization) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
