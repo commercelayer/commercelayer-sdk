@@ -299,6 +299,7 @@ class CommerceLayerClient {
 	get wire_transfers(): api.WireTransfers { return this.#wire_transfers || (this.#wire_transfers = new api.WireTransfers(this.#adapter)) }
 	// ##__CL_RESOURCES_LEAZY_LOADING_STOP__##
 
+	
 	get currentOrganization(): string { return this.#slug }
 	// get currentAccessToken(): string { return this.#adapter?.clientInstance?.currentAccessToken}
 	// get environment(): ApiMode { return this.#environment }

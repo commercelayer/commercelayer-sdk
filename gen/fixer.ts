@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import { ApiSchema } from './schema'
 import { sortObjectFields } from '../src/util'
-import { inspect } from 'util'
 
 
 
@@ -38,7 +37,7 @@ const fixRedundantComponents = (schema: ApiSchema): ApiSchema => {
 }
 
 
-const fixSchema = (schema: ApiSchema): ApiSchema => {
+export const fixSchema = (schema: ApiSchema): ApiSchema => {
 	console.log('Fixing parsed schema...')
 	const fixedSchema = fixRedundantComponents(schema)
 	console.log('Schema fixed.')
@@ -46,4 +45,6 @@ const fixSchema = (schema: ApiSchema): ApiSchema => {
 }
 
 
-export default fixSchema
+export default {
+	fixSchema
+}

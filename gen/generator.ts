@@ -1,8 +1,8 @@
 
 import apiSchema, { Resource, Operation, Component, Cardinality, Attribute } from './schema'
-import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
-import { basename } from 'path'
-import fixSchema from './fixer'
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs'
+import { basename } from 'node:path'
+import Fixer from './fixer'
 import Inflector from './inflector'
 
 
@@ -85,7 +85,7 @@ const generate = async (localSchema?: boolean) => {
 
 
 	// Remove redundant components and force usage of global resource component
-	fixSchema(schema)
+	Fixer.fixSchema(schema)
 	// console.log(inspect(schema, false, null, true))
 
 

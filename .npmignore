@@ -3,6 +3,7 @@ gen/
 src/
 node_modules/
 test/
+specs/
 
 tsconfig.json
 tsconfig.*.json

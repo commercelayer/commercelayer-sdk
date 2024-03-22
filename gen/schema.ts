@@ -1,11 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs'
-import { snakeCase } from 'lodash'
-import axios from 'axios'
 import { resolve } from 'path'
 import { sortObjectFields } from '../src/util'
-
-
-const Inflector = require('inflector-js')
+import Inflector from './inflector'
 
 
 const SCHEMA_LOCAL_PATH = resolve('./gen/openapi.json')
@@ -27,8 +23,8 @@ const downloadSchema = async (url?: string): Promise<SchemaInfo> => {
 
 	console.log(`Downloading OpenAPI schema ... [${schemaUrl}]`)
 
-	const response = await axios.get(schemaUrl)
-	const schema = await response.data
+	const response = await fetch(schemaUrl)
+	const schema = await response.json()
 
 	if (schema) writeFileSync(schemaOutPath, JSON.stringify(schema, null, 4))
 	else console.log('OpenAPI schema is empty!')
@@ -87,7 +83,7 @@ const parseSchema = (path: string): ApiSchema => {
 		Object.keys(apiSchema.components).forEach(c => {
 			if (!specialComponentMatcher.test(c)) components[c] = apiSchema.components[c]
 			else
-				if (snakeCase(c.replace(specialComponentMatcher, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
+				if (Inflector.snakeCase(c.replace(specialComponentMatcher, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
 		})
 		// Sort components
 		resources[p].components = sortObjectFields(resources[p].components)

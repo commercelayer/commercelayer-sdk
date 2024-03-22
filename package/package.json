@@ -10,25 +10,12 @@
       "require": "./lib/cjs/index.js",
       "import": "./lib/esm/index.js"
     },
-    "./model": {
+    "./modello": {
       "require": "./lib/cjs/model.js",
       "import": "./lib/esm/model.js"
     }
   },
   "sideEffects": false,
-  "scripts": {
-    "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
-    "build": "tsc -b tsconfig.json tsconfig.esm.json --verbose",
-    "postbuild": "minimize-js -d lib",
-    "generate": "tsx gen/generator.ts",
-    "generate-local": "tsx gen/generator.ts -- --local",
-    "lint": "eslint ./src --ext .ts",
-    "lintspec": "eslint ./specs/resources/ --ext .spec.ts",
-    "semantic-release": "semantic-release",
-    "test": "jest",
-    "test-local": "tsx test/spot.ts",
-    "coverage": "jest --coverage"
-  },
   "keywords": [
     "javascript",
     "ecommerce",
@@ -72,5 +59,18 @@
   },
   "resolutions": {
     "ansi-regex": "5.0.1"
+  },
+  "scripts": {
+    "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
+    "build": "tsc -b tsconfig.json tsconfig.esm.json --verbose",
+    "postbuild": "minimize-js -d lib",
+    "generate": "tsx gen/generator.ts",
+    "generate-local": "tsx gen/generator.ts -- --local",
+    "lint": "eslint ./src --ext .ts",
+    "lintspec": "eslint ./specs/resources/ --ext .spec.ts",
+    "semantic-release": "semantic-release",
+    "test": "jest",
+    "test-local": "tsx test/spot.ts",
+    "coverage": "jest --coverage"
   }
 }
