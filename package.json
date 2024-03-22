@@ -11,9 +11,7 @@
       "import": "./lib/esm/index.js"
     },
     "./model": {
-      "types": "./lib/cjs/model.d.ts",
-      "require": "./lib/cjs/model.js",
-      "import": "./lib/esm/model.js"
+      "types": "./lib/esm/model.d.ts"
     }
   },
   "sideEffects": false,
