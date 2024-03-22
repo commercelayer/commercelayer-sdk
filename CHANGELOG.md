@@ -1,3 +1,10 @@
+# [6.0.0-alfa.10](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.9...v6.0.0-alfa.10) (2024-03-22)
+
+
+### Bug Fixes
+
+* revert model types fix ([947daa9](https://github.com/commercelayer/commercelayer-sdk/commit/947daa98ddd16fb9a998275153ecb073a48546c2))
+
 # [6.0.0-alfa.9](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.8...v6.0.0-alfa.9) (2024-03-22)
 
 
