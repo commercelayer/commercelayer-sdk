@@ -1,3 +1,10 @@
+# [6.0.0-alfa.11](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.10...v6.0.0-alfa.11) (2024-03-22)
+
+
+### Bug Fixes
+
+* remove exports declaration ([88363ce](https://github.com/commercelayer/commercelayer-sdk/commit/88363ce97b699348ee12a095a09baf854b22f6d4))
+
 # [6.0.0-alfa.10](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.9...v6.0.0-alfa.10) (2024-03-22)
 
 
