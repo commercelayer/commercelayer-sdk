@@ -9,9 +9,6 @@
       "types": "./lib/cjs/index.d.ts",
       "require": "./lib/cjs/index.js",
       "import": "./lib/esm/index.js"
-    },
-    "./model": {
-      "types": "./lib/esm/model.d.ts"
     }
   },
   "sideEffects": false,
