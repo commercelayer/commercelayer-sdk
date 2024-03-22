@@ -1,3 +1,10 @@
+# [6.0.0-alfa.9](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.8...v6.0.0-alfa.9) (2024-03-22)
+
+
+### Bug Fixes
+
+* fix model types export ([3d6e559](https://github.com/commercelayer/commercelayer-sdk/commit/3d6e559bbfa126588e899ab835978b1997dba7d8))
+
 # [6.0.0-alfa.8](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.7...v6.0.0-alfa.8) (2024-03-22)
 
 
