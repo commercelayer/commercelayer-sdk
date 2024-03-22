@@ -1,3 +1,10 @@
+# [6.0.0-alfa.8](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.7...v6.0.0-alfa.8) (2024-03-22)
+
+
+### Bug Fixes
+
+* fix model export config ([8f0dd5f](https://github.com/commercelayer/commercelayer-sdk/commit/8f0dd5f093ba61ea28041a14f17acb980df7f4fb))
+
 # [6.0.0-alfa.7](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.6...v6.0.0-alfa.7) (2024-03-22)
 
 
