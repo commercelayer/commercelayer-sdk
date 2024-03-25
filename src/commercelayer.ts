@@ -311,7 +311,7 @@ class CommerceLayerClient {
 	}
 
 
-	config(config: CommerceLayerConfig): CommerceLayerClient {
+	config(config: CommerceLayerConfig): this {
 
 		debug('config %o', config)
 

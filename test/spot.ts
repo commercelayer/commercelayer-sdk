@@ -1,4 +1,4 @@
-import commercelayer, { type Address, CommerceLayerClient, CommerceLayerStatic } from '../lib/cjs'
+import commercelayer, { type Address, CommerceLayerClient, CommerceLayerStatic } from '../src'
 import { inspect } from 'util'
 import getToken from './token'
 
@@ -11,7 +11,7 @@ const ENV = ''
 
 		try {
 
-			const a: Address = await cl.addresses.retrieve('')
+			const res = await cl.addresses.list({pageSize: 2 })
 
 		} catch (error: any) {
 			handleError(error)
