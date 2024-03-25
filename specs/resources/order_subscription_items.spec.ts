@@ -30,6 +30,7 @@ describe('OrderSubscriptionItems resource', () => {
 			item: cl.adjustments.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 			bundle: cl.bundles.relationship(TestData.id),
+			adjustment: cl.adjustments.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

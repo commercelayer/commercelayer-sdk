@@ -29,6 +29,7 @@ interface OrderSubscription extends Resource {
 	status: 'draft' | 'inactive' | 'active' | 'cancelled'
 	frequency: string
 	activate_by_source_order?: boolean | null
+	place_target_order?: boolean | null
 	customer_email?: string | null
 	starts_at?: string | null
 	expires_at?: string | null
@@ -37,7 +38,6 @@ interface OrderSubscription extends Resource {
 	occurrencies?: number | null
 	errors_count?: number | null
 	succeeded_on_last_run?: boolean | null
-	options?: Record<string, any> | null
 
 	market?: Market | null
 	subscription_model?: SubscriptionModel | null
@@ -58,9 +58,9 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 	
 	frequency: string
 	activate_by_source_order?: boolean | null
+	place_target_order?: boolean | null
 	starts_at?: string | null
 	expires_at?: string | null
-	options?: Record<string, any> | null
 
 	market?: MarketRel | null
 	source_order: OrderRel
@@ -71,6 +71,8 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 interface OrderSubscriptionUpdate extends ResourceUpdate {
 	
 	frequency?: string | null
+	activate_by_source_order?: boolean | null
+	place_target_order?: boolean | null
 	expires_at?: string | null
 	next_run_at?: string | null
 	_activate?: boolean | null
