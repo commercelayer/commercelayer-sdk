@@ -15,7 +15,7 @@
   "scripts": {
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
     "build": "tsc -b tsconfig.json tsconfig.esm.json --verbose",
-    "postbuild": "minimize-js -d lib",
+    "minimize": "minimize-js -d lib",
     "generate": "tsx gen/generator.ts",
     "generate-local": "tsx gen/generator.ts -- --local",
     "lint": "eslint ./src --ext .ts",
