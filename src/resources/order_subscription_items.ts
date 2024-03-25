@@ -21,6 +21,8 @@ interface OrderSubscriptionItem extends Resource {
 	
 	readonly type: OrderSubscriptionItemType
 
+	sku_code?: string | null
+	bundle_code?: string | null
 	quantity: number
 	unit_amount_cents?: number | null
 	unit_amount_float?: number | null
@@ -33,6 +35,7 @@ interface OrderSubscriptionItem extends Resource {
 	item?: Adjustment | Bundle | Sku | null
 	sku?: Sku | null
 	bundle?: Bundle | null
+	adjustment?: Adjustment | null
 	source_line_item?: LineItem | null
 
 }
@@ -49,6 +52,7 @@ interface OrderSubscriptionItemCreate extends ResourceCreate {
 	item: AdjustmentRel | BundleRel | SkuRel
 	sku?: SkuRel | null
 	bundle?: BundleRel | null
+	adjustment?: AdjustmentRel | null
 
 }
 
