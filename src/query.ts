@@ -11,24 +11,28 @@ const debug = Debug('query')
 const arrayFilters = ['_any', '_all', '_in']
 const objectFilters = ['_jcont']
 
-type QueryResourceFields<R extends ResourceTypeLock> = keyof ResourceFields[R] 
+type QueryInclude = string[]	// TODO: complex include helper in sdk-utils
+type QueryResourceFields<R extends ResourceTypeLock> = keyof ResourceFields[R]
+type QueryArrayFields<R extends Resource> = Array<QueryResourceFields<R['type']>>
+type QueryRecordFields = { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
 
 interface QueryParamsRetrieve<R extends Resource = Resource> {
-	include?: string[]
-	fields?: Array<QueryResourceFields<R['type']>> | { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
+	include?: QueryInclude
+	fields?: QueryArrayFields<R> | QueryRecordFields
 }
 
 type QueryResourceSortable<R extends Resource> = ResourceSortableFields[R['type']]
 type QueryResourceSortableFields<R extends Resource> = StringKey<QueryResourceSortable<R>>
 type QueryArraySortable<R extends Resource> = Array<QueryResourceSortableFields<R> | `-${QueryResourceSortableFields<R>}`>
 type QueryRecordSortable<R extends Resource> = Partial<Record<keyof QueryResourceSortable<R>, 'asc' | 'desc'>>
-type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>
+type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>	// TODO: complex filters hepler in sdk-utils
+type QueryPageNumber = number	// TODO: page number must be > 0
 type QueryPageSize = PositiveNumberRange<25>
 
 interface QueryParamsList<R extends Resource = Resource> extends QueryParamsRetrieve<R> {
 	sort?: QueryArraySortable<R> | QueryRecordSortable<R>
 	filters?: QueryFilter
-	pageNumber?: number
+	pageNumber?: QueryPageNumber
 	pageSize?: QueryPageSize
 }
 
@@ -43,12 +47,13 @@ const isParamsList = <R extends Resource>(params: any): params is QueryParamsLis
 }
 
 
+type QueryStringParams = Record<string, string>
 
-const generateQueryStringParams = <R extends Resource>(params: QueryParams<R> | undefined, res: string | ResourceType): Record<string, string> => {
+const generateQueryStringParams = <R extends Resource>(params: QueryParams<R> | undefined, res: string | ResourceType): QueryStringParams => {
 
 	debug('generate query string params: %O, %O', params, res)
 
-	const qp: Record<string, string> = {}
+	const qp: QueryStringParams = {}
 	if (!params) return qp
 
 	// Include
@@ -96,7 +101,7 @@ const generateQueryStringParams = <R extends Resource>(params: QueryParams<R> | 
 }
 
 
-const generateSearchString = <R extends Resource>(params?: QueryParams<R>, questionMark: boolean = true): string => {
+const generateSearchString = (params?: QueryStringParams, questionMark: boolean = true): string => {
 	if (!params || (Object.keys(params).length === 0)) return ''
 	return `${questionMark ? '?' : ''}${Object.entries(params).map(([key, val]) => `${key}=${String(val)}`).join('&')}`
 }
