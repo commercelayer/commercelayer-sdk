@@ -1,9 +1,9 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Event, EventSortable } from './events'
-import type { Version, VersionSortable } from './versions'
+import type { Event } from './events'
+import type { Version } from './versions'
 
 
 type CleanupType = 'cleanups'
@@ -11,7 +11,7 @@ type CleanupRel = ResourceRel & { type: CleanupType }
 
 
 export type CleanupSortable = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceSortable
-export type CleanupFilterable = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceFilterable
+// export type CleanupFilterable = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceFilterable
 
 
 interface Cleanup extends Resource {
@@ -43,11 +43,11 @@ interface CleanupCreate extends ResourceCreate {
 }
 
 
-class Cleanups extends ApiResource<Cleanup, CleanupSortable> {
+class Cleanups extends ApiResource<Cleanup> {
 
 	static readonly TYPE: CleanupType = 'cleanups' as const
 
-	async create(resource: CleanupCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Cleanup> {
+	async create(resource: CleanupCreate, params?: QueryParamsRetrieve<Cleanup>, options?: ResourcesConfig): Promise<Cleanup> {
 		return this.resources.create<CleanupCreate, Cleanup>({ ...resource, type: Cleanups.TYPE }, params, options)
 	}
 
@@ -55,14 +55,14 @@ class Cleanups extends ApiResource<Cleanup, CleanupSortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Cleanups.TYPE } : id, options)
 	}
 
-	async events(cleanupId: string | Cleanup, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(cleanupId: string | Cleanup, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _cleanupId = (cleanupId as Cleanup).id || cleanupId as string
-		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `cleanups/${_cleanupId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event>({ type: 'events' }, `cleanups/${_cleanupId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async versions(cleanupId: string | Cleanup, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(cleanupId: string | Cleanup, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _cleanupId = (cleanupId as Cleanup).id || cleanupId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `cleanups/${_cleanupId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `cleanups/${_cleanupId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

@@ -15,15 +15,12 @@ const ENV = ''
 
 	; (async () => {
 
-		// const cl = await init()
-		const config = await initConfig()
+		const cl = await init()
 
 		try {
 
-			const adapter = ApiResourceAdapter(config)
-			const api = CustomersClient(adapter)
-
-			const res = await api.list({ fields: ['created_at'], sort: { created_at: 'asc' }, pageSize: 25 })
+			const res = await cl.orders.list({ fields: ['adjustment_amount_cents']})
+			await cl.orders.create({'adjustment_taxable': true}, {fields: ['approved_at']})
 			console.log(res)
 
 

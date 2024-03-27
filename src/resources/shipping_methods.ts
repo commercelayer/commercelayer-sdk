@@ -1,16 +1,16 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market, MarketType, MarketSortable } from './markets'
-import type { ShippingZone, ShippingZoneType, ShippingZoneSortable } from './shipping_zones'
-import type { ShippingCategory, ShippingCategoryType, ShippingCategorySortable } from './shipping_categories'
-import type { StockLocation, StockLocationType, StockLocationSortable } from './stock_locations'
-import type { DeliveryLeadTime, DeliveryLeadTimeSortable } from './delivery_lead_times'
-import type { ShippingMethodTier, ShippingMethodTierType, ShippingMethodTierSortable } from './shipping_method_tiers'
-import type { ShippingWeightTier, ShippingWeightTierSortable } from './shipping_weight_tiers'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Version, VersionSortable } from './versions'
+import type { Market, MarketType } from './markets'
+import type { ShippingZone, ShippingZoneType } from './shipping_zones'
+import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { DeliveryLeadTime } from './delivery_lead_times'
+import type { ShippingMethodTier, ShippingMethodTierType } from './shipping_method_tiers'
+import type { ShippingWeightTier } from './shipping_weight_tiers'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type ShippingMethodType = 'shipping_methods'
@@ -23,7 +23,7 @@ type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 
 
 export type ShippingMethodSortable = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
-export type ShippingMethodFilterable = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
+// export type ShippingMethodFilterable = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
 
 
 interface ShippingMethod extends Resource {
@@ -113,15 +113,15 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 }
 
 
-class ShippingMethods extends ApiResource<ShippingMethod, ShippingMethodSortable> {
+class ShippingMethods extends ApiResource<ShippingMethod> {
 
 	static readonly TYPE: ShippingMethodType = 'shipping_methods' as const
 
-	async create(resource: ShippingMethodCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+	async create(resource: ShippingMethodCreate, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.create<ShippingMethodCreate, ShippingMethod>({ ...resource, type: ShippingMethods.TYPE }, params, options)
 	}
 
-	async update(resource: ShippingMethodUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+	async update(resource: ShippingMethodUpdate, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ ...resource, type: ShippingMethods.TYPE }, params, options)
 	}
 
@@ -129,60 +129,60 @@ class ShippingMethods extends ApiResource<ShippingMethod, ShippingMethodSortable
 		await this.resources.delete((typeof id === 'string')? { id, type: ShippingMethods.TYPE } : id, options)
 	}
 
-	async market(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+	async market(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<Market, MarketSortable>({ type: 'markets' }, `shipping_methods/${_shippingMethodId}/market`, params, options) as unknown as Market
+		return this.resources.fetch<Market>({ type: 'markets' }, `shipping_methods/${_shippingMethodId}/market`, params, options) as unknown as Market
 	}
 
-	async shipping_zone(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
+	async shipping_zone(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<ShippingZone>, options?: ResourcesConfig): Promise<ShippingZone> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<ShippingZone, ShippingZoneSortable>({ type: 'shipping_zones' }, `shipping_methods/${_shippingMethodId}/shipping_zone`, params, options) as unknown as ShippingZone
+		return this.resources.fetch<ShippingZone>({ type: 'shipping_zones' }, `shipping_methods/${_shippingMethodId}/shipping_zone`, params, options) as unknown as ShippingZone
 	}
 
-	async shipping_category(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+	async shipping_category(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<ShippingCategory>, options?: ResourcesConfig): Promise<ShippingCategory> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<ShippingCategory, ShippingCategorySortable>({ type: 'shipping_categories' }, `shipping_methods/${_shippingMethodId}/shipping_category`, params, options) as unknown as ShippingCategory
+		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `shipping_methods/${_shippingMethodId}/shipping_category`, params, options) as unknown as ShippingCategory
 	}
 
-	async stock_location(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+	async stock_location(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<StockLocation, StockLocationSortable>({ type: 'stock_locations' }, `shipping_methods/${_shippingMethodId}/stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `shipping_methods/${_shippingMethodId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async delivery_lead_time_for_shipment(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
+	async delivery_lead_time_for_shipment(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<DeliveryLeadTime>, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<DeliveryLeadTime, DeliveryLeadTimeSortable>({ type: 'delivery_lead_times' }, `shipping_methods/${_shippingMethodId}/delivery_lead_time_for_shipment`, params, options) as unknown as DeliveryLeadTime
+		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `shipping_methods/${_shippingMethodId}/delivery_lead_time_for_shipment`, params, options) as unknown as DeliveryLeadTime
 	}
 
-	async shipping_method_tiers(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<ShippingMethodTierSortable>, options?: ResourcesConfig): Promise<ListResponse<ShippingMethodTier>> {
+	async shipping_method_tiers(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<ShippingMethodTier>, options?: ResourcesConfig): Promise<ListResponse<ShippingMethodTier>> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<ShippingMethodTier, ShippingMethodTierSortable>({ type: 'shipping_method_tiers' }, `shipping_methods/${_shippingMethodId}/shipping_method_tiers`, params, options) as unknown as ListResponse<ShippingMethodTier>
+		return this.resources.fetch<ShippingMethodTier>({ type: 'shipping_method_tiers' }, `shipping_methods/${_shippingMethodId}/shipping_method_tiers`, params, options) as unknown as ListResponse<ShippingMethodTier>
 	}
 
-	async shipping_weight_tiers(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<ShippingWeightTierSortable>, options?: ResourcesConfig): Promise<ListResponse<ShippingWeightTier>> {
+	async shipping_weight_tiers(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<ShippingWeightTier>, options?: ResourcesConfig): Promise<ListResponse<ShippingWeightTier>> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<ShippingWeightTier, ShippingWeightTierSortable>({ type: 'shipping_weight_tiers' }, `shipping_methods/${_shippingMethodId}/shipping_weight_tiers`, params, options) as unknown as ListResponse<ShippingWeightTier>
+		return this.resources.fetch<ShippingWeightTier>({ type: 'shipping_weight_tiers' }, `shipping_methods/${_shippingMethodId}/shipping_weight_tiers`, params, options) as unknown as ListResponse<ShippingWeightTier>
 	}
 
-	async attachments(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `shipping_methods/${_shippingMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_methods/${_shippingMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `shipping_methods/${_shippingMethodId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_methods/${_shippingMethodId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async _disable(id: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+	async _disable(id: string | ShippingMethod, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ id: (typeof id === 'string')? id: id.id, type: ShippingMethods.TYPE, _disable: true }, params, options)
 	}
 
-	async _enable(id: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+	async _enable(id: string | ShippingMethod, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ id: (typeof id === 'string')? id: id.id, type: ShippingMethods.TYPE, _enable: true }, params, options)
 	}
 
-	async _reset_circuit(id: string | ShippingMethod, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+	async _reset_circuit(id: string | ShippingMethod, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ id: (typeof id === 'string')? id: id.id, type: ShippingMethods.TYPE, _reset_circuit: true }, params, options)
 	}
 

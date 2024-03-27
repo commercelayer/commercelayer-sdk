@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Sku, SkuSortable } from './skus'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Version, VersionSortable } from './versions'
+import type { Sku } from './skus'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type ShippingCategoryType = 'shipping_categories'
@@ -12,7 +12,7 @@ type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
 
 
 export type ShippingCategorySortable = Pick<ShippingCategory, 'id' | 'name' | 'code'> & ResourceSortable
-export type ShippingCategoryFilterable = Pick<ShippingCategory, 'id' | 'name' | 'code'> & ResourceFilterable
+// export type ShippingCategoryFilterable = Pick<ShippingCategory, 'id' | 'name' | 'code'> & ResourceFilterable
 
 
 interface ShippingCategory extends Resource {
@@ -45,15 +45,15 @@ interface ShippingCategoryUpdate extends ResourceUpdate {
 }
 
 
-class ShippingCategories extends ApiResource<ShippingCategory, ShippingCategorySortable> {
+class ShippingCategories extends ApiResource<ShippingCategory> {
 
 	static readonly TYPE: ShippingCategoryType = 'shipping_categories' as const
 
-	async create(resource: ShippingCategoryCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+	async create(resource: ShippingCategoryCreate, params?: QueryParamsRetrieve<ShippingCategory>, options?: ResourcesConfig): Promise<ShippingCategory> {
 		return this.resources.create<ShippingCategoryCreate, ShippingCategory>({ ...resource, type: ShippingCategories.TYPE }, params, options)
 	}
 
-	async update(resource: ShippingCategoryUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+	async update(resource: ShippingCategoryUpdate, params?: QueryParamsRetrieve<ShippingCategory>, options?: ResourcesConfig): Promise<ShippingCategory> {
 		return this.resources.update<ShippingCategoryUpdate, ShippingCategory>({ ...resource, type: ShippingCategories.TYPE }, params, options)
 	}
 
@@ -61,19 +61,19 @@ class ShippingCategories extends ApiResource<ShippingCategory, ShippingCategoryS
 		await this.resources.delete((typeof id === 'string')? { id, type: ShippingCategories.TYPE } : id, options)
 	}
 
-	async skus(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList<SkuSortable>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+	async skus(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId as string
-		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `shipping_categories/${_shippingCategoryId}/skus`, params, options) as unknown as ListResponse<Sku>
+		return this.resources.fetch<Sku>({ type: 'skus' }, `shipping_categories/${_shippingCategoryId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
-	async attachments(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `shipping_categories/${_shippingCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_categories/${_shippingCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `shipping_categories/${_shippingCategoryId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_categories/${_shippingCategoryId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

@@ -143,7 +143,7 @@ class ResourceAdapter {
 
 
 
-	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 
 		debug('singleton: %o, %O, %O', resource, params || {}, options || {})
 
@@ -158,7 +158,7 @@ class ResourceAdapter {
 	}
 
 
-	async retrieve<R extends Resource>(resource: ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async retrieve<R extends Resource>(resource: ResourceId, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 
 		debug('retrieve: %o, %O, %O', resource, params || {}, options || {})
 
@@ -173,7 +173,7 @@ class ResourceAdapter {
 	}
 
 
-	async list<R extends Resource, RS extends ResourceSortable>(resource: ResourceType, params?: QueryParamsList<RS>, options?: ResourcesConfig): Promise<ListResponse<R>> {
+	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList<R>, options?: ResourcesConfig): Promise<ListResponse<R>> {
 
 		debug('list: %o, %O, %O', resource, params || {}, options || {})
 
@@ -195,11 +195,11 @@ class ResourceAdapter {
 	}
 
 
-	async create<C extends ResourceCreate, R extends Resource>(resource: C & ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async create<C extends ResourceCreate, R extends Resource>(resource: C & ResourceType, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 
 		debug('create: %o, %O, %O', resource, params || {}, options || {})
 
-		const queryParams = generateQueryStringParams(params, resource)
+		const queryParams = generateQueryStringParams<R>(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
@@ -211,11 +211,11 @@ class ResourceAdapter {
 	}
 
 
-	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 
 		debug('update: %o, %O, %O', resource, params || {}, options || {})
 
-		const queryParams = generateQueryStringParams(params, resource)
+		const queryParams = generateQueryStringParams<R>(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
@@ -233,18 +233,18 @@ class ResourceAdapter {
 	}
 
 
-	async fetch<R extends Resource, RS extends ResourceSortable>(resource: string | ResourceType, path: string, params?: QueryParams<RS>, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
+	async fetch<R extends Resource>(resource: string | ResourceType, path: string, params?: QueryParams<R>, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
 
 		debug('fetch: %o, %O, %O', path, params || {}, options || {})
 
-		const queryParams = generateQueryStringParams(params, resource)
+		const queryParams = generateQueryStringParams<R>(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const res = await this.#client.request('GET', path, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res as DocWithData)
 
 		if (Array.isArray(r)) {
-			const p = params as QueryParamsList<RS>
+			const p = params as QueryParamsList<R>
 			const meta: ListMeta = {
 				pageCount: Number(res.meta?.page_count),
 				recordCount: Number(res.meta?.record_count),
@@ -323,18 +323,18 @@ abstract class ApiResourceBase<R extends Resource> {
 }
 
 
-abstract class ApiResource<R extends Resource, RS extends ResourceSortable> extends ApiResourceBase<R> {
+abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 
-	async retrieve(id: string | ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async retrieve(id: string | ResourceId, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 		return this.resources.retrieve<R>((typeof id === 'string') ? { type: this.type(), id } : id, params, options)
 	}
 
-	async list(params?: QueryParamsList<RS>, options?: ResourcesConfig): Promise<ListResponse<R>> {
-		return this.resources.list<R, RS>({ type: this.type() }, params, options)
+	async list(params?: QueryParamsList<R>, options?: ResourcesConfig): Promise<ListResponse<R>> {
+		return this.resources.list<R>({ type: this.type() }, params, options)
 	}
 
-	async count(filter?: QueryFilter | QueryParamsList<RS>, options?: ResourcesConfig): Promise<number> {
-		const params: QueryParamsList<RS> = { filters: isParamsList<RS>(filter) ? filter.filters : filter, pageNumber: 1, pageSize: 1 }
+	async count(filter?: QueryFilter | QueryParamsList<R>, options?: ResourcesConfig): Promise<number> {
+		const params: QueryParamsList<R> = { filters: isParamsList<R>(filter) ? filter.filters : filter, pageNumber: 1, pageSize: 1 }
 		const response = await this.list(params, options)
 		return Promise.resolve(response.meta.recordCount)
 	}

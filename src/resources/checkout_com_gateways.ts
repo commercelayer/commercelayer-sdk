@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PaymentMethod, PaymentMethodSortable } from './payment_methods'
-import type { Version, VersionSortable } from './versions'
-import type { CheckoutComPayment, CheckoutComPaymentType, CheckoutComPaymentSortable } from './checkout_com_payments'
+import type { PaymentMethod } from './payment_methods'
+import type { Version } from './versions'
+import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
 
 
 type CheckoutComGatewayType = 'checkout_com_gateways'
@@ -13,7 +13,7 @@ type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
 
 
 export type CheckoutComGatewaySortable = Pick<CheckoutComGateway, 'id' | 'name'> & ResourceSortable
-export type CheckoutComGatewayFilterable = Pick<CheckoutComGateway, 'id' | 'name'> & ResourceFilterable
+// export type CheckoutComGatewayFilterable = Pick<CheckoutComGateway, 'id' | 'name'> & ResourceFilterable
 
 
 interface CheckoutComGateway extends Resource {
@@ -54,15 +54,15 @@ interface CheckoutComGatewayUpdate extends ResourceUpdate {
 }
 
 
-class CheckoutComGateways extends ApiResource<CheckoutComGateway, CheckoutComGatewaySortable> {
+class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 
 	static readonly TYPE: CheckoutComGatewayType = 'checkout_com_gateways' as const
 
-	async create(resource: CheckoutComGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {
+	async create(resource: CheckoutComGatewayCreate, params?: QueryParamsRetrieve<CheckoutComGateway>, options?: ResourcesConfig): Promise<CheckoutComGateway> {
 		return this.resources.create<CheckoutComGatewayCreate, CheckoutComGateway>({ ...resource, type: CheckoutComGateways.TYPE }, params, options)
 	}
 
-	async update(resource: CheckoutComGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComGateway> {
+	async update(resource: CheckoutComGatewayUpdate, params?: QueryParamsRetrieve<CheckoutComGateway>, options?: ResourcesConfig): Promise<CheckoutComGateway> {
 		return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>({ ...resource, type: CheckoutComGateways.TYPE }, params, options)
 	}
 
@@ -70,19 +70,19 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway, CheckoutComGat
 		await this.resources.delete((typeof id === 'string')? { id, type: CheckoutComGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<PaymentMethodSortable>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
-		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `checkout_com_gateways/${_checkoutComGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `checkout_com_gateways/${_checkoutComGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `checkout_com_gateways/${_checkoutComGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `checkout_com_gateways/${_checkoutComGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async checkout_com_payments(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<CheckoutComPaymentSortable>, options?: ResourcesConfig): Promise<ListResponse<CheckoutComPayment>> {
+	async checkout_com_payments(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<CheckoutComPayment>, options?: ResourcesConfig): Promise<ListResponse<CheckoutComPayment>> {
 		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
-		return this.resources.fetch<CheckoutComPayment, CheckoutComPaymentSortable>({ type: 'checkout_com_payments' }, `checkout_com_gateways/${_checkoutComGatewayId}/checkout_com_payments`, params, options) as unknown as ListResponse<CheckoutComPayment>
+		return this.resources.fetch<CheckoutComPayment>({ type: 'checkout_com_payments' }, `checkout_com_gateways/${_checkoutComGatewayId}/checkout_com_payments`, params, options) as unknown as ListResponse<CheckoutComPayment>
 	}
 
 

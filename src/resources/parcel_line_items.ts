@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Parcel, ParcelType, ParcelSortable } from './parcels'
-import type { StockLineItem, StockLineItemType, StockLineItemSortable } from './stock_line_items'
-import type { Version, VersionSortable } from './versions'
+import type { Parcel, ParcelType } from './parcels'
+import type { StockLineItem, StockLineItemType } from './stock_line_items'
+import type { Version } from './versions'
 
 
 type ParcelLineItemType = 'parcel_line_items'
@@ -14,7 +14,7 @@ type StockLineItemRel = ResourceRel & { type: StockLineItemType }
 
 
 export type ParcelLineItemSortable = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceSortable
-export type ParcelLineItemFilterable = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceFilterable
+// export type ParcelLineItemFilterable = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceFilterable
 
 
 interface ParcelLineItem extends Resource {
@@ -47,15 +47,15 @@ interface ParcelLineItemCreate extends ResourceCreate {
 type ParcelLineItemUpdate = ResourceUpdate
 
 
-class ParcelLineItems extends ApiResource<ParcelLineItem, ParcelLineItemSortable> {
+class ParcelLineItems extends ApiResource<ParcelLineItem> {
 
 	static readonly TYPE: ParcelLineItemType = 'parcel_line_items' as const
 
-	async create(resource: ParcelLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
+	async create(resource: ParcelLineItemCreate, params?: QueryParamsRetrieve<ParcelLineItem>, options?: ResourcesConfig): Promise<ParcelLineItem> {
 		return this.resources.create<ParcelLineItemCreate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)
 	}
 
-	async update(resource: ParcelLineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ParcelLineItem> {
+	async update(resource: ParcelLineItemUpdate, params?: QueryParamsRetrieve<ParcelLineItem>, options?: ResourcesConfig): Promise<ParcelLineItem> {
 		return this.resources.update<ParcelLineItemUpdate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)
 	}
 
@@ -63,19 +63,19 @@ class ParcelLineItems extends ApiResource<ParcelLineItem, ParcelLineItemSortable
 		await this.resources.delete((typeof id === 'string')? { id, type: ParcelLineItems.TYPE } : id, options)
 	}
 
-	async parcel(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
+	async parcel(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve<Parcel>, options?: ResourcesConfig): Promise<Parcel> {
 		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
-		return this.resources.fetch<Parcel, ParcelSortable>({ type: 'parcels' }, `parcel_line_items/${_parcelLineItemId}/parcel`, params, options) as unknown as Parcel
+		return this.resources.fetch<Parcel>({ type: 'parcels' }, `parcel_line_items/${_parcelLineItemId}/parcel`, params, options) as unknown as Parcel
 	}
 
-	async stock_line_item(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
+	async stock_line_item(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve<StockLineItem>, options?: ResourcesConfig): Promise<StockLineItem> {
 		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
-		return this.resources.fetch<StockLineItem, StockLineItemSortable>({ type: 'stock_line_items' }, `parcel_line_items/${_parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
+		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `parcel_line_items/${_parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
 	}
 
-	async versions(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `parcel_line_items/${_parcelLineItemId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `parcel_line_items/${_parcelLineItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

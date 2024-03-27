@@ -1,17 +1,17 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { ShippingCategory, ShippingCategoryType, ShippingCategorySortable } from './shipping_categories'
-import type { Price, PriceSortable } from './prices'
-import type { StockItem, StockItemSortable } from './stock_items'
-import type { StockReservation, StockReservationSortable } from './stock_reservations'
-import type { DeliveryLeadTime, DeliveryLeadTimeSortable } from './delivery_lead_times'
-import type { SkuOption, SkuOptionSortable } from './sku_options'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Event, EventSortable } from './events'
-import type { Tag, TagType, TagSortable } from './tags'
-import type { Version, VersionSortable } from './versions'
+import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
+import type { Price } from './prices'
+import type { StockItem } from './stock_items'
+import type { StockReservation } from './stock_reservations'
+import type { DeliveryLeadTime } from './delivery_lead_times'
+import type { SkuOption } from './sku_options'
+import type { Attachment } from './attachments'
+import type { Event } from './events'
+import type { Tag, TagType } from './tags'
+import type { Version } from './versions'
 
 
 type SkuType = 'skus'
@@ -21,7 +21,7 @@ type TagRel = ResourceRel & { type: TagType }
 
 
 export type SkuSortable = Pick<Sku, 'id' | 'code' | 'name' | 'do_not_ship' | 'do_not_track'> & ResourceSortable
-export type SkuFilterable = Pick<Sku, 'id' | 'code' | 'name' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track'> & ResourceFilterable
+// export type SkuFilterable = Pick<Sku, 'id' | 'code' | 'name' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track'> & ResourceFilterable
 
 
 interface Sku extends Resource {
@@ -92,15 +92,15 @@ interface SkuUpdate extends ResourceUpdate {
 }
 
 
-class Skus extends ApiResource<Sku, SkuSortable> {
+class Skus extends ApiResource<Sku> {
 
 	static readonly TYPE: SkuType = 'skus' as const
 
-	async create(resource: SkuCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+	async create(resource: SkuCreate, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		return this.resources.create<SkuCreate, Sku>({ ...resource, type: Skus.TYPE }, params, options)
 	}
 
-	async update(resource: SkuUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+	async update(resource: SkuUpdate, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		return this.resources.update<SkuUpdate, Sku>({ ...resource, type: Skus.TYPE }, params, options)
 	}
 
@@ -108,54 +108,54 @@ class Skus extends ApiResource<Sku, SkuSortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Skus.TYPE } : id, options)
 	}
 
-	async shipping_category(skuId: string | Sku, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingCategory> {
+	async shipping_category(skuId: string | Sku, params?: QueryParamsRetrieve<ShippingCategory>, options?: ResourcesConfig): Promise<ShippingCategory> {
 		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<ShippingCategory, ShippingCategorySortable>({ type: 'shipping_categories' }, `skus/${_skuId}/shipping_category`, params, options) as unknown as ShippingCategory
+		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `skus/${_skuId}/shipping_category`, params, options) as unknown as ShippingCategory
 	}
 
-	async prices(skuId: string | Sku, params?: QueryParamsList<PriceSortable>, options?: ResourcesConfig): Promise<ListResponse<Price>> {
+	async prices(skuId: string | Sku, params?: QueryParamsList<Price>, options?: ResourcesConfig): Promise<ListResponse<Price>> {
 		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<Price, PriceSortable>({ type: 'prices' }, `skus/${_skuId}/prices`, params, options) as unknown as ListResponse<Price>
+		return this.resources.fetch<Price>({ type: 'prices' }, `skus/${_skuId}/prices`, params, options) as unknown as ListResponse<Price>
 	}
 
-	async stock_items(skuId: string | Sku, params?: QueryParamsList<StockItemSortable>, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
+	async stock_items(skuId: string | Sku, params?: QueryParamsList<StockItem>, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
 		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<StockItem, StockItemSortable>({ type: 'stock_items' }, `skus/${_skuId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
+		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `skus/${_skuId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
 	}
 
-	async stock_reservations(skuId: string | Sku, params?: QueryParamsList<StockReservationSortable>, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
+	async stock_reservations(skuId: string | Sku, params?: QueryParamsList<StockReservation>, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
 		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<StockReservation, StockReservationSortable>({ type: 'stock_reservations' }, `skus/${_skuId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
+		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `skus/${_skuId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
 	}
 
-	async delivery_lead_times(skuId: string | Sku, params?: QueryParamsList<DeliveryLeadTimeSortable>, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
+	async delivery_lead_times(skuId: string | Sku, params?: QueryParamsList<DeliveryLeadTime>, options?: ResourcesConfig): Promise<ListResponse<DeliveryLeadTime>> {
 		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<DeliveryLeadTime, DeliveryLeadTimeSortable>({ type: 'delivery_lead_times' }, `skus/${_skuId}/delivery_lead_times`, params, options) as unknown as ListResponse<DeliveryLeadTime>
+		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `skus/${_skuId}/delivery_lead_times`, params, options) as unknown as ListResponse<DeliveryLeadTime>
 	}
 
-	async sku_options(skuId: string | Sku, params?: QueryParamsList<SkuOptionSortable>, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
+	async sku_options(skuId: string | Sku, params?: QueryParamsList<SkuOption>, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
 		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<SkuOption, SkuOptionSortable>({ type: 'sku_options' }, `skus/${_skuId}/sku_options`, params, options) as unknown as ListResponse<SkuOption>
+		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `skus/${_skuId}/sku_options`, params, options) as unknown as ListResponse<SkuOption>
 	}
 
-	async attachments(skuId: string | Sku, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(skuId: string | Sku, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `skus/${_skuId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `skus/${_skuId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(skuId: string | Sku, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(skuId: string | Sku, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `skus/${_skuId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event>({ type: 'events' }, `skus/${_skuId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(skuId: string | Sku, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(skuId: string | Sku, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `skus/${_skuId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag>({ type: 'tags' }, `skus/${_skuId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(skuId: string | Sku, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(skuId: string | Sku, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `skus/${_skuId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `skus/${_skuId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

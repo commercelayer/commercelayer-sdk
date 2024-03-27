@@ -1,11 +1,11 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Price, PriceType, PriceSortable } from './prices'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Version, VersionSortable } from './versions'
-import type { Event, EventSortable } from './events'
+import type { Price, PriceType } from './prices'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
+import type { Event } from './events'
 
 
 type PriceVolumeTierType = 'price_volume_tiers'
@@ -14,7 +14,7 @@ type PriceRel = ResourceRel & { type: PriceType }
 
 
 export type PriceVolumeTierSortable = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSortable
-export type PriceVolumeTierFilterable = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
+// export type PriceVolumeTierFilterable = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
 
 
 interface PriceVolumeTier extends Resource {
@@ -57,15 +57,15 @@ interface PriceVolumeTierUpdate extends ResourceUpdate {
 }
 
 
-class PriceVolumeTiers extends ApiResource<PriceVolumeTier, PriceVolumeTierSortable> {
+class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 
 	static readonly TYPE: PriceVolumeTierType = 'price_volume_tiers' as const
 
-	async create(resource: PriceVolumeTierCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceVolumeTier> {
+	async create(resource: PriceVolumeTierCreate, params?: QueryParamsRetrieve<PriceVolumeTier>, options?: ResourcesConfig): Promise<PriceVolumeTier> {
 		return this.resources.create<PriceVolumeTierCreate, PriceVolumeTier>({ ...resource, type: PriceVolumeTiers.TYPE }, params, options)
 	}
 
-	async update(resource: PriceVolumeTierUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceVolumeTier> {
+	async update(resource: PriceVolumeTierUpdate, params?: QueryParamsRetrieve<PriceVolumeTier>, options?: ResourcesConfig): Promise<PriceVolumeTier> {
 		return this.resources.update<PriceVolumeTierUpdate, PriceVolumeTier>({ ...resource, type: PriceVolumeTiers.TYPE }, params, options)
 	}
 
@@ -73,24 +73,24 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier, PriceVolumeTierSorta
 		await this.resources.delete((typeof id === 'string')? { id, type: PriceVolumeTiers.TYPE } : id, options)
 	}
 
-	async price(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
+	async price(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsRetrieve<Price>, options?: ResourcesConfig): Promise<Price> {
 		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
-		return this.resources.fetch<Price, PriceSortable>({ type: 'prices' }, `price_volume_tiers/${_priceVolumeTierId}/price`, params, options) as unknown as Price
+		return this.resources.fetch<Price>({ type: 'prices' }, `price_volume_tiers/${_priceVolumeTierId}/price`, params, options) as unknown as Price
 	}
 
-	async attachments(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `price_volume_tiers/${_priceVolumeTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_volume_tiers/${_priceVolumeTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `price_volume_tiers/${_priceVolumeTierId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `price_volume_tiers/${_priceVolumeTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async events(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
-		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `price_volume_tiers/${_priceVolumeTierId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event>({ type: 'events' }, `price_volume_tiers/${_priceVolumeTierId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order, OrderType, OrderSortable } from './orders'
-import type { PaymentGateway, PaymentGatewaySortable } from './payment_gateways'
-import type { Version, VersionSortable } from './versions'
+import type { Order, OrderType } from './orders'
+import type { PaymentGateway } from './payment_gateways'
+import type { Version } from './versions'
 
 
 type BraintreePaymentType = 'braintree_payments'
@@ -13,7 +13,7 @@ type OrderRel = ResourceRel & { type: OrderType }
 
 
 export type BraintreePaymentSortable = Pick<BraintreePayment, 'id'> & ResourceSortable
-export type BraintreePaymentFilterable = Pick<BraintreePayment, 'id'> & ResourceFilterable
+// export type BraintreePaymentFilterable = Pick<BraintreePayment, 'id'> & ResourceFilterable
 
 
 interface BraintreePayment extends Resource {
@@ -57,15 +57,15 @@ interface BraintreePaymentUpdate extends ResourceUpdate {
 }
 
 
-class BraintreePayments extends ApiResource<BraintreePayment, BraintreePaymentSortable> {
+class BraintreePayments extends ApiResource<BraintreePayment> {
 
 	static readonly TYPE: BraintreePaymentType = 'braintree_payments' as const
 
-	async create(resource: BraintreePaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {
+	async create(resource: BraintreePaymentCreate, params?: QueryParamsRetrieve<BraintreePayment>, options?: ResourcesConfig): Promise<BraintreePayment> {
 		return this.resources.create<BraintreePaymentCreate, BraintreePayment>({ ...resource, type: BraintreePayments.TYPE }, params, options)
 	}
 
-	async update(resource: BraintreePaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreePayment> {
+	async update(resource: BraintreePaymentUpdate, params?: QueryParamsRetrieve<BraintreePayment>, options?: ResourcesConfig): Promise<BraintreePayment> {
 		return this.resources.update<BraintreePaymentUpdate, BraintreePayment>({ ...resource, type: BraintreePayments.TYPE }, params, options)
 	}
 
@@ -73,19 +73,19 @@ class BraintreePayments extends ApiResource<BraintreePayment, BraintreePaymentSo
 		await this.resources.delete((typeof id === 'string')? { id, type: BraintreePayments.TYPE } : id, options)
 	}
 
-	async order(braintreePaymentId: string | BraintreePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async order(braintreePaymentId: string | BraintreePayment, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId as string
-		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `braintree_payments/${_braintreePaymentId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Order>({ type: 'orders' }, `braintree_payments/${_braintreePaymentId}/order`, params, options) as unknown as Order
 	}
 
-	async payment_gateway(braintreePaymentId: string | BraintreePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
+	async payment_gateway(braintreePaymentId: string | BraintreePayment, params?: QueryParamsRetrieve<PaymentGateway>, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId as string
-		return this.resources.fetch<PaymentGateway, PaymentGatewaySortable>({ type: 'payment_gateways' }, `braintree_payments/${_braintreePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `braintree_payments/${_braintreePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
-	async versions(braintreePaymentId: string | BraintreePayment, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(braintreePaymentId: string | BraintreePayment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `braintree_payments/${_braintreePaymentId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `braintree_payments/${_braintreePaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

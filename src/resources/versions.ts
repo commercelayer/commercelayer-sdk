@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourceRel, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 
 
 
@@ -9,7 +9,7 @@ type VersionRel = ResourceRel & { type: VersionType }
 
 
 export type VersionSortable = Pick<Version, 'id'> & ResourceSortable
-export type VersionFilterable = Pick<Version, 'id' | 'resource_type' | 'resource_id'> & ResourceFilterable
+// export type VersionFilterable = Pick<Version, 'id' | 'resource_type' | 'resource_id'> & ResourceFilterable
 
 
 interface Version extends Resource {
@@ -25,7 +25,7 @@ interface Version extends Resource {
 }
 
 
-class Versions extends ApiResource<Version, VersionSortable> {
+class Versions extends ApiResource<Version> {
 
 	static readonly TYPE: VersionType = 'versions' as const
 

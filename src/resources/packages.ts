@@ -1,11 +1,11 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockLocation, StockLocationType, StockLocationSortable } from './stock_locations'
-import type { Parcel, ParcelSortable } from './parcels'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Version, VersionSortable } from './versions'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Parcel } from './parcels'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type PackageType = 'packages'
@@ -14,7 +14,7 @@ type StockLocationRel = ResourceRel & { type: StockLocationType }
 
 
 export type PackageSortable = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'width' | 'height' | 'unit_of_length'> & ResourceSortable
-export type PackageFilterable = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'width' | 'height' | 'unit_of_length'> & ResourceFilterable
+// export type PackageFilterable = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'width' | 'height' | 'unit_of_length'> & ResourceFilterable
 
 
 interface Package extends Resource {
@@ -64,15 +64,15 @@ interface PackageUpdate extends ResourceUpdate {
 }
 
 
-class Packages extends ApiResource<Package, PackageSortable> {
+class Packages extends ApiResource<Package> {
 
 	static readonly TYPE: PackageType = 'packages' as const
 
-	async create(resource: PackageCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
+	async create(resource: PackageCreate, params?: QueryParamsRetrieve<Package>, options?: ResourcesConfig): Promise<Package> {
 		return this.resources.create<PackageCreate, Package>({ ...resource, type: Packages.TYPE }, params, options)
 	}
 
-	async update(resource: PackageUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
+	async update(resource: PackageUpdate, params?: QueryParamsRetrieve<Package>, options?: ResourcesConfig): Promise<Package> {
 		return this.resources.update<PackageUpdate, Package>({ ...resource, type: Packages.TYPE }, params, options)
 	}
 
@@ -80,24 +80,24 @@ class Packages extends ApiResource<Package, PackageSortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Packages.TYPE } : id, options)
 	}
 
-	async stock_location(packageId: string | Package, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+	async stock_location(packageId: string | Package, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
 		const _packageId = (packageId as Package).id || packageId as string
-		return this.resources.fetch<StockLocation, StockLocationSortable>({ type: 'stock_locations' }, `packages/${_packageId}/stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `packages/${_packageId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async parcels(packageId: string | Package, params?: QueryParamsList<ParcelSortable>, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
+	async parcels(packageId: string | Package, params?: QueryParamsList<Parcel>, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
 		const _packageId = (packageId as Package).id || packageId as string
-		return this.resources.fetch<Parcel, ParcelSortable>({ type: 'parcels' }, `packages/${_packageId}/parcels`, params, options) as unknown as ListResponse<Parcel>
+		return this.resources.fetch<Parcel>({ type: 'parcels' }, `packages/${_packageId}/parcels`, params, options) as unknown as ListResponse<Parcel>
 	}
 
-	async attachments(packageId: string | Package, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(packageId: string | Package, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _packageId = (packageId as Package).id || packageId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `packages/${_packageId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `packages/${_packageId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(packageId: string | Package, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(packageId: string | Package, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _packageId = (packageId as Package).id || packageId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `packages/${_packageId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `packages/${_packageId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

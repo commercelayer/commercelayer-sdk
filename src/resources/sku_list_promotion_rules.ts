@@ -1,17 +1,17 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PercentageDiscountPromotion, PercentageDiscountPromotionType, PercentageDiscountPromotionSortable } from './percentage_discount_promotions'
-import type { FreeShippingPromotion, FreeShippingPromotionType, FreeShippingPromotionSortable } from './free_shipping_promotions'
-import type { BuyXPayYPromotion, BuyXPayYPromotionType, BuyXPayYPromotionSortable } from './buy_x_pay_y_promotions'
-import type { FreeGiftPromotion, FreeGiftPromotionType, FreeGiftPromotionSortable } from './free_gift_promotions'
-import type { FixedPricePromotion, FixedPricePromotionType, FixedPricePromotionSortable } from './fixed_price_promotions'
-import type { ExternalPromotion, ExternalPromotionType, ExternalPromotionSortable } from './external_promotions'
-import type { FixedAmountPromotion, FixedAmountPromotionType, FixedAmountPromotionSortable } from './fixed_amount_promotions'
-import type { Version, VersionSortable } from './versions'
-import type { SkuList, SkuListType, SkuListSortable } from './sku_lists'
-import type { Sku, SkuSortable } from './skus'
+import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
+import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
+import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
+import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
+import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
+import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
+import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
+import type { Version } from './versions'
+import type { SkuList, SkuListType } from './sku_lists'
+import type { Sku } from './skus'
 
 
 type SkuListPromotionRuleType = 'sku_list_promotion_rules'
@@ -27,7 +27,7 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 
 
 export type SkuListPromotionRuleSortable = Pick<SkuListPromotionRule, 'id'> & ResourceSortable
-export type SkuListPromotionRuleFilterable = Pick<SkuListPromotionRule, 'id'> & ResourceFilterable
+// export type SkuListPromotionRuleFilterable = Pick<SkuListPromotionRule, 'id'> & ResourceFilterable
 
 
 interface SkuListPromotionRule extends Resource {
@@ -67,15 +67,15 @@ interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 }
 
 
-class SkuListPromotionRules extends ApiResource<SkuListPromotionRule, SkuListPromotionRuleSortable> {
+class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 
 	static readonly TYPE: SkuListPromotionRuleType = 'sku_list_promotion_rules' as const
 
-	async create(resource: SkuListPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
+	async create(resource: SkuListPromotionRuleCreate, params?: QueryParamsRetrieve<SkuListPromotionRule>, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		return this.resources.create<SkuListPromotionRuleCreate, SkuListPromotionRule>({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
 	}
 
-	async update(resource: SkuListPromotionRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
+	async update(resource: SkuListPromotionRuleUpdate, params?: QueryParamsRetrieve<SkuListPromotionRule>, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		return this.resources.update<SkuListPromotionRuleUpdate, SkuListPromotionRule>({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
 	}
 
@@ -83,19 +83,19 @@ class SkuListPromotionRules extends ApiResource<SkuListPromotionRule, SkuListPro
 		await this.resources.delete((typeof id === 'string')? { id, type: SkuListPromotionRules.TYPE } : id, options)
 	}
 
-	async versions(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async sku_list(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
+	async sku_list(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsRetrieve<SkuList>, options?: ResourcesConfig): Promise<SkuList> {
 		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId as string
-		return this.resources.fetch<SkuList, SkuListSortable>({ type: 'sku_lists' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/sku_list`, params, options) as unknown as SkuList
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/sku_list`, params, options) as unknown as SkuList
 	}
 
-	async skus(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsList<SkuSortable>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+	async skus(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId as string
-		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/skus`, params, options) as unknown as ListResponse<Sku>
+		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 

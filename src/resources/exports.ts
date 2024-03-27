@@ -1,8 +1,8 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Event, EventSortable } from './events'
+import type { Event } from './events'
 
 
 type ExportType = 'exports'
@@ -10,7 +10,7 @@ type ExportRel = ResourceRel & { type: ExportType }
 
 
 export type ExportSortable = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceSortable
-export type ExportFilterable = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceFilterable
+// export type ExportFilterable = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceFilterable
 
 
 interface Export extends Resource {
@@ -45,11 +45,11 @@ interface ExportCreate extends ResourceCreate {
 }
 
 
-class Exports extends ApiResource<Export, ExportSortable> {
+class Exports extends ApiResource<Export> {
 
 	static readonly TYPE: ExportType = 'exports' as const
 
-	async create(resource: ExportCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Export> {
+	async create(resource: ExportCreate, params?: QueryParamsRetrieve<Export>, options?: ResourcesConfig): Promise<Export> {
 		return this.resources.create<ExportCreate, Export>({ ...resource, type: Exports.TYPE }, params, options)
 	}
 
@@ -57,9 +57,9 @@ class Exports extends ApiResource<Export, ExportSortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Exports.TYPE } : id, options)
 	}
 
-	async events(exportId: string | Export, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(exportId: string | Export, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _exportId = (exportId as Export).id || exportId as string
-		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `exports/${_exportId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event>({ type: 'events' }, `exports/${_exportId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

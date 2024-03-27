@@ -1,5 +1,5 @@
 import { ##__RESOURCE_MODEL_TYPE__## } from '../resource'
-import type { ##__IMPORT_RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__##, ResourceSortable, ResourceFilterable } from '../resource'
+import type { ##__IMPORT_RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__##, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 ##__IMPORT_QUERY_MODELS__##
 
 ##__IMPORT_RESOURCE_MODELS__##
@@ -9,13 +9,13 @@ type ##__MODEL_RESOURCE_INTERFACE__##Rel = ResourceRel & { type: ##__MODEL_RESOU
 ##__RELATIONSHIP_TYPES__##
 
 export type ##__MODEL_RESOURCE_INTERFACE__##Sortable = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_SORTABLE_FIELDS__##> & ResourceSortable
-export type ##__MODEL_RESOURCE_INTERFACE__##Filterable = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_FILTERABLE_FIELDS__##> & ResourceFilterable
+// export type ##__MODEL_RESOURCE_INTERFACE__##Filterable = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_FILTERABLE_FIELDS__##> & ResourceFilterable
 
 
 ##__MODEL_INTERFACES__##
 
 
-class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOURCE_INTERFACE__####__MODEL_SORTABLE_INTERFACE__##> {
+class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOURCE_INTERFACE__##> {
 
 	static readonly TYPE: ##__MODEL_RESOURCE_INTERFACE__##Type = '##__RESOURCE_TYPE__##' as const
 

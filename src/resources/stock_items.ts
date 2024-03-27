@@ -1,13 +1,13 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockLocation, StockLocationType, StockLocationSortable } from './stock_locations'
-import type { Sku, SkuType, SkuSortable } from './skus'
-import type { ReservedStock, ReservedStockSortable } from './reserved_stocks'
-import type { StockReservation, StockReservationSortable } from './stock_reservations'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Version, VersionSortable } from './versions'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Sku, SkuType } from './skus'
+import type { ReservedStock } from './reserved_stocks'
+import type { StockReservation } from './stock_reservations'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type StockItemType = 'stock_items'
@@ -17,7 +17,7 @@ type SkuRel = ResourceRel & { type: SkuType }
 
 
 export type StockItemSortable = Pick<StockItem, 'id' | 'quantity'> & ResourceSortable
-export type StockItemFilterable = Pick<StockItem, 'id' | 'quantity'> & ResourceFilterable
+// export type StockItemFilterable = Pick<StockItem, 'id' | 'quantity'> & ResourceFilterable
 
 
 interface StockItem extends Resource {
@@ -59,15 +59,15 @@ interface StockItemUpdate extends ResourceUpdate {
 }
 
 
-class StockItems extends ApiResource<StockItem, StockItemSortable> {
+class StockItems extends ApiResource<StockItem> {
 
 	static readonly TYPE: StockItemType = 'stock_items' as const
 
-	async create(resource: StockItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
+	async create(resource: StockItemCreate, params?: QueryParamsRetrieve<StockItem>, options?: ResourcesConfig): Promise<StockItem> {
 		return this.resources.create<StockItemCreate, StockItem>({ ...resource, type: StockItems.TYPE }, params, options)
 	}
 
-	async update(resource: StockItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
+	async update(resource: StockItemUpdate, params?: QueryParamsRetrieve<StockItem>, options?: ResourcesConfig): Promise<StockItem> {
 		return this.resources.update<StockItemUpdate, StockItem>({ ...resource, type: StockItems.TYPE }, params, options)
 	}
 
@@ -75,34 +75,34 @@ class StockItems extends ApiResource<StockItem, StockItemSortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: StockItems.TYPE } : id, options)
 	}
 
-	async stock_location(stockItemId: string | StockItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+	async stock_location(stockItemId: string | StockItem, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
-		return this.resources.fetch<StockLocation, StockLocationSortable>({ type: 'stock_locations' }, `stock_items/${_stockItemId}/stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_items/${_stockItemId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async sku(stockItemId: string | StockItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
+	async sku(stockItemId: string | StockItem, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
-		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `stock_items/${_stockItemId}/sku`, params, options) as unknown as Sku
+		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_items/${_stockItemId}/sku`, params, options) as unknown as Sku
 	}
 
-	async reserved_stock(stockItemId: string | StockItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReservedStock> {
+	async reserved_stock(stockItemId: string | StockItem, params?: QueryParamsRetrieve<ReservedStock>, options?: ResourcesConfig): Promise<ReservedStock> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
-		return this.resources.fetch<ReservedStock, ReservedStockSortable>({ type: 'reserved_stocks' }, `stock_items/${_stockItemId}/reserved_stock`, params, options) as unknown as ReservedStock
+		return this.resources.fetch<ReservedStock>({ type: 'reserved_stocks' }, `stock_items/${_stockItemId}/reserved_stock`, params, options) as unknown as ReservedStock
 	}
 
-	async stock_reservations(stockItemId: string | StockItem, params?: QueryParamsList<StockReservationSortable>, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
+	async stock_reservations(stockItemId: string | StockItem, params?: QueryParamsList<StockReservation>, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
-		return this.resources.fetch<StockReservation, StockReservationSortable>({ type: 'stock_reservations' }, `stock_items/${_stockItemId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
+		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `stock_items/${_stockItemId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
 	}
 
-	async attachments(stockItemId: string | StockItem, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(stockItemId: string | StockItem, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `stock_items/${_stockItemId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_items/${_stockItemId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(stockItemId: string | StockItem, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(stockItemId: string | StockItem, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `stock_items/${_stockItemId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `stock_items/${_stockItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

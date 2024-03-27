@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order, OrderType, OrderSortable } from './orders'
-import type { Event, EventSortable } from './events'
-import type { OrderSubscription, OrderSubscriptionType, OrderSubscriptionSortable } from './order_subscriptions'
+import type { Order, OrderType } from './orders'
+import type { Event } from './events'
+import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
 
 
 type RecurringOrderCopyType = 'recurring_order_copies'
@@ -14,7 +14,7 @@ type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
 
 
 export type RecurringOrderCopySortable = Pick<RecurringOrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSortable
-export type RecurringOrderCopyFilterable = Pick<RecurringOrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilterable
+// export type RecurringOrderCopyFilterable = Pick<RecurringOrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilterable
 
 
 interface RecurringOrderCopy extends Resource {
@@ -52,15 +52,15 @@ interface RecurringOrderCopyCreate extends ResourceCreate {
 type RecurringOrderCopyUpdate = ResourceUpdate
 
 
-class RecurringOrderCopies extends ApiResource<RecurringOrderCopy, RecurringOrderCopySortable> {
+class RecurringOrderCopies extends ApiResource<RecurringOrderCopy> {
 
 	static readonly TYPE: RecurringOrderCopyType = 'recurring_order_copies' as const
 
-	async create(resource: RecurringOrderCopyCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<RecurringOrderCopy> {
+	async create(resource: RecurringOrderCopyCreate, params?: QueryParamsRetrieve<RecurringOrderCopy>, options?: ResourcesConfig): Promise<RecurringOrderCopy> {
 		return this.resources.create<RecurringOrderCopyCreate, RecurringOrderCopy>({ ...resource, type: RecurringOrderCopies.TYPE }, params, options)
 	}
 
-	async update(resource: RecurringOrderCopyUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<RecurringOrderCopy> {
+	async update(resource: RecurringOrderCopyUpdate, params?: QueryParamsRetrieve<RecurringOrderCopy>, options?: ResourcesConfig): Promise<RecurringOrderCopy> {
 		return this.resources.update<RecurringOrderCopyUpdate, RecurringOrderCopy>({ ...resource, type: RecurringOrderCopies.TYPE }, params, options)
 	}
 
@@ -68,24 +68,24 @@ class RecurringOrderCopies extends ApiResource<RecurringOrderCopy, RecurringOrde
 		await this.resources.delete((typeof id === 'string')? { id, type: RecurringOrderCopies.TYPE } : id, options)
 	}
 
-	async source_order(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async source_order(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
-		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `recurring_order_copies/${_recurringOrderCopyId}/source_order`, params, options) as unknown as Order
+		return this.resources.fetch<Order>({ type: 'orders' }, `recurring_order_copies/${_recurringOrderCopyId}/source_order`, params, options) as unknown as Order
 	}
 
-	async target_order(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async target_order(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
-		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `recurring_order_copies/${_recurringOrderCopyId}/target_order`, params, options) as unknown as Order
+		return this.resources.fetch<Order>({ type: 'orders' }, `recurring_order_copies/${_recurringOrderCopyId}/target_order`, params, options) as unknown as Order
 	}
 
-	async events(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
-		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `recurring_order_copies/${_recurringOrderCopyId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event>({ type: 'events' }, `recurring_order_copies/${_recurringOrderCopyId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async order_subscription(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+	async order_subscription(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
 		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
-		return this.resources.fetch<OrderSubscription, OrderSubscriptionSortable>({ type: 'order_subscriptions' }, `recurring_order_copies/${_recurringOrderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
+		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `recurring_order_copies/${_recurringOrderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
 	}
 
 

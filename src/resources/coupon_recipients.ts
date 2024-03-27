@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer, CustomerType, CustomerSortable } from './customers'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Version, VersionSortable } from './versions'
+import type { Customer, CustomerType } from './customers'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type CouponRecipientType = 'coupon_recipients'
@@ -13,7 +13,7 @@ type CustomerRel = ResourceRel & { type: CustomerType }
 
 
 export type CouponRecipientSortable = Pick<CouponRecipient, 'id'> & ResourceSortable
-export type CouponRecipientFilterable = Pick<CouponRecipient, 'id' | 'email' | 'first_name' | 'last_name'> & ResourceFilterable
+// export type CouponRecipientFilterable = Pick<CouponRecipient, 'id' | 'email' | 'first_name' | 'last_name'> & ResourceFilterable
 
 
 interface CouponRecipient extends Resource {
@@ -53,15 +53,15 @@ interface CouponRecipientUpdate extends ResourceUpdate {
 }
 
 
-class CouponRecipients extends ApiResource<CouponRecipient, CouponRecipientSortable> {
+class CouponRecipients extends ApiResource<CouponRecipient> {
 
 	static readonly TYPE: CouponRecipientType = 'coupon_recipients' as const
 
-	async create(resource: CouponRecipientCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
+	async create(resource: CouponRecipientCreate, params?: QueryParamsRetrieve<CouponRecipient>, options?: ResourcesConfig): Promise<CouponRecipient> {
 		return this.resources.create<CouponRecipientCreate, CouponRecipient>({ ...resource, type: CouponRecipients.TYPE }, params, options)
 	}
 
-	async update(resource: CouponRecipientUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
+	async update(resource: CouponRecipientUpdate, params?: QueryParamsRetrieve<CouponRecipient>, options?: ResourcesConfig): Promise<CouponRecipient> {
 		return this.resources.update<CouponRecipientUpdate, CouponRecipient>({ ...resource, type: CouponRecipients.TYPE }, params, options)
 	}
 
@@ -69,19 +69,19 @@ class CouponRecipients extends ApiResource<CouponRecipient, CouponRecipientSorta
 		await this.resources.delete((typeof id === 'string')? { id, type: CouponRecipients.TYPE } : id, options)
 	}
 
-	async customer(couponRecipientId: string | CouponRecipient, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+	async customer(couponRecipientId: string | CouponRecipient, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
 		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
-		return this.resources.fetch<Customer, CustomerSortable>({ type: 'customers' }, `coupon_recipients/${_couponRecipientId}/customer`, params, options) as unknown as Customer
+		return this.resources.fetch<Customer>({ type: 'customers' }, `coupon_recipients/${_couponRecipientId}/customer`, params, options) as unknown as Customer
 	}
 
-	async attachments(couponRecipientId: string | CouponRecipient, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(couponRecipientId: string | CouponRecipient, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `coupon_recipients/${_couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${_couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(couponRecipientId: string | CouponRecipient, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(couponRecipientId: string | CouponRecipient, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `coupon_recipients/${_couponRecipientId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `coupon_recipients/${_couponRecipientId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

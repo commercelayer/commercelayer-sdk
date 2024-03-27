@@ -1,15 +1,15 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PercentageDiscountPromotion, PercentageDiscountPromotionType, PercentageDiscountPromotionSortable } from './percentage_discount_promotions'
-import type { FreeShippingPromotion, FreeShippingPromotionType, FreeShippingPromotionSortable } from './free_shipping_promotions'
-import type { BuyXPayYPromotion, BuyXPayYPromotionType, BuyXPayYPromotionSortable } from './buy_x_pay_y_promotions'
-import type { FreeGiftPromotion, FreeGiftPromotionType, FreeGiftPromotionSortable } from './free_gift_promotions'
-import type { FixedPricePromotion, FixedPricePromotionType, FixedPricePromotionSortable } from './fixed_price_promotions'
-import type { ExternalPromotion, ExternalPromotionType, ExternalPromotionSortable } from './external_promotions'
-import type { FixedAmountPromotion, FixedAmountPromotionType, FixedAmountPromotionSortable } from './fixed_amount_promotions'
-import type { Version, VersionSortable } from './versions'
+import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
+import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
+import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
+import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
+import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
+import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
+import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
+import type { Version } from './versions'
 
 
 type OrderAmountPromotionRuleType = 'order_amount_promotion_rules'
@@ -24,7 +24,7 @@ type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
 
 
 export type OrderAmountPromotionRuleSortable = Pick<OrderAmountPromotionRule, 'id'> & ResourceSortable
-export type OrderAmountPromotionRuleFilterable = Pick<OrderAmountPromotionRule, 'id'> & ResourceFilterable
+// export type OrderAmountPromotionRuleFilterable = Pick<OrderAmountPromotionRule, 'id'> & ResourceFilterable
 
 
 interface OrderAmountPromotionRule extends Resource {
@@ -62,15 +62,15 @@ interface OrderAmountPromotionRuleUpdate extends ResourceUpdate {
 }
 
 
-class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule, OrderAmountPromotionRuleSortable> {
+class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule> {
 
 	static readonly TYPE: OrderAmountPromotionRuleType = 'order_amount_promotion_rules' as const
 
-	async create(resource: OrderAmountPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
+	async create(resource: OrderAmountPromotionRuleCreate, params?: QueryParamsRetrieve<OrderAmountPromotionRule>, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
 		return this.resources.create<OrderAmountPromotionRuleCreate, OrderAmountPromotionRule>({ ...resource, type: OrderAmountPromotionRules.TYPE }, params, options)
 	}
 
-	async update(resource: OrderAmountPromotionRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
+	async update(resource: OrderAmountPromotionRuleUpdate, params?: QueryParamsRetrieve<OrderAmountPromotionRule>, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
 		return this.resources.update<OrderAmountPromotionRuleUpdate, OrderAmountPromotionRule>({ ...resource, type: OrderAmountPromotionRules.TYPE }, params, options)
 	}
 
@@ -78,9 +78,9 @@ class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule, Or
 		await this.resources.delete((typeof id === 'string')? { id, type: OrderAmountPromotionRules.TYPE } : id, options)
 	}
 
-	async versions(orderAmountPromotionRuleId: string | OrderAmountPromotionRule, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(orderAmountPromotionRuleId: string | OrderAmountPromotionRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _orderAmountPromotionRuleId = (orderAmountPromotionRuleId as OrderAmountPromotionRule).id || orderAmountPromotionRuleId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `order_amount_promotion_rules/${_orderAmountPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `order_amount_promotion_rules/${_orderAmountPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

@@ -1,8 +1,8 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourceRel, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 
 
-import type { Order, OrderSortable } from './orders'
+import type { Order } from './orders'
 
 
 type ResourceErrorType = 'resource_errors'
@@ -10,7 +10,7 @@ type ResourceErrorRel = ResourceRel & { type: ResourceErrorType }
 
 
 export type ResourceErrorSortable = Pick<ResourceError, 'id' | 'name' | 'code'> & ResourceSortable
-export type ResourceErrorFilterable = Pick<ResourceError, 'id' | 'name' | 'code' | 'message'> & ResourceFilterable
+// export type ResourceErrorFilterable = Pick<ResourceError, 'id' | 'name' | 'code' | 'message'> & ResourceFilterable
 
 
 interface ResourceError extends Resource {
@@ -26,7 +26,7 @@ interface ResourceError extends Resource {
 }
 
 
-class ResourceErrors extends ApiResource<ResourceError, ResourceErrorSortable> {
+class ResourceErrors extends ApiResource<ResourceError> {
 
 	static readonly TYPE: ResourceErrorType = 'resource_errors' as const
 

@@ -1,18 +1,18 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer, CustomerType, CustomerSortable } from './customers'
-import type { PaymentMethod, PaymentMethodType, PaymentMethodSortable } from './payment_methods'
-import type { AdyenPayment, AdyenPaymentType, AdyenPaymentSortable } from './adyen_payments'
-import type { AxervePayment, AxervePaymentType, AxervePaymentSortable } from './axerve_payments'
-import type { BraintreePayment, BraintreePaymentType, BraintreePaymentSortable } from './braintree_payments'
-import type { CheckoutComPayment, CheckoutComPaymentType, CheckoutComPaymentSortable } from './checkout_com_payments'
-import type { ExternalPayment, ExternalPaymentType, ExternalPaymentSortable } from './external_payments'
-import type { KlarnaPayment, KlarnaPaymentType, KlarnaPaymentSortable } from './klarna_payments'
-import type { SatispayPayment, SatispayPaymentType, SatispayPaymentSortable } from './satispay_payments'
-import type { StripePayment, StripePaymentType, StripePaymentSortable } from './stripe_payments'
-import type { Version, VersionSortable } from './versions'
+import type { Customer, CustomerType } from './customers'
+import type { PaymentMethod, PaymentMethodType } from './payment_methods'
+import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
+import type { AxervePayment, AxervePaymentType } from './axerve_payments'
+import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
+import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
+import type { ExternalPayment, ExternalPaymentType } from './external_payments'
+import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
+import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
+import type { StripePayment, StripePaymentType } from './stripe_payments'
+import type { Version } from './versions'
 
 
 type CustomerPaymentSourceType = 'customer_payment_sources'
@@ -30,7 +30,7 @@ type StripePaymentRel = ResourceRel & { type: StripePaymentType }
 
 
 export type CustomerPaymentSourceSortable = Pick<CustomerPaymentSource, 'id'> & ResourceSortable
-export type CustomerPaymentSourceFilterable = Pick<CustomerPaymentSource, 'id' | 'name' | 'payment_source_token'> & ResourceFilterable
+// export type CustomerPaymentSourceFilterable = Pick<CustomerPaymentSource, 'id' | 'name' | 'payment_source_token'> & ResourceFilterable
 
 
 interface CustomerPaymentSource extends Resource {
@@ -73,15 +73,15 @@ interface CustomerPaymentSourceUpdate extends ResourceUpdate {
 }
 
 
-class CustomerPaymentSources extends ApiResource<CustomerPaymentSource, CustomerPaymentSourceSortable> {
+class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
 
 	static readonly TYPE: CustomerPaymentSourceType = 'customer_payment_sources' as const
 
-	async create(resource: CustomerPaymentSourceCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
+	async create(resource: CustomerPaymentSourceCreate, params?: QueryParamsRetrieve<CustomerPaymentSource>, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
 		return this.resources.create<CustomerPaymentSourceCreate, CustomerPaymentSource>({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
 	}
 
-	async update(resource: CustomerPaymentSourceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
+	async update(resource: CustomerPaymentSourceUpdate, params?: QueryParamsRetrieve<CustomerPaymentSource>, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
 		return this.resources.update<CustomerPaymentSourceUpdate, CustomerPaymentSource>({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
 	}
 
@@ -89,19 +89,19 @@ class CustomerPaymentSources extends ApiResource<CustomerPaymentSource, Customer
 		await this.resources.delete((typeof id === 'string')? { id, type: CustomerPaymentSources.TYPE } : id, options)
 	}
 
-	async customer(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+	async customer(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
 		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
-		return this.resources.fetch<Customer, CustomerSortable>({ type: 'customers' }, `customer_payment_sources/${_customerPaymentSourceId}/customer`, params, options) as unknown as Customer
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_payment_sources/${_customerPaymentSourceId}/customer`, params, options) as unknown as Customer
 	}
 
-	async payment_method(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
+	async payment_method(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsRetrieve<PaymentMethod>, options?: ResourcesConfig): Promise<PaymentMethod> {
 		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
-		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `customer_payment_sources/${_customerPaymentSourceId}/payment_method`, params, options) as unknown as PaymentMethod
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `customer_payment_sources/${_customerPaymentSourceId}/payment_method`, params, options) as unknown as PaymentMethod
 	}
 
-	async versions(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `customer_payment_sources/${_customerPaymentSourceId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `customer_payment_sources/${_customerPaymentSourceId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

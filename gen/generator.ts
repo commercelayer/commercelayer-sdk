@@ -4,7 +4,6 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync
 import { basename } from 'node:path'
 import Fixer from './fixer'
 import Inflector from './inflector'
-import { inspect } from 'node:util'
 
 
 /**** SDK source code generator settings ****/
@@ -268,11 +267,13 @@ const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 
 	const exports: string[] = [copyrightHeader(templates.header)]
 	const types: string[] = []
+	
 	Object.entries(resources).forEach(([type, res]) => {
 		let exp = expTpl
 		exp = exp.replace(/##__TAB__##/g, '\t')
 		exp = exp.replace(/##__RESOURCE_TYPE__##/, type)
 		exp = exp.replace(/##__RESOURCE_MODELS__##/, res.models.join(', '))
+		exp = exp.replace(/##__RESOURCE_BASE_MODEL__##/g, String(res.models[0]))
 		exports.push(exp)
 		types.push(`\t'${type}'`)
 	})
@@ -312,6 +313,9 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const taggables: string[] = []
 	const versionables: string[] = []
 
+	const fieldsets: string[] = []
+	const sortables: string[] = []
+
 	Object.entries(resources).forEach(([type, res]) => {
 
 		let exp = expTpl
@@ -320,6 +324,7 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 		exp = exp.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
 		exp = exp.replace(/##__RESOURCE_MODEL__##/, Inflector.singularize(res.apiClass))
 		exports.push(exp)
+
 		const tabType = `\t'${type}'`
 		types.push(tabType)
 
@@ -330,6 +335,9 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 		if (res.operations.includes('delete')) deletables.push(tabType)
 		if (res.taggable) taggables.push(tabType)
 		if (res.versionable) versionables.push(tabType)
+
+		fieldsets.push(`\t${res.type}: models.${Inflector.singularize(res.apiClass)}`)
+		sortables.push(`\t${res.type}: models.${Inflector.singularize(res.apiClass)}Sortable`)
 
 	})
 
@@ -380,6 +388,14 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const rvStartIdx = findLine('##__API_RESOURCE_VERSIONABLE_START__##', lines).index + 1
 	const rvStopIdx = findLine('##__API_RESOURCE_VERSIONABLE_STOP__##', lines).index
 	lines.splice(rvStartIdx, rvStopIdx - rvStartIdx, versionables.join('\n|'))
+
+	const rfStartIdx = findLine('##__API_RESOURCE_FIELDS_START__##', lines).index + 1
+	const rfStopIdx = findLine('##__API_RESOURCE_FIELDS_STOP__##', lines).index
+	lines.splice(rfStartIdx, rfStopIdx - rfStartIdx, fieldsets.join(',\n'))
+
+	const sfStartIdx = findLine('##__API_RESOURCE_SORTABLE_FIELDS_START__##', lines).index + 1
+	const sfStopIdx = findLine('##__API_RESOURCE_SORTABLE_FIELDS_STOP__##', lines).index
+	lines.splice(sfStartIdx, sfStopIdx - sfStartIdx, sortables.join(',\n'))
 
 
 	writeFileSync('src/api.ts', lines.join('\n'), { encoding: 'utf-8' })
@@ -667,7 +683,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImportsModels)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import type { ${i}${relationshipTypes.has(i)? `, ${i}Type` : ''}, ${i}Sortable } from './${Inflector.underscore(Inflector.pluralize(i))}'`)
+		.map(i => `import type { ${i}${relationshipTypes.has(i)? `, ${i}Type` : ''} } from './${Inflector.underscore(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 

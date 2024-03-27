@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { ShippingMethod, ShippingMethodSortable } from './shipping_methods'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Version, VersionSortable } from './versions'
+import type { ShippingMethod } from './shipping_methods'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type ShippingMethodTierType = 'shipping_method_tiers'
@@ -12,7 +12,7 @@ type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 
 
 export type ShippingMethodTierSortable = Pick<ShippingMethodTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSortable
-export type ShippingMethodTierFilterable = Pick<ShippingMethodTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
+// export type ShippingMethodTierFilterable = Pick<ShippingMethodTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
 
 
 interface ShippingMethodTier extends Resource {
@@ -32,23 +32,23 @@ interface ShippingMethodTier extends Resource {
 }
 
 
-class ShippingMethodTiers extends ApiResource<ShippingMethodTier, ShippingMethodTierSortable> {
+class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
 
 	static readonly TYPE: ShippingMethodTierType = 'shipping_method_tiers' as const
 
-	async shipping_method(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+	async shipping_method(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
 		const _shippingMethodTierId = (shippingMethodTierId as ShippingMethodTier).id || shippingMethodTierId as string
-		return this.resources.fetch<ShippingMethod, ShippingMethodSortable>({ type: 'shipping_methods' }, `shipping_method_tiers/${_shippingMethodTierId}/shipping_method`, params, options) as unknown as ShippingMethod
+		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `shipping_method_tiers/${_shippingMethodTierId}/shipping_method`, params, options) as unknown as ShippingMethod
 	}
 
-	async attachments(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingMethodTierId = (shippingMethodTierId as ShippingMethodTier).id || shippingMethodTierId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `shipping_method_tiers/${_shippingMethodTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_method_tiers/${_shippingMethodTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingMethodTierId = (shippingMethodTierId as ShippingMethodTier).id || shippingMethodTierId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `shipping_method_tiers/${_shippingMethodTierId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_method_tiers/${_shippingMethodTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

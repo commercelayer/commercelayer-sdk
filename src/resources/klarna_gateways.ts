@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PaymentMethod, PaymentMethodSortable } from './payment_methods'
-import type { Version, VersionSortable } from './versions'
-import type { KlarnaPayment, KlarnaPaymentType, KlarnaPaymentSortable } from './klarna_payments'
+import type { PaymentMethod } from './payment_methods'
+import type { Version } from './versions'
+import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
 
 
 type KlarnaGatewayType = 'klarna_gateways'
@@ -13,7 +13,7 @@ type KlarnaPaymentRel = ResourceRel & { type: KlarnaPaymentType }
 
 
 export type KlarnaGatewaySortable = Pick<KlarnaGateway, 'id' | 'name'> & ResourceSortable
-export type KlarnaGatewayFilterable = Pick<KlarnaGateway, 'id' | 'name'> & ResourceFilterable
+// export type KlarnaGatewayFilterable = Pick<KlarnaGateway, 'id' | 'name'> & ResourceFilterable
 
 
 interface KlarnaGateway extends Resource {
@@ -53,15 +53,15 @@ interface KlarnaGatewayUpdate extends ResourceUpdate {
 }
 
 
-class KlarnaGateways extends ApiResource<KlarnaGateway, KlarnaGatewaySortable> {
+class KlarnaGateways extends ApiResource<KlarnaGateway> {
 
 	static readonly TYPE: KlarnaGatewayType = 'klarna_gateways' as const
 
-	async create(resource: KlarnaGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway> {
+	async create(resource: KlarnaGatewayCreate, params?: QueryParamsRetrieve<KlarnaGateway>, options?: ResourcesConfig): Promise<KlarnaGateway> {
 		return this.resources.create<KlarnaGatewayCreate, KlarnaGateway>({ ...resource, type: KlarnaGateways.TYPE }, params, options)
 	}
 
-	async update(resource: KlarnaGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway> {
+	async update(resource: KlarnaGatewayUpdate, params?: QueryParamsRetrieve<KlarnaGateway>, options?: ResourcesConfig): Promise<KlarnaGateway> {
 		return this.resources.update<KlarnaGatewayUpdate, KlarnaGateway>({ ...resource, type: KlarnaGateways.TYPE }, params, options)
 	}
 
@@ -69,19 +69,19 @@ class KlarnaGateways extends ApiResource<KlarnaGateway, KlarnaGatewaySortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: KlarnaGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<PaymentMethodSortable>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _klarnaGatewayId = (klarnaGatewayId as KlarnaGateway).id || klarnaGatewayId as string
-		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `klarna_gateways/${_klarnaGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `klarna_gateways/${_klarnaGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _klarnaGatewayId = (klarnaGatewayId as KlarnaGateway).id || klarnaGatewayId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `klarna_gateways/${_klarnaGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `klarna_gateways/${_klarnaGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async klarna_payments(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<KlarnaPaymentSortable>, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
+	async klarna_payments(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<KlarnaPayment>, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
 		const _klarnaGatewayId = (klarnaGatewayId as KlarnaGateway).id || klarnaGatewayId as string
-		return this.resources.fetch<KlarnaPayment, KlarnaPaymentSortable>({ type: 'klarna_payments' }, `klarna_gateways/${_klarnaGatewayId}/klarna_payments`, params, options) as unknown as ListResponse<KlarnaPayment>
+		return this.resources.fetch<KlarnaPayment>({ type: 'klarna_payments' }, `klarna_gateways/${_klarnaGatewayId}/klarna_payments`, params, options) as unknown as ListResponse<KlarnaPayment>
 	}
 
 

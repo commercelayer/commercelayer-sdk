@@ -1,25 +1,25 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order, OrderType, OrderSortable } from './orders'
-import type { Adjustment, AdjustmentType, AdjustmentSortable } from './adjustments'
-import type { Bundle, BundleType, BundleSortable } from './bundles'
-import type { ExternalPromotion, ExternalPromotionType, ExternalPromotionSortable } from './external_promotions'
-import type { FixedAmountPromotion, FixedAmountPromotionType, FixedAmountPromotionSortable } from './fixed_amount_promotions'
-import type { FreeShippingPromotion, FreeShippingPromotionType, FreeShippingPromotionSortable } from './free_shipping_promotions'
-import type { GiftCard, GiftCardType, GiftCardSortable } from './gift_cards'
-import type { PaymentMethod, PaymentMethodType, PaymentMethodSortable } from './payment_methods'
-import type { PercentageDiscountPromotion, PercentageDiscountPromotionType, PercentageDiscountPromotionSortable } from './percentage_discount_promotions'
-import type { Shipment, ShipmentType, ShipmentSortable } from './shipments'
-import type { Sku, SkuType, SkuSortable } from './skus'
-import type { LineItemOption, LineItemOptionSortable } from './line_item_options'
-import type { ReturnLineItem, ReturnLineItemSortable } from './return_line_items'
-import type { StockReservation, StockReservationSortable } from './stock_reservations'
-import type { StockLineItem, StockLineItemSortable } from './stock_line_items'
-import type { StockTransfer, StockTransferSortable } from './stock_transfers'
-import type { Event, EventSortable } from './events'
-import type { Tag, TagType, TagSortable } from './tags'
+import type { Order, OrderType } from './orders'
+import type { Adjustment, AdjustmentType } from './adjustments'
+import type { Bundle, BundleType } from './bundles'
+import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
+import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
+import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
+import type { GiftCard, GiftCardType } from './gift_cards'
+import type { PaymentMethod, PaymentMethodType } from './payment_methods'
+import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
+import type { Shipment, ShipmentType } from './shipments'
+import type { Sku, SkuType } from './skus'
+import type { LineItemOption } from './line_item_options'
+import type { ReturnLineItem } from './return_line_items'
+import type { StockReservation } from './stock_reservations'
+import type { StockLineItem } from './stock_line_items'
+import type { StockTransfer } from './stock_transfers'
+import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 
 
 type LineItemType = 'line_items'
@@ -39,7 +39,7 @@ type TagRel = ResourceRel & { type: TagType }
 
 
 export type LineItemSortable = Pick<LineItem, 'id' | 'currency_code' | 'unit_amount_cents' | 'compare_at_amount_cents' | 'options_amount_cents' | 'discount_cents' | 'total_amount_cents' | 'tax_amount_cents' | 'name' | 'item_type' | 'coupon_code' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
-export type LineItemFilterable = Pick<LineItem, 'id' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'compare_at_amount_cents' | 'options_amount_cents' | 'discount_cents' | 'total_amount_cents' | 'tax_amount_cents' | 'name' | 'image_url' | 'item_type' | 'coupon_code' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
+// export type LineItemFilterable = Pick<LineItem, 'id' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'compare_at_amount_cents' | 'options_amount_cents' | 'discount_cents' | 'total_amount_cents' | 'tax_amount_cents' | 'name' | 'image_url' | 'item_type' | 'coupon_code' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
 
 
 interface LineItem extends Resource {
@@ -145,15 +145,15 @@ interface LineItemUpdate extends ResourceUpdate {
 }
 
 
-class LineItems extends ApiResource<LineItem, LineItemSortable> {
+class LineItems extends ApiResource<LineItem> {
 
 	static readonly TYPE: LineItemType = 'line_items' as const
 
-	async create(resource: LineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+	async create(resource: LineItemCreate, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		return this.resources.create<LineItemCreate, LineItem>({ ...resource, type: LineItems.TYPE }, params, options)
 	}
 
-	async update(resource: LineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+	async update(resource: LineItemUpdate, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		return this.resources.update<LineItemUpdate, LineItem>({ ...resource, type: LineItems.TYPE }, params, options)
 	}
 
@@ -161,55 +161,55 @@ class LineItems extends ApiResource<LineItem, LineItemSortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: LineItems.TYPE } : id, options)
 	}
 
-	async order(lineItemId: string | LineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async order(lineItemId: string | LineItem, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
-		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `line_items/${_lineItemId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Order>({ type: 'orders' }, `line_items/${_lineItemId}/order`, params, options) as unknown as Order
 	}
 
-	async line_item_options(lineItemId: string | LineItem, params?: QueryParamsList<LineItemOptionSortable>, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
+	async line_item_options(lineItemId: string | LineItem, params?: QueryParamsList<LineItemOption>, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
-		return this.resources.fetch<LineItemOption, LineItemOptionSortable>({ type: 'line_item_options' }, `line_items/${_lineItemId}/line_item_options`, params, options) as unknown as ListResponse<LineItemOption>
+		return this.resources.fetch<LineItemOption>({ type: 'line_item_options' }, `line_items/${_lineItemId}/line_item_options`, params, options) as unknown as ListResponse<LineItemOption>
 	}
 
-	async return_line_items(lineItemId: string | LineItem, params?: QueryParamsList<ReturnLineItemSortable>, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
+	async return_line_items(lineItemId: string | LineItem, params?: QueryParamsList<ReturnLineItem>, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
-		return this.resources.fetch<ReturnLineItem, ReturnLineItemSortable>({ type: 'return_line_items' }, `line_items/${_lineItemId}/return_line_items`, params, options) as unknown as ListResponse<ReturnLineItem>
+		return this.resources.fetch<ReturnLineItem>({ type: 'return_line_items' }, `line_items/${_lineItemId}/return_line_items`, params, options) as unknown as ListResponse<ReturnLineItem>
 	}
 
-	async stock_reservations(lineItemId: string | LineItem, params?: QueryParamsList<StockReservationSortable>, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
+	async stock_reservations(lineItemId: string | LineItem, params?: QueryParamsList<StockReservation>, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
-		return this.resources.fetch<StockReservation, StockReservationSortable>({ type: 'stock_reservations' }, `line_items/${_lineItemId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
+		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `line_items/${_lineItemId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
 	}
 
-	async stock_line_items(lineItemId: string | LineItem, params?: QueryParamsList<StockLineItemSortable>, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
+	async stock_line_items(lineItemId: string | LineItem, params?: QueryParamsList<StockLineItem>, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
-		return this.resources.fetch<StockLineItem, StockLineItemSortable>({ type: 'stock_line_items' }, `line_items/${_lineItemId}/stock_line_items`, params, options) as unknown as ListResponse<StockLineItem>
+		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `line_items/${_lineItemId}/stock_line_items`, params, options) as unknown as ListResponse<StockLineItem>
 	}
 
-	async stock_transfers(lineItemId: string | LineItem, params?: QueryParamsList<StockTransferSortable>, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
+	async stock_transfers(lineItemId: string | LineItem, params?: QueryParamsList<StockTransfer>, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
-		return this.resources.fetch<StockTransfer, StockTransferSortable>({ type: 'stock_transfers' }, `line_items/${_lineItemId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `line_items/${_lineItemId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
 	}
 
-	async events(lineItemId: string | LineItem, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(lineItemId: string | LineItem, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
-		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `line_items/${_lineItemId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event>({ type: 'events' }, `line_items/${_lineItemId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(lineItemId: string | LineItem, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(lineItemId: string | LineItem, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
-		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `line_items/${_lineItemId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag>({ type: 'tags' }, `line_items/${_lineItemId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async _external_price(id: string | LineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+	async _external_price(id: string | LineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _external_price: true }, params, options)
 	}
 
-	async _reserve_stock(id: string | LineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+	async _reserve_stock(id: string | LineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _reserve_stock: true }, params, options)
 	}
 
-	async _reset_circuit(id: string | LineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+	async _reset_circuit(id: string | LineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _reset_circuit: true }, params, options)
 	}
 

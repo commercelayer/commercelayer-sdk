@@ -1,12 +1,12 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
-import type { OrderSubscription, OrderSubscriptionType, OrderSubscriptionSortable } from './order_subscriptions'
-import type { Adjustment, AdjustmentType, AdjustmentSortable } from './adjustments'
-import type { Bundle, BundleType, BundleSortable } from './bundles'
-import type { Sku, SkuType, SkuSortable } from './skus'
-import type { LineItem, LineItemSortable } from './line_items'
+import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
+import type { Adjustment, AdjustmentType } from './adjustments'
+import type { Bundle, BundleType } from './bundles'
+import type { Sku, SkuType } from './skus'
+import type { LineItem } from './line_items'
 
 
 type OrderSubscriptionItemType = 'order_subscription_items'
@@ -18,7 +18,7 @@ type SkuRel = ResourceRel & { type: SkuType }
 
 
 export type OrderSubscriptionItemSortable = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceSortable
-export type OrderSubscriptionItemFilterable = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceFilterable
+// export type OrderSubscriptionItemFilterable = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceFilterable
 
 
 interface OrderSubscriptionItem extends Resource {
@@ -71,15 +71,15 @@ interface OrderSubscriptionItemUpdate extends ResourceUpdate {
 }
 
 
-class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem, OrderSubscriptionItemSortable> {
+class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 
 	static readonly TYPE: OrderSubscriptionItemType = 'order_subscription_items' as const
 
-	async create(resource: OrderSubscriptionItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
+	async create(resource: OrderSubscriptionItemCreate, params?: QueryParamsRetrieve<OrderSubscriptionItem>, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
 		return this.resources.create<OrderSubscriptionItemCreate, OrderSubscriptionItem>({ ...resource, type: OrderSubscriptionItems.TYPE }, params, options)
 	}
 
-	async update(resource: OrderSubscriptionItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
+	async update(resource: OrderSubscriptionItemUpdate, params?: QueryParamsRetrieve<OrderSubscriptionItem>, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
 		return this.resources.update<OrderSubscriptionItemUpdate, OrderSubscriptionItem>({ ...resource, type: OrderSubscriptionItems.TYPE }, params, options)
 	}
 
@@ -87,14 +87,14 @@ class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem, OrderSub
 		await this.resources.delete((typeof id === 'string')? { id, type: OrderSubscriptionItems.TYPE } : id, options)
 	}
 
-	async order_subscription(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+	async order_subscription(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
 		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
-		return this.resources.fetch<OrderSubscription, OrderSubscriptionSortable>({ type: 'order_subscriptions' }, `order_subscription_items/${_orderSubscriptionItemId}/order_subscription`, params, options) as unknown as OrderSubscription
+		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_subscription_items/${_orderSubscriptionItemId}/order_subscription`, params, options) as unknown as OrderSubscription
 	}
 
-	async source_line_item(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+	async source_line_item(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
-		return this.resources.fetch<LineItem, LineItemSortable>({ type: 'line_items' }, `order_subscription_items/${_orderSubscriptionItemId}/source_line_item`, params, options) as unknown as LineItem
+		return this.resources.fetch<LineItem>({ type: 'line_items' }, `order_subscription_items/${_orderSubscriptionItemId}/source_line_item`, params, options) as unknown as LineItem
 	}
 
 

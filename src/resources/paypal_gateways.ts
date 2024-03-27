@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PaymentMethod, PaymentMethodSortable } from './payment_methods'
-import type { Version, VersionSortable } from './versions'
-import type { PaypalPayment, PaypalPaymentSortable } from './paypal_payments'
+import type { PaymentMethod } from './payment_methods'
+import type { Version } from './versions'
+import type { PaypalPayment } from './paypal_payments'
 
 
 type PaypalGatewayType = 'paypal_gateways'
@@ -12,7 +12,7 @@ type PaypalGatewayRel = ResourceRel & { type: PaypalGatewayType }
 
 
 export type PaypalGatewaySortable = Pick<PaypalGateway, 'id' | 'name'> & ResourceSortable
-export type PaypalGatewayFilterable = Pick<PaypalGateway, 'id' | 'name'> & ResourceFilterable
+// export type PaypalGatewayFilterable = Pick<PaypalGateway, 'id' | 'name'> & ResourceFilterable
 
 
 interface PaypalGateway extends Resource {
@@ -46,15 +46,15 @@ interface PaypalGatewayUpdate extends ResourceUpdate {
 }
 
 
-class PaypalGateways extends ApiResource<PaypalGateway, PaypalGatewaySortable> {
+class PaypalGateways extends ApiResource<PaypalGateway> {
 
 	static readonly TYPE: PaypalGatewayType = 'paypal_gateways' as const
 
-	async create(resource: PaypalGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalGateway> {
+	async create(resource: PaypalGatewayCreate, params?: QueryParamsRetrieve<PaypalGateway>, options?: ResourcesConfig): Promise<PaypalGateway> {
 		return this.resources.create<PaypalGatewayCreate, PaypalGateway>({ ...resource, type: PaypalGateways.TYPE }, params, options)
 	}
 
-	async update(resource: PaypalGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaypalGateway> {
+	async update(resource: PaypalGatewayUpdate, params?: QueryParamsRetrieve<PaypalGateway>, options?: ResourcesConfig): Promise<PaypalGateway> {
 		return this.resources.update<PaypalGatewayUpdate, PaypalGateway>({ ...resource, type: PaypalGateways.TYPE }, params, options)
 	}
 
@@ -62,19 +62,19 @@ class PaypalGateways extends ApiResource<PaypalGateway, PaypalGatewaySortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: PaypalGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<PaymentMethodSortable>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
-		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `paypal_gateways/${_paypalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `paypal_gateways/${_paypalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `paypal_gateways/${_paypalGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `paypal_gateways/${_paypalGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async paypal_payments(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<PaypalPaymentSortable>, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
+	async paypal_payments(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<PaypalPayment>, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
 		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
-		return this.resources.fetch<PaypalPayment, PaypalPaymentSortable>({ type: 'paypal_payments' }, `paypal_gateways/${_paypalGatewayId}/paypal_payments`, params, options) as unknown as ListResponse<PaypalPayment>
+		return this.resources.fetch<PaypalPayment>({ type: 'paypal_payments' }, `paypal_gateways/${_paypalGatewayId}/paypal_payments`, params, options) as unknown as ListResponse<PaypalPayment>
 	}
 
 

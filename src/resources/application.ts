@@ -1,5 +1,5 @@
 import { ApiSingleton } from '../resource'
-import type { Resource, ResourceId, ResourceRel, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 
 
 
@@ -9,7 +9,7 @@ type ApplicationRel = ResourceRel & { type: ApplicationType }
 
 
 export type ApplicationSortable = Pick<Application, 'id'> & ResourceSortable
-export type ApplicationFilterable = Pick<Application, 'id' | 'name' | 'kind' | 'public_access' | 'scopes'> & ResourceFilterable
+// export type ApplicationFilterable = Pick<Application, 'id' | 'name' | 'kind' | 'public_access' | 'scopes'> & ResourceFilterable
 
 
 interface Application extends Resource {

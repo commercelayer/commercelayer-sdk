@@ -1,9 +1,9 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PaymentMethod, PaymentMethodSortable } from './payment_methods'
-import type { Version, VersionSortable } from './versions'
+import type { PaymentMethod } from './payment_methods'
+import type { Version } from './versions'
 
 
 type ManualGatewayType = 'manual_gateways'
@@ -11,7 +11,7 @@ type ManualGatewayRel = ResourceRel & { type: ManualGatewayType }
 
 
 export type ManualGatewaySortable = Pick<ManualGateway, 'id' | 'name'> & ResourceSortable
-export type ManualGatewayFilterable = Pick<ManualGateway, 'id' | 'name'> & ResourceFilterable
+// export type ManualGatewayFilterable = Pick<ManualGateway, 'id' | 'name'> & ResourceFilterable
 
 
 interface ManualGateway extends Resource {
@@ -40,15 +40,15 @@ interface ManualGatewayUpdate extends ResourceUpdate {
 }
 
 
-class ManualGateways extends ApiResource<ManualGateway, ManualGatewaySortable> {
+class ManualGateways extends ApiResource<ManualGateway> {
 
 	static readonly TYPE: ManualGatewayType = 'manual_gateways' as const
 
-	async create(resource: ManualGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
+	async create(resource: ManualGatewayCreate, params?: QueryParamsRetrieve<ManualGateway>, options?: ResourcesConfig): Promise<ManualGateway> {
 		return this.resources.create<ManualGatewayCreate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
-	async update(resource: ManualGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
+	async update(resource: ManualGatewayUpdate, params?: QueryParamsRetrieve<ManualGateway>, options?: ResourcesConfig): Promise<ManualGateway> {
 		return this.resources.update<ManualGatewayUpdate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
@@ -56,14 +56,14 @@ class ManualGateways extends ApiResource<ManualGateway, ManualGatewaySortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ManualGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(manualGatewayId: string | ManualGateway, params?: QueryParamsList<PaymentMethodSortable>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(manualGatewayId: string | ManualGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
-		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `manual_gateways/${_manualGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `manual_gateways/${_manualGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(manualGatewayId: string | ManualGateway, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(manualGatewayId: string | ManualGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `manual_gateways/${_manualGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `manual_gateways/${_manualGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

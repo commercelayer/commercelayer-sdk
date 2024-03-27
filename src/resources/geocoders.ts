@@ -1,9 +1,9 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsList } from '../query'
 
-import type { Address, AddressSortable } from './addresses'
-import type { Attachment, AttachmentSortable } from './attachments'
+import type { Address } from './addresses'
+import type { Attachment } from './attachments'
 
 
 type GeocoderType = 'geocoders'
@@ -11,7 +11,7 @@ type GeocoderRel = ResourceRel & { type: GeocoderType }
 
 
 export type GeocoderSortable = Pick<Geocoder, 'id' | 'name'> & ResourceSortable
-export type GeocoderFilterable = Pick<Geocoder, 'id' | 'name'> & ResourceFilterable
+// export type GeocoderFilterable = Pick<Geocoder, 'id' | 'name'> & ResourceFilterable
 
 
 interface Geocoder extends Resource {
@@ -26,18 +26,18 @@ interface Geocoder extends Resource {
 }
 
 
-class Geocoders extends ApiResource<Geocoder, GeocoderSortable> {
+class Geocoders extends ApiResource<Geocoder> {
 
 	static readonly TYPE: GeocoderType = 'geocoders' as const
 
-	async addresses(geocoderId: string | Geocoder, params?: QueryParamsList<AddressSortable>, options?: ResourcesConfig): Promise<ListResponse<Address>> {
+	async addresses(geocoderId: string | Geocoder, params?: QueryParamsList<Address>, options?: ResourcesConfig): Promise<ListResponse<Address>> {
 		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
-		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `geocoders/${_geocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
+		return this.resources.fetch<Address>({ type: 'addresses' }, `geocoders/${_geocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
 	}
 
-	async attachments(geocoderId: string | Geocoder, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(geocoderId: string | Geocoder, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `geocoders/${_geocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `geocoders/${_geocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

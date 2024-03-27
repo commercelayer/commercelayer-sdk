@@ -1,7 +1,8 @@
 
-import type { ResourceSortable, ResourceType } from "./resource"
+import type { Resource, ResourceType } from "./resource"
 import { ErrorType, SdkError } from "./error"
 import type { PositiveNumberRange, StringKey } from "./types"
+import type { ResourceFields, ResourceSortableFields, ResourceTypeLock } from "./api"
 
 import Debug from './debug'
 const debug = Debug('query')
@@ -10,37 +11,40 @@ const debug = Debug('query')
 const arrayFilters = ['_any', '_all', '_in']
 const objectFilters = ['_jcont']
 
+type QueryResourceFields<R extends ResourceTypeLock> = keyof ResourceFields[R] 
 
-interface QueryParamsRetrieve {
+interface QueryParamsRetrieve<R extends Resource = Resource> {
 	include?: string[]
-	fields?: string[] | Record<string, string[]>
+	fields?: Array<QueryResourceFields<R['type']>> | { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
 }
 
-
-type QueryArraySortable<RS> = Array<StringKey<RS> | `-${StringKey<RS>}`>
-type QueryRecordSortable<RS> = Partial<Record<keyof RS, 'asc' | 'desc'>>
+type QueryResourceSortable<R extends Resource> = ResourceSortableFields[R['type']]
+type QueryResourceSortableFields<R extends Resource> = StringKey<QueryResourceSortable<R>>
+type QueryArraySortable<R extends Resource> = Array<QueryResourceSortableFields<R> | `-${QueryResourceSortableFields<R>}`>
+type QueryRecordSortable<R extends Resource> = Partial<Record<keyof QueryResourceSortable<R>, 'asc' | 'desc'>>
 type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>
 type QueryPageSize = PositiveNumberRange<25>
 
-interface QueryParamsList<RS extends ResourceSortable> extends QueryParamsRetrieve {
-	sort?: QueryArraySortable<RS> | QueryRecordSortable<RS>
+interface QueryParamsList<R extends Resource = Resource> extends QueryParamsRetrieve<R> {
+	sort?: QueryArraySortable<R> | QueryRecordSortable<R>
 	filters?: QueryFilter
 	pageNumber?: number
 	pageSize?: QueryPageSize
 }
 
-type QueryParams<RS extends ResourceSortable> = QueryParamsRetrieve | QueryParamsList<RS>
+type QueryParams<R extends Resource> = QueryParamsRetrieve<R> | QueryParamsList<R>
 
 export type { QueryParamsRetrieve, QueryParamsList, QueryParams, QueryFilter }
 
 
-const isParamsList = <RS extends ResourceSortable>(params: any): params is QueryParamsList<RS> => {
+
+const isParamsList = <R extends Resource>(params: any): params is QueryParamsList<R> => {
 	return params && (params.filters || params.pageNumber || params.pageSize || params.sort)
 }
 
 
 
-const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList<ResourceSortable> | undefined, res: string | ResourceType): Record<string, string> => {
+const generateQueryStringParams = <R extends Resource>(params: QueryParams<R> | undefined, res: string | ResourceType): Record<string, string> => {
 
 	debug('generate query string params: %O, %O', params, res)
 
@@ -92,7 +96,7 @@ const generateQueryStringParams = (params: QueryParamsRetrieve | QueryParamsList
 }
 
 
-const generateSearchString = (params?: QueryParams<ResourceSortable>, questionMark: boolean = true): string => {
+const generateSearchString = <R extends Resource>(params?: QueryParams<R>, questionMark: boolean = true): string => {
 	if (!params || (Object.keys(params).length === 0)) return ''
 	return `${questionMark ? '?' : ''}${Object.entries(params).map(([key, val]) => `${key}=${String(val)}`).join('&')}`
 }

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 
@@ -9,7 +9,7 @@ type TagRel = ResourceRel & { type: TagType }
 
 
 export type TagSortable = Pick<Tag, 'id' | 'name'> & ResourceSortable
-export type TagFilterable = Pick<Tag, 'id' | 'name'> & ResourceFilterable
+// export type TagFilterable = Pick<Tag, 'id' | 'name'> & ResourceFilterable
 
 
 interface Tag extends Resource {
@@ -35,15 +35,15 @@ interface TagUpdate extends ResourceUpdate {
 }
 
 
-class Tags extends ApiResource<Tag, TagSortable> {
+class Tags extends ApiResource<Tag> {
 
 	static readonly TYPE: TagType = 'tags' as const
 
-	async create(resource: TagCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Tag> {
+	async create(resource: TagCreate, params?: QueryParamsRetrieve<Tag>, options?: ResourcesConfig): Promise<Tag> {
 		return this.resources.create<TagCreate, Tag>({ ...resource, type: Tags.TYPE }, params, options)
 	}
 
-	async update(resource: TagUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Tag> {
+	async update(resource: TagUpdate, params?: QueryParamsRetrieve<Tag>, options?: ResourcesConfig): Promise<Tag> {
 		return this.resources.update<TagUpdate, Tag>({ ...resource, type: Tags.TYPE }, params, options)
 	}
 

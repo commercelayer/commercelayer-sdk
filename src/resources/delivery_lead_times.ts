@@ -1,11 +1,11 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockLocation, StockLocationType, StockLocationSortable } from './stock_locations'
-import type { ShippingMethod, ShippingMethodType, ShippingMethodSortable } from './shipping_methods'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Version, VersionSortable } from './versions'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type DeliveryLeadTimeType = 'delivery_lead_times'
@@ -15,7 +15,7 @@ type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
 export type DeliveryLeadTimeSortable = Pick<DeliveryLeadTime, 'id' | 'min_hours' | 'max_hours' | 'min_days'> & ResourceSortable
-export type DeliveryLeadTimeFilterable = Pick<DeliveryLeadTime, 'id' | 'min_hours' | 'max_hours' | 'min_days' | 'max_days'> & ResourceFilterable
+// export type DeliveryLeadTimeFilterable = Pick<DeliveryLeadTime, 'id' | 'min_hours' | 'max_hours' | 'min_days' | 'max_days'> & ResourceFilterable
 
 
 interface DeliveryLeadTime extends Resource {
@@ -57,15 +57,15 @@ interface DeliveryLeadTimeUpdate extends ResourceUpdate {
 }
 
 
-class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime, DeliveryLeadTimeSortable> {
+class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 
 	static readonly TYPE: DeliveryLeadTimeType = 'delivery_lead_times' as const
 
-	async create(resource: DeliveryLeadTimeCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
+	async create(resource: DeliveryLeadTimeCreate, params?: QueryParamsRetrieve<DeliveryLeadTime>, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
 		return this.resources.create<DeliveryLeadTimeCreate, DeliveryLeadTime>({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
 	}
 
-	async update(resource: DeliveryLeadTimeUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
+	async update(resource: DeliveryLeadTimeUpdate, params?: QueryParamsRetrieve<DeliveryLeadTime>, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
 		return this.resources.update<DeliveryLeadTimeUpdate, DeliveryLeadTime>({ ...resource, type: DeliveryLeadTimes.TYPE }, params, options)
 	}
 
@@ -73,24 +73,24 @@ class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime, DeliveryLeadTimeSo
 		await this.resources.delete((typeof id === 'string')? { id, type: DeliveryLeadTimes.TYPE } : id, options)
 	}
 
-	async stock_location(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+	async stock_location(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
 		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId as string
-		return this.resources.fetch<StockLocation, StockLocationSortable>({ type: 'stock_locations' }, `delivery_lead_times/${_deliveryLeadTimeId}/stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `delivery_lead_times/${_deliveryLeadTimeId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async shipping_method(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+	async shipping_method(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
 		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId as string
-		return this.resources.fetch<ShippingMethod, ShippingMethodSortable>({ type: 'shipping_methods' }, `delivery_lead_times/${_deliveryLeadTimeId}/shipping_method`, params, options) as unknown as ShippingMethod
+		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `delivery_lead_times/${_deliveryLeadTimeId}/shipping_method`, params, options) as unknown as ShippingMethod
 	}
 
-	async attachments(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `delivery_lead_times/${_deliveryLeadTimeId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `delivery_lead_times/${_deliveryLeadTimeId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `delivery_lead_times/${_deliveryLeadTimeId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `delivery_lead_times/${_deliveryLeadTimeId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

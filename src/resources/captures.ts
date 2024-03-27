@@ -1,13 +1,13 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order, OrderSortable } from './orders'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Event, EventSortable } from './events'
-import type { Version, VersionSortable } from './versions'
-import type { Authorization, AuthorizationSortable } from './authorizations'
-import type { Refund, RefundSortable } from './refunds'
+import type { Order } from './orders'
+import type { Attachment } from './attachments'
+import type { Event } from './events'
+import type { Version } from './versions'
+import type { Authorization } from './authorizations'
+import type { Refund } from './refunds'
 
 
 type CaptureType = 'captures'
@@ -15,7 +15,7 @@ type CaptureRel = ResourceRel & { type: CaptureType }
 
 
 export type CaptureSortable = Pick<Capture, 'id' | 'number' | 'amount_cents'> & ResourceSortable
-export type CaptureFilterable = Pick<Capture, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilterable
+// export type CaptureFilterable = Pick<Capture, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilterable
 
 
 interface Capture extends Resource {
@@ -58,49 +58,49 @@ interface CaptureUpdate extends ResourceUpdate {
 }
 
 
-class Captures extends ApiResource<Capture, CaptureSortable> {
+class Captures extends ApiResource<Capture> {
 
 	static readonly TYPE: CaptureType = 'captures' as const
 
-	async update(resource: CaptureUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
+	async update(resource: CaptureUpdate, params?: QueryParamsRetrieve<Capture>, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.update<CaptureUpdate, Capture>({ ...resource, type: Captures.TYPE }, params, options)
 	}
 
-	async order(captureId: string | Capture, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async order(captureId: string | Capture, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _captureId = (captureId as Capture).id || captureId as string
-		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `captures/${_captureId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Order>({ type: 'orders' }, `captures/${_captureId}/order`, params, options) as unknown as Order
 	}
 
-	async attachments(captureId: string | Capture, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(captureId: string | Capture, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _captureId = (captureId as Capture).id || captureId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `captures/${_captureId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `captures/${_captureId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(captureId: string | Capture, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(captureId: string | Capture, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _captureId = (captureId as Capture).id || captureId as string
-		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `captures/${_captureId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event>({ type: 'events' }, `captures/${_captureId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async versions(captureId: string | Capture, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(captureId: string | Capture, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _captureId = (captureId as Capture).id || captureId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `captures/${_captureId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `captures/${_captureId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async reference_authorization(captureId: string | Capture, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
+	async reference_authorization(captureId: string | Capture, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
 		const _captureId = (captureId as Capture).id || captureId as string
-		return this.resources.fetch<Authorization, AuthorizationSortable>({ type: 'authorizations' }, `captures/${_captureId}/reference_authorization`, params, options) as unknown as Authorization
+		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `captures/${_captureId}/reference_authorization`, params, options) as unknown as Authorization
 	}
 
-	async refunds(captureId: string | Capture, params?: QueryParamsList<RefundSortable>, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
+	async refunds(captureId: string | Capture, params?: QueryParamsList<Refund>, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
 		const _captureId = (captureId as Capture).id || captureId as string
-		return this.resources.fetch<Refund, RefundSortable>({ type: 'refunds' }, `captures/${_captureId}/refunds`, params, options) as unknown as ListResponse<Refund>
+		return this.resources.fetch<Refund>({ type: 'refunds' }, `captures/${_captureId}/refunds`, params, options) as unknown as ListResponse<Refund>
 	}
 
-	async _refund(id: string | Capture, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
+	async _refund(id: string | Capture, params?: QueryParamsRetrieve<Capture>, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.update<CaptureUpdate, Capture>({ id: (typeof id === 'string')? id: id.id, type: Captures.TYPE, _refund: true }, params, options)
 	}
 
-	async _refund_amount_cents(id: string | Capture, triggerValue: number, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
+	async _refund_amount_cents(id: string | Capture, triggerValue: number, params?: QueryParamsRetrieve<Capture>, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.update<CaptureUpdate, Capture>({ id: (typeof id === 'string')? id: id.id, type: Captures.TYPE, _refund_amount_cents: triggerValue }, params, options)
 	}
 

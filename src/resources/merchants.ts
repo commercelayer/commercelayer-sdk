@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Address, AddressType, AddressSortable } from './addresses'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Version, VersionSortable } from './versions'
+import type { Address, AddressType } from './addresses'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type MerchantType = 'merchants'
@@ -13,7 +13,7 @@ type AddressRel = ResourceRel & { type: AddressType }
 
 
 export type MerchantSortable = Pick<Merchant, 'id' | 'name'> & ResourceSortable
-export type MerchantFilterable = Pick<Merchant, 'id' | 'name'> & ResourceFilterable
+// export type MerchantFilterable = Pick<Merchant, 'id' | 'name'> & ResourceFilterable
 
 
 interface Merchant extends Resource {
@@ -47,15 +47,15 @@ interface MerchantUpdate extends ResourceUpdate {
 }
 
 
-class Merchants extends ApiResource<Merchant, MerchantSortable> {
+class Merchants extends ApiResource<Merchant> {
 
 	static readonly TYPE: MerchantType = 'merchants' as const
 
-	async create(resource: MerchantCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
+	async create(resource: MerchantCreate, params?: QueryParamsRetrieve<Merchant>, options?: ResourcesConfig): Promise<Merchant> {
 		return this.resources.create<MerchantCreate, Merchant>({ ...resource, type: Merchants.TYPE }, params, options)
 	}
 
-	async update(resource: MerchantUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
+	async update(resource: MerchantUpdate, params?: QueryParamsRetrieve<Merchant>, options?: ResourcesConfig): Promise<Merchant> {
 		return this.resources.update<MerchantUpdate, Merchant>({ ...resource, type: Merchants.TYPE }, params, options)
 	}
 
@@ -63,19 +63,19 @@ class Merchants extends ApiResource<Merchant, MerchantSortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Merchants.TYPE } : id, options)
 	}
 
-	async address(merchantId: string | Merchant, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+	async address(merchantId: string | Merchant, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
 		const _merchantId = (merchantId as Merchant).id || merchantId as string
-		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `merchants/${_merchantId}/address`, params, options) as unknown as Address
+		return this.resources.fetch<Address>({ type: 'addresses' }, `merchants/${_merchantId}/address`, params, options) as unknown as Address
 	}
 
-	async attachments(merchantId: string | Merchant, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(merchantId: string | Merchant, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _merchantId = (merchantId as Merchant).id || merchantId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `merchants/${_merchantId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `merchants/${_merchantId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(merchantId: string | Merchant, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(merchantId: string | Merchant, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _merchantId = (merchantId as Merchant).id || merchantId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `merchants/${_merchantId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `merchants/${_merchantId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

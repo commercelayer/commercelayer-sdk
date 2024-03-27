@@ -1,11 +1,11 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer, CustomerType, CustomerSortable } from './customers'
-import type { Address, AddressType, AddressSortable } from './addresses'
-import type { Event, EventSortable } from './events'
-import type { Version, VersionSortable } from './versions'
+import type { Customer, CustomerType } from './customers'
+import type { Address, AddressType } from './addresses'
+import type { Event } from './events'
+import type { Version } from './versions'
 
 
 type CustomerAddressType = 'customer_addresses'
@@ -15,7 +15,7 @@ type AddressRel = ResourceRel & { type: AddressType }
 
 
 export type CustomerAddressSortable = Pick<CustomerAddress, 'id'> & ResourceSortable
-export type CustomerAddressFilterable = Pick<CustomerAddress, 'id'> & ResourceFilterable
+// export type CustomerAddressFilterable = Pick<CustomerAddress, 'id'> & ResourceFilterable
 
 
 interface CustomerAddress extends Resource {
@@ -51,15 +51,15 @@ interface CustomerAddressUpdate extends ResourceUpdate {
 }
 
 
-class CustomerAddresses extends ApiResource<CustomerAddress, CustomerAddressSortable> {
+class CustomerAddresses extends ApiResource<CustomerAddress> {
 
 	static readonly TYPE: CustomerAddressType = 'customer_addresses' as const
 
-	async create(resource: CustomerAddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
+	async create(resource: CustomerAddressCreate, params?: QueryParamsRetrieve<CustomerAddress>, options?: ResourcesConfig): Promise<CustomerAddress> {
 		return this.resources.create<CustomerAddressCreate, CustomerAddress>({ ...resource, type: CustomerAddresses.TYPE }, params, options)
 	}
 
-	async update(resource: CustomerAddressUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerAddress> {
+	async update(resource: CustomerAddressUpdate, params?: QueryParamsRetrieve<CustomerAddress>, options?: ResourcesConfig): Promise<CustomerAddress> {
 		return this.resources.update<CustomerAddressUpdate, CustomerAddress>({ ...resource, type: CustomerAddresses.TYPE }, params, options)
 	}
 
@@ -67,24 +67,24 @@ class CustomerAddresses extends ApiResource<CustomerAddress, CustomerAddressSort
 		await this.resources.delete((typeof id === 'string')? { id, type: CustomerAddresses.TYPE } : id, options)
 	}
 
-	async customer(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+	async customer(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Customer, CustomerSortable>({ type: 'customers' }, `customer_addresses/${_customerAddressId}/customer`, params, options) as unknown as Customer
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_addresses/${_customerAddressId}/customer`, params, options) as unknown as Customer
 	}
 
-	async address(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+	async address(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `customer_addresses/${_customerAddressId}/address`, params, options) as unknown as Address
+		return this.resources.fetch<Address>({ type: 'addresses' }, `customer_addresses/${_customerAddressId}/address`, params, options) as unknown as Address
 	}
 
-	async events(customerAddressId: string | CustomerAddress, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(customerAddressId: string | CustomerAddress, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `customer_addresses/${_customerAddressId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event>({ type: 'events' }, `customer_addresses/${_customerAddressId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async versions(customerAddressId: string | CustomerAddress, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(customerAddressId: string | CustomerAddress, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `customer_addresses/${_customerAddressId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `customer_addresses/${_customerAddressId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

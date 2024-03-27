@@ -1,8 +1,8 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Event, EventSortable } from './events'
+import type { Event } from './events'
 
 
 type ImportType = 'imports'
@@ -10,7 +10,7 @@ type ImportRel = ResourceRel & { type: ImportType }
 
 
 export type ImportSortable = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'attachment_url'> & ResourceSortable
-export type ImportFilterable = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'attachment_url'> & ResourceFilterable
+// export type ImportFilterable = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'attachment_url'> & ResourceFilterable
 
 
 interface Import extends Resource {
@@ -48,11 +48,11 @@ interface ImportCreate extends ResourceCreate {
 }
 
 
-class Imports extends ApiResource<Import, ImportSortable> {
+class Imports extends ApiResource<Import> {
 
 	static readonly TYPE: ImportType = 'imports' as const
 
-	async create(resource: ImportCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {
+	async create(resource: ImportCreate, params?: QueryParamsRetrieve<Import>, options?: ResourcesConfig): Promise<Import> {
 		return this.resources.create<ImportCreate, Import>({ ...resource, type: Imports.TYPE }, params, options)
 	}
 
@@ -60,9 +60,9 @@ class Imports extends ApiResource<Import, ImportSortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Imports.TYPE } : id, options)
 	}
 
-	async events(importId: string | Import, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(importId: string | Import, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _importId = (importId as Import).id || importId as string
-		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `imports/${_importId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event>({ type: 'events' }, `imports/${_importId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { ShippingMethod, ShippingMethodType, ShippingMethodSortable } from './shipping_methods'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Version, VersionSortable } from './versions'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 
 
 type ShippingWeightTierType = 'shipping_weight_tiers'
@@ -13,7 +13,7 @@ type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
 export type ShippingWeightTierSortable = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSortable
-export type ShippingWeightTierFilterable = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
+// export type ShippingWeightTierFilterable = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
 
 
 interface ShippingWeightTier extends Resource {
@@ -55,15 +55,15 @@ interface ShippingWeightTierUpdate extends ResourceUpdate {
 }
 
 
-class ShippingWeightTiers extends ApiResource<ShippingWeightTier, ShippingWeightTierSortable> {
+class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 
 	static readonly TYPE: ShippingWeightTierType = 'shipping_weight_tiers' as const
 
-	async create(resource: ShippingWeightTierCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingWeightTier> {
+	async create(resource: ShippingWeightTierCreate, params?: QueryParamsRetrieve<ShippingWeightTier>, options?: ResourcesConfig): Promise<ShippingWeightTier> {
 		return this.resources.create<ShippingWeightTierCreate, ShippingWeightTier>({ ...resource, type: ShippingWeightTiers.TYPE }, params, options)
 	}
 
-	async update(resource: ShippingWeightTierUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingWeightTier> {
+	async update(resource: ShippingWeightTierUpdate, params?: QueryParamsRetrieve<ShippingWeightTier>, options?: ResourcesConfig): Promise<ShippingWeightTier> {
 		return this.resources.update<ShippingWeightTierUpdate, ShippingWeightTier>({ ...resource, type: ShippingWeightTiers.TYPE }, params, options)
 	}
 
@@ -71,19 +71,19 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier, ShippingWeight
 		await this.resources.delete((typeof id === 'string')? { id, type: ShippingWeightTiers.TYPE } : id, options)
 	}
 
-	async shipping_method(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
+	async shipping_method(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
 		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
-		return this.resources.fetch<ShippingMethod, ShippingMethodSortable>({ type: 'shipping_methods' }, `shipping_weight_tiers/${_shippingWeightTierId}/shipping_method`, params, options) as unknown as ShippingMethod
+		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `shipping_weight_tiers/${_shippingWeightTierId}/shipping_method`, params, options) as unknown as ShippingMethod
 	}
 
-	async attachments(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `shipping_weight_tiers/${_shippingWeightTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_weight_tiers/${_shippingWeightTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `shipping_weight_tiers/${_shippingWeightTierId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_weight_tiers/${_shippingWeightTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

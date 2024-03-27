@@ -1,15 +1,15 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsList } from '../query'
 
-import type { PercentageDiscountPromotion, PercentageDiscountPromotionSortable } from './percentage_discount_promotions'
-import type { FreeShippingPromotion, FreeShippingPromotionSortable } from './free_shipping_promotions'
-import type { BuyXPayYPromotion, BuyXPayYPromotionSortable } from './buy_x_pay_y_promotions'
-import type { FreeGiftPromotion, FreeGiftPromotionSortable } from './free_gift_promotions'
-import type { FixedPricePromotion, FixedPricePromotionSortable } from './fixed_price_promotions'
-import type { ExternalPromotion, ExternalPromotionSortable } from './external_promotions'
-import type { FixedAmountPromotion, FixedAmountPromotionSortable } from './fixed_amount_promotions'
-import type { Version, VersionSortable } from './versions'
+import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
+import type { FreeShippingPromotion } from './free_shipping_promotions'
+import type { BuyXPayYPromotion } from './buy_x_pay_y_promotions'
+import type { FreeGiftPromotion } from './free_gift_promotions'
+import type { FixedPricePromotion } from './fixed_price_promotions'
+import type { ExternalPromotion } from './external_promotions'
+import type { FixedAmountPromotion } from './fixed_amount_promotions'
+import type { Version } from './versions'
 
 
 type PromotionRuleType = 'promotion_rules'
@@ -17,7 +17,7 @@ type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
 
 
 export type PromotionRuleSortable = Pick<PromotionRule, 'id'> & ResourceSortable
-export type PromotionRuleFilterable = Pick<PromotionRule, 'id'> & ResourceFilterable
+// export type PromotionRuleFilterable = Pick<PromotionRule, 'id'> & ResourceFilterable
 
 
 interface PromotionRule extends Resource {
@@ -31,13 +31,13 @@ interface PromotionRule extends Resource {
 }
 
 
-class PromotionRules extends ApiResource<PromotionRule, PromotionRuleSortable> {
+class PromotionRules extends ApiResource<PromotionRule> {
 
 	static readonly TYPE: PromotionRuleType = 'promotion_rules' as const
 
-	async versions(promotionRuleId: string | PromotionRule, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(promotionRuleId: string | PromotionRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _promotionRuleId = (promotionRuleId as PromotionRule).id || promotionRuleId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `promotion_rules/${_promotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `promotion_rules/${_promotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

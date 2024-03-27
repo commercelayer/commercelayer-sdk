@@ -1,10 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockLocation, StockLocationType, StockLocationSortable } from './stock_locations'
-import type { InventoryModel, InventoryModelType, InventoryModelSortable } from './inventory_models'
-import type { Version, VersionSortable } from './versions'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { InventoryModel, InventoryModelType } from './inventory_models'
+import type { Version } from './versions'
 
 
 type InventoryReturnLocationType = 'inventory_return_locations'
@@ -14,7 +14,7 @@ type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 
 
 export type InventoryReturnLocationSortable = Pick<InventoryReturnLocation, 'id' | 'priority'> & ResourceSortable
-export type InventoryReturnLocationFilterable = Pick<InventoryReturnLocation, 'id' | 'priority'> & ResourceFilterable
+// export type InventoryReturnLocationFilterable = Pick<InventoryReturnLocation, 'id' | 'priority'> & ResourceFilterable
 
 
 interface InventoryReturnLocation extends Resource {
@@ -50,15 +50,15 @@ interface InventoryReturnLocationUpdate extends ResourceUpdate {
 }
 
 
-class InventoryReturnLocations extends ApiResource<InventoryReturnLocation, InventoryReturnLocationSortable> {
+class InventoryReturnLocations extends ApiResource<InventoryReturnLocation> {
 
 	static readonly TYPE: InventoryReturnLocationType = 'inventory_return_locations' as const
 
-	async create(resource: InventoryReturnLocationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
+	async create(resource: InventoryReturnLocationCreate, params?: QueryParamsRetrieve<InventoryReturnLocation>, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
 		return this.resources.create<InventoryReturnLocationCreate, InventoryReturnLocation>({ ...resource, type: InventoryReturnLocations.TYPE }, params, options)
 	}
 
-	async update(resource: InventoryReturnLocationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
+	async update(resource: InventoryReturnLocationUpdate, params?: QueryParamsRetrieve<InventoryReturnLocation>, options?: ResourcesConfig): Promise<InventoryReturnLocation> {
 		return this.resources.update<InventoryReturnLocationUpdate, InventoryReturnLocation>({ ...resource, type: InventoryReturnLocations.TYPE }, params, options)
 	}
 
@@ -66,19 +66,19 @@ class InventoryReturnLocations extends ApiResource<InventoryReturnLocation, Inve
 		await this.resources.delete((typeof id === 'string')? { id, type: InventoryReturnLocations.TYPE } : id, options)
 	}
 
-	async stock_location(inventoryReturnLocationId: string | InventoryReturnLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
+	async stock_location(inventoryReturnLocationId: string | InventoryReturnLocation, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
 		const _inventoryReturnLocationId = (inventoryReturnLocationId as InventoryReturnLocation).id || inventoryReturnLocationId as string
-		return this.resources.fetch<StockLocation, StockLocationSortable>({ type: 'stock_locations' }, `inventory_return_locations/${_inventoryReturnLocationId}/stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `inventory_return_locations/${_inventoryReturnLocationId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async inventory_model(inventoryReturnLocationId: string | InventoryReturnLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
+	async inventory_model(inventoryReturnLocationId: string | InventoryReturnLocation, params?: QueryParamsRetrieve<InventoryModel>, options?: ResourcesConfig): Promise<InventoryModel> {
 		const _inventoryReturnLocationId = (inventoryReturnLocationId as InventoryReturnLocation).id || inventoryReturnLocationId as string
-		return this.resources.fetch<InventoryModel, InventoryModelSortable>({ type: 'inventory_models' }, `inventory_return_locations/${_inventoryReturnLocationId}/inventory_model`, params, options) as unknown as InventoryModel
+		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `inventory_return_locations/${_inventoryReturnLocationId}/inventory_model`, params, options) as unknown as InventoryModel
 	}
 
-	async versions(inventoryReturnLocationId: string | InventoryReturnLocation, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(inventoryReturnLocationId: string | InventoryReturnLocation, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _inventoryReturnLocationId = (inventoryReturnLocationId as InventoryReturnLocation).id || inventoryReturnLocationId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `inventory_return_locations/${_inventoryReturnLocationId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `inventory_return_locations/${_inventoryReturnLocationId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

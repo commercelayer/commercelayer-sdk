@@ -1,13 +1,13 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Shipment, ShipmentType, ShipmentSortable } from './shipments'
-import type { Package, PackageType, PackageSortable } from './packages'
-import type { ParcelLineItem, ParcelLineItemSortable } from './parcel_line_items'
-import type { Attachment, AttachmentSortable } from './attachments'
-import type { Event, EventSortable } from './events'
-import type { Version, VersionSortable } from './versions'
+import type { Shipment, ShipmentType } from './shipments'
+import type { Package, PackageType } from './packages'
+import type { ParcelLineItem } from './parcel_line_items'
+import type { Attachment } from './attachments'
+import type { Event } from './events'
+import type { Version } from './versions'
 
 
 type ParcelType = 'parcels'
@@ -17,7 +17,7 @@ type PackageRel = ResourceRel & { type: PackageType }
 
 
 export type ParcelSortable = Pick<Parcel, 'id' | 'weight' | 'unit_of_weight' | 'tracking_status' | 'tracking_status_updated_at' | 'carrier_weight_oz'> & ResourceSortable
-export type ParcelFilterable = Pick<Parcel, 'id' | 'weight' | 'unit_of_weight' | 'contents_explanation' | 'shipping_label_url' | 'shipping_label_file_type' | 'shipping_label_size' | 'shipping_label_resolution' | 'tracking_number' | 'tracking_status' | 'tracking_status_detail' | 'tracking_status_updated_at' | 'carrier_weight_oz' | 'incoterm' | 'delivery_confirmation'> & ResourceFilterable
+// export type ParcelFilterable = Pick<Parcel, 'id' | 'weight' | 'unit_of_weight' | 'contents_explanation' | 'shipping_label_url' | 'shipping_label_file_type' | 'shipping_label_size' | 'shipping_label_resolution' | 'tracking_number' | 'tracking_status' | 'tracking_status_detail' | 'tracking_status_updated_at' | 'carrier_weight_oz' | 'incoterm' | 'delivery_confirmation'> & ResourceFilterable
 
 
 interface Parcel extends Resource {
@@ -126,15 +126,15 @@ interface ParcelUpdate extends ResourceUpdate {
 }
 
 
-class Parcels extends ApiResource<Parcel, ParcelSortable> {
+class Parcels extends ApiResource<Parcel> {
 
 	static readonly TYPE: ParcelType = 'parcels' as const
 
-	async create(resource: ParcelCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
+	async create(resource: ParcelCreate, params?: QueryParamsRetrieve<Parcel>, options?: ResourcesConfig): Promise<Parcel> {
 		return this.resources.create<ParcelCreate, Parcel>({ ...resource, type: Parcels.TYPE }, params, options)
 	}
 
-	async update(resource: ParcelUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
+	async update(resource: ParcelUpdate, params?: QueryParamsRetrieve<Parcel>, options?: ResourcesConfig): Promise<Parcel> {
 		return this.resources.update<ParcelUpdate, Parcel>({ ...resource, type: Parcels.TYPE }, params, options)
 	}
 
@@ -142,34 +142,34 @@ class Parcels extends ApiResource<Parcel, ParcelSortable> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Parcels.TYPE } : id, options)
 	}
 
-	async shipment(parcelId: string | Parcel, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+	async shipment(parcelId: string | Parcel, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
 		const _parcelId = (parcelId as Parcel).id || parcelId as string
-		return this.resources.fetch<Shipment, ShipmentSortable>({ type: 'shipments' }, `parcels/${_parcelId}/shipment`, params, options) as unknown as Shipment
+		return this.resources.fetch<Shipment>({ type: 'shipments' }, `parcels/${_parcelId}/shipment`, params, options) as unknown as Shipment
 	}
 
-	async package(parcelId: string | Parcel, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Package> {
+	async package(parcelId: string | Parcel, params?: QueryParamsRetrieve<Package>, options?: ResourcesConfig): Promise<Package> {
 		const _parcelId = (parcelId as Parcel).id || parcelId as string
-		return this.resources.fetch<Package, PackageSortable>({ type: 'packages' }, `parcels/${_parcelId}/package`, params, options) as unknown as Package
+		return this.resources.fetch<Package>({ type: 'packages' }, `parcels/${_parcelId}/package`, params, options) as unknown as Package
 	}
 
-	async parcel_line_items(parcelId: string | Parcel, params?: QueryParamsList<ParcelLineItemSortable>, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
+	async parcel_line_items(parcelId: string | Parcel, params?: QueryParamsList<ParcelLineItem>, options?: ResourcesConfig): Promise<ListResponse<ParcelLineItem>> {
 		const _parcelId = (parcelId as Parcel).id || parcelId as string
-		return this.resources.fetch<ParcelLineItem, ParcelLineItemSortable>({ type: 'parcel_line_items' }, `parcels/${_parcelId}/parcel_line_items`, params, options) as unknown as ListResponse<ParcelLineItem>
+		return this.resources.fetch<ParcelLineItem>({ type: 'parcel_line_items' }, `parcels/${_parcelId}/parcel_line_items`, params, options) as unknown as ListResponse<ParcelLineItem>
 	}
 
-	async attachments(parcelId: string | Parcel, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(parcelId: string | Parcel, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _parcelId = (parcelId as Parcel).id || parcelId as string
-		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `parcels/${_parcelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `parcels/${_parcelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(parcelId: string | Parcel, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(parcelId: string | Parcel, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _parcelId = (parcelId as Parcel).id || parcelId as string
-		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `parcels/${_parcelId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event>({ type: 'events' }, `parcels/${_parcelId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async versions(parcelId: string | Parcel, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(parcelId: string | Parcel, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _parcelId = (parcelId as Parcel).id || parcelId as string
-		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `parcels/${_parcelId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version>({ type: 'versions' }, `parcels/${_parcelId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
