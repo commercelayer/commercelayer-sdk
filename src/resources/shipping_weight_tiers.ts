@@ -1,15 +1,19 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
+import type { ShippingMethod, ShippingMethodType, ShippingMethodSortable } from './shipping_methods'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Version, VersionSortable } from './versions'
 
 
 type ShippingWeightTierType = 'shipping_weight_tiers'
 type ShippingWeightTierRel = ResourceRel & { type: ShippingWeightTierType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
+
+
+export type ShippingWeightTierSortable = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSortable
+export type ShippingWeightTierFilterable = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
 
 
 interface ShippingWeightTier extends Resource {
@@ -51,7 +55,7 @@ interface ShippingWeightTierUpdate extends ResourceUpdate {
 }
 
 
-class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
+class ShippingWeightTiers extends ApiResource<ShippingWeightTier, ShippingWeightTierSortable> {
 
 	static readonly TYPE: ShippingWeightTierType = 'shipping_weight_tiers' as const
 
@@ -69,17 +73,17 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 
 	async shipping_method(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingMethod> {
 		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
-		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `shipping_weight_tiers/${_shippingWeightTierId}/shipping_method`, params, options) as unknown as ShippingMethod
+		return this.resources.fetch<ShippingMethod, ShippingMethodSortable>({ type: 'shipping_methods' }, `shipping_weight_tiers/${_shippingWeightTierId}/shipping_method`, params, options) as unknown as ShippingMethod
 	}
 
-	async attachments(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_weight_tiers/${_shippingWeightTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `shipping_weight_tiers/${_shippingWeightTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_weight_tiers/${_shippingWeightTierId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `shipping_weight_tiers/${_shippingWeightTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -107,3 +111,9 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 export default ShippingWeightTiers
 
 export type { ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierUpdate, ShippingWeightTierType }
+
+/*
+export const ShippingWeightTiersClient = (init: ResourceAdapter | ResourcesInitConfig): ShippingWeightTiers => {
+	return new ShippingWeightTiers((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

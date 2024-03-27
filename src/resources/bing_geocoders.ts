@@ -1,13 +1,17 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Address } from './addresses'
-import type { Attachment } from './attachments'
+import type { Address, AddressSortable } from './addresses'
+import type { Attachment, AttachmentSortable } from './attachments'
 
 
 type BingGeocoderType = 'bing_geocoders'
 type BingGeocoderRel = ResourceRel & { type: BingGeocoderType }
+
+
+export type BingGeocoderSortable = Pick<BingGeocoder, 'id' | 'name'> & ResourceSortable
+export type BingGeocoderFilterable = Pick<BingGeocoder, 'id' | 'name'> & ResourceFilterable
 
 
 interface BingGeocoder extends Resource {
@@ -38,7 +42,7 @@ interface BingGeocoderUpdate extends ResourceUpdate {
 }
 
 
-class BingGeocoders extends ApiResource<BingGeocoder> {
+class BingGeocoders extends ApiResource<BingGeocoder, BingGeocoderSortable> {
 
 	static readonly TYPE: BingGeocoderType = 'bing_geocoders' as const
 
@@ -54,14 +58,14 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 		await this.resources.delete((typeof id === 'string')? { id, type: BingGeocoders.TYPE } : id, options)
 	}
 
-	async addresses(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
+	async addresses(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList<AddressSortable>, options?: ResourcesConfig): Promise<ListResponse<Address>> {
 		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `bing_geocoders/${_bingGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
+		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `bing_geocoders/${_bingGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
 	}
 
-	async attachments(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bing_geocoders/${_bingGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `bing_geocoders/${_bingGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 
@@ -89,3 +93,9 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 export default BingGeocoders
 
 export type { BingGeocoder, BingGeocoderCreate, BingGeocoderUpdate, BingGeocoderType }
+
+/*
+export const BingGeocodersClient = (init: ResourceAdapter | ResourcesInitConfig): BingGeocoders => {
+	return new BingGeocoders((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

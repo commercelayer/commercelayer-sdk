@@ -1,13 +1,17 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer } from './customers'
-import type { Event } from './events'
+import type { Customer, CustomerSortable } from './customers'
+import type { Event, EventSortable } from './events'
 
 
 type CustomerPasswordResetType = 'customer_password_resets'
 type CustomerPasswordResetRel = ResourceRel & { type: CustomerPasswordResetType }
+
+
+export type CustomerPasswordResetSortable = Pick<CustomerPasswordReset, 'id'> & ResourceSortable
+export type CustomerPasswordResetFilterable = Pick<CustomerPasswordReset, 'id' | 'reset_password_token' | 'reset_password_at'> & ResourceFilterable
 
 
 interface CustomerPasswordReset extends Resource {
@@ -39,7 +43,7 @@ interface CustomerPasswordResetUpdate extends ResourceUpdate {
 }
 
 
-class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
+class CustomerPasswordResets extends ApiResource<CustomerPasswordReset, CustomerPasswordResetSortable> {
 
 	static readonly TYPE: CustomerPasswordResetType = 'customer_password_resets' as const
 
@@ -57,12 +61,12 @@ class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 
 	async customer(customerPasswordResetId: string | CustomerPasswordReset, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
 		const _customerPasswordResetId = (customerPasswordResetId as CustomerPasswordReset).id || customerPasswordResetId as string
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_password_resets/${_customerPasswordResetId}/customer`, params, options) as unknown as Customer
+		return this.resources.fetch<Customer, CustomerSortable>({ type: 'customers' }, `customer_password_resets/${_customerPasswordResetId}/customer`, params, options) as unknown as Customer
 	}
 
-	async events(customerPasswordResetId: string | CustomerPasswordReset, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(customerPasswordResetId: string | CustomerPasswordReset, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _customerPasswordResetId = (customerPasswordResetId as CustomerPasswordReset).id || customerPasswordResetId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `customer_password_resets/${_customerPasswordResetId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `customer_password_resets/${_customerPasswordResetId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async _reset_password_token(id: string | CustomerPasswordReset, triggerValue: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
@@ -94,3 +98,9 @@ class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 export default CustomerPasswordResets
 
 export type { CustomerPasswordReset, CustomerPasswordResetCreate, CustomerPasswordResetUpdate, CustomerPasswordResetType }
+
+/*
+export const CustomerPasswordResetsClient = (init: ResourceAdapter | ResourcesInitConfig): CustomerPasswordResets => {
+	return new CustomerPasswordResets((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

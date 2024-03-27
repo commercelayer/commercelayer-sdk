@@ -1,13 +1,17 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsList } from '../query'
 
-import type { Webhook } from './webhooks'
-import type { EventCallback } from './event_callbacks'
+import type { Webhook, WebhookSortable } from './webhooks'
+import type { EventCallback, EventCallbackSortable } from './event_callbacks'
 
 
 type EventType = 'events'
 type EventRel = ResourceRel & { type: EventType }
+
+
+export type EventSortable = Pick<Event, 'id' | 'name'> & ResourceSortable
+export type EventFilterable = Pick<Event, 'id' | 'name'> & ResourceFilterable
 
 
 interface Event extends Resource {
@@ -22,18 +26,18 @@ interface Event extends Resource {
 }
 
 
-class Events extends ApiResource<Event> {
+class Events extends ApiResource<Event, EventSortable> {
 
 	static readonly TYPE: EventType = 'events' as const
 
-	async webhooks(eventId: string | Event, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {
+	async webhooks(eventId: string | Event, params?: QueryParamsList<WebhookSortable>, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {
 		const _eventId = (eventId as Event).id || eventId as string
-		return this.resources.fetch<Webhook>({ type: 'webhooks' }, `events/${_eventId}/webhooks`, params, options) as unknown as ListResponse<Webhook>
+		return this.resources.fetch<Webhook, WebhookSortable>({ type: 'webhooks' }, `events/${_eventId}/webhooks`, params, options) as unknown as ListResponse<Webhook>
 	}
 
-	async last_event_callbacks(eventId: string | Event, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
+	async last_event_callbacks(eventId: string | Event, params?: QueryParamsList<EventCallbackSortable>, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		const _eventId = (eventId as Event).id || eventId as string
-		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `events/${_eventId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
+		return this.resources.fetch<EventCallback, EventCallbackSortable>({ type: 'event_callbacks' }, `events/${_eventId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
 	}
 
 
@@ -61,3 +65,9 @@ class Events extends ApiResource<Event> {
 export default Events
 
 export type { Event, EventType }
+
+/*
+export const EventsClient = (init: ResourceAdapter | ResourcesInitConfig): Events => {
+	return new Events((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

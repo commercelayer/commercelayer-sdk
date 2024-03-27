@@ -1,14 +1,18 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockItem } from './stock_items'
-import type { Sku } from './skus'
-import type { StockReservation } from './stock_reservations'
+import type { StockItem, StockItemSortable } from './stock_items'
+import type { Sku, SkuSortable } from './skus'
+import type { StockReservation, StockReservationSortable } from './stock_reservations'
 
 
 type ReservedStockType = 'reserved_stocks'
 type ReservedStockRel = ResourceRel & { type: ReservedStockType }
+
+
+export type ReservedStockSortable = Pick<ReservedStock, 'id' | 'quantity'> & ResourceSortable
+export type ReservedStockFilterable = Pick<ReservedStock, 'id' | 'quantity'> & ResourceFilterable
 
 
 interface ReservedStock extends Resource {
@@ -24,23 +28,23 @@ interface ReservedStock extends Resource {
 }
 
 
-class ReservedStocks extends ApiResource<ReservedStock> {
+class ReservedStocks extends ApiResource<ReservedStock, ReservedStockSortable> {
 
 	static readonly TYPE: ReservedStockType = 'reserved_stocks' as const
 
 	async stock_item(reservedStockId: string | ReservedStock, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
 		const _reservedStockId = (reservedStockId as ReservedStock).id || reservedStockId as string
-		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `reserved_stocks/${_reservedStockId}/stock_item`, params, options) as unknown as StockItem
+		return this.resources.fetch<StockItem, StockItemSortable>({ type: 'stock_items' }, `reserved_stocks/${_reservedStockId}/stock_item`, params, options) as unknown as StockItem
 	}
 
 	async sku(reservedStockId: string | ReservedStock, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
 		const _reservedStockId = (reservedStockId as ReservedStock).id || reservedStockId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `reserved_stocks/${_reservedStockId}/sku`, params, options) as unknown as Sku
+		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `reserved_stocks/${_reservedStockId}/sku`, params, options) as unknown as Sku
 	}
 
-	async stock_reservations(reservedStockId: string | ReservedStock, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
+	async stock_reservations(reservedStockId: string | ReservedStock, params?: QueryParamsList<StockReservationSortable>, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
 		const _reservedStockId = (reservedStockId as ReservedStock).id || reservedStockId as string
-		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `reserved_stocks/${_reservedStockId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
+		return this.resources.fetch<StockReservation, StockReservationSortable>({ type: 'stock_reservations' }, `reserved_stocks/${_reservedStockId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
 	}
 
 
@@ -68,3 +72,9 @@ class ReservedStocks extends ApiResource<ReservedStock> {
 export default ReservedStocks
 
 export type { ReservedStock, ReservedStockType }
+
+/*
+export const ReservedStocksClient = (init: ResourceAdapter | ResourcesInitConfig): ReservedStocks => {
+	return new ReservedStocks((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

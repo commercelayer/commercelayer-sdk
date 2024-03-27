@@ -1,20 +1,20 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market, MarketType } from './markets'
-import type { PromotionRule } from './promotion_rules'
-import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
-import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
-import type { CustomPromotionRule, CustomPromotionRuleType } from './custom_promotion_rules'
-import type { SkuList, SkuListType } from './sku_lists'
-import type { Coupon } from './coupons'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
-import type { Sku } from './skus'
+import type { Market, MarketType, MarketSortable } from './markets'
+import type { PromotionRule, PromotionRuleSortable } from './promotion_rules'
+import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType, OrderAmountPromotionRuleSortable } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule, SkuListPromotionRuleType, SkuListPromotionRuleSortable } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType, CouponCodesPromotionRuleSortable } from './coupon_codes_promotion_rules'
+import type { CustomPromotionRule, CustomPromotionRuleType, CustomPromotionRuleSortable } from './custom_promotion_rules'
+import type { SkuList, SkuListType, SkuListSortable } from './sku_lists'
+import type { Coupon, CouponSortable } from './coupons'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Event, EventSortable } from './events'
+import type { Tag, TagType, TagSortable } from './tags'
+import type { Version, VersionSortable } from './versions'
+import type { Sku, SkuSortable } from './skus'
 
 
 type PercentageDiscountPromotionType = 'percentage_discount_promotions'
@@ -26,6 +26,10 @@ type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRul
 type CustomPromotionRuleRel = ResourceRel & { type: CustomPromotionRuleType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type PercentageDiscountPromotionSortable = Pick<PercentageDiscountPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSortable
+export type PercentageDiscountPromotionFilterable = Pick<PercentageDiscountPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilterable
 
 
 interface PercentageDiscountPromotion extends Resource {
@@ -109,7 +113,7 @@ interface PercentageDiscountPromotionUpdate extends ResourceUpdate {
 }
 
 
-class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromotion> {
+class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromotion, PercentageDiscountPromotionSortable> {
 
 	static readonly TYPE: PercentageDiscountPromotionType = 'percentage_discount_promotions' as const
 
@@ -127,62 +131,62 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 
 	async market(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/market`, params, options) as unknown as Market
+		return this.resources.fetch<Market, MarketSortable>({ type: 'markets' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/market`, params, options) as unknown as Market
 	}
 
 	async order_amount_promotion_rule(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
+		return this.resources.fetch<OrderAmountPromotionRule, OrderAmountPromotionRuleSortable>({ type: 'order_amount_promotion_rules' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
 	}
 
 	async sku_list_promotion_rule(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
+		return this.resources.fetch<SkuListPromotionRule, SkuListPromotionRuleSortable>({ type: 'sku_list_promotion_rules' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
 	}
 
 	async coupon_codes_promotion_rule(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+		return this.resources.fetch<CouponCodesPromotionRule, CouponCodesPromotionRuleSortable>({ type: 'coupon_codes_promotion_rules' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
 	}
 
 	async custom_promotion_rule(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomPromotionRule> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
+		return this.resources.fetch<CustomPromotionRule, CustomPromotionRuleSortable>({ type: 'custom_promotion_rules' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
 	}
 
 	async sku_list(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/sku_list`, params, options) as unknown as SkuList
+		return this.resources.fetch<SkuList, SkuListSortable>({ type: 'sku_lists' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/sku_list`, params, options) as unknown as SkuList
 	}
 
-	async coupons(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+	async coupons(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList<CouponSortable>, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
+		return this.resources.fetch<Coupon, CouponSortable>({ type: 'coupons' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
 	}
 
-	async attachments(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<Tag>({ type: 'tags' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async skus(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+	async skus(percentageDiscountPromotionId: string | PercentageDiscountPromotion, params?: QueryParamsList<SkuSortable>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _percentageDiscountPromotionId = (percentageDiscountPromotionId as PercentageDiscountPromotion).id || percentageDiscountPromotionId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `percentage_discount_promotions/${_percentageDiscountPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 	async _disable(id: string | PercentageDiscountPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
@@ -218,3 +222,9 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 export default PercentageDiscountPromotions
 
 export type { PercentageDiscountPromotion, PercentageDiscountPromotionCreate, PercentageDiscountPromotionUpdate, PercentageDiscountPromotionType }
+
+/*
+export const PercentageDiscountPromotionsClient = (init: ResourceAdapter | ResourcesInitConfig): PercentageDiscountPromotions => {
+	return new PercentageDiscountPromotions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

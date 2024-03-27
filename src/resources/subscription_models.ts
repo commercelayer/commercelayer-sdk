@@ -1,14 +1,18 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { OrderSubscription } from './order_subscriptions'
-import type { Attachment } from './attachments'
+import type { Market, MarketSortable } from './markets'
+import type { OrderSubscription, OrderSubscriptionSortable } from './order_subscriptions'
+import type { Attachment, AttachmentSortable } from './attachments'
 
 
 type SubscriptionModelType = 'subscription_models'
 type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
+
+
+export type SubscriptionModelSortable = Pick<SubscriptionModel, 'id' | 'name' | 'strategy'> & ResourceSortable
+export type SubscriptionModelFilterable = Pick<SubscriptionModel, 'id' | 'name' | 'strategy' | 'auto_activate' | 'auto_cancel'> & ResourceFilterable
 
 
 interface SubscriptionModel extends Resource {
@@ -50,7 +54,7 @@ interface SubscriptionModelUpdate extends ResourceUpdate {
 }
 
 
-class SubscriptionModels extends ApiResource<SubscriptionModel> {
+class SubscriptionModels extends ApiResource<SubscriptionModel, SubscriptionModelSortable> {
 
 	static readonly TYPE: SubscriptionModelType = 'subscription_models' as const
 
@@ -66,19 +70,19 @@ class SubscriptionModels extends ApiResource<SubscriptionModel> {
 		await this.resources.delete((typeof id === 'string')? { id, type: SubscriptionModels.TYPE } : id, options)
 	}
 
-	async markets(subscriptionModelId: string | SubscriptionModel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+	async markets(subscriptionModelId: string | SubscriptionModel, params?: QueryParamsList<MarketSortable>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
 		const _subscriptionModelId = (subscriptionModelId as SubscriptionModel).id || subscriptionModelId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `subscription_models/${_subscriptionModelId}/markets`, params, options) as unknown as ListResponse<Market>
+		return this.resources.fetch<Market, MarketSortable>({ type: 'markets' }, `subscription_models/${_subscriptionModelId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
-	async order_subscriptions(subscriptionModelId: string | SubscriptionModel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
+	async order_subscriptions(subscriptionModelId: string | SubscriptionModel, params?: QueryParamsList<OrderSubscriptionSortable>, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
 		const _subscriptionModelId = (subscriptionModelId as SubscriptionModel).id || subscriptionModelId as string
-		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `subscription_models/${_subscriptionModelId}/order_subscriptions`, params, options) as unknown as ListResponse<OrderSubscription>
+		return this.resources.fetch<OrderSubscription, OrderSubscriptionSortable>({ type: 'order_subscriptions' }, `subscription_models/${_subscriptionModelId}/order_subscriptions`, params, options) as unknown as ListResponse<OrderSubscription>
 	}
 
-	async attachments(subscriptionModelId: string | SubscriptionModel, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(subscriptionModelId: string | SubscriptionModel, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _subscriptionModelId = (subscriptionModelId as SubscriptionModel).id || subscriptionModelId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `subscription_models/${_subscriptionModelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `subscription_models/${_subscriptionModelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 
@@ -106,3 +110,9 @@ class SubscriptionModels extends ApiResource<SubscriptionModel> {
 export default SubscriptionModels
 
 export type { SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate, SubscriptionModelType }
+
+/*
+export const SubscriptionModelsClient = (init: ResourceAdapter | ResourcesInitConfig): SubscriptionModels => {
+	return new SubscriptionModels((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

@@ -1,17 +1,21 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Geocoder, GeocoderType } from './geocoders'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
+import type { Geocoder, GeocoderType, GeocoderSortable } from './geocoders'
+import type { Event, EventSortable } from './events'
+import type { Tag, TagType, TagSortable } from './tags'
+import type { Version, VersionSortable } from './versions'
 
 
 type AddressType = 'addresses'
 type AddressRel = ResourceRel & { type: AddressType }
 type GeocoderRel = ResourceRel & { type: GeocoderType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type AddressSortable = Pick<Address, 'id' | 'city' | 'state_code' | 'country_code'> & ResourceSortable
+export type AddressFilterable = Pick<Address, 'id' | 'business' | 'first_name' | 'last_name' | 'company' | 'line_1' | 'line_2' | 'city' | 'zip_code' | 'state_code' | 'country_code' | 'phone' | 'email' | 'notes' | 'lat' | 'lng' | 'billing_info'> & ResourceFilterable
 
 
 interface Address extends Resource {
@@ -101,7 +105,7 @@ interface AddressUpdate extends ResourceUpdate {
 }
 
 
-class Addresses extends ApiResource<Address> {
+class Addresses extends ApiResource<Address, AddressSortable> {
 
 	static readonly TYPE: AddressType = 'addresses' as const
 
@@ -119,22 +123,22 @@ class Addresses extends ApiResource<Address> {
 
 	async geocoder(addressId: string | Address, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
 		const _addressId = (addressId as Address).id || addressId as string
-		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `addresses/${_addressId}/geocoder`, params, options) as unknown as Geocoder
+		return this.resources.fetch<Geocoder, GeocoderSortable>({ type: 'geocoders' }, `addresses/${_addressId}/geocoder`, params, options) as unknown as Geocoder
 	}
 
-	async events(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(addressId: string | Address, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _addressId = (addressId as Address).id || addressId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `addresses/${_addressId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `addresses/${_addressId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(addressId: string | Address, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _addressId = (addressId as Address).id || addressId as string
-		return this.resources.fetch<Tag>({ type: 'tags' }, `addresses/${_addressId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `addresses/${_addressId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(addressId: string | Address, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _addressId = (addressId as Address).id || addressId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `addresses/${_addressId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `addresses/${_addressId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -162,3 +166,9 @@ class Addresses extends ApiResource<Address> {
 export default Addresses
 
 export type { Address, AddressCreate, AddressUpdate, AddressType }
+
+/*
+export const AddressesClient = (init: ResourceAdapter | ResourcesInitConfig): Addresses => {
+	return new Addresses((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

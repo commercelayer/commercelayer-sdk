@@ -1,13 +1,17 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Version, VersionSortable } from './versions'
 
 
 type ShippingZoneType = 'shipping_zones'
 type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
+
+
+export type ShippingZoneSortable = Pick<ShippingZone, 'id' | 'name'> & ResourceSortable
+export type ShippingZoneFilterable = Pick<ShippingZone, 'id' | 'name'> & ResourceFilterable
 
 
 interface ShippingZone extends Resource {
@@ -54,7 +58,7 @@ interface ShippingZoneUpdate extends ResourceUpdate {
 }
 
 
-class ShippingZones extends ApiResource<ShippingZone> {
+class ShippingZones extends ApiResource<ShippingZone, ShippingZoneSortable> {
 
 	static readonly TYPE: ShippingZoneType = 'shipping_zones' as const
 
@@ -70,14 +74,14 @@ class ShippingZones extends ApiResource<ShippingZone> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ShippingZones.TYPE } : id, options)
 	}
 
-	async attachments(shippingZoneId: string | ShippingZone, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(shippingZoneId: string | ShippingZone, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_zones/${_shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `shipping_zones/${_shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(shippingZoneId: string | ShippingZone, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(shippingZoneId: string | ShippingZone, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_zones/${_shippingZoneId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `shipping_zones/${_shippingZoneId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -105,3 +109,9 @@ class ShippingZones extends ApiResource<ShippingZone> {
 export default ShippingZones
 
 export type { ShippingZone, ShippingZoneCreate, ShippingZoneUpdate, ShippingZoneType }
+
+/*
+export const ShippingZonesClient = (init: ResourceAdapter | ResourcesInitConfig): ShippingZones => {
+	return new ShippingZones((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

@@ -1,15 +1,19 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Address, AddressType } from './addresses'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
+import type { Address, AddressType, AddressSortable } from './addresses'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Version, VersionSortable } from './versions'
 
 
 type MerchantType = 'merchants'
 type MerchantRel = ResourceRel & { type: MerchantType }
 type AddressRel = ResourceRel & { type: AddressType }
+
+
+export type MerchantSortable = Pick<Merchant, 'id' | 'name'> & ResourceSortable
+export type MerchantFilterable = Pick<Merchant, 'id' | 'name'> & ResourceFilterable
 
 
 interface Merchant extends Resource {
@@ -43,7 +47,7 @@ interface MerchantUpdate extends ResourceUpdate {
 }
 
 
-class Merchants extends ApiResource<Merchant> {
+class Merchants extends ApiResource<Merchant, MerchantSortable> {
 
 	static readonly TYPE: MerchantType = 'merchants' as const
 
@@ -61,17 +65,17 @@ class Merchants extends ApiResource<Merchant> {
 
 	async address(merchantId: string | Merchant, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		const _merchantId = (merchantId as Merchant).id || merchantId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `merchants/${_merchantId}/address`, params, options) as unknown as Address
+		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `merchants/${_merchantId}/address`, params, options) as unknown as Address
 	}
 
-	async attachments(merchantId: string | Merchant, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(merchantId: string | Merchant, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _merchantId = (merchantId as Merchant).id || merchantId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `merchants/${_merchantId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `merchants/${_merchantId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(merchantId: string | Merchant, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(merchantId: string | Merchant, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _merchantId = (merchantId as Merchant).id || merchantId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `merchants/${_merchantId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `merchants/${_merchantId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -99,3 +103,9 @@ class Merchants extends ApiResource<Merchant> {
 export default Merchants
 
 export type { Merchant, MerchantCreate, MerchantUpdate, MerchantType }
+
+/*
+export const MerchantsClient = (init: ResourceAdapter | ResourcesInitConfig): Merchants => {
+	return new Merchants((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

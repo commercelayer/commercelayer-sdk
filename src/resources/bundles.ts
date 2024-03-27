@@ -1,14 +1,14 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market, MarketType } from './markets'
-import type { SkuList, SkuListType } from './sku_lists'
-import type { Sku } from './skus'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
+import type { Market, MarketType, MarketSortable } from './markets'
+import type { SkuList, SkuListType, SkuListSortable } from './sku_lists'
+import type { Sku, SkuSortable } from './skus'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Event, EventSortable } from './events'
+import type { Tag, TagType, TagSortable } from './tags'
+import type { Version, VersionSortable } from './versions'
 
 
 type BundleType = 'bundles'
@@ -16,6 +16,10 @@ type BundleRel = ResourceRel & { type: BundleType }
 type MarketRel = ResourceRel & { type: MarketType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type BundleSortable = Pick<Bundle, 'id' | 'code' | 'currency_code' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceSortable
+export type BundleFilterable = Pick<Bundle, 'id' | 'code' | 'name' | 'currency_code' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceFilterable
 
 
 interface Bundle extends Resource {
@@ -84,7 +88,7 @@ interface BundleUpdate extends ResourceUpdate {
 }
 
 
-class Bundles extends ApiResource<Bundle> {
+class Bundles extends ApiResource<Bundle, BundleSortable> {
 
 	static readonly TYPE: BundleType = 'bundles' as const
 
@@ -102,37 +106,37 @@ class Bundles extends ApiResource<Bundle> {
 
 	async market(bundleId: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `bundles/${_bundleId}/market`, params, options) as unknown as Market
+		return this.resources.fetch<Market, MarketSortable>({ type: 'markets' }, `bundles/${_bundleId}/market`, params, options) as unknown as Market
 	}
 
 	async sku_list(bundleId: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `bundles/${_bundleId}/sku_list`, params, options) as unknown as SkuList
+		return this.resources.fetch<SkuList, SkuListSortable>({ type: 'sku_lists' }, `bundles/${_bundleId}/sku_list`, params, options) as unknown as SkuList
 	}
 
-	async skus(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+	async skus(bundleId: string | Bundle, params?: QueryParamsList<SkuSortable>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `bundles/${_bundleId}/skus`, params, options) as unknown as ListResponse<Sku>
+		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `bundles/${_bundleId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
-	async attachments(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(bundleId: string | Bundle, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bundles/${_bundleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `bundles/${_bundleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(bundleId: string | Bundle, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `bundles/${_bundleId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `bundles/${_bundleId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(bundleId: string | Bundle, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
-		return this.resources.fetch<Tag>({ type: 'tags' }, `bundles/${_bundleId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `bundles/${_bundleId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(bundleId: string | Bundle, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(bundleId: string | Bundle, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `bundles/${_bundleId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `bundles/${_bundleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _compute_price_amount(id: string | Bundle, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Bundle> {
@@ -168,3 +172,9 @@ class Bundles extends ApiResource<Bundle> {
 export default Bundles
 
 export type { Bundle, BundleCreate, BundleUpdate, BundleType }
+
+/*
+export const BundlesClient = (init: ResourceAdapter | ResourcesInitConfig): Bundles => {
+	return new Bundles((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

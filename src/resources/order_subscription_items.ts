@@ -1,12 +1,12 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
-import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
-import type { Adjustment, AdjustmentType } from './adjustments'
-import type { Bundle, BundleType } from './bundles'
-import type { Sku, SkuType } from './skus'
-import type { LineItem } from './line_items'
+import type { OrderSubscription, OrderSubscriptionType, OrderSubscriptionSortable } from './order_subscriptions'
+import type { Adjustment, AdjustmentType, AdjustmentSortable } from './adjustments'
+import type { Bundle, BundleType, BundleSortable } from './bundles'
+import type { Sku, SkuType, SkuSortable } from './skus'
+import type { LineItem, LineItemSortable } from './line_items'
 
 
 type OrderSubscriptionItemType = 'order_subscription_items'
@@ -15,6 +15,10 @@ type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
 type AdjustmentRel = ResourceRel & { type: AdjustmentType }
 type BundleRel = ResourceRel & { type: BundleType }
 type SkuRel = ResourceRel & { type: SkuType }
+
+
+export type OrderSubscriptionItemSortable = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceSortable
+export type OrderSubscriptionItemFilterable = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceFilterable
 
 
 interface OrderSubscriptionItem extends Resource {
@@ -67,7 +71,7 @@ interface OrderSubscriptionItemUpdate extends ResourceUpdate {
 }
 
 
-class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
+class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem, OrderSubscriptionItemSortable> {
 
 	static readonly TYPE: OrderSubscriptionItemType = 'order_subscription_items' as const
 
@@ -85,12 +89,12 @@ class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 
 	async order_subscription(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
 		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
-		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_subscription_items/${_orderSubscriptionItemId}/order_subscription`, params, options) as unknown as OrderSubscription
+		return this.resources.fetch<OrderSubscription, OrderSubscriptionSortable>({ type: 'order_subscriptions' }, `order_subscription_items/${_orderSubscriptionItemId}/order_subscription`, params, options) as unknown as OrderSubscription
 	}
 
 	async source_line_item(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
 		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
-		return this.resources.fetch<LineItem>({ type: 'line_items' }, `order_subscription_items/${_orderSubscriptionItemId}/source_line_item`, params, options) as unknown as LineItem
+		return this.resources.fetch<LineItem, LineItemSortable>({ type: 'line_items' }, `order_subscription_items/${_orderSubscriptionItemId}/source_line_item`, params, options) as unknown as LineItem
 	}
 
 
@@ -118,3 +122,9 @@ class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 export default OrderSubscriptionItems
 
 export type { OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItemUpdate, OrderSubscriptionItemType }
+
+/*
+export const OrderSubscriptionItemsClient = (init: ResourceAdapter | ResourcesInitConfig): OrderSubscriptionItems => {
+	return new OrderSubscriptionItems((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

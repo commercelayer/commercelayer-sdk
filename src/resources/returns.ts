@@ -1,16 +1,16 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order, OrderType } from './orders'
-import type { Customer } from './customers'
-import type { StockLocation, StockLocationType } from './stock_locations'
-import type { Address } from './addresses'
-import type { ReturnLineItem } from './return_line_items'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
+import type { Order, OrderType, OrderSortable } from './orders'
+import type { Customer, CustomerSortable } from './customers'
+import type { StockLocation, StockLocationType, StockLocationSortable } from './stock_locations'
+import type { Address, AddressSortable } from './addresses'
+import type { ReturnLineItem, ReturnLineItemSortable } from './return_line_items'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Event, EventSortable } from './events'
+import type { Tag, TagType, TagSortable } from './tags'
+import type { Version, VersionSortable } from './versions'
 
 
 type ReturnType = 'returns'
@@ -18,6 +18,10 @@ type ReturnRel = ResourceRel & { type: ReturnType }
 type OrderRel = ResourceRel & { type: OrderType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type ReturnSortable = Pick<Return, 'id' | 'number' | 'status' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'archived_at'> & ResourceSortable
+export type ReturnFilterable = Pick<Return, 'id' | 'number' | 'status' | 'skus_count' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'archived_at'> & ResourceFilterable
 
 
 interface Return extends Resource {
@@ -76,7 +80,7 @@ interface ReturnUpdate extends ResourceUpdate {
 }
 
 
-class Returns extends ApiResource<Return> {
+class Returns extends ApiResource<Return, ReturnSortable> {
 
 	static readonly TYPE: ReturnType = 'returns' as const
 
@@ -94,52 +98,52 @@ class Returns extends ApiResource<Return> {
 
 	async order(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `returns/${_returnId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `returns/${_returnId}/order`, params, options) as unknown as Order
 	}
 
 	async customer(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
 		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<Customer>({ type: 'customers' }, `returns/${_returnId}/customer`, params, options) as unknown as Customer
+		return this.resources.fetch<Customer, CustomerSortable>({ type: 'customers' }, `returns/${_returnId}/customer`, params, options) as unknown as Customer
 	}
 
 	async stock_location(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
 		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `returns/${_returnId}/stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<StockLocation, StockLocationSortable>({ type: 'stock_locations' }, `returns/${_returnId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
 	async origin_address(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `returns/${_returnId}/origin_address`, params, options) as unknown as Address
+		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `returns/${_returnId}/origin_address`, params, options) as unknown as Address
 	}
 
 	async destination_address(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `returns/${_returnId}/destination_address`, params, options) as unknown as Address
+		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `returns/${_returnId}/destination_address`, params, options) as unknown as Address
 	}
 
-	async return_line_items(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
+	async return_line_items(returnId: string | Return, params?: QueryParamsList<ReturnLineItemSortable>, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
 		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<ReturnLineItem>({ type: 'return_line_items' }, `returns/${_returnId}/return_line_items`, params, options) as unknown as ListResponse<ReturnLineItem>
+		return this.resources.fetch<ReturnLineItem, ReturnLineItemSortable>({ type: 'return_line_items' }, `returns/${_returnId}/return_line_items`, params, options) as unknown as ListResponse<ReturnLineItem>
 	}
 
-	async attachments(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(returnId: string | Return, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `returns/${_returnId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `returns/${_returnId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(returnId: string | Return, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `returns/${_returnId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `returns/${_returnId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(returnId: string | Return, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<Tag>({ type: 'tags' }, `returns/${_returnId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `returns/${_returnId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(returnId: string | Return, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `returns/${_returnId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `returns/${_returnId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _request(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
@@ -203,3 +207,9 @@ class Returns extends ApiResource<Return> {
 export default Returns
 
 export type { Return, ReturnCreate, ReturnUpdate, ReturnType }
+
+/*
+export const ReturnsClient = (init: ResourceAdapter | ResourcesInitConfig): Returns => {
+	return new Returns((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

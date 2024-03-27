@@ -1,11 +1,15 @@
 import { ApiSingleton } from '../resource'
-import type { Resource, ResourceId, ResourceRel } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSortable, ResourceFilterable } from '../resource'
 
 
 
 
 type OrganizationType = 'organization'
 type OrganizationRel = ResourceRel & { type: OrganizationType }
+
+
+export type OrganizationSortable = Pick<Organization, 'id'> & ResourceSortable
+export type OrganizationFilterable = Pick<Organization, 'id'> & ResourceFilterable
 
 
 interface Organization extends Resource {
@@ -64,3 +68,9 @@ class Organizations extends ApiSingleton<Organization> {
 export default Organizations
 
 export type { Organization, OrganizationType }
+
+/*
+export const OrganizationsClient = (init: ResourceAdapter | ResourcesInitConfig): Organizations => {
+	return new Organizations((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

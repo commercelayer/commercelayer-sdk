@@ -1,15 +1,19 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order, OrderType } from './orders'
-import type { PaymentGateway } from './payment_gateways'
-import type { Version } from './versions'
+import type { Order, OrderType, OrderSortable } from './orders'
+import type { PaymentGateway, PaymentGatewaySortable } from './payment_gateways'
+import type { Version, VersionSortable } from './versions'
 
 
 type StripePaymentType = 'stripe_payments'
 type StripePaymentRel = ResourceRel & { type: StripePaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
+
+
+export type StripePaymentSortable = Pick<StripePayment, 'id'> & ResourceSortable
+export type StripePaymentFilterable = Pick<StripePayment, 'id'> & ResourceFilterable
 
 
 interface StripePayment extends Resource {
@@ -61,7 +65,7 @@ interface StripePaymentUpdate extends ResourceUpdate {
 }
 
 
-class StripePayments extends ApiResource<StripePayment> {
+class StripePayments extends ApiResource<StripePayment, StripePaymentSortable> {
 
 	static readonly TYPE: StripePaymentType = 'stripe_payments' as const
 
@@ -79,17 +83,17 @@ class StripePayments extends ApiResource<StripePayment> {
 
 	async order(stripePaymentId: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `stripe_payments/${_stripePaymentId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `stripe_payments/${_stripePaymentId}/order`, params, options) as unknown as Order
 	}
 
 	async payment_gateway(stripePaymentId: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId as string
-		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `stripe_payments/${_stripePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+		return this.resources.fetch<PaymentGateway, PaymentGatewaySortable>({ type: 'payment_gateways' }, `stripe_payments/${_stripePaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
-	async versions(stripePaymentId: string | StripePayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(stripePaymentId: string | StripePayment, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_payments/${_stripePaymentId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `stripe_payments/${_stripePaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _update(id: string | StripePayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripePayment> {
@@ -125,3 +129,9 @@ class StripePayments extends ApiResource<StripePayment> {
 export default StripePayments
 
 export type { StripePayment, StripePaymentCreate, StripePaymentUpdate, StripePaymentType }
+
+/*
+export const StripePaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): StripePayments => {
+	return new StripePayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

@@ -1,13 +1,17 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsList } from '../query'
 
-import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
+import type { PaymentMethod, PaymentMethodSortable } from './payment_methods'
+import type { Version, VersionSortable } from './versions'
 
 
 type PaymentGatewayType = 'payment_gateways'
 type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
+
+
+export type PaymentGatewaySortable = Pick<PaymentGateway, 'id' | 'name'> & ResourceSortable
+export type PaymentGatewayFilterable = Pick<PaymentGateway, 'id' | 'name'> & ResourceFilterable
 
 
 interface PaymentGateway extends Resource {
@@ -22,18 +26,18 @@ interface PaymentGateway extends Resource {
 }
 
 
-class PaymentGateways extends ApiResource<PaymentGateway> {
+class PaymentGateways extends ApiResource<PaymentGateway, PaymentGatewaySortable> {
 
 	static readonly TYPE: PaymentGatewayType = 'payment_gateways' as const
 
-	async payment_methods(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList<PaymentMethodSortable>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || paymentGatewayId as string
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `payment_gateways/${_paymentGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `payment_gateways/${_paymentGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || paymentGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `payment_gateways/${_paymentGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `payment_gateways/${_paymentGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -61,3 +65,9 @@ class PaymentGateways extends ApiResource<PaymentGateway> {
 export default PaymentGateways
 
 export type { PaymentGateway, PaymentGatewayType }
+
+/*
+export const PaymentGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): PaymentGateways => {
+	return new PaymentGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

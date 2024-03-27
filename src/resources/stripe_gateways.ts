@@ -1,14 +1,18 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
-import type { StripePayment } from './stripe_payments'
+import type { PaymentMethod, PaymentMethodSortable } from './payment_methods'
+import type { Version, VersionSortable } from './versions'
+import type { StripePayment, StripePaymentSortable } from './stripe_payments'
 
 
 type StripeGatewayType = 'stripe_gateways'
 type StripeGatewayRel = ResourceRel & { type: StripeGatewayType }
+
+
+export type StripeGatewaySortable = Pick<StripeGateway, 'id' | 'name'> & ResourceSortable
+export type StripeGatewayFilterable = Pick<StripeGateway, 'id' | 'name'> & ResourceFilterable
 
 
 interface StripeGateway extends Resource {
@@ -46,7 +50,7 @@ interface StripeGatewayUpdate extends ResourceUpdate {
 }
 
 
-class StripeGateways extends ApiResource<StripeGateway> {
+class StripeGateways extends ApiResource<StripeGateway, StripeGatewaySortable> {
 
 	static readonly TYPE: StripeGatewayType = 'stripe_gateways' as const
 
@@ -62,19 +66,19 @@ class StripeGateways extends ApiResource<StripeGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: StripeGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<PaymentMethodSortable>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `stripe_gateways/${_stripeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `stripe_gateways/${_stripeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_gateways/${_stripeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `stripe_gateways/${_stripeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async stripe_payments(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
+	async stripe_payments(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<StripePaymentSortable>, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
-		return this.resources.fetch<StripePayment>({ type: 'stripe_payments' }, `stripe_gateways/${_stripeGatewayId}/stripe_payments`, params, options) as unknown as ListResponse<StripePayment>
+		return this.resources.fetch<StripePayment, StripePaymentSortable>({ type: 'stripe_payments' }, `stripe_gateways/${_stripeGatewayId}/stripe_payments`, params, options) as unknown as ListResponse<StripePayment>
 	}
 
 
@@ -102,3 +106,9 @@ class StripeGateways extends ApiResource<StripeGateway> {
 export default StripeGateways
 
 export type { StripeGateway, StripeGatewayCreate, StripeGatewayUpdate, StripeGatewayType }
+
+/*
+export const StripeGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): StripeGateways => {
+	return new StripeGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

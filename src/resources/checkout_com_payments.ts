@@ -1,15 +1,19 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order, OrderType } from './orders'
-import type { PaymentGateway } from './payment_gateways'
-import type { Version } from './versions'
+import type { Order, OrderType, OrderSortable } from './orders'
+import type { PaymentGateway, PaymentGatewaySortable } from './payment_gateways'
+import type { Version, VersionSortable } from './versions'
 
 
 type CheckoutComPaymentType = 'checkout_com_payments'
 type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
+
+
+export type CheckoutComPaymentSortable = Pick<CheckoutComPayment, 'id'> & ResourceSortable
+export type CheckoutComPaymentFilterable = Pick<CheckoutComPayment, 'id'> & ResourceFilterable
 
 
 interface CheckoutComPayment extends Resource {
@@ -64,7 +68,7 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
 }
 
 
-class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
+class CheckoutComPayments extends ApiResource<CheckoutComPayment, CheckoutComPaymentSortable> {
 
 	static readonly TYPE: CheckoutComPaymentType = 'checkout_com_payments' as const
 
@@ -82,17 +86,17 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 
 	async order(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `checkout_com_payments/${_checkoutComPaymentId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `checkout_com_payments/${_checkoutComPaymentId}/order`, params, options) as unknown as Order
 	}
 
 	async payment_gateway(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
-		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `checkout_com_payments/${_checkoutComPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
+		return this.resources.fetch<PaymentGateway, PaymentGatewaySortable>({ type: 'payment_gateways' }, `checkout_com_payments/${_checkoutComPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
 	}
 
-	async versions(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `checkout_com_payments/${_checkoutComPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `checkout_com_payments/${_checkoutComPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _details(id: string | CheckoutComPayment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CheckoutComPayment> {
@@ -128,3 +132,9 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 export default CheckoutComPayments
 
 export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate, CheckoutComPaymentType }
+
+/*
+export const CheckoutComPaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): CheckoutComPayments => {
+	return new CheckoutComPayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

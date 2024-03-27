@@ -1,12 +1,12 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
-import type { CouponRecipient, CouponRecipientType } from './coupon_recipients'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType, CouponCodesPromotionRuleSortable } from './coupon_codes_promotion_rules'
+import type { CouponRecipient, CouponRecipientType, CouponRecipientSortable } from './coupon_recipients'
+import type { Event, EventSortable } from './events'
+import type { Tag, TagType, TagSortable } from './tags'
+import type { Version, VersionSortable } from './versions'
 
 
 type CouponType = 'coupons'
@@ -14,6 +14,10 @@ type CouponRel = ResourceRel & { type: CouponType }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 type CouponRecipientRel = ResourceRel & { type: CouponRecipientType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type CouponSortable = Pick<Coupon, 'id' | 'code' | 'customer_single_use' | 'usage_limit' | 'usage_count' | 'expires_at'> & ResourceSortable
+export type CouponFilterable = Pick<Coupon, 'id' | 'code' | 'customer_single_use' | 'usage_limit' | 'usage_count' | 'expires_at'> & ResourceFilterable
 
 
 interface Coupon extends Resource {
@@ -66,7 +70,7 @@ interface CouponUpdate extends ResourceUpdate {
 }
 
 
-class Coupons extends ApiResource<Coupon> {
+class Coupons extends ApiResource<Coupon, CouponSortable> {
 
 	static readonly TYPE: CouponType = 'coupons' as const
 
@@ -84,27 +88,27 @@ class Coupons extends ApiResource<Coupon> {
 
 	async promotion_rule(couponId: string | Coupon, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		const _couponId = (couponId as Coupon).id || couponId as string
-		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `coupons/${_couponId}/promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+		return this.resources.fetch<CouponCodesPromotionRule, CouponCodesPromotionRuleSortable>({ type: 'coupon_codes_promotion_rules' }, `coupons/${_couponId}/promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
 	}
 
 	async coupon_recipient(couponId: string | Coupon, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponRecipient> {
 		const _couponId = (couponId as Coupon).id || couponId as string
-		return this.resources.fetch<CouponRecipient>({ type: 'coupon_recipients' }, `coupons/${_couponId}/coupon_recipient`, params, options) as unknown as CouponRecipient
+		return this.resources.fetch<CouponRecipient, CouponRecipientSortable>({ type: 'coupon_recipients' }, `coupons/${_couponId}/coupon_recipient`, params, options) as unknown as CouponRecipient
 	}
 
-	async events(couponId: string | Coupon, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(couponId: string | Coupon, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _couponId = (couponId as Coupon).id || couponId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `coupons/${_couponId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `coupons/${_couponId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(couponId: string | Coupon, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(couponId: string | Coupon, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _couponId = (couponId as Coupon).id || couponId as string
-		return this.resources.fetch<Tag>({ type: 'tags' }, `coupons/${_couponId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `coupons/${_couponId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(couponId: string | Coupon, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(couponId: string | Coupon, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _couponId = (couponId as Coupon).id || couponId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `coupons/${_couponId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `coupons/${_couponId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -132,3 +136,9 @@ class Coupons extends ApiResource<Coupon> {
 export default Coupons
 
 export type { Coupon, CouponCreate, CouponUpdate, CouponType }
+
+/*
+export const CouponsClient = (init: ResourceAdapter | ResourcesInitConfig): Coupons => {
+	return new Coupons((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

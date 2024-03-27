@@ -1,14 +1,18 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order, OrderType } from './orders'
-import type { Attachment } from './attachments'
+import type { Order, OrderType, OrderSortable } from './orders'
+import type { Attachment, AttachmentSortable } from './attachments'
 
 
 type PaymentOptionType = 'payment_options'
 type PaymentOptionRel = ResourceRel & { type: PaymentOptionType }
 type OrderRel = ResourceRel & { type: OrderType }
+
+
+export type PaymentOptionSortable = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type'> & ResourceSortable
+export type PaymentOptionFilterable = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type' | 'data'> & ResourceFilterable
 
 
 interface PaymentOption extends Resource {
@@ -46,7 +50,7 @@ interface PaymentOptionUpdate extends ResourceUpdate {
 }
 
 
-class PaymentOptions extends ApiResource<PaymentOption> {
+class PaymentOptions extends ApiResource<PaymentOption, PaymentOptionSortable> {
 
 	static readonly TYPE: PaymentOptionType = 'payment_options' as const
 
@@ -64,12 +68,12 @@ class PaymentOptions extends ApiResource<PaymentOption> {
 
 	async order(paymentOptionId: string | PaymentOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _paymentOptionId = (paymentOptionId as PaymentOption).id || paymentOptionId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `payment_options/${_paymentOptionId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `payment_options/${_paymentOptionId}/order`, params, options) as unknown as Order
 	}
 
-	async attachments(paymentOptionId: string | PaymentOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(paymentOptionId: string | PaymentOption, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _paymentOptionId = (paymentOptionId as PaymentOption).id || paymentOptionId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_options/${_paymentOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `payment_options/${_paymentOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 
@@ -97,3 +101,9 @@ class PaymentOptions extends ApiResource<PaymentOption> {
 export default PaymentOptions
 
 export type { PaymentOption, PaymentOptionCreate, PaymentOptionUpdate, PaymentOptionType }
+
+/*
+export const PaymentOptionsClient = (init: ResourceAdapter | ResourcesInitConfig): PaymentOptions => {
+	return new PaymentOptions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

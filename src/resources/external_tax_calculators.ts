@@ -1,14 +1,18 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
+import type { Market, MarketSortable } from './markets'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Version, VersionSortable } from './versions'
 
 
 type ExternalTaxCalculatorType = 'external_tax_calculators'
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
+
+
+export type ExternalTaxCalculatorSortable = Pick<ExternalTaxCalculator, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
+export type ExternalTaxCalculatorFilterable = Pick<ExternalTaxCalculator, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
 
 
 interface ExternalTaxCalculator extends Resource {
@@ -45,7 +49,7 @@ interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 }
 
 
-class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
+class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator, ExternalTaxCalculatorSortable> {
 
 	static readonly TYPE: ExternalTaxCalculatorType = 'external_tax_calculators' as const
 
@@ -61,19 +65,19 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ExternalTaxCalculators.TYPE } : id, options)
 	}
 
-	async markets(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+	async markets(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<MarketSortable>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
 		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `external_tax_calculators/${_externalTaxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
+		return this.resources.fetch<Market, MarketSortable>({ type: 'markets' }, `external_tax_calculators/${_externalTaxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
-	async attachments(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_tax_calculators/${_externalTaxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `external_tax_calculators/${_externalTaxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `external_tax_calculators/${_externalTaxCalculatorId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `external_tax_calculators/${_externalTaxCalculatorId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _reset_circuit(id: string | ExternalTaxCalculator, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
@@ -105,3 +109,9 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 export default ExternalTaxCalculators
 
 export type { ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorUpdate, ExternalTaxCalculatorType }
+
+/*
+export const ExternalTaxCalculatorsClient = (init: ResourceAdapter | ResourcesInitConfig): ExternalTaxCalculators => {
+	return new ExternalTaxCalculators((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

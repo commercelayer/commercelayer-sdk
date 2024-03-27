@@ -59,6 +59,7 @@ type ListMeta = {
 	readonly recordsPerPage: number
 }
 
+
 class ListResponse<R> extends Array<R> {
 
 	readonly meta: ListMeta
@@ -83,8 +84,11 @@ class ListResponse<R> extends Array<R> {
 }
 
 
-
 export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse, ListMeta, ResourceRel }
+
+export type ResourceSortable = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'created_at' | 'updated_at'>
+export type ResourceFilterable = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'metadata' | 'created_at' | 'updated_at'>
+
 
 
 // Resource adapters local configuration
@@ -96,12 +100,16 @@ type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
 type ResourcesConfig = Partial<ResourcesInitConfig>
 
 
+export const ApiResourceAdapter = (config: ResourcesInitConfig): ResourceAdapter => {
+	return new ResourceAdapter(config)
+}
+
+
 class ResourceAdapter {
 
 	readonly #client: ApiClient
 
 	readonly #config: ResourceAdapterConfig = {}
-
 
 	constructor(config: ResourcesInitConfig) {
 		this.#client = ApiClient.create(config)
@@ -114,7 +122,7 @@ class ResourceAdapter {
 	}
 
 
-	config(config: ResourcesConfig): ResourceAdapter {
+	config(config: ResourcesConfig): this {
 
 		debug('config %o', config)
 
@@ -165,7 +173,7 @@ class ResourceAdapter {
 	}
 
 
-	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
+	async list<R extends Resource, RS extends ResourceSortable>(resource: ResourceType, params?: QueryParamsList<RS>, options?: ResourcesConfig): Promise<ListResponse<R>> {
 
 		debug('list: %o, %O, %O', resource, params || {}, options || {})
 
@@ -225,7 +233,7 @@ class ResourceAdapter {
 	}
 
 
-	async fetch<R extends Resource>(resource: string | ResourceType, path: string, params?: QueryParams, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
+	async fetch<R extends Resource, RS extends ResourceSortable>(resource: string | ResourceType, path: string, params?: QueryParams<RS>, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
 
 		debug('fetch: %o, %O, %O', path, params || {}, options || {})
 
@@ -236,7 +244,7 @@ class ResourceAdapter {
 		const r = denormalize<R>(res as DocWithData)
 
 		if (Array.isArray(r)) {
-			const p = params as QueryParamsList
+			const p = params as QueryParamsList<RS>
 			const meta: ListMeta = {
 				pageCount: Number(res.meta?.page_count),
 				recordCount: Number(res.meta?.record_count),
@@ -315,18 +323,18 @@ abstract class ApiResourceBase<R extends Resource> {
 }
 
 
-abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
+abstract class ApiResource<R extends Resource, RS extends ResourceSortable> extends ApiResourceBase<R> {
 
 	async retrieve(id: string | ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 		return this.resources.retrieve<R>((typeof id === 'string') ? { type: this.type(), id } : id, params, options)
 	}
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
-		return this.resources.list<R>({ type: this.type() }, params, options)
+	async list(params?: QueryParamsList<RS>, options?: ResourcesConfig): Promise<ListResponse<R>> {
+		return this.resources.list<R, RS>({ type: this.type() }, params, options)
 	}
 
-	async count(filter?: QueryFilter | QueryParamsList, options?: ResourcesConfig): Promise<number> {
-		const params: QueryParamsList = { filters: isParamsList(filter) ? filter.filters : filter, pageNumber: 1, pageSize: 1 }
+	async count(filter?: QueryFilter | QueryParamsList<RS>, options?: ResourcesConfig): Promise<number> {
+		const params: QueryParamsList<RS> = { filters: isParamsList<RS>(filter) ? filter.filters : filter, pageNumber: 1, pageSize: 1 }
 		const response = await this.list(params, options)
 		return Promise.resolve(response.meta.recordCount)
 	}
@@ -347,4 +355,4 @@ abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 export default ResourceAdapter
 
 export { ApiResource, ApiSingleton }
-export type { ResourcesConfig, ResourcesInitConfig }
+export type { ResourcesConfig, ResourcesInitConfig, ResourceAdapter }

@@ -1,14 +1,14 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Sku, SkuType } from './skus'
-import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
-import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
-import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
-import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
+import type { Sku, SkuType, SkuSortable } from './skus'
+import type { AvalaraAccount, AvalaraAccountType, AvalaraAccountSortable } from './avalara_accounts'
+import type { TaxjarAccount, TaxjarAccountType, TaxjarAccountSortable } from './taxjar_accounts'
+import type { ManualTaxCalculator, ManualTaxCalculatorType, ManualTaxCalculatorSortable } from './manual_tax_calculators'
+import type { ExternalTaxCalculator, ExternalTaxCalculatorType, ExternalTaxCalculatorSortable } from './external_tax_calculators'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Version, VersionSortable } from './versions'
 
 
 type TaxCategoryType = 'tax_categories'
@@ -18,6 +18,10 @@ type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
 type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
 type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
+
+
+export type TaxCategorySortable = Pick<TaxCategory, 'id' | 'code'> & ResourceSortable
+export type TaxCategoryFilterable = Pick<TaxCategory, 'id' | 'code'> & ResourceFilterable
 
 
 interface TaxCategory extends Resource {
@@ -56,7 +60,7 @@ interface TaxCategoryUpdate extends ResourceUpdate {
 }
 
 
-class TaxCategories extends ApiResource<TaxCategory> {
+class TaxCategories extends ApiResource<TaxCategory, TaxCategorySortable> {
 
 	static readonly TYPE: TaxCategoryType = 'tax_categories' as const
 
@@ -74,17 +78,17 @@ class TaxCategories extends ApiResource<TaxCategory> {
 
 	async sku(taxCategoryId: string | TaxCategory, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
 		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `tax_categories/${_taxCategoryId}/sku`, params, options) as unknown as Sku
+		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `tax_categories/${_taxCategoryId}/sku`, params, options) as unknown as Sku
 	}
 
-	async attachments(taxCategoryId: string | TaxCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(taxCategoryId: string | TaxCategory, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_categories/${_taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `tax_categories/${_taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(taxCategoryId: string | TaxCategory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(taxCategoryId: string | TaxCategory, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `tax_categories/${_taxCategoryId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `tax_categories/${_taxCategoryId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -112,3 +116,9 @@ class TaxCategories extends ApiResource<TaxCategory> {
 export default TaxCategories
 
 export type { TaxCategory, TaxCategoryCreate, TaxCategoryUpdate, TaxCategoryType }
+
+/*
+export const TaxCategoriesClient = (init: ResourceAdapter | ResourcesInitConfig): TaxCategories => {
+	return new TaxCategories((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

@@ -1,16 +1,16 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
-import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
-import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
-import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
-import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
-import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
-import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
-import type { Version } from './versions'
-import type { Coupon, CouponType } from './coupons'
+import type { PercentageDiscountPromotion, PercentageDiscountPromotionType, PercentageDiscountPromotionSortable } from './percentage_discount_promotions'
+import type { FreeShippingPromotion, FreeShippingPromotionType, FreeShippingPromotionSortable } from './free_shipping_promotions'
+import type { BuyXPayYPromotion, BuyXPayYPromotionType, BuyXPayYPromotionSortable } from './buy_x_pay_y_promotions'
+import type { FreeGiftPromotion, FreeGiftPromotionType, FreeGiftPromotionSortable } from './free_gift_promotions'
+import type { FixedPricePromotion, FixedPricePromotionType, FixedPricePromotionSortable } from './fixed_price_promotions'
+import type { ExternalPromotion, ExternalPromotionType, ExternalPromotionSortable } from './external_promotions'
+import type { FixedAmountPromotion, FixedAmountPromotionType, FixedAmountPromotionSortable } from './fixed_amount_promotions'
+import type { Version, VersionSortable } from './versions'
+import type { Coupon, CouponType, CouponSortable } from './coupons'
 
 
 type CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules'
@@ -23,6 +23,10 @@ type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
 type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
 type CouponRel = ResourceRel & { type: CouponType }
+
+
+export type CouponCodesPromotionRuleSortable = Pick<CouponCodesPromotionRule, 'id'> & ResourceSortable
+export type CouponCodesPromotionRuleFilterable = Pick<CouponCodesPromotionRule, 'id'> & ResourceFilterable
 
 
 interface CouponCodesPromotionRule extends Resource {
@@ -53,7 +57,7 @@ interface CouponCodesPromotionRuleUpdate extends ResourceUpdate {
 }
 
 
-class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
+class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule, CouponCodesPromotionRuleSortable> {
 
 	static readonly TYPE: CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules' as const
 
@@ -69,14 +73,14 @@ class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
 		await this.resources.delete((typeof id === 'string')? { id, type: CouponCodesPromotionRules.TYPE } : id, options)
 	}
 
-	async versions(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _couponCodesPromotionRuleId = (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || couponCodesPromotionRuleId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async coupons(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+	async coupons(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList<CouponSortable>, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
 		const _couponCodesPromotionRuleId = (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || couponCodesPromotionRuleId as string
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/coupons`, params, options) as unknown as ListResponse<Coupon>
+		return this.resources.fetch<Coupon, CouponSortable>({ type: 'coupons' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/coupons`, params, options) as unknown as ListResponse<Coupon>
 	}
 
 
@@ -104,3 +108,9 @@ class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
 export default CouponCodesPromotionRules
 
 export type { CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRuleUpdate, CouponCodesPromotionRuleType }
+
+/*
+export const CouponCodesPromotionRulesClient = (init: ResourceAdapter | ResourcesInitConfig): CouponCodesPromotionRules => {
+	return new CouponCodesPromotionRules((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

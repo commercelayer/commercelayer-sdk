@@ -1,14 +1,18 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
-import type { ExternalPayment } from './external_payments'
+import type { PaymentMethod, PaymentMethodSortable } from './payment_methods'
+import type { Version, VersionSortable } from './versions'
+import type { ExternalPayment, ExternalPaymentSortable } from './external_payments'
 
 
 type ExternalGatewayType = 'external_gateways'
 type ExternalGatewayRel = ResourceRel & { type: ExternalGatewayType }
+
+
+export type ExternalGatewaySortable = Pick<ExternalGateway, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
+export type ExternalGatewayFilterable = Pick<ExternalGateway, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
 
 
 interface ExternalGateway extends Resource {
@@ -57,7 +61,7 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 }
 
 
-class ExternalGateways extends ApiResource<ExternalGateway> {
+class ExternalGateways extends ApiResource<ExternalGateway, ExternalGatewaySortable> {
 
 	static readonly TYPE: ExternalGatewayType = 'external_gateways' as const
 
@@ -73,19 +77,19 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ExternalGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(externalGatewayId: string | ExternalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(externalGatewayId: string | ExternalGateway, params?: QueryParamsList<PaymentMethodSortable>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `external_gateways/${_externalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `external_gateways/${_externalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(externalGatewayId: string | ExternalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(externalGatewayId: string | ExternalGateway, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `external_gateways/${_externalGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `external_gateways/${_externalGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async external_payments(externalGatewayId: string | ExternalGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
+	async external_payments(externalGatewayId: string | ExternalGateway, params?: QueryParamsList<ExternalPaymentSortable>, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
 		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
-		return this.resources.fetch<ExternalPayment>({ type: 'external_payments' }, `external_gateways/${_externalGatewayId}/external_payments`, params, options) as unknown as ListResponse<ExternalPayment>
+		return this.resources.fetch<ExternalPayment, ExternalPaymentSortable>({ type: 'external_payments' }, `external_gateways/${_externalGatewayId}/external_payments`, params, options) as unknown as ListResponse<ExternalPayment>
 	}
 
 	async _reset_circuit(id: string | ExternalGateway, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ExternalGateway> {
@@ -117,3 +121,9 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 export default ExternalGateways
 
 export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate, ExternalGatewayType }
+
+/*
+export const ExternalGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): ExternalGateways => {
+	return new ExternalGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

@@ -1,16 +1,20 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockLocation, StockLocationType } from './stock_locations'
-import type { InventoryModel, InventoryModelType } from './inventory_models'
-import type { Version } from './versions'
+import type { StockLocation, StockLocationType, StockLocationSortable } from './stock_locations'
+import type { InventoryModel, InventoryModelType, InventoryModelSortable } from './inventory_models'
+import type { Version, VersionSortable } from './versions'
 
 
 type InventoryStockLocationType = 'inventory_stock_locations'
 type InventoryStockLocationRel = ResourceRel & { type: InventoryStockLocationType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
+
+
+export type InventoryStockLocationSortable = Pick<InventoryStockLocation, 'id' | 'priority' | 'on_hold'> & ResourceSortable
+export type InventoryStockLocationFilterable = Pick<InventoryStockLocation, 'id' | 'priority' | 'on_hold'> & ResourceFilterable
 
 
 interface InventoryStockLocation extends Resource {
@@ -49,7 +53,7 @@ interface InventoryStockLocationUpdate extends ResourceUpdate {
 }
 
 
-class InventoryStockLocations extends ApiResource<InventoryStockLocation> {
+class InventoryStockLocations extends ApiResource<InventoryStockLocation, InventoryStockLocationSortable> {
 
 	static readonly TYPE: InventoryStockLocationType = 'inventory_stock_locations' as const
 
@@ -67,17 +71,17 @@ class InventoryStockLocations extends ApiResource<InventoryStockLocation> {
 
 	async stock_location(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLocation> {
 		const _inventoryStockLocationId = (inventoryStockLocationId as InventoryStockLocation).id || inventoryStockLocationId as string
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `inventory_stock_locations/${_inventoryStockLocationId}/stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<StockLocation, StockLocationSortable>({ type: 'stock_locations' }, `inventory_stock_locations/${_inventoryStockLocationId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
 	async inventory_model(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
 		const _inventoryStockLocationId = (inventoryStockLocationId as InventoryStockLocation).id || inventoryStockLocationId as string
-		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `inventory_stock_locations/${_inventoryStockLocationId}/inventory_model`, params, options) as unknown as InventoryModel
+		return this.resources.fetch<InventoryModel, InventoryModelSortable>({ type: 'inventory_models' }, `inventory_stock_locations/${_inventoryStockLocationId}/inventory_model`, params, options) as unknown as InventoryModel
 	}
 
-	async versions(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _inventoryStockLocationId = (inventoryStockLocationId as InventoryStockLocation).id || inventoryStockLocationId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `inventory_stock_locations/${_inventoryStockLocationId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `inventory_stock_locations/${_inventoryStockLocationId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -105,3 +109,9 @@ class InventoryStockLocations extends ApiResource<InventoryStockLocation> {
 export default InventoryStockLocations
 
 export type { InventoryStockLocation, InventoryStockLocationCreate, InventoryStockLocationUpdate, InventoryStockLocationType }
+
+/*
+export const InventoryStockLocationsClient = (init: ResourceAdapter | ResourcesInitConfig): InventoryStockLocations => {
+	return new InventoryStockLocations((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

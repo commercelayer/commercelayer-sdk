@@ -1,16 +1,20 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Parcel, ParcelType } from './parcels'
-import type { StockLineItem, StockLineItemType } from './stock_line_items'
-import type { Version } from './versions'
+import type { Parcel, ParcelType, ParcelSortable } from './parcels'
+import type { StockLineItem, StockLineItemType, StockLineItemSortable } from './stock_line_items'
+import type { Version, VersionSortable } from './versions'
 
 
 type ParcelLineItemType = 'parcel_line_items'
 type ParcelLineItemRel = ResourceRel & { type: ParcelLineItemType }
 type ParcelRel = ResourceRel & { type: ParcelType }
 type StockLineItemRel = ResourceRel & { type: StockLineItemType }
+
+
+export type ParcelLineItemSortable = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceSortable
+export type ParcelLineItemFilterable = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceFilterable
 
 
 interface ParcelLineItem extends Resource {
@@ -43,7 +47,7 @@ interface ParcelLineItemCreate extends ResourceCreate {
 type ParcelLineItemUpdate = ResourceUpdate
 
 
-class ParcelLineItems extends ApiResource<ParcelLineItem> {
+class ParcelLineItems extends ApiResource<ParcelLineItem, ParcelLineItemSortable> {
 
 	static readonly TYPE: ParcelLineItemType = 'parcel_line_items' as const
 
@@ -61,17 +65,17 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
 
 	async parcel(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Parcel> {
 		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
-		return this.resources.fetch<Parcel>({ type: 'parcels' }, `parcel_line_items/${_parcelLineItemId}/parcel`, params, options) as unknown as Parcel
+		return this.resources.fetch<Parcel, ParcelSortable>({ type: 'parcels' }, `parcel_line_items/${_parcelLineItemId}/parcel`, params, options) as unknown as Parcel
 	}
 
 	async stock_line_item(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockLineItem> {
 		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
-		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `parcel_line_items/${_parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
+		return this.resources.fetch<StockLineItem, StockLineItemSortable>({ type: 'stock_line_items' }, `parcel_line_items/${_parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
 	}
 
-	async versions(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `parcel_line_items/${_parcelLineItemId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `parcel_line_items/${_parcelLineItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -99,3 +103,9 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
 export default ParcelLineItems
 
 export type { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate, ParcelLineItemType }
+
+/*
+export const ParcelLineItemsClient = (init: ResourceAdapter | ResourcesInitConfig): ParcelLineItems => {
+	return new ParcelLineItems((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

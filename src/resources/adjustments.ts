@@ -1,12 +1,16 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Version } from './versions'
+import type { Version, VersionSortable } from './versions'
 
 
 type AdjustmentType = 'adjustments'
 type AdjustmentRel = ResourceRel & { type: AdjustmentType }
+
+
+export type AdjustmentSortable = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceSortable
+export type AdjustmentFilterable = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceFilterable
 
 
 interface Adjustment extends Resource {
@@ -45,7 +49,7 @@ interface AdjustmentUpdate extends ResourceUpdate {
 }
 
 
-class Adjustments extends ApiResource<Adjustment> {
+class Adjustments extends ApiResource<Adjustment, AdjustmentSortable> {
 
 	static readonly TYPE: AdjustmentType = 'adjustments' as const
 
@@ -61,9 +65,9 @@ class Adjustments extends ApiResource<Adjustment> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Adjustments.TYPE } : id, options)
 	}
 
-	async versions(adjustmentId: string | Adjustment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(adjustmentId: string | Adjustment, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _adjustmentId = (adjustmentId as Adjustment).id || adjustmentId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `adjustments/${_adjustmentId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `adjustments/${_adjustmentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -91,3 +95,9 @@ class Adjustments extends ApiResource<Adjustment> {
 export default Adjustments
 
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate, AdjustmentType }
+
+/*
+export const AdjustmentsClient = (init: ResourceAdapter | ResourcesInitConfig): Adjustments => {
+	return new Adjustments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

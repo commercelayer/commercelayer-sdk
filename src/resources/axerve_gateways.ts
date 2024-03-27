@@ -1,15 +1,19 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
-import type { AxervePayment, AxervePaymentType } from './axerve_payments'
+import type { PaymentMethod, PaymentMethodSortable } from './payment_methods'
+import type { Version, VersionSortable } from './versions'
+import type { AxervePayment, AxervePaymentType, AxervePaymentSortable } from './axerve_payments'
 
 
 type AxerveGatewayType = 'axerve_gateways'
 type AxerveGatewayRel = ResourceRel & { type: AxerveGatewayType }
 type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
+
+
+export type AxerveGatewaySortable = Pick<AxerveGateway, 'id' | 'name'> & ResourceSortable
+export type AxerveGatewayFilterable = Pick<AxerveGateway, 'id' | 'name'> & ResourceFilterable
 
 
 interface AxerveGateway extends Resource {
@@ -49,7 +53,7 @@ interface AxerveGatewayUpdate extends ResourceUpdate {
 }
 
 
-class AxerveGateways extends ApiResource<AxerveGateway> {
+class AxerveGateways extends ApiResource<AxerveGateway, AxerveGatewaySortable> {
 
 	static readonly TYPE: AxerveGatewayType = 'axerve_gateways' as const
 
@@ -65,19 +69,19 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: AxerveGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList<PaymentMethodSortable>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _axerveGatewayId = (axerveGatewayId as AxerveGateway).id || axerveGatewayId as string
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `axerve_gateways/${_axerveGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `axerve_gateways/${_axerveGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _axerveGatewayId = (axerveGatewayId as AxerveGateway).id || axerveGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `axerve_gateways/${_axerveGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `axerve_gateways/${_axerveGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async axerve_payments(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AxervePayment>> {
+	async axerve_payments(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList<AxervePaymentSortable>, options?: ResourcesConfig): Promise<ListResponse<AxervePayment>> {
 		const _axerveGatewayId = (axerveGatewayId as AxerveGateway).id || axerveGatewayId as string
-		return this.resources.fetch<AxervePayment>({ type: 'axerve_payments' }, `axerve_gateways/${_axerveGatewayId}/axerve_payments`, params, options) as unknown as ListResponse<AxervePayment>
+		return this.resources.fetch<AxervePayment, AxervePaymentSortable>({ type: 'axerve_payments' }, `axerve_gateways/${_axerveGatewayId}/axerve_payments`, params, options) as unknown as ListResponse<AxervePayment>
 	}
 
 
@@ -105,3 +109,9 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 export default AxerveGateways
 
 export type { AxerveGateway, AxerveGatewayCreate, AxerveGatewayUpdate, AxerveGatewayType }
+
+/*
+export const AxerveGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): AxerveGateways => {
+	return new AxerveGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

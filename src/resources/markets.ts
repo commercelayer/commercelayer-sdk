@@ -1,15 +1,15 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Merchant, MerchantType } from './merchants'
-import type { PriceList, PriceListType } from './price_lists'
-import type { InventoryModel, InventoryModelType } from './inventory_models'
-import type { SubscriptionModel, SubscriptionModelType } from './subscription_models'
-import type { TaxCalculator, TaxCalculatorType } from './tax_calculators'
-import type { CustomerGroup, CustomerGroupType } from './customer_groups'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
+import type { Merchant, MerchantType, MerchantSortable } from './merchants'
+import type { PriceList, PriceListType, PriceListSortable } from './price_lists'
+import type { InventoryModel, InventoryModelType, InventoryModelSortable } from './inventory_models'
+import type { SubscriptionModel, SubscriptionModelType, SubscriptionModelSortable } from './subscription_models'
+import type { TaxCalculator, TaxCalculatorType, TaxCalculatorSortable } from './tax_calculators'
+import type { CustomerGroup, CustomerGroupType, CustomerGroupSortable } from './customer_groups'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Version, VersionSortable } from './versions'
 
 
 type MarketType = 'markets'
@@ -20,6 +20,10 @@ type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
 type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
+
+
+export type MarketSortable = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceSortable
+export type MarketFilterable = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceFilterable
 
 
 interface Market extends Resource {
@@ -91,7 +95,7 @@ interface MarketUpdate extends ResourceUpdate {
 }
 
 
-class Markets extends ApiResource<Market> {
+class Markets extends ApiResource<Market, MarketSortable> {
 
 	static readonly TYPE: MarketType = 'markets' as const
 
@@ -109,42 +113,42 @@ class Markets extends ApiResource<Market> {
 
 	async merchant(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
 		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<Merchant>({ type: 'merchants' }, `markets/${_marketId}/merchant`, params, options) as unknown as Merchant
+		return this.resources.fetch<Merchant, MerchantSortable>({ type: 'merchants' }, `markets/${_marketId}/merchant`, params, options) as unknown as Merchant
 	}
 
 	async price_list(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
 		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `markets/${_marketId}/price_list`, params, options) as unknown as PriceList
+		return this.resources.fetch<PriceList, PriceListSortable>({ type: 'price_lists' }, `markets/${_marketId}/price_list`, params, options) as unknown as PriceList
 	}
 
 	async inventory_model(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
 		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `markets/${_marketId}/inventory_model`, params, options) as unknown as InventoryModel
+		return this.resources.fetch<InventoryModel, InventoryModelSortable>({ type: 'inventory_models' }, `markets/${_marketId}/inventory_model`, params, options) as unknown as InventoryModel
 	}
 
 	async subscription_model(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SubscriptionModel> {
 		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<SubscriptionModel>({ type: 'subscription_models' }, `markets/${_marketId}/subscription_model`, params, options) as unknown as SubscriptionModel
+		return this.resources.fetch<SubscriptionModel, SubscriptionModelSortable>({ type: 'subscription_models' }, `markets/${_marketId}/subscription_model`, params, options) as unknown as SubscriptionModel
 	}
 
 	async tax_calculator(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCalculator> {
 		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<TaxCalculator>({ type: 'tax_calculators' }, `markets/${_marketId}/tax_calculator`, params, options) as unknown as TaxCalculator
+		return this.resources.fetch<TaxCalculator, TaxCalculatorSortable>({ type: 'tax_calculators' }, `markets/${_marketId}/tax_calculator`, params, options) as unknown as TaxCalculator
 	}
 
 	async customer_group(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
 		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `markets/${_marketId}/customer_group`, params, options) as unknown as CustomerGroup
+		return this.resources.fetch<CustomerGroup, CustomerGroupSortable>({ type: 'customer_groups' }, `markets/${_marketId}/customer_group`, params, options) as unknown as CustomerGroup
 	}
 
-	async attachments(marketId: string | Market, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(marketId: string | Market, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `markets/${_marketId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `markets/${_marketId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(marketId: string | Market, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(marketId: string | Market, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `markets/${_marketId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `markets/${_marketId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _disable(id: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
@@ -180,3 +184,9 @@ class Markets extends ApiResource<Market> {
 export default Markets
 
 export type { Market, MarketCreate, MarketUpdate, MarketType }
+
+/*
+export const MarketsClient = (init: ResourceAdapter | ResourcesInitConfig): Markets => {
+	return new Markets((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

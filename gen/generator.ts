@@ -4,15 +4,19 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync
 import { basename } from 'node:path'
 import Fixer from './fixer'
 import Inflector from './inflector'
+import { inspect } from 'node:util'
 
 
 /**** SDK source code generator settings ****/
-const CONFIG = {
+export const CONFIG = {
 	RELATIONSHIP_FUNCTIONS: true,
 	TRIGGER_FUNCTIONS: true,
-	LEAZY_LOADING: true
+	LEAZY_LOADING: true,
+	LOCAL: false
 }
 /**** **** **** **** **** **** **** **** ****/
+
+const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
 
 type OperationType = 'retrieve' | 'list' | 'create' | 'update' | 'delete'
@@ -50,6 +54,7 @@ const loadTemplates = (): void => {
 const generate = async (localSchema?: boolean) => {
 
 	console.log('>> Local schema: ' + (localSchema || false) + '\n')
+	CONFIG.LOCAL = localSchema || false
 
 	if (!localSchema) {
 
@@ -64,6 +69,11 @@ const generate = async (localSchema?: boolean) => {
 
 		const schemaInfo = await apiSchema.download()
 
+		if (!schemaInfo) {
+			console.log('Unable to download OpenAPI schema')
+			return
+		}
+		else
 		if (schemaInfo.version === currentVersion) {
 			console.log('No new OpenAPI schema version: ' + currentVersion)
 			return
@@ -78,6 +88,7 @@ const generate = async (localSchema?: boolean) => {
 		return
 	}
 
+
 	console.log('Generating SDK resources from schema ' + schemaPath)
 
 	const schema = apiSchema.parse(schemaPath)
@@ -85,8 +96,7 @@ const generate = async (localSchema?: boolean) => {
 
 
 	// Remove redundant components and force usage of global resource component
-	Fixer.fixSchema(schema)
-	// console.log(inspect(schema, false, null, true))
+	const fixedSchema = await Fixer.fixSchema(schema)
 
 
 	loadTemplates()
@@ -104,7 +114,7 @@ const generate = async (localSchema?: boolean) => {
 
 	const resources: { [key: string]: ApiRes } = {}
 
-	Object.entries(schema.resources).forEach(([type, res]) => {
+	Object.entries(fixedSchema.resources).forEach(([type, res]) => {
 
 		const name = Inflector.pluralize(Inflector.camelize(type)) as string
 
@@ -190,8 +200,8 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 	Object.entries(resources).forEach(([type, res]) => {
 		let def = defTpl
 		def = def.replace(/##__TAB__##/g, '\t')
-		def = def.replace('##__RESOURCE_TYPE__##', type)
-		def = def.replace('##__RESOURCE_CLASS__##', res.apiClass)
+		def = def.replace(/##__RESOURCE_TYPE__##/, type)
+		def = def.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
 		definitions.push(def)
 	})
 
@@ -209,8 +219,8 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 	if (!CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
 		let ini = iniTpl
 		ini = ini.replace(/##__TAB__##/g, '\t')
-		ini = ini.replace('##__RESOURCE_TYPE__##', type)
-		ini = ini.replace('##__RESOURCE_CLASS__##', res.apiClass)
+		ini = ini.replace(/##__RESOURCE_TYPE__##/, type)
+		ini = ini.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
 		initializations.push(ini)
 	})
 
@@ -261,8 +271,8 @@ const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 	Object.entries(resources).forEach(([type, res]) => {
 		let exp = expTpl
 		exp = exp.replace(/##__TAB__##/g, '\t')
-		exp = exp.replace('##__RESOURCE_TYPE__##', type)
-		exp = exp.replace('##__RESOURCE_MODELS__##', res.models.join(', '))
+		exp = exp.replace(/##__RESOURCE_TYPE__##/, type)
+		exp = exp.replace(/##__RESOURCE_MODELS__##/, res.models.join(', '))
 		exports.push(exp)
 		types.push(`\t'${type}'`)
 	})
@@ -306,8 +316,9 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 
 		let exp = expTpl
 		exp = exp.replace(/##__TAB__##/g, '\t')
-		exp = exp.replace('##__RESOURCE_TYPE__##', type)
-		exp = exp.replace('##__RESOURCE_CLASS__##', res.apiClass)
+		exp = exp.replace(/##__RESOURCE_TYPE__##/, type)
+		exp = exp.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
+		exp = exp.replace(/##__RESOURCE_MODEL__##/, Inflector.singularize(res.apiClass))
 		exports.push(exp)
 		const tabType = `\t'${type}'`
 		types.push(tabType)
@@ -604,6 +615,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.size > 0) ? `, ${Array.from(resMod).join(', ')}`: '')
 	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, resModelInterface)
 	res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
+	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, (resModelType === 'ApiSingleton')? '' : `, ${resModelInterface}Sortable`)
 
 	const importQueryModels = (qryMod.size > 0)? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
 	res = res.replace(/##__IMPORT_QUERY_MODELS__##/, importQueryModels)
@@ -625,17 +637,27 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	const modelInterfaces: string[] = []
 	const resourceInterfaces: string[] = []
 	const relationshipTypes: Set<string> = new Set()
+	const sortableFields: string[] = []
+	const filterableFields: string[] = []
 
 	typesArray.forEach(t => {
 		const cudSuffix = getCUDSuffix(t)
 		resourceInterfaces.push(`Resource${cudSuffix}`)
-		const tplCmp = templatedComponent(resName, t, resource.components[t])
+		const component: Component = resource.components[t]
+		const tplCmp = templatedComponent(resName, t, component)
 		tplCmp.models.forEach(m => declaredImportsModels.add(m))
 		modelInterfaces.push(tplCmp.component)
 		if (cudSuffix) tplCmp.models.forEach(t => relationshipTypes.add(t))
+		else {
+			sortableFields.push('id', ...Object.values(component.attributes).filter(f => (f.sortable && !RESOURCE_COMMON_FIELDS.includes(f.name))).map(f => f.name))
+			filterableFields.push('id', ...Object.values(component.attributes).filter(f => (f.filterable && !RESOURCE_COMMON_FIELDS.includes(f.name))).map(f => f.name))
+		}
 	})
 	res = res.replace(/##__MODEL_INTERFACES__##/g, modelInterfaces.join('\n\n\n'))
-	res = res.replace(/##__RESOURCE_INTERFACES__##/g, resourceInterfaces.join(', '))
+	res = res.replace(/##__IMPORT_RESOURCE_INTERFACES__##/g, resourceInterfaces.join(', '))
+	
+	res = res.replace(/##__MODEL_SORTABLE_FIELDS__##/g, sortableFields.map(f => { return `'${f}'` }).join(' | '))
+	res = res.replace(/##__MODEL_FILTERABLE_FIELDS__##/g, filterableFields.map(f => { return `'${f}'` }).join(' | '))
 
 
 	// Relationships definition
@@ -645,7 +667,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImportsModels)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import type { ${i}${relationshipTypes.has(i)? `, ${i}Type` : ''} } from './${Inflector.underscore(Inflector.pluralize(i))}'`)
+		.map(i => `import type { ${i}${relationshipTypes.has(i)? `, ${i}Type` : ''}, ${i}Sortable } from './${Inflector.underscore(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
@@ -749,7 +771,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	const attributes = Object.values(cmp.attributes)
 	const fields: string[] = []
 	attributes.forEach(a => {
-		if (!['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at'].includes(a.name)) {
+		if (!RESOURCE_COMMON_FIELDS.includes(a.name)) {
 			if (cudModel || a.fetchable) {
 				let attrType = fixAttributeType(a)
 				if (a.enum) enums[a.name] = attrType

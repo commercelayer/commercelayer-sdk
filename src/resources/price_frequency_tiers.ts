@@ -1,16 +1,20 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Price, PriceType } from './prices'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
-import type { Event } from './events'
+import type { Price, PriceType, PriceSortable } from './prices'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Version, VersionSortable } from './versions'
+import type { Event, EventSortable } from './events'
 
 
 type PriceFrequencyTierType = 'price_frequency_tiers'
 type PriceFrequencyTierRel = ResourceRel & { type: PriceFrequencyTierType }
 type PriceRel = ResourceRel & { type: PriceType }
+
+
+export type PriceFrequencyTierSortable = Pick<PriceFrequencyTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSortable
+export type PriceFrequencyTierFilterable = Pick<PriceFrequencyTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
 
 
 interface PriceFrequencyTier extends Resource {
@@ -53,7 +57,7 @@ interface PriceFrequencyTierUpdate extends ResourceUpdate {
 }
 
 
-class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier> {
+class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier, PriceFrequencyTierSortable> {
 
 	static readonly TYPE: PriceFrequencyTierType = 'price_frequency_tiers' as const
 
@@ -71,22 +75,22 @@ class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier> {
 
 	async price(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
 		const _priceFrequencyTierId = (priceFrequencyTierId as PriceFrequencyTier).id || priceFrequencyTierId as string
-		return this.resources.fetch<Price>({ type: 'prices' }, `price_frequency_tiers/${_priceFrequencyTierId}/price`, params, options) as unknown as Price
+		return this.resources.fetch<Price, PriceSortable>({ type: 'prices' }, `price_frequency_tiers/${_priceFrequencyTierId}/price`, params, options) as unknown as Price
 	}
 
-	async attachments(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceFrequencyTierId = (priceFrequencyTierId as PriceFrequencyTier).id || priceFrequencyTierId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_frequency_tiers/${_priceFrequencyTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `price_frequency_tiers/${_priceFrequencyTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _priceFrequencyTierId = (priceFrequencyTierId as PriceFrequencyTier).id || priceFrequencyTierId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `price_frequency_tiers/${_priceFrequencyTierId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `price_frequency_tiers/${_priceFrequencyTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async events(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _priceFrequencyTierId = (priceFrequencyTierId as PriceFrequencyTier).id || priceFrequencyTierId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `price_frequency_tiers/${_priceFrequencyTierId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `price_frequency_tiers/${_priceFrequencyTierId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 
@@ -114,3 +118,9 @@ class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier> {
 export default PriceFrequencyTiers
 
 export type { PriceFrequencyTier, PriceFrequencyTierCreate, PriceFrequencyTierUpdate, PriceFrequencyTierType }
+
+/*
+export const PriceFrequencyTiersClient = (init: ResourceAdapter | ResourcesInitConfig): PriceFrequencyTiers => {
+	return new PriceFrequencyTiers((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

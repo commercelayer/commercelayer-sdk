@@ -1,11 +1,11 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { LineItem, LineItemType } from './line_items'
-import type { SkuOption, SkuOptionType } from './sku_options'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
+import type { LineItem, LineItemType, LineItemSortable } from './line_items'
+import type { SkuOption, SkuOptionType, SkuOptionSortable } from './sku_options'
+import type { Event, EventSortable } from './events'
+import type { Tag, TagType, TagSortable } from './tags'
 
 
 type LineItemOptionType = 'line_item_options'
@@ -13,6 +13,10 @@ type LineItemOptionRel = ResourceRel & { type: LineItemOptionType }
 type LineItemRel = ResourceRel & { type: LineItemType }
 type SkuOptionRel = ResourceRel & { type: SkuOptionType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type LineItemOptionSortable = Pick<LineItemOption, 'id' | 'name' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'delay_hours'> & ResourceSortable
+export type LineItemOptionFilterable = Pick<LineItemOption, 'id' | 'name' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceFilterable
 
 
 interface LineItemOption extends Resource {
@@ -65,7 +69,7 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 }
 
 
-class LineItemOptions extends ApiResource<LineItemOption> {
+class LineItemOptions extends ApiResource<LineItemOption, LineItemOptionSortable> {
 
 	static readonly TYPE: LineItemOptionType = 'line_item_options' as const
 
@@ -83,22 +87,22 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 
 	async line_item(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
 		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
-		return this.resources.fetch<LineItem>({ type: 'line_items' }, `line_item_options/${_lineItemOptionId}/line_item`, params, options) as unknown as LineItem
+		return this.resources.fetch<LineItem, LineItemSortable>({ type: 'line_items' }, `line_item_options/${_lineItemOptionId}/line_item`, params, options) as unknown as LineItem
 	}
 
 	async sku_option(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuOption> {
 		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
-		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `line_item_options/${_lineItemOptionId}/sku_option`, params, options) as unknown as SkuOption
+		return this.resources.fetch<SkuOption, SkuOptionSortable>({ type: 'sku_options' }, `line_item_options/${_lineItemOptionId}/sku_option`, params, options) as unknown as SkuOption
 	}
 
-	async events(lineItemOptionId: string | LineItemOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(lineItemOptionId: string | LineItemOption, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `line_item_options/${_lineItemOptionId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `line_item_options/${_lineItemOptionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(lineItemOptionId: string | LineItemOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(lineItemOptionId: string | LineItemOption, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
-		return this.resources.fetch<Tag>({ type: 'tags' }, `line_item_options/${_lineItemOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `line_item_options/${_lineItemOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 
@@ -126,3 +130,9 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 export default LineItemOptions
 
 export type { LineItemOption, LineItemOptionCreate, LineItemOptionUpdate, LineItemOptionType }
+
+/*
+export const LineItemOptionsClient = (init: ResourceAdapter | ResourcesInitConfig): LineItemOptions => {
+	return new LineItemOptions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

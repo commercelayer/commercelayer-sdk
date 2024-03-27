@@ -1,17 +1,17 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PriceList, PriceListType } from './price_lists'
-import type { Sku, SkuType } from './skus'
-import type { PriceTier, PriceTierType } from './price_tiers'
-import type { PriceVolumeTier } from './price_volume_tiers'
-import type { PriceFrequencyTier } from './price_frequency_tiers'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
-import type { Customer } from './customers'
-import type { Market } from './markets'
-import type { StockLocation } from './stock_locations'
+import type { PriceList, PriceListType, PriceListSortable } from './price_lists'
+import type { Sku, SkuType, SkuSortable } from './skus'
+import type { PriceTier, PriceTierType, PriceTierSortable } from './price_tiers'
+import type { PriceVolumeTier, PriceVolumeTierSortable } from './price_volume_tiers'
+import type { PriceFrequencyTier, PriceFrequencyTierSortable } from './price_frequency_tiers'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Version, VersionSortable } from './versions'
+import type { Customer, CustomerSortable } from './customers'
+import type { Market, MarketSortable } from './markets'
+import type { StockLocation, StockLocationSortable } from './stock_locations'
 
 
 type PriceType = 'prices'
@@ -19,6 +19,10 @@ type PriceRel = ResourceRel & { type: PriceType }
 type PriceListRel = ResourceRel & { type: PriceListType }
 type SkuRel = ResourceRel & { type: SkuType }
 type PriceTierRel = ResourceRel & { type: PriceTierType }
+
+
+export type PriceSortable = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceSortable
+export type PriceFilterable = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceFilterable
 
 
 interface Price extends Resource {
@@ -74,7 +78,7 @@ interface PriceUpdate extends ResourceUpdate {
 }
 
 
-class Prices extends ApiResource<Price> {
+class Prices extends ApiResource<Price, PriceSortable> {
 
 	static readonly TYPE: PriceType = 'prices' as const
 
@@ -92,52 +96,52 @@ class Prices extends ApiResource<Price> {
 
 	async price_list(priceId: string | Price, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
 		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `prices/${_priceId}/price_list`, params, options) as unknown as PriceList
+		return this.resources.fetch<PriceList, PriceListSortable>({ type: 'price_lists' }, `prices/${_priceId}/price_list`, params, options) as unknown as PriceList
 	}
 
 	async sku(priceId: string | Price, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
 		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `prices/${_priceId}/sku`, params, options) as unknown as Sku
+		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `prices/${_priceId}/sku`, params, options) as unknown as Sku
 	}
 
-	async price_tiers(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceTier>> {
+	async price_tiers(priceId: string | Price, params?: QueryParamsList<PriceTierSortable>, options?: ResourcesConfig): Promise<ListResponse<PriceTier>> {
 		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<PriceTier>({ type: 'price_tiers' }, `prices/${_priceId}/price_tiers`, params, options) as unknown as ListResponse<PriceTier>
+		return this.resources.fetch<PriceTier, PriceTierSortable>({ type: 'price_tiers' }, `prices/${_priceId}/price_tiers`, params, options) as unknown as ListResponse<PriceTier>
 	}
 
-	async price_volume_tiers(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceVolumeTier>> {
+	async price_volume_tiers(priceId: string | Price, params?: QueryParamsList<PriceVolumeTierSortable>, options?: ResourcesConfig): Promise<ListResponse<PriceVolumeTier>> {
 		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<PriceVolumeTier>({ type: 'price_volume_tiers' }, `prices/${_priceId}/price_volume_tiers`, params, options) as unknown as ListResponse<PriceVolumeTier>
+		return this.resources.fetch<PriceVolumeTier, PriceVolumeTierSortable>({ type: 'price_volume_tiers' }, `prices/${_priceId}/price_volume_tiers`, params, options) as unknown as ListResponse<PriceVolumeTier>
 	}
 
-	async price_frequency_tiers(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceFrequencyTier>> {
+	async price_frequency_tiers(priceId: string | Price, params?: QueryParamsList<PriceFrequencyTierSortable>, options?: ResourcesConfig): Promise<ListResponse<PriceFrequencyTier>> {
 		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<PriceFrequencyTier>({ type: 'price_frequency_tiers' }, `prices/${_priceId}/price_frequency_tiers`, params, options) as unknown as ListResponse<PriceFrequencyTier>
+		return this.resources.fetch<PriceFrequencyTier, PriceFrequencyTierSortable>({ type: 'price_frequency_tiers' }, `prices/${_priceId}/price_frequency_tiers`, params, options) as unknown as ListResponse<PriceFrequencyTier>
 	}
 
-	async attachments(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(priceId: string | Price, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `prices/${_priceId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `prices/${_priceId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(priceId: string | Price, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `prices/${_priceId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `prices/${_priceId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async jwt_customer(priceId: string | Price, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
 		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<Customer>({ type: 'customers' }, `prices/${_priceId}/jwt_customer`, params, options) as unknown as Customer
+		return this.resources.fetch<Customer, CustomerSortable>({ type: 'customers' }, `prices/${_priceId}/jwt_customer`, params, options) as unknown as Customer
 	}
 
-	async jwt_markets(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+	async jwt_markets(priceId: string | Price, params?: QueryParamsList<MarketSortable>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
 		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `prices/${_priceId}/jwt_markets`, params, options) as unknown as ListResponse<Market>
+		return this.resources.fetch<Market, MarketSortable>({ type: 'markets' }, `prices/${_priceId}/jwt_markets`, params, options) as unknown as ListResponse<Market>
 	}
 
-	async jwt_stock_locations(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {
+	async jwt_stock_locations(priceId: string | Price, params?: QueryParamsList<StockLocationSortable>, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {
 		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `prices/${_priceId}/jwt_stock_locations`, params, options) as unknown as ListResponse<StockLocation>
+		return this.resources.fetch<StockLocation, StockLocationSortable>({ type: 'stock_locations' }, `prices/${_priceId}/jwt_stock_locations`, params, options) as unknown as ListResponse<StockLocation>
 	}
 
 
@@ -165,3 +169,9 @@ class Prices extends ApiResource<Price> {
 export default Prices
 
 export type { Price, PriceCreate, PriceUpdate, PriceType }
+
+/*
+export const PricesClient = (init: ResourceAdapter | ResourcesInitConfig): Prices => {
+	return new Prices((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

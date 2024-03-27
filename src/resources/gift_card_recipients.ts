@@ -1,15 +1,19 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer, CustomerType } from './customers'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
+import type { Customer, CustomerType, CustomerSortable } from './customers'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Version, VersionSortable } from './versions'
 
 
 type GiftCardRecipientType = 'gift_card_recipients'
 type GiftCardRecipientRel = ResourceRel & { type: GiftCardRecipientType }
 type CustomerRel = ResourceRel & { type: CustomerType }
+
+
+export type GiftCardRecipientSortable = Pick<GiftCardRecipient, 'id'> & ResourceSortable
+export type GiftCardRecipientFilterable = Pick<GiftCardRecipient, 'id' | 'email' | 'first_name' | 'last_name'> & ResourceFilterable
 
 
 interface GiftCardRecipient extends Resource {
@@ -49,7 +53,7 @@ interface GiftCardRecipientUpdate extends ResourceUpdate {
 }
 
 
-class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
+class GiftCardRecipients extends ApiResource<GiftCardRecipient, GiftCardRecipientSortable> {
 
 	static readonly TYPE: GiftCardRecipientType = 'gift_card_recipients' as const
 
@@ -67,17 +71,17 @@ class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
 
 	async customer(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
 		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId as string
-		return this.resources.fetch<Customer>({ type: 'customers' }, `gift_card_recipients/${_giftCardRecipientId}/customer`, params, options) as unknown as Customer
+		return this.resources.fetch<Customer, CustomerSortable>({ type: 'customers' }, `gift_card_recipients/${_giftCardRecipientId}/customer`, params, options) as unknown as Customer
 	}
 
-	async attachments(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `gift_card_recipients/${_giftCardRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `gift_card_recipients/${_giftCardRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `gift_card_recipients/${_giftCardRecipientId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `gift_card_recipients/${_giftCardRecipientId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -105,3 +109,9 @@ class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
 export default GiftCardRecipients
 
 export type { GiftCardRecipient, GiftCardRecipientCreate, GiftCardRecipientUpdate, GiftCardRecipientType }
+
+/*
+export const GiftCardRecipientsClient = (init: ResourceAdapter | ResourcesInitConfig): GiftCardRecipients => {
+	return new GiftCardRecipients((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

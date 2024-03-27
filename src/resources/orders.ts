@@ -1,45 +1,45 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market, MarketType } from './markets'
-import type { Customer, CustomerType } from './customers'
-import type { Address, AddressType } from './addresses'
-import type { PaymentMethod, PaymentMethodType } from './payment_methods'
-import type { CustomerPaymentSource } from './customer_payment_sources'
-import type { Sku } from './skus'
-import type { Bundle } from './bundles'
-import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
-import type { AxervePayment, AxervePaymentType } from './axerve_payments'
-import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
-import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
-import type { ExternalPayment, ExternalPaymentType } from './external_payments'
-import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
-import type { PaypalPayment, PaypalPaymentType } from './paypal_payments'
-import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
-import type { StripePayment, StripePaymentType } from './stripe_payments'
-import type { WireTransfer, WireTransferType } from './wire_transfers'
-import type { LineItem } from './line_items'
-import type { LineItemOption } from './line_item_options'
-import type { StockReservation } from './stock_reservations'
-import type { StockLineItem } from './stock_line_items'
-import type { StockTransfer } from './stock_transfers'
-import type { Shipment } from './shipments'
-import type { PaymentOption } from './payment_options'
-import type { Authorization } from './authorizations'
-import type { Capture } from './captures'
-import type { Void } from './voids'
-import type { Refund } from './refunds'
-import type { Return } from './returns'
-import type { OrderSubscription } from './order_subscriptions'
-import type { OrderFactory } from './order_factories'
-import type { OrderCopy } from './order_copies'
-import type { RecurringOrderCopy } from './recurring_order_copies'
-import type { Attachment } from './attachments'
-import type { ResourceError } from './resource_errors'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
+import type { Market, MarketType, MarketSortable } from './markets'
+import type { Customer, CustomerType, CustomerSortable } from './customers'
+import type { Address, AddressType, AddressSortable } from './addresses'
+import type { PaymentMethod, PaymentMethodType, PaymentMethodSortable } from './payment_methods'
+import type { CustomerPaymentSource, CustomerPaymentSourceSortable } from './customer_payment_sources'
+import type { Sku, SkuSortable } from './skus'
+import type { Bundle, BundleSortable } from './bundles'
+import type { AdyenPayment, AdyenPaymentType, AdyenPaymentSortable } from './adyen_payments'
+import type { AxervePayment, AxervePaymentType, AxervePaymentSortable } from './axerve_payments'
+import type { BraintreePayment, BraintreePaymentType, BraintreePaymentSortable } from './braintree_payments'
+import type { CheckoutComPayment, CheckoutComPaymentType, CheckoutComPaymentSortable } from './checkout_com_payments'
+import type { ExternalPayment, ExternalPaymentType, ExternalPaymentSortable } from './external_payments'
+import type { KlarnaPayment, KlarnaPaymentType, KlarnaPaymentSortable } from './klarna_payments'
+import type { PaypalPayment, PaypalPaymentType, PaypalPaymentSortable } from './paypal_payments'
+import type { SatispayPayment, SatispayPaymentType, SatispayPaymentSortable } from './satispay_payments'
+import type { StripePayment, StripePaymentType, StripePaymentSortable } from './stripe_payments'
+import type { WireTransfer, WireTransferType, WireTransferSortable } from './wire_transfers'
+import type { LineItem, LineItemSortable } from './line_items'
+import type { LineItemOption, LineItemOptionSortable } from './line_item_options'
+import type { StockReservation, StockReservationSortable } from './stock_reservations'
+import type { StockLineItem, StockLineItemSortable } from './stock_line_items'
+import type { StockTransfer, StockTransferSortable } from './stock_transfers'
+import type { Shipment, ShipmentSortable } from './shipments'
+import type { PaymentOption, PaymentOptionSortable } from './payment_options'
+import type { Authorization, AuthorizationSortable } from './authorizations'
+import type { Capture, CaptureSortable } from './captures'
+import type { Void, VoidSortable } from './voids'
+import type { Refund, RefundSortable } from './refunds'
+import type { Return, ReturnSortable } from './returns'
+import type { OrderSubscription, OrderSubscriptionSortable } from './order_subscriptions'
+import type { OrderFactory, OrderFactorySortable } from './order_factories'
+import type { OrderCopy, OrderCopySortable } from './order_copies'
+import type { RecurringOrderCopy, RecurringOrderCopySortable } from './recurring_order_copies'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { ResourceError, ResourceErrorSortable } from './resource_errors'
+import type { Event, EventSortable } from './events'
+import type { Tag, TagType, TagSortable } from './tags'
+import type { Version, VersionSortable } from './versions'
 
 
 type OrderType = 'orders'
@@ -59,6 +59,10 @@ type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
 type StripePaymentRel = ResourceRel & { type: StripePaymentType }
 type WireTransferRel = ResourceRel & { type: WireTransferType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type OrderSortable = Pick<Order, 'id' | 'number' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'expires_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
+export type OrderFilterable = Pick<Order, 'id' | 'number' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'customer_email' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'expires_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
 
 
 interface Order extends Resource {
@@ -305,7 +309,7 @@ interface OrderUpdate extends ResourceUpdate {
 }
 
 
-class Orders extends ApiResource<Order> {
+class Orders extends ApiResource<Order, OrderSortable> {
 
 	static readonly TYPE: OrderType = 'orders' as const
 
@@ -323,157 +327,157 @@ class Orders extends ApiResource<Order> {
 
 	async market(orderId: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `orders/${_orderId}/market`, params, options) as unknown as Market
+		return this.resources.fetch<Market, MarketSortable>({ type: 'markets' }, `orders/${_orderId}/market`, params, options) as unknown as Market
 	}
 
 	async customer(orderId: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Customer>({ type: 'customers' }, `orders/${_orderId}/customer`, params, options) as unknown as Customer
+		return this.resources.fetch<Customer, CustomerSortable>({ type: 'customers' }, `orders/${_orderId}/customer`, params, options) as unknown as Customer
 	}
 
 	async shipping_address(orderId: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `orders/${_orderId}/shipping_address`, params, options) as unknown as Address
+		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `orders/${_orderId}/shipping_address`, params, options) as unknown as Address
 	}
 
 	async billing_address(orderId: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `orders/${_orderId}/billing_address`, params, options) as unknown as Address
+		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `orders/${_orderId}/billing_address`, params, options) as unknown as Address
 	}
 
-	async available_payment_methods(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async available_payment_methods(orderId: string | Order, params?: QueryParamsList<PaymentMethodSortable>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `orders/${_orderId}/available_payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
+		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `orders/${_orderId}/available_payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async available_customer_payment_sources(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
+	async available_customer_payment_sources(orderId: string | Order, params?: QueryParamsList<CustomerPaymentSourceSortable>, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `orders/${_orderId}/available_customer_payment_sources`, params, options) as unknown as ListResponse<CustomerPaymentSource>
+		return this.resources.fetch<CustomerPaymentSource, CustomerPaymentSourceSortable>({ type: 'customer_payment_sources' }, `orders/${_orderId}/available_customer_payment_sources`, params, options) as unknown as ListResponse<CustomerPaymentSource>
 	}
 
-	async available_free_skus(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+	async available_free_skus(orderId: string | Order, params?: QueryParamsList<SkuSortable>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `orders/${_orderId}/available_free_skus`, params, options) as unknown as ListResponse<Sku>
+		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `orders/${_orderId}/available_free_skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
-	async available_free_bundles(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
+	async available_free_bundles(orderId: string | Order, params?: QueryParamsList<BundleSortable>, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Bundle>({ type: 'bundles' }, `orders/${_orderId}/available_free_bundles`, params, options) as unknown as ListResponse<Bundle>
+		return this.resources.fetch<Bundle, BundleSortable>({ type: 'bundles' }, `orders/${_orderId}/available_free_bundles`, params, options) as unknown as ListResponse<Bundle>
 	}
 
 	async payment_method(orderId: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentMethod> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `orders/${_orderId}/payment_method`, params, options) as unknown as PaymentMethod
+		return this.resources.fetch<PaymentMethod, PaymentMethodSortable>({ type: 'payment_methods' }, `orders/${_orderId}/payment_method`, params, options) as unknown as PaymentMethod
 	}
 
-	async line_items(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {
+	async line_items(orderId: string | Order, params?: QueryParamsList<LineItemSortable>, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<LineItem>({ type: 'line_items' }, `orders/${_orderId}/line_items`, params, options) as unknown as ListResponse<LineItem>
+		return this.resources.fetch<LineItem, LineItemSortable>({ type: 'line_items' }, `orders/${_orderId}/line_items`, params, options) as unknown as ListResponse<LineItem>
 	}
 
-	async line_item_options(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
+	async line_item_options(orderId: string | Order, params?: QueryParamsList<LineItemOptionSortable>, options?: ResourcesConfig): Promise<ListResponse<LineItemOption>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<LineItemOption>({ type: 'line_item_options' }, `orders/${_orderId}/line_item_options`, params, options) as unknown as ListResponse<LineItemOption>
+		return this.resources.fetch<LineItemOption, LineItemOptionSortable>({ type: 'line_item_options' }, `orders/${_orderId}/line_item_options`, params, options) as unknown as ListResponse<LineItemOption>
 	}
 
-	async stock_reservations(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
+	async stock_reservations(orderId: string | Order, params?: QueryParamsList<StockReservationSortable>, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `orders/${_orderId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
+		return this.resources.fetch<StockReservation, StockReservationSortable>({ type: 'stock_reservations' }, `orders/${_orderId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
 	}
 
-	async stock_line_items(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
+	async stock_line_items(orderId: string | Order, params?: QueryParamsList<StockLineItemSortable>, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `orders/${_orderId}/stock_line_items`, params, options) as unknown as ListResponse<StockLineItem>
+		return this.resources.fetch<StockLineItem, StockLineItemSortable>({ type: 'stock_line_items' }, `orders/${_orderId}/stock_line_items`, params, options) as unknown as ListResponse<StockLineItem>
 	}
 
-	async stock_transfers(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
+	async stock_transfers(orderId: string | Order, params?: QueryParamsList<StockTransferSortable>, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `orders/${_orderId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+		return this.resources.fetch<StockTransfer, StockTransferSortable>({ type: 'stock_transfers' }, `orders/${_orderId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
 	}
 
-	async shipments(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Shipment>> {
+	async shipments(orderId: string | Order, params?: QueryParamsList<ShipmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Shipment>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Shipment>({ type: 'shipments' }, `orders/${_orderId}/shipments`, params, options) as unknown as ListResponse<Shipment>
+		return this.resources.fetch<Shipment, ShipmentSortable>({ type: 'shipments' }, `orders/${_orderId}/shipments`, params, options) as unknown as ListResponse<Shipment>
 	}
 
-	async payment_options(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentOption>> {
+	async payment_options(orderId: string | Order, params?: QueryParamsList<PaymentOptionSortable>, options?: ResourcesConfig): Promise<ListResponse<PaymentOption>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<PaymentOption>({ type: 'payment_options' }, `orders/${_orderId}/payment_options`, params, options) as unknown as ListResponse<PaymentOption>
+		return this.resources.fetch<PaymentOption, PaymentOptionSortable>({ type: 'payment_options' }, `orders/${_orderId}/payment_options`, params, options) as unknown as ListResponse<PaymentOption>
 	}
 
-	async authorizations(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Authorization>> {
+	async authorizations(orderId: string | Order, params?: QueryParamsList<AuthorizationSortable>, options?: ResourcesConfig): Promise<ListResponse<Authorization>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `orders/${_orderId}/authorizations`, params, options) as unknown as ListResponse<Authorization>
+		return this.resources.fetch<Authorization, AuthorizationSortable>({ type: 'authorizations' }, `orders/${_orderId}/authorizations`, params, options) as unknown as ListResponse<Authorization>
 	}
 
-	async captures(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
+	async captures(orderId: string | Order, params?: QueryParamsList<CaptureSortable>, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Capture>({ type: 'captures' }, `orders/${_orderId}/captures`, params, options) as unknown as ListResponse<Capture>
+		return this.resources.fetch<Capture, CaptureSortable>({ type: 'captures' }, `orders/${_orderId}/captures`, params, options) as unknown as ListResponse<Capture>
 	}
 
-	async voids(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
+	async voids(orderId: string | Order, params?: QueryParamsList<VoidSortable>, options?: ResourcesConfig): Promise<ListResponse<Void>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Void>({ type: 'voids' }, `orders/${_orderId}/voids`, params, options) as unknown as ListResponse<Void>
+		return this.resources.fetch<Void, VoidSortable>({ type: 'voids' }, `orders/${_orderId}/voids`, params, options) as unknown as ListResponse<Void>
 	}
 
-	async refunds(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
+	async refunds(orderId: string | Order, params?: QueryParamsList<RefundSortable>, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Refund>({ type: 'refunds' }, `orders/${_orderId}/refunds`, params, options) as unknown as ListResponse<Refund>
+		return this.resources.fetch<Refund, RefundSortable>({ type: 'refunds' }, `orders/${_orderId}/refunds`, params, options) as unknown as ListResponse<Refund>
 	}
 
-	async returns(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
+	async returns(orderId: string | Order, params?: QueryParamsList<ReturnSortable>, options?: ResourcesConfig): Promise<ListResponse<Return>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Return>({ type: 'returns' }, `orders/${_orderId}/returns`, params, options) as unknown as ListResponse<Return>
+		return this.resources.fetch<Return, ReturnSortable>({ type: 'returns' }, `orders/${_orderId}/returns`, params, options) as unknown as ListResponse<Return>
 	}
 
 	async order_subscription(orderId: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `orders/${_orderId}/order_subscription`, params, options) as unknown as OrderSubscription
+		return this.resources.fetch<OrderSubscription, OrderSubscriptionSortable>({ type: 'order_subscriptions' }, `orders/${_orderId}/order_subscription`, params, options) as unknown as OrderSubscription
 	}
 
-	async order_subscriptions(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
+	async order_subscriptions(orderId: string | Order, params?: QueryParamsList<OrderSubscriptionSortable>, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `orders/${_orderId}/order_subscriptions`, params, options) as unknown as ListResponse<OrderSubscription>
+		return this.resources.fetch<OrderSubscription, OrderSubscriptionSortable>({ type: 'order_subscriptions' }, `orders/${_orderId}/order_subscriptions`, params, options) as unknown as ListResponse<OrderSubscription>
 	}
 
-	async order_factories(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderFactory>> {
+	async order_factories(orderId: string | Order, params?: QueryParamsList<OrderFactorySortable>, options?: ResourcesConfig): Promise<ListResponse<OrderFactory>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<OrderFactory>({ type: 'order_factories' }, `orders/${_orderId}/order_factories`, params, options) as unknown as ListResponse<OrderFactory>
+		return this.resources.fetch<OrderFactory, OrderFactorySortable>({ type: 'order_factories' }, `orders/${_orderId}/order_factories`, params, options) as unknown as ListResponse<OrderFactory>
 	}
 
-	async order_copies(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
+	async order_copies(orderId: string | Order, params?: QueryParamsList<OrderCopySortable>, options?: ResourcesConfig): Promise<ListResponse<OrderCopy>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<OrderCopy>({ type: 'order_copies' }, `orders/${_orderId}/order_copies`, params, options) as unknown as ListResponse<OrderCopy>
+		return this.resources.fetch<OrderCopy, OrderCopySortable>({ type: 'order_copies' }, `orders/${_orderId}/order_copies`, params, options) as unknown as ListResponse<OrderCopy>
 	}
 
-	async recurring_order_copies(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<RecurringOrderCopy>> {
+	async recurring_order_copies(orderId: string | Order, params?: QueryParamsList<RecurringOrderCopySortable>, options?: ResourcesConfig): Promise<ListResponse<RecurringOrderCopy>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<RecurringOrderCopy>({ type: 'recurring_order_copies' }, `orders/${_orderId}/recurring_order_copies`, params, options) as unknown as ListResponse<RecurringOrderCopy>
+		return this.resources.fetch<RecurringOrderCopy, RecurringOrderCopySortable>({ type: 'recurring_order_copies' }, `orders/${_orderId}/recurring_order_copies`, params, options) as unknown as ListResponse<RecurringOrderCopy>
 	}
 
-	async attachments(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(orderId: string | Order, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `orders/${_orderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `orders/${_orderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async resource_errors(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ResourceError>> {
+	async resource_errors(orderId: string | Order, params?: QueryParamsList<ResourceErrorSortable>, options?: ResourcesConfig): Promise<ListResponse<ResourceError>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<ResourceError>({ type: 'resource_errors' }, `orders/${_orderId}/resource_errors`, params, options) as unknown as ListResponse<ResourceError>
+		return this.resources.fetch<ResourceError, ResourceErrorSortable>({ type: 'resource_errors' }, `orders/${_orderId}/resource_errors`, params, options) as unknown as ListResponse<ResourceError>
 	}
 
-	async events(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(orderId: string | Order, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `orders/${_orderId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `orders/${_orderId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(orderId: string | Order, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Tag>({ type: 'tags' }, `orders/${_orderId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `orders/${_orderId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(orderId: string | Order, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(orderId: string | Order, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `orders/${_orderId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `orders/${_orderId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _archive(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
@@ -617,3 +621,9 @@ class Orders extends ApiResource<Order> {
 export default Orders
 
 export type { Order, OrderCreate, OrderUpdate, OrderType }
+
+/*
+export const OrdersClient = (init: ResourceAdapter | ResourcesInitConfig): Orders => {
+	return new Orders((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

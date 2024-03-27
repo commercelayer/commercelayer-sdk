@@ -1,13 +1,17 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { EventCallback } from './event_callbacks'
-import type { Version } from './versions'
+import type { EventCallback, EventCallbackSortable } from './event_callbacks'
+import type { Version, VersionSortable } from './versions'
 
 
 type WebhookType = 'webhooks'
 type WebhookRel = ResourceRel & { type: WebhookType }
+
+
+export type WebhookSortable = Pick<Webhook, 'id' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
+export type WebhookFilterable = Pick<Webhook, 'id' | 'name' | 'topic' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
 
 
 interface Webhook extends Resource {
@@ -54,7 +58,7 @@ interface WebhookUpdate extends ResourceUpdate {
 }
 
 
-class Webhooks extends ApiResource<Webhook> {
+class Webhooks extends ApiResource<Webhook, WebhookSortable> {
 
 	static readonly TYPE: WebhookType = 'webhooks' as const
 
@@ -70,14 +74,14 @@ class Webhooks extends ApiResource<Webhook> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Webhooks.TYPE } : id, options)
 	}
 
-	async last_event_callbacks(webhookId: string | Webhook, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
+	async last_event_callbacks(webhookId: string | Webhook, params?: QueryParamsList<EventCallbackSortable>, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		const _webhookId = (webhookId as Webhook).id || webhookId as string
-		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${_webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
+		return this.resources.fetch<EventCallback, EventCallbackSortable>({ type: 'event_callbacks' }, `webhooks/${_webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
 	}
 
-	async versions(webhookId: string | Webhook, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(webhookId: string | Webhook, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _webhookId = (webhookId as Webhook).id || webhookId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `webhooks/${_webhookId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `webhooks/${_webhookId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _disable(id: string | Webhook, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
@@ -117,3 +121,9 @@ class Webhooks extends ApiResource<Webhook> {
 export default Webhooks
 
 export type { Webhook, WebhookCreate, WebhookUpdate, WebhookType }
+
+/*
+export const WebhooksClient = (init: ResourceAdapter | ResourcesInitConfig): Webhooks => {
+	return new Webhooks((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

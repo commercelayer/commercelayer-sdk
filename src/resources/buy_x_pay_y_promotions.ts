@@ -1,20 +1,20 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market, MarketType } from './markets'
-import type { PromotionRule } from './promotion_rules'
-import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
-import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
-import type { CustomPromotionRule, CustomPromotionRuleType } from './custom_promotion_rules'
-import type { SkuList, SkuListType } from './sku_lists'
-import type { Coupon } from './coupons'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
-import type { Sku } from './skus'
+import type { Market, MarketType, MarketSortable } from './markets'
+import type { PromotionRule, PromotionRuleSortable } from './promotion_rules'
+import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType, OrderAmountPromotionRuleSortable } from './order_amount_promotion_rules'
+import type { SkuListPromotionRule, SkuListPromotionRuleType, SkuListPromotionRuleSortable } from './sku_list_promotion_rules'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType, CouponCodesPromotionRuleSortable } from './coupon_codes_promotion_rules'
+import type { CustomPromotionRule, CustomPromotionRuleType, CustomPromotionRuleSortable } from './custom_promotion_rules'
+import type { SkuList, SkuListType, SkuListSortable } from './sku_lists'
+import type { Coupon, CouponSortable } from './coupons'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Event, EventSortable } from './events'
+import type { Tag, TagType, TagSortable } from './tags'
+import type { Version, VersionSortable } from './versions'
+import type { Sku, SkuSortable } from './skus'
 
 
 type BuyXPayYPromotionType = 'buy_x_pay_y_promotions'
@@ -26,6 +26,10 @@ type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRul
 type CustomPromotionRuleRel = ResourceRel & { type: CustomPromotionRuleType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type BuyXPayYPromotionSortable = Pick<BuyXPayYPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'x' | 'y'> & ResourceSortable
+export type BuyXPayYPromotionFilterable = Pick<BuyXPayYPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'x' | 'y'> & ResourceFilterable
 
 
 interface BuyXPayYPromotion extends Resource {
@@ -115,7 +119,7 @@ interface BuyXPayYPromotionUpdate extends ResourceUpdate {
 }
 
 
-class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
+class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion, BuyXPayYPromotionSortable> {
 
 	static readonly TYPE: BuyXPayYPromotionType = 'buy_x_pay_y_promotions' as const
 
@@ -133,62 +137,62 @@ class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
 
 	async market(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/market`, params, options) as unknown as Market
+		return this.resources.fetch<Market, MarketSortable>({ type: 'markets' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/market`, params, options) as unknown as Market
 	}
 
 	async order_amount_promotion_rule(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
+		return this.resources.fetch<OrderAmountPromotionRule, OrderAmountPromotionRuleSortable>({ type: 'order_amount_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
 	}
 
 	async sku_list_promotion_rule(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
+		return this.resources.fetch<SkuListPromotionRule, SkuListPromotionRuleSortable>({ type: 'sku_list_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
 	}
 
 	async coupon_codes_promotion_rule(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+		return this.resources.fetch<CouponCodesPromotionRule, CouponCodesPromotionRuleSortable>({ type: 'coupon_codes_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
 	}
 
 	async custom_promotion_rule(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomPromotionRule> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
+		return this.resources.fetch<CustomPromotionRule, CustomPromotionRuleSortable>({ type: 'custom_promotion_rules' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
 	}
 
 	async sku_list(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/sku_list`, params, options) as unknown as SkuList
+		return this.resources.fetch<SkuList, SkuListSortable>({ type: 'sku_lists' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/sku_list`, params, options) as unknown as SkuList
 	}
 
-	async coupons(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+	async coupons(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList<CouponSortable>, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
+		return this.resources.fetch<Coupon, CouponSortable>({ type: 'coupons' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
 	}
 
-	async attachments(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<Tag>({ type: 'tags' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async skus(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+	async skus(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList<SkuSortable>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 	async _disable(id: string | BuyXPayYPromotion, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BuyXPayYPromotion> {
@@ -224,3 +228,9 @@ class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
 export default BuyXPayYPromotions
 
 export type { BuyXPayYPromotion, BuyXPayYPromotionCreate, BuyXPayYPromotionUpdate, BuyXPayYPromotionType }
+
+/*
+export const BuyXPayYPromotionsClient = (init: ResourceAdapter | ResourcesInitConfig): BuyXPayYPromotions => {
+	return new BuyXPayYPromotions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

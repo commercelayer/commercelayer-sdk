@@ -1,17 +1,21 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Version } from './versions'
-import type { Capture } from './captures'
-import type { Void } from './voids'
+import type { Order, OrderSortable } from './orders'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Event, EventSortable } from './events'
+import type { Version, VersionSortable } from './versions'
+import type { Capture, CaptureSortable } from './captures'
+import type { Void, VoidSortable } from './voids'
 
 
 type AuthorizationType = 'authorizations'
 type AuthorizationRel = ResourceRel & { type: AuthorizationType }
+
+
+export type AuthorizationSortable = Pick<Authorization, 'id' | 'number' | 'amount_cents'> & ResourceSortable
+export type AuthorizationFilterable = Pick<Authorization, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilterable
 
 
 interface Authorization extends Resource {
@@ -63,7 +67,7 @@ interface AuthorizationUpdate extends ResourceUpdate {
 }
 
 
-class Authorizations extends ApiResource<Authorization> {
+class Authorizations extends ApiResource<Authorization, AuthorizationSortable> {
 
 	static readonly TYPE: AuthorizationType = 'authorizations' as const
 
@@ -73,32 +77,32 @@ class Authorizations extends ApiResource<Authorization> {
 
 	async order(authorizationId: string | Authorization, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `authorizations/${_authorizationId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `authorizations/${_authorizationId}/order`, params, options) as unknown as Order
 	}
 
-	async attachments(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(authorizationId: string | Authorization, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `authorizations/${_authorizationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `authorizations/${_authorizationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(authorizationId: string | Authorization, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `authorizations/${_authorizationId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `authorizations/${_authorizationId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async versions(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(authorizationId: string | Authorization, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `authorizations/${_authorizationId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `authorizations/${_authorizationId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async captures(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
+	async captures(authorizationId: string | Authorization, params?: QueryParamsList<CaptureSortable>, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Capture>({ type: 'captures' }, `authorizations/${_authorizationId}/captures`, params, options) as unknown as ListResponse<Capture>
+		return this.resources.fetch<Capture, CaptureSortable>({ type: 'captures' }, `authorizations/${_authorizationId}/captures`, params, options) as unknown as ListResponse<Capture>
 	}
 
-	async voids(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
+	async voids(authorizationId: string | Authorization, params?: QueryParamsList<VoidSortable>, options?: ResourcesConfig): Promise<ListResponse<Void>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Void>({ type: 'voids' }, `authorizations/${_authorizationId}/voids`, params, options) as unknown as ListResponse<Void>
+		return this.resources.fetch<Void, VoidSortable>({ type: 'voids' }, `authorizations/${_authorizationId}/voids`, params, options) as unknown as ListResponse<Void>
 	}
 
 	async _capture(id: string | Authorization, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
@@ -138,3 +142,9 @@ class Authorizations extends ApiResource<Authorization> {
 export default Authorizations
 
 export type { Authorization, AuthorizationUpdate, AuthorizationType }
+
+/*
+export const AuthorizationsClient = (init: ResourceAdapter | ResourcesInitConfig): Authorizations => {
+	return new Authorizations((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

@@ -1,14 +1,18 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order, OrderType } from './orders'
-import type { Version } from './versions'
+import type { Order, OrderType, OrderSortable } from './orders'
+import type { Version, VersionSortable } from './versions'
 
 
 type WireTransferType = 'wire_transfers'
 type WireTransferRel = ResourceRel & { type: WireTransferType }
 type OrderRel = ResourceRel & { type: OrderType }
+
+
+export type WireTransferSortable = Pick<WireTransfer, 'id'> & ResourceSortable
+export type WireTransferFilterable = Pick<WireTransfer, 'id'> & ResourceFilterable
 
 
 interface WireTransfer extends Resource {
@@ -37,7 +41,7 @@ interface WireTransferUpdate extends ResourceUpdate {
 }
 
 
-class WireTransfers extends ApiResource<WireTransfer> {
+class WireTransfers extends ApiResource<WireTransfer, WireTransferSortable> {
 
 	static readonly TYPE: WireTransferType = 'wire_transfers' as const
 
@@ -55,12 +59,12 @@ class WireTransfers extends ApiResource<WireTransfer> {
 
 	async order(wireTransferId: string | WireTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `wire_transfers/${_wireTransferId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Order, OrderSortable>({ type: 'orders' }, `wire_transfers/${_wireTransferId}/order`, params, options) as unknown as Order
 	}
 
-	async versions(wireTransferId: string | WireTransfer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(wireTransferId: string | WireTransfer, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `wire_transfers/${_wireTransferId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `wire_transfers/${_wireTransferId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -88,3 +92,9 @@ class WireTransfers extends ApiResource<WireTransfer> {
 export default WireTransfers
 
 export type { WireTransfer, WireTransferCreate, WireTransferUpdate, WireTransferType }
+
+/*
+export const WireTransfersClient = (init: ResourceAdapter | ResourcesInitConfig): WireTransfers => {
+	return new WireTransfers((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

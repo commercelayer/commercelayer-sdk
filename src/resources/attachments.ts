@@ -1,37 +1,37 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
-import type { Bundle, BundleType } from './bundles'
-import type { CarrierAccount, CarrierAccountType } from './carrier_accounts'
-import type { CustomerGroup, CustomerGroupType } from './customer_groups'
-import type { Customer, CustomerType } from './customers'
-import type { DeliveryLeadTime, DeliveryLeadTimeType } from './delivery_lead_times'
-import type { Geocoder, GeocoderType } from './geocoders'
-import type { GiftCardRecipient, GiftCardRecipientType } from './gift_card_recipients'
-import type { GiftCard, GiftCardType } from './gift_cards'
-import type { InventoryModel, InventoryModelType } from './inventory_models'
-import type { Market, MarketType } from './markets'
-import type { Merchant, MerchantType } from './merchants'
-import type { BillingInfoValidationRule, BillingInfoValidationRuleType } from './billing_info_validation_rules'
-import type { Order, OrderType } from './orders'
-import type { Package, PackageType } from './packages'
-import type { Parcel, ParcelType } from './parcels'
-import type { PaymentMethod, PaymentMethodType } from './payment_methods'
-import type { PriceList, PriceListType } from './price_lists'
-import type { Price, PriceType } from './prices'
-import type { Promotion, PromotionType } from './promotions'
-import type { Return, ReturnType } from './returns'
-import type { Shipment, ShipmentType } from './shipments'
-import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
-import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
-import type { ShippingZone, ShippingZoneType } from './shipping_zones'
-import type { SkuOption, SkuOptionType } from './sku_options'
-import type { Sku, SkuType } from './skus'
-import type { StockItem, StockItemType } from './stock_items'
-import type { StockLocation, StockLocationType } from './stock_locations'
-import type { TaxCalculator, TaxCalculatorType } from './tax_calculators'
-import type { TaxCategory, TaxCategoryType } from './tax_categories'
+import type { Bundle, BundleType, BundleSortable } from './bundles'
+import type { CarrierAccount, CarrierAccountType, CarrierAccountSortable } from './carrier_accounts'
+import type { CustomerGroup, CustomerGroupType, CustomerGroupSortable } from './customer_groups'
+import type { Customer, CustomerType, CustomerSortable } from './customers'
+import type { DeliveryLeadTime, DeliveryLeadTimeType, DeliveryLeadTimeSortable } from './delivery_lead_times'
+import type { Geocoder, GeocoderType, GeocoderSortable } from './geocoders'
+import type { GiftCardRecipient, GiftCardRecipientType, GiftCardRecipientSortable } from './gift_card_recipients'
+import type { GiftCard, GiftCardType, GiftCardSortable } from './gift_cards'
+import type { InventoryModel, InventoryModelType, InventoryModelSortable } from './inventory_models'
+import type { Market, MarketType, MarketSortable } from './markets'
+import type { Merchant, MerchantType, MerchantSortable } from './merchants'
+import type { BillingInfoValidationRule, BillingInfoValidationRuleType, BillingInfoValidationRuleSortable } from './billing_info_validation_rules'
+import type { Order, OrderType, OrderSortable } from './orders'
+import type { Package, PackageType, PackageSortable } from './packages'
+import type { Parcel, ParcelType, ParcelSortable } from './parcels'
+import type { PaymentMethod, PaymentMethodType, PaymentMethodSortable } from './payment_methods'
+import type { PriceList, PriceListType, PriceListSortable } from './price_lists'
+import type { Price, PriceType, PriceSortable } from './prices'
+import type { Promotion, PromotionType, PromotionSortable } from './promotions'
+import type { Return, ReturnType, ReturnSortable } from './returns'
+import type { Shipment, ShipmentType, ShipmentSortable } from './shipments'
+import type { ShippingCategory, ShippingCategoryType, ShippingCategorySortable } from './shipping_categories'
+import type { ShippingMethod, ShippingMethodType, ShippingMethodSortable } from './shipping_methods'
+import type { ShippingZone, ShippingZoneType, ShippingZoneSortable } from './shipping_zones'
+import type { SkuOption, SkuOptionType, SkuOptionSortable } from './sku_options'
+import type { Sku, SkuType, SkuSortable } from './skus'
+import type { StockItem, StockItemType, StockItemSortable } from './stock_items'
+import type { StockLocation, StockLocationType, StockLocationSortable } from './stock_locations'
+import type { TaxCalculator, TaxCalculatorType, TaxCalculatorSortable } from './tax_calculators'
+import type { TaxCategory, TaxCategoryType, TaxCategorySortable } from './tax_categories'
 
 
 type AttachmentType = 'attachments'
@@ -66,6 +66,10 @@ type StockItemRel = ResourceRel & { type: StockItemType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
 type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
+
+
+export type AttachmentSortable = Pick<Attachment, 'id' | 'name'> & ResourceSortable
+export type AttachmentFilterable = Pick<Attachment, 'id' | 'name' | 'description'> & ResourceFilterable
 
 
 interface Attachment extends Resource {
@@ -103,7 +107,7 @@ interface AttachmentUpdate extends ResourceUpdate {
 }
 
 
-class Attachments extends ApiResource<Attachment> {
+class Attachments extends ApiResource<Attachment, AttachmentSortable> {
 
 	static readonly TYPE: AttachmentType = 'attachments' as const
 
@@ -144,3 +148,9 @@ class Attachments extends ApiResource<Attachment> {
 export default Attachments
 
 export type { Attachment, AttachmentCreate, AttachmentUpdate, AttachmentType }
+
+/*
+export const AttachmentsClient = (init: ResourceAdapter | ResourcesInitConfig): Attachments => {
+	return new Attachments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

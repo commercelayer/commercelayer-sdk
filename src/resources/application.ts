@@ -1,11 +1,15 @@
 import { ApiSingleton } from '../resource'
-import type { Resource, ResourceId, ResourceRel } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSortable, ResourceFilterable } from '../resource'
 
 
 
 
 type ApplicationType = 'application'
 type ApplicationRel = ResourceRel & { type: ApplicationType }
+
+
+export type ApplicationSortable = Pick<Application, 'id'> & ResourceSortable
+export type ApplicationFilterable = Pick<Application, 'id' | 'name' | 'kind' | 'public_access' | 'scopes'> & ResourceFilterable
 
 
 interface Application extends Resource {
@@ -52,3 +56,9 @@ class Applications extends ApiSingleton<Application> {
 export default Applications
 
 export type { Application, ApplicationType }
+
+/*
+export const ApplicationsClient = (init: ResourceAdapter | ResourcesInitConfig): Applications => {
+	return new Applications((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

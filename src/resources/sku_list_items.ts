@@ -1,16 +1,20 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { SkuList, SkuListType } from './sku_lists'
-import type { Sku, SkuType } from './skus'
-import type { Version } from './versions'
+import type { SkuList, SkuListType, SkuListSortable } from './sku_lists'
+import type { Sku, SkuType, SkuSortable } from './skus'
+import type { Version, VersionSortable } from './versions'
 
 
 type SkuListItemType = 'sku_list_items'
 type SkuListItemRel = ResourceRel & { type: SkuListItemType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 type SkuRel = ResourceRel & { type: SkuType }
+
+
+export type SkuListItemSortable = Pick<SkuListItem, 'id' | 'position' | 'quantity'> & ResourceSortable
+export type SkuListItemFilterable = Pick<SkuListItem, 'id' | 'position' | 'quantity'> & ResourceFilterable
 
 
 interface SkuListItem extends Resource {
@@ -49,7 +53,7 @@ interface SkuListItemUpdate extends ResourceUpdate {
 }
 
 
-class SkuListItems extends ApiResource<SkuListItem> {
+class SkuListItems extends ApiResource<SkuListItem, SkuListItemSortable> {
 
 	static readonly TYPE: SkuListItemType = 'sku_list_items' as const
 
@@ -67,17 +71,17 @@ class SkuListItems extends ApiResource<SkuListItem> {
 
 	async sku_list(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SkuList> {
 		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_items/${_skuListItemId}/sku_list`, params, options) as unknown as SkuList
+		return this.resources.fetch<SkuList, SkuListSortable>({ type: 'sku_lists' }, `sku_list_items/${_skuListItemId}/sku_list`, params, options) as unknown as SkuList
 	}
 
 	async sku(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Sku> {
 		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_items/${_skuListItemId}/sku`, params, options) as unknown as Sku
+		return this.resources.fetch<Sku, SkuSortable>({ type: 'skus' }, `sku_list_items/${_skuListItemId}/sku`, params, options) as unknown as Sku
 	}
 
-	async versions(skuListItemId: string | SkuListItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(skuListItemId: string | SkuListItem, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `sku_list_items/${_skuListItemId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `sku_list_items/${_skuListItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -105,3 +109,9 @@ class SkuListItems extends ApiResource<SkuListItem> {
 export default SkuListItems
 
 export type { SkuListItem, SkuListItemCreate, SkuListItemUpdate, SkuListItemType }
+
+/*
+export const SkuListItemsClient = (init: ResourceAdapter | ResourcesInitConfig): SkuListItems => {
+	return new SkuListItems((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

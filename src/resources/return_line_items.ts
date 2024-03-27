@@ -1,15 +1,19 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
-import type { Return, ReturnType } from './returns'
-import type { LineItem, LineItemType } from './line_items'
+import type { Return, ReturnType, ReturnSortable } from './returns'
+import type { LineItem, LineItemType, LineItemSortable } from './line_items'
 
 
 type ReturnLineItemType = 'return_line_items'
 type ReturnLineItemRel = ResourceRel & { type: ReturnLineItemType }
 type ReturnRel = ResourceRel & { type: ReturnType }
 type LineItemRel = ResourceRel & { type: LineItemType }
+
+
+export type ReturnLineItemSortable = Pick<ReturnLineItem, 'id' | 'quantity' | 'restocked_at'> & ResourceSortable
+export type ReturnLineItemFilterable = Pick<ReturnLineItem, 'id' | 'quantity' | 'return_reason' | 'restocked_at'> & ResourceFilterable
 
 
 interface ReturnLineItem extends Resource {
@@ -50,7 +54,7 @@ interface ReturnLineItemUpdate extends ResourceUpdate {
 }
 
 
-class ReturnLineItems extends ApiResource<ReturnLineItem> {
+class ReturnLineItems extends ApiResource<ReturnLineItem, ReturnLineItemSortable> {
 
 	static readonly TYPE: ReturnLineItemType = 'return_line_items' as const
 
@@ -68,12 +72,12 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 
 	async return(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
 		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId as string
-		return this.resources.fetch<Return>({ type: 'returns' }, `return_line_items/${_returnLineItemId}/return`, params, options) as unknown as Return
+		return this.resources.fetch<Return, ReturnSortable>({ type: 'returns' }, `return_line_items/${_returnLineItemId}/return`, params, options) as unknown as Return
 	}
 
 	async line_item(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
 		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId as string
-		return this.resources.fetch<LineItem>({ type: 'line_items' }, `return_line_items/${_returnLineItemId}/line_item`, params, options) as unknown as LineItem
+		return this.resources.fetch<LineItem, LineItemSortable>({ type: 'line_items' }, `return_line_items/${_returnLineItemId}/line_item`, params, options) as unknown as LineItem
 	}
 
 	async _restock(id: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
@@ -105,3 +109,9 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 export default ReturnLineItems
 
 export type { ReturnLineItem, ReturnLineItemCreate, ReturnLineItemUpdate, ReturnLineItemType }
+
+/*
+export const ReturnLineItemsClient = (init: ResourceAdapter | ResourcesInitConfig): ReturnLineItems => {
+	return new ReturnLineItems((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

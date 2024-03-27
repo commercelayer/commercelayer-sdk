@@ -1,15 +1,15 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
-import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
-import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
-import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
-import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
-import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
-import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
-import type { Version } from './versions'
+import type { PercentageDiscountPromotion, PercentageDiscountPromotionType, PercentageDiscountPromotionSortable } from './percentage_discount_promotions'
+import type { FreeShippingPromotion, FreeShippingPromotionType, FreeShippingPromotionSortable } from './free_shipping_promotions'
+import type { BuyXPayYPromotion, BuyXPayYPromotionType, BuyXPayYPromotionSortable } from './buy_x_pay_y_promotions'
+import type { FreeGiftPromotion, FreeGiftPromotionType, FreeGiftPromotionSortable } from './free_gift_promotions'
+import type { FixedPricePromotion, FixedPricePromotionType, FixedPricePromotionSortable } from './fixed_price_promotions'
+import type { ExternalPromotion, ExternalPromotionType, ExternalPromotionSortable } from './external_promotions'
+import type { FixedAmountPromotion, FixedAmountPromotionType, FixedAmountPromotionSortable } from './fixed_amount_promotions'
+import type { Version, VersionSortable } from './versions'
 
 
 type CustomPromotionRuleType = 'custom_promotion_rules'
@@ -21,6 +21,10 @@ type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
 type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
 type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
+
+
+export type CustomPromotionRuleSortable = Pick<CustomPromotionRule, 'id'> & ResourceSortable
+export type CustomPromotionRuleFilterable = Pick<CustomPromotionRule, 'id'> & ResourceFilterable
 
 
 interface CustomPromotionRule extends Resource {
@@ -53,7 +57,7 @@ interface CustomPromotionRuleUpdate extends ResourceUpdate {
 }
 
 
-class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
+class CustomPromotionRules extends ApiResource<CustomPromotionRule, CustomPromotionRuleSortable> {
 
 	static readonly TYPE: CustomPromotionRuleType = 'custom_promotion_rules' as const
 
@@ -69,9 +73,9 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 		await this.resources.delete((typeof id === 'string')? { id, type: CustomPromotionRules.TYPE } : id, options)
 	}
 
-	async versions(customPromotionRuleId: string | CustomPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(customPromotionRuleId: string | CustomPromotionRule, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _customPromotionRuleId = (customPromotionRuleId as CustomPromotionRule).id || customPromotionRuleId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `custom_promotion_rules/${_customPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `custom_promotion_rules/${_customPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -99,3 +103,9 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 export default CustomPromotionRules
 
 export type { CustomPromotionRule, CustomPromotionRuleCreate, CustomPromotionRuleUpdate, CustomPromotionRuleType }
+
+/*
+export const CustomPromotionRulesClient = (init: ResourceAdapter | ResourcesInitConfig): CustomPromotionRules => {
+	return new CustomPromotionRules((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

@@ -1,17 +1,21 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer, CustomerType } from './customers'
-import type { Address, AddressType } from './addresses'
-import type { Event } from './events'
-import type { Version } from './versions'
+import type { Customer, CustomerType, CustomerSortable } from './customers'
+import type { Address, AddressType, AddressSortable } from './addresses'
+import type { Event, EventSortable } from './events'
+import type { Version, VersionSortable } from './versions'
 
 
 type CustomerAddressType = 'customer_addresses'
 type CustomerAddressRel = ResourceRel & { type: CustomerAddressType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 type AddressRel = ResourceRel & { type: AddressType }
+
+
+export type CustomerAddressSortable = Pick<CustomerAddress, 'id'> & ResourceSortable
+export type CustomerAddressFilterable = Pick<CustomerAddress, 'id'> & ResourceFilterable
 
 
 interface CustomerAddress extends Resource {
@@ -47,7 +51,7 @@ interface CustomerAddressUpdate extends ResourceUpdate {
 }
 
 
-class CustomerAddresses extends ApiResource<CustomerAddress> {
+class CustomerAddresses extends ApiResource<CustomerAddress, CustomerAddressSortable> {
 
 	static readonly TYPE: CustomerAddressType = 'customer_addresses' as const
 
@@ -65,22 +69,22 @@ class CustomerAddresses extends ApiResource<CustomerAddress> {
 
 	async customer(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_addresses/${_customerAddressId}/customer`, params, options) as unknown as Customer
+		return this.resources.fetch<Customer, CustomerSortable>({ type: 'customers' }, `customer_addresses/${_customerAddressId}/customer`, params, options) as unknown as Customer
 	}
 
 	async address(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `customer_addresses/${_customerAddressId}/address`, params, options) as unknown as Address
+		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `customer_addresses/${_customerAddressId}/address`, params, options) as unknown as Address
 	}
 
-	async events(customerAddressId: string | CustomerAddress, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(customerAddressId: string | CustomerAddress, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `customer_addresses/${_customerAddressId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `customer_addresses/${_customerAddressId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async versions(customerAddressId: string | CustomerAddress, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(customerAddressId: string | CustomerAddress, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `customer_addresses/${_customerAddressId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `customer_addresses/${_customerAddressId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -108,3 +112,9 @@ class CustomerAddresses extends ApiResource<CustomerAddress> {
 export default CustomerAddresses
 
 export type { CustomerAddress, CustomerAddressCreate, CustomerAddressUpdate, CustomerAddressType }
+
+/*
+export const CustomerAddressesClient = (init: ResourceAdapter | ResourcesInitConfig): CustomerAddresses => {
+	return new CustomerAddresses((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

@@ -1,19 +1,23 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Address, AddressType } from './addresses'
-import type { InventoryStockLocation } from './inventory_stock_locations'
-import type { InventoryReturnLocation } from './inventory_return_locations'
-import type { StockItem } from './stock_items'
-import type { StockTransfer } from './stock_transfers'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
+import type { Address, AddressType, AddressSortable } from './addresses'
+import type { InventoryStockLocation, InventoryStockLocationSortable } from './inventory_stock_locations'
+import type { InventoryReturnLocation, InventoryReturnLocationSortable } from './inventory_return_locations'
+import type { StockItem, StockItemSortable } from './stock_items'
+import type { StockTransfer, StockTransferSortable } from './stock_transfers'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Version, VersionSortable } from './versions'
 
 
 type StockLocationType = 'stock_locations'
 type StockLocationRel = ResourceRel & { type: StockLocationType }
 type AddressRel = ResourceRel & { type: AddressType }
+
+
+export type StockLocationSortable = Pick<StockLocation, 'id' | 'name' | 'code' | 'label_format' | 'suppress_etd'> & ResourceSortable
+export type StockLocationFilterable = Pick<StockLocation, 'id' | 'name' | 'code' | 'label_format' | 'suppress_etd'> & ResourceFilterable
 
 
 interface StockLocation extends Resource {
@@ -61,7 +65,7 @@ interface StockLocationUpdate extends ResourceUpdate {
 }
 
 
-class StockLocations extends ApiResource<StockLocation> {
+class StockLocations extends ApiResource<StockLocation, StockLocationSortable> {
 
 	static readonly TYPE: StockLocationType = 'stock_locations' as const
 
@@ -79,37 +83,37 @@ class StockLocations extends ApiResource<StockLocation> {
 
 	async address(stockLocationId: string | StockLocation, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `stock_locations/${_stockLocationId}/address`, params, options) as unknown as Address
+		return this.resources.fetch<Address, AddressSortable>({ type: 'addresses' }, `stock_locations/${_stockLocationId}/address`, params, options) as unknown as Address
 	}
 
-	async inventory_stock_locations(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
+	async inventory_stock_locations(stockLocationId: string | StockLocation, params?: QueryParamsList<InventoryStockLocationSortable>, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
-		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `stock_locations/${_stockLocationId}/inventory_stock_locations`, params, options) as unknown as ListResponse<InventoryStockLocation>
+		return this.resources.fetch<InventoryStockLocation, InventoryStockLocationSortable>({ type: 'inventory_stock_locations' }, `stock_locations/${_stockLocationId}/inventory_stock_locations`, params, options) as unknown as ListResponse<InventoryStockLocation>
 	}
 
-	async inventory_return_locations(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
+	async inventory_return_locations(stockLocationId: string | StockLocation, params?: QueryParamsList<InventoryReturnLocationSortable>, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
-		return this.resources.fetch<InventoryReturnLocation>({ type: 'inventory_return_locations' }, `stock_locations/${_stockLocationId}/inventory_return_locations`, params, options) as unknown as ListResponse<InventoryReturnLocation>
+		return this.resources.fetch<InventoryReturnLocation, InventoryReturnLocationSortable>({ type: 'inventory_return_locations' }, `stock_locations/${_stockLocationId}/inventory_return_locations`, params, options) as unknown as ListResponse<InventoryReturnLocation>
 	}
 
-	async stock_items(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
+	async stock_items(stockLocationId: string | StockLocation, params?: QueryParamsList<StockItemSortable>, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
-		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `stock_locations/${_stockLocationId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
+		return this.resources.fetch<StockItem, StockItemSortable>({ type: 'stock_items' }, `stock_locations/${_stockLocationId}/stock_items`, params, options) as unknown as ListResponse<StockItem>
 	}
 
-	async stock_transfers(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
+	async stock_transfers(stockLocationId: string | StockLocation, params?: QueryParamsList<StockTransferSortable>, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
-		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `stock_locations/${_stockLocationId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+		return this.resources.fetch<StockTransfer, StockTransferSortable>({ type: 'stock_transfers' }, `stock_locations/${_stockLocationId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
 	}
 
-	async attachments(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(stockLocationId: string | StockLocation, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_locations/${_stockLocationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `stock_locations/${_stockLocationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(stockLocationId: string | StockLocation, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(stockLocationId: string | StockLocation, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `stock_locations/${_stockLocationId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `stock_locations/${_stockLocationId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -137,3 +141,9 @@ class StockLocations extends ApiResource<StockLocation> {
 export default StockLocations
 
 export type { StockLocation, StockLocationCreate, StockLocationUpdate, StockLocationType }
+
+/*
+export const StockLocationsClient = (init: ResourceAdapter | ResourcesInitConfig): StockLocations => {
+	return new StockLocations((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

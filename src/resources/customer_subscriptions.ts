@@ -1,14 +1,18 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer } from './customers'
-import type { Event } from './events'
-import type { Version } from './versions'
+import type { Customer, CustomerSortable } from './customers'
+import type { Event, EventSortable } from './events'
+import type { Version, VersionSortable } from './versions'
 
 
 type CustomerSubscriptionType = 'customer_subscriptions'
 type CustomerSubscriptionRel = ResourceRel & { type: CustomerSubscriptionType }
+
+
+export type CustomerSubscriptionSortable = Pick<CustomerSubscription, 'id'> & ResourceSortable
+export type CustomerSubscriptionFilterable = Pick<CustomerSubscription, 'id'> & ResourceFilterable
 
 
 interface CustomerSubscription extends Resource {
@@ -34,7 +38,7 @@ interface CustomerSubscriptionCreate extends ResourceCreate {
 type CustomerSubscriptionUpdate = ResourceUpdate
 
 
-class CustomerSubscriptions extends ApiResource<CustomerSubscription> {
+class CustomerSubscriptions extends ApiResource<CustomerSubscription, CustomerSubscriptionSortable> {
 
 	static readonly TYPE: CustomerSubscriptionType = 'customer_subscriptions' as const
 
@@ -52,17 +56,17 @@ class CustomerSubscriptions extends ApiResource<CustomerSubscription> {
 
 	async customer(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
 		const _customerSubscriptionId = (customerSubscriptionId as CustomerSubscription).id || customerSubscriptionId as string
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_subscriptions/${_customerSubscriptionId}/customer`, params, options) as unknown as Customer
+		return this.resources.fetch<Customer, CustomerSortable>({ type: 'customers' }, `customer_subscriptions/${_customerSubscriptionId}/customer`, params, options) as unknown as Customer
 	}
 
-	async events(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _customerSubscriptionId = (customerSubscriptionId as CustomerSubscription).id || customerSubscriptionId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `customer_subscriptions/${_customerSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `customer_subscriptions/${_customerSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async versions(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(customerSubscriptionId: string | CustomerSubscription, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _customerSubscriptionId = (customerSubscriptionId as CustomerSubscription).id || customerSubscriptionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `customer_subscriptions/${_customerSubscriptionId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `customer_subscriptions/${_customerSubscriptionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -90,3 +94,9 @@ class CustomerSubscriptions extends ApiResource<CustomerSubscription> {
 export default CustomerSubscriptions
 
 export type { CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscriptionUpdate, CustomerSubscriptionType }
+
+/*
+export const CustomerSubscriptionsClient = (init: ResourceAdapter | ResourcesInitConfig): CustomerSubscriptions => {
+	return new CustomerSubscriptions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

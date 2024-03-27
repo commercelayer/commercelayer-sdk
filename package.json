@@ -43,7 +43,7 @@
     "@babel/preset-env": "^7.24.3",
     "@babel/preset-typescript": "^7.24.1",
     "@commercelayer/eslint-config-ts": "1.4.5",
-    "@commercelayer/js-auth": "^5.2.1",
+    "@commercelayer/js-auth": "^6.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/debug": "^4.1.12",

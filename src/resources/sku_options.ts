@@ -1,18 +1,22 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, ResourceFilterable } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market, MarketType } from './markets'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
+import type { Market, MarketType, MarketSortable } from './markets'
+import type { Attachment, AttachmentSortable } from './attachments'
+import type { Event, EventSortable } from './events'
+import type { Tag, TagType, TagSortable } from './tags'
+import type { Version, VersionSortable } from './versions'
 
 
 type SkuOptionType = 'sku_options'
 type SkuOptionRel = ResourceRel & { type: SkuOptionType }
 type MarketRel = ResourceRel & { type: MarketType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type SkuOptionSortable = Pick<SkuOption, 'id' | 'name' | 'currency_code' | 'price_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceSortable
+export type SkuOptionFilterable = Pick<SkuOption, 'id' | 'name' | 'currency_code' | 'description' | 'price_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceFilterable
 
 
 interface SkuOption extends Resource {
@@ -68,7 +72,7 @@ interface SkuOptionUpdate extends ResourceUpdate {
 }
 
 
-class SkuOptions extends ApiResource<SkuOption> {
+class SkuOptions extends ApiResource<SkuOption, SkuOptionSortable> {
 
 	static readonly TYPE: SkuOptionType = 'sku_options' as const
 
@@ -86,27 +90,27 @@ class SkuOptions extends ApiResource<SkuOption> {
 
 	async market(skuOptionId: string | SkuOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `sku_options/${_skuOptionId}/market`, params, options) as unknown as Market
+		return this.resources.fetch<Market, MarketSortable>({ type: 'markets' }, `sku_options/${_skuOptionId}/market`, params, options) as unknown as Market
 	}
 
-	async attachments(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(skuOptionId: string | SkuOption, params?: QueryParamsList<AttachmentSortable>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_options/${_skuOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<Attachment, AttachmentSortable>({ type: 'attachments' }, `sku_options/${_skuOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(skuOptionId: string | SkuOption, params?: QueryParamsList<EventSortable>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `sku_options/${_skuOptionId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Event, EventSortable>({ type: 'events' }, `sku_options/${_skuOptionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(skuOptionId: string | SkuOption, params?: QueryParamsList<TagSortable>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
-		return this.resources.fetch<Tag>({ type: 'tags' }, `sku_options/${_skuOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
+		return this.resources.fetch<Tag, TagSortable>({ type: 'tags' }, `sku_options/${_skuOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(skuOptionId: string | SkuOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(skuOptionId: string | SkuOption, params?: QueryParamsList<VersionSortable>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `sku_options/${_skuOptionId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Version, VersionSortable>({ type: 'versions' }, `sku_options/${_skuOptionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 
@@ -134,3 +138,9 @@ class SkuOptions extends ApiResource<SkuOption> {
 export default SkuOptions
 
 export type { SkuOption, SkuOptionCreate, SkuOptionUpdate, SkuOptionType }
+
+/*
+export const SkuOptionsClient = (init: ResourceAdapter | ResourcesInitConfig): SkuOptions => {
+	return new SkuOptions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
+}
+*/

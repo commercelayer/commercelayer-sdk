@@ -317,6 +317,8 @@ type Attribute = {
 	name: string
 	required: boolean
 	fetchable: boolean
+	sortable?: boolean
+	filterable?: boolean
 	enum: string[]
 }
 
@@ -358,7 +360,7 @@ export default {
 	parse: parseSchema,
 	current: currentSchema,
 	localPath: SCHEMA_LOCAL_PATH,
-	remoteUrl: SCHEMA_REMOTE_URL,
+	remoteUrl: SCHEMA_REMOTE_URL
 }
 
 export { Resource, Operation, Component, ComponentMap, Cardinality, Relationship, ApiSchema, Attribute }
