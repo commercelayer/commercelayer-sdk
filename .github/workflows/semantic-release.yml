@@ -27,8 +27,6 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build package
         run: pnpm build
-      - name: Minimize package
-        run: pnpm minimize
       - name: Run specs
         env:
           CL_SDK_ORGANIZATION: sdk-test-org
