@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
@@ -21,6 +21,10 @@ type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
 type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
 type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
+
+
+export type CustomPromotionRuleSort = Pick<CustomPromotionRule, 'id'> & ResourceSort
+// export type CustomPromotionRuleFilter = Pick<CustomPromotionRule, 'id'> & ResourceFilter
 
 
 interface CustomPromotionRule extends Resource {
@@ -57,11 +61,11 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 
 	static readonly TYPE: CustomPromotionRuleType = 'custom_promotion_rules' as const
 
-	async create(resource: CustomPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomPromotionRule> {
+	async create(resource: CustomPromotionRuleCreate, params?: QueryParamsRetrieve<CustomPromotionRule>, options?: ResourcesConfig): Promise<CustomPromotionRule> {
 		return this.resources.create<CustomPromotionRuleCreate, CustomPromotionRule>({ ...resource, type: CustomPromotionRules.TYPE }, params, options)
 	}
 
-	async update(resource: CustomPromotionRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomPromotionRule> {
+	async update(resource: CustomPromotionRuleUpdate, params?: QueryParamsRetrieve<CustomPromotionRule>, options?: ResourcesConfig): Promise<CustomPromotionRule> {
 		return this.resources.update<CustomPromotionRuleUpdate, CustomPromotionRule>({ ...resource, type: CustomPromotionRules.TYPE }, params, options)
 	}
 
@@ -69,7 +73,7 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 		await this.resources.delete((typeof id === 'string')? { id, type: CustomPromotionRules.TYPE } : id, options)
 	}
 
-	async versions(customPromotionRuleId: string | CustomPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(customPromotionRuleId: string | CustomPromotionRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _customPromotionRuleId = (customPromotionRuleId as CustomPromotionRule).id || customPromotionRuleId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `custom_promotion_rules/${_customPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}

@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import { inspect } from 'util'
 import isEqual from 'lodash.isequal'
 import { RequestConfig } from '../src/client'
+import { Resource, ResourceSort } from '../src/resource'
 
 
 dotenv.config()
@@ -35,7 +36,7 @@ export const TestData = {
 
 const COMMON_PARAMS_FILTERS = { reference_eq: TestData.reference }
 
-const COMMON_PARAMS_LIST: QueryParamsList = {
+const COMMON_PARAMS_LIST: QueryParamsList<Resource> = {
 	filters: COMMON_PARAMS_FILTERS,
 	pageSize: 25,
 	pageNumber: 1,
@@ -162,7 +163,7 @@ const checkParam = (url: string | URL, name: string, value: string | number | bo
 	expect(params.get(name)).toBe(String(value))
 }
 
-const checkCommonParamsList = (request: RequestObj, params: QueryParamsList) =>  {
+const checkCommonParamsList = (request: RequestObj, params: QueryParamsList<Resource>) =>  {
 	const url = new URL(request.url)
 	if (params.pageNumber) checkParam(url, 'page[number]', params.pageNumber)
 	if (params.pageSize) checkParam(url, 'page[size]', params.pageSize)

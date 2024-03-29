@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -9,6 +9,10 @@ import type { Attachment } from './attachments'
 type PaymentOptionType = 'payment_options'
 type PaymentOptionRel = ResourceRel & { type: PaymentOptionType }
 type OrderRel = ResourceRel & { type: OrderType }
+
+
+export type PaymentOptionSort = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type'> & ResourceSort
+// export type PaymentOptionFilter = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type' | 'data'> & ResourceFilter
 
 
 interface PaymentOption extends Resource {
@@ -50,11 +54,11 @@ class PaymentOptions extends ApiResource<PaymentOption> {
 
 	static readonly TYPE: PaymentOptionType = 'payment_options' as const
 
-	async create(resource: PaymentOptionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentOption> {
+	async create(resource: PaymentOptionCreate, params?: QueryParamsRetrieve<PaymentOption>, options?: ResourcesConfig): Promise<PaymentOption> {
 		return this.resources.create<PaymentOptionCreate, PaymentOption>({ ...resource, type: PaymentOptions.TYPE }, params, options)
 	}
 
-	async update(resource: PaymentOptionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PaymentOption> {
+	async update(resource: PaymentOptionUpdate, params?: QueryParamsRetrieve<PaymentOption>, options?: ResourcesConfig): Promise<PaymentOption> {
 		return this.resources.update<PaymentOptionUpdate, PaymentOption>({ ...resource, type: PaymentOptions.TYPE }, params, options)
 	}
 
@@ -62,12 +66,12 @@ class PaymentOptions extends ApiResource<PaymentOption> {
 		await this.resources.delete((typeof id === 'string')? { id, type: PaymentOptions.TYPE } : id, options)
 	}
 
-	async order(paymentOptionId: string | PaymentOption, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async order(paymentOptionId: string | PaymentOption, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _paymentOptionId = (paymentOptionId as PaymentOption).id || paymentOptionId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `payment_options/${_paymentOptionId}/order`, params, options) as unknown as Order
 	}
 
-	async attachments(paymentOptionId: string | PaymentOption, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(paymentOptionId: string | PaymentOption, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _paymentOptionId = (paymentOptionId as PaymentOption).id || paymentOptionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_options/${_paymentOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -10,6 +10,10 @@ import type { OrderSubscription } from './order_subscriptions'
 type OrderCopyType = 'order_copies'
 type OrderCopyRel = ResourceRel & { type: OrderCopyType }
 type OrderRel = ResourceRel & { type: OrderType }
+
+
+export type OrderCopySort = Pick<OrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSort
+// export type OrderCopyFilter = Pick<OrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
 
 interface OrderCopy extends Resource {
@@ -52,11 +56,11 @@ class OrderCopies extends ApiResource<OrderCopy> {
 
 	static readonly TYPE: OrderCopyType = 'order_copies' as const
 
-	async create(resource: OrderCopyCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {
+	async create(resource: OrderCopyCreate, params?: QueryParamsRetrieve<OrderCopy>, options?: ResourcesConfig): Promise<OrderCopy> {
 		return this.resources.create<OrderCopyCreate, OrderCopy>({ ...resource, type: OrderCopies.TYPE }, params, options)
 	}
 
-	async update(resource: OrderCopyUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderCopy> {
+	async update(resource: OrderCopyUpdate, params?: QueryParamsRetrieve<OrderCopy>, options?: ResourcesConfig): Promise<OrderCopy> {
 		return this.resources.update<OrderCopyUpdate, OrderCopy>({ ...resource, type: OrderCopies.TYPE }, params, options)
 	}
 
@@ -64,22 +68,22 @@ class OrderCopies extends ApiResource<OrderCopy> {
 		await this.resources.delete((typeof id === 'string')? { id, type: OrderCopies.TYPE } : id, options)
 	}
 
-	async source_order(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async source_order(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `order_copies/${_orderCopyId}/source_order`, params, options) as unknown as Order
 	}
 
-	async target_order(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async target_order(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `order_copies/${_orderCopyId}/target_order`, params, options) as unknown as Order
 	}
 
-	async events(orderCopyId: string | OrderCopy, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(orderCopyId: string | OrderCopy, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `order_copies/${_orderCopyId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async order_subscription(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+	async order_subscription(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
 		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId as string
 		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_copies/${_orderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
 	}

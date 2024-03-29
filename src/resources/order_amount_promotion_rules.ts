@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
@@ -21,6 +21,10 @@ type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
 type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
 type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
+
+
+export type OrderAmountPromotionRuleSort = Pick<OrderAmountPromotionRule, 'id'> & ResourceSort
+// export type OrderAmountPromotionRuleFilter = Pick<OrderAmountPromotionRule, 'id'> & ResourceFilter
 
 
 interface OrderAmountPromotionRule extends Resource {
@@ -62,11 +66,11 @@ class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule> {
 
 	static readonly TYPE: OrderAmountPromotionRuleType = 'order_amount_promotion_rules' as const
 
-	async create(resource: OrderAmountPromotionRuleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
+	async create(resource: OrderAmountPromotionRuleCreate, params?: QueryParamsRetrieve<OrderAmountPromotionRule>, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
 		return this.resources.create<OrderAmountPromotionRuleCreate, OrderAmountPromotionRule>({ ...resource, type: OrderAmountPromotionRules.TYPE }, params, options)
 	}
 
-	async update(resource: OrderAmountPromotionRuleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
+	async update(resource: OrderAmountPromotionRuleUpdate, params?: QueryParamsRetrieve<OrderAmountPromotionRule>, options?: ResourcesConfig): Promise<OrderAmountPromotionRule> {
 		return this.resources.update<OrderAmountPromotionRuleUpdate, OrderAmountPromotionRule>({ ...resource, type: OrderAmountPromotionRules.TYPE }, params, options)
 	}
 
@@ -74,7 +78,7 @@ class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule> {
 		await this.resources.delete((typeof id === 'string')? { id, type: OrderAmountPromotionRules.TYPE } : id, options)
 	}
 
-	async versions(orderAmountPromotionRuleId: string | OrderAmountPromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(orderAmountPromotionRuleId: string | OrderAmountPromotionRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _orderAmountPromotionRuleId = (orderAmountPromotionRuleId as OrderAmountPromotionRule).id || orderAmountPromotionRuleId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `order_amount_promotion_rules/${_orderAmountPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -8,6 +8,10 @@ import type { Event } from './events'
 
 type OrderFactoryType = 'order_factories'
 type OrderFactoryRel = ResourceRel & { type: OrderFactoryType }
+
+
+export type OrderFactorySort = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSort
+// export type OrderFactoryFilter = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
 
 interface OrderFactory extends Resource {
@@ -34,17 +38,17 @@ class OrderFactories extends ApiResource<OrderFactory> {
 
 	static readonly TYPE: OrderFactoryType = 'order_factories' as const
 
-	async source_order(orderFactoryId: string | OrderFactory, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async source_order(orderFactoryId: string | OrderFactory, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _orderFactoryId = (orderFactoryId as OrderFactory).id || orderFactoryId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `order_factories/${_orderFactoryId}/source_order`, params, options) as unknown as Order
 	}
 
-	async target_order(orderFactoryId: string | OrderFactory, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async target_order(orderFactoryId: string | OrderFactory, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _orderFactoryId = (orderFactoryId as OrderFactory).id || orderFactoryId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `order_factories/${_orderFactoryId}/target_order`, params, options) as unknown as Order
 	}
 
-	async events(orderFactoryId: string | OrderFactory, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(orderFactoryId: string | OrderFactory, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _orderFactoryId = (orderFactoryId as OrderFactory).id || orderFactoryId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `order_factories/${_orderFactoryId}/events`, params, options) as unknown as ListResponse<Event>
 	}

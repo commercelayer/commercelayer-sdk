@@ -1,11 +1,15 @@
 import { ApiSingleton } from '../resource'
-import type { Resource, ResourceId, ResourceRel } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
 
 
 
 type OrganizationType = 'organization'
 type OrganizationRel = ResourceRel & { type: OrganizationType }
+
+
+export type OrganizationSort = Pick<Organization, 'id'> & ResourceSort
+// export type OrganizationFilter = Pick<Organization, 'id'> & ResourceFilter
 
 
 interface Organization extends Resource {

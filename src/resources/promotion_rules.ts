@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
 
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
@@ -14,6 +14,10 @@ import type { Version } from './versions'
 
 type PromotionRuleType = 'promotion_rules'
 type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
+
+
+export type PromotionRuleSort = Pick<PromotionRule, 'id'> & ResourceSort
+// export type PromotionRuleFilter = Pick<PromotionRule, 'id'> & ResourceFilter
 
 
 interface PromotionRule extends Resource {
@@ -31,7 +35,7 @@ class PromotionRules extends ApiResource<PromotionRule> {
 
 	static readonly TYPE: PromotionRuleType = 'promotion_rules' as const
 
-	async versions(promotionRuleId: string | PromotionRule, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(promotionRuleId: string | PromotionRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _promotionRuleId = (promotionRuleId as PromotionRule).id || promotionRuleId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `promotion_rules/${_promotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}

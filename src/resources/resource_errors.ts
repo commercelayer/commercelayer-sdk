@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourceRel } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
 
 import type { Order } from './orders'
@@ -7,6 +7,10 @@ import type { Order } from './orders'
 
 type ResourceErrorType = 'resource_errors'
 type ResourceErrorRel = ResourceRel & { type: ResourceErrorType }
+
+
+export type ResourceErrorSort = Pick<ResourceError, 'id' | 'name' | 'code'> & ResourceSort
+// export type ResourceErrorFilter = Pick<ResourceError, 'id' | 'name' | 'code' | 'message'> & ResourceFilter
 
 
 interface ResourceError extends Resource {

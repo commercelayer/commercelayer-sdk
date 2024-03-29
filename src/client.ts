@@ -115,7 +115,7 @@ class ApiClient {
 	*/
 
 
-	config(config: ApiClientConfig): ApiClient {
+	config(config: ApiClientConfig): this {
 
 		debug('config %o', config)
 
@@ -143,7 +143,7 @@ class ApiClient {
 	}
 
 
-	userAgent(userAgent: string): ApiClient {
+	userAgent(userAgent: string): this {
 		if (userAgent) this.requestHeaders['User-Agent'] = userAgent
 		return this
 	}

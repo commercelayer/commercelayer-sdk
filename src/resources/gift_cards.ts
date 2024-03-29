@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -15,6 +15,10 @@ type GiftCardRel = ResourceRel & { type: GiftCardType }
 type MarketRel = ResourceRel & { type: MarketType }
 type GiftCardRecipientRel = ResourceRel & { type: GiftCardRecipientType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type GiftCardSort = Pick<GiftCard, 'id' | 'status' | 'currency_code' | 'balance_cents' | 'balance_max_cents' | 'expires_at'> & ResourceSort
+// export type GiftCardFilter = Pick<GiftCard, 'id' | 'status' | 'code' | 'currency_code' | 'balance_cents' | 'balance_max_cents' | 'single_use' | 'rechargeable' | 'expires_at'> & ResourceFilter
 
 
 interface GiftCard extends Resource {
@@ -98,11 +102,11 @@ class GiftCards extends ApiResource<GiftCard> {
 
 	static readonly TYPE: GiftCardType = 'gift_cards' as const
 
-	async create(resource: GiftCardCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+	async create(resource: GiftCardCreate, params?: QueryParamsRetrieve<GiftCard>, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.create<GiftCardCreate, GiftCard>({ ...resource, type: GiftCards.TYPE }, params, options)
 	}
 
-	async update(resource: GiftCardUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+	async update(resource: GiftCardUpdate, params?: QueryParamsRetrieve<GiftCard>, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.update<GiftCardUpdate, GiftCard>({ ...resource, type: GiftCards.TYPE }, params, options)
 	}
 
@@ -110,49 +114,49 @@ class GiftCards extends ApiResource<GiftCard> {
 		await this.resources.delete((typeof id === 'string')? { id, type: GiftCards.TYPE } : id, options)
 	}
 
-	async market(giftCardId: string | GiftCard, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+	async market(giftCardId: string | GiftCard, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `gift_cards/${_giftCardId}/market`, params, options) as unknown as Market
 	}
 
-	async gift_card_recipient(giftCardId: string | GiftCard, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCardRecipient> {
+	async gift_card_recipient(giftCardId: string | GiftCard, params?: QueryParamsRetrieve<GiftCardRecipient>, options?: ResourcesConfig): Promise<GiftCardRecipient> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
 		return this.resources.fetch<GiftCardRecipient>({ type: 'gift_card_recipients' }, `gift_cards/${_giftCardId}/gift_card_recipient`, params, options) as unknown as GiftCardRecipient
 	}
 
-	async attachments(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(giftCardId: string | GiftCard, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `gift_cards/${_giftCardId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(giftCardId: string | GiftCard, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `gift_cards/${_giftCardId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(giftCardId: string | GiftCard, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `gift_cards/${_giftCardId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(giftCardId: string | GiftCard, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(giftCardId: string | GiftCard, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `gift_cards/${_giftCardId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async _purchase(id: string | GiftCard, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+	async _purchase(id: string | GiftCard, params?: QueryParamsRetrieve<GiftCard>, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _purchase: true }, params, options)
 	}
 
-	async _activate(id: string | GiftCard, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+	async _activate(id: string | GiftCard, params?: QueryParamsRetrieve<GiftCard>, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _activate: true }, params, options)
 	}
 
-	async _deactivate(id: string | GiftCard, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+	async _deactivate(id: string | GiftCard, params?: QueryParamsRetrieve<GiftCard>, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _deactivate: true }, params, options)
 	}
 
-	async _balance_change_cents(id: string | GiftCard, triggerValue: number, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GiftCard> {
+	async _balance_change_cents(id: string | GiftCard, triggerValue: number, params?: QueryParamsRetrieve<GiftCard>, options?: ResourcesConfig): Promise<GiftCard> {
 		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _balance_change_cents: triggerValue }, params, options)
 	}
 

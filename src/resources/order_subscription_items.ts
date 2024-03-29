@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
@@ -17,10 +17,16 @@ type BundleRel = ResourceRel & { type: BundleType }
 type SkuRel = ResourceRel & { type: SkuType }
 
 
+export type OrderSubscriptionItemSort = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceSort
+// export type OrderSubscriptionItemFilter = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceFilter
+
+
 interface OrderSubscriptionItem extends Resource {
 	
 	readonly type: OrderSubscriptionItemType
 
+	sku_code?: string | null
+	bundle_code?: string | null
 	quantity: number
 	unit_amount_cents?: number | null
 	unit_amount_float?: number | null
@@ -33,6 +39,7 @@ interface OrderSubscriptionItem extends Resource {
 	item?: Adjustment | Bundle | Sku | null
 	sku?: Sku | null
 	bundle?: Bundle | null
+	adjustment?: Adjustment | null
 	source_line_item?: LineItem | null
 
 }
@@ -49,6 +56,7 @@ interface OrderSubscriptionItemCreate extends ResourceCreate {
 	item: AdjustmentRel | BundleRel | SkuRel
 	sku?: SkuRel | null
 	bundle?: BundleRel | null
+	adjustment?: AdjustmentRel | null
 
 }
 
@@ -67,11 +75,11 @@ class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 
 	static readonly TYPE: OrderSubscriptionItemType = 'order_subscription_items' as const
 
-	async create(resource: OrderSubscriptionItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
+	async create(resource: OrderSubscriptionItemCreate, params?: QueryParamsRetrieve<OrderSubscriptionItem>, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
 		return this.resources.create<OrderSubscriptionItemCreate, OrderSubscriptionItem>({ ...resource, type: OrderSubscriptionItems.TYPE }, params, options)
 	}
 
-	async update(resource: OrderSubscriptionItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
+	async update(resource: OrderSubscriptionItemUpdate, params?: QueryParamsRetrieve<OrderSubscriptionItem>, options?: ResourcesConfig): Promise<OrderSubscriptionItem> {
 		return this.resources.update<OrderSubscriptionItemUpdate, OrderSubscriptionItem>({ ...resource, type: OrderSubscriptionItems.TYPE }, params, options)
 	}
 
@@ -79,12 +87,12 @@ class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 		await this.resources.delete((typeof id === 'string')? { id, type: OrderSubscriptionItems.TYPE } : id, options)
 	}
 
-	async order_subscription(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+	async order_subscription(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
 		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
 		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_subscription_items/${_orderSubscriptionItemId}/order_subscription`, params, options) as unknown as OrderSubscription
 	}
 
-	async source_line_item(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+	async source_line_item(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `order_subscription_items/${_orderSubscriptionItemId}/source_line_item`, params, options) as unknown as LineItem
 	}

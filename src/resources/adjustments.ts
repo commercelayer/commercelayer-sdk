@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Version } from './versions'
@@ -7,6 +7,10 @@ import type { Version } from './versions'
 
 type AdjustmentType = 'adjustments'
 type AdjustmentRel = ResourceRel & { type: AdjustmentType }
+
+
+export type AdjustmentSort = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceSort
+// export type AdjustmentFilter = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceFilter
 
 
 interface Adjustment extends Resource {
@@ -49,11 +53,11 @@ class Adjustments extends ApiResource<Adjustment> {
 
 	static readonly TYPE: AdjustmentType = 'adjustments' as const
 
-	async create(resource: AdjustmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {
+	async create(resource: AdjustmentCreate, params?: QueryParamsRetrieve<Adjustment>, options?: ResourcesConfig): Promise<Adjustment> {
 		return this.resources.create<AdjustmentCreate, Adjustment>({ ...resource, type: Adjustments.TYPE }, params, options)
 	}
 
-	async update(resource: AdjustmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Adjustment> {
+	async update(resource: AdjustmentUpdate, params?: QueryParamsRetrieve<Adjustment>, options?: ResourcesConfig): Promise<Adjustment> {
 		return this.resources.update<AdjustmentUpdate, Adjustment>({ ...resource, type: Adjustments.TYPE }, params, options)
 	}
 
@@ -61,7 +65,7 @@ class Adjustments extends ApiResource<Adjustment> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Adjustments.TYPE } : id, options)
 	}
 
-	async versions(adjustmentId: string | Adjustment, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(adjustmentId: string | Adjustment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _adjustmentId = (adjustmentId as Adjustment).id || adjustmentId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `adjustments/${_adjustmentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}

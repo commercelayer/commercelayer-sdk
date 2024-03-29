@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Address } from './addresses'
@@ -8,6 +8,10 @@ import type { Attachment } from './attachments'
 
 type GoogleGeocoderType = 'google_geocoders'
 type GoogleGeocoderRel = ResourceRel & { type: GoogleGeocoderType }
+
+
+export type GoogleGeocoderSort = Pick<GoogleGeocoder, 'id' | 'name'> & ResourceSort
+// export type GoogleGeocoderFilter = Pick<GoogleGeocoder, 'id' | 'name'> & ResourceFilter
 
 
 interface GoogleGeocoder extends Resource {
@@ -42,11 +46,11 @@ class GoogleGeocoders extends ApiResource<GoogleGeocoder> {
 
 	static readonly TYPE: GoogleGeocoderType = 'google_geocoders' as const
 
-	async create(resource: GoogleGeocoderCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GoogleGeocoder> {
+	async create(resource: GoogleGeocoderCreate, params?: QueryParamsRetrieve<GoogleGeocoder>, options?: ResourcesConfig): Promise<GoogleGeocoder> {
 		return this.resources.create<GoogleGeocoderCreate, GoogleGeocoder>({ ...resource, type: GoogleGeocoders.TYPE }, params, options)
 	}
 
-	async update(resource: GoogleGeocoderUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<GoogleGeocoder> {
+	async update(resource: GoogleGeocoderUpdate, params?: QueryParamsRetrieve<GoogleGeocoder>, options?: ResourcesConfig): Promise<GoogleGeocoder> {
 		return this.resources.update<GoogleGeocoderUpdate, GoogleGeocoder>({ ...resource, type: GoogleGeocoders.TYPE }, params, options)
 	}
 
@@ -54,12 +58,12 @@ class GoogleGeocoders extends ApiResource<GoogleGeocoder> {
 		await this.resources.delete((typeof id === 'string')? { id, type: GoogleGeocoders.TYPE } : id, options)
 	}
 
-	async addresses(googleGeocoderId: string | GoogleGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
+	async addresses(googleGeocoderId: string | GoogleGeocoder, params?: QueryParamsList<Address>, options?: ResourcesConfig): Promise<ListResponse<Address>> {
 		const _googleGeocoderId = (googleGeocoderId as GoogleGeocoder).id || googleGeocoderId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `google_geocoders/${_googleGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
 	}
 
-	async attachments(googleGeocoderId: string | GoogleGeocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(googleGeocoderId: string | GoogleGeocoder, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _googleGeocoderId = (googleGeocoderId as GoogleGeocoder).id || googleGeocoderId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `google_geocoders/${_googleGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}

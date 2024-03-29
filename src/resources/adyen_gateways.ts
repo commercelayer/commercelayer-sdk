@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -10,6 +10,10 @@ import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
 type AdyenGatewayType = 'adyen_gateways'
 type AdyenGatewayRel = ResourceRel & { type: AdyenGatewayType }
 type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
+
+
+export type AdyenGatewaySort = Pick<AdyenGateway, 'id' | 'name'> & ResourceSort
+// export type AdyenGatewayFilter = Pick<AdyenGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface AdyenGateway extends Resource {
@@ -65,11 +69,11 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 
 	static readonly TYPE: AdyenGatewayType = 'adyen_gateways' as const
 
-	async create(resource: AdyenGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
+	async create(resource: AdyenGatewayCreate, params?: QueryParamsRetrieve<AdyenGateway>, options?: ResourcesConfig): Promise<AdyenGateway> {
 		return this.resources.create<AdyenGatewayCreate, AdyenGateway>({ ...resource, type: AdyenGateways.TYPE }, params, options)
 	}
 
-	async update(resource: AdyenGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AdyenGateway> {
+	async update(resource: AdyenGatewayUpdate, params?: QueryParamsRetrieve<AdyenGateway>, options?: ResourcesConfig): Promise<AdyenGateway> {
 		return this.resources.update<AdyenGatewayUpdate, AdyenGateway>({ ...resource, type: AdyenGateways.TYPE }, params, options)
 	}
 
@@ -77,17 +81,17 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: AdyenGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _adyenGatewayId = (adyenGatewayId as AdyenGateway).id || adyenGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `adyen_gateways/${_adyenGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _adyenGatewayId = (adyenGatewayId as AdyenGateway).id || adyenGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `adyen_gateways/${_adyenGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async adyen_payments(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<AdyenPayment>> {
+	async adyen_payments(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList<AdyenPayment>, options?: ResourcesConfig): Promise<ListResponse<AdyenPayment>> {
 		const _adyenGatewayId = (adyenGatewayId as AdyenGateway).id || adyenGatewayId as string
 		return this.resources.fetch<AdyenPayment>({ type: 'adyen_payments' }, `adyen_gateways/${_adyenGatewayId}/adyen_payments`, params, options) as unknown as ListResponse<AdyenPayment>
 	}
