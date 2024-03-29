@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { StockItem } from './stock_items'
@@ -11,8 +11,8 @@ type ReservedStockType = 'reserved_stocks'
 type ReservedStockRel = ResourceRel & { type: ReservedStockType }
 
 
-export type ReservedStockSortable = Pick<ReservedStock, 'id' | 'quantity'> & ResourceSortable
-// export type ReservedStockFilterable = Pick<ReservedStock, 'id' | 'quantity'> & ResourceFilterable
+export type ReservedStockSort = Pick<ReservedStock, 'id' | 'quantity'> & ResourceSort
+// export type ReservedStockFilter = Pick<ReservedStock, 'id' | 'quantity'> & ResourceFilter
 
 
 interface ReservedStock extends Resource {
@@ -72,9 +72,3 @@ class ReservedStocks extends ApiResource<ReservedStock> {
 export default ReservedStocks
 
 export type { ReservedStock, ReservedStockType }
-
-/*
-export const ReservedStocksClient = (init: ResourceAdapter | ResourcesInitConfig): ReservedStocks => {
-	return new ReservedStocks((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

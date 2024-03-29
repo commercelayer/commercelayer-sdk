@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
@@ -23,8 +23,8 @@ type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
 type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
 
 
-export type CustomPromotionRuleSortable = Pick<CustomPromotionRule, 'id'> & ResourceSortable
-// export type CustomPromotionRuleFilterable = Pick<CustomPromotionRule, 'id'> & ResourceFilterable
+export type CustomPromotionRuleSort = Pick<CustomPromotionRule, 'id'> & ResourceSort
+// export type CustomPromotionRuleFilter = Pick<CustomPromotionRule, 'id'> & ResourceFilter
 
 
 interface CustomPromotionRule extends Resource {
@@ -103,9 +103,3 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 export default CustomPromotionRules
 
 export type { CustomPromotionRule, CustomPromotionRuleCreate, CustomPromotionRuleUpdate, CustomPromotionRuleType }
-
-/*
-export const CustomPromotionRulesClient = (init: ResourceAdapter | ResourcesInitConfig): CustomPromotionRules => {
-	return new CustomPromotionRules((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

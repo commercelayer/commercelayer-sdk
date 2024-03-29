@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Version } from './versions'
@@ -9,8 +9,8 @@ type AdjustmentType = 'adjustments'
 type AdjustmentRel = ResourceRel & { type: AdjustmentType }
 
 
-export type AdjustmentSortable = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceSortable
-// export type AdjustmentFilterable = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceFilterable
+export type AdjustmentSort = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceSort
+// export type AdjustmentFilter = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceFilter
 
 
 interface Adjustment extends Resource {
@@ -95,9 +95,3 @@ class Adjustments extends ApiResource<Adjustment> {
 export default Adjustments
 
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate, AdjustmentType }
-
-/*
-export const AdjustmentsClient = (init: ResourceAdapter | ResourcesInitConfig): Adjustments => {
-	return new Adjustments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -14,8 +14,8 @@ type AuthorizationType = 'authorizations'
 type AuthorizationRel = ResourceRel & { type: AuthorizationType }
 
 
-export type AuthorizationSortable = Pick<Authorization, 'id' | 'number' | 'amount_cents'> & ResourceSortable
-// export type AuthorizationFilterable = Pick<Authorization, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilterable
+export type AuthorizationSort = Pick<Authorization, 'id' | 'number' | 'amount_cents'> & ResourceSort
+// export type AuthorizationFilter = Pick<Authorization, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
 
 interface Authorization extends Resource {
@@ -142,9 +142,3 @@ class Authorizations extends ApiResource<Authorization> {
 export default Authorizations
 
 export type { Authorization, AuthorizationUpdate, AuthorizationType }
-
-/*
-export const AuthorizationsClient = (init: ResourceAdapter | ResourcesInitConfig): Authorizations => {
-	return new Authorizations((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

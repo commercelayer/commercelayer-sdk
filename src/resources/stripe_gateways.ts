@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -11,8 +11,8 @@ type StripeGatewayType = 'stripe_gateways'
 type StripeGatewayRel = ResourceRel & { type: StripeGatewayType }
 
 
-export type StripeGatewaySortable = Pick<StripeGateway, 'id' | 'name'> & ResourceSortable
-// export type StripeGatewayFilterable = Pick<StripeGateway, 'id' | 'name'> & ResourceFilterable
+export type StripeGatewaySort = Pick<StripeGateway, 'id' | 'name'> & ResourceSort
+// export type StripeGatewayFilter = Pick<StripeGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface StripeGateway extends Resource {
@@ -106,9 +106,3 @@ class StripeGateways extends ApiResource<StripeGateway> {
 export default StripeGateways
 
 export type { StripeGateway, StripeGatewayCreate, StripeGatewayUpdate, StripeGatewayType }
-
-/*
-export const StripeGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): StripeGateways => {
-	return new StripeGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

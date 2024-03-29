@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -15,8 +15,8 @@ type MarketRel = ResourceRel & { type: MarketType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type SkuOptionSortable = Pick<SkuOption, 'id' | 'name' | 'currency_code' | 'price_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceSortable
-// export type SkuOptionFilterable = Pick<SkuOption, 'id' | 'name' | 'currency_code' | 'description' | 'price_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceFilterable
+export type SkuOptionSort = Pick<SkuOption, 'id' | 'name' | 'currency_code' | 'price_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceSort
+// export type SkuOptionFilter = Pick<SkuOption, 'id' | 'name' | 'currency_code' | 'description' | 'price_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceFilter
 
 
 interface SkuOption extends Resource {
@@ -138,9 +138,3 @@ class SkuOptions extends ApiResource<SkuOption> {
 export default SkuOptions
 
 export type { SkuOption, SkuOptionCreate, SkuOptionUpdate, SkuOptionType }
-
-/*
-export const SkuOptionsClient = (init: ResourceAdapter | ResourcesInitConfig): SkuOptions => {
-	return new SkuOptions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

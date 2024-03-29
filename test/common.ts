@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 import { inspect } from 'util'
 import isEqual from 'lodash.isequal'
 import { RequestConfig } from '../src/client'
-import { Resource, ResourceSortable } from '../src/resource'
+import { Resource, ResourceSort } from '../src/resource'
 
 
 dotenv.config()

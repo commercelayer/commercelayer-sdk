@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -16,8 +16,8 @@ type CustomerRel = ResourceRel & { type: CustomerType }
 type SkuRel = ResourceRel & { type: SkuType }
 
 
-export type InStockSubscriptionSortable = Pick<InStockSubscription, 'id' | 'status' | 'stock_threshold'> & ResourceSortable
-// export type InStockSubscriptionFilterable = Pick<InStockSubscription, 'id' | 'status' | 'stock_threshold'> & ResourceFilterable
+export type InStockSubscriptionSort = Pick<InStockSubscription, 'id' | 'status' | 'stock_threshold'> & ResourceSort
+// export type InStockSubscriptionFilter = Pick<InStockSubscription, 'id' | 'status' | 'stock_threshold'> & ResourceFilter
 
 
 interface InStockSubscription extends Resource {
@@ -139,9 +139,3 @@ class InStockSubscriptions extends ApiResource<InStockSubscription> {
 export default InStockSubscriptions
 
 export type { InStockSubscription, InStockSubscriptionCreate, InStockSubscriptionUpdate, InStockSubscriptionType }
-
-/*
-export const InStockSubscriptionsClient = (init: ResourceAdapter | ResourcesInitConfig): InStockSubscriptions => {
-	return new InStockSubscriptions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

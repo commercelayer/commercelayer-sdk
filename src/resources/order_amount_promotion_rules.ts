@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
@@ -23,8 +23,8 @@ type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
 type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
 
 
-export type OrderAmountPromotionRuleSortable = Pick<OrderAmountPromotionRule, 'id'> & ResourceSortable
-// export type OrderAmountPromotionRuleFilterable = Pick<OrderAmountPromotionRule, 'id'> & ResourceFilterable
+export type OrderAmountPromotionRuleSort = Pick<OrderAmountPromotionRule, 'id'> & ResourceSort
+// export type OrderAmountPromotionRuleFilter = Pick<OrderAmountPromotionRule, 'id'> & ResourceFilter
 
 
 interface OrderAmountPromotionRule extends Resource {
@@ -108,9 +108,3 @@ class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule> {
 export default OrderAmountPromotionRules
 
 export type { OrderAmountPromotionRule, OrderAmountPromotionRuleCreate, OrderAmountPromotionRuleUpdate, OrderAmountPromotionRuleType }
-
-/*
-export const OrderAmountPromotionRulesClient = (init: ResourceAdapter | ResourcesInitConfig): OrderAmountPromotionRules => {
-	return new OrderAmountPromotionRules((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

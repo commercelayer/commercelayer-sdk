@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -12,8 +12,8 @@ type TransactionType = 'transactions'
 type TransactionRel = ResourceRel & { type: TransactionType }
 
 
-export type TransactionSortable = Pick<Transaction, 'id' | 'number' | 'amount_cents'> & ResourceSortable
-// export type TransactionFilterable = Pick<Transaction, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilterable
+export type TransactionSort = Pick<Transaction, 'id' | 'number' | 'amount_cents'> & ResourceSort
+// export type TransactionFilter = Pick<Transaction, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
 
 interface Transaction extends Resource {
@@ -89,9 +89,3 @@ class Transactions extends ApiResource<Transaction> {
 export default Transactions
 
 export type { Transaction, TransactionType }
-
-/*
-export const TransactionsClient = (init: ResourceAdapter | ResourcesInitConfig): Transactions => {
-	return new Transactions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

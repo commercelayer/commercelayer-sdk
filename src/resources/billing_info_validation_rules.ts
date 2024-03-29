@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -12,8 +12,8 @@ type BillingInfoValidationRuleRel = ResourceRel & { type: BillingInfoValidationR
 type MarketRel = ResourceRel & { type: MarketType }
 
 
-export type BillingInfoValidationRuleSortable = Pick<BillingInfoValidationRule, 'id'> & ResourceSortable
-// export type BillingInfoValidationRuleFilterable = Pick<BillingInfoValidationRule, 'id'> & ResourceFilterable
+export type BillingInfoValidationRuleSort = Pick<BillingInfoValidationRule, 'id'> & ResourceSort
+// export type BillingInfoValidationRuleFilter = Pick<BillingInfoValidationRule, 'id'> & ResourceFilter
 
 
 interface BillingInfoValidationRule extends Resource {
@@ -98,9 +98,3 @@ class BillingInfoValidationRules extends ApiResource<BillingInfoValidationRule> 
 export default BillingInfoValidationRules
 
 export type { BillingInfoValidationRule, BillingInfoValidationRuleCreate, BillingInfoValidationRuleUpdate, BillingInfoValidationRuleType }
-
-/*
-export const BillingInfoValidationRulesClient = (init: ResourceAdapter | ResourcesInitConfig): BillingInfoValidationRules => {
-	return new BillingInfoValidationRules((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer } from './customers'
@@ -11,8 +11,8 @@ type CustomerSubscriptionType = 'customer_subscriptions'
 type CustomerSubscriptionRel = ResourceRel & { type: CustomerSubscriptionType }
 
 
-export type CustomerSubscriptionSortable = Pick<CustomerSubscription, 'id'> & ResourceSortable
-// export type CustomerSubscriptionFilterable = Pick<CustomerSubscription, 'id'> & ResourceFilterable
+export type CustomerSubscriptionSort = Pick<CustomerSubscription, 'id'> & ResourceSort
+// export type CustomerSubscriptionFilter = Pick<CustomerSubscription, 'id'> & ResourceFilter
 
 
 interface CustomerSubscription extends Resource {
@@ -94,9 +94,3 @@ class CustomerSubscriptions extends ApiResource<CustomerSubscription> {
 export default CustomerSubscriptions
 
 export type { CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscriptionUpdate, CustomerSubscriptionType }
-
-/*
-export const CustomerSubscriptionsClient = (init: ResourceAdapter | ResourcesInitConfig): CustomerSubscriptions => {
-	return new CustomerSubscriptions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

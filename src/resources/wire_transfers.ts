@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -11,8 +11,8 @@ type WireTransferRel = ResourceRel & { type: WireTransferType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type WireTransferSortable = Pick<WireTransfer, 'id'> & ResourceSortable
-// export type WireTransferFilterable = Pick<WireTransfer, 'id'> & ResourceFilterable
+export type WireTransferSort = Pick<WireTransfer, 'id'> & ResourceSort
+// export type WireTransferFilter = Pick<WireTransfer, 'id'> & ResourceFilter
 
 
 interface WireTransfer extends Resource {
@@ -92,9 +92,3 @@ class WireTransfers extends ApiResource<WireTransfer> {
 export default WireTransfers
 
 export type { WireTransfer, WireTransferCreate, WireTransferUpdate, WireTransferType }
-
-/*
-export const WireTransfersClient = (init: ResourceAdapter | ResourcesInitConfig): WireTransfers => {
-	return new WireTransfers((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

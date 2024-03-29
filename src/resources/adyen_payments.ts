@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -12,8 +12,8 @@ type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type AdyenPaymentSortable = Pick<AdyenPayment, 'id'> & ResourceSortable
-// export type AdyenPaymentFilterable = Pick<AdyenPayment, 'id'> & ResourceFilterable
+export type AdyenPaymentSort = Pick<AdyenPayment, 'id'> & ResourceSort
+// export type AdyenPaymentFilter = Pick<AdyenPayment, 'id'> & ResourceFilter
 
 
 interface AdyenPayment extends Resource {
@@ -114,9 +114,3 @@ class AdyenPayments extends ApiResource<AdyenPayment> {
 export default AdyenPayments
 
 export type { AdyenPayment, AdyenPaymentCreate, AdyenPaymentUpdate, AdyenPaymentType }
-
-/*
-export const AdyenPaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): AdyenPayments => {
-	return new AdyenPayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

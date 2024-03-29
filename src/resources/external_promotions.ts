@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -28,8 +28,8 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type ExternalPromotionSortable = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
-// export type ExternalPromotionFilterable = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
+export type ExternalPromotionSort = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type ExternalPromotionFilter = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface ExternalPromotion extends Resource {
@@ -230,9 +230,3 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 export default ExternalPromotions
 
 export type { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionUpdate, ExternalPromotionType }
-
-/*
-export const ExternalPromotionsClient = (init: ResourceAdapter | ResourcesInitConfig): ExternalPromotions => {
-	return new ExternalPromotions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

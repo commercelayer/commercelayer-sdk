@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -17,8 +17,8 @@ type GiftCardRecipientRel = ResourceRel & { type: GiftCardRecipientType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type GiftCardSortable = Pick<GiftCard, 'id' | 'status' | 'currency_code' | 'balance_cents' | 'balance_max_cents' | 'expires_at'> & ResourceSortable
-// export type GiftCardFilterable = Pick<GiftCard, 'id' | 'status' | 'code' | 'currency_code' | 'balance_cents' | 'balance_max_cents' | 'single_use' | 'rechargeable' | 'expires_at'> & ResourceFilterable
+export type GiftCardSort = Pick<GiftCard, 'id' | 'status' | 'currency_code' | 'balance_cents' | 'balance_max_cents' | 'expires_at'> & ResourceSort
+// export type GiftCardFilter = Pick<GiftCard, 'id' | 'status' | 'code' | 'currency_code' | 'balance_cents' | 'balance_max_cents' | 'single_use' | 'rechargeable' | 'expires_at'> & ResourceFilter
 
 
 interface GiftCard extends Resource {
@@ -185,9 +185,3 @@ class GiftCards extends ApiResource<GiftCard> {
 export default GiftCards
 
 export type { GiftCard, GiftCardCreate, GiftCardUpdate, GiftCardType }
-
-/*
-export const GiftCardsClient = (init: ResourceAdapter | ResourcesInitConfig): GiftCards => {
-	return new GiftCards((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
@@ -26,8 +26,8 @@ type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 
 
-export type SkuListPromotionRuleSortable = Pick<SkuListPromotionRule, 'id'> & ResourceSortable
-// export type SkuListPromotionRuleFilterable = Pick<SkuListPromotionRule, 'id'> & ResourceFilterable
+export type SkuListPromotionRuleSort = Pick<SkuListPromotionRule, 'id'> & ResourceSort
+// export type SkuListPromotionRuleFilter = Pick<SkuListPromotionRule, 'id'> & ResourceFilter
 
 
 interface SkuListPromotionRule extends Resource {
@@ -123,9 +123,3 @@ class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 export default SkuListPromotionRules
 
 export type { SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRuleUpdate, SkuListPromotionRuleType }
-
-/*
-export const SkuListPromotionRulesClient = (init: ResourceAdapter | ResourcesInitConfig): SkuListPromotionRules => {
-	return new SkuListPromotionRules((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

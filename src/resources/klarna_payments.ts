@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -12,8 +12,8 @@ type KlarnaPaymentRel = ResourceRel & { type: KlarnaPaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type KlarnaPaymentSortable = Pick<KlarnaPayment, 'id'> & ResourceSortable
-// export type KlarnaPaymentFilterable = Pick<KlarnaPayment, 'id' | 'mismatched_amounts'> & ResourceFilterable
+export type KlarnaPaymentSort = Pick<KlarnaPayment, 'id'> & ResourceSort
+// export type KlarnaPaymentFilter = Pick<KlarnaPayment, 'id' | 'mismatched_amounts'> & ResourceFilter
 
 
 interface KlarnaPayment extends Resource {
@@ -114,9 +114,3 @@ class KlarnaPayments extends ApiResource<KlarnaPayment> {
 export default KlarnaPayments
 
 export type { KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate, KlarnaPaymentType }
-
-/*
-export const KlarnaPaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): KlarnaPayments => {
-	return new KlarnaPayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

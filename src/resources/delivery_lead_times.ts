@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { StockLocation, StockLocationType } from './stock_locations'
@@ -14,8 +14,8 @@ type StockLocationRel = ResourceRel & { type: StockLocationType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
-export type DeliveryLeadTimeSortable = Pick<DeliveryLeadTime, 'id' | 'min_hours' | 'max_hours' | 'min_days'> & ResourceSortable
-// export type DeliveryLeadTimeFilterable = Pick<DeliveryLeadTime, 'id' | 'min_hours' | 'max_hours' | 'min_days' | 'max_days'> & ResourceFilterable
+export type DeliveryLeadTimeSort = Pick<DeliveryLeadTime, 'id' | 'min_hours' | 'max_hours' | 'min_days'> & ResourceSort
+// export type DeliveryLeadTimeFilter = Pick<DeliveryLeadTime, 'id' | 'min_hours' | 'max_hours' | 'min_days' | 'max_days'> & ResourceFilter
 
 
 interface DeliveryLeadTime extends Resource {
@@ -118,9 +118,3 @@ class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 export default DeliveryLeadTimes
 
 export type { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeUpdate, DeliveryLeadTimeType }
-
-/*
-export const DeliveryLeadTimesClient = (init: ResourceAdapter | ResourcesInitConfig): DeliveryLeadTimes => {
-	return new DeliveryLeadTimes((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

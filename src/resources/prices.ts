@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PriceList, PriceListType } from './price_lists'
@@ -21,8 +21,8 @@ type SkuRel = ResourceRel & { type: SkuType }
 type PriceTierRel = ResourceRel & { type: PriceTierType }
 
 
-export type PriceSortable = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceSortable
-// export type PriceFilterable = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceFilterable
+export type PriceSort = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceSort
+// export type PriceFilter = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceFilter
 
 
 interface Price extends Resource {
@@ -169,9 +169,3 @@ class Prices extends ApiResource<Price> {
 export default Prices
 
 export type { Price, PriceCreate, PriceUpdate, PriceType }
-
-/*
-export const PricesClient = (init: ResourceAdapter | ResourcesInitConfig): Prices => {
-	return new Prices((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

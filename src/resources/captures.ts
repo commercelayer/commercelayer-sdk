@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -14,8 +14,8 @@ type CaptureType = 'captures'
 type CaptureRel = ResourceRel & { type: CaptureType }
 
 
-export type CaptureSortable = Pick<Capture, 'id' | 'number' | 'amount_cents'> & ResourceSortable
-// export type CaptureFilterable = Pick<Capture, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilterable
+export type CaptureSort = Pick<Capture, 'id' | 'number' | 'amount_cents'> & ResourceSort
+// export type CaptureFilter = Pick<Capture, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
 
 interface Capture extends Resource {
@@ -129,9 +129,3 @@ class Captures extends ApiResource<Capture> {
 export default Captures
 
 export type { Capture, CaptureUpdate, CaptureType }
-
-/*
-export const CapturesClient = (init: ResourceAdapter | ResourcesInitConfig): Captures => {
-	return new Captures((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

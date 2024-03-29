@@ -1,5 +1,5 @@
 import { ##__RESOURCE_MODEL_TYPE__## } from '../resource'
-import type { ##__IMPORT_RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__##, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { ##__IMPORT_RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__##, ResourceSort, /* ResourceFilter */ } from '../resource'
 ##__IMPORT_QUERY_MODELS__##
 
 ##__IMPORT_RESOURCE_MODELS__##
@@ -8,8 +8,8 @@ type ##__MODEL_RESOURCE_INTERFACE__##Type = '##__RESOURCE_TYPE__##'
 type ##__MODEL_RESOURCE_INTERFACE__##Rel = ResourceRel & { type: ##__MODEL_RESOURCE_INTERFACE__##Type }
 ##__RELATIONSHIP_TYPES__##
 
-export type ##__MODEL_RESOURCE_INTERFACE__##Sortable = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_SORTABLE_FIELDS__##> & ResourceSortable
-// export type ##__MODEL_RESOURCE_INTERFACE__##Filterable = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_FILTERABLE_FIELDS__##> & ResourceFilterable
+export type ##__MODEL_RESOURCE_INTERFACE__##Sort = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_SORTABLE_FIELDS__##> & ResourceSort
+// export type ##__MODEL_RESOURCE_INTERFACE__##Filter = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_FILTERABLE_FIELDS__##> & ResourceFilter
 
 
 ##__MODEL_INTERFACES__##
@@ -46,9 +46,3 @@ class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOU
 export default ##__RESOURCE_CLASS__##
 
 export type { ##__EXPORT_RESOURCE_TYPES__##, ##__MODEL_RESOURCE_INTERFACE__##Type }
-
-/*
-export const ##__RESOURCE_CLASS__##Client = (init: ResourceAdapter | ResourcesInitConfig): ##__RESOURCE_CLASS__## => {
-	return new ##__RESOURCE_CLASS__##((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

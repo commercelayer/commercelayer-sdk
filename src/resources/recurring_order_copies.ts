@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -13,8 +13,8 @@ type OrderRel = ResourceRel & { type: OrderType }
 type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
 
 
-export type RecurringOrderCopySortable = Pick<RecurringOrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSortable
-// export type RecurringOrderCopyFilterable = Pick<RecurringOrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilterable
+export type RecurringOrderCopySort = Pick<RecurringOrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSort
+// export type RecurringOrderCopyFilter = Pick<RecurringOrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
 
 interface RecurringOrderCopy extends Resource {
@@ -113,9 +113,3 @@ class RecurringOrderCopies extends ApiResource<RecurringOrderCopy> {
 export default RecurringOrderCopies
 
 export type { RecurringOrderCopy, RecurringOrderCopyCreate, RecurringOrderCopyUpdate, RecurringOrderCopyType }
-
-/*
-export const RecurringOrderCopiesClient = (init: ResourceAdapter | ResourcesInitConfig): RecurringOrderCopies => {
-	return new RecurringOrderCopies((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

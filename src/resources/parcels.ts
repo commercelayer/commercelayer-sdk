@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Shipment, ShipmentType } from './shipments'
@@ -16,8 +16,8 @@ type ShipmentRel = ResourceRel & { type: ShipmentType }
 type PackageRel = ResourceRel & { type: PackageType }
 
 
-export type ParcelSortable = Pick<Parcel, 'id' | 'weight' | 'unit_of_weight' | 'tracking_status' | 'tracking_status_updated_at' | 'carrier_weight_oz'> & ResourceSortable
-// export type ParcelFilterable = Pick<Parcel, 'id' | 'weight' | 'unit_of_weight' | 'contents_explanation' | 'shipping_label_url' | 'shipping_label_file_type' | 'shipping_label_size' | 'shipping_label_resolution' | 'tracking_number' | 'tracking_status' | 'tracking_status_detail' | 'tracking_status_updated_at' | 'carrier_weight_oz' | 'incoterm' | 'delivery_confirmation'> & ResourceFilterable
+export type ParcelSort = Pick<Parcel, 'id' | 'weight' | 'unit_of_weight' | 'tracking_status' | 'tracking_status_updated_at' | 'carrier_weight_oz'> & ResourceSort
+// export type ParcelFilter = Pick<Parcel, 'id' | 'weight' | 'unit_of_weight' | 'contents_explanation' | 'shipping_label_url' | 'shipping_label_file_type' | 'shipping_label_size' | 'shipping_label_resolution' | 'tracking_number' | 'tracking_status' | 'tracking_status_detail' | 'tracking_status_updated_at' | 'carrier_weight_oz' | 'incoterm' | 'delivery_confirmation'> & ResourceFilter
 
 
 interface Parcel extends Resource {
@@ -197,9 +197,3 @@ class Parcels extends ApiResource<Parcel> {
 export default Parcels
 
 export type { Parcel, ParcelCreate, ParcelUpdate, ParcelType }
-
-/*
-export const ParcelsClient = (init: ResourceAdapter | ResourcesInitConfig): Parcels => {
-	return new Parcels((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

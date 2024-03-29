@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { Bundle, BundleType } from './bundles'
@@ -68,8 +68,8 @@ type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 
 
-export type AttachmentSortable = Pick<Attachment, 'id' | 'name'> & ResourceSortable
-// export type AttachmentFilterable = Pick<Attachment, 'id' | 'name' | 'description'> & ResourceFilterable
+export type AttachmentSort = Pick<Attachment, 'id' | 'name'> & ResourceSort
+// export type AttachmentFilter = Pick<Attachment, 'id' | 'name' | 'description'> & ResourceFilter
 
 
 interface Attachment extends Resource {
@@ -148,9 +148,3 @@ class Attachments extends ApiResource<Attachment> {
 export default Attachments
 
 export type { Attachment, AttachmentCreate, AttachmentUpdate, AttachmentType }
-
-/*
-export const AttachmentsClient = (init: ResourceAdapter | ResourcesInitConfig): Attachments => {
-	return new Attachments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

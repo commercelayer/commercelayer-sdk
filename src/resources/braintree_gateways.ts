@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -12,8 +12,8 @@ type BraintreeGatewayRel = ResourceRel & { type: BraintreeGatewayType }
 type BraintreePaymentRel = ResourceRel & { type: BraintreePaymentType }
 
 
-export type BraintreeGatewaySortable = Pick<BraintreeGateway, 'id' | 'name'> & ResourceSortable
-// export type BraintreeGatewayFilterable = Pick<BraintreeGateway, 'id' | 'name'> & ResourceFilterable
+export type BraintreeGatewaySort = Pick<BraintreeGateway, 'id' | 'name'> & ResourceSort
+// export type BraintreeGatewayFilter = Pick<BraintreeGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface BraintreeGateway extends Resource {
@@ -121,9 +121,3 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 export default BraintreeGateways
 
 export type { BraintreeGateway, BraintreeGatewayCreate, BraintreeGatewayUpdate, BraintreeGatewayType }
-
-/*
-export const BraintreeGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): BraintreeGateways => {
-	return new BraintreeGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

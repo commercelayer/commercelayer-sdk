@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Sku, SkuType } from './skus'
@@ -18,8 +18,8 @@ type ShipmentRel = ResourceRel & { type: ShipmentType }
 type LineItemRel = ResourceRel & { type: LineItemType }
 
 
-export type StockTransferSortable = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'completed_at' | 'cancelled_at'> & ResourceSortable
-// export type StockTransferFilterable = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'completed_at' | 'cancelled_at'> & ResourceFilterable
+export type StockTransferSort = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'completed_at' | 'cancelled_at'> & ResourceSort
+// export type StockTransferFilter = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'completed_at' | 'cancelled_at'> & ResourceFilter
 
 
 interface StockTransfer extends Resource {
@@ -175,9 +175,3 @@ class StockTransfers extends ApiResource<StockTransfer> {
 export default StockTransfers
 
 export type { StockTransfer, StockTransferCreate, StockTransferUpdate, StockTransferType }
-
-/*
-export const StockTransfersClient = (init: ResourceAdapter | ResourcesInitConfig): StockTransfers => {
-	return new StockTransfers((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

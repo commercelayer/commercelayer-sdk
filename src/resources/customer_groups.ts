@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer } from './customers'
@@ -12,8 +12,8 @@ type CustomerGroupType = 'customer_groups'
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 
 
-export type CustomerGroupSortable = Pick<CustomerGroup, 'id' | 'name'> & ResourceSortable
-// export type CustomerGroupFilterable = Pick<CustomerGroup, 'id' | 'name'> & ResourceFilterable
+export type CustomerGroupSort = Pick<CustomerGroup, 'id' | 'name'> & ResourceSort
+// export type CustomerGroupFilter = Pick<CustomerGroup, 'id' | 'name'> & ResourceFilter
 
 
 interface CustomerGroup extends Resource {
@@ -105,9 +105,3 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 export default CustomerGroups
 
 export type { CustomerGroup, CustomerGroupCreate, CustomerGroupUpdate, CustomerGroupType }
-
-/*
-export const CustomerGroupsClient = (init: ResourceAdapter | ResourcesInitConfig): CustomerGroups => {
-	return new CustomerGroups((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

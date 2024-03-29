@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { Webhook } from './webhooks'
@@ -9,8 +9,8 @@ type EventCallbackType = 'event_callbacks'
 type EventCallbackRel = ResourceRel & { type: EventCallbackType }
 
 
-export type EventCallbackSortable = Pick<EventCallback, 'id' | 'response_code' | 'response_message'> & ResourceSortable
-// export type EventCallbackFilterable = Pick<EventCallback, 'id' | 'callback_url' | 'response_code' | 'response_message'> & ResourceFilterable
+export type EventCallbackSort = Pick<EventCallback, 'id' | 'response_code' | 'response_message'> & ResourceSort
+// export type EventCallbackFilter = Pick<EventCallback, 'id' | 'callback_url' | 'response_code' | 'response_message'> & ResourceFilter
 
 
 interface EventCallback extends Resource {
@@ -61,9 +61,3 @@ class EventCallbacks extends ApiResource<EventCallback> {
 export default EventCallbacks
 
 export type { EventCallback, EventCallbackType }
-
-/*
-export const EventCallbacksClient = (init: ResourceAdapter | ResourcesInitConfig): EventCallbacks => {
-	return new EventCallbacks((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

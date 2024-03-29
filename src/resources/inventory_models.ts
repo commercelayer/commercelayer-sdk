@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { InventoryStockLocation } from './inventory_stock_locations'
@@ -12,8 +12,8 @@ type InventoryModelType = 'inventory_models'
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 
 
-export type InventoryModelSortable = Pick<InventoryModel, 'id' | 'name' | 'strategy' | 'stock_locations_cutoff' | 'stock_reservation_cutoff'> & ResourceSortable
-// export type InventoryModelFilterable = Pick<InventoryModel, 'id' | 'name' | 'strategy' | 'stock_locations_cutoff' | 'stock_reservation_cutoff'> & ResourceFilterable
+export type InventoryModelSort = Pick<InventoryModel, 'id' | 'name' | 'strategy' | 'stock_locations_cutoff' | 'stock_reservation_cutoff'> & ResourceSort
+// export type InventoryModelFilter = Pick<InventoryModel, 'id' | 'name' | 'strategy' | 'stock_locations_cutoff' | 'stock_reservation_cutoff'> & ResourceFilter
 
 
 interface InventoryModel extends Resource {
@@ -120,9 +120,3 @@ class InventoryModels extends ApiResource<InventoryModel> {
 export default InventoryModels
 
 export type { InventoryModel, InventoryModelCreate, InventoryModelUpdate, InventoryModelType }
-
-/*
-export const InventoryModelsClient = (init: ResourceAdapter | ResourcesInitConfig): InventoryModels => {
-	return new InventoryModels((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

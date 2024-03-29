@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -13,8 +13,8 @@ type VoidType = 'voids'
 type VoidRel = ResourceRel & { type: VoidType }
 
 
-export type VoidSortable = Pick<Void, 'id' | 'number' | 'amount_cents'> & ResourceSortable
-// export type VoidFilterable = Pick<Void, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilterable
+export type VoidSort = Pick<Void, 'id' | 'number' | 'amount_cents'> & ResourceSort
+// export type VoidFilter = Pick<Void, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
 
 interface Void extends Resource {
@@ -96,9 +96,3 @@ class Voids extends ApiResource<Void> {
 export default Voids
 
 export type { Void, VoidType }
-
-/*
-export const VoidsClient = (init: ResourceAdapter | ResourcesInitConfig): Voids => {
-	return new Voids((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

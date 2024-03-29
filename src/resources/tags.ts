@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 
@@ -8,8 +8,8 @@ type TagType = 'tags'
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type TagSortable = Pick<Tag, 'id' | 'name'> & ResourceSortable
-// export type TagFilterable = Pick<Tag, 'id' | 'name'> & ResourceFilterable
+export type TagSort = Pick<Tag, 'id' | 'name'> & ResourceSort
+// export type TagFilter = Pick<Tag, 'id' | 'name'> & ResourceFilter
 
 
 interface Tag extends Resource {
@@ -76,9 +76,3 @@ class Tags extends ApiResource<Tag> {
 export default Tags
 
 export type { Tag, TagCreate, TagUpdate, TagType }
-
-/*
-export const TagsClient = (init: ResourceAdapter | ResourcesInitConfig): Tags => {
-	return new Tags((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

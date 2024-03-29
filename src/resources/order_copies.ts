@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -12,8 +12,8 @@ type OrderCopyRel = ResourceRel & { type: OrderCopyType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type OrderCopySortable = Pick<OrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSortable
-// export type OrderCopyFilterable = Pick<OrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilterable
+export type OrderCopySort = Pick<OrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSort
+// export type OrderCopyFilter = Pick<OrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
 
 interface OrderCopy extends Resource {
@@ -113,9 +113,3 @@ class OrderCopies extends ApiResource<OrderCopy> {
 export default OrderCopies
 
 export type { OrderCopy, OrderCopyCreate, OrderCopyUpdate, OrderCopyType }
-
-/*
-export const OrderCopiesClient = (init: ResourceAdapter | ResourcesInitConfig): OrderCopies => {
-	return new OrderCopies((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

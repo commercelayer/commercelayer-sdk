@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -12,8 +12,8 @@ type AxerveGatewayRel = ResourceRel & { type: AxerveGatewayType }
 type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
 
 
-export type AxerveGatewaySortable = Pick<AxerveGateway, 'id' | 'name'> & ResourceSortable
-// export type AxerveGatewayFilterable = Pick<AxerveGateway, 'id' | 'name'> & ResourceFilterable
+export type AxerveGatewaySort = Pick<AxerveGateway, 'id' | 'name'> & ResourceSort
+// export type AxerveGatewayFilter = Pick<AxerveGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface AxerveGateway extends Resource {
@@ -109,9 +109,3 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 export default AxerveGateways
 
 export type { AxerveGateway, AxerveGatewayCreate, AxerveGatewayUpdate, AxerveGatewayType }
-
-/*
-export const AxerveGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): AxerveGateways => {
-	return new AxerveGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { LineItem, LineItemType } from './line_items'
@@ -15,8 +15,8 @@ type SkuOptionRel = ResourceRel & { type: SkuOptionType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type LineItemOptionSortable = Pick<LineItemOption, 'id' | 'name' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'delay_hours'> & ResourceSortable
-// export type LineItemOptionFilterable = Pick<LineItemOption, 'id' | 'name' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceFilterable
+export type LineItemOptionSort = Pick<LineItemOption, 'id' | 'name' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'delay_hours'> & ResourceSort
+// export type LineItemOptionFilter = Pick<LineItemOption, 'id' | 'name' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceFilter
 
 
 interface LineItemOption extends Resource {
@@ -130,9 +130,3 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 export default LineItemOptions
 
 export type { LineItemOption, LineItemOptionCreate, LineItemOptionUpdate, LineItemOptionType }
-
-/*
-export const LineItemOptionsClient = (init: ResourceAdapter | ResourcesInitConfig): LineItemOptions => {
-	return new LineItemOptions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

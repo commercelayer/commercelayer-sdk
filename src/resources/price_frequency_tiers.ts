@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Price, PriceType } from './prices'
@@ -13,8 +13,8 @@ type PriceFrequencyTierRel = ResourceRel & { type: PriceFrequencyTierType }
 type PriceRel = ResourceRel & { type: PriceType }
 
 
-export type PriceFrequencyTierSortable = Pick<PriceFrequencyTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSortable
-// export type PriceFrequencyTierFilterable = Pick<PriceFrequencyTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
+export type PriceFrequencyTierSort = Pick<PriceFrequencyTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort
+// export type PriceFrequencyTierFilter = Pick<PriceFrequencyTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
 
 interface PriceFrequencyTier extends Resource {
@@ -118,9 +118,3 @@ class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier> {
 export default PriceFrequencyTiers
 
 export type { PriceFrequencyTier, PriceFrequencyTierCreate, PriceFrequencyTierUpdate, PriceFrequencyTierType }
-
-/*
-export const PriceFrequencyTiersClient = (init: ResourceAdapter | ResourcesInitConfig): PriceFrequencyTiers => {
-	return new PriceFrequencyTiers((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

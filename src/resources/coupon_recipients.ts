@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer, CustomerType } from './customers'
@@ -12,8 +12,8 @@ type CouponRecipientRel = ResourceRel & { type: CouponRecipientType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 
 
-export type CouponRecipientSortable = Pick<CouponRecipient, 'id'> & ResourceSortable
-// export type CouponRecipientFilterable = Pick<CouponRecipient, 'id' | 'email' | 'first_name' | 'last_name'> & ResourceFilterable
+export type CouponRecipientSort = Pick<CouponRecipient, 'id'> & ResourceSort
+// export type CouponRecipientFilter = Pick<CouponRecipient, 'id' | 'email' | 'first_name' | 'last_name'> & ResourceFilter
 
 
 interface CouponRecipient extends Resource {
@@ -109,9 +109,3 @@ class CouponRecipients extends ApiResource<CouponRecipient> {
 export default CouponRecipients
 
 export type { CouponRecipient, CouponRecipientCreate, CouponRecipientUpdate, CouponRecipientType }
-
-/*
-export const CouponRecipientsClient = (init: ResourceAdapter | ResourcesInitConfig): CouponRecipients => {
-	return new CouponRecipients((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

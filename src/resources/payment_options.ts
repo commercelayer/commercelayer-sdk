@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -11,8 +11,8 @@ type PaymentOptionRel = ResourceRel & { type: PaymentOptionType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type PaymentOptionSortable = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type'> & ResourceSortable
-// export type PaymentOptionFilterable = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type' | 'data'> & ResourceFilterable
+export type PaymentOptionSort = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type'> & ResourceSort
+// export type PaymentOptionFilter = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type' | 'data'> & ResourceFilter
 
 
 interface PaymentOption extends Resource {
@@ -101,9 +101,3 @@ class PaymentOptions extends ApiResource<PaymentOption> {
 export default PaymentOptions
 
 export type { PaymentOption, PaymentOptionCreate, PaymentOptionUpdate, PaymentOptionType }
-
-/*
-export const PaymentOptionsClient = (init: ResourceAdapter | ResourcesInitConfig): PaymentOptions => {
-	return new PaymentOptions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

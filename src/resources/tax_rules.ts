@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
@@ -11,8 +11,8 @@ type TaxRuleRel = ResourceRel & { type: TaxRuleType }
 type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 
 
-export type TaxRuleSortable = Pick<TaxRule, 'id' | 'name' | 'tax_rate'> & ResourceSortable
-// export type TaxRuleFilterable = Pick<TaxRule, 'id' | 'name' | 'tax_rate' | 'freight_taxable' | 'payment_method_taxable' | 'gift_card_taxable' | 'adjustment_taxable'> & ResourceFilterable
+export type TaxRuleSort = Pick<TaxRule, 'id' | 'name' | 'tax_rate'> & ResourceSort
+// export type TaxRuleFilter = Pick<TaxRule, 'id' | 'name' | 'tax_rate' | 'freight_taxable' | 'payment_method_taxable' | 'gift_card_taxable' | 'adjustment_taxable'> & ResourceFilter
 
 
 interface TaxRule extends Resource {
@@ -130,9 +130,3 @@ class TaxRules extends ApiResource<TaxRule> {
 export default TaxRules
 
 export type { TaxRule, TaxRuleCreate, TaxRuleUpdate, TaxRuleType }
-
-/*
-export const TaxRulesClient = (init: ResourceAdapter | ResourcesInitConfig): TaxRules => {
-	return new TaxRules((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

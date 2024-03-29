@@ -2,7 +2,7 @@
 import type { Resource, ResourceType } from "./resource"
 import { ErrorType, SdkError } from "./error"
 import type { PositiveNumberRange, StringKey } from "./types"
-import type { ResourceFields, ResourceSortableFields, ResourceTypeLock } from "./api"
+import type { ResourceFields, ResourceSortFields, ResourceTypeLock } from "./api"
 
 import Debug from './debug'
 const debug = Debug('query')
@@ -11,9 +11,12 @@ const debug = Debug('query')
 const arrayFilters = ['_any', '_all', '_in']
 const objectFilters = ['_jcont']
 
+// type QueryResType<T> = T extends { type: infer Type } ? Type : never
+type QueryResType<T extends Resource> = T['type']
+
 type QueryInclude = string[]	// TODO: complex include helper in sdk-utils
 type QueryResourceFields<R extends ResourceTypeLock> = keyof ResourceFields[R]
-type QueryArrayFields<R extends Resource> = Array<QueryResourceFields<R['type']>>
+type QueryArrayFields<R extends Resource> = Array<QueryResourceFields<QueryResType<R>>>
 type QueryRecordFields = { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
 
 interface QueryParamsRetrieve<R extends Resource = Resource> {
@@ -21,10 +24,11 @@ interface QueryParamsRetrieve<R extends Resource = Resource> {
 	fields?: QueryArrayFields<R> | QueryRecordFields
 }
 
-type QueryResourceSortable<R extends Resource> = ResourceSortableFields[R['type']]
+type QuerySortType = 'asc' | 'desc'
+type QueryResourceSortable<R extends Resource> = ResourceSortFields[QueryResType<R>]
 type QueryResourceSortableFields<R extends Resource> = StringKey<QueryResourceSortable<R>>
 type QueryArraySortable<R extends Resource> = Array<QueryResourceSortableFields<R> | `-${QueryResourceSortableFields<R>}`>
-type QueryRecordSortable<R extends Resource> = Partial<Record<keyof QueryResourceSortable<R>, 'asc' | 'desc'>>
+type QueryRecordSortable<R extends Resource> = Partial<Record<keyof QueryResourceSortable<R>, QuerySortType>>
 type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>	// TODO: complex filters hepler in sdk-utils
 type QueryPageNumber = number	// TODO: page number must be > 0
 type QueryPageSize = PositiveNumberRange<25>

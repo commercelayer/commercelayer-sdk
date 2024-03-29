@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -12,8 +12,8 @@ type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type AxervePaymentSortable = Pick<AxervePayment, 'id'> & ResourceSortable
-// export type AxervePaymentFilterable = Pick<AxervePayment, 'id'> & ResourceFilterable
+export type AxervePaymentSort = Pick<AxervePayment, 'id'> & ResourceSort
+// export type AxervePaymentFilter = Pick<AxervePayment, 'id'> & ResourceFilter
 
 
 interface AxervePayment extends Resource {
@@ -121,9 +121,3 @@ class AxervePayments extends ApiResource<AxervePayment> {
 export default AxervePayments
 
 export type { AxervePayment, AxervePaymentCreate, AxervePaymentUpdate, AxervePaymentType }
-
-/*
-export const AxervePaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): AxervePayments => {
-	return new AxervePayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

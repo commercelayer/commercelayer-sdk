@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer, CustomerType } from './customers'
@@ -29,8 +29,8 @@ type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
 type StripePaymentRel = ResourceRel & { type: StripePaymentType }
 
 
-export type CustomerPaymentSourceSortable = Pick<CustomerPaymentSource, 'id'> & ResourceSortable
-// export type CustomerPaymentSourceFilterable = Pick<CustomerPaymentSource, 'id' | 'name' | 'payment_source_token'> & ResourceFilterable
+export type CustomerPaymentSourceSort = Pick<CustomerPaymentSource, 'id'> & ResourceSort
+// export type CustomerPaymentSourceFilter = Pick<CustomerPaymentSource, 'id' | 'name' | 'payment_source_token'> & ResourceFilter
 
 
 interface CustomerPaymentSource extends Resource {
@@ -129,9 +129,3 @@ class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
 export default CustomerPaymentSources
 
 export type { CustomerPaymentSource, CustomerPaymentSourceCreate, CustomerPaymentSourceUpdate, CustomerPaymentSourceType }
-
-/*
-export const CustomerPaymentSourcesClient = (init: ResourceAdapter | ResourcesInitConfig): CustomerPaymentSources => {
-	return new CustomerPaymentSources((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

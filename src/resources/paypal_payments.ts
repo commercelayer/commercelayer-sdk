@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -12,8 +12,8 @@ type PaypalPaymentRel = ResourceRel & { type: PaypalPaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type PaypalPaymentSortable = Pick<PaypalPayment, 'id'> & ResourceSortable
-// export type PaypalPaymentFilterable = Pick<PaypalPayment, 'id'> & ResourceFilterable
+export type PaypalPaymentSort = Pick<PaypalPayment, 'id'> & ResourceSort
+// export type PaypalPaymentFilter = Pick<PaypalPayment, 'id'> & ResourceFilter
 
 
 interface PaypalPayment extends Resource {
@@ -117,9 +117,3 @@ class PaypalPayments extends ApiResource<PaypalPayment> {
 export default PaypalPayments
 
 export type { PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate, PaypalPaymentType }
-
-/*
-export const PaypalPaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): PaypalPayments => {
-	return new PaypalPayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

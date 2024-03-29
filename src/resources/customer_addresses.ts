@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer, CustomerType } from './customers'
@@ -14,8 +14,8 @@ type CustomerRel = ResourceRel & { type: CustomerType }
 type AddressRel = ResourceRel & { type: AddressType }
 
 
-export type CustomerAddressSortable = Pick<CustomerAddress, 'id'> & ResourceSortable
-// export type CustomerAddressFilterable = Pick<CustomerAddress, 'id'> & ResourceFilterable
+export type CustomerAddressSort = Pick<CustomerAddress, 'id'> & ResourceSort
+// export type CustomerAddressFilter = Pick<CustomerAddress, 'id'> & ResourceFilter
 
 
 interface CustomerAddress extends Resource {
@@ -112,9 +112,3 @@ class CustomerAddresses extends ApiResource<CustomerAddress> {
 export default CustomerAddresses
 
 export type { CustomerAddress, CustomerAddressCreate, CustomerAddressUpdate, CustomerAddressType }
-
-/*
-export const CustomerAddressesClient = (init: ResourceAdapter | ResourcesInitConfig): CustomerAddresses => {
-	return new CustomerAddresses((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -22,8 +22,8 @@ type StockLocationRel = ResourceRel & { type: StockLocationType }
 type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 
 
-export type ShippingMethodSortable = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
-// export type ShippingMethodFilterable = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
+export type ShippingMethodSort = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type ShippingMethodFilter = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface ShippingMethod extends Resource {
@@ -211,9 +211,3 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 export default ShippingMethods
 
 export type { ShippingMethod, ShippingMethodCreate, ShippingMethodUpdate, ShippingMethodType }
-
-/*
-export const ShippingMethodsClient = (init: ResourceAdapter | ResourcesInitConfig): ShippingMethods => {
-	return new ShippingMethods((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

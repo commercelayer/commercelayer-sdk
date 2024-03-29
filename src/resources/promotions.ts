@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -20,8 +20,8 @@ type PromotionType = 'promotions'
 type PromotionRel = ResourceRel & { type: PromotionType }
 
 
-export type PromotionSortable = Pick<Promotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSortable
-// export type PromotionFilterable = Pick<Promotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilterable
+export type PromotionSort = Pick<Promotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
+// export type PromotionFilter = Pick<Promotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
 
 
 interface Promotion extends Resource {
@@ -139,9 +139,3 @@ class Promotions extends ApiResource<Promotion> {
 export default Promotions
 
 export type { Promotion, PromotionType }
-
-/*
-export const PromotionsClient = (init: ResourceAdapter | ResourcesInitConfig): Promotions => {
-	return new Promotions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

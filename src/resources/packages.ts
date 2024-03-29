@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { StockLocation, StockLocationType } from './stock_locations'
@@ -13,8 +13,8 @@ type PackageRel = ResourceRel & { type: PackageType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
 
 
-export type PackageSortable = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'width' | 'height' | 'unit_of_length'> & ResourceSortable
-// export type PackageFilterable = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'width' | 'height' | 'unit_of_length'> & ResourceFilterable
+export type PackageSort = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'width' | 'height' | 'unit_of_length'> & ResourceSort
+// export type PackageFilter = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'width' | 'height' | 'unit_of_length'> & ResourceFilter
 
 
 interface Package extends Resource {
@@ -125,9 +125,3 @@ class Packages extends ApiResource<Package> {
 export default Packages
 
 export type { Package, PackageCreate, PackageUpdate, PackageType }
-
-/*
-export const PackagesClient = (init: ResourceAdapter | ResourcesInitConfig): Packages => {
-	return new Packages((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

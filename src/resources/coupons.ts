@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
@@ -16,8 +16,8 @@ type CouponRecipientRel = ResourceRel & { type: CouponRecipientType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type CouponSortable = Pick<Coupon, 'id' | 'code' | 'customer_single_use' | 'usage_limit' | 'usage_count' | 'expires_at'> & ResourceSortable
-// export type CouponFilterable = Pick<Coupon, 'id' | 'code' | 'customer_single_use' | 'usage_limit' | 'usage_count' | 'expires_at'> & ResourceFilterable
+export type CouponSort = Pick<Coupon, 'id' | 'code' | 'customer_single_use' | 'usage_limit' | 'usage_count' | 'expires_at'> & ResourceSort
+// export type CouponFilter = Pick<Coupon, 'id' | 'code' | 'customer_single_use' | 'usage_limit' | 'usage_count' | 'expires_at'> & ResourceFilter
 
 
 interface Coupon extends Resource {
@@ -136,9 +136,3 @@ class Coupons extends ApiResource<Coupon> {
 export default Coupons
 
 export type { Coupon, CouponCreate, CouponUpdate, CouponType }
-
-/*
-export const CouponsClient = (init: ResourceAdapter | ResourcesInitConfig): Coupons => {
-	return new Coupons((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

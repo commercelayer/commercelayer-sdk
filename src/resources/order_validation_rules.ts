@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -11,8 +11,8 @@ type OrderValidationRuleType = 'order_validation_rules'
 type OrderValidationRuleRel = ResourceRel & { type: OrderValidationRuleType }
 
 
-export type OrderValidationRuleSortable = Pick<OrderValidationRule, 'id'> & ResourceSortable
-// export type OrderValidationRuleFilterable = Pick<OrderValidationRule, 'id'> & ResourceFilterable
+export type OrderValidationRuleSort = Pick<OrderValidationRule, 'id'> & ResourceSort
+// export type OrderValidationRuleFilter = Pick<OrderValidationRule, 'id'> & ResourceFilter
 
 
 interface OrderValidationRule extends Resource {
@@ -71,9 +71,3 @@ class OrderValidationRules extends ApiResource<OrderValidationRule> {
 export default OrderValidationRules
 
 export type { OrderValidationRule, OrderValidationRuleType }
-
-/*
-export const OrderValidationRulesClient = (init: ResourceAdapter | ResourcesInitConfig): OrderValidationRules => {
-	return new OrderValidationRules((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

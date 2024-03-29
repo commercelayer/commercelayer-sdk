@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -28,8 +28,8 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type BuyXPayYPromotionSortable = Pick<BuyXPayYPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'x' | 'y'> & ResourceSortable
-// export type BuyXPayYPromotionFilterable = Pick<BuyXPayYPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'x' | 'y'> & ResourceFilterable
+export type BuyXPayYPromotionSort = Pick<BuyXPayYPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'x' | 'y'> & ResourceSort
+// export type BuyXPayYPromotionFilter = Pick<BuyXPayYPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'x' | 'y'> & ResourceFilter
 
 
 interface BuyXPayYPromotion extends Resource {
@@ -228,9 +228,3 @@ class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
 export default BuyXPayYPromotions
 
 export type { BuyXPayYPromotion, BuyXPayYPromotionCreate, BuyXPayYPromotionUpdate, BuyXPayYPromotionType }
-
-/*
-export const BuyXPayYPromotionsClient = (init: ResourceAdapter | ResourcesInitConfig): BuyXPayYPromotions => {
-	return new BuyXPayYPromotions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

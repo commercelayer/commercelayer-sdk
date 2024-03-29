@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Address } from './addresses'
@@ -10,8 +10,8 @@ type BingGeocoderType = 'bing_geocoders'
 type BingGeocoderRel = ResourceRel & { type: BingGeocoderType }
 
 
-export type BingGeocoderSortable = Pick<BingGeocoder, 'id' | 'name'> & ResourceSortable
-// export type BingGeocoderFilterable = Pick<BingGeocoder, 'id' | 'name'> & ResourceFilterable
+export type BingGeocoderSort = Pick<BingGeocoder, 'id' | 'name'> & ResourceSort
+// export type BingGeocoderFilter = Pick<BingGeocoder, 'id' | 'name'> & ResourceFilter
 
 
 interface BingGeocoder extends Resource {
@@ -93,9 +93,3 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 export default BingGeocoders
 
 export type { BingGeocoder, BingGeocoderCreate, BingGeocoderUpdate, BingGeocoderType }
-
-/*
-export const BingGeocodersClient = (init: ResourceAdapter | ResourcesInitConfig): BingGeocoders => {
-	return new BingGeocoders((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Address } from './addresses'
@@ -10,8 +10,8 @@ type GoogleGeocoderType = 'google_geocoders'
 type GoogleGeocoderRel = ResourceRel & { type: GoogleGeocoderType }
 
 
-export type GoogleGeocoderSortable = Pick<GoogleGeocoder, 'id' | 'name'> & ResourceSortable
-// export type GoogleGeocoderFilterable = Pick<GoogleGeocoder, 'id' | 'name'> & ResourceFilterable
+export type GoogleGeocoderSort = Pick<GoogleGeocoder, 'id' | 'name'> & ResourceSort
+// export type GoogleGeocoderFilter = Pick<GoogleGeocoder, 'id' | 'name'> & ResourceFilter
 
 
 interface GoogleGeocoder extends Resource {
@@ -93,9 +93,3 @@ class GoogleGeocoders extends ApiResource<GoogleGeocoder> {
 export default GoogleGeocoders
 
 export type { GoogleGeocoder, GoogleGeocoderCreate, GoogleGeocoderUpdate, GoogleGeocoderType }
-
-/*
-export const GoogleGeocodersClient = (init: ResourceAdapter | ResourcesInitConfig): GoogleGeocoders => {
-	return new GoogleGeocoders((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

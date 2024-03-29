@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -12,8 +12,8 @@ type SatispayGatewayRel = ResourceRel & { type: SatispayGatewayType }
 type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
 
 
-export type SatispayGatewaySortable = Pick<SatispayGateway, 'id' | 'name'> & ResourceSortable
-// export type SatispayGatewayFilterable = Pick<SatispayGateway, 'id' | 'name'> & ResourceFilterable
+export type SatispayGatewaySort = Pick<SatispayGateway, 'id' | 'name'> & ResourceSort
+// export type SatispayGatewayFilter = Pick<SatispayGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface SatispayGateway extends Resource {
@@ -107,9 +107,3 @@ class SatispayGateways extends ApiResource<SatispayGateway> {
 export default SatispayGateways
 
 export type { SatispayGateway, SatispayGatewayCreate, SatispayGatewayUpdate, SatispayGatewayType }
-
-/*
-export const SatispayGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): SatispayGateways => {
-	return new SatispayGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

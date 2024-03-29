@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -20,8 +20,8 @@ type StockLocationRel = ResourceRel & { type: StockLocationType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type ReturnSortable = Pick<Return, 'id' | 'number' | 'status' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'archived_at'> & ResourceSortable
-// export type ReturnFilterable = Pick<Return, 'id' | 'number' | 'status' | 'skus_count' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'archived_at'> & ResourceFilterable
+export type ReturnSort = Pick<Return, 'id' | 'number' | 'status' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'archived_at'> & ResourceSort
+// export type ReturnFilter = Pick<Return, 'id' | 'number' | 'status' | 'skus_count' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'archived_at'> & ResourceFilter
 
 
 interface Return extends Resource {
@@ -207,9 +207,3 @@ class Returns extends ApiResource<Return> {
 export default Returns
 
 export type { Return, ReturnCreate, ReturnUpdate, ReturnType }
-
-/*
-export const ReturnsClient = (init: ResourceAdapter | ResourcesInitConfig): Returns => {
-	return new Returns((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

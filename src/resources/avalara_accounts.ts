@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -13,8 +13,8 @@ type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 
 
-export type AvalaraAccountSortable = Pick<AvalaraAccount, 'id' | 'name'> & ResourceSortable
-// export type AvalaraAccountFilterable = Pick<AvalaraAccount, 'id' | 'name'> & ResourceFilterable
+export type AvalaraAccountSort = Pick<AvalaraAccount, 'id' | 'name'> & ResourceSort
+// export type AvalaraAccountFilter = Pick<AvalaraAccount, 'id' | 'name'> & ResourceFilter
 
 
 interface AvalaraAccount extends Resource {
@@ -124,9 +124,3 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 export default AvalaraAccounts
 
 export type { AvalaraAccount, AvalaraAccountCreate, AvalaraAccountUpdate, AvalaraAccountType }
-
-/*
-export const AvalaraAccountsClient = (init: ResourceAdapter | ResourcesInitConfig): AvalaraAccounts => {
-	return new AvalaraAccounts((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

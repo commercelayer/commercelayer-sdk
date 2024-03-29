@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -12,8 +12,8 @@ type KlarnaGatewayRel = ResourceRel & { type: KlarnaGatewayType }
 type KlarnaPaymentRel = ResourceRel & { type: KlarnaPaymentType }
 
 
-export type KlarnaGatewaySortable = Pick<KlarnaGateway, 'id' | 'name'> & ResourceSortable
-// export type KlarnaGatewayFilterable = Pick<KlarnaGateway, 'id' | 'name'> & ResourceFilterable
+export type KlarnaGatewaySort = Pick<KlarnaGateway, 'id' | 'name'> & ResourceSort
+// export type KlarnaGatewayFilter = Pick<KlarnaGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface KlarnaGateway extends Resource {
@@ -109,9 +109,3 @@ class KlarnaGateways extends ApiResource<KlarnaGateway> {
 export default KlarnaGateways
 
 export type { KlarnaGateway, KlarnaGatewayCreate, KlarnaGatewayUpdate, KlarnaGatewayType }
-
-/*
-export const KlarnaGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): KlarnaGateways => {
-	return new KlarnaGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

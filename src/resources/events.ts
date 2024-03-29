@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
 
 import type { Webhook } from './webhooks'
@@ -10,8 +10,8 @@ type EventType = 'events'
 type EventRel = ResourceRel & { type: EventType }
 
 
-export type EventSortable = Pick<Event, 'id' | 'name'> & ResourceSortable
-// export type EventFilterable = Pick<Event, 'id' | 'name'> & ResourceFilterable
+export type EventSort = Pick<Event, 'id' | 'name'> & ResourceSort
+// export type EventFilter = Pick<Event, 'id' | 'name'> & ResourceFilter
 
 
 interface Event extends Resource {
@@ -65,9 +65,3 @@ class Events extends ApiResource<Event> {
 export default Events
 
 export type { Event, EventType }
-
-/*
-export const EventsClient = (init: ResourceAdapter | ResourcesInitConfig): Events => {
-	return new Events((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
@@ -17,8 +17,8 @@ type BundleRel = ResourceRel & { type: BundleType }
 type SkuRel = ResourceRel & { type: SkuType }
 
 
-export type OrderSubscriptionItemSortable = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceSortable
-// export type OrderSubscriptionItemFilterable = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceFilterable
+export type OrderSubscriptionItemSort = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceSort
+// export type OrderSubscriptionItemFilter = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceFilter
 
 
 interface OrderSubscriptionItem extends Resource {
@@ -122,9 +122,3 @@ class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 export default OrderSubscriptionItems
 
 export type { OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItemUpdate, OrderSubscriptionItemType }
-
-/*
-export const OrderSubscriptionItemsClient = (init: ResourceAdapter | ResourcesInitConfig): OrderSubscriptionItems => {
-	return new OrderSubscriptionItems((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

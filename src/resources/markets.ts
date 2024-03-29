@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Merchant, MerchantType } from './merchants'
@@ -22,8 +22,8 @@ type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 
 
-export type MarketSortable = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceSortable
-// export type MarketFilterable = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceFilterable
+export type MarketSort = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceSort
+// export type MarketFilter = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceFilter
 
 
 interface Market extends Resource {
@@ -184,9 +184,3 @@ class Markets extends ApiResource<Market> {
 export default Markets
 
 export type { Market, MarketCreate, MarketUpdate, MarketType }
-
-/*
-export const MarketsClient = (init: ResourceAdapter | ResourcesInitConfig): Markets => {
-	return new Markets((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

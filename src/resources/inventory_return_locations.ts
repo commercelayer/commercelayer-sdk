@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { StockLocation, StockLocationType } from './stock_locations'
@@ -13,8 +13,8 @@ type StockLocationRel = ResourceRel & { type: StockLocationType }
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 
 
-export type InventoryReturnLocationSortable = Pick<InventoryReturnLocation, 'id' | 'priority'> & ResourceSortable
-// export type InventoryReturnLocationFilterable = Pick<InventoryReturnLocation, 'id' | 'priority'> & ResourceFilterable
+export type InventoryReturnLocationSort = Pick<InventoryReturnLocation, 'id' | 'priority'> & ResourceSort
+// export type InventoryReturnLocationFilter = Pick<InventoryReturnLocation, 'id' | 'priority'> & ResourceFilter
 
 
 interface InventoryReturnLocation extends Resource {
@@ -106,9 +106,3 @@ class InventoryReturnLocations extends ApiResource<InventoryReturnLocation> {
 export default InventoryReturnLocations
 
 export type { InventoryReturnLocation, InventoryReturnLocationCreate, InventoryReturnLocationUpdate, InventoryReturnLocationType }
-
-/*
-export const InventoryReturnLocationsClient = (init: ResourceAdapter | ResourcesInitConfig): InventoryReturnLocations => {
-	return new InventoryReturnLocations((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

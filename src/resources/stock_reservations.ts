@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { LineItem } from './line_items'
@@ -14,8 +14,8 @@ type StockReservationRel = ResourceRel & { type: StockReservationType }
 type StockItemRel = ResourceRel & { type: StockItemType }
 
 
-export type StockReservationSortable = Pick<StockReservation, 'id' | 'status' | 'quantity' | 'expires_at'> & ResourceSortable
-// export type StockReservationFilterable = Pick<StockReservation, 'id' | 'status' | 'quantity' | 'expires_at'> & ResourceFilterable
+export type StockReservationSort = Pick<StockReservation, 'id' | 'status' | 'quantity' | 'expires_at'> & ResourceSort
+// export type StockReservationFilter = Pick<StockReservation, 'id' | 'status' | 'quantity' | 'expires_at'> & ResourceFilter
 
 
 interface StockReservation extends Resource {
@@ -122,9 +122,3 @@ class StockReservations extends ApiResource<StockReservation> {
 export default StockReservations
 
 export type { StockReservation, StockReservationCreate, StockReservationUpdate, StockReservationType }
-
-/*
-export const StockReservationsClient = (init: ResourceAdapter | ResourcesInitConfig): StockReservations => {
-	return new StockReservations((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Geocoder, GeocoderType } from './geocoders'
@@ -14,8 +14,8 @@ type GeocoderRel = ResourceRel & { type: GeocoderType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type AddressSortable = Pick<Address, 'id' | 'city' | 'state_code' | 'country_code'> & ResourceSortable
-// export type AddressFilterable = Pick<Address, 'id' | 'business' | 'first_name' | 'last_name' | 'company' | 'line_1' | 'line_2' | 'city' | 'zip_code' | 'state_code' | 'country_code' | 'phone' | 'email' | 'notes' | 'lat' | 'lng' | 'billing_info'> & ResourceFilterable
+export type AddressSort = Pick<Address, 'id' | 'city' | 'state_code' | 'country_code'> & ResourceSort
+// export type AddressFilter = Pick<Address, 'id' | 'business' | 'first_name' | 'last_name' | 'company' | 'line_1' | 'line_2' | 'city' | 'zip_code' | 'state_code' | 'country_code' | 'phone' | 'email' | 'notes' | 'lat' | 'lng' | 'billing_info'> & ResourceFilter
 
 
 interface Address extends Resource {
@@ -166,9 +166,3 @@ class Addresses extends ApiResource<Address> {
 export default Addresses
 
 export type { Address, AddressCreate, AddressUpdate, AddressType }
-
-/*
-export const AddressesClient = (init: ResourceAdapter | ResourcesInitConfig): Addresses => {
-	return new Addresses((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -28,8 +28,8 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type PercentageDiscountPromotionSortable = Pick<PercentageDiscountPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSortable
-// export type PercentageDiscountPromotionFilterable = Pick<PercentageDiscountPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilterable
+export type PercentageDiscountPromotionSort = Pick<PercentageDiscountPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
+// export type PercentageDiscountPromotionFilter = Pick<PercentageDiscountPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
 
 
 interface PercentageDiscountPromotion extends Resource {
@@ -222,9 +222,3 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 export default PercentageDiscountPromotions
 
 export type { PercentageDiscountPromotion, PercentageDiscountPromotionCreate, PercentageDiscountPromotionUpdate, PercentageDiscountPromotionType }
-
-/*
-export const PercentageDiscountPromotionsClient = (init: ResourceAdapter | ResourcesInitConfig): PercentageDiscountPromotions => {
-	return new PercentageDiscountPromotions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

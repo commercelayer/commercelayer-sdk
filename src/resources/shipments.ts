@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -30,8 +30,8 @@ type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type ShipmentSortable = Pick<Shipment, 'id' | 'number' | 'status' | 'cost_amount_cents' | 'get_rates_started_at' | 'get_rates_completed_at' | 'purchase_started_at' | 'purchase_completed_at' | 'purchase_failed_at' | 'on_hold_at' | 'picking_at' | 'packing_at' | 'ready_to_ship_at' | 'shipped_at'> & ResourceSortable
-// export type ShipmentFilterable = Pick<Shipment, 'id' | 'number' | 'status' | 'cost_amount_cents' | 'get_rates_started_at' | 'get_rates_completed_at' | 'purchase_started_at' | 'purchase_completed_at' | 'purchase_failed_at' | 'on_hold_at' | 'picking_at' | 'packing_at' | 'ready_to_ship_at' | 'shipped_at'> & ResourceFilterable
+export type ShipmentSort = Pick<Shipment, 'id' | 'number' | 'status' | 'cost_amount_cents' | 'get_rates_started_at' | 'get_rates_completed_at' | 'purchase_started_at' | 'purchase_completed_at' | 'purchase_failed_at' | 'on_hold_at' | 'picking_at' | 'packing_at' | 'ready_to_ship_at' | 'shipped_at'> & ResourceSort
+// export type ShipmentFilter = Pick<Shipment, 'id' | 'number' | 'status' | 'cost_amount_cents' | 'get_rates_started_at' | 'get_rates_completed_at' | 'purchase_started_at' | 'purchase_completed_at' | 'purchase_failed_at' | 'on_hold_at' | 'picking_at' | 'packing_at' | 'ready_to_ship_at' | 'shipped_at'> & ResourceFilter
 
 
 interface Shipment extends Resource {
@@ -294,9 +294,3 @@ class Shipments extends ApiResource<Shipment> {
 export default Shipments
 
 export type { Shipment, ShipmentCreate, ShipmentUpdate, ShipmentType }
-
-/*
-export const ShipmentsClient = (init: ResourceAdapter | ResourcesInitConfig): Shipments => {
-	return new Shipments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { Return, ReturnType } from './returns'
@@ -12,8 +12,8 @@ type ReturnRel = ResourceRel & { type: ReturnType }
 type LineItemRel = ResourceRel & { type: LineItemType }
 
 
-export type ReturnLineItemSortable = Pick<ReturnLineItem, 'id' | 'quantity' | 'restocked_at'> & ResourceSortable
-// export type ReturnLineItemFilterable = Pick<ReturnLineItem, 'id' | 'quantity' | 'return_reason' | 'restocked_at'> & ResourceFilterable
+export type ReturnLineItemSort = Pick<ReturnLineItem, 'id' | 'quantity' | 'restocked_at'> & ResourceSort
+// export type ReturnLineItemFilter = Pick<ReturnLineItem, 'id' | 'quantity' | 'return_reason' | 'restocked_at'> & ResourceFilter
 
 
 interface ReturnLineItem extends Resource {
@@ -109,9 +109,3 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 export default ReturnLineItems
 
 export type { ReturnLineItem, ReturnLineItemCreate, ReturnLineItemUpdate, ReturnLineItemType }
-
-/*
-export const ReturnLineItemsClient = (init: ResourceAdapter | ResourcesInitConfig): ReturnLineItems => {
-	return new ReturnLineItems((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

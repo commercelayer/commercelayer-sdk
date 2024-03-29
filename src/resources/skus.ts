@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
@@ -20,8 +20,8 @@ type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type SkuSortable = Pick<Sku, 'id' | 'code' | 'name' | 'do_not_ship' | 'do_not_track'> & ResourceSortable
-// export type SkuFilterable = Pick<Sku, 'id' | 'code' | 'name' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track'> & ResourceFilterable
+export type SkuSort = Pick<Sku, 'id' | 'code' | 'name' | 'do_not_ship' | 'do_not_track'> & ResourceSort
+// export type SkuFilter = Pick<Sku, 'id' | 'code' | 'name' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track'> & ResourceFilter
 
 
 interface Sku extends Resource {
@@ -183,9 +183,3 @@ class Skus extends ApiResource<Sku> {
 export default Skus
 
 export type { Sku, SkuCreate, SkuUpdate, SkuType }
-
-/*
-export const SkusClient = (init: ResourceAdapter | ResourcesInitConfig): Skus => {
-	return new Skus((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

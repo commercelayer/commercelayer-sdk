@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -12,8 +12,8 @@ type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type SatispayPaymentSortable = Pick<SatispayPayment, 'id' | 'flow' | 'status'> & ResourceSortable
-// export type SatispayPaymentFilterable = Pick<SatispayPayment, 'id' | 'flow' | 'status'> & ResourceFilterable
+export type SatispayPaymentSort = Pick<SatispayPayment, 'id' | 'flow' | 'status'> & ResourceSort
+// export type SatispayPaymentFilter = Pick<SatispayPayment, 'id' | 'flow' | 'status'> & ResourceFilter
 
 
 interface SatispayPayment extends Resource {
@@ -117,9 +117,3 @@ class SatispayPayments extends ApiResource<SatispayPayment> {
 export default SatispayPayments
 
 export type { SatispayPayment, SatispayPaymentCreate, SatispayPaymentUpdate, SatispayPaymentType }
-
-/*
-export const SatispayPaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): SatispayPayments => {
-	return new SatispayPayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

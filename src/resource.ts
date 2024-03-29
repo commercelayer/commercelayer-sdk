@@ -86,8 +86,8 @@ class ListResponse<R> extends Array<R> {
 
 export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse, ListMeta, ResourceRel }
 
-export type ResourceSortable = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'created_at' | 'updated_at'>
-export type ResourceFilterable = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'metadata' | 'created_at' | 'updated_at'>
+export type ResourceSort = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'created_at' | 'updated_at'>
+export type ResourceFilter = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'metadata' | 'created_at' | 'updated_at'>
 
 
 
@@ -100,7 +100,7 @@ type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
 type ResourcesConfig = Partial<ResourcesInitConfig>
 
 
-export const ApiResourceAdapter = (config: ResourcesInitConfig): ResourceAdapter => {
+export const apiResourceAdapter = (config: ResourcesInitConfig): ResourceAdapter => {
 	return new ResourceAdapter(config)
 }
 

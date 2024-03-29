@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -12,8 +12,8 @@ type AdyenGatewayRel = ResourceRel & { type: AdyenGatewayType }
 type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
 
 
-export type AdyenGatewaySortable = Pick<AdyenGateway, 'id' | 'name'> & ResourceSortable
-// export type AdyenGatewayFilterable = Pick<AdyenGateway, 'id' | 'name'> & ResourceFilterable
+export type AdyenGatewaySort = Pick<AdyenGateway, 'id' | 'name'> & ResourceSort
+// export type AdyenGatewayFilter = Pick<AdyenGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface AdyenGateway extends Resource {
@@ -121,9 +121,3 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 export default AdyenGateways
 
 export type { AdyenGateway, AdyenGatewayCreate, AdyenGatewayUpdate, AdyenGatewayType }
-
-/*
-export const AdyenGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): AdyenGateways => {
-	return new AdyenGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
@@ -10,8 +10,8 @@ type CleanupType = 'cleanups'
 type CleanupRel = ResourceRel & { type: CleanupType }
 
 
-export type CleanupSortable = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceSortable
-// export type CleanupFilterable = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceFilterable
+export type CleanupSort = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceSort
+// export type CleanupFilter = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceFilter
 
 
 interface Cleanup extends Resource {
@@ -90,9 +90,3 @@ class Cleanups extends ApiResource<Cleanup> {
 export default Cleanups
 
 export type { Cleanup, CleanupCreate, CleanupType }
-
-/*
-export const CleanupsClient = (init: ResourceAdapter | ResourcesInitConfig): Cleanups => {
-	return new Cleanups((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

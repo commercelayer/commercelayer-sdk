@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
@@ -9,8 +9,8 @@ type ExportType = 'exports'
 type ExportRel = ResourceRel & { type: ExportType }
 
 
-export type ExportSortable = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceSortable
-// export type ExportFilterable = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceFilterable
+export type ExportSort = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceSort
+// export type ExportFilter = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceFilter
 
 
 interface Export extends Resource {
@@ -87,9 +87,3 @@ class Exports extends ApiResource<Export> {
 export default Exports
 
 export type { Export, ExportCreate, ExportType }
-
-/*
-export const ExportsClient = (init: ResourceAdapter | ResourcesInitConfig): Exports => {
-	return new Exports((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

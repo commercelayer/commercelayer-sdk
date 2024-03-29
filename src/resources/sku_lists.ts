@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer, CustomerType } from './customers'
@@ -15,8 +15,8 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 
 
-export type SkuListSortable = Pick<SkuList, 'id' | 'name' | 'slug' | 'manual'> & ResourceSortable
-// export type SkuListFilterable = Pick<SkuList, 'id' | 'name' | 'slug' | 'description' | 'image_url' | 'manual'> & ResourceFilterable
+export type SkuListSort = Pick<SkuList, 'id' | 'name' | 'slug' | 'manual'> & ResourceSort
+// export type SkuListFilter = Pick<SkuList, 'id' | 'name' | 'slug' | 'description' | 'image_url' | 'manual'> & ResourceFilter
 
 
 interface SkuList extends Resource {
@@ -137,9 +137,3 @@ class SkuLists extends ApiResource<SkuList> {
 export default SkuLists
 
 export type { SkuList, SkuListCreate, SkuListUpdate, SkuListType }
-
-/*
-export const SkuListsClient = (init: ResourceAdapter | ResourcesInitConfig): SkuLists => {
-	return new SkuLists((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

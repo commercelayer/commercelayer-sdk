@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -12,8 +12,8 @@ type StripePaymentRel = ResourceRel & { type: StripePaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type StripePaymentSortable = Pick<StripePayment, 'id'> & ResourceSortable
-// export type StripePaymentFilterable = Pick<StripePayment, 'id'> & ResourceFilterable
+export type StripePaymentSort = Pick<StripePayment, 'id'> & ResourceSort
+// export type StripePaymentFilter = Pick<StripePayment, 'id'> & ResourceFilter
 
 
 interface StripePayment extends Resource {
@@ -129,9 +129,3 @@ class StripePayments extends ApiResource<StripePayment> {
 export default StripePayments
 
 export type { StripePayment, StripePaymentCreate, StripePaymentUpdate, StripePaymentType }
-
-/*
-export const StripePaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): StripePayments => {
-	return new StripePayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

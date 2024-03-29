@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -11,8 +11,8 @@ type SubscriptionModelType = 'subscription_models'
 type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
 
 
-export type SubscriptionModelSortable = Pick<SubscriptionModel, 'id' | 'name' | 'strategy'> & ResourceSortable
-// export type SubscriptionModelFilterable = Pick<SubscriptionModel, 'id' | 'name' | 'strategy' | 'auto_activate' | 'auto_cancel'> & ResourceFilterable
+export type SubscriptionModelSort = Pick<SubscriptionModel, 'id' | 'name' | 'strategy'> & ResourceSort
+// export type SubscriptionModelFilter = Pick<SubscriptionModel, 'id' | 'name' | 'strategy' | 'auto_activate' | 'auto_cancel'> & ResourceFilter
 
 
 interface SubscriptionModel extends Resource {
@@ -110,9 +110,3 @@ class SubscriptionModels extends ApiResource<SubscriptionModel> {
 export default SubscriptionModels
 
 export type { SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate, SubscriptionModelType }
-
-/*
-export const SubscriptionModelsClient = (init: ResourceAdapter | ResourcesInitConfig): SubscriptionModels => {
-	return new SubscriptionModels((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

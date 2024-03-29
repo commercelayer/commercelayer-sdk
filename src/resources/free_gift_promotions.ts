@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -28,8 +28,8 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type FreeGiftPromotionSortable = Pick<FreeGiftPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSortable
-// export type FreeGiftPromotionFilterable = Pick<FreeGiftPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilterable
+export type FreeGiftPromotionSort = Pick<FreeGiftPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
+// export type FreeGiftPromotionFilter = Pick<FreeGiftPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
 
 
 interface FreeGiftPromotion extends Resource {
@@ -222,9 +222,3 @@ class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 export default FreeGiftPromotions
 
 export type { FreeGiftPromotion, FreeGiftPromotionCreate, FreeGiftPromotionUpdate, FreeGiftPromotionType }
-
-/*
-export const FreeGiftPromotionsClient = (init: ResourceAdapter | ResourcesInitConfig): FreeGiftPromotions => {
-	return new FreeGiftPromotions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

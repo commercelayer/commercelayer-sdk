@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -10,8 +10,8 @@ type ManualGatewayType = 'manual_gateways'
 type ManualGatewayRel = ResourceRel & { type: ManualGatewayType }
 
 
-export type ManualGatewaySortable = Pick<ManualGateway, 'id' | 'name'> & ResourceSortable
-// export type ManualGatewayFilterable = Pick<ManualGateway, 'id' | 'name'> & ResourceFilterable
+export type ManualGatewaySort = Pick<ManualGateway, 'id' | 'name'> & ResourceSort
+// export type ManualGatewayFilter = Pick<ManualGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface ManualGateway extends Resource {
@@ -91,9 +91,3 @@ class ManualGateways extends ApiResource<ManualGateway> {
 export default ManualGateways
 
 export type { ManualGateway, ManualGatewayCreate, ManualGatewayUpdate, ManualGatewayType }
-
-/*
-export const ManualGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): ManualGateways => {
-	return new ManualGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

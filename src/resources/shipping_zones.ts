@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Attachment } from './attachments'
@@ -10,8 +10,8 @@ type ShippingZoneType = 'shipping_zones'
 type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
 
 
-export type ShippingZoneSortable = Pick<ShippingZone, 'id' | 'name'> & ResourceSortable
-// export type ShippingZoneFilterable = Pick<ShippingZone, 'id' | 'name'> & ResourceFilterable
+export type ShippingZoneSort = Pick<ShippingZone, 'id' | 'name'> & ResourceSort
+// export type ShippingZoneFilter = Pick<ShippingZone, 'id' | 'name'> & ResourceFilter
 
 
 interface ShippingZone extends Resource {
@@ -109,9 +109,3 @@ class ShippingZones extends ApiResource<ShippingZone> {
 export default ShippingZones
 
 export type { ShippingZone, ShippingZoneCreate, ShippingZoneUpdate, ShippingZoneType }
-
-/*
-export const ShippingZonesClient = (init: ResourceAdapter | ResourcesInitConfig): ShippingZones => {
-	return new ShippingZones((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

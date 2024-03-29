@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -11,8 +11,8 @@ type CarrierAccountType = 'carrier_accounts'
 type CarrierAccountRel = ResourceRel & { type: CarrierAccountType }
 
 
-export type CarrierAccountSortable = Pick<CarrierAccount, 'id'> & ResourceSortable
-// export type CarrierAccountFilterable = Pick<CarrierAccount, 'id' | 'name' | 'easypost_type'> & ResourceFilterable
+export type CarrierAccountSort = Pick<CarrierAccount, 'id'> & ResourceSort
+// export type CarrierAccountFilter = Pick<CarrierAccount, 'id' | 'name' | 'easypost_type'> & ResourceFilter
 
 
 interface CarrierAccount extends Resource {
@@ -74,9 +74,3 @@ class CarrierAccounts extends ApiResource<CarrierAccount> {
 export default CarrierAccounts
 
 export type { CarrierAccount, CarrierAccountType }
-
-/*
-export const CarrierAccountsClient = (init: ResourceAdapter | ResourcesInitConfig): CarrierAccounts => {
-	return new CarrierAccounts((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

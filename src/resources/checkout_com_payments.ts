@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -12,8 +12,8 @@ type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type CheckoutComPaymentSortable = Pick<CheckoutComPayment, 'id'> & ResourceSortable
-// export type CheckoutComPaymentFilterable = Pick<CheckoutComPayment, 'id'> & ResourceFilterable
+export type CheckoutComPaymentSort = Pick<CheckoutComPayment, 'id'> & ResourceSort
+// export type CheckoutComPaymentFilter = Pick<CheckoutComPayment, 'id'> & ResourceFilter
 
 
 interface CheckoutComPayment extends Resource {
@@ -132,9 +132,3 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 export default CheckoutComPayments
 
 export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate, CheckoutComPaymentType }
-
-/*
-export const CheckoutComPaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): CheckoutComPayments => {
-	return new CheckoutComPayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

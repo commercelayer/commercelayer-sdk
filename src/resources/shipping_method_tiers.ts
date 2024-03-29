@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { ShippingMethod } from './shipping_methods'
@@ -11,8 +11,8 @@ type ShippingMethodTierType = 'shipping_method_tiers'
 type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 
 
-export type ShippingMethodTierSortable = Pick<ShippingMethodTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSortable
-// export type ShippingMethodTierFilterable = Pick<ShippingMethodTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
+export type ShippingMethodTierSort = Pick<ShippingMethodTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort
+// export type ShippingMethodTierFilter = Pick<ShippingMethodTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
 
 interface ShippingMethodTier extends Resource {
@@ -76,9 +76,3 @@ class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
 export default ShippingMethodTiers
 
 export type { ShippingMethodTier, ShippingMethodTierType }
-
-/*
-export const ShippingMethodTiersClient = (init: ResourceAdapter | ResourcesInitConfig): ShippingMethodTiers => {
-	return new ShippingMethodTiers((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

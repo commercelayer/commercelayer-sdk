@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Sku, SkuType } from './skus'
@@ -20,8 +20,8 @@ type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
 
 
-export type TaxCategorySortable = Pick<TaxCategory, 'id' | 'code'> & ResourceSortable
-// export type TaxCategoryFilterable = Pick<TaxCategory, 'id' | 'code'> & ResourceFilterable
+export type TaxCategorySort = Pick<TaxCategory, 'id' | 'code'> & ResourceSort
+// export type TaxCategoryFilter = Pick<TaxCategory, 'id' | 'code'> & ResourceFilter
 
 
 interface TaxCategory extends Resource {
@@ -116,9 +116,3 @@ class TaxCategories extends ApiResource<TaxCategory> {
 export default TaxCategories
 
 export type { TaxCategory, TaxCategoryCreate, TaxCategoryUpdate, TaxCategoryType }
-
-/*
-export const TaxCategoriesClient = (init: ResourceAdapter | ResourcesInitConfig): TaxCategories => {
-	return new TaxCategories((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

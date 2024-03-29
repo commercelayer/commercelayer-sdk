@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { EventCallback } from './event_callbacks'
@@ -10,8 +10,8 @@ type WebhookType = 'webhooks'
 type WebhookRel = ResourceRel & { type: WebhookType }
 
 
-export type WebhookSortable = Pick<Webhook, 'id' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
-// export type WebhookFilterable = Pick<Webhook, 'id' | 'name' | 'topic' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
+export type WebhookSort = Pick<Webhook, 'id' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type WebhookFilter = Pick<Webhook, 'id' | 'name' | 'topic' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface Webhook extends Resource {
@@ -121,9 +121,3 @@ class Webhooks extends ApiResource<Webhook> {
 export default Webhooks
 
 export type { Webhook, WebhookCreate, WebhookUpdate, WebhookType }
-
-/*
-export const WebhooksClient = (init: ResourceAdapter | ResourcesInitConfig): Webhooks => {
-	return new Webhooks((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

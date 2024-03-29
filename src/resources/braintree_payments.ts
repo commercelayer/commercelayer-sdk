@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -12,8 +12,8 @@ type BraintreePaymentRel = ResourceRel & { type: BraintreePaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type BraintreePaymentSortable = Pick<BraintreePayment, 'id'> & ResourceSortable
-// export type BraintreePaymentFilterable = Pick<BraintreePayment, 'id'> & ResourceFilterable
+export type BraintreePaymentSort = Pick<BraintreePayment, 'id'> & ResourceSort
+// export type BraintreePaymentFilter = Pick<BraintreePayment, 'id'> & ResourceFilter
 
 
 interface BraintreePayment extends Resource {
@@ -113,9 +113,3 @@ class BraintreePayments extends ApiResource<BraintreePayment> {
 export default BraintreePayments
 
 export type { BraintreePayment, BraintreePaymentCreate, BraintreePaymentUpdate, BraintreePaymentType }
-
-/*
-export const BraintreePaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): BraintreePayments => {
-	return new BraintreePayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

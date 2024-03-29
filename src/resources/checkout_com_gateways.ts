@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -12,8 +12,8 @@ type CheckoutComGatewayRel = ResourceRel & { type: CheckoutComGatewayType }
 type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
 
 
-export type CheckoutComGatewaySortable = Pick<CheckoutComGateway, 'id' | 'name'> & ResourceSortable
-// export type CheckoutComGatewayFilterable = Pick<CheckoutComGateway, 'id' | 'name'> & ResourceFilterable
+export type CheckoutComGatewaySort = Pick<CheckoutComGateway, 'id' | 'name'> & ResourceSort
+// export type CheckoutComGatewayFilter = Pick<CheckoutComGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface CheckoutComGateway extends Resource {
@@ -110,9 +110,3 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 export default CheckoutComGateways
 
 export type { CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewayUpdate, CheckoutComGatewayType }
-
-/*
-export const CheckoutComGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): CheckoutComGateways => {
-	return new CheckoutComGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

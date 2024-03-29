@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -13,8 +13,8 @@ type ExternalPaymentRel = ResourceRel & { type: ExternalPaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type ExternalPaymentSortable = Pick<ExternalPayment, 'id'> & ResourceSortable
-// export type ExternalPaymentFilterable = Pick<ExternalPayment, 'id' | 'payment_source_token'> & ResourceFilterable
+export type ExternalPaymentSort = Pick<ExternalPayment, 'id'> & ResourceSort
+// export type ExternalPaymentFilter = Pick<ExternalPayment, 'id' | 'payment_source_token'> & ResourceFilter
 
 
 interface ExternalPayment extends Resource {
@@ -113,9 +113,3 @@ class ExternalPayments extends ApiResource<ExternalPayment> {
 export default ExternalPayments
 
 export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate, ExternalPaymentType }
-
-/*
-export const ExternalPaymentsClient = (init: ResourceAdapter | ResourcesInitConfig): ExternalPayments => {
-	return new ExternalPayments((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

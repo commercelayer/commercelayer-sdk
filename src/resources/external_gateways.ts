@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -11,8 +11,8 @@ type ExternalGatewayType = 'external_gateways'
 type ExternalGatewayRel = ResourceRel & { type: ExternalGatewayType }
 
 
-export type ExternalGatewaySortable = Pick<ExternalGateway, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
-// export type ExternalGatewayFilterable = Pick<ExternalGateway, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
+export type ExternalGatewaySort = Pick<ExternalGateway, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type ExternalGatewayFilter = Pick<ExternalGateway, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface ExternalGateway extends Resource {
@@ -121,9 +121,3 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 export default ExternalGateways
 
 export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate, ExternalGatewayType }
-
-/*
-export const ExternalGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): ExternalGateways => {
-	return new ExternalGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

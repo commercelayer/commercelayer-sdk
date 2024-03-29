@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Address, AddressType } from './addresses'
@@ -16,8 +16,8 @@ type StockLocationRel = ResourceRel & { type: StockLocationType }
 type AddressRel = ResourceRel & { type: AddressType }
 
 
-export type StockLocationSortable = Pick<StockLocation, 'id' | 'name' | 'code' | 'label_format' | 'suppress_etd'> & ResourceSortable
-// export type StockLocationFilterable = Pick<StockLocation, 'id' | 'name' | 'code' | 'label_format' | 'suppress_etd'> & ResourceFilterable
+export type StockLocationSort = Pick<StockLocation, 'id' | 'name' | 'code' | 'label_format' | 'suppress_etd'> & ResourceSort
+// export type StockLocationFilter = Pick<StockLocation, 'id' | 'name' | 'code' | 'label_format' | 'suppress_etd'> & ResourceFilter
 
 
 interface StockLocation extends Resource {
@@ -141,9 +141,3 @@ class StockLocations extends ApiResource<StockLocation> {
 export default StockLocations
 
 export type { StockLocation, StockLocationCreate, StockLocationUpdate, StockLocationType }
-
-/*
-export const StockLocationsClient = (init: ResourceAdapter | ResourcesInitConfig): StockLocations => {
-	return new StockLocations((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

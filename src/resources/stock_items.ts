@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { StockLocation, StockLocationType } from './stock_locations'
@@ -16,8 +16,8 @@ type StockLocationRel = ResourceRel & { type: StockLocationType }
 type SkuRel = ResourceRel & { type: SkuType }
 
 
-export type StockItemSortable = Pick<StockItem, 'id' | 'quantity'> & ResourceSortable
-// export type StockItemFilterable = Pick<StockItem, 'id' | 'quantity'> & ResourceFilterable
+export type StockItemSort = Pick<StockItem, 'id' | 'quantity'> & ResourceSort
+// export type StockItemFilter = Pick<StockItem, 'id' | 'quantity'> & ResourceFilter
 
 
 interface StockItem extends Resource {
@@ -130,9 +130,3 @@ class StockItems extends ApiResource<StockItem> {
 export default StockItems
 
 export type { StockItem, StockItemCreate, StockItemUpdate, StockItemType }
-
-/*
-export const StockItemsClient = (init: ResourceAdapter | ResourcesInitConfig): StockItems => {
-	return new StockItems((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

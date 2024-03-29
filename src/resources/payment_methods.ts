@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -14,8 +14,8 @@ type MarketRel = ResourceRel & { type: MarketType }
 type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
 
 
-export type PaymentMethodSortable = Pick<PaymentMethod, 'id' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceSortable
-// export type PaymentMethodFilterable = Pick<PaymentMethod, 'id' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceFilterable
+export type PaymentMethodSort = Pick<PaymentMethod, 'id' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceSort
+// export type PaymentMethodFilter = Pick<PaymentMethod, 'id' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceFilter
 
 
 interface PaymentMethod extends Resource {
@@ -152,9 +152,3 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 export default PaymentMethods
 
 export type { PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate, PaymentMethodType }
-
-/*
-export const PaymentMethodsClient = (init: ResourceAdapter | ResourcesInitConfig): PaymentMethods => {
-	return new PaymentMethods((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

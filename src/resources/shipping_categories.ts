@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Sku } from './skus'
@@ -11,8 +11,8 @@ type ShippingCategoryType = 'shipping_categories'
 type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
 
 
-export type ShippingCategorySortable = Pick<ShippingCategory, 'id' | 'name' | 'code'> & ResourceSortable
-// export type ShippingCategoryFilterable = Pick<ShippingCategory, 'id' | 'name' | 'code'> & ResourceFilterable
+export type ShippingCategorySort = Pick<ShippingCategory, 'id' | 'name' | 'code'> & ResourceSort
+// export type ShippingCategoryFilter = Pick<ShippingCategory, 'id' | 'name' | 'code'> & ResourceFilter
 
 
 interface ShippingCategory extends Resource {
@@ -101,9 +101,3 @@ class ShippingCategories extends ApiResource<ShippingCategory> {
 export default ShippingCategories
 
 export type { ShippingCategory, ShippingCategoryCreate, ShippingCategoryUpdate, ShippingCategoryType }
-
-/*
-export const ShippingCategoriesClient = (init: ResourceAdapter | ResourcesInitConfig): ShippingCategories => {
-	return new ShippingCategories((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

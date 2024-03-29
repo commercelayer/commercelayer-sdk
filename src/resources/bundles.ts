@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -18,8 +18,8 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type BundleSortable = Pick<Bundle, 'id' | 'code' | 'currency_code' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceSortable
-// export type BundleFilterable = Pick<Bundle, 'id' | 'code' | 'name' | 'currency_code' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceFilterable
+export type BundleSort = Pick<Bundle, 'id' | 'code' | 'currency_code' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceSort
+// export type BundleFilter = Pick<Bundle, 'id' | 'code' | 'name' | 'currency_code' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceFilter
 
 
 interface Bundle extends Resource {
@@ -172,9 +172,3 @@ class Bundles extends ApiResource<Bundle> {
 export default Bundles
 
 export type { Bundle, BundleCreate, BundleUpdate, BundleType }
-
-/*
-export const BundlesClient = (init: ResourceAdapter | ResourcesInitConfig): Bundles => {
-	return new Bundles((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

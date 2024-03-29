@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer } from './customers'
@@ -10,8 +10,8 @@ type CustomerPasswordResetType = 'customer_password_resets'
 type CustomerPasswordResetRel = ResourceRel & { type: CustomerPasswordResetType }
 
 
-export type CustomerPasswordResetSortable = Pick<CustomerPasswordReset, 'id'> & ResourceSortable
-// export type CustomerPasswordResetFilterable = Pick<CustomerPasswordReset, 'id' | 'reset_password_token' | 'reset_password_at'> & ResourceFilterable
+export type CustomerPasswordResetSort = Pick<CustomerPasswordReset, 'id'> & ResourceSort
+// export type CustomerPasswordResetFilter = Pick<CustomerPasswordReset, 'id' | 'reset_password_token' | 'reset_password_at'> & ResourceFilter
 
 
 interface CustomerPasswordReset extends Resource {
@@ -98,9 +98,3 @@ class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 export default CustomerPasswordResets
 
 export type { CustomerPasswordReset, CustomerPasswordResetCreate, CustomerPasswordResetUpdate, CustomerPasswordResetType }
-
-/*
-export const CustomerPasswordResetsClient = (init: ResourceAdapter | ResourcesInitConfig): CustomerPasswordResets => {
-	return new CustomerPasswordResets((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

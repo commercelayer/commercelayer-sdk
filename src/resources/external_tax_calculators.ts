@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -11,8 +11,8 @@ type ExternalTaxCalculatorType = 'external_tax_calculators'
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
 
 
-export type ExternalTaxCalculatorSortable = Pick<ExternalTaxCalculator, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceSortable
-// export type ExternalTaxCalculatorFilterable = Pick<ExternalTaxCalculator, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilterable
+export type ExternalTaxCalculatorSort = Pick<ExternalTaxCalculator, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type ExternalTaxCalculatorFilter = Pick<ExternalTaxCalculator, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface ExternalTaxCalculator extends Resource {
@@ -109,9 +109,3 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 export default ExternalTaxCalculators
 
 export type { ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorUpdate, ExternalTaxCalculatorType }
-
-/*
-export const ExternalTaxCalculatorsClient = (init: ResourceAdapter | ResourcesInitConfig): ExternalTaxCalculators => {
-	return new ExternalTaxCalculators((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

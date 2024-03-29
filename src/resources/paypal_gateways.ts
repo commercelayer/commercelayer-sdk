@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -11,8 +11,8 @@ type PaypalGatewayType = 'paypal_gateways'
 type PaypalGatewayRel = ResourceRel & { type: PaypalGatewayType }
 
 
-export type PaypalGatewaySortable = Pick<PaypalGateway, 'id' | 'name'> & ResourceSortable
-// export type PaypalGatewayFilterable = Pick<PaypalGateway, 'id' | 'name'> & ResourceFilterable
+export type PaypalGatewaySort = Pick<PaypalGateway, 'id' | 'name'> & ResourceSort
+// export type PaypalGatewayFilter = Pick<PaypalGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface PaypalGateway extends Resource {
@@ -102,9 +102,3 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 export default PaypalGateways
 
 export type { PaypalGateway, PaypalGatewayCreate, PaypalGatewayUpdate, PaypalGatewayType }
-
-/*
-export const PaypalGatewaysClient = (init: ResourceAdapter | ResourcesInitConfig): PaypalGateways => {
-	return new PaypalGateways((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

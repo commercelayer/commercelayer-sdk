@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Price, PriceType } from './prices'
@@ -13,8 +13,8 @@ type PriceVolumeTierRel = ResourceRel & { type: PriceVolumeTierType }
 type PriceRel = ResourceRel & { type: PriceType }
 
 
-export type PriceVolumeTierSortable = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSortable
-// export type PriceVolumeTierFilterable = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
+export type PriceVolumeTierSort = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort
+// export type PriceVolumeTierFilter = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
 
 interface PriceVolumeTier extends Resource {
@@ -118,9 +118,3 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 export default PriceVolumeTiers
 
 export type { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate, PriceVolumeTierType }
-
-/*
-export const PriceVolumeTiersClient = (init: ResourceAdapter | ResourcesInitConfig): PriceVolumeTiers => {
-	return new PriceVolumeTiers((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

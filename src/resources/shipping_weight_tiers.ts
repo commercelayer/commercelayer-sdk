@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
@@ -12,8 +12,8 @@ type ShippingWeightTierRel = ResourceRel & { type: ShippingWeightTierType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
-export type ShippingWeightTierSortable = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSortable
-// export type ShippingWeightTierFilterable = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilterable
+export type ShippingWeightTierSort = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort
+// export type ShippingWeightTierFilter = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
 
 interface ShippingWeightTier extends Resource {
@@ -111,9 +111,3 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 export default ShippingWeightTiers
 
 export type { ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierUpdate, ShippingWeightTierType }
-
-/*
-export const ShippingWeightTiersClient = (init: ResourceAdapter | ResourcesInitConfig): ShippingWeightTiers => {
-	return new ShippingWeightTiers((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

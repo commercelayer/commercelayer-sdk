@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -13,8 +13,8 @@ type RefundType = 'refunds'
 type RefundRel = ResourceRel & { type: RefundType }
 
 
-export type RefundSortable = Pick<Refund, 'id' | 'number' | 'amount_cents'> & ResourceSortable
-// export type RefundFilterable = Pick<Refund, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilterable
+export type RefundSort = Pick<Refund, 'id' | 'number' | 'amount_cents'> & ResourceSort
+// export type RefundFilter = Pick<Refund, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
 
 interface Refund extends Resource {
@@ -96,9 +96,3 @@ class Refunds extends ApiResource<Refund> {
 export default Refunds
 
 export type { Refund, RefundType }
-
-/*
-export const RefundsClient = (init: ResourceAdapter | ResourcesInitConfig): Refunds => {
-	return new Refunds((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

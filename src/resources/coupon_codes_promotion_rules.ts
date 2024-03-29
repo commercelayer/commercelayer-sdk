@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
@@ -25,8 +25,8 @@ type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
 type CouponRel = ResourceRel & { type: CouponType }
 
 
-export type CouponCodesPromotionRuleSortable = Pick<CouponCodesPromotionRule, 'id'> & ResourceSortable
-// export type CouponCodesPromotionRuleFilterable = Pick<CouponCodesPromotionRule, 'id'> & ResourceFilterable
+export type CouponCodesPromotionRuleSort = Pick<CouponCodesPromotionRule, 'id'> & ResourceSort
+// export type CouponCodesPromotionRuleFilter = Pick<CouponCodesPromotionRule, 'id'> & ResourceFilter
 
 
 interface CouponCodesPromotionRule extends Resource {
@@ -108,9 +108,3 @@ class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
 export default CouponCodesPromotionRules
 
 export type { CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRuleUpdate, CouponCodesPromotionRuleType }
-
-/*
-export const CouponCodesPromotionRulesClient = (init: ResourceAdapter | ResourcesInitConfig): CouponCodesPromotionRules => {
-	return new CouponCodesPromotionRules((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
@@ -21,8 +21,8 @@ type OrderRel = ResourceRel & { type: OrderType }
 type CustomerPaymentSourceRel = ResourceRel & { type: CustomerPaymentSourceType }
 
 
-export type OrderSubscriptionSortable = Pick<OrderSubscription, 'id' | 'number' | 'status' | 'frequency' | 'starts_at' | 'expires_at' | 'last_run_at' | 'next_run_at' | 'occurrencies' | 'errors_count' | 'succeeded_on_last_run'> & ResourceSortable
-// export type OrderSubscriptionFilterable = Pick<OrderSubscription, 'id' | 'number' | 'status' | 'frequency' | 'customer_email' | 'starts_at' | 'expires_at' | 'last_run_at' | 'next_run_at' | 'occurrencies' | 'errors_count' | 'succeeded_on_last_run'> & ResourceFilterable
+export type OrderSubscriptionSort = Pick<OrderSubscription, 'id' | 'number' | 'status' | 'frequency' | 'starts_at' | 'expires_at' | 'last_run_at' | 'next_run_at' | 'occurrencies' | 'errors_count' | 'succeeded_on_last_run'> & ResourceSort
+// export type OrderSubscriptionFilter = Pick<OrderSubscription, 'id' | 'number' | 'status' | 'frequency' | 'customer_email' | 'starts_at' | 'expires_at' | 'last_run_at' | 'next_run_at' | 'occurrencies' | 'errors_count' | 'succeeded_on_last_run'> & ResourceFilter
 
 
 interface OrderSubscription extends Resource {
@@ -196,9 +196,3 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 export default OrderSubscriptions
 
 export type { OrderSubscription, OrderSubscriptionCreate, OrderSubscriptionUpdate, OrderSubscriptionType }
-
-/*
-export const OrderSubscriptionsClient = (init: ResourceAdapter | ResourcesInitConfig): OrderSubscriptions => {
-	return new OrderSubscriptions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

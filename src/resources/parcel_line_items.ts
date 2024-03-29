@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Parcel, ParcelType } from './parcels'
@@ -13,8 +13,8 @@ type ParcelRel = ResourceRel & { type: ParcelType }
 type StockLineItemRel = ResourceRel & { type: StockLineItemType }
 
 
-export type ParcelLineItemSortable = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceSortable
-// export type ParcelLineItemFilterable = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceFilterable
+export type ParcelLineItemSort = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceSort
+// export type ParcelLineItemFilter = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceFilter
 
 
 interface ParcelLineItem extends Resource {
@@ -103,9 +103,3 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
 export default ParcelLineItems
 
 export type { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate, ParcelLineItemType }
-
-/*
-export const ParcelLineItemsClient = (init: ResourceAdapter | ResourcesInitConfig): ParcelLineItems => {
-	return new ParcelLineItems((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

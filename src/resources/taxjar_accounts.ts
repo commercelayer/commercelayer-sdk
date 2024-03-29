@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -13,8 +13,8 @@ type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 
 
-export type TaxjarAccountSortable = Pick<TaxjarAccount, 'id' | 'name'> & ResourceSortable
-// export type TaxjarAccountFilterable = Pick<TaxjarAccount, 'id' | 'name'> & ResourceFilterable
+export type TaxjarAccountSort = Pick<TaxjarAccount, 'id' | 'name'> & ResourceSort
+// export type TaxjarAccountFilter = Pick<TaxjarAccount, 'id' | 'name'> & ResourceFilter
 
 
 interface TaxjarAccount extends Resource {
@@ -112,9 +112,3 @@ class TaxjarAccounts extends ApiResource<TaxjarAccount> {
 export default TaxjarAccounts
 
 export type { TaxjarAccount, TaxjarAccountCreate, TaxjarAccountUpdate, TaxjarAccountType }
-
-/*
-export const TaxjarAccountsClient = (init: ResourceAdapter | ResourcesInitConfig): TaxjarAccounts => {
-	return new TaxjarAccounts((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourceRel, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
 
 
@@ -8,8 +8,8 @@ type VersionType = 'versions'
 type VersionRel = ResourceRel & { type: VersionType }
 
 
-export type VersionSortable = Pick<Version, 'id'> & ResourceSortable
-// export type VersionFilterable = Pick<Version, 'id' | 'resource_type' | 'resource_id'> & ResourceFilterable
+export type VersionSort = Pick<Version, 'id'> & ResourceSort
+// export type VersionFilter = Pick<Version, 'id' | 'resource_type' | 'resource_id'> & ResourceFilter
 
 
 interface Version extends Resource {
@@ -56,9 +56,3 @@ class Versions extends ApiResource<Version> {
 export default Versions
 
 export type { Version, VersionType }
-
-/*
-export const VersionsClient = (init: ResourceAdapter | ResourcesInitConfig): Versions => {
-	return new Versions((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

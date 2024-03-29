@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -10,8 +10,8 @@ type OrderFactoryType = 'order_factories'
 type OrderFactoryRel = ResourceRel & { type: OrderFactoryType }
 
 
-export type OrderFactorySortable = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSortable
-// export type OrderFactoryFilterable = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilterable
+export type OrderFactorySort = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSort
+// export type OrderFactoryFilter = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
 
 interface OrderFactory extends Resource {
@@ -78,9 +78,3 @@ class OrderFactories extends ApiResource<OrderFactory> {
 export default OrderFactories
 
 export type { OrderFactory, OrderFactoryType }
-
-/*
-export const OrderFactoriesClient = (init: ResourceAdapter | ResourcesInitConfig): OrderFactories => {
-	return new OrderFactories((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

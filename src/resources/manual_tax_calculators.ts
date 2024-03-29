@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -13,8 +13,8 @@ type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 type TaxRuleRel = ResourceRel & { type: TaxRuleType }
 
 
-export type ManualTaxCalculatorSortable = Pick<ManualTaxCalculator, 'id' | 'name'> & ResourceSortable
-// export type ManualTaxCalculatorFilterable = Pick<ManualTaxCalculator, 'id' | 'name'> & ResourceFilterable
+export type ManualTaxCalculatorSort = Pick<ManualTaxCalculator, 'id' | 'name'> & ResourceSort
+// export type ManualTaxCalculatorFilter = Pick<ManualTaxCalculator, 'id' | 'name'> & ResourceFilter
 
 
 interface ManualTaxCalculator extends Resource {
@@ -110,9 +110,3 @@ class ManualTaxCalculators extends ApiResource<ManualTaxCalculator> {
 export default ManualTaxCalculators
 
 export type { ManualTaxCalculator, ManualTaxCalculatorCreate, ManualTaxCalculatorUpdate, ManualTaxCalculatorType }
-
-/*
-export const ManualTaxCalculatorsClient = (init: ResourceAdapter | ResourcesInitConfig): ManualTaxCalculators => {
-	return new ManualTaxCalculators((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/

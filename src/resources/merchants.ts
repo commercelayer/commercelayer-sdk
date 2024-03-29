@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSortable, /* ResourceFilterable */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Address, AddressType } from './addresses'
@@ -12,8 +12,8 @@ type MerchantRel = ResourceRel & { type: MerchantType }
 type AddressRel = ResourceRel & { type: AddressType }
 
 
-export type MerchantSortable = Pick<Merchant, 'id' | 'name'> & ResourceSortable
-// export type MerchantFilterable = Pick<Merchant, 'id' | 'name'> & ResourceFilterable
+export type MerchantSort = Pick<Merchant, 'id' | 'name'> & ResourceSort
+// export type MerchantFilter = Pick<Merchant, 'id' | 'name'> & ResourceFilter
 
 
 interface Merchant extends Resource {
@@ -103,9 +103,3 @@ class Merchants extends ApiResource<Merchant> {
 export default Merchants
 
 export type { Merchant, MerchantCreate, MerchantUpdate, MerchantType }
-
-/*
-export const MerchantsClient = (init: ResourceAdapter | ResourcesInitConfig): Merchants => {
-	return new Merchants((init instanceof ResourcesInitConfig)? ApiResourceAdapter(init) : init )
-}
-*/
