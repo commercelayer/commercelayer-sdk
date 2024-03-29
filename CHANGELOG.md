@@ -1,3 +1,52 @@
+# [6.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.34.2...v6.0.0-beta.1) (2024-03-29)
+
+
+### Bug Fixes
+
+* fix codeql action ([d74782e](https://github.com/commercelayer/commercelayer-sdk/commit/d74782eb47e08f2a80f895be1e6ec07b0bba00d2))
+* fix config ([4e5cf51](https://github.com/commercelayer/commercelayer-sdk/commit/4e5cf51dd7aef8391cb96ade4308c0d250e0a413))
+* fix env secrets ([b2db11d](https://github.com/commercelayer/commercelayer-sdk/commit/b2db11db909d1b18a63a2c359d7a70d7c2e74741))
+* fix import/export config ([5fd205a](https://github.com/commercelayer/commercelayer-sdk/commit/5fd205a0446256794e646ae910ec708564ee4040))
+* fix inflector and remove lodash dependency ([47b4d58](https://github.com/commercelayer/commercelayer-sdk/commit/47b4d584cd60ab55bf0f731ba55efe08085e1f07))
+* fix lodash in specs ([dd6eacd](https://github.com/commercelayer/commercelayer-sdk/commit/dd6eacd50a431184b9e94cd80c7ec21063807ba6))
+* fix model export config ([8f0dd5f](https://github.com/commercelayer/commercelayer-sdk/commit/8f0dd5f093ba61ea28041a14f17acb980df7f4fb))
+* fix model types export ([3d6e559](https://github.com/commercelayer/commercelayer-sdk/commit/3d6e559bbfa126588e899ab835978b1997dba7d8))
+* fix package ([b665ff6](https://github.com/commercelayer/commercelayer-sdk/commit/b665ff66b994eac331d134840f0e09ea67ac4a6b))
+* fix package config ([5ac5a10](https://github.com/commercelayer/commercelayer-sdk/commit/5ac5a102035ec93bd6b617caf52fa5416237f689))
+* fix query types ([afd36b6](https://github.com/commercelayer/commercelayer-sdk/commit/afd36b6117c006467e41ec1c2c763f4cb48dcbec))
+* fix release action ([7de3739](https://github.com/commercelayer/commercelayer-sdk/commit/7de3739ad75482139040ed7b1266a4e866ab1e08))
+* fix release config ([82c9bf9](https://github.com/commercelayer/commercelayer-sdk/commit/82c9bf974048367cfbf381544078aaf86aa0a2b8))
+* fix source generator ([591f924](https://github.com/commercelayer/commercelayer-sdk/commit/591f92413cc447761ee798edaa89e0e11f28ff09))
+* remove exports declaration ([88363ce](https://github.com/commercelayer/commercelayer-sdk/commit/88363ce97b699348ee12a095a09baf854b22f6d4))
+* revert model types fix ([947daa9](https://github.com/commercelayer/commercelayer-sdk/commit/947daa98ddd16fb9a998275153ecb073a48546c2))
+* update dependencies ([3f54279](https://github.com/commercelayer/commercelayer-sdk/commit/3f542795eac9db5f55d57033e3e69efa741353a6))
+* update resources to schema v5.2.0 ([4da1a6d](https://github.com/commercelayer/commercelayer-sdk/commit/4da1a6dfdee9898c23a588d66c4b048630ba1de4))
+
+
+### Features
+
+* add filters helpers ([daa8d31](https://github.com/commercelayer/commercelayer-sdk/commit/daa8d31274210bed6e31548735a54147ed1378b8))
+* add resources micro clients ([d99254d](https://github.com/commercelayer/commercelayer-sdk/commit/d99254d1ede146bcb875f8c0d5a558c53d3c100a))
+* beta version release ([1829152](https://github.com/commercelayer/commercelayer-sdk/commit/182915271b1aab9e5a32e6527fac73cddc3422f6))
+* enhance query filters with type helpers ([d1145f6](https://github.com/commercelayer/commercelayer-sdk/commit/d1145f6f5462b7470640c6f76d895983001d0f74))
+* merge feature/317_relationships-interface ([1140c97](https://github.com/commercelayer/commercelayer-sdk/commit/1140c97575154b28ab995f2576951f2b2abd912d))
+* update resources to schema 4.27.0 ([bb20b86](https://github.com/commercelayer/commercelayer-sdk/commit/bb20b86ffbcf3162704705d967897161db9d3d80))
+* update resources to schema v5.0.0 ([2fab465](https://github.com/commercelayer/commercelayer-sdk/commit/2fab465773ac72003a0ff813d446b220b443fa67))
+* update resources to schema v5.1.0 ([d3387c6](https://github.com/commercelayer/commercelayer-sdk/commit/d3387c6c80638fc2b4ea306b2508b010c7956257))
+
+
+### Performance Improvements
+
+* remove axios dependency ([19b680a](https://github.com/commercelayer/commercelayer-sdk/commit/19b680a6f43d11a037ac8ee0b9d6f90048e0281f))
+* remove parse function ([477a390](https://github.com/commercelayer/commercelayer-sdk/commit/477a390f826757a414c5a6c8492044eccea4050f))
+* remove support to node.js <20.x ([250f5df](https://github.com/commercelayer/commercelayer-sdk/commit/250f5df109670c0748969c6355c8123191bfa5ae))
+
+
+### BREAKING CHANGES
+
+* parse function has been removed from all resources, use sdk-utils/webhoos.parse to denormalize webhooks payload
+* remove support to node.js <20.x
+
 # [6.0.0-alfa.12](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-alfa.11...v6.0.0-alfa.12) (2024-03-29)
 
 
