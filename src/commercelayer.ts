@@ -344,12 +344,14 @@ class CommerceLayerClient {
 	}
 
 
-	addRequestInterceptor(onSuccess?: RequestInterceptor, onFailure?: ErrorInterceptor): void {
+	addRequestInterceptor(onSuccess?: RequestInterceptor, onFailure?: ErrorInterceptor): number {
 		this.interceptors.request = { onSuccess, onFailure }
+		return 1
 	}
 
-	addResponseInterceptor(onSuccess?: ResponseInterceptor, onFailure?: ErrorInterceptor): void {
+	addResponseInterceptor(onSuccess?: ResponseInterceptor, onFailure?: ErrorInterceptor): number {
 		this.interceptors.response = { onSuccess, onFailure }
+		return 1
 	}
 
 	removeInterceptor(type: InterceptorType, id: number = 1): void {

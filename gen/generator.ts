@@ -149,7 +149,7 @@ const generate = async (localSchema?: boolean) => {
 	updateApiResources(resources)
 	updateSdkInterfaces(resources)
 	updateModelTypes(resources)
-	updateApiMicroClients(resources)
+	// updateApiMicroClients(resources)
 
 	console.log(`SDK generation completed [${global.version}].\n`)
 

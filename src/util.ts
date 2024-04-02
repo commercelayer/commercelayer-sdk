@@ -1,4 +1,4 @@
-import type { ObjectType } from "../src/common"
+import type { ObjectType } from "../src/types"
 // import path from 'node:path'
 
 
