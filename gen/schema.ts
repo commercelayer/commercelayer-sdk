@@ -249,7 +249,9 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 				type: (aValue.type === 'array') ? `${aValue.items.type}[]` : aValue.type,
 				required: requiredAttributes.includes(aKey) || (fetchable && !aValue.nullable && !cKey.match(/(Create|Update)$/)),
 				fetchable,
-				enum: aValue.enum
+				enum: aValue.enum,
+				description: aValue.description,
+				example: aValue.example
 			}
 		})
 
@@ -320,6 +322,8 @@ type Attribute = {
 	sortable?: boolean
 	filterable?: boolean
 	enum: string[]
+	description?: string
+	example?: string
 }
 
 enum Cardinality {

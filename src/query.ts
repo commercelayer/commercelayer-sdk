@@ -14,7 +14,7 @@ const objectFilters = ['_jcont']
 // type QueryResType<T> = T extends { type: infer Type } ? Type : never
 type QueryResType<T extends Resource> = T['type']
 
-type QueryInclude = string[]	// TODO: complex include helper in sdk-utils
+type QueryInclude = string[]
 type QueryResourceFields<R extends ResourceTypeLock> = keyof ResourceFields[R]
 type QueryArrayFields<R extends Resource> = Array<QueryResourceFields<QueryResType<R>>>
 type QueryRecordFields = { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
@@ -29,8 +29,8 @@ type QueryResourceSortable<R extends Resource> = ResourceSortFields[QueryResType
 type QueryResourceSortableFields<R extends Resource> = StringKey<QueryResourceSortable<R>>
 type QueryArraySortable<R extends Resource> = Array<QueryResourceSortableFields<R> | `-${QueryResourceSortableFields<R>}`>
 type QueryRecordSortable<R extends Resource> = Partial<Record<keyof QueryResourceSortable<R>, QuerySortType>>
-type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>	// TODO: complex filters hepler in sdk-utils
-type QueryPageNumber = number	// TODO: page number must be > 0
+type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>
+type QueryPageNumber = number
 type QueryPageSize = PositiveNumberRange<25>
 
 interface QueryParamsList<R extends Resource = Resource> extends QueryParamsRetrieve<R> {

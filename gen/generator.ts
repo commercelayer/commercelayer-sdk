@@ -12,7 +12,7 @@ export const CONFIG = {
 	TRIGGER_FUNCTIONS: true,
 	LEAZY_LOADING: true,
 	LOCAL: false,
-	MICRO_CLIENTS: true
+	MICRO_CLIENTS: false
 }
 /**** **** **** **** **** **** **** **** ****/
 
@@ -834,6 +834,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			if (cudModel || a.fetchable) {
 				let attrType = fixAttributeType(a)
 				if (a.enum) enums[a.name] = attrType
+				// fields.push('/**\n* Unique identifier for the resource (hash).\n* @example ```"XAyRWNUzyN"```\n*/')
 				fields.push(`${a.name}${a.required ? '' : '?'}: ${attrType}${a.required ? '' : ' | null'}`)
 			}
 		}
