@@ -1,3 +1,10 @@
+# [6.0.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.1...v6.0.0-beta.2) (2024-04-02)
+
+
+### Bug Fixes
+
+* remove comments and update dependencies ([9380bf6](https://github.com/commercelayer/commercelayer-sdk/commit/9380bf670801d0e5e79936138bea1db602659168))
+
 # [6.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.34.2...v6.0.0-beta.1) (2024-03-29)
 
 
