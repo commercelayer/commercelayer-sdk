@@ -12,7 +12,7 @@ export const CONFIG = {
 	TRIGGER_FUNCTIONS: true,
 	LEAZY_LOADING: true,
 	LOCAL: false,
-	MICRO_CLIENTS: false
+	MICRO_CLIENTS: true
 }
 /**** **** **** **** **** **** **** **** ****/
 
