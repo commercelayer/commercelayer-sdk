@@ -8,12 +8,17 @@
 		{ "name": "sdk7", "channel": "sdk7", "prerelease": "alfa" }
 	],
 	"plugins": [
-		"@semantic-release/commit-analyzer",
-		"@semantic-release/release-notes-generator",
-		["@semantic-release/github", {
-			"draftRelease": true
+		["@semantic-release/commit-analyzer", {
+			"preset": "angular",
+			"releaseRules": [
+				{ "type": "breaking", "release": "major" },
+				{ "type": "refactor", "release": "patch" },
+				{ "scope": "no-release", "release": false }
+			]
 		}],
+		"@semantic-release/release-notes-generator",
 		"@semantic-release/npm",
+		"@semantic-release/github",
 		["@semantic-release/changelog", {
 			"changelogFile": "CHANGELOG.md"
 		}],
