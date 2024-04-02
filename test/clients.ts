@@ -1,5 +1,5 @@
 
-import { CommerceLayerInitConfig, customersClient } from '../lib/index'
+import { CommerceLayerInitConfig, customersClient } from '../lib/index.js'
 import { handleError, init, initConfig } from './util'
 
 
