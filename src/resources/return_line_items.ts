@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { Return, ReturnType } from './returns'
@@ -10,6 +10,10 @@ type ReturnLineItemType = 'return_line_items'
 type ReturnLineItemRel = ResourceRel & { type: ReturnLineItemType }
 type ReturnRel = ResourceRel & { type: ReturnType }
 type LineItemRel = ResourceRel & { type: LineItemType }
+
+
+export type ReturnLineItemSort = Pick<ReturnLineItem, 'id' | 'quantity' | 'restocked_at'> & ResourceSort
+// export type ReturnLineItemFilter = Pick<ReturnLineItem, 'id' | 'quantity' | 'return_reason' | 'restocked_at'> & ResourceFilter
 
 
 interface ReturnLineItem extends Resource {
@@ -54,11 +58,11 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 
 	static readonly TYPE: ReturnLineItemType = 'return_line_items' as const
 
-	async create(resource: ReturnLineItemCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
+	async create(resource: ReturnLineItemCreate, params?: QueryParamsRetrieve<ReturnLineItem>, options?: ResourcesConfig): Promise<ReturnLineItem> {
 		return this.resources.create<ReturnLineItemCreate, ReturnLineItem>({ ...resource, type: ReturnLineItems.TYPE }, params, options)
 	}
 
-	async update(resource: ReturnLineItemUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
+	async update(resource: ReturnLineItemUpdate, params?: QueryParamsRetrieve<ReturnLineItem>, options?: ResourcesConfig): Promise<ReturnLineItem> {
 		return this.resources.update<ReturnLineItemUpdate, ReturnLineItem>({ ...resource, type: ReturnLineItems.TYPE }, params, options)
 	}
 
@@ -66,17 +70,17 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ReturnLineItems.TYPE } : id, options)
 	}
 
-	async return(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+	async return(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
 		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId as string
 		return this.resources.fetch<Return>({ type: 'returns' }, `return_line_items/${_returnLineItemId}/return`, params, options) as unknown as Return
 	}
 
-	async line_item(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
+	async line_item(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `return_line_items/${_returnLineItemId}/line_item`, params, options) as unknown as LineItem
 	}
 
-	async _restock(id: string | ReturnLineItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ReturnLineItem> {
+	async _restock(id: string | ReturnLineItem, params?: QueryParamsRetrieve<ReturnLineItem>, options?: ResourcesConfig): Promise<ReturnLineItem> {
 		return this.resources.update<ReturnLineItemUpdate, ReturnLineItem>({ id: (typeof id === 'string')? id: id.id, type: ReturnLineItems.TYPE, _restock: true }, params, options)
 	}
 
@@ -87,7 +91,11 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 
 
 	relationship(id: string | ResourceId | null): ReturnLineItemRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ReturnLineItems.TYPE } : { id: id.id, type: ReturnLineItems.TYPE }
+		return super.relationshipOneToOne<ReturnLineItemRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ReturnLineItemRel[] {
+		return super.relationshipOneToMany<ReturnLineItemRel>(...ids)
 	}
 
 

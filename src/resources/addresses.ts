@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Geocoder, GeocoderType } from './geocoders'
@@ -12,6 +12,10 @@ type AddressType = 'addresses'
 type AddressRel = ResourceRel & { type: AddressType }
 type GeocoderRel = ResourceRel & { type: GeocoderType }
 type TagRel = ResourceRel & { type: TagType }
+
+
+export type AddressSort = Pick<Address, 'id' | 'city' | 'state_code' | 'country_code'> & ResourceSort
+// export type AddressFilter = Pick<Address, 'id' | 'business' | 'first_name' | 'last_name' | 'company' | 'line_1' | 'line_2' | 'city' | 'zip_code' | 'state_code' | 'country_code' | 'phone' | 'email' | 'notes' | 'lat' | 'lng' | 'billing_info'> & ResourceFilter
 
 
 interface Address extends Resource {
@@ -105,11 +109,11 @@ class Addresses extends ApiResource<Address> {
 
 	static readonly TYPE: AddressType = 'addresses' as const
 
-	async create(resource: AddressCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+	async create(resource: AddressCreate, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
 		return this.resources.create<AddressCreate, Address>({ ...resource, type: Addresses.TYPE }, params, options)
 	}
 
-	async update(resource: AddressUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Address> {
+	async update(resource: AddressUpdate, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
 		return this.resources.update<AddressUpdate, Address>({ ...resource, type: Addresses.TYPE }, params, options)
 	}
 
@@ -117,22 +121,22 @@ class Addresses extends ApiResource<Address> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Addresses.TYPE } : id, options)
 	}
 
-	async geocoder(addressId: string | Address, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
+	async geocoder(addressId: string | Address, params?: QueryParamsRetrieve<Geocoder>, options?: ResourcesConfig): Promise<Geocoder> {
 		const _addressId = (addressId as Address).id || addressId as string
 		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `addresses/${_addressId}/geocoder`, params, options) as unknown as Geocoder
 	}
 
-	async events(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(addressId: string | Address, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _addressId = (addressId as Address).id || addressId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `addresses/${_addressId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(addressId: string | Address, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _addressId = (addressId as Address).id || addressId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `addresses/${_addressId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
-	async versions(addressId: string | Address, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(addressId: string | Address, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _addressId = (addressId as Address).id || addressId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `addresses/${_addressId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
@@ -144,7 +148,11 @@ class Addresses extends ApiResource<Address> {
 
 
 	relationship(id: string | ResourceId | null): AddressRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Addresses.TYPE } : { id: id.id, type: Addresses.TYPE }
+		return super.relationshipOneToOne<AddressRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AddressRel[] {
+		return super.relationshipOneToMany<AddressRel>(...ids)
 	}
 
 

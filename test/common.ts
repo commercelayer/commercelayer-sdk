@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import getToken from './token'
-import CommerceLayer, { CommerceLayerClient, QueryParamsList, QueryParamsRetrieve } from '../src'
+import CommerceLayer, { CommerceLayerClient, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
 import dotenv from 'dotenv'
 import { inspect } from 'util'
-import axios, { AxiosRequestConfig } from 'axios'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash.isequal'
 import { RequestConfig } from '../src/client'
+import { Resource, ResourceSort } from '../src/resource'
+
 
 dotenv.config()
 
@@ -37,7 +36,7 @@ export const TestData = {
 
 const COMMON_PARAMS_FILTERS = { reference_eq: TestData.reference }
 
-const COMMON_PARAMS_LIST: QueryParamsList = {
+const COMMON_PARAMS_LIST: QueryParamsList<Resource> = {
 	filters: COMMON_PARAMS_FILTERS,
 	pageSize: 25,
 	pageNumber: 1,
@@ -95,9 +94,9 @@ const handleError = (error: any) => {
 	if (error.message !== INTERCEPTOR_CANCEL) throw error
 }
 
-const interceptRequest = (config?: AxiosRequestConfig): AxiosRequestConfig => {
-	if (!config) throw new axios.Cancel(INTERCEPTOR_CANCEL)
-	return config
+const interceptRequest = (request?: RequestObj): RequestObj => {
+	if (!request) throw new DOMException(INTERCEPTOR_CANCEL, 'AbortError')
+	return request
 }
 
 const randomValue = (type: string, name?: string): any | Array<any> => {
@@ -139,45 +138,49 @@ export { handleError, interceptRequest, randomValue }
 
 
 
-const checkCommon = (config: AxiosRequestConfig, type: string, id?: string, token?: string, relationship?: string) => {
-	expect(config.url).toBe(type + (id ? `/${id}` : '') + (relationship ? `/${relationship}`: ''))
-	expect(config.headers?.Authorization).toContain('Bearer ' + (token || ''))
-	expect(config.timeout).toBe(REQUEST_TIMEOUT)
+const checkCommon = (request: RequestObj, type: string, id?: string, token?: string, relationship?: string) => {
+	expect(request.url.pathname).toBe('/api/' + type + (id ? `/${id}` : '') + (relationship ? `/${relationship}`: ''))
+	expect(request.options.headers).toBeDefined()
+	if (request.options.headers) expect(request.options.headers['Authorization']).toContain('Bearer ' + (token || ''))
+	expect(request.options.signal).not.toBeNull()
 }
 
-const checkCommonData = (config: AxiosRequestConfig, type: string, attributes: any, id?: string) => {
-	if (id) expect(config.data.data.id).toBe(id)
-	expect(config.data.data.type).toBe(type)
+const checkCommonData = (data: any, type: string, attributes: any, id?: string) => {
+	if (id) expect(data.data.id).toBe(id)
+	expect(data.data.type).toBe(type)
 	const relationships: { [k: string]: any } = {}
-	Object.entries(config.data.data.relationships).forEach(([k, v]) => relationships[k] = (v as any)['data'])
+	Object.entries(data.data.relationships).forEach(([k, v]) => relationships[k] = (v as any)['data'])
 	const received = {
-		...config.data.data.attributes,
+		...data.data.attributes,
 		...relationships
 	}
 	expect(isEqual(received, attributes)).toBeTruthy()
 }
 
-const checkParam = (params: any, name: string, value: string | number | boolean) => {
-	expect(params).toHaveProperty([name])
-	expect(params[name]).toBe(String(value))
+const checkParam = (url: string | URL, name: string, value: string | number | boolean) => {
+	const params = (url instanceof URL)? url.searchParams : new URL(url).searchParams
+	expect(params.has(name)).toBeTruthy()
+	expect(params.get(name)).toBe(String(value))
 }
 
-const checkCommonParamsList = (config: AxiosRequestConfig, params: QueryParamsList) =>  {
-	if (params.pageNumber) checkParam(config.params, 'page[number]', params.pageNumber)
-	if (params.pageSize) checkParam(config.params, 'page[size]', params.pageSize)
-	if (params.filters?.reference_eq) checkParam(config.params, 'filter[q][reference_eq]', params.filters.reference_eq)
+const checkCommonParamsList = (request: RequestObj, params: QueryParamsList<Resource>) =>  {
+	const url = new URL(request.url)
+	if (params.pageNumber) checkParam(url, 'page[number]', params.pageNumber)
+	if (params.pageSize) checkParam(url, 'page[size]', params.pageSize)
+	if (params.filters?.reference_eq) checkParam(url, 'filter[q][reference_eq]', String(params.filters.reference_eq))
 	if (params.sort) {
 		let value: string
 		if (Array.isArray(params.sort)) value = params.sort.join(',')
 		else value = Object.entries(params.sort).map(([k, v]) => `${(v === 'desc') ? '-' : ''}${k}`).join(',')
-		checkParam(config.params, 'sort', value)
+		checkParam(url, 'sort', value)
 	}
 }
 
-const checkCommonParams = (config: AxiosRequestConfig, params: QueryParamsRetrieve) => {
+const checkCommonParams = (request: RequestObj, params: QueryParamsRetrieve) => {
 	if (params.fields) {
+		const url = new URL(request.url)
 		Object.entries(params.fields).forEach(([type, fields]) => {
-			checkParam(config.params, `fields[${type}]`, fields.join(','))
+			checkParam(url, `fields[${type}]`, fields.join(','))
 		})
 	}
 }

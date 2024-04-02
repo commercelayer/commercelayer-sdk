@@ -1,4 +1,4 @@
-import { authentication } from '@commercelayer/js-auth'
+import { authenticate } from '@commercelayer/js-auth'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -28,31 +28,41 @@ export type AccessToken = {
 	createdAt: number;
 	error?: string;
 	errorDescription?: string;
-  }
+}
 
 
 
 // const endpoint = `https://${organization.toLowerCase()}.${domain ? domain : 'commercelayer.io'}`
 
-
-export default async (type: TokenType, env?: string): Promise<AccessToken> => {
+const initEnv = (env?: string): AuthData | undefined => {
 
 	if (env) {
 		const cfg = dotenv.config({ path: `./test/env/.env.${env}`, override: true })
 		if (cfg.error) throw cfg.error
 	}
 
-	const organization = process.env.CL_SDK_ORGANIZATION || ''
-	const domain = process.env.CL_SDK_DOMAIN
-	const clientId = process.env.CL_SDK_CLIENT_ID || ''
-	const clientSecret = process.env.CL_SDK_CLIENT_SECRET || ''
-	const scope = process.env.CL_SDK_SCOPE || ''
-
-	switch (type) {
-		case 'integration': return getAccessToken({ slug: organization, clientId, clientSecret, scope, domain })
-		case 'sales_channel':
-		default: return getAccessToken({ slug: organization, clientId, scope, domain })
+	return {
+		slug: process.env.CL_SDK_ORGANIZATION || '',
+		domain: process.env.CL_SDK_DOMAIN,
+		clientId: process.env.CL_SDK_CLIENT_ID || '',
+		clientSecret: process.env.CL_SDK_CLIENT_SECRET || '',
+		scope: process.env.CL_SDK_SCOPE || ''
 	}
+
+}
+
+
+export default async (type: TokenType, env?: string): Promise<AccessToken> => {
+
+	const credentials = initEnv(env)
+
+	if (credentials) {
+		switch (type) {
+			case 'integration': return getAccessToken(credentials)
+			case 'sales_channel':
+			default: return getAccessToken(credentials)
+		}
+	} else throw Error('Environment configuration error')
 
 }
 
@@ -62,22 +72,22 @@ export default async (type: TokenType, env?: string): Promise<AccessToken> => {
 
 const getAccessToken = async (auth: AuthData): Promise<AccessToken> => {
 
-	const scope = auth.scope ? (Array.isArray(auth.scope) ? auth.scope.map(s => s.trim()).join(',') : auth.scope) : ''
-  
+	const scope = auth.scope ? (Array.isArray(auth.scope) ? auth.scope.map(s => s.trim()).join(',') : auth.scope) : undefined
+
 	const credentials: any = {
-	  clientId: auth.clientId,
-	  clientSecret: auth.clientSecret,
-	  slug: auth.slug,
-	  domain: auth.domain || undefined,
-	  scope
+		clientId: auth.clientId,
+		clientSecret: auth.clientSecret,
+		// slug: auth.slug,
+		domain: auth.domain || undefined,
+		scope
 	}
-  
+
 	if (auth.email && auth.password) {
-	  credentials.username = auth.email
-	  credentials.password = auth.password
-	  return authentication('password', credentials)
+		credentials.username = auth.email
+		credentials.password = auth.password
+		return authenticate('password', credentials)
 	}
-  
-	return authentication('client_credentials', credentials)
-  
-  }
+
+	return authenticate('client_credentials', credentials)
+
+}

@@ -1,11 +1,15 @@
 import { ApiSingleton } from '../resource'
-import type { Resource, ResourceId, ResourceRel } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
 
 
 
 type OrganizationType = 'organization'
 type OrganizationRel = ResourceRel & { type: OrganizationType }
+
+
+export type OrganizationSort = Pick<Organization, 'id'> & ResourceSort
+// export type OrganizationFilter = Pick<Organization, 'id'> & ResourceFilter
 
 
 interface Organization extends Resource {
@@ -46,7 +50,11 @@ class Organizations extends ApiSingleton<Organization> {
 
 
 	relationship(id: string | ResourceId | null): OrganizationRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Organizations.TYPE } : { id: id.id, type: Organizations.TYPE }
+		return super.relationshipOneToOne<OrganizationRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): OrganizationRel[] {
+		return super.relationshipOneToMany<OrganizationRel>(...ids)
 	}
 
 

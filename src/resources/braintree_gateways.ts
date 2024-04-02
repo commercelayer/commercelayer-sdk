@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -10,6 +10,10 @@ import type { BraintreePayment, BraintreePaymentType } from './braintree_payment
 type BraintreeGatewayType = 'braintree_gateways'
 type BraintreeGatewayRel = ResourceRel & { type: BraintreeGatewayType }
 type BraintreePaymentRel = ResourceRel & { type: BraintreePaymentType }
+
+
+export type BraintreeGatewaySort = Pick<BraintreeGateway, 'id' | 'name'> & ResourceSort
+// export type BraintreeGatewayFilter = Pick<BraintreeGateway, 'id' | 'name'> & ResourceFilter
 
 
 interface BraintreeGateway extends Resource {
@@ -65,11 +69,11 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 
 	static readonly TYPE: BraintreeGatewayType = 'braintree_gateways' as const
 
-	async create(resource: BraintreeGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreeGateway> {
+	async create(resource: BraintreeGatewayCreate, params?: QueryParamsRetrieve<BraintreeGateway>, options?: ResourcesConfig): Promise<BraintreeGateway> {
 		return this.resources.create<BraintreeGatewayCreate, BraintreeGateway>({ ...resource, type: BraintreeGateways.TYPE }, params, options)
 	}
 
-	async update(resource: BraintreeGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<BraintreeGateway> {
+	async update(resource: BraintreeGatewayUpdate, params?: QueryParamsRetrieve<BraintreeGateway>, options?: ResourcesConfig): Promise<BraintreeGateway> {
 		return this.resources.update<BraintreeGatewayUpdate, BraintreeGateway>({ ...resource, type: BraintreeGateways.TYPE }, params, options)
 	}
 
@@ -77,17 +81,17 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: BraintreeGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `braintree_gateways/${_braintreeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `braintree_gateways/${_braintreeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async braintree_payments(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<BraintreePayment>> {
+	async braintree_payments(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<BraintreePayment>, options?: ResourcesConfig): Promise<ListResponse<BraintreePayment>> {
 		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
 		return this.resources.fetch<BraintreePayment>({ type: 'braintree_payments' }, `braintree_gateways/${_braintreeGatewayId}/braintree_payments`, params, options) as unknown as ListResponse<BraintreePayment>
 	}
@@ -99,7 +103,11 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 
 
 	relationship(id: string | ResourceId | null): BraintreeGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: BraintreeGateways.TYPE } : { id: id.id, type: BraintreeGateways.TYPE }
+		return super.relationshipOneToOne<BraintreeGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): BraintreeGatewayRel[] {
+		return super.relationshipOneToMany<BraintreeGatewayRel>(...ids)
 	}
 
 

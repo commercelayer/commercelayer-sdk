@@ -1,11 +1,15 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourceRel } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
 
 
 
 type VersionType = 'versions'
 type VersionRel = ResourceRel & { type: VersionType }
+
+
+export type VersionSort = Pick<Version, 'id'> & ResourceSort
+// export type VersionFilter = Pick<Version, 'id' | 'resource_type' | 'resource_id'> & ResourceFilter
 
 
 interface Version extends Resource {
@@ -34,7 +38,11 @@ class Versions extends ApiResource<Version> {
 
 
 	relationship(id: string | ResourceId | null): VersionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Versions.TYPE } : { id: id.id, type: Versions.TYPE }
+		return super.relationshipOneToOne<VersionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): VersionRel[] {
+		return super.relationshipOneToMany<VersionRel>(...ids)
 	}
 
 

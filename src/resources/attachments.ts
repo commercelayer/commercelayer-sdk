@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { Bundle, BundleType } from './bundles'
@@ -68,6 +68,10 @@ type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 
 
+export type AttachmentSort = Pick<Attachment, 'id' | 'name'> & ResourceSort
+// export type AttachmentFilter = Pick<Attachment, 'id' | 'name' | 'description'> & ResourceFilter
+
+
 interface Attachment extends Resource {
 	
 	readonly type: AttachmentType
@@ -107,11 +111,11 @@ class Attachments extends ApiResource<Attachment> {
 
 	static readonly TYPE: AttachmentType = 'attachments' as const
 
-	async create(resource: AttachmentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
+	async create(resource: AttachmentCreate, params?: QueryParamsRetrieve<Attachment>, options?: ResourcesConfig): Promise<Attachment> {
 		return this.resources.create<AttachmentCreate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)
 	}
 
-	async update(resource: AttachmentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Attachment> {
+	async update(resource: AttachmentUpdate, params?: QueryParamsRetrieve<Attachment>, options?: ResourcesConfig): Promise<Attachment> {
 		return this.resources.update<AttachmentUpdate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)
 	}
 
@@ -126,7 +130,11 @@ class Attachments extends ApiResource<Attachment> {
 
 
 	relationship(id: string | ResourceId | null): AttachmentRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Attachments.TYPE } : { id: id.id, type: Attachments.TYPE }
+		return super.relationshipOneToOne<AttachmentRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AttachmentRel[] {
+		return super.relationshipOneToMany<AttachmentRel>(...ids)
 	}
 
 

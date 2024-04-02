@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -9,6 +9,10 @@ import type { Version } from './versions'
 
 type CarrierAccountType = 'carrier_accounts'
 type CarrierAccountRel = ResourceRel & { type: CarrierAccountType }
+
+
+export type CarrierAccountSort = Pick<CarrierAccount, 'id'> & ResourceSort
+// export type CarrierAccountFilter = Pick<CarrierAccount, 'id' | 'name' | 'easypost_type'> & ResourceFilter
 
 
 interface CarrierAccount extends Resource {
@@ -30,17 +34,17 @@ class CarrierAccounts extends ApiResource<CarrierAccount> {
 
 	static readonly TYPE: CarrierAccountType = 'carrier_accounts' as const
 
-	async market(carrierAccountId: string | CarrierAccount, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+	async market(carrierAccountId: string | CarrierAccount, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `carrier_accounts/${_carrierAccountId}/market`, params, options) as unknown as Market
 	}
 
-	async attachments(carrierAccountId: string | CarrierAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(carrierAccountId: string | CarrierAccount, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `carrier_accounts/${_carrierAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(carrierAccountId: string | CarrierAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(carrierAccountId: string | CarrierAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `carrier_accounts/${_carrierAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
@@ -52,7 +56,11 @@ class CarrierAccounts extends ApiResource<CarrierAccount> {
 
 
 	relationship(id: string | ResourceId | null): CarrierAccountRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CarrierAccounts.TYPE } : { id: id.id, type: CarrierAccounts.TYPE }
+		return super.relationshipOneToOne<CarrierAccountRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CarrierAccountRel[] {
+		return super.relationshipOneToMany<CarrierAccountRel>(...ids)
 	}
 
 

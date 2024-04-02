@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Attachment } from './attachments'
@@ -8,6 +8,10 @@ import type { Version } from './versions'
 
 type ShippingZoneType = 'shipping_zones'
 type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
+
+
+export type ShippingZoneSort = Pick<ShippingZone, 'id' | 'name'> & ResourceSort
+// export type ShippingZoneFilter = Pick<ShippingZone, 'id' | 'name'> & ResourceFilter
 
 
 interface ShippingZone extends Resource {
@@ -58,11 +62,11 @@ class ShippingZones extends ApiResource<ShippingZone> {
 
 	static readonly TYPE: ShippingZoneType = 'shipping_zones' as const
 
-	async create(resource: ShippingZoneCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
+	async create(resource: ShippingZoneCreate, params?: QueryParamsRetrieve<ShippingZone>, options?: ResourcesConfig): Promise<ShippingZone> {
 		return this.resources.create<ShippingZoneCreate, ShippingZone>({ ...resource, type: ShippingZones.TYPE }, params, options)
 	}
 
-	async update(resource: ShippingZoneUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ShippingZone> {
+	async update(resource: ShippingZoneUpdate, params?: QueryParamsRetrieve<ShippingZone>, options?: ResourcesConfig): Promise<ShippingZone> {
 		return this.resources.update<ShippingZoneUpdate, ShippingZone>({ ...resource, type: ShippingZones.TYPE }, params, options)
 	}
 
@@ -70,12 +74,12 @@ class ShippingZones extends ApiResource<ShippingZone> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ShippingZones.TYPE } : id, options)
 	}
 
-	async attachments(shippingZoneId: string | ShippingZone, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(shippingZoneId: string | ShippingZone, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_zones/${_shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(shippingZoneId: string | ShippingZone, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(shippingZoneId: string | ShippingZone, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_zones/${_shippingZoneId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
@@ -87,7 +91,11 @@ class ShippingZones extends ApiResource<ShippingZone> {
 
 
 	relationship(id: string | ResourceId | null): ShippingZoneRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ShippingZones.TYPE } : { id: id.id, type: ShippingZones.TYPE }
+		return super.relationshipOneToOne<ShippingZoneRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ShippingZoneRel[] {
+		return super.relationshipOneToMany<ShippingZoneRel>(...ids)
 	}
 
 

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
@@ -7,6 +7,10 @@ import type { Event } from './events'
 
 type ImportType = 'imports'
 type ImportRel = ResourceRel & { type: ImportType }
+
+
+export type ImportSort = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'attachment_url'> & ResourceSort
+// export type ImportFilter = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'attachment_url'> & ResourceFilter
 
 
 interface Import extends Resource {
@@ -48,7 +52,7 @@ class Imports extends ApiResource<Import> {
 
 	static readonly TYPE: ImportType = 'imports' as const
 
-	async create(resource: ImportCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Import> {
+	async create(resource: ImportCreate, params?: QueryParamsRetrieve<Import>, options?: ResourcesConfig): Promise<Import> {
 		return this.resources.create<ImportCreate, Import>({ ...resource, type: Imports.TYPE }, params, options)
 	}
 
@@ -56,7 +60,7 @@ class Imports extends ApiResource<Import> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Imports.TYPE } : id, options)
 	}
 
-	async events(importId: string | Import, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(importId: string | Import, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _importId = (importId as Import).id || importId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `imports/${_importId}/events`, params, options) as unknown as ListResponse<Event>
 	}
@@ -68,7 +72,11 @@ class Imports extends ApiResource<Import> {
 
 
 	relationship(id: string | ResourceId | null): ImportRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Imports.TYPE } : { id: id.id, type: Imports.TYPE }
+		return super.relationshipOneToOne<ImportRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ImportRel[] {
+		return super.relationshipOneToMany<ImportRel>(...ids)
 	}
 
 

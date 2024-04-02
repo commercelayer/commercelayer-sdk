@@ -1,11 +1,15 @@
 import { ApiSingleton } from '../resource'
-import type { Resource, ResourceId, ResourceRel } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
 
 
 
 type ApplicationType = 'application'
 type ApplicationRel = ResourceRel & { type: ApplicationType }
+
+
+export type ApplicationSort = Pick<Application, 'id'> & ResourceSort
+// export type ApplicationFilter = Pick<Application, 'id' | 'name' | 'kind' | 'public_access' | 'scopes'> & ResourceFilter
 
 
 interface Application extends Resource {
@@ -34,7 +38,11 @@ class Applications extends ApiSingleton<Application> {
 
 
 	relationship(id: string | ResourceId | null): ApplicationRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Applications.TYPE } : { id: id.id, type: Applications.TYPE }
+		return super.relationshipOneToOne<ApplicationRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ApplicationRel[] {
+		return super.relationshipOneToMany<ApplicationRel>(...ids)
 	}
 
 

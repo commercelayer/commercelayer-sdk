@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -10,6 +10,10 @@ import type { Version } from './versions'
 
 type TransactionType = 'transactions'
 type TransactionRel = ResourceRel & { type: TransactionType }
+
+
+export type TransactionSort = Pick<Transaction, 'id' | 'number' | 'amount_cents'> & ResourceSort
+// export type TransactionFilter = Pick<Transaction, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
 
 interface Transaction extends Resource {
@@ -40,22 +44,22 @@ class Transactions extends ApiResource<Transaction> {
 
 	static readonly TYPE: TransactionType = 'transactions' as const
 
-	async order(transactionId: string | Transaction, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async order(transactionId: string | Transaction, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _transactionId = (transactionId as Transaction).id || transactionId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `transactions/${_transactionId}/order`, params, options) as unknown as Order
 	}
 
-	async attachments(transactionId: string | Transaction, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(transactionId: string | Transaction, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _transactionId = (transactionId as Transaction).id || transactionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `transactions/${_transactionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(transactionId: string | Transaction, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(transactionId: string | Transaction, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _transactionId = (transactionId as Transaction).id || transactionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `transactions/${_transactionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async versions(transactionId: string | Transaction, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(transactionId: string | Transaction, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _transactionId = (transactionId as Transaction).id || transactionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `transactions/${_transactionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
@@ -67,7 +71,11 @@ class Transactions extends ApiResource<Transaction> {
 
 
 	relationship(id: string | ResourceId | null): TransactionRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Transactions.TYPE } : { id: id.id, type: Transactions.TYPE }
+		return super.relationshipOneToOne<TransactionRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): TransactionRel[] {
+		return super.relationshipOneToMany<TransactionRel>(...ids)
 	}
 
 

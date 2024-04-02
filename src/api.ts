@@ -1,6 +1,7 @@
 import type { Resource, ResourceRel } from './resource'
 import type { TagType } from './resources/tags'
 import type { VersionType } from './resources/versions'
+import type * as models from './model'
 
 // ##__API_RESOURCES_START__##
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
@@ -132,7 +133,7 @@ export { default as WireTransfers } from './resources/wire_transfers'
 
 
 export type ResourceTypeLock =
-// ##__API_RESOURCE_TYPES_START__##
+	// ##__API_RESOURCE_TYPES_START__##
 	'addresses'
 |	'adjustments'
 |	'adyen_gateways'
@@ -258,7 +259,7 @@ export type ResourceTypeLock =
 
 
 export const resourceList = [
-// ##__API_RESOURCE_LIST_START__##
+	// ##__API_RESOURCE_LIST_START__##
 	'addresses',
 	'adjustments',
 	'adyen_gateways',
@@ -380,7 +381,7 @@ export const resourceList = [
 	'voids',
 	'webhooks',
 	'wire_transfers'
-// ##__API_RESOURCE_LIST_STOP__##
+	// ##__API_RESOURCE_LIST_STOP__##
 ] as const
 
 
@@ -420,7 +421,7 @@ export type ListableResourceType = Exclude<ResourceTypeLock,
 	// ##__API_RESOURCE_NOT_LISTABLE_START__##
 	'application'
 |	'organization'
-	// ##__API_RESOURCE_NOT_LISTABLE_STOP__##
+// ##__API_RESOURCE_NOT_LISTABLE_STOP__##
 >
 
 export type ListableResource = Resource & {
@@ -530,7 +531,7 @@ export type CreatableResourceType =
 |	'taxjar_accounts'
 |	'webhooks'
 |	'wire_transfers'
-	// ##__API_RESOURCE_CREATABLE_STOP__##
+// ##__API_RESOURCE_CREATABLE_STOP__##
 
 export type CreatableResource = Resource & {
 	type: CreatableResourceType
@@ -638,7 +639,7 @@ export type UpdatableResourceType =
 |	'taxjar_accounts'
 |	'webhooks'
 |	'wire_transfers'
-	// ##__API_RESOURCE_UPDATABLE_STOP__##
+// ##__API_RESOURCE_UPDATABLE_STOP__##
 
 export type UpdatableResource = Resource & {
 	type: UpdatableResourceType
@@ -747,7 +748,7 @@ export type DeletableResourceType =
 |	'taxjar_accounts'
 |	'webhooks'
 |	'wire_transfers'
-	// ##__API_RESOURCE_DELETABLE_STOP__##
+// ##__API_RESOURCE_DELETABLE_STOP__##
 
 export type DeletableResource = Resource & {
 	type: DeletableResourceType
@@ -777,7 +778,7 @@ export type TaggableResourceType =
 |	'shipments'
 |	'sku_options'
 |	'skus'
-	// ##__API_RESOURCE_TAGGABLE_STOP__##
+// ##__API_RESOURCE_TAGGABLE_STOP__##
 
 export type TaggableResource = Resource & {
 	type: TaggableResourceType,
@@ -786,7 +787,7 @@ export type TaggableResource = Resource & {
 
 
 // Versionable resources
-export type VersionableResourceType = 
+export type VersionableResourceType =
 	// ##__API_RESOURCE_VERSIONABLE_START__##
 	'addresses'
 |	'adjustments'
@@ -883,9 +884,264 @@ export type VersionableResourceType =
 |	'voids'
 |	'webhooks'
 |	'wire_transfers'
-	// ##__API_RESOURCE_VERSIONABLE_STOP__##
+// ##__API_RESOURCE_VERSIONABLE_STOP__##
 
 export type VersionableResource = Resource & {
 	type: VersionableResourceType,
 	versions?: Array<ResourceRel & { type: VersionType }> | null
+}
+
+
+
+export type ResourceFields = {
+	// ##__API_RESOURCE_FIELDS_START__##
+	addresses: models.Address,
+	adjustments: models.Adjustment,
+	adyen_gateways: models.AdyenGateway,
+	adyen_payments: models.AdyenPayment,
+	application: models.Application,
+	attachments: models.Attachment,
+	authorizations: models.Authorization,
+	avalara_accounts: models.AvalaraAccount,
+	axerve_gateways: models.AxerveGateway,
+	axerve_payments: models.AxervePayment,
+	billing_info_validation_rules: models.BillingInfoValidationRule,
+	bing_geocoders: models.BingGeocoder,
+	braintree_gateways: models.BraintreeGateway,
+	braintree_payments: models.BraintreePayment,
+	bundles: models.Bundle,
+	buy_x_pay_y_promotions: models.BuyXPayYPromotion,
+	captures: models.Capture,
+	carrier_accounts: models.CarrierAccount,
+	checkout_com_gateways: models.CheckoutComGateway,
+	checkout_com_payments: models.CheckoutComPayment,
+	cleanups: models.Cleanup,
+	coupon_codes_promotion_rules: models.CouponCodesPromotionRule,
+	coupon_recipients: models.CouponRecipient,
+	coupons: models.Coupon,
+	custom_promotion_rules: models.CustomPromotionRule,
+	customer_addresses: models.CustomerAddress,
+	customer_groups: models.CustomerGroup,
+	customer_password_resets: models.CustomerPasswordReset,
+	customer_payment_sources: models.CustomerPaymentSource,
+	customer_subscriptions: models.CustomerSubscription,
+	customers: models.Customer,
+	delivery_lead_times: models.DeliveryLeadTime,
+	event_callbacks: models.EventCallback,
+	events: models.Event,
+	exports: models.Export,
+	external_gateways: models.ExternalGateway,
+	external_payments: models.ExternalPayment,
+	external_promotions: models.ExternalPromotion,
+	external_tax_calculators: models.ExternalTaxCalculator,
+	fixed_amount_promotions: models.FixedAmountPromotion,
+	fixed_price_promotions: models.FixedPricePromotion,
+	free_gift_promotions: models.FreeGiftPromotion,
+	free_shipping_promotions: models.FreeShippingPromotion,
+	geocoders: models.Geocoder,
+	gift_card_recipients: models.GiftCardRecipient,
+	gift_cards: models.GiftCard,
+	google_geocoders: models.GoogleGeocoder,
+	imports: models.Import,
+	in_stock_subscriptions: models.InStockSubscription,
+	inventory_models: models.InventoryModel,
+	inventory_return_locations: models.InventoryReturnLocation,
+	inventory_stock_locations: models.InventoryStockLocation,
+	klarna_gateways: models.KlarnaGateway,
+	klarna_payments: models.KlarnaPayment,
+	line_item_options: models.LineItemOption,
+	line_items: models.LineItem,
+	manual_gateways: models.ManualGateway,
+	manual_tax_calculators: models.ManualTaxCalculator,
+	markets: models.Market,
+	merchants: models.Merchant,
+	order_amount_promotion_rules: models.OrderAmountPromotionRule,
+	order_copies: models.OrderCopy,
+	order_factories: models.OrderFactory,
+	order_subscription_items: models.OrderSubscriptionItem,
+	order_subscriptions: models.OrderSubscription,
+	order_validation_rules: models.OrderValidationRule,
+	orders: models.Order,
+	organization: models.Organization,
+	packages: models.Package,
+	parcel_line_items: models.ParcelLineItem,
+	parcels: models.Parcel,
+	payment_gateways: models.PaymentGateway,
+	payment_methods: models.PaymentMethod,
+	payment_options: models.PaymentOption,
+	paypal_gateways: models.PaypalGateway,
+	paypal_payments: models.PaypalPayment,
+	percentage_discount_promotions: models.PercentageDiscountPromotion,
+	price_frequency_tiers: models.PriceFrequencyTier,
+	price_lists: models.PriceList,
+	price_tiers: models.PriceTier,
+	price_volume_tiers: models.PriceVolumeTier,
+	prices: models.Price,
+	promotion_rules: models.PromotionRule,
+	promotions: models.Promotion,
+	recurring_order_copies: models.RecurringOrderCopy,
+	refunds: models.Refund,
+	reserved_stocks: models.ReservedStock,
+	resource_errors: models.ResourceError,
+	return_line_items: models.ReturnLineItem,
+	returns: models.Return,
+	satispay_gateways: models.SatispayGateway,
+	satispay_payments: models.SatispayPayment,
+	shipments: models.Shipment,
+	shipping_categories: models.ShippingCategory,
+	shipping_method_tiers: models.ShippingMethodTier,
+	shipping_methods: models.ShippingMethod,
+	shipping_weight_tiers: models.ShippingWeightTier,
+	shipping_zones: models.ShippingZone,
+	sku_list_items: models.SkuListItem,
+	sku_list_promotion_rules: models.SkuListPromotionRule,
+	sku_lists: models.SkuList,
+	sku_options: models.SkuOption,
+	skus: models.Sku,
+	stock_items: models.StockItem,
+	stock_line_items: models.StockLineItem,
+	stock_locations: models.StockLocation,
+	stock_reservations: models.StockReservation,
+	stock_transfers: models.StockTransfer,
+	stripe_gateways: models.StripeGateway,
+	stripe_payments: models.StripePayment,
+	subscription_models: models.SubscriptionModel,
+	tags: models.Tag,
+	tax_calculators: models.TaxCalculator,
+	tax_categories: models.TaxCategory,
+	tax_rules: models.TaxRule,
+	taxjar_accounts: models.TaxjarAccount,
+	transactions: models.Transaction,
+	versions: models.Version,
+	voids: models.Void,
+	webhooks: models.Webhook,
+	wire_transfers: models.WireTransfer
+	// ##__API_RESOURCE_FIELDS_STOP__##
+}
+
+
+export type ResourceSortFields = {
+	// ##__API_RESOURCE_SORTABLE_FIELDS_START__##
+	addresses: models.AddressSort,
+	adjustments: models.AdjustmentSort,
+	adyen_gateways: models.AdyenGatewaySort,
+	adyen_payments: models.AdyenPaymentSort,
+	application: models.ApplicationSort,
+	attachments: models.AttachmentSort,
+	authorizations: models.AuthorizationSort,
+	avalara_accounts: models.AvalaraAccountSort,
+	axerve_gateways: models.AxerveGatewaySort,
+	axerve_payments: models.AxervePaymentSort,
+	billing_info_validation_rules: models.BillingInfoValidationRuleSort,
+	bing_geocoders: models.BingGeocoderSort,
+	braintree_gateways: models.BraintreeGatewaySort,
+	braintree_payments: models.BraintreePaymentSort,
+	bundles: models.BundleSort,
+	buy_x_pay_y_promotions: models.BuyXPayYPromotionSort,
+	captures: models.CaptureSort,
+	carrier_accounts: models.CarrierAccountSort,
+	checkout_com_gateways: models.CheckoutComGatewaySort,
+	checkout_com_payments: models.CheckoutComPaymentSort,
+	cleanups: models.CleanupSort,
+	coupon_codes_promotion_rules: models.CouponCodesPromotionRuleSort,
+	coupon_recipients: models.CouponRecipientSort,
+	coupons: models.CouponSort,
+	custom_promotion_rules: models.CustomPromotionRuleSort,
+	customer_addresses: models.CustomerAddressSort,
+	customer_groups: models.CustomerGroupSort,
+	customer_password_resets: models.CustomerPasswordResetSort,
+	customer_payment_sources: models.CustomerPaymentSourceSort,
+	customer_subscriptions: models.CustomerSubscriptionSort,
+	customers: models.CustomerSort,
+	delivery_lead_times: models.DeliveryLeadTimeSort,
+	event_callbacks: models.EventCallbackSort,
+	events: models.EventSort,
+	exports: models.ExportSort,
+	external_gateways: models.ExternalGatewaySort,
+	external_payments: models.ExternalPaymentSort,
+	external_promotions: models.ExternalPromotionSort,
+	external_tax_calculators: models.ExternalTaxCalculatorSort,
+	fixed_amount_promotions: models.FixedAmountPromotionSort,
+	fixed_price_promotions: models.FixedPricePromotionSort,
+	free_gift_promotions: models.FreeGiftPromotionSort,
+	free_shipping_promotions: models.FreeShippingPromotionSort,
+	geocoders: models.GeocoderSort,
+	gift_card_recipients: models.GiftCardRecipientSort,
+	gift_cards: models.GiftCardSort,
+	google_geocoders: models.GoogleGeocoderSort,
+	imports: models.ImportSort,
+	in_stock_subscriptions: models.InStockSubscriptionSort,
+	inventory_models: models.InventoryModelSort,
+	inventory_return_locations: models.InventoryReturnLocationSort,
+	inventory_stock_locations: models.InventoryStockLocationSort,
+	klarna_gateways: models.KlarnaGatewaySort,
+	klarna_payments: models.KlarnaPaymentSort,
+	line_item_options: models.LineItemOptionSort,
+	line_items: models.LineItemSort,
+	manual_gateways: models.ManualGatewaySort,
+	manual_tax_calculators: models.ManualTaxCalculatorSort,
+	markets: models.MarketSort,
+	merchants: models.MerchantSort,
+	order_amount_promotion_rules: models.OrderAmountPromotionRuleSort,
+	order_copies: models.OrderCopySort,
+	order_factories: models.OrderFactorySort,
+	order_subscription_items: models.OrderSubscriptionItemSort,
+	order_subscriptions: models.OrderSubscriptionSort,
+	order_validation_rules: models.OrderValidationRuleSort,
+	orders: models.OrderSort,
+	organization: models.OrganizationSort,
+	packages: models.PackageSort,
+	parcel_line_items: models.ParcelLineItemSort,
+	parcels: models.ParcelSort,
+	payment_gateways: models.PaymentGatewaySort,
+	payment_methods: models.PaymentMethodSort,
+	payment_options: models.PaymentOptionSort,
+	paypal_gateways: models.PaypalGatewaySort,
+	paypal_payments: models.PaypalPaymentSort,
+	percentage_discount_promotions: models.PercentageDiscountPromotionSort,
+	price_frequency_tiers: models.PriceFrequencyTierSort,
+	price_lists: models.PriceListSort,
+	price_tiers: models.PriceTierSort,
+	price_volume_tiers: models.PriceVolumeTierSort,
+	prices: models.PriceSort,
+	promotion_rules: models.PromotionRuleSort,
+	promotions: models.PromotionSort,
+	recurring_order_copies: models.RecurringOrderCopySort,
+	refunds: models.RefundSort,
+	reserved_stocks: models.ReservedStockSort,
+	resource_errors: models.ResourceErrorSort,
+	return_line_items: models.ReturnLineItemSort,
+	returns: models.ReturnSort,
+	satispay_gateways: models.SatispayGatewaySort,
+	satispay_payments: models.SatispayPaymentSort,
+	shipments: models.ShipmentSort,
+	shipping_categories: models.ShippingCategorySort,
+	shipping_method_tiers: models.ShippingMethodTierSort,
+	shipping_methods: models.ShippingMethodSort,
+	shipping_weight_tiers: models.ShippingWeightTierSort,
+	shipping_zones: models.ShippingZoneSort,
+	sku_list_items: models.SkuListItemSort,
+	sku_list_promotion_rules: models.SkuListPromotionRuleSort,
+	sku_lists: models.SkuListSort,
+	sku_options: models.SkuOptionSort,
+	skus: models.SkuSort,
+	stock_items: models.StockItemSort,
+	stock_line_items: models.StockLineItemSort,
+	stock_locations: models.StockLocationSort,
+	stock_reservations: models.StockReservationSort,
+	stock_transfers: models.StockTransferSort,
+	stripe_gateways: models.StripeGatewaySort,
+	stripe_payments: models.StripePaymentSort,
+	subscription_models: models.SubscriptionModelSort,
+	tags: models.TagSort,
+	tax_calculators: models.TaxCalculatorSort,
+	tax_categories: models.TaxCategorySort,
+	tax_rules: models.TaxRuleSort,
+	taxjar_accounts: models.TaxjarAccountSort,
+	transactions: models.TransactionSort,
+	versions: models.VersionSort,
+	voids: models.VoidSort,
+	webhooks: models.WebhookSort,
+	wire_transfers: models.WireTransferSort
+	// ##__API_RESOURCE_SORTABLE_FIELDS_STOP__##
 }

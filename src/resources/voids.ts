@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -11,6 +11,10 @@ import type { Authorization } from './authorizations'
 
 type VoidType = 'voids'
 type VoidRel = ResourceRel & { type: VoidType }
+
+
+export type VoidSort = Pick<Void, 'id' | 'number' | 'amount_cents'> & ResourceSort
+// export type VoidFilter = Pick<Void, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
 
 interface Void extends Resource {
@@ -42,27 +46,27 @@ class Voids extends ApiResource<Void> {
 
 	static readonly TYPE: VoidType = 'voids' as const
 
-	async order(voidId: string | Void, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async order(voidId: string | Void, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `voids/${_voidId}/order`, params, options) as unknown as Order
 	}
 
-	async attachments(voidId: string | Void, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(voidId: string | Void, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `voids/${_voidId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(voidId: string | Void, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(voidId: string | Void, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `voids/${_voidId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async versions(voidId: string | Void, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(voidId: string | Void, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `voids/${_voidId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async reference_authorization(voidId: string | Void, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
+	async reference_authorization(voidId: string | Void, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `voids/${_voidId}/reference_authorization`, params, options) as unknown as Authorization
 	}
@@ -74,7 +78,11 @@ class Voids extends ApiResource<Void> {
 
 
 	relationship(id: string | ResourceId | null): VoidRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Voids.TYPE } : { id: id.id, type: Voids.TYPE }
+		return super.relationshipOneToOne<VoidRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): VoidRel[] {
+		return super.relationshipOneToMany<VoidRel>(...ids)
 	}
 
 

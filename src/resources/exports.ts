@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
@@ -7,6 +7,10 @@ import type { Event } from './events'
 
 type ExportType = 'exports'
 type ExportRel = ResourceRel & { type: ExportType }
+
+
+export type ExportSort = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceSort
+// export type ExportFilter = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceFilter
 
 
 interface Export extends Resource {
@@ -45,7 +49,7 @@ class Exports extends ApiResource<Export> {
 
 	static readonly TYPE: ExportType = 'exports' as const
 
-	async create(resource: ExportCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Export> {
+	async create(resource: ExportCreate, params?: QueryParamsRetrieve<Export>, options?: ResourcesConfig): Promise<Export> {
 		return this.resources.create<ExportCreate, Export>({ ...resource, type: Exports.TYPE }, params, options)
 	}
 
@@ -53,7 +57,7 @@ class Exports extends ApiResource<Export> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Exports.TYPE } : id, options)
 	}
 
-	async events(exportId: string | Export, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(exportId: string | Export, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _exportId = (exportId as Export).id || exportId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `exports/${_exportId}/events`, params, options) as unknown as ListResponse<Event>
 	}
@@ -65,7 +69,11 @@ class Exports extends ApiResource<Export> {
 
 
 	relationship(id: string | ResourceId | null): ExportRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Exports.TYPE } : { id: id.id, type: Exports.TYPE }
+		return super.relationshipOneToOne<ExportRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ExportRel[] {
+		return super.relationshipOneToMany<ExportRel>(...ids)
 	}
 
 

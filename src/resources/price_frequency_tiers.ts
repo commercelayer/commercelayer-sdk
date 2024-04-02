@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Price, PriceType } from './prices'
@@ -11,6 +11,10 @@ import type { Event } from './events'
 type PriceFrequencyTierType = 'price_frequency_tiers'
 type PriceFrequencyTierRel = ResourceRel & { type: PriceFrequencyTierType }
 type PriceRel = ResourceRel & { type: PriceType }
+
+
+export type PriceFrequencyTierSort = Pick<PriceFrequencyTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort
+// export type PriceFrequencyTierFilter = Pick<PriceFrequencyTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
 
 interface PriceFrequencyTier extends Resource {
@@ -57,11 +61,11 @@ class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier> {
 
 	static readonly TYPE: PriceFrequencyTierType = 'price_frequency_tiers' as const
 
-	async create(resource: PriceFrequencyTierCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceFrequencyTier> {
+	async create(resource: PriceFrequencyTierCreate, params?: QueryParamsRetrieve<PriceFrequencyTier>, options?: ResourcesConfig): Promise<PriceFrequencyTier> {
 		return this.resources.create<PriceFrequencyTierCreate, PriceFrequencyTier>({ ...resource, type: PriceFrequencyTiers.TYPE }, params, options)
 	}
 
-	async update(resource: PriceFrequencyTierUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceFrequencyTier> {
+	async update(resource: PriceFrequencyTierUpdate, params?: QueryParamsRetrieve<PriceFrequencyTier>, options?: ResourcesConfig): Promise<PriceFrequencyTier> {
 		return this.resources.update<PriceFrequencyTierUpdate, PriceFrequencyTier>({ ...resource, type: PriceFrequencyTiers.TYPE }, params, options)
 	}
 
@@ -69,22 +73,22 @@ class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier> {
 		await this.resources.delete((typeof id === 'string')? { id, type: PriceFrequencyTiers.TYPE } : id, options)
 	}
 
-	async price(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
+	async price(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsRetrieve<Price>, options?: ResourcesConfig): Promise<Price> {
 		const _priceFrequencyTierId = (priceFrequencyTierId as PriceFrequencyTier).id || priceFrequencyTierId as string
 		return this.resources.fetch<Price>({ type: 'prices' }, `price_frequency_tiers/${_priceFrequencyTierId}/price`, params, options) as unknown as Price
 	}
 
-	async attachments(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceFrequencyTierId = (priceFrequencyTierId as PriceFrequencyTier).id || priceFrequencyTierId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_frequency_tiers/${_priceFrequencyTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _priceFrequencyTierId = (priceFrequencyTierId as PriceFrequencyTier).id || priceFrequencyTierId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `price_frequency_tiers/${_priceFrequencyTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async events(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(priceFrequencyTierId: string | PriceFrequencyTier, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _priceFrequencyTierId = (priceFrequencyTierId as PriceFrequencyTier).id || priceFrequencyTierId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `price_frequency_tiers/${_priceFrequencyTierId}/events`, params, options) as unknown as ListResponse<Event>
 	}
@@ -96,7 +100,11 @@ class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier> {
 
 
 	relationship(id: string | ResourceId | null): PriceFrequencyTierRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PriceFrequencyTiers.TYPE } : { id: id.id, type: PriceFrequencyTiers.TYPE }
+		return super.relationshipOneToOne<PriceFrequencyTierRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PriceFrequencyTierRel[] {
+		return super.relationshipOneToMany<PriceFrequencyTierRel>(...ids)
 	}
 
 

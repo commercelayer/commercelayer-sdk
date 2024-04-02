@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
@@ -9,6 +9,10 @@ import type { Version } from './versions'
 type WireTransferType = 'wire_transfers'
 type WireTransferRel = ResourceRel & { type: WireTransferType }
 type OrderRel = ResourceRel & { type: OrderType }
+
+
+export type WireTransferSort = Pick<WireTransfer, 'id'> & ResourceSort
+// export type WireTransferFilter = Pick<WireTransfer, 'id'> & ResourceFilter
 
 
 interface WireTransfer extends Resource {
@@ -41,11 +45,11 @@ class WireTransfers extends ApiResource<WireTransfer> {
 
 	static readonly TYPE: WireTransferType = 'wire_transfers' as const
 
-	async create(resource: WireTransferCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
+	async create(resource: WireTransferCreate, params?: QueryParamsRetrieve<WireTransfer>, options?: ResourcesConfig): Promise<WireTransfer> {
 		return this.resources.create<WireTransferCreate, WireTransfer>({ ...resource, type: WireTransfers.TYPE }, params, options)
 	}
 
-	async update(resource: WireTransferUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<WireTransfer> {
+	async update(resource: WireTransferUpdate, params?: QueryParamsRetrieve<WireTransfer>, options?: ResourcesConfig): Promise<WireTransfer> {
 		return this.resources.update<WireTransferUpdate, WireTransfer>({ ...resource, type: WireTransfers.TYPE }, params, options)
 	}
 
@@ -53,12 +57,12 @@ class WireTransfers extends ApiResource<WireTransfer> {
 		await this.resources.delete((typeof id === 'string')? { id, type: WireTransfers.TYPE } : id, options)
 	}
 
-	async order(wireTransferId: string | WireTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+	async order(wireTransferId: string | WireTransfer, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `wire_transfers/${_wireTransferId}/order`, params, options) as unknown as Order
 	}
 
-	async versions(wireTransferId: string | WireTransfer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(wireTransferId: string | WireTransfer, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `wire_transfers/${_wireTransferId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
@@ -70,7 +74,11 @@ class WireTransfers extends ApiResource<WireTransfer> {
 
 
 	relationship(id: string | ResourceId | null): WireTransferRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: WireTransfers.TYPE } : { id: id.id, type: WireTransfers.TYPE }
+		return super.relationshipOneToOne<WireTransferRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): WireTransferRel[] {
+		return super.relationshipOneToMany<WireTransferRel>(...ids)
 	}
 
 

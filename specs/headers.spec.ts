@@ -24,18 +24,18 @@ describe('Test headers', () => {
 			}
 		}
 
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.headers).toBeDefined()
-			if (config.headers) {
-				expect(config.headers['test-header']).toBe(testHeaderValue)
-				expect(config.headers['Content-Type']).toBe('application/vnd.api+json')
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.headers).toBeDefined()
+			if (request.options.headers) {
+				expect(request.options.headers['test-header']).toBe(testHeaderValue)
+				expect(request.options.headers['Content-Type']).toBe('application/vnd.api+json')
 			}
 			return interceptRequest()
 		})
 
 		await cl.application.retrieve(params, options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 
 	})
 
@@ -51,7 +51,7 @@ describe('Test headers', () => {
 		expect(reader.headers).not.toBeUndefined()
 		expect(reader.headers?.['x-ratelimit-limit']).not.toBeUndefined()
 
-		cl.removeRawResponseReader(reader)
+		cl.removeRawResponseReader()
 
 	})
 

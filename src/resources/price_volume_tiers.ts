@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Price, PriceType } from './prices'
@@ -11,6 +11,10 @@ import type { Event } from './events'
 type PriceVolumeTierType = 'price_volume_tiers'
 type PriceVolumeTierRel = ResourceRel & { type: PriceVolumeTierType }
 type PriceRel = ResourceRel & { type: PriceType }
+
+
+export type PriceVolumeTierSort = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort
+// export type PriceVolumeTierFilter = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
 
 interface PriceVolumeTier extends Resource {
@@ -57,11 +61,11 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 
 	static readonly TYPE: PriceVolumeTierType = 'price_volume_tiers' as const
 
-	async create(resource: PriceVolumeTierCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceVolumeTier> {
+	async create(resource: PriceVolumeTierCreate, params?: QueryParamsRetrieve<PriceVolumeTier>, options?: ResourcesConfig): Promise<PriceVolumeTier> {
 		return this.resources.create<PriceVolumeTierCreate, PriceVolumeTier>({ ...resource, type: PriceVolumeTiers.TYPE }, params, options)
 	}
 
-	async update(resource: PriceVolumeTierUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceVolumeTier> {
+	async update(resource: PriceVolumeTierUpdate, params?: QueryParamsRetrieve<PriceVolumeTier>, options?: ResourcesConfig): Promise<PriceVolumeTier> {
 		return this.resources.update<PriceVolumeTierUpdate, PriceVolumeTier>({ ...resource, type: PriceVolumeTiers.TYPE }, params, options)
 	}
 
@@ -69,22 +73,22 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 		await this.resources.delete((typeof id === 'string')? { id, type: PriceVolumeTiers.TYPE } : id, options)
 	}
 
-	async price(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Price> {
+	async price(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsRetrieve<Price>, options?: ResourcesConfig): Promise<Price> {
 		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
 		return this.resources.fetch<Price>({ type: 'prices' }, `price_volume_tiers/${_priceVolumeTierId}/price`, params, options) as unknown as Price
 	}
 
-	async attachments(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_volume_tiers/${_priceVolumeTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `price_volume_tiers/${_priceVolumeTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async events(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `price_volume_tiers/${_priceVolumeTierId}/events`, params, options) as unknown as ListResponse<Event>
 	}
@@ -96,7 +100,11 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 
 
 	relationship(id: string | ResourceId | null): PriceVolumeTierRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: PriceVolumeTiers.TYPE } : { id: id.id, type: PriceVolumeTiers.TYPE }
+		return super.relationshipOneToOne<PriceVolumeTierRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): PriceVolumeTierRel[] {
+		return super.relationshipOneToMany<PriceVolumeTierRel>(...ids)
 	}
 
 

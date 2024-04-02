@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { EventCallback } from './event_callbacks'
@@ -8,6 +8,10 @@ import type { Version } from './versions'
 
 type WebhookType = 'webhooks'
 type WebhookRel = ResourceRel & { type: WebhookType }
+
+
+export type WebhookSort = Pick<Webhook, 'id' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type WebhookFilter = Pick<Webhook, 'id' | 'name' | 'topic' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface Webhook extends Resource {
@@ -58,11 +62,11 @@ class Webhooks extends ApiResource<Webhook> {
 
 	static readonly TYPE: WebhookType = 'webhooks' as const
 
-	async create(resource: WebhookCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+	async create(resource: WebhookCreate, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.create<WebhookCreate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
 	}
 
-	async update(resource: WebhookUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+	async update(resource: WebhookUpdate, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.update<WebhookUpdate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
 	}
 
@@ -70,25 +74,25 @@ class Webhooks extends ApiResource<Webhook> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Webhooks.TYPE } : id, options)
 	}
 
-	async last_event_callbacks(webhookId: string | Webhook, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
+	async last_event_callbacks(webhookId: string | Webhook, params?: QueryParamsList<EventCallback>, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		const _webhookId = (webhookId as Webhook).id || webhookId as string
 		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${_webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
 	}
 
-	async versions(webhookId: string | Webhook, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(webhookId: string | Webhook, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _webhookId = (webhookId as Webhook).id || webhookId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `webhooks/${_webhookId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async _disable(id: string | Webhook, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+	async _disable(id: string | Webhook, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _disable: true }, params, options)
 	}
 
-	async _enable(id: string | Webhook, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+	async _enable(id: string | Webhook, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _enable: true }, params, options)
 	}
 
-	async _reset_circuit(id: string | Webhook, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Webhook> {
+	async _reset_circuit(id: string | Webhook, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _reset_circuit: true }, params, options)
 	}
 
@@ -99,7 +103,11 @@ class Webhooks extends ApiResource<Webhook> {
 
 
 	relationship(id: string | ResourceId | null): WebhookRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Webhooks.TYPE } : { id: id.id, type: Webhooks.TYPE }
+		return super.relationshipOneToOne<WebhookRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): WebhookRel[] {
+		return super.relationshipOneToMany<WebhookRel>(...ids)
 	}
 
 
