@@ -16,7 +16,21 @@
 				{ "scope": "no-release", "release": false }
 			]
 		}],
-		"@semantic-release/release-notes-generator",
+		["@semantic-release/release-notes-generator", {
+			"preset": "conventionalcommits",
+			"presetConfig": {
+				"types": [
+					{"type": "feat", "section": "Features"},
+					{"type": "fix", "section": "Bug Fixes"},
+					{"type": "perf", "section": "Performance"},
+					{"type": "refactor", "section": "Refactoring"},
+					{"type": "test", "section": "Testing"},
+					{"type": "docs", "section": "Documentation"},
+					{"type": "chore", "hidden": true},
+					{"type": "style", "hidden": true}
+				]
+			}
+		}],
 		"@semantic-release/npm",
 		"@semantic-release/github",
 		["@semantic-release/changelog", {
