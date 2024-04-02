@@ -1,3 +1,10 @@
+# [6.0.0-beta.3](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.2...v6.0.0-beta.3) (2024-04-02)
+
+
+### Bug Fixes
+
+* remove micro clients ([34604b3](https://github.com/commercelayer/commercelayer-sdk/commit/34604b30d803596ec6e6cd6942bc96027669f44c))
+
 # [6.0.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.1...v6.0.0-beta.2) (2024-04-02)
 
 
