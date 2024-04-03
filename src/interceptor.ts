@@ -10,13 +10,7 @@ type RequestEventManager = InterceptorEventManager<RequestInterceptor, ErrorInte
 type ResponseEventManager = InterceptorEventManager<ResponseInterceptor, ErrorInterceptor>
 type ErrorEventManager = InterceptorEventManager<ResponseInterceptor, ResponseInterceptor>
 
-/*
-class IterceptorManager {
-	request?: RequestEventManager
-	response?: ResponseEventManager
-	rawReader?: ErrorEventManager
-}
-*/
+
 type InterceptorManager = {
 	request?: RequestEventManager
 	response?: ResponseEventManager
