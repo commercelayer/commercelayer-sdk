@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,25 +23,25 @@ interface PaymentMethod extends Resource {
 	
 	readonly type: PaymentMethodType
 
-	name?: string | null
+	name?: Nullable<string>
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
-	currency_code?: string | null
-	moto?: boolean | null
-	require_capture?: boolean | null
-	auto_place?: boolean | null
-	auto_capture?: boolean | null
+	currency_code?: Nullable<string>
+	moto?: Nullable<boolean>
+	require_capture?: Nullable<boolean>
+	auto_place?: Nullable<boolean>
+	auto_capture?: Nullable<boolean>
 	price_amount_cents: number
-	price_amount_float?: number | null
-	formatted_price_amount?: string | null
-	auto_capture_max_amount_cents?: number | null
-	auto_capture_max_amount_float?: number | null
-	formatted_auto_capture_max_amount?: string | null
-	disabled_at?: string | null
+	price_amount_float?: Nullable<number>
+	formatted_price_amount?: Nullable<string>
+	auto_capture_max_amount_cents?: Nullable<number>
+	auto_capture_max_amount_float?: Nullable<number>
+	formatted_auto_capture_max_amount?: Nullable<string>
+	disabled_at?: Nullable<string>
 
-	market?: Market | null
-	payment_gateway?: PaymentGateway | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	payment_gateway?: Nullable<PaymentGateway>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -48,17 +49,17 @@ interface PaymentMethod extends Resource {
 interface PaymentMethodCreate extends ResourceCreate {
 	
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
-	currency_code?: string | null
-	moto?: boolean | null
-	require_capture?: boolean | null
-	auto_place?: boolean | null
-	auto_capture?: boolean | null
+	currency_code?: Nullable<string>
+	moto?: Nullable<boolean>
+	require_capture?: Nullable<boolean>
+	auto_place?: Nullable<boolean>
+	auto_capture?: Nullable<boolean>
 	price_amount_cents: number
-	auto_capture_max_amount_cents?: number | null
-	_disable?: boolean | null
-	_enable?: boolean | null
+	auto_capture_max_amount_cents?: Nullable<number>
+	_disable?: Nullable<boolean>
+	_enable?: Nullable<boolean>
 
-	market?: MarketRel | null
+	market?: Nullable<MarketRel>
 	payment_gateway: PaymentGatewayRel
 
 }
@@ -66,19 +67,19 @@ interface PaymentMethodCreate extends ResourceCreate {
 
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
-	payment_source_type?: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers' | null
-	currency_code?: string | null
-	moto?: boolean | null
-	require_capture?: boolean | null
-	auto_place?: boolean | null
-	auto_capture?: boolean | null
-	price_amount_cents?: number | null
-	auto_capture_max_amount_cents?: number | null
-	_disable?: boolean | null
-	_enable?: boolean | null
+	payment_source_type?: Nullable<'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'>
+	currency_code?: Nullable<string>
+	moto?: Nullable<boolean>
+	require_capture?: Nullable<boolean>
+	auto_place?: Nullable<boolean>
+	auto_capture?: Nullable<boolean>
+	price_amount_cents?: Nullable<number>
+	auto_capture_max_amount_cents?: Nullable<number>
+	_disable?: Nullable<boolean>
+	_enable?: Nullable<boolean>
 
-	market?: MarketRel | null
-	payment_gateway?: PaymentGatewayRel | null
+	market?: Nullable<MarketRel>
+	payment_gateway?: Nullable<PaymentGatewayRel>
 
 }
 

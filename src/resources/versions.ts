@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
@@ -16,11 +17,11 @@ interface Version extends Resource {
 	
 	readonly type: VersionType
 
-	resource_type?: string | null
-	resource_id?: string | null
-	event?: string | null
-	changes?: Record<string, any> | null
-	who?: Record<string, any> | null
+	resource_type?: Nullable<string>
+	resource_id?: Nullable<string>
+	event?: Nullable<string>
+	changes?: Nullable<Record<string, any>>
+	who?: Nullable<Record<string, any>>
 	
 }
 

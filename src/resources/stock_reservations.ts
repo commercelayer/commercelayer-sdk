@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
@@ -26,11 +27,11 @@ interface StockReservation extends Resource {
 	quantity: number
 	expires_at: string
 
-	line_item?: LineItem | null
-	order?: Order | null
-	stock_item?: StockItem | null
-	reserved_stock?: ReservedStock | null
-	sku?: Sku | null
+	line_item?: Nullable<LineItem>
+	order?: Nullable<Order>
+	stock_item?: Nullable<StockItem>
+	reserved_stock?: Nullable<ReservedStock>
+	sku?: Nullable<Sku>
 
 }
 
@@ -46,8 +47,8 @@ interface StockReservationCreate extends ResourceCreate {
 
 interface StockReservationUpdate extends ResourceUpdate {
 	
-	quantity?: number | null
-	_pending?: boolean | null
+	quantity?: Nullable<number>
+	_pending?: Nullable<boolean>
 	
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -23,11 +24,11 @@ interface SatispayGateway extends Resource {
 	name: string
 	token: string
 	key_id: string
-	webhook_endpoint_url?: string | null
+	webhook_endpoint_url?: Nullable<string>
 
-	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
-	satispay_payments?: SatispayPayment[] | null
+	payment_methods?: Nullable<PaymentMethod[]>
+	versions?: Nullable<Version[]>
+	satispay_payments?: Nullable<SatispayPayment[]>
 
 }
 
@@ -37,16 +38,16 @@ interface SatispayGatewayCreate extends ResourceCreate {
 	name: string
 	token: string
 
-	satispay_payments?: SatispayPaymentRel[] | null
+	satispay_payments?: Nullable<SatispayPaymentRel[]>
 
 }
 
 
 interface SatispayGatewayUpdate extends ResourceUpdate {
 	
-	name?: string | null
+	name?: Nullable<string>
 
-	satispay_payments?: SatispayPaymentRel[] | null
+	satispay_payments?: Nullable<SatispayPaymentRel[]>
 
 }
 

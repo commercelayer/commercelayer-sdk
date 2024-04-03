@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -28,27 +29,27 @@ interface Return extends Resource {
 	
 	readonly type: ReturnType
 
-	number?: string | null
+	number?: Nullable<string>
 	status: 'draft' | 'requested' | 'approved' | 'cancelled' | 'shipped' | 'rejected' | 'received'
-	customer_email?: string | null
-	skus_count?: number | null
-	approved_at?: string | null
-	cancelled_at?: string | null
-	shipped_at?: string | null
-	rejected_at?: string | null
-	received_at?: string | null
-	archived_at?: string | null
+	customer_email?: Nullable<string>
+	skus_count?: Nullable<number>
+	approved_at?: Nullable<string>
+	cancelled_at?: Nullable<string>
+	shipped_at?: Nullable<string>
+	rejected_at?: Nullable<string>
+	received_at?: Nullable<string>
+	archived_at?: Nullable<string>
 
-	order?: Order | null
-	customer?: Customer | null
-	stock_location?: StockLocation | null
-	origin_address?: Address | null
-	destination_address?: Address | null
-	return_line_items?: ReturnLineItem[] | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	customer?: Nullable<Customer>
+	stock_location?: Nullable<StockLocation>
+	origin_address?: Nullable<Address>
+	destination_address?: Nullable<Address>
+	return_line_items?: Nullable<ReturnLineItem[]>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -56,26 +57,26 @@ interface Return extends Resource {
 interface ReturnCreate extends ResourceCreate {
 	
 	order: OrderRel
-	stock_location?: StockLocationRel | null
-	tags?: TagRel[] | null
+	stock_location?: Nullable<StockLocationRel>
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface ReturnUpdate extends ResourceUpdate {
 	
-	_request?: boolean | null
-	_approve?: boolean | null
-	_cancel?: boolean | null
-	_ship?: boolean | null
-	_reject?: boolean | null
-	_receive?: boolean | null
-	_restock?: boolean | null
-	_archive?: boolean | null
-	_unarchive?: boolean | null
+	_request?: Nullable<boolean>
+	_approve?: Nullable<boolean>
+	_cancel?: Nullable<boolean>
+	_ship?: Nullable<boolean>
+	_reject?: Nullable<boolean>
+	_receive?: Nullable<boolean>
+	_restock?: Nullable<boolean>
+	_archive?: Nullable<boolean>
+	_unarchive?: Nullable<boolean>
 
-	stock_location?: StockLocationRel | null
-	tags?: TagRel[] | null
+	stock_location?: Nullable<StockLocationRel>
+	tags?: Nullable<TagRel[]>
 
 }
 

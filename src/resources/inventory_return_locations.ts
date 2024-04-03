@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -23,9 +24,9 @@ interface InventoryReturnLocation extends Resource {
 
 	priority: number
 
-	stock_location?: StockLocation | null
-	inventory_model?: InventoryModel | null
-	versions?: Version[] | null
+	stock_location?: Nullable<StockLocation>
+	inventory_model?: Nullable<InventoryModel>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -42,10 +43,10 @@ interface InventoryReturnLocationCreate extends ResourceCreate {
 
 interface InventoryReturnLocationUpdate extends ResourceUpdate {
 	
-	priority?: number | null
+	priority?: Nullable<number>
 
-	stock_location?: StockLocationRel | null
-	inventory_model?: InventoryModelRel | null
+	stock_location?: Nullable<StockLocationRel>
+	inventory_model?: Nullable<InventoryModelRel>
 
 }
 

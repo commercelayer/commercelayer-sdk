@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,22 +21,22 @@ interface CheckoutComPayment extends Resource {
 	
 	readonly type: CheckoutComPaymentType
 
-	public_key?: string | null
+	public_key?: Nullable<string>
 	payment_type: string
 	token: string
-	session_id?: string | null
-	success_url?: string | null
-	failure_url?: string | null
-	source_id?: string | null
-	customer_token?: string | null
-	redirect_uri?: string | null
-	payment_response?: Record<string, any> | null
-	mismatched_amounts?: boolean | null
-	payment_instrument?: Record<string, any> | null
+	session_id?: Nullable<string>
+	success_url?: Nullable<string>
+	failure_url?: Nullable<string>
+	source_id?: Nullable<string>
+	customer_token?: Nullable<string>
+	redirect_uri?: Nullable<string>
+	payment_response?: Nullable<Record<string, any>>
+	mismatched_amounts?: Nullable<boolean>
+	payment_instrument?: Nullable<Record<string, any>>
 
-	order?: Order | null
-	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	payment_gateway?: Nullable<PaymentGateway>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -44,9 +45,9 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 	
 	payment_type: string
 	token: string
-	session_id?: string | null
-	success_url?: string | null
-	failure_url?: string | null
+	session_id?: Nullable<string>
+	success_url?: Nullable<string>
+	failure_url?: Nullable<string>
 
 	order: OrderRel
 
@@ -55,15 +56,15 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 
 interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	
-	payment_type?: string | null
-	token?: string | null
-	session_id?: string | null
-	success_url?: string | null
-	failure_url?: string | null
-	_details?: boolean | null
-	_refresh?: boolean | null
+	payment_type?: Nullable<string>
+	token?: Nullable<string>
+	session_id?: Nullable<string>
+	success_url?: Nullable<string>
+	failure_url?: Nullable<string>
+	_details?: Nullable<boolean>
+	_refresh?: Nullable<boolean>
 
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

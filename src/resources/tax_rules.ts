@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,21 +21,21 @@ interface TaxRule extends Resource {
 	readonly type: TaxRuleType
 
 	name: string
-	tax_rate?: number | null
-	country_code_regex?: string | null
-	not_country_code_regex?: string | null
-	state_code_regex?: string | null
-	not_state_code_regex?: string | null
-	zip_code_regex?: string | null
-	not_zip_code_regex?: string | null
-	freight_taxable?: boolean | null
-	payment_method_taxable?: boolean | null
-	gift_card_taxable?: boolean | null
-	adjustment_taxable?: boolean | null
-	breakdown?: Record<string, any> | null
+	tax_rate?: Nullable<number>
+	country_code_regex?: Nullable<string>
+	not_country_code_regex?: Nullable<string>
+	state_code_regex?: Nullable<string>
+	not_state_code_regex?: Nullable<string>
+	zip_code_regex?: Nullable<string>
+	not_zip_code_regex?: Nullable<string>
+	freight_taxable?: Nullable<boolean>
+	payment_method_taxable?: Nullable<boolean>
+	gift_card_taxable?: Nullable<boolean>
+	adjustment_taxable?: Nullable<boolean>
+	breakdown?: Nullable<Record<string, any>>
 
-	manual_tax_calculator?: ManualTaxCalculator | null
-	versions?: Version[] | null
+	manual_tax_calculator?: Nullable<ManualTaxCalculator>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -42,17 +43,17 @@ interface TaxRule extends Resource {
 interface TaxRuleCreate extends ResourceCreate {
 	
 	name: string
-	tax_rate?: number | null
-	country_code_regex?: string | null
-	not_country_code_regex?: string | null
-	state_code_regex?: string | null
-	not_state_code_regex?: string | null
-	zip_code_regex?: string | null
-	not_zip_code_regex?: string | null
-	freight_taxable?: boolean | null
-	payment_method_taxable?: boolean | null
-	gift_card_taxable?: boolean | null
-	adjustment_taxable?: boolean | null
+	tax_rate?: Nullable<number>
+	country_code_regex?: Nullable<string>
+	not_country_code_regex?: Nullable<string>
+	state_code_regex?: Nullable<string>
+	not_state_code_regex?: Nullable<string>
+	zip_code_regex?: Nullable<string>
+	not_zip_code_regex?: Nullable<string>
+	freight_taxable?: Nullable<boolean>
+	payment_method_taxable?: Nullable<boolean>
+	gift_card_taxable?: Nullable<boolean>
+	adjustment_taxable?: Nullable<boolean>
 
 	manual_tax_calculator: ManualTaxCalculatorRel
 
@@ -61,20 +62,20 @@ interface TaxRuleCreate extends ResourceCreate {
 
 interface TaxRuleUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	tax_rate?: number | null
-	country_code_regex?: string | null
-	not_country_code_regex?: string | null
-	state_code_regex?: string | null
-	not_state_code_regex?: string | null
-	zip_code_regex?: string | null
-	not_zip_code_regex?: string | null
-	freight_taxable?: boolean | null
-	payment_method_taxable?: boolean | null
-	gift_card_taxable?: boolean | null
-	adjustment_taxable?: boolean | null
+	name?: Nullable<string>
+	tax_rate?: Nullable<number>
+	country_code_regex?: Nullable<string>
+	not_country_code_regex?: Nullable<string>
+	state_code_regex?: Nullable<string>
+	not_state_code_regex?: Nullable<string>
+	zip_code_regex?: Nullable<string>
+	not_zip_code_regex?: Nullable<string>
+	freight_taxable?: Nullable<boolean>
+	payment_method_taxable?: Nullable<boolean>
+	gift_card_taxable?: Nullable<boolean>
+	adjustment_taxable?: Nullable<boolean>
 
-	manual_tax_calculator?: ManualTaxCalculatorRel | null
+	manual_tax_calculator?: Nullable<ManualTaxCalculatorRel>
 
 }
 

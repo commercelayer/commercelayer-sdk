@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,14 +21,14 @@ interface StripeGateway extends Resource {
 	readonly type: StripeGatewayType
 
 	name: string
-	auto_payments?: boolean | null
-	webhook_endpoint_id?: string | null
-	webhook_endpoint_secret?: string | null
-	webhook_endpoint_url?: string | null
+	auto_payments?: Nullable<boolean>
+	webhook_endpoint_id?: Nullable<string>
+	webhook_endpoint_secret?: Nullable<string>
+	webhook_endpoint_url?: Nullable<string>
 
-	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
-	stripe_payments?: StripePayment[] | null
+	payment_methods?: Nullable<PaymentMethod[]>
+	versions?: Nullable<Version[]>
+	stripe_payments?: Nullable<StripePayment[]>
 
 }
 
@@ -36,16 +37,16 @@ interface StripeGatewayCreate extends ResourceCreate {
 	
 	name: string
 	login: string
-	publishable_key?: string | null
-	auto_payments?: boolean | null
+	publishable_key?: Nullable<string>
+	auto_payments?: Nullable<boolean>
 	
 }
 
 
 interface StripeGatewayUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	auto_payments?: boolean | null
+	name?: Nullable<string>
+	auto_payments?: Nullable<boolean>
 	
 }
 

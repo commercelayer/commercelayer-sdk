@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -29,28 +30,28 @@ interface Promotion extends Resource {
 	readonly type: PromotionType
 
 	name: string
-	currency_code?: string | null
-	exclusive?: boolean | null
-	priority?: number | null
+	currency_code?: Nullable<string>
+	exclusive?: Nullable<boolean>
+	priority?: Nullable<number>
 	starts_at: string
 	expires_at: string
-	total_usage_limit?: number | null
-	total_usage_count?: number | null
-	active?: boolean | null
-	disabled_at?: string | null
+	total_usage_limit?: Nullable<number>
+	total_usage_count?: Nullable<number>
+	active?: Nullable<boolean>
+	disabled_at?: Nullable<string>
 
-	market?: Market | null
-	promotion_rules?: PromotionRule[] | null
-	order_amount_promotion_rule?: OrderAmountPromotionRule | null
-	sku_list_promotion_rule?: SkuListPromotionRule | null
-	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
-	custom_promotion_rule?: CustomPromotionRule | null
-	sku_list?: SkuList | null
-	coupons?: Coupon[] | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	promotion_rules?: Nullable<PromotionRule[]>
+	order_amount_promotion_rule?: Nullable<OrderAmountPromotionRule>
+	sku_list_promotion_rule?: Nullable<SkuListPromotionRule>
+	coupon_codes_promotion_rule?: Nullable<CouponCodesPromotionRule>
+	custom_promotion_rule?: Nullable<CustomPromotionRule>
+	sku_list?: Nullable<SkuList>
+	coupons?: Nullable<Coupon[]>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
 
 }
 

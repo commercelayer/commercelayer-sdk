@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -29,12 +30,12 @@ interface TaxCategory extends Resource {
 	readonly type: TaxCategoryType
 
 	code: string
-	sku_code?: string | null
+	sku_code?: Nullable<string>
 
-	sku?: Sku | null
-	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	sku?: Nullable<Sku>
+	tax_calculator?: Nullable<AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -42,7 +43,7 @@ interface TaxCategory extends Resource {
 interface TaxCategoryCreate extends ResourceCreate {
 	
 	code: string
-	sku_code?: string | null
+	sku_code?: Nullable<string>
 
 	sku: SkuRel
 	tax_calculator: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
@@ -52,10 +53,10 @@ interface TaxCategoryCreate extends ResourceCreate {
 
 interface TaxCategoryUpdate extends ResourceUpdate {
 	
-	code?: string | null
-	sku_code?: string | null
+	code?: Nullable<string>
+	sku_code?: Nullable<string>
 
-	sku?: SkuRel | null
+	sku?: Nullable<SkuRel>
 
 }
 

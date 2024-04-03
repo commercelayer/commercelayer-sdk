@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,11 +21,11 @@ interface ShippingCategory extends Resource {
 	readonly type: ShippingCategoryType
 
 	name: string
-	code?: string | null
+	code?: Nullable<string>
 
-	skus?: Sku[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	skus?: Nullable<Sku[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -32,15 +33,15 @@ interface ShippingCategory extends Resource {
 interface ShippingCategoryCreate extends ResourceCreate {
 	
 	name: string
-	code?: string | null
+	code?: Nullable<string>
 	
 }
 
 
 interface ShippingCategoryUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	code?: string | null
+	name?: Nullable<string>
+	code?: Nullable<string>
 	
 }
 

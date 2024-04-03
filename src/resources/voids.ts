@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -27,17 +28,17 @@ interface Void extends Resource {
 	amount_float: number
 	formatted_amount: string
 	succeeded: boolean
-	message?: string | null
-	error_code?: string | null
-	error_detail?: string | null
-	token?: string | null
-	gateway_transaction_id?: string | null
+	message?: Nullable<string>
+	error_code?: Nullable<string>
+	error_detail?: Nullable<string>
+	token?: Nullable<string>
+	gateway_transaction_id?: Nullable<string>
 
-	order?: Order | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	versions?: Version[] | null
-	reference_authorization?: Authorization | null
+	order?: Nullable<Order>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	versions?: Nullable<Version[]>
+	reference_authorization?: Nullable<Authorization>
 
 }
 

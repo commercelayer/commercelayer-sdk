@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
@@ -21,7 +22,7 @@ interface ResourceError extends Resource {
 	code: string
 	message: string
 
-	resource?: Order | null
+	resource?: Nullable<Order>
 
 }
 

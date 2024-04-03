@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,13 +22,13 @@ interface ExternalTaxCalculator extends Resource {
 
 	name: string
 	tax_calculator_url: string
-	circuit_state?: string | null
-	circuit_failure_count?: number | null
+	circuit_state?: Nullable<string>
+	circuit_failure_count?: Nullable<number>
 	shared_secret: string
 
-	markets?: Market[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	markets?: Nullable<Market[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -42,9 +43,9 @@ interface ExternalTaxCalculatorCreate extends ResourceCreate {
 
 interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	tax_calculator_url?: string | null
-	_reset_circuit?: boolean | null
+	name?: Nullable<string>
+	tax_calculator_url?: Nullable<string>
+	_reset_circuit?: Nullable<boolean>
 	
 }
 

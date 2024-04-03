@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -25,17 +26,17 @@ interface Coupon extends Resource {
 	readonly type: CouponType
 
 	code: string
-	customer_single_use?: boolean | null
-	usage_limit?: number | null
-	usage_count?: number | null
-	recipient_email?: string | null
-	expires_at?: string | null
+	customer_single_use?: Nullable<boolean>
+	usage_limit?: Nullable<number>
+	usage_count?: Nullable<number>
+	recipient_email?: Nullable<string>
+	expires_at?: Nullable<string>
 
-	promotion_rule?: CouponCodesPromotionRule | null
-	coupon_recipient?: CouponRecipient | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
+	promotion_rule?: Nullable<CouponCodesPromotionRule>
+	coupon_recipient?: Nullable<CouponRecipient>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -43,29 +44,29 @@ interface Coupon extends Resource {
 interface CouponCreate extends ResourceCreate {
 	
 	code: string
-	customer_single_use?: boolean | null
-	usage_limit?: number | null
-	recipient_email?: string | null
-	expires_at?: string | null
+	customer_single_use?: Nullable<boolean>
+	usage_limit?: Nullable<number>
+	recipient_email?: Nullable<string>
+	expires_at?: Nullable<string>
 
 	promotion_rule: CouponCodesPromotionRuleRel
-	coupon_recipient?: CouponRecipientRel | null
-	tags?: TagRel[] | null
+	coupon_recipient?: Nullable<CouponRecipientRel>
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface CouponUpdate extends ResourceUpdate {
 	
-	code?: string | null
-	customer_single_use?: boolean | null
-	usage_limit?: number | null
-	recipient_email?: string | null
-	expires_at?: string | null
+	code?: Nullable<string>
+	customer_single_use?: Nullable<boolean>
+	usage_limit?: Nullable<number>
+	recipient_email?: Nullable<string>
+	expires_at?: Nullable<string>
 
-	promotion_rule?: CouponCodesPromotionRuleRel | null
-	coupon_recipient?: CouponRecipientRel | null
-	tags?: TagRel[] | null
+	promotion_rule?: Nullable<CouponCodesPromotionRuleRel>
+	coupon_recipient?: Nullable<CouponRecipientRel>
+	tags?: Nullable<TagRel[]>
 
 }
 

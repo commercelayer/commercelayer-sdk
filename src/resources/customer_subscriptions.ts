@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,9 +22,9 @@ interface CustomerSubscription extends Resource {
 
 	customer_email: string
 
-	customer?: Customer | null
-	events?: Event[] | null
-	versions?: Version[] | null
+	customer?: Nullable<Customer>
+	events?: Nullable<Event[]>
+	versions?: Nullable<Version[]>
 
 }
 

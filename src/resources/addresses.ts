@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,85 +23,85 @@ interface Address extends Resource {
 	
 	readonly type: AddressType
 
-	business?: boolean | null
-	first_name?: string | null
-	last_name?: string | null
-	company?: string | null
-	full_name?: string | null
+	business?: Nullable<boolean>
+	first_name?: Nullable<string>
+	last_name?: Nullable<string>
+	company?: Nullable<string>
+	full_name?: Nullable<string>
 	line_1: string
-	line_2?: string | null
+	line_2?: Nullable<string>
 	city: string
-	zip_code?: string | null
+	zip_code?: Nullable<string>
 	state_code: string
 	country_code: string
 	phone: string
-	full_address?: string | null
-	name?: string | null
-	email?: string | null
-	notes?: string | null
-	lat?: number | null
-	lng?: number | null
-	is_localized?: boolean | null
-	is_geocoded?: boolean | null
-	provider_name?: string | null
-	map_url?: string | null
-	static_map_url?: string | null
-	billing_info?: string | null
+	full_address?: Nullable<string>
+	name?: Nullable<string>
+	email?: Nullable<string>
+	notes?: Nullable<string>
+	lat?: Nullable<number>
+	lng?: Nullable<number>
+	is_localized?: Nullable<boolean>
+	is_geocoded?: Nullable<boolean>
+	provider_name?: Nullable<string>
+	map_url?: Nullable<string>
+	static_map_url?: Nullable<string>
+	billing_info?: Nullable<string>
 
-	geocoder?: Geocoder | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
+	geocoder?: Nullable<Geocoder>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface AddressCreate extends ResourceCreate {
 	
-	business?: boolean | null
-	first_name?: string | null
-	last_name?: string | null
-	company?: string | null
+	business?: Nullable<boolean>
+	first_name?: Nullable<string>
+	last_name?: Nullable<string>
+	company?: Nullable<string>
 	line_1: string
-	line_2?: string | null
+	line_2?: Nullable<string>
 	city: string
-	zip_code?: string | null
+	zip_code?: Nullable<string>
 	state_code: string
 	country_code: string
 	phone: string
-	email?: string | null
-	notes?: string | null
-	lat?: number | null
-	lng?: number | null
-	billing_info?: string | null
+	email?: Nullable<string>
+	notes?: Nullable<string>
+	lat?: Nullable<number>
+	lng?: Nullable<number>
+	billing_info?: Nullable<string>
 
-	geocoder?: GeocoderRel | null
-	tags?: TagRel[] | null
+	geocoder?: Nullable<GeocoderRel>
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface AddressUpdate extends ResourceUpdate {
 	
-	business?: boolean | null
-	first_name?: string | null
-	last_name?: string | null
-	company?: string | null
-	line_1?: string | null
-	line_2?: string | null
-	city?: string | null
-	zip_code?: string | null
-	state_code?: string | null
-	country_code?: string | null
-	phone?: string | null
-	email?: string | null
-	notes?: string | null
-	lat?: number | null
-	lng?: number | null
-	billing_info?: string | null
+	business?: Nullable<boolean>
+	first_name?: Nullable<string>
+	last_name?: Nullable<string>
+	company?: Nullable<string>
+	line_1?: Nullable<string>
+	line_2?: Nullable<string>
+	city?: Nullable<string>
+	zip_code?: Nullable<string>
+	state_code?: Nullable<string>
+	country_code?: Nullable<string>
+	phone?: Nullable<string>
+	email?: Nullable<string>
+	notes?: Nullable<string>
+	lat?: Nullable<number>
+	lng?: Nullable<number>
+	billing_info?: Nullable<string>
 
-	geocoder?: GeocoderRel | null
-	tags?: TagRel[] | null
+	geocoder?: Nullable<GeocoderRel>
+	tags?: Nullable<TagRel[]>
 
 }
 

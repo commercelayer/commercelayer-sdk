@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -25,24 +26,24 @@ interface InStockSubscription extends Resource {
 	readonly type: InStockSubscriptionType
 
 	status: 'active' | 'inactive' | 'notified'
-	customer_email?: string | null
-	sku_code?: string | null
-	stock_threshold?: number | null
+	customer_email?: Nullable<string>
+	sku_code?: Nullable<string>
+	stock_threshold?: Nullable<number>
 
-	market?: Market | null
-	customer?: Customer | null
-	sku?: Sku | null
-	events?: Event[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	customer?: Nullable<Customer>
+	sku?: Nullable<Sku>
+	events?: Nullable<Event[]>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface InStockSubscriptionCreate extends ResourceCreate {
 	
-	customer_email?: string | null
-	sku_code?: string | null
-	stock_threshold?: number | null
+	customer_email?: Nullable<string>
+	sku_code?: Nullable<string>
+	stock_threshold?: Nullable<number>
 
 	market: MarketRel
 	customer: CustomerRel
@@ -53,14 +54,14 @@ interface InStockSubscriptionCreate extends ResourceCreate {
 
 interface InStockSubscriptionUpdate extends ResourceUpdate {
 	
-	sku_code?: string | null
-	stock_threshold?: number | null
-	_activate?: boolean | null
-	_deactivate?: boolean | null
+	sku_code?: Nullable<string>
+	stock_threshold?: Nullable<number>
+	_activate?: Nullable<boolean>
+	_deactivate?: Nullable<boolean>
 
-	market?: MarketRel | null
-	customer?: CustomerRel | null
-	sku?: SkuRel | null
+	market?: Nullable<MarketRel>
+	customer?: Nullable<CustomerRel>
+	sku?: Nullable<SkuRel>
 
 }
 

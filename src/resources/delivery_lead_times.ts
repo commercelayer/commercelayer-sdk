@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -24,13 +25,13 @@ interface DeliveryLeadTime extends Resource {
 
 	min_hours: number
 	max_hours: number
-	min_days?: number | null
-	max_days?: number | null
+	min_days?: Nullable<number>
+	max_days?: Nullable<number>
 
-	stock_location?: StockLocation | null
-	shipping_method?: ShippingMethod | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	stock_location?: Nullable<StockLocation>
+	shipping_method?: Nullable<ShippingMethod>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -48,11 +49,11 @@ interface DeliveryLeadTimeCreate extends ResourceCreate {
 
 interface DeliveryLeadTimeUpdate extends ResourceUpdate {
 	
-	min_hours?: number | null
-	max_hours?: number | null
+	min_hours?: Nullable<number>
+	max_hours?: Nullable<number>
 
-	stock_location?: StockLocationRel | null
-	shipping_method?: ShippingMethodRel | null
+	stock_location?: Nullable<StockLocationRel>
+	shipping_method?: Nullable<ShippingMethodRel>
 
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -24,20 +25,20 @@ interface SkuOption extends Resource {
 	readonly type: SkuOptionType
 
 	name: string
-	currency_code?: string | null
-	description?: string | null
-	price_amount_cents?: number | null
-	price_amount_float?: number | null
-	formatted_price_amount?: string | null
-	delay_hours?: number | null
-	delay_days?: number | null
-	sku_code_regex?: string | null
+	currency_code?: Nullable<string>
+	description?: Nullable<string>
+	price_amount_cents?: Nullable<number>
+	price_amount_float?: Nullable<number>
+	formatted_price_amount?: Nullable<string>
+	delay_hours?: Nullable<number>
+	delay_days?: Nullable<number>
+	sku_code_regex?: Nullable<string>
 
-	market?: Market | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -45,29 +46,29 @@ interface SkuOption extends Resource {
 interface SkuOptionCreate extends ResourceCreate {
 	
 	name: string
-	currency_code?: string | null
-	description?: string | null
-	price_amount_cents?: number | null
-	delay_hours?: number | null
-	sku_code_regex?: string | null
+	currency_code?: Nullable<string>
+	description?: Nullable<string>
+	price_amount_cents?: Nullable<number>
+	delay_hours?: Nullable<number>
+	sku_code_regex?: Nullable<string>
 
-	market?: MarketRel | null
-	tags?: TagRel[] | null
+	market?: Nullable<MarketRel>
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface SkuOptionUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	currency_code?: string | null
-	description?: string | null
-	price_amount_cents?: number | null
-	delay_hours?: number | null
-	sku_code_regex?: string | null
+	name?: Nullable<string>
+	currency_code?: Nullable<string>
+	description?: Nullable<string>
+	price_amount_cents?: Nullable<number>
+	delay_hours?: Nullable<number>
+	sku_code_regex?: Nullable<string>
 
-	market?: MarketRel | null
-	tags?: TagRel[] | null
+	market?: Nullable<MarketRel>
+	tags?: Nullable<TagRel[]>
 
 }
 

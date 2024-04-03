@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -31,21 +32,21 @@ interface OrderAmountPromotionRule extends Resource {
 	
 	readonly type: OrderAmountPromotionRuleType
 
-	order_amount_cents?: number | null
-	order_amount_float?: number | null
-	formatted_order_amount?: string | null
-	use_subtotal?: boolean | null
+	order_amount_cents?: Nullable<number>
+	order_amount_float?: Nullable<number>
+	formatted_order_amount?: Nullable<string>
+	use_subtotal?: Nullable<boolean>
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
-	versions?: Version[] | null
+	promotion?: Nullable<PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface OrderAmountPromotionRuleCreate extends ResourceCreate {
 	
-	order_amount_cents?: number | null
-	use_subtotal?: boolean | null
+	order_amount_cents?: Nullable<number>
+	use_subtotal?: Nullable<boolean>
 
 	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
 
@@ -54,10 +55,10 @@ interface OrderAmountPromotionRuleCreate extends ResourceCreate {
 
 interface OrderAmountPromotionRuleUpdate extends ResourceUpdate {
 	
-	order_amount_cents?: number | null
-	use_subtotal?: boolean | null
+	order_amount_cents?: Nullable<number>
+	use_subtotal?: Nullable<boolean>
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
+	promotion?: Nullable<PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel>
 
 }
 

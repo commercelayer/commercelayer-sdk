@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,8 +21,8 @@ interface ManualGateway extends Resource {
 
 	name: string
 
-	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
+	payment_methods?: Nullable<PaymentMethod[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -35,7 +36,7 @@ interface ManualGatewayCreate extends ResourceCreate {
 
 interface ManualGatewayUpdate extends ResourceUpdate {
 	
-	name?: string | null
+	name?: Nullable<string>
 	
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,9 +22,9 @@ interface ReservedStock extends Resource {
 
 	quantity: number
 
-	stock_item?: StockItem | null
-	sku?: Sku | null
-	stock_reservations?: StockReservation[] | null
+	stock_item?: Nullable<StockItem>
+	sku?: Nullable<Sku>
+	stock_reservations?: Nullable<StockReservation[]>
 
 }
 

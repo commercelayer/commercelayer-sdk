@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -28,26 +29,26 @@ interface Bundle extends Resource {
 
 	code: string
 	name: string
-	currency_code?: string | null
-	description?: string | null
-	image_url?: string | null
-	do_not_ship?: boolean | null
-	do_not_track?: boolean | null
-	price_amount_cents?: number | null
-	price_amount_float?: number | null
-	formatted_price_amount?: string | null
-	compare_at_amount_cents?: number | null
-	compare_at_amount_float?: number | null
-	formatted_compare_at_amount?: string | null
-	skus_count?: number | null
+	currency_code?: Nullable<string>
+	description?: Nullable<string>
+	image_url?: Nullable<string>
+	do_not_ship?: Nullable<boolean>
+	do_not_track?: Nullable<boolean>
+	price_amount_cents?: Nullable<number>
+	price_amount_float?: Nullable<number>
+	formatted_price_amount?: Nullable<string>
+	compare_at_amount_cents?: Nullable<number>
+	compare_at_amount_float?: Nullable<number>
+	formatted_compare_at_amount?: Nullable<string>
+	skus_count?: Nullable<number>
 
-	market?: Market | null
-	sku_list?: SkuList | null
-	skus?: Sku[] | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	sku_list?: Nullable<SkuList>
+	skus?: Nullable<Sku[]>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -56,34 +57,34 @@ interface BundleCreate extends ResourceCreate {
 	
 	code: string
 	name: string
-	currency_code?: string | null
-	description?: string | null
-	image_url?: string | null
-	price_amount_cents?: number | null
-	compare_at_amount_cents?: number | null
-	_compute_price_amount?: boolean | null
-	_compute_compare_at_amount?: boolean | null
+	currency_code?: Nullable<string>
+	description?: Nullable<string>
+	image_url?: Nullable<string>
+	price_amount_cents?: Nullable<number>
+	compare_at_amount_cents?: Nullable<number>
+	_compute_price_amount?: Nullable<boolean>
+	_compute_compare_at_amount?: Nullable<boolean>
 
-	market?: MarketRel | null
+	market?: Nullable<MarketRel>
 	sku_list: SkuListRel
-	tags?: TagRel[] | null
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface BundleUpdate extends ResourceUpdate {
 	
-	code?: string | null
-	name?: string | null
-	currency_code?: string | null
-	description?: string | null
-	image_url?: string | null
-	price_amount_cents?: number | null
-	compare_at_amount_cents?: number | null
-	_compute_price_amount?: boolean | null
-	_compute_compare_at_amount?: boolean | null
+	code?: Nullable<string>
+	name?: Nullable<string>
+	currency_code?: Nullable<string>
+	description?: Nullable<string>
+	image_url?: Nullable<string>
+	price_amount_cents?: Nullable<number>
+	compare_at_amount_cents?: Nullable<number>
+	_compute_price_amount?: Nullable<boolean>
+	_compute_compare_at_amount?: Nullable<boolean>
 
-	tags?: TagRel[] | null
+	tags?: Nullable<TagRel[]>
 
 }
 

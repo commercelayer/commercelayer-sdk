@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,8 +21,8 @@ interface BingGeocoder extends Resource {
 
 	name: string
 
-	addresses?: Address[] | null
-	attachments?: Attachment[] | null
+	addresses?: Nullable<Address[]>
+	attachments?: Nullable<Attachment[]>
 
 }
 
@@ -36,8 +37,8 @@ interface BingGeocoderCreate extends ResourceCreate {
 
 interface BingGeocoderUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	key?: string | null
+	name?: Nullable<string>
+	key?: Nullable<string>
 	
 }
 

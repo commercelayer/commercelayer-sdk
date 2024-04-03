@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
@@ -20,16 +21,16 @@ interface ReturnLineItem extends Resource {
 	
 	readonly type: ReturnLineItemType
 
-	sku_code?: string | null
-	bundle_code?: string | null
+	sku_code?: Nullable<string>
+	bundle_code?: Nullable<string>
 	quantity: number
-	name?: string | null
-	image_url?: string | null
-	return_reason?: Record<string, any> | null
-	restocked_at?: string | null
+	name?: Nullable<string>
+	image_url?: Nullable<string>
+	return_reason?: Nullable<Record<string, any>>
+	restocked_at?: Nullable<string>
 
-	return?: Return | null
-	line_item?: LineItem | null
+	return?: Nullable<Return>
+	line_item?: Nullable<LineItem>
 
 }
 
@@ -37,7 +38,7 @@ interface ReturnLineItem extends Resource {
 interface ReturnLineItemCreate extends ResourceCreate {
 	
 	quantity: number
-	return_reason?: Record<string, any> | null
+	return_reason?: Nullable<Record<string, any>>
 
 	return: ReturnRel
 	line_item: LineItemRel
@@ -47,9 +48,9 @@ interface ReturnLineItemCreate extends ResourceCreate {
 
 interface ReturnLineItemUpdate extends ResourceUpdate {
 	
-	quantity?: number | null
-	_restock?: boolean | null
-	return_reason?: Record<string, any> | null
+	quantity?: Nullable<number>
+	_restock?: Nullable<boolean>
+	return_reason?: Nullable<Record<string, any>>
 	
 }
 

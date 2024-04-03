@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,19 +21,19 @@ interface KlarnaPayment extends Resource {
 	
 	readonly type: KlarnaPaymentType
 
-	session_id?: string | null
-	client_token?: string | null
+	session_id?: Nullable<string>
+	client_token?: Nullable<string>
 	payment_methods: Array<Record<string, any>>
-	auth_token?: string | null
-	mismatched_amounts?: boolean | null
+	auth_token?: Nullable<string>
+	mismatched_amounts?: Nullable<boolean>
 	intent_amount_cents: number
-	intent_amount_float?: number | null
-	formatted_intent_amount?: string | null
-	payment_instrument?: Record<string, any> | null
+	intent_amount_float?: Nullable<number>
+	formatted_intent_amount?: Nullable<string>
+	payment_instrument?: Nullable<Record<string, any>>
 
-	order?: Order | null
-	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	payment_gateway?: Nullable<PaymentGateway>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -46,10 +47,10 @@ interface KlarnaPaymentCreate extends ResourceCreate {
 
 interface KlarnaPaymentUpdate extends ResourceUpdate {
 	
-	auth_token?: string | null
-	_update?: boolean | null
+	auth_token?: Nullable<string>
+	_update?: Nullable<boolean>
 
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

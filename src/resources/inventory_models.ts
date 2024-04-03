@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,16 +22,16 @@ interface InventoryModel extends Resource {
 	readonly type: InventoryModelType
 
 	name: string
-	strategy?: string | null
-	stock_locations_cutoff?: number | null
-	stock_reservation_cutoff?: number | null
-	put_stock_transfers_on_hold?: boolean | null
-	manual_stock_decrement?: boolean | null
+	strategy?: Nullable<string>
+	stock_locations_cutoff?: Nullable<number>
+	stock_reservation_cutoff?: Nullable<number>
+	put_stock_transfers_on_hold?: Nullable<boolean>
+	manual_stock_decrement?: Nullable<boolean>
 
-	inventory_stock_locations?: InventoryStockLocation[] | null
-	inventory_return_locations?: InventoryReturnLocation[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	inventory_stock_locations?: Nullable<InventoryStockLocation[]>
+	inventory_return_locations?: Nullable<InventoryReturnLocation[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -38,23 +39,23 @@ interface InventoryModel extends Resource {
 interface InventoryModelCreate extends ResourceCreate {
 	
 	name: string
-	strategy?: string | null
-	stock_locations_cutoff?: number | null
-	stock_reservation_cutoff?: number | null
-	put_stock_transfers_on_hold?: boolean | null
-	manual_stock_decrement?: boolean | null
+	strategy?: Nullable<string>
+	stock_locations_cutoff?: Nullable<number>
+	stock_reservation_cutoff?: Nullable<number>
+	put_stock_transfers_on_hold?: Nullable<boolean>
+	manual_stock_decrement?: Nullable<boolean>
 	
 }
 
 
 interface InventoryModelUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	strategy?: string | null
-	stock_locations_cutoff?: number | null
-	stock_reservation_cutoff?: number | null
-	put_stock_transfers_on_hold?: boolean | null
-	manual_stock_decrement?: boolean | null
+	name?: Nullable<string>
+	strategy?: Nullable<string>
+	stock_locations_cutoff?: Nullable<number>
+	stock_reservation_cutoff?: Nullable<number>
+	put_stock_transfers_on_hold?: Nullable<boolean>
+	manual_stock_decrement?: Nullable<boolean>
 	
 }
 

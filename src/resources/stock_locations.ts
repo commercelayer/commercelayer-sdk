@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -24,19 +25,19 @@ interface StockLocation extends Resource {
 	
 	readonly type: StockLocationType
 
-	number?: number | null
+	number?: Nullable<number>
 	name: string
-	code?: string | null
-	label_format?: string | null
-	suppress_etd?: boolean | null
+	code?: Nullable<string>
+	label_format?: Nullable<string>
+	suppress_etd?: Nullable<boolean>
 
-	address?: Address | null
-	inventory_stock_locations?: InventoryStockLocation[] | null
-	inventory_return_locations?: InventoryReturnLocation[] | null
-	stock_items?: StockItem[] | null
-	stock_transfers?: StockTransfer[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	address?: Nullable<Address>
+	inventory_stock_locations?: Nullable<InventoryStockLocation[]>
+	inventory_return_locations?: Nullable<InventoryReturnLocation[]>
+	stock_items?: Nullable<StockItem[]>
+	stock_transfers?: Nullable<StockTransfer[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -44,9 +45,9 @@ interface StockLocation extends Resource {
 interface StockLocationCreate extends ResourceCreate {
 	
 	name: string
-	code?: string | null
-	label_format?: string | null
-	suppress_etd?: boolean | null
+	code?: Nullable<string>
+	label_format?: Nullable<string>
+	suppress_etd?: Nullable<boolean>
 
 	address: AddressRel
 
@@ -55,12 +56,12 @@ interface StockLocationCreate extends ResourceCreate {
 
 interface StockLocationUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	code?: string | null
-	label_format?: string | null
-	suppress_etd?: boolean | null
+	name?: Nullable<string>
+	code?: Nullable<string>
+	label_format?: Nullable<string>
+	suppress_etd?: Nullable<boolean>
 
-	address?: AddressRel | null
+	address?: Nullable<AddressRel>
 
 }
 

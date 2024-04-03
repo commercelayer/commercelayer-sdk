@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -23,10 +24,10 @@ interface ManualTaxCalculator extends Resource {
 
 	name: string
 
-	markets?: Market[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
-	tax_rules?: TaxRule[] | null
+	markets?: Nullable<Market[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
+	tax_rules?: Nullable<TaxRule[]>
 
 }
 
@@ -35,16 +36,16 @@ interface ManualTaxCalculatorCreate extends ResourceCreate {
 	
 	name: string
 
-	tax_rules?: TaxRuleRel[] | null
+	tax_rules?: Nullable<TaxRuleRel[]>
 
 }
 
 
 interface ManualTaxCalculatorUpdate extends ResourceUpdate {
 	
-	name?: string | null
+	name?: Nullable<string>
 
-	tax_rules?: TaxRuleRel[] | null
+	tax_rules?: Nullable<TaxRuleRel[]>
 
 }
 

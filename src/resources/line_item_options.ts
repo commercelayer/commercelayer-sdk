@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -23,48 +24,48 @@ interface LineItemOption extends Resource {
 	
 	readonly type: LineItemOptionType
 
-	name?: string | null
+	name?: Nullable<string>
 	quantity: number
-	currency_code?: string | null
-	unit_amount_cents?: number | null
-	unit_amount_float?: number | null
-	formatted_unit_amount?: string | null
-	total_amount_cents?: number | null
+	currency_code?: Nullable<string>
+	unit_amount_cents?: Nullable<number>
+	unit_amount_float?: Nullable<number>
+	formatted_unit_amount?: Nullable<string>
+	total_amount_cents?: Nullable<number>
 	total_amount_float: number
-	formatted_total_amount?: string | null
-	delay_hours?: number | null
-	delay_days?: number | null
+	formatted_total_amount?: Nullable<string>
+	delay_hours?: Nullable<number>
+	delay_days?: Nullable<number>
 	options: Record<string, any>
 
-	line_item?: LineItem | null
-	sku_option?: SkuOption | null
-	events?: Event[] | null
-	tags?: Tag[] | null
+	line_item?: Nullable<LineItem>
+	sku_option?: Nullable<SkuOption>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
 
 }
 
 
 interface LineItemOptionCreate extends ResourceCreate {
 	
-	name?: string | null
+	name?: Nullable<string>
 	quantity: number
 	options: Record<string, any>
 
 	line_item: LineItemRel
 	sku_option: SkuOptionRel
-	tags?: TagRel[] | null
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface LineItemOptionUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	quantity?: number | null
-	options?: Record<string, any> | null
+	name?: Nullable<string>
+	quantity?: Nullable<number>
+	options?: Nullable<Record<string, any>>
 
-	sku_option?: SkuOptionRel | null
-	tags?: TagRel[] | null
+	sku_option?: Nullable<SkuOptionRel>
+	tags?: Nullable<TagRel[]>
 
 }
 

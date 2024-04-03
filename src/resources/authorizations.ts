@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -28,41 +29,41 @@ interface Authorization extends Resource {
 	amount_float: number
 	formatted_amount: string
 	succeeded: boolean
-	message?: string | null
-	error_code?: string | null
-	error_detail?: string | null
-	token?: string | null
-	gateway_transaction_id?: string | null
-	cvv_code?: string | null
-	cvv_message?: string | null
-	avs_code?: string | null
-	avs_message?: string | null
-	fraud_review?: string | null
-	capture_amount_cents?: number | null
-	capture_amount_float?: number | null
-	formatted_capture_amount?: string | null
-	capture_balance_cents?: number | null
-	capture_balance_float?: number | null
-	formatted_capture_balance?: string | null
-	void_balance_cents?: number | null
-	void_balance_float?: number | null
-	formatted_void_balance?: string | null
+	message?: Nullable<string>
+	error_code?: Nullable<string>
+	error_detail?: Nullable<string>
+	token?: Nullable<string>
+	gateway_transaction_id?: Nullable<string>
+	cvv_code?: Nullable<string>
+	cvv_message?: Nullable<string>
+	avs_code?: Nullable<string>
+	avs_message?: Nullable<string>
+	fraud_review?: Nullable<string>
+	capture_amount_cents?: Nullable<number>
+	capture_amount_float?: Nullable<number>
+	formatted_capture_amount?: Nullable<string>
+	capture_balance_cents?: Nullable<number>
+	capture_balance_float?: Nullable<number>
+	formatted_capture_balance?: Nullable<string>
+	void_balance_cents?: Nullable<number>
+	void_balance_float?: Nullable<number>
+	formatted_void_balance?: Nullable<string>
 
-	order?: Order | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	versions?: Version[] | null
-	captures?: Capture[] | null
-	voids?: Void[] | null
+	order?: Nullable<Order>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	versions?: Nullable<Version[]>
+	captures?: Nullable<Capture[]>
+	voids?: Nullable<Void[]>
 
 }
 
 
 interface AuthorizationUpdate extends ResourceUpdate {
 	
-	_capture?: boolean | null
-	_capture_amount_cents?: number | null
-	_void?: boolean | null
+	_capture?: Nullable<boolean>
+	_capture_amount_cents?: Nullable<number>
+	_void?: Nullable<boolean>
 	
 }
 

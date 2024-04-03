@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,8 +21,8 @@ interface GoogleGeocoder extends Resource {
 
 	name: string
 
-	addresses?: Address[] | null
-	attachments?: Attachment[] | null
+	addresses?: Nullable<Address[]>
+	attachments?: Nullable<Attachment[]>
 
 }
 
@@ -36,8 +37,8 @@ interface GoogleGeocoderCreate extends ResourceCreate {
 
 interface GoogleGeocoderUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	api_key?: string | null
+	name?: Nullable<string>
+	api_key?: Nullable<string>
 	
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -19,15 +20,15 @@ interface ShippingZone extends Resource {
 	readonly type: ShippingZoneType
 
 	name: string
-	country_code_regex?: string | null
-	not_country_code_regex?: string | null
-	state_code_regex?: string | null
-	not_state_code_regex?: string | null
-	zip_code_regex?: string | null
-	not_zip_code_regex?: string | null
+	country_code_regex?: Nullable<string>
+	not_country_code_regex?: Nullable<string>
+	state_code_regex?: Nullable<string>
+	not_state_code_regex?: Nullable<string>
+	zip_code_regex?: Nullable<string>
+	not_zip_code_regex?: Nullable<string>
 
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -35,25 +36,25 @@ interface ShippingZone extends Resource {
 interface ShippingZoneCreate extends ResourceCreate {
 	
 	name: string
-	country_code_regex?: string | null
-	not_country_code_regex?: string | null
-	state_code_regex?: string | null
-	not_state_code_regex?: string | null
-	zip_code_regex?: string | null
-	not_zip_code_regex?: string | null
+	country_code_regex?: Nullable<string>
+	not_country_code_regex?: Nullable<string>
+	state_code_regex?: Nullable<string>
+	not_state_code_regex?: Nullable<string>
+	zip_code_regex?: Nullable<string>
+	not_zip_code_regex?: Nullable<string>
 	
 }
 
 
 interface ShippingZoneUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	country_code_regex?: string | null
-	not_country_code_regex?: string | null
-	state_code_regex?: string | null
-	not_state_code_regex?: string | null
-	zip_code_regex?: string | null
-	not_zip_code_regex?: string | null
+	name?: Nullable<string>
+	country_code_regex?: Nullable<string>
+	not_country_code_regex?: Nullable<string>
+	state_code_regex?: Nullable<string>
+	not_state_code_regex?: Nullable<string>
+	zip_code_regex?: Nullable<string>
+	not_zip_code_regex?: Nullable<string>
 	
 }
 

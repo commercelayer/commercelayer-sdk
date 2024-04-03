@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -38,47 +39,47 @@ interface Shipment extends Resource {
 	
 	readonly type: ShipmentType
 
-	number?: string | null
+	number?: Nullable<string>
 	status: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped'
-	currency_code?: string | null
-	cost_amount_cents?: number | null
-	cost_amount_float?: number | null
-	formatted_cost_amount?: string | null
-	skus_count?: number | null
-	selected_rate_id?: string | null
-	rates?: Array<Record<string, any>> | null
-	purchase_error_code?: string | null
-	purchase_error_message?: string | null
-	get_rates_errors?: Array<Record<string, any>> | null
-	get_rates_started_at?: string | null
-	get_rates_completed_at?: string | null
-	purchase_started_at?: string | null
-	purchase_completed_at?: string | null
-	purchase_failed_at?: string | null
-	on_hold_at?: string | null
-	picking_at?: string | null
-	packing_at?: string | null
-	ready_to_ship_at?: string | null
-	shipped_at?: string | null
+	currency_code?: Nullable<string>
+	cost_amount_cents?: Nullable<number>
+	cost_amount_float?: Nullable<number>
+	formatted_cost_amount?: Nullable<string>
+	skus_count?: Nullable<number>
+	selected_rate_id?: Nullable<string>
+	rates?: Nullable<Array<Record<string, any>>>
+	purchase_error_code?: Nullable<string>
+	purchase_error_message?: Nullable<string>
+	get_rates_errors?: Nullable<Array<Record<string, any>>>
+	get_rates_started_at?: Nullable<string>
+	get_rates_completed_at?: Nullable<string>
+	purchase_started_at?: Nullable<string>
+	purchase_completed_at?: Nullable<string>
+	purchase_failed_at?: Nullable<string>
+	on_hold_at?: Nullable<string>
+	picking_at?: Nullable<string>
+	packing_at?: Nullable<string>
+	ready_to_ship_at?: Nullable<string>
+	shipped_at?: Nullable<string>
 
-	order?: Order | null
-	shipping_category?: ShippingCategory | null
-	inventory_stock_location?: InventoryStockLocation | null
-	stock_location?: StockLocation | null
-	origin_address?: Address | null
-	shipping_address?: Address | null
-	shipping_method?: ShippingMethod | null
-	delivery_lead_time?: DeliveryLeadTime | null
-	stock_line_items?: StockLineItem[] | null
-	stock_transfers?: StockTransfer[] | null
-	line_items?: LineItem[] | null
-	available_shipping_methods?: ShippingMethod[] | null
-	carrier_accounts?: CarrierAccount[] | null
-	parcels?: Parcel[] | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	shipping_category?: Nullable<ShippingCategory>
+	inventory_stock_location?: Nullable<InventoryStockLocation>
+	stock_location?: Nullable<StockLocation>
+	origin_address?: Nullable<Address>
+	shipping_address?: Nullable<Address>
+	shipping_method?: Nullable<ShippingMethod>
+	delivery_lead_time?: Nullable<DeliveryLeadTime>
+	stock_line_items?: Nullable<StockLineItem[]>
+	stock_transfers?: Nullable<StockTransfer[]>
+	line_items?: Nullable<LineItem[]>
+	available_shipping_methods?: Nullable<ShippingMethod[]>
+	carrier_accounts?: Nullable<CarrierAccount[]>
+	parcels?: Nullable<Parcel[]>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -86,35 +87,35 @@ interface Shipment extends Resource {
 interface ShipmentCreate extends ResourceCreate {
 	
 	order: OrderRel
-	shipping_category?: ShippingCategoryRel | null
+	shipping_category?: Nullable<ShippingCategoryRel>
 	inventory_stock_location: InventoryStockLocationRel
-	shipping_address?: AddressRel | null
-	shipping_method?: ShippingMethodRel | null
-	tags?: TagRel[] | null
+	shipping_address?: Nullable<AddressRel>
+	shipping_method?: Nullable<ShippingMethodRel>
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface ShipmentUpdate extends ResourceUpdate {
 	
-	_upcoming?: boolean | null
-	_on_hold?: boolean | null
-	_picking?: boolean | null
-	_packing?: boolean | null
-	_ready_to_ship?: boolean | null
-	_ship?: boolean | null
-	_reserve_stock?: boolean | null
-	_release_stock?: boolean | null
-	_decrement_stock?: boolean | null
-	_get_rates?: boolean | null
-	selected_rate_id?: string | null
-	_purchase?: boolean | null
+	_upcoming?: Nullable<boolean>
+	_on_hold?: Nullable<boolean>
+	_picking?: Nullable<boolean>
+	_packing?: Nullable<boolean>
+	_ready_to_ship?: Nullable<boolean>
+	_ship?: Nullable<boolean>
+	_reserve_stock?: Nullable<boolean>
+	_release_stock?: Nullable<boolean>
+	_decrement_stock?: Nullable<boolean>
+	_get_rates?: Nullable<boolean>
+	selected_rate_id?: Nullable<string>
+	_purchase?: Nullable<boolean>
 
-	shipping_category?: ShippingCategoryRel | null
-	inventory_stock_location?: InventoryStockLocationRel | null
-	shipping_address?: AddressRel | null
-	shipping_method?: ShippingMethodRel | null
-	tags?: TagRel[] | null
+	shipping_category?: Nullable<ShippingCategoryRel>
+	inventory_stock_location?: Nullable<InventoryStockLocationRel>
+	shipping_address?: Nullable<AddressRel>
+	shipping_method?: Nullable<ShippingMethodRel>
+	tags?: Nullable<TagRel[]>
 
 }
 

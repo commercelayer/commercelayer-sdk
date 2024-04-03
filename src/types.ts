@@ -1,18 +1,7 @@
 
 export type ObjectType = Record<string, any>
 
-
-/*
-// Nullable types
-type StringNullable = string | null
-type NumberNullable = number | null
-type BooleanNullable = boolean | null
-type ResourceNullable<R extends Resource> = R | null
-type ResourceArrayNullable<R extends Resource> = R[] | null
-
-
-export type { StringNullable, NumberNullable, BooleanNullable, ResourceNullable, ResourceArrayNullable }
-*/
+export type Nullable<T> = T | null
 
 
 // Positive number range

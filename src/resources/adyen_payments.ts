@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,17 +21,17 @@ interface AdyenPayment extends Resource {
 	
 	readonly type: AdyenPaymentType
 
-	public_key?: string | null
+	public_key?: Nullable<string>
 	payment_methods: Record<string, any>
-	payment_request_data?: Record<string, any> | null
-	payment_request_details?: Record<string, any> | null
-	payment_response?: Record<string, any> | null
-	mismatched_amounts?: boolean | null
-	payment_instrument?: Record<string, any> | null
+	payment_request_data?: Nullable<Record<string, any>>
+	payment_request_details?: Nullable<Record<string, any>>
+	payment_response?: Nullable<Record<string, any>>
+	mismatched_amounts?: Nullable<boolean>
+	payment_instrument?: Nullable<Record<string, any>>
 
-	order?: Order | null
-	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	payment_gateway?: Nullable<PaymentGateway>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -44,12 +45,12 @@ interface AdyenPaymentCreate extends ResourceCreate {
 
 interface AdyenPaymentUpdate extends ResourceUpdate {
 	
-	payment_request_data?: Record<string, any> | null
-	payment_request_details?: Record<string, any> | null
-	payment_response?: Record<string, any> | null
-	_details?: boolean | null
+	payment_request_data?: Nullable<Record<string, any>>
+	payment_request_details?: Nullable<Record<string, any>>
+	payment_response?: Nullable<Record<string, any>>
+	_details?: Nullable<boolean>
 
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

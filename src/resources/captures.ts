@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -28,32 +29,32 @@ interface Capture extends Resource {
 	amount_float: number
 	formatted_amount: string
 	succeeded: boolean
-	message?: string | null
-	error_code?: string | null
-	error_detail?: string | null
-	token?: string | null
-	gateway_transaction_id?: string | null
-	refund_amount_cents?: number | null
-	refund_amount_float?: number | null
-	formatted_refund_amount?: string | null
-	refund_balance_cents?: number | null
-	refund_balance_float?: number | null
-	formatted_refund_balance?: string | null
+	message?: Nullable<string>
+	error_code?: Nullable<string>
+	error_detail?: Nullable<string>
+	token?: Nullable<string>
+	gateway_transaction_id?: Nullable<string>
+	refund_amount_cents?: Nullable<number>
+	refund_amount_float?: Nullable<number>
+	formatted_refund_amount?: Nullable<string>
+	refund_balance_cents?: Nullable<number>
+	refund_balance_float?: Nullable<number>
+	formatted_refund_balance?: Nullable<string>
 
-	order?: Order | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	versions?: Version[] | null
-	reference_authorization?: Authorization | null
-	refunds?: Refund[] | null
+	order?: Nullable<Order>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	versions?: Nullable<Version[]>
+	reference_authorization?: Nullable<Authorization>
+	refunds?: Nullable<Refund[]>
 
 }
 
 
 interface CaptureUpdate extends ResourceUpdate {
 	
-	_refund?: boolean | null
-	_refund_amount_cents?: number | null
+	_refund?: Nullable<boolean>
+	_refund_amount_cents?: Nullable<number>
 	
 }
 

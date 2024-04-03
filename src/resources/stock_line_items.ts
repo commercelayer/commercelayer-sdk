@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -25,44 +26,44 @@ interface StockLineItem extends Resource {
 	
 	readonly type: StockLineItemType
 
-	sku_code?: string | null
-	bundle_code?: string | null
+	sku_code?: Nullable<string>
+	bundle_code?: Nullable<string>
 	quantity: number
 
-	shipment?: Shipment | null
-	line_item?: LineItem | null
-	stock_item?: StockItem | null
-	sku?: Sku | null
-	versions?: Version[] | null
+	shipment?: Nullable<Shipment>
+	line_item?: Nullable<LineItem>
+	stock_item?: Nullable<StockItem>
+	sku?: Nullable<Sku>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface StockLineItemCreate extends ResourceCreate {
 	
-	sku_code?: string | null
+	sku_code?: Nullable<string>
 	quantity: number
 
-	shipment?: ShipmentRel | null
-	line_item?: LineItemRel | null
-	stock_item?: StockItemRel | null
-	sku?: SkuRel | null
+	shipment?: Nullable<ShipmentRel>
+	line_item?: Nullable<LineItemRel>
+	stock_item?: Nullable<StockItemRel>
+	sku?: Nullable<SkuRel>
 
 }
 
 
 interface StockLineItemUpdate extends ResourceUpdate {
 	
-	sku_code?: string | null
-	quantity?: number | null
-	_reserve_stock?: boolean | null
-	_release_stock?: boolean | null
-	_decrement_stock?: boolean | null
+	sku_code?: Nullable<string>
+	quantity?: Nullable<number>
+	_reserve_stock?: Nullable<boolean>
+	_release_stock?: Nullable<boolean>
+	_decrement_stock?: Nullable<boolean>
 
-	shipment?: ShipmentRel | null
-	line_item?: LineItemRel | null
-	stock_item?: StockItemRel | null
-	sku?: SkuRel | null
+	shipment?: Nullable<ShipmentRel>
+	line_item?: Nullable<LineItemRel>
+	stock_item?: Nullable<StockItemRel>
+	sku?: Nullable<SkuRel>
 
 }
 

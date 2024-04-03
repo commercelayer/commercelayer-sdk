@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -30,25 +31,25 @@ interface Market extends Resource {
 	
 	readonly type: MarketType
 
-	number?: number | null
+	number?: Nullable<number>
 	name: string
-	code?: string | null
-	facebook_pixel_id?: string | null
-	checkout_url?: string | null
-	external_prices_url?: string | null
-	external_order_validation_url?: string | null
-	private?: boolean | null
-	disabled_at?: string | null
+	code?: Nullable<string>
+	facebook_pixel_id?: Nullable<string>
+	checkout_url?: Nullable<string>
+	external_prices_url?: Nullable<string>
+	external_order_validation_url?: Nullable<string>
+	private?: Nullable<boolean>
+	disabled_at?: Nullable<string>
 	shared_secret: string
 
-	merchant?: Merchant | null
-	price_list?: PriceList | null
-	inventory_model?: InventoryModel | null
-	subscription_model?: SubscriptionModel | null
-	tax_calculator?: TaxCalculator | null
-	customer_group?: CustomerGroup | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	merchant?: Nullable<Merchant>
+	price_list?: Nullable<PriceList>
+	inventory_model?: Nullable<InventoryModel>
+	subscription_model?: Nullable<SubscriptionModel>
+	tax_calculator?: Nullable<TaxCalculator>
+	customer_group?: Nullable<CustomerGroup>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -56,41 +57,41 @@ interface Market extends Resource {
 interface MarketCreate extends ResourceCreate {
 	
 	name: string
-	code?: string | null
-	facebook_pixel_id?: string | null
-	checkout_url?: string | null
-	external_prices_url?: string | null
-	external_order_validation_url?: string | null
-	_disable?: boolean | null
-	_enable?: boolean | null
+	code?: Nullable<string>
+	facebook_pixel_id?: Nullable<string>
+	checkout_url?: Nullable<string>
+	external_prices_url?: Nullable<string>
+	external_order_validation_url?: Nullable<string>
+	_disable?: Nullable<boolean>
+	_enable?: Nullable<boolean>
 
 	merchant: MerchantRel
 	price_list: PriceListRel
 	inventory_model: InventoryModelRel
-	subscription_model?: SubscriptionModelRel | null
-	tax_calculator?: TaxCalculatorRel | null
-	customer_group?: CustomerGroupRel | null
+	subscription_model?: Nullable<SubscriptionModelRel>
+	tax_calculator?: Nullable<TaxCalculatorRel>
+	customer_group?: Nullable<CustomerGroupRel>
 
 }
 
 
 interface MarketUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	code?: string | null
-	facebook_pixel_id?: string | null
-	checkout_url?: string | null
-	external_prices_url?: string | null
-	external_order_validation_url?: string | null
-	_disable?: boolean | null
-	_enable?: boolean | null
+	name?: Nullable<string>
+	code?: Nullable<string>
+	facebook_pixel_id?: Nullable<string>
+	checkout_url?: Nullable<string>
+	external_prices_url?: Nullable<string>
+	external_order_validation_url?: Nullable<string>
+	_disable?: Nullable<boolean>
+	_enable?: Nullable<boolean>
 
-	merchant?: MerchantRel | null
-	price_list?: PriceListRel | null
-	inventory_model?: InventoryModelRel | null
-	subscription_model?: SubscriptionModelRel | null
-	tax_calculator?: TaxCalculatorRel | null
-	customer_group?: CustomerGroupRel | null
+	merchant?: Nullable<MerchantRel>
+	price_list?: Nullable<PriceListRel>
+	inventory_model?: Nullable<InventoryModelRel>
+	subscription_model?: Nullable<SubscriptionModelRel>
+	tax_calculator?: Nullable<TaxCalculatorRel>
+	customer_group?: Nullable<CustomerGroupRel>
 
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -19,13 +20,13 @@ interface CarrierAccount extends Resource {
 	
 	readonly type: CarrierAccountType
 
-	name?: string | null
-	easypost_type?: string | null
-	easypost_id?: string | null
+	name?: Nullable<string>
+	easypost_type?: Nullable<string>
+	easypost_id?: Nullable<string>
 
-	market?: Market | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 

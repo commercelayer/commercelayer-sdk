@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,15 +23,15 @@ interface PriceFrequencyTier extends Resource {
 	readonly type: PriceFrequencyTierType
 
 	name: string
-	up_to?: number | null
+	up_to?: Nullable<number>
 	price_amount_cents: number
-	price_amount_float?: number | null
-	formatted_price_amount?: string | null
+	price_amount_float?: Nullable<number>
+	formatted_price_amount?: Nullable<string>
 
-	price?: Price | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
-	events?: Event[] | null
+	price?: Nullable<Price>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
+	events?: Nullable<Event[]>
 
 }
 
@@ -38,7 +39,7 @@ interface PriceFrequencyTier extends Resource {
 interface PriceFrequencyTierCreate extends ResourceCreate {
 	
 	name: string
-	up_to?: number | null
+	up_to?: Nullable<number>
 	price_amount_cents: number
 
 	price: PriceRel
@@ -48,11 +49,11 @@ interface PriceFrequencyTierCreate extends ResourceCreate {
 
 interface PriceFrequencyTierUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	up_to?: number | null
-	price_amount_cents?: number | null
+	name?: Nullable<string>
+	up_to?: Nullable<number>
+	price_amount_cents?: Nullable<number>
 
-	price?: PriceRel | null
+	price?: Nullable<PriceRel>
 
 }
 

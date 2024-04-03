@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -26,74 +27,74 @@ interface GiftCard extends Resource {
 	readonly type: GiftCardType
 
 	status: 'draft' | 'inactive' | 'active' | 'redeemed'
-	code?: string | null
-	currency_code?: string | null
+	code?: Nullable<string>
+	currency_code?: Nullable<string>
 	initial_balance_cents: number
 	initial_balance_float: number
 	formatted_initial_balance: string
 	balance_cents: number
 	balance_float: number
 	formatted_balance: string
-	balance_max_cents?: string | null
-	balance_max_float?: number | null
-	formatted_balance_max?: string | null
+	balance_max_cents?: Nullable<string>
+	balance_max_float?: Nullable<number>
+	formatted_balance_max?: Nullable<string>
 	balance_log: Array<Record<string, any>>
-	single_use?: boolean | null
-	rechargeable?: boolean | null
-	distribute_discount?: boolean | null
-	image_url?: string | null
-	expires_at?: string | null
-	recipient_email?: string | null
+	single_use?: Nullable<boolean>
+	rechargeable?: Nullable<boolean>
+	distribute_discount?: Nullable<boolean>
+	image_url?: Nullable<string>
+	expires_at?: Nullable<string>
+	recipient_email?: Nullable<string>
 
-	market?: Market | null
-	gift_card_recipient?: GiftCardRecipient | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	gift_card_recipient?: Nullable<GiftCardRecipient>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface GiftCardCreate extends ResourceCreate {
 	
-	code?: string | null
-	currency_code?: string | null
+	code?: Nullable<string>
+	currency_code?: Nullable<string>
 	balance_cents: number
-	balance_max_cents?: string | null
-	single_use?: boolean | null
-	rechargeable?: boolean | null
-	distribute_discount?: boolean | null
-	image_url?: string | null
-	expires_at?: string | null
-	recipient_email?: string | null
+	balance_max_cents?: Nullable<string>
+	single_use?: Nullable<boolean>
+	rechargeable?: Nullable<boolean>
+	distribute_discount?: Nullable<boolean>
+	image_url?: Nullable<string>
+	expires_at?: Nullable<string>
+	recipient_email?: Nullable<string>
 
-	market?: MarketRel | null
-	gift_card_recipient?: GiftCardRecipientRel | null
-	tags?: TagRel[] | null
+	market?: Nullable<MarketRel>
+	gift_card_recipient?: Nullable<GiftCardRecipientRel>
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface GiftCardUpdate extends ResourceUpdate {
 	
-	currency_code?: string | null
-	balance_cents?: number | null
-	balance_max_cents?: string | null
-	single_use?: boolean | null
-	rechargeable?: boolean | null
-	distribute_discount?: boolean | null
-	image_url?: string | null
-	expires_at?: string | null
-	recipient_email?: string | null
-	_purchase?: boolean | null
-	_activate?: boolean | null
-	_deactivate?: boolean | null
-	_balance_change_cents?: number | null
+	currency_code?: Nullable<string>
+	balance_cents?: Nullable<number>
+	balance_max_cents?: Nullable<string>
+	single_use?: Nullable<boolean>
+	rechargeable?: Nullable<boolean>
+	distribute_discount?: Nullable<boolean>
+	image_url?: Nullable<string>
+	expires_at?: Nullable<string>
+	recipient_email?: Nullable<string>
+	_purchase?: Nullable<boolean>
+	_activate?: Nullable<boolean>
+	_deactivate?: Nullable<boolean>
+	_balance_change_cents?: Nullable<number>
 
-	market?: MarketRel | null
-	gift_card_recipient?: GiftCardRecipientRel | null
-	tags?: TagRel[] | null
+	market?: Nullable<MarketRel>
+	gift_card_recipient?: Nullable<GiftCardRecipientRel>
+	tags?: Nullable<TagRel[]>
 
 }
 

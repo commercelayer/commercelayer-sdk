@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -24,38 +25,38 @@ interface Parcel extends Resource {
 	
 	readonly type: ParcelType
 
-	number?: string | null
+	number?: Nullable<string>
 	weight: number
 	unit_of_weight: string
-	eel_pfc?: string | null
-	contents_type?: string | null
-	contents_explanation?: string | null
-	customs_certify?: boolean | null
-	customs_signer?: string | null
-	non_delivery_option?: string | null
-	restriction_type?: string | null
-	restriction_comments?: string | null
-	customs_info_required?: boolean | null
-	shipping_label_url?: string | null
-	shipping_label_file_type?: string | null
-	shipping_label_size?: string | null
-	shipping_label_resolution?: string | null
-	tracking_number?: string | null
-	tracking_status?: string | null
-	tracking_status_detail?: string | null
-	tracking_status_updated_at?: string | null
-	tracking_details?: Record<string, any> | null
-	carrier_weight_oz?: string | null
-	signed_by?: string | null
-	incoterm?: string | null
-	delivery_confirmation?: string | null
+	eel_pfc?: Nullable<string>
+	contents_type?: Nullable<string>
+	contents_explanation?: Nullable<string>
+	customs_certify?: Nullable<boolean>
+	customs_signer?: Nullable<string>
+	non_delivery_option?: Nullable<string>
+	restriction_type?: Nullable<string>
+	restriction_comments?: Nullable<string>
+	customs_info_required?: Nullable<boolean>
+	shipping_label_url?: Nullable<string>
+	shipping_label_file_type?: Nullable<string>
+	shipping_label_size?: Nullable<string>
+	shipping_label_resolution?: Nullable<string>
+	tracking_number?: Nullable<string>
+	tracking_status?: Nullable<string>
+	tracking_status_detail?: Nullable<string>
+	tracking_status_updated_at?: Nullable<string>
+	tracking_details?: Nullable<Record<string, any>>
+	carrier_weight_oz?: Nullable<string>
+	signed_by?: Nullable<string>
+	incoterm?: Nullable<string>
+	delivery_confirmation?: Nullable<string>
 
-	shipment?: Shipment | null
-	package?: Package | null
-	parcel_line_items?: ParcelLineItem[] | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	versions?: Version[] | null
+	shipment?: Nullable<Shipment>
+	package?: Nullable<Package>
+	parcel_line_items?: Nullable<ParcelLineItem[]>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -64,28 +65,28 @@ interface ParcelCreate extends ResourceCreate {
 	
 	weight: number
 	unit_of_weight: string
-	eel_pfc?: string | null
-	contents_type?: string | null
-	contents_explanation?: string | null
-	customs_certify?: boolean | null
-	customs_signer?: string | null
-	non_delivery_option?: string | null
-	restriction_type?: string | null
-	restriction_comments?: string | null
-	customs_info_required?: boolean | null
-	shipping_label_url?: string | null
-	shipping_label_file_type?: string | null
-	shipping_label_size?: string | null
-	shipping_label_resolution?: string | null
-	tracking_number?: string | null
-	tracking_status?: string | null
-	tracking_status_detail?: string | null
-	tracking_status_updated_at?: string | null
-	tracking_details?: Record<string, any> | null
-	carrier_weight_oz?: string | null
-	signed_by?: string | null
-	incoterm?: string | null
-	delivery_confirmation?: string | null
+	eel_pfc?: Nullable<string>
+	contents_type?: Nullable<string>
+	contents_explanation?: Nullable<string>
+	customs_certify?: Nullable<boolean>
+	customs_signer?: Nullable<string>
+	non_delivery_option?: Nullable<string>
+	restriction_type?: Nullable<string>
+	restriction_comments?: Nullable<string>
+	customs_info_required?: Nullable<boolean>
+	shipping_label_url?: Nullable<string>
+	shipping_label_file_type?: Nullable<string>
+	shipping_label_size?: Nullable<string>
+	shipping_label_resolution?: Nullable<string>
+	tracking_number?: Nullable<string>
+	tracking_status?: Nullable<string>
+	tracking_status_detail?: Nullable<string>
+	tracking_status_updated_at?: Nullable<string>
+	tracking_details?: Nullable<Record<string, any>>
+	carrier_weight_oz?: Nullable<string>
+	signed_by?: Nullable<string>
+	incoterm?: Nullable<string>
+	delivery_confirmation?: Nullable<string>
 
 	shipment: ShipmentRel
 	package: PackageRel
@@ -95,33 +96,33 @@ interface ParcelCreate extends ResourceCreate {
 
 interface ParcelUpdate extends ResourceUpdate {
 	
-	weight?: number | null
-	unit_of_weight?: string | null
-	eel_pfc?: string | null
-	contents_type?: string | null
-	contents_explanation?: string | null
-	customs_certify?: boolean | null
-	customs_signer?: string | null
-	non_delivery_option?: string | null
-	restriction_type?: string | null
-	restriction_comments?: string | null
-	customs_info_required?: boolean | null
-	shipping_label_url?: string | null
-	shipping_label_file_type?: string | null
-	shipping_label_size?: string | null
-	shipping_label_resolution?: string | null
-	tracking_number?: string | null
-	tracking_status?: string | null
-	tracking_status_detail?: string | null
-	tracking_status_updated_at?: string | null
-	tracking_details?: Record<string, any> | null
-	carrier_weight_oz?: string | null
-	signed_by?: string | null
-	incoterm?: string | null
-	delivery_confirmation?: string | null
+	weight?: Nullable<number>
+	unit_of_weight?: Nullable<string>
+	eel_pfc?: Nullable<string>
+	contents_type?: Nullable<string>
+	contents_explanation?: Nullable<string>
+	customs_certify?: Nullable<boolean>
+	customs_signer?: Nullable<string>
+	non_delivery_option?: Nullable<string>
+	restriction_type?: Nullable<string>
+	restriction_comments?: Nullable<string>
+	customs_info_required?: Nullable<boolean>
+	shipping_label_url?: Nullable<string>
+	shipping_label_file_type?: Nullable<string>
+	shipping_label_size?: Nullable<string>
+	shipping_label_resolution?: Nullable<string>
+	tracking_number?: Nullable<string>
+	tracking_status?: Nullable<string>
+	tracking_status_detail?: Nullable<string>
+	tracking_status_updated_at?: Nullable<string>
+	tracking_details?: Nullable<Record<string, any>>
+	carrier_weight_oz?: Nullable<string>
+	signed_by?: Nullable<string>
+	incoterm?: Nullable<string>
+	delivery_confirmation?: Nullable<string>
 
-	shipment?: ShipmentRel | null
-	package?: PackageRel | null
+	shipment?: Nullable<ShipmentRel>
+	package?: Nullable<PackageRel>
 
 }
 

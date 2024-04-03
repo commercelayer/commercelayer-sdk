@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,11 +23,11 @@ interface AxerveGateway extends Resource {
 
 	name: string
 	login: string
-	webhook_endpoint_url?: string | null
+	webhook_endpoint_url?: Nullable<string>
 
-	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
-	axerve_payments?: AxervePayment[] | null
+	payment_methods?: Nullable<PaymentMethod[]>
+	versions?: Nullable<Version[]>
+	axerve_payments?: Nullable<AxervePayment[]>
 
 }
 
@@ -37,18 +38,18 @@ interface AxerveGatewayCreate extends ResourceCreate {
 	login: string
 	api_key: string
 
-	axerve_payments?: AxervePaymentRel[] | null
+	axerve_payments?: Nullable<AxervePaymentRel[]>
 
 }
 
 
 interface AxerveGatewayUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	login?: string | null
-	api_key?: string | null
+	name?: Nullable<string>
+	login?: Nullable<string>
+	api_key?: Nullable<string>
 
-	axerve_payments?: AxervePaymentRel[] | null
+	axerve_payments?: Nullable<AxervePaymentRel[]>
 
 }
 

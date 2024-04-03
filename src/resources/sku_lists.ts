@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -25,17 +26,17 @@ interface SkuList extends Resource {
 
 	name: string
 	slug: string
-	description?: string | null
-	image_url?: string | null
-	manual?: boolean | null
-	sku_code_regex?: string | null
+	description?: Nullable<string>
+	image_url?: Nullable<string>
+	manual?: Nullable<boolean>
+	sku_code_regex?: Nullable<string>
 
-	customer?: Customer | null
-	skus?: Sku[] | null
-	sku_list_items?: SkuListItem[] | null
-	bundles?: Bundle[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	customer?: Nullable<Customer>
+	skus?: Nullable<Sku[]>
+	sku_list_items?: Nullable<SkuListItem[]>
+	bundles?: Nullable<Bundle[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -43,25 +44,25 @@ interface SkuList extends Resource {
 interface SkuListCreate extends ResourceCreate {
 	
 	name: string
-	description?: string | null
-	image_url?: string | null
-	manual?: boolean | null
-	sku_code_regex?: string | null
+	description?: Nullable<string>
+	image_url?: Nullable<string>
+	manual?: Nullable<boolean>
+	sku_code_regex?: Nullable<string>
 
-	customer?: CustomerRel | null
+	customer?: Nullable<CustomerRel>
 
 }
 
 
 interface SkuListUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	description?: string | null
-	image_url?: string | null
-	manual?: boolean | null
-	sku_code_regex?: string | null
+	name?: Nullable<string>
+	description?: Nullable<string>
+	image_url?: Nullable<string>
+	manual?: Nullable<boolean>
+	sku_code_regex?: Nullable<string>
 
-	customer?: CustomerRel | null
+	customer?: Nullable<CustomerRel>
 
 }
 

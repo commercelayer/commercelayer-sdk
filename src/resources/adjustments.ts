@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,9 +23,9 @@ interface Adjustment extends Resource {
 	amount_cents: number
 	amount_float: number
 	formatted_amount: string
-	distribute_discount?: boolean | null
+	distribute_discount?: Nullable<boolean>
 
-	versions?: Version[] | null
+	versions?: Nullable<Version[]>
 
 }
 
@@ -34,17 +35,17 @@ interface AdjustmentCreate extends ResourceCreate {
 	name: string
 	currency_code: string
 	amount_cents: number
-	distribute_discount?: boolean | null
+	distribute_discount?: Nullable<boolean>
 	
 }
 
 
 interface AdjustmentUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	currency_code?: string | null
-	amount_cents?: number | null
-	distribute_discount?: boolean | null
+	name?: Nullable<string>
+	currency_code?: Nullable<string>
+	amount_cents?: Nullable<number>
+	distribute_discount?: Nullable<boolean>
 	
 }
 

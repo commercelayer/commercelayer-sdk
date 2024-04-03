@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,33 +21,33 @@ interface StripePayment extends Resource {
 	
 	readonly type: StripePaymentType
 
-	stripe_id?: string | null
-	client_secret?: string | null
-	publishable_key?: string | null
-	options?: Record<string, any> | null
-	payment_method?: Record<string, any> | null
-	mismatched_amounts?: boolean | null
+	stripe_id?: Nullable<string>
+	client_secret?: Nullable<string>
+	publishable_key?: Nullable<string>
+	options?: Nullable<Record<string, any>>
+	payment_method?: Nullable<Record<string, any>>
+	mismatched_amounts?: Nullable<boolean>
 	intent_amount_cents: number
-	intent_amount_float?: number | null
-	formatted_intent_amount?: string | null
-	return_url?: string | null
-	receipt_email?: string | null
-	payment_instrument?: Record<string, any> | null
+	intent_amount_float?: Nullable<number>
+	formatted_intent_amount?: Nullable<string>
+	return_url?: Nullable<string>
+	receipt_email?: Nullable<string>
+	payment_instrument?: Nullable<Record<string, any>>
 
-	order?: Order | null
-	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	payment_gateway?: Nullable<PaymentGateway>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface StripePaymentCreate extends ResourceCreate {
 	
-	stripe_id?: string | null
-	client_secret?: string | null
-	options?: Record<string, any> | null
-	return_url?: string | null
-	receipt_email?: string | null
+	stripe_id?: Nullable<string>
+	client_secret?: Nullable<string>
+	options?: Nullable<Record<string, any>>
+	return_url?: Nullable<string>
+	receipt_email?: Nullable<string>
 
 	order: OrderRel
 
@@ -55,12 +56,12 @@ interface StripePaymentCreate extends ResourceCreate {
 
 interface StripePaymentUpdate extends ResourceUpdate {
 	
-	options?: Record<string, any> | null
-	return_url?: string | null
-	_update?: boolean | null
-	_refresh?: boolean | null
+	options?: Nullable<Record<string, any>>
+	return_url?: Nullable<string>
+	_update?: Nullable<boolean>
+	_refresh?: Nullable<boolean>
 
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

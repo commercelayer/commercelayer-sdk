@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,9 +23,9 @@ interface KlarnaGateway extends Resource {
 
 	name: string
 
-	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
-	klarna_payments?: KlarnaPayment[] | null
+	payment_methods?: Nullable<PaymentMethod[]>
+	versions?: Nullable<Version[]>
+	klarna_payments?: Nullable<KlarnaPayment[]>
 
 }
 
@@ -36,19 +37,19 @@ interface KlarnaGatewayCreate extends ResourceCreate {
 	api_key: string
 	api_secret: string
 
-	klarna_payments?: KlarnaPaymentRel[] | null
+	klarna_payments?: Nullable<KlarnaPaymentRel[]>
 
 }
 
 
 interface KlarnaGatewayUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	country_code?: string | null
-	api_key?: string | null
-	api_secret?: string | null
+	name?: Nullable<string>
+	country_code?: Nullable<string>
+	api_key?: Nullable<string>
+	api_secret?: Nullable<string>
 
-	klarna_payments?: KlarnaPaymentRel[] | null
+	klarna_payments?: Nullable<KlarnaPaymentRel[]>
 
 }
 

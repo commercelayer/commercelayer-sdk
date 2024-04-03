@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,24 +22,24 @@ interface BraintreePayment extends Resource {
 	readonly type: BraintreePaymentType
 
 	client_token: string
-	payment_method_nonce?: string | null
-	payment_id?: string | null
-	local?: boolean | null
-	options?: Record<string, any> | null
-	payment_instrument?: Record<string, any> | null
+	payment_method_nonce?: Nullable<string>
+	payment_id?: Nullable<string>
+	local?: Nullable<boolean>
+	options?: Nullable<Record<string, any>>
+	payment_instrument?: Nullable<Record<string, any>>
 
-	order?: Order | null
-	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	payment_gateway?: Nullable<PaymentGateway>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface BraintreePaymentCreate extends ResourceCreate {
 	
-	payment_id?: string | null
-	local?: boolean | null
-	options?: Record<string, any> | null
+	payment_id?: Nullable<string>
+	local?: Nullable<boolean>
+	options?: Nullable<Record<string, any>>
 
 	order: OrderRel
 
@@ -47,12 +48,12 @@ interface BraintreePaymentCreate extends ResourceCreate {
 
 interface BraintreePaymentUpdate extends ResourceUpdate {
 	
-	payment_method_nonce?: string | null
-	payment_id?: string | null
-	local?: boolean | null
-	options?: Record<string, any> | null
+	payment_method_nonce?: Nullable<string>
+	payment_id?: Nullable<string>
+	local?: Nullable<boolean>
+	options?: Nullable<Record<string, any>>
 
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

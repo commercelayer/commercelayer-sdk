@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -23,10 +24,10 @@ interface TaxjarAccount extends Resource {
 
 	name: string
 
-	markets?: Market[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
-	tax_categories?: TaxCategory[] | null
+	markets?: Nullable<Market[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
+	tax_categories?: Nullable<TaxCategory[]>
 
 }
 
@@ -36,17 +37,17 @@ interface TaxjarAccountCreate extends ResourceCreate {
 	name: string
 	api_key: string
 
-	tax_categories?: TaxCategoryRel[] | null
+	tax_categories?: Nullable<TaxCategoryRel[]>
 
 }
 
 
 interface TaxjarAccountUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	api_key?: string | null
+	name?: Nullable<string>
+	api_key?: Nullable<string>
 
-	tax_categories?: TaxCategoryRel[] | null
+	tax_categories?: Nullable<TaxCategoryRel[]>
 
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -19,11 +20,11 @@ interface CustomerPasswordReset extends Resource {
 	readonly type: CustomerPasswordResetType
 
 	customer_email: string
-	reset_password_token?: string | null
-	reset_password_at?: string | null
+	reset_password_token?: Nullable<string>
+	reset_password_at?: Nullable<string>
 
-	customer?: Customer | null
-	events?: Event[] | null
+	customer?: Nullable<Customer>
+	events?: Nullable<Event[]>
 
 }
 
@@ -37,8 +38,8 @@ interface CustomerPasswordResetCreate extends ResourceCreate {
 
 interface CustomerPasswordResetUpdate extends ResourceUpdate {
 	
-	customer_password?: string | null
-	_reset_password_token?: string | null
+	customer_password?: Nullable<string>
+	_reset_password_token?: Nullable<string>
 	
 }
 

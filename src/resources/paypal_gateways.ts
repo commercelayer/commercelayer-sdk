@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,9 +22,9 @@ interface PaypalGateway extends Resource {
 
 	name: string
 
-	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
-	paypal_payments?: PaypalPayment[] | null
+	payment_methods?: Nullable<PaymentMethod[]>
+	versions?: Nullable<Version[]>
+	paypal_payments?: Nullable<PaypalPayment[]>
 
 }
 
@@ -39,9 +40,9 @@ interface PaypalGatewayCreate extends ResourceCreate {
 
 interface PaypalGatewayUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	client_id?: string | null
-	client_secret?: string | null
+	name?: Nullable<string>
+	client_id?: Nullable<string>
+	client_secret?: Nullable<string>
 	
 }
 

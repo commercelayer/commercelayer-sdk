@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -18,42 +19,42 @@ interface Webhook extends Resource {
 	
 	readonly type: WebhookType
 
-	name?: string | null
+	name?: Nullable<string>
 	topic: string
 	callback_url: string
-	include_resources?: string[] | null
-	disabled_at?: string | null
-	circuit_state?: string | null
-	circuit_failure_count?: number | null
+	include_resources?: Nullable<string[]>
+	disabled_at?: Nullable<string>
+	circuit_state?: Nullable<string>
+	circuit_failure_count?: Nullable<number>
 	shared_secret: string
 
-	last_event_callbacks?: EventCallback[] | null
-	versions?: Version[] | null
+	last_event_callbacks?: Nullable<EventCallback[]>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface WebhookCreate extends ResourceCreate {
 	
-	name?: string | null
+	name?: Nullable<string>
 	topic: string
 	callback_url: string
-	include_resources?: string[] | null
-	_disable?: boolean | null
-	_enable?: boolean | null
+	include_resources?: Nullable<string[]>
+	_disable?: Nullable<boolean>
+	_enable?: Nullable<boolean>
 	
 }
 
 
 interface WebhookUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	topic?: string | null
-	callback_url?: string | null
-	include_resources?: string[] | null
-	_disable?: boolean | null
-	_enable?: boolean | null
-	_reset_circuit?: boolean | null
+	name?: Nullable<string>
+	topic?: Nullable<string>
+	callback_url?: Nullable<string>
+	include_resources?: Nullable<string[]>
+	_disable?: Nullable<boolean>
+	_enable?: Nullable<boolean>
+	_reset_circuit?: Nullable<boolean>
 	
 }
 

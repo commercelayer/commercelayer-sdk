@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -69,242 +70,242 @@ interface Order extends Resource {
 	
 	readonly type: OrderType
 
-	number?: string | null
-	autorefresh?: boolean | null
-	place_async?: boolean | null
+	number?: Nullable<string>
+	autorefresh?: Nullable<boolean>
+	place_async?: Nullable<boolean>
 	status: 'draft' | 'pending' | 'placing' | 'placed' | 'editing' | 'approved' | 'cancelled'
 	payment_status: 'unpaid' | 'authorized' | 'partially_authorized' | 'paid' | 'partially_paid' | 'voided' | 'partially_voided' | 'refunded' | 'partially_refunded' | 'free'
 	fulfillment_status: 'unfulfilled' | 'in_progress' | 'fulfilled' | 'not_required'
-	guest?: boolean | null
-	editable?: boolean | null
-	customer_email?: string | null
-	language_code?: string | null
-	currency_code?: string | null
-	tax_included?: boolean | null
-	tax_rate?: number | null
-	freight_taxable?: boolean | null
-	payment_method_taxable?: boolean | null
-	adjustment_taxable?: boolean | null
-	gift_card_taxable?: boolean | null
-	requires_billing_info?: boolean | null
-	country_code?: string | null
-	shipping_country_code_lock?: string | null
-	coupon_code?: string | null
-	gift_card_code?: string | null
-	subtotal_amount_cents?: number | null
-	subtotal_amount_float?: number | null
-	formatted_subtotal_amount?: string | null
-	shipping_amount_cents?: number | null
-	shipping_amount_float?: number | null
-	formatted_shipping_amount?: string | null
-	payment_method_amount_cents?: number | null
-	payment_method_amount_float?: number | null
-	formatted_payment_method_amount?: string | null
-	discount_amount_cents?: number | null
-	discount_amount_float?: number | null
-	formatted_discount_amount?: string | null
-	adjustment_amount_cents?: number | null
-	adjustment_amount_float?: number | null
-	formatted_adjustment_amount?: string | null
-	gift_card_amount_cents?: number | null
-	gift_card_amount_float?: number | null
-	formatted_gift_card_amount?: string | null
-	total_tax_amount_cents?: number | null
-	total_tax_amount_float?: number | null
-	formatted_total_tax_amount?: string | null
-	subtotal_tax_amount_cents?: number | null
-	subtotal_tax_amount_float?: number | null
-	formatted_subtotal_tax_amount?: string | null
-	shipping_tax_amount_cents?: number | null
-	shipping_tax_amount_float?: number | null
-	formatted_shipping_tax_amount?: string | null
-	payment_method_tax_amount_cents?: number | null
-	payment_method_tax_amount_float?: number | null
-	formatted_payment_method_tax_amount?: string | null
-	adjustment_tax_amount_cents?: number | null
-	adjustment_tax_amount_float?: number | null
-	formatted_adjustment_tax_amount?: string | null
-	total_amount_cents?: number | null
-	total_amount_float?: number | null
-	formatted_total_amount?: string | null
-	total_taxable_amount_cents?: number | null
-	total_taxable_amount_float?: number | null
-	formatted_total_taxable_amount?: string | null
-	subtotal_taxable_amount_cents?: number | null
-	subtotal_taxable_amount_float?: number | null
-	formatted_subtotal_taxable_amount?: string | null
-	shipping_taxable_amount_cents?: number | null
-	shipping_taxable_amount_float?: number | null
-	formatted_shipping_taxable_amount?: string | null
-	payment_method_taxable_amount_cents?: number | null
-	payment_method_taxable_amount_float?: number | null
-	formatted_payment_method_taxable_amount?: string | null
-	adjustment_taxable_amount_cents?: number | null
-	adjustment_taxable_amount_float?: number | null
-	formatted_adjustment_taxable_amount?: string | null
-	total_amount_with_taxes_cents?: number | null
-	total_amount_with_taxes_float?: number | null
-	formatted_total_amount_with_taxes?: string | null
-	fees_amount_cents?: number | null
-	fees_amount_float?: number | null
-	formatted_fees_amount?: string | null
-	duty_amount_cents?: number | null
-	duty_amount_float?: number | null
-	formatted_duty_amount?: string | null
-	place_total_amount_cents?: number | null
-	place_total_amount_float?: number | null
-	formatted_place_total_amount?: string | null
-	skus_count?: number | null
-	line_item_options_count?: number | null
-	shipments_count?: number | null
-	tax_calculations_count?: number | null
-	validations_count?: number | null
-	errors_count?: number | null
-	payment_source_details?: Record<string, any> | null
-	token?: string | null
-	cart_url?: string | null
-	return_url?: string | null
-	terms_url?: string | null
-	privacy_url?: string | null
-	checkout_url?: string | null
-	placed_at?: string | null
-	approved_at?: string | null
-	cancelled_at?: string | null
-	payment_updated_at?: string | null
-	fulfillment_updated_at?: string | null
-	refreshed_at?: string | null
-	archived_at?: string | null
-	expires_at?: string | null
-	subscription_created_at?: string | null
-	circuit_state?: string | null
-	circuit_failure_count?: number | null
+	guest?: Nullable<boolean>
+	editable?: Nullable<boolean>
+	customer_email?: Nullable<string>
+	language_code?: Nullable<string>
+	currency_code?: Nullable<string>
+	tax_included?: Nullable<boolean>
+	tax_rate?: Nullable<number>
+	freight_taxable?: Nullable<boolean>
+	payment_method_taxable?: Nullable<boolean>
+	adjustment_taxable?: Nullable<boolean>
+	gift_card_taxable?: Nullable<boolean>
+	requires_billing_info?: Nullable<boolean>
+	country_code?: Nullable<string>
+	shipping_country_code_lock?: Nullable<string>
+	coupon_code?: Nullable<string>
+	gift_card_code?: Nullable<string>
+	subtotal_amount_cents?: Nullable<number>
+	subtotal_amount_float?: Nullable<number>
+	formatted_subtotal_amount?: Nullable<string>
+	shipping_amount_cents?: Nullable<number>
+	shipping_amount_float?: Nullable<number>
+	formatted_shipping_amount?: Nullable<string>
+	payment_method_amount_cents?: Nullable<number>
+	payment_method_amount_float?: Nullable<number>
+	formatted_payment_method_amount?: Nullable<string>
+	discount_amount_cents?: Nullable<number>
+	discount_amount_float?: Nullable<number>
+	formatted_discount_amount?: Nullable<string>
+	adjustment_amount_cents?: Nullable<number>
+	adjustment_amount_float?: Nullable<number>
+	formatted_adjustment_amount?: Nullable<string>
+	gift_card_amount_cents?: Nullable<number>
+	gift_card_amount_float?: Nullable<number>
+	formatted_gift_card_amount?: Nullable<string>
+	total_tax_amount_cents?: Nullable<number>
+	total_tax_amount_float?: Nullable<number>
+	formatted_total_tax_amount?: Nullable<string>
+	subtotal_tax_amount_cents?: Nullable<number>
+	subtotal_tax_amount_float?: Nullable<number>
+	formatted_subtotal_tax_amount?: Nullable<string>
+	shipping_tax_amount_cents?: Nullable<number>
+	shipping_tax_amount_float?: Nullable<number>
+	formatted_shipping_tax_amount?: Nullable<string>
+	payment_method_tax_amount_cents?: Nullable<number>
+	payment_method_tax_amount_float?: Nullable<number>
+	formatted_payment_method_tax_amount?: Nullable<string>
+	adjustment_tax_amount_cents?: Nullable<number>
+	adjustment_tax_amount_float?: Nullable<number>
+	formatted_adjustment_tax_amount?: Nullable<string>
+	total_amount_cents?: Nullable<number>
+	total_amount_float?: Nullable<number>
+	formatted_total_amount?: Nullable<string>
+	total_taxable_amount_cents?: Nullable<number>
+	total_taxable_amount_float?: Nullable<number>
+	formatted_total_taxable_amount?: Nullable<string>
+	subtotal_taxable_amount_cents?: Nullable<number>
+	subtotal_taxable_amount_float?: Nullable<number>
+	formatted_subtotal_taxable_amount?: Nullable<string>
+	shipping_taxable_amount_cents?: Nullable<number>
+	shipping_taxable_amount_float?: Nullable<number>
+	formatted_shipping_taxable_amount?: Nullable<string>
+	payment_method_taxable_amount_cents?: Nullable<number>
+	payment_method_taxable_amount_float?: Nullable<number>
+	formatted_payment_method_taxable_amount?: Nullable<string>
+	adjustment_taxable_amount_cents?: Nullable<number>
+	adjustment_taxable_amount_float?: Nullable<number>
+	formatted_adjustment_taxable_amount?: Nullable<string>
+	total_amount_with_taxes_cents?: Nullable<number>
+	total_amount_with_taxes_float?: Nullable<number>
+	formatted_total_amount_with_taxes?: Nullable<string>
+	fees_amount_cents?: Nullable<number>
+	fees_amount_float?: Nullable<number>
+	formatted_fees_amount?: Nullable<string>
+	duty_amount_cents?: Nullable<number>
+	duty_amount_float?: Nullable<number>
+	formatted_duty_amount?: Nullable<string>
+	place_total_amount_cents?: Nullable<number>
+	place_total_amount_float?: Nullable<number>
+	formatted_place_total_amount?: Nullable<string>
+	skus_count?: Nullable<number>
+	line_item_options_count?: Nullable<number>
+	shipments_count?: Nullable<number>
+	tax_calculations_count?: Nullable<number>
+	validations_count?: Nullable<number>
+	errors_count?: Nullable<number>
+	payment_source_details?: Nullable<Record<string, any>>
+	token?: Nullable<string>
+	cart_url?: Nullable<string>
+	return_url?: Nullable<string>
+	terms_url?: Nullable<string>
+	privacy_url?: Nullable<string>
+	checkout_url?: Nullable<string>
+	placed_at?: Nullable<string>
+	approved_at?: Nullable<string>
+	cancelled_at?: Nullable<string>
+	payment_updated_at?: Nullable<string>
+	fulfillment_updated_at?: Nullable<string>
+	refreshed_at?: Nullable<string>
+	archived_at?: Nullable<string>
+	expires_at?: Nullable<string>
+	subscription_created_at?: Nullable<string>
+	circuit_state?: Nullable<string>
+	circuit_failure_count?: Nullable<number>
 
-	market?: Market | null
-	customer?: Customer | null
-	shipping_address?: Address | null
-	billing_address?: Address | null
-	available_payment_methods?: PaymentMethod[] | null
-	available_customer_payment_sources?: CustomerPaymentSource[] | null
-	available_free_skus?: Sku[] | null
-	available_free_bundles?: Bundle[] | null
-	payment_method?: PaymentMethod | null
-	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
-	line_items?: LineItem[] | null
-	line_item_options?: LineItemOption[] | null
-	stock_reservations?: StockReservation[] | null
-	stock_line_items?: StockLineItem[] | null
-	stock_transfers?: StockTransfer[] | null
-	shipments?: Shipment[] | null
-	payment_options?: PaymentOption[] | null
-	transactions?: Array<Authorization | Capture | Void | Refund> | null
-	authorizations?: Authorization[] | null
-	captures?: Capture[] | null
-	voids?: Void[] | null
-	refunds?: Refund[] | null
-	returns?: Return[] | null
-	order_subscription?: OrderSubscription | null
-	order_subscriptions?: OrderSubscription[] | null
-	order_factories?: OrderFactory[] | null
-	order_copies?: OrderCopy[] | null
-	recurring_order_copies?: RecurringOrderCopy[] | null
-	attachments?: Attachment[] | null
-	resource_errors?: ResourceError[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	customer?: Nullable<Customer>
+	shipping_address?: Nullable<Address>
+	billing_address?: Nullable<Address>
+	available_payment_methods?: Nullable<PaymentMethod[]>
+	available_customer_payment_sources?: Nullable<CustomerPaymentSource[]>
+	available_free_skus?: Nullable<Sku[]>
+	available_free_bundles?: Nullable<Bundle[]>
+	payment_method?: Nullable<PaymentMethod>
+	payment_source?: Nullable<AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer>
+	line_items?: Nullable<LineItem[]>
+	line_item_options?: Nullable<LineItemOption[]>
+	stock_reservations?: Nullable<StockReservation[]>
+	stock_line_items?: Nullable<StockLineItem[]>
+	stock_transfers?: Nullable<StockTransfer[]>
+	shipments?: Nullable<Shipment[]>
+	payment_options?: Nullable<PaymentOption[]>
+	transactions?: Nullable<Array<Authorization | Capture | Void | Refund>>
+	authorizations?: Nullable<Authorization[]>
+	captures?: Nullable<Capture[]>
+	voids?: Nullable<Void[]>
+	refunds?: Nullable<Refund[]>
+	returns?: Nullable<Return[]>
+	order_subscription?: Nullable<OrderSubscription>
+	order_subscriptions?: Nullable<OrderSubscription[]>
+	order_factories?: Nullable<OrderFactory[]>
+	order_copies?: Nullable<OrderCopy[]>
+	recurring_order_copies?: Nullable<RecurringOrderCopy[]>
+	attachments?: Nullable<Attachment[]>
+	resource_errors?: Nullable<ResourceError[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface OrderCreate extends ResourceCreate {
 	
-	number?: string | null
-	autorefresh?: boolean | null
-	place_async?: boolean | null
-	guest?: boolean | null
-	customer_email?: string | null
-	customer_password?: string | null
-	language_code?: string | null
-	freight_taxable?: boolean | null
-	payment_method_taxable?: boolean | null
-	adjustment_taxable?: boolean | null
-	gift_card_taxable?: boolean | null
-	shipping_country_code_lock?: string | null
-	coupon_code?: string | null
-	gift_card_code?: string | null
-	cart_url?: string | null
-	return_url?: string | null
-	terms_url?: string | null
-	privacy_url?: string | null
+	number?: Nullable<string>
+	autorefresh?: Nullable<boolean>
+	place_async?: Nullable<boolean>
+	guest?: Nullable<boolean>
+	customer_email?: Nullable<string>
+	customer_password?: Nullable<string>
+	language_code?: Nullable<string>
+	freight_taxable?: Nullable<boolean>
+	payment_method_taxable?: Nullable<boolean>
+	adjustment_taxable?: Nullable<boolean>
+	gift_card_taxable?: Nullable<boolean>
+	shipping_country_code_lock?: Nullable<string>
+	coupon_code?: Nullable<string>
+	gift_card_code?: Nullable<string>
+	cart_url?: Nullable<string>
+	return_url?: Nullable<string>
+	terms_url?: Nullable<string>
+	privacy_url?: Nullable<string>
 
-	market?: MarketRel | null
-	customer?: CustomerRel | null
-	shipping_address?: AddressRel | null
-	billing_address?: AddressRel | null
-	payment_method?: PaymentMethodRel | null
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel | null
-	tags?: TagRel[] | null
+	market?: Nullable<MarketRel>
+	customer?: Nullable<CustomerRel>
+	shipping_address?: Nullable<AddressRel>
+	billing_address?: Nullable<AddressRel>
+	payment_method?: Nullable<PaymentMethodRel>
+	payment_source?: Nullable<AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel>
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface OrderUpdate extends ResourceUpdate {
 	
-	number?: string | null
-	autorefresh?: boolean | null
-	place_async?: boolean | null
-	guest?: boolean | null
-	customer_email?: string | null
-	customer_password?: string | null
-	language_code?: string | null
-	freight_taxable?: boolean | null
-	payment_method_taxable?: boolean | null
-	adjustment_taxable?: boolean | null
-	gift_card_taxable?: boolean | null
-	shipping_country_code_lock?: string | null
-	coupon_code?: string | null
-	gift_card_code?: string | null
-	cart_url?: string | null
-	return_url?: string | null
-	terms_url?: string | null
-	privacy_url?: string | null
-	_archive?: boolean | null
-	_unarchive?: boolean | null
-	_pending?: boolean | null
-	_place?: boolean | null
-	_cancel?: boolean | null
-	_approve?: boolean | null
-	_approve_and_capture?: boolean | null
-	_authorize?: boolean | null
-	_authorization_amount_cents?: number | null
-	_capture?: boolean | null
-	_refund?: boolean | null
-	_update_taxes?: boolean | null
-	_nullify_payment_source?: boolean | null
-	_billing_address_clone_id?: string | null
-	_shipping_address_clone_id?: string | null
-	_customer_payment_source_id?: string | null
-	_shipping_address_same_as_billing?: boolean | null
-	_billing_address_same_as_shipping?: boolean | null
-	_commit_invoice?: boolean | null
-	_refund_invoice?: boolean | null
-	_save_payment_source_to_customer_wallet?: boolean | null
-	_save_shipping_address_to_customer_address_book?: boolean | null
-	_save_billing_address_to_customer_address_book?: boolean | null
-	_refresh?: boolean | null
-	_validate?: boolean | null
-	_create_subscriptions?: boolean | null
-	_start_editing?: boolean | null
-	_stop_editing?: boolean | null
-	_reset_circuit?: boolean | null
+	number?: Nullable<string>
+	autorefresh?: Nullable<boolean>
+	place_async?: Nullable<boolean>
+	guest?: Nullable<boolean>
+	customer_email?: Nullable<string>
+	customer_password?: Nullable<string>
+	language_code?: Nullable<string>
+	freight_taxable?: Nullable<boolean>
+	payment_method_taxable?: Nullable<boolean>
+	adjustment_taxable?: Nullable<boolean>
+	gift_card_taxable?: Nullable<boolean>
+	shipping_country_code_lock?: Nullable<string>
+	coupon_code?: Nullable<string>
+	gift_card_code?: Nullable<string>
+	cart_url?: Nullable<string>
+	return_url?: Nullable<string>
+	terms_url?: Nullable<string>
+	privacy_url?: Nullable<string>
+	_archive?: Nullable<boolean>
+	_unarchive?: Nullable<boolean>
+	_pending?: Nullable<boolean>
+	_place?: Nullable<boolean>
+	_cancel?: Nullable<boolean>
+	_approve?: Nullable<boolean>
+	_approve_and_capture?: Nullable<boolean>
+	_authorize?: Nullable<boolean>
+	_authorization_amount_cents?: Nullable<number>
+	_capture?: Nullable<boolean>
+	_refund?: Nullable<boolean>
+	_update_taxes?: Nullable<boolean>
+	_nullify_payment_source?: Nullable<boolean>
+	_billing_address_clone_id?: Nullable<string>
+	_shipping_address_clone_id?: Nullable<string>
+	_customer_payment_source_id?: Nullable<string>
+	_shipping_address_same_as_billing?: Nullable<boolean>
+	_billing_address_same_as_shipping?: Nullable<boolean>
+	_commit_invoice?: Nullable<boolean>
+	_refund_invoice?: Nullable<boolean>
+	_save_payment_source_to_customer_wallet?: Nullable<boolean>
+	_save_shipping_address_to_customer_address_book?: Nullable<boolean>
+	_save_billing_address_to_customer_address_book?: Nullable<boolean>
+	_refresh?: Nullable<boolean>
+	_validate?: Nullable<boolean>
+	_create_subscriptions?: Nullable<boolean>
+	_start_editing?: Nullable<boolean>
+	_stop_editing?: Nullable<boolean>
+	_reset_circuit?: Nullable<boolean>
 
-	market?: MarketRel | null
-	customer?: CustomerRel | null
-	shipping_address?: AddressRel | null
-	billing_address?: AddressRel | null
-	payment_method?: PaymentMethodRel | null
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel | null
-	tags?: TagRel[] | null
+	market?: Nullable<MarketRel>
+	customer?: Nullable<CustomerRel>
+	shipping_address?: Nullable<AddressRel>
+	billing_address?: Nullable<AddressRel>
+	payment_method?: Nullable<PaymentMethodRel>
+	payment_source?: Nullable<AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel>
+	tags?: Nullable<TagRel[]>
 
 }
 

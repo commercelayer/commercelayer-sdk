@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
@@ -18,11 +19,11 @@ interface EventCallback extends Resource {
 	readonly type: EventCallbackType
 
 	callback_url: string
-	payload?: Record<string, any> | null
-	response_code?: string | null
-	response_message?: string | null
+	payload?: Nullable<Record<string, any>>
+	response_code?: Nullable<string>
+	response_message?: Nullable<string>
 
-	webhook?: Webhook | null
+	webhook?: Nullable<Webhook>
 
 }
 

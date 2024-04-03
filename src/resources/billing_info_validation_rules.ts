@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,9 +22,9 @@ interface BillingInfoValidationRule extends Resource {
 	readonly type: BillingInfoValidationRuleType
 
 
-	market?: Market | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -37,7 +38,7 @@ interface BillingInfoValidationRuleCreate extends ResourceCreate {
 
 interface BillingInfoValidationRuleUpdate extends ResourceUpdate {
 	
-	market?: MarketRel | null
+	market?: Nullable<MarketRel>
 
 }
 

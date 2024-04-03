@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,14 +22,14 @@ interface ShippingWeightTier extends Resource {
 	readonly type: ShippingWeightTierType
 
 	name: string
-	up_to?: number | null
+	up_to?: Nullable<number>
 	price_amount_cents: number
-	price_amount_float?: number | null
-	formatted_price_amount?: string | null
+	price_amount_float?: Nullable<number>
+	formatted_price_amount?: Nullable<string>
 
-	shipping_method?: ShippingMethod | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	shipping_method?: Nullable<ShippingMethod>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -36,7 +37,7 @@ interface ShippingWeightTier extends Resource {
 interface ShippingWeightTierCreate extends ResourceCreate {
 	
 	name: string
-	up_to?: number | null
+	up_to?: Nullable<number>
 	price_amount_cents: number
 
 	shipping_method: ShippingMethodRel
@@ -46,11 +47,11 @@ interface ShippingWeightTierCreate extends ResourceCreate {
 
 interface ShippingWeightTierUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	up_to?: number | null
-	price_amount_cents?: number | null
+	name?: Nullable<string>
+	up_to?: Nullable<number>
+	price_amount_cents?: Nullable<number>
 
-	shipping_method?: ShippingMethodRel | null
+	shipping_method?: Nullable<ShippingMethodRel>
 
 }
 

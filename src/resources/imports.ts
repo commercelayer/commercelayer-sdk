@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -18,22 +19,22 @@ interface Import extends Resource {
 	readonly type: ImportType
 
 	resource_type: string
-	format?: string | null
-	parent_resource_id?: string | null
+	format?: Nullable<string>
+	parent_resource_id?: Nullable<string>
 	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
-	started_at?: string | null
-	completed_at?: string | null
-	interrupted_at?: string | null
+	started_at?: Nullable<string>
+	completed_at?: Nullable<string>
+	interrupted_at?: Nullable<string>
 	inputs: Array<Record<string, any>>
-	inputs_size?: number | null
-	errors_count?: number | null
-	warnings_count?: number | null
-	processed_count?: number | null
-	errors_log?: Record<string, any> | null
-	warnings_log?: Record<string, any> | null
-	attachment_url?: string | null
+	inputs_size?: Nullable<number>
+	errors_count?: Nullable<number>
+	warnings_count?: Nullable<number>
+	processed_count?: Nullable<number>
+	errors_log?: Nullable<Record<string, any>>
+	warnings_log?: Nullable<Record<string, any>>
+	attachment_url?: Nullable<string>
 
-	events?: Event[] | null
+	events?: Nullable<Event[]>
 
 }
 
@@ -41,8 +42,8 @@ interface Import extends Resource {
 interface ImportCreate extends ResourceCreate {
 	
 	resource_type: string
-	format?: string | null
-	parent_resource_id?: string | null
+	format?: Nullable<string>
+	parent_resource_id?: Nullable<string>
 	inputs: Array<Record<string, any>>
 	
 }

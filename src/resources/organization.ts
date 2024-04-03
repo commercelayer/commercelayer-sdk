@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiSingleton } from '../resource'
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
@@ -16,23 +17,23 @@ interface Organization extends Resource {
 	
 	readonly type: OrganizationType
 
-	name?: string | null
-	slug?: string | null
-	domain?: string | null
-	support_phone?: string | null
-	support_email?: string | null
-	logo_url?: string | null
-	favicon_url?: string | null
-	primary_color?: string | null
-	gtm_id?: string | null
-	gtm_id_test?: string | null
-	max_concurrent_promotions?: number | null
-	max_concurrent_imports?: number | null
-	max_concurrent_exports?: number | null
-	max_concurrent_cleanups?: number | null
-	order_number_editable_test?: boolean | null
-	order_number_editable_live?: boolean | null
-	config?: Record<string, any> | null
+	name?: Nullable<string>
+	slug?: Nullable<string>
+	domain?: Nullable<string>
+	support_phone?: Nullable<string>
+	support_email?: Nullable<string>
+	logo_url?: Nullable<string>
+	favicon_url?: Nullable<string>
+	primary_color?: Nullable<string>
+	gtm_id?: Nullable<string>
+	gtm_id_test?: Nullable<string>
+	max_concurrent_promotions?: Nullable<number>
+	max_concurrent_imports?: Nullable<number>
+	max_concurrent_exports?: Nullable<number>
+	max_concurrent_cleanups?: Nullable<number>
+	order_number_editable_test?: Nullable<boolean>
+	order_number_editable_live?: Nullable<boolean>
+	config?: Nullable<Record<string, any>>
 	
 }
 

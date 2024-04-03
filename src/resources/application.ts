@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiSingleton } from '../resource'
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
@@ -16,11 +17,11 @@ interface Application extends Resource {
 	
 	readonly type: ApplicationType
 
-	name?: string | null
-	kind?: string | null
-	public_access?: boolean | null
-	redirect_uri?: string | null
-	scopes?: string | null
+	name?: Nullable<string>
+	kind?: Nullable<string>
+	public_access?: Nullable<boolean>
+	redirect_uri?: Nullable<string>
+	scopes?: Nullable<string>
 	
 }
 

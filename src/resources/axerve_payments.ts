@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,19 +23,19 @@ interface AxervePayment extends Resource {
 
 	login: string
 	return_url: string
-	payment_request_data?: Record<string, any> | null
-	client_ip?: string | null
-	buyer_details?: Record<string, any> | null
-	request_token?: boolean | null
-	mismatched_amounts?: boolean | null
+	payment_request_data?: Nullable<Record<string, any>>
+	client_ip?: Nullable<string>
+	buyer_details?: Nullable<Record<string, any>>
+	request_token?: Nullable<boolean>
+	mismatched_amounts?: Nullable<boolean>
 	intent_amount_cents: number
-	intent_amount_float?: number | null
-	formatted_intent_amount?: string | null
-	payment_instrument?: Record<string, any> | null
+	intent_amount_float?: Nullable<number>
+	formatted_intent_amount?: Nullable<string>
+	payment_instrument?: Nullable<Record<string, any>>
 
-	order?: Order | null
-	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	payment_gateway?: Nullable<PaymentGateway>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -42,9 +43,9 @@ interface AxervePayment extends Resource {
 interface AxervePaymentCreate extends ResourceCreate {
 	
 	return_url: string
-	client_ip?: string | null
-	buyer_details?: Record<string, any> | null
-	request_token?: boolean | null
+	client_ip?: Nullable<string>
+	buyer_details?: Nullable<Record<string, any>>
+	request_token?: Nullable<boolean>
 
 	order: OrderRel
 
@@ -53,10 +54,10 @@ interface AxervePaymentCreate extends ResourceCreate {
 
 interface AxervePaymentUpdate extends ResourceUpdate {
 	
-	payment_request_data?: Record<string, any> | null
-	_update?: boolean | null
+	payment_request_data?: Nullable<Record<string, any>>
+	_update?: Nullable<boolean>
 
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

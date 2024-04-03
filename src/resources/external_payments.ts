@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,13 +23,13 @@ interface ExternalPayment extends Resource {
 	readonly type: ExternalPaymentType
 
 	payment_source_token: string
-	options?: Record<string, any> | null
-	payment_instrument?: Record<string, any> | null
+	options?: Nullable<Record<string, any>>
+	payment_instrument?: Nullable<Record<string, any>>
 
-	order?: Order | null
-	payment_gateway?: PaymentGateway | null
-	wallet?: CustomerPaymentSource | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	payment_gateway?: Nullable<PaymentGateway>
+	wallet?: Nullable<CustomerPaymentSource>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -36,7 +37,7 @@ interface ExternalPayment extends Resource {
 interface ExternalPaymentCreate extends ResourceCreate {
 	
 	payment_source_token: string
-	options?: Record<string, any> | null
+	options?: Nullable<Record<string, any>>
 
 	order: OrderRel
 
@@ -45,9 +46,9 @@ interface ExternalPaymentCreate extends ResourceCreate {
 
 interface ExternalPaymentUpdate extends ResourceUpdate {
 	
-	options?: Record<string, any> | null
+	options?: Nullable<Record<string, any>>
 
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

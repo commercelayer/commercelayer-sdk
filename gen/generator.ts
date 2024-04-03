@@ -817,6 +817,11 @@ const isCUDModel = (name: string): boolean => {
 }
 
 
+const nullable = (type: string): string => {
+	return `Nullable<${type}>`
+}
+
+
 type ComponentEnums = { [key: string]: string }
 
 const templatedComponent = (res: string, name: string, cmp: Component): { component: string, models: string[], enums: ComponentEnums } => {
@@ -835,7 +840,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 				let attrType = fixAttributeType(a)
 				if (a.enum) enums[a.name] = attrType
 				// fields.push('/**\n* Unique identifier for the resource (hash).\n* @example ```"XAyRWNUzyN"```\n*/')
-				fields.push(`${a.name}${a.required ? '' : '?'}: ${attrType}${a.required ? '' : ' | null'}`)
+				fields.push(`${a.name}${a.required ? '' : '?'}: ${a.required ? attrType : nullable(attrType)}`)
 			}
 		}
 	})
@@ -873,7 +878,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 				else resName += '[]'
 			}
 
-			rels.push(`${r.name}${r.required ? '' : '?'}: ${resName}${r.required ? '' : ' | null'}`)
+			rels.push(`${r.name}${r.required ? '' : '?'}: ${r.required ? resName : nullable(resName)}`)
 
 		}
 	})

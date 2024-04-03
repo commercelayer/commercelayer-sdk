@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -46,101 +47,101 @@ interface LineItem extends Resource {
 	
 	readonly type: LineItemType
 
-	sku_code?: string | null
-	bundle_code?: string | null
+	sku_code?: Nullable<string>
+	bundle_code?: Nullable<string>
 	quantity: number
-	_external_price?: boolean | null
-	currency_code?: string | null
-	unit_amount_cents?: number | null
-	unit_amount_float?: number | null
-	formatted_unit_amount?: string | null
-	compare_at_amount_cents?: number | null
-	compare_at_amount_float?: number | null
-	formatted_compare_at_amount?: string | null
-	options_amount_cents?: number | null
-	options_amount_float?: number | null
-	formatted_options_amount?: string | null
-	discount_cents?: number | null
-	discount_float?: number | null
-	formatted_discount?: string | null
-	total_amount_cents?: number | null
+	_external_price?: Nullable<boolean>
+	currency_code?: Nullable<string>
+	unit_amount_cents?: Nullable<number>
+	unit_amount_float?: Nullable<number>
+	formatted_unit_amount?: Nullable<string>
+	compare_at_amount_cents?: Nullable<number>
+	compare_at_amount_float?: Nullable<number>
+	formatted_compare_at_amount?: Nullable<string>
+	options_amount_cents?: Nullable<number>
+	options_amount_float?: Nullable<number>
+	formatted_options_amount?: Nullable<string>
+	discount_cents?: Nullable<number>
+	discount_float?: Nullable<number>
+	formatted_discount?: Nullable<string>
+	total_amount_cents?: Nullable<number>
 	total_amount_float: number
-	formatted_total_amount?: string | null
-	tax_amount_cents?: number | null
+	formatted_total_amount?: Nullable<string>
+	tax_amount_cents?: Nullable<number>
 	tax_amount_float: number
-	formatted_tax_amount?: string | null
-	name?: string | null
-	image_url?: string | null
-	discount_breakdown?: Record<string, any> | null
-	tax_rate?: number | null
-	tax_breakdown?: Record<string, any> | null
-	item_type?: 'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
-	frequency?: string | null
-	coupon_code?: string | null
-	circuit_state?: string | null
-	circuit_failure_count?: number | null
+	formatted_tax_amount?: Nullable<string>
+	name?: Nullable<string>
+	image_url?: Nullable<string>
+	discount_breakdown?: Nullable<Record<string, any>>
+	tax_rate?: Nullable<number>
+	tax_breakdown?: Nullable<Record<string, any>>
+	item_type?: Nullable<'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions'>
+	frequency?: Nullable<string>
+	coupon_code?: Nullable<string>
+	circuit_state?: Nullable<string>
+	circuit_failure_count?: Nullable<number>
 
-	order?: Order | null
-	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku | null
-	sku?: Sku | null
-	bundle?: Bundle | null
-	adjustment?: Adjustment | null
-	gift_card?: GiftCard | null
-	shipment?: Shipment | null
-	payment_method?: PaymentMethod | null
-	line_item_options?: LineItemOption[] | null
-	return_line_items?: ReturnLineItem[] | null
-	stock_reservations?: StockReservation[] | null
-	stock_line_items?: StockLineItem[] | null
-	stock_transfers?: StockTransfer[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
+	order?: Nullable<Order>
+	item?: Nullable<Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku>
+	sku?: Nullable<Sku>
+	bundle?: Nullable<Bundle>
+	adjustment?: Nullable<Adjustment>
+	gift_card?: Nullable<GiftCard>
+	shipment?: Nullable<Shipment>
+	payment_method?: Nullable<PaymentMethod>
+	line_item_options?: Nullable<LineItemOption[]>
+	return_line_items?: Nullable<ReturnLineItem[]>
+	stock_reservations?: Nullable<StockReservation[]>
+	stock_line_items?: Nullable<StockLineItem[]>
+	stock_transfers?: Nullable<StockTransfer[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
 
 }
 
 
 interface LineItemCreate extends ResourceCreate {
 	
-	sku_code?: string | null
-	bundle_code?: string | null
+	sku_code?: Nullable<string>
+	bundle_code?: Nullable<string>
 	quantity: number
-	_external_price?: boolean | null
-	_update_quantity?: boolean | null
-	_reserve_stock?: boolean | null
-	unit_amount_cents?: number | null
-	compare_at_amount_cents?: number | null
-	name?: string | null
-	image_url?: string | null
-	item_type?: 'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
-	frequency?: string | null
+	_external_price?: Nullable<boolean>
+	_update_quantity?: Nullable<boolean>
+	_reserve_stock?: Nullable<boolean>
+	unit_amount_cents?: Nullable<number>
+	compare_at_amount_cents?: Nullable<number>
+	name?: Nullable<string>
+	image_url?: Nullable<string>
+	item_type?: Nullable<'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions'>
+	frequency?: Nullable<string>
 
 	order: OrderRel
-	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel | null
-	sku?: SkuRel | null
-	bundle?: BundleRel | null
-	adjustment?: AdjustmentRel | null
-	gift_card?: GiftCardRel | null
-	shipment?: ShipmentRel | null
-	payment_method?: PaymentMethodRel | null
-	tags?: TagRel[] | null
+	item?: Nullable<AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel>
+	sku?: Nullable<SkuRel>
+	bundle?: Nullable<BundleRel>
+	adjustment?: Nullable<AdjustmentRel>
+	gift_card?: Nullable<GiftCardRel>
+	shipment?: Nullable<ShipmentRel>
+	payment_method?: Nullable<PaymentMethodRel>
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface LineItemUpdate extends ResourceUpdate {
 	
-	sku_code?: string | null
-	bundle_code?: string | null
-	quantity?: number | null
-	_external_price?: boolean | null
-	_reserve_stock?: boolean | null
-	compare_at_amount_cents?: number | null
-	name?: string | null
-	image_url?: string | null
-	frequency?: string | null
-	_reset_circuit?: boolean | null
+	sku_code?: Nullable<string>
+	bundle_code?: Nullable<string>
+	quantity?: Nullable<number>
+	_external_price?: Nullable<boolean>
+	_reserve_stock?: Nullable<boolean>
+	compare_at_amount_cents?: Nullable<number>
+	name?: Nullable<string>
+	image_url?: Nullable<string>
+	frequency?: Nullable<string>
+	_reset_circuit?: Nullable<boolean>
 
-	tags?: TagRel[] | null
+	tags?: Nullable<TagRel[]>
 
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -24,37 +25,37 @@ interface StockItem extends Resource {
 	
 	readonly type: StockItemType
 
-	sku_code?: string | null
+	sku_code?: Nullable<string>
 	quantity: number
 
-	stock_location?: StockLocation | null
-	sku?: Sku | null
-	reserved_stock?: ReservedStock | null
-	stock_reservations?: StockReservation[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	stock_location?: Nullable<StockLocation>
+	sku?: Nullable<Sku>
+	reserved_stock?: Nullable<ReservedStock>
+	stock_reservations?: Nullable<StockReservation[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface StockItemCreate extends ResourceCreate {
 	
-	sku_code?: string | null
+	sku_code?: Nullable<string>
 	quantity: number
 
 	stock_location: StockLocationRel
-	sku?: SkuRel | null
+	sku?: Nullable<SkuRel>
 
 }
 
 
 interface StockItemUpdate extends ResourceUpdate {
 	
-	sku_code?: string | null
-	quantity?: number | null
+	sku_code?: Nullable<string>
+	quantity?: Nullable<number>
 
-	stock_location?: StockLocationRel | null
-	sku?: SkuRel | null
+	stock_location?: Nullable<StockLocationRel>
+	sku?: Nullable<SkuRel>
 
 }
 

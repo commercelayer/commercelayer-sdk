@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
@@ -25,48 +26,48 @@ interface OrderSubscriptionItem extends Resource {
 	
 	readonly type: OrderSubscriptionItemType
 
-	sku_code?: string | null
-	bundle_code?: string | null
+	sku_code?: Nullable<string>
+	bundle_code?: Nullable<string>
 	quantity: number
-	unit_amount_cents?: number | null
-	unit_amount_float?: number | null
-	formatted_unit_amount?: string | null
-	total_amount_cents?: number | null
+	unit_amount_cents?: Nullable<number>
+	unit_amount_float?: Nullable<number>
+	formatted_unit_amount?: Nullable<string>
+	total_amount_cents?: Nullable<number>
 	total_amount_float: number
-	formatted_total_amount?: string | null
+	formatted_total_amount?: Nullable<string>
 
-	order_subscription?: OrderSubscription | null
-	item?: Adjustment | Bundle | Sku | null
-	sku?: Sku | null
-	bundle?: Bundle | null
-	adjustment?: Adjustment | null
-	source_line_item?: LineItem | null
+	order_subscription?: Nullable<OrderSubscription>
+	item?: Nullable<Adjustment | Bundle | Sku>
+	sku?: Nullable<Sku>
+	bundle?: Nullable<Bundle>
+	adjustment?: Nullable<Adjustment>
+	source_line_item?: Nullable<LineItem>
 
 }
 
 
 interface OrderSubscriptionItemCreate extends ResourceCreate {
 	
-	sku_code?: string | null
-	bundle_code?: string | null
+	sku_code?: Nullable<string>
+	bundle_code?: Nullable<string>
 	quantity: number
-	unit_amount_cents?: number | null
+	unit_amount_cents?: Nullable<number>
 
 	order_subscription: OrderSubscriptionRel
 	item: AdjustmentRel | BundleRel | SkuRel
-	sku?: SkuRel | null
-	bundle?: BundleRel | null
-	adjustment?: AdjustmentRel | null
+	sku?: Nullable<SkuRel>
+	bundle?: Nullable<BundleRel>
+	adjustment?: Nullable<AdjustmentRel>
 
 }
 
 
 interface OrderSubscriptionItemUpdate extends ResourceUpdate {
 	
-	sku_code?: string | null
-	bundle_code?: string | null
-	quantity?: number | null
-	unit_amount_cents?: number | null
+	sku_code?: Nullable<string>
+	bundle_code?: Nullable<string>
+	quantity?: Nullable<number>
+	unit_amount_cents?: Nullable<number>
 	
 }
 

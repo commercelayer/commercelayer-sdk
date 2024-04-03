@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -24,13 +25,13 @@ interface AvalaraAccount extends Resource {
 	name: string
 	username: string
 	company_code: string
-	commit_invoice?: boolean | null
-	ddp?: boolean | null
+	commit_invoice?: Nullable<boolean>
+	ddp?: Nullable<boolean>
 
-	markets?: Market[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
-	tax_categories?: TaxCategory[] | null
+	markets?: Nullable<Market[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
+	tax_categories?: Nullable<TaxCategory[]>
 
 }
 
@@ -41,24 +42,24 @@ interface AvalaraAccountCreate extends ResourceCreate {
 	username: string
 	password: string
 	company_code: string
-	commit_invoice?: boolean | null
-	ddp?: boolean | null
+	commit_invoice?: Nullable<boolean>
+	ddp?: Nullable<boolean>
 
-	tax_categories?: TaxCategoryRel[] | null
+	tax_categories?: Nullable<TaxCategoryRel[]>
 
 }
 
 
 interface AvalaraAccountUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	username?: string | null
-	password?: string | null
-	company_code?: string | null
-	commit_invoice?: boolean | null
-	ddp?: boolean | null
+	name?: Nullable<string>
+	username?: Nullable<string>
+	password?: Nullable<string>
+	company_code?: Nullable<string>
+	commit_invoice?: Nullable<boolean>
+	ddp?: Nullable<boolean>
 
-	tax_categories?: TaxCategoryRel[] | null
+	tax_categories?: Nullable<TaxCategoryRel[]>
 
 }
 

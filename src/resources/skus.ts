@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -30,26 +31,26 @@ interface Sku extends Resource {
 
 	code: string
 	name: string
-	description?: string | null
-	image_url?: string | null
-	pieces_per_pack?: number | null
-	weight?: number | null
-	unit_of_weight?: 'gr' | 'lb' | 'oz' | null
-	hs_tariff_number?: string | null
-	do_not_ship?: boolean | null
-	do_not_track?: boolean | null
-	inventory?: Record<string, any> | null
+	description?: Nullable<string>
+	image_url?: Nullable<string>
+	pieces_per_pack?: Nullable<number>
+	weight?: Nullable<number>
+	unit_of_weight?: Nullable<'gr' | 'lb' | 'oz'>
+	hs_tariff_number?: Nullable<string>
+	do_not_ship?: Nullable<boolean>
+	do_not_track?: Nullable<boolean>
+	inventory?: Nullable<Record<string, any>>
 
-	shipping_category?: ShippingCategory | null
-	prices?: Price[] | null
-	stock_items?: StockItem[] | null
-	stock_reservations?: StockReservation[] | null
-	delivery_lead_times?: DeliveryLeadTime[] | null
-	sku_options?: SkuOption[] | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
+	shipping_category?: Nullable<ShippingCategory>
+	prices?: Nullable<Price[]>
+	stock_items?: Nullable<StockItem[]>
+	stock_reservations?: Nullable<StockReservation[]>
+	delivery_lead_times?: Nullable<DeliveryLeadTime[]>
+	sku_options?: Nullable<SkuOption[]>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -58,36 +59,36 @@ interface SkuCreate extends ResourceCreate {
 	
 	code: string
 	name: string
-	description?: string | null
-	image_url?: string | null
-	pieces_per_pack?: number | null
-	weight?: number | null
-	unit_of_weight?: 'gr' | 'lb' | 'oz' | null
-	hs_tariff_number?: string | null
-	do_not_ship?: boolean | null
-	do_not_track?: boolean | null
+	description?: Nullable<string>
+	image_url?: Nullable<string>
+	pieces_per_pack?: Nullable<number>
+	weight?: Nullable<number>
+	unit_of_weight?: Nullable<'gr' | 'lb' | 'oz'>
+	hs_tariff_number?: Nullable<string>
+	do_not_ship?: Nullable<boolean>
+	do_not_track?: Nullable<boolean>
 
 	shipping_category: ShippingCategoryRel
-	tags?: TagRel[] | null
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface SkuUpdate extends ResourceUpdate {
 	
-	code?: string | null
-	name?: string | null
-	description?: string | null
-	image_url?: string | null
-	pieces_per_pack?: number | null
-	weight?: number | null
-	unit_of_weight?: 'gr' | 'lb' | 'oz' | null
-	hs_tariff_number?: string | null
-	do_not_ship?: boolean | null
-	do_not_track?: boolean | null
+	code?: Nullable<string>
+	name?: Nullable<string>
+	description?: Nullable<string>
+	image_url?: Nullable<string>
+	pieces_per_pack?: Nullable<number>
+	weight?: Nullable<number>
+	unit_of_weight?: Nullable<'gr' | 'lb' | 'oz'>
+	hs_tariff_number?: Nullable<string>
+	do_not_ship?: Nullable<boolean>
+	do_not_track?: Nullable<boolean>
 
-	shipping_category?: ShippingCategoryRel | null
-	tags?: TagRel[] | null
+	shipping_category?: Nullable<ShippingCategoryRel>
+	tags?: Nullable<TagRel[]>
 
 }
 

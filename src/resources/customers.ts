@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -31,20 +32,20 @@ interface Customer extends Resource {
 
 	email: string
 	status: 'prospect' | 'acquired' | 'repeat'
-	has_password?: boolean | null
-	total_orders_count?: number | null
+	has_password?: Nullable<boolean>
+	total_orders_count?: Nullable<number>
 
-	customer_group?: CustomerGroup | null
-	customer_addresses?: CustomerAddress[] | null
-	customer_payment_sources?: CustomerPaymentSource[] | null
-	customer_subscriptions?: CustomerSubscription[] | null
-	orders?: Order[] | null
-	order_subscriptions?: OrderSubscription[] | null
-	returns?: Return[] | null
-	sku_lists?: SkuList[] | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
+	customer_group?: Nullable<CustomerGroup>
+	customer_addresses?: Nullable<CustomerAddress[]>
+	customer_payment_sources?: Nullable<CustomerPaymentSource[]>
+	customer_subscriptions?: Nullable<CustomerSubscription[]>
+	orders?: Nullable<Order[]>
+	order_subscriptions?: Nullable<OrderSubscription[]>
+	returns?: Nullable<Return[]>
+	sku_lists?: Nullable<SkuList[]>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
 
 }
 
@@ -52,21 +53,21 @@ interface Customer extends Resource {
 interface CustomerCreate extends ResourceCreate {
 	
 	email: string
-	password?: string | null
+	password?: Nullable<string>
 
-	customer_group?: CustomerGroupRel | null
-	tags?: TagRel[] | null
+	customer_group?: Nullable<CustomerGroupRel>
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface CustomerUpdate extends ResourceUpdate {
 	
-	email?: string | null
-	password?: string | null
+	email?: Nullable<string>
+	password?: Nullable<string>
 
-	customer_group?: CustomerGroupRel | null
-	tags?: TagRel[] | null
+	customer_group?: Nullable<CustomerGroupRel>
+	tags?: Nullable<TagRel[]>
 
 }
 

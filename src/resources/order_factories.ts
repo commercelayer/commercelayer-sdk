@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -19,17 +20,17 @@ interface OrderFactory extends Resource {
 	readonly type: OrderFactoryType
 
 	status: 'pending' | 'in_progress' | 'failed' | 'completed'
-	started_at?: string | null
-	completed_at?: string | null
-	failed_at?: string | null
-	errors_log?: Record<string, any> | null
-	errors_count?: number | null
-	place_target_order?: boolean | null
-	reuse_wallet?: boolean | null
+	started_at?: Nullable<string>
+	completed_at?: Nullable<string>
+	failed_at?: Nullable<string>
+	errors_log?: Nullable<Record<string, any>>
+	errors_count?: Nullable<number>
+	place_target_order?: Nullable<boolean>
+	reuse_wallet?: Nullable<boolean>
 
-	source_order?: Order | null
-	target_order?: Order | null
-	events?: Event[] | null
+	source_order?: Nullable<Order>
+	target_order?: Nullable<Order>
+	events?: Nullable<Event[]>
 
 }
 

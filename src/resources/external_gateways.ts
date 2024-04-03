@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,18 +21,18 @@ interface ExternalGateway extends Resource {
 	readonly type: ExternalGatewayType
 
 	name: string
-	authorize_url?: string | null
-	capture_url?: string | null
-	void_url?: string | null
-	refund_url?: string | null
-	token_url?: string | null
-	circuit_state?: string | null
-	circuit_failure_count?: number | null
+	authorize_url?: Nullable<string>
+	capture_url?: Nullable<string>
+	void_url?: Nullable<string>
+	refund_url?: Nullable<string>
+	token_url?: Nullable<string>
+	circuit_state?: Nullable<string>
+	circuit_failure_count?: Nullable<number>
 	shared_secret: string
 
-	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
-	external_payments?: ExternalPayment[] | null
+	payment_methods?: Nullable<PaymentMethod[]>
+	versions?: Nullable<Version[]>
+	external_payments?: Nullable<ExternalPayment[]>
 
 }
 
@@ -39,24 +40,24 @@ interface ExternalGateway extends Resource {
 interface ExternalGatewayCreate extends ResourceCreate {
 	
 	name: string
-	authorize_url?: string | null
-	capture_url?: string | null
-	void_url?: string | null
-	refund_url?: string | null
-	token_url?: string | null
+	authorize_url?: Nullable<string>
+	capture_url?: Nullable<string>
+	void_url?: Nullable<string>
+	refund_url?: Nullable<string>
+	token_url?: Nullable<string>
 	
 }
 
 
 interface ExternalGatewayUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	authorize_url?: string | null
-	capture_url?: string | null
-	void_url?: string | null
-	refund_url?: string | null
-	token_url?: string | null
-	_reset_circuit?: boolean | null
+	name?: Nullable<string>
+	authorize_url?: Nullable<string>
+	capture_url?: Nullable<string>
+	void_url?: Nullable<string>
+	refund_url?: Nullable<string>
+	token_url?: Nullable<string>
+	_reset_circuit?: Nullable<boolean>
 	
 }
 

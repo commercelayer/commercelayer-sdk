@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } f
 import { generateQueryStringParams, isParamsList } from './query'
 import type { ResourceTypeLock } from './api'
 import config from './config'
+import type { Nullable } from './types'
 
 
 import Debug from './debug'
@@ -30,8 +31,8 @@ interface ResourceId extends ResourceType {
 
 
 interface ResourceBase {
-	reference?: string | null
-	reference_origin?: string | null
+	reference?: Nullable<string>
+	reference_origin?: Nullable<string>
 	metadata?: Metadata
 }
 

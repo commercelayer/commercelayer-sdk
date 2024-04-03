@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,13 +22,13 @@ interface CheckoutComGateway extends Resource {
 	readonly type: CheckoutComGatewayType
 
 	name: string
-	webhook_endpoint_id?: string | null
-	webhook_endpoint_secret?: string | null
-	webhook_endpoint_url?: string | null
+	webhook_endpoint_id?: Nullable<string>
+	webhook_endpoint_secret?: Nullable<string>
+	webhook_endpoint_url?: Nullable<string>
 
-	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
-	checkout_com_payments?: CheckoutComPayment[] | null
+	payment_methods?: Nullable<PaymentMethod[]>
+	versions?: Nullable<Version[]>
+	checkout_com_payments?: Nullable<CheckoutComPayment[]>
 
 }
 
@@ -38,18 +39,18 @@ interface CheckoutComGatewayCreate extends ResourceCreate {
 	secret_key: string
 	public_key: string
 
-	checkout_com_payments?: CheckoutComPaymentRel[] | null
+	checkout_com_payments?: Nullable<CheckoutComPaymentRel[]>
 
 }
 
 
 interface CheckoutComGatewayUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	secret_key?: string | null
-	public_key?: string | null
+	name?: Nullable<string>
+	secret_key?: Nullable<string>
+	public_key?: Nullable<string>
 
-	checkout_com_payments?: CheckoutComPaymentRel[] | null
+	checkout_com_payments?: Nullable<CheckoutComPaymentRel[]>
 
 }
 

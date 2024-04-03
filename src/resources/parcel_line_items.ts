@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,15 +22,15 @@ interface ParcelLineItem extends Resource {
 	
 	readonly type: ParcelLineItemType
 
-	sku_code?: string | null
-	bundle_code?: string | null
+	sku_code?: Nullable<string>
+	bundle_code?: Nullable<string>
 	quantity: number
 	name: string
-	image_url?: string | null
+	image_url?: Nullable<string>
 
-	parcel?: Parcel | null
-	stock_line_item?: StockLineItem | null
-	versions?: Version[] | null
+	parcel?: Nullable<Parcel>
+	stock_line_item?: Nullable<StockLineItem>
+	versions?: Nullable<Version[]>
 
 }
 

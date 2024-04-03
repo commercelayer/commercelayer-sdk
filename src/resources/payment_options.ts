@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -19,19 +20,19 @@ interface PaymentOption extends Resource {
 	
 	readonly type: PaymentOptionType
 
-	name?: string | null
+	name?: Nullable<string>
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	data: Record<string, any>
 
-	order?: Order | null
-	attachments?: Attachment[] | null
+	order?: Nullable<Order>
+	attachments?: Nullable<Attachment[]>
 
 }
 
 
 interface PaymentOptionCreate extends ResourceCreate {
 	
-	name?: string | null
+	name?: Nullable<string>
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	data: Record<string, any>
 
@@ -42,10 +43,10 @@ interface PaymentOptionCreate extends ResourceCreate {
 
 interface PaymentOptionUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	data?: Record<string, any> | null
+	name?: Nullable<string>
+	data?: Nullable<Record<string, any>>
 
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

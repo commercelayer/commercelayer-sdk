@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,14 +22,14 @@ interface BraintreeGateway extends Resource {
 	readonly type: BraintreeGatewayType
 
 	name: string
-	descriptor_name?: string | null
-	descriptor_phone?: string | null
-	descriptor_url?: string | null
-	webhook_endpoint_url?: string | null
+	descriptor_name?: Nullable<string>
+	descriptor_phone?: Nullable<string>
+	descriptor_url?: Nullable<string>
+	webhook_endpoint_url?: Nullable<string>
 
-	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
-	braintree_payments?: BraintreePayment[] | null
+	payment_methods?: Nullable<PaymentMethod[]>
+	versions?: Nullable<Version[]>
+	braintree_payments?: Nullable<BraintreePayment[]>
 
 }
 
@@ -40,27 +41,27 @@ interface BraintreeGatewayCreate extends ResourceCreate {
 	merchant_id: string
 	public_key: string
 	private_key: string
-	descriptor_name?: string | null
-	descriptor_phone?: string | null
-	descriptor_url?: string | null
+	descriptor_name?: Nullable<string>
+	descriptor_phone?: Nullable<string>
+	descriptor_url?: Nullable<string>
 
-	braintree_payments?: BraintreePaymentRel[] | null
+	braintree_payments?: Nullable<BraintreePaymentRel[]>
 
 }
 
 
 interface BraintreeGatewayUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	merchant_account_id?: string | null
-	merchant_id?: string | null
-	public_key?: string | null
-	private_key?: string | null
-	descriptor_name?: string | null
-	descriptor_phone?: string | null
-	descriptor_url?: string | null
+	name?: Nullable<string>
+	merchant_account_id?: Nullable<string>
+	merchant_id?: Nullable<string>
+	public_key?: Nullable<string>
+	private_key?: Nullable<string>
+	descriptor_name?: Nullable<string>
+	descriptor_phone?: Nullable<string>
+	descriptor_url?: Nullable<string>
 
-	braintree_payments?: BraintreePaymentRel[] | null
+	braintree_payments?: Nullable<BraintreePaymentRel[]>
 
 }
 

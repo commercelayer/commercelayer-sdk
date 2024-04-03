@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,12 +22,12 @@ interface CouponRecipient extends Resource {
 	readonly type: CouponRecipientType
 
 	email: string
-	first_name?: string | null
-	last_name?: string | null
+	first_name?: Nullable<string>
+	last_name?: Nullable<string>
 
-	customer?: Customer | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	customer?: Nullable<Customer>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -34,21 +35,21 @@ interface CouponRecipient extends Resource {
 interface CouponRecipientCreate extends ResourceCreate {
 	
 	email: string
-	first_name?: string | null
-	last_name?: string | null
+	first_name?: Nullable<string>
+	last_name?: Nullable<string>
 
-	customer?: CustomerRel | null
+	customer?: Nullable<CustomerRel>
 
 }
 
 
 interface CouponRecipientUpdate extends ResourceUpdate {
 	
-	email?: string | null
-	first_name?: string | null
-	last_name?: string | null
+	email?: Nullable<string>
+	first_name?: Nullable<string>
+	last_name?: Nullable<string>
 
-	customer?: CustomerRel | null
+	customer?: Nullable<CustomerRel>
 
 }
 

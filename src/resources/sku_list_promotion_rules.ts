@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -34,35 +35,35 @@ interface SkuListPromotionRule extends Resource {
 	
 	readonly type: SkuListPromotionRuleType
 
-	all_skus?: boolean | null
-	min_quantity?: number | null
+	all_skus?: Nullable<boolean>
+	min_quantity?: Nullable<number>
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
-	versions?: Version[] | null
-	sku_list?: SkuList | null
-	skus?: Sku[] | null
+	promotion?: Nullable<PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion>
+	versions?: Nullable<Version[]>
+	sku_list?: Nullable<SkuList>
+	skus?: Nullable<Sku[]>
 
 }
 
 
 interface SkuListPromotionRuleCreate extends ResourceCreate {
 	
-	all_skus?: boolean | null
-	min_quantity?: number | null
+	all_skus?: Nullable<boolean>
+	min_quantity?: Nullable<number>
 
 	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
-	sku_list?: SkuListRel | null
+	sku_list?: Nullable<SkuListRel>
 
 }
 
 
 interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 	
-	all_skus?: boolean | null
-	min_quantity?: number | null
+	all_skus?: Nullable<boolean>
+	min_quantity?: Nullable<number>
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
-	sku_list?: SkuListRel | null
+	promotion?: Nullable<PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel>
+	sku_list?: Nullable<SkuListRel>
 
 }
 

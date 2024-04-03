@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -29,31 +30,31 @@ interface OrderSubscription extends Resource {
 	
 	readonly type: OrderSubscriptionType
 
-	number?: string | null
+	number?: Nullable<string>
 	status: 'draft' | 'inactive' | 'active' | 'cancelled'
 	frequency: string
-	activate_by_source_order?: boolean | null
-	place_target_order?: boolean | null
-	customer_email?: string | null
-	starts_at?: string | null
-	expires_at?: string | null
-	last_run_at?: string | null
-	next_run_at?: string | null
-	occurrencies?: number | null
-	errors_count?: number | null
-	succeeded_on_last_run?: boolean | null
+	activate_by_source_order?: Nullable<boolean>
+	place_target_order?: Nullable<boolean>
+	customer_email?: Nullable<string>
+	starts_at?: Nullable<string>
+	expires_at?: Nullable<string>
+	last_run_at?: Nullable<string>
+	next_run_at?: Nullable<string>
+	occurrencies?: Nullable<number>
+	errors_count?: Nullable<number>
+	succeeded_on_last_run?: Nullable<boolean>
 
-	market?: Market | null
-	subscription_model?: SubscriptionModel | null
-	source_order?: Order | null
-	customer?: Customer | null
-	customer_payment_source?: CustomerPaymentSource | null
-	order_subscription_items?: OrderSubscriptionItem[] | null
-	order_factories?: OrderFactory[] | null
-	recurring_order_copies?: RecurringOrderCopy[] | null
-	orders?: Order[] | null
-	events?: Event[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	subscription_model?: Nullable<SubscriptionModel>
+	source_order?: Nullable<Order>
+	customer?: Nullable<Customer>
+	customer_payment_source?: Nullable<CustomerPaymentSource>
+	order_subscription_items?: Nullable<OrderSubscriptionItem[]>
+	order_factories?: Nullable<OrderFactory[]>
+	recurring_order_copies?: Nullable<RecurringOrderCopy[]>
+	orders?: Nullable<Order[]>
+	events?: Nullable<Event[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -61,12 +62,12 @@ interface OrderSubscription extends Resource {
 interface OrderSubscriptionCreate extends ResourceCreate {
 	
 	frequency: string
-	activate_by_source_order?: boolean | null
-	place_target_order?: boolean | null
-	starts_at?: string | null
-	expires_at?: string | null
+	activate_by_source_order?: Nullable<boolean>
+	place_target_order?: Nullable<boolean>
+	starts_at?: Nullable<string>
+	expires_at?: Nullable<string>
 
-	market?: MarketRel | null
+	market?: Nullable<MarketRel>
 	source_order: OrderRel
 
 }
@@ -74,16 +75,16 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 
 interface OrderSubscriptionUpdate extends ResourceUpdate {
 	
-	frequency?: string | null
-	activate_by_source_order?: boolean | null
-	place_target_order?: boolean | null
-	expires_at?: string | null
-	next_run_at?: string | null
-	_activate?: boolean | null
-	_deactivate?: boolean | null
-	_cancel?: boolean | null
+	frequency?: Nullable<string>
+	activate_by_source_order?: Nullable<boolean>
+	place_target_order?: Nullable<boolean>
+	expires_at?: Nullable<string>
+	next_run_at?: Nullable<string>
+	_activate?: Nullable<boolean>
+	_deactivate?: Nullable<boolean>
+	_cancel?: Nullable<boolean>
 
-	customer_payment_source?: CustomerPaymentSourceRel | null
+	customer_payment_source?: Nullable<CustomerPaymentSourceRel>
 
 }
 

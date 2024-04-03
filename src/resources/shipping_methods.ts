@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -31,35 +32,35 @@ interface ShippingMethod extends Resource {
 	readonly type: ShippingMethodType
 
 	name: string
-	scheme?: string | null
-	currency_code?: string | null
-	external_prices_url?: string | null
+	scheme?: Nullable<string>
+	currency_code?: Nullable<string>
+	external_prices_url?: Nullable<string>
 	price_amount_cents: number
-	price_amount_float?: number | null
-	formatted_price_amount?: string | null
-	free_over_amount_cents?: number | null
-	free_over_amount_float?: number | null
-	formatted_free_over_amount?: string | null
-	use_subtotal?: boolean | null
-	price_amount_for_shipment_cents?: number | null
-	price_amount_for_shipment_float?: number | null
-	formatted_price_amount_for_shipment?: string | null
-	min_weight?: number | null
-	max_weight?: number | null
-	unit_of_weight?: string | null
-	disabled_at?: string | null
-	circuit_state?: string | null
-	circuit_failure_count?: number | null
+	price_amount_float?: Nullable<number>
+	formatted_price_amount?: Nullable<string>
+	free_over_amount_cents?: Nullable<number>
+	free_over_amount_float?: Nullable<number>
+	formatted_free_over_amount?: Nullable<string>
+	use_subtotal?: Nullable<boolean>
+	price_amount_for_shipment_cents?: Nullable<number>
+	price_amount_for_shipment_float?: Nullable<number>
+	formatted_price_amount_for_shipment?: Nullable<string>
+	min_weight?: Nullable<number>
+	max_weight?: Nullable<number>
+	unit_of_weight?: Nullable<string>
+	disabled_at?: Nullable<string>
+	circuit_state?: Nullable<string>
+	circuit_failure_count?: Nullable<number>
 
-	market?: Market | null
-	shipping_zone?: ShippingZone | null
-	shipping_category?: ShippingCategory | null
-	stock_location?: StockLocation | null
-	delivery_lead_time_for_shipment?: DeliveryLeadTime | null
-	shipping_method_tiers?: ShippingMethodTier[] | null
-	shipping_weight_tiers?: ShippingWeightTier[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	market?: Nullable<Market>
+	shipping_zone?: Nullable<ShippingZone>
+	shipping_category?: Nullable<ShippingCategory>
+	stock_location?: Nullable<StockLocation>
+	delivery_lead_time_for_shipment?: Nullable<DeliveryLeadTime>
+	shipping_method_tiers?: Nullable<ShippingMethodTier[]>
+	shipping_weight_tiers?: Nullable<ShippingWeightTier[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -67,48 +68,48 @@ interface ShippingMethod extends Resource {
 interface ShippingMethodCreate extends ResourceCreate {
 	
 	name: string
-	scheme?: string | null
-	currency_code?: string | null
-	external_prices_url?: string | null
+	scheme?: Nullable<string>
+	currency_code?: Nullable<string>
+	external_prices_url?: Nullable<string>
 	price_amount_cents: number
-	free_over_amount_cents?: number | null
-	use_subtotal?: boolean | null
-	min_weight?: number | null
-	max_weight?: number | null
-	unit_of_weight?: string | null
-	_disable?: boolean | null
-	_enable?: boolean | null
+	free_over_amount_cents?: Nullable<number>
+	use_subtotal?: Nullable<boolean>
+	min_weight?: Nullable<number>
+	max_weight?: Nullable<number>
+	unit_of_weight?: Nullable<string>
+	_disable?: Nullable<boolean>
+	_enable?: Nullable<boolean>
 
-	market?: MarketRel | null
-	shipping_zone?: ShippingZoneRel | null
-	shipping_category?: ShippingCategoryRel | null
-	stock_location?: StockLocationRel | null
-	shipping_method_tiers?: ShippingMethodTierRel[] | null
+	market?: Nullable<MarketRel>
+	shipping_zone?: Nullable<ShippingZoneRel>
+	shipping_category?: Nullable<ShippingCategoryRel>
+	stock_location?: Nullable<StockLocationRel>
+	shipping_method_tiers?: Nullable<ShippingMethodTierRel[]>
 
 }
 
 
 interface ShippingMethodUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	scheme?: string | null
-	currency_code?: string | null
-	external_prices_url?: string | null
-	price_amount_cents?: number | null
-	free_over_amount_cents?: number | null
-	use_subtotal?: boolean | null
-	min_weight?: number | null
-	max_weight?: number | null
-	unit_of_weight?: string | null
-	_disable?: boolean | null
-	_enable?: boolean | null
-	_reset_circuit?: boolean | null
+	name?: Nullable<string>
+	scheme?: Nullable<string>
+	currency_code?: Nullable<string>
+	external_prices_url?: Nullable<string>
+	price_amount_cents?: Nullable<number>
+	free_over_amount_cents?: Nullable<number>
+	use_subtotal?: Nullable<boolean>
+	min_weight?: Nullable<number>
+	max_weight?: Nullable<number>
+	unit_of_weight?: Nullable<string>
+	_disable?: Nullable<boolean>
+	_enable?: Nullable<boolean>
+	_reset_circuit?: Nullable<boolean>
 
-	market?: MarketRel | null
-	shipping_zone?: ShippingZoneRel | null
-	shipping_category?: ShippingCategoryRel | null
-	stock_location?: StockLocationRel | null
-	shipping_method_tiers?: ShippingMethodTierRel[] | null
+	market?: Nullable<MarketRel>
+	shipping_zone?: Nullable<ShippingZoneRel>
+	shipping_category?: Nullable<ShippingCategoryRel>
+	stock_location?: Nullable<StockLocationRel>
+	shipping_method_tiers?: Nullable<ShippingMethodTierRel[]>
 
 }
 

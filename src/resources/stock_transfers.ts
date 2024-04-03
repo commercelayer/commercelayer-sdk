@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -26,51 +27,51 @@ interface StockTransfer extends Resource {
 	
 	readonly type: StockTransferType
 
-	number?: string | null
-	sku_code?: string | null
+	number?: Nullable<string>
+	sku_code?: Nullable<string>
 	status: 'draft' | 'upcoming' | 'on_hold' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
 	quantity: number
-	completed_at?: string | null
-	cancelled_at?: string | null
+	completed_at?: Nullable<string>
+	cancelled_at?: Nullable<string>
 
-	sku?: Sku | null
-	origin_stock_location?: StockLocation | null
-	destination_stock_location?: StockLocation | null
-	shipment?: Shipment | null
-	line_item?: LineItem | null
-	events?: Event[] | null
-	versions?: Version[] | null
+	sku?: Nullable<Sku>
+	origin_stock_location?: Nullable<StockLocation>
+	destination_stock_location?: Nullable<StockLocation>
+	shipment?: Nullable<Shipment>
+	line_item?: Nullable<LineItem>
+	events?: Nullable<Event[]>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface StockTransferCreate extends ResourceCreate {
 	
-	sku_code?: string | null
+	sku_code?: Nullable<string>
 	quantity: number
 
 	sku: SkuRel
 	origin_stock_location: StockLocationRel
 	destination_stock_location: StockLocationRel
-	shipment?: ShipmentRel | null
-	line_item?: LineItemRel | null
+	shipment?: Nullable<ShipmentRel>
+	line_item?: Nullable<LineItemRel>
 
 }
 
 
 interface StockTransferUpdate extends ResourceUpdate {
 	
-	sku_code?: string | null
-	_upcoming?: boolean | null
-	_on_hold?: boolean | null
-	_picking?: boolean | null
-	_in_transit?: boolean | null
-	_complete?: boolean | null
-	_cancel?: boolean | null
+	sku_code?: Nullable<string>
+	_upcoming?: Nullable<boolean>
+	_on_hold?: Nullable<boolean>
+	_picking?: Nullable<boolean>
+	_in_transit?: Nullable<boolean>
+	_complete?: Nullable<boolean>
+	_cancel?: Nullable<boolean>
 
-	sku?: SkuRel | null
-	origin_stock_location?: StockLocationRel | null
-	destination_stock_location?: StockLocationRel | null
+	sku?: Nullable<SkuRel>
+	origin_stock_location?: Nullable<StockLocationRel>
+	destination_stock_location?: Nullable<StockLocationRel>
 
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -18,18 +19,18 @@ interface Export extends Resource {
 	readonly type: ExportType
 
 	resource_type: string
-	format?: string | null
+	format?: Nullable<string>
 	status: 'pending' | 'in_progress' | 'completed'
-	includes?: string[] | null
-	filters?: Record<string, any> | null
-	dry_data?: boolean | null
-	started_at?: string | null
-	completed_at?: string | null
-	interrupted_at?: string | null
-	records_count?: number | null
-	attachment_url?: string | null
+	includes?: Nullable<string[]>
+	filters?: Nullable<Record<string, any>>
+	dry_data?: Nullable<boolean>
+	started_at?: Nullable<string>
+	completed_at?: Nullable<string>
+	interrupted_at?: Nullable<string>
+	records_count?: Nullable<number>
+	attachment_url?: Nullable<string>
 
-	events?: Event[] | null
+	events?: Nullable<Event[]>
 
 }
 
@@ -37,10 +38,10 @@ interface Export extends Resource {
 interface ExportCreate extends ResourceCreate {
 	
 	resource_type: string
-	format?: string | null
-	includes?: string[] | null
-	filters?: Record<string, any> | null
-	dry_data?: boolean | null
+	format?: Nullable<string>
+	includes?: Nullable<string[]>
+	filters?: Nullable<Record<string, any>>
+	dry_data?: Nullable<boolean>
 	
 }
 

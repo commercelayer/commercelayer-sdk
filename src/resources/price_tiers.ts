@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,14 +21,14 @@ interface PriceTier extends Resource {
 	readonly type: PriceTierType
 
 	name: string
-	up_to?: number | null
+	up_to?: Nullable<number>
 	price_amount_cents: number
-	price_amount_float?: number | null
-	formatted_price_amount?: string | null
+	price_amount_float?: Nullable<number>
+	formatted_price_amount?: Nullable<string>
 
-	price?: Price | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	price?: Nullable<Price>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 

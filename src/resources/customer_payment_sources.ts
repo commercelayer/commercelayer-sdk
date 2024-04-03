@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -37,38 +38,38 @@ interface CustomerPaymentSource extends Resource {
 	
 	readonly type: CustomerPaymentSourceType
 
-	name?: string | null
-	customer_token?: string | null
-	payment_source_token?: string | null
+	name?: Nullable<string>
+	customer_token?: Nullable<string>
+	payment_source_token?: Nullable<string>
 
-	customer?: Customer | null
-	payment_method?: PaymentMethod | null
-	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | SatispayPayment | StripePayment | null
-	versions?: Version[] | null
+	customer?: Nullable<Customer>
+	payment_method?: Nullable<PaymentMethod>
+	payment_source?: Nullable<AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | SatispayPayment | StripePayment>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface CustomerPaymentSourceCreate extends ResourceCreate {
 	
-	customer_token?: string | null
-	payment_source_token?: string | null
+	customer_token?: Nullable<string>
+	payment_source_token?: Nullable<string>
 
 	customer: CustomerRel
-	payment_method?: PaymentMethodRel | null
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | SatispayPaymentRel | StripePaymentRel | null
+	payment_method?: Nullable<PaymentMethodRel>
+	payment_source?: Nullable<AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | SatispayPaymentRel | StripePaymentRel>
 
 }
 
 
 interface CustomerPaymentSourceUpdate extends ResourceUpdate {
 	
-	customer_token?: string | null
-	payment_source_token?: string | null
+	customer_token?: Nullable<string>
+	payment_source_token?: Nullable<string>
 
-	customer?: CustomerRel | null
-	payment_method?: PaymentMethodRel | null
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | SatispayPaymentRel | StripePaymentRel | null
+	customer?: Nullable<CustomerRel>
+	payment_method?: Nullable<PaymentMethodRel>
+	payment_source?: Nullable<AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | SatispayPaymentRel | StripePaymentRel>
 
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,27 +21,27 @@ interface SatispayPayment extends Resource {
 	
 	readonly type: SatispayPaymentType
 
-	payment_id?: string | null
-	flow?: string | null
-	status?: string | null
-	redirect_url?: string | null
-	payment_url?: string | null
+	payment_id?: Nullable<string>
+	flow?: Nullable<string>
+	status?: Nullable<string>
+	redirect_url?: Nullable<string>
+	payment_url?: Nullable<string>
 	intent_amount_cents: number
-	intent_amount_float?: number | null
-	formatted_intent_amount?: string | null
-	payment_response?: Record<string, any> | null
+	intent_amount_float?: Nullable<number>
+	formatted_intent_amount?: Nullable<string>
+	payment_response?: Nullable<Record<string, any>>
 
-	order?: Order | null
-	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	payment_gateway?: Nullable<PaymentGateway>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface SatispayPaymentCreate extends ResourceCreate {
 	
-	flow?: string | null
-	redirect_url?: string | null
+	flow?: Nullable<string>
+	redirect_url?: Nullable<string>
 
 	order: OrderRel
 
@@ -49,10 +50,10 @@ interface SatispayPaymentCreate extends ResourceCreate {
 
 interface SatispayPaymentUpdate extends ResourceUpdate {
 	
-	redirect_url?: string | null
-	_refresh?: boolean | null
+	redirect_url?: Nullable<string>
+	_refresh?: Nullable<boolean>
 
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

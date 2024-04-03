@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
@@ -20,8 +21,8 @@ interface Geocoder extends Resource {
 
 	name: string
 
-	addresses?: Address[] | null
-	attachments?: Attachment[] | null
+	addresses?: Nullable<Address[]>
+	attachments?: Nullable<Attachment[]>
 
 }
 

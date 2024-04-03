@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -31,17 +32,17 @@ interface CustomPromotionRule extends Resource {
 	
 	readonly type: CustomPromotionRuleType
 
-	filters?: Record<string, any> | null
+	filters?: Nullable<Record<string, any>>
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
-	versions?: Version[] | null
+	promotion?: Nullable<PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface CustomPromotionRuleCreate extends ResourceCreate {
 	
-	filters?: Record<string, any> | null
+	filters?: Nullable<Record<string, any>>
 
 	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
 
@@ -50,9 +51,9 @@ interface CustomPromotionRuleCreate extends ResourceCreate {
 
 interface CustomPromotionRuleUpdate extends ResourceUpdate {
 	
-	filters?: Record<string, any> | null
+	filters?: Nullable<Record<string, any>>
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
+	promotion?: Nullable<PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel>
 
 }
 

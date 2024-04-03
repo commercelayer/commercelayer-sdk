@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,17 +21,17 @@ interface Cleanup extends Resource {
 
 	resource_type: string
 	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
-	started_at?: string | null
-	completed_at?: string | null
-	interrupted_at?: string | null
-	filters?: Record<string, any> | null
-	records_count?: number | null
-	errors_count?: number | null
-	processed_count?: number | null
-	errors_log?: Record<string, any> | null
+	started_at?: Nullable<string>
+	completed_at?: Nullable<string>
+	interrupted_at?: Nullable<string>
+	filters?: Nullable<Record<string, any>>
+	records_count?: Nullable<number>
+	errors_count?: Nullable<number>
+	processed_count?: Nullable<number>
+	errors_log?: Nullable<Record<string, any>>
 
-	events?: Event[] | null
-	versions?: Version[] | null
+	events?: Nullable<Event[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -38,7 +39,7 @@ interface Cleanup extends Resource {
 interface CleanupCreate extends ResourceCreate {
 	
 	resource_type: string
-	filters?: Record<string, any> | null
+	filters?: Nullable<Record<string, any>>
 	
 }
 

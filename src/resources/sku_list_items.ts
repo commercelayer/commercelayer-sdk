@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -21,22 +22,22 @@ interface SkuListItem extends Resource {
 	
 	readonly type: SkuListItemType
 
-	position?: number | null
-	sku_code?: string | null
-	quantity?: number | null
+	position?: Nullable<number>
+	sku_code?: Nullable<string>
+	quantity?: Nullable<number>
 
-	sku_list?: SkuList | null
-	sku?: Sku | null
-	versions?: Version[] | null
+	sku_list?: Nullable<SkuList>
+	sku?: Nullable<Sku>
+	versions?: Nullable<Version[]>
 
 }
 
 
 interface SkuListItemCreate extends ResourceCreate {
 	
-	position?: number | null
-	sku_code?: string | null
-	quantity?: number | null
+	position?: Nullable<number>
+	sku_code?: Nullable<string>
+	quantity?: Nullable<number>
 
 	sku_list: SkuListRel
 	sku: SkuRel
@@ -46,9 +47,9 @@ interface SkuListItemCreate extends ResourceCreate {
 
 interface SkuListItemUpdate extends ResourceUpdate {
 	
-	position?: number | null
-	sku_code?: string | null
-	quantity?: number | null
+	position?: Nullable<number>
+	sku_code?: Nullable<string>
+	quantity?: Nullable<number>
 	
 }
 

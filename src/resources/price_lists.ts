@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,13 +21,13 @@ interface PriceList extends Resource {
 	readonly type: PriceListType
 
 	name: string
-	code?: string | null
+	code?: Nullable<string>
 	currency_code: string
-	tax_included?: boolean | null
+	tax_included?: Nullable<boolean>
 
-	prices?: Price[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	prices?: Nullable<Price[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -34,19 +35,19 @@ interface PriceList extends Resource {
 interface PriceListCreate extends ResourceCreate {
 	
 	name: string
-	code?: string | null
+	code?: Nullable<string>
 	currency_code: string
-	tax_included?: boolean | null
+	tax_included?: Nullable<boolean>
 	
 }
 
 
 interface PriceListUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	code?: string | null
-	currency_code?: string | null
-	tax_included?: boolean | null
+	name?: Nullable<string>
+	code?: Nullable<string>
+	currency_code?: Nullable<string>
+	tax_included?: Nullable<boolean>
 	
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -20,14 +21,14 @@ interface SubscriptionModel extends Resource {
 	readonly type: SubscriptionModelType
 
 	name: string
-	strategy?: string | null
+	strategy?: Nullable<string>
 	frequencies: string[]
-	auto_activate?: boolean | null
-	auto_cancel?: boolean | null
+	auto_activate?: Nullable<boolean>
+	auto_cancel?: Nullable<boolean>
 
-	markets?: Market[] | null
-	order_subscriptions?: OrderSubscription[] | null
-	attachments?: Attachment[] | null
+	markets?: Nullable<Market[]>
+	order_subscriptions?: Nullable<OrderSubscription[]>
+	attachments?: Nullable<Attachment[]>
 
 }
 
@@ -35,21 +36,21 @@ interface SubscriptionModel extends Resource {
 interface SubscriptionModelCreate extends ResourceCreate {
 	
 	name: string
-	strategy?: string | null
+	strategy?: Nullable<string>
 	frequencies: string[]
-	auto_activate?: boolean | null
-	auto_cancel?: boolean | null
+	auto_activate?: Nullable<boolean>
+	auto_cancel?: Nullable<boolean>
 	
 }
 
 
 interface SubscriptionModelUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	strategy?: string | null
-	frequencies?: string[] | null
-	auto_activate?: boolean | null
-	auto_cancel?: boolean | null
+	name?: Nullable<string>
+	strategy?: Nullable<string>
+	frequencies?: Nullable<string[]>
+	auto_activate?: Nullable<boolean>
+	auto_cancel?: Nullable<boolean>
 	
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,9 +23,9 @@ interface Merchant extends Resource {
 
 	name: string
 
-	address?: Address | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	address?: Nullable<Address>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -40,9 +41,9 @@ interface MerchantCreate extends ResourceCreate {
 
 interface MerchantUpdate extends ResourceUpdate {
 	
-	name?: string | null
+	name?: Nullable<string>
 
-	address?: AddressRel | null
+	address?: Nullable<AddressRel>
 
 }
 

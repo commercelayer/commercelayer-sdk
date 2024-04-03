@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
@@ -30,7 +31,7 @@ interface TagCreate extends ResourceCreate {
 
 interface TagUpdate extends ResourceUpdate {
 	
-	name?: string | null
+	name?: Nullable<string>
 	
 }
 

@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -19,10 +20,10 @@ interface WireTransfer extends Resource {
 	
 	readonly type: WireTransferType
 
-	payment_instrument?: Record<string, any> | null
+	payment_instrument?: Nullable<Record<string, any>>
 
-	order?: Order | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -36,7 +37,7 @@ interface WireTransferCreate extends ResourceCreate {
 
 interface WireTransferUpdate extends ResourceUpdate {
 	
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

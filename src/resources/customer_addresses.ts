@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,13 +23,13 @@ interface CustomerAddress extends Resource {
 	
 	readonly type: CustomerAddressType
 
-	name?: string | null
+	name?: Nullable<string>
 	customer_email: string
 
-	customer?: Customer | null
-	address?: Address | null
-	events?: Event[] | null
-	versions?: Version[] | null
+	customer?: Nullable<Customer>
+	address?: Nullable<Address>
+	events?: Nullable<Event[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -45,8 +46,8 @@ interface CustomerAddressCreate extends ResourceCreate {
 
 interface CustomerAddressUpdate extends ResourceUpdate {
 	
-	customer?: CustomerRel | null
-	address?: AddressRel | null
+	customer?: Nullable<CustomerRel>
+	address?: Nullable<AddressRel>
 
 }
 

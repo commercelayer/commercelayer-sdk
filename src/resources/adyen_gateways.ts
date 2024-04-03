@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,13 +23,13 @@ interface AdyenGateway extends Resource {
 
 	name: string
 	live_url_prefix: string
-	async_api?: boolean | null
-	webhook_endpoint_secret?: string | null
-	webhook_endpoint_url?: string | null
+	async_api?: Nullable<boolean>
+	webhook_endpoint_secret?: Nullable<string>
+	webhook_endpoint_url?: Nullable<string>
 
-	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
-	adyen_payments?: AdyenPayment[] | null
+	payment_methods?: Nullable<PaymentMethod[]>
+	versions?: Nullable<Version[]>
+	adyen_payments?: Nullable<AdyenPayment[]>
 
 }
 
@@ -38,29 +39,29 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	name: string
 	merchant_account: string
 	api_key: string
-	public_key?: string | null
+	public_key?: Nullable<string>
 	live_url_prefix: string
-	api_version?: number | null
-	async_api?: boolean | null
-	webhook_endpoint_secret?: string | null
+	api_version?: Nullable<number>
+	async_api?: Nullable<boolean>
+	webhook_endpoint_secret?: Nullable<string>
 
-	adyen_payments?: AdyenPaymentRel[] | null
+	adyen_payments?: Nullable<AdyenPaymentRel[]>
 
 }
 
 
 interface AdyenGatewayUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	merchant_account?: string | null
-	api_key?: string | null
-	public_key?: string | null
-	live_url_prefix?: string | null
-	api_version?: number | null
-	async_api?: boolean | null
-	webhook_endpoint_secret?: string | null
+	name?: Nullable<string>
+	merchant_account?: Nullable<string>
+	api_key?: Nullable<string>
+	public_key?: Nullable<string>
+	live_url_prefix?: Nullable<string>
+	api_version?: Nullable<number>
+	async_api?: Nullable<boolean>
+	webhook_endpoint_secret?: Nullable<string>
 
-	adyen_payments?: AdyenPaymentRel[] | null
+	adyen_payments?: Nullable<AdyenPaymentRel[]>
 
 }
 

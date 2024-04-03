@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,21 +23,21 @@ interface PaypalPayment extends Resource {
 
 	return_url: string
 	cancel_url: string
-	note_to_payer?: string | null
-	paypal_payer_id?: string | null
-	name?: string | null
-	paypal_id?: string | null
+	note_to_payer?: Nullable<string>
+	paypal_payer_id?: Nullable<string>
+	name?: Nullable<string>
+	paypal_id?: Nullable<string>
 	status: 'created' | 'approved'
-	approval_url?: string | null
-	mismatched_amounts?: boolean | null
+	approval_url?: Nullable<string>
+	mismatched_amounts?: Nullable<boolean>
 	intent_amount_cents: number
-	intent_amount_float?: number | null
-	formatted_intent_amount?: string | null
-	payment_instrument?: Record<string, any> | null
+	intent_amount_float?: Nullable<number>
+	formatted_intent_amount?: Nullable<string>
+	payment_instrument?: Nullable<Record<string, any>>
 
-	order?: Order | null
-	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
+	order?: Nullable<Order>
+	payment_gateway?: Nullable<PaymentGateway>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -45,7 +46,7 @@ interface PaypalPaymentCreate extends ResourceCreate {
 	
 	return_url: string
 	cancel_url: string
-	note_to_payer?: string | null
+	note_to_payer?: Nullable<string>
 
 	order: OrderRel
 
@@ -54,9 +55,9 @@ interface PaypalPaymentCreate extends ResourceCreate {
 
 interface PaypalPaymentUpdate extends ResourceUpdate {
 	
-	paypal_payer_id?: string | null
+	paypal_payer_id?: Nullable<string>
 
-	order?: OrderRel | null
+	order?: Nullable<OrderRel>
 
 }
 

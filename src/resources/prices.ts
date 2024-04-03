@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -29,51 +30,51 @@ interface Price extends Resource {
 	
 	readonly type: PriceType
 
-	currency_code?: string | null
-	sku_code?: string | null
+	currency_code?: Nullable<string>
+	sku_code?: Nullable<string>
 	amount_cents: number
-	amount_float?: number | null
-	formatted_amount?: string | null
-	compare_at_amount_cents?: number | null
-	compare_at_amount_float?: number | null
-	formatted_compare_at_amount?: string | null
+	amount_float?: Nullable<number>
+	formatted_amount?: Nullable<string>
+	compare_at_amount_cents?: Nullable<number>
+	compare_at_amount_float?: Nullable<number>
+	formatted_compare_at_amount?: Nullable<string>
 
-	price_list?: PriceList | null
-	sku?: Sku | null
-	price_tiers?: PriceTier[] | null
-	price_volume_tiers?: PriceVolumeTier[] | null
-	price_frequency_tiers?: PriceFrequencyTier[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
-	jwt_customer?: Customer | null
-	jwt_markets?: Market[] | null
-	jwt_stock_locations?: StockLocation[] | null
+	price_list?: Nullable<PriceList>
+	sku?: Nullable<Sku>
+	price_tiers?: Nullable<PriceTier[]>
+	price_volume_tiers?: Nullable<PriceVolumeTier[]>
+	price_frequency_tiers?: Nullable<PriceFrequencyTier[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
+	jwt_customer?: Nullable<Customer>
+	jwt_markets?: Nullable<Market[]>
+	jwt_stock_locations?: Nullable<StockLocation[]>
 
 }
 
 
 interface PriceCreate extends ResourceCreate {
 	
-	sku_code?: string | null
+	sku_code?: Nullable<string>
 	amount_cents: number
-	compare_at_amount_cents?: number | null
+	compare_at_amount_cents?: Nullable<number>
 
 	price_list: PriceListRel
 	sku: SkuRel
-	price_tiers?: PriceTierRel[] | null
+	price_tiers?: Nullable<PriceTierRel[]>
 
 }
 
 
 interface PriceUpdate extends ResourceUpdate {
 	
-	sku_code?: string | null
-	amount_cents?: number | null
-	compare_at_amount_cents?: number | null
+	sku_code?: Nullable<string>
+	amount_cents?: Nullable<number>
+	compare_at_amount_cents?: Nullable<number>
 
-	price_list?: PriceListRel | null
-	sku?: SkuRel | null
-	price_tiers?: PriceTierRel[] | null
+	price_list?: Nullable<PriceListRel>
+	sku?: Nullable<SkuRel>
+	price_tiers?: Nullable<PriceTierRel[]>
 
 }
 

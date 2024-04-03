@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,16 +23,16 @@ interface Package extends Resource {
 	readonly type: PackageType
 
 	name: string
-	code?: string | null
+	code?: Nullable<string>
 	length: number
 	width: number
 	height: number
 	unit_of_length: string
 
-	stock_location?: StockLocation | null
-	parcels?: Parcel[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	stock_location?: Nullable<StockLocation>
+	parcels?: Nullable<Parcel[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -39,7 +40,7 @@ interface Package extends Resource {
 interface PackageCreate extends ResourceCreate {
 	
 	name: string
-	code?: string | null
+	code?: Nullable<string>
 	length: number
 	width: number
 	height: number
@@ -52,14 +53,14 @@ interface PackageCreate extends ResourceCreate {
 
 interface PackageUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	code?: string | null
-	length?: number | null
-	width?: number | null
-	height?: number | null
-	unit_of_length?: string | null
+	name?: Nullable<string>
+	code?: Nullable<string>
+	length?: Nullable<number>
+	width?: Nullable<number>
+	height?: Nullable<number>
+	unit_of_length?: Nullable<string>
 
-	stock_location?: StockLocationRel | null
+	stock_location?: Nullable<StockLocationRel>
 
 }
 

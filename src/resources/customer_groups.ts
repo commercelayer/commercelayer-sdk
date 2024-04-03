@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -22,10 +23,10 @@ interface CustomerGroup extends Resource {
 
 	name: string
 
-	customers?: Customer[] | null
-	markets?: Market[] | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
+	customers?: Nullable<Customer[]>
+	markets?: Nullable<Market[]>
+	attachments?: Nullable<Attachment[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -39,7 +40,7 @@ interface CustomerGroupCreate extends ResourceCreate {
 
 interface CustomerGroupUpdate extends ResourceUpdate {
 	
-	name?: string | null
+	name?: Nullable<string>
 	
 }
 

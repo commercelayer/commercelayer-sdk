@@ -1,3 +1,4 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
@@ -37,32 +38,32 @@ interface FixedPricePromotion extends Resource {
 	readonly type: FixedPricePromotionType
 
 	name: string
-	currency_code?: string | null
-	exclusive?: boolean | null
-	priority?: number | null
+	currency_code?: Nullable<string>
+	exclusive?: Nullable<boolean>
+	priority?: Nullable<number>
 	starts_at: string
 	expires_at: string
-	total_usage_limit?: number | null
-	total_usage_count?: number | null
-	active?: boolean | null
-	disabled_at?: string | null
+	total_usage_limit?: Nullable<number>
+	total_usage_count?: Nullable<number>
+	active?: Nullable<boolean>
+	disabled_at?: Nullable<string>
 	fixed_amount_cents: number
-	fixed_amount_float?: number | null
-	formatted_fixed_amount?: string | null
+	fixed_amount_float?: Nullable<number>
+	formatted_fixed_amount?: Nullable<string>
 
-	market?: Market | null
-	promotion_rules?: PromotionRule[] | null
-	order_amount_promotion_rule?: OrderAmountPromotionRule | null
-	sku_list_promotion_rule?: SkuListPromotionRule | null
-	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
-	custom_promotion_rule?: CustomPromotionRule | null
-	sku_list?: SkuList | null
-	coupons?: Coupon[] | null
-	attachments?: Attachment[] | null
-	events?: Event[] | null
-	tags?: Tag[] | null
-	versions?: Version[] | null
-	skus?: Sku[] | null
+	market?: Nullable<Market>
+	promotion_rules?: Nullable<PromotionRule[]>
+	order_amount_promotion_rule?: Nullable<OrderAmountPromotionRule>
+	sku_list_promotion_rule?: Nullable<SkuListPromotionRule>
+	coupon_codes_promotion_rule?: Nullable<CouponCodesPromotionRule>
+	custom_promotion_rule?: Nullable<CustomPromotionRule>
+	sku_list?: Nullable<SkuList>
+	coupons?: Nullable<Coupon[]>
+	attachments?: Nullable<Attachment[]>
+	events?: Nullable<Event[]>
+	tags?: Nullable<Tag[]>
+	versions?: Nullable<Version[]>
+	skus?: Nullable<Sku[]>
 
 }
 
@@ -70,47 +71,47 @@ interface FixedPricePromotion extends Resource {
 interface FixedPricePromotionCreate extends ResourceCreate {
 	
 	name: string
-	currency_code?: string | null
-	exclusive?: boolean | null
-	priority?: number | null
+	currency_code?: Nullable<string>
+	exclusive?: Nullable<boolean>
+	priority?: Nullable<number>
 	starts_at: string
 	expires_at: string
-	total_usage_limit?: number | null
-	_disable?: boolean | null
-	_enable?: boolean | null
+	total_usage_limit?: Nullable<number>
+	_disable?: Nullable<boolean>
+	_enable?: Nullable<boolean>
 	fixed_amount_cents: number
 
-	market?: MarketRel | null
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
-	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
-	custom_promotion_rule?: CustomPromotionRuleRel | null
+	market?: Nullable<MarketRel>
+	order_amount_promotion_rule?: Nullable<OrderAmountPromotionRuleRel>
+	sku_list_promotion_rule?: Nullable<SkuListPromotionRuleRel>
+	coupon_codes_promotion_rule?: Nullable<CouponCodesPromotionRuleRel>
+	custom_promotion_rule?: Nullable<CustomPromotionRuleRel>
 	sku_list: SkuListRel
-	tags?: TagRel[] | null
+	tags?: Nullable<TagRel[]>
 
 }
 
 
 interface FixedPricePromotionUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	currency_code?: string | null
-	exclusive?: boolean | null
-	priority?: number | null
-	starts_at?: string | null
-	expires_at?: string | null
-	total_usage_limit?: number | null
-	_disable?: boolean | null
-	_enable?: boolean | null
-	fixed_amount_cents?: number | null
+	name?: Nullable<string>
+	currency_code?: Nullable<string>
+	exclusive?: Nullable<boolean>
+	priority?: Nullable<number>
+	starts_at?: Nullable<string>
+	expires_at?: Nullable<string>
+	total_usage_limit?: Nullable<number>
+	_disable?: Nullable<boolean>
+	_enable?: Nullable<boolean>
+	fixed_amount_cents?: Nullable<number>
 
-	market?: MarketRel | null
-	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
-	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
-	custom_promotion_rule?: CustomPromotionRuleRel | null
-	sku_list?: SkuListRel | null
-	tags?: TagRel[] | null
+	market?: Nullable<MarketRel>
+	order_amount_promotion_rule?: Nullable<OrderAmountPromotionRuleRel>
+	sku_list_promotion_rule?: Nullable<SkuListPromotionRuleRel>
+	coupon_codes_promotion_rule?: Nullable<CouponCodesPromotionRuleRel>
+	custom_promotion_rule?: Nullable<CustomPromotionRuleRel>
+	sku_list?: Nullable<SkuListRel>
+	tags?: Nullable<TagRel[]>
 
 }
 
