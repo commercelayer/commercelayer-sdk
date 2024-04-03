@@ -1,4 +1,4 @@
-import { handleError, init } from './util';
+import { handleError, init } from './util'
 
 
 
@@ -8,8 +8,7 @@ import { handleError, init } from './util';
 
 		try {
 
-			const res = await cl.orders.list({ fields: ['adjustment_amount_cents']})
-			await cl.orders.create({'adjustment_taxable': true}, {fields: ['approved_at']})
+			const res = await cl.orders.list({'fields': ['number']})
 			console.log(res)
 
 

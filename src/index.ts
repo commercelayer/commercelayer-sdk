@@ -3,7 +3,7 @@
 export { default, CommerceLayer } from './commercelayer'
 
 // Commerce Layer client type
-export type { CommerceLayerClient, CommerceLayerInitConfig } from './commercelayer'
+export type { CommerceLayerClient } from './commercelayer'
 
 // Commerce Layer static functions
 export { CommerceLayerStatic } from './static'
@@ -19,9 +19,3 @@ export type { RequestObj, ResponseObj, ErrorObj, HeadersObj } from './intercepto
 
 // Error types
 export type { SdkError, ApiError, ErrorType } from './error'
-
-// ResourceAdapter creator
-export { apiResourceAdapter } from './resource'
-
-// Resources micro clients
-export * from './micro'

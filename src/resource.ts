@@ -283,36 +283,6 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	abstract type(): ResourceTypeLock
 
-/*
-	parse(resource: string, options?: { ignoreSlug?: boolean }): R | R[] {
-
-		try {
-
-			const res = JSON.parse(resource)
-
-			// Resource type always checked
-			const rtype = res.data?.type
-			if (rtype !== this.type()) throw new SdkError({ message: `Invalid resource type [${rtype}]`, type: ErrorType.PARSE })
-			
-			// Parse options
-			const { ignoreSlug } = options || {}
-
-			if (!ignoreSlug) {
-				const links = res.data.links.self
-				if (!links || !String(links).match(`^${this.resources.client.baseUrl}/${this.type()}/*`))
-					throw new SdkError({ message: `Resource contains invalid links [${links}]`, type: ErrorType.PARSE })
-			}
-
-
-			return denormalize<R>(res as DocWithData)
-
-		} catch (error: any) {
-			if (SdkError.isSdkError(error)) throw error
-			else throw new SdkError({ message: `Payload parse error [${error.message}]`, type: ErrorType.PARSE })
-		}
-
-	}
-	*/
 
 
 	// reference, reference_origin and metadata attributes are always updatable

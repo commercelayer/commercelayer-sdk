@@ -14,8 +14,6 @@ const baseURL = (organization: string, domain?: string): string => {
 }
 
 
-// type ProxyConfig = AxiosProxyConfig | false
-
 type RequestParams = Record<string, string | number | boolean>
 type RequestHeaders = Record<string, string>
 
@@ -23,9 +21,6 @@ type RequestHeaders = Record<string, string>
 type RequestConfig = {
 	timeout?: number
 	params?: RequestParams
-	// httpAgent?: any
-	// httpsAgent?: any
-	// proxy?: ProxyConfig
 	headers?: RequestHeaders
 	userAgent?: string
 }
