@@ -44,7 +44,7 @@ export type { RequestObj, ResponseObj, ErrorObj, HeadersObj }
 
 
 type RawResponseReader = {
-	id?: number
+	id: number
 	rawResponse?: any
 	headers?: HeadersObj
 	ok: boolean
