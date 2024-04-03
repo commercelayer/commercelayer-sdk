@@ -1,7 +1,8 @@
 import { SdkError, handleError } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
-import { type FetchResponse, type FetchOptions, fetchURL } from './fetch'
+import type { FetchResponse, FetchRequestOptions, FetchClientOptions, Fetch } from './fetch'
+import { fetchURL } from './fetch'
 
 
 import Debug from './debug'
@@ -23,6 +24,7 @@ type RequestConfig = {
 	params?: RequestParams
 	headers?: RequestHeaders
 	userAgent?: string
+	fetch?: Fetch
 }
 
 
@@ -123,7 +125,7 @@ class ApiClient {
 		// if (config.httpsAgent) def.httpsAgent = config.httpsAgent
 
 		if (config.userAgent) this.userAgent(config.userAgent)
-
+		if (config.fetch) this.#clientConfig.fetch = config.fetch
 
 		// API Client config
 		if (config.organization) this.#baseUrl = baseURL(config.organization, config.domain)
@@ -165,16 +167,21 @@ class ApiClient {
 		const accessToken = options?.accessToken || this.#accessToken
 		if (accessToken) headers.Authorization = 'Bearer ' + accessToken
 
-		const fetchOptions: FetchOptions = { method, body: bodyData, headers }
+		const requestOptions: FetchRequestOptions = { method, body: bodyData, headers }
 
 		// Timeout
 		const timeout = options?.timeout || this.#clientConfig.timeout
-		if (timeout) fetchOptions.signal = AbortSignal.timeout(timeout)
+		if (timeout) requestOptions.signal = AbortSignal.timeout(timeout)
 
 		if (options?.params) Object.entries(options?.params).forEach(([name, value]) => { url.searchParams.append(name, String(value)) })
 
+		const clientOptions: FetchClientOptions = {
+			interceptors: this.interceptors,
+			fetch: options?.fetch || this.#clientConfig.fetch
+		}
+
 		// const start = Date.now()
-		return await fetchURL(url, fetchOptions, this.interceptors)
+		return await fetchURL(url, requestOptions, clientOptions)
 			.catch((error: Error) => handleError(error))
 		// .finally(() => { console.log(`<<-- ${method} ${path} ${Date.now() - start}`) })
 

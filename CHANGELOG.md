@@ -1,3 +1,17 @@
+# [6.0.0-beta.8](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.7...v6.0.0-beta.8) (2024-04-03)
+
+
+### Features
+
+* add custom fetch adapter ([76de4fb](https://github.com/commercelayer/commercelayer-sdk/commit/76de4fbce90351553cd88b7efd35e75b4f5cb26a))
+
+# [6.0.0-beta.7](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.6...v6.0.0-beta.7) (2024-04-03)
+
+
+### Bug Fixes
+
+* fix package entries ([89bece9](https://github.com/commercelayer/commercelayer-sdk/commit/89bece9888855bab578f0065ff30b6841d30e5cc))
+
 # [6.0.0-beta.6](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.5...v6.0.0-beta.6) (2024-04-02)
 
 

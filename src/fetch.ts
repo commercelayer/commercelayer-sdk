@@ -7,8 +7,14 @@ import Debug from './debug'
 const debug = Debug('fetch')
 
 
+export type Fetch = (input: string | URL | Request, init?: RequestInit) => Promise<Response>
+
 export type FetchResponse = DocWithData
-export type FetchOptions = RequestInit
+export type FetchRequestOptions = RequestInit
+export type FetchClientOptions = {
+  interceptors?: InterceptorManager,
+  fetch?: Fetch
+}
 
 
 export class FetchError extends Error {
@@ -39,15 +45,19 @@ export class FetchError extends Error {
 
 
 
-export const fetchURL = async (url: URL, options: FetchOptions, interceptors?: InterceptorManager): Promise<FetchResponse> => {
+export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, clientOptions?: FetchClientOptions): Promise<FetchResponse> => {
 
-  debug('fetch: %s, %O', url, options || {})
+  debug('fetch: %s, %O, native[%s]', url, requestOptions || {}, (clientOptions?.fetch? 'no' : 'yes'))
 
-  if (interceptors?.request?.onSuccess) ( { url, options } = await interceptors.request.onSuccess({ url, options }) )
+  const interceptors = clientOptions?.interceptors
 
-  const request: Request = new Request(url, options)
+  if (interceptors?.request?.onSuccess) ( { url, options: requestOptions } = await interceptors.request.onSuccess({ url, options: requestOptions }) )
 
-  let response = await fetch(request)
+  // const request: Request = new Request(url, requestOptions)
+
+  const fetchClient = clientOptions?.fetch || fetch
+
+  let response = await fetchClient(url, requestOptions)
 
   if (response.ok) {
     if (interceptors?.rawReader?.onSuccess) await interceptors.rawReader.onSuccess(response)
