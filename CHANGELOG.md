@@ -1,3 +1,10 @@
+# [6.0.0-beta.9](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.8...v6.0.0-beta.9) (2024-04-03)
+
+
+### Bug Fixes
+
+* fix raw reader id ([ef66ef1](https://github.com/commercelayer/commercelayer-sdk/commit/ef66ef12523090c430affc9475481d628fa416df))
+
 # [6.0.0-beta.8](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.7...v6.0.0-beta.8) (2024-04-03)
 
 
