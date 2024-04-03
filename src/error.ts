@@ -75,7 +75,6 @@ const handleError = (error: Error): never => {
 	let sdkError = new SdkError({ message: error.message })
 
 	if (FetchError.isFetchError(error)) {
-    // console.log('********** FetchError')
 		const apiError = new ApiError(sdkError)
 		apiError.type = ErrorType.RESPONSE
 		apiError.status = error.status
@@ -86,19 +85,15 @@ const handleError = (error: Error): never => {
 		sdkError = apiError
 	}
 	else if (isRequestError(error)) {
-    // console.log('********** RequestError')
     sdkError.type = ErrorType.REQUEST
   }
 	else if (isCancelError(error)) {
-    // console.log('********** CancelError')
     sdkError.type = ErrorType.CANCEL
   }
   else if (isTimeoutError(error)) {
-    // console.log('********** TimeoutError')
     sdkError.type = ErrorType.TIMEOUT
   }
 	else {
-    // console.log('********** ClientError')
 		sdkError.type = ErrorType.CLIENT
 		sdkError.source = error
 	}

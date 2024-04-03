@@ -1,4 +1,4 @@
-import type { FetchError, FetchOptions } from "./fetch"
+import type { FetchError, FetchRequestOptions } from "./fetch"
 
 type InterceptorEventManager<S extends (RequestInterceptor | ResponseInterceptor), F extends (ErrorInterceptor | ResponseInterceptor)> = {
 	onSuccess?: S
@@ -19,7 +19,7 @@ type InterceptorManager = {
 
 
 // Request
-type RequestObj = { url: URL, options: FetchOptions }
+type RequestObj = { url: URL, options: FetchRequestOptions }
 type RequestInterceptor = (request: RequestObj) => RequestObj | Promise<RequestObj>
 
 // Response
@@ -44,7 +44,7 @@ export type { RequestObj, ResponseObj, ErrorObj, HeadersObj }
 
 
 type RawResponseReader = {
-	id?: number
+	id: number
 	rawResponse?: any
 	headers?: HeadersObj
 	ok: boolean
