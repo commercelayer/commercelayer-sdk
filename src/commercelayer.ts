@@ -385,7 +385,7 @@ class CommerceLayerClient {
 
 	}
 
-	removeRawResponseReader(/* reader: number | RawResponseReader */): void {
+	removeRawResponseReader(reader: number | RawResponseReader = 1): void {
 		/*
 		const id = (typeof reader === 'number') ? reader : reader?.id
 		if (id && (id >= 0)) this.removeInterceptor('response', id)

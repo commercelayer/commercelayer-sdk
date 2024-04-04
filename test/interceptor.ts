@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-// import commercelayer from '../lib/cjs'
 import commercelayer, { ErrorObj, RequestObj, ResponseObj } from '../lib/index.js'
 import getToken from './token'
 

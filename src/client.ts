@@ -66,8 +66,6 @@ class ApiClient {
 
 		const fetchConfig: RequestConfig = {
 			timeout: options.timeout || config.client.timeout,
-			// httpAgent: options.httpAgent,
-			// httpsAgent: options.httpsAgent
 		}
 
 		// Set custom headers
@@ -121,8 +119,6 @@ class ApiClient {
 
 		// Client config
 		if (config.timeout) def.timeout = config.timeout
-		// if (config.httpAgent) def.httpAgent = config.httpAgent
-		// if (config.httpsAgent) def.httpsAgent = config.httpsAgent
 
 		if (config.userAgent) this.userAgent(config.userAgent)
 		if (config.fetch) this.#clientConfig.fetch = config.fetch

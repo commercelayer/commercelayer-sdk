@@ -16,6 +16,7 @@ export const CONFIG = {
 }
 /**** **** **** **** **** **** **** **** ****/
 
+
 const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
 

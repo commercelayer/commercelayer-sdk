@@ -1,5 +1,5 @@
 
-import { CommerceLayerClient } from '../src'
+import { Address, Application, CommerceLayerClient, QueryParamsRetrieve } from '../src'
 import { getClient, CommonData, handleError, interceptRequest } from '../test/common'
 
 
@@ -15,7 +15,7 @@ describe('Test headers', () => {
 	it('Request headers', async () => {
 
 		const testHeaderValue = 'test-value'
-		const params = { fields: { addresses: CommonData.paramsFields } }
+		const params = { fields: { addresses: CommonData.paramsFields as unknown as (keyof Address)[] } }
 		const options = {
 			...CommonData.options,
 			headers: {
@@ -42,7 +42,7 @@ describe('Test headers', () => {
 
 	it('Response headers', async () => {
 
-		const params = { fields: { addresses: CommonData.paramsFields } }
+		const params = { fields: { addresses: CommonData.paramsFields as unknown as (keyof Address)[] } }
 
 		const reader = cl.addRawResponseReader({ headers: true })
 

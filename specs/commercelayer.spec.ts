@@ -55,7 +55,7 @@ describe('SDK:commercelayer suite', () => {
 		cli.removeRawResponseReader(reader.id as number)
 		cli.removeRawResponseReader(reader)
 		cli.removeRawResponseReader(0)
-		cli.removeRawResponseReader({ id: undefined } as RawResponseReader)
+		cli.removeRawResponseReader({ id: 1, ok: true } as RawResponseReader)
 
 		cl = await getClient()
 

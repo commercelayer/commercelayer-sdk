@@ -40,7 +40,7 @@ const fixRedundantComponents = (schema: ApiSchema): ApiSchema => {
 }
 
 
-export const fixSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
+const fixSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
 
 	console.log('Fixing parsed schema...')
 
@@ -55,7 +55,7 @@ export const fixSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
 }
 
 
-export const enrichSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
+const enrichSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
 
 	const resourcesInfo = CONFIG.LOCAL? resSchema.load() : await resSchema.download()
 

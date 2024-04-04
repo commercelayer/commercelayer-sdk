@@ -28,7 +28,9 @@
     "javascript",
     "ecommerce",
     "jamstack",
-    "commercelayer"
+    "commercelayer",
+    "sdk",
+    "core"
   ],
   "author": "Pierluigi Viti <pierluigi@commercelayer.io>",
   "license": "MIT",
