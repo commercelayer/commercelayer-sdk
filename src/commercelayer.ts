@@ -361,7 +361,7 @@ class CommerceLayerClient {
 	addRawResponseReader(options?: { headers: boolean }): RawResponseReader {
 
 		const reader: RawResponseReader = {
-			id: undefined,
+			id: 0,
 			rawResponse: undefined,
 			headers: undefined,
 			ok: true
