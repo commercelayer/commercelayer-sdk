@@ -1,5 +1,5 @@
 import { authenticate, jwtDecode } from 'https://esm.sh/@commercelayer/js-auth@6.0.0'
-import { CommerceLayer } from 'https://esm.sh/@commercelayer/sdk@6.0.0-beta.9'
+import { CommerceLayer } from 'https://esm.sh/@commercelayer/sdk@sdk6'
 
 const auth = await authenticate('client_credentials', {
   clientId: 'BISG8bb3GWpC8_D7Nt1SuWWdieS5bJq831A50LgB_Ig',
