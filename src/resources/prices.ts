@@ -29,13 +29,45 @@ interface Price extends Resource {
 	
 	readonly type: PriceType
 
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated price list..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: string | null
+	/** 
+	 * The code of the associated SKU. When creating a price, either a valid sku_code or a SKU relationship must be present..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The SKU price amount for the associated price list, in cents..
+	 * @example ```"10000"```
+	 */
 	amount_cents: number
+	/** 
+	 * The SKU price amount for the associated price list, float..
+	 * @example ```"100"```
+	 */
 	amount_float?: number | null
+	/** 
+	 * The SKU price amount for the associated price list, formatted..
+	 * @example ```"€100,00"```
+	 */
 	formatted_amount?: string | null
+	/** 
+	 * The compared price amount, in cents. Useful to display a percentage discount..
+	 * @example ```"13000"```
+	 */
 	compare_at_amount_cents?: number | null
+	/** 
+	 * The compared price amount, float..
+	 * @example ```"130"```
+	 */
 	compare_at_amount_float?: number | null
+	/** 
+	 * The compared price amount, formatted..
+	 * @example ```"€130,00"```
+	 */
 	formatted_compare_at_amount?: string | null
 
 	price_list?: PriceList | null
@@ -54,8 +86,20 @@ interface Price extends Resource {
 
 interface PriceCreate extends ResourceCreate {
 	
+	/** 
+	 * The code of the associated SKU. When creating a price, either a valid sku_code or a SKU relationship must be present..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The SKU price amount for the associated price list, in cents..
+	 * @example ```"10000"```
+	 */
 	amount_cents: number
+	/** 
+	 * The compared price amount, in cents. Useful to display a percentage discount..
+	 * @example ```"13000"```
+	 */
 	compare_at_amount_cents?: number | null
 
 	price_list: PriceListRel
@@ -67,8 +111,20 @@ interface PriceCreate extends ResourceCreate {
 
 interface PriceUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The code of the associated SKU. When creating a price, either a valid sku_code or a SKU relationship must be present..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The SKU price amount for the associated price list, in cents..
+	 * @example ```"10000"```
+	 */
 	amount_cents?: number | null
+	/** 
+	 * The compared price amount, in cents. Useful to display a percentage discount..
+	 * @example ```"13000"```
+	 */
 	compare_at_amount_cents?: number | null
 
 	price_list?: PriceListRel | null

@@ -16,10 +16,30 @@ interface Version extends Resource {
 	
 	readonly type: VersionType
 
+	/** 
+	 * The type of the versioned resource.
+	 * @example ```"orders"```
+	 */
 	resource_type?: string | null
+	/** 
+	 * The versioned resource id.
+	 * @example ```"PzdJhdLdYV"```
+	 */
 	resource_id?: string | null
+	/** 
+	 * The event which generates the version.
+	 * @example ```"update"```
+	 */
 	event?: string | null
+	/** 
+	 * The object changes payload.
+	 * @example ```"[object Object]"```
+	 */
 	changes?: Record<string, any> | null
+	/** 
+	 * Information about who triggered the change..
+	 * @example ```"[object Object]"```
+	 */
 	who?: Record<string, any> | null
 	
 }

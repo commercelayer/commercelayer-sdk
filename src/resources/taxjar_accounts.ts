@@ -21,6 +21,10 @@ interface TaxjarAccount extends Resource {
 	
 	readonly type: TaxjarAccountType
 
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
 
 	markets?: Market[] | null
@@ -33,7 +37,15 @@ interface TaxjarAccount extends Resource {
 
 interface TaxjarAccountCreate extends ResourceCreate {
 	
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
+	/** 
+	 * The TaxJar account API key..
+	 * @example ```"TAXJAR_API_KEY"```
+	 */
 	api_key: string
 
 	tax_categories?: TaxCategoryRel[] | null
@@ -43,7 +55,15 @@ interface TaxjarAccountCreate extends ResourceCreate {
 
 interface TaxjarAccountUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name?: string | null
+	/** 
+	 * The TaxJar account API key..
+	 * @example ```"TAXJAR_API_KEY"```
+	 */
 	api_key?: string | null
 
 	tax_categories?: TaxCategoryRel[] | null

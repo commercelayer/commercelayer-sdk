@@ -20,9 +20,25 @@ interface CheckoutComGateway extends Resource {
 	
 	readonly type: CheckoutComGatewayType
 
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * The gateway webhook endpoint ID, generated automatically..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	webhook_endpoint_id?: string | null
+	/** 
+	 * The gateway webhook endpoint secret, generated automatically..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	webhook_endpoint_secret?: string | null
+	/** 
+	 * The gateway webhook URL, generated automatically..
+	 * @example ```"https://core.commercelayer.co/webhook_callbacks/checkout_com_gateways/xxxxx"```
+	 */
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
@@ -34,8 +50,20 @@ interface CheckoutComGateway extends Resource {
 
 interface CheckoutComGatewayCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * The gateway secret key..
+	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
+	 */
 	secret_key: string
+	/** 
+	 * The gateway public key..
+	 * @example ```"pk_test_xxxx-yyyy-zzzz"```
+	 */
 	public_key: string
 
 	checkout_com_payments?: CheckoutComPaymentRel[] | null
@@ -45,8 +73,20 @@ interface CheckoutComGatewayCreate extends ResourceCreate {
 
 interface CheckoutComGatewayUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name?: string | null
+	/** 
+	 * The gateway secret key..
+	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
+	 */
 	secret_key?: string | null
+	/** 
+	 * The gateway public key..
+	 * @example ```"pk_test_xxxx-yyyy-zzzz"```
+	 */
 	public_key?: string | null
 
 	checkout_com_payments?: CheckoutComPaymentRel[] | null

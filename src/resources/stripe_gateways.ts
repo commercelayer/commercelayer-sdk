@@ -19,10 +19,30 @@ interface StripeGateway extends Resource {
 	
 	readonly type: StripeGatewayType
 
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard..
+	 * @example ```"true"```
+	 */
 	auto_payments?: boolean | null
+	/** 
+	 * The gateway webhook endpoint ID, generated automatically..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	webhook_endpoint_id?: string | null
+	/** 
+	 * The gateway webhook endpoint secret, generated automatically..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	webhook_endpoint_secret?: string | null
+	/** 
+	 * The gateway webhook URL, generated automatically..
+	 * @example ```"https://core.commercelayer.co/webhook_callbacks/stripe_gateways/xxxxx"```
+	 */
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
@@ -34,9 +54,25 @@ interface StripeGateway extends Resource {
 
 interface StripeGatewayCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * The gateway login..
+	 * @example ```"sk_live_xxxx-yyyy-zzzz"```
+	 */
 	login: string
+	/** 
+	 * The gateway publishable API key..
+	 * @example ```"pk_live_xxxx-yyyy-zzzz"```
+	 */
 	publishable_key?: string | null
+	/** 
+	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard..
+	 * @example ```"true"```
+	 */
 	auto_payments?: boolean | null
 	
 }
@@ -44,7 +80,15 @@ interface StripeGatewayCreate extends ResourceCreate {
 
 interface StripeGatewayUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name?: string | null
+	/** 
+	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard..
+	 * @example ```"true"```
+	 */
 	auto_payments?: boolean | null
 	
 }

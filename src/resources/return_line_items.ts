@@ -20,12 +20,40 @@ interface ReturnLineItem extends Resource {
 	
 	readonly type: ReturnLineItemType
 
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The code of the associated bundle..
+	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
+	 */
 	bundle_code?: string | null
+	/** 
+	 * The return line item quantity..
+	 * @example ```"4"```
+	 */
 	quantity: number
+	/** 
+	 * The name of the line item..
+	 * @example ```"Black Men T-shirt with White Logo (XL)"```
+	 */
 	name?: string | null
+	/** 
+	 * The image_url of the associated line item..
+	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
+	 */
 	image_url?: string | null
+	/** 
+	 * Set of key-value pairs that you can use to add details about return reason..
+	 * @example ```"[object Object]"```
+	 */
 	return_reason?: Record<string, any> | null
+	/** 
+	 * Time at which the return line item was restocked..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	restocked_at?: string | null
 
 	return?: Return | null
@@ -36,7 +64,15 @@ interface ReturnLineItem extends Resource {
 
 interface ReturnLineItemCreate extends ResourceCreate {
 	
+	/** 
+	 * The return line item quantity..
+	 * @example ```"4"```
+	 */
 	quantity: number
+	/** 
+	 * Set of key-value pairs that you can use to add details about return reason..
+	 * @example ```"[object Object]"```
+	 */
 	return_reason?: Record<string, any> | null
 
 	return: ReturnRel
@@ -47,8 +83,20 @@ interface ReturnLineItemCreate extends ResourceCreate {
 
 interface ReturnLineItemUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The return line item quantity..
+	 * @example ```"4"```
+	 */
 	quantity?: number | null
+	/** 
+	 * Send this attribute if you want to restock the line item..
+	 * @example ```"true"```
+	 */
 	_restock?: boolean | null
+	/** 
+	 * Set of key-value pairs that you can use to add details about return reason..
+	 * @example ```"[object Object]"```
+	 */
 	return_reason?: Record<string, any> | null
 	
 }

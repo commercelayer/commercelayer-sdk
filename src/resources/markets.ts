@@ -30,15 +30,55 @@ interface Market extends Resource {
 	
 	readonly type: MarketType
 
+	/** 
+	 * Unique identifier for the market (numeric).
+	 * @example ```"1234"```
+	 */
 	number?: number | null
+	/** 
+	 * The market's internal name.
+	 * @example ```"EU Market"```
+	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the market (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: string | null
+	/** 
+	 * The Facebook Pixed ID.
+	 * @example ```"1234567890"```
+	 */
 	facebook_pixel_id?: string | null
+	/** 
+	 * The checkout URL for this market.
+	 * @example ```"https://checkout.yourbrand.com/:order_id"```
+	 */
 	checkout_url?: string | null
+	/** 
+	 * The URL used to overwrite prices by an external source..
+	 * @example ```"https://external_prices.yourbrand.com"```
+	 */
 	external_prices_url?: string | null
+	/** 
+	 * The URL used to validate orders by an external source..
+	 * @example ```"https://external_validation.yourbrand.com"```
+	 */
 	external_order_validation_url?: string | null
+	/** 
+	 * Indicates if market belongs to a customer_group..
+	 * @example ```"true"```
+	 */
 	private?: boolean | null
+	/** 
+	 * Time at which this resource was disabled..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	disabled_at?: string | null
+	/** 
+	 * The shared secret used to sign the external request payload..
+	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
+	 */
 	shared_secret: string
 
 	merchant?: Merchant | null
@@ -55,13 +95,45 @@ interface Market extends Resource {
 
 interface MarketCreate extends ResourceCreate {
 	
+	/** 
+	 * The market's internal name.
+	 * @example ```"EU Market"```
+	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the market (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: string | null
+	/** 
+	 * The Facebook Pixed ID.
+	 * @example ```"1234567890"```
+	 */
 	facebook_pixel_id?: string | null
+	/** 
+	 * The checkout URL for this market.
+	 * @example ```"https://checkout.yourbrand.com/:order_id"```
+	 */
 	checkout_url?: string | null
+	/** 
+	 * The URL used to overwrite prices by an external source..
+	 * @example ```"https://external_prices.yourbrand.com"```
+	 */
 	external_prices_url?: string | null
+	/** 
+	 * The URL used to validate orders by an external source..
+	 * @example ```"https://external_validation.yourbrand.com"```
+	 */
 	external_order_validation_url?: string | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled..
+	 * @example ```"true"```
+	 */
 	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled..
+	 * @example ```"true"```
+	 */
 	_enable?: boolean | null
 
 	merchant: MerchantRel
@@ -76,13 +148,45 @@ interface MarketCreate extends ResourceCreate {
 
 interface MarketUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The market's internal name.
+	 * @example ```"EU Market"```
+	 */
 	name?: string | null
+	/** 
+	 * A string that you can use to identify the market (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: string | null
+	/** 
+	 * The Facebook Pixed ID.
+	 * @example ```"1234567890"```
+	 */
 	facebook_pixel_id?: string | null
+	/** 
+	 * The checkout URL for this market.
+	 * @example ```"https://checkout.yourbrand.com/:order_id"```
+	 */
 	checkout_url?: string | null
+	/** 
+	 * The URL used to overwrite prices by an external source..
+	 * @example ```"https://external_prices.yourbrand.com"```
+	 */
 	external_prices_url?: string | null
+	/** 
+	 * The URL used to validate orders by an external source..
+	 * @example ```"https://external_validation.yourbrand.com"```
+	 */
 	external_order_validation_url?: string | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled..
+	 * @example ```"true"```
+	 */
 	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled..
+	 * @example ```"true"```
+	 */
 	_enable?: boolean | null
 
 	merchant?: MerchantRel | null

@@ -19,6 +19,10 @@ interface WireTransfer extends Resource {
 	
 	readonly type: WireTransferType
 
+	/** 
+	 * Information about the payment instrument used in the transaction.
+	 * @example ```"[object Object]"```
+	 */
 	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null

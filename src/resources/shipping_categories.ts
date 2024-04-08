@@ -19,7 +19,15 @@ interface ShippingCategory extends Resource {
 	
 	readonly type: ShippingCategoryType
 
+	/** 
+	 * The shipping category name..
+	 * @example ```"Merchandise"```
+	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the shipping category (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: string | null
 
 	skus?: Sku[] | null
@@ -31,7 +39,15 @@ interface ShippingCategory extends Resource {
 
 interface ShippingCategoryCreate extends ResourceCreate {
 	
+	/** 
+	 * The shipping category name..
+	 * @example ```"Merchandise"```
+	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the shipping category (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: string | null
 	
 }
@@ -39,7 +55,15 @@ interface ShippingCategoryCreate extends ResourceCreate {
 
 interface ShippingCategoryUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The shipping category name..
+	 * @example ```"Merchandise"```
+	 */
 	name?: string | null
+	/** 
+	 * A string that you can use to identify the shipping category (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: string | null
 	
 }

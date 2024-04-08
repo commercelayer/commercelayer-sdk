@@ -18,6 +18,10 @@ interface GoogleGeocoder extends Resource {
 	
 	readonly type: GoogleGeocoderType
 
+	/** 
+	 * The geocoder's internal name.
+	 * @example ```"Default geocoder"```
+	 */
 	name: string
 
 	addresses?: Address[] | null
@@ -28,7 +32,15 @@ interface GoogleGeocoder extends Resource {
 
 interface GoogleGeocoderCreate extends ResourceCreate {
 	
+	/** 
+	 * The geocoder's internal name.
+	 * @example ```"Default geocoder"```
+	 */
 	name: string
+	/** 
+	 * The Google Map API key.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	api_key: string
 	
 }
@@ -36,7 +48,15 @@ interface GoogleGeocoderCreate extends ResourceCreate {
 
 interface GoogleGeocoderUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The geocoder's internal name.
+	 * @example ```"Default geocoder"```
+	 */
 	name?: string | null
+	/** 
+	 * The Google Map API key.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	api_key?: string | null
 	
 }

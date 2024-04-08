@@ -22,7 +22,15 @@ interface CustomerAddress extends Resource {
 	
 	readonly type: CustomerAddressType
 
+	/** 
+	 * Returns the associated address' name..
+	 * @example ```"John Smith, 2883 Geraldine Lane Apt.23, 10013 New York NY (US) (212) 646-338-1228"```
+	 */
 	name?: string | null
+	/** 
+	 * The email of the customer associated to the address..
+	 * @example ```"john@example.com"```
+	 */
 	customer_email: string
 
 	customer?: Customer | null
@@ -35,6 +43,10 @@ interface CustomerAddress extends Resource {
 
 interface CustomerAddressCreate extends ResourceCreate {
 	
+	/** 
+	 * The email of the customer associated to the address..
+	 * @example ```"john@example.com"```
+	 */
 	customer_email: string
 
 	customer: CustomerRel

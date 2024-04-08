@@ -18,6 +18,10 @@ interface ManualGateway extends Resource {
 	
 	readonly type: ManualGatewayType
 
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
 
 	payment_methods?: PaymentMethod[] | null
@@ -28,6 +32,10 @@ interface ManualGateway extends Resource {
 
 interface ManualGatewayCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
 	
 }
@@ -35,6 +43,10 @@ interface ManualGatewayCreate extends ResourceCreate {
 
 interface ManualGatewayUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name?: string | null
 	
 }

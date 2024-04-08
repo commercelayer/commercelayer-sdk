@@ -21,11 +21,35 @@ interface Package extends Resource {
 	
 	readonly type: PackageType
 
+	/** 
+	 * Unique name for the package.
+	 * @example ```"Large (60x40x30)"```
+	 */
 	name: string
+	/** 
+	 * The package identifying code.
+	 * @example ```"YYYY 2000"```
+	 */
 	code?: string | null
+	/** 
+	 * The package length, used to automatically calculate the tax rates from the available carrier accounts..
+	 * @example ```"40"```
+	 */
 	length: number
+	/** 
+	 * The package width, used to automatically calculate the tax rates from the available carrier accounts..
+	 * @example ```"40"```
+	 */
 	width: number
+	/** 
+	 * The package height, used to automatically calculate the tax rates from the available carrier accounts..
+	 * @example ```"25"```
+	 */
 	height: number
+	/** 
+	 * The unit of length. Can be one of 'cm', or 'in'..
+	 * @example ```"gr"```
+	 */
 	unit_of_length: string
 
 	stock_location?: StockLocation | null
@@ -38,11 +62,35 @@ interface Package extends Resource {
 
 interface PackageCreate extends ResourceCreate {
 	
+	/** 
+	 * Unique name for the package.
+	 * @example ```"Large (60x40x30)"```
+	 */
 	name: string
+	/** 
+	 * The package identifying code.
+	 * @example ```"YYYY 2000"```
+	 */
 	code?: string | null
+	/** 
+	 * The package length, used to automatically calculate the tax rates from the available carrier accounts..
+	 * @example ```"40"```
+	 */
 	length: number
+	/** 
+	 * The package width, used to automatically calculate the tax rates from the available carrier accounts..
+	 * @example ```"40"```
+	 */
 	width: number
+	/** 
+	 * The package height, used to automatically calculate the tax rates from the available carrier accounts..
+	 * @example ```"25"```
+	 */
 	height: number
+	/** 
+	 * The unit of length. Can be one of 'cm', or 'in'..
+	 * @example ```"gr"```
+	 */
 	unit_of_length: string
 
 	stock_location: StockLocationRel
@@ -52,11 +100,35 @@ interface PackageCreate extends ResourceCreate {
 
 interface PackageUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Unique name for the package.
+	 * @example ```"Large (60x40x30)"```
+	 */
 	name?: string | null
+	/** 
+	 * The package identifying code.
+	 * @example ```"YYYY 2000"```
+	 */
 	code?: string | null
+	/** 
+	 * The package length, used to automatically calculate the tax rates from the available carrier accounts..
+	 * @example ```"40"```
+	 */
 	length?: number | null
+	/** 
+	 * The package width, used to automatically calculate the tax rates from the available carrier accounts..
+	 * @example ```"40"```
+	 */
 	width?: number | null
+	/** 
+	 * The package height, used to automatically calculate the tax rates from the available carrier accounts..
+	 * @example ```"25"```
+	 */
 	height?: number | null
+	/** 
+	 * The unit of length. Can be one of 'cm', or 'in'..
+	 * @example ```"gr"```
+	 */
 	unit_of_length?: string | null
 
 	stock_location?: StockLocationRel | null
