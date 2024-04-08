@@ -28,7 +28,15 @@ interface TaxCategory extends Resource {
 	
 	readonly type: TaxCategoryType
 
+	/** 
+	 * The tax category identifier code, specific for a particular tax calculator..
+	 * @example ```"31000"```
+	 */
 	code: string
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
 
 	sku?: Sku | null
@@ -41,7 +49,15 @@ interface TaxCategory extends Resource {
 
 interface TaxCategoryCreate extends ResourceCreate {
 	
+	/** 
+	 * The tax category identifier code, specific for a particular tax calculator..
+	 * @example ```"31000"```
+	 */
 	code: string
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
 
 	sku: SkuRel
@@ -52,7 +68,15 @@ interface TaxCategoryCreate extends ResourceCreate {
 
 interface TaxCategoryUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The tax category identifier code, specific for a particular tax calculator..
+	 * @example ```"31000"```
+	 */
 	code?: string | null
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
 
 	sku?: SkuRel | null

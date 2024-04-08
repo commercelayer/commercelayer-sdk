@@ -17,20 +17,80 @@ interface Import extends Resource {
 	
 	readonly type: ImportType
 
+	/** 
+	 * The type of resource being imported..
+	 * @example ```"skus"```
+	 */
 	resource_type: string
+	/** 
+	 * The format of the import inputs one of 'json' (default) or 'csv'..
+	 * @example ```"json"```
+	 */
 	format?: string | null
+	/** 
+	 * The ID of the parent resource to be associated with imported data..
+	 * @example ```"1234"```
+	 */
 	parent_resource_id?: string | null
+	/** 
+	 * The import job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'..
+	 * @example ```"in_progress"```
+	 */
 	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
+	/** 
+	 * Time at which the import was started..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	started_at?: string | null
+	/** 
+	 * Time at which the import was completed..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	completed_at?: string | null
+	/** 
+	 * Time at which the import was interrupted..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	interrupted_at?: string | null
+	/** 
+	 * Array of objects representing the resources that are being imported..
+	 * @example ```"[object Object],[object Object]"```
+	 */
 	inputs: Array<Record<string, any>>
+	/** 
+	 * Indicates the size of the objects to be imported..
+	 * @example ```"300"```
+	 */
 	inputs_size?: number | null
+	/** 
+	 * Indicates the number of import errors, if any..
+	 * @example ```"30"```
+	 */
 	errors_count?: number | null
+	/** 
+	 * Indicates the number of import warnings, if any..
+	 * @example ```"1"```
+	 */
 	warnings_count?: number | null
+	/** 
+	 * Indicates the number of records that have been processed (created or updated)..
+	 * @example ```"270"```
+	 */
 	processed_count?: number | null
+	/** 
+	 * Contains the import errors, if any..
+	 * @example ```"[object Object]"```
+	 */
 	errors_log?: Record<string, any> | null
+	/** 
+	 * Contains the import warnings, if any..
+	 * @example ```"[object Object]"```
+	 */
 	warnings_log?: Record<string, any> | null
+	/** 
+	 * The URL the the raw inputs file, which will be generated at import start..
+	 * @example ```"http://cl_imports.s3.amazonaws.com/"```
+	 */
 	attachment_url?: string | null
 
 	events?: Event[] | null
@@ -40,9 +100,25 @@ interface Import extends Resource {
 
 interface ImportCreate extends ResourceCreate {
 	
+	/** 
+	 * The type of resource being imported..
+	 * @example ```"skus"```
+	 */
 	resource_type: string
+	/** 
+	 * The format of the import inputs one of 'json' (default) or 'csv'..
+	 * @example ```"json"```
+	 */
 	format?: string | null
+	/** 
+	 * The ID of the parent resource to be associated with imported data..
+	 * @example ```"1234"```
+	 */
 	parent_resource_id?: string | null
+	/** 
+	 * Array of objects representing the resources that are being imported..
+	 * @example ```"[object Object],[object Object]"```
+	 */
 	inputs: Array<Record<string, any>>
 	
 }

@@ -20,10 +20,30 @@ interface BraintreeGateway extends Resource {
 	
 	readonly type: BraintreeGatewayType
 
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * The dynamic descriptor name. Must be composed by business name (3, 7 or 12 chars), an asterisk (*) and the product name (18, 14 or 9 chars), for a total length of 22 chars..
+	 * @example ```"company*productabc1234"```
+	 */
 	descriptor_name?: string | null
+	/** 
+	 * The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods..
+	 * @example ```"3125551212"```
+	 */
 	descriptor_phone?: string | null
+	/** 
+	 * The dynamic descriptor URL..
+	 * @example ```"company.com"```
+	 */
 	descriptor_url?: string | null
+	/** 
+	 * The gateway webhook URL, generated automatically..
+	 * @example ```"https://core.commercelayer.co/webhook_callbacks/braintree_gateways/xxxxx"```
+	 */
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
@@ -35,13 +55,45 @@ interface BraintreeGateway extends Resource {
 
 interface BraintreeGatewayCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * The gateway merchant account ID..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	merchant_account_id: string
+	/** 
+	 * The gateway merchant ID..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	merchant_id: string
+	/** 
+	 * The gateway API public key..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	public_key: string
+	/** 
+	 * The gateway API private key..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	private_key: string
+	/** 
+	 * The dynamic descriptor name. Must be composed by business name (3, 7 or 12 chars), an asterisk (*) and the product name (18, 14 or 9 chars), for a total length of 22 chars..
+	 * @example ```"company*productabc1234"```
+	 */
 	descriptor_name?: string | null
+	/** 
+	 * The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods..
+	 * @example ```"3125551212"```
+	 */
 	descriptor_phone?: string | null
+	/** 
+	 * The dynamic descriptor URL..
+	 * @example ```"company.com"```
+	 */
 	descriptor_url?: string | null
 
 	braintree_payments?: BraintreePaymentRel[] | null
@@ -51,13 +103,45 @@ interface BraintreeGatewayCreate extends ResourceCreate {
 
 interface BraintreeGatewayUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name?: string | null
+	/** 
+	 * The gateway merchant account ID..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	merchant_account_id?: string | null
+	/** 
+	 * The gateway merchant ID..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	merchant_id?: string | null
+	/** 
+	 * The gateway API public key..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	public_key?: string | null
+	/** 
+	 * The gateway API private key..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	private_key?: string | null
+	/** 
+	 * The dynamic descriptor name. Must be composed by business name (3, 7 or 12 chars), an asterisk (*) and the product name (18, 14 or 9 chars), for a total length of 22 chars..
+	 * @example ```"company*productabc1234"```
+	 */
 	descriptor_name?: string | null
+	/** 
+	 * The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods..
+	 * @example ```"3125551212"```
+	 */
 	descriptor_phone?: string | null
+	/** 
+	 * The dynamic descriptor URL..
+	 * @example ```"company.com"```
+	 */
 	descriptor_url?: string | null
 
 	braintree_payments?: BraintreePaymentRel[] | null

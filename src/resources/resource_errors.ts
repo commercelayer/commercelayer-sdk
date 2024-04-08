@@ -17,8 +17,20 @@ interface ResourceError extends Resource {
 	
 	readonly type: ResourceErrorType
 
+	/** 
+	 * The resource attribute name related to the error..
+	 * @example ```"number"```
+	 */
 	name: string
+	/** 
+	 * The error code..
+	 * @example ```"BLANK"```
+	 */
 	code: string
+	/** 
+	 * The error message..
+	 * @example ```"can't be blank"```
+	 */
 	message: string
 
 	resource?: Order | null

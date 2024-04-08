@@ -38,27 +38,115 @@ interface Shipment extends Resource {
 	
 	readonly type: ShipmentType
 
+	/** 
+	 * Unique identifier for the shipment.
+	 * @example ```"#1234/S/001"```
+	 */
 	number?: string | null
+	/** 
+	 * The shipment status, one of 'draft', 'upcoming', 'cancelled', 'on_hold', 'picking', 'packing', 'ready_to_ship', or 'shipped'.
+	 * @example ```"draft"```
+	 */
 	status: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped'
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, automatically inherited from the associated order..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: string | null
+	/** 
+	 * The cost of this shipment from the selected carrier account, in cents..
+	 * @example ```"1000"```
+	 */
 	cost_amount_cents?: number | null
+	/** 
+	 * The cost of this shipment from the selected carrier account, float..
+	 * @example ```"10"```
+	 */
 	cost_amount_float?: number | null
+	/** 
+	 * The cost of this shipment from the selected carrier account, formatted..
+	 * @example ```"€10,00"```
+	 */
 	formatted_cost_amount?: string | null
+	/** 
+	 * The total number of SKUs in the shipment's line items. This can be useful to display a preview of the shipment content..
+	 * @example ```"2"```
+	 */
 	skus_count?: number | null
+	/** 
+	 * The selected purchase rate from the available shipping rates..
+	 * @example ```"rate_f89e4663c3ed47ee94d37763f6d21d54"```
+	 */
 	selected_rate_id?: string | null
+	/** 
+	 * The available shipping rates..
+	 * @example ```"[object Object]"```
+	 */
 	rates?: Array<Record<string, any>> | null
+	/** 
+	 * The shipping rate purchase error code, if any..
+	 * @example ```"SHIPMENT.POSTAGE.FAILURE"```
+	 */
 	purchase_error_code?: string | null
+	/** 
+	 * The shipping rate purchase error message, if any..
+	 * @example ```"Account not allowed for this service."```
+	 */
 	purchase_error_message?: string | null
+	/** 
+	 * Any errors collected when fetching shipping rates..
+	 * @example ```"[object Object]"```
+	 */
 	get_rates_errors?: Array<Record<string, any>> | null
+	/** 
+	 * Time at which the getting of the shipping rates started..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	get_rates_started_at?: string | null
+	/** 
+	 * Time at which the getting of the shipping rates completed..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	get_rates_completed_at?: string | null
+	/** 
+	 * Time at which the purchasing of the shipping rate started..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	purchase_started_at?: string | null
+	/** 
+	 * Time at which the purchasing of the shipping rate completed..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	purchase_completed_at?: string | null
+	/** 
+	 * Time at which the purchasing of the shipping rate failed..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	purchase_failed_at?: string | null
+	/** 
+	 * Time at which the shipment was put on hold..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	on_hold_at?: string | null
+	/** 
+	 * Time at which the shipment was picking..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	picking_at?: string | null
+	/** 
+	 * Time at which the shipment was packing..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	packing_at?: string | null
+	/** 
+	 * Time at which the shipment was ready to ship..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	ready_to_ship_at?: string | null
+	/** 
+	 * Time at which the shipment was shipped..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	shipped_at?: string | null
 
 	order?: Order | null
@@ -97,17 +185,65 @@ interface ShipmentCreate extends ResourceCreate {
 
 interface ShipmentUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Send this attribute if you want to mark this shipment as upcoming..
+	 * @example ```"true"```
+	 */
 	_upcoming?: boolean | null
+	/** 
+	 * Send this attribute if you want to put this shipment on hold..
+	 * @example ```"true"```
+	 */
 	_on_hold?: boolean | null
+	/** 
+	 * Send this attribute if you want to start picking this shipment..
+	 * @example ```"true"```
+	 */
 	_picking?: boolean | null
+	/** 
+	 * Send this attribute if you want to start packing this shipment..
+	 * @example ```"true"```
+	 */
 	_packing?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this shipment as ready to ship..
+	 * @example ```"true"```
+	 */
 	_ready_to_ship?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this shipment as shipped..
+	 * @example ```"true"```
+	 */
 	_ship?: boolean | null
+	/** 
+	 * Send this attribute if you want to automatically reserve the stock for each of the associated stock line item. Can be done only when fulfillment is in progress..
+	 * @example ```"true"```
+	 */
 	_reserve_stock?: boolean | null
+	/** 
+	 * Send this attribute if you want to automatically release the stock for each of the associated stock line item. Can be done only when fulfillment is in progress..
+	 * @example ```"true"```
+	 */
 	_release_stock?: boolean | null
+	/** 
+	 * Send this attribute if you want to automatically decrement and release the stock for each of the associated stock line item. Can be done only when fulfillment is in progress..
+	 * @example ```"true"```
+	 */
 	_decrement_stock?: boolean | null
+	/** 
+	 * Send this attribute if you want get the shipping rates from the associated carrier accounts..
+	 * @example ```"true"```
+	 */
 	_get_rates?: boolean | null
+	/** 
+	 * The selected purchase rate from the available shipping rates..
+	 * @example ```"rate_f89e4663c3ed47ee94d37763f6d21d54"```
+	 */
 	selected_rate_id?: string | null
+	/** 
+	 * Send this attribute if you want to purchase this shipment with the selected rate..
+	 * @example ```"true"```
+	 */
 	_purchase?: boolean | null
 
 	shipping_category?: ShippingCategoryRel | null

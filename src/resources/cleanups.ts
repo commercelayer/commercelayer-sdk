@@ -18,15 +18,55 @@ interface Cleanup extends Resource {
 	
 	readonly type: CleanupType
 
+	/** 
+	 * The type of resource being cleaned..
+	 * @example ```"skus"```
+	 */
 	resource_type: string
+	/** 
+	 * The cleanup job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'..
+	 * @example ```"in_progress"```
+	 */
 	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
+	/** 
+	 * Time at which the cleanup was started..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	started_at?: string | null
+	/** 
+	 * Time at which the cleanup was completed..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	completed_at?: string | null
+	/** 
+	 * Time at which the cleanup was interrupted..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	interrupted_at?: string | null
+	/** 
+	 * The filters used to select the records to be cleaned..
+	 * @example ```"[object Object]"```
+	 */
 	filters?: Record<string, any> | null
+	/** 
+	 * Indicates the number of records to be cleaned..
+	 * @example ```"300"```
+	 */
 	records_count?: number | null
+	/** 
+	 * Indicates the number of cleanup errors, if any..
+	 * @example ```"30"```
+	 */
 	errors_count?: number | null
+	/** 
+	 * Indicates the number of records that have been cleaned..
+	 * @example ```"270"```
+	 */
 	processed_count?: number | null
+	/** 
+	 * Contains the cleanup errors, if any..
+	 * @example ```"[object Object]"```
+	 */
 	errors_log?: Record<string, any> | null
 
 	events?: Event[] | null
@@ -37,7 +77,15 @@ interface Cleanup extends Resource {
 
 interface CleanupCreate extends ResourceCreate {
 	
+	/** 
+	 * The type of resource being cleaned..
+	 * @example ```"skus"```
+	 */
 	resource_type: string
+	/** 
+	 * The filters used to select the records to be cleaned..
+	 * @example ```"[object Object]"```
+	 */
 	filters?: Record<string, any> | null
 	
 }

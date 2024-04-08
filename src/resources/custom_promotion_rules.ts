@@ -31,6 +31,10 @@ interface CustomPromotionRule extends Resource {
 	
 	readonly type: CustomPromotionRuleType
 
+	/** 
+	 * The filters used to trigger promotion on the matching order and its relationships attributes..
+	 * @example ```"[object Object]"```
+	 */
 	filters?: Record<string, any> | null
 
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
@@ -41,6 +45,10 @@ interface CustomPromotionRule extends Resource {
 
 interface CustomPromotionRuleCreate extends ResourceCreate {
 	
+	/** 
+	 * The filters used to trigger promotion on the matching order and its relationships attributes..
+	 * @example ```"[object Object]"```
+	 */
 	filters?: Record<string, any> | null
 
 	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
@@ -50,6 +58,10 @@ interface CustomPromotionRuleCreate extends ResourceCreate {
 
 interface CustomPromotionRuleUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The filters used to trigger promotion on the matching order and its relationships attributes..
+	 * @example ```"[object Object]"```
+	 */
 	filters?: Record<string, any> | null
 
 	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null

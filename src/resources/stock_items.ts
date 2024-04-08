@@ -24,7 +24,15 @@ interface StockItem extends Resource {
 	
 	readonly type: StockItemType
 
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The stock item quantity..
+	 * @example ```"100"```
+	 */
 	quantity: number
 
 	stock_location?: StockLocation | null
@@ -39,7 +47,15 @@ interface StockItem extends Resource {
 
 interface StockItemCreate extends ResourceCreate {
 	
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The stock item quantity..
+	 * @example ```"100"```
+	 */
 	quantity: number
 
 	stock_location: StockLocationRel
@@ -50,7 +66,15 @@ interface StockItemCreate extends ResourceCreate {
 
 interface StockItemUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The stock item quantity..
+	 * @example ```"100"```
+	 */
 	quantity?: number | null
 
 	stock_location?: StockLocationRel | null

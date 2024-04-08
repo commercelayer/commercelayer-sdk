@@ -19,6 +19,10 @@ interface ReservedStock extends Resource {
 	
 	readonly type: ReservedStockType
 
+	/** 
+	 * The stock item reserved quantity..
+	 * @example ```"100"```
+	 */
 	quantity: number
 
 	stock_item?: StockItem | null

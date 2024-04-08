@@ -22,30 +22,129 @@ interface Authorization extends Resource {
 	
 	readonly type: AuthorizationType
 
+	/** 
+	 * The transaction number, auto generated.
+	 * @example ```"42/T/001"```
+	 */
 	number: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order..
+	 * @example ```"EUR"```
+	 */
 	currency_code: string
+	/** 
+	 * The transaction amount, in cents..
+	 * @example ```"1500"```
+	 */
 	amount_cents: number
+	/** 
+	 * The transaction amount, float..
+	 * @example ```"15"```
+	 */
 	amount_float: number
+	/** 
+	 * The transaction amount, formatted..
+	 * @example ```"€15,00"```
+	 */
 	formatted_amount: string
+	/** 
+	 * Indicates if the transaction is successful.
+	 */
 	succeeded: boolean
+	/** 
+	 * The message returned by the payment gateway.
+	 * @example ```"Accepted"```
+	 */
 	message?: string | null
+	/** 
+	 * The error code, if any, returned by the payment gateway.
+	 * @example ```"00001"```
+	 */
 	error_code?: string | null
+	/** 
+	 * The error detail, if any, returned by the payment gateway.
+	 * @example ```"Already settled"```
+	 */
 	error_detail?: string | null
+	/** 
+	 * The token identifying the transaction, returned by the payment gateway.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	token?: string | null
+	/** 
+	 * The ID identifying the transaction, returned by the payment gateway.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	gateway_transaction_id?: string | null
+	/** 
+	 * The CVV code returned by the payment gateway.
+	 * @example ```"000"```
+	 */
 	cvv_code?: string | null
+	/** 
+	 * The CVV message returned by the payment gateway.
+	 * @example ```"validated"```
+	 */
 	cvv_message?: string | null
+	/** 
+	 * The AVS code returned by the payment gateway.
+	 * @example ```"000"```
+	 */
 	avs_code?: string | null
+	/** 
+	 * The AVS message returned by the payment gateway.
+	 * @example ```"validated"```
+	 */
 	avs_message?: string | null
+	/** 
+	 * The fraud review message, if any, returned by the payment gateway.
+	 * @example ```"passed"```
+	 */
 	fraud_review?: string | null
+	/** 
+	 * The amount to be captured, in cents..
+	 * @example ```"500"```
+	 */
 	capture_amount_cents?: number | null
+	/** 
+	 * The amount to be captured, float..
+	 * @example ```"5"```
+	 */
 	capture_amount_float?: number | null
+	/** 
+	 * The amount to be captured, formatted..
+	 * @example ```"€5,00"```
+	 */
 	formatted_capture_amount?: string | null
+	/** 
+	 * The balance to be captured, in cents..
+	 * @example ```"1000"```
+	 */
 	capture_balance_cents?: number | null
+	/** 
+	 * The balance to be captured, float..
+	 * @example ```"10"```
+	 */
 	capture_balance_float?: number | null
+	/** 
+	 * The balance to be captured, formatted..
+	 * @example ```"€10,00"```
+	 */
 	formatted_capture_balance?: string | null
+	/** 
+	 * The balance to be voided, in cents..
+	 * @example ```"1500"```
+	 */
 	void_balance_cents?: number | null
+	/** 
+	 * The balance to be voided, float..
+	 * @example ```"15"```
+	 */
 	void_balance_float?: number | null
+	/** 
+	 * The balance to be voided, formatted..
+	 * @example ```"€15,00"```
+	 */
 	formatted_void_balance?: string | null
 
 	order?: Order | null
@@ -60,8 +159,20 @@ interface Authorization extends Resource {
 
 interface AuthorizationUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Send this attribute if you want to create a capture for this authorization..
+	 * @example ```"true"```
+	 */
 	_capture?: boolean | null
+	/** 
+	 * The associated capture amount, in cents..
+	 * @example ```"500"```
+	 */
 	_capture_amount_cents?: number | null
+	/** 
+	 * Send this attribute if you want to create a void for this authorization..
+	 * @example ```"true"```
+	 */
 	_void?: boolean | null
 	
 }

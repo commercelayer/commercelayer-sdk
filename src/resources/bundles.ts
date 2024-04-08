@@ -26,19 +26,73 @@ interface Bundle extends Resource {
 	
 	readonly type: BundleType
 
+	/** 
+	 * The bundle code, that uniquely identifies the bundle within the market..
+	 * @example ```"BUNDMM000000FFFFFFXLXX"```
+	 */
 	code: string
+	/** 
+	 * The internal name of the bundle..
+	 * @example ```"Black Men T-shirt (XL) with Black Cap and Socks, all with White Logo"```
+	 */
 	name: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: string | null
+	/** 
+	 * An internal description of the bundle..
+	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+	 */
 	description?: string | null
+	/** 
+	 * The URL of an image that represents the bundle..
+	 * @example ```"https://img.yourdomain.com/bundles/xYZkjABcde.png"```
+	 */
 	image_url?: string | null
+	/** 
+	 * Indicates if the bundle doesn't generate shipments (all sku_list's SKUs must be do_not_ship)..
+	 */
 	do_not_ship?: boolean | null
+	/** 
+	 * Indicates if the bundle doesn't track the stock inventory (all sku_list's SKUs must be do_not_track)..
+	 */
 	do_not_track?: boolean | null
+	/** 
+	 * The bundle price amount for the associated market, in cents..
+	 * @example ```"10000"```
+	 */
 	price_amount_cents?: number | null
+	/** 
+	 * The bundle price amount for the associated market, float..
+	 * @example ```"100"```
+	 */
 	price_amount_float?: number | null
+	/** 
+	 * The bundle price amount for the associated market, formatted..
+	 * @example ```"€100,00"```
+	 */
 	formatted_price_amount?: string | null
+	/** 
+	 * The compared price amount, in cents. Useful to display a percentage discount..
+	 * @example ```"13000"```
+	 */
 	compare_at_amount_cents?: number | null
+	/** 
+	 * The compared price amount, float..
+	 * @example ```"130"```
+	 */
 	compare_at_amount_float?: number | null
+	/** 
+	 * The compared price amount, formatted..
+	 * @example ```"€130,00"```
+	 */
 	formatted_compare_at_amount?: string | null
+	/** 
+	 * The total number of SKUs in the bundle..
+	 * @example ```"2"```
+	 */
 	skus_count?: number | null
 
 	market?: Market | null
@@ -54,14 +108,50 @@ interface Bundle extends Resource {
 
 interface BundleCreate extends ResourceCreate {
 	
+	/** 
+	 * The bundle code, that uniquely identifies the bundle within the market..
+	 * @example ```"BUNDMM000000FFFFFFXLXX"```
+	 */
 	code: string
+	/** 
+	 * The internal name of the bundle..
+	 * @example ```"Black Men T-shirt (XL) with Black Cap and Socks, all with White Logo"```
+	 */
 	name: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: string | null
+	/** 
+	 * An internal description of the bundle..
+	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+	 */
 	description?: string | null
+	/** 
+	 * The URL of an image that represents the bundle..
+	 * @example ```"https://img.yourdomain.com/bundles/xYZkjABcde.png"```
+	 */
 	image_url?: string | null
+	/** 
+	 * The bundle price amount for the associated market, in cents..
+	 * @example ```"10000"```
+	 */
 	price_amount_cents?: number | null
+	/** 
+	 * The compared price amount, in cents. Useful to display a percentage discount..
+	 * @example ```"13000"```
+	 */
 	compare_at_amount_cents?: number | null
+	/** 
+	 * Send this attribute if you want to compute the price_amount_cents as the sum of the prices of the bundle SKUs for the market..
+	 * @example ```"true"```
+	 */
 	_compute_price_amount?: boolean | null
+	/** 
+	 * Send this attribute if you want to compute the compare_at_amount_cents as the sum of the prices of the bundle SKUs for the market..
+	 * @example ```"true"```
+	 */
 	_compute_compare_at_amount?: boolean | null
 
 	market?: MarketRel | null
@@ -73,14 +163,50 @@ interface BundleCreate extends ResourceCreate {
 
 interface BundleUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The bundle code, that uniquely identifies the bundle within the market..
+	 * @example ```"BUNDMM000000FFFFFFXLXX"```
+	 */
 	code?: string | null
+	/** 
+	 * The internal name of the bundle..
+	 * @example ```"Black Men T-shirt (XL) with Black Cap and Socks, all with White Logo"```
+	 */
 	name?: string | null
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: string | null
+	/** 
+	 * An internal description of the bundle..
+	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+	 */
 	description?: string | null
+	/** 
+	 * The URL of an image that represents the bundle..
+	 * @example ```"https://img.yourdomain.com/bundles/xYZkjABcde.png"```
+	 */
 	image_url?: string | null
+	/** 
+	 * The bundle price amount for the associated market, in cents..
+	 * @example ```"10000"```
+	 */
 	price_amount_cents?: number | null
+	/** 
+	 * The compared price amount, in cents. Useful to display a percentage discount..
+	 * @example ```"13000"```
+	 */
 	compare_at_amount_cents?: number | null
+	/** 
+	 * Send this attribute if you want to compute the price_amount_cents as the sum of the prices of the bundle SKUs for the market..
+	 * @example ```"true"```
+	 */
 	_compute_price_amount?: boolean | null
+	/** 
+	 * Send this attribute if you want to compute the compare_at_amount_cents as the sum of the prices of the bundle SKUs for the market..
+	 * @example ```"true"```
+	 */
 	_compute_compare_at_amount?: boolean | null
 
 	tags?: TagRel[] | null

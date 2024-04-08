@@ -22,22 +22,89 @@ interface Capture extends Resource {
 	
 	readonly type: CaptureType
 
+	/** 
+	 * The transaction number, auto generated.
+	 * @example ```"42/T/001"```
+	 */
 	number: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order..
+	 * @example ```"EUR"```
+	 */
 	currency_code: string
+	/** 
+	 * The transaction amount, in cents..
+	 * @example ```"1500"```
+	 */
 	amount_cents: number
+	/** 
+	 * The transaction amount, float..
+	 * @example ```"15"```
+	 */
 	amount_float: number
+	/** 
+	 * The transaction amount, formatted..
+	 * @example ```"€15,00"```
+	 */
 	formatted_amount: string
+	/** 
+	 * Indicates if the transaction is successful.
+	 */
 	succeeded: boolean
+	/** 
+	 * The message returned by the payment gateway.
+	 * @example ```"Accepted"```
+	 */
 	message?: string | null
+	/** 
+	 * The error code, if any, returned by the payment gateway.
+	 * @example ```"00001"```
+	 */
 	error_code?: string | null
+	/** 
+	 * The error detail, if any, returned by the payment gateway.
+	 * @example ```"Already settled"```
+	 */
 	error_detail?: string | null
+	/** 
+	 * The token identifying the transaction, returned by the payment gateway.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	token?: string | null
+	/** 
+	 * The ID identifying the transaction, returned by the payment gateway.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	gateway_transaction_id?: string | null
+	/** 
+	 * The amount to be refunded, in cents..
+	 * @example ```"500"```
+	 */
 	refund_amount_cents?: number | null
+	/** 
+	 * The amount to be refunded, float..
+	 * @example ```"5"```
+	 */
 	refund_amount_float?: number | null
+	/** 
+	 * The amount to be refunded, formatted..
+	 * @example ```"€5,00"```
+	 */
 	formatted_refund_amount?: string | null
+	/** 
+	 * The balance to be refunded, in cents..
+	 * @example ```"1000"```
+	 */
 	refund_balance_cents?: number | null
+	/** 
+	 * The balance to be refunded, float..
+	 * @example ```"10"```
+	 */
 	refund_balance_float?: number | null
+	/** 
+	 * The balance to be refunded, formatted..
+	 * @example ```"€10,00"```
+	 */
 	formatted_refund_balance?: string | null
 
 	order?: Order | null
@@ -52,7 +119,15 @@ interface Capture extends Resource {
 
 interface CaptureUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Send this attribute if you want to create a refund for this capture..
+	 * @example ```"true"```
+	 */
 	_refund?: boolean | null
+	/** 
+	 * The associated refund amount, in cents..
+	 * @example ```"500"```
+	 */
 	_refund_amount_cents?: number | null
 	
 }

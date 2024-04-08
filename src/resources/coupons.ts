@@ -24,11 +24,34 @@ interface Coupon extends Resource {
 	
 	readonly type: CouponType
 
+	/** 
+	 * The coupon code, that uniquely identifies the coupon within the promotion rule..
+	 * @example ```"04371af2-70b3-48d7-8f4e-316b374224c3"```
+	 */
 	code: string
+	/** 
+	 * Indicates if the coupon can be used just once per customer..
+	 */
 	customer_single_use?: boolean | null
+	/** 
+	 * The total number of times this coupon can be used..
+	 * @example ```"50"```
+	 */
 	usage_limit?: number | null
+	/** 
+	 * The number of times this coupon has been used..
+	 * @example ```"20"```
+	 */
 	usage_count?: number | null
+	/** 
+	 * The email address of the associated recipient. When creating or updating a coupon, this is a shortcut to find or create the associated recipient by email..
+	 * @example ```"john@example.com"```
+	 */
 	recipient_email?: string | null
+	/** 
+	 * Time at which the coupon will expire..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	expires_at?: string | null
 
 	promotion_rule?: CouponCodesPromotionRule | null
@@ -42,10 +65,29 @@ interface Coupon extends Resource {
 
 interface CouponCreate extends ResourceCreate {
 	
+	/** 
+	 * The coupon code, that uniquely identifies the coupon within the promotion rule..
+	 * @example ```"04371af2-70b3-48d7-8f4e-316b374224c3"```
+	 */
 	code: string
+	/** 
+	 * Indicates if the coupon can be used just once per customer..
+	 */
 	customer_single_use?: boolean | null
+	/** 
+	 * The total number of times this coupon can be used..
+	 * @example ```"50"```
+	 */
 	usage_limit?: number | null
+	/** 
+	 * The email address of the associated recipient. When creating or updating a coupon, this is a shortcut to find or create the associated recipient by email..
+	 * @example ```"john@example.com"```
+	 */
 	recipient_email?: string | null
+	/** 
+	 * Time at which the coupon will expire..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	expires_at?: string | null
 
 	promotion_rule: CouponCodesPromotionRuleRel
@@ -57,10 +99,29 @@ interface CouponCreate extends ResourceCreate {
 
 interface CouponUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The coupon code, that uniquely identifies the coupon within the promotion rule..
+	 * @example ```"04371af2-70b3-48d7-8f4e-316b374224c3"```
+	 */
 	code?: string | null
+	/** 
+	 * Indicates if the coupon can be used just once per customer..
+	 */
 	customer_single_use?: boolean | null
+	/** 
+	 * The total number of times this coupon can be used..
+	 * @example ```"50"```
+	 */
 	usage_limit?: number | null
+	/** 
+	 * The email address of the associated recipient. When creating or updating a coupon, this is a shortcut to find or create the associated recipient by email..
+	 * @example ```"john@example.com"```
+	 */
 	recipient_email?: string | null
+	/** 
+	 * Time at which the coupon will expire..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	expires_at?: string | null
 
 	promotion_rule?: CouponCodesPromotionRuleRel | null

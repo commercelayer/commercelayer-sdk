@@ -20,18 +20,69 @@ interface PaypalPayment extends Resource {
 	
 	readonly type: PaypalPaymentType
 
+	/** 
+	 * The URL where the payer is redirected after they approve the payment..
+	 * @example ```"https://yourdomain.com/thankyou"```
+	 */
 	return_url: string
+	/** 
+	 * The URL where the payer is redirected after they cancel the payment..
+	 * @example ```"https://yourdomain.com/checkout/payment"```
+	 */
 	cancel_url: string
+	/** 
+	 * A free-form field that you can use to send a note to the payer on PayPal..
+	 * @example ```"Thank you for shopping with us!"```
+	 */
 	note_to_payer?: string | null
+	/** 
+	 * The id of the payer that PayPal passes in the return_url..
+	 * @example ```"ABCDEFGHG123456"```
+	 */
 	paypal_payer_id?: string | null
+	/** 
+	 * The PayPal payer id (if present).
+	 * @example ```"ABCDEFGHG123456"```
+	 */
 	name?: string | null
+	/** 
+	 * The id of the PayPal payment object..
+	 * @example ```"1234567890"```
+	 */
 	paypal_id?: string | null
+	/** 
+	 * The PayPal payment status. One of 'created' (default) or 'approved'..
+	 * @example ```"created"```
+	 */
 	status: 'created' | 'approved'
+	/** 
+	 * The URL the customer should be redirected to approve the payment..
+	 * @example ```"https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-1234567890ABCDEFGHG"```
+	 */
 	approval_url?: string | null
+	/** 
+	 * Indicates if the order current amount differs form the one of the created payment intent..
+	 */
 	mismatched_amounts?: boolean | null
+	/** 
+	 * The amount of the associated payment intent, in cents..
+	 * @example ```"1000"```
+	 */
 	intent_amount_cents: number
+	/** 
+	 * The amount of the associated payment intent, float..
+	 * @example ```"10"```
+	 */
 	intent_amount_float?: number | null
+	/** 
+	 * The amount of the associated payment intent, formatted..
+	 * @example ```"€10,00"```
+	 */
 	formatted_intent_amount?: string | null
+	/** 
+	 * Information about the payment instrument used in the transaction.
+	 * @example ```"[object Object]"```
+	 */
 	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
@@ -43,8 +94,20 @@ interface PaypalPayment extends Resource {
 
 interface PaypalPaymentCreate extends ResourceCreate {
 	
+	/** 
+	 * The URL where the payer is redirected after they approve the payment..
+	 * @example ```"https://yourdomain.com/thankyou"```
+	 */
 	return_url: string
+	/** 
+	 * The URL where the payer is redirected after they cancel the payment..
+	 * @example ```"https://yourdomain.com/checkout/payment"```
+	 */
 	cancel_url: string
+	/** 
+	 * A free-form field that you can use to send a note to the payer on PayPal..
+	 * @example ```"Thank you for shopping with us!"```
+	 */
 	note_to_payer?: string | null
 
 	order: OrderRel
@@ -54,6 +117,10 @@ interface PaypalPaymentCreate extends ResourceCreate {
 
 interface PaypalPaymentUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The id of the payer that PayPal passes in the return_url..
+	 * @example ```"ABCDEFGHG123456"```
+	 */
 	paypal_payer_id?: string | null
 
 	order?: OrderRel | null

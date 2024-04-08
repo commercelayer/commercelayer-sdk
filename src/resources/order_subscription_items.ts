@@ -25,14 +25,50 @@ interface OrderSubscriptionItem extends Resource {
 	
 	readonly type: OrderSubscriptionItemType
 
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The code of the associated bundle..
+	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
+	 */
 	bundle_code?: string | null
+	/** 
+	 * The subscription item quantity..
+	 * @example ```"4"```
+	 */
 	quantity: number
+	/** 
+	 * The unit amount of the subscription item, in cents..
+	 * @example ```"9900"```
+	 */
 	unit_amount_cents?: number | null
+	/** 
+	 * The unit amount of the subscription item, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce..
+	 * @example ```"99"```
+	 */
 	unit_amount_float?: number | null
+	/** 
+	 * The unit amount of the subscription item, formatted. This can be useful to display the amount with currency in you views..
+	 * @example ```"€99,00"```
+	 */
 	formatted_unit_amount?: string | null
+	/** 
+	 * Calculated as unit amount x quantity amount, in cents..
+	 * @example ```"18800"```
+	 */
 	total_amount_cents?: number | null
+	/** 
+	 * Calculated as unit amount x quantity amount, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce..
+	 * @example ```"188"```
+	 */
 	total_amount_float: number
+	/** 
+	 * Calculated as unit amount x quantity amount, formatted. This can be useful to display the amount with currency in you views..
+	 * @example ```"€188,00"```
+	 */
 	formatted_total_amount?: string | null
 
 	order_subscription?: OrderSubscription | null
@@ -47,9 +83,25 @@ interface OrderSubscriptionItem extends Resource {
 
 interface OrderSubscriptionItemCreate extends ResourceCreate {
 	
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The code of the associated bundle..
+	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
+	 */
 	bundle_code?: string | null
+	/** 
+	 * The subscription item quantity..
+	 * @example ```"4"```
+	 */
 	quantity: number
+	/** 
+	 * The unit amount of the subscription item, in cents..
+	 * @example ```"9900"```
+	 */
 	unit_amount_cents?: number | null
 
 	order_subscription: OrderSubscriptionRel
@@ -63,9 +115,25 @@ interface OrderSubscriptionItemCreate extends ResourceCreate {
 
 interface OrderSubscriptionItemUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The code of the associated bundle..
+	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
+	 */
 	bundle_code?: string | null
+	/** 
+	 * The subscription item quantity..
+	 * @example ```"4"```
+	 */
 	quantity?: number | null
+	/** 
+	 * The unit amount of the subscription item, in cents..
+	 * @example ```"9900"```
+	 */
 	unit_amount_cents?: number | null
 	
 }

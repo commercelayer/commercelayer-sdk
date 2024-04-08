@@ -24,9 +24,25 @@ interface InStockSubscription extends Resource {
 	
 	readonly type: InStockSubscriptionType
 
+	/** 
+	 * The subscription status. One of 'active' (default), 'inactive', or 'notified'.
+	 * @example ```"active"```
+	 */
 	status: 'active' | 'inactive' | 'notified'
+	/** 
+	 * The email of the associated customer, replace the relationship..
+	 * @example ```"john@example.com"```
+	 */
 	customer_email?: string | null
+	/** 
+	 * The code of the associated SKU, replace the relationship.
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The threshold at which to trigger the back in stock notification..
+	 * @example ```"3"```
+	 */
 	stock_threshold?: number | null
 
 	market?: Market | null
@@ -40,8 +56,20 @@ interface InStockSubscription extends Resource {
 
 interface InStockSubscriptionCreate extends ResourceCreate {
 	
+	/** 
+	 * The email of the associated customer, replace the relationship..
+	 * @example ```"john@example.com"```
+	 */
 	customer_email?: string | null
+	/** 
+	 * The code of the associated SKU, replace the relationship.
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The threshold at which to trigger the back in stock notification..
+	 * @example ```"3"```
+	 */
 	stock_threshold?: number | null
 
 	market: MarketRel
@@ -53,9 +81,25 @@ interface InStockSubscriptionCreate extends ResourceCreate {
 
 interface InStockSubscriptionUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The code of the associated SKU, replace the relationship.
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: string | null
+	/** 
+	 * The threshold at which to trigger the back in stock notification..
+	 * @example ```"3"```
+	 */
 	stock_threshold?: number | null
+	/** 
+	 * Send this attribute if you want to activate an inactive subscription..
+	 * @example ```"true"```
+	 */
 	_activate?: boolean | null
+	/** 
+	 * Send this attribute if you want to dactivate an active subscription..
+	 * @example ```"true"```
+	 */
 	_deactivate?: boolean | null
 
 	market?: MarketRel | null

@@ -22,9 +22,25 @@ interface DeliveryLeadTime extends Resource {
 	
 	readonly type: DeliveryLeadTimeType
 
+	/** 
+	 * The delivery lead minimum time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * @example ```"48"```
+	 */
 	min_hours: number
+	/** 
+	 * The delivery lead maximun time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * @example ```"72"```
+	 */
 	max_hours: number
+	/** 
+	 * The delivery lead minimum time, in days (rounded).
+	 * @example ```"2"```
+	 */
 	min_days?: number | null
+	/** 
+	 * The delivery lead maximun time, in days (rounded).
+	 * @example ```"3"```
+	 */
 	max_days?: number | null
 
 	stock_location?: StockLocation | null
@@ -37,7 +53,15 @@ interface DeliveryLeadTime extends Resource {
 
 interface DeliveryLeadTimeCreate extends ResourceCreate {
 	
+	/** 
+	 * The delivery lead minimum time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * @example ```"48"```
+	 */
 	min_hours: number
+	/** 
+	 * The delivery lead maximun time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * @example ```"72"```
+	 */
 	max_hours: number
 
 	stock_location: StockLocationRel
@@ -48,7 +72,15 @@ interface DeliveryLeadTimeCreate extends ResourceCreate {
 
 interface DeliveryLeadTimeUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The delivery lead minimum time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * @example ```"48"```
+	 */
 	min_hours?: number | null
+	/** 
+	 * The delivery lead maximun time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * @example ```"72"```
+	 */
 	max_hours?: number | null
 
 	stock_location?: StockLocationRel | null

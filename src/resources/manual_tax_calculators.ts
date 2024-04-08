@@ -21,6 +21,10 @@ interface ManualTaxCalculator extends Resource {
 	
 	readonly type: ManualTaxCalculatorType
 
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
 
 	markets?: Market[] | null
@@ -33,6 +37,10 @@ interface ManualTaxCalculator extends Resource {
 
 interface ManualTaxCalculatorCreate extends ResourceCreate {
 	
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
 
 	tax_rules?: TaxRuleRel[] | null
@@ -42,6 +50,10 @@ interface ManualTaxCalculatorCreate extends ResourceCreate {
 
 interface ManualTaxCalculatorUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name?: string | null
 
 	tax_rules?: TaxRuleRel[] | null

@@ -19,10 +19,30 @@ interface ExternalTaxCalculator extends Resource {
 	
 	readonly type: ExternalTaxCalculatorType
 
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
+	/** 
+	 * The URL to the service that will compute the taxes..
+	 * @example ```"https://external_calculator.yourbrand.com"```
+	 */
 	tax_calculator_url: string
+	/** 
+	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made..
+	 * @example ```"closed"```
+	 */
 	circuit_state?: string | null
+	/** 
+	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback..
+	 * @example ```"5"```
+	 */
 	circuit_failure_count?: number | null
+	/** 
+	 * The shared secret used to sign the external request payload..
+	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
+	 */
 	shared_secret: string
 
 	markets?: Market[] | null
@@ -34,7 +54,15 @@ interface ExternalTaxCalculator extends Resource {
 
 interface ExternalTaxCalculatorCreate extends ResourceCreate {
 	
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
+	/** 
+	 * The URL to the service that will compute the taxes..
+	 * @example ```"https://external_calculator.yourbrand.com"```
+	 */
 	tax_calculator_url: string
 	
 }
@@ -42,8 +70,20 @@ interface ExternalTaxCalculatorCreate extends ResourceCreate {
 
 interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name?: string | null
+	/** 
+	 * The URL to the service that will compute the taxes..
+	 * @example ```"https://external_calculator.yourbrand.com"```
+	 */
 	tax_calculator_url?: string | null
+	/** 
+	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count..
+	 * @example ```"true"```
+	 */
 	_reset_circuit?: boolean | null
 	
 }

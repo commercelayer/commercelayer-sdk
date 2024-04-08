@@ -17,11 +17,35 @@ interface Adjustment extends Resource {
 	
 	readonly type: AdjustmentType
 
+	/** 
+	 * The adjustment name.
+	 * @example ```"Additional service"```
+	 */
 	name: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code: string
+	/** 
+	 * The adjustment amount, in cents..
+	 * @example ```"1500"```
+	 */
 	amount_cents: number
+	/** 
+	 * The adjustment amount, float..
+	 * @example ```"15"```
+	 */
 	amount_float: number
+	/** 
+	 * The adjustment amount, formatted..
+	 * @example ```"€15,00"```
+	 */
 	formatted_amount: string
+	/** 
+	 * Indicates if negative adjustment amount is distributed for tax calculation..
+	 * @example ```"true"```
+	 */
 	distribute_discount?: boolean | null
 
 	versions?: Version[] | null
@@ -31,9 +55,25 @@ interface Adjustment extends Resource {
 
 interface AdjustmentCreate extends ResourceCreate {
 	
+	/** 
+	 * The adjustment name.
+	 * @example ```"Additional service"```
+	 */
 	name: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code: string
+	/** 
+	 * The adjustment amount, in cents..
+	 * @example ```"1500"```
+	 */
 	amount_cents: number
+	/** 
+	 * Indicates if negative adjustment amount is distributed for tax calculation..
+	 * @example ```"true"```
+	 */
 	distribute_discount?: boolean | null
 	
 }
@@ -41,9 +81,25 @@ interface AdjustmentCreate extends ResourceCreate {
 
 interface AdjustmentUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The adjustment name.
+	 * @example ```"Additional service"```
+	 */
 	name?: string | null
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: string | null
+	/** 
+	 * The adjustment amount, in cents..
+	 * @example ```"1500"```
+	 */
 	amount_cents?: number | null
+	/** 
+	 * Indicates if negative adjustment amount is distributed for tax calculation..
+	 * @example ```"true"```
+	 */
 	distribute_discount?: boolean | null
 	
 }
