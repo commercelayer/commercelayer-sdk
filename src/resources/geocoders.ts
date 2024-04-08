@@ -19,6 +19,10 @@ interface Geocoder extends Resource {
 	
 	readonly type: GeocoderType
 
+	/** 
+	 * The geocoder's internal name.
+	 * @example ```"Default geocoder"```
+	 */
 	name: string
 
 	addresses?: Nullable<Address[]>

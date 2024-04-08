@@ -1,0 +1,9 @@
+{
+  "version": "3",
+  "remote": {
+    "https://esm.sh/@commercelayer/js-auth@6.0.0": "ea24aeb66a484180edba5d1c32c0a97518bfedacdff394d8809848c40337246f",
+    "https://esm.sh/@commercelayer/sdk@6.0.0-beta.9": "de24d6e52406e84221862bd644fe0d741b3013526184efd49e92ba507d5bd371",
+    "https://esm.sh/v135/@commercelayer/js-auth@6.0.0/denonext/js-auth.mjs": "d29dbc4456402f9bcf573e13ca8715674c8091899fb2a72944358e9ed96bc119",
+    "https://esm.sh/v135/@commercelayer/sdk@6.0.0-beta.9/denonext/sdk.mjs": "376bfddcff8e2dd12561f7aacd91b9a6a7b9569bd214099cd3603e15338e3698"
+  }
+}

@@ -22,10 +22,30 @@ interface PriceFrequencyTier extends Resource {
 	
 	readonly type: PriceFrequencyTierType
 
+	/** 
+	 * The price tier's name.
+	 * @example ```"six pack"```
+	 */
 	name: string
+	/** 
+	 * The tier upper limit, expressed as the line item frequency in days (or frequency label, ie 'monthly'). When 'null' it means infinity (useful to have an always matching tier)..
+	 * @example ```"7"```
+	 */
 	up_to?: Nullable<number>
+	/** 
+	 * The price of this price tier, in cents..
+	 * @example ```"1000"```
+	 */
 	price_amount_cents: number
+	/** 
+	 * The price of this price tier, float..
+	 * @example ```"10"```
+	 */
 	price_amount_float?: Nullable<number>
+	/** 
+	 * The price of this price tier, formatted..
+	 * @example ```"€10,00"```
+	 */
 	formatted_price_amount?: Nullable<string>
 
 	price?: Nullable<Price>
@@ -38,8 +58,20 @@ interface PriceFrequencyTier extends Resource {
 
 interface PriceFrequencyTierCreate extends ResourceCreate {
 	
+	/** 
+	 * The price tier's name.
+	 * @example ```"six pack"```
+	 */
 	name: string
+	/** 
+	 * The tier upper limit, expressed as the line item frequency in days (or frequency label, ie 'monthly'). When 'null' it means infinity (useful to have an always matching tier)..
+	 * @example ```"7"```
+	 */
 	up_to?: Nullable<number>
+	/** 
+	 * The price of this price tier, in cents..
+	 * @example ```"1000"```
+	 */
 	price_amount_cents: number
 
 	price: PriceRel
@@ -49,8 +81,20 @@ interface PriceFrequencyTierCreate extends ResourceCreate {
 
 interface PriceFrequencyTierUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The price tier's name.
+	 * @example ```"six pack"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * The tier upper limit, expressed as the line item frequency in days (or frequency label, ie 'monthly'). When 'null' it means infinity (useful to have an always matching tier)..
+	 * @example ```"7"```
+	 */
 	up_to?: Nullable<number>
+	/** 
+	 * The price of this price tier, in cents..
+	 * @example ```"1000"```
+	 */
 	price_amount_cents?: Nullable<number>
 
 	price?: Nullable<PriceRel>

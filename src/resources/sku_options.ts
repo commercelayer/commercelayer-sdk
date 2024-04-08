@@ -24,14 +24,50 @@ interface SkuOption extends Resource {
 	
 	readonly type: SkuOptionType
 
+	/** 
+	 * The SKU option's internal name.
+	 * @example ```"Embossing"```
+	 */
 	name: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: Nullable<string>
+	/** 
+	 * An internal description of the SKU option..
+	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+	 */
 	description?: Nullable<string>
+	/** 
+	 * The price of this shipping method, in cents..
+	 * @example ```"1000"```
+	 */
 	price_amount_cents?: Nullable<number>
+	/** 
+	 * The price of this shipping method, float..
+	 * @example ```"10"```
+	 */
 	price_amount_float?: Nullable<number>
+	/** 
+	 * The price of this shipping method, formatted..
+	 * @example ```"€10,00"```
+	 */
 	formatted_price_amount?: Nullable<string>
+	/** 
+	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased..
+	 * @example ```"48"```
+	 */
 	delay_hours?: Nullable<number>
+	/** 
+	 * The delay time, in days (rounded).
+	 * @example ```"2"```
+	 */
 	delay_days?: Nullable<number>
+	/** 
+	 * The regex that will be evaluated to match the SKU codes..
+	 * @example ```"^(A|B).*$"```
+	 */
 	sku_code_regex?: Nullable<string>
 
 	market?: Nullable<Market>
@@ -45,11 +81,35 @@ interface SkuOption extends Resource {
 
 interface SkuOptionCreate extends ResourceCreate {
 	
+	/** 
+	 * The SKU option's internal name.
+	 * @example ```"Embossing"```
+	 */
 	name: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: Nullable<string>
+	/** 
+	 * An internal description of the SKU option..
+	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+	 */
 	description?: Nullable<string>
+	/** 
+	 * The price of this shipping method, in cents..
+	 * @example ```"1000"```
+	 */
 	price_amount_cents?: Nullable<number>
+	/** 
+	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased..
+	 * @example ```"48"```
+	 */
 	delay_hours?: Nullable<number>
+	/** 
+	 * The regex that will be evaluated to match the SKU codes..
+	 * @example ```"^(A|B).*$"```
+	 */
 	sku_code_regex?: Nullable<string>
 
 	market?: Nullable<MarketRel>
@@ -60,11 +120,35 @@ interface SkuOptionCreate extends ResourceCreate {
 
 interface SkuOptionUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The SKU option's internal name.
+	 * @example ```"Embossing"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: Nullable<string>
+	/** 
+	 * An internal description of the SKU option..
+	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+	 */
 	description?: Nullable<string>
+	/** 
+	 * The price of this shipping method, in cents..
+	 * @example ```"1000"```
+	 */
 	price_amount_cents?: Nullable<number>
+	/** 
+	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased..
+	 * @example ```"48"```
+	 */
 	delay_hours?: Nullable<number>
+	/** 
+	 * The regex that will be evaluated to match the SKU codes..
+	 * @example ```"^(A|B).*$"```
+	 */
 	sku_code_regex?: Nullable<string>
 
 	market?: Nullable<MarketRel>

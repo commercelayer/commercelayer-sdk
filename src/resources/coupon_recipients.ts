@@ -21,8 +21,20 @@ interface CouponRecipient extends Resource {
 	
 	readonly type: CouponRecipientType
 
+	/** 
+	 * The recipient email address.
+	 * @example ```"john@example.com"```
+	 */
 	email: string
+	/** 
+	 * The recipient first name.
+	 * @example ```"John"```
+	 */
 	first_name?: Nullable<string>
+	/** 
+	 * The recipient last name.
+	 * @example ```"Smith"```
+	 */
 	last_name?: Nullable<string>
 
 	customer?: Nullable<Customer>
@@ -34,8 +46,20 @@ interface CouponRecipient extends Resource {
 
 interface CouponRecipientCreate extends ResourceCreate {
 	
+	/** 
+	 * The recipient email address.
+	 * @example ```"john@example.com"```
+	 */
 	email: string
+	/** 
+	 * The recipient first name.
+	 * @example ```"John"```
+	 */
 	first_name?: Nullable<string>
+	/** 
+	 * The recipient last name.
+	 * @example ```"Smith"```
+	 */
 	last_name?: Nullable<string>
 
 	customer?: Nullable<CustomerRel>
@@ -45,8 +69,20 @@ interface CouponRecipientCreate extends ResourceCreate {
 
 interface CouponRecipientUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The recipient email address.
+	 * @example ```"john@example.com"```
+	 */
 	email?: Nullable<string>
+	/** 
+	 * The recipient first name.
+	 * @example ```"John"```
+	 */
 	first_name?: Nullable<string>
+	/** 
+	 * The recipient last name.
+	 * @example ```"Smith"```
+	 */
 	last_name?: Nullable<string>
 
 	customer?: Nullable<CustomerRel>

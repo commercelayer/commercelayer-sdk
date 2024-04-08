@@ -24,11 +24,34 @@ interface SkuList extends Resource {
 	
 	readonly type: SkuListType
 
+	/** 
+	 * The SKU list's internal name..
+	 * @example ```"Personal list"```
+	 */
 	name: string
+	/** 
+	 * The SKU list's internal slug..
+	 * @example ```"personal-list-1"```
+	 */
 	slug: string
+	/** 
+	 * An internal description of the SKU list..
+	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+	 */
 	description?: Nullable<string>
+	/** 
+	 * The URL of an image that represents the SKU list..
+	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
+	 */
 	image_url?: Nullable<string>
+	/** 
+	 * Indicates if the SKU list is populated manually..
+	 */
 	manual?: Nullable<boolean>
+	/** 
+	 * The regex that will be evaluated to match the SKU codes..
+	 * @example ```"^(A|B).*$"```
+	 */
 	sku_code_regex?: Nullable<string>
 
 	customer?: Nullable<Customer>
@@ -43,10 +66,29 @@ interface SkuList extends Resource {
 
 interface SkuListCreate extends ResourceCreate {
 	
+	/** 
+	 * The SKU list's internal name..
+	 * @example ```"Personal list"```
+	 */
 	name: string
+	/** 
+	 * An internal description of the SKU list..
+	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+	 */
 	description?: Nullable<string>
+	/** 
+	 * The URL of an image that represents the SKU list..
+	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
+	 */
 	image_url?: Nullable<string>
+	/** 
+	 * Indicates if the SKU list is populated manually..
+	 */
 	manual?: Nullable<boolean>
+	/** 
+	 * The regex that will be evaluated to match the SKU codes..
+	 * @example ```"^(A|B).*$"```
+	 */
 	sku_code_regex?: Nullable<string>
 
 	customer?: Nullable<CustomerRel>
@@ -56,10 +98,29 @@ interface SkuListCreate extends ResourceCreate {
 
 interface SkuListUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The SKU list's internal name..
+	 * @example ```"Personal list"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * An internal description of the SKU list..
+	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+	 */
 	description?: Nullable<string>
+	/** 
+	 * The URL of an image that represents the SKU list..
+	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
+	 */
 	image_url?: Nullable<string>
+	/** 
+	 * Indicates if the SKU list is populated manually..
+	 */
 	manual?: Nullable<boolean>
+	/** 
+	 * The regex that will be evaluated to match the SKU codes..
+	 * @example ```"^(A|B).*$"```
+	 */
 	sku_code_regex?: Nullable<string>
 
 	customer?: Nullable<CustomerRel>

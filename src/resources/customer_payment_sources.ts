@@ -38,8 +38,20 @@ interface CustomerPaymentSource extends Resource {
 	
 	readonly type: CustomerPaymentSourceType
 
+	/** 
+	 * Returns the associated payment source's name.
+	 * @example ```"XXXX-XXXX-XXXX-1111"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * Returns the customer gateway token stored in the gateway.
+	 * @example ```"cus_xxxyyyzzz"```
+	 */
 	customer_token?: Nullable<string>
+	/** 
+	 * Returns the payment source token stored in the gateway.
+	 * @example ```"pm_xxxyyyzzz"```
+	 */
 	payment_source_token?: Nullable<string>
 
 	customer?: Nullable<Customer>
@@ -52,7 +64,15 @@ interface CustomerPaymentSource extends Resource {
 
 interface CustomerPaymentSourceCreate extends ResourceCreate {
 	
+	/** 
+	 * Returns the customer gateway token stored in the gateway.
+	 * @example ```"cus_xxxyyyzzz"```
+	 */
 	customer_token?: Nullable<string>
+	/** 
+	 * Returns the payment source token stored in the gateway.
+	 * @example ```"pm_xxxyyyzzz"```
+	 */
 	payment_source_token?: Nullable<string>
 
 	customer: CustomerRel
@@ -64,7 +84,15 @@ interface CustomerPaymentSourceCreate extends ResourceCreate {
 
 interface CustomerPaymentSourceUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Returns the customer gateway token stored in the gateway.
+	 * @example ```"cus_xxxyyyzzz"```
+	 */
 	customer_token?: Nullable<string>
+	/** 
+	 * Returns the payment source token stored in the gateway.
+	 * @example ```"pm_xxxyyyzzz"```
+	 */
 	payment_source_token?: Nullable<string>
 
 	customer?: Nullable<CustomerRel>

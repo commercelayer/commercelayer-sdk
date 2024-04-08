@@ -19,6 +19,10 @@ interface PaymentGateway extends Resource {
 	
 	readonly type: PaymentGatewayType
 
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
 
 	payment_methods?: Nullable<PaymentMethod[]>

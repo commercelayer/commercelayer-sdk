@@ -21,9 +21,25 @@ interface SatispayGateway extends Resource {
 	
 	readonly type: SatispayGatewayType
 
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * Activation code generated from the Satispay Dashboard..
+	 * @example ```"623ECX"```
+	 */
 	token: string
+	/** 
+	 * The Satispay API key auto generated basing on activation code..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	key_id: string
+	/** 
+	 * The gateway webhook URL, generated automatically..
+	 * @example ```"https://core.commercelayer.co/webhook_callbacks/satispay_gateways/xxxxx"```
+	 */
 	webhook_endpoint_url?: Nullable<string>
 
 	payment_methods?: Nullable<PaymentMethod[]>
@@ -35,7 +51,15 @@ interface SatispayGateway extends Resource {
 
 interface SatispayGatewayCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * Activation code generated from the Satispay Dashboard..
+	 * @example ```"623ECX"```
+	 */
 	token: string
 
 	satispay_payments?: Nullable<SatispayPaymentRel[]>
@@ -45,6 +69,10 @@ interface SatispayGatewayCreate extends ResourceCreate {
 
 interface SatispayGatewayUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name?: Nullable<string>
 
 	satispay_payments?: Nullable<SatispayPaymentRel[]>

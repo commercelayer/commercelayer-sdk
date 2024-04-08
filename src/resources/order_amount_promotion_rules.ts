@@ -32,9 +32,25 @@ interface OrderAmountPromotionRule extends Resource {
 	
 	readonly type: OrderAmountPromotionRuleType
 
+	/** 
+	 * Apply the promotion only when order is over this amount, in cents..
+	 * @example ```"1000"```
+	 */
 	order_amount_cents?: Nullable<number>
+	/** 
+	 * Apply the promotion only when order is over this amount, float..
+	 * @example ```"10"```
+	 */
 	order_amount_float?: Nullable<number>
+	/** 
+	 * Apply the promotion only when order is over this amount, formatted..
+	 * @example ```"€10,00"```
+	 */
 	formatted_order_amount?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to compare the specified amount with order's subtotal (excluding discounts, if any)..
+	 * @example ```"true"```
+	 */
 	use_subtotal?: Nullable<boolean>
 
 	promotion?: Nullable<PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion>
@@ -45,7 +61,15 @@ interface OrderAmountPromotionRule extends Resource {
 
 interface OrderAmountPromotionRuleCreate extends ResourceCreate {
 	
+	/** 
+	 * Apply the promotion only when order is over this amount, in cents..
+	 * @example ```"1000"```
+	 */
 	order_amount_cents?: Nullable<number>
+	/** 
+	 * Send this attribute if you want to compare the specified amount with order's subtotal (excluding discounts, if any)..
+	 * @example ```"true"```
+	 */
 	use_subtotal?: Nullable<boolean>
 
 	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
@@ -55,7 +79,15 @@ interface OrderAmountPromotionRuleCreate extends ResourceCreate {
 
 interface OrderAmountPromotionRuleUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Apply the promotion only when order is over this amount, in cents..
+	 * @example ```"1000"```
+	 */
 	order_amount_cents?: Nullable<number>
+	/** 
+	 * Send this attribute if you want to compare the specified amount with order's subtotal (excluding discounts, if any)..
+	 * @example ```"true"```
+	 */
 	use_subtotal?: Nullable<boolean>
 
 	promotion?: Nullable<PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel>

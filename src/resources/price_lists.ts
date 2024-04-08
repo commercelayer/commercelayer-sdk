@@ -20,9 +20,25 @@ interface PriceList extends Resource {
 	
 	readonly type: PriceListType
 
+	/** 
+	 * The price list's internal name.
+	 * @example ```"EU Price list"```
+	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the price list (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: Nullable<string>
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code: string
+	/** 
+	 * Indicates if the associated prices include taxes..
+	 * @example ```"true"```
+	 */
 	tax_included?: Nullable<boolean>
 
 	prices?: Nullable<Price[]>
@@ -34,9 +50,25 @@ interface PriceList extends Resource {
 
 interface PriceListCreate extends ResourceCreate {
 	
+	/** 
+	 * The price list's internal name.
+	 * @example ```"EU Price list"```
+	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the price list (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: Nullable<string>
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code: string
+	/** 
+	 * Indicates if the associated prices include taxes..
+	 * @example ```"true"```
+	 */
 	tax_included?: Nullable<boolean>
 	
 }
@@ -44,9 +76,25 @@ interface PriceListCreate extends ResourceCreate {
 
 interface PriceListUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The price list's internal name.
+	 * @example ```"EU Price list"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * A string that you can use to identify the price list (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: Nullable<string>
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: Nullable<string>
+	/** 
+	 * Indicates if the associated prices include taxes..
+	 * @example ```"true"```
+	 */
 	tax_included?: Nullable<boolean>
 	
 }

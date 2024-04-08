@@ -23,19 +23,69 @@ interface PaymentMethod extends Resource {
 	
 	readonly type: PaymentMethodType
 
+	/** 
+	 * Payment source type, titleized.
+	 * @example ```"Stripe Payment"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * The payment source type, can be one of: 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'..
+	 * @example ```"stripe_payments"```
+	 */
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway..
+	 */
 	moto?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to require the payment capture before fulfillment..
+	 * @example ```"true"```
+	 */
 	require_capture?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously..
+	 * @example ```"true"```
+	 */
 	auto_place?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to automatically capture the payment upon authorization..
+	 */
 	auto_capture?: Nullable<boolean>
+	/** 
+	 * The payment method's price, in cents.
+	 */
 	price_amount_cents: number
+	/** 
+	 * The payment method's price, float.
+	 */
 	price_amount_float?: Nullable<number>
+	/** 
+	 * The payment method's price, formatted.
+	 * @example ```"€0,00"```
+	 */
 	formatted_price_amount?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents..
+	 */
 	auto_capture_max_amount_cents?: Nullable<number>
+	/** 
+	 * The automatic capture max amount, float.
+	 */
 	auto_capture_max_amount_float?: Nullable<number>
+	/** 
+	 * The automatic capture max amount, formatted.
+	 * @example ```"€0,00"```
+	 */
 	formatted_auto_capture_max_amount?: Nullable<string>
+	/** 
+	 * Time at which this resource was disabled..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	disabled_at?: Nullable<string>
 
 	market?: Nullable<Market>
@@ -48,15 +98,51 @@ interface PaymentMethod extends Resource {
 
 interface PaymentMethodCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment source type, can be one of: 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'..
+	 * @example ```"stripe_payments"```
+	 */
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway..
+	 */
 	moto?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to require the payment capture before fulfillment..
+	 * @example ```"true"```
+	 */
 	require_capture?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously..
+	 * @example ```"true"```
+	 */
 	auto_place?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to automatically capture the payment upon authorization..
+	 */
 	auto_capture?: Nullable<boolean>
+	/** 
+	 * The payment method's price, in cents.
+	 */
 	price_amount_cents: number
+	/** 
+	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents..
+	 */
 	auto_capture_max_amount_cents?: Nullable<number>
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled..
+	 * @example ```"true"```
+	 */
 	_disable?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled..
+	 * @example ```"true"```
+	 */
 	_enable?: Nullable<boolean>
 
 	market?: Nullable<MarketRel>
@@ -67,15 +153,51 @@ interface PaymentMethodCreate extends ResourceCreate {
 
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment source type, can be one of: 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'..
+	 * @example ```"stripe_payments"```
+	 */
 	payment_source_type?: Nullable<'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'>
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway..
+	 */
 	moto?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to require the payment capture before fulfillment..
+	 * @example ```"true"```
+	 */
 	require_capture?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously..
+	 * @example ```"true"```
+	 */
 	auto_place?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to automatically capture the payment upon authorization..
+	 */
 	auto_capture?: Nullable<boolean>
+	/** 
+	 * The payment method's price, in cents.
+	 */
 	price_amount_cents?: Nullable<number>
+	/** 
+	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents..
+	 */
 	auto_capture_max_amount_cents?: Nullable<number>
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled..
+	 * @example ```"true"```
+	 */
 	_disable?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled..
+	 * @example ```"true"```
+	 */
 	_enable?: Nullable<boolean>
 
 	market?: Nullable<MarketRel>

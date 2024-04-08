@@ -30,18 +30,70 @@ interface OrderSubscription extends Resource {
 	
 	readonly type: OrderSubscriptionType
 
+	/** 
+	 * Unique identifier for the subscription (numeric).
+	 * @example ```"1234"```
+	 */
 	number?: Nullable<string>
+	/** 
+	 * The subscription status. One of 'draft' (default), 'inactive', 'active', or 'cancelled'..
+	 * @example ```"draft"```
+	 */
 	status: 'draft' | 'inactive' | 'active' | 'cancelled'
+	/** 
+	 * The frequency of the subscription. Use one of the supported within 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or provide your custom crontab expression (min unit is hour). Must be supported by existing associated subscription_model..
+	 * @example ```"monthly"```
+	 */
 	frequency: string
+	/** 
+	 * Indicates if the subscription will be activated considering the placed source order as its first run..
+	 * @example ```"true"```
+	 */
 	activate_by_source_order?: Nullable<boolean>
+	/** 
+	 * Indicates if the subscription created orders are automatically placed at the end of the copy..
+	 * @example ```"true"```
+	 */
 	place_target_order?: Nullable<boolean>
+	/** 
+	 * The email address of the customer, if any, associated to the source order..
+	 * @example ```"john@example.com"```
+	 */
 	customer_email?: Nullable<string>
+	/** 
+	 * The activation date/time of this subscription..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	starts_at?: Nullable<string>
+	/** 
+	 * The expiration date/time of this subscription (must be after starts_at)..
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
 	expires_at?: Nullable<string>
+	/** 
+	 * The date/time of the subscription last run..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	last_run_at?: Nullable<string>
+	/** 
+	 * The date/time of the subscription next run. Can be updated but only in the future, to copy with frequency changes..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	next_run_at?: Nullable<string>
+	/** 
+	 * The number of times this subscription has run..
+	 * @example ```"2"```
+	 */
 	occurrencies?: Nullable<number>
+	/** 
+	 * Indicates the number of subscription errors, if any..
+	 * @example ```"3"```
+	 */
 	errors_count?: Nullable<number>
+	/** 
+	 * Indicates if the subscription has succeeded on its last run..
+	 * @example ```"true"```
+	 */
 	succeeded_on_last_run?: Nullable<boolean>
 
 	market?: Nullable<Market>
@@ -61,10 +113,30 @@ interface OrderSubscription extends Resource {
 
 interface OrderSubscriptionCreate extends ResourceCreate {
 	
+	/** 
+	 * The frequency of the subscription. Use one of the supported within 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or provide your custom crontab expression (min unit is hour). Must be supported by existing associated subscription_model..
+	 * @example ```"monthly"```
+	 */
 	frequency: string
+	/** 
+	 * Indicates if the subscription will be activated considering the placed source order as its first run..
+	 * @example ```"true"```
+	 */
 	activate_by_source_order?: Nullable<boolean>
+	/** 
+	 * Indicates if the subscription created orders are automatically placed at the end of the copy..
+	 * @example ```"true"```
+	 */
 	place_target_order?: Nullable<boolean>
+	/** 
+	 * The activation date/time of this subscription..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	starts_at?: Nullable<string>
+	/** 
+	 * The expiration date/time of this subscription (must be after starts_at)..
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
 	expires_at?: Nullable<string>
 
 	market?: Nullable<MarketRel>
@@ -75,13 +147,45 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 
 interface OrderSubscriptionUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The frequency of the subscription. Use one of the supported within 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or provide your custom crontab expression (min unit is hour). Must be supported by existing associated subscription_model..
+	 * @example ```"monthly"```
+	 */
 	frequency?: Nullable<string>
+	/** 
+	 * Indicates if the subscription will be activated considering the placed source order as its first run..
+	 * @example ```"true"```
+	 */
 	activate_by_source_order?: Nullable<boolean>
+	/** 
+	 * Indicates if the subscription created orders are automatically placed at the end of the copy..
+	 * @example ```"true"```
+	 */
 	place_target_order?: Nullable<boolean>
+	/** 
+	 * The expiration date/time of this subscription (must be after starts_at)..
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
 	expires_at?: Nullable<string>
+	/** 
+	 * The date/time of the subscription next run. Can be updated but only in the future, to copy with frequency changes..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	next_run_at?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to mark this subscription as active..
+	 * @example ```"true"```
+	 */
 	_activate?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this subscription as inactive..
+	 * @example ```"true"```
+	 */
 	_deactivate?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this subscription as cancelled..
+	 * @example ```"true"```
+	 */
 	_cancel?: Nullable<boolean>
 
 	customer_payment_source?: Nullable<CustomerPaymentSourceRel>

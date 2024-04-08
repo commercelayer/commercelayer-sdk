@@ -22,8 +22,20 @@ interface SkuListItem extends Resource {
 	
 	readonly type: SkuListItemType
 
+	/** 
+	 * The SKU list item's position..
+	 * @example ```"2"```
+	 */
 	position?: Nullable<number>
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The SKU quantity for this SKU list item..
+	 * @example ```"1"```
+	 */
 	quantity?: Nullable<number>
 
 	sku_list?: Nullable<SkuList>
@@ -35,8 +47,20 @@ interface SkuListItem extends Resource {
 
 interface SkuListItemCreate extends ResourceCreate {
 	
+	/** 
+	 * The SKU list item's position..
+	 * @example ```"2"```
+	 */
 	position?: Nullable<number>
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The SKU quantity for this SKU list item..
+	 * @example ```"1"```
+	 */
 	quantity?: Nullable<number>
 
 	sku_list: SkuListRel
@@ -47,8 +71,20 @@ interface SkuListItemCreate extends ResourceCreate {
 
 interface SkuListItemUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The SKU list item's position..
+	 * @example ```"2"```
+	 */
 	position?: Nullable<number>
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The SKU quantity for this SKU list item..
+	 * @example ```"1"```
+	 */
 	quantity?: Nullable<number>
 	
 }

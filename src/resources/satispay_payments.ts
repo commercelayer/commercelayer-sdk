@@ -21,14 +21,50 @@ interface SatispayPayment extends Resource {
 	
 	readonly type: SatispayPaymentType
 
+	/** 
+	 * The payment unique identifier..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	payment_id?: Nullable<string>
+	/** 
+	 * The Satispay payment flow, inspect gateway API details for more information..
+	 * @example ```"MATCH_CODE"```
+	 */
 	flow?: Nullable<string>
+	/** 
+	 * The Satispay payment status..
+	 * @example ```"PENDING"```
+	 */
 	status?: Nullable<string>
+	/** 
+	 * The url to redirect the customer after the payment flow is completed..
+	 * @example ```"http://commercelayer.dev/satispay/redirect"```
+	 */
 	redirect_url?: Nullable<string>
+	/** 
+	 * Redirect url to the payment page..
+	 * @example ```"https://online.satispay.com/pay/xxxx-yyyy-zzzz?redirect_url={redirect_url}"```
+	 */
 	payment_url?: Nullable<string>
+	/** 
+	 * The amount of the associated payment intent, in cents..
+	 * @example ```"1000"```
+	 */
 	intent_amount_cents: number
+	/** 
+	 * The amount of the associated payment intent, float..
+	 * @example ```"10"```
+	 */
 	intent_amount_float?: Nullable<number>
+	/** 
+	 * The amount of the associated payment intent, formatted..
+	 * @example ```"€10,00"```
+	 */
 	formatted_intent_amount?: Nullable<string>
+	/** 
+	 * The Satispay payment response, used to fetch internal data..
+	 * @example ```"[object Object]"```
+	 */
 	payment_response?: Nullable<Record<string, any>>
 
 	order?: Nullable<Order>
@@ -40,7 +76,15 @@ interface SatispayPayment extends Resource {
 
 interface SatispayPaymentCreate extends ResourceCreate {
 	
+	/** 
+	 * The Satispay payment flow, inspect gateway API details for more information..
+	 * @example ```"MATCH_CODE"```
+	 */
 	flow?: Nullable<string>
+	/** 
+	 * The url to redirect the customer after the payment flow is completed..
+	 * @example ```"http://commercelayer.dev/satispay/redirect"```
+	 */
 	redirect_url?: Nullable<string>
 
 	order: OrderRel
@@ -50,7 +94,15 @@ interface SatispayPaymentCreate extends ResourceCreate {
 
 interface SatispayPaymentUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The url to redirect the customer after the payment flow is completed..
+	 * @example ```"http://commercelayer.dev/satispay/redirect"```
+	 */
 	redirect_url?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to refresh all the pending transactions, can be used as webhooks fallback logic..
+	 * @example ```"true"```
+	 */
 	_refresh?: Nullable<boolean>
 
 	order?: Nullable<OrderRel>

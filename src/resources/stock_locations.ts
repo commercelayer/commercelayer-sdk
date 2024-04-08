@@ -25,10 +25,29 @@ interface StockLocation extends Resource {
 	
 	readonly type: StockLocationType
 
+	/** 
+	 * Unique identifier for the stock location (numeric).
+	 * @example ```"1234"```
+	 */
 	number?: Nullable<number>
+	/** 
+	 * The stock location's internal name..
+	 * @example ```"Primary warehouse"```
+	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the stock location (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: Nullable<string>
+	/** 
+	 * The shipping label format for this stock location. Can be one of 'PDF', 'ZPL', 'EPL2', or 'PNG'.
+	 * @example ```"PDF"```
+	 */
 	label_format?: Nullable<string>
+	/** 
+	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments..
+	 */
 	suppress_etd?: Nullable<boolean>
 
 	address?: Nullable<Address>
@@ -44,9 +63,24 @@ interface StockLocation extends Resource {
 
 interface StockLocationCreate extends ResourceCreate {
 	
+	/** 
+	 * The stock location's internal name..
+	 * @example ```"Primary warehouse"```
+	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the stock location (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: Nullable<string>
+	/** 
+	 * The shipping label format for this stock location. Can be one of 'PDF', 'ZPL', 'EPL2', or 'PNG'.
+	 * @example ```"PDF"```
+	 */
 	label_format?: Nullable<string>
+	/** 
+	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments..
+	 */
 	suppress_etd?: Nullable<boolean>
 
 	address: AddressRel
@@ -56,9 +90,24 @@ interface StockLocationCreate extends ResourceCreate {
 
 interface StockLocationUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The stock location's internal name..
+	 * @example ```"Primary warehouse"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * A string that you can use to identify the stock location (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: Nullable<string>
+	/** 
+	 * The shipping label format for this stock location. Can be one of 'PDF', 'ZPL', 'EPL2', or 'PNG'.
+	 * @example ```"PDF"```
+	 */
 	label_format?: Nullable<string>
+	/** 
+	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments..
+	 */
 	suppress_etd?: Nullable<boolean>
 
 	address?: Nullable<AddressRel>

@@ -17,6 +17,10 @@ interface Tag extends Resource {
 	
 	readonly type: TagType
 
+	/** 
+	 * The tag name..
+	 * @example ```"new_campaign"```
+	 */
 	name: string
 	
 }
@@ -24,6 +28,10 @@ interface Tag extends Resource {
 
 interface TagCreate extends ResourceCreate {
 	
+	/** 
+	 * The tag name..
+	 * @example ```"new_campaign"```
+	 */
 	name: string
 	
 }
@@ -31,6 +39,10 @@ interface TagCreate extends ResourceCreate {
 
 interface TagUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The tag name..
+	 * @example ```"new_campaign"```
+	 */
 	name?: Nullable<string>
 	
 }

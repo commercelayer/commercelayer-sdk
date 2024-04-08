@@ -21,11 +21,35 @@ interface BraintreePayment extends Resource {
 	
 	readonly type: BraintreePaymentType
 
+	/** 
+	 * The Braintree payment client token. Required by the Braintree JS SDK..
+	 * @example ```"xxxx.yyyy.zzzz"```
+	 */
 	client_token: string
+	/** 
+	 * The Braintree payment method nonce. Sent by the Braintree JS SDK..
+	 * @example ```"xxxx.yyyy.zzzz"```
+	 */
 	payment_method_nonce?: Nullable<string>
+	/** 
+	 * The Braintree payment ID used by local payment and sent by the Braintree JS SDK..
+	 * @example ```"xxxx.yyyy.zzzz"```
+	 */
 	payment_id?: Nullable<string>
+	/** 
+	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction..
+	 * @example ```"true"```
+	 */
 	local?: Nullable<boolean>
+	/** 
+	 * Braintree payment options: 'customer_id' and 'payment_method_token'.
+	 * @example ```"[object Object]"```
+	 */
 	options?: Nullable<Record<string, any>>
+	/** 
+	 * Information about the payment instrument used in the transaction.
+	 * @example ```"[object Object]"```
+	 */
 	payment_instrument?: Nullable<Record<string, any>>
 
 	order?: Nullable<Order>
@@ -37,8 +61,20 @@ interface BraintreePayment extends Resource {
 
 interface BraintreePaymentCreate extends ResourceCreate {
 	
+	/** 
+	 * The Braintree payment ID used by local payment and sent by the Braintree JS SDK..
+	 * @example ```"xxxx.yyyy.zzzz"```
+	 */
 	payment_id?: Nullable<string>
+	/** 
+	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction..
+	 * @example ```"true"```
+	 */
 	local?: Nullable<boolean>
+	/** 
+	 * Braintree payment options: 'customer_id' and 'payment_method_token'.
+	 * @example ```"[object Object]"```
+	 */
 	options?: Nullable<Record<string, any>>
 
 	order: OrderRel
@@ -48,9 +84,25 @@ interface BraintreePaymentCreate extends ResourceCreate {
 
 interface BraintreePaymentUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The Braintree payment method nonce. Sent by the Braintree JS SDK..
+	 * @example ```"xxxx.yyyy.zzzz"```
+	 */
 	payment_method_nonce?: Nullable<string>
+	/** 
+	 * The Braintree payment ID used by local payment and sent by the Braintree JS SDK..
+	 * @example ```"xxxx.yyyy.zzzz"```
+	 */
 	payment_id?: Nullable<string>
+	/** 
+	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction..
+	 * @example ```"true"```
+	 */
 	local?: Nullable<boolean>
+	/** 
+	 * Braintree payment options: 'customer_id' and 'payment_method_token'.
+	 * @example ```"[object Object]"```
+	 */
 	options?: Nullable<Record<string, any>>
 
 	order?: Nullable<OrderRel>

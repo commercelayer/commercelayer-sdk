@@ -21,8 +21,20 @@ interface GiftCardRecipient extends Resource {
 	
 	readonly type: GiftCardRecipientType
 
+	/** 
+	 * The recipient email address.
+	 * @example ```"john@example.com"```
+	 */
 	email: string
+	/** 
+	 * The recipient first name.
+	 * @example ```"John"```
+	 */
 	first_name?: Nullable<string>
+	/** 
+	 * The recipient last name.
+	 * @example ```"Smith"```
+	 */
 	last_name?: Nullable<string>
 
 	customer?: Nullable<Customer>
@@ -34,8 +46,20 @@ interface GiftCardRecipient extends Resource {
 
 interface GiftCardRecipientCreate extends ResourceCreate {
 	
+	/** 
+	 * The recipient email address.
+	 * @example ```"john@example.com"```
+	 */
 	email: string
+	/** 
+	 * The recipient first name.
+	 * @example ```"John"```
+	 */
 	first_name?: Nullable<string>
+	/** 
+	 * The recipient last name.
+	 * @example ```"Smith"```
+	 */
 	last_name?: Nullable<string>
 
 	customer?: Nullable<CustomerRel>
@@ -45,8 +69,20 @@ interface GiftCardRecipientCreate extends ResourceCreate {
 
 interface GiftCardRecipientUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The recipient email address.
+	 * @example ```"john@example.com"```
+	 */
 	email?: Nullable<string>
+	/** 
+	 * The recipient first name.
+	 * @example ```"John"```
+	 */
 	first_name?: Nullable<string>
+	/** 
+	 * The recipient last name.
+	 * @example ```"Smith"```
+	 */
 	last_name?: Nullable<string>
 
 	customer?: Nullable<CustomerRel>

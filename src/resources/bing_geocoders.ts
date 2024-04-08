@@ -19,6 +19,10 @@ interface BingGeocoder extends Resource {
 	
 	readonly type: BingGeocoderType
 
+	/** 
+	 * The geocoder's internal name.
+	 * @example ```"Default geocoder"```
+	 */
 	name: string
 
 	addresses?: Nullable<Address[]>
@@ -29,7 +33,15 @@ interface BingGeocoder extends Resource {
 
 interface BingGeocoderCreate extends ResourceCreate {
 	
+	/** 
+	 * The geocoder's internal name.
+	 * @example ```"Default geocoder"```
+	 */
 	name: string
+	/** 
+	 * The Bing Virtualearth key.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	key: string
 	
 }
@@ -37,7 +49,15 @@ interface BingGeocoderCreate extends ResourceCreate {
 
 interface BingGeocoderUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The geocoder's internal name.
+	 * @example ```"Default geocoder"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * The Bing Virtualearth key.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	key?: Nullable<string>
 	
 }

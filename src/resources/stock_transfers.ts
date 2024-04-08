@@ -27,11 +27,35 @@ interface StockTransfer extends Resource {
 	
 	readonly type: StockTransferType
 
+	/** 
+	 * Unique identifier for the stock transfer (numeric)..
+	 * @example ```"1234"```
+	 */
 	number?: Nullable<string>
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The stock transfer status, one of 'draft', 'upcoming', 'on_hold', 'picking', 'in_transit', 'completed', or 'cancelled'.
+	 * @example ```"draft"```
+	 */
 	status: 'draft' | 'upcoming' | 'on_hold' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
+	/** 
+	 * The stock quantity to be transferred from the origin stock location to destination one.
+	 * @example ```"2"```
+	 */
 	quantity: number
+	/** 
+	 * Time at which the stock transfer was completed..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	completed_at?: Nullable<string>
+	/** 
+	 * Time at which the stock transfer was cancelled..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	cancelled_at?: Nullable<string>
 
 	sku?: Nullable<Sku>
@@ -47,7 +71,15 @@ interface StockTransfer extends Resource {
 
 interface StockTransferCreate extends ResourceCreate {
 	
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The stock quantity to be transferred from the origin stock location to destination one.
+	 * @example ```"2"```
+	 */
 	quantity: number
 
 	sku: SkuRel
@@ -61,12 +93,40 @@ interface StockTransferCreate extends ResourceCreate {
 
 interface StockTransferUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to mark this stock transfer as upcoming..
+	 * @example ```"true"```
+	 */
 	_upcoming?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to put this stock transfer on hold..
+	 * @example ```"true"```
+	 */
 	_on_hold?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to start picking this stock transfer..
+	 * @example ```"true"```
+	 */
 	_picking?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this stock transfer as in transit..
+	 * @example ```"true"```
+	 */
 	_in_transit?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to complete this stock transfer..
+	 * @example ```"true"```
+	 */
 	_complete?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to cancel this stock transfer..
+	 * @example ```"true"```
+	 */
 	_cancel?: Nullable<boolean>
 
 	sku?: Nullable<SkuRel>

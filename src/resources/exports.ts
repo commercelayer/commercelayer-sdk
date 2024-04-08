@@ -18,16 +18,59 @@ interface Export extends Resource {
 	
 	readonly type: ExportType
 
+	/** 
+	 * The type of resource being exported..
+	 * @example ```"skus"```
+	 */
 	resource_type: string
+	/** 
+	 * The format of the export one of 'json' (default) or 'csv'..
+	 * @example ```"json"```
+	 */
 	format?: Nullable<string>
+	/** 
+	 * The export job status. One of 'pending' (default), 'in_progress', or 'completed'..
+	 * @example ```"in_progress"```
+	 */
 	status: 'pending' | 'in_progress' | 'completed'
+	/** 
+	 * List of related resources that should be included in the export..
+	 * @example ```"prices.price_tiers"```
+	 */
 	includes?: Nullable<string[]>
+	/** 
+	 * The filters used to select the records to be exported..
+	 * @example ```"[object Object]"```
+	 */
 	filters?: Nullable<Record<string, any>>
+	/** 
+	 * Send this attribute if you want to skip exporting redundant attributes (IDs, timestamps, blanks, etc.), useful when combining export and import to duplicate your dataset..
+	 */
 	dry_data?: Nullable<boolean>
+	/** 
+	 * Time at which the export was started..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	started_at?: Nullable<string>
+	/** 
+	 * Time at which the export was completed..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	completed_at?: Nullable<string>
+	/** 
+	 * Time at which the export was interrupted..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	interrupted_at?: Nullable<string>
+	/** 
+	 * Indicates the number of records to be exported..
+	 * @example ```"300"```
+	 */
 	records_count?: Nullable<number>
+	/** 
+	 * The URL to the output file, which will be generated upon export completion..
+	 * @example ```"http://cl_exports.s3.amazonaws.com/"```
+	 */
 	attachment_url?: Nullable<string>
 
 	events?: Nullable<Event[]>
@@ -37,10 +80,29 @@ interface Export extends Resource {
 
 interface ExportCreate extends ResourceCreate {
 	
+	/** 
+	 * The type of resource being exported..
+	 * @example ```"skus"```
+	 */
 	resource_type: string
+	/** 
+	 * The format of the export one of 'json' (default) or 'csv'..
+	 * @example ```"json"```
+	 */
 	format?: Nullable<string>
+	/** 
+	 * List of related resources that should be included in the export..
+	 * @example ```"prices.price_tiers"```
+	 */
 	includes?: Nullable<string[]>
+	/** 
+	 * The filters used to select the records to be exported..
+	 * @example ```"[object Object]"```
+	 */
 	filters?: Nullable<Record<string, any>>
+	/** 
+	 * Send this attribute if you want to skip exporting redundant attributes (IDs, timestamps, blanks, etc.), useful when combining export and import to duplicate your dataset..
+	 */
 	dry_data?: Nullable<boolean>
 	
 }

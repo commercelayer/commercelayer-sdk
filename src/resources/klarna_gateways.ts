@@ -21,6 +21,10 @@ interface KlarnaGateway extends Resource {
 	
 	readonly type: KlarnaGatewayType
 
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
 
 	payment_methods?: Nullable<PaymentMethod[]>
@@ -32,9 +36,25 @@ interface KlarnaGateway extends Resource {
 
 interface KlarnaGatewayCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * The gateway country code one of EU, US, or OC..
+	 * @example ```"EU"```
+	 */
 	country_code: string
+	/** 
+	 * The public key linked to your API credential..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	api_key: string
+	/** 
+	 * The gateway API key..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	api_secret: string
 
 	klarna_payments?: Nullable<KlarnaPaymentRel[]>
@@ -44,9 +64,25 @@ interface KlarnaGatewayCreate extends ResourceCreate {
 
 interface KlarnaGatewayUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * The gateway country code one of EU, US, or OC..
+	 * @example ```"EU"```
+	 */
 	country_code?: Nullable<string>
+	/** 
+	 * The public key linked to your API credential..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	api_key?: Nullable<string>
+	/** 
+	 * The gateway API key..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	api_secret?: Nullable<string>
 
 	klarna_payments?: Nullable<KlarnaPaymentRel[]>

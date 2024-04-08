@@ -26,8 +26,20 @@ interface StockLineItem extends Resource {
 	
 	readonly type: StockLineItemType
 
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The code of the associated bundle..
+	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
+	 */
 	bundle_code?: Nullable<string>
+	/** 
+	 * The line item quantity..
+	 * @example ```"4"```
+	 */
 	quantity: number
 
 	shipment?: Nullable<Shipment>
@@ -41,7 +53,15 @@ interface StockLineItem extends Resource {
 
 interface StockLineItemCreate extends ResourceCreate {
 	
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The line item quantity..
+	 * @example ```"4"```
+	 */
 	quantity: number
 
 	shipment?: Nullable<ShipmentRel>
@@ -54,10 +74,30 @@ interface StockLineItemCreate extends ResourceCreate {
 
 interface StockLineItemUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The line item quantity..
+	 * @example ```"4"```
+	 */
 	quantity?: Nullable<number>
+	/** 
+	 * Send this attribute if you want to automatically reserve the stock for this stock line item. Can be done only when fulfillment is in progress..
+	 * @example ```"true"```
+	 */
 	_reserve_stock?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to automatically release the stock for this stock line item. Can be done only when fulfillment is in progress..
+	 * @example ```"true"```
+	 */
 	_release_stock?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to automatically decrement and release the stock this stock line item. Can be done only when fulfillment is in progress..
+	 * @example ```"true"```
+	 */
 	_decrement_stock?: Nullable<boolean>
 
 	shipment?: Nullable<ShipmentRel>

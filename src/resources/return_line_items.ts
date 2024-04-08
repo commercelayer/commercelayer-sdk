@@ -21,12 +21,40 @@ interface ReturnLineItem extends Resource {
 	
 	readonly type: ReturnLineItemType
 
+	/** 
+	 * The code of the associated SKU..
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The code of the associated bundle..
+	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
+	 */
 	bundle_code?: Nullable<string>
+	/** 
+	 * The return line item quantity..
+	 * @example ```"4"```
+	 */
 	quantity: number
+	/** 
+	 * The name of the line item..
+	 * @example ```"Black Men T-shirt with White Logo (XL)"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * The image_url of the associated line item..
+	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
+	 */
 	image_url?: Nullable<string>
+	/** 
+	 * Set of key-value pairs that you can use to add details about return reason..
+	 * @example ```"[object Object]"```
+	 */
 	return_reason?: Nullable<Record<string, any>>
+	/** 
+	 * Time at which the return line item was restocked..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	restocked_at?: Nullable<string>
 
 	return?: Nullable<Return>
@@ -37,7 +65,15 @@ interface ReturnLineItem extends Resource {
 
 interface ReturnLineItemCreate extends ResourceCreate {
 	
+	/** 
+	 * The return line item quantity..
+	 * @example ```"4"```
+	 */
 	quantity: number
+	/** 
+	 * Set of key-value pairs that you can use to add details about return reason..
+	 * @example ```"[object Object]"```
+	 */
 	return_reason?: Nullable<Record<string, any>>
 
 	return: ReturnRel
@@ -48,8 +84,20 @@ interface ReturnLineItemCreate extends ResourceCreate {
 
 interface ReturnLineItemUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The return line item quantity..
+	 * @example ```"4"```
+	 */
 	quantity?: Nullable<number>
+	/** 
+	 * Send this attribute if you want to restock the line item..
+	 * @example ```"true"```
+	 */
 	_restock?: Nullable<boolean>
+	/** 
+	 * Set of key-value pairs that you can use to add details about return reason..
+	 * @example ```"[object Object]"```
+	 */
 	return_reason?: Nullable<Record<string, any>>
 	
 }

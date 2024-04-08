@@ -20,18 +20,66 @@ interface TaxRule extends Resource {
 	
 	readonly type: TaxRuleType
 
+	/** 
+	 * The tax rule internal name..
+	 * @example ```"Fixed 22%"```
+	 */
 	name: string
+	/** 
+	 * The tax rate for this rule..
+	 * @example ```"0.22"```
+	 */
 	tax_rate?: Nullable<number>
+	/** 
+	 * The regex that will be evaluated to match the shipping address country code..
+	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
+	 */
 	country_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated as negative match for the shipping address country code..
+	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
+	 */
 	not_country_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated to match the shipping address state code..
+	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
+	 */
 	state_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated as negative match for the shipping address state code..
+	 * @example ```"A[KLRZ]|C[AOT]"```
+	 */
 	not_state_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated to match the shipping address zip code..
+	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
+	 */
 	zip_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated as negative match for the shipping zip country code..
+	 * @example ```"(?i)(JE1|JE2|JE3)"```
+	 */
 	not_zip_code_regex?: Nullable<string>
+	/** 
+	 * Indicates if the freight is taxable..
+	 */
 	freight_taxable?: Nullable<boolean>
+	/** 
+	 * Indicates if the payment method is taxable..
+	 */
 	payment_method_taxable?: Nullable<boolean>
+	/** 
+	 * Indicates if gift cards are taxable..
+	 */
 	gift_card_taxable?: Nullable<boolean>
+	/** 
+	 * Indicates if adjustemnts are taxable..
+	 */
 	adjustment_taxable?: Nullable<boolean>
+	/** 
+	 * The breakdown for this tax rule (if calculated)..
+	 * @example ```"[object Object]"```
+	 */
 	breakdown?: Nullable<Record<string, any>>
 
 	manual_tax_calculator?: Nullable<ManualTaxCalculator>
@@ -42,17 +90,61 @@ interface TaxRule extends Resource {
 
 interface TaxRuleCreate extends ResourceCreate {
 	
+	/** 
+	 * The tax rule internal name..
+	 * @example ```"Fixed 22%"```
+	 */
 	name: string
+	/** 
+	 * The tax rate for this rule..
+	 * @example ```"0.22"```
+	 */
 	tax_rate?: Nullable<number>
+	/** 
+	 * The regex that will be evaluated to match the shipping address country code..
+	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
+	 */
 	country_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated as negative match for the shipping address country code..
+	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
+	 */
 	not_country_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated to match the shipping address state code..
+	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
+	 */
 	state_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated as negative match for the shipping address state code..
+	 * @example ```"A[KLRZ]|C[AOT]"```
+	 */
 	not_state_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated to match the shipping address zip code..
+	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
+	 */
 	zip_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated as negative match for the shipping zip country code..
+	 * @example ```"(?i)(JE1|JE2|JE3)"```
+	 */
 	not_zip_code_regex?: Nullable<string>
+	/** 
+	 * Indicates if the freight is taxable..
+	 */
 	freight_taxable?: Nullable<boolean>
+	/** 
+	 * Indicates if the payment method is taxable..
+	 */
 	payment_method_taxable?: Nullable<boolean>
+	/** 
+	 * Indicates if gift cards are taxable..
+	 */
 	gift_card_taxable?: Nullable<boolean>
+	/** 
+	 * Indicates if adjustemnts are taxable..
+	 */
 	adjustment_taxable?: Nullable<boolean>
 
 	manual_tax_calculator: ManualTaxCalculatorRel
@@ -62,17 +154,61 @@ interface TaxRuleCreate extends ResourceCreate {
 
 interface TaxRuleUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The tax rule internal name..
+	 * @example ```"Fixed 22%"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * The tax rate for this rule..
+	 * @example ```"0.22"```
+	 */
 	tax_rate?: Nullable<number>
+	/** 
+	 * The regex that will be evaluated to match the shipping address country code..
+	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
+	 */
 	country_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated as negative match for the shipping address country code..
+	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
+	 */
 	not_country_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated to match the shipping address state code..
+	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
+	 */
 	state_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated as negative match for the shipping address state code..
+	 * @example ```"A[KLRZ]|C[AOT]"```
+	 */
 	not_state_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated to match the shipping address zip code..
+	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
+	 */
 	zip_code_regex?: Nullable<string>
+	/** 
+	 * The regex that will be evaluated as negative match for the shipping zip country code..
+	 * @example ```"(?i)(JE1|JE2|JE3)"```
+	 */
 	not_zip_code_regex?: Nullable<string>
+	/** 
+	 * Indicates if the freight is taxable..
+	 */
 	freight_taxable?: Nullable<boolean>
+	/** 
+	 * Indicates if the payment method is taxable..
+	 */
 	payment_method_taxable?: Nullable<boolean>
+	/** 
+	 * Indicates if gift cards are taxable..
+	 */
 	gift_card_taxable?: Nullable<boolean>
+	/** 
+	 * Indicates if adjustemnts are taxable..
+	 */
 	adjustment_taxable?: Nullable<boolean>
 
 	manual_tax_calculator?: Nullable<ManualTaxCalculatorRel>

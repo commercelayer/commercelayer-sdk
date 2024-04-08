@@ -30,9 +30,24 @@ interface Customer extends Resource {
 	
 	readonly type: CustomerType
 
+	/** 
+	 * The customer's email address.
+	 * @example ```"john@example.com"```
+	 */
 	email: string
+	/** 
+	 * The customer's status, one of 'prospect', 'acquired', or 'repeat'..
+	 * @example ```"prospect"```
+	 */
 	status: 'prospect' | 'acquired' | 'repeat'
+	/** 
+	 * Indicates if the customer has a password..
+	 */
 	has_password?: Nullable<boolean>
+	/** 
+	 * The total number of orders for the customer..
+	 * @example ```"6"```
+	 */
 	total_orders_count?: Nullable<number>
 
 	customer_group?: Nullable<CustomerGroup>
@@ -52,7 +67,15 @@ interface Customer extends Resource {
 
 interface CustomerCreate extends ResourceCreate {
 	
+	/** 
+	 * The customer's email address.
+	 * @example ```"john@example.com"```
+	 */
 	email: string
+	/** 
+	 * The customer's password. Initiate a customer password reset flow if you need to change it..
+	 * @example ```"secret"```
+	 */
 	password?: Nullable<string>
 
 	customer_group?: Nullable<CustomerGroupRel>
@@ -63,7 +86,15 @@ interface CustomerCreate extends ResourceCreate {
 
 interface CustomerUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The customer's email address.
+	 * @example ```"john@example.com"```
+	 */
 	email?: Nullable<string>
+	/** 
+	 * The customer's password. Initiate a customer password reset flow if you need to change it..
+	 * @example ```"secret"```
+	 */
 	password?: Nullable<string>
 
 	customer_group?: Nullable<CustomerGroupRel>

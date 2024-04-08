@@ -20,6 +20,10 @@ interface CustomerSubscription extends Resource {
 	
 	readonly type: CustomerSubscriptionType
 
+	/** 
+	 * The email of the customer that owns the subscription.
+	 * @example ```"john@example.com"```
+	 */
 	customer_email: string
 
 	customer?: Nullable<Customer>
@@ -31,6 +35,10 @@ interface CustomerSubscription extends Resource {
 
 interface CustomerSubscriptionCreate extends ResourceCreate {
 	
+	/** 
+	 * The email of the customer that owns the subscription.
+	 * @example ```"john@example.com"```
+	 */
 	customer_email: string
 	
 }

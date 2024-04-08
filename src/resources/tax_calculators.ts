@@ -20,6 +20,10 @@ interface TaxCalculator extends Resource {
 	
 	readonly type: TaxCalculatorType
 
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
 
 	markets?: Nullable<Market[]>

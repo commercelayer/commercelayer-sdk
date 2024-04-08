@@ -22,13 +22,45 @@ interface RecurringOrderCopy extends Resource {
 	
 	readonly type: RecurringOrderCopyType
 
+	/** 
+	 * The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'..
+	 * @example ```"in_progress"```
+	 */
 	status: 'pending' | 'in_progress' | 'failed' | 'completed'
+	/** 
+	 * Time at which the order copy was started..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	started_at?: Nullable<string>
+	/** 
+	 * Time at which the order copy was completed..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	completed_at?: Nullable<string>
+	/** 
+	 * Time at which the order copy has failed..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	failed_at?: Nullable<string>
+	/** 
+	 * Contains the order copy errors, if any..
+	 * @example ```"[object Object]"```
+	 */
 	errors_log?: Nullable<Record<string, any>>
+	/** 
+	 * Indicates the number of copy errors, if any..
+	 * @example ```"2"```
+	 */
 	errors_count?: Nullable<number>
+	/** 
+	 * Indicates if the target order must be placed upon copy..
+	 * @example ```"true"```
+	 */
 	place_target_order?: Nullable<boolean>
+	/** 
+	 * Indicates if the payment source within the source order customer's wallet must be copied..
+	 * @example ```"true"```
+	 */
 	reuse_wallet?: Nullable<boolean>
 
 	source_order?: Nullable<Order>
@@ -41,7 +73,15 @@ interface RecurringOrderCopy extends Resource {
 
 interface RecurringOrderCopyCreate extends ResourceCreate {
 	
+	/** 
+	 * Indicates if the target order must be placed upon copy..
+	 * @example ```"true"```
+	 */
 	place_target_order?: Nullable<boolean>
+	/** 
+	 * Indicates if the payment source within the source order customer's wallet must be copied..
+	 * @example ```"true"```
+	 */
 	reuse_wallet?: Nullable<boolean>
 
 	source_order: OrderRel

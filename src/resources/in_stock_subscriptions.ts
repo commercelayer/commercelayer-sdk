@@ -25,9 +25,25 @@ interface InStockSubscription extends Resource {
 	
 	readonly type: InStockSubscriptionType
 
+	/** 
+	 * The subscription status. One of 'active' (default), 'inactive', or 'notified'.
+	 * @example ```"active"```
+	 */
 	status: 'active' | 'inactive' | 'notified'
+	/** 
+	 * The email of the associated customer, replace the relationship..
+	 * @example ```"john@example.com"```
+	 */
 	customer_email?: Nullable<string>
+	/** 
+	 * The code of the associated SKU, replace the relationship.
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The threshold at which to trigger the back in stock notification..
+	 * @example ```"3"```
+	 */
 	stock_threshold?: Nullable<number>
 
 	market?: Nullable<Market>
@@ -41,8 +57,20 @@ interface InStockSubscription extends Resource {
 
 interface InStockSubscriptionCreate extends ResourceCreate {
 	
+	/** 
+	 * The email of the associated customer, replace the relationship..
+	 * @example ```"john@example.com"```
+	 */
 	customer_email?: Nullable<string>
+	/** 
+	 * The code of the associated SKU, replace the relationship.
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The threshold at which to trigger the back in stock notification..
+	 * @example ```"3"```
+	 */
 	stock_threshold?: Nullable<number>
 
 	market: MarketRel
@@ -54,9 +82,25 @@ interface InStockSubscriptionCreate extends ResourceCreate {
 
 interface InStockSubscriptionUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The code of the associated SKU, replace the relationship.
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
 	sku_code?: Nullable<string>
+	/** 
+	 * The threshold at which to trigger the back in stock notification..
+	 * @example ```"3"```
+	 */
 	stock_threshold?: Nullable<number>
+	/** 
+	 * Send this attribute if you want to activate an inactive subscription..
+	 * @example ```"true"```
+	 */
 	_activate?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to dactivate an active subscription..
+	 * @example ```"true"```
+	 */
 	_deactivate?: Nullable<boolean>
 
 	market?: Nullable<MarketRel>

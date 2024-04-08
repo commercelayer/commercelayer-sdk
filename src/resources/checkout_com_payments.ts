@@ -21,17 +21,64 @@ interface CheckoutComPayment extends Resource {
 	
 	readonly type: CheckoutComPaymentType
 
+	/** 
+	 * The Checkout.com publishable API key..
+	 * @example ```"pk_test_xxxx-yyyy-zzzz"```
+	 */
 	public_key?: Nullable<string>
+	/** 
+	 * The payment source type..
+	 * @example ```"token"```
+	 */
 	payment_type: string
+	/** 
+	 * The Checkout.com card or digital wallet token..
+	 * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
+	 */
 	token: string
+	/** 
+	 * A payment session ID used to obtain the details..
+	 * @example ```"sid_y3oqhf46pyzuxjbcn2giaqnb44"```
+	 */
 	session_id?: Nullable<string>
+	/** 
+	 * The URL to redirect your customer upon 3DS succeeded authentication..
+	 * @example ```"http://commercelayer.dev/checkout_com/success"```
+	 */
 	success_url?: Nullable<string>
+	/** 
+	 * The URL to redirect your customer upon 3DS failed authentication..
+	 * @example ```"http://commercelayer.dev/checkout_com/failure"```
+	 */
 	failure_url?: Nullable<string>
+	/** 
+	 * The payment source identifier that can be used for subsequent payments..
+	 * @example ```"src_nwd3m4in3hkuddfpjsaevunhdy"```
+	 */
 	source_id?: Nullable<string>
+	/** 
+	 * The customer's unique identifier. This can be passed as a source when making a payment..
+	 * @example ```"cus_udst2tfldj6upmye2reztkmm4i"```
+	 */
 	customer_token?: Nullable<string>
+	/** 
+	 * The URI that the customer should be redirected to in order to complete the payment..
+	 * @example ```"https://api.checkout.com/3ds/pay_mbabizu24mvu3mela5njyhpit4"```
+	 */
 	redirect_uri?: Nullable<string>
+	/** 
+	 * The Checkout.com payment response, used to fetch internal data..
+	 * @example ```"[object Object]"```
+	 */
 	payment_response?: Nullable<Record<string, any>>
+	/** 
+	 * Indicates if the order current amount differs form the one of the associated authorization..
+	 */
 	mismatched_amounts?: Nullable<boolean>
+	/** 
+	 * Information about the payment instrument used in the transaction.
+	 * @example ```"[object Object]"```
+	 */
 	payment_instrument?: Nullable<Record<string, any>>
 
 	order?: Nullable<Order>
@@ -43,10 +90,30 @@ interface CheckoutComPayment extends Resource {
 
 interface CheckoutComPaymentCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment source type..
+	 * @example ```"token"```
+	 */
 	payment_type: string
+	/** 
+	 * The Checkout.com card or digital wallet token..
+	 * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
+	 */
 	token: string
+	/** 
+	 * A payment session ID used to obtain the details..
+	 * @example ```"sid_y3oqhf46pyzuxjbcn2giaqnb44"```
+	 */
 	session_id?: Nullable<string>
+	/** 
+	 * The URL to redirect your customer upon 3DS succeeded authentication..
+	 * @example ```"http://commercelayer.dev/checkout_com/success"```
+	 */
 	success_url?: Nullable<string>
+	/** 
+	 * The URL to redirect your customer upon 3DS failed authentication..
+	 * @example ```"http://commercelayer.dev/checkout_com/failure"```
+	 */
 	failure_url?: Nullable<string>
 
 	order: OrderRel
@@ -56,12 +123,40 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 
 interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment source type..
+	 * @example ```"token"```
+	 */
 	payment_type?: Nullable<string>
+	/** 
+	 * The Checkout.com card or digital wallet token..
+	 * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
+	 */
 	token?: Nullable<string>
+	/** 
+	 * A payment session ID used to obtain the details..
+	 * @example ```"sid_y3oqhf46pyzuxjbcn2giaqnb44"```
+	 */
 	session_id?: Nullable<string>
+	/** 
+	 * The URL to redirect your customer upon 3DS succeeded authentication..
+	 * @example ```"http://commercelayer.dev/checkout_com/success"```
+	 */
 	success_url?: Nullable<string>
+	/** 
+	 * The URL to redirect your customer upon 3DS failed authentication..
+	 * @example ```"http://commercelayer.dev/checkout_com/failure"```
+	 */
 	failure_url?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to send additional details the payment request (i.e. upon 3DS check)..
+	 * @example ```"true"```
+	 */
 	_details?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to refresh all the pending transactions, can be used as webhooks fallback logic..
+	 * @example ```"true"```
+	 */
 	_refresh?: Nullable<boolean>
 
 	order?: Nullable<OrderRel>

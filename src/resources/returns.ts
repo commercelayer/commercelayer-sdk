@@ -29,15 +29,55 @@ interface Return extends Resource {
 	
 	readonly type: ReturnType
 
+	/** 
+	 * Unique identifier for the return.
+	 * @example ```"#1234/R/001"```
+	 */
 	number?: Nullable<string>
+	/** 
+	 * The return status, one of 'draft', 'requested', 'approved', 'cancelled', 'shipped', 'rejected' or 'received'.
+	 * @example ```"draft"```
+	 */
 	status: 'draft' | 'requested' | 'approved' | 'cancelled' | 'shipped' | 'rejected' | 'received'
+	/** 
+	 * The email address of the associated customer..
+	 * @example ```"john@example.com"```
+	 */
 	customer_email?: Nullable<string>
+	/** 
+	 * The total number of SKUs in the return's line items. This can be useful to display a preview of the return content..
+	 * @example ```"2"```
+	 */
 	skus_count?: Nullable<number>
+	/** 
+	 * Time at which the return was approved..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	approved_at?: Nullable<string>
+	/** 
+	 * Time at which the return was cancelled..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	cancelled_at?: Nullable<string>
+	/** 
+	 * Time at which the return was shipped..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	shipped_at?: Nullable<string>
+	/** 
+	 * Time at which the return was rejected..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	rejected_at?: Nullable<string>
+	/** 
+	 * Time at which the return was received..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	received_at?: Nullable<string>
+	/** 
+	 * Time at which the resource has been archived..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	archived_at?: Nullable<string>
 
 	order?: Nullable<Order>
@@ -65,14 +105,50 @@ interface ReturnCreate extends ResourceCreate {
 
 interface ReturnUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Send this attribute if you want to activate this return..
+	 * @example ```"true"```
+	 */
 	_request?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this return as approved..
+	 * @example ```"true"```
+	 */
 	_approve?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this return as cancelled..
+	 * @example ```"true"```
+	 */
 	_cancel?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this return as shipped..
+	 * @example ```"true"```
+	 */
 	_ship?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this return as rejected..
+	 * @example ```"true"```
+	 */
 	_reject?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this return as received..
+	 * @example ```"true"```
+	 */
 	_receive?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to restock all of the return line items..
+	 * @example ```"true"```
+	 */
 	_restock?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to archive the return..
+	 * @example ```"true"```
+	 */
 	_archive?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to unarchive the return..
+	 * @example ```"true"```
+	 */
 	_unarchive?: Nullable<boolean>
 
 	stock_location?: Nullable<StockLocationRel>

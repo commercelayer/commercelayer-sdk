@@ -21,6 +21,10 @@ interface CustomerGroup extends Resource {
 	
 	readonly type: CustomerGroupType
 
+	/** 
+	 * The customer group's internal name.
+	 * @example ```"VIP"```
+	 */
 	name: string
 
 	customers?: Nullable<Customer[]>
@@ -33,6 +37,10 @@ interface CustomerGroup extends Resource {
 
 interface CustomerGroupCreate extends ResourceCreate {
 	
+	/** 
+	 * The customer group's internal name.
+	 * @example ```"VIP"```
+	 */
 	name: string
 	
 }
@@ -40,6 +48,10 @@ interface CustomerGroupCreate extends ResourceCreate {
 
 interface CustomerGroupUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The customer group's internal name.
+	 * @example ```"VIP"```
+	 */
 	name?: Nullable<string>
 	
 }

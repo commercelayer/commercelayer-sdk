@@ -18,9 +18,25 @@ interface EventCallback extends Resource {
 	
 	readonly type: EventCallbackType
 
+	/** 
+	 * The URI of the callback, inherited by the associated webhook..
+	 * @example ```"https://yourapp.com/webhooks"```
+	 */
 	callback_url: string
+	/** 
+	 * The payload sent to the callback endpoint, including the event affected resource and the specified includes..
+	 * @example ```"[object Object]"```
+	 */
 	payload?: Nullable<Record<string, any>>
+	/** 
+	 * The HTTP response code of the callback endpoint..
+	 * @example ```"200"```
+	 */
 	response_code?: Nullable<string>
+	/** 
+	 * The HTTP response message of the callback endpoint..
+	 * @example ```"OK"```
+	 */
 	response_message?: Nullable<string>
 
 	webhook?: Nullable<Webhook>

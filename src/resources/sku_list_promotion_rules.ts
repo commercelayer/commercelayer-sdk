@@ -35,7 +35,15 @@ interface SkuListPromotionRule extends Resource {
 	
 	readonly type: SkuListPromotionRuleType
 
+	/** 
+	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order..
+	 * @example ```"true"```
+	 */
 	all_skus?: Nullable<boolean>
+	/** 
+	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured..
+	 * @example ```"3"```
+	 */
 	min_quantity?: Nullable<number>
 
 	promotion?: Nullable<PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion>
@@ -48,7 +56,15 @@ interface SkuListPromotionRule extends Resource {
 
 interface SkuListPromotionRuleCreate extends ResourceCreate {
 	
+	/** 
+	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order..
+	 * @example ```"true"```
+	 */
 	all_skus?: Nullable<boolean>
+	/** 
+	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured..
+	 * @example ```"3"```
+	 */
 	min_quantity?: Nullable<number>
 
 	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
@@ -59,7 +75,15 @@ interface SkuListPromotionRuleCreate extends ResourceCreate {
 
 interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order..
+	 * @example ```"true"```
+	 */
 	all_skus?: Nullable<boolean>
+	/** 
+	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured..
+	 * @example ```"3"```
+	 */
 	min_quantity?: Nullable<number>
 
 	promotion?: Nullable<PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel>

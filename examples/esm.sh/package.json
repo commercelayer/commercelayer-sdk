@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "esm",
+  "type": "module",
+  "main": "index.html",
+  "license": "MIT",
+  "scripts": {
+    "serve": "npx serve"
+  }
+}

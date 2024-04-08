@@ -21,12 +21,39 @@ interface AdyenPayment extends Resource {
 	
 	readonly type: AdyenPaymentType
 
+	/** 
+	 * The public key linked to your API credential..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	public_key?: Nullable<string>
+	/** 
+	 * The merchant available payment methods for the assoiated order (i.e. country and amount). Required by the Adyen JS SDK..
+	 * @example ```"[object Object]"```
+	 */
 	payment_methods: Record<string, any>
+	/** 
+	 * The Adyen payment request data, collected by client..
+	 * @example ```"[object Object]"```
+	 */
 	payment_request_data?: Nullable<Record<string, any>>
+	/** 
+	 * The Adyen additional details request data, collected by client..
+	 * @example ```"[object Object]"```
+	 */
 	payment_request_details?: Nullable<Record<string, any>>
+	/** 
+	 * The Adyen payment response, used by client (includes 'resultCode' and 'action')..
+	 * @example ```"[object Object]"```
+	 */
 	payment_response?: Nullable<Record<string, any>>
+	/** 
+	 * Indicates if the order current amount differs form the one of the associated authorization..
+	 */
 	mismatched_amounts?: Nullable<boolean>
+	/** 
+	 * Information about the payment instrument used in the transaction.
+	 * @example ```"[object Object]"```
+	 */
 	payment_instrument?: Nullable<Record<string, any>>
 
 	order?: Nullable<Order>
@@ -45,9 +72,25 @@ interface AdyenPaymentCreate extends ResourceCreate {
 
 interface AdyenPaymentUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The Adyen payment request data, collected by client..
+	 * @example ```"[object Object]"```
+	 */
 	payment_request_data?: Nullable<Record<string, any>>
+	/** 
+	 * The Adyen additional details request data, collected by client..
+	 * @example ```"[object Object]"```
+	 */
 	payment_request_details?: Nullable<Record<string, any>>
+	/** 
+	 * The Adyen payment response, used by client (includes 'resultCode' and 'action')..
+	 * @example ```"[object Object]"```
+	 */
 	payment_response?: Nullable<Record<string, any>>
+	/** 
+	 * Send this attribute if you want to send additional details the payment request..
+	 * @example ```"true"```
+	 */
 	_details?: Nullable<boolean>
 
 	order?: Nullable<OrderRel>

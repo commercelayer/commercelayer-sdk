@@ -22,10 +22,30 @@ interface AvalaraAccount extends Resource {
 	
 	readonly type: AvalaraAccountType
 
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
+	/** 
+	 * The Avalara account username..
+	 * @example ```"user@mydomain.com"```
+	 */
 	username: string
+	/** 
+	 * The Avalara company code..
+	 * @example ```"MYCOMPANY"```
+	 */
 	company_code: string
+	/** 
+	 * Indicates if the transaction will be recorded and visible on the Avalara website..
+	 * @example ```"true"```
+	 */
 	commit_invoice?: Nullable<boolean>
+	/** 
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
+	 * @example ```"true"```
+	 */
 	ddp?: Nullable<boolean>
 
 	markets?: Nullable<Market[]>
@@ -38,11 +58,35 @@ interface AvalaraAccount extends Resource {
 
 interface AvalaraAccountCreate extends ResourceCreate {
 	
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
+	/** 
+	 * The Avalara account username..
+	 * @example ```"user@mydomain.com"```
+	 */
 	username: string
+	/** 
+	 * The Avalara account password..
+	 * @example ```"secret"```
+	 */
 	password: string
+	/** 
+	 * The Avalara company code..
+	 * @example ```"MYCOMPANY"```
+	 */
 	company_code: string
+	/** 
+	 * Indicates if the transaction will be recorded and visible on the Avalara website..
+	 * @example ```"true"```
+	 */
 	commit_invoice?: Nullable<boolean>
+	/** 
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
+	 * @example ```"true"```
+	 */
 	ddp?: Nullable<boolean>
 
 	tax_categories?: Nullable<TaxCategoryRel[]>
@@ -52,11 +96,35 @@ interface AvalaraAccountCreate extends ResourceCreate {
 
 interface AvalaraAccountUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * The Avalara account username..
+	 * @example ```"user@mydomain.com"```
+	 */
 	username?: Nullable<string>
+	/** 
+	 * The Avalara account password..
+	 * @example ```"secret"```
+	 */
 	password?: Nullable<string>
+	/** 
+	 * The Avalara company code..
+	 * @example ```"MYCOMPANY"```
+	 */
 	company_code?: Nullable<string>
+	/** 
+	 * Indicates if the transaction will be recorded and visible on the Avalara website..
+	 * @example ```"true"```
+	 */
 	commit_invoice?: Nullable<boolean>
+	/** 
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
+	 * @example ```"true"```
+	 */
 	ddp?: Nullable<boolean>
 
 	tax_categories?: Nullable<TaxCategoryRel[]>

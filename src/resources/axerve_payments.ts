@@ -21,16 +21,59 @@ interface AxervePayment extends Resource {
 	
 	readonly type: AxervePaymentType
 
+	/** 
+	 * The merchant login code..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	login: string
+	/** 
+	 * The URL where the payer is redirected after they approve the payment..
+	 * @example ```"https://yourdomain.com/thankyou"```
+	 */
 	return_url: string
+	/** 
+	 * The Axerve payment request data, collected by client..
+	 * @example ```"[object Object]"```
+	 */
 	payment_request_data?: Nullable<Record<string, any>>
+	/** 
+	 * The IP adress of the client creating the payment..
+	 * @example ```"213.45.120.5"```
+	 */
 	client_ip?: Nullable<string>
+	/** 
+	 * The details of the buyer creating the payment..
+	 * @example ```"[object Object]"```
+	 */
 	buyer_details?: Nullable<Record<string, any>>
+	/** 
+	 * Requires the creation of a token to represent this payment, mandatory to use customer's wallet and order subscriptions..
+	 * @example ```"true"```
+	 */
 	request_token?: Nullable<boolean>
+	/** 
+	 * Indicates if the order current amount differs form the one of the associated authorization..
+	 */
 	mismatched_amounts?: Nullable<boolean>
+	/** 
+	 * The amount of the associated payment intent, in cents..
+	 * @example ```"1000"```
+	 */
 	intent_amount_cents: number
+	/** 
+	 * The amount of the associated payment intent, float..
+	 * @example ```"10"```
+	 */
 	intent_amount_float?: Nullable<number>
+	/** 
+	 * The amount of the associated payment intent, formatted..
+	 * @example ```"€10,00"```
+	 */
 	formatted_intent_amount?: Nullable<string>
+	/** 
+	 * Information about the payment instrument used in the transaction.
+	 * @example ```"[object Object]"```
+	 */
 	payment_instrument?: Nullable<Record<string, any>>
 
 	order?: Nullable<Order>
@@ -42,9 +85,25 @@ interface AxervePayment extends Resource {
 
 interface AxervePaymentCreate extends ResourceCreate {
 	
+	/** 
+	 * The URL where the payer is redirected after they approve the payment..
+	 * @example ```"https://yourdomain.com/thankyou"```
+	 */
 	return_url: string
+	/** 
+	 * The IP adress of the client creating the payment..
+	 * @example ```"213.45.120.5"```
+	 */
 	client_ip?: Nullable<string>
+	/** 
+	 * The details of the buyer creating the payment..
+	 * @example ```"[object Object]"```
+	 */
 	buyer_details?: Nullable<Record<string, any>>
+	/** 
+	 * Requires the creation of a token to represent this payment, mandatory to use customer's wallet and order subscriptions..
+	 * @example ```"true"```
+	 */
 	request_token?: Nullable<boolean>
 
 	order: OrderRel
@@ -54,7 +113,15 @@ interface AxervePaymentCreate extends ResourceCreate {
 
 interface AxervePaymentUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The Axerve payment request data, collected by client..
+	 * @example ```"[object Object]"```
+	 */
 	payment_request_data?: Nullable<Record<string, any>>
+	/** 
+	 * Send this attribute if you want to update the payment with fresh order data..
+	 * @example ```"true"```
+	 */
 	_update?: Nullable<boolean>
 
 	order?: Nullable<OrderRel>

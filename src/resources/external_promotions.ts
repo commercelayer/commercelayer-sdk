@@ -37,19 +37,75 @@ interface ExternalPromotion extends Resource {
 	
 	readonly type: ExternalPromotionType
 
+	/** 
+	 * The promotion's internal name..
+	 * @example ```"Personal promotion"```
+	 */
 	name: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: Nullable<string>
+	/** 
+	 * Indicates if the promotion will be applied exclusively, based on its priority score..
+	 * @example ```"true"```
+	 */
 	exclusive?: Nullable<boolean>
+	/** 
+	 * The priority assigned to the promotion (lower means higher priority)..
+	 * @example ```"2"```
+	 */
 	priority?: Nullable<number>
+	/** 
+	 * The activation date/time of this promotion..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	starts_at: string
+	/** 
+	 * The expiration date/time of this promotion (must be after starts_at)..
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
 	expires_at: string
+	/** 
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times..
+	 * @example ```"5"```
+	 */
 	total_usage_limit?: Nullable<number>
+	/** 
+	 * The number of times this promotion has been applied..
+	 * @example ```"2"```
+	 */
 	total_usage_count?: Nullable<number>
+	/** 
+	 * Indicates if the promotion is active (enabled and not expired)..
+	 * @example ```"true"```
+	 */
 	active?: Nullable<boolean>
+	/** 
+	 * Time at which this resource was disabled..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	disabled_at?: Nullable<string>
+	/** 
+	 * The URL to the service that will compute the discount..
+	 * @example ```"https://external_promotion.yourbrand.com"```
+	 */
 	promotion_url: string
+	/** 
+	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made..
+	 * @example ```"closed"```
+	 */
 	circuit_state?: Nullable<string>
+	/** 
+	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback..
+	 * @example ```"5"```
+	 */
 	circuit_failure_count?: Nullable<number>
+	/** 
+	 * The shared secret used to sign the external request payload..
+	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
+	 */
 	shared_secret: string
 
 	market?: Nullable<Market>
@@ -71,15 +127,55 @@ interface ExternalPromotion extends Resource {
 
 interface ExternalPromotionCreate extends ResourceCreate {
 	
+	/** 
+	 * The promotion's internal name..
+	 * @example ```"Personal promotion"```
+	 */
 	name: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: Nullable<string>
+	/** 
+	 * Indicates if the promotion will be applied exclusively, based on its priority score..
+	 * @example ```"true"```
+	 */
 	exclusive?: Nullable<boolean>
+	/** 
+	 * The priority assigned to the promotion (lower means higher priority)..
+	 * @example ```"2"```
+	 */
 	priority?: Nullable<number>
+	/** 
+	 * The activation date/time of this promotion..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	starts_at: string
+	/** 
+	 * The expiration date/time of this promotion (must be after starts_at)..
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
 	expires_at: string
+	/** 
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times..
+	 * @example ```"5"```
+	 */
 	total_usage_limit?: Nullable<number>
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled..
+	 * @example ```"true"```
+	 */
 	_disable?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled..
+	 * @example ```"true"```
+	 */
 	_enable?: Nullable<boolean>
+	/** 
+	 * The URL to the service that will compute the discount..
+	 * @example ```"https://external_promotion.yourbrand.com"```
+	 */
 	promotion_url: string
 
 	market?: Nullable<MarketRel>
@@ -95,16 +191,60 @@ interface ExternalPromotionCreate extends ResourceCreate {
 
 interface ExternalPromotionUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The promotion's internal name..
+	 * @example ```"Personal promotion"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * @example ```"EUR"```
+	 */
 	currency_code?: Nullable<string>
+	/** 
+	 * Indicates if the promotion will be applied exclusively, based on its priority score..
+	 * @example ```"true"```
+	 */
 	exclusive?: Nullable<boolean>
+	/** 
+	 * The priority assigned to the promotion (lower means higher priority)..
+	 * @example ```"2"```
+	 */
 	priority?: Nullable<number>
+	/** 
+	 * The activation date/time of this promotion..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	starts_at?: Nullable<string>
+	/** 
+	 * The expiration date/time of this promotion (must be after starts_at)..
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
 	expires_at?: Nullable<string>
+	/** 
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times..
+	 * @example ```"5"```
+	 */
 	total_usage_limit?: Nullable<number>
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled..
+	 * @example ```"true"```
+	 */
 	_disable?: Nullable<boolean>
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled..
+	 * @example ```"true"```
+	 */
 	_enable?: Nullable<boolean>
+	/** 
+	 * The URL to the service that will compute the discount..
+	 * @example ```"https://external_promotion.yourbrand.com"```
+	 */
 	promotion_url?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count..
+	 * @example ```"true"```
+	 */
 	_reset_circuit?: Nullable<boolean>
 
 	market?: Nullable<MarketRel>

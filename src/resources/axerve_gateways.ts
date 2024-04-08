@@ -21,8 +21,20 @@ interface AxerveGateway extends Resource {
 	
 	readonly type: AxerveGatewayType
 
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * The merchant login code..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	login: string
+	/** 
+	 * The gateway webhook URL, generated automatically..
+	 * @example ```"https://core.commercelayer.co/webhook_callbacks/axerve_gateways/xxxxx"```
+	 */
 	webhook_endpoint_url?: Nullable<string>
 
 	payment_methods?: Nullable<PaymentMethod[]>
@@ -34,8 +46,20 @@ interface AxerveGateway extends Resource {
 
 interface AxerveGatewayCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * The merchant login code..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	login: string
+	/** 
+	 * The gateway API key..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	api_key: string
 
 	axerve_payments?: Nullable<AxervePaymentRel[]>
@@ -45,8 +69,20 @@ interface AxerveGatewayCreate extends ResourceCreate {
 
 interface AxerveGatewayUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name?: Nullable<string>
+	/** 
+	 * The merchant login code..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	login?: Nullable<string>
+	/** 
+	 * The gateway API key..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	api_key?: Nullable<string>
 
 	axerve_payments?: Nullable<AxervePaymentRel[]>
