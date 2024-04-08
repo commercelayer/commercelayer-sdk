@@ -1,3 +1,10 @@
+# [6.0.0-beta.11](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.10...v6.0.0-beta.11) (2024-04-08)
+
+
+### Features
+
+* add examples to resource fields ([90b8157](https://github.com/commercelayer/commercelayer-sdk/commit/90b8157dca5c4cbcf3f8a0e298f0ab04138fce89))
+
 # [6.0.0-beta.10](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.9...v6.0.0-beta.10) (2024-04-05)
 
 
