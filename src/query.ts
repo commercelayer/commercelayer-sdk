@@ -40,7 +40,7 @@ interface QueryParamsList<R extends Resource = Resource> extends QueryParamsRetr
 	pageSize?: QueryPageSize
 }
 
-type QueryParams<R extends Resource> = QueryParamsRetrieve<R> | QueryParamsList<R>
+type QueryParams<R extends Resource = Resource> = QueryParamsRetrieve<R> | QueryParamsList<R>
 
 export type { QueryParamsRetrieve, QueryParamsList, QueryParams, QueryFilter }
 
