@@ -1,3 +1,10 @@
+# [6.0.0-beta.13](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.12...v6.0.0-beta.13) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix query params export ([3d73ce0](https://github.com/commercelayer/commercelayer-sdk/commit/3d73ce034d38549f19acd7743b2ece07070771c4))
+
 # [6.0.0-beta.12](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.11...v6.0.0-beta.12) (2024-04-09)
 
 
