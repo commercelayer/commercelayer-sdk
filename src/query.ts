@@ -19,7 +19,7 @@ type QueryResourceFields<R extends ResourceTypeLock> = keyof ResourceFields[R]
 type QueryArrayFields<R extends Resource> = Array<QueryResourceFields<QueryResType<R>>>
 type QueryRecordFields = { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
 
-interface QueryParamsRetrieve<R extends Resource> {
+interface QueryParamsRetrieve<R extends Resource = Resource> {
 	include?: QueryInclude
 	fields?: QueryArrayFields<R> | QueryRecordFields
 }
@@ -33,14 +33,14 @@ type QueryFilter = Record<string, string | number | boolean | object | Array<str
 type QueryPageNumber = number
 type QueryPageSize = PositiveNumberRange<25>
 
-interface QueryParamsList<R extends Resource> extends QueryParamsRetrieve<R> {
+interface QueryParamsList<R extends Resource = Resource> extends QueryParamsRetrieve<R> {
 	sort?: QueryArraySortable<R> | QueryRecordSortable<R>
 	filters?: QueryFilter
 	pageNumber?: QueryPageNumber
 	pageSize?: QueryPageSize
 }
 
-type QueryParams<R extends Resource> = QueryParamsRetrieve<R> | QueryParamsList<R>
+type QueryParams<R extends Resource = Resource> = QueryParamsRetrieve<R> | QueryParamsList<R>
 
 export type { QueryParamsRetrieve, QueryParamsList, QueryParams, QueryFilter, QueryPageSize }
 
