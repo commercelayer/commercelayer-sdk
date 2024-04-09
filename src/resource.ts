@@ -286,7 +286,7 @@ abstract class ApiResourceBase<R extends Resource> {
 
 
 	// reference, reference_origin and metadata attributes are always updatable
-	async update(resource: ResourceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async update(resource: ResourceUpdate, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 		return this.resources.update<ResourceUpdate, R>({ ...resource, type: this.type() }, params, options)
 	}
 
@@ -314,7 +314,7 @@ abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 
 abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
-	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async retrieve(params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 		return this.resources.singleton<R>({ type: this.type() }, params, options)
 	}
 
