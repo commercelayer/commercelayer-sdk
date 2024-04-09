@@ -1,3 +1,10 @@
+# [6.0.0-beta.16](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.15...v6.0.0-beta.16) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix query generics ([993e6c7](https://github.com/commercelayer/commercelayer-sdk/commit/993e6c74571c074fc069d00c9a396708819df348))
+
 # [6.0.0-beta.15](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.14...v6.0.0-beta.15) (2024-04-09)
 
 
