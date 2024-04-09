@@ -1,3 +1,10 @@
+# [6.0.0-beta.18](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.17...v6.0.0-beta.18) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix ListResponse type ([2afbee1](https://github.com/commercelayer/commercelayer-sdk/commit/2afbee1a79075246723b763c391e5503e33e0d65))
+
 # [6.0.0-beta.17](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.16...v6.0.0-beta.17) (2024-04-09)
 
 
