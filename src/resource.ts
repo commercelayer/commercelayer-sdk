@@ -60,7 +60,7 @@ type ListMeta = {
 }
 
 
-class ListResponse<R> extends Array<R> {
+class ListResponse<R extends Resource = Resource> extends Array<R> {
 
 	readonly meta: ListMeta
 
