@@ -12,7 +12,7 @@ export { CommerceLayerStatic } from './static'
 export type { CommerceLayerClient } from './commercelayer'
 
 // Query filter types
-export type { QueryParamsRetrieve, QueryParamsList, QueryParams } from './query'
+export type * from './query'
 
 // Raw response reader and request/response interceptors
 export type { RequestObj, ResponseObj, ErrorObj, HeadersObj } from './interceptor'
