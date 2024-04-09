@@ -1,3 +1,10 @@
+# [6.0.0-beta.12](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.11...v6.0.0-beta.12) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix fetch response ([50e7ae2](https://github.com/commercelayer/commercelayer-sdk/commit/50e7ae242f5c4e978fa52dfc900a508163c27ccd))
+
 # [6.0.0-beta.11](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.10...v6.0.0-beta.11) (2024-04-08)
 
 
