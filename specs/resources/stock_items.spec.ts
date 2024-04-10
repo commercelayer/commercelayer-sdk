@@ -321,4 +321,29 @@ describe('StockItems resource', () => {
 	/* relationship.versions stop */
 	
   
+
+	/* trigger._validate start */
+	it(resourceType + '._validate', async () => {
+	
+		let triggerAttr = '_validate'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._validate(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._validate stop */
+	
 })

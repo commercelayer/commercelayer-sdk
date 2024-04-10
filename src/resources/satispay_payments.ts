@@ -21,9 +21,6 @@ interface SatispayPayment extends Resource {
 	status?: string | null
 	redirect_url?: string | null
 	payment_url?: string | null
-	intent_amount_cents: number
-	intent_amount_float?: number | null
-	formatted_intent_amount?: string | null
 	payment_response?: Record<string, any> | null
 
 	order?: Order | null

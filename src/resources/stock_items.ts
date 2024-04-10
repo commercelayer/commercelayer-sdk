@@ -48,6 +48,7 @@ interface StockItemUpdate extends ResourceUpdate {
 	
 	sku_code?: string | null
 	quantity?: number | null
+	_validate?: boolean | null
 
 	stock_location?: StockLocationRel | null
 	sku?: SkuRel | null
@@ -99,6 +100,10 @@ class StockItems extends ApiResource<StockItem> {
 	async versions(stockItemId: string | StockItem, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `stock_items/${_stockItemId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _validate(id: string | StockItem, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StockItem> {
+		return this.resources.update<StockItemUpdate, StockItem>({ id: (typeof id === 'string')? id: id.id, type: StockItems.TYPE, _validate: true }, params, options)
 	}
 
 

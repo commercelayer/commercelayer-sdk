@@ -22,9 +22,6 @@ interface StripePayment extends Resource {
 	options?: Record<string, any> | null
 	payment_method?: Record<string, any> | null
 	mismatched_amounts?: boolean | null
-	intent_amount_cents: number
-	intent_amount_float?: number | null
-	formatted_intent_amount?: string | null
 	return_url?: string | null
 	receipt_email?: string | null
 	payment_instrument?: Record<string, any> | null
