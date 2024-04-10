@@ -884,6 +884,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			}
 
 			rels.push(`${r.name}${r.required ? '' : '?'}: ${r.required ? resName : nullable(resName)}`)
+			nullables ||= !r.required
 
 		}
 	})
