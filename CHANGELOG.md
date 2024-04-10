@@ -1,3 +1,10 @@
+# [6.0.0-beta.21](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.20...v6.0.0-beta.21) (2024-04-10)
+
+
+### Bug Fixes
+
+* fix query types export ([83709ca](https://github.com/commercelayer/commercelayer-sdk/commit/83709cab377e40a29358b8cfe04e9ab23a5e4ac8))
+
 # [6.0.0-beta.20](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.19...v6.0.0-beta.20) (2024-04-10)
 
 
