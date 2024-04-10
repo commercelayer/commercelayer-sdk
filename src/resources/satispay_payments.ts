@@ -47,21 +47,6 @@ interface SatispayPayment extends Resource {
 	 */
 	payment_url?: Nullable<string>
 	/** 
-	 * The amount of the associated payment intent, in cents..
-	 * @example ```"1000"```
-	 */
-	intent_amount_cents: number
-	/** 
-	 * The amount of the associated payment intent, float..
-	 * @example ```"10"```
-	 */
-	intent_amount_float?: Nullable<number>
-	/** 
-	 * The amount of the associated payment intent, formatted..
-	 * @example ```"€10,00"```
-	 */
-	formatted_intent_amount?: Nullable<string>
-	/** 
 	 * The Satispay payment response, used to fetch internal data..
 	 * @example ```"[object Object]"```
 	 */

@@ -222,7 +222,7 @@ interface ShipmentUpdate extends ResourceUpdate {
 	 */
 	_reserve_stock?: Nullable<boolean>
 	/** 
-	 * Send this attribute if you want to automatically release the stock for each of the associated stock line item. Can be done only when fulfillment is in progress..
+	 * Send this attribute if you want to automatically destroy the stock reservations for each of the associated stock line item. Can be done only when fulfillment is in progress..
 	 * @example ```"true"```
 	 */
 	_release_stock?: Nullable<boolean>

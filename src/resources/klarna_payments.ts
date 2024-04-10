@@ -46,21 +46,6 @@ interface KlarnaPayment extends Resource {
 	 */
 	mismatched_amounts?: Nullable<boolean>
 	/** 
-	 * The amount of the associated payment intent, in cents..
-	 * @example ```"1000"```
-	 */
-	intent_amount_cents: number
-	/** 
-	 * The amount of the associated payment intent, float..
-	 * @example ```"10"```
-	 */
-	intent_amount_float?: Nullable<number>
-	/** 
-	 * The amount of the associated payment intent, formatted..
-	 * @example ```"€10,00"```
-	 */
-	formatted_intent_amount?: Nullable<string>
-	/** 
 	 * Information about the payment instrument used in the transaction.
 	 * @example ```"[object Object]"```
 	 */
