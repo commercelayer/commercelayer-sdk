@@ -8,6 +8,9 @@ import type { PriceVolumeTier } from './price_volume_tiers'
 import type { PriceFrequencyTier } from './price_frequency_tiers'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { Customer } from './customers'
+import type { Market } from './markets'
+import type { StockLocation } from './stock_locations'
 
 
 type PriceRel = ResourceRel & { type: typeof Prices.TYPE }
@@ -34,6 +37,9 @@ interface Price extends Resource {
 	price_frequency_tiers?: PriceFrequencyTier[]
 	attachments?: Attachment[]
 	versions?: Version[]
+	jwt_customer?: Customer
+	jwt_markets?: Market[]
+	jwt_stock_locations?: StockLocation[]
 
 }
 
@@ -122,6 +128,21 @@ class Prices extends ApiResource {
 	async versions(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _priceId = (priceId as Price).id || priceId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `prices/${_priceId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async jwt_customer(priceId: string | Price, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+		const _priceId = (priceId as Price).id || priceId as string
+		return this.resources.fetch<Customer>({ type: 'customers' }, `prices/${_priceId}/jwt_customer`, params, options) as unknown as Customer
+	}
+
+	async jwt_markets(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		const _priceId = (priceId as Price).id || priceId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `prices/${_priceId}/jwt_markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async jwt_stock_locations(priceId: string | Price, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {
+		const _priceId = (priceId as Price).id || priceId as string
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `prices/${_priceId}/jwt_stock_locations`, params, options) as unknown as ListResponse<StockLocation>
 	}
 
 

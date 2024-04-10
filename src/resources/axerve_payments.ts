@@ -19,9 +19,6 @@ interface AxervePayment extends Resource {
 	buyer_details?: object
 	request_token?: boolean
 	mismatched_amounts?: boolean
-	intent_amount_cents?: number
-	intent_amount_float?: number
-	formatted_intent_amount?: string
 	payment_instrument?: object
 
 	order?: Order

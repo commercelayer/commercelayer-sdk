@@ -25,6 +25,7 @@ interface OrderSubscription extends Resource {
 	status?: string
 	frequency?: string
 	activate_by_source_order?: boolean
+	place_target_order?: boolean
 	customer_email?: string
 	starts_at?: string
 	expires_at?: string
@@ -33,7 +34,6 @@ interface OrderSubscription extends Resource {
 	occurrencies?: number
 	errors_count?: number
 	succeeded_on_last_run?: boolean
-	options?: object
 
 	market?: Market
 	subscription_model?: SubscriptionModel
@@ -54,9 +54,9 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 	
 	frequency: string
 	activate_by_source_order?: boolean
+	place_target_order?: boolean
 	starts_at?: string
 	expires_at?: string
-	options?: object
 
 	market?: MarketRel
 	source_order: OrderRel
@@ -67,6 +67,8 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 interface OrderSubscriptionUpdate extends ResourceUpdate {
 	
 	frequency?: string
+	activate_by_source_order?: boolean
+	place_target_order?: boolean
 	expires_at?: string
 	next_run_at?: string
 	_activate?: boolean

@@ -17,6 +17,8 @@ type SkuRel = ResourceRel & { type: 'skus' }
 
 interface OrderSubscriptionItem extends Resource {
 	
+	sku_code?: string
+	bundle_code?: string
 	quantity?: number
 	unit_amount_cents?: number
 	unit_amount_float?: number
@@ -29,6 +31,7 @@ interface OrderSubscriptionItem extends Resource {
 	item?: Adjustment | Bundle | Sku
 	sku?: Sku
 	bundle?: Bundle
+	adjustment?: Adjustment
 	source_line_item?: LineItem
 
 }
@@ -45,6 +48,7 @@ interface OrderSubscriptionItemCreate extends ResourceCreate {
 	item: AdjustmentRel | BundleRel | SkuRel
 	sku?: SkuRel
 	bundle?: BundleRel
+	adjustment?: AdjustmentRel
 
 }
 

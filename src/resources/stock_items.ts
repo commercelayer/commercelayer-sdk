@@ -44,6 +44,7 @@ interface StockItemUpdate extends ResourceUpdate {
 	
 	sku_code?: string
 	quantity?: number
+	_validate?: boolean
 
 	stock_location?: StockLocationRel
 	sku?: SkuRel
