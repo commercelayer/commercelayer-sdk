@@ -4,9 +4,8 @@
 	"branches": [
 		{ "name": "main", "channel": "latest" },
 		"+([0-9])?(.{+([0-9]),x}).x",
-		{ "name": "beta", "prerelease": true },
-		{ "name": "prerelease", "prerelease": "rc" },
-		{ "name": "sdk6", "channel": "sdk6", "prerelease": "beta" }
+		{ "name": "beta", "channel": "sdk6", "prerelease": true },
+		{ "name": "prerelease", "channel": "sdk6", "prerelease": "rc" }
 	],
 	"plugins": [
 		"@semantic-release/commit-analyzer",
