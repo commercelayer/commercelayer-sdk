@@ -1,3 +1,10 @@
+# [6.0.0-beta.23](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.22...v6.0.0-beta.23) (2024-04-12)
+
+
+### Bug Fixes
+
+* fix resources schema parser ([5904da8](https://github.com/commercelayer/commercelayer-sdk/commit/5904da8462d70637f8b15260b668b3094a5d7cc8))
+
 # [6.0.0-beta.22](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.21...v6.0.0-beta.22) (2024-04-10)
 
 
