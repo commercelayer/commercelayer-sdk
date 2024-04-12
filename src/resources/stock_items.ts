@@ -76,6 +76,11 @@ interface StockItemUpdate extends ResourceUpdate {
 	 * @example ```"100"```
 	 */
 	quantity?: number | null
+	/** 
+	 * Send this attribute if you want to validate the stock item quantity against the existing reserved stock one, returns an error in case the former is smaller..
+	 * @example ```"true"```
+	 */
+	_validate?: boolean | null
 
 	stock_location?: StockLocationRel | null
 	sku?: SkuRel | null
@@ -127,6 +132,10 @@ class StockItems extends ApiResource<StockItem> {
 	async versions(stockItemId: string | StockItem, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `stock_items/${_stockItemId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _validate(id: string | StockItem, params?: QueryParamsRetrieve<StockItem>, options?: ResourcesConfig): Promise<StockItem> {
+		return this.resources.update<StockItemUpdate, StockItem>({ id: (typeof id === 'string')? id: id.id, type: StockItems.TYPE, _validate: true }, params, options)
 	}
 
 

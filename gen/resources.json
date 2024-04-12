@@ -26122,7 +26122,7 @@
                 "_release_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically release the stock for each of the associated stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically destroy the stock reservations for each of the associated stock line item. Can be done only when fulfillment is in progress.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -26718,7 +26718,7 @@
                 "_release_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically release the stock for this stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -29660,6 +29660,19 @@
                     "sortable": true,
                     "example": "100"
                 },
+                "_validate": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to validate the stock item quantity against the existing reserved stock one, returns an error in case the former is smaller.",
+                    "required": "optional",
+                    "prohibited": true,
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -29887,7 +29900,7 @@
                 "_release_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically release the stock for this stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,

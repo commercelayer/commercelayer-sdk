@@ -243,7 +243,7 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 		// Attributes
 		Object.entries(cmpAttributes.properties as object).forEach(a => {
 			const [aKey, aValue] = a
-			const fetchable = (aValue.nullable !== undefined)
+			const fetchable = (aValue.nullable !== undefined) || aValue.readOnly
 			attributes[aKey] = {
 				name: aKey,
 				type: (aValue.type === 'array') ? `${aValue.items.type}[]` : aValue.type,

@@ -1,3 +1,94 @@
+# [6.0.0-beta.23](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.22...v6.0.0-beta.23) (2024-04-12)
+
+
+### Bug Fixes
+
+* fix resources schema parser ([5904da8](https://github.com/commercelayer/commercelayer-sdk/commit/5904da8462d70637f8b15260b668b3094a5d7cc8))
+
+# [6.0.0-beta.22](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.21...v6.0.0-beta.22) (2024-04-10)
+
+
+### Bug Fixes
+
+* fix node.js support ([b36b5d7](https://github.com/commercelayer/commercelayer-sdk/commit/b36b5d71ee1fe86e26673abc420ee6a11cfd51b6))
+
+# [6.0.0-beta.21](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.20...v6.0.0-beta.21) (2024-04-10)
+
+
+### Bug Fixes
+
+* fix query types export ([83709ca](https://github.com/commercelayer/commercelayer-sdk/commit/83709cab377e40a29358b8cfe04e9ab23a5e4ac8))
+
+# [6.0.0-beta.20](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.19...v6.0.0-beta.20) (2024-04-10)
+
+
+### Features
+
+* update resources to schema v5.2.1 ([af8a6ea](https://github.com/commercelayer/commercelayer-sdk/commit/af8a6eaa79e692fba624f87ef60a84978b8f8c6a))
+
+# [6.0.0-beta.19](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.18...v6.0.0-beta.19) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix package exports ([aeddbaa](https://github.com/commercelayer/commercelayer-sdk/commit/aeddbaad884b35ea75fa562ef1cedfa982d4fd01))
+
+# [6.0.0-beta.18](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.17...v6.0.0-beta.18) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix ListResponse type ([2afbee1](https://github.com/commercelayer/commercelayer-sdk/commit/2afbee1a79075246723b763c391e5503e33e0d65))
+
+# [6.0.0-beta.17](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.16...v6.0.0-beta.17) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix query filters generics ([a430ab6](https://github.com/commercelayer/commercelayer-sdk/commit/a430ab631cfc026dc9203e3c97bf9ff02b6b2b6f))
+
+# [6.0.0-beta.16](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.15...v6.0.0-beta.16) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix query generics ([993e6c7](https://github.com/commercelayer/commercelayer-sdk/commit/993e6c74571c074fc069d00c9a396708819df348))
+
+# [6.0.0-beta.15](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.14...v6.0.0-beta.15) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix package exports ([225c68a](https://github.com/commercelayer/commercelayer-sdk/commit/225c68a35df0345522f1a60ea99acfe75e2f5d4e))
+
+# [6.0.0-beta.14](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.13...v6.0.0-beta.14) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix query types ([bb5da7f](https://github.com/commercelayer/commercelayer-sdk/commit/bb5da7f2d772866c520fdb0f7bf238e99a76cf0a))
+
+# [6.0.0-beta.13](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.12...v6.0.0-beta.13) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix query params export ([3d73ce0](https://github.com/commercelayer/commercelayer-sdk/commit/3d73ce034d38549f19acd7743b2ece07070771c4))
+
+# [6.0.0-beta.12](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.11...v6.0.0-beta.12) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix fetch response ([50e7ae2](https://github.com/commercelayer/commercelayer-sdk/commit/50e7ae242f5c4e978fa52dfc900a508163c27ccd))
+
+# [6.0.0-beta.11](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.10...v6.0.0-beta.11) (2024-04-08)
+
+
+### Features
+
+* add examples to resource fields ([90b8157](https://github.com/commercelayer/commercelayer-sdk/commit/90b8157dca5c4cbcf3f8a0e298f0ab04138fce89))
+
 # [6.0.0-beta.10](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.9...v6.0.0-beta.10) (2024-04-05)
 
 

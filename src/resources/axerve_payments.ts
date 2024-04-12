@@ -55,21 +55,6 @@ interface AxervePayment extends Resource {
 	 */
 	mismatched_amounts?: boolean | null
 	/** 
-	 * The amount of the associated payment intent, in cents..
-	 * @example ```"1000"```
-	 */
-	intent_amount_cents: number
-	/** 
-	 * The amount of the associated payment intent, float..
-	 * @example ```"10"```
-	 */
-	intent_amount_float?: number | null
-	/** 
-	 * The amount of the associated payment intent, formatted..
-	 * @example ```"€10,00"```
-	 */
-	formatted_intent_amount?: string | null
-	/** 
 	 * Information about the payment instrument used in the transaction.
 	 * @example ```"[object Object]"```
 	 */

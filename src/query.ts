@@ -14,12 +14,12 @@ const objectFilters = ['_jcont']
 // type QueryResType<T> = T extends { type: infer Type } ? Type : never
 type QueryResType<T extends Resource> = T['type']
 
-type QueryInclude = string[]
+export type QueryInclude = string[]
 type QueryResourceFields<R extends ResourceTypeLock> = keyof ResourceFields[R]
-type QueryArrayFields<R extends Resource> = Array<QueryResourceFields<QueryResType<R>>>
-type QueryRecordFields = { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
+export type QueryArrayFields<R extends Resource> = Array<QueryResourceFields<QueryResType<R>>>
+export type QueryRecordFields = { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
 
-interface QueryParamsRetrieve<R extends Resource = Resource> {
+export interface QueryParamsRetrieve<R extends Resource = Resource> {
 	include?: QueryInclude
 	fields?: QueryArrayFields<R> | QueryRecordFields
 }
@@ -27,22 +27,20 @@ interface QueryParamsRetrieve<R extends Resource = Resource> {
 type QuerySortType = 'asc' | 'desc'
 type QueryResourceSortable<R extends Resource> = ResourceSortFields[QueryResType<R>]
 type QueryResourceSortableFields<R extends Resource> = StringKey<QueryResourceSortable<R>>
-type QueryArraySortable<R extends Resource> = Array<QueryResourceSortableFields<R> | `-${QueryResourceSortableFields<R>}`>
-type QueryRecordSortable<R extends Resource> = Partial<Record<keyof QueryResourceSortable<R>, QuerySortType>>
-type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>
-type QueryPageNumber = number
-type QueryPageSize = PositiveNumberRange<25>
+export type QueryArraySortable<R extends Resource> = Array<QueryResourceSortableFields<R> | `-${QueryResourceSortableFields<R>}`>
+export type QueryRecordSortable<R extends Resource> = Partial<Record<keyof QueryResourceSortable<R>, QuerySortType>>
+export type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>
+export type QueryPageNumber = number
+export type QueryPageSize = PositiveNumberRange<25>
 
-interface QueryParamsList<R extends Resource = Resource> extends QueryParamsRetrieve<R> {
+export interface QueryParamsList<R extends Resource = Resource> extends QueryParamsRetrieve<R> {
 	sort?: QueryArraySortable<R> | QueryRecordSortable<R>
 	filters?: QueryFilter
 	pageNumber?: QueryPageNumber
 	pageSize?: QueryPageSize
 }
 
-type QueryParams<R extends Resource> = QueryParamsRetrieve<R> | QueryParamsList<R>
-
-export type { QueryParamsRetrieve, QueryParamsList, QueryParams, QueryFilter }
+export type QueryParams<R extends Resource = Resource> = QueryParamsRetrieve<R> | QueryParamsList<R>
 
 
 
