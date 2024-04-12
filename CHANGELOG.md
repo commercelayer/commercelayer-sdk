@@ -1,3 +1,10 @@
+# [6.0.0-beta.22](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.21...v6.0.0-beta.22) (2024-04-10)
+
+
+### Bug Fixes
+
+* fix node.js support ([b36b5d7](https://github.com/commercelayer/commercelayer-sdk/commit/b36b5d71ee1fe86e26673abc420ee6a11cfd51b6))
+
 # [6.0.0-beta.21](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0-beta.20...v6.0.0-beta.21) (2024-04-10)
 
 
