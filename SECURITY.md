@@ -8,7 +8,7 @@
 | 5.x.x   | :white_check_mark: |
 | 4.x.x   | :x:                |
 | 3.5.x   | :x:                |
-| < 3.5.x | :x:                |
+| < 3.5.0 | :x:                |
 
 ## Reporting a Vulnerability
 
