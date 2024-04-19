@@ -29,7 +29,7 @@ type TagRel = ResourceRel & { type: TagType }
 
 
 export type PercentageDiscountPromotionSort = Pick<PercentageDiscountPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
-// export type PercentageDiscountPromotionFilter = Pick<PercentageDiscountPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
+// export type PercentageDiscountPromotionFilter = Pick<PercentageDiscountPromotion, 'id' | 'name' | 'currency_code' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
 
 
 interface PercentageDiscountPromotion extends Resource {
