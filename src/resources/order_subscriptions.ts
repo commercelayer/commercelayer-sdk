@@ -30,6 +30,7 @@ interface OrderSubscription extends Resource {
 	frequency: string
 	activate_by_source_order?: boolean | null
 	place_target_order?: boolean | null
+	renewal_alert_period?: number | null
 	customer_email?: string | null
 	starts_at?: string | null
 	expires_at?: string | null
@@ -59,6 +60,7 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 	frequency: string
 	activate_by_source_order?: boolean | null
 	place_target_order?: boolean | null
+	renewal_alert_period?: number | null
 	starts_at?: string | null
 	expires_at?: string | null
 
@@ -73,6 +75,7 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	frequency?: string | null
 	activate_by_source_order?: boolean | null
 	place_target_order?: boolean | null
+	renewal_alert_period?: number | null
 	expires_at?: string | null
 	next_run_at?: string | null
 	_activate?: boolean | null
