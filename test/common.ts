@@ -53,7 +53,7 @@ export const CommonData = {
 	options: REQUEST_OPTIONS,
 	paramsRetrieve: COMMON_PARAMS_RETRIEVE,
 	paramsList: COMMON_PARAMS_LIST,
-	paramsFields: COMMON_PARAMS_FIELDS,
+	paramsFields: COMMON_PARAMS_FIELDS as (keyof Resource)[],
 } as const
 
 
