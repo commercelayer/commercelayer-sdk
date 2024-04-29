@@ -1,28 +1,38 @@
+import type { FetchError, FetchRequestOptions } from "./fetch"
 
-import type { AxiosError, AxiosInterceptorManager, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios'
+type InterceptorEventManager<S extends (RequestInterceptor | ResponseInterceptor), F extends (ErrorInterceptor | ResponseInterceptor)> = {
+	onSuccess?: S
+	onFailure?: F
+}
+
+
+type RequestEventManager = InterceptorEventManager<RequestInterceptor, ErrorInterceptor>
+type ResponseEventManager = InterceptorEventManager<ResponseInterceptor, ErrorInterceptor>
+type ErrorEventManager = InterceptorEventManager<ResponseInterceptor, ResponseInterceptor>
 
 
 type InterceptorManager = {
-	request: AxiosInterceptorManager<AxiosRequestConfig>;
-	response: AxiosInterceptorManager<any>
+	request?: RequestEventManager
+	response?: ResponseEventManager
+	rawReader?: ErrorEventManager
 }
 
 
 // Request
-type RequestObj = AxiosRequestConfig
+type RequestObj = { url: URL, options: FetchRequestOptions }
 type RequestInterceptor = (request: RequestObj) => RequestObj | Promise<RequestObj>
 
 // Response
-type ResponseObj = AxiosResponse
+type ResponseObj = Response
 type ResponseInterceptor = (response: ResponseObj) => ResponseObj | Promise<ResponseObj>
 
 // Headers
 type ApiHeadersList = 'x-ratelimit-limit' | 'x-ratelimit-count' | 'x-ratelimit-period' | 'x-ratelimit-interval' | 'x-ratelimit-remaining'
 type ApiHeaders = { [key in ApiHeadersList]: string | number | boolean }
-type HeadersObj = (AxiosResponseHeaders | RawAxiosResponseHeaders) & ApiHeaders
+type HeadersObj = Record<string, string> | ApiHeaders
 
-
-type ErrorObj = AxiosError
+// Error
+type ErrorObj = FetchError
 type ErrorInterceptor = (error: ErrorObj) => ErrorObj | Promise<ErrorObj>
 
 type InterceptorType = 'request' | 'response'
@@ -34,9 +44,10 @@ export type { RequestObj, ResponseObj, ErrorObj, HeadersObj }
 
 
 type RawResponseReader = {
-	id: number | undefined;
-	rawResponse: ResponseObj | undefined;
-	headers: HeadersObj | undefined;
+	id: number
+	rawResponse?: any
+	headers?: HeadersObj
+	ok: boolean
 }
 
 

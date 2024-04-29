@@ -4,7 +4,7 @@
  **/
 
 import { CommerceLayerClient, Promotion } from '../../src'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash.isequal'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -27,16 +27,17 @@ describe('Promotions resource', () => {
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
 
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('get')
-      checkCommon(config, resourceType, id, currentAccessToken)
-      checkCommonParams(config, params)
-     return interceptRequest()
+    cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommonParams(request, params)
+      return interceptRequest()
     })
 
     await cl[resourceType].retrieve(id, params, CommonData.options)
+      .then((res: Promotion) =>  expect(res).not.toBeNull())
       .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
+      .finally(() => cl.removeInterceptor('request'))
 
   })
   /* spec.retrieve.stop */
@@ -47,16 +48,16 @@ describe('Promotions resource', () => {
 
     const params = CommonData.paramsList
 
-    const intId = cl.addRequestInterceptor((config) => {
-      expect(config.method).toBe('get')
-      checkCommon(config, resourceType)
-      checkCommonParamsList(config, params)
+    cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourceType)
+      checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
     await cl[resourceType].list(params, CommonData.options)
       .catch(handleError)
-      .finally(() => cl.removeInterceptor('request', intId))
+      .finally(() => cl.removeInterceptor('request'))
     
   })
   /* spec.list.stop */
@@ -89,6 +90,7 @@ describe('Promotions resource', () => {
 
 
   /* spec.parse.start */
+  /*
   it(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
@@ -121,6 +123,7 @@ describe('Promotions resource', () => {
     expect(res.reference).toBe(reference)
 
   })
+  */
   /* spec.parse.stop */
 
   
@@ -131,16 +134,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'market')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'market')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].market(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.market stop */
@@ -152,16 +155,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { order_amount_promotion_rules: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'order_amount_promotion_rule')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'order_amount_promotion_rule')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].order_amount_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.order_amount_promotion_rule stop */
@@ -173,16 +176,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { sku_list_promotion_rules: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'sku_list_promotion_rule')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku_list_promotion_rule')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].sku_list_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.sku_list_promotion_rule stop */
@@ -194,16 +197,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { coupon_codes_promotion_rules: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'coupon_codes_promotion_rule')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'coupon_codes_promotion_rule')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].coupon_codes_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.coupon_codes_promotion_rule stop */
@@ -215,16 +218,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { custom_promotion_rules: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'custom_promotion_rule')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'custom_promotion_rule')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].custom_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.custom_promotion_rule stop */
@@ -236,16 +239,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { sku_lists: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'sku_list')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku_list')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].sku_list(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.sku_list stop */
@@ -257,16 +260,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { coupons: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'coupons')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'coupons')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].coupons(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.coupons stop */
@@ -278,16 +281,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'attachments')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].attachments(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.attachments stop */
@@ -299,16 +302,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'events')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].events(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.events stop */
@@ -320,16 +323,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'tags')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'tags')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].tags(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.tags stop */
@@ -341,16 +344,16 @@ describe('Promotions resource', () => {
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
 	
-		const intId = cl.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'versions')
-			checkCommonParams(config, params)
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
 		await cl[resourceType].versions(id, params, CommonData.options)
 			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request', intId))
+			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.versions stop */

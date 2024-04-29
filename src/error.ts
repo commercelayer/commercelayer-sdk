@@ -1,12 +1,14 @@
-import axios from 'axios'
+import { FetchError } from './fetch'
+
 
 enum ErrorType {
-	CLIENT 		= 'client',		// Error instantiating the client
-	REQUEST 	= 'request',	// Error preparing API request
-	RESPONSE 	= 'response',	// Error response from API
-	CANCEL 		= 'cancel',		// Forced request abort using interceptor
-	PARSE 		= 'parse',		// Error parsing API resource
-	GENERIC 	= 'generic',	// Other not specified errors
+
+	CLIENT = 'client',		  // Generic Client error
+	REQUEST = 'request',		// Error preparing API request
+	RESPONSE = 'response',	// Error response from API
+	CANCEL = 'cancel',		  // Forced request abort using interceptor
+	PARSE = 'parse',		    // Error parsing API resource
+  TIMEOUT = 'timeout'     // Timeout error
 }
 
 
@@ -21,12 +23,11 @@ class SdkError extends Error {
 	type: ErrorType
 	code?: string
 	source?: Error
-	request?: any
 
 	constructor(error: { message: string, type?: ErrorType }) {
 		super(error.message)
-		this.name = SdkError.NAME// this.constructor.name
-		this.type = error.type || ErrorType.GENERIC
+		this.name = SdkError.NAME
+		this.type = error.type || ErrorType.CLIENT
 	}
 
 }
@@ -46,7 +47,7 @@ class ApiError extends SdkError {
 	constructor(error: SdkError)
 	constructor(error: { message: string }) {
 		super({ ...error, type: ErrorType.RESPONSE })
-		this.name = ApiError.NAME// this.constructor.name
+		this.name = ApiError.NAME
 	}
 
 	first(): any {
@@ -56,33 +57,46 @@ class ApiError extends SdkError {
 }
 
 
+const isRequestError = (error: any): error is TypeError => {
+	return error instanceof TypeError
+}
+
+const isCancelError = (error: any): boolean => {
+	return (error instanceof DOMException) && (error.name === 'AbortError')
+}
+
+const isTimeoutError = (error: any): boolean => {
+	return (error instanceof DOMException) && (error.name === 'TimeoutError')
+}
+
 
 const handleError = (error: Error): never => {
 
 	let sdkError = new SdkError({ message: error.message })
 
-	if (axios.isAxiosError(error)) {
-		if (error.response) {
-			// The request was made and the server responded with a status code that falls out of the range of 2xx
-			const apiError = new ApiError(sdkError)
-			apiError.type = ErrorType.RESPONSE
-			apiError.status = error.response.status
-			apiError.statusText = error.response.statusText
-			apiError.code = String(apiError.status)
-			apiError.errors = error.response.data.errors
-			if (!apiError.message && apiError.statusText) apiError.message = apiError.statusText
-			sdkError = apiError
-		} else if (error.request) {
-			// The request was made but no response was received
-			// `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
-			sdkError.type = ErrorType.REQUEST
-			sdkError.request = error.request
-		} else {
-			// Something happened in setting up the request that triggered an Error
-			sdkError.type = ErrorType.CLIENT
-		}
-	} else if (axios.isCancel(error)) sdkError.type = ErrorType.CANCEL
-	else sdkError.source = error
+	if (FetchError.isFetchError(error)) {
+		const apiError = new ApiError(sdkError)
+		apiError.type = ErrorType.RESPONSE
+		apiError.status = error.status
+		apiError.statusText = error.statusText
+		apiError.code = String(apiError.status)
+		apiError.errors = error.errors || []
+		if (!apiError.message && apiError.statusText) apiError.message = apiError.statusText
+		sdkError = apiError
+	}
+	else if (isRequestError(error)) {
+    sdkError.type = ErrorType.REQUEST
+  }
+	else if (isCancelError(error)) {
+    sdkError.type = ErrorType.CANCEL
+  }
+  else if (isTimeoutError(error)) {
+    sdkError.type = ErrorType.TIMEOUT
+  }
+	else {
+		sdkError.type = ErrorType.CLIENT
+		sdkError.source = error
+	}
 
 	throw sdkError
 

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -11,10 +11,18 @@ type TaxCalculatorType = 'tax_calculators'
 type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 
 
+export type TaxCalculatorSort = Pick<TaxCalculator, 'id' | 'name'> & ResourceSort
+// export type TaxCalculatorFilter = Pick<TaxCalculator, 'id' | 'name'> & ResourceFilter
+
+
 interface TaxCalculator extends Resource {
 	
 	readonly type: TaxCalculatorType
 
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
 
 	markets?: Market[] | null
@@ -28,17 +36,17 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
 
 	static readonly TYPE: TaxCalculatorType = 'tax_calculators' as const
 
-	async markets(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+	async markets(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
 		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `tax_calculators/${_taxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
-	async attachments(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_calculators/${_taxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `tax_calculators/${_taxCalculatorId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
@@ -50,7 +58,11 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
 
 
 	relationship(id: string | ResourceId | null): TaxCalculatorRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: TaxCalculators.TYPE } : { id: id.id, type: TaxCalculators.TYPE }
+		return super.relationshipOneToOne<TaxCalculatorRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): TaxCalculatorRel[] {
+		return super.relationshipOneToMany<TaxCalculatorRel>(...ids)
 	}
 
 

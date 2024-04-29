@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourceRel } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
 
 import type { Order } from './orders'
@@ -9,12 +9,28 @@ type ResourceErrorType = 'resource_errors'
 type ResourceErrorRel = ResourceRel & { type: ResourceErrorType }
 
 
+export type ResourceErrorSort = Pick<ResourceError, 'id' | 'name' | 'code'> & ResourceSort
+// export type ResourceErrorFilter = Pick<ResourceError, 'id' | 'name' | 'code' | 'message'> & ResourceFilter
+
+
 interface ResourceError extends Resource {
 	
 	readonly type: ResourceErrorType
 
+	/** 
+	 * The resource attribute name related to the error..
+	 * @example ```"number"```
+	 */
 	name: string
+	/** 
+	 * The error code..
+	 * @example ```"BLANK"```
+	 */
 	code: string
+	/** 
+	 * The error message..
+	 * @example ```"can't be blank"```
+	 */
 	message: string
 
 	resource?: Order | null
@@ -35,7 +51,11 @@ class ResourceErrors extends ApiResource<ResourceError> {
 
 
 	relationship(id: string | ResourceId | null): ResourceErrorRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ResourceErrors.TYPE } : { id: id.id, type: ResourceErrors.TYPE }
+		return super.relationshipOneToOne<ResourceErrorRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ResourceErrorRel[] {
+		return super.relationshipOneToMany<ResourceErrorRel>(...ids)
 	}
 
 

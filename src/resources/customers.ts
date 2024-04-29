@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { CustomerGroup, CustomerGroupType } from './customer_groups'
@@ -21,13 +21,32 @@ type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 type TagRel = ResourceRel & { type: TagType }
 
 
+export type CustomerSort = Pick<Customer, 'id' | 'status' | 'total_orders_count'> & ResourceSort
+// export type CustomerFilter = Pick<Customer, 'id' | 'email' | 'status' | 'has_password' | 'total_orders_count'> & ResourceFilter
+
+
 interface Customer extends Resource {
 	
 	readonly type: CustomerType
 
+	/** 
+	 * The customer's email address.
+	 * @example ```"john@example.com"```
+	 */
 	email: string
+	/** 
+	 * The customer's status, one of 'prospect', 'acquired', or 'repeat'..
+	 * @example ```"prospect"```
+	 */
 	status: 'prospect' | 'acquired' | 'repeat'
+	/** 
+	 * Indicates if the customer has a password..
+	 */
 	has_password?: boolean | null
+	/** 
+	 * The total number of orders for the customer..
+	 * @example ```"6"```
+	 */
 	total_orders_count?: number | null
 
 	customer_group?: CustomerGroup | null
@@ -47,7 +66,15 @@ interface Customer extends Resource {
 
 interface CustomerCreate extends ResourceCreate {
 	
+	/** 
+	 * The customer's email address.
+	 * @example ```"john@example.com"```
+	 */
 	email: string
+	/** 
+	 * The customer's password. Initiate a customer password reset flow if you need to change it..
+	 * @example ```"secret"```
+	 */
 	password?: string | null
 
 	customer_group?: CustomerGroupRel | null
@@ -58,7 +85,15 @@ interface CustomerCreate extends ResourceCreate {
 
 interface CustomerUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The customer's email address.
+	 * @example ```"john@example.com"```
+	 */
 	email?: string | null
+	/** 
+	 * The customer's password. Initiate a customer password reset flow if you need to change it..
+	 * @example ```"secret"```
+	 */
 	password?: string | null
 
 	customer_group?: CustomerGroupRel | null
@@ -71,11 +106,11 @@ class Customers extends ApiResource<Customer> {
 
 	static readonly TYPE: CustomerType = 'customers' as const
 
-	async create(resource: CustomerCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+	async create(resource: CustomerCreate, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
 		return this.resources.create<CustomerCreate, Customer>({ ...resource, type: Customers.TYPE }, params, options)
 	}
 
-	async update(resource: CustomerUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Customer> {
+	async update(resource: CustomerUpdate, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
 		return this.resources.update<CustomerUpdate, Customer>({ ...resource, type: Customers.TYPE }, params, options)
 	}
 
@@ -83,57 +118,57 @@ class Customers extends ApiResource<Customer> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Customers.TYPE } : id, options)
 	}
 
-	async customer_group(customerId: string | Customer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
+	async customer_group(customerId: string | Customer, params?: QueryParamsRetrieve<CustomerGroup>, options?: ResourcesConfig): Promise<CustomerGroup> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `customers/${_customerId}/customer_group`, params, options) as unknown as CustomerGroup
 	}
 
-	async customer_addresses(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerAddress>> {
+	async customer_addresses(customerId: string | Customer, params?: QueryParamsList<CustomerAddress>, options?: ResourcesConfig): Promise<ListResponse<CustomerAddress>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<CustomerAddress>({ type: 'customer_addresses' }, `customers/${_customerId}/customer_addresses`, params, options) as unknown as ListResponse<CustomerAddress>
 	}
 
-	async customer_payment_sources(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
+	async customer_payment_sources(customerId: string | Customer, params?: QueryParamsList<CustomerPaymentSource>, options?: ResourcesConfig): Promise<ListResponse<CustomerPaymentSource>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `customers/${_customerId}/customer_payment_sources`, params, options) as unknown as ListResponse<CustomerPaymentSource>
 	}
 
-	async customer_subscriptions(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<CustomerSubscription>> {
+	async customer_subscriptions(customerId: string | Customer, params?: QueryParamsList<CustomerSubscription>, options?: ResourcesConfig): Promise<ListResponse<CustomerSubscription>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<CustomerSubscription>({ type: 'customer_subscriptions' }, `customers/${_customerId}/customer_subscriptions`, params, options) as unknown as ListResponse<CustomerSubscription>
 	}
 
-	async orders(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Order>> {
+	async orders(customerId: string | Customer, params?: QueryParamsList<Order>, options?: ResourcesConfig): Promise<ListResponse<Order>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `customers/${_customerId}/orders`, params, options) as unknown as ListResponse<Order>
 	}
 
-	async order_subscriptions(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
+	async order_subscriptions(customerId: string | Customer, params?: QueryParamsList<OrderSubscription>, options?: ResourcesConfig): Promise<ListResponse<OrderSubscription>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `customers/${_customerId}/order_subscriptions`, params, options) as unknown as ListResponse<OrderSubscription>
 	}
 
-	async returns(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Return>> {
+	async returns(customerId: string | Customer, params?: QueryParamsList<Return>, options?: ResourcesConfig): Promise<ListResponse<Return>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<Return>({ type: 'returns' }, `customers/${_customerId}/returns`, params, options) as unknown as ListResponse<Return>
 	}
 
-	async sku_lists(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<SkuList>> {
+	async sku_lists(customerId: string | Customer, params?: QueryParamsList<SkuList>, options?: ResourcesConfig): Promise<ListResponse<SkuList>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `customers/${_customerId}/sku_lists`, params, options) as unknown as ListResponse<SkuList>
 	}
 
-	async attachments(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(customerId: string | Customer, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customers/${_customerId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async events(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async events(customerId: string | Customer, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `customers/${_customerId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async tags(customerId: string | Customer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+	async tags(customerId: string | Customer, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `customers/${_customerId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
@@ -145,7 +180,11 @@ class Customers extends ApiResource<Customer> {
 
 
 	relationship(id: string | ResourceId | null): CustomerRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Customers.TYPE } : { id: id.id, type: Customers.TYPE }
+		return super.relationshipOneToOne<CustomerRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CustomerRel[] {
+		return super.relationshipOneToMany<CustomerRel>(...ids)
 	}
 
 

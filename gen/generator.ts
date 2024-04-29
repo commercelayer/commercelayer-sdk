@@ -1,20 +1,22 @@
 
 import apiSchema, { Resource, Operation, Component, Cardinality, Attribute } from './schema'
-import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
-import { basename } from 'path'
-import { snakeCase } from 'lodash'
-import fixSchema from './fixer'
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs'
+import { basename } from 'node:path'
+import Fixer from './fixer'
+import Inflector from './inflector'
 
 
 /**** SDK source code generator settings ****/
-const CONFIG = {
+export const CONFIG = {
 	RELATIONSHIP_FUNCTIONS: true,
-	TRIGGER_FUNCTIONS: true
+	TRIGGER_FUNCTIONS: true,
+	LEAZY_LOADING: true,
+	LOCAL: false,
+	MICRO_CLIENTS: false
 }
 /**** **** **** **** **** **** **** **** ****/
 
-
-const Inflector = require('inflector-js')
+const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
 
 type OperationType = 'retrieve' | 'list' | 'create' | 'update' | 'delete'
@@ -52,6 +54,7 @@ const loadTemplates = (): void => {
 const generate = async (localSchema?: boolean) => {
 
 	console.log('>> Local schema: ' + (localSchema || false) + '\n')
+	CONFIG.LOCAL = localSchema || false
 
 	if (!localSchema) {
 
@@ -66,11 +69,16 @@ const generate = async (localSchema?: boolean) => {
 
 		const schemaInfo = await apiSchema.download()
 
-		if (schemaInfo.version === currentVersion) {
-			console.log('No new OpenAPI schema version: ' + currentVersion)
+		if (!schemaInfo) {
+			console.log('Unable to download OpenAPI schema')
 			return
 		}
-		else console.log(`New OpenAPI schema version: ${currentVersion} --> ${schemaInfo.version}`)
+		else
+			if (schemaInfo.version === currentVersion) {
+				console.log('No new OpenAPI schema version: ' + currentVersion)
+				return
+			}
+			else console.log(`New OpenAPI schema version: ${currentVersion} --> ${schemaInfo.version}`)
 
 	}
 
@@ -80,6 +88,7 @@ const generate = async (localSchema?: boolean) => {
 		return
 	}
 
+
 	console.log('Generating SDK resources from schema ' + schemaPath)
 
 	const schema = apiSchema.parse(schemaPath)
@@ -87,8 +96,7 @@ const generate = async (localSchema?: boolean) => {
 
 
 	// Remove redundant components and force usage of global resource component
-	fixSchema(schema)
-	// console.log(inspect(schema, false, null, true))
+	const fixedSchema = await Fixer.fixSchema(schema)
 
 
 	loadTemplates()
@@ -106,7 +114,7 @@ const generate = async (localSchema?: boolean) => {
 
 	const resources: { [key: string]: ApiRes } = {}
 
-	Object.entries(schema.resources).forEach(([type, res]) => {
+	Object.entries(fixedSchema.resources).forEach(([type, res]) => {
 
 		const name = Inflector.pluralize(Inflector.camelize(type)) as string
 
@@ -130,7 +138,7 @@ const generate = async (localSchema?: boolean) => {
 			apiClass: name,
 			models,
 			singleton,
-			operations: singleton? [] : operations,
+			operations: singleton ? [] : operations,
 			taggable,
 			versionable
 		}
@@ -141,6 +149,7 @@ const generate = async (localSchema?: boolean) => {
 	updateApiResources(resources)
 	updateSdkInterfaces(resources)
 	updateModelTypes(resources)
+	// updateApiMicroClients(resources)
 
 	console.log(`SDK generation completed [${global.version}].\n`)
 
@@ -173,7 +182,9 @@ const tabsString = (num: number): string => {
 
 const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
-	const cl = readFileSync('src/commercelayer.ts', { encoding: 'utf-8' })
+	const filePath = 'src/commercelayer.ts'
+
+	const cl = readFileSync(filePath, { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
 
@@ -192,8 +203,8 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 	Object.entries(resources).forEach(([type, res]) => {
 		let def = defTpl
 		def = def.replace(/##__TAB__##/g, '\t')
-		def = def.replace('##__RESOURCE_TYPE__##', type)
-		def = def.replace('##__RESOURCE_CLASS__##', res.apiClass)
+		def = def.replace(/##__RESOURCE_TYPE__##/, type)
+		def = def.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
 		definitions.push(def)
 	})
 
@@ -208,11 +219,11 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 	const iniTpl = iniTplLine.text.substring(iniTplIdx)
 
 	const initializations: string[] = []
-	Object.entries(resources).forEach(([type, res]) => {
+	if (!CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
 		let ini = iniTpl
 		ini = ini.replace(/##__TAB__##/g, '\t')
-		ini = ini.replace('##__RESOURCE_TYPE__##', type)
-		ini = ini.replace('##__RESOURCE_CLASS__##', res.apiClass)
+		ini = ini.replace(/##__RESOURCE_TYPE__##/, type)
+		ini = ini.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
 		initializations.push(ini)
 	})
 
@@ -221,7 +232,26 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 	lines.splice(iniStartIdx, iniStopIdx - iniStartIdx, ...initializations)
 
 
-	writeFileSync('src/commercelayer.ts', lines.join('\n'), { encoding: 'utf-8' })
+	// Leazy Loading
+	const llTplLine = findLine('##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::', lines)
+	const llTplIdx = llTplLine.offset + '##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::'.length + 1
+	const llTpl = llTplLine.text.substring(llTplIdx)
+
+	const leazyLoaders: string[] = []
+	if (CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+		let ll = llTpl
+		ll = ll.replace(/##__TAB__##/g, '\t')
+		ll = ll.replace(/##__RESOURCE_TYPE__##/g, type)
+		ll = ll.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
+		leazyLoaders.push(ll)
+	})
+
+	const llStartIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_START__##', lines).index + 2
+	const llStopIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_STOP__##', lines).index
+	lines.splice(llStartIdx, llStopIdx - llStartIdx, ...leazyLoaders)
+
+
+	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
 
 	console.log('API interfaces generated.')
 
@@ -230,7 +260,9 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 
-	const cl = readFileSync('src/model.ts', { encoding: 'utf-8' })
+	const filePath = 'src/model.ts'
+
+	const cl = readFileSync(filePath, { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
 
@@ -241,11 +273,13 @@ const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 
 	const exports: string[] = [copyrightHeader(templates.header)]
 	const types: string[] = []
+
 	Object.entries(resources).forEach(([type, res]) => {
 		let exp = expTpl
 		exp = exp.replace(/##__TAB__##/g, '\t')
-		exp = exp.replace('##__RESOURCE_TYPE__##', type)
-		exp = exp.replace('##__RESOURCE_MODELS__##', res.models.join(', '))
+		exp = exp.replace(/##__RESOURCE_TYPE__##/, type)
+		exp = exp.replace(/##__RESOURCE_MODELS__##/, res.models.join(', '))
+		exp = exp.replace(/##__RESOURCE_BASE_MODEL__##/g, String(res.models[0]))
 		exports.push(exp)
 		types.push(`\t'${type}'`)
 	})
@@ -255,7 +289,7 @@ const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 	lines.splice(expStartIdx, expStopIdx - expStartIdx, ...exports)
 
 
-	writeFileSync('src/model.ts', lines.join('\n'), { encoding: 'utf-8' })
+	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
 
 	console.log('Model types generated.')
 
@@ -264,7 +298,9 @@ const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 
 const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 
-	const cl = readFileSync('src/api.ts', { encoding: 'utf-8' })
+	const filePath = 'src/api.ts'
+
+	const cl = readFileSync(filePath, { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
 
@@ -285,13 +321,18 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const taggables: string[] = []
 	const versionables: string[] = []
 
+	const fieldsets: string[] = []
+	const sortables: string[] = []
+
 	Object.entries(resources).forEach(([type, res]) => {
 
 		let exp = expTpl
 		exp = exp.replace(/##__TAB__##/g, '\t')
-		exp = exp.replace('##__RESOURCE_TYPE__##', type)
-		exp = exp.replace('##__RESOURCE_CLASS__##', res.apiClass)
+		exp = exp.replace(/##__RESOURCE_TYPE__##/, type)
+		exp = exp.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
+		exp = exp.replace(/##__RESOURCE_MODEL__##/, Inflector.singularize(res.apiClass))
 		exports.push(exp)
+
 		const tabType = `\t'${type}'`
 		types.push(tabType)
 
@@ -302,6 +343,9 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 		if (res.operations.includes('delete')) deletables.push(tabType)
 		if (res.taggable) taggables.push(tabType)
 		if (res.versionable) versionables.push(tabType)
+
+		fieldsets.push(`\t${res.type}: models.${Inflector.singularize(res.apiClass)}`)
+		sortables.push(`\t${res.type}: models.${Inflector.singularize(res.apiClass)}Sort`)
 
 	})
 
@@ -353,12 +397,55 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const rvStopIdx = findLine('##__API_RESOURCE_VERSIONABLE_STOP__##', lines).index
 	lines.splice(rvStartIdx, rvStopIdx - rvStartIdx, versionables.join('\n|'))
 
+	const rfStartIdx = findLine('##__API_RESOURCE_FIELDS_START__##', lines).index + 1
+	const rfStopIdx = findLine('##__API_RESOURCE_FIELDS_STOP__##', lines).index
+	lines.splice(rfStartIdx, rfStopIdx - rfStartIdx, fieldsets.join(',\n'))
 
-	writeFileSync('src/api.ts', lines.join('\n'), { encoding: 'utf-8' })
+	const sfStartIdx = findLine('##__API_RESOURCE_SORTABLE_FIELDS_START__##', lines).index + 1
+	const sfStopIdx = findLine('##__API_RESOURCE_SORTABLE_FIELDS_STOP__##', lines).index
+	lines.splice(sfStartIdx, sfStopIdx - sfStartIdx, sortables.join(',\n'))
+
+
+	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
 
 	console.log('API resources generated.')
 
 }
+
+
+
+const updateApiMicroClients = (resources: { [key: string]: ApiRes }): void => {
+
+	const filePath = 'src/micro.ts'
+
+	const cl = readFileSync(filePath, { encoding: 'utf-8' })
+
+	const lines = cl.split('\n')
+
+	const cltTpl = templates.client
+
+	const clients: string[] = [copyrightHeader(templates.header)]
+
+	if (CONFIG.MICRO_CLIENTS) {
+		Object.entries(resources).forEach(([type, res]) => {
+			let clt = cltTpl
+			clt = clt.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
+			clt = clt.replace(/##__RESOURCE_CLASS_INIT__##/g, Inflector.camelize(res.apiClass, true))
+			clients.push(`${clt}\n`)
+		})
+	}
+
+	const cltStartIdx = findLine('##__API_RESOURCES_MICRO_CLIENTS_START__##', lines).index + 1
+	const cltStopIdx = findLine('##__API_RESOURCES_MICRO_CLIENTS_STOP__##', lines).index
+	lines.splice(cltStartIdx, cltStopIdx - cltStartIdx, ...clients)
+
+	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
+
+	if (CONFIG.MICRO_CLIENTS) console.log('API micro clients generated.')
+	else console.log('API micro clients generation skipped.')
+
+}
+
 
 
 const generateSpec = (type: string, name: string, resource: Resource): string => {
@@ -407,12 +494,12 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 		const compUpdKey = Object.keys(resource.components).find(c => c.endsWith('Update'))
 		if (compUpdKey) {
 			const compUpd = resource.components[compUpdKey]
-			const triggers = Object.values(compUpd.attributes).filter(a => a.name.startsWith('_') )
+			const triggers = Object.values(compUpd.attributes).filter(a => a.name.startsWith('_'))
 			if (triggers.length > 0) {
 				const tplt = templates.spec_trigger.split('\n').join('\n\t')
 				for (const trigger of triggers) {
-					const triggerValue = (trigger.type === 'boolean')? 'true' : `randomValue('${trigger.type}')`
-					const triggerParams = (trigger.type === 'boolean')? 'id' : 'id, triggerValue'
+					const triggerValue = (trigger.type === 'boolean') ? 'true' : `randomValue('${trigger.type}')`
+					const triggerParams = (trigger.type === 'boolean') ? 'id' : 'id, triggerValue'
 					let specTrg = tplt
 					specTrg = specTrg.replace(/##__OPERATION_NAME__##/g, trigger.name)
 					specTrg = specTrg.replace(/##__TRIGGER_VALUE__##/g, triggerValue)
@@ -491,12 +578,12 @@ const triggerFunctions = (type: string, name: string, resource: Resource, operat
 	const compUpdKey = Object.keys(resource.components).find(c => c.endsWith(compSuffix))
 	if (compUpdKey) {
 		const compUpd = resource.components[compUpdKey]
-		const triggers = Object.values(compUpd.attributes).filter(a => a.name.startsWith('_') )
+		const triggers = Object.values(compUpd.attributes).filter(a => a.name.startsWith('_'))
 		if (triggers.length > 0) {
 			const tplt = templates.trigger
 			for (const trigger of triggers) {
 
-				const resId = `${snakeCase(type)}Id`
+				const resId = `${Inflector.underscore(type)}Id`
 				const op: Operation = {
 					type,
 					path: `/${type}/{${resId}}`,
@@ -551,8 +638,8 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			if (['create', 'update'].includes(opName)) qryMod.add('QueryParamsRetrieve')
 			if (['retrieve', 'list'].includes(opName)) {
 				/* do nothing:
-				   retrieve operation is common to all resoucres
-				   list operation is common to all non singleton resoucres
+					 retrieve operation is common to all resoucres
+					 list operation is common to all non singleton resoucres
 				*/
 			}
 			else {
@@ -567,10 +654,10 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 				const tplrOp = templatedOperation(resName, opName, op, tplr)
 				if (op.relationship.cardinality === Cardinality.to_one) qryMod.add('QueryParamsRetrieve')
 				else
-				if (op.relationship.cardinality === Cardinality.to_many) {
-					qryMod.add('QueryParamsList')
-					resMod.add('ListResponse')
-				}
+					if (op.relationship.cardinality === Cardinality.to_many) {
+						qryMod.add('QueryParamsList')
+						resMod.add('ListResponse')
+					}
 				operations.push(tplrOp.operation)
 			} else console.log('Unknown operation: ' + opName)
 		}
@@ -580,23 +667,24 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Trigger functions (only boolean)
 	if (CONFIG.TRIGGER_FUNCTIONS) triggerFunctions(type, resName, resource, operations)
 
-	
+
 	if (operations && (operations.length > 0)) declaredImportsCommon.add('ResourcesConfig')
 
 	res = res.replace(/##__RESOURCE_MODEL_TYPE__##/g, resModelType)
-	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.size > 0) ? `, ${Array.from(resMod).join(', ')}`: '')
+	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.size > 0) ? `, ${Array.from(resMod).join(', ')}` : '')
 	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, resModelInterface)
 	res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
+	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, (resModelType === 'ApiSingleton') ? '' : `, ${resModelInterface}Sort`)
 
-	const importQueryModels = (qryMod.size > 0)? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
+	const importQueryModels = (qryMod.size > 0) ? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
 	res = res.replace(/##__IMPORT_QUERY_MODELS__##/, importQueryModels)
-	
+
 
 	// Resource definition
 	res = res.replace(/##__RESOURCE_TYPE__##/g, type)
 	res = res.replace(/##__RESOURCE_CLASS__##/g, resName)
 
-	const resourceOperations = (operations && (operations.length > 0))? operations.join('\n\n\t') : ''
+	const resourceOperations = (operations && (operations.length > 0)) ? operations.join('\n\n\t') : ''
 	res = res.replace(/##__RESOURCE_OPERATIONS__##/, resourceOperations)
 
 
@@ -608,17 +696,27 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	const modelInterfaces: string[] = []
 	const resourceInterfaces: string[] = []
 	const relationshipTypes: Set<string> = new Set()
+	const sortableFields: string[] = []
+	const filterableFields: string[] = []
 
 	typesArray.forEach(t => {
 		const cudSuffix = getCUDSuffix(t)
 		resourceInterfaces.push(`Resource${cudSuffix}`)
-		const tplCmp = templatedComponent(resName, t, resource.components[t])
+		const component: Component = resource.components[t]
+		const tplCmp = templatedComponent(resName, t, component)
 		tplCmp.models.forEach(m => declaredImportsModels.add(m))
 		modelInterfaces.push(tplCmp.component)
 		if (cudSuffix) tplCmp.models.forEach(t => relationshipTypes.add(t))
+		else {
+			sortableFields.push('id', ...Object.values(component.attributes).filter(f => (f.sortable && !RESOURCE_COMMON_FIELDS.includes(f.name))).map(f => f.name))
+			filterableFields.push('id', ...Object.values(component.attributes).filter(f => (f.filterable && !RESOURCE_COMMON_FIELDS.includes(f.name))).map(f => f.name))
+		}
 	})
 	res = res.replace(/##__MODEL_INTERFACES__##/g, modelInterfaces.join('\n\n\n'))
-	res = res.replace(/##__RESOURCE_INTERFACES__##/g, resourceInterfaces.join(', '))
+	res = res.replace(/##__IMPORT_RESOURCE_INTERFACES__##/g, resourceInterfaces.join(', '))
+
+	res = res.replace(/##__MODEL_SORTABLE_FIELDS__##/g, sortableFields.map(f => { return `'${f}'` }).join(' | '))
+	res = res.replace(/##__MODEL_FILTERABLE_FIELDS__##/g, filterableFields.map(f => { return `'${f}'` }).join(' | '))
 
 
 	// Relationships definition
@@ -628,7 +726,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImportsModels)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import type { ${i}${relationshipTypes.has(i)? `, ${i}Type` : ''} } from './${snakeCase(Inflector.pluralize(i))}'`)
+		.map(i => `import type { ${i}${relationshipTypes.has(i) ? `, ${i}Type` : ''} } from './${Inflector.underscore(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
@@ -659,7 +757,7 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 		if (!types.includes(responseType)) types.push(responseType)
 	}
 
-	const opIdVar = op.id? Inflector.camelize(op.id, true) : ''
+	const opIdVar = op.id ? Inflector.camelize(op.id, true) : ''
 	if (op.relationship) {	// Relationship
 		operation = operation.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
 		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{' + op.id, '${_' + opIdVar))
@@ -667,15 +765,15 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
 	}
 	else
-	if (op.trigger) {	// Trigger
-		operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
-		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
-		operation = operation.replace(/##__TRIGGER_VALUE__##/, placeholders?.trigger_value? ` triggerValue: ${ placeholders.trigger_value},` : '')
-		operation = operation.replace(/##__TRIGGER_VALUE_TYPE__##/, placeholders?.trigger_value? 'triggerValue' : 'true')
-	}
+		if (op.trigger) {	// Trigger
+			operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
+			operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
+			operation = operation.replace(/##__TRIGGER_VALUE__##/, placeholders?.trigger_value ? ` triggerValue: ${placeholders.trigger_value},` : '')
+			operation = operation.replace(/##__TRIGGER_VALUE_TYPE__##/, placeholders?.trigger_value ? 'triggerValue' : 'true')
+		}
 
 	if (placeholders) Object.entries(placeholders).forEach(([key, val]) => {
-		const plh = (key.startsWith('##__') && key.endsWith('__##'))? key : `##__${key.toUpperCase()}__##`
+		const plh = (key.startsWith('##__') && key.endsWith('__##')) ? key : `##__${key.toUpperCase()}__##`
 		operation = operation.replace(key, val)
 	})
 
@@ -690,12 +788,12 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 const fixAttributeType = (attr: Attribute): string => {
 	if (attr.enum?.length > 0) return `${attr.enum.map(a => `'${a}'`).join(' | ')}`
 	else
-	switch (attr.type) {
-		case 'integer': return 'number'
-		case 'object': return 'Record<string, any>'
-		case 'object[]': return 'Array<Record<string, any>>'
-		default: return attr.type
-	}
+		switch (attr.type) {
+			case 'integer': return 'number'
+			case 'object': return 'Record<string, any>'
+			case 'object[]': return 'Array<Record<string, any>>'
+			default: return attr.type
+		}
 }
 
 
@@ -732,10 +830,11 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	const attributes = Object.values(cmp.attributes)
 	const fields: string[] = []
 	attributes.forEach(a => {
-		if (!['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at'].includes(a.name)) {
+		if (!RESOURCE_COMMON_FIELDS.includes(a.name)) {
 			if (cudModel || a.fetchable) {
 				let attrType = fixAttributeType(a)
 				if (a.enum) enums[a.name] = attrType
+				if (a.description || a.example) fields.push(`/** ${a.description? `\n\t * ${a.description}.` : ''}${a.example? `\n\t * @example \`\`\`"${a.example}"\`\`\``: ''}\n\t */`)
 				fields.push(`${a.name}${a.required ? '' : '?'}: ${attrType}${a.required ? '' : ' | null'}`)
 			}
 		}

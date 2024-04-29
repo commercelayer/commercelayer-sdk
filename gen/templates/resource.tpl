@@ -1,5 +1,5 @@
 import { ##__RESOURCE_MODEL_TYPE__## } from '../resource'
-import type { ##__RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__## } from '../resource'
+import type { ##__IMPORT_RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__##, ResourceSort, /* ResourceFilter */ } from '../resource'
 ##__IMPORT_QUERY_MODELS__##
 
 ##__IMPORT_RESOURCE_MODELS__##
@@ -7,6 +7,10 @@ import type { ##__RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, Resou
 type ##__MODEL_RESOURCE_INTERFACE__##Type = '##__RESOURCE_TYPE__##'
 type ##__MODEL_RESOURCE_INTERFACE__##Rel = ResourceRel & { type: ##__MODEL_RESOURCE_INTERFACE__##Type }
 ##__RELATIONSHIP_TYPES__##
+
+export type ##__MODEL_RESOURCE_INTERFACE__##Sort = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_SORTABLE_FIELDS__##> & ResourceSort
+// export type ##__MODEL_RESOURCE_INTERFACE__##Filter = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_FILTERABLE_FIELDS__##> & ResourceFilter
+
 
 ##__MODEL_INTERFACES__##
 
@@ -24,7 +28,11 @@ class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOU
 
 
 	relationship(id: string | ResourceId | null): ##__MODEL_RESOURCE_INTERFACE__##Rel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ##__RESOURCE_CLASS__##.TYPE } : { id: id.id, type: ##__RESOURCE_CLASS__##.TYPE }
+		return super.relationshipOneToOne<##__MODEL_RESOURCE_INTERFACE__##Rel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ##__MODEL_RESOURCE_INTERFACE__##Rel[] {
+		return super.relationshipOneToMany<##__MODEL_RESOURCE_INTERFACE__##Rel>(...ids)
 	}
 
 

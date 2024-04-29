@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer } from './customers'
@@ -12,10 +12,18 @@ type CustomerGroupType = 'customer_groups'
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 
 
+export type CustomerGroupSort = Pick<CustomerGroup, 'id' | 'name'> & ResourceSort
+// export type CustomerGroupFilter = Pick<CustomerGroup, 'id' | 'name'> & ResourceFilter
+
+
 interface CustomerGroup extends Resource {
 	
 	readonly type: CustomerGroupType
 
+	/** 
+	 * The customer group's internal name.
+	 * @example ```"VIP"```
+	 */
 	name: string
 
 	customers?: Customer[] | null
@@ -28,6 +36,10 @@ interface CustomerGroup extends Resource {
 
 interface CustomerGroupCreate extends ResourceCreate {
 	
+	/** 
+	 * The customer group's internal name.
+	 * @example ```"VIP"```
+	 */
 	name: string
 	
 }
@@ -35,6 +47,10 @@ interface CustomerGroupCreate extends ResourceCreate {
 
 interface CustomerGroupUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The customer group's internal name.
+	 * @example ```"VIP"```
+	 */
 	name?: string | null
 	
 }
@@ -44,11 +60,11 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 
 	static readonly TYPE: CustomerGroupType = 'customer_groups' as const
 
-	async create(resource: CustomerGroupCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
+	async create(resource: CustomerGroupCreate, params?: QueryParamsRetrieve<CustomerGroup>, options?: ResourcesConfig): Promise<CustomerGroup> {
 		return this.resources.create<CustomerGroupCreate, CustomerGroup>({ ...resource, type: CustomerGroups.TYPE }, params, options)
 	}
 
-	async update(resource: CustomerGroupUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
+	async update(resource: CustomerGroupUpdate, params?: QueryParamsRetrieve<CustomerGroup>, options?: ResourcesConfig): Promise<CustomerGroup> {
 		return this.resources.update<CustomerGroupUpdate, CustomerGroup>({ ...resource, type: CustomerGroups.TYPE }, params, options)
 	}
 
@@ -56,22 +72,22 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 		await this.resources.delete((typeof id === 'string')? { id, type: CustomerGroups.TYPE } : id, options)
 	}
 
-	async customers(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Customer>> {
+	async customers(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Customer>, options?: ResourcesConfig): Promise<ListResponse<Customer>> {
 		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_groups/${_customerGroupId}/customers`, params, options) as unknown as ListResponse<Customer>
 	}
 
-	async markets(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+	async markets(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
 		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `customer_groups/${_customerGroupId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
-	async attachments(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customer_groups/${_customerGroupId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(customerGroupId: string | CustomerGroup, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `customer_groups/${_customerGroupId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
@@ -83,7 +99,11 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 
 
 	relationship(id: string | ResourceId | null): CustomerGroupRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: CustomerGroups.TYPE } : { id: id.id, type: CustomerGroups.TYPE }
+		return super.relationshipOneToOne<CustomerGroupRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): CustomerGroupRel[] {
+		return super.relationshipOneToMany<CustomerGroupRel>(...ids)
 	}
 
 

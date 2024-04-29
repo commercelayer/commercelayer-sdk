@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -10,10 +10,18 @@ type ManualGatewayType = 'manual_gateways'
 type ManualGatewayRel = ResourceRel & { type: ManualGatewayType }
 
 
+export type ManualGatewaySort = Pick<ManualGateway, 'id' | 'name'> & ResourceSort
+// export type ManualGatewayFilter = Pick<ManualGateway, 'id' | 'name'> & ResourceFilter
+
+
 interface ManualGateway extends Resource {
 	
 	readonly type: ManualGatewayType
 
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
 
 	payment_methods?: PaymentMethod[] | null
@@ -24,6 +32,10 @@ interface ManualGateway extends Resource {
 
 interface ManualGatewayCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
 	
 }
@@ -31,6 +43,10 @@ interface ManualGatewayCreate extends ResourceCreate {
 
 interface ManualGatewayUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name?: string | null
 	
 }
@@ -40,11 +56,11 @@ class ManualGateways extends ApiResource<ManualGateway> {
 
 	static readonly TYPE: ManualGatewayType = 'manual_gateways' as const
 
-	async create(resource: ManualGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
+	async create(resource: ManualGatewayCreate, params?: QueryParamsRetrieve<ManualGateway>, options?: ResourcesConfig): Promise<ManualGateway> {
 		return this.resources.create<ManualGatewayCreate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
-	async update(resource: ManualGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ManualGateway> {
+	async update(resource: ManualGatewayUpdate, params?: QueryParamsRetrieve<ManualGateway>, options?: ResourcesConfig): Promise<ManualGateway> {
 		return this.resources.update<ManualGatewayUpdate, ManualGateway>({ ...resource, type: ManualGateways.TYPE }, params, options)
 	}
 
@@ -52,12 +68,12 @@ class ManualGateways extends ApiResource<ManualGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ManualGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(manualGatewayId: string | ManualGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(manualGatewayId: string | ManualGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `manual_gateways/${_manualGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(manualGatewayId: string | ManualGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(manualGatewayId: string | ManualGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `manual_gateways/${_manualGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
@@ -69,7 +85,11 @@ class ManualGateways extends ApiResource<ManualGateway> {
 
 
 	relationship(id: string | ResourceId | null): ManualGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ManualGateways.TYPE } : { id: id.id, type: ManualGateways.TYPE }
+		return super.relationshipOneToOne<ManualGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ManualGatewayRel[] {
+		return super.relationshipOneToMany<ManualGatewayRel>(...ids)
 	}
 
 

@@ -1,43 +1,29 @@
-import commercelayer, { CommerceLayerStatic, ErrorObj } from '../lib/cjs'
-import { inspect } from 'util'
-import getToken from './token'
+import { handleError, init } from './util'
 
-const ENV = 'topfarmacia'
+
+
+async function customFetch(input: string | URL | Request, init?: RequestInit) {
+	console.log('CUSTOM FETCH START')
+	const res = await global.fetch(input, init)
+	console.log('CUSTOM_FETCH STOP')
+	return res
+}
+
 
 	; (async () => {
 
-		const auth = await getToken('integration', ENV).catch(err => {
-			console.log(`${err.message}\n`)
-			process.exit()
-		})
-
-		const accessToken = auth ? auth.accessToken : ''
-		const organization = process.env.CL_SDK_ORGANIZATION || 'sdk-test-org'
-
-		const cl = commercelayer({
-			organization,
-			accessToken
-		})
+		const cl = await init()
 
 		try {
 
-			cl.addResponseInterceptor(undefined, async (error) => {
-				console.log(error)
-				return Promise.reject(error)
-			}
-			)
+			cl.config({ fetch: customFetch })
 
-			const order = await cl.orders.update({ id: 'nlKhmzozJO', customer_email: 'xxx' })
-			console.log(order)
+			const res = await cl.orders.list({'fields': ['number']})
+			console.log(res)
 
 
 		} catch (error: any) {
-			console.log('\n\n --xx  ERROR  xx--\n')
-			if (CommerceLayerStatic.isApiError(error)) console.log(error.errors)
-			else {
-				console.log(inspect(error, false, null, true))
-				console.log(error.message)
-			}
+			handleError(error, true)
 		}
 
 	})()

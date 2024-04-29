@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
@@ -13,14 +13,38 @@ type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 
 
+export type AvalaraAccountSort = Pick<AvalaraAccount, 'id' | 'name'> & ResourceSort
+// export type AvalaraAccountFilter = Pick<AvalaraAccount, 'id' | 'name'> & ResourceFilter
+
+
 interface AvalaraAccount extends Resource {
 	
 	readonly type: AvalaraAccountType
 
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
+	/** 
+	 * The Avalara account username..
+	 * @example ```"user@mydomain.com"```
+	 */
 	username: string
+	/** 
+	 * The Avalara company code..
+	 * @example ```"MYCOMPANY"```
+	 */
 	company_code: string
+	/** 
+	 * Indicates if the transaction will be recorded and visible on the Avalara website..
+	 * @example ```"true"```
+	 */
 	commit_invoice?: boolean | null
+	/** 
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
+	 * @example ```"true"```
+	 */
 	ddp?: boolean | null
 
 	markets?: Market[] | null
@@ -33,11 +57,35 @@ interface AvalaraAccount extends Resource {
 
 interface AvalaraAccountCreate extends ResourceCreate {
 	
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name: string
+	/** 
+	 * The Avalara account username..
+	 * @example ```"user@mydomain.com"```
+	 */
 	username: string
+	/** 
+	 * The Avalara account password..
+	 * @example ```"secret"```
+	 */
 	password: string
+	/** 
+	 * The Avalara company code..
+	 * @example ```"MYCOMPANY"```
+	 */
 	company_code: string
+	/** 
+	 * Indicates if the transaction will be recorded and visible on the Avalara website..
+	 * @example ```"true"```
+	 */
 	commit_invoice?: boolean | null
+	/** 
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
+	 * @example ```"true"```
+	 */
 	ddp?: boolean | null
 
 	tax_categories?: TaxCategoryRel[] | null
@@ -47,11 +95,35 @@ interface AvalaraAccountCreate extends ResourceCreate {
 
 interface AvalaraAccountUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The tax calculator's internal name..
+	 * @example ```"Personal tax calculator"```
+	 */
 	name?: string | null
+	/** 
+	 * The Avalara account username..
+	 * @example ```"user@mydomain.com"```
+	 */
 	username?: string | null
+	/** 
+	 * The Avalara account password..
+	 * @example ```"secret"```
+	 */
 	password?: string | null
+	/** 
+	 * The Avalara company code..
+	 * @example ```"MYCOMPANY"```
+	 */
 	company_code?: string | null
+	/** 
+	 * Indicates if the transaction will be recorded and visible on the Avalara website..
+	 * @example ```"true"```
+	 */
 	commit_invoice?: boolean | null
+	/** 
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
+	 * @example ```"true"```
+	 */
 	ddp?: boolean | null
 
 	tax_categories?: TaxCategoryRel[] | null
@@ -63,11 +135,11 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 
 	static readonly TYPE: AvalaraAccountType = 'avalara_accounts' as const
 
-	async create(resource: AvalaraAccountCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
+	async create(resource: AvalaraAccountCreate, params?: QueryParamsRetrieve<AvalaraAccount>, options?: ResourcesConfig): Promise<AvalaraAccount> {
 		return this.resources.create<AvalaraAccountCreate, AvalaraAccount>({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}
 
-	async update(resource: AvalaraAccountUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<AvalaraAccount> {
+	async update(resource: AvalaraAccountUpdate, params?: QueryParamsRetrieve<AvalaraAccount>, options?: ResourcesConfig): Promise<AvalaraAccount> {
 		return this.resources.update<AvalaraAccountUpdate, AvalaraAccount>({ ...resource, type: AvalaraAccounts.TYPE }, params, options)
 	}
 
@@ -75,22 +147,22 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 		await this.resources.delete((typeof id === 'string')? { id, type: AvalaraAccounts.TYPE } : id, options)
 	}
 
-	async markets(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+	async markets(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `avalara_accounts/${_avalaraAccountId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
-	async attachments(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `avalara_accounts/${_avalaraAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `avalara_accounts/${_avalaraAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async tax_categories(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
+	async tax_categories(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<TaxCategory>, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `avalara_accounts/${_avalaraAccountId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
 	}
@@ -102,7 +174,11 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 
 
 	relationship(id: string | ResourceId | null): AvalaraAccountRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: AvalaraAccounts.TYPE } : { id: id.id, type: AvalaraAccounts.TYPE }
+		return super.relationshipOneToOne<AvalaraAccountRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): AvalaraAccountRel[] {
+		return super.relationshipOneToMany<AvalaraAccountRel>(...ids)
 	}
 
 

@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
 
 import type { Address } from './addresses'
@@ -10,10 +10,18 @@ type GeocoderType = 'geocoders'
 type GeocoderRel = ResourceRel & { type: GeocoderType }
 
 
+export type GeocoderSort = Pick<Geocoder, 'id' | 'name'> & ResourceSort
+// export type GeocoderFilter = Pick<Geocoder, 'id' | 'name'> & ResourceFilter
+
+
 interface Geocoder extends Resource {
 	
 	readonly type: GeocoderType
 
+	/** 
+	 * The geocoder's internal name.
+	 * @example ```"Default geocoder"```
+	 */
 	name: string
 
 	addresses?: Address[] | null
@@ -26,12 +34,12 @@ class Geocoders extends ApiResource<Geocoder> {
 
 	static readonly TYPE: GeocoderType = 'geocoders' as const
 
-	async addresses(geocoderId: string | Geocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Address>> {
+	async addresses(geocoderId: string | Geocoder, params?: QueryParamsList<Address>, options?: ResourcesConfig): Promise<ListResponse<Address>> {
 		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `geocoders/${_geocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
 	}
 
-	async attachments(geocoderId: string | Geocoder, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(geocoderId: string | Geocoder, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `geocoders/${_geocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
@@ -43,7 +51,11 @@ class Geocoders extends ApiResource<Geocoder> {
 
 
 	relationship(id: string | ResourceId | null): GeocoderRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Geocoders.TYPE } : { id: id.id, type: Geocoders.TYPE }
+		return super.relationshipOneToOne<GeocoderRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): GeocoderRel[] {
+		return super.relationshipOneToMany<GeocoderRel>(...ids)
 	}
 
 

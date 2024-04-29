@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
@@ -11,14 +11,38 @@ type StripeGatewayType = 'stripe_gateways'
 type StripeGatewayRel = ResourceRel & { type: StripeGatewayType }
 
 
+export type StripeGatewaySort = Pick<StripeGateway, 'id' | 'name'> & ResourceSort
+// export type StripeGatewayFilter = Pick<StripeGateway, 'id' | 'name'> & ResourceFilter
+
+
 interface StripeGateway extends Resource {
 	
 	readonly type: StripeGatewayType
 
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard..
+	 * @example ```"true"```
+	 */
 	auto_payments?: boolean | null
+	/** 
+	 * The gateway webhook endpoint ID, generated automatically..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	webhook_endpoint_id?: string | null
+	/** 
+	 * The gateway webhook endpoint secret, generated automatically..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
 	webhook_endpoint_secret?: string | null
+	/** 
+	 * The gateway webhook URL, generated automatically..
+	 * @example ```"https://core.commercelayer.co/webhook_callbacks/stripe_gateways/xxxxx"```
+	 */
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
@@ -30,9 +54,25 @@ interface StripeGateway extends Resource {
 
 interface StripeGatewayCreate extends ResourceCreate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name: string
+	/** 
+	 * The gateway login..
+	 * @example ```"sk_live_xxxx-yyyy-zzzz"```
+	 */
 	login: string
+	/** 
+	 * The gateway publishable API key..
+	 * @example ```"pk_live_xxxx-yyyy-zzzz"```
+	 */
 	publishable_key?: string | null
+	/** 
+	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard..
+	 * @example ```"true"```
+	 */
 	auto_payments?: boolean | null
 	
 }
@@ -40,7 +80,15 @@ interface StripeGatewayCreate extends ResourceCreate {
 
 interface StripeGatewayUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment gateway's internal name..
+	 * @example ```"US payment gateway"```
+	 */
 	name?: string | null
+	/** 
+	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard..
+	 * @example ```"true"```
+	 */
 	auto_payments?: boolean | null
 	
 }
@@ -50,11 +98,11 @@ class StripeGateways extends ApiResource<StripeGateway> {
 
 	static readonly TYPE: StripeGatewayType = 'stripe_gateways' as const
 
-	async create(resource: StripeGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
+	async create(resource: StripeGatewayCreate, params?: QueryParamsRetrieve<StripeGateway>, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.create<StripeGatewayCreate, StripeGateway>({ ...resource, type: StripeGateways.TYPE }, params, options)
 	}
 
-	async update(resource: StripeGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<StripeGateway> {
+	async update(resource: StripeGatewayUpdate, params?: QueryParamsRetrieve<StripeGateway>, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.update<StripeGatewayUpdate, StripeGateway>({ ...resource, type: StripeGateways.TYPE }, params, options)
 	}
 
@@ -62,17 +110,17 @@ class StripeGateways extends ApiResource<StripeGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: StripeGateways.TYPE } : id, options)
 	}
 
-	async payment_methods(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
+	async payment_methods(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `stripe_gateways/${_stripeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_gateways/${_stripeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async stripe_payments(stripeGatewayId: string | StripeGateway, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
+	async stripe_payments(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<StripePayment>, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
 		return this.resources.fetch<StripePayment>({ type: 'stripe_payments' }, `stripe_gateways/${_stripeGatewayId}/stripe_payments`, params, options) as unknown as ListResponse<StripePayment>
 	}
@@ -84,7 +132,11 @@ class StripeGateways extends ApiResource<StripeGateway> {
 
 
 	relationship(id: string | ResourceId | null): StripeGatewayRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: StripeGateways.TYPE } : { id: id.id, type: StripeGateways.TYPE }
+		return super.relationshipOneToOne<StripeGatewayRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): StripeGatewayRel[] {
+		return super.relationshipOneToMany<StripeGatewayRel>(...ids)
 	}
 
 

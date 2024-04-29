@@ -1,5 +1,5 @@
 
-import * as api from './api'
+import { resourceList, singletonList, type ResourceTypeLock } from './api'
 import { SdkError, ApiError} from './error'
 import CommerceLayer, { OPEN_API_SCHEMA_VERSION } from './commercelayer'
 import type { CommerceLayerClient, CommerceLayerInitConfig } from './commercelayer'
@@ -9,15 +9,15 @@ import type { CommerceLayerClient, CommerceLayerInitConfig } from './commercelay
 export const CommerceLayerStatic = {
 
 	resources: (sort?: boolean): readonly string[] => {
-		return sort? [ ...api.resourceList ].sort() : api.resourceList
+		return sort? [ ...resourceList ].sort() : resourceList
 	},
 
 	singletons: (sort?: boolean): readonly string[] => {
-		return sort? [ ...api.singletonList ].sort() : api.singletonList
+		return sort? [ ...singletonList ].sort() : singletonList
 	},
 
-	isSingleton: (resource: api.ResourceTypeLock): boolean => {
-		return (api.singletonList as unknown as api.ResourceTypeLock[]).includes(resource)
+	isSingleton: (resource: ResourceTypeLock): boolean => {
+		return (singletonList as unknown as ResourceTypeLock[]).includes(resource)
 	},
 
 	isSdkError: (error: unknown): error is SdkError => {

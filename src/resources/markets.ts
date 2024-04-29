@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Merchant, MerchantType } from './merchants'
@@ -22,19 +22,63 @@ type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 
 
+export type MarketSort = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceSort
+// export type MarketFilter = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceFilter
+
+
 interface Market extends Resource {
 	
 	readonly type: MarketType
 
+	/** 
+	 * Unique identifier for the market (numeric).
+	 * @example ```"1234"```
+	 */
 	number?: number | null
+	/** 
+	 * The market's internal name.
+	 * @example ```"EU Market"```
+	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the market (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: string | null
+	/** 
+	 * The Facebook Pixed ID.
+	 * @example ```"1234567890"```
+	 */
 	facebook_pixel_id?: string | null
+	/** 
+	 * The checkout URL for this market.
+	 * @example ```"https://checkout.yourbrand.com/:order_id"```
+	 */
 	checkout_url?: string | null
+	/** 
+	 * The URL used to overwrite prices by an external source..
+	 * @example ```"https://external_prices.yourbrand.com"```
+	 */
 	external_prices_url?: string | null
+	/** 
+	 * The URL used to validate orders by an external source..
+	 * @example ```"https://external_validation.yourbrand.com"```
+	 */
 	external_order_validation_url?: string | null
+	/** 
+	 * Indicates if market belongs to a customer_group..
+	 * @example ```"true"```
+	 */
 	private?: boolean | null
+	/** 
+	 * Time at which this resource was disabled..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
 	disabled_at?: string | null
+	/** 
+	 * The shared secret used to sign the external request payload..
+	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
+	 */
 	shared_secret: string
 
 	merchant?: Merchant | null
@@ -51,13 +95,45 @@ interface Market extends Resource {
 
 interface MarketCreate extends ResourceCreate {
 	
+	/** 
+	 * The market's internal name.
+	 * @example ```"EU Market"```
+	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the market (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: string | null
+	/** 
+	 * The Facebook Pixed ID.
+	 * @example ```"1234567890"```
+	 */
 	facebook_pixel_id?: string | null
+	/** 
+	 * The checkout URL for this market.
+	 * @example ```"https://checkout.yourbrand.com/:order_id"```
+	 */
 	checkout_url?: string | null
+	/** 
+	 * The URL used to overwrite prices by an external source..
+	 * @example ```"https://external_prices.yourbrand.com"```
+	 */
 	external_prices_url?: string | null
+	/** 
+	 * The URL used to validate orders by an external source..
+	 * @example ```"https://external_validation.yourbrand.com"```
+	 */
 	external_order_validation_url?: string | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled..
+	 * @example ```"true"```
+	 */
 	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled..
+	 * @example ```"true"```
+	 */
 	_enable?: boolean | null
 
 	merchant: MerchantRel
@@ -72,13 +148,45 @@ interface MarketCreate extends ResourceCreate {
 
 interface MarketUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The market's internal name.
+	 * @example ```"EU Market"```
+	 */
 	name?: string | null
+	/** 
+	 * A string that you can use to identify the market (must be unique within the environment)..
+	 * @example ```"europe1"```
+	 */
 	code?: string | null
+	/** 
+	 * The Facebook Pixed ID.
+	 * @example ```"1234567890"```
+	 */
 	facebook_pixel_id?: string | null
+	/** 
+	 * The checkout URL for this market.
+	 * @example ```"https://checkout.yourbrand.com/:order_id"```
+	 */
 	checkout_url?: string | null
+	/** 
+	 * The URL used to overwrite prices by an external source..
+	 * @example ```"https://external_prices.yourbrand.com"```
+	 */
 	external_prices_url?: string | null
+	/** 
+	 * The URL used to validate orders by an external source..
+	 * @example ```"https://external_validation.yourbrand.com"```
+	 */
 	external_order_validation_url?: string | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled..
+	 * @example ```"true"```
+	 */
 	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled..
+	 * @example ```"true"```
+	 */
 	_enable?: boolean | null
 
 	merchant?: MerchantRel | null
@@ -95,11 +203,11 @@ class Markets extends ApiResource<Market> {
 
 	static readonly TYPE: MarketType = 'markets' as const
 
-	async create(resource: MarketCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+	async create(resource: MarketCreate, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.create<MarketCreate, Market>({ ...resource, type: Markets.TYPE }, params, options)
 	}
 
-	async update(resource: MarketUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+	async update(resource: MarketUpdate, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.update<MarketUpdate, Market>({ ...resource, type: Markets.TYPE }, params, options)
 	}
 
@@ -107,51 +215,51 @@ class Markets extends ApiResource<Market> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Markets.TYPE } : id, options)
 	}
 
-	async merchant(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Merchant> {
+	async merchant(marketId: string | Market, params?: QueryParamsRetrieve<Merchant>, options?: ResourcesConfig): Promise<Merchant> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<Merchant>({ type: 'merchants' }, `markets/${_marketId}/merchant`, params, options) as unknown as Merchant
 	}
 
-	async price_list(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<PriceList> {
+	async price_list(marketId: string | Market, params?: QueryParamsRetrieve<PriceList>, options?: ResourcesConfig): Promise<PriceList> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `markets/${_marketId}/price_list`, params, options) as unknown as PriceList
 	}
 
-	async inventory_model(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<InventoryModel> {
+	async inventory_model(marketId: string | Market, params?: QueryParamsRetrieve<InventoryModel>, options?: ResourcesConfig): Promise<InventoryModel> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `markets/${_marketId}/inventory_model`, params, options) as unknown as InventoryModel
 	}
 
-	async subscription_model(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<SubscriptionModel> {
+	async subscription_model(marketId: string | Market, params?: QueryParamsRetrieve<SubscriptionModel>, options?: ResourcesConfig): Promise<SubscriptionModel> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<SubscriptionModel>({ type: 'subscription_models' }, `markets/${_marketId}/subscription_model`, params, options) as unknown as SubscriptionModel
 	}
 
-	async tax_calculator(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<TaxCalculator> {
+	async tax_calculator(marketId: string | Market, params?: QueryParamsRetrieve<TaxCalculator>, options?: ResourcesConfig): Promise<TaxCalculator> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<TaxCalculator>({ type: 'tax_calculators' }, `markets/${_marketId}/tax_calculator`, params, options) as unknown as TaxCalculator
 	}
 
-	async customer_group(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
+	async customer_group(marketId: string | Market, params?: QueryParamsRetrieve<CustomerGroup>, options?: ResourcesConfig): Promise<CustomerGroup> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `markets/${_marketId}/customer_group`, params, options) as unknown as CustomerGroup
 	}
 
-	async attachments(marketId: string | Market, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async attachments(marketId: string | Market, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `markets/${_marketId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
-	async versions(marketId: string | Market, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(marketId: string | Market, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `markets/${_marketId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async _disable(id: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+	async _disable(id: string | Market, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.update<MarketUpdate, Market>({ id: (typeof id === 'string')? id: id.id, type: Markets.TYPE, _disable: true }, params, options)
 	}
 
-	async _enable(id: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Market> {
+	async _enable(id: string | Market, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.update<MarketUpdate, Market>({ id: (typeof id === 'string')? id: id.id, type: Markets.TYPE, _enable: true }, params, options)
 	}
 
@@ -162,7 +270,11 @@ class Markets extends ApiResource<Market> {
 
 
 	relationship(id: string | ResourceId | null): MarketRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Markets.TYPE } : { id: id.id, type: Markets.TYPE }
+		return super.relationshipOneToOne<MarketRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): MarketRel[] {
+		return super.relationshipOneToMany<MarketRel>(...ids)
 	}
 
 
