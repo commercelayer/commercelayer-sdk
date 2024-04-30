@@ -32,7 +32,7 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-env": "^7.24.5",
     "@babel/preset-typescript": "^7.24.1",
     "@commercelayer/eslint-config-ts": "1.4.5",
     "@commercelayer/js-auth": "^6.2.0",

@@ -1,6 +1,5 @@
 import { inspect } from "util"
-import { CommerceLayerStatic } from "../src"
-import CommerceLayer, { CommerceLayerClient, CommerceLayerInitConfig } from "../src/commercelayer"
+import CommerceLayer, { CommerceLayerClient, type CommerceLayerInitConfig, CommerceLayerStatic } from "../src"
 import getToken, { AccessToken } from './token'
 
 
