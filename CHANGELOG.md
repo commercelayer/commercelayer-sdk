@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0...v6.0.1) (2024-04-30)
+
+
+### Bug Fixes
+
+* export config types ([f74dffa](https://github.com/commercelayer/commercelayer-sdk/commit/f74dffaf2076796e3719b391130813b268c32a1e))
+
 # [6.0.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.38.0...v6.0.0) (2024-04-29)
 
 
