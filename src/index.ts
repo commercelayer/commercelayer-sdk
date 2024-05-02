@@ -9,7 +9,7 @@ export { CommerceLayerStatic } from './static'
 /** ** TYPES ** **/
 
 // Commerce Layer client type
-export type { CommerceLayerClient } from './commercelayer'
+export type { CommerceLayerClient, CommerceLayerInitConfig, CommerceLayerConfig } from './commercelayer'
 
 // Query filter types
 export type * from './query'

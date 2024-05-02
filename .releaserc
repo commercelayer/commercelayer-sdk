@@ -5,7 +5,7 @@
 		{ "name": "main", "channel": "latest" },
 		"+([0-9])?(.{+([0-9]),x}).x",
 		{ "name": "beta", "prerelease": true },
-		{ "name": "sdk6", "channel": "sdk6", "prerelease": "rc" }
+		{ "name": "prerelease", "prerelease": "rc" }
 	],
 	"plugins": [
 		"@semantic-release/commit-analyzer",

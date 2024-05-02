@@ -29,7 +29,7 @@ type TagRel = ResourceRel & { type: TagType }
 
 
 export type FreeGiftPromotionSort = Pick<FreeGiftPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
-// export type FreeGiftPromotionFilter = Pick<FreeGiftPromotion, 'id' | 'name' | 'currency_code' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
+// export type FreeGiftPromotionFilter = Pick<FreeGiftPromotion, 'id' | 'name' | 'currency_code' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
 
 
 interface FreeGiftPromotion extends Resource {
