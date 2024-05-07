@@ -1,9 +1,9 @@
 name: Release
 on:
   push:
-    branches: [ main, beta ]
+    branches: [main, beta, prerelease]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 jobs:
   release:
     name: Release

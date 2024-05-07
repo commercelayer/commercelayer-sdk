@@ -56,6 +56,11 @@ interface OrderSubscription extends Resource {
 	 */
 	place_target_order?: Nullable<boolean>
 	/** 
+	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run..
+	 * @example ```"1"```
+	 */
+	renewal_alert_period?: number | null
+	/** 
 	 * The email address of the customer, if any, associated to the source order..
 	 * @example ```"john@example.com"```
 	 */
@@ -129,6 +134,11 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 	 */
 	place_target_order?: Nullable<boolean>
 	/** 
+	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run..
+	 * @example ```"1"```
+	 */
+	renewal_alert_period?: number | null
+	/** 
 	 * The activation date/time of this subscription..
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -162,6 +172,11 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	 * @example ```"true"```
 	 */
 	place_target_order?: Nullable<boolean>
+	/** 
+	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run..
+	 * @example ```"1"```
+	 */
+	renewal_alert_period?: number | null
 	/** 
 	 * The expiration date/time of this subscription (must be after starts_at)..
 	 * @example ```"2018-01-02T12:00:00.000Z"```

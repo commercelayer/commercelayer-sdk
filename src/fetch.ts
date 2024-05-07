@@ -1,5 +1,4 @@
 
-import type { DocWithData } from 'jsonapi-typescript'
 import type { InterceptorManager } from './interceptor'
 
 
@@ -9,7 +8,7 @@ const debug = Debug('fetch')
 
 export type Fetch = (input: string | URL | Request, init?: RequestInit) => Promise<Response>
 
-export type FetchResponse = DocWithData
+export type FetchResponse = any
 export type FetchRequestOptions = RequestInit
 export type FetchClientOptions = {
   interceptors?: InterceptorManager,

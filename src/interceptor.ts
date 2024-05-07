@@ -27,7 +27,7 @@ type ResponseObj = Response
 type ResponseInterceptor = (response: ResponseObj) => ResponseObj | Promise<ResponseObj>
 
 // Headers
-type ApiHeadersList = 'x-ratelimit-limit' | 'x-ratelimit-count' | 'x-ratelimit-period' | 'x-ratelimit-interval' | 'x-ratelimit-remaining'
+type ApiHeadersList = 'x-ratelimit-limit' | 'x-ratelimit-interval' | 'x-ratelimit-remaining' // | 'x-ratelimit-count' | 'x-ratelimit-period'
 type ApiHeaders = { [key in ApiHeadersList]: string | number | boolean }
 type HeadersObj = Record<string, string> | ApiHeaders
 

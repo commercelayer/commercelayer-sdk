@@ -3,7 +3,7 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ main, beta ]
+    branches: [ main, beta, prerelease ]
   pull_request:
     branches: [ main ]
   schedule:
@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'javascript-typescript' ]
+        language: [ 'javascript' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
         # Learn more:
         # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
