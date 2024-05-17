@@ -86,6 +86,7 @@ export { default as PaypalGateways } from './resources/paypal_gateways'
 export { default as PaypalPayments } from './resources/paypal_payments'
 export { default as PercentageDiscountPromotions } from './resources/percentage_discount_promotions'
 export { default as PriceFrequencyTiers } from './resources/price_frequency_tiers'
+export { default as PriceListSchedulers } from './resources/price_list_schedulers'
 export { default as PriceLists } from './resources/price_lists'
 export { default as PriceTiers } from './resources/price_tiers'
 export { default as PriceVolumeTiers } from './resources/price_volume_tiers'
@@ -212,6 +213,7 @@ export type ResourceTypeLock =
 |	'paypal_payments'
 |	'percentage_discount_promotions'
 |	'price_frequency_tiers'
+|	'price_list_schedulers'
 |	'price_lists'
 |	'price_tiers'
 |	'price_volume_tiers'
@@ -338,6 +340,7 @@ export const resourceList = [
 	'paypal_payments',
 	'percentage_discount_promotions',
 	'price_frequency_tiers',
+	'price_list_schedulers',
 	'price_lists',
 	'price_tiers',
 	'price_volume_tiers',
@@ -499,6 +502,7 @@ export type CreatableResourceType =
 |	'paypal_payments'
 |	'percentage_discount_promotions'
 |	'price_frequency_tiers'
+|	'price_list_schedulers'
 |	'price_lists'
 |	'price_volume_tiers'
 |	'prices'
@@ -607,6 +611,7 @@ export type UpdatableResourceType =
 |	'paypal_payments'
 |	'percentage_discount_promotions'
 |	'price_frequency_tiers'
+|	'price_list_schedulers'
 |	'price_lists'
 |	'price_volume_tiers'
 |	'prices'
@@ -716,6 +721,7 @@ export type DeletableResourceType =
 |	'paypal_payments'
 |	'percentage_discount_promotions'
 |	'price_frequency_tiers'
+|	'price_list_schedulers'
 |	'price_lists'
 |	'price_volume_tiers'
 |	'prices'
@@ -849,6 +855,7 @@ export type VersionableResourceType =
 |	'paypal_payments'
 |	'percentage_discount_promotions'
 |	'price_frequency_tiers'
+|	'price_list_schedulers'
 |	'price_lists'
 |	'price_tiers'
 |	'price_volume_tiers'
@@ -973,6 +980,7 @@ export type ResourceFields = {
 	paypal_payments: models.PaypalPayment,
 	percentage_discount_promotions: models.PercentageDiscountPromotion,
 	price_frequency_tiers: models.PriceFrequencyTier,
+	price_list_schedulers: models.PriceListScheduler,
 	price_lists: models.PriceList,
 	price_tiers: models.PriceTier,
 	price_volume_tiers: models.PriceVolumeTier,
@@ -1100,6 +1108,7 @@ export type ResourceSortFields = {
 	paypal_payments: models.PaypalPaymentSort,
 	percentage_discount_promotions: models.PercentageDiscountPromotionSort,
 	price_frequency_tiers: models.PriceFrequencyTierSort,
+	price_list_schedulers: models.PriceListSchedulerSort,
 	price_lists: models.PriceListSort,
 	price_tiers: models.PriceTierSort,
 	price_volume_tiers: models.PriceVolumeTierSort,

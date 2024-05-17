@@ -3839,6 +3839,23 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "status": {
+                    "type": "string",
+                    "desc": "The promotion status, one of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "expired",
+                        "pending",
+                        "active",
+                        "inactive",
+                        "disabled"
+                    ]
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -7021,6 +7038,17 @@
                     "sortable": true,
                     "example": "VIP"
                 },
+                "code": {
+                    "type": "string",
+                    "desc": "A string that you can use to identify the customer group (must be unique within the environment).",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "vip1"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -7133,6 +7161,7 @@
             "filters": [
                 "id",
                 "name",
+                "code",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -9053,6 +9082,23 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "status": {
+                    "type": "string",
+                    "desc": "The promotion status, one of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "expired",
+                        "pending",
+                        "active",
+                        "inactive",
+                        "disabled"
+                    ]
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -9816,6 +9862,23 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "status": {
+                    "type": "string",
+                    "desc": "The promotion status, one of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "expired",
+                        "pending",
+                        "active",
+                        "inactive",
+                        "disabled"
+                    ]
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -10291,6 +10354,23 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "true"
+                },
+                "status": {
+                    "type": "string",
+                    "desc": "The promotion status, one of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "expired",
+                        "pending",
+                        "active",
+                        "inactive",
+                        "disabled"
+                    ]
                 },
                 "id": {
                     "format": "id",
@@ -10768,6 +10848,23 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "status": {
+                    "type": "string",
+                    "desc": "The promotion status, one of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "expired",
+                        "pending",
+                        "active",
+                        "inactive",
+                        "disabled"
+                    ]
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -11222,6 +11319,23 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "true"
+                },
+                "status": {
+                    "type": "string",
+                    "desc": "The promotion status, one of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "expired",
+                        "pending",
+                        "active",
+                        "inactive",
+                        "disabled"
+                    ]
                 },
                 "id": {
                     "format": "id",
@@ -14052,10 +14166,10 @@
                 },
                 "unit_amount_cents": {
                     "type": "integer",
-                    "desc": "The unit amount of the line item, in cents. Can be specified only without an item, otherwise is automatically computed by order's price list, associated price tiers or external source.",
+                    "desc": "The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods.",
                     "required": "required, unless computed",
                     "creatable": true,
-                    "updatable": false,
+                    "updatable": true,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
@@ -15566,7 +15680,7 @@
                 },
                 "price_list": {
                     "type": "has_one",
-                    "desc": "The associated price list.",
+                    "desc": "The active price list. Can be the one associated to the active scheduler or the base one if there are no schedulers.",
                     "required": "required",
                     "creatable": true,
                     "updatable": true,
@@ -15619,6 +15733,14 @@
                     "parent_resource": "Api::MarketResource",
                     "class_name": "CustomerGroup"
                 },
+                "price_list_schedulers": {
+                    "type": "has_many",
+                    "desc": "The associated price list schedulers.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::MarketResource",
+                    "class_name": "PriceListScheduler"
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -15662,6 +15784,7 @@
                 "subscription_model_id",
                 "tax_calculator_id",
                 "customer_group_id",
+                "price_list_schedulers_id",
                 "attachments_id",
                 "ids",
                 "created_at_from",
@@ -18679,7 +18802,7 @@
                 },
                 "renewal_alert_period": {
                     "type": "integer",
-                    "desc": "Indicates the number of hours the renewal alert will be triggered before the subscription next run.",
+                    "desc": "Indicates the number of hours the renewal alert will be triggered before the subscription next run. Must be included between 1 and 720 hours.",
                     "required": "optional, default is \"1\"",
                     "default": 1,
                     "creatable": true,
@@ -21998,6 +22121,23 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "status": {
+                    "type": "string",
+                    "desc": "The promotion status, one of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "expired",
+                        "pending",
+                        "active",
+                        "inactive",
+                        "disabled"
+                    ]
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -22967,6 +23107,14 @@
                     "parent_resource": "Api::PriceListResource",
                     "class_name": "Price"
                 },
+                "price_list_schedulers": {
+                    "type": "has_many",
+                    "desc": "The associated price list schedulers.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::PriceListResource",
+                    "class_name": "PriceListScheduler"
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -23006,12 +23154,281 @@
                 "metadata",
                 "q",
                 "prices_id",
+                "price_list_schedulers_id",
                 "attachments_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
+            ]
+        }
+    },
+    {
+        "id": "price_list_scheduler",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "actions": [
+                "list",
+                "retrieve",
+                "create",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The price list scheduler's internal name",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "FW SALE 2023"
+                },
+                "starts_at": {
+                    "type": "datetime",
+                    "desc": "The activation date/time of this price list scheduler.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "expires_at": {
+                    "type": "datetime",
+                    "desc": "The expiration date/time of this price list scheduler (must be after starts_at).",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-02T12:00:00.000Z"
+                },
+                "active": {
+                    "type": "boolean",
+                    "desc": "Indicates if the price list scheduler is active (enabled and not expired).",
+                    "delegate": "active?",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "status": {
+                    "type": "string",
+                    "desc": "The price list scheduler status, one of 'expired', 'pending', 'active', or 'disabled'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "expired",
+                        "pending",
+                        "active",
+                        "disabled"
+                    ]
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true",
+                    "conditions": {
+                        "include": "CoreMixins::Concerns::Disabled"
+                    }
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true",
+                    "conditions": {
+                        "include": "CoreMixins::Concerns::Disabled"
+                    }
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z",
+                    "conditions": {
+                        "include": "CoreMixins::Concerns::Disabled"
+                    }
+                }
+            },
+            "relationships": {
+                "market": {
+                    "type": "has_one",
+                    "desc": "The associated market.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::PriceListSchedulerResource",
+                    "class_name": "Market"
+                },
+                "price_list": {
+                    "type": "has_one",
+                    "desc": "The associated price list.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::PriceListSchedulerResource",
+                    "class_name": "PriceList"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "conditions": {
+                        "include": "Events"
+                    },
+                    "parent_resource": "Api::PriceListSchedulerResource",
+                    "class_name": "Event"
+                },
+                "versions": {
+                    "type": "has_many",
+                    "desc": "The associated changes.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "conditions": {
+                        "include": "Versionable"
+                    },
+                    "parent_resource": "Api::PriceListSchedulerResource",
+                    "class_name": "Version"
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "starts_at",
+                "expires_at",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "disabled_at",
+                "q",
+                "market_id",
+                "price_list_id",
+                "events_id",
+                "ids",
+                "starts_at_from",
+                "starts_at_to",
+                "expires_at_from",
+                "expires_at_to",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to",
+                "disabled_at_from",
+                "disabled_at_to"
             ]
         }
     },
@@ -23563,6 +23980,23 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "true"
+                },
+                "status": {
+                    "type": "string",
+                    "desc": "The promotion status, one of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "expired",
+                        "pending",
+                        "active",
+                        "inactive",
+                        "disabled"
+                    ]
                 },
                 "id": {
                     "format": "id",
@@ -25982,7 +26416,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The shipment status, one of 'draft', 'upcoming', 'cancelled', 'on_hold', 'picking', 'packing', 'ready_to_ship', or 'shipped'",
+                    "desc": "The shipment status, one of 'draft', 'upcoming', 'cancelled', 'on_hold', 'picking', 'packing', 'ready_to_ship', or 'shipped'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -30820,7 +31254,7 @@
                     "desc": "The associated shipment.",
                     "required": "optional",
                     "creatable": true,
-                    "updatable": false,
+                    "updatable": true,
                     "filterable": true,
                     "sortable": false,
                     "parent_resource": "Api::StockTransferResource",
@@ -30831,7 +31265,7 @@
                     "desc": "The associated line_item.",
                     "required": "optional",
                     "creatable": true,
-                    "updatable": false,
+                    "updatable": true,
                     "filterable": true,
                     "sortable": false,
                     "parent_resource": "Api::StockTransferResource",

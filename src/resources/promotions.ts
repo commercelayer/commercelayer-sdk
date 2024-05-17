@@ -74,6 +74,11 @@ interface Promotion extends Resource {
 	 */
 	active?: boolean | null
 	/** 
+	 * The promotion status, one of 'expired', 'pending', 'active', 'inactive', or 'disabled'..
+	 * @example ```"pending"```
+	 */
+	status?: 'expired' | 'pending' | 'active' | 'inactive' | 'disabled' | null
+	/** 
 	 * Time at which this resource was disabled..
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */

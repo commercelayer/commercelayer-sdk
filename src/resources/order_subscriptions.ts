@@ -55,7 +55,7 @@ interface OrderSubscription extends Resource {
 	 */
 	place_target_order?: boolean | null
 	/** 
-	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run..
+	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run. Must be included between 1 and 720 hours..
 	 * @example ```"1"```
 	 */
 	renewal_alert_period?: number | null
@@ -133,7 +133,7 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 	 */
 	place_target_order?: boolean | null
 	/** 
-	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run..
+	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run. Must be included between 1 and 720 hours..
 	 * @example ```"1"```
 	 */
 	renewal_alert_period?: number | null
@@ -172,7 +172,7 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	 */
 	place_target_order?: boolean | null
 	/** 
-	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run..
+	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run. Must be included between 1 and 720 hours..
 	 * @example ```"1"```
 	 */
 	renewal_alert_period?: number | null
