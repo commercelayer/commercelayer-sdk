@@ -108,12 +108,6 @@ interface LineItemCreate extends ResourceCreate {
 
 	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel
-	sku?: SkuRel
-	bundle?: BundleRel
-	adjustment?: AdjustmentRel
-	gift_card?: GiftCardRel
-	shipment?: ShipmentRel
-	payment_method?: PaymentMethodRel
 	tags?: TagRel[]
 
 }
@@ -126,6 +120,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	quantity?: number
 	_external_price?: boolean
 	_reserve_stock?: boolean
+	unit_amount_cents?: number
 	compare_at_amount_cents?: number
 	name?: string
 	image_url?: string

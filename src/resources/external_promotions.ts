@@ -37,6 +37,7 @@ interface ExternalPromotion extends Resource {
 	total_usage_limit?: number
 	total_usage_count?: number
 	active?: boolean
+	status?: string
 	disabled_at?: string
 	promotion_url?: string
 	circuit_state?: string

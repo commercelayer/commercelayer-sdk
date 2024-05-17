@@ -7,6 +7,7 @@ import type { InventoryModel } from './inventory_models'
 import type { SubscriptionModel } from './subscription_models'
 import type { TaxCalculator } from './tax_calculators'
 import type { CustomerGroup } from './customer_groups'
+import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
@@ -39,6 +40,7 @@ interface Market extends Resource {
 	subscription_model?: SubscriptionModel
 	tax_calculator?: TaxCalculator
 	customer_group?: CustomerGroup
+	price_list_schedulers?: PriceListScheduler[]
 	attachments?: Attachment[]
 	versions?: Version[]
 
@@ -140,6 +142,11 @@ class Markets extends ApiResource {
 	async customer_group(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `markets/${_marketId}/customer_group`, params, options) as unknown as CustomerGroup
+	}
+
+	async price_list_schedulers(marketId: string | Market, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceListScheduler>> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<PriceListScheduler>({ type: 'price_list_schedulers' }, `markets/${_marketId}/price_list_schedulers`, params, options) as unknown as ListResponse<PriceListScheduler>
 	}
 
 	async attachments(marketId: string | Market, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

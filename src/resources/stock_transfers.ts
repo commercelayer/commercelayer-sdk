@@ -63,6 +63,8 @@ interface StockTransferUpdate extends ResourceUpdate {
 	sku?: SkuRel
 	origin_stock_location?: StockLocationRel
 	destination_stock_location?: StockLocationRel
+	shipment?: ShipmentRel
+	line_item?: LineItemRel
 
 }
 

@@ -37,6 +37,7 @@ interface FreeGiftPromotion extends Resource {
 	total_usage_limit?: number
 	total_usage_count?: number
 	active?: boolean
+	status?: string
 	disabled_at?: string
 	max_quantity?: number
 

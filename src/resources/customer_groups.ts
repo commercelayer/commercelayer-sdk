@@ -13,6 +13,7 @@ type CustomerGroupRel = ResourceRel & { type: typeof CustomerGroups.TYPE }
 interface CustomerGroup extends Resource {
 	
 	name?: string
+	code?: string
 
 	customers?: Customer[]
 	markets?: Market[]
@@ -25,6 +26,7 @@ interface CustomerGroup extends Resource {
 interface CustomerGroupCreate extends ResourceCreate {
 	
 	name: string
+	code?: string
 	
 }
 
@@ -32,6 +34,7 @@ interface CustomerGroupCreate extends ResourceCreate {
 interface CustomerGroupUpdate extends ResourceUpdate {
 	
 	name?: string
+	code?: string
 	
 }
 
