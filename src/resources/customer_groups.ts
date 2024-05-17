@@ -12,8 +12,8 @@ type CustomerGroupType = 'customer_groups'
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 
 
-export type CustomerGroupSort = Pick<CustomerGroup, 'id' | 'name'> & ResourceSort
-// export type CustomerGroupFilter = Pick<CustomerGroup, 'id' | 'name'> & ResourceFilter
+export type CustomerGroupSort = Pick<CustomerGroup, 'id' | 'name' | 'code'> & ResourceSort
+// export type CustomerGroupFilter = Pick<CustomerGroup, 'id' | 'name' | 'code'> & ResourceFilter
 
 
 interface CustomerGroup extends Resource {
@@ -25,6 +25,11 @@ interface CustomerGroup extends Resource {
 	 * @example ```"VIP"```
 	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the customer group (must be unique within the environment)..
+	 * @example ```"vip1"```
+	 */
+	code?: string | null
 
 	customers?: Customer[] | null
 	markets?: Market[] | null
@@ -41,6 +46,11 @@ interface CustomerGroupCreate extends ResourceCreate {
 	 * @example ```"VIP"```
 	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the customer group (must be unique within the environment)..
+	 * @example ```"vip1"```
+	 */
+	code?: string | null
 	
 }
 
@@ -52,6 +62,11 @@ interface CustomerGroupUpdate extends ResourceUpdate {
 	 * @example ```"VIP"```
 	 */
 	name?: string | null
+	/** 
+	 * A string that you can use to identify the customer group (must be unique within the environment)..
+	 * @example ```"vip1"```
+	 */
+	code?: string | null
 	
 }
 

@@ -72,7 +72,7 @@ interface LineItem extends Resource {
 	 */
 	currency_code?: string | null
 	/** 
-	 * The unit amount of the line item, in cents. Can be specified only without an item, otherwise is automatically computed by order's price list, associated price tiers or external source..
+	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods..
 	 * @example ```"10000"```
 	 */
 	unit_amount_cents?: number | null
@@ -264,7 +264,7 @@ interface LineItemCreate extends ResourceCreate {
 	 */
 	_reserve_stock?: boolean | null
 	/** 
-	 * The unit amount of the line item, in cents. Can be specified only without an item, otherwise is automatically computed by order's price list, associated price tiers or external source..
+	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods..
 	 * @example ```"10000"```
 	 */
 	unit_amount_cents?: number | null
@@ -296,12 +296,6 @@ interface LineItemCreate extends ResourceCreate {
 
 	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel | null
-	sku?: SkuRel | null
-	bundle?: BundleRel | null
-	adjustment?: AdjustmentRel | null
-	gift_card?: GiftCardRel | null
-	shipment?: ShipmentRel | null
-	payment_method?: PaymentMethodRel | null
 	tags?: TagRel[] | null
 
 }
@@ -334,6 +328,11 @@ interface LineItemUpdate extends ResourceUpdate {
 	 * @example ```"true"```
 	 */
 	_reserve_stock?: boolean | null
+	/** 
+	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods..
+	 * @example ```"10000"```
+	 */
+	unit_amount_cents?: number | null
 	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount..
 	 * @example ```"13000"```

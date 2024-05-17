@@ -82,6 +82,7 @@ export type { PaypalGateway, PaypalGatewayCreate, PaypalGatewayUpdate, PaypalGat
 export type { PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate, PaypalPaymentSort } from './resources/paypal_payments'
 export type { PercentageDiscountPromotion, PercentageDiscountPromotionCreate, PercentageDiscountPromotionUpdate, PercentageDiscountPromotionSort } from './resources/percentage_discount_promotions'
 export type { PriceFrequencyTier, PriceFrequencyTierCreate, PriceFrequencyTierUpdate, PriceFrequencyTierSort } from './resources/price_frequency_tiers'
+export type { PriceListScheduler, PriceListSchedulerCreate, PriceListSchedulerUpdate, PriceListSchedulerSort } from './resources/price_list_schedulers'
 export type { PriceList, PriceListCreate, PriceListUpdate, PriceListSort } from './resources/price_lists'
 export type { PriceTier, PriceTierSort } from './resources/price_tiers'
 export type { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate, PriceVolumeTierSort } from './resources/price_volume_tiers'

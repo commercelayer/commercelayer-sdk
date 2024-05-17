@@ -44,7 +44,7 @@ interface Shipment extends Resource {
 	 */
 	number?: string | null
 	/** 
-	 * The shipment status, one of 'draft', 'upcoming', 'cancelled', 'on_hold', 'picking', 'packing', 'ready_to_ship', or 'shipped'.
+	 * The shipment status, one of 'draft', 'upcoming', 'cancelled', 'on_hold', 'picking', 'packing', 'ready_to_ship', or 'shipped'..
 	 * @example ```"draft"```
 	 */
 	status: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped'

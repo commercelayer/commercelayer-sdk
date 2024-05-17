@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Price } from './prices'
+import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
@@ -41,6 +42,7 @@ interface PriceList extends Resource {
 	tax_included?: boolean | null
 
 	prices?: Price[] | null
+	price_list_schedulers?: PriceListScheduler[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
@@ -118,6 +120,11 @@ class PriceLists extends ApiResource<PriceList> {
 	async prices(priceListId: string | PriceList, params?: QueryParamsList<Price>, options?: ResourcesConfig): Promise<ListResponse<Price>> {
 		const _priceListId = (priceListId as PriceList).id || priceListId as string
 		return this.resources.fetch<Price>({ type: 'prices' }, `price_lists/${_priceListId}/prices`, params, options) as unknown as ListResponse<Price>
+	}
+
+	async price_list_schedulers(priceListId: string | PriceList, params?: QueryParamsList<PriceListScheduler>, options?: ResourcesConfig): Promise<ListResponse<PriceListScheduler>> {
+		const _priceListId = (priceListId as PriceList).id || priceListId as string
+		return this.resources.fetch<PriceListScheduler>({ type: 'price_list_schedulers' }, `price_lists/${_priceListId}/price_list_schedulers`, params, options) as unknown as ListResponse<PriceListScheduler>
 	}
 
 	async attachments(priceListId: string | PriceList, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
