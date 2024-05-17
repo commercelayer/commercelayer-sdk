@@ -265,10 +265,10 @@ Many resources have relationships with other resources and instead of including 
 
 ```javascript
 // Fetch 1-to-1 related resource: billing address of an order
-const billingAddress = cl.orders.billing_address('xYZkjABcde')
+const billingAddress = await cl.orders.billing_address('xYZkjABcde')
 
 // Fetch 1-to-N related resources: orders associated to a customer
-const orders = cl.customers.orders('XyzKjAbCDe', { fields: ['status', 'number'] })
+const orders = await cl.customers.orders('XyzKjAbCDe', { fields: ['status', 'number'] })
 ```
 
 In general:
@@ -291,7 +291,7 @@ resources.
 
 ```javascript
 // Get the total number of placed orders
-const placedOrders = cl.orders.count({ filters: { status_eq: 'placed' } })
+const placedOrders = await cl.orders.count({ filters: { status_eq: 'placed' } })
 
 ```
 
