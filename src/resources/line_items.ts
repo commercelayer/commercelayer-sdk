@@ -112,12 +112,6 @@ interface LineItemCreate extends ResourceCreate {
 
 	order: OrderRel
 	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel | null
-	sku?: SkuRel | null
-	bundle?: BundleRel | null
-	adjustment?: AdjustmentRel | null
-	gift_card?: GiftCardRel | null
-	shipment?: ShipmentRel | null
-	payment_method?: PaymentMethodRel | null
 	tags?: TagRel[] | null
 
 }
@@ -130,6 +124,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	quantity?: number | null
 	_external_price?: boolean | null
 	_reserve_stock?: boolean | null
+	unit_amount_cents?: number | null
 	compare_at_amount_cents?: number | null
 	name?: string | null
 	image_url?: string | null

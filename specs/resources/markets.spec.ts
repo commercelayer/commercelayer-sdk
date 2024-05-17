@@ -325,6 +325,27 @@ describe('Markets resource', () => {
 	/* relationship.customer_group stop */
 	
 
+	/* relationship.price_list_schedulers start */
+	it(resourceType + '.price_list_schedulers', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { price_list_schedulers: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'price_list_schedulers')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].price_list_schedulers(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.price_list_schedulers stop */
+	
+
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	

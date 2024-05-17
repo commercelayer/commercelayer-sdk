@@ -41,6 +41,7 @@ interface FreeGiftPromotion extends Resource {
 	total_usage_limit?: number | null
 	total_usage_count?: number | null
 	active?: boolean | null
+	status?: 'expired' | 'pending' | 'active' | 'inactive' | 'disabled' | null
 	disabled_at?: string | null
 	max_quantity?: number | null
 
