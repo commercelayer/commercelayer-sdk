@@ -31,6 +31,11 @@ interface StripePayment extends Resource {
 	 */
 	client_secret?: string | null
 	/** 
+	 * The Stripe charge ID. Identifies money movement upon the payment intent confirmation..
+	 * @example ```"ch_1234XXX"```
+	 */
+	charge_id?: string | null
+	/** 
 	 * The Stripe publishable API key..
 	 * @example ```"pk_live_xxxx-yyyy-zzzz"```
 	 */

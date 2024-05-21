@@ -35,7 +35,7 @@
     "@babel/preset-env": "^7.24.5",
     "@babel/preset-typescript": "^7.24.1",
     "@commercelayer/eslint-config-ts": "1.4.5",
-    "@commercelayer/js-auth": "^6.2.1",
+    "@commercelayer/js-auth": "^6.2.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/debug": "^4.1.12",
@@ -49,7 +49,7 @@
     "lodash.isequal": "^4.5.0",
     "semantic-release": "^23.1.1",
     "tsup": "^8.0.2",
-    "tsx": "^4.10.4",
+    "tsx": "^4.10.5",
     "typescript": "^5.4.5"
   },
   "repository": "github:commercelayer/commercelayer-sdk",

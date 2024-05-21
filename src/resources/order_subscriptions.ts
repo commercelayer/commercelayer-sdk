@@ -201,6 +201,11 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	 * @example ```"true"```
 	 */
 	_cancel?: boolean | null
+	/** 
+	 * Send this attribute if you want to convert a manual subscription to an automatic one. A subscription model is required before conversion..
+	 * @example ```"true"```
+	 */
+	_convert?: boolean | null
 
 	customer_payment_source?: CustomerPaymentSourceRel | null
 
@@ -288,6 +293,10 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 
 	async _cancel(id: string | OrderSubscription, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
 		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ id: (typeof id === 'string')? id: id.id, type: OrderSubscriptions.TYPE, _cancel: true }, params, options)
+	}
+
+	async _convert(id: string | OrderSubscription, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
+		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ id: (typeof id === 'string')? id: id.id, type: OrderSubscriptions.TYPE, _convert: true }, params, options)
 	}
 
 

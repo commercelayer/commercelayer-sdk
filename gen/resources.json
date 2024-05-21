@@ -18944,6 +18944,18 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "_convert": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to convert a manual subscription to an automatic one. A subscription model is required before conversion.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -31580,6 +31592,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "pi_1234XXX_secret_5678YYY"
+                },
+                "charge_id": {
+                    "type": "string",
+                    "desc": "The Stripe charge ID. Identifies money movement upon the payment intent confirmation.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "ch_1234XXX"
                 },
                 "publishable_key": {
                     "type": "string",
