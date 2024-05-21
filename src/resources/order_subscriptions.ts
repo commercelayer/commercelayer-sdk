@@ -77,6 +77,7 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	_activate?: boolean
 	_deactivate?: boolean
 	_cancel?: boolean
+	_convert?: boolean
 
 	customer_payment_source?: CustomerPaymentSourceRel
 
