@@ -81,6 +81,7 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	_activate?: boolean | null
 	_deactivate?: boolean | null
 	_cancel?: boolean | null
+	_convert?: boolean | null
 
 	customer_payment_source?: CustomerPaymentSourceRel | null
 
@@ -168,6 +169,10 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 
 	async _cancel(id: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
 		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ id: (typeof id === 'string')? id: id.id, type: OrderSubscriptions.TYPE, _cancel: true }, params, options)
+	}
+
+	async _convert(id: string | OrderSubscription, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<OrderSubscription> {
+		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ id: (typeof id === 'string')? id: id.id, type: OrderSubscriptions.TYPE, _convert: true }, params, options)
 	}
 
 

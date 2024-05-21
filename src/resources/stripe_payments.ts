@@ -18,6 +18,7 @@ interface StripePayment extends Resource {
 
 	stripe_id?: string | null
 	client_secret?: string | null
+	charge_id?: string | null
 	publishable_key?: string | null
 	options?: Record<string, any> | null
 	payment_method?: Record<string, any> | null

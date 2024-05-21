@@ -501,4 +501,29 @@ describe('OrderSubscriptions resource', () => {
 	})
 	/* trigger._cancel stop */
 	
+
+	/* trigger._convert start */
+	it(resourceType + '._convert', async () => {
+	
+		let triggerAttr = '_convert'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._convert(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._convert stop */
+	
 })
