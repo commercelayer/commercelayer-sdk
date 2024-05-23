@@ -10,20 +10,20 @@ async function customFetch(input: string | URL | Request, init?: RequestInit) {
 }
 
 
-	; (async () => {
+; (async () => {
 
-		const cl = await init()
+	const cl = await init()
 
-		try {
+	try {
 
-			cl.config({ fetch: customFetch })
+		cl.config({ fetch: customFetch })
 
-			const res = await cl.orders.list({'fields': ['number']})
-			console.log(res)
+		const res = await cl.orders.list({ 'fields': ['number'] })
+		console.log(res)
 
 
-		} catch (error: any) {
-			handleError(error, true)
-		}
+	} catch (error: any) {
+		handleError(error, true)
+	}
 
-	})()
+})()
