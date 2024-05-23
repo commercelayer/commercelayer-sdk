@@ -1,4 +1,4 @@
-import { authentication } from '@commercelayer/js-auth'
+import { authenticate } from '@commercelayer/js-auth'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -77,7 +77,7 @@ const getAccessToken = async (auth: AuthData): Promise<AccessToken> => {
 	const credentials: any = {
 		clientId: auth.clientId,
 		clientSecret: auth.clientSecret,
-		slug: auth.slug,
+		// slug: auth.slug,
 		domain: auth.domain || undefined,
 		scope
 	}
@@ -85,9 +85,9 @@ const getAccessToken = async (auth: AuthData): Promise<AccessToken> => {
 	if (auth.email && auth.password) {
 		credentials.username = auth.email
 		credentials.password = auth.password
-		return authentication('password', credentials)
+		return authenticate('password', credentials)
 	}
 
-	return authentication('client_credentials', credentials)
+	return authenticate('client_credentials', credentials)
 
 }
