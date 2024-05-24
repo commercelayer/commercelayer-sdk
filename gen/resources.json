@@ -31016,8 +31016,9 @@
                 "number": {
                     "type": "string",
                     "desc": "Unique identifier for the stock transfer (numeric).",
-                    "creatable": false,
-                    "updatable": false,
+                    "required": "optional, default to numeric ID",
+                    "creatable": true,
+                    "updatable": true,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,

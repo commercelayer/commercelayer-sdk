@@ -71,6 +71,11 @@ interface StockTransfer extends Resource {
 interface StockTransferCreate extends ResourceCreate {
 	
 	/** 
+	 * Unique identifier for the stock transfer (numeric)..
+	 * @example ```"1234"```
+	 */
+	number?: string | null
+	/** 
 	 * The code of the associated SKU..
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
@@ -92,6 +97,11 @@ interface StockTransferCreate extends ResourceCreate {
 
 interface StockTransferUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Unique identifier for the stock transfer (numeric)..
+	 * @example ```"1234"```
+	 */
+	number?: string | null
 	/** 
 	 * The code of the associated SKU..
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
