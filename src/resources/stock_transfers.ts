@@ -42,6 +42,7 @@ interface StockTransfer extends Resource {
 
 interface StockTransferCreate extends ResourceCreate {
 	
+	number?: string | null
 	sku_code?: string | null
 	quantity: number
 
@@ -56,6 +57,7 @@ interface StockTransferCreate extends ResourceCreate {
 
 interface StockTransferUpdate extends ResourceUpdate {
 	
+	number?: string | null
 	sku_code?: string | null
 	_upcoming?: boolean | null
 	_on_hold?: boolean | null
