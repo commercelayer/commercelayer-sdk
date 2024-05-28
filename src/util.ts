@@ -44,4 +44,14 @@ const packageInfo = (fields?: string | string[], options?: any): Record<string, 
 */
 
 
-export { sleep, sortObjectFields, /* packageInfo */ }
+const isTokenExpired = (token: string): boolean => {
+	try {
+		const tokenData = JSON.parse(atob(token.split('.')[1]))
+		return (((tokenData.exp * 1000) - Date.now()) < 0)
+	} catch (err: any) {
+		return false
+	}
+}
+
+
+export { sleep, sortObjectFields, /* packageInfo */ isTokenExpired }

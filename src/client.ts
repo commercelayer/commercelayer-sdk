@@ -1,8 +1,9 @@
-import { SdkError, handleError } from './error'
+import { SdkError, handleError, isInvalidTokenError } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
 import type { FetchResponse, FetchRequestOptions, FetchClientOptions, Fetch } from './fetch'
 import { fetchURL } from './fetch'
+import { isTokenExpired } from './util'
 
 
 import Debug from './debug'
@@ -19,12 +20,15 @@ type RequestParams = Record<string, string | number | boolean>
 type RequestHeaders = Record<string, string>
 
 
+export type RefreshToken = (expiredToken: string) => Promise<string>
+
 type RequestConfig = {
 	timeout?: number
 	params?: RequestParams
 	headers?: RequestHeaders
 	userAgent?: string
 	fetch?: Fetch
+	refreshToken?: RefreshToken
 }
 
 
@@ -66,8 +70,8 @@ class ApiClient {
 
 		const fetchConfig: RequestConfig = {
 			timeout: options.timeout || config.client.timeout,
-			// httpAgent: options.httpAgent,
-			// httpsAgent: options.httpsAgent
+			fetch: options.fetch,
+			refreshToken: options.refreshToken
 		}
 
 		// Set custom headers
@@ -82,8 +86,7 @@ class ApiClient {
 		}
 
 		// Set User-Agent
-		const userAgent = options.userAgent
-		if (userAgent) headers['User-Agent'] = userAgent
+		if (options.userAgent) headers['User-Agent'] = options.userAgent
 
 		fetchConfig.headers = headers
 
@@ -126,6 +129,7 @@ class ApiClient {
 
 		if (config.userAgent) this.userAgent(config.userAgent)
 		if (config.fetch) this.#clientConfig.fetch = config.fetch
+		if (config.refreshToken) this.#clientConfig.refreshToken = config.refreshToken
 
 		// API Client config
 		if (config.organization) this.#baseUrl = baseURL(config.organization, config.domain)
@@ -179,10 +183,22 @@ class ApiClient {
 			interceptors: this.interceptors,
 			fetch: options?.fetch || this.#clientConfig.fetch
 		}
-
 		// const start = Date.now()
-		return await fetchURL(url, requestOptions, clientOptions)
-			.catch((error: Error) => handleError(error))
+		try {	// Execute api call
+			return await fetchURL(url, requestOptions, clientOptions).catch((error: Error) => handleError(error))
+		} catch (err: any) {
+			if (isInvalidTokenError(err) && this.#clientConfig.refreshToken && isTokenExpired(this.#accessToken)) {	// If token has expired and must be refreshed
+				debug('Access token has expired')
+				const newAccessToken = await this.#clientConfig.refreshToken(this.#accessToken)	// Refresh access token ...
+				if (newAccessToken) {	// ... set new access token in current config and repeat call
+					debug('Access token refreshed')
+					this.config({ accessToken: newAccessToken })
+					if (requestOptions.headers) (requestOptions.headers as Record<string, string>).Authorization = `Bearer ${newAccessToken}`
+					const response = await fetchURL(url, requestOptions, clientOptions).catch((error: Error) => handleError(error))
+					return response
+				}
+			} else throw err
+		}
 		// .finally(() => { console.log(`<<-- ${method} ${path} ${Date.now() - start}`) })
 
 	}
@@ -198,11 +214,9 @@ class ApiClient {
 	}
 
 
-	/*
 	get currentAccessToken(): string {
 		return this.#accessToken
 	}
-	*/
 
 }
 
