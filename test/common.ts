@@ -1,6 +1,6 @@
 
 import getToken from './token'
-import CommerceLayer, { CommerceLayerClient, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
+import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
 import dotenv from 'dotenv'
 import { inspect } from 'util'
 import isEqual from 'lodash.isequal'
@@ -59,16 +59,27 @@ export const CommonData = {
 
 let currentAccessToken: string
 
-const initClient = async (): Promise<CommerceLayerClient> => {
-	const token = await getToken('integration')
-	if (token === null) throw new Error('Unable to get access token')
-	const accessToken = token.accessToken
-	currentAccessToken = accessToken
+const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerClient> => {
+
+	let accessToken: string
+	if (config.accessToken) accessToken = config.accessToken
+	else {
+		const token = await getToken('integration')
+		if (token === null) throw new Error('Unable to get access token')
+		accessToken = token.accessToken
+	}
+	
+
 	const client = CommerceLayer({ organization, accessToken, domain })
-	client.config({ timeout: GLOBAL_TIMEOUT })
-	jest.setTimeout(GLOBAL_TIMEOUT)
+	currentAccessToken = accessToken
+
+	client.config({ timeout: config.timeout || GLOBAL_TIMEOUT })
+	try { jest.setTimeout(config.timeout || GLOBAL_TIMEOUT) } catch(err: any) {}
+
 	return client
+
 }
+
 
 const fakeClient = async (): Promise<CommerceLayerClient> => {
 	const accessToken = 'fake-access-token'
@@ -77,8 +88,9 @@ const fakeClient = async (): Promise<CommerceLayerClient> => {
 	return client
 }
 
-const getClient = (instance?: boolean): Promise<CommerceLayerClient> => {
-	return instance ?  initClient() : fakeClient()
+
+const getClient = (config?: CommerceLayerConfig): Promise<CommerceLayerClient> => {
+	return config ?  initClient(config) : fakeClient()
 }
 
 const printObject = (obj: unknown): string => {

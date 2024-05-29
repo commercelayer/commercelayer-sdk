@@ -7,7 +7,7 @@ import { getClient } from '../test/common'
 let cl: CommerceLayerClient
 
 
-beforeAll(async () => { cl = await getClient(true) })
+beforeAll(async () => { cl = await getClient({}) })
 
 
 describe('SDK:error suite', () => {

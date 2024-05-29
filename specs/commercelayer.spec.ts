@@ -38,10 +38,9 @@ describe('SDK:commercelayer suite', () => {
 
 	it('commercelayer.rawResponse', async () => {
 
-		jest.setTimeout(10000)
 		const headers = true
 
-		const cli = await getClient(true)
+		const cli = await getClient({ timeout: 15000 })
 
 		const reader = cli.addRawResponseReader({ headers })
 		expect(reader).not.toBeUndefined()
@@ -71,7 +70,7 @@ describe('SDK:commercelayer suite', () => {
 
 		const organization = process.env.CL_SDK_ORGANIZATION as string
 		const domain = process.env.CL_SDK_DOMAIN as string
-		const expiredToken = 'eyJhbGciOiJIUzUxMiJ9.eyJvcmdhbml6YXRpb24iOnsiaWQiOiJ3UlBwRUZPRWxSIiwic2x1ZyI6InNkay10ZXN0LW9yZyIsImVudGVycHJpc2UiOmZhbHNlfSwiYXBwbGljYXRpb24iOnsiaWQiOiJWcERYV2lxa0JwIiwia2luZCI6ImludGVncmF0aW9uIiwicHVibGljIjpmYWxzZX0sInRlc3QiOnRydWUsImV4cCI6MTY5ODIzMTkxMCwicmFuZCI6MC4wNzk0MzUxNzg1NTQ4NDAyOH0.kNrDZLfqr-c2bNLY6zL-Rd27-cpbunwItTmtIhzchiVIqxYmBUuxDpAMPzHwA5lhGbrfnNjNhBYhTUOdeKcyLw'
+		const expiredToken = process.env.CL_SDK_ACCESS_TOKEN_EXPIRED as string
 
 		const cli = CommerceLayer({
 			organization,

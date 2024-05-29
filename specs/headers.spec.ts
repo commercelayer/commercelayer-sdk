@@ -7,7 +7,7 @@ import { getClient, CommonData, handleError, interceptRequest } from '../test/co
 let cl: CommerceLayerClient
 
 
-beforeAll(async () => { cl = await getClient(true) })
+beforeAll(async () => { cl = await getClient({}) })
 
 
 describe('Test headers', () => {
