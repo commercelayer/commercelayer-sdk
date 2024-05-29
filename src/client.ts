@@ -1,4 +1,4 @@
-import { SdkError, handleError, isInvalidTokenError } from './error'
+import { ErrorType, SdkError, handleError, isExpiredTokenError } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
 import type { FetchResponse, FetchRequestOptions, FetchClientOptions, Fetch } from './fetch'
@@ -124,8 +124,6 @@ class ApiClient {
 
 		// Client config
 		if (config.timeout) def.timeout = config.timeout
-		// if (config.httpAgent) def.httpAgent = config.httpAgent
-		// if (config.httpsAgent) def.httpsAgent = config.httpsAgent
 
 		if (config.userAgent) this.userAgent(config.userAgent)
 		if (config.fetch) this.#clientConfig.fetch = config.fetch
@@ -183,13 +181,23 @@ class ApiClient {
 			interceptors: this.interceptors,
 			fetch: options?.fetch || this.#clientConfig.fetch
 		}
+
 		// const start = Date.now()
 		try {	// Execute api call
 			return await fetchURL(url, requestOptions, clientOptions).catch((error: Error) => handleError(error))
-		} catch (err: any) {
-			if (isInvalidTokenError(err) && this.#clientConfig.refreshToken && isTokenExpired(this.#accessToken)) {	// If token has expired and must be refreshed
+		} catch (err: any) {	// Error executing api call
+
+			if (isExpiredTokenError(err) && this.#clientConfig.refreshToken && isTokenExpired(this.#accessToken)) {	// If token has expired and must be refreshed
+				
 				debug('Access token has expired')
 				const newAccessToken = await this.#clientConfig.refreshToken(this.#accessToken)	// Refresh access token ...
+					.catch((e: any) => {	// Error refreshing access token
+						debug('Refresh token error: %s', e.message)
+						const tokenError = new SdkError({ message: 'Error refreshing access token', type: ErrorType.TOKEN_REFRESH })
+						tokenError.source = e
+						throw tokenError
+					})
+
 				if (newAccessToken) {	// ... set new access token in current config and repeat call
 					debug('Access token refreshed')
 					this.config({ accessToken: newAccessToken })
@@ -197,7 +205,9 @@ class ApiClient {
 					const response = await fetchURL(url, requestOptions, clientOptions).catch((error: Error) => handleError(error))
 					return response
 				}
+
 			} else throw err
+
 		}
 		// .finally(() => { console.log(`<<-- ${method} ${path} ${Date.now() - start}`) })
 

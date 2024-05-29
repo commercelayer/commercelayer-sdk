@@ -11,6 +11,7 @@ async function customFetch(input: string | URL | Request, init?: RequestInit) {
 
 async function refreshToken(old: string): Promise<string> {
 	console.log('Getting new access token from auth server')
+	// if (true) throw new Error('Error refreshing test expired access token')
 	return (await getAccessToken()).accessToken
 }
 
