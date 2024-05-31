@@ -39,15 +39,15 @@ interface Shipment extends Resource {
 	readonly type: ShipmentType
 
 	/** 
-	 * Unique identifier for the shipment.
+	 * Unique identifier for the shipment..
 	 * @example ```"#1234/S/001"```
 	 */
-	number?: string | null
+	number: string
 	/** 
-	 * The shipment status, one of 'draft', 'upcoming', 'cancelled', 'on_hold', 'picking', 'packing', 'ready_to_ship', or 'shipped'..
+	 * The shipment status, one of 'draft', 'upcoming', 'cancelled', 'on_hold', 'picking', 'packing', 'ready_to_ship', 'shipped', or 'delivered'..
 	 * @example ```"draft"```
 	 */
-	status: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped'
+	status: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped' | 'delivered'
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard, automatically inherited from the associated order..
 	 * @example ```"EUR"```
@@ -186,6 +186,11 @@ interface ShipmentCreate extends ResourceCreate {
 interface ShipmentUpdate extends ResourceUpdate {
 	
 	/** 
+	 * Unique identifier for the shipment..
+	 * @example ```"#1234/S/001"```
+	 */
+	number?: string | null
+	/** 
 	 * Send this attribute if you want to mark this shipment as upcoming..
 	 * @example ```"true"```
 	 */
@@ -215,6 +220,11 @@ interface ShipmentUpdate extends ResourceUpdate {
 	 * @example ```"true"```
 	 */
 	_ship?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this shipment as delivered..
+	 * @example ```"true"```
+	 */
+	_deliver?: boolean | null
 	/** 
 	 * Send this attribute if you want to automatically reserve the stock for each of the associated stock line item. Can be done only when fulfillment is in progress..
 	 * @example ```"true"```
@@ -383,6 +393,10 @@ class Shipments extends ApiResource<Shipment> {
 
 	async _ship(id: string | Shipment, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _ship: true }, params, options)
+	}
+
+	async _deliver(id: string | Shipment, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _deliver: true }, params, options)
 	}
 
 	async _reserve_stock(id: string | Shipment, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
