@@ -89,12 +89,14 @@ interface ShipmentCreate extends ResourceCreate {
 
 interface ShipmentUpdate extends ResourceUpdate {
 	
+	number?: string
 	_upcoming?: boolean
 	_on_hold?: boolean
 	_picking?: boolean
 	_packing?: boolean
 	_ready_to_ship?: boolean
 	_ship?: boolean
+	_deliver?: boolean
 	_reserve_stock?: boolean
 	_release_stock?: boolean
 	_decrement_stock?: boolean

@@ -271,6 +271,7 @@ interface OrderUpdate extends ResourceUpdate {
 	_authorization_amount_cents?: number
 	_capture?: boolean
 	_refund?: boolean
+	_fulfill?: boolean
 	_update_taxes?: boolean
 	_nullify_payment_source?: boolean
 	_billing_address_clone_id?: string
