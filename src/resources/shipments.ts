@@ -34,8 +34,8 @@ interface Shipment extends Resource {
 	
 	readonly type: ShipmentType
 
-	number?: string | null
-	status: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped'
+	number: string
+	status: 'draft' | 'upcoming' | 'cancelled' | 'on_hold' | 'picking' | 'packing' | 'ready_to_ship' | 'shipped' | 'delivered'
 	currency_code?: string | null
 	cost_amount_cents?: number | null
 	cost_amount_float?: number | null
@@ -93,12 +93,14 @@ interface ShipmentCreate extends ResourceCreate {
 
 interface ShipmentUpdate extends ResourceUpdate {
 	
+	number?: string | null
 	_upcoming?: boolean | null
 	_on_hold?: boolean | null
 	_picking?: boolean | null
 	_packing?: boolean | null
 	_ready_to_ship?: boolean | null
 	_ship?: boolean | null
+	_deliver?: boolean | null
 	_reserve_stock?: boolean | null
 	_release_stock?: boolean | null
 	_decrement_stock?: boolean | null
@@ -243,6 +245,10 @@ class Shipments extends ApiResource<Shipment> {
 
 	async _ship(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _ship: true }, params, options)
+	}
+
+	async _deliver(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _deliver: true }, params, options)
 	}
 
 	async _reserve_stock(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {

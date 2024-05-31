@@ -34,6 +34,7 @@ interface GiftCard extends Resource {
 	balance_max_float?: number | null
 	formatted_balance_max?: string | null
 	balance_log: Array<Record<string, any>>
+	usage_log: Record<string, any>
 	single_use?: boolean | null
 	rechargeable?: boolean | null
 	distribute_discount?: boolean | null

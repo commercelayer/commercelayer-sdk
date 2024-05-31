@@ -275,6 +275,7 @@ interface OrderUpdate extends ResourceUpdate {
 	_authorization_amount_cents?: number | null
 	_capture?: boolean | null
 	_refund?: boolean | null
+	_fulfill?: boolean | null
 	_update_taxes?: boolean | null
 	_nullify_payment_source?: boolean | null
 	_billing_address_clone_id?: string | null
@@ -518,6 +519,10 @@ class Orders extends ApiResource<Order> {
 
 	async _refund(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _refund: true }, params, options)
+	}
+
+	async _fulfill(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _fulfill: true }, params, options)
 	}
 
 	async _update_taxes(id: string | Order, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Order> {

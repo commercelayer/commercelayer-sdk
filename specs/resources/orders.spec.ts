@@ -1126,6 +1126,31 @@ describe('Orders resource', () => {
 	/* trigger._refund stop */
 	
 
+	/* trigger._fulfill start */
+	it(resourceType + '._fulfill', async () => {
+	
+		let triggerAttr = '_fulfill'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._fulfill(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._fulfill stop */
+	
+
 	/* trigger._update_taxes start */
 	it(resourceType + '._update_taxes', async () => {
 	
