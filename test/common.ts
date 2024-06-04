@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 import { inspect } from 'util'
 import isEqual from 'lodash.isequal'
 import { RequestConfig } from '../src/client'
-import { Resource, ResourceSort } from '../src/resource'
+import { Resource } from '../src/resource'
 
 
 dotenv.config()
@@ -66,7 +66,7 @@ const initClient = async (): Promise<CommerceLayerClient> => {
 	currentAccessToken = accessToken
 	const client = CommerceLayer({ organization, accessToken, domain })
 	client.config({ timeout: GLOBAL_TIMEOUT })
-	jest.setTimeout(GLOBAL_TIMEOUT)
+	try { jest.setTimeout(GLOBAL_TIMEOUT) } catch (err: any) { }
 	return client
 }
 
