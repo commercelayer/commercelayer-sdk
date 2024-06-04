@@ -1,3 +1,16 @@
+# [6.5.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.4.0...v6.5.0) (2024-06-04)
+
+
+### Bug Fixes
+
+* fix test security issue ([a42d2b3](https://github.com/commercelayer/commercelayer-sdk/commit/a42d2b3274fda0d334fd5e27849fb1af769fc137))
+* handle token refresh errors ([82c46e1](https://github.com/commercelayer/commercelayer-sdk/commit/82c46e1058c74c48234060d296b0a45a9373552f))
+
+
+### Features
+
+* add refreshToken function ([b586b67](https://github.com/commercelayer/commercelayer-sdk/commit/b586b677942c66fda1fb7b4000fcd9ea4ef35925))
+
 # [6.4.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.3.0...v6.4.0) (2024-05-31)
 
 
