@@ -91,6 +91,11 @@ interface GiftCard extends Resource {
 	 */
 	balance_log: Array<Record<string, any>>
 	/** 
+	 * The gift card usage log. Tracks all the gift card usage actions by orders..
+	 * @example ```"[object Object]"```
+	 */
+	usage_log: Record<string, any>
+	/** 
 	 * Indicates if the gift card can be used only one..
 	 */
 	single_use?: boolean | null

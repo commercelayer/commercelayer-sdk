@@ -888,6 +888,11 @@ interface OrderUpdate extends ResourceUpdate {
 	 */
 	_refund?: boolean | null
 	/** 
+	 * Send this attribute if you want to mark as fulfilled a shipped/delivered order..
+	 * @example ```"true"```
+	 */
+	_fulfill?: boolean | null
+	/** 
 	 * Send this attribute if you want to force tax calculation for this order (a tax calculator must be associated to the order's market)..
 	 * @example ```"true"```
 	 */
@@ -1201,6 +1206,10 @@ class Orders extends ApiResource<Order> {
 
 	async _refund(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _refund: true }, params, options)
+	}
+
+	async _fulfill(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _fulfill: true }, params, options)
 	}
 
 	async _update_taxes(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {

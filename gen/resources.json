@@ -11932,14 +11932,34 @@
                     "sortable": false,
                     "example": [
                         {
-                            "date": "2019-12-23T12:00:00.000Z",
-                            "amount_cents": -10000
+                            "datetime": "2019-12-23T12:00:00.000Z",
+                            "balance_change_cents": -10000
                         },
                         {
-                            "date": "2020-02-01T12:00:00.000Z",
-                            "amount_cents": 5000
+                            "datetime": "2020-02-01T12:00:00.000Z",
+                            "balance_change_cents": 5000
                         }
                     ]
+                },
+                "usage_log": {
+                    "type": "object",
+                    "desc": "The gift card usage log. Tracks all the gift card usage actions by orders.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": {
+                        "eNoKkhmbNp": [
+                            {
+                                "action": "use",
+                                "amount_cents": -1000,
+                                "balance_cents": 4000,
+                                "datetime": "2020-02-01T12:00:00.000Z"
+                            }
+                        ]
+                    }
                 },
                 "single_use": {
                     "type": "boolean",
@@ -17193,6 +17213,18 @@
                     "type": "boolean",
                     "trigger": true,
                     "desc": "Send this attribute if you want to refund a captured order.",
+                    "prohibited": true,
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_fulfill": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark as fulfilled a shipped/delivered order.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -26418,9 +26450,11 @@
             "fields": {
                 "number": {
                     "type": "string",
-                    "desc": "Unique identifier for the shipment",
+                    "desc": "Unique identifier for the shipment.",
+                    "required": "required",
+                    "prohibited": true,
                     "creatable": false,
-                    "updatable": false,
+                    "updatable": true,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
@@ -26428,7 +26462,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The shipment status, one of 'draft', 'upcoming', 'cancelled', 'on_hold', 'picking', 'packing', 'ready_to_ship', or 'shipped'.",
+                    "desc": "The shipment status, one of 'draft', 'upcoming', 'cancelled', 'on_hold', 'picking', 'packing', 'ready_to_ship', 'shipped', or 'delivered'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -26443,7 +26477,8 @@
                         "picking",
                         "packing",
                         "ready_to_ship",
-                        "shipped"
+                        "shipped",
+                        "delivered"
                     ],
                     "aasm": true
                 },
@@ -26564,6 +26599,18 @@
                     "type": "boolean",
                     "trigger": true,
                     "desc": "Send this attribute if you want to mark this shipment as shipped.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_deliver": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this shipment as delivered.",
                     "required": "optional",
                     "creatable": false,
                     "updatable": true,
