@@ -2,7 +2,8 @@
 import { CommerceLayerClient, Customer } from '../src'
 import { sleep, sortObjectFields } from '../src/util'
 import { getClient, TestData } from '../test/common'
-import { ObjectType, isResourceType } from '../src/common'
+import { isResourceType } from '../src/common'
+import { ObjectType } from '../src/types'
 
 
 let cl: CommerceLayerClient

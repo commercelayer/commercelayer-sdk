@@ -3,12 +3,13 @@ import { FetchError } from './fetch'
 
 enum ErrorType {
 
-	CLIENT = 'client',		  // Generic Client error
-	REQUEST = 'request',		// Error preparing API request
-	RESPONSE = 'response',	// Error response from API
-	CANCEL = 'cancel',		  // Forced request abort using interceptor
-	PARSE = 'parse',		    // Error parsing API resource
-  TIMEOUT = 'timeout'     // Timeout error
+	CLIENT = 'client',		  				// Generic Client error
+	REQUEST = 'request',						// Error preparing API request
+	RESPONSE = 'response',					// Error response from API
+	CANCEL = 'cancel',		  				// Forced request abort using interceptor
+	PARSE = 'parse',		    				// Error parsing API resource
+  TIMEOUT = 'timeout',    				// Timeout error
+	TOKEN_REFRESH = 'token-refresh'	// Error calling refresh token function
 }
 
 
@@ -69,12 +70,22 @@ const isTimeoutError = (error: any): boolean => {
 	return (error instanceof DOMException) && (error.name === 'TimeoutError')
 }
 
+const isExpiredTokenError = (error: any): boolean => {
+	return (ApiError.isApiError(error) && (error.status === 401) && (
+		['INVALID_TOKEN', 'UNAUTHORIZED'].includes(error.code || '') ||
+		(error.errors && (error.errors.length > 0) && ['INVALID_TOKEN', 'UNAUTHORIZED'].includes(error.errors[0].code as string))
+	))
+}
+
 
 const handleError = (error: Error): never => {
+
+	if (SdkError.isSdkError(error) || ApiError.isApiError(error)) throw error
 
 	let sdkError = new SdkError({ message: error.message })
 
 	if (FetchError.isFetchError(error)) {
+		// console.log('Fetch Error')
 		const apiError = new ApiError(sdkError)
 		apiError.type = ErrorType.RESPONSE
 		apiError.status = error.status
@@ -85,15 +96,19 @@ const handleError = (error: Error): never => {
 		sdkError = apiError
 	}
 	else if (isRequestError(error)) {
+		// console.log('Request Error')
     sdkError.type = ErrorType.REQUEST
   }
 	else if (isCancelError(error)) {
+		// console.log('Cancel Error')
     sdkError.type = ErrorType.CANCEL
   }
   else if (isTimeoutError(error)) {
+		// console.log('Timeout Error')
     sdkError.type = ErrorType.TIMEOUT
   }
 	else {
+		// console.log('Generic Error')
 		sdkError.type = ErrorType.CLIENT
 		sdkError.source = error
 	}
@@ -103,4 +118,4 @@ const handleError = (error: Error): never => {
 }
 
 
-export { SdkError, ApiError, ErrorType, handleError }
+export { SdkError, ApiError, ErrorType, handleError, isExpiredTokenError }

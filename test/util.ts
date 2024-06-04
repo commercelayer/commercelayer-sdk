@@ -19,7 +19,7 @@ export const initConfig = async (): Promise<CommerceLayerInitConfig> => {
 
 	const auth = await getAccessToken()
 
-	const accessToken = auth ? auth.accessToken : ''
+	const accessToken = process.env.CL_SDK_ACCESS_TOKEN || (auth ? auth.accessToken : '')
 	const organization = process.env.CL_SDK_ORGANIZATION || 'sdk-test-org'
 
 	return {

@@ -32,6 +32,7 @@ jobs:
           CL_SDK_ORGANIZATION: sdk-test-org
           CL_SDK_CLIENT_ID: ${{secrets.CL_SDK_CLIENT_ID}}
           CL_SDK_CLIENT_SECRET: ${{secrets.CL_SDK_CLIENT_SECRET}}
+          CL_SDK_ACCESS_TOKEN_EXPIRED: ${{secrets.CL_SDK_ACCESS_TOKEN_EXPIRED}}
         run: pnpm test
       - name: Release
         env:

@@ -1,4 +1,4 @@
-import { handleError, init } from './util'
+import { getAccessToken, handleError, init } from './util'
 
 
 
@@ -9,18 +9,24 @@ async function customFetch(input: string | URL | Request, init?: RequestInit) {
 	return res
 }
 
+async function refreshToken(old: string): Promise<string> {
+	console.log('Getting new access token from auth server')
+	// if (true) throw new Error('Error refreshing test expired access token')
+	return (await getAccessToken()).accessToken
+}
 
 ; (async () => {
 
 	const cl = await init()
 
+	cl.config({ refreshToken, fetch: customFetch })
+
 	try {
 
-		cl.config({ fetch: customFetch })
-
-		const res = await cl.orders.list({ 'fields': ['number'] })
+		const res = await cl.customers.list({ pageSize: 1 })
 		console.log(res)
-
+		const c = await cl.customers.retrieve(res[0].id)
+		console.log(c)
 
 	} catch (error: any) {
 		handleError(error, true)

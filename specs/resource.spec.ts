@@ -10,7 +10,7 @@ let tempId: string
 
 
 beforeAll(async () => {
-	cl = await getClient(true)
+	cl = await getClient({})
 	customers = await cl.customers.list({ pageSize: 1})
 })
 

@@ -31,7 +31,6 @@ class CommerceLayerClient {
 
 	readonly #adapter: ResourceAdapter
 	#slug: string
-	// #environment: ApiMode = sdkConfig.default.environment
 
 	// ##__CL_RESOURCES_DEF_START__##
 	// ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##
@@ -166,7 +165,6 @@ class CommerceLayerClient {
 
 		this.#adapter = new ResourceAdapter(config)
 		this.#slug = config.organization
-		// this.#environment = 'test'
 
 		// ##__CL_RESOURCES_INIT_START__##
 		// ##__CL_RESOURCES_INIT_TEMPLATE:: ##__TAB__####__TAB__##this.##__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)
@@ -302,8 +300,7 @@ class CommerceLayerClient {
 
 	
 	get currentOrganization(): string { return this.#slug }
-	// get currentAccessToken(): string { return this.#adapter?.clientInstance?.currentAccessToken}
-	// get environment(): ApiMode { return this.#environment }
+	get currentAccessToken(): string { return this.#adapter?.client?.currentAccessToken }
 	private get interceptors(): InterceptorManager { return this.#adapter.client.interceptors }
 
 
@@ -358,6 +355,12 @@ class CommerceLayerClient {
 
 	removeInterceptor(type: InterceptorType, id: number = 1): void {
 		this.interceptors[type] = undefined
+	}
+
+	removeInterceptors(): void {
+		this.removeInterceptor('request')
+		this.removeInterceptor('response')
+		this.removeRawResponseReader()
 	}
 
 	addRawResponseReader(options?: { headers: boolean }): RawResponseReader {
