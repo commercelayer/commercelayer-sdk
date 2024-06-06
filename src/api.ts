@@ -60,6 +60,7 @@ export { default as KlarnaGateways } from './resources/klarna_gateways'
 export { default as KlarnaPayments } from './resources/klarna_payments'
 export { default as LineItemOptions } from './resources/line_item_options'
 export { default as LineItems } from './resources/line_items'
+export { default as Links } from './resources/links'
 export { default as ManualGateways } from './resources/manual_gateways'
 export { default as ManualTaxCalculators } from './resources/manual_tax_calculators'
 export { default as Markets } from './resources/markets'
@@ -187,6 +188,7 @@ export type ResourceTypeLock =
 |	'klarna_payments'
 |	'line_item_options'
 |	'line_items'
+|	'links'
 |	'manual_gateways'
 |	'manual_tax_calculators'
 |	'markets'
@@ -314,6 +316,7 @@ export const resourceList = [
 	'klarna_payments',
 	'line_item_options',
 	'line_items',
+	'links',
 	'manual_gateways',
 	'manual_tax_calculators',
 	'markets',

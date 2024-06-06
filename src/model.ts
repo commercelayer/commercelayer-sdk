@@ -60,6 +60,7 @@ export type { KlarnaGateway, KlarnaGatewayCreate, KlarnaGatewayUpdate } from './
 export type { KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate } from './resources/klarna_payments'
 export type { LineItemOption, LineItemOptionCreate, LineItemOptionUpdate } from './resources/line_item_options'
 export type { LineItem, LineItemCreate, LineItemUpdate } from './resources/line_items'
+export type { Link, LinkCreate, LinkUpdate } from './resources/links'
 export type { ManualGateway, ManualGatewayCreate, ManualGatewayUpdate } from './resources/manual_gateways'
 export type { ManualTaxCalculator, ManualTaxCalculatorCreate, ManualTaxCalculatorUpdate } from './resources/manual_tax_calculators'
 export type { Market, MarketCreate, MarketUpdate } from './resources/markets'

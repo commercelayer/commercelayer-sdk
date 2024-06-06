@@ -166,7 +166,6 @@ interface Order extends Resource {
 	fulfillment_updated_at?: string
 	refreshed_at?: string
 	archived_at?: string
-	expires_at?: string
 	subscription_created_at?: string
 	circuit_state?: string
 	circuit_failure_count?: number

@@ -5,6 +5,7 @@ import type { Sku } from './skus'
 import type { StockLocation } from './stock_locations'
 import type { Shipment } from './shipments'
 import type { LineItem } from './line_items'
+import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
 
@@ -30,6 +31,7 @@ interface StockTransfer extends Resource {
 	destination_stock_location?: StockLocation
 	shipment?: Shipment
 	line_item?: LineItem
+	attachments?: Attachment[]
 	events?: Event[]
 	versions?: Version[]
 
@@ -119,6 +121,11 @@ class StockTransfers extends ApiResource {
 	async line_item(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<LineItem> {
 		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_transfers/${_stockTransferId}/line_item`, params, options) as unknown as LineItem
+	}
+
+	async attachments(stockTransferId: string | StockTransfer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_transfers/${_stockTransferId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async events(stockTransferId: string | StockTransfer, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
