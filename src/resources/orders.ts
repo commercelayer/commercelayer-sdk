@@ -170,7 +170,6 @@ interface Order extends Resource {
 	fulfillment_updated_at?: string | null
 	refreshed_at?: string | null
 	archived_at?: string | null
-	expires_at?: string | null
 	subscription_created_at?: string | null
 	circuit_state?: string | null
 	circuit_failure_count?: number | null
