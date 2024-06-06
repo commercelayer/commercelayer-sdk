@@ -1,0 +1,230 @@
+import { ApiResource } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+
+import type { Order, OrderType } from './orders'
+import type { SkuList, SkuListType } from './sku_lists'
+import type { Event } from './events'
+
+
+type LinkType = 'links'
+type LinkRel = ResourceRel & { type: LinkType }
+type OrderRel = ResourceRel & { type: OrderType }
+type SkuListRel = ResourceRel & { type: SkuListType }
+
+
+export type LinkSort = Pick<Link, 'id' | 'name' | 'starts_at' | 'expires_at' | 'disabled_at'> & ResourceSort
+// export type LinkFilter = Pick<Link, 'id' | 'name' | 'client_id' | 'scope' | 'starts_at' | 'expires_at' | 'disabled_at'> & ResourceFilter
+
+
+interface Link extends Resource {
+	
+	readonly type: LinkType
+
+	/** 
+	 * The link internal name..
+	 * @example ```"FW SALE 2023"```
+	 */
+	name: string
+	/** 
+	 * The link application client id, used to fetch JWT..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	client_id: string
+	/** 
+	 * The link application scope, used to fetch JWT..
+	 * @example ```"market:GhvCxsElAQ,market:kJhgVcxZDr"```
+	 */
+	scope: string
+	/** 
+	 * The activation date/time of this link..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	starts_at: string
+	/** 
+	 * The expiration date/time of this link (must be after starts_at)..
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at: string
+	/** 
+	 * Indicates if the link is active (enabled and not expired)..
+	 * @example ```"true"```
+	 */
+	active?: boolean | null
+	/** 
+	 * The link status, one of 'expired', 'pending', 'active', or 'disabled'..
+	 * @example ```"pending"```
+	 */
+	status?: 'expired' | 'pending' | 'active' | 'disabled' | null
+	/** 
+	 * The link URL second level domain..
+	 * @example ```"c11r.link"```
+	 */
+	domain?: string | null
+	/** 
+	 * The link URL..
+	 * @example ```"https://acme.c11r.link/a597dd63-576e-4aff-9094-0b7d690e94d6"```
+	 */
+	url?: string | null
+	/** 
+	 * Time at which this resource was disabled..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
+
+	item?: Order | SkuList | null
+	events?: Event[] | null
+
+}
+
+
+interface LinkCreate extends ResourceCreate {
+	
+	/** 
+	 * The link internal name..
+	 * @example ```"FW SALE 2023"```
+	 */
+	name: string
+	/** 
+	 * The link application client id, used to fetch JWT..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	client_id: string
+	/** 
+	 * The link application scope, used to fetch JWT..
+	 * @example ```"market:GhvCxsElAQ,market:kJhgVcxZDr"```
+	 */
+	scope: string
+	/** 
+	 * The activation date/time of this link..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	starts_at: string
+	/** 
+	 * The expiration date/time of this link (must be after starts_at)..
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at: string
+	/** 
+	 * The link URL second level domain..
+	 * @example ```"c11r.link"```
+	 */
+	domain?: string | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled..
+	 * @example ```"true"```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled..
+	 * @example ```"true"```
+	 */
+	_enable?: boolean | null
+
+	item: OrderRel | SkuListRel
+
+}
+
+
+interface LinkUpdate extends ResourceUpdate {
+	
+	/** 
+	 * The link internal name..
+	 * @example ```"FW SALE 2023"```
+	 */
+	name?: string | null
+	/** 
+	 * The link application client id, used to fetch JWT..
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	client_id?: string | null
+	/** 
+	 * The link application scope, used to fetch JWT..
+	 * @example ```"market:GhvCxsElAQ,market:kJhgVcxZDr"```
+	 */
+	scope?: string | null
+	/** 
+	 * The activation date/time of this link..
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	starts_at?: string | null
+	/** 
+	 * The expiration date/time of this link (must be after starts_at)..
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at?: string | null
+	/** 
+	 * The link URL second level domain..
+	 * @example ```"c11r.link"```
+	 */
+	domain?: string | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled..
+	 * @example ```"true"```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled..
+	 * @example ```"true"```
+	 */
+	_enable?: boolean | null
+
+	item?: OrderRel | SkuListRel | null
+
+}
+
+
+class Links extends ApiResource<Link> {
+
+	static readonly TYPE: LinkType = 'links' as const
+
+	async create(resource: LinkCreate, params?: QueryParamsRetrieve<Link>, options?: ResourcesConfig): Promise<Link> {
+		return this.resources.create<LinkCreate, Link>({ ...resource, type: Links.TYPE }, params, options)
+	}
+
+	async update(resource: LinkUpdate, params?: QueryParamsRetrieve<Link>, options?: ResourcesConfig): Promise<Link> {
+		return this.resources.update<LinkUpdate, Link>({ ...resource, type: Links.TYPE }, params, options)
+	}
+
+	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+		await this.resources.delete((typeof id === 'string')? { id, type: Links.TYPE } : id, options)
+	}
+
+	async events(linkId: string | Link, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _linkId = (linkId as Link).id || linkId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `links/${_linkId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async _disable(id: string | Link, params?: QueryParamsRetrieve<Link>, options?: ResourcesConfig): Promise<Link> {
+		return this.resources.update<LinkUpdate, Link>({ id: (typeof id === 'string')? id: id.id, type: Links.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | Link, params?: QueryParamsRetrieve<Link>, options?: ResourcesConfig): Promise<Link> {
+		return this.resources.update<LinkUpdate, Link>({ id: (typeof id === 'string')? id: id.id, type: Links.TYPE, _enable: true }, params, options)
+	}
+
+
+	isLink(resource: any): resource is Link {
+		return resource.type && (resource.type === Links.TYPE)
+	}
+
+
+	relationship(id: string | ResourceId | null): LinkRel {
+		return super.relationshipOneToOne<LinkRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): LinkRel[] {
+		return super.relationshipOneToMany<LinkRel>(...ids)
+	}
+
+
+	type(): LinkType {
+		return Links.TYPE
+	}
+
+}
+
+
+export default Links
+
+export type { Link, LinkCreate, LinkUpdate, LinkType }

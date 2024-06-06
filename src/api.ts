@@ -64,6 +64,7 @@ export { default as KlarnaGateways } from './resources/klarna_gateways'
 export { default as KlarnaPayments } from './resources/klarna_payments'
 export { default as LineItemOptions } from './resources/line_item_options'
 export { default as LineItems } from './resources/line_items'
+export { default as Links } from './resources/links'
 export { default as ManualGateways } from './resources/manual_gateways'
 export { default as ManualTaxCalculators } from './resources/manual_tax_calculators'
 export { default as Markets } from './resources/markets'
@@ -191,6 +192,7 @@ export type ResourceTypeLock =
 |	'klarna_payments'
 |	'line_item_options'
 |	'line_items'
+|	'links'
 |	'manual_gateways'
 |	'manual_tax_calculators'
 |	'markets'
@@ -318,6 +320,7 @@ export const resourceList = [
 	'klarna_payments',
 	'line_item_options',
 	'line_items',
+	'links',
 	'manual_gateways',
 	'manual_tax_calculators',
 	'markets',
@@ -484,6 +487,7 @@ export type CreatableResourceType =
 |	'klarna_payments'
 |	'line_item_options'
 |	'line_items'
+|	'links'
 |	'manual_gateways'
 |	'manual_tax_calculators'
 |	'markets'
@@ -593,6 +597,7 @@ export type UpdatableResourceType =
 |	'klarna_payments'
 |	'line_item_options'
 |	'line_items'
+|	'links'
 |	'manual_gateways'
 |	'manual_tax_calculators'
 |	'markets'
@@ -703,6 +708,7 @@ export type DeletableResourceType =
 |	'klarna_payments'
 |	'line_item_options'
 |	'line_items'
+|	'links'
 |	'manual_gateways'
 |	'manual_tax_calculators'
 |	'markets'
@@ -958,6 +964,7 @@ export type ResourceFields = {
 	klarna_payments: models.KlarnaPayment,
 	line_item_options: models.LineItemOption,
 	line_items: models.LineItem,
+	links: models.Link,
 	manual_gateways: models.ManualGateway,
 	manual_tax_calculators: models.ManualTaxCalculator,
 	markets: models.Market,
@@ -1086,6 +1093,7 @@ export type ResourceSortFields = {
 	klarna_payments: models.KlarnaPaymentSort,
 	line_item_options: models.LineItemOptionSort,
 	line_items: models.LineItemSort,
+	links: models.LinkSort,
 	manual_gateways: models.ManualGatewaySort,
 	manual_tax_calculators: models.ManualTaxCalculatorSort,
 	markets: models.MarketSort,

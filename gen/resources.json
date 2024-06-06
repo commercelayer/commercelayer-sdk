@@ -15139,6 +15139,299 @@
         }
     },
     {
+        "id": "link",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "actions": [
+                "list",
+                "retrieve",
+                "create",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The link internal name.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "FW SALE 2023"
+                },
+                "client_id": {
+                    "type": "string",
+                    "desc": "The link application client id, used to fetch JWT.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": "xxxx-yyyy-zzzz"
+                },
+                "scope": {
+                    "type": "string",
+                    "desc": "The link application scope, used to fetch JWT.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": "market:GhvCxsElAQ,market:kJhgVcxZDr"
+                },
+                "starts_at": {
+                    "type": "datetime",
+                    "desc": "The activation date/time of this link.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "expires_at": {
+                    "type": "datetime",
+                    "desc": "The expiration date/time of this link (must be after starts_at).",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-02T12:00:00.000Z"
+                },
+                "active": {
+                    "type": "boolean",
+                    "desc": "Indicates if the link is active (enabled and not expired).",
+                    "delegate": "active?",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "status": {
+                    "type": "string",
+                    "desc": "The link status, one of 'expired', 'pending', 'active', or 'disabled'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "expired",
+                        "pending",
+                        "active",
+                        "disabled"
+                    ]
+                },
+                "domain": {
+                    "type": "string",
+                    "desc": "The link URL second level domain.",
+                    "required": "optional, default to \"c11r.link\"",
+                    "default": "c11r.link",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "c11r.link"
+                },
+                "url": {
+                    "type": "string",
+                    "desc": "The link URL.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://acme.c11r.link/a597dd63-576e-4aff-9094-0b7d690e94d6"
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true",
+                    "conditions": {
+                        "include": "CoreMixins::Concerns::Disabled"
+                    }
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true",
+                    "conditions": {
+                        "include": "CoreMixins::Concerns::Disabled"
+                    }
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z",
+                    "conditions": {
+                        "include": "CoreMixins::Concerns::Disabled"
+                    }
+                }
+            },
+            "relationships": {
+                "item": {
+                    "type": "has_one",
+                    "desc": "The polymorphic item associated to the link. Can be a 'order', or a 'sku_list'.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "polymorphic": true,
+                    "eager_load_on_include": false,
+                    "enum": [
+                        "orders",
+                        "sku_lists"
+                    ],
+                    "parent_resource": "Api::LinkResource",
+                    "class_name": "Item"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "conditions": {
+                        "include": "Events"
+                    },
+                    "parent_resource": "Api::LinkResource",
+                    "class_name": "Event"
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "client_id",
+                "scope",
+                "starts_at",
+                "expires_at",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "disabled_at",
+                "q",
+                "events_id",
+                "ids",
+                "starts_at_from",
+                "starts_at_to",
+                "expires_at_from",
+                "expires_at_to",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to",
+                "disabled_at_from",
+                "disabled_at_to"
+            ]
+        }
+    },
+    {
         "id": "manual_gateway",
         "type": "resources",
         "attributes": {
@@ -16962,6 +17255,7 @@
                 "skus_count": {
                     "type": "integer",
                     "desc": "The total number of SKUs in the order's line items. This can be useful to display a preview of the customer shopping cart content.",
+                    "default": 0,
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -16972,6 +17266,7 @@
                 "line_item_options_count": {
                     "type": "integer",
                     "desc": "The total number of line item options. This can be useful to display a preview of the customer shopping cart content.",
+                    "default": 0,
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -16982,6 +17277,7 @@
                 "shipments_count": {
                     "type": "integer",
                     "desc": "The total number of shipments. This can be useful to manage the shipping method(s) selection during checkout.",
+                    "default": 0,
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -17002,6 +17298,7 @@
                 "validations_count": {
                     "type": "integer",
                     "desc": "The total number of external validation performed. This can be useful to monitor if external validation has been triggered.",
+                    "default": 0,
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -17012,6 +17309,7 @@
                 "errors_count": {
                     "type": "integer",
                     "desc": "The total number of resource errors.",
+                    "default": 0,
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -17495,16 +17793,6 @@
                 "archived_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource has been archived.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "2018-01-01T12:00:00.000Z"
-                },
-                "expires_at": {
-                    "type": "datetime",
-                    "desc": "Time at which an order is marked for cleanup. Any order will start with a default expire time of 2 months. Expiration is reset once a line item is added to the order.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -18000,7 +18288,6 @@
                 "fulfillment_updated_at",
                 "refreshed_at",
                 "archived_at",
-                "expires_at",
                 "subscription_created_at",
                 "created_at",
                 "updated_at",
@@ -18052,8 +18339,6 @@
                 "refreshed_at_to",
                 "archived_at_from",
                 "archived_at_to",
-                "expires_at_from",
-                "expires_at_to",
                 "subscription_created_at_from",
                 "subscription_created_at_to",
                 "created_at_from",
@@ -31331,6 +31616,17 @@
                     "parent_resource": "Api::StockTransferResource",
                     "class_name": "LineItem"
                 },
+                "attachments": {
+                    "type": "has_many",
+                    "desc": "The associated attachments.",
+                    "filterable": true,
+                    "sortable": false,
+                    "conditions": {
+                        "include": "Attachments"
+                    },
+                    "parent_resource": "Api::StockTransferResource",
+                    "class_name": "Attachment"
+                },
                 "events": {
                     "type": "has_many",
                     "desc": "The associated events.",
@@ -31375,6 +31671,7 @@
                 "destination_stock_location_id",
                 "shipment_id",
                 "line_item_id",
+                "attachments_id",
                 "events_id",
                 "ids",
                 "completed_at_from",
