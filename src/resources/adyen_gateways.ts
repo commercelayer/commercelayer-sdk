@@ -19,6 +19,7 @@ interface AdyenGateway extends Resource {
 	name: string
 	live_url_prefix: string
 	async_api?: boolean | null
+	native_customer_payment_sources?: boolean | null
 	webhook_endpoint_secret?: string | null
 	webhook_endpoint_url?: string | null
 
@@ -38,6 +39,7 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	live_url_prefix: string
 	api_version?: number | null
 	async_api?: boolean | null
+	native_customer_payment_sources?: boolean | null
 	webhook_endpoint_secret?: string | null
 
 	adyen_payments?: AdyenPaymentRel[] | null
@@ -54,6 +56,7 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	live_url_prefix?: string | null
 	api_version?: number | null
 	async_api?: boolean | null
+	native_customer_payment_sources?: boolean | null
 	webhook_endpoint_secret?: string | null
 
 	adyen_payments?: AdyenPaymentRel[] | null

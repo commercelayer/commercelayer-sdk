@@ -73,7 +73,6 @@ export { default as OrderCopies } from './resources/order_copies'
 export { default as OrderFactories } from './resources/order_factories'
 export { default as OrderSubscriptionItems } from './resources/order_subscription_items'
 export { default as OrderSubscriptions } from './resources/order_subscriptions'
-export { default as OrderValidationRules } from './resources/order_validation_rules'
 export { default as Orders } from './resources/orders'
 export { default as Organizations } from './resources/organization'
 export { default as Packages } from './resources/packages'
@@ -201,7 +200,6 @@ export type ResourceTypeLock =
 |	'order_factories'
 |	'order_subscription_items'
 |	'order_subscriptions'
-|	'order_validation_rules'
 |	'orders'
 |	'organization'
 |	'packages'
@@ -329,7 +327,6 @@ export const resourceList = [
 	'order_factories',
 	'order_subscription_items',
 	'order_subscriptions',
-	'order_validation_rules',
 	'orders',
 	'organization',
 	'packages',
@@ -849,7 +846,6 @@ export type VersionableResourceType =
 |	'merchants'
 |	'order_amount_promotion_rules'
 |	'order_subscriptions'
-|	'order_validation_rules'
 |	'orders'
 |	'packages'
 |	'parcel_line_items'

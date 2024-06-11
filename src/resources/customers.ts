@@ -29,6 +29,7 @@ interface Customer extends Resource {
 	status: 'prospect' | 'acquired' | 'repeat'
 	has_password?: boolean | null
 	total_orders_count?: number | null
+	shopper_reference?: string | null
 
 	customer_group?: CustomerGroup | null
 	customer_addresses?: CustomerAddress[] | null
@@ -49,6 +50,7 @@ interface CustomerCreate extends ResourceCreate {
 	
 	email: string
 	password?: string | null
+	shopper_reference?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null
@@ -60,6 +62,7 @@ interface CustomerUpdate extends ResourceUpdate {
 	
 	email?: string | null
 	password?: string | null
+	shopper_reference?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null
