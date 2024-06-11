@@ -66,10 +66,11 @@ export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, cl
     if (interceptors?.rawReader?.onFailure) await interceptors.rawReader.onFailure(response)
   }
 
-  const responseBody = await response.json()
+  const responseBody = response.body ? await response.json()
     .then(json => { debug('response: %O', json); return json })
     .catch((err: Error) => { debug('error: %s', err.message); throw new SdkError({ message: 'Error parsing API response body', type: ErrorType.PARSE }) })
-
+    : undefined
+    
   if (!response.ok) {
     let error = new FetchError(response.status, response.statusText, responseBody)
     if (interceptors?.response?.onFailure) error = await interceptors.response.onFailure(error)
