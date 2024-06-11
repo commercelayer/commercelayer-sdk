@@ -1,5 +1,6 @@
 
 import type { InterceptorManager } from './interceptor'
+import { ErrorType, SdkError } from './error'
 
 
 import Debug from './debug'
@@ -67,7 +68,7 @@ export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, cl
 
   const responseBody = await response.json()
     .then(json => { debug('response: %O', json); return json })
-    .catch(err => { debug('error: %s', err.message) })
+    .catch((err: Error) => { debug('error: %s', err.message); throw new SdkError({ message: 'Error parsing API response body', type: ErrorType.PARSE }) })
 
   if (!response.ok) {
     let error = new FetchError(response.status, response.statusText, responseBody)

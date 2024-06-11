@@ -45,7 +45,7 @@ class ApiError extends SdkError {
 	status?: number
 	statusText?: string
 
-	constructor(error: SdkError)
+	// constructor(error: SdkError)
 	constructor(error: { message: string }) {
 		super({ ...error, type: ErrorType.RESPONSE })
 		this.name = ApiError.NAME
