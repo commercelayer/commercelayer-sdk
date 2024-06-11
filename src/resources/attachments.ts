@@ -29,6 +29,7 @@ import type { SkuOption } from './sku_options'
 import type { Sku } from './skus'
 import type { StockItem } from './stock_items'
 import type { StockLocation } from './stock_locations'
+import type { StockTransfer } from './stock_transfers'
 import type { TaxCalculator } from './tax_calculators'
 import type { TaxCategory } from './tax_categories'
 
@@ -62,6 +63,7 @@ type SkuOptionRel = ResourceRel & { type: 'sku_options' }
 type SkuRel = ResourceRel & { type: 'skus' }
 type StockItemRel = ResourceRel & { type: 'stock_items' }
 type StockLocationRel = ResourceRel & { type: 'stock_locations' }
+type StockTransferRel = ResourceRel & { type: 'stock_transfers' }
 type TaxCalculatorRel = ResourceRel & { type: 'tax_calculators' }
 type TaxCategoryRel = ResourceRel & { type: 'tax_categories' }
 
@@ -72,7 +74,7 @@ interface Attachment extends Resource {
 	description?: string
 	url?: string
 
-	attachable?: Bundle | CarrierAccount | CustomerGroup | Customer | DeliveryLeadTime | Geocoder | GiftCardRecipient | GiftCard | InventoryModel | Market | Merchant | BillingInfoValidationRule | Order | Package | Parcel | PaymentMethod | PriceList | Price | Promotion | Return | Shipment | ShippingCategory | ShippingMethod | ShippingZone | SkuOption | Sku | StockItem | StockLocation | TaxCalculator | TaxCategory
+	attachable?: Bundle | CarrierAccount | CustomerGroup | Customer | DeliveryLeadTime | Geocoder | GiftCardRecipient | GiftCard | InventoryModel | Market | Merchant | BillingInfoValidationRule | Order | Package | Parcel | PaymentMethod | PriceList | Price | Promotion | Return | Shipment | ShippingCategory | ShippingMethod | ShippingZone | SkuOption | Sku | StockItem | StockLocation | StockTransfer | TaxCalculator | TaxCategory
 
 }
 
@@ -83,7 +85,7 @@ interface AttachmentCreate extends ResourceCreate {
 	description?: string
 	url?: string
 
-	attachable: BundleRel | CarrierAccountRel | CustomerGroupRel | CustomerRel | DeliveryLeadTimeRel | GeocoderRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | MarketRel | MerchantRel | BillingInfoValidationRuleRel | OrderRel | PackageRel | ParcelRel | PaymentMethodRel | PriceListRel | PriceRel | PromotionRel | ReturnRel | ShipmentRel | ShippingCategoryRel | ShippingMethodRel | ShippingZoneRel | SkuOptionRel | SkuRel | StockItemRel | StockLocationRel | TaxCalculatorRel | TaxCategoryRel
+	attachable: BundleRel | CarrierAccountRel | CustomerGroupRel | CustomerRel | DeliveryLeadTimeRel | GeocoderRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | MarketRel | MerchantRel | BillingInfoValidationRuleRel | OrderRel | PackageRel | ParcelRel | PaymentMethodRel | PriceListRel | PriceRel | PromotionRel | ReturnRel | ShipmentRel | ShippingCategoryRel | ShippingMethodRel | ShippingZoneRel | SkuOptionRel | SkuRel | StockItemRel | StockLocationRel | StockTransferRel | TaxCalculatorRel | TaxCategoryRel
 
 }
 
@@ -94,7 +96,7 @@ interface AttachmentUpdate extends ResourceUpdate {
 	description?: string
 	url?: string
 
-	attachable?: BundleRel | CarrierAccountRel | CustomerGroupRel | CustomerRel | DeliveryLeadTimeRel | GeocoderRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | MarketRel | MerchantRel | BillingInfoValidationRuleRel | OrderRel | PackageRel | ParcelRel | PaymentMethodRel | PriceListRel | PriceRel | PromotionRel | ReturnRel | ShipmentRel | ShippingCategoryRel | ShippingMethodRel | ShippingZoneRel | SkuOptionRel | SkuRel | StockItemRel | StockLocationRel | TaxCalculatorRel | TaxCategoryRel
+	attachable?: BundleRel | CarrierAccountRel | CustomerGroupRel | CustomerRel | DeliveryLeadTimeRel | GeocoderRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | MarketRel | MerchantRel | BillingInfoValidationRuleRel | OrderRel | PackageRel | ParcelRel | PaymentMethodRel | PriceListRel | PriceRel | PromotionRel | ReturnRel | ShipmentRel | ShippingCategoryRel | ShippingMethodRel | ShippingZoneRel | SkuOptionRel | SkuRel | StockItemRel | StockLocationRel | StockTransferRel | TaxCalculatorRel | TaxCategoryRel
 
 }
 

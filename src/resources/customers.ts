@@ -25,6 +25,7 @@ interface Customer extends Resource {
 	status?: string
 	has_password?: boolean
 	total_orders_count?: number
+	shopper_reference?: string
 
 	customer_group?: CustomerGroup
 	customer_addresses?: CustomerAddress[]
@@ -45,6 +46,7 @@ interface CustomerCreate extends ResourceCreate {
 	
 	email: string
 	password?: string
+	shopper_reference?: string
 
 	customer_group?: CustomerGroupRel
 	tags?: TagRel[]
@@ -56,6 +58,7 @@ interface CustomerUpdate extends ResourceUpdate {
 	
 	email?: string
 	password?: string
+	shopper_reference?: string
 
 	customer_group?: CustomerGroupRel
 	tags?: TagRel[]
