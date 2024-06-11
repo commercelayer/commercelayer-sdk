@@ -1,3 +1,10 @@
+## [6.7.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.7.0...v6.7.1) (2024-06-11)
+
+
+### Bug Fixes
+
+* fix empty body response ([f93ba83](https://github.com/commercelayer/commercelayer-sdk/commit/f93ba83a4c16effdb6001c9410fe2ded3668945f))
+
 # [6.7.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.6.0...v6.7.0) (2024-06-11)
 
 
