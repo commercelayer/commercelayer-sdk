@@ -52,7 +52,7 @@ export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, cl
 
   if (interceptors?.request?.onSuccess) ( { url, options: requestOptions } = await interceptors.request.onSuccess({ url, options: requestOptions }) )
 
-  // const request: Request = new Request(url, requestOptions)
+  // const request: Request = new Request(url, requestOptions)  // not supported by all fetch implementations
 
   const fetchClient = clientOptions?.fetch || fetch
 
@@ -65,7 +65,9 @@ export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, cl
     if (interceptors?.rawReader?.onFailure) await interceptors.rawReader.onFailure(response)
   }
 
-  const responseBody = await response.json().catch(() => {})
+  const responseBody = await response.json()
+    .then(json => { debug('response: %O', json); return json })
+    .catch(err => { debug('error: %s', err.message) })
 
   if (!response.ok) {
     let error = new FetchError(response.status, response.statusText, responseBody)
