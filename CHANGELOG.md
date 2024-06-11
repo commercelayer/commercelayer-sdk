@@ -1,3 +1,11 @@
+## [6.7.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.7.1...v6.7.2) (2024-06-11)
+
+
+### Bug Fixes
+
+* error handling delete empty response ([21730ce](https://github.com/commercelayer/commercelayer-sdk/commit/21730ce50e9fcb7128564b720a3458a197209032))
+* error parsing response body throws an exception ([49e5f86](https://github.com/commercelayer/commercelayer-sdk/commit/49e5f86b1c726d6a91459b984454c7672905e8b1))
+
 ## [6.7.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.7.0...v6.7.1) (2024-06-11)
 
 
