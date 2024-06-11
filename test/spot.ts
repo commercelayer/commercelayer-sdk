@@ -1,4 +1,5 @@
-import { getAccessToken, handleError, init } from './util'
+import { getAccessToken, handleError, init, initConfig } from './util'
+import commercelayer from '../src'
 
 
 
@@ -17,16 +18,15 @@ async function refreshToken(old: string): Promise<string> {
 
 ; (async () => {
 
-	const cl = await init()
+	const config = await initConfig()
+	const cl = commercelayer(config)
 
 	cl.config({ refreshToken, fetch: customFetch })
 
 	try {
 
-		const res = await cl.customers.list({ pageSize: 1 })
+		const res = await cl.orders.retrieve('NMWYhxRZOA', { include: ['payment_source', 'captures', 'payment_method', 'line_items', 'customer'] })
 		console.log(res)
-		const c = await cl.customers.retrieve(res[0].id)
-		console.log(c)
 
 	} catch (error: any) {
 		handleError(error, true)

@@ -70,7 +70,6 @@ export type { OrderCopy, OrderCopyCreate, OrderCopyUpdate, OrderCopySort } from 
 export type { OrderFactory, OrderFactorySort } from './resources/order_factories'
 export type { OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItemUpdate, OrderSubscriptionItemSort } from './resources/order_subscription_items'
 export type { OrderSubscription, OrderSubscriptionCreate, OrderSubscriptionUpdate, OrderSubscriptionSort } from './resources/order_subscriptions'
-export type { OrderValidationRule, OrderValidationRuleSort } from './resources/order_validation_rules'
 export type { Order, OrderCreate, OrderUpdate, OrderSort } from './resources/orders'
 export type { Organization, OrganizationSort } from './resources/organization'
 export type { Package, PackageCreate, PackageUpdate, PackageSort } from './resources/packages'

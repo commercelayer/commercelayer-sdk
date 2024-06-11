@@ -74,7 +74,6 @@ export { default as OrderCopies } from './resources/order_copies'
 export { default as OrderFactories } from './resources/order_factories'
 export { default as OrderSubscriptionItems } from './resources/order_subscription_items'
 export { default as OrderSubscriptions } from './resources/order_subscriptions'
-export { default as OrderValidationRules } from './resources/order_validation_rules'
 export { default as Orders } from './resources/orders'
 export { default as Organizations } from './resources/organization'
 export { default as Packages } from './resources/packages'
@@ -202,7 +201,6 @@ export type ResourceTypeLock =
 |	'order_factories'
 |	'order_subscription_items'
 |	'order_subscriptions'
-|	'order_validation_rules'
 |	'orders'
 |	'organization'
 |	'packages'
@@ -330,7 +328,6 @@ export const resourceList = [
 	'order_factories',
 	'order_subscription_items',
 	'order_subscriptions',
-	'order_validation_rules',
 	'orders',
 	'organization',
 	'packages',
@@ -850,7 +847,6 @@ export type VersionableResourceType =
 |	'merchants'
 |	'order_amount_promotion_rules'
 |	'order_subscriptions'
-|	'order_validation_rules'
 |	'orders'
 |	'packages'
 |	'parcel_line_items'
@@ -974,7 +970,6 @@ export type ResourceFields = {
 	order_factories: models.OrderFactory,
 	order_subscription_items: models.OrderSubscriptionItem,
 	order_subscriptions: models.OrderSubscription,
-	order_validation_rules: models.OrderValidationRule,
 	orders: models.Order,
 	organization: models.Organization,
 	packages: models.Package,
@@ -1103,7 +1098,6 @@ export type ResourceSortFields = {
 	order_factories: models.OrderFactorySort,
 	order_subscription_items: models.OrderSubscriptionItemSort,
 	order_subscriptions: models.OrderSubscriptionSort,
-	order_validation_rules: models.OrderValidationRuleSort,
 	orders: models.OrderSort,
 	organization: models.OrganizationSort,
 	packages: models.PackageSort,

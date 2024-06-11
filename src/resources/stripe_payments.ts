@@ -55,7 +55,7 @@ interface StripePayment extends Resource {
 	 */
 	mismatched_amounts?: boolean | null
 	/** 
-	 * The URL where the payer is redirected after they authenticate the payment..
+	 * The URL to return to when a redirect payment is completed..
 	 * @example ```"https://yourdomain.com/thankyou"```
 	 */
 	return_url?: string | null
@@ -95,7 +95,7 @@ interface StripePaymentCreate extends ResourceCreate {
 	 */
 	options?: Record<string, any> | null
 	/** 
-	 * The URL where the payer is redirected after they authenticate the payment..
+	 * The URL to return to when a redirect payment is completed..
 	 * @example ```"https://yourdomain.com/thankyou"```
 	 */
 	return_url?: string | null
@@ -118,7 +118,7 @@ interface StripePaymentUpdate extends ResourceUpdate {
 	 */
 	options?: Record<string, any> | null
 	/** 
-	 * The URL where the payer is redirected after they authenticate the payment..
+	 * The URL to return to when a redirect payment is completed..
 	 * @example ```"https://yourdomain.com/thankyou"```
 	 */
 	return_url?: string | null

@@ -12,7 +12,7 @@ type GiftCardRecipientRel = ResourceRel & { type: GiftCardRecipientType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 
 
-export type GiftCardRecipientSort = Pick<GiftCardRecipient, 'id'> & ResourceSort
+export type GiftCardRecipientSort = Pick<GiftCardRecipient, 'id' | 'email'> & ResourceSort
 // export type GiftCardRecipientFilter = Pick<GiftCardRecipient, 'id' | 'email' | 'first_name' | 'last_name'> & ResourceFilter
 
 

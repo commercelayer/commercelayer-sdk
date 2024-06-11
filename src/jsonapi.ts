@@ -16,6 +16,8 @@ export type { DocWithData }
 
 const denormalize = <R extends Resource>(response: DocWithData): R | R[] => {
 
+	if (!response) return response
+	
 	let denormalizedResponse
 
 	if (response.links) delete response.links

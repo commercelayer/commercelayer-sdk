@@ -21,7 +21,7 @@ interface KlarnaPayment extends Resource {
 	readonly type: KlarnaPaymentType
 
 	/** 
-	 * The identifier of the payment session, useful to updated it..
+	 * The identifier of the payment session..
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	session_id?: string | null

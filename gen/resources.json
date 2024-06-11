@@ -353,7 +353,7 @@
                     "required": "optional",
                     "creatable": true,
                     "updatable": true,
-                    "filterable": true,
+                    "filterable": false,
                     "sortable": false,
                     "eager_load_on_include": false,
                     "parent_resource": "Api::AddressResource",
@@ -423,7 +423,6 @@
                 "reference_origin",
                 "metadata",
                 "q",
-                "geocoder_id",
                 "events_id",
                 "tags_id",
                 "ids",
@@ -780,6 +779,19 @@
                     "type": "boolean",
                     "desc": "Indicates if the gateway will leverage on the Adyen notification webhooks.",
                     "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "native_customer_payment_sources": {
+                    "type": "boolean",
+                    "desc": "Indicates if the gateway will use the native customer payment sources.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -1068,7 +1080,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::AdyenPaymentResource",
                     "class_name": "Order"
                 },
@@ -1433,6 +1445,7 @@
                         "skus",
                         "stock_items",
                         "stock_locations",
+                        "stock_transfers",
                         "tax_calculators",
                         "tax_categories"
                     ],
@@ -1858,7 +1871,7 @@
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Order"
                 },
@@ -2539,7 +2552,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::AxervePaymentResource",
                     "class_name": "Order"
                 },
@@ -2680,7 +2693,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "exclude_links": "default",
                     "parent_resource": "Api::OrderValidationRuleResource",
                     "class_name": "Market"
@@ -3278,7 +3291,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::BraintreePaymentResource",
                     "class_name": "Order"
                 },
@@ -3594,7 +3607,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::BundleResource",
                     "class_name": "Market"
                 },
@@ -3605,7 +3618,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::BundleResource",
                     "class_name": "SkuList"
                 },
@@ -4011,7 +4024,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Market"
                 },
@@ -4021,7 +4034,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": true,
+                    "sortable": false,
                     "polymorphic": true,
                     "sti": true,
                     "parent_resource": "Api::PromotionResource",
@@ -4074,7 +4087,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::BuyXPayYPromotionResource",
                     "class_name": "SkuList"
                 },
@@ -4498,7 +4511,7 @@
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Order"
                 },
@@ -4716,7 +4729,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::CarrierAccountResource",
                     "class_name": "Market"
                 },
@@ -5235,7 +5248,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::CheckoutComPaymentResource",
                     "class_name": "Order"
                 },
@@ -5711,7 +5724,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::CouponResource",
                     "class_name": "CouponRecipient"
                 },
@@ -5958,7 +5971,7 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "example": "john@example.com"
                 },
                 "first_name": {
@@ -6061,7 +6074,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::GiftCardRecipientResource",
                     "class_name": "Customer"
                 },
@@ -6354,7 +6367,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::CreditCardResource",
                     "class_name": "Order"
                 },
@@ -6581,7 +6594,7 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "example": "john@example.com"
                 },
                 "password": {
@@ -6631,6 +6644,17 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "6"
+                },
+                "shopper_reference": {
+                    "type": "string",
+                    "desc": "A reference to uniquely identify the shopper during payment sessions.",
+                    "required": "required, auto generated if missing",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "xxx-yyy-zzz"
                 },
                 "id": {
                     "format": "id",
@@ -6950,7 +6974,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::CustomerAddressResource",
                     "class_name": "Customer"
                 },
@@ -6961,7 +6985,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::CustomerAddressResource",
                     "class_name": "Address"
                 },
@@ -7322,7 +7346,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::CustomerPasswordResetResource",
                     "class_name": "Customer"
                 },
@@ -7484,7 +7508,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::CustomerPaymentSourceResource",
                     "class_name": "Customer"
                 },
@@ -7663,7 +7687,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::CustomerSubscriptionResource",
                     "class_name": "Customer"
                 },
@@ -8193,7 +8217,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::EventCallbackResource",
                     "class_name": "Webhook"
                 }
@@ -8883,7 +8907,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ExternalPaymentResource",
                     "class_name": "Order"
                 },
@@ -9305,7 +9329,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Market"
                 },
@@ -9315,7 +9339,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": true,
+                    "sortable": false,
                     "polymorphic": true,
                     "sti": true,
                     "parent_resource": "Api::PromotionResource",
@@ -9368,7 +9392,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ExternalPromotionResource",
                     "class_name": "SkuList"
                 },
@@ -10034,7 +10058,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Market"
                 },
@@ -10044,7 +10068,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": true,
+                    "sortable": false,
                     "polymorphic": true,
                     "sti": true,
                     "parent_resource": "Api::PromotionResource",
@@ -10097,7 +10121,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::FixedAmountPromotionResource",
                     "class_name": "SkuList"
                 },
@@ -10527,7 +10551,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Market"
                 },
@@ -10537,7 +10561,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": true,
+                    "sortable": false,
                     "polymorphic": true,
                     "sti": true,
                     "parent_resource": "Api::PromotionResource",
@@ -10590,7 +10614,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::FixedPricePromotionResource",
                     "class_name": "SkuList"
                 },
@@ -10999,7 +11023,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Market"
                 },
@@ -11009,7 +11033,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": true,
+                    "sortable": false,
                     "polymorphic": true,
                     "sti": true,
                     "parent_resource": "Api::PromotionResource",
@@ -11062,7 +11086,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::FreeGiftPromotionResource",
                     "class_name": "SkuList"
                 },
@@ -11459,7 +11483,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Market"
                 },
@@ -11469,7 +11493,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": true,
+                    "sortable": false,
                     "polymorphic": true,
                     "sti": true,
                     "parent_resource": "Api::PromotionResource",
@@ -11522,7 +11546,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "SkuList"
                 },
@@ -12149,7 +12173,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::GiftCardResource",
                     "class_name": "Market"
                 },
@@ -12160,7 +12184,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::GiftCardResource",
                     "class_name": "GiftCardRecipient"
                 },
@@ -12270,7 +12294,7 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "example": "john@example.com"
                 },
                 "first_name": {
@@ -12373,7 +12397,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::GiftCardRecipientResource",
                     "class_name": "Customer"
                 },
@@ -13071,7 +13095,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::InStockSubscriptionResource",
                     "class_name": "Market"
                 },
@@ -13082,7 +13106,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::InStockSubscriptionResource",
                     "class_name": "Customer"
                 },
@@ -13093,7 +13117,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::InStockSubscriptionResource",
                     "class_name": "Sku"
                 },
@@ -13468,7 +13492,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::InventoryReturnLocationResource",
                     "class_name": "StockLocation"
                 },
@@ -13479,7 +13503,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::InventoryReturnLocationResource",
                     "class_name": "InventoryModel"
                 },
@@ -13633,7 +13657,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::InventoryStockLocationResource",
                     "class_name": "StockLocation"
                 },
@@ -13644,7 +13668,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::InventoryStockLocationResource",
                     "class_name": "InventoryModel"
                 },
@@ -13886,7 +13910,7 @@
             "fields": {
                 "session_id": {
                     "type": "string",
-                    "desc": "The identifier of the payment session, useful to updated it.",
+                    "desc": "The identifier of the payment session.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -14043,7 +14067,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::KlarnaPaymentResource",
                     "class_name": "Order"
                 },
@@ -14623,7 +14647,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::LineItemResource",
                     "class_name": "Order"
                 },
@@ -15071,7 +15095,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::LineItemOptionResource",
                     "class_name": "LineItem"
                 },
@@ -15082,7 +15106,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::LineItemOptionResource",
                     "class_name": "SkuOption"
                 },
@@ -15998,7 +16022,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::MarketResource",
                     "class_name": "PriceList"
                 },
@@ -16009,7 +16033,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::MarketResource",
                     "class_name": "InventoryModel"
                 },
@@ -16020,7 +16044,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::MarketResource",
                     "class_name": "SubscriptionModel"
                 },
@@ -16031,7 +16055,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::MarketResource",
                     "class_name": "TaxCalculator"
                 },
@@ -16042,7 +16066,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::MarketResource",
                     "class_name": "CustomerGroup"
                 },
@@ -17931,7 +17955,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::OrderResource",
                     "class_name": "Market"
                 },
@@ -17942,7 +17966,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::OrderResource",
                     "class_name": "Customer"
                 },
@@ -18761,7 +18785,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": false,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::OrderCopyResource",
                     "class_name": "OrderSubscription"
                 }
@@ -19351,7 +19375,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::OrderSubscriptionResource",
                     "class_name": "Market"
                 },
@@ -19363,7 +19387,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::OrderSubscriptionResource",
                     "class_name": "SubscriptionModel"
                 },
@@ -19384,7 +19408,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::OrderSubscriptionResource",
                     "class_name": "Customer"
                 },
@@ -19394,7 +19418,7 @@
                     "creatable": false,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::OrderSubscriptionResource",
                     "class_name": "CustomerPaymentSource"
                 },
@@ -19689,7 +19713,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::OrderSubscriptionItemResource",
                     "class_name": "OrderSubscription"
                 },
@@ -19790,7 +19814,7 @@
         "type": "resources",
         "attributes": {
             "singleton": false,
-            "deprecated": false,
+            "deprecated": true,
             "actions": [
                 "list",
                 "retrieve"
@@ -19876,7 +19900,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "exclude_links": "default",
                     "parent_resource": "Api::OrderValidationRuleResource",
                     "class_name": "Market"
@@ -20451,7 +20475,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PackageResource",
                     "class_name": "StockLocation"
                 },
@@ -20893,7 +20917,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ParcelResource",
                     "class_name": "Shipment"
                 },
@@ -20904,7 +20928,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ParcelResource",
                     "class_name": "Package"
                 },
@@ -21140,7 +21164,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ParcelLineItemResource",
                     "class_name": "Parcel"
                 },
@@ -21633,7 +21657,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PaymentMethodResource",
                     "class_name": "Market"
                 },
@@ -21842,7 +21866,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PaymentOptionResource",
                     "class_name": "Order"
                 },
@@ -22259,7 +22283,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PaypalPaymentResource",
                     "class_name": "Order"
                 },
@@ -22600,7 +22624,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Market"
                 },
@@ -22610,7 +22634,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": true,
+                    "sortable": false,
                     "polymorphic": true,
                     "sti": true,
                     "parent_resource": "Api::PromotionResource",
@@ -22663,7 +22687,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PercentageDiscountPromotionResource",
                     "class_name": "SkuList"
                 },
@@ -22959,7 +22983,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PriceResource",
                     "class_name": "PriceList"
                 },
@@ -22970,7 +22994,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PriceResource",
                     "class_name": "Sku"
                 },
@@ -23691,7 +23715,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PriceListSchedulerResource",
                     "class_name": "Market"
                 },
@@ -23702,7 +23726,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PriceListSchedulerResource",
                     "class_name": "PriceList"
                 },
@@ -24449,7 +24473,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Market"
                 },
@@ -24459,7 +24483,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": true,
+                    "sortable": false,
                     "polymorphic": true,
                     "sti": true,
                     "parent_resource": "Api::PromotionResource",
@@ -24512,7 +24536,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "SkuList"
                 },
@@ -24975,7 +24999,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::RecurringOrderCopyResource",
                     "class_name": "OrderSubscription"
                 }
@@ -25223,7 +25247,7 @@
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Order"
                 },
@@ -25419,7 +25443,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": true,
+                    "sortable": false,
                     "parent_resource": "Api::ReservedStockResource",
                     "class_name": "Sku"
                 },
@@ -25915,7 +25939,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ReturnResource",
                     "class_name": "Order"
                 },
@@ -25925,7 +25949,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ReturnResource",
                     "class_name": "Customer"
                 },
@@ -25935,7 +25959,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ReturnResource",
                     "class_name": "StockLocation"
                 },
@@ -26248,7 +26272,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "exclude_links": "default",
                     "parent_resource": "Api::ReturnLineItemResource",
                     "class_name": "Return"
@@ -26260,7 +26284,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "exclude_links": "default",
                     "parent_resource": "Api::ReturnLineItemResource",
                     "class_name": "LineItem"
@@ -26667,7 +26691,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::SatispayPaymentResource",
                     "class_name": "Order"
                 },
@@ -27211,7 +27235,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ShipmentResource",
                     "class_name": "Order"
                 },
@@ -27221,7 +27245,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ShipmentResource",
                     "class_name": "ShippingCategory"
                 },
@@ -27232,7 +27256,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ShipmentResource",
                     "class_name": "InventoryStockLocation"
                 },
@@ -27242,7 +27266,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ShipmentResource",
                     "class_name": "StockLocation"
                 },
@@ -27273,7 +27297,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ShipmentResource",
                     "class_name": "ShippingMethod"
                 },
@@ -27617,7 +27641,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ShipmentLineItemResource",
                     "class_name": "Shipment"
                 },
@@ -27628,7 +27652,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockLineItemResource",
                     "class_name": "LineItem"
                 },
@@ -27639,7 +27663,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockLineItemResource",
                     "class_name": "StockItem"
                 },
@@ -27650,7 +27674,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockLineItemResource",
                     "class_name": "Sku"
                 },
@@ -28224,7 +28248,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ShippingMethodResource",
                     "class_name": "Market"
                 },
@@ -28235,7 +28259,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ShippingMethodResource",
                     "class_name": "ShippingZone"
                 },
@@ -28246,7 +28270,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ShippingMethodResource",
                     "class_name": "ShippingCategory"
                 },
@@ -28257,7 +28281,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::ShippingMethodResource",
                     "class_name": "StockLocation"
                 },
@@ -29257,7 +29281,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::SkuResource",
                     "class_name": "ShippingCategory"
                 },
@@ -29549,7 +29573,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::SkuListResource",
                     "class_name": "Customer"
                 },
@@ -29752,7 +29776,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::SkuListItemResource",
                     "class_name": "SkuList"
                 },
@@ -29763,7 +29787,7 @@
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::SkuListItemResource",
                     "class_name": "Sku"
                 },
@@ -29953,7 +29977,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::SkuListPromotionRuleResource",
                     "class_name": "SkuList"
                 },
@@ -30176,7 +30200,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::SkuOptionResource",
                     "class_name": "Market"
                 },
@@ -30549,7 +30573,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockItemResource",
                     "class_name": "StockLocation"
                 },
@@ -30560,7 +30584,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockItemResource",
                     "class_name": "Sku"
                 },
@@ -30571,7 +30595,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockItemResource",
                     "class_name": "ReservedStock"
                 },
@@ -30799,7 +30823,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockLineItemResource",
                     "class_name": "Shipment"
                 },
@@ -30810,7 +30834,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockLineItemResource",
                     "class_name": "LineItem"
                 },
@@ -30821,7 +30845,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockLineItemResource",
                     "class_name": "StockItem"
                 },
@@ -30832,7 +30856,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockLineItemResource",
                     "class_name": "Sku"
                 },
@@ -31029,7 +31053,6 @@
                     "type": "has_many",
                     "desc": "The inventory stock locations associated to the stock location.",
                     "filterable": true,
-                    "sortable": false,
                     "parent_resource": "Api::StockLocationResource",
                     "class_name": "InventoryStockLocation"
                 },
@@ -31037,7 +31060,6 @@
                     "type": "has_many",
                     "desc": "The inventory return locations associated to the stock location.",
                     "filterable": true,
-                    "sortable": false,
                     "parent_resource": "Api::StockLocationResource",
                     "class_name": "InventoryReturnLocation"
                 },
@@ -31045,7 +31067,6 @@
                     "type": "has_many",
                     "desc": "The items stocked in this location.",
                     "filterable": true,
-                    "sortable": false,
                     "parent_resource": "Api::StockLocationResource",
                     "class_name": "StockItem"
                 },
@@ -31053,7 +31074,6 @@
                     "type": "has_many",
                     "desc": "The stock transfers associated to the stock location.",
                     "filterable": true,
-                    "sortable": false,
                     "parent_resource": "Api::StockLocationResource",
                     "class_name": "StockTransfer"
                 },
@@ -31252,7 +31272,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockReservationResource",
                     "class_name": "LineItem"
                 },
@@ -31298,7 +31318,7 @@
                     "creatable": false,
                     "updatable": false,
                     "filterable": true,
-                    "sortable": true,
+                    "sortable": false,
                     "parent_resource": "Api::StockReservationResource",
                     "class_name": "Sku"
                 }
@@ -31568,7 +31588,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockTransferResource",
                     "class_name": "Sku"
                 },
@@ -31601,7 +31621,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockTransferResource",
                     "class_name": "Shipment"
                 },
@@ -31612,7 +31632,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StockTransferResource",
                     "class_name": "LineItem"
                 },
@@ -31998,7 +32018,7 @@
                 },
                 "return_url": {
                     "type": "string",
-                    "desc": "The URL where the payer is redirected after they authenticate the payment.",
+                    "desc": "The URL to return to when a redirect payment is completed.",
                     "required": "optional",
                     "creatable": true,
                     "updatable": true,
@@ -32132,7 +32152,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": false,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::StripePaymentResource",
                     "class_name": "Order"
                 },
@@ -32747,7 +32767,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::TaxCategoryResource",
                     "class_name": "Sku"
                 },
@@ -33056,7 +33076,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "foreign_key": "tax_calculator_id",
                     "parent_resource": "Api::TaxRuleResource",
                     "class_name": "ManualTaxCalculator"
@@ -33480,7 +33500,7 @@
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Order"
                 },
@@ -33952,7 +33972,7 @@
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Order"
                 },
@@ -34442,7 +34462,7 @@
                     "creatable": true,
                     "updatable": true,
                     "filterable": false,
-                    "sortable": false,
+                    "sortable": true,
                     "parent_resource": "Api::WireTransferResource",
                     "class_name": "Order"
                 },

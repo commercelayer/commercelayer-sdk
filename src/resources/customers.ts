@@ -21,7 +21,7 @@ type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type CustomerSort = Pick<Customer, 'id' | 'status' | 'total_orders_count'> & ResourceSort
+export type CustomerSort = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count'> & ResourceSort
 // export type CustomerFilter = Pick<Customer, 'id' | 'email' | 'status' | 'has_password' | 'total_orders_count'> & ResourceFilter
 
 
@@ -48,6 +48,11 @@ interface Customer extends Resource {
 	 * @example ```"6"```
 	 */
 	total_orders_count?: number | null
+	/** 
+	 * A reference to uniquely identify the shopper during payment sessions..
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	shopper_reference?: string | null
 
 	customer_group?: CustomerGroup | null
 	customer_addresses?: CustomerAddress[] | null
@@ -76,6 +81,11 @@ interface CustomerCreate extends ResourceCreate {
 	 * @example ```"secret"```
 	 */
 	password?: string | null
+	/** 
+	 * A reference to uniquely identify the shopper during payment sessions..
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	shopper_reference?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null
@@ -95,6 +105,11 @@ interface CustomerUpdate extends ResourceUpdate {
 	 * @example ```"secret"```
 	 */
 	password?: string | null
+	/** 
+	 * A reference to uniquely identify the shopper during payment sessions..
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	shopper_reference?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null

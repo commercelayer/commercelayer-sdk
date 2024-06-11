@@ -30,6 +30,7 @@ import type { SkuOption, SkuOptionType } from './sku_options'
 import type { Sku, SkuType } from './skus'
 import type { StockItem, StockItemType } from './stock_items'
 import type { StockLocation, StockLocationType } from './stock_locations'
+import type { StockTransfer, StockTransferType } from './stock_transfers'
 import type { TaxCalculator, TaxCalculatorType } from './tax_calculators'
 import type { TaxCategory, TaxCategoryType } from './tax_categories'
 
@@ -64,6 +65,7 @@ type SkuOptionRel = ResourceRel & { type: SkuOptionType }
 type SkuRel = ResourceRel & { type: SkuType }
 type StockItemRel = ResourceRel & { type: StockItemType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
+type StockTransferRel = ResourceRel & { type: StockTransferType }
 type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 
@@ -92,7 +94,7 @@ interface Attachment extends Resource {
 	 */
 	url?: string | null
 
-	attachable?: Bundle | CarrierAccount | CustomerGroup | Customer | DeliveryLeadTime | Geocoder | GiftCardRecipient | GiftCard | InventoryModel | Market | Merchant | BillingInfoValidationRule | Order | Package | Parcel | PaymentMethod | PriceList | Price | Promotion | Return | Shipment | ShippingCategory | ShippingMethod | ShippingZone | SkuOption | Sku | StockItem | StockLocation | TaxCalculator | TaxCategory | null
+	attachable?: Bundle | CarrierAccount | CustomerGroup | Customer | DeliveryLeadTime | Geocoder | GiftCardRecipient | GiftCard | InventoryModel | Market | Merchant | BillingInfoValidationRule | Order | Package | Parcel | PaymentMethod | PriceList | Price | Promotion | Return | Shipment | ShippingCategory | ShippingMethod | ShippingZone | SkuOption | Sku | StockItem | StockLocation | StockTransfer | TaxCalculator | TaxCategory | null
 
 }
 
@@ -115,7 +117,7 @@ interface AttachmentCreate extends ResourceCreate {
 	 */
 	url?: string | null
 
-	attachable: BundleRel | CarrierAccountRel | CustomerGroupRel | CustomerRel | DeliveryLeadTimeRel | GeocoderRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | MarketRel | MerchantRel | BillingInfoValidationRuleRel | OrderRel | PackageRel | ParcelRel | PaymentMethodRel | PriceListRel | PriceRel | PromotionRel | ReturnRel | ShipmentRel | ShippingCategoryRel | ShippingMethodRel | ShippingZoneRel | SkuOptionRel | SkuRel | StockItemRel | StockLocationRel | TaxCalculatorRel | TaxCategoryRel
+	attachable: BundleRel | CarrierAccountRel | CustomerGroupRel | CustomerRel | DeliveryLeadTimeRel | GeocoderRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | MarketRel | MerchantRel | BillingInfoValidationRuleRel | OrderRel | PackageRel | ParcelRel | PaymentMethodRel | PriceListRel | PriceRel | PromotionRel | ReturnRel | ShipmentRel | ShippingCategoryRel | ShippingMethodRel | ShippingZoneRel | SkuOptionRel | SkuRel | StockItemRel | StockLocationRel | StockTransferRel | TaxCalculatorRel | TaxCategoryRel
 
 }
 
@@ -138,7 +140,7 @@ interface AttachmentUpdate extends ResourceUpdate {
 	 */
 	url?: string | null
 
-	attachable?: BundleRel | CarrierAccountRel | CustomerGroupRel | CustomerRel | DeliveryLeadTimeRel | GeocoderRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | MarketRel | MerchantRel | BillingInfoValidationRuleRel | OrderRel | PackageRel | ParcelRel | PaymentMethodRel | PriceListRel | PriceRel | PromotionRel | ReturnRel | ShipmentRel | ShippingCategoryRel | ShippingMethodRel | ShippingZoneRel | SkuOptionRel | SkuRel | StockItemRel | StockLocationRel | TaxCalculatorRel | TaxCategoryRel | null
+	attachable?: BundleRel | CarrierAccountRel | CustomerGroupRel | CustomerRel | DeliveryLeadTimeRel | GeocoderRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | MarketRel | MerchantRel | BillingInfoValidationRuleRel | OrderRel | PackageRel | ParcelRel | PaymentMethodRel | PriceListRel | PriceRel | PromotionRel | ReturnRel | ShipmentRel | ShippingCategoryRel | ShippingMethodRel | ShippingZoneRel | SkuOptionRel | SkuRel | StockItemRel | StockLocationRel | StockTransferRel | TaxCalculatorRel | TaxCategoryRel | null
 
 }
 
