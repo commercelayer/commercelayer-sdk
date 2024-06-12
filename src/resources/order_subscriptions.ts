@@ -11,6 +11,7 @@ import type { OrderSubscriptionItem } from './order_subscription_items'
 import type { OrderFactory } from './order_factories'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
 
 
@@ -18,6 +19,7 @@ type OrderSubscriptionType = 'order_subscriptions'
 type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
 type MarketRel = ResourceRel & { type: MarketType }
 type OrderRel = ResourceRel & { type: OrderType }
+type TagRel = ResourceRel & { type: TagType }
 type CustomerPaymentSourceRel = ResourceRel & { type: CustomerPaymentSourceType }
 
 
@@ -110,6 +112,7 @@ interface OrderSubscription extends Resource {
 	recurring_order_copies?: RecurringOrderCopy[] | null
 	orders?: Order[] | null
 	events?: Event[] | null
+	tags?: Tag[] | null
 	versions?: Version[] | null
 
 }
@@ -150,6 +153,7 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 
 	market?: MarketRel | null
 	source_order: OrderRel
+	tags?: TagRel[] | null
 
 }
 
@@ -208,6 +212,7 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	_convert?: boolean | null
 
 	customer_payment_source?: CustomerPaymentSourceRel | null
+	tags?: TagRel[] | null
 
 }
 
@@ -276,6 +281,11 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 	async events(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `order_subscriptions/${_orderSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `order_subscriptions/${_orderSubscriptionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 	async versions(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

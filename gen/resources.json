@@ -19464,6 +19464,20 @@
                     "parent_resource": "Api::OrderSubscriptionResource",
                     "class_name": "Event"
                 },
+                "tags": {
+                    "type": "has_many",
+                    "desc": "The associated tags.",
+                    "creatable": true,
+                    "fetchable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "conditions": {
+                        "include": "Taggable"
+                    },
+                    "parent_resource": "Api::OrderSubscriptionResource",
+                    "class_name": "Tag"
+                },
                 "versions": {
                     "type": "has_many",
                     "desc": "The associated changes.",
@@ -19504,6 +19518,7 @@
                 "customer_id",
                 "customer_payment_source_id",
                 "events_id",
+                "tags_id",
                 "ids",
                 "starts_at_from",
                 "starts_at_to",
