@@ -10,12 +10,14 @@ import type { OrderSubscriptionItem } from './order_subscription_items'
 import type { OrderFactory } from './order_factories'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Event } from './events'
+import type { Tag } from './tags'
 import type { Version } from './versions'
 
 
 type OrderSubscriptionRel = ResourceRel & { type: typeof OrderSubscriptions.TYPE }
 type MarketRel = ResourceRel & { type: 'markets' }
 type OrderRel = ResourceRel & { type: 'orders' }
+type TagRel = ResourceRel & { type: 'tags' }
 type CustomerPaymentSourceRel = ResourceRel & { type: 'customer_payment_sources' }
 
 
@@ -46,6 +48,7 @@ interface OrderSubscription extends Resource {
 	recurring_order_copies?: RecurringOrderCopy[]
 	orders?: Order[]
 	events?: Event[]
+	tags?: Tag[]
 	versions?: Version[]
 
 }
@@ -62,6 +65,7 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 
 	market?: MarketRel
 	source_order: OrderRel
+	tags?: TagRel[]
 
 }
 
@@ -80,6 +84,7 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	_convert?: boolean
 
 	customer_payment_source?: CustomerPaymentSourceRel
+	tags?: TagRel[]
 
 }
 
@@ -157,6 +162,11 @@ class OrderSubscriptions extends ApiResource {
 	async events(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `order_subscriptions/${_orderSubscriptionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `order_subscriptions/${_orderSubscriptionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
 	async versions(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {

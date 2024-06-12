@@ -28,6 +28,7 @@ describe('OrderSubscriptions resource', () => {
 			frequency: randomValue('string', 'frequency'),
 			market: cl.markets.relationship(TestData.id),
 			source_order: cl.orders.relationship(TestData.id),
+			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -336,6 +337,25 @@ describe('OrderSubscriptions resource', () => {
 		})
 	
 		await cl[resourceType].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	
+
+	it(resourceType + '.tags', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { tags: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'tags')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request', intId))
 	
