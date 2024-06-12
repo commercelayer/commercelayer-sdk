@@ -779,6 +779,7 @@ export type TaggableResourceType =
 |	'gift_cards'
 |	'line_item_options'
 |	'line_items'
+|	'order_subscriptions'
 |	'orders'
 |	'percentage_discount_promotions'
 |	'promotions'
