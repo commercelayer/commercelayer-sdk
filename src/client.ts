@@ -173,7 +173,10 @@ class ApiClient {
 
 		// Timeout
 		const timeout = options?.timeout || this.#clientConfig.timeout
-		if (timeout) requestOptions.signal = AbortSignal.timeout(timeout)
+		if (timeout) {
+			if (AbortSignal.timeout) requestOptions.signal = AbortSignal.timeout(timeout)
+			else debug('Timeout not set. Undefined function: %s', 'AbortSignal.timeout')
+		}
 
 		if (options?.params) Object.entries(options?.params).forEach(([name, value]) => { url.searchParams.append(name, String(value)) })
 
