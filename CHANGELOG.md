@@ -1,3 +1,11 @@
+## [6.8.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.8.0...v6.8.1) (2024-06-19)
+
+
+### Bug Fixes
+
+* fix empty errors and timeout issue ([8bf22f4](https://github.com/commercelayer/commercelayer-sdk/commit/8bf22f49178468995ac26c8789f04a675b0bb39f))
+* fix empty errors and timeout issue ([#341](https://github.com/commercelayer/commercelayer-sdk/issues/341)) ([d029ab5](https://github.com/commercelayer/commercelayer-sdk/commit/d029ab559b9a56cc4a3d7b6c5477e45c0e59f83d))
+
 # [6.8.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.7.2...v6.8.0) (2024-06-12)
 
 
