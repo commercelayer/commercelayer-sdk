@@ -68,7 +68,10 @@ export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, cl
 
   const responseBody = response.body ? await response.json()
     .then(json => { debug('response: %O', json); return json })
-    .catch((err: Error) => { debug('error: %s', err.message); throw new SdkError({ message: 'Error parsing API response body', type: ErrorType.PARSE }) })
+    .catch((err: Error) => {
+      debug('error: %s', err.message)
+      if (response.ok) throw new SdkError({ message: 'Error parsing API response body', type: ErrorType.PARSE })
+    })
     : undefined
     
   if (!response.ok) {
