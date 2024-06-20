@@ -66,7 +66,7 @@ export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, cl
     if (interceptors?.rawReader?.onFailure) await interceptors.rawReader.onFailure(response)
   }
 
-  const responseBody = response.body ? await response.json()
+  const responseBody = (response.body && (response.status !== 204)) ? await response.json()
     .then(json => { debug('response: %O', json); return json })
     .catch((err: Error) => {
       debug('error: %s', err.message)
