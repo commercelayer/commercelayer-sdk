@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "6.8.1",
+  "version": "6.8.2",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "module": "lib/index.mjs",

@@ -1,3 +1,11 @@
+## [6.8.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.8.1...v6.8.2) (2024-06-20)
+
+
+### Bug Fixes
+
+* fix browser error parsing response body with status 204 ([4e80b29](https://github.com/commercelayer/commercelayer-sdk/commit/4e80b2903b6aa64e3e4bb79e6eabf1736c7253ec))
+* fix specs timeout ([a0d1c8b](https://github.com/commercelayer/commercelayer-sdk/commit/a0d1c8b446bd8f55904b135ff57121332bd22fb1))
+
 ## [6.8.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.8.0...v6.8.1) (2024-06-19)
 
 
