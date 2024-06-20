@@ -196,6 +196,11 @@ interface ShipmentUpdate extends ResourceUpdate {
 	 */
 	_upcoming?: boolean | null
 	/** 
+	 * Send this attribute if you want to mark this shipment as cancelled (unless already shipped or delivered)..
+	 * @example ```"true"```
+	 */
+	_cancel?: boolean | null
+	/** 
 	 * Send this attribute if you want to put this shipment on hold..
 	 * @example ```"true"```
 	 */
@@ -373,6 +378,10 @@ class Shipments extends ApiResource<Shipment> {
 
 	async _upcoming(id: string | Shipment, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _upcoming: true }, params, options)
+	}
+
+	async _cancel(id: string | Shipment, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _cancel: true }, params, options)
 	}
 
 	async _on_hold(id: string | Shipment, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {

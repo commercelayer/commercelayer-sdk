@@ -158,7 +158,7 @@ interface Order extends Resource {
 	 */
 	requires_billing_info?: boolean | null
 	/** 
-	 * The international 2-letter country code as defined by the ISO 3166-1 standard, automatically inherited from the order's shipping address..
+	 * The international 2-letter country code as defined by the ISO 3166-1 standard, automatically inherited from the order's shipping or billing addresses..
 	 * @example ```"IT"```
 	 */
 	country_code?: string | null
