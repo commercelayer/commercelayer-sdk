@@ -91,6 +91,7 @@ interface ShipmentUpdate extends ResourceUpdate {
 	
 	number?: string
 	_upcoming?: boolean
+	_cancel?: boolean
 	_on_hold?: boolean
 	_picking?: boolean
 	_packing?: boolean
