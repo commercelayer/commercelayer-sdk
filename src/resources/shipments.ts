@@ -95,6 +95,7 @@ interface ShipmentUpdate extends ResourceUpdate {
 	
 	number?: string | null
 	_upcoming?: boolean | null
+	_cancel?: boolean | null
 	_on_hold?: boolean | null
 	_picking?: boolean | null
 	_packing?: boolean | null
@@ -225,6 +226,10 @@ class Shipments extends ApiResource<Shipment> {
 
 	async _upcoming(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _upcoming: true }, params, options)
+	}
+
+	async _cancel(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _cancel: true }, params, options)
 	}
 
 	async _on_hold(id: string | Shipment, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Shipment> {

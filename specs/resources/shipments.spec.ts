@@ -602,6 +602,31 @@ describe('Shipments resource', () => {
 	/* trigger._upcoming stop */
 	
 
+	/* trigger._cancel start */
+	it(resourceType + '._cancel', async () => {
+	
+		let triggerAttr = '_cancel'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._cancel(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._cancel stop */
+	
+
 	/* trigger._on_hold start */
 	it(resourceType + '._on_hold', async () => {
 	
