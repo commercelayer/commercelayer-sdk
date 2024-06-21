@@ -174,7 +174,7 @@ class ApiClient {
 		// Timeout
 		const timeout = options?.timeout || this.#clientConfig.timeout
 		if (timeout) {
-			if (AbortSignal.timeout) requestOptions.signal = AbortSignal.timeout(timeout)
+			if (AbortSignal?.timeout) requestOptions.signal = AbortSignal.timeout(timeout)
 			else debug('Timeout not set. Undefined function: %s', 'AbortSignal.timeout')
 		}
 
