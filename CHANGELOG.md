@@ -1,3 +1,10 @@
+## [6.9.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.9.0...v6.9.1) (2024-06-21)
+
+
+### Bug Fixes
+
+* fix AbortSignal.timeout function check ([1d616b1](https://github.com/commercelayer/commercelayer-sdk/commit/1d616b13c1e193fd7271207b40288f7103b081be))
+
 # [6.9.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.8.2...v6.9.0) (2024-06-20)
 
 
