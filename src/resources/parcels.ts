@@ -22,7 +22,7 @@ interface Parcel extends Resource {
 
 	number?: string | null
 	weight: number
-	unit_of_weight: string
+	unit_of_weight: 'gr' | 'oz' | 'lb'
 	eel_pfc?: string | null
 	contents_type?: string | null
 	contents_explanation?: string | null
@@ -59,7 +59,7 @@ interface Parcel extends Resource {
 interface ParcelCreate extends ResourceCreate {
 	
 	weight: number
-	unit_of_weight: string
+	unit_of_weight: 'gr' | 'oz' | 'lb'
 	eel_pfc?: string | null
 	contents_type?: string | null
 	contents_explanation?: string | null
@@ -92,7 +92,7 @@ interface ParcelCreate extends ResourceCreate {
 interface ParcelUpdate extends ResourceUpdate {
 	
 	weight?: number | null
-	unit_of_weight?: string | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	eel_pfc?: string | null
 	contents_type?: string | null
 	contents_explanation?: string | null

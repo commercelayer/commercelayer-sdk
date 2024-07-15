@@ -30,7 +30,7 @@ interface Sku extends Resource {
 	image_url?: string | null
 	pieces_per_pack?: number | null
 	weight?: number | null
-	unit_of_weight?: 'gr' | 'lb' | 'oz' | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	hs_tariff_number?: string | null
 	do_not_ship?: boolean | null
 	do_not_track?: boolean | null
@@ -58,7 +58,7 @@ interface SkuCreate extends ResourceCreate {
 	image_url?: string | null
 	pieces_per_pack?: number | null
 	weight?: number | null
-	unit_of_weight?: 'gr' | 'lb' | 'oz' | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	hs_tariff_number?: string | null
 	do_not_ship?: boolean | null
 	do_not_track?: boolean | null
@@ -77,7 +77,7 @@ interface SkuUpdate extends ResourceUpdate {
 	image_url?: string | null
 	pieces_per_pack?: number | null
 	weight?: number | null
-	unit_of_weight?: 'gr' | 'lb' | 'oz' | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	hs_tariff_number?: string | null
 	do_not_ship?: boolean | null
 	do_not_track?: boolean | null

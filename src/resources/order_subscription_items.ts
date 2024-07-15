@@ -3,18 +3,18 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve } from '../query'
 
 import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
-import type { Adjustment, AdjustmentType } from './adjustments'
-import type { Bundle, BundleType } from './bundles'
-import type { Sku, SkuType } from './skus'
 import type { LineItem } from './line_items'
+import type { Sku, SkuType } from './skus'
+import type { Bundle, BundleType } from './bundles'
+import type { Adjustment, AdjustmentType } from './adjustments'
 
 
 type OrderSubscriptionItemType = 'order_subscription_items'
 type OrderSubscriptionItemRel = ResourceRel & { type: OrderSubscriptionItemType }
 type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
-type AdjustmentRel = ResourceRel & { type: AdjustmentType }
-type BundleRel = ResourceRel & { type: BundleType }
 type SkuRel = ResourceRel & { type: SkuType }
+type BundleRel = ResourceRel & { type: BundleType }
+type AdjustmentRel = ResourceRel & { type: AdjustmentType }
 
 
 interface OrderSubscriptionItem extends Resource {
@@ -32,7 +32,7 @@ interface OrderSubscriptionItem extends Resource {
 	formatted_total_amount?: string | null
 
 	order_subscription?: OrderSubscription | null
-	item?: Adjustment | Bundle | Sku | null
+	item?: Sku | Bundle | Adjustment | null
 	sku?: Sku | null
 	bundle?: Bundle | null
 	adjustment?: Adjustment | null
@@ -49,7 +49,7 @@ interface OrderSubscriptionItemCreate extends ResourceCreate {
 	unit_amount_cents?: number | null
 
 	order_subscription: OrderSubscriptionRel
-	item: AdjustmentRel | BundleRel | SkuRel
+	item: SkuRel | BundleRel | AdjustmentRel
 	sku?: SkuRel | null
 	bundle?: BundleRel | null
 	adjustment?: AdjustmentRel | null

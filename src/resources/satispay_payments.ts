@@ -22,6 +22,7 @@ interface SatispayPayment extends Resource {
 	redirect_url?: string | null
 	payment_url?: string | null
 	payment_response?: Record<string, any> | null
+	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null

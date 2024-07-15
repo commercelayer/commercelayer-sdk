@@ -272,7 +272,53 @@ describe('Captures resource', () => {
 	})
 	/* relationship.refunds stop */
 	
+
+	/* relationship.return start */
+	it(resourceType + '.return', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { returns: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'return')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].return(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.return stop */
+	
   
+
+	/* trigger._forward start */
+	it(resourceType + '._forward', async () => {
+	
+		let triggerAttr = '_forward'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._forward(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._forward stop */
+	
 
 	/* trigger._refund start */
 	it(resourceType + '._refund', async () => {

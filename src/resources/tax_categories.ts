@@ -3,12 +3,12 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Sku, SkuType } from './skus'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
 import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
 import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
 
 
 type TaxCategoryType = 'tax_categories'

@@ -194,6 +194,27 @@ describe('GoogleGeocoders resource', () => {
 
   
 
+	/* relationship.markets start */
+	it(resourceType + '.markets', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { markets: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'markets')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].markets(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.markets stop */
+	
+
 	/* relationship.addresses start */
 	it(resourceType + '.addresses', async () => {
 	

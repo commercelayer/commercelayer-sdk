@@ -6,11 +6,16 @@ import type { Merchant, MerchantType } from './merchants'
 import type { PriceList, PriceListType } from './price_lists'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { SubscriptionModel, SubscriptionModelType } from './subscription_models'
-import type { TaxCalculator, TaxCalculatorType } from './tax_calculators'
+import type { TaxCalculator } from './tax_calculators'
 import type { CustomerGroup, CustomerGroupType } from './customer_groups'
+import type { Geocoder, GeocoderType } from './geocoders'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
+import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
+import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
+import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
 
 
 type MarketType = 'markets'
@@ -19,8 +24,12 @@ type MerchantRel = ResourceRel & { type: MerchantType }
 type PriceListRel = ResourceRel & { type: PriceListType }
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
-type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
+type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
+type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
+type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
+type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
+type GeocoderRel = ResourceRel & { type: GeocoderType }
 
 
 interface Market extends Resource {
@@ -42,8 +51,9 @@ interface Market extends Resource {
 	price_list?: PriceList | null
 	inventory_model?: InventoryModel | null
 	subscription_model?: SubscriptionModel | null
-	tax_calculator?: TaxCalculator | null
+	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
 	customer_group?: CustomerGroup | null
+	geocoder?: Geocoder | null
 	price_list_schedulers?: PriceListScheduler[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
@@ -66,8 +76,9 @@ interface MarketCreate extends ResourceCreate {
 	price_list: PriceListRel
 	inventory_model: InventoryModelRel
 	subscription_model?: SubscriptionModelRel | null
-	tax_calculator?: TaxCalculatorRel | null
+	tax_calculator?: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
+	geocoder?: GeocoderRel | null
 
 }
 
@@ -87,8 +98,9 @@ interface MarketUpdate extends ResourceUpdate {
 	price_list?: PriceListRel | null
 	inventory_model?: InventoryModelRel | null
 	subscription_model?: SubscriptionModelRel | null
-	tax_calculator?: TaxCalculatorRel | null
+	tax_calculator?: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
+	geocoder?: GeocoderRel | null
 
 }
 
@@ -137,6 +149,11 @@ class Markets extends ApiResource<Market> {
 	async customer_group(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<CustomerGroup> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `markets/${_marketId}/customer_group`, params, options) as unknown as CustomerGroup
+	}
+
+	async geocoder(marketId: string | Market, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Geocoder> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `markets/${_marketId}/geocoder`, params, options) as unknown as Geocoder
 	}
 
 	async price_list_schedulers(marketId: string | Market, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<PriceListScheduler>> {

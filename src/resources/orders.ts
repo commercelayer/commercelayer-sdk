@@ -9,16 +9,6 @@ import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { Sku } from './skus'
 import type { Bundle } from './bundles'
-import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
-import type { AxervePayment, AxervePaymentType } from './axerve_payments'
-import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
-import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
-import type { ExternalPayment, ExternalPaymentType } from './external_payments'
-import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
-import type { PaypalPayment, PaypalPaymentType } from './paypal_payments'
-import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
-import type { StripePayment, StripePaymentType } from './stripe_payments'
-import type { WireTransfer, WireTransferType } from './wire_transfers'
 import type { LineItem } from './line_items'
 import type { LineItemOption } from './line_item_options'
 import type { StockReservation } from './stock_reservations'
@@ -40,6 +30,16 @@ import type { ResourceError } from './resource_errors'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
+import type { AxervePayment, AxervePaymentType } from './axerve_payments'
+import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
+import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
+import type { ExternalPayment, ExternalPaymentType } from './external_payments'
+import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
+import type { PaypalPayment, PaypalPaymentType } from './paypal_payments'
+import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
+import type { StripePayment, StripePaymentType } from './stripe_payments'
+import type { WireTransfer, WireTransferType } from './wire_transfers'
 
 
 type OrderType = 'orders'
@@ -68,7 +68,7 @@ interface Order extends Resource {
 	number?: string | null
 	autorefresh?: boolean | null
 	place_async?: boolean | null
-	status: 'draft' | 'pending' | 'placing' | 'placed' | 'editing' | 'approved' | 'cancelled'
+	status: 'draft' | 'pending' | 'editing' | 'placing' | 'placed' | 'approved' | 'cancelled'
 	payment_status: 'unpaid' | 'authorized' | 'partially_authorized' | 'paid' | 'partially_paid' | 'voided' | 'partially_voided' | 'refunded' | 'partially_refunded' | 'free'
 	fulfillment_status: 'unfulfilled' | 'in_progress' | 'fulfilled' | 'not_required'
 	guest?: boolean | null
@@ -191,7 +191,7 @@ interface Order extends Resource {
 	stock_transfers?: StockTransfer[] | null
 	shipments?: Shipment[] | null
 	payment_options?: PaymentOption[] | null
-	transactions?: Array<Authorization | Capture | Void | Refund> | null
+	transactions?: Array<Authorization | Void | Capture | Refund> | null
 	authorizations?: Authorization[] | null
 	captures?: Capture[] | null
 	voids?: Void[] | null

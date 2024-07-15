@@ -2,6 +2,7 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsList } from '../query'
 
+import type { Version } from './versions'
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import type { FreeShippingPromotion } from './free_shipping_promotions'
 import type { BuyXPayYPromotion } from './buy_x_pay_y_promotions'
@@ -9,7 +10,6 @@ import type { FreeGiftPromotion } from './free_gift_promotions'
 import type { FixedPricePromotion } from './fixed_price_promotions'
 import type { ExternalPromotion } from './external_promotions'
 import type { FixedAmountPromotion } from './fixed_amount_promotions'
-import type { Version } from './versions'
 
 
 type PromotionRuleType = 'promotion_rules'

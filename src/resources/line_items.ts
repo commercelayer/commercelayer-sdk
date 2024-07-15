@@ -3,16 +3,6 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
-import type { Adjustment, AdjustmentType } from './adjustments'
-import type { Bundle, BundleType } from './bundles'
-import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
-import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
-import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
-import type { GiftCard, GiftCardType } from './gift_cards'
-import type { PaymentMethod, PaymentMethodType } from './payment_methods'
-import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
-import type { Shipment, ShipmentType } from './shipments'
-import type { Sku, SkuType } from './skus'
 import type { LineItemOption } from './line_item_options'
 import type { ReturnLineItem } from './return_line_items'
 import type { StockReservation } from './stock_reservations'
@@ -20,21 +10,37 @@ import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
+import type { Sku, SkuType } from './skus'
+import type { Bundle, BundleType } from './bundles'
+import type { GiftCard, GiftCardType } from './gift_cards'
+import type { Shipment, ShipmentType } from './shipments'
+import type { PaymentMethod, PaymentMethodType } from './payment_methods'
+import type { Adjustment, AdjustmentType } from './adjustments'
+import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
+import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
+import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
+import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
+import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
+import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
+import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
 
 
 type LineItemType = 'line_items'
 type LineItemRel = ResourceRel & { type: LineItemType }
 type OrderRel = ResourceRel & { type: OrderType }
-type AdjustmentRel = ResourceRel & { type: AdjustmentType }
+type SkuRel = ResourceRel & { type: SkuType }
 type BundleRel = ResourceRel & { type: BundleType }
+type GiftCardRel = ResourceRel & { type: GiftCardType }
+type ShipmentRel = ResourceRel & { type: ShipmentType }
+type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
+type AdjustmentRel = ResourceRel & { type: AdjustmentType }
+type PercentageDiscountPromotionRel = ResourceRel & { type: PercentageDiscountPromotionType }
+type FreeShippingPromotionRel = ResourceRel & { type: FreeShippingPromotionType }
+type BuyXPayYPromotionRel = ResourceRel & { type: BuyXPayYPromotionType }
+type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
+type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
 type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
-type FreeShippingPromotionRel = ResourceRel & { type: FreeShippingPromotionType }
-type GiftCardRel = ResourceRel & { type: GiftCardType }
-type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
-type PercentageDiscountPromotionRel = ResourceRel & { type: PercentageDiscountPromotionType }
-type ShipmentRel = ResourceRel & { type: ShipmentType }
-type SkuRel = ResourceRel & { type: SkuType }
 type TagRel = ResourceRel & { type: TagType }
 
 
@@ -70,14 +76,14 @@ interface LineItem extends Resource {
 	discount_breakdown?: Record<string, any> | null
 	tax_rate?: number | null
 	tax_breakdown?: Record<string, any> | null
-	item_type?: 'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
+	item_type?: 'skus' | 'bundles' | 'gift_cards' | 'shipments' | 'payment_methods' | 'adjustments' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'buy_x_pay_y_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
 	frequency?: string | null
 	coupon_code?: string | null
 	circuit_state?: string | null
 	circuit_failure_count?: number | null
 
 	order?: Order | null
-	item?: Adjustment | Bundle | ExternalPromotion | FixedAmountPromotion | FreeShippingPromotion | GiftCard | PaymentMethod | PercentageDiscountPromotion | Shipment | Sku | null
+	item?: Sku | Bundle | GiftCard | Shipment | PaymentMethod | Adjustment | PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
 	sku?: Sku | null
 	bundle?: Bundle | null
 	adjustment?: Adjustment | null
@@ -107,11 +113,11 @@ interface LineItemCreate extends ResourceCreate {
 	compare_at_amount_cents?: number | null
 	name?: string | null
 	image_url?: string | null
-	item_type?: 'skus' | 'bundles' | 'shipments' | 'payment_methods' | 'adjustments' | 'gift_cards' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
+	item_type?: 'skus' | 'bundles' | 'gift_cards' | 'shipments' | 'payment_methods' | 'adjustments' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'buy_x_pay_y_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
 	frequency?: string | null
 
 	order: OrderRel
-	item?: AdjustmentRel | BundleRel | ExternalPromotionRel | FixedAmountPromotionRel | FreeShippingPromotionRel | GiftCardRel | PaymentMethodRel | PercentageDiscountPromotionRel | ShipmentRel | SkuRel | null
+	item?: SkuRel | BundleRel | GiftCardRel | ShipmentRel | PaymentMethodRel | AdjustmentRel | PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
 	tags?: TagRel[] | null
 
 }

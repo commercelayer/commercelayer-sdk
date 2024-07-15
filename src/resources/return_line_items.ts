@@ -21,6 +21,9 @@ interface ReturnLineItem extends Resource {
 	quantity: number
 	name?: string | null
 	image_url?: string | null
+	total_amount_cents?: number | null
+	total_amount_float: number
+	formatted_total_amount?: string | null
 	return_reason?: Record<string, any> | null
 	restocked_at?: string | null
 

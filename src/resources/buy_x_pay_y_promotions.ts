@@ -3,7 +3,6 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
-import type { PromotionRule } from './promotion_rules'
 import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
@@ -15,6 +14,7 @@ import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
 import type { Sku } from './skus'
+import type { PromotionRule } from './promotion_rules'
 
 
 type BuyXPayYPromotionType = 'buy_x_pay_y_promotions'

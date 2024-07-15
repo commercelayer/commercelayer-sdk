@@ -27,7 +27,7 @@ interface ShippingMethod extends Resource {
 	readonly type: ShippingMethodType
 
 	name: string
-	scheme?: string | null
+	scheme?: 'flat' | 'weight_tiered' | 'external' | null
 	currency_code?: string | null
 	external_prices_url?: string | null
 	price_amount_cents: number
@@ -42,7 +42,7 @@ interface ShippingMethod extends Resource {
 	formatted_price_amount_for_shipment?: string | null
 	min_weight?: number | null
 	max_weight?: number | null
-	unit_of_weight?: string | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	disabled_at?: string | null
 	circuit_state?: string | null
 	circuit_failure_count?: number | null
@@ -63,7 +63,7 @@ interface ShippingMethod extends Resource {
 interface ShippingMethodCreate extends ResourceCreate {
 	
 	name: string
-	scheme?: string | null
+	scheme?: 'flat' | 'weight_tiered' | 'external' | null
 	currency_code?: string | null
 	external_prices_url?: string | null
 	price_amount_cents: number
@@ -71,7 +71,7 @@ interface ShippingMethodCreate extends ResourceCreate {
 	use_subtotal?: boolean | null
 	min_weight?: number | null
 	max_weight?: number | null
-	unit_of_weight?: string | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	_disable?: boolean | null
 	_enable?: boolean | null
 
@@ -87,7 +87,7 @@ interface ShippingMethodCreate extends ResourceCreate {
 interface ShippingMethodUpdate extends ResourceUpdate {
 	
 	name?: string | null
-	scheme?: string | null
+	scheme?: 'flat' | 'weight_tiered' | 'external' | null
 	currency_code?: string | null
 	external_prices_url?: string | null
 	price_amount_cents?: number | null
@@ -95,7 +95,7 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	use_subtotal?: boolean | null
 	min_weight?: number | null
 	max_weight?: number | null
-	unit_of_weight?: string | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	_disable?: boolean | null
 	_enable?: boolean | null
 	_reset_circuit?: boolean | null

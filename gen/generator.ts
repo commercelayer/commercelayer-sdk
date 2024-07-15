@@ -542,8 +542,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 
 	// Operations
-	const qryMod = new Set<string>()
-	const resMod = new Set<string>()
+	const qryMod = new Set<string>()	// Query models (Retrieve/List)
+	const resMod = new Set<string>()	// Resource generic models (Es. ResponseList)
+	// const relMod = new Set<string>()	// Relationships models
 	Object.entries(resource.operations).forEach(([opName, op]) => {
 		const tpl = op.singleton ? templates['singleton'] : templates[opName]
 		if (op.singleton) resModelType = 'ApiSingleton'
@@ -558,7 +559,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			else {
 				const tplOp = templatedOperation(resName, opName, op, tpl)
 				operations.push(tplOp.operation)
-				tplOp.types.forEach(t => { declaredTypes.add(t) })
+				tplOp.types.forEach(t => declaredTypes.add(t))
 			}
 		}
 		else {
@@ -572,6 +573,10 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 					resMod.add('ListResponse')
 				}
 				operations.push(tplrOp.operation)
+				tplrOp.types.forEach(t => {	// Fix tax_calculators issue
+					// relMod.add(t)	// Add releationship type
+					declaredImportsModels.add(t)	// Add import type
+				})
 			} else console.log('Unknown operation: ' + opName)
 		}
 	})
@@ -580,7 +585,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Trigger functions (only boolean)
 	if (CONFIG.TRIGGER_FUNCTIONS) triggerFunctions(type, resName, resource, operations)
 
-	
+
 	if (operations && (operations.length > 0)) declaredImportsCommon.add('ResourcesConfig')
 
 	res = res.replace(/##__RESOURCE_MODEL_TYPE__##/g, resModelType)
@@ -588,15 +593,15 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, resModelInterface)
 	res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
 
-	const importQueryModels = (qryMod.size > 0)? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
+	const importQueryModels = (qryMod.size > 0) ? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
 	res = res.replace(/##__IMPORT_QUERY_MODELS__##/, importQueryModels)
-	
+
 
 	// Resource definition
 	res = res.replace(/##__RESOURCE_TYPE__##/g, type)
 	res = res.replace(/##__RESOURCE_CLASS__##/g, resName)
 
-	const resourceOperations = (operations && (operations.length > 0))? operations.join('\n\n\t') : ''
+	const resourceOperations = (operations && (operations.length > 0)) ? operations.join('\n\n\t') : ''
 	res = res.replace(/##__RESOURCE_OPERATIONS__##/, resourceOperations)
 
 
@@ -613,7 +618,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		const cudSuffix = getCUDSuffix(t)
 		resourceInterfaces.push(`Resource${cudSuffix}`)
 		const tplCmp = templatedComponent(resName, t, resource.components[t])
-		tplCmp.models.forEach(m => declaredImportsModels.add(m))
+		tplCmp.models.forEach(m => {
+			if (m !== 'Resource') declaredImportsModels.add(m)	// Fix resource_errors issue
+		})
 		modelInterfaces.push(tplCmp.component)
 		if (cudSuffix) tplCmp.models.forEach(t => relationshipTypes.add(t))
 	})

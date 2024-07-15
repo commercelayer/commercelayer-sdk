@@ -26,7 +26,7 @@ describe('Attachments resource', () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			attachable: cl.bundles.relationship(TestData.id),
+			attachable: cl.geocoders.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

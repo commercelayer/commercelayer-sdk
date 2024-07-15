@@ -6,8 +6,11 @@ import type { Order, OrderType } from './orders'
 import type { Customer } from './customers'
 import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Address } from './addresses'
+import type { Capture, CaptureType } from './captures'
+import type { Refund } from './refunds'
 import type { ReturnLineItem } from './return_line_items'
 import type { Attachment } from './attachments'
+import type { ResourceError } from './resource_errors'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
@@ -17,6 +20,7 @@ type ReturnType = 'returns'
 type ReturnRel = ResourceRel & { type: ReturnType }
 type OrderRel = ResourceRel & { type: OrderType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
+type CaptureRel = ResourceRel & { type: CaptureType }
 type TagRel = ResourceRel & { type: TagType }
 
 
@@ -25,7 +29,7 @@ interface Return extends Resource {
 	readonly type: ReturnType
 
 	number?: string | null
-	status: 'draft' | 'requested' | 'approved' | 'cancelled' | 'shipped' | 'rejected' | 'received'
+	status: 'draft' | 'requested' | 'approved' | 'cancelled' | 'shipped' | 'rejected' | 'received' | 'refunded'
 	customer_email?: string | null
 	skus_count?: number | null
 	approved_at?: string | null
@@ -33,15 +37,22 @@ interface Return extends Resource {
 	shipped_at?: string | null
 	rejected_at?: string | null
 	received_at?: string | null
+	refunded_at?: string | null
 	archived_at?: string | null
+	estimated_refund_amount_cents?: number | null
+	estimated_refund_amount_float?: number | null
+	formatted_estimated_refund_amount?: string | null
 
 	order?: Order | null
 	customer?: Customer | null
 	stock_location?: StockLocation | null
 	origin_address?: Address | null
 	destination_address?: Address | null
+	reference_capture?: Capture | null
+	reference_refund?: Refund | null
 	return_line_items?: ReturnLineItem[] | null
 	attachments?: Attachment[] | null
+	resource_errors?: ResourceError[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
@@ -53,6 +64,7 @@ interface ReturnCreate extends ResourceCreate {
 	
 	order: OrderRel
 	stock_location?: StockLocationRel | null
+	reference_capture?: CaptureRel | null
 	tags?: TagRel[] | null
 
 }
@@ -69,8 +81,11 @@ interface ReturnUpdate extends ResourceUpdate {
 	_restock?: boolean | null
 	_archive?: boolean | null
 	_unarchive?: boolean | null
+	_refund?: boolean | null
+	_refund_amount_cents?: number | null
 
 	stock_location?: StockLocationRel | null
+	reference_capture?: CaptureRel | null
 	tags?: TagRel[] | null
 
 }
@@ -117,6 +132,16 @@ class Returns extends ApiResource<Return> {
 		return this.resources.fetch<Address>({ type: 'addresses' }, `returns/${_returnId}/destination_address`, params, options) as unknown as Address
 	}
 
+	async reference_capture(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
+		const _returnId = (returnId as Return).id || returnId as string
+		return this.resources.fetch<Capture>({ type: 'captures' }, `returns/${_returnId}/reference_capture`, params, options) as unknown as Capture
+	}
+
+	async reference_refund(returnId: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Refund> {
+		const _returnId = (returnId as Return).id || returnId as string
+		return this.resources.fetch<Refund>({ type: 'refunds' }, `returns/${_returnId}/reference_refund`, params, options) as unknown as Refund
+	}
+
 	async return_line_items(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
 		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<ReturnLineItem>({ type: 'return_line_items' }, `returns/${_returnId}/return_line_items`, params, options) as unknown as ListResponse<ReturnLineItem>
@@ -125,6 +150,11 @@ class Returns extends ApiResource<Return> {
 	async attachments(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `returns/${_returnId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async resource_errors(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ResourceError>> {
+		const _returnId = (returnId as Return).id || returnId as string
+		return this.resources.fetch<ResourceError>({ type: 'resource_errors' }, `returns/${_returnId}/resource_errors`, params, options) as unknown as ListResponse<ResourceError>
 	}
 
 	async events(returnId: string | Return, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {
@@ -176,6 +206,14 @@ class Returns extends ApiResource<Return> {
 
 	async _unarchive(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _unarchive: true }, params, options)
+	}
+
+	async _refund(id: string | Return, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _refund: true }, params, options)
+	}
+
+	async _refund_amount_cents(id: string | Return, triggerValue: number, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _refund_amount_cents: triggerValue }, params, options)
 	}
 
 

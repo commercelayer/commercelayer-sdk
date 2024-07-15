@@ -30,8 +30,9 @@ describe('Markets resource', () => {
 			price_list: cl.price_lists.relationship(TestData.id),
 			inventory_model: cl.inventory_models.relationship(TestData.id),
 			subscription_model: cl.subscription_models.relationship(TestData.id),
-			tax_calculator: cl.tax_calculators.relationship(TestData.id),
+			tax_calculator: cl.avalara_accounts.relationship(TestData.id),
 			customer_group: cl.customer_groups.relationship(TestData.id),
+			geocoder: cl.geocoders.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -323,6 +324,27 @@ describe('Markets resource', () => {
 	
 	})
 	/* relationship.customer_group stop */
+	
+
+	/* relationship.geocoder start */
+	it(resourceType + '.geocoder', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { geocoders: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'geocoder')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].geocoder(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.geocoder stop */
 	
 
 	/* relationship.price_list_schedulers start */

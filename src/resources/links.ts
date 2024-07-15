@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { Event } from './events'
 import type { Order, OrderType } from './orders'
 import type { SkuList, SkuListType } from './sku_lists'
-import type { Event } from './events'
 
 
 type LinkType = 'links'

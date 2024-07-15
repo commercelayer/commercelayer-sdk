@@ -7,6 +7,7 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
 import type { Capture } from './captures'
+import type { Return } from './returns'
 
 
 type RefundType = 'refunds'
@@ -34,6 +35,7 @@ interface Refund extends Resource {
 	events?: Event[] | null
 	versions?: Version[] | null
 	reference_capture?: Capture | null
+	return?: Return | null
 
 }
 
@@ -65,6 +67,11 @@ class Refunds extends ApiResource<Refund> {
 	async reference_capture(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
 		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Capture>({ type: 'captures' }, `refunds/${_refundId}/reference_capture`, params, options) as unknown as Capture
+	}
+
+	async return(refundId: string | Refund, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		const _refundId = (refundId as Refund).id || refundId as string
+		return this.resources.fetch<Return>({ type: 'returns' }, `refunds/${_refundId}/return`, params, options) as unknown as Return
 	}
 
 

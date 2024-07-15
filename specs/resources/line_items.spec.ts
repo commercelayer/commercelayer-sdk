@@ -27,7 +27,7 @@ describe('LineItems resource', () => {
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
 			order: cl.orders.relationship(TestData.id),
-			item: cl.adjustments.relationship(TestData.id),
+			item: cl.skus.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 

@@ -8,6 +8,7 @@ import type { Event } from './events'
 import type { Version } from './versions'
 import type { Authorization } from './authorizations'
 import type { Refund } from './refunds'
+import type { Return } from './returns'
 
 
 type CaptureType = 'captures'
@@ -42,12 +43,15 @@ interface Capture extends Resource {
 	versions?: Version[] | null
 	reference_authorization?: Authorization | null
 	refunds?: Refund[] | null
+	return?: Return | null
 
 }
 
 
 interface CaptureUpdate extends ResourceUpdate {
 	
+	succeeded?: boolean | null
+	_forward?: boolean | null
 	_refund?: boolean | null
 	_refund_amount_cents?: number | null
 	
@@ -90,6 +94,15 @@ class Captures extends ApiResource<Capture> {
 	async refunds(captureId: string | Capture, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Refund>> {
 		const _captureId = (captureId as Capture).id || captureId as string
 		return this.resources.fetch<Refund>({ type: 'refunds' }, `captures/${_captureId}/refunds`, params, options) as unknown as ListResponse<Refund>
+	}
+
+	async return(captureId: string | Capture, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Return> {
+		const _captureId = (captureId as Capture).id || captureId as string
+		return this.resources.fetch<Return>({ type: 'returns' }, `captures/${_captureId}/return`, params, options) as unknown as Return
+	}
+
+	async _forward(id: string | Capture, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {
+		return this.resources.update<CaptureUpdate, Capture>({ id: (typeof id === 'string')? id: id.id, type: Captures.TYPE, _forward: true }, params, options)
 	}
 
 	async _refund(id: string | Capture, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Capture> {

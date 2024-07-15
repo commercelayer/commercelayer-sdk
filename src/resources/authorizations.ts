@@ -56,6 +56,8 @@ interface Authorization extends Resource {
 
 interface AuthorizationUpdate extends ResourceUpdate {
 	
+	succeeded?: boolean | null
+	_forward?: boolean | null
 	_capture?: boolean | null
 	_capture_amount_cents?: number | null
 	_void?: boolean | null
@@ -99,6 +101,10 @@ class Authorizations extends ApiResource<Authorization> {
 	async voids(authorizationId: string | Authorization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Void>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Void>({ type: 'voids' }, `authorizations/${_authorizationId}/voids`, params, options) as unknown as ListResponse<Void>
+	}
+
+	async _forward(id: string | Authorization, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {
+		return this.resources.update<AuthorizationUpdate, Authorization>({ id: (typeof id === 'string')? id: id.id, type: Authorizations.TYPE, _forward: true }, params, options)
 	}
 
 	async _capture(id: string | Authorization, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Authorization> {

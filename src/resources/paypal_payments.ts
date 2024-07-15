@@ -22,7 +22,7 @@ interface PaypalPayment extends Resource {
 	paypal_payer_id?: string | null
 	name?: string | null
 	paypal_id?: string | null
-	status: 'created' | 'approved'
+	status?: 'created' | 'approved' | null
 	approval_url?: string | null
 	mismatched_amounts?: boolean | null
 	payment_instrument?: Record<string, any> | null
