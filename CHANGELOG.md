@@ -1,3 +1,10 @@
+## [5.47.1](https://github.com/commercelayer/commercelayer-sdk/compare/v5.47.0...v5.47.1) (2024-07-15)
+
+
+### Bug Fixes
+
+* deprecate v4.x ([3a575fc](https://github.com/commercelayer/commercelayer-sdk/commit/3a575fc9277bfced3736258f62dab71c3e932730))
+
 # [5.47.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.46.0...v5.47.0) (2024-07-15)
 
 
