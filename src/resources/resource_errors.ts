@@ -2,7 +2,6 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
 
-import type { Resource } from './resources'
 
 
 type ResourceErrorType = 'resource_errors'

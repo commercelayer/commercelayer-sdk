@@ -3,6 +3,13 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
+import type { LineItemOption } from './line_item_options'
+import type { ReturnLineItem } from './return_line_items'
+import type { StockReservation } from './stock_reservations'
+import type { StockLineItem } from './stock_line_items'
+import type { StockTransfer } from './stock_transfers'
+import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 import type { Sku, SkuType } from './skus'
 import type { Bundle, BundleType } from './bundles'
 import type { GiftCard, GiftCardType } from './gift_cards'
@@ -16,13 +23,6 @@ import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promo
 import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
 import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
 import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
-import type { LineItemOption } from './line_item_options'
-import type { ReturnLineItem } from './return_line_items'
-import type { StockReservation } from './stock_reservations'
-import type { StockLineItem } from './stock_line_items'
-import type { StockTransfer } from './stock_transfers'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
 
 
 type LineItemType = 'line_items'

@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer, CustomerType } from './customers'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
+import type { Version } from './versions'
 import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
 import type { AxervePayment, AxervePaymentType } from './axerve_payments'
 import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
@@ -14,7 +15,6 @@ import type { PaypalPayment, PaypalPaymentType } from './paypal_payments'
 import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
 import type { StripePayment, StripePaymentType } from './stripe_payments'
 import type { WireTransfer, WireTransferType } from './wire_transfers'
-import type { Version } from './versions'
 
 
 type CustomerPaymentSourceType = 'customer_payment_sources'

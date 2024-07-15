@@ -629,8 +629,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 
 	// Operations
-	const qryMod = new Set<string>()
-	const resMod = new Set<string>()
+	const qryMod = new Set<string>()	// Query models (Retrieve/List)
+	const resMod = new Set<string>()	// Resource generic models (Es. ResponseList)
+	// const relMod = new Set<string>()	// Relationships models
 	Object.entries(resource.operations).forEach(([opName, op]) => {
 		const tpl = op.singleton ? templates['singleton'] : templates[opName]
 		if (op.singleton) resModelType = 'ApiSingleton'
@@ -645,7 +646,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			else {
 				const tplOp = templatedOperation(resName, opName, op, tpl)
 				operations.push(tplOp.operation)
-				tplOp.types.forEach(t => { declaredTypes.add(t) })
+				tplOp.types.forEach(t => declaredTypes.add(t))
 			}
 		}
 		else {
@@ -659,6 +660,10 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 						resMod.add('ListResponse')
 					}
 				operations.push(tplrOp.operation)
+				tplrOp.types.forEach(t => {	// Fix tax_calculators issue
+					// relMod.add(t)	// Add releationship type
+					declaredImportsModels.add(t)	// Add import type
+				})
 			} else console.log('Unknown operation: ' + opName)
 		}
 	})
@@ -704,7 +709,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		resourceInterfaces.push(`Resource${cudSuffix}`)
 		const component: Component = resource.components[t]
 		const tplCmp = templatedComponent(resName, t, component)
-		tplCmp.models.forEach(m => declaredImportsModels.add(m))
+		tplCmp.models.forEach(m => {
+			if (m !== 'Resource') declaredImportsModels.add(m)	// Fix resource_errors issue
+		})
 		modelInterfaces.push(tplCmp.component)
 		if (cudSuffix) tplCmp.models.forEach(t => relationshipTypes.add(t))
 		else {

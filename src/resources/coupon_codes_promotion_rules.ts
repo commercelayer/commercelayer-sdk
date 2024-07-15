@@ -2,6 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { Version } from './versions'
+import type { Coupon, CouponType } from './coupons'
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
 import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
 import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
@@ -9,8 +11,6 @@ import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promo
 import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
 import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
 import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
-import type { Version } from './versions'
-import type { Coupon, CouponType } from './coupons'
 
 
 type CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules'

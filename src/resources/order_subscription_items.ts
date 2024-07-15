@@ -3,10 +3,10 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve } from '../query'
 
 import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
+import type { LineItem } from './line_items'
 import type { Sku, SkuType } from './skus'
 import type { Bundle, BundleType } from './bundles'
 import type { Adjustment, AdjustmentType } from './adjustments'
-import type { LineItem } from './line_items'
 
 
 type OrderSubscriptionItemType = 'order_subscription_items'
