@@ -1,3 +1,15 @@
+# [6.10.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.9.1...v6.10.0) (2024-07-15)
+
+
+### Bug Fixes
+
+* fix parser and generator ([d3bb3c5](https://github.com/commercelayer/commercelayer-sdk/commit/d3bb3c5a0b95bab8d813e8a88cbdffaa53e3d80f))
+
+
+### Features
+
+* update resources to schema v6.0.0 ([1cc2928](https://github.com/commercelayer/commercelayer-sdk/commit/1cc292876298df432d22b9a078965b32c34d8773))
+
 ## [6.9.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.9.0...v6.9.1) (2024-06-21)
 
 
