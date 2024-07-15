@@ -23,17 +23,17 @@ interface StockReservation extends Resource {
 	readonly type: StockReservationType
 
 	/** 
-	 * The stock reservation status, one of 'draft' or 'pending'..
+	 * The stock reservation status. One of 'draft' (default), or 'pending'.
 	 * @example ```"draft"```
 	 */
 	status: 'draft' | 'pending'
 	/** 
-	 * The stock reservation quantity..
+	 * The stock reservation quantity.
 	 * @example ```"4"```
 	 */
 	quantity: number
 	/** 
-	 * The expiration date/time of this stock reservation..
+	 * The expiration date/time of this stock reservation.
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at: string
@@ -50,7 +50,7 @@ interface StockReservation extends Resource {
 interface StockReservationCreate extends ResourceCreate {
 	
 	/** 
-	 * The stock reservation quantity..
+	 * The stock reservation quantity.
 	 * @example ```"4"```
 	 */
 	quantity: number
@@ -63,12 +63,12 @@ interface StockReservationCreate extends ResourceCreate {
 interface StockReservationUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The stock reservation quantity..
+	 * The stock reservation quantity.
 	 * @example ```"4"```
 	 */
 	quantity?: number | null
 	/** 
-	 * Send this attribute if you want to mark this stock reservation as pending..
+	 * Send this attribute if you want to mark this stock reservation as pending.
 	 * @example ```"true"```
 	 */
 	_pending?: boolean | null

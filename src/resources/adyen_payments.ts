@@ -21,32 +21,32 @@ interface AdyenPayment extends Resource {
 	readonly type: AdyenPaymentType
 
 	/** 
-	 * The public key linked to your API credential..
+	 * The public key linked to your API credential.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	public_key?: string | null
 	/** 
-	 * The merchant available payment methods for the assoiated order (i.e. country and amount). Required by the Adyen JS SDK..
+	 * The merchant available payment methods for the assoiated order (i.e. country and amount). Required by the Adyen JS SDK.
 	 * @example ```"[object Object]"```
 	 */
 	payment_methods: Record<string, any>
 	/** 
-	 * The Adyen payment request data, collected by client..
+	 * The Adyen payment request data, collected by client.
 	 * @example ```"[object Object]"```
 	 */
 	payment_request_data?: Record<string, any> | null
 	/** 
-	 * The Adyen additional details request data, collected by client..
+	 * The Adyen additional details request data, collected by client.
 	 * @example ```"[object Object]"```
 	 */
 	payment_request_details?: Record<string, any> | null
 	/** 
-	 * The Adyen payment response, used by client (includes 'resultCode' and 'action')..
+	 * The Adyen payment response, used by client (includes 'resultCode' and 'action').
 	 * @example ```"[object Object]"```
 	 */
 	payment_response?: Record<string, any> | null
 	/** 
-	 * Indicates if the order current amount differs form the one of the associated authorization..
+	 * Indicates if the order current amount differs form the one of the associated authorization.
 	 */
 	mismatched_amounts?: boolean | null
 	/** 
@@ -72,22 +72,22 @@ interface AdyenPaymentCreate extends ResourceCreate {
 interface AdyenPaymentUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The Adyen payment request data, collected by client..
+	 * The Adyen payment request data, collected by client.
 	 * @example ```"[object Object]"```
 	 */
 	payment_request_data?: Record<string, any> | null
 	/** 
-	 * The Adyen additional details request data, collected by client..
+	 * The Adyen additional details request data, collected by client.
 	 * @example ```"[object Object]"```
 	 */
 	payment_request_details?: Record<string, any> | null
 	/** 
-	 * The Adyen payment response, used by client (includes 'resultCode' and 'action')..
+	 * The Adyen payment response, used by client (includes 'resultCode' and 'action').
 	 * @example ```"[object Object]"```
 	 */
 	payment_response?: Record<string, any> | null
 	/** 
-	 * Send this attribute if you want to send additional details the payment request..
+	 * Send this attribute if you want to send additional details the payment request.
 	 * @example ```"true"```
 	 */
 	_details?: boolean | null

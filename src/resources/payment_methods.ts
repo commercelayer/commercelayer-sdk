@@ -28,31 +28,31 @@ interface PaymentMethod extends Resource {
 	 */
 	name?: string | null
 	/** 
-	 * The payment source type, can be one of: 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'..
+	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"stripe_payments"```
 	 */
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway..
+	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.
 	 */
 	moto?: boolean | null
 	/** 
-	 * Send this attribute if you want to require the payment capture before fulfillment..
+	 * Send this attribute if you want to require the payment capture before fulfillment.
 	 * @example ```"true"```
 	 */
 	require_capture?: boolean | null
 	/** 
-	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously..
+	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
 	 * @example ```"true"```
 	 */
 	auto_place?: boolean | null
 	/** 
-	 * Send this attribute if you want to automatically capture the payment upon authorization..
+	 * Send this attribute if you want to automatically capture the payment upon authorization.
 	 */
 	auto_capture?: boolean | null
 	/** 
@@ -69,7 +69,7 @@ interface PaymentMethod extends Resource {
 	 */
 	formatted_price_amount?: string | null
 	/** 
-	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents..
+	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.
 	 */
 	auto_capture_max_amount_cents?: number | null
 	/** 
@@ -82,7 +82,7 @@ interface PaymentMethod extends Resource {
 	 */
 	formatted_auto_capture_max_amount?: string | null
 	/** 
-	 * Time at which this resource was disabled..
+	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
@@ -98,31 +98,31 @@ interface PaymentMethod extends Resource {
 interface PaymentMethodCreate extends ResourceCreate {
 	
 	/** 
-	 * The payment source type, can be one of: 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'..
+	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"stripe_payments"```
 	 */
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway..
+	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.
 	 */
 	moto?: boolean | null
 	/** 
-	 * Send this attribute if you want to require the payment capture before fulfillment..
+	 * Send this attribute if you want to require the payment capture before fulfillment.
 	 * @example ```"true"```
 	 */
 	require_capture?: boolean | null
 	/** 
-	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously..
+	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
 	 * @example ```"true"```
 	 */
 	auto_place?: boolean | null
 	/** 
-	 * Send this attribute if you want to automatically capture the payment upon authorization..
+	 * Send this attribute if you want to automatically capture the payment upon authorization.
 	 */
 	auto_capture?: boolean | null
 	/** 
@@ -130,16 +130,16 @@ interface PaymentMethodCreate extends ResourceCreate {
 	 */
 	price_amount_cents: number
 	/** 
-	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents..
+	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.
 	 */
 	auto_capture_max_amount_cents?: number | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
+	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
+	 * Send this attribute if you want to mark this resource as enabled.
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null
@@ -153,31 +153,31 @@ interface PaymentMethodCreate extends ResourceCreate {
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The payment source type, can be one of: 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'..
+	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"stripe_payments"```
 	 */
 	payment_source_type?: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers' | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway..
+	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.
 	 */
 	moto?: boolean | null
 	/** 
-	 * Send this attribute if you want to require the payment capture before fulfillment..
+	 * Send this attribute if you want to require the payment capture before fulfillment.
 	 * @example ```"true"```
 	 */
 	require_capture?: boolean | null
 	/** 
-	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously..
+	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
 	 * @example ```"true"```
 	 */
 	auto_place?: boolean | null
 	/** 
-	 * Send this attribute if you want to automatically capture the payment upon authorization..
+	 * Send this attribute if you want to automatically capture the payment upon authorization.
 	 */
 	auto_capture?: boolean | null
 	/** 
@@ -185,16 +185,16 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 	 */
 	price_amount_cents?: number | null
 	/** 
-	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents..
+	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.
 	 */
 	auto_capture_max_amount_cents?: number | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
+	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
+	 * Send this attribute if you want to mark this resource as enabled.
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null

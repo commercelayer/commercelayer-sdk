@@ -26,17 +26,17 @@ interface PriceList extends Resource {
 	 */
 	name: string
 	/** 
-	 * A string that you can use to identify the price list (must be unique within the environment)..
+	 * A string that you can use to identify the price list (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code: string
 	/** 
-	 * Indicates if the associated prices include taxes..
+	 * Indicates if the associated prices include taxes.
 	 * @example ```"true"```
 	 */
 	tax_included?: boolean | null
@@ -57,17 +57,17 @@ interface PriceListCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * A string that you can use to identify the price list (must be unique within the environment)..
+	 * A string that you can use to identify the price list (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code: string
 	/** 
-	 * Indicates if the associated prices include taxes..
+	 * Indicates if the associated prices include taxes.
 	 * @example ```"true"```
 	 */
 	tax_included?: boolean | null
@@ -83,17 +83,17 @@ interface PriceListUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * A string that you can use to identify the price list (must be unique within the environment)..
+	 * A string that you can use to identify the price list (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Indicates if the associated prices include taxes..
+	 * Indicates if the associated prices include taxes.
 	 * @example ```"true"```
 	 */
 	tax_included?: boolean | null

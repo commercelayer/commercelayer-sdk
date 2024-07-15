@@ -37,7 +37,7 @@ interface Version extends Resource {
 	 */
 	changes?: Record<string, any> | null
 	/** 
-	 * Information about who triggered the change..
+	 * Information about who triggered the change.
 	 * @example ```"[object Object]"```
 	 */
 	who?: Record<string, any> | null

@@ -2,7 +2,7 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
 
-import type { Order } from './orders'
+import type { Resource } from './resources'
 
 
 type ResourceErrorType = 'resource_errors'
@@ -18,22 +18,22 @@ interface ResourceError extends Resource {
 	readonly type: ResourceErrorType
 
 	/** 
-	 * The resource attribute name related to the error..
+	 * The resource attribute name related to the error.
 	 * @example ```"number"```
 	 */
 	name: string
 	/** 
-	 * The error code..
+	 * The error code.
 	 * @example ```"BLANK"```
 	 */
 	code: string
 	/** 
-	 * The error message..
+	 * The error message.
 	 * @example ```"can't be blank"```
 	 */
 	message: string
 
-	resource?: Order | null
+	resource?: Resource | null
 
 }
 

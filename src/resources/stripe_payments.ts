@@ -21,46 +21,46 @@ interface StripePayment extends Resource {
 	readonly type: StripePaymentType
 
 	/** 
-	 * The Stripe payment intent ID. Required to identify a payment session on stripe..
+	 * The Stripe payment intent ID. Required to identify a payment session on stripe.
 	 * @example ```"pi_1234XXX"```
 	 */
 	stripe_id?: string | null
 	/** 
-	 * The Stripe payment intent client secret. Required to create a charge through Stripe.js..
+	 * The Stripe payment intent client secret. Required to create a charge through Stripe.js.
 	 * @example ```"pi_1234XXX_secret_5678YYY"```
 	 */
 	client_secret?: string | null
 	/** 
-	 * The Stripe charge ID. Identifies money movement upon the payment intent confirmation..
+	 * The Stripe charge ID. Identifies money movement upon the payment intent confirmation.
 	 * @example ```"ch_1234XXX"```
 	 */
 	charge_id?: string | null
 	/** 
-	 * The Stripe publishable API key..
+	 * The Stripe publishable API key.
 	 * @example ```"pk_live_xxxx-yyyy-zzzz"```
 	 */
 	publishable_key?: string | null
 	/** 
-	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details..
+	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.
 	 * @example ```"[object Object]"```
 	 */
 	options?: Record<string, any> | null
 	/** 
-	 * Stripe 'payment_method', set by webhook..
+	 * Stripe 'payment_method', set by webhook.
 	 * @example ```"[object Object]"```
 	 */
 	payment_method?: Record<string, any> | null
 	/** 
-	 * Indicates if the order current amount differs form the one of the created payment intent..
+	 * Indicates if the order current amount differs form the one of the created payment intent.
 	 */
 	mismatched_amounts?: boolean | null
 	/** 
-	 * The URL to return to when a redirect payment is completed..
+	 * The URL to return to when a redirect payment is completed.
 	 * @example ```"https://yourdomain.com/thankyou"```
 	 */
 	return_url?: string | null
 	/** 
-	 * The email address to send the receipt to..
+	 * The email address to send the receipt to.
 	 * @example ```"john@example.com"```
 	 */
 	receipt_email?: string | null
@@ -80,27 +80,27 @@ interface StripePayment extends Resource {
 interface StripePaymentCreate extends ResourceCreate {
 	
 	/** 
-	 * The Stripe payment intent ID. Required to identify a payment session on stripe..
+	 * The Stripe payment intent ID. Required to identify a payment session on stripe.
 	 * @example ```"pi_1234XXX"```
 	 */
 	stripe_id?: string | null
 	/** 
-	 * The Stripe payment intent client secret. Required to create a charge through Stripe.js..
+	 * The Stripe payment intent client secret. Required to create a charge through Stripe.js.
 	 * @example ```"pi_1234XXX_secret_5678YYY"```
 	 */
 	client_secret?: string | null
 	/** 
-	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details..
+	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.
 	 * @example ```"[object Object]"```
 	 */
 	options?: Record<string, any> | null
 	/** 
-	 * The URL to return to when a redirect payment is completed..
+	 * The URL to return to when a redirect payment is completed.
 	 * @example ```"https://yourdomain.com/thankyou"```
 	 */
 	return_url?: string | null
 	/** 
-	 * The email address to send the receipt to..
+	 * The email address to send the receipt to.
 	 * @example ```"john@example.com"```
 	 */
 	receipt_email?: string | null
@@ -113,22 +113,22 @@ interface StripePaymentCreate extends ResourceCreate {
 interface StripePaymentUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details..
+	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.
 	 * @example ```"[object Object]"```
 	 */
 	options?: Record<string, any> | null
 	/** 
-	 * The URL to return to when a redirect payment is completed..
+	 * The URL to return to when a redirect payment is completed.
 	 * @example ```"https://yourdomain.com/thankyou"```
 	 */
 	return_url?: string | null
 	/** 
-	 * Send this attribute if you want to update the created payment intent with fresh order data..
+	 * Send this attribute if you want to update the created payment intent with fresh order data.
 	 * @example ```"true"```
 	 */
 	_update?: boolean | null
 	/** 
-	 * Send this attribute if you want to refresh the payment status, can be used as webhooks fallback logic..
+	 * Send this attribute if you want to refresh the payment status, can be used as webhooks fallback logic.
 	 * @example ```"true"```
 	 */
 	_refresh?: boolean | null

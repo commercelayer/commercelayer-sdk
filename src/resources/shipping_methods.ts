@@ -36,95 +36,95 @@ interface ShippingMethod extends Resource {
 	 */
 	name: string
 	/** 
-	 * The shipping method's scheme, one of 'flat', 'weight_tiered' or 'external'..
+	 * The shipping method's scheme. One of 'flat', 'weight_tiered', or 'external'.
 	 * @example ```"flat"```
 	 */
-	scheme?: string | null
+	scheme?: 'flat' | 'weight_tiered' | 'external' | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * The URL used to overwrite prices by an external source..
+	 * The URL used to overwrite prices by an external source.
 	 * @example ```"https://external_prices.yourbrand.com"```
 	 */
 	external_prices_url?: string | null
 	/** 
-	 * The price of this shipping method, in cents..
+	 * The price of this shipping method, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents: number
 	/** 
-	 * The price of this shipping method, float..
+	 * The price of this shipping method, float.
 	 * @example ```"10"```
 	 */
 	price_amount_float?: number | null
 	/** 
-	 * The price of this shipping method, formatted..
+	 * The price of this shipping method, formatted.
 	 * @example ```"€10,00"```
 	 */
 	formatted_price_amount?: string | null
 	/** 
-	 * Apply free shipping if the order amount is over this value, in cents..
+	 * Apply free shipping if the order amount is over this value, in cents.
 	 * @example ```"9900"```
 	 */
 	free_over_amount_cents?: number | null
 	/** 
-	 * Apply free shipping if the order amount is over this value, float..
+	 * Apply free shipping if the order amount is over this value, float.
 	 * @example ```"99"```
 	 */
 	free_over_amount_float?: number | null
 	/** 
-	 * Apply free shipping if the order amount is over this value, formatted..
+	 * Apply free shipping if the order amount is over this value, formatted.
 	 * @example ```"€99,00"```
 	 */
 	formatted_free_over_amount?: string | null
 	/** 
-	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any)..
+	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
 	 * @example ```"true"```
 	 */
 	use_subtotal?: boolean | null
 	/** 
-	 * The calculated price (zero or price amount) when associated to a shipment, in cents..
+	 * The calculated price (zero or price amount) when associated to a shipment, in cents.
 	 */
 	price_amount_for_shipment_cents?: number | null
 	/** 
-	 * The calculated price (zero or price amount) when associated to a shipment, float..
+	 * The calculated price (zero or price amount) when associated to a shipment, float.
 	 */
 	price_amount_for_shipment_float?: number | null
 	/** 
-	 * The calculated price (zero or price amount) when associated to a shipment, formatted..
+	 * The calculated price (zero or price amount) when associated to a shipment, formatted.
 	 * @example ```"€0,00"```
 	 */
 	formatted_price_amount_for_shipment?: string | null
 	/** 
-	 * The minimum weight for which this shipping method is available..
+	 * The minimum weight for which this shipping method is available.
 	 * @example ```"3"```
 	 */
 	min_weight?: number | null
 	/** 
-	 * The maximum weight for which this shipping method is available..
+	 * The maximum weight for which this shipping method is available.
 	 * @example ```"300"```
 	 */
 	max_weight?: number | null
 	/** 
-	 * Can be one of 'gr', 'lb', or 'oz'.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
-	unit_of_weight?: string | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
-	 * Time at which this resource was disabled..
+	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
 	/** 
-	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made..
+	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
 	 * @example ```"closed"```
 	 */
 	circuit_state?: string | null
 	/** 
-	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback..
+	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
 	 * @example ```"5"```
 	 */
 	circuit_failure_count?: number | null
@@ -150,57 +150,57 @@ interface ShippingMethodCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * The shipping method's scheme, one of 'flat', 'weight_tiered' or 'external'..
+	 * The shipping method's scheme. One of 'flat', 'weight_tiered', or 'external'.
 	 * @example ```"flat"```
 	 */
-	scheme?: string | null
+	scheme?: 'flat' | 'weight_tiered' | 'external' | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * The URL used to overwrite prices by an external source..
+	 * The URL used to overwrite prices by an external source.
 	 * @example ```"https://external_prices.yourbrand.com"```
 	 */
 	external_prices_url?: string | null
 	/** 
-	 * The price of this shipping method, in cents..
+	 * The price of this shipping method, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents: number
 	/** 
-	 * Apply free shipping if the order amount is over this value, in cents..
+	 * Apply free shipping if the order amount is over this value, in cents.
 	 * @example ```"9900"```
 	 */
 	free_over_amount_cents?: number | null
 	/** 
-	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any)..
+	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
 	 * @example ```"true"```
 	 */
 	use_subtotal?: boolean | null
 	/** 
-	 * The minimum weight for which this shipping method is available..
+	 * The minimum weight for which this shipping method is available.
 	 * @example ```"3"```
 	 */
 	min_weight?: number | null
 	/** 
-	 * The maximum weight for which this shipping method is available..
+	 * The maximum weight for which this shipping method is available.
 	 * @example ```"300"```
 	 */
 	max_weight?: number | null
 	/** 
-	 * Can be one of 'gr', 'lb', or 'oz'.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
-	unit_of_weight?: string | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
+	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
+	 * Send this attribute if you want to mark this resource as enabled.
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null
@@ -222,62 +222,62 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The shipping method's scheme, one of 'flat', 'weight_tiered' or 'external'..
+	 * The shipping method's scheme. One of 'flat', 'weight_tiered', or 'external'.
 	 * @example ```"flat"```
 	 */
-	scheme?: string | null
+	scheme?: 'flat' | 'weight_tiered' | 'external' | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * The URL used to overwrite prices by an external source..
+	 * The URL used to overwrite prices by an external source.
 	 * @example ```"https://external_prices.yourbrand.com"```
 	 */
 	external_prices_url?: string | null
 	/** 
-	 * The price of this shipping method, in cents..
+	 * The price of this shipping method, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents?: number | null
 	/** 
-	 * Apply free shipping if the order amount is over this value, in cents..
+	 * Apply free shipping if the order amount is over this value, in cents.
 	 * @example ```"9900"```
 	 */
 	free_over_amount_cents?: number | null
 	/** 
-	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any)..
+	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
 	 * @example ```"true"```
 	 */
 	use_subtotal?: boolean | null
 	/** 
-	 * The minimum weight for which this shipping method is available..
+	 * The minimum weight for which this shipping method is available.
 	 * @example ```"3"```
 	 */
 	min_weight?: number | null
 	/** 
-	 * The maximum weight for which this shipping method is available..
+	 * The maximum weight for which this shipping method is available.
 	 * @example ```"300"```
 	 */
 	max_weight?: number | null
 	/** 
-	 * Can be one of 'gr', 'lb', or 'oz'.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
-	unit_of_weight?: string | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
+	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
+	 * Send this attribute if you want to mark this resource as enabled.
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null
 	/** 
-	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count..
+	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.
 	 * @example ```"true"```
 	 */
 	_reset_circuit?: boolean | null

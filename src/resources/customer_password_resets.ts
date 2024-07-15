@@ -19,17 +19,17 @@ interface CustomerPasswordReset extends Resource {
 	readonly type: CustomerPasswordResetType
 
 	/** 
-	 * The email of the customer that requires a password reset..
+	 * The email of the customer that requires a password reset.
 	 * @example ```"john@example.com"```
 	 */
 	customer_email: string
 	/** 
-	 * Automatically generated on create. Send its value as the '_reset_password_token' argument when updating the customer password..
+	 * Automatically generated on create. Send its value as the '_reset_password_token' argument when updating the customer password.
 	 * @example ```"xhFfkmfybsLxzaAP6xcs"```
 	 */
 	reset_password_token?: string | null
 	/** 
-	 * Time at which the password was reset..
+	 * Time at which the password was reset.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	reset_password_at?: string | null
@@ -43,7 +43,7 @@ interface CustomerPasswordReset extends Resource {
 interface CustomerPasswordResetCreate extends ResourceCreate {
 	
 	/** 
-	 * The email of the customer that requires a password reset..
+	 * The email of the customer that requires a password reset.
 	 * @example ```"john@example.com"```
 	 */
 	customer_email: string
@@ -54,12 +54,12 @@ interface CustomerPasswordResetCreate extends ResourceCreate {
 interface CustomerPasswordResetUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The customer new password. This will be accepted only if a valid '_reset_password_token' is sent with the request..
+	 * The customer new password. This will be accepted only if a valid '_reset_password_token' is sent with the request.
 	 * @example ```"secret"```
 	 */
 	customer_password?: string | null
 	/** 
-	 * Send the 'reset_password_token' that you got on create when updating the customer password..
+	 * Send the 'reset_password_token' that you got on create when updating the customer password.
 	 * @example ```"xhFfkmfybsLxzaAP6xcs"```
 	 */
 	_reset_password_token?: string | null

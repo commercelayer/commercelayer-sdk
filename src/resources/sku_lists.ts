@@ -24,31 +24,31 @@ interface SkuList extends Resource {
 	readonly type: SkuListType
 
 	/** 
-	 * The SKU list's internal name..
+	 * The SKU list's internal name.
 	 * @example ```"Personal list"```
 	 */
 	name: string
 	/** 
-	 * The SKU list's internal slug..
+	 * The SKU list's internal slug.
 	 * @example ```"personal-list-1"```
 	 */
 	slug: string
 	/** 
-	 * An internal description of the SKU list..
+	 * An internal description of the SKU list.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The URL of an image that represents the SKU list..
+	 * The URL of an image that represents the SKU list.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * Indicates if the SKU list is populated manually..
+	 * Indicates if the SKU list is populated manually.
 	 */
 	manual?: boolean | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes..
+	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -66,26 +66,26 @@ interface SkuList extends Resource {
 interface SkuListCreate extends ResourceCreate {
 	
 	/** 
-	 * The SKU list's internal name..
+	 * The SKU list's internal name.
 	 * @example ```"Personal list"```
 	 */
 	name: string
 	/** 
-	 * An internal description of the SKU list..
+	 * An internal description of the SKU list.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The URL of an image that represents the SKU list..
+	 * The URL of an image that represents the SKU list.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * Indicates if the SKU list is populated manually..
+	 * Indicates if the SKU list is populated manually.
 	 */
 	manual?: boolean | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes..
+	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -98,26 +98,26 @@ interface SkuListCreate extends ResourceCreate {
 interface SkuListUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The SKU list's internal name..
+	 * The SKU list's internal name.
 	 * @example ```"Personal list"```
 	 */
 	name?: string | null
 	/** 
-	 * An internal description of the SKU list..
+	 * An internal description of the SKU list.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The URL of an image that represents the SKU list..
+	 * The URL of an image that represents the SKU list.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * Indicates if the SKU list is populated manually..
+	 * Indicates if the SKU list is populated manually.
 	 */
 	manual?: boolean | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes..
+	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null

@@ -22,27 +22,27 @@ interface AvalaraAccount extends Resource {
 	readonly type: AvalaraAccountType
 
 	/** 
-	 * The tax calculator's internal name..
+	 * The tax calculator's internal name.
 	 * @example ```"Personal tax calculator"```
 	 */
 	name: string
 	/** 
-	 * The Avalara account username..
+	 * The Avalara account username.
 	 * @example ```"user@mydomain.com"```
 	 */
 	username: string
 	/** 
-	 * The Avalara company code..
+	 * The Avalara company code.
 	 * @example ```"MYCOMPANY"```
 	 */
 	company_code: string
 	/** 
-	 * Indicates if the transaction will be recorded and visible on the Avalara website..
+	 * Indicates if the transaction will be recorded and visible on the Avalara website.
 	 * @example ```"true"```
 	 */
 	commit_invoice?: boolean | null
 	/** 
-	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.
 	 * @example ```"true"```
 	 */
 	ddp?: boolean | null
@@ -58,32 +58,32 @@ interface AvalaraAccount extends Resource {
 interface AvalaraAccountCreate extends ResourceCreate {
 	
 	/** 
-	 * The tax calculator's internal name..
+	 * The tax calculator's internal name.
 	 * @example ```"Personal tax calculator"```
 	 */
 	name: string
 	/** 
-	 * The Avalara account username..
+	 * The Avalara account username.
 	 * @example ```"user@mydomain.com"```
 	 */
 	username: string
 	/** 
-	 * The Avalara account password..
+	 * The Avalara account password.
 	 * @example ```"secret"```
 	 */
 	password: string
 	/** 
-	 * The Avalara company code..
+	 * The Avalara company code.
 	 * @example ```"MYCOMPANY"```
 	 */
 	company_code: string
 	/** 
-	 * Indicates if the transaction will be recorded and visible on the Avalara website..
+	 * Indicates if the transaction will be recorded and visible on the Avalara website.
 	 * @example ```"true"```
 	 */
 	commit_invoice?: boolean | null
 	/** 
-	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.
 	 * @example ```"true"```
 	 */
 	ddp?: boolean | null
@@ -96,32 +96,32 @@ interface AvalaraAccountCreate extends ResourceCreate {
 interface AvalaraAccountUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The tax calculator's internal name..
+	 * The tax calculator's internal name.
 	 * @example ```"Personal tax calculator"```
 	 */
 	name?: string | null
 	/** 
-	 * The Avalara account username..
+	 * The Avalara account username.
 	 * @example ```"user@mydomain.com"```
 	 */
 	username?: string | null
 	/** 
-	 * The Avalara account password..
+	 * The Avalara account password.
 	 * @example ```"secret"```
 	 */
 	password?: string | null
 	/** 
-	 * The Avalara company code..
+	 * The Avalara company code.
 	 * @example ```"MYCOMPANY"```
 	 */
 	company_code?: string | null
 	/** 
-	 * Indicates if the transaction will be recorded and visible on the Avalara website..
+	 * Indicates if the transaction will be recorded and visible on the Avalara website.
 	 * @example ```"true"```
 	 */
 	commit_invoice?: boolean | null
 	/** 
-	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.
 	 * @example ```"true"```
 	 */
 	ddp?: boolean | null

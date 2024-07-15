@@ -20,17 +20,17 @@ interface CarrierAccount extends Resource {
 	readonly type: CarrierAccountType
 
 	/** 
-	 * The carrier account internal name..
+	 * The carrier account internal name.
 	 * @example ```"UPS"```
 	 */
 	name?: string | null
 	/** 
-	 * The Easypost service carrier type..
+	 * The Easypost service carrier type.
 	 * @example ```"UPS"```
 	 */
 	easypost_type?: string | null
 	/** 
-	 * The Easypost internal reference ID..
+	 * The Easypost internal reference ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	easypost_id?: string | null

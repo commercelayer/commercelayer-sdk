@@ -6,8 +6,11 @@ import type { Order, OrderType } from './orders'
 import type { Customer } from './customers'
 import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Address } from './addresses'
+import type { Capture, CaptureType } from './captures'
+import type { Refund } from './refunds'
 import type { ReturnLineItem } from './return_line_items'
 import type { Attachment } from './attachments'
+import type { ResourceError } from './resource_errors'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
@@ -17,11 +20,12 @@ type ReturnType = 'returns'
 type ReturnRel = ResourceRel & { type: ReturnType }
 type OrderRel = ResourceRel & { type: OrderType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
+type CaptureRel = ResourceRel & { type: CaptureType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type ReturnSort = Pick<Return, 'id' | 'number' | 'status' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'archived_at'> & ResourceSort
-// export type ReturnFilter = Pick<Return, 'id' | 'number' | 'status' | 'skus_count' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'archived_at'> & ResourceFilter
+export type ReturnSort = Pick<Return, 'id' | 'number' | 'status' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'refunded_at' | 'archived_at'> & ResourceSort
+// export type ReturnFilter = Pick<Return, 'id' | 'number' | 'status' | 'skus_count' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'refunded_at' | 'archived_at'> & ResourceFilter
 
 
 interface Return extends Resource {
@@ -34,58 +38,81 @@ interface Return extends Resource {
 	 */
 	number?: string | null
 	/** 
-	 * The return status, one of 'draft', 'requested', 'approved', 'cancelled', 'shipped', 'rejected' or 'received'.
+	 * The return status. One of 'draft' (default), 'requested', 'approved', 'cancelled', 'shipped', 'rejected', 'received', or 'refunded'.
 	 * @example ```"draft"```
 	 */
-	status: 'draft' | 'requested' | 'approved' | 'cancelled' | 'shipped' | 'rejected' | 'received'
+	status: 'draft' | 'requested' | 'approved' | 'cancelled' | 'shipped' | 'rejected' | 'received' | 'refunded'
 	/** 
-	 * The email address of the associated customer..
+	 * The email address of the associated customer.
 	 * @example ```"john@example.com"```
 	 */
 	customer_email?: string | null
 	/** 
-	 * The total number of SKUs in the return's line items. This can be useful to display a preview of the return content..
+	 * The total number of SKUs in the return's line items. This can be useful to display a preview of the return content.
 	 * @example ```"2"```
 	 */
 	skus_count?: number | null
 	/** 
-	 * Time at which the return was approved..
+	 * Time at which the return was approved.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	approved_at?: string | null
 	/** 
-	 * Time at which the return was cancelled..
+	 * Time at which the return was cancelled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	cancelled_at?: string | null
 	/** 
-	 * Time at which the return was shipped..
+	 * Time at which the return was shipped.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	shipped_at?: string | null
 	/** 
-	 * Time at which the return was rejected..
+	 * Time at which the return was rejected.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	rejected_at?: string | null
 	/** 
-	 * Time at which the return was received..
+	 * Time at which the return was received.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	received_at?: string | null
 	/** 
-	 * Time at which the resource has been archived..
+	 * Time at which the return was refunded.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	refunded_at?: string | null
+	/** 
+	 * Time at which the resource has been archived.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	archived_at?: string | null
+	/** 
+	 * The amount to be refunded, estimated by associated return line items, in cents.
+	 * @example ```"500"```
+	 */
+	estimated_refund_amount_cents?: number | null
+	/** 
+	 * The amount to be refunded, estimated by associated return line items, float.
+	 * @example ```"5"```
+	 */
+	estimated_refund_amount_float?: number | null
+	/** 
+	 * The amount to be refunded, estimated by associated return line items, formatted.
+	 * @example ```"€5,00"```
+	 */
+	formatted_estimated_refund_amount?: string | null
 
 	order?: Order | null
 	customer?: Customer | null
 	stock_location?: StockLocation | null
 	origin_address?: Address | null
 	destination_address?: Address | null
+	reference_capture?: Capture | null
+	reference_refund?: Refund | null
 	return_line_items?: ReturnLineItem[] | null
 	attachments?: Attachment[] | null
+	resource_errors?: ResourceError[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
@@ -97,6 +124,7 @@ interface ReturnCreate extends ResourceCreate {
 	
 	order: OrderRel
 	stock_location?: StockLocationRel | null
+	reference_capture?: CaptureRel | null
 	tags?: TagRel[] | null
 
 }
@@ -105,52 +133,63 @@ interface ReturnCreate extends ResourceCreate {
 interface ReturnUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send this attribute if you want to activate this return..
+	 * Send this attribute if you want to activate this return.
 	 * @example ```"true"```
 	 */
 	_request?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this return as approved..
+	 * Send this attribute if you want to mark this return as approved.
 	 * @example ```"true"```
 	 */
 	_approve?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this return as cancelled..
+	 * Send this attribute if you want to mark this return as cancelled.
 	 * @example ```"true"```
 	 */
 	_cancel?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this return as shipped..
+	 * Send this attribute if you want to mark this return as shipped.
 	 * @example ```"true"```
 	 */
 	_ship?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this return as rejected..
+	 * Send this attribute if you want to mark this return as rejected.
 	 * @example ```"true"```
 	 */
 	_reject?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this return as received..
+	 * Send this attribute if you want to mark this return as received.
 	 * @example ```"true"```
 	 */
 	_receive?: boolean | null
 	/** 
-	 * Send this attribute if you want to restock all of the return line items..
+	 * Send this attribute if you want to restock all of the return line items.
 	 * @example ```"true"```
 	 */
 	_restock?: boolean | null
 	/** 
-	 * Send this attribute if you want to archive the return..
+	 * Send this attribute if you want to archive the return.
 	 * @example ```"true"```
 	 */
 	_archive?: boolean | null
 	/** 
-	 * Send this attribute if you want to unarchive the return..
+	 * Send this attribute if you want to unarchive the return.
 	 * @example ```"true"```
 	 */
 	_unarchive?: boolean | null
+	/** 
+	 * Send this attribute if you want to create a refund for this return.
+	 * @example ```"true"```
+	 */
+	_refund?: boolean | null
+	/** 
+	 * Send this attribute as a value in cents to specify the amount to be refunded.
+	 * @example ```"500"```
+	 */
+	_refund_amount_cents?: number | null
 
 	stock_location?: StockLocationRel | null
+	reference_capture?: CaptureRel | null
 	tags?: TagRel[] | null
 
 }
@@ -197,6 +236,16 @@ class Returns extends ApiResource<Return> {
 		return this.resources.fetch<Address>({ type: 'addresses' }, `returns/${_returnId}/destination_address`, params, options) as unknown as Address
 	}
 
+	async reference_capture(returnId: string | Return, params?: QueryParamsRetrieve<Capture>, options?: ResourcesConfig): Promise<Capture> {
+		const _returnId = (returnId as Return).id || returnId as string
+		return this.resources.fetch<Capture>({ type: 'captures' }, `returns/${_returnId}/reference_capture`, params, options) as unknown as Capture
+	}
+
+	async reference_refund(returnId: string | Return, params?: QueryParamsRetrieve<Refund>, options?: ResourcesConfig): Promise<Refund> {
+		const _returnId = (returnId as Return).id || returnId as string
+		return this.resources.fetch<Refund>({ type: 'refunds' }, `returns/${_returnId}/reference_refund`, params, options) as unknown as Refund
+	}
+
 	async return_line_items(returnId: string | Return, params?: QueryParamsList<ReturnLineItem>, options?: ResourcesConfig): Promise<ListResponse<ReturnLineItem>> {
 		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<ReturnLineItem>({ type: 'return_line_items' }, `returns/${_returnId}/return_line_items`, params, options) as unknown as ListResponse<ReturnLineItem>
@@ -205,6 +254,11 @@ class Returns extends ApiResource<Return> {
 	async attachments(returnId: string | Return, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `returns/${_returnId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async resource_errors(returnId: string | Return, params?: QueryParamsList<ResourceError>, options?: ResourcesConfig): Promise<ListResponse<ResourceError>> {
+		const _returnId = (returnId as Return).id || returnId as string
+		return this.resources.fetch<ResourceError>({ type: 'resource_errors' }, `returns/${_returnId}/resource_errors`, params, options) as unknown as ListResponse<ResourceError>
 	}
 
 	async events(returnId: string | Return, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
@@ -256,6 +310,14 @@ class Returns extends ApiResource<Return> {
 
 	async _unarchive(id: string | Return, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _unarchive: true }, params, options)
+	}
+
+	async _refund(id: string | Return, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _refund: true }, params, options)
+	}
+
+	async _refund_amount_cents(id: string | Return, triggerValue: number, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _refund_amount_cents: triggerValue }, params, options)
 	}
 
 

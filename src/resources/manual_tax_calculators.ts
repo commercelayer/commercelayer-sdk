@@ -22,7 +22,7 @@ interface ManualTaxCalculator extends Resource {
 	readonly type: ManualTaxCalculatorType
 
 	/** 
-	 * The tax calculator's internal name..
+	 * The tax calculator's internal name.
 	 * @example ```"Personal tax calculator"```
 	 */
 	name: string
@@ -38,7 +38,7 @@ interface ManualTaxCalculator extends Resource {
 interface ManualTaxCalculatorCreate extends ResourceCreate {
 	
 	/** 
-	 * The tax calculator's internal name..
+	 * The tax calculator's internal name.
 	 * @example ```"Personal tax calculator"```
 	 */
 	name: string
@@ -51,7 +51,7 @@ interface ManualTaxCalculatorCreate extends ResourceCreate {
 interface ManualTaxCalculatorUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The tax calculator's internal name..
+	 * The tax calculator's internal name.
 	 * @example ```"Personal tax calculator"```
 	 */
 	name?: string | null

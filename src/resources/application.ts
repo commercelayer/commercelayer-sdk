@@ -17,27 +17,27 @@ interface Application extends Resource {
 	readonly type: ApplicationType
 
 	/** 
-	 * The application's internal name..
+	 * The application's internal name.
 	 * @example ```"My app"```
 	 */
 	name?: string | null
 	/** 
-	 * The application's kind, can be one of: 'sales_channel', 'integration' and 'webapp'..
+	 * The application's kind, can be one of: 'sales_channel', 'integration' and 'webapp'.
 	 * @example ```"sales-channel"```
 	 */
 	kind?: string | null
 	/** 
-	 * Indicates if the application has public access..
+	 * Indicates if the application has public access.
 	 * @example ```"true"```
 	 */
 	public_access?: boolean | null
 	/** 
-	 * The application's redirect URI..
+	 * The application's redirect URI.
 	 * @example ```"https://bluebrand.com/img/logo.svg"```
 	 */
 	redirect_uri?: string | null
 	/** 
-	 * The application's scopes..
+	 * The application's scopes.
 	 * @example ```"market:all market:9 market:122 market:6 stock_location:6 stock_location:33"```
 	 */
 	scopes?: string | null

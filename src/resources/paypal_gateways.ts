@@ -20,7 +20,7 @@ interface PaypalGateway extends Resource {
 	readonly type: PaypalGatewayType
 
 	/** 
-	 * The payment gateway's internal name..
+	 * The payment gateway's internal name.
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
@@ -35,17 +35,17 @@ interface PaypalGateway extends Resource {
 interface PaypalGatewayCreate extends ResourceCreate {
 	
 	/** 
-	 * The payment gateway's internal name..
+	 * The payment gateway's internal name.
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
 	/** 
-	 * The gateway client ID..
+	 * The gateway client ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_id: string
 	/** 
-	 * The gateway client secret..
+	 * The gateway client secret.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_secret: string
@@ -56,17 +56,17 @@ interface PaypalGatewayCreate extends ResourceCreate {
 interface PaypalGatewayUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The payment gateway's internal name..
+	 * The payment gateway's internal name.
 	 * @example ```"US payment gateway"```
 	 */
 	name?: string | null
 	/** 
-	 * The gateway client ID..
+	 * The gateway client ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_id?: string | null
 	/** 
-	 * The gateway client secret..
+	 * The gateway client secret.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_secret?: string | null

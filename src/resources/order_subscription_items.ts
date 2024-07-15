@@ -3,18 +3,18 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve } from '../query'
 
 import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
-import type { Adjustment, AdjustmentType } from './adjustments'
-import type { Bundle, BundleType } from './bundles'
 import type { Sku, SkuType } from './skus'
+import type { Bundle, BundleType } from './bundles'
+import type { Adjustment, AdjustmentType } from './adjustments'
 import type { LineItem } from './line_items'
 
 
 type OrderSubscriptionItemType = 'order_subscription_items'
 type OrderSubscriptionItemRel = ResourceRel & { type: OrderSubscriptionItemType }
 type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
-type AdjustmentRel = ResourceRel & { type: AdjustmentType }
-type BundleRel = ResourceRel & { type: BundleType }
 type SkuRel = ResourceRel & { type: SkuType }
+type BundleRel = ResourceRel & { type: BundleType }
+type AdjustmentRel = ResourceRel & { type: AdjustmentType }
 
 
 export type OrderSubscriptionItemSort = Pick<OrderSubscriptionItem, 'id' | 'quantity' | 'unit_amount_cents'> & ResourceSort
@@ -26,53 +26,53 @@ interface OrderSubscriptionItem extends Resource {
 	readonly type: OrderSubscriptionItemType
 
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The code of the associated bundle..
+	 * The code of the associated bundle.
 	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
 	 */
 	bundle_code?: string | null
 	/** 
-	 * The subscription item quantity..
+	 * The subscription item quantity.
 	 * @example ```"4"```
 	 */
 	quantity: number
 	/** 
-	 * The unit amount of the subscription item, in cents..
+	 * The unit amount of the subscription item, in cents.
 	 * @example ```"9900"```
 	 */
 	unit_amount_cents?: number | null
 	/** 
-	 * The unit amount of the subscription item, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce..
+	 * The unit amount of the subscription item, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
 	 * @example ```"99"```
 	 */
 	unit_amount_float?: number | null
 	/** 
-	 * The unit amount of the subscription item, formatted. This can be useful to display the amount with currency in you views..
+	 * The unit amount of the subscription item, formatted. This can be useful to display the amount with currency in you views.
 	 * @example ```"€99,00"```
 	 */
 	formatted_unit_amount?: string | null
 	/** 
-	 * Calculated as unit amount x quantity amount, in cents..
+	 * Calculated as unit amount x quantity amount, in cents.
 	 * @example ```"18800"```
 	 */
 	total_amount_cents?: number | null
 	/** 
-	 * Calculated as unit amount x quantity amount, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce..
+	 * Calculated as unit amount x quantity amount, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
 	 * @example ```"188"```
 	 */
 	total_amount_float: number
 	/** 
-	 * Calculated as unit amount x quantity amount, formatted. This can be useful to display the amount with currency in you views..
+	 * Calculated as unit amount x quantity amount, formatted. This can be useful to display the amount with currency in you views.
 	 * @example ```"€188,00"```
 	 */
 	formatted_total_amount?: string | null
 
 	order_subscription?: OrderSubscription | null
-	item?: Adjustment | Bundle | Sku | null
+	item?: Sku | Bundle | Adjustment | null
 	sku?: Sku | null
 	bundle?: Bundle | null
 	adjustment?: Adjustment | null
@@ -84,28 +84,28 @@ interface OrderSubscriptionItem extends Resource {
 interface OrderSubscriptionItemCreate extends ResourceCreate {
 	
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The code of the associated bundle..
+	 * The code of the associated bundle.
 	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
 	 */
 	bundle_code?: string | null
 	/** 
-	 * The subscription item quantity..
+	 * The subscription item quantity.
 	 * @example ```"4"```
 	 */
 	quantity: number
 	/** 
-	 * The unit amount of the subscription item, in cents..
+	 * The unit amount of the subscription item, in cents.
 	 * @example ```"9900"```
 	 */
 	unit_amount_cents?: number | null
 
 	order_subscription: OrderSubscriptionRel
-	item: AdjustmentRel | BundleRel | SkuRel
+	item: SkuRel | BundleRel | AdjustmentRel
 	sku?: SkuRel | null
 	bundle?: BundleRel | null
 	adjustment?: AdjustmentRel | null
@@ -116,22 +116,22 @@ interface OrderSubscriptionItemCreate extends ResourceCreate {
 interface OrderSubscriptionItemUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The code of the associated bundle..
+	 * The code of the associated bundle.
 	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
 	 */
 	bundle_code?: string | null
 	/** 
-	 * The subscription item quantity..
+	 * The subscription item quantity.
 	 * @example ```"4"```
 	 */
 	quantity?: number | null
 	/** 
-	 * The unit amount of the subscription item, in cents..
+	 * The unit amount of the subscription item, in cents.
 	 * @example ```"9900"```
 	 */
 	unit_amount_cents?: number | null

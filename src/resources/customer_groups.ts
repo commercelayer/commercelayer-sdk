@@ -26,7 +26,7 @@ interface CustomerGroup extends Resource {
 	 */
 	name: string
 	/** 
-	 * A string that you can use to identify the customer group (must be unique within the environment)..
+	 * A string that you can use to identify the customer group (must be unique within the environment).
 	 * @example ```"vip1"```
 	 */
 	code?: string | null
@@ -47,7 +47,7 @@ interface CustomerGroupCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * A string that you can use to identify the customer group (must be unique within the environment)..
+	 * A string that you can use to identify the customer group (must be unique within the environment).
 	 * @example ```"vip1"```
 	 */
 	code?: string | null
@@ -63,7 +63,7 @@ interface CustomerGroupUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * A string that you can use to identify the customer group (must be unique within the environment)..
+	 * A string that you can use to identify the customer group (must be unique within the environment).
 	 * @example ```"vip1"```
 	 */
 	code?: string | null

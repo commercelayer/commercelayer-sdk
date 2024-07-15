@@ -29,32 +29,32 @@ interface SkuOption extends Resource {
 	 */
 	name: string
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * An internal description of the SKU option..
+	 * An internal description of the SKU option.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The price of this shipping method, in cents..
+	 * The price of this shipping method, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents?: number | null
 	/** 
-	 * The price of this shipping method, float..
+	 * The price of this shipping method, float.
 	 * @example ```"10"```
 	 */
 	price_amount_float?: number | null
 	/** 
-	 * The price of this shipping method, formatted..
+	 * The price of this shipping method, formatted.
 	 * @example ```"€10,00"```
 	 */
 	formatted_price_amount?: string | null
 	/** 
-	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased..
+	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
 	 * @example ```"48"```
 	 */
 	delay_hours?: number | null
@@ -64,7 +64,7 @@ interface SkuOption extends Resource {
 	 */
 	delay_days?: number | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes..
+	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -86,27 +86,27 @@ interface SkuOptionCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * An internal description of the SKU option..
+	 * An internal description of the SKU option.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The price of this shipping method, in cents..
+	 * The price of this shipping method, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents?: number | null
 	/** 
-	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased..
+	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
 	 * @example ```"48"```
 	 */
 	delay_hours?: number | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes..
+	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -125,27 +125,27 @@ interface SkuOptionUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * An internal description of the SKU option..
+	 * An internal description of the SKU option.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The price of this shipping method, in cents..
+	 * The price of this shipping method, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents?: number | null
 	/** 
-	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased..
+	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
 	 * @example ```"48"```
 	 */
 	delay_hours?: number | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes..
+	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null

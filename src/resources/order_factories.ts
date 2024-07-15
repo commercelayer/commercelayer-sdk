@@ -19,42 +19,42 @@ interface OrderFactory extends Resource {
 	readonly type: OrderFactoryType
 
 	/** 
-	 * The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'..
+	 * The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.
 	 * @example ```"in_progress"```
 	 */
 	status: 'pending' | 'in_progress' | 'failed' | 'completed'
 	/** 
-	 * Time at which the order copy was started..
+	 * Time at which the order copy was started.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	started_at?: string | null
 	/** 
-	 * Time at which the order copy was completed..
+	 * Time at which the order copy was completed.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	completed_at?: string | null
 	/** 
-	 * Time at which the order copy has failed..
+	 * Time at which the order copy has failed.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	failed_at?: string | null
 	/** 
-	 * Contains the order copy errors, if any..
+	 * Contains the order copy errors, if any.
 	 * @example ```"[object Object]"```
 	 */
 	errors_log?: Record<string, any> | null
 	/** 
-	 * Indicates the number of copy errors, if any..
+	 * Indicates the number of copy errors, if any.
 	 * @example ```"2"```
 	 */
 	errors_count?: number | null
 	/** 
-	 * Indicates if the target order must be placed upon copy..
+	 * Indicates if the target order must be placed upon copy.
 	 * @example ```"true"```
 	 */
 	place_target_order?: boolean | null
 	/** 
-	 * Indicates if the payment source within the source order customer's wallet must be copied..
+	 * Indicates if the payment source within the source order customer's wallet must be copied.
 	 * @example ```"true"```
 	 */
 	reuse_wallet?: boolean | null

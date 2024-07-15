@@ -32,22 +32,22 @@ interface Package extends Resource {
 	 */
 	code?: string | null
 	/** 
-	 * The package length, used to automatically calculate the tax rates from the available carrier accounts..
+	 * The package length, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"40"```
 	 */
 	length: number
 	/** 
-	 * The package width, used to automatically calculate the tax rates from the available carrier accounts..
+	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"40"```
 	 */
 	width: number
 	/** 
-	 * The package height, used to automatically calculate the tax rates from the available carrier accounts..
+	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"25"```
 	 */
 	height: number
 	/** 
-	 * The unit of length. Can be one of 'cm', or 'in'..
+	 * The unit of length. Can be one of 'cm', or 'in'.
 	 * @example ```"gr"```
 	 */
 	unit_of_length: string
@@ -73,22 +73,22 @@ interface PackageCreate extends ResourceCreate {
 	 */
 	code?: string | null
 	/** 
-	 * The package length, used to automatically calculate the tax rates from the available carrier accounts..
+	 * The package length, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"40"```
 	 */
 	length: number
 	/** 
-	 * The package width, used to automatically calculate the tax rates from the available carrier accounts..
+	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"40"```
 	 */
 	width: number
 	/** 
-	 * The package height, used to automatically calculate the tax rates from the available carrier accounts..
+	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"25"```
 	 */
 	height: number
 	/** 
-	 * The unit of length. Can be one of 'cm', or 'in'..
+	 * The unit of length. Can be one of 'cm', or 'in'.
 	 * @example ```"gr"```
 	 */
 	unit_of_length: string
@@ -111,22 +111,22 @@ interface PackageUpdate extends ResourceUpdate {
 	 */
 	code?: string | null
 	/** 
-	 * The package length, used to automatically calculate the tax rates from the available carrier accounts..
+	 * The package length, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"40"```
 	 */
 	length?: number | null
 	/** 
-	 * The package width, used to automatically calculate the tax rates from the available carrier accounts..
+	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"40"```
 	 */
 	width?: number | null
 	/** 
-	 * The package height, used to automatically calculate the tax rates from the available carrier accounts..
+	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"25"```
 	 */
 	height?: number | null
 	/** 
-	 * The unit of length. Can be one of 'cm', or 'in'..
+	 * The unit of length. Can be one of 'cm', or 'in'.
 	 * @example ```"gr"```
 	 */
 	unit_of_length?: string | null

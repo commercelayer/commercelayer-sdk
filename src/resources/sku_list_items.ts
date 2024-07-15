@@ -22,17 +22,17 @@ interface SkuListItem extends Resource {
 	readonly type: SkuListItemType
 
 	/** 
-	 * The SKU list item's position..
+	 * The SKU list item's position.
 	 * @example ```"2"```
 	 */
 	position?: number | null
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The SKU quantity for this SKU list item..
+	 * The SKU quantity for this SKU list item.
 	 * @example ```"1"```
 	 */
 	quantity?: number | null
@@ -47,17 +47,17 @@ interface SkuListItem extends Resource {
 interface SkuListItemCreate extends ResourceCreate {
 	
 	/** 
-	 * The SKU list item's position..
+	 * The SKU list item's position.
 	 * @example ```"2"```
 	 */
 	position?: number | null
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The SKU quantity for this SKU list item..
+	 * The SKU quantity for this SKU list item.
 	 * @example ```"1"```
 	 */
 	quantity?: number | null
@@ -71,17 +71,17 @@ interface SkuListItemCreate extends ResourceCreate {
 interface SkuListItemUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The SKU list item's position..
+	 * The SKU list item's position.
 	 * @example ```"2"```
 	 */
 	position?: number | null
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The SKU quantity for this SKU list item..
+	 * The SKU quantity for this SKU list item.
 	 * @example ```"1"```
 	 */
 	quantity?: number | null

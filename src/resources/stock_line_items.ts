@@ -26,17 +26,17 @@ interface StockLineItem extends Resource {
 	readonly type: StockLineItemType
 
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The code of the associated bundle..
+	 * The code of the associated bundle.
 	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
 	 */
 	bundle_code?: string | null
 	/** 
-	 * The line item quantity..
+	 * The line item quantity.
 	 * @example ```"4"```
 	 */
 	quantity: number
@@ -53,12 +53,12 @@ interface StockLineItem extends Resource {
 interface StockLineItemCreate extends ResourceCreate {
 	
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The line item quantity..
+	 * The line item quantity.
 	 * @example ```"4"```
 	 */
 	quantity: number
@@ -74,27 +74,27 @@ interface StockLineItemCreate extends ResourceCreate {
 interface StockLineItemUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The line item quantity..
+	 * The line item quantity.
 	 * @example ```"4"```
 	 */
 	quantity?: number | null
 	/** 
-	 * Send this attribute if you want to automatically reserve the stock for this stock line item. Can be done only when fulfillment is in progress..
+	 * Send this attribute if you want to automatically reserve the stock for this stock line item. Can be done only when fulfillment is in progress.
 	 * @example ```"true"```
 	 */
 	_reserve_stock?: boolean | null
 	/** 
-	 * Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress..
+	 * Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress.
 	 * @example ```"true"```
 	 */
 	_release_stock?: boolean | null
 	/** 
-	 * Send this attribute if you want to automatically decrement and release the stock this stock line item. Can be done only when fulfillment is in progress..
+	 * Send this attribute if you want to automatically decrement and release the stock this stock line item. Can be done only when fulfillment is in progress.
 	 * @example ```"true"```
 	 */
 	_decrement_stock?: boolean | null

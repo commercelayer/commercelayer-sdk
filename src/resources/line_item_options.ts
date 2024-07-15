@@ -24,7 +24,7 @@ interface LineItemOption extends Resource {
 	readonly type: LineItemOptionType
 
 	/** 
-	 * The name of the line item option. When blank, it gets populated with the name of the associated SKU option..
+	 * The name of the line item option. When blank, it gets populated with the name of the associated SKU option.
 	 * @example ```"Embossing"```
 	 */
 	name?: string | null
@@ -34,52 +34,52 @@ interface LineItemOption extends Resource {
 	 */
 	quantity: number
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard, automatically inherited from the order's market..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, automatically inherited from the order's market.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price..
+	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price.
 	 * @example ```"990"```
 	 */
 	unit_amount_cents?: number | null
 	/** 
-	 * The unit amount of the line item option, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce..
+	 * The unit amount of the line item option, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
 	 * @example ```"9.9"```
 	 */
 	unit_amount_float?: number | null
 	/** 
-	 * The unit amount of the line item option, formatted. This can be useful to display the amount with currency in you views..
+	 * The unit amount of the line item option, formatted. This can be useful to display the amount with currency in you views.
 	 * @example ```"€9,90"```
 	 */
 	formatted_unit_amount?: string | null
 	/** 
-	 * The unit amount x quantity, in cents..
+	 * The unit amount x quantity, in cents.
 	 * @example ```"1880"```
 	 */
 	total_amount_cents?: number | null
 	/** 
-	 * The unit amount x quantity, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce..
+	 * The unit amount x quantity, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
 	 * @example ```"18.8"```
 	 */
 	total_amount_float: number
 	/** 
-	 * The unit amount x quantity, formatted. This can be useful to display the amount with currency in you views..
+	 * The unit amount x quantity, formatted. This can be useful to display the amount with currency in you views.
 	 * @example ```"€18,80"```
 	 */
 	formatted_total_amount?: string | null
 	/** 
-	 * The shipping delay that the customer can expect when adding this option (hours). Inherited from the associated SKU option..
+	 * The shipping delay that the customer can expect when adding this option (hours). Inherited from the associated SKU option.
 	 * @example ```"48"```
 	 */
 	delay_hours?: number | null
 	/** 
-	 * The shipping delay that the customer can expect when adding this option (days, rounded)..
+	 * The shipping delay that the customer can expect when adding this option (days, rounded).
 	 * @example ```"2"```
 	 */
 	delay_days?: number | null
 	/** 
-	 * Set of key-value pairs that represent the selected options..
+	 * Set of key-value pairs that represent the selected options.
 	 * @example ```"[object Object]"```
 	 */
 	options: Record<string, any>
@@ -95,7 +95,7 @@ interface LineItemOption extends Resource {
 interface LineItemOptionCreate extends ResourceCreate {
 	
 	/** 
-	 * The name of the line item option. When blank, it gets populated with the name of the associated SKU option..
+	 * The name of the line item option. When blank, it gets populated with the name of the associated SKU option.
 	 * @example ```"Embossing"```
 	 */
 	name?: string | null
@@ -105,7 +105,7 @@ interface LineItemOptionCreate extends ResourceCreate {
 	 */
 	quantity: number
 	/** 
-	 * Set of key-value pairs that represent the selected options..
+	 * Set of key-value pairs that represent the selected options.
 	 * @example ```"[object Object]"```
 	 */
 	options: Record<string, any>
@@ -120,7 +120,7 @@ interface LineItemOptionCreate extends ResourceCreate {
 interface LineItemOptionUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The name of the line item option. When blank, it gets populated with the name of the associated SKU option..
+	 * The name of the line item option. When blank, it gets populated with the name of the associated SKU option.
 	 * @example ```"Embossing"```
 	 */
 	name?: string | null
@@ -130,7 +130,7 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 	 */
 	quantity?: number | null
 	/** 
-	 * Set of key-value pairs that represent the selected options..
+	 * Set of key-value pairs that represent the selected options.
 	 * @example ```"[object Object]"```
 	 */
 	options?: Record<string, any> | null

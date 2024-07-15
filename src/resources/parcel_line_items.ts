@@ -22,27 +22,27 @@ interface ParcelLineItem extends Resource {
 	readonly type: ParcelLineItemType
 
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The code of the associated bundle..
+	 * The code of the associated bundle.
 	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
 	 */
 	bundle_code?: string | null
 	/** 
-	 * The parcel line item quantity..
+	 * The parcel line item quantity.
 	 * @example ```"4"```
 	 */
 	quantity: number
 	/** 
-	 * The internal name of the associated line item..
+	 * The internal name of the associated line item.
 	 * @example ```"Black Men T-shirt with White Logo (XL)"```
 	 */
 	name: string
 	/** 
-	 * The image_url of the associated line item..
+	 * The image_url of the associated line item.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
 	 */
 	image_url?: string | null
@@ -57,7 +57,7 @@ interface ParcelLineItem extends Resource {
 interface ParcelLineItemCreate extends ResourceCreate {
 	
 	/** 
-	 * The parcel line item quantity..
+	 * The parcel line item quantity.
 	 * @example ```"4"```
 	 */
 	quantity: number

@@ -25,12 +25,12 @@ interface StockItem extends Resource {
 	readonly type: StockItemType
 
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The stock item quantity..
+	 * The stock item quantity.
 	 * @example ```"100"```
 	 */
 	quantity: number
@@ -48,12 +48,12 @@ interface StockItem extends Resource {
 interface StockItemCreate extends ResourceCreate {
 	
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The stock item quantity..
+	 * The stock item quantity.
 	 * @example ```"100"```
 	 */
 	quantity: number
@@ -67,17 +67,17 @@ interface StockItemCreate extends ResourceCreate {
 interface StockItemUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The stock item quantity..
+	 * The stock item quantity.
 	 * @example ```"100"```
 	 */
 	quantity?: number | null
 	/** 
-	 * Send this attribute if you want to validate the stock item quantity against the existing reserved stock one, returns an error in case the former is smaller..
+	 * Send this attribute if you want to validate the stock item quantity against the existing reserved stock one, returns an error in case the former is smaller.
 	 * @example ```"true"```
 	 */
 	_validate?: boolean | null

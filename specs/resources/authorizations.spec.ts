@@ -279,6 +279,32 @@ describe('Authorizations resource', () => {
 	
   
 
+	/* trigger._forward start */
+	it(resourceType + '._forward', async () => {
+	
+		let triggerAttr = '_forward'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._forward(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._forward stop */
+	
+
 	/* trigger._capture start */
 	it(resourceType + '._capture', async () => {
 	

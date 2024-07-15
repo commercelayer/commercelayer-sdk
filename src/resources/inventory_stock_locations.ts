@@ -22,12 +22,12 @@ interface InventoryStockLocation extends Resource {
 	readonly type: InventoryStockLocationType
 
 	/** 
-	 * The stock location priority within the associated invetory model..
+	 * The stock location priority within the associated invetory model.
 	 * @example ```"1"```
 	 */
 	priority: number
 	/** 
-	 * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled..
+	 * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled.
 	 */
 	on_hold?: boolean | null
 
@@ -41,12 +41,12 @@ interface InventoryStockLocation extends Resource {
 interface InventoryStockLocationCreate extends ResourceCreate {
 	
 	/** 
-	 * The stock location priority within the associated invetory model..
+	 * The stock location priority within the associated invetory model.
 	 * @example ```"1"```
 	 */
 	priority: number
 	/** 
-	 * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled..
+	 * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled.
 	 */
 	on_hold?: boolean | null
 
@@ -59,12 +59,12 @@ interface InventoryStockLocationCreate extends ResourceCreate {
 interface InventoryStockLocationUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The stock location priority within the associated invetory model..
+	 * The stock location priority within the associated invetory model.
 	 * @example ```"1"```
 	 */
 	priority?: number | null
 	/** 
-	 * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled..
+	 * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled.
 	 */
 	on_hold?: boolean | null
 

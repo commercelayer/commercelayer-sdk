@@ -29,55 +29,55 @@ interface Sku extends Resource {
 	readonly type: SkuType
 
 	/** 
-	 * The SKU code, that uniquely identifies the SKU within the organization..
+	 * The SKU code, that uniquely identifies the SKU within the organization.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	code: string
 	/** 
-	 * The internal name of the SKU..
+	 * The internal name of the SKU.
 	 * @example ```"Black Men T-shirt with White Logo (XL)"```
 	 */
 	name: string
 	/** 
-	 * An internal description of the SKU..
+	 * An internal description of the SKU.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The URL of an image that represents the SKU..
+	 * The URL of an image that represents the SKU.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * The number of pieces that compose the SKU. This is useful to describe sets and bundles..
+	 * The number of pieces that compose the SKU. This is useful to describe sets and bundles.
 	 * @example ```"6"```
 	 */
 	pieces_per_pack?: number | null
 	/** 
-	 * The weight of the SKU. If present, it will be used to calculate the shipping rates..
+	 * The weight of the SKU. If present, it will be used to calculate the shipping rates.
 	 * @example ```"300"```
 	 */
 	weight?: number | null
 	/** 
-	 * Can be one of 'gr', 'lb', or 'oz'.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
-	unit_of_weight?: 'gr' | 'lb' | 'oz' | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
-	 * The Harmonized System Code used by customs to identify the products shipped across international borders..
+	 * The Harmonized System Code used by customs to identify the products shipped across international borders.
 	 * @example ```"4901.91.0020"```
 	 */
 	hs_tariff_number?: string | null
 	/** 
-	 * Indicates if the SKU doesn't generate shipments..
+	 * Indicates if the SKU doesn't generate shipments.
 	 */
 	do_not_ship?: boolean | null
 	/** 
-	 * Indicates if the SKU doesn't track the stock inventory..
+	 * Indicates if the SKU doesn't track the stock inventory.
 	 */
 	do_not_track?: boolean | null
 	/** 
-	 * Aggregated information about the SKU's inventory. Returned only when retrieving a single SKU..
+	 * Aggregated information about the SKU's inventory. Returned only when retrieving a single SKU.
 	 * @example ```"[object Object]"```
 	 */
 	inventory?: Record<string, any> | null
@@ -99,51 +99,51 @@ interface Sku extends Resource {
 interface SkuCreate extends ResourceCreate {
 	
 	/** 
-	 * The SKU code, that uniquely identifies the SKU within the organization..
+	 * The SKU code, that uniquely identifies the SKU within the organization.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	code: string
 	/** 
-	 * The internal name of the SKU..
+	 * The internal name of the SKU.
 	 * @example ```"Black Men T-shirt with White Logo (XL)"```
 	 */
 	name: string
 	/** 
-	 * An internal description of the SKU..
+	 * An internal description of the SKU.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The URL of an image that represents the SKU..
+	 * The URL of an image that represents the SKU.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * The number of pieces that compose the SKU. This is useful to describe sets and bundles..
+	 * The number of pieces that compose the SKU. This is useful to describe sets and bundles.
 	 * @example ```"6"```
 	 */
 	pieces_per_pack?: number | null
 	/** 
-	 * The weight of the SKU. If present, it will be used to calculate the shipping rates..
+	 * The weight of the SKU. If present, it will be used to calculate the shipping rates.
 	 * @example ```"300"```
 	 */
 	weight?: number | null
 	/** 
-	 * Can be one of 'gr', 'lb', or 'oz'.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
-	unit_of_weight?: 'gr' | 'lb' | 'oz' | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
-	 * The Harmonized System Code used by customs to identify the products shipped across international borders..
+	 * The Harmonized System Code used by customs to identify the products shipped across international borders.
 	 * @example ```"4901.91.0020"```
 	 */
 	hs_tariff_number?: string | null
 	/** 
-	 * Indicates if the SKU doesn't generate shipments..
+	 * Indicates if the SKU doesn't generate shipments.
 	 */
 	do_not_ship?: boolean | null
 	/** 
-	 * Indicates if the SKU doesn't track the stock inventory..
+	 * Indicates if the SKU doesn't track the stock inventory.
 	 */
 	do_not_track?: boolean | null
 
@@ -156,51 +156,51 @@ interface SkuCreate extends ResourceCreate {
 interface SkuUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The SKU code, that uniquely identifies the SKU within the organization..
+	 * The SKU code, that uniquely identifies the SKU within the organization.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	code?: string | null
 	/** 
-	 * The internal name of the SKU..
+	 * The internal name of the SKU.
 	 * @example ```"Black Men T-shirt with White Logo (XL)"```
 	 */
 	name?: string | null
 	/** 
-	 * An internal description of the SKU..
+	 * An internal description of the SKU.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The URL of an image that represents the SKU..
+	 * The URL of an image that represents the SKU.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * The number of pieces that compose the SKU. This is useful to describe sets and bundles..
+	 * The number of pieces that compose the SKU. This is useful to describe sets and bundles.
 	 * @example ```"6"```
 	 */
 	pieces_per_pack?: number | null
 	/** 
-	 * The weight of the SKU. If present, it will be used to calculate the shipping rates..
+	 * The weight of the SKU. If present, it will be used to calculate the shipping rates.
 	 * @example ```"300"```
 	 */
 	weight?: number | null
 	/** 
-	 * Can be one of 'gr', 'lb', or 'oz'.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
-	unit_of_weight?: 'gr' | 'lb' | 'oz' | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
-	 * The Harmonized System Code used by customs to identify the products shipped across international borders..
+	 * The Harmonized System Code used by customs to identify the products shipped across international borders.
 	 * @example ```"4901.91.0020"```
 	 */
 	hs_tariff_number?: string | null
 	/** 
-	 * Indicates if the SKU doesn't generate shipments..
+	 * Indicates if the SKU doesn't generate shipments.
 	 */
 	do_not_ship?: boolean | null
 	/** 
-	 * Indicates if the SKU doesn't track the stock inventory..
+	 * Indicates if the SKU doesn't track the stock inventory.
 	 */
 	do_not_track?: boolean | null
 

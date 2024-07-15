@@ -28,27 +28,27 @@ interface PriceListScheduler extends Resource {
 	 */
 	name: string
 	/** 
-	 * The activation date/time of this price list scheduler..
+	 * The activation date/time of this price list scheduler.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at: string
 	/** 
-	 * The expiration date/time of this price list scheduler (must be after starts_at)..
+	 * The expiration date/time of this price list scheduler (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at: string
 	/** 
-	 * Indicates if the price list scheduler is active (enabled and not expired)..
+	 * Indicates if the price list scheduler is active (enabled and not expired).
 	 * @example ```"true"```
 	 */
 	active?: boolean | null
 	/** 
-	 * The price list scheduler status, one of 'expired', 'pending', 'active', or 'disabled'..
+	 * The price list scheduler status. One of 'expired', 'pending', 'active', or 'disabled'.
 	 * @example ```"pending"```
 	 */
 	status?: 'expired' | 'pending' | 'active' | 'disabled' | null
 	/** 
-	 * Time at which this resource was disabled..
+	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
@@ -69,22 +69,22 @@ interface PriceListSchedulerCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * The activation date/time of this price list scheduler..
+	 * The activation date/time of this price list scheduler.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at: string
 	/** 
-	 * The expiration date/time of this price list scheduler (must be after starts_at)..
+	 * The expiration date/time of this price list scheduler (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at: string
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
+	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
+	 * Send this attribute if you want to mark this resource as enabled.
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null
@@ -103,22 +103,22 @@ interface PriceListSchedulerUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The activation date/time of this price list scheduler..
+	 * The activation date/time of this price list scheduler.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at?: string | null
 	/** 
-	 * The expiration date/time of this price list scheduler (must be after starts_at)..
+	 * The expiration date/time of this price list scheduler (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at?: string | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
+	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
+	 * Send this attribute if you want to mark this resource as enabled.
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null

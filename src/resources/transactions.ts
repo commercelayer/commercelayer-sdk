@@ -26,22 +26,22 @@ interface Transaction extends Resource {
 	 */
 	number: string
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
 	 * @example ```"EUR"```
 	 */
 	currency_code: string
 	/** 
-	 * The transaction amount, in cents..
+	 * The transaction amount, in cents.
 	 * @example ```"1500"```
 	 */
 	amount_cents: number
 	/** 
-	 * The transaction amount, float..
+	 * The transaction amount, float.
 	 * @example ```"15"```
 	 */
 	amount_float: number
 	/** 
-	 * The transaction amount, formatted..
+	 * The transaction amount, formatted.
 	 * @example ```"€15,00"```
 	 */
 	formatted_amount: string

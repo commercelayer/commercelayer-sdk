@@ -27,7 +27,7 @@ describe('OrderSubscriptionItems resource', () => {
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
 			order_subscription: cl.order_subscriptions.relationship(TestData.id),
-			item: cl.adjustments.relationship(TestData.id),
+			item: cl.skus.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 			bundle: cl.bundles.relationship(TestData.id),
 			adjustment: cl.adjustments.relationship(TestData.id),

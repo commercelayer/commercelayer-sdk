@@ -22,52 +22,52 @@ interface Link extends Resource {
 	readonly type: LinkType
 
 	/** 
-	 * The link internal name..
+	 * The link internal name.
 	 * @example ```"FW SALE 2023"```
 	 */
 	name: string
 	/** 
-	 * The link application client id, used to fetch JWT..
+	 * The link application client id, used to fetch JWT.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_id: string
 	/** 
-	 * The link application scope, used to fetch JWT..
+	 * The link application scope, used to fetch JWT.
 	 * @example ```"market:GhvCxsElAQ,market:kJhgVcxZDr"```
 	 */
 	scope: string
 	/** 
-	 * The activation date/time of this link..
+	 * The activation date/time of this link.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at: string
 	/** 
-	 * The expiration date/time of this link (must be after starts_at)..
+	 * The expiration date/time of this link (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at: string
 	/** 
-	 * Indicates if the link is active (enabled and not expired)..
+	 * Indicates if the link is active (enabled and not expired).
 	 * @example ```"true"```
 	 */
 	active?: boolean | null
 	/** 
-	 * The link status, one of 'expired', 'pending', 'active', or 'disabled'..
+	 * The link status. One of 'expired', 'pending', 'active', or 'disabled'.
 	 * @example ```"pending"```
 	 */
 	status?: 'expired' | 'pending' | 'active' | 'disabled' | null
 	/** 
-	 * The link URL second level domain..
+	 * The link URL second level domain.
 	 * @example ```"c11r.link"```
 	 */
 	domain?: string | null
 	/** 
-	 * The link URL..
-	 * @example ```"https://acme.c11r.link/a597dd63-576e-4aff-9094-0b7d690e94d6"```
+	 * The link URL.
+	 * @example ```"https://c11r.link/ZXUtd2VzdC0xLzE5ZjBlMGVlLTg4OGMtNDQ1Yi1iYTA0LTg3MTUxY2FjZjFmYQ"```
 	 */
 	url?: string | null
 	/** 
-	 * Time at which this resource was disabled..
+	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
@@ -81,42 +81,42 @@ interface Link extends Resource {
 interface LinkCreate extends ResourceCreate {
 	
 	/** 
-	 * The link internal name..
+	 * The link internal name.
 	 * @example ```"FW SALE 2023"```
 	 */
 	name: string
 	/** 
-	 * The link application client id, used to fetch JWT..
+	 * The link application client id, used to fetch JWT.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_id: string
 	/** 
-	 * The link application scope, used to fetch JWT..
+	 * The link application scope, used to fetch JWT.
 	 * @example ```"market:GhvCxsElAQ,market:kJhgVcxZDr"```
 	 */
 	scope: string
 	/** 
-	 * The activation date/time of this link..
+	 * The activation date/time of this link.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at: string
 	/** 
-	 * The expiration date/time of this link (must be after starts_at)..
+	 * The expiration date/time of this link (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at: string
 	/** 
-	 * The link URL second level domain..
+	 * The link URL second level domain.
 	 * @example ```"c11r.link"```
 	 */
 	domain?: string | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
+	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
+	 * Send this attribute if you want to mark this resource as enabled.
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null
@@ -129,42 +129,42 @@ interface LinkCreate extends ResourceCreate {
 interface LinkUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The link internal name..
+	 * The link internal name.
 	 * @example ```"FW SALE 2023"```
 	 */
 	name?: string | null
 	/** 
-	 * The link application client id, used to fetch JWT..
+	 * The link application client id, used to fetch JWT.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_id?: string | null
 	/** 
-	 * The link application scope, used to fetch JWT..
+	 * The link application scope, used to fetch JWT.
 	 * @example ```"market:GhvCxsElAQ,market:kJhgVcxZDr"```
 	 */
 	scope?: string | null
 	/** 
-	 * The activation date/time of this link..
+	 * The activation date/time of this link.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at?: string | null
 	/** 
-	 * The expiration date/time of this link (must be after starts_at)..
+	 * The expiration date/time of this link (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at?: string | null
 	/** 
-	 * The link URL second level domain..
+	 * The link URL second level domain.
 	 * @example ```"c11r.link"```
 	 */
 	domain?: string | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
+	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
+	 * Send this attribute if you want to mark this resource as enabled.
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null

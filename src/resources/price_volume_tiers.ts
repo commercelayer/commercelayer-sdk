@@ -27,22 +27,22 @@ interface PriceVolumeTier extends Resource {
 	 */
 	name: string
 	/** 
-	 * The tier upper limit, expressed as the line item quantity. When 'null' it means infinity (useful to have an always matching tier)..
+	 * The tier upper limit, expressed as the line item quantity. When 'null' it means infinity (useful to have an always matching tier).
 	 * @example ```"15"```
 	 */
 	up_to?: number | null
 	/** 
-	 * The price of this price tier, in cents..
+	 * The price of this price tier, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents: number
 	/** 
-	 * The price of this price tier, float..
+	 * The price of this price tier, float.
 	 * @example ```"10"```
 	 */
 	price_amount_float?: number | null
 	/** 
-	 * The price of this price tier, formatted..
+	 * The price of this price tier, formatted.
 	 * @example ```"€10,00"```
 	 */
 	formatted_price_amount?: string | null
@@ -63,12 +63,12 @@ interface PriceVolumeTierCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * The tier upper limit, expressed as the line item quantity. When 'null' it means infinity (useful to have an always matching tier)..
+	 * The tier upper limit, expressed as the line item quantity. When 'null' it means infinity (useful to have an always matching tier).
 	 * @example ```"15"```
 	 */
 	up_to?: number | null
 	/** 
-	 * The price of this price tier, in cents..
+	 * The price of this price tier, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents: number
@@ -86,12 +86,12 @@ interface PriceVolumeTierUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The tier upper limit, expressed as the line item quantity. When 'null' it means infinity (useful to have an always matching tier)..
+	 * The tier upper limit, expressed as the line item quantity. When 'null' it means infinity (useful to have an always matching tier).
 	 * @example ```"15"```
 	 */
 	up_to?: number | null
 	/** 
-	 * The price of this price tier, in cents..
+	 * The price of this price tier, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents?: number | null

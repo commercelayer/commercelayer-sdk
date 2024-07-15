@@ -30,12 +30,12 @@ interface StockLocation extends Resource {
 	 */
 	number?: number | null
 	/** 
-	 * The stock location's internal name..
+	 * The stock location's internal name.
 	 * @example ```"Primary warehouse"```
 	 */
 	name: string
 	/** 
-	 * A string that you can use to identify the stock location (must be unique within the environment)..
+	 * A string that you can use to identify the stock location (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
@@ -45,7 +45,7 @@ interface StockLocation extends Resource {
 	 */
 	label_format?: string | null
 	/** 
-	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments..
+	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments.
 	 */
 	suppress_etd?: boolean | null
 
@@ -63,12 +63,12 @@ interface StockLocation extends Resource {
 interface StockLocationCreate extends ResourceCreate {
 	
 	/** 
-	 * The stock location's internal name..
+	 * The stock location's internal name.
 	 * @example ```"Primary warehouse"```
 	 */
 	name: string
 	/** 
-	 * A string that you can use to identify the stock location (must be unique within the environment)..
+	 * A string that you can use to identify the stock location (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
@@ -78,7 +78,7 @@ interface StockLocationCreate extends ResourceCreate {
 	 */
 	label_format?: string | null
 	/** 
-	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments..
+	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments.
 	 */
 	suppress_etd?: boolean | null
 
@@ -90,12 +90,12 @@ interface StockLocationCreate extends ResourceCreate {
 interface StockLocationUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The stock location's internal name..
+	 * The stock location's internal name.
 	 * @example ```"Primary warehouse"```
 	 */
 	name?: string | null
 	/** 
-	 * A string that you can use to identify the stock location (must be unique within the environment)..
+	 * A string that you can use to identify the stock location (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
@@ -105,7 +105,7 @@ interface StockLocationUpdate extends ResourceUpdate {
 	 */
 	label_format?: string | null
 	/** 
-	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments..
+	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments.
 	 */
 	suppress_etd?: boolean | null
 

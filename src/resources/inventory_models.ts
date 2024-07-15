@@ -21,32 +21,32 @@ interface InventoryModel extends Resource {
 	readonly type: InventoryModelType
 
 	/** 
-	 * The inventory model's internal name..
+	 * The inventory model's internal name.
 	 * @example ```"EU Inventory Model"```
 	 */
 	name: string
 	/** 
-	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'..
+	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.
 	 * @example ```"no_split"```
 	 */
 	strategy?: string | null
 	/** 
-	 * The maximum number of stock locations used for inventory computation..
+	 * The maximum number of stock locations used for inventory computation.
 	 * @example ```"3"```
 	 */
 	stock_locations_cutoff?: number | null
 	/** 
-	 * The duration in seconds of the generated stock reservations..
+	 * The duration in seconds of the generated stock reservations.
 	 * @example ```"3600"```
 	 */
 	stock_reservation_cutoff?: number | null
 	/** 
-	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment..
+	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment.
 	 * @example ```"true"```
 	 */
 	put_stock_transfers_on_hold?: boolean | null
 	/** 
-	 * Indicates if the the stock will be decremented manually after the order approval..
+	 * Indicates if the the stock will be decremented manually after the order approval.
 	 * @example ```"true"```
 	 */
 	manual_stock_decrement?: boolean | null
@@ -62,32 +62,32 @@ interface InventoryModel extends Resource {
 interface InventoryModelCreate extends ResourceCreate {
 	
 	/** 
-	 * The inventory model's internal name..
+	 * The inventory model's internal name.
 	 * @example ```"EU Inventory Model"```
 	 */
 	name: string
 	/** 
-	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'..
+	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.
 	 * @example ```"no_split"```
 	 */
 	strategy?: string | null
 	/** 
-	 * The maximum number of stock locations used for inventory computation..
+	 * The maximum number of stock locations used for inventory computation.
 	 * @example ```"3"```
 	 */
 	stock_locations_cutoff?: number | null
 	/** 
-	 * The duration in seconds of the generated stock reservations..
+	 * The duration in seconds of the generated stock reservations.
 	 * @example ```"3600"```
 	 */
 	stock_reservation_cutoff?: number | null
 	/** 
-	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment..
+	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment.
 	 * @example ```"true"```
 	 */
 	put_stock_transfers_on_hold?: boolean | null
 	/** 
-	 * Indicates if the the stock will be decremented manually after the order approval..
+	 * Indicates if the the stock will be decremented manually after the order approval.
 	 * @example ```"true"```
 	 */
 	manual_stock_decrement?: boolean | null
@@ -98,32 +98,32 @@ interface InventoryModelCreate extends ResourceCreate {
 interface InventoryModelUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The inventory model's internal name..
+	 * The inventory model's internal name.
 	 * @example ```"EU Inventory Model"```
 	 */
 	name?: string | null
 	/** 
-	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'..
+	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.
 	 * @example ```"no_split"```
 	 */
 	strategy?: string | null
 	/** 
-	 * The maximum number of stock locations used for inventory computation..
+	 * The maximum number of stock locations used for inventory computation.
 	 * @example ```"3"```
 	 */
 	stock_locations_cutoff?: number | null
 	/** 
-	 * The duration in seconds of the generated stock reservations..
+	 * The duration in seconds of the generated stock reservations.
 	 * @example ```"3600"```
 	 */
 	stock_reservation_cutoff?: number | null
 	/** 
-	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment..
+	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment.
 	 * @example ```"true"```
 	 */
 	put_stock_transfers_on_hold?: boolean | null
 	/** 
-	 * Indicates if the the stock will be decremented manually after the order approval..
+	 * Indicates if the the stock will be decremented manually after the order approval.
 	 * @example ```"true"```
 	 */
 	manual_stock_decrement?: boolean | null

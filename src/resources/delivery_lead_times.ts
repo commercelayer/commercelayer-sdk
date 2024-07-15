@@ -23,12 +23,12 @@ interface DeliveryLeadTime extends Resource {
 	readonly type: DeliveryLeadTimeType
 
 	/** 
-	 * The delivery lead minimum time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * The delivery lead minimum time (in hours) when shipping from the associated stock location with the associated shipping method.
 	 * @example ```"48"```
 	 */
 	min_hours: number
 	/** 
-	 * The delivery lead maximun time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * The delivery lead maximun time (in hours) when shipping from the associated stock location with the associated shipping method.
 	 * @example ```"72"```
 	 */
 	max_hours: number
@@ -54,12 +54,12 @@ interface DeliveryLeadTime extends Resource {
 interface DeliveryLeadTimeCreate extends ResourceCreate {
 	
 	/** 
-	 * The delivery lead minimum time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * The delivery lead minimum time (in hours) when shipping from the associated stock location with the associated shipping method.
 	 * @example ```"48"```
 	 */
 	min_hours: number
 	/** 
-	 * The delivery lead maximun time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * The delivery lead maximun time (in hours) when shipping from the associated stock location with the associated shipping method.
 	 * @example ```"72"```
 	 */
 	max_hours: number
@@ -73,12 +73,12 @@ interface DeliveryLeadTimeCreate extends ResourceCreate {
 interface DeliveryLeadTimeUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The delivery lead minimum time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * The delivery lead minimum time (in hours) when shipping from the associated stock location with the associated shipping method.
 	 * @example ```"48"```
 	 */
 	min_hours?: number | null
 	/** 
-	 * The delivery lead maximun time (in hours) when shipping from the associated stock location with the associated shipping method..
+	 * The delivery lead maximun time (in hours) when shipping from the associated stock location with the associated shipping method.
 	 * @example ```"72"```
 	 */
 	max_hours?: number | null

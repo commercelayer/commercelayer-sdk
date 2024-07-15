@@ -19,7 +19,7 @@ interface Event extends Resource {
 	readonly type: EventType
 
 	/** 
-	 * The event's internal name..
+	 * The event's internal name.
 	 * @example ```"orders.create"```
 	 */
 	name: string

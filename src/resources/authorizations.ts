@@ -28,22 +28,22 @@ interface Authorization extends Resource {
 	 */
 	number: string
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
 	 * @example ```"EUR"```
 	 */
 	currency_code: string
 	/** 
-	 * The transaction amount, in cents..
+	 * The transaction amount, in cents.
 	 * @example ```"1500"```
 	 */
 	amount_cents: number
 	/** 
-	 * The transaction amount, float..
+	 * The transaction amount, float.
 	 * @example ```"15"```
 	 */
 	amount_float: number
 	/** 
-	 * The transaction amount, formatted..
+	 * The transaction amount, formatted.
 	 * @example ```"€15,00"```
 	 */
 	formatted_amount: string
@@ -102,47 +102,47 @@ interface Authorization extends Resource {
 	 */
 	fraud_review?: string | null
 	/** 
-	 * The amount to be captured, in cents..
+	 * The amount to be captured, in cents.
 	 * @example ```"500"```
 	 */
 	capture_amount_cents?: number | null
 	/** 
-	 * The amount to be captured, float..
+	 * The amount to be captured, float.
 	 * @example ```"5"```
 	 */
 	capture_amount_float?: number | null
 	/** 
-	 * The amount to be captured, formatted..
+	 * The amount to be captured, formatted.
 	 * @example ```"€5,00"```
 	 */
 	formatted_capture_amount?: string | null
 	/** 
-	 * The balance to be captured, in cents..
+	 * The balance to be captured, in cents.
 	 * @example ```"1000"```
 	 */
 	capture_balance_cents?: number | null
 	/** 
-	 * The balance to be captured, float..
+	 * The balance to be captured, float.
 	 * @example ```"10"```
 	 */
 	capture_balance_float?: number | null
 	/** 
-	 * The balance to be captured, formatted..
+	 * The balance to be captured, formatted.
 	 * @example ```"€10,00"```
 	 */
 	formatted_capture_balance?: string | null
 	/** 
-	 * The balance to be voided, in cents..
+	 * The balance to be voided, in cents.
 	 * @example ```"1500"```
 	 */
 	void_balance_cents?: number | null
 	/** 
-	 * The balance to be voided, float..
+	 * The balance to be voided, float.
 	 * @example ```"15"```
 	 */
 	void_balance_float?: number | null
 	/** 
-	 * The balance to be voided, formatted..
+	 * The balance to be voided, formatted.
 	 * @example ```"€15,00"```
 	 */
 	formatted_void_balance?: string | null
@@ -160,17 +160,26 @@ interface Authorization extends Resource {
 interface AuthorizationUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send this attribute if you want to create a capture for this authorization..
+	 * Indicates if the transaction is successful.
+	 */
+	succeeded?: boolean | null
+	/** 
+	 * Send this attribute if you want to forwrad a stuck transaction to succeeded and update associated order states accordingly.
+	 * @example ```"true"```
+	 */
+	_forward?: boolean | null
+	/** 
+	 * Send this attribute if you want to create a capture for this authorization.
 	 * @example ```"true"```
 	 */
 	_capture?: boolean | null
 	/** 
-	 * The associated capture amount, in cents..
+	 * Send this attribute as a value in cents if you want to overwrite the amount to be captured.
 	 * @example ```"500"```
 	 */
 	_capture_amount_cents?: number | null
 	/** 
-	 * Send this attribute if you want to create a void for this authorization..
+	 * Send this attribute if you want to create a void for this authorization.
 	 * @example ```"true"```
 	 */
 	_void?: boolean | null
@@ -214,6 +223,10 @@ class Authorizations extends ApiResource<Authorization> {
 	async voids(authorizationId: string | Authorization, params?: QueryParamsList<Void>, options?: ResourcesConfig): Promise<ListResponse<Void>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Void>({ type: 'voids' }, `authorizations/${_authorizationId}/voids`, params, options) as unknown as ListResponse<Void>
+	}
+
+	async _forward(id: string | Authorization, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
+		return this.resources.update<AuthorizationUpdate, Authorization>({ id: (typeof id === 'string')? id: id.id, type: Authorizations.TYPE, _forward: true }, params, options)
 	}
 
 	async _capture(id: string | Authorization, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
