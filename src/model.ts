@@ -21,7 +21,7 @@ export type { BraintreePayment, BraintreePaymentCreate, BraintreePaymentUpdate, 
 export type { Bundle, BundleCreate, BundleUpdate, BundleSort } from './resources/bundles'
 export type { BuyXPayYPromotion, BuyXPayYPromotionCreate, BuyXPayYPromotionUpdate, BuyXPayYPromotionSort } from './resources/buy_x_pay_y_promotions'
 export type { Capture, CaptureUpdate, CaptureSort } from './resources/captures'
-export type { CarrierAccount, CarrierAccountSort } from './resources/carrier_accounts'
+export type { CarrierAccount, CarrierAccountCreate, CarrierAccountUpdate, CarrierAccountSort } from './resources/carrier_accounts'
 export type { CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewayUpdate, CheckoutComGatewaySort } from './resources/checkout_com_gateways'
 export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate, CheckoutComPaymentSort } from './resources/checkout_com_payments'
 export type { Cleanup, CleanupCreate, CleanupSort } from './resources/cleanups'

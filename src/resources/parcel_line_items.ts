@@ -38,7 +38,7 @@ interface ParcelLineItem extends Resource {
 	quantity: number
 	/** 
 	 * The internal name of the associated line item.
-	 * @example ```"Black Men T-shirt with White Logo (XL)"```
+	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
 	 */
 	name: string
 	/** 

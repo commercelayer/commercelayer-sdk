@@ -169,7 +169,7 @@ interface LineItem extends Resource {
 	formatted_tax_amount?: string | null
 	/** 
 	 * The name of the line item. When blank, it gets populated with the name of the associated item (if present).
-	 * @example ```"Black Men T-shirt with White Logo (XL)"```
+	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
 	 */
 	name?: string | null
 	/** 
@@ -281,7 +281,7 @@ interface LineItemCreate extends ResourceCreate {
 	compare_at_amount_cents?: number | null
 	/** 
 	 * The name of the line item. When blank, it gets populated with the name of the associated item (if present).
-	 * @example ```"Black Men T-shirt with White Logo (XL)"```
+	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
 	 */
 	name?: string | null
 	/** 
@@ -346,7 +346,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	compare_at_amount_cents?: number | null
 	/** 
 	 * The name of the line item. When blank, it gets populated with the name of the associated item (if present).
-	 * @example ```"Black Men T-shirt with White Logo (XL)"```
+	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
 	 */
 	name?: string | null
 	/** 

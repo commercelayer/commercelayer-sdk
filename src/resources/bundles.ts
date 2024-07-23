@@ -33,7 +33,7 @@ interface Bundle extends Resource {
 	code: string
 	/** 
 	 * The internal name of the bundle.
-	 * @example ```"Black Men T-shirt (XL) with Black Cap and Socks, all with White Logo"```
+	 * @example ```"Men's Black T-shirt (XL) with Black Cap and Socks, all with White Logo"```
 	 */
 	name: string
 	/** 
@@ -115,7 +115,7 @@ interface BundleCreate extends ResourceCreate {
 	code: string
 	/** 
 	 * The internal name of the bundle.
-	 * @example ```"Black Men T-shirt (XL) with Black Cap and Socks, all with White Logo"```
+	 * @example ```"Men's Black T-shirt (XL) with Black Cap and Socks, all with White Logo"```
 	 */
 	name: string
 	/** 
@@ -170,7 +170,7 @@ interface BundleUpdate extends ResourceUpdate {
 	code?: string | null
 	/** 
 	 * The internal name of the bundle.
-	 * @example ```"Black Men T-shirt (XL) with Black Cap and Socks, all with White Logo"```
+	 * @example ```"Men's Black T-shirt (XL) with Black Cap and Socks, all with White Logo"```
 	 */
 	name?: string | null
 	/** 

@@ -35,7 +35,7 @@ interface Sku extends Resource {
 	code: string
 	/** 
 	 * The internal name of the SKU.
-	 * @example ```"Black Men T-shirt with White Logo (XL)"```
+	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
 	 */
 	name: string
 	/** 
@@ -105,7 +105,7 @@ interface SkuCreate extends ResourceCreate {
 	code: string
 	/** 
 	 * The internal name of the SKU.
-	 * @example ```"Black Men T-shirt with White Logo (XL)"```
+	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
 	 */
 	name: string
 	/** 
@@ -162,7 +162,7 @@ interface SkuUpdate extends ResourceUpdate {
 	code?: string | null
 	/** 
 	 * The internal name of the SKU.
-	 * @example ```"Black Men T-shirt with White Logo (XL)"```
+	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
 	 */
 	name?: string | null
 	/** 

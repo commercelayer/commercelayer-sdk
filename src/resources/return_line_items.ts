@@ -37,7 +37,7 @@ interface ReturnLineItem extends Resource {
 	quantity: number
 	/** 
 	 * The name of the line item.
-	 * @example ```"Black Men T-shirt with White Logo (XL)"```
+	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
 	 */
 	name?: string | null
 	/** 

@@ -31,7 +31,7 @@ interface AdyenGateway extends Resource {
 	 */
 	live_url_prefix: string
 	/** 
-	 * Indicates if the gateway will leverage on the Adyen notification webhooks.
+	 * Indicates if the gateway will leverage on the Adyen notification webhooks, using latest API version.
 	 * @example ```"true"```
 	 */
 	async_api?: boolean | null
@@ -86,12 +86,12 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	 */
 	live_url_prefix: string
 	/** 
-	 * The checkout API version, supported range is from 66 to 68, default is 68.
-	 * @example ```"68"```
+	 * The checkout API version, supported range is from 66 to 71, default is 71.
+	 * @example ```"71"```
 	 */
 	api_version?: number | null
 	/** 
-	 * Indicates if the gateway will leverage on the Adyen notification webhooks.
+	 * Indicates if the gateway will leverage on the Adyen notification webhooks, using latest API version.
 	 * @example ```"true"```
 	 */
 	async_api?: boolean | null
@@ -139,12 +139,12 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	 */
 	live_url_prefix?: string | null
 	/** 
-	 * The checkout API version, supported range is from 66 to 68, default is 68.
-	 * @example ```"68"```
+	 * The checkout API version, supported range is from 66 to 71, default is 71.
+	 * @example ```"71"```
 	 */
 	api_version?: number | null
 	/** 
-	 * Indicates if the gateway will leverage on the Adyen notification webhooks.
+	 * Indicates if the gateway will leverage on the Adyen notification webhooks, using latest API version.
 	 * @example ```"true"```
 	 */
 	async_api?: boolean | null

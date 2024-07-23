@@ -126,7 +126,7 @@ interface CaptureUpdate extends ResourceUpdate {
 	 */
 	succeeded?: boolean | null
 	/** 
-	 * Send this attribute if you want to forwrad a stuck transaction to succeeded and update associated order states accordingly.
+	 * Send this attribute if you want to forward a stuck transaction to succeeded and update associated order states accordingly.
 	 * @example ```"true"```
 	 */
 	_forward?: boolean | null

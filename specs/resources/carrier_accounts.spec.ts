@@ -21,6 +21,38 @@ describe('CarrierAccounts resource', () => {
   const resourceType = 'carrier_accounts'
 
 
+  /* spec.create.start */
+  it(resourceType + '.create', async () => {
+
+    const createAttributes = {
+			name: randomValue('string', 'name'),
+			easypost_type: randomValue('string', 'easypost_type'),
+			credentials: randomValue('object', 'credentials'),
+			market: cl.markets.relationship(TestData.id),
+		}
+
+    const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
+    const resData = attributes
+
+    cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('POST')
+      checkCommon(request, resourceType)
+      checkCommonData(data, resourceType, attributes)
+      expect(cl[resourceType].isCarrierAccount(data.data)).toBeTruthy()
+      return interceptRequest()
+    })
+
+    await cl[resourceType].create(resData, params, CommonData.options)
+      .then((res: CarrierAccount) =>  expect(res).not.toBeNull())
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+
+  })
+  /* spec.create.stop */
+
+
   /* spec.retrieve.start */
   it(resourceType + '.retrieve', async () => {
 
@@ -41,6 +73,49 @@ describe('CarrierAccounts resource', () => {
 
   })
   /* spec.retrieve.stop */
+
+
+  /* spec.update.start */
+  it(resourceType + '.update', async () => {
+
+    const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
+    const resData = { id: TestData.id, ...attributes}
+
+    cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, resData.id)
+      return interceptRequest()
+    })
+
+    await cl[resourceType].update(resData, params, CommonData.options)
+      .then((res: CarrierAccount) =>  expect(res).not.toBeNull())
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+
+  })
+  /* spec.update.stop */
+
+
+  /* spec.delete.start */
+  it(resourceType + '.delete', async () => {
+
+    const id = TestData.id
+
+    cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('DELETE')
+      checkCommon(request, resourceType, id, currentAccessToken)
+      return interceptRequest()
+    })
+
+    await cl[resourceType].delete(id, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+
+  })
+  /* spec.delete.stop */
 
 
   /* spec.list.start */
