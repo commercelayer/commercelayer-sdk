@@ -31,6 +31,11 @@ interface AdyenGateway extends Resource {
 	 */
 	live_url_prefix: string
 	/** 
+	 * The checkout API version, supported range is from 66 to 71, default is 71.
+	 * @example ```"71"```
+	 */
+	api_version?: number | null
+	/** 
 	 * Indicates if the gateway will leverage on the Adyen notification webhooks, using latest API version.
 	 * @example ```"true"```
 	 */

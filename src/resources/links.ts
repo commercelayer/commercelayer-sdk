@@ -4,17 +4,19 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
 import type { Order, OrderType } from './orders'
+import type { Sku, SkuType } from './skus'
 import type { SkuList, SkuListType } from './sku_lists'
 
 
 type LinkType = 'links'
 type LinkRel = ResourceRel & { type: LinkType }
 type OrderRel = ResourceRel & { type: OrderType }
+type SkuRel = ResourceRel & { type: SkuType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 
 
-export type LinkSort = Pick<Link, 'id' | 'name' | 'starts_at' | 'expires_at' | 'disabled_at'> & ResourceSort
-// export type LinkFilter = Pick<Link, 'id' | 'name' | 'client_id' | 'scope' | 'starts_at' | 'expires_at' | 'disabled_at'> & ResourceFilter
+export type LinkSort = Pick<Link, 'id' | 'name' | 'starts_at' | 'expires_at' | 'item_type' | 'disabled_at'> & ResourceSort
+// export type LinkFilter = Pick<Link, 'id' | 'name' | 'client_id' | 'scope' | 'starts_at' | 'expires_at' | 'item_type' | 'disabled_at'> & ResourceFilter
 
 
 interface Link extends Resource {
@@ -33,7 +35,7 @@ interface Link extends Resource {
 	client_id: string
 	/** 
 	 * The link application scope, used to fetch JWT.
-	 * @example ```"market:GhvCxsElAQ,market:kJhgVcxZDr"```
+	 * @example ```"market:id:GhvCxsElAQ,market:id:kJhgVcxZDr"```
 	 */
 	scope: string
 	/** 
@@ -58,7 +60,7 @@ interface Link extends Resource {
 	status?: 'expired' | 'pending' | 'active' | 'disabled' | null
 	/** 
 	 * The link URL second level domain.
-	 * @example ```"c11r.link"```
+	 * @example ```"commercelayer.link"```
 	 */
 	domain?: string | null
 	/** 
@@ -67,12 +69,17 @@ interface Link extends Resource {
 	 */
 	url?: string | null
 	/** 
+	 * The type of the associated item. One of 'orders', 'skus', or 'sku_lists'.
+	 * @example ```"orders"```
+	 */
+	item_type?: 'orders' | 'skus' | 'sku_lists' | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
 
-	item?: Order | SkuList | null
+	item?: Order | Sku | SkuList | null
 	events?: Event[] | null
 
 }
@@ -92,7 +99,7 @@ interface LinkCreate extends ResourceCreate {
 	client_id: string
 	/** 
 	 * The link application scope, used to fetch JWT.
-	 * @example ```"market:GhvCxsElAQ,market:kJhgVcxZDr"```
+	 * @example ```"market:id:GhvCxsElAQ,market:id:kJhgVcxZDr"```
 	 */
 	scope: string
 	/** 
@@ -107,9 +114,14 @@ interface LinkCreate extends ResourceCreate {
 	expires_at: string
 	/** 
 	 * The link URL second level domain.
-	 * @example ```"c11r.link"```
+	 * @example ```"commercelayer.link"```
 	 */
 	domain?: string | null
+	/** 
+	 * The type of the associated item. One of 'orders', 'skus', or 'sku_lists'.
+	 * @example ```"orders"```
+	 */
+	item_type?: 'orders' | 'skus' | 'sku_lists' | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
@@ -121,7 +133,7 @@ interface LinkCreate extends ResourceCreate {
 	 */
 	_enable?: boolean | null
 
-	item: OrderRel | SkuListRel
+	item: OrderRel | SkuRel | SkuListRel
 
 }
 
@@ -140,7 +152,7 @@ interface LinkUpdate extends ResourceUpdate {
 	client_id?: string | null
 	/** 
 	 * The link application scope, used to fetch JWT.
-	 * @example ```"market:GhvCxsElAQ,market:kJhgVcxZDr"```
+	 * @example ```"market:id:GhvCxsElAQ,market:id:kJhgVcxZDr"```
 	 */
 	scope?: string | null
 	/** 
@@ -155,7 +167,7 @@ interface LinkUpdate extends ResourceUpdate {
 	expires_at?: string | null
 	/** 
 	 * The link URL second level domain.
-	 * @example ```"c11r.link"```
+	 * @example ```"commercelayer.link"```
 	 */
 	domain?: string | null
 	/** 
@@ -169,7 +181,7 @@ interface LinkUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 
-	item?: OrderRel | SkuListRel | null
+	item?: OrderRel | SkuRel | SkuListRel | null
 
 }
 

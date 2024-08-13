@@ -26,6 +26,7 @@ import type { OrderFactory } from './order_factories'
 import type { OrderCopy } from './order_copies'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Attachment } from './attachments'
+import type { Link } from './links'
 import type { ResourceError } from './resource_errors'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
@@ -468,7 +469,7 @@ interface Order extends Resource {
 	 */
 	formatted_duty_amount?: string | null
 	/** 
-	 * The total amount at place time, in cents.
+	 * The total amount at place time, in cents, which is used internally for editing.
 	 */
 	place_total_amount_cents?: number | null
 	/** 
@@ -625,6 +626,7 @@ interface Order extends Resource {
 	order_copies?: OrderCopy[] | null
 	recurring_order_copies?: RecurringOrderCopy[] | null
 	attachments?: Attachment[] | null
+	links?: Link[] | null
 	resource_errors?: ResourceError[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
@@ -883,7 +885,7 @@ interface OrderUpdate extends ResourceUpdate {
 	 */
 	_refund?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark as fulfilled a shipped/delivered order.
+	 * Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered).
 	 * @example ```"true"```
 	 */
 	_fulfill?: boolean | null
@@ -1137,6 +1139,11 @@ class Orders extends ApiResource<Order> {
 	async attachments(orderId: string | Order, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `orders/${_orderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async links(orderId: string | Order, params?: QueryParamsList<Link>, options?: ResourcesConfig): Promise<ListResponse<Link>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<Link>({ type: 'links' }, `orders/${_orderId}/links`, params, options) as unknown as ListResponse<Link>
 	}
 
 	async resource_errors(orderId: string | Order, params?: QueryParamsList<ResourceError>, options?: ResourcesConfig): Promise<ListResponse<ResourceError>> {

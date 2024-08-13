@@ -1,6 +1,6 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsList } from '../query'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Webhook } from './webhooks'
 import type { EventCallback } from './event_callbacks'
@@ -30,9 +30,24 @@ interface Event extends Resource {
 }
 
 
+interface EventUpdate extends ResourceUpdate {
+	
+	/** 
+	 * Send this attribute if you want to force webhooks execution for this event.
+	 * @example ```"true"```
+	 */
+	_trigger?: boolean | null
+	
+}
+
+
 class Events extends ApiResource<Event> {
 
 	static readonly TYPE: EventType = 'events' as const
+
+	async update(resource: EventUpdate, params?: QueryParamsRetrieve<Event>, options?: ResourcesConfig): Promise<Event> {
+		return this.resources.update<EventUpdate, Event>({ ...resource, type: Events.TYPE }, params, options)
+	}
 
 	async webhooks(eventId: string | Event, params?: QueryParamsList<Webhook>, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {
 		const _eventId = (eventId as Event).id || eventId as string
@@ -42,6 +57,10 @@ class Events extends ApiResource<Event> {
 	async last_event_callbacks(eventId: string | Event, params?: QueryParamsList<EventCallback>, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		const _eventId = (eventId as Event).id || eventId as string
 		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `events/${_eventId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
+	}
+
+	async _trigger(id: string | Event, params?: QueryParamsRetrieve<Event>, options?: ResourcesConfig): Promise<Event> {
+		return this.resources.update<EventUpdate, Event>({ id: (typeof id === 'string')? id: id.id, type: Events.TYPE, _trigger: true }, params, options)
 	}
 
 
@@ -68,4 +87,4 @@ class Events extends ApiResource<Event> {
 
 export default Events
 
-export type { Event, EventType }
+export type { Event, EventUpdate, EventType }

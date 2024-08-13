@@ -37,7 +37,7 @@ export type { CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscrip
 export type { Customer, CustomerCreate, CustomerUpdate, CustomerSort } from './resources/customers'
 export type { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeUpdate, DeliveryLeadTimeSort } from './resources/delivery_lead_times'
 export type { EventCallback, EventCallbackSort } from './resources/event_callbacks'
-export type { Event, EventSort } from './resources/events'
+export type { Event, EventUpdate, EventSort } from './resources/events'
 export type { Export, ExportCreate, ExportSort } from './resources/exports'
 export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate, ExternalGatewaySort } from './resources/external_gateways'
 export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate, ExternalPaymentSort } from './resources/external_payments'

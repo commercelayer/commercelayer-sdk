@@ -306,6 +306,27 @@ describe('SkuLists resource', () => {
 	/* relationship.attachments stop */
 	
 
+	/* relationship.links start */
+	it(resourceType + '.links', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { links: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'links')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].links(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.links stop */
+	
+
 	/* relationship.versions start */
 	it(resourceType + '.versions', async () => {
 	

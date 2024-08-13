@@ -758,7 +758,7 @@
                     "default": 71,
                     "creatable": true,
                     "updatable": true,
-                    "fetchable": false,
+                    "fetchable": true,
                     "filterable": false,
                     "sortable": false,
                     "example": "71"
@@ -4770,8 +4770,8 @@
                     "type": "has_one",
                     "desc": "The associated market.",
                     "required": "optional",
-                    "creatable": false,
-                    "updatable": false,
+                    "creatable": true,
+                    "updatable": true,
                     "filterable": true,
                     "sortable": true,
                     "parent_resource": "Api::CarrierAccountResource",
@@ -7958,7 +7958,8 @@
             "deprecated": false,
             "actions": [
                 "list",
-                "retrieve"
+                "retrieve",
+                "update"
             ],
             "examples": {},
             "filter_scopes": [],
@@ -7973,6 +7974,18 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "orders.create"
+                },
+                "_trigger": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to force webhooks execution for this event.",
+                    "prohibited": true,
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "id": {
                     "format": "id",
@@ -15051,7 +15064,7 @@
                     "fetchable": true,
                     "filterable": true,
                     "sortable": false,
-                    "example": "market:GhvCxsElAQ,market:kJhgVcxZDr"
+                    "example": "market:id:GhvCxsElAQ,market:id:kJhgVcxZDr"
                 },
                 "starts_at": {
                     "type": "datetime",
@@ -15105,14 +15118,14 @@
                 "domain": {
                     "type": "string",
                     "desc": "The link URL second level domain.",
-                    "required": "optional, default to \"c11r.link\"",
-                    "default": "c11r.link",
+                    "required": "optional, default to \"commercelayer.link\"",
+                    "default": "commercelayer.link",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "example": "c11r.link"
+                    "example": "commercelayer.link"
                 },
                 "url": {
                     "type": "string",
@@ -15123,6 +15136,22 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "https://c11r.link/ZXUtd2VzdC0xLzE5ZjBlMGVlLTg4OGMtNDQ1Yi1iYTA0LTg3MTUxY2FjZjFmYQ"
+                },
+                "item_type": {
+                    "type": "string",
+                    "desc": "The type of the associated item. One of 'orders', 'skus', or 'sku_lists'.",
+                    "delegate": "item_resource_type",
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "orders",
+                    "enum": [
+                        "orders",
+                        "skus",
+                        "sku_lists"
+                    ]
                 },
                 "id": {
                     "format": "id",
@@ -15232,7 +15261,7 @@
             "relationships": {
                 "item": {
                     "type": "has_one",
-                    "desc": "The polymorphic item associated to the link. One of 'orders', or 'sku_lists'.",
+                    "desc": "The polymorphic item associated to the link. One of 'orders', 'skus', or 'sku_lists'.",
                     "required": "required",
                     "creatable": true,
                     "updatable": true,
@@ -15244,6 +15273,7 @@
                     "class_name": "Item",
                     "enum": [
                         "orders",
+                        "skus",
                         "sku_lists"
                     ]
                 },
@@ -15263,6 +15293,7 @@
                 "scope",
                 "starts_at",
                 "expires_at",
+                "item_type",
                 "disabled_at",
                 "created_at",
                 "updated_at",
@@ -15919,6 +15950,17 @@
                     "parent_resource": "Api::MarketResource",
                     "class_name": "PriceListScheduler"
                 },
+                "order_validation_rules": {
+                    "type": "has_many",
+                    "desc": "The associated order validation rules.",
+                    "filterable": true,
+                    "sortable": false,
+                    "polymorphic": true,
+                    "sti": true,
+                    "deprecated": true,
+                    "parent_resource": "Api::MarketResource",
+                    "class_name": "OrderValidationRule"
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -15958,6 +16000,7 @@
                 "customer_group_id",
                 "geocoder_id",
                 "price_list_schedulers_id",
+                "order_validation_rules_id",
                 "attachments_id",
                 "ids",
                 "disabled_at_from",
@@ -17076,7 +17119,7 @@
                 },
                 "place_total_amount_cents": {
                     "type": "integer",
-                    "desc": "The total amount at place time, in cents.",
+                    "desc": "The total amount at place time, in cents, which is used internally for editing.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -17376,7 +17419,7 @@
                 "_fulfill": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to mark as fulfilled a shipped/delivered order.",
+                    "desc": "Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered).",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -18045,6 +18088,14 @@
                     "parent_resource": "Api::OrderResource",
                     "class_name": "Attachment"
                 },
+                "links": {
+                    "type": "has_many",
+                    "desc": "The associated links.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::OrderResource",
+                    "class_name": "Link"
+                },
                 "resource_errors": {
                     "type": "has_many",
                     "desc": "The associated resource errors.",
@@ -18152,6 +18203,7 @@
                 "order_copies_id",
                 "recurring_order_copies_id",
                 "attachments_id",
+                "links_id",
                 "resource_errors_id",
                 "events_id",
                 "tags_id",
@@ -25281,6 +25333,17 @@
                     "desc": "The associated stock reservations.",
                     "parent_resource": "Api::ReservedStockResource",
                     "class_name": "StockReservation"
+                },
+                "versions": {
+                    "type": "has_many",
+                    "desc": "The associated changes.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "parent_resource": "Api::ReservedStockResource",
+                    "class_name": "Version"
                 }
             },
             "filters": [
@@ -29279,6 +29342,14 @@
                     "parent_resource": "Api::SkuResource",
                     "class_name": "Attachment"
                 },
+                "links": {
+                    "type": "has_many",
+                    "desc": "The associated links.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::SkuResource",
+                    "class_name": "Link"
+                },
                 "events": {
                     "type": "has_many",
                     "desc": "The associated events.",
@@ -29330,6 +29401,7 @@
                 "stock_reservations_id",
                 "delivery_lead_times_id",
                 "attachments_id",
+                "links_id",
                 "events_id",
                 "tags_id",
                 "ids",
@@ -29541,6 +29613,14 @@
                     "parent_resource": "Api::SkuListResource",
                     "class_name": "Attachment"
                 },
+                "links": {
+                    "type": "has_many",
+                    "desc": "The associated links.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::SkuListResource",
+                    "class_name": "Link"
+                },
                 "versions": {
                     "type": "has_many",
                     "desc": "The associated changes.",
@@ -29569,6 +29649,7 @@
                 "customer_id",
                 "sku_list_items_id",
                 "attachments_id",
+                "links_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
