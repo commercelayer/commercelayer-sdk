@@ -1,3 +1,10 @@
+# [5.49.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.48.0...v5.49.0) (2024-08-13)
+
+
+### Features
+
+* update resources to schema v6.2.0 ([16874f8](https://github.com/commercelayer/commercelayer-sdk/commit/16874f8205ef8a088475a28063ec099a42a66007))
+
 # [5.48.0](https://github.com/commercelayer/commercelayer-sdk/compare/v5.47.1...v5.48.0) (2024-07-23)
 
 
