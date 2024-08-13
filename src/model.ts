@@ -37,7 +37,7 @@ export type { CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscrip
 export type { Customer, CustomerCreate, CustomerUpdate } from './resources/customers'
 export type { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeUpdate } from './resources/delivery_lead_times'
 export type { EventCallback } from './resources/event_callbacks'
-export type { Event } from './resources/events'
+export type { Event, EventUpdate } from './resources/events'
 export type { Export, ExportCreate } from './resources/exports'
 export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate } from './resources/external_gateways'
 export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate } from './resources/external_payments'

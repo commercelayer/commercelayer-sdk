@@ -4,12 +4,14 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
 import type { Order, OrderType } from './orders'
+import type { Sku, SkuType } from './skus'
 import type { SkuList, SkuListType } from './sku_lists'
 
 
 type LinkType = 'links'
 type LinkRel = ResourceRel & { type: LinkType }
 type OrderRel = ResourceRel & { type: OrderType }
+type SkuRel = ResourceRel & { type: SkuType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 
 
@@ -26,9 +28,10 @@ interface Link extends Resource {
 	status?: 'expired' | 'pending' | 'active' | 'disabled' | null
 	domain?: string | null
 	url?: string | null
+	item_type?: 'orders' | 'skus' | 'sku_lists' | null
 	disabled_at?: string | null
 
-	item?: Order | SkuList | null
+	item?: Order | Sku | SkuList | null
 	events?: Event[] | null
 
 }
@@ -42,10 +45,11 @@ interface LinkCreate extends ResourceCreate {
 	starts_at: string
 	expires_at: string
 	domain?: string | null
+	item_type?: 'orders' | 'skus' | 'sku_lists' | null
 	_disable?: boolean | null
 	_enable?: boolean | null
 
-	item: OrderRel | SkuListRel
+	item: OrderRel | SkuRel | SkuListRel
 
 }
 
@@ -61,7 +65,7 @@ interface LinkUpdate extends ResourceUpdate {
 	_disable?: boolean | null
 	_enable?: boolean | null
 
-	item?: OrderRel | SkuListRel | null
+	item?: OrderRel | SkuRel | SkuListRel | null
 
 }
 

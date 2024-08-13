@@ -18,6 +18,7 @@ interface AdyenGateway extends Resource {
 
 	name: string
 	live_url_prefix: string
+	api_version?: number | null
 	async_api?: boolean | null
 	native_customer_payment_sources?: boolean | null
 	webhook_endpoint_secret?: string | null

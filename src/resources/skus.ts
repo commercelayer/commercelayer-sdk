@@ -9,6 +9,7 @@ import type { StockReservation } from './stock_reservations'
 import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { SkuOption } from './sku_options'
 import type { Attachment } from './attachments'
+import type { Link } from './links'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
@@ -43,6 +44,7 @@ interface Sku extends Resource {
 	delivery_lead_times?: DeliveryLeadTime[] | null
 	sku_options?: SkuOption[] | null
 	attachments?: Attachment[] | null
+	links?: Link[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
@@ -137,6 +139,11 @@ class Skus extends ApiResource<Sku> {
 	async attachments(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `skus/${_skuId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async links(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Link>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<Link>({ type: 'links' }, `skus/${_skuId}/links`, params, options) as unknown as ListResponse<Link>
 	}
 
 	async events(skuId: string | Sku, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Event>> {

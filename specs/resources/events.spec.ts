@@ -42,6 +42,28 @@ describe('Events resource', () => {
   /* spec.retrieve.stop */
 
 
+  /* spec.update.start */
+  it(resourceType + '.update', async () => {
+
+    const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
+    const resData = { id: TestData.id, ...attributes}
+
+    const intId = cl.addRequestInterceptor((config) => {
+      expect(config.method).toBe('patch')
+      checkCommon(config, resourceType, resData.id, currentAccessToken)
+      checkCommonData(config, resourceType, attributes, resData.id)
+      return interceptRequest()
+    })
+
+    await cl[resourceType].update(resData, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request', intId))
+
+  })
+  /* spec.update.stop */
+
+
   /* spec.list.start */
   it(resourceType + '.list', async () => {
 
@@ -167,4 +189,29 @@ describe('Events resource', () => {
 	/* relationship.last_event_callbacks stop */
 	
   
+
+	/* trigger._trigger start */
+	it(resourceType + '._trigger', async () => {
+	
+		let triggerAttr = '_trigger'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((config) => {
+			expect(config.method).toBe('patch')
+			checkCommon(config, resourceType, id, currentAccessToken)
+			checkCommonData(config, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._trigger(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._trigger stop */
+	
 })
