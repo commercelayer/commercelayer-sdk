@@ -166,11 +166,9 @@ class CommerceLayerClient {
 
 		debug('new commercelayer instance %O', config)
 
-		if (config.accessToken) {
+		if (!config.organization && config.accessToken) {
 			const tokenData = extractTokenData(config.accessToken)
-			if (tokenData) {
-				if (!config.organization) config.organization = tokenData.organization.slug || config.organization
-			}
+			if (tokenData?.organization?.slug) config.organization = tokenData.organization.slug
 		}
 		
 
