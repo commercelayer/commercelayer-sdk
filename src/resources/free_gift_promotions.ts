@@ -82,10 +82,10 @@ interface FreeGiftPromotion extends Resource {
 	 */
 	active?: boolean | null
 	/** 
-	 * The promotion status. One of 'expired', 'pending', 'active', 'inactive', or 'disabled'.
+	 * The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.
 	 * @example ```"pending"```
 	 */
-	status?: 'expired' | 'pending' | 'active' | 'inactive' | 'disabled' | null
+	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
 	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
