@@ -1,6 +1,8 @@
 
 export type ObjectType = Record<string, any>
 
+export type ApiEnv = 'test' | 'live'
+
 
 /*
 // Nullable types

@@ -4,6 +4,9 @@ import type { ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj, InterceptorManager } from './interceptor'
 import { CommerceLayerStatic } from './static'
 import ResourceAdapter, { type ResourcesInitConfig } from './resource'
+import { extractTokenData } from './util'
+import type { ApiEnv } from './types'
+
 
 import Debug from './debug'
 const debug = Debug('commercelayer')
@@ -163,8 +166,16 @@ class CommerceLayerClient {
 
 		debug('new commercelayer instance %O', config)
 
+		if (config.accessToken) {
+			const tokenData = extractTokenData(config.accessToken)
+			if (tokenData) {
+				if (!config.organization) config.organization = tokenData.organization.slug || config.organization
+			}
+		}
+		
+
 		this.#adapter = new ResourceAdapter(config)
-		this.#slug = config.organization
+		this.#slug = config.organization ?? ''
 
 		// ##__CL_RESOURCES_INIT_START__##
 		// ##__CL_RESOURCES_INIT_TEMPLATE:: ##__TAB__####__TAB__##this.##__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)
@@ -303,8 +314,10 @@ class CommerceLayerClient {
 	get currentAccessToken(): string { return this.#adapter?.client?.currentAccessToken }
 	private get interceptors(): InterceptorManager { return this.#adapter.client.interceptors }
 
+	get environment(): ApiEnv { return extractTokenData(this.currentAccessToken) }
 
-	private localConfig(config: SdkConfig & { organization?: string }): void {
+
+	private localConfig(config: Partial<SdkConfig> & { organization?: string }): void {
 		if (config.organization) this.#slug = config.organization
 	}
 

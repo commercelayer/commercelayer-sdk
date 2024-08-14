@@ -25,7 +25,7 @@ async function refreshToken(old: string): Promise<string> {
 
 	try {
 
-		const res = await cl.orders.retrieve('NMWYhxRZOA', { include: ['payment_source', 'captures', 'payment_method', 'line_items', 'customer'] })
+		const res = await (await cl.customers.list()).first()
 		console.log(res)
 
 	} catch (error: any) {
