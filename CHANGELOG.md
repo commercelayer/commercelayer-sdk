@@ -1,3 +1,16 @@
+# [6.13.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.12.0...v6.13.0) (2024-08-16)
+
+
+### Bug Fixes
+
+* fix init config check ([8e4fbf1](https://github.com/commercelayer/commercelayer-sdk/commit/8e4fbf1c430ac7e4369f67c1afe1ed2d9d870004))
+* optional organization slug ([7e265a6](https://github.com/commercelayer/commercelayer-sdk/commit/7e265a605ba69cbbe49d9c3589692377074546a7))
+
+
+### Features
+
+* update resources to schema v6.2.1 ([2fb5faa](https://github.com/commercelayer/commercelayer-sdk/commit/2fb5faa4cb2cac9fb0d00a2f115c8fd9b14c864f))
+
 # [6.12.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.11.0...v6.12.0) (2024-08-13)
 
 
