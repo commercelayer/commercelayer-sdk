@@ -5,7 +5,6 @@ import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInter
 import { CommerceLayerStatic } from './static'
 import ResourceAdapter, { type ResourcesInitConfig } from './resource'
 import { extractTokenData } from './util'
-import type { ApiEnv } from './types'
 
 
 import Debug from './debug'
@@ -311,8 +310,6 @@ class CommerceLayerClient {
 	get currentOrganization(): string { return this.#slug }
 	get currentAccessToken(): string { return this.#adapter?.client?.currentAccessToken }
 	private get interceptors(): InterceptorManager { return this.#adapter.client.interceptors }
-
-	get environment(): ApiEnv { return extractTokenData(this.currentAccessToken) }
 
 
 	private localConfig(config: Partial<SdkConfig> & { organization?: string }): void {
