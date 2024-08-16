@@ -54,10 +54,10 @@ interface Link extends Resource {
 	 */
 	active?: boolean | null
 	/** 
-	 * The link status. One of 'expired', 'pending', 'active', or 'disabled'.
+	 * The link status. One of 'disabled', 'expired', 'pending', or 'active'.
 	 * @example ```"pending"```
 	 */
-	status?: 'expired' | 'pending' | 'active' | 'disabled' | null
+	status?: 'disabled' | 'expired' | 'pending' | 'active' | null
 	/** 
 	 * The link URL second level domain.
 	 * @example ```"commercelayer.link"```

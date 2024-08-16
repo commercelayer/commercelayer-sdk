@@ -3880,7 +3880,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The promotion status. One of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "desc": "The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -3888,11 +3888,11 @@
                     "sortable": false,
                     "example": "pending",
                     "enum": [
+                        "disabled",
                         "expired",
                         "pending",
                         "active",
-                        "inactive",
-                        "disabled"
+                        "inactive"
                     ]
                 },
                 "id": {
@@ -9110,7 +9110,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The promotion status. One of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "desc": "The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -9118,11 +9118,11 @@
                     "sortable": false,
                     "example": "pending",
                     "enum": [
+                        "disabled",
                         "expired",
                         "pending",
                         "active",
-                        "inactive",
-                        "disabled"
+                        "inactive"
                     ]
                 },
                 "id": {
@@ -9851,7 +9851,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The promotion status. One of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "desc": "The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -9859,11 +9859,11 @@
                     "sortable": false,
                     "example": "pending",
                     "enum": [
+                        "disabled",
                         "expired",
                         "pending",
                         "active",
-                        "inactive",
-                        "disabled"
+                        "inactive"
                     ]
                 },
                 "id": {
@@ -10323,7 +10323,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The promotion status. One of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "desc": "The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -10331,11 +10331,11 @@
                     "sortable": false,
                     "example": "pending",
                     "enum": [
+                        "disabled",
                         "expired",
                         "pending",
                         "active",
-                        "inactive",
-                        "disabled"
+                        "inactive"
                     ]
                 },
                 "id": {
@@ -10795,7 +10795,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The promotion status. One of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "desc": "The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -10803,11 +10803,11 @@
                     "sortable": false,
                     "example": "pending",
                     "enum": [
+                        "disabled",
                         "expired",
                         "pending",
                         "active",
-                        "inactive",
-                        "disabled"
+                        "inactive"
                     ]
                 },
                 "id": {
@@ -11246,7 +11246,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The promotion status. One of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "desc": "The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -11254,11 +11254,11 @@
                     "sortable": false,
                     "example": "pending",
                     "enum": [
+                        "disabled",
                         "expired",
                         "pending",
                         "active",
-                        "inactive",
-                        "disabled"
+                        "inactive"
                     ]
                 },
                 "id": {
@@ -15101,7 +15101,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The link status. One of 'expired', 'pending', 'active', or 'disabled'.",
+                    "desc": "The link status. One of 'disabled', 'expired', 'pending', or 'active'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -15109,10 +15109,10 @@
                     "sortable": false,
                     "example": "pending",
                     "enum": [
+                        "disabled",
                         "expired",
                         "pending",
-                        "active",
-                        "disabled"
+                        "active"
                     ]
                 },
                 "domain": {
@@ -21280,12 +21280,13 @@
             "fields": {
                 "name": {
                     "type": "string",
-                    "desc": "Payment source type, titleized.",
-                    "creatable": false,
-                    "updatable": false,
+                    "desc": "The payment method's internal name.",
+                    "required": "optional, default to titleized payment source type",
+                    "creatable": true,
+                    "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
+                    "filterable": true,
+                    "sortable": true,
                     "example": "Stripe Payment"
                 },
                 "payment_source_type": {
@@ -21583,6 +21584,7 @@
             },
             "filters": [
                 "id",
+                "name",
                 "payment_source_type",
                 "currency_code",
                 "price_amount_cents",
@@ -22350,7 +22352,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The promotion status. One of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "desc": "The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -22358,11 +22360,11 @@
                     "sortable": false,
                     "example": "pending",
                     "enum": [
+                        "disabled",
                         "expired",
                         "pending",
                         "active",
-                        "inactive",
-                        "disabled"
+                        "inactive"
                     ]
                 },
                 "id": {
@@ -23418,7 +23420,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The price list scheduler status. One of 'expired', 'pending', 'active', or 'disabled'.",
+                    "desc": "The price list scheduler status. One of 'disabled', 'expired', 'pending', or 'active'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -23426,10 +23428,10 @@
                     "sortable": false,
                     "example": "pending",
                     "enum": [
+                        "disabled",
                         "expired",
                         "pending",
-                        "active",
-                        "disabled"
+                        "active"
                     ]
                 },
                 "id": {
@@ -24177,7 +24179,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The promotion status. One of 'expired', 'pending', 'active', 'inactive', or 'disabled'.",
+                    "desc": "The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -24185,11 +24187,11 @@
                     "sortable": false,
                     "example": "pending",
                     "enum": [
+                        "disabled",
                         "expired",
                         "pending",
                         "active",
-                        "inactive",
-                        "disabled"
+                        "inactive"
                     ]
                 },
                 "id": {

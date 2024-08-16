@@ -43,10 +43,10 @@ interface PriceListScheduler extends Resource {
 	 */
 	active?: boolean | null
 	/** 
-	 * The price list scheduler status. One of 'expired', 'pending', 'active', or 'disabled'.
+	 * The price list scheduler status. One of 'disabled', 'expired', 'pending', or 'active'.
 	 * @example ```"pending"```
 	 */
-	status?: 'expired' | 'pending' | 'active' | 'disabled' | null
+	status?: 'disabled' | 'expired' | 'pending' | 'active' | null
 	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```

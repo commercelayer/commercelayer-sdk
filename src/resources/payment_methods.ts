@@ -14,8 +14,8 @@ type MarketRel = ResourceRel & { type: MarketType }
 type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
 
 
-export type PaymentMethodSort = Pick<PaymentMethod, 'id' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceSort
-// export type PaymentMethodFilter = Pick<PaymentMethod, 'id' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceFilter
+export type PaymentMethodSort = Pick<PaymentMethod, 'id' | 'name' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceSort
+// export type PaymentMethodFilter = Pick<PaymentMethod, 'id' | 'name' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceFilter
 
 
 interface PaymentMethod extends Resource {
@@ -23,7 +23,7 @@ interface PaymentMethod extends Resource {
 	readonly type: PaymentMethodType
 
 	/** 
-	 * Payment source type, titleized.
+	 * The payment method's internal name.
 	 * @example ```"Stripe Payment"```
 	 */
 	name?: string | null
@@ -98,6 +98,11 @@ interface PaymentMethod extends Resource {
 interface PaymentMethodCreate extends ResourceCreate {
 	
 	/** 
+	 * The payment method's internal name.
+	 * @example ```"Stripe Payment"```
+	 */
+	name?: string | null
+	/** 
 	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"stripe_payments"```
 	 */
@@ -152,6 +157,11 @@ interface PaymentMethodCreate extends ResourceCreate {
 
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The payment method's internal name.
+	 * @example ```"Stripe Payment"```
+	 */
+	name?: string | null
 	/** 
 	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"stripe_payments"```

@@ -22,12 +22,12 @@ const nestedField = (obj: any, field: string): { key: string, val: any } => {
 	let fp = field
 	if (fp.endsWith('.')) fp = fp.substring(0, fp.length-1)
 
-  const dots = field.split(".")
+	const dots = field.split(".")
 
 	const key = dots[dots.length-1]
 	let val = obj
-  while (dots.length && (val = val[dots.shift() || '']))
-    
+	while (dots.length && (val = val[dots.shift() || '']))
+	  
 	return { key, val }
 }
 */
@@ -39,14 +39,22 @@ const packageInfo = (fields?: string | string[], options?: any): Record<string, 
 			const nf = nestedField(pjson, field)
 			info[options?.nestedName? nf.key : field] = nf.val
 			return info
-	  }, {}) : pjson
+		}, {}) : pjson
 }
 */
+
+const extractTokenData = (token: string): any => {
+	try {
+		return JSON.parse(atob(token.split('.')[1]))
+	} catch (err: any) {
+		return undefined
+	}
+}
 
 
 const isTokenExpired = (token: string): boolean => {
 	try {
-		const tokenData = JSON.parse(atob(token.split('.')[1]))
+		const tokenData = extractTokenData(token)
 		return (((tokenData.exp * 1000) - Date.now()) < 0)
 	} catch (err: any) {
 		return false
@@ -54,4 +62,4 @@ const isTokenExpired = (token: string): boolean => {
 }
 
 
-export { sleep, sortObjectFields, /* packageInfo */ isTokenExpired }
+export { sleep, sortObjectFields, /* packageInfo */ isTokenExpired, extractTokenData }

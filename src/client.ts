@@ -33,7 +33,7 @@ type RequestConfig = {
 
 
 type ApiConfig = {
-	organization: string
+	organization?: string
 	domain?: string
 	accessToken: string
 }
@@ -65,7 +65,7 @@ class ApiClient {
 
 		debug('new client instance %O', options)
 
-		this.#baseUrl = baseURL(options.organization, options.domain)
+		this.#baseUrl = baseURL(options.organization ?? '', options.domain)
 		this.#accessToken = options.accessToken
 
 		const fetchConfig: RequestConfig = {
