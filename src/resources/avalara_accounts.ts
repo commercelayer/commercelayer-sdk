@@ -6,6 +6,7 @@ import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
 import type { TaxCategory, TaxCategoryType } from './tax_categories'
+import type { Event } from './events'
 
 
 type AvalaraAccountType = 'avalara_accounts'
@@ -51,6 +52,7 @@ interface AvalaraAccount extends Resource {
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
 	tax_categories?: TaxCategory[] | null
+	events?: Event[] | null
 
 }
 
@@ -165,6 +167,11 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 	async tax_categories(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<TaxCategory>, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `avalara_accounts/${_avalaraAccountId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
+	}
+
+	async events(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `avalara_accounts/${_avalaraAccountId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

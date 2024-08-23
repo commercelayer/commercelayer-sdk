@@ -67,33 +67,63 @@ interface Organization extends Resource {
 	 */
 	gtm_id_test?: string | null
 	/** 
-	 * The maximum number of active concurrent promotions allowed for your organization.
-	 * @example ```"10"```
+	 * Indicates if the phone attribute is required for addresses, default is true.
+	 * @example ```"true"```
 	 */
-	max_concurrent_promotions?: number | null
+	addresses_phone_required?: boolean | null
 	/** 
-	 * The maximum number of concurrent imports allowed for your organization.
+	 * The maximum number of SKUs allowed for bundles, default is 10.
 	 * @example ```"10"```
 	 */
-	max_concurrent_imports?: number | null
+	bundles_max_items_count?: number | null
 	/** 
-	 * The maximum number of concurrent exports allowed for your organization.
-	 * @example ```"10"```
+	 * The minimum length for coupon code, default is 8.
+	 * @example ```"8"```
 	 */
-	max_concurrent_exports?: number | null
+	coupons_min_code_length?: number | null
 	/** 
-	 * The maximum number of concurrent cleanups allowed for your organization.
+	 * The maximum length for coupon code, default is 40.
+	 * @example ```"40"```
+	 */
+	coupons_max_code_length?: number | null
+	/** 
+	 * The maximum number of active concurrent promotions allowed for your organization, default is 10.
 	 * @example ```"10"```
 	 */
-	max_concurrent_cleanups?: number | null
+	promotions_max_concurrent_count?: number | null
+	/** 
+	 * The maximum number of concurrent imports allowed for your organization, default is 10.
+	 * @example ```"10"```
+	 */
+	imports_max_concurrent_count?: number | null
+	/** 
+	 * The maximum number of concurrent exports allowed for your organization, default is 10.
+	 * @example ```"10"```
+	 */
+	exports_max_concurrent_count?: number | null
+	/** 
+	 * The maximum number of concurrent cleanups allowed for your organization, default is 10.
+	 * @example ```"10"```
+	 */
+	cleanups_max_concurrent_count?: number | null
 	/** 
 	 * Enables orders number editing as a string in test (for enterprise plans only).
 	 */
-	order_number_editable_test?: boolean | null
+	orders_number_editable_test?: boolean | null
 	/** 
 	 * Enables orders number editing as a string in live (for enterprise plans only).
 	 */
-	order_number_editable_live?: boolean | null
+	orders_number_editable_live?: boolean | null
+	/** 
+	 * Enables raising of API errors in case of tax calculation failure, default is false.
+	 * @example ```"true"```
+	 */
+	tax_calculators_errors?: boolean | null
+	/** 
+	 * Enables raising of API errors in case of external promotion failure, default is false.
+	 * @example ```"true"```
+	 */
+	external_promotions_errors?: boolean | null
 	/** 
 	 * The organization's configuration.
 	 * @example ```"[object Object]"```

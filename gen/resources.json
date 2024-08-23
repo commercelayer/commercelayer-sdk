@@ -2164,6 +2164,14 @@
                     "sortable": false,
                     "parent_resource": "Api::AvalaraAccountResource",
                     "class_name": "TaxCategory"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::AvalaraAccountResource",
+                    "class_name": "Event"
                 }
             },
             "filters": [
@@ -2178,6 +2186,7 @@
                 "q",
                 "attachments_id",
                 "tax_categories_id",
+                "events_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -15729,6 +15738,17 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "shipping_cost_cutoff": {
+                    "type": "integer",
+                    "desc": "When specified indicates the maximum number of shipping line items with cost that will be added to an order.",
+                    "required": "optional, default is null",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "3"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -19976,10 +19996,21 @@
                     "sortable": false,
                     "example": "GTM-5FJXX7"
                 },
-                "max_concurrent_promotions": {
+                "addresses_phone_required": {
+                    "type": "boolean",
+                    "desc": "Indicates if the phone attribute is required for addresses, default is true.",
+                    "required": "optional, default is true",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "bundles_max_items_count": {
                     "type": "integer",
-                    "desc": "The maximum number of active concurrent promotions allowed for your organization.",
-                    "required": "optional, default to 10",
+                    "desc": "The maximum number of SKUs allowed for bundles, default is 10.",
+                    "required": "optional, default is 10",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -19987,10 +20018,32 @@
                     "sortable": false,
                     "example": "10"
                 },
-                "max_concurrent_imports": {
+                "coupons_min_code_length": {
                     "type": "integer",
-                    "desc": "The maximum number of concurrent imports allowed for your organization.",
-                    "required": "optional, default to 10",
+                    "desc": "The minimum length for coupon code, default is 8.",
+                    "required": "optional, default is 8",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "8"
+                },
+                "coupons_max_code_length": {
+                    "type": "integer",
+                    "desc": "The maximum length for coupon code, default is 40.",
+                    "required": "optional, default is 40",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "40"
+                },
+                "promotions_max_concurrent_count": {
+                    "type": "integer",
+                    "desc": "The maximum number of active concurrent promotions allowed for your organization, default is 10.",
+                    "required": "optional, default is 10",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -19998,10 +20051,10 @@
                     "sortable": false,
                     "example": "10"
                 },
-                "max_concurrent_exports": {
+                "imports_max_concurrent_count": {
                     "type": "integer",
-                    "desc": "The maximum number of concurrent exports allowed for your organization.",
-                    "required": "optional, default to 10",
+                    "desc": "The maximum number of concurrent imports allowed for your organization, default is 10.",
+                    "required": "optional, default is 10",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -20009,10 +20062,10 @@
                     "sortable": false,
                     "example": "10"
                 },
-                "max_concurrent_cleanups": {
+                "exports_max_concurrent_count": {
                     "type": "integer",
-                    "desc": "The maximum number of concurrent cleanups allowed for your organization.",
-                    "required": "optional, default to 10",
+                    "desc": "The maximum number of concurrent exports allowed for your organization, default is 10.",
+                    "required": "optional, default is 10",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -20020,7 +20073,18 @@
                     "sortable": false,
                     "example": "10"
                 },
-                "order_number_editable_test": {
+                "cleanups_max_concurrent_count": {
+                    "type": "integer",
+                    "desc": "The maximum number of concurrent cleanups allowed for your organization, default is 10.",
+                    "required": "optional, default is 10",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "10"
+                },
+                "orders_number_editable_test": {
                     "type": "boolean",
                     "desc": "Enables orders number editing as a string in test (for enterprise plans only).",
                     "creatable": true,
@@ -20030,7 +20094,7 @@
                     "sortable": false,
                     "example": "false"
                 },
-                "order_number_editable_live": {
+                "orders_number_editable_live": {
                     "type": "boolean",
                     "desc": "Enables orders number editing as a string in live (for enterprise plans only).",
                     "creatable": true,
@@ -20039,6 +20103,28 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "false"
+                },
+                "tax_calculators_errors": {
+                    "type": "boolean",
+                    "desc": "Enables raising of API errors in case of tax calculation failure, default is false.",
+                    "required": "optional, default is false",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "external_promotions_errors": {
+                    "type": "boolean",
+                    "desc": "Enables raising of API errors in case of external promotion failure, default is false.",
+                    "required": "optional, default is false",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "config": {
                     "type": "object",

@@ -81,6 +81,11 @@ interface Market extends Resource {
 	 */
 	private?: boolean | null
 	/** 
+	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
+	 * @example ```"3"```
+	 */
+	shipping_cost_cutoff?: number | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -138,6 +143,11 @@ interface MarketCreate extends ResourceCreate {
 	 */
 	external_order_validation_url?: string | null
 	/** 
+	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
+	 * @example ```"3"```
+	 */
+	shipping_cost_cutoff?: number | null
+	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
@@ -191,6 +201,11 @@ interface MarketUpdate extends ResourceUpdate {
 	 * @example ```"https://external_validation.yourbrand.com"```
 	 */
 	external_order_validation_url?: string | null
+	/** 
+	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
+	 * @example ```"3"```
+	 */
+	shipping_cost_cutoff?: number | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
