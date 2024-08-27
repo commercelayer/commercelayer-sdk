@@ -1,7 +1,7 @@
 
-import { CommerceLayerClient, Customer } from '../src'
+import { CommerceLayerClient, Customer, QueryParamsList } from '../src'
 import { sleep, sortObjectFields } from '../src/util'
-import { getClient, TestData } from '../test/common'
+import { checkParam, getClient, handleError, interceptRequest, TestData } from '../test/common'
 import { isResourceType } from '../src/common'
 import { ObjectType } from '../src/types'
 
@@ -67,5 +67,22 @@ describe('SDK suite', () => {
 		expect(isResourceType(customer)).toBeTruthy()
 
 	})
+
+
+	it('loadBalancer.optimization', async () => {
+
+		const cl = await getClient()
+
+    cl.addRequestInterceptor((request) => {
+			const url = new URL(request.url)
+			checkParam(url, 'page[number]', 1)
+      return interceptRequest()
+    })
+
+    await cl.customers.list({})
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+    
+  })
 
 })

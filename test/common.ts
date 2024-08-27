@@ -198,4 +198,4 @@ const checkCommonParams = (request: RequestObj, params: QueryParamsRetrieve) => 
 }
 
 
-export { checkCommon, checkCommonData, checkCommonParams, checkCommonParamsList }
+export { checkCommon, checkCommonData, checkCommonParams, checkCommonParamsList, checkParam }

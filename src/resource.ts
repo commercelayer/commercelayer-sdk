@@ -180,6 +180,9 @@ class ResourceAdapter {
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
+		// Load balancer performance optimization
+		if (!queryParams['page[number]']) queryParams['page[number]'] = '1'
+
 		const res = await this.#client.request('GET', `${resource.type}`, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res as DocWithData) as R[]
 
