@@ -1,3 +1,10 @@
+## [6.14.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.14.0...v6.14.1) (2024-08-27)
+
+
+### Bug Fixes
+
+* performance optimization ([4914bf4](https://github.com/commercelayer/commercelayer-sdk/commit/4914bf46ae0d28d8b18ff1b7c50abeeaa58048b2))
+
 # [6.14.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.13.0...v6.14.0) (2024-08-23)
 
 
