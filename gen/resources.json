@@ -3797,7 +3797,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "currency_code": {
@@ -5944,7 +5945,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "versions": {
@@ -6598,7 +6600,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "versions": {
@@ -9027,7 +9030,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "currency_code": {
@@ -9768,7 +9772,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "currency_code": {
@@ -10240,7 +10245,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "currency_code": {
@@ -10660,6 +10666,373 @@
         }
     },
     {
+        "id": "flex_promotion",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "actions": [
+                "list",
+                "retrieve",
+                "create",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [
+                "active",
+                "expired",
+                "with_status"
+            ],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The promotion's internal name.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "Personal promotion"
+                },
+                "type": {
+                    "type": "string",
+                    "desc": "The promotion's type.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "percentage_discount_promotions",
+                    "enum": [
+                        "percentage_discount_promotions",
+                        "free_shipping_promotions",
+                        "buy_x_pay_y_promotions",
+                        "free_gift_promotions",
+                        "fixed_price_promotions",
+                        "external_promotions",
+                        "fixed_amount_promotions",
+                        "flex_promotions"
+                    ]
+                },
+                "exclusive": {
+                    "type": "boolean",
+                    "desc": "Indicates if the promotion will be applied exclusively, based on its priority score.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": true,
+                    "example": "true"
+                },
+                "priority": {
+                    "type": "integer",
+                    "desc": "The priority assigned to the promotion (lower means higher priority).",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2"
+                },
+                "starts_at": {
+                    "type": "datetime",
+                    "desc": "The activation date/time of this promotion.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "expires_at": {
+                    "type": "datetime",
+                    "desc": "The expiration date/time of this promotion (must be after starts_at).",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-02T12:00:00.000Z"
+                },
+                "total_usage_limit": {
+                    "type": "integer",
+                    "desc": "The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "5"
+                },
+                "total_usage_count": {
+                    "type": "integer",
+                    "desc": "The number of times this promotion has been applied.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2"
+                },
+                "active": {
+                    "type": "boolean",
+                    "desc": "Indicates if the promotion is active (enabled and not expired).",
+                    "delegate": "active?",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "status": {
+                    "type": "string",
+                    "desc": "The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pending",
+                    "enum": [
+                        "disabled",
+                        "expired",
+                        "pending",
+                        "active",
+                        "inactive"
+                    ]
+                },
+                "rules": {
+                    "type": "json",
+                    "desc": "The discount rule to be applied.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}"
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "rule_outcomes": {
+                    "type": "json",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                }
+            },
+            "relationships": {
+                "coupon_codes_promotion_rule": {
+                    "type": "has_one",
+                    "desc": "The associated coupon codes promotion rule.",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::PromotionResource",
+                    "class_name": "CouponCodesPromotionRule"
+                },
+                "coupons": {
+                    "type": "has_many",
+                    "desc": "The associated coupons through coupon codes promotion rule.",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::PromotionResource",
+                    "class_name": "Coupon"
+                },
+                "attachments": {
+                    "type": "has_many",
+                    "desc": "The associated attachments.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::FlexPromotionResource",
+                    "class_name": "Attachment"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::FlexPromotionResource",
+                    "class_name": "Event"
+                },
+                "tags": {
+                    "type": "has_many",
+                    "desc": "The associated tags.",
+                    "creatable": true,
+                    "fetchable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::FlexPromotionResource",
+                    "class_name": "Tag"
+                },
+                "versions": {
+                    "type": "has_many",
+                    "desc": "The associated changes.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "parent_resource": "Api::FlexPromotionResource",
+                    "class_name": "Version"
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "type",
+                "priority",
+                "starts_at",
+                "expires_at",
+                "total_usage_limit",
+                "total_usage_count",
+                "disabled_at",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "q",
+                "coupon_codes_promotion_rule_id",
+                "coupons_id",
+                "attachments_id",
+                "events_id",
+                "tags_id",
+                "ids",
+                "starts_at_from",
+                "starts_at_to",
+                "expires_at_from",
+                "expires_at_to",
+                "disabled_at_from",
+                "disabled_at_to",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to"
+            ]
+        }
+    },
+    {
         "id": "free_gift_promotion",
         "type": "resources",
         "attributes": {
@@ -10712,7 +11085,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "currency_code": {
@@ -11163,7 +11537,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "currency_code": {
@@ -14363,7 +14738,7 @@
                 },
                 "item_type": {
                     "type": "string",
-                    "desc": "The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', or 'fixed_amount_promotions'.",
+                    "desc": "The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.",
                     "delegate": "item_resource_type",
                     "creatable": true,
                     "updatable": false,
@@ -14384,7 +14759,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "frequency": {
@@ -14526,7 +14902,7 @@
                 },
                 "item": {
                     "type": "has_one",
-                    "desc": "The polymorphic item associated to the line item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', or 'fixed_amount_promotions'.",
+                    "desc": "The polymorphic item associated to the line item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.",
                     "required": "optional",
                     "creatable": true,
                     "updatable": false,
@@ -14549,7 +14925,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "sku": {
@@ -18418,7 +18795,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "versions": {
@@ -22346,7 +22724,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "currency_code": {
@@ -22813,6 +23192,28 @@
                     "monetizable": true,
                     "example": "€100,00"
                 },
+                "original_amount_cents": {
+                    "type": "integer",
+                    "desc": "The SKU price amount for the associated price list, in cents before any applied rule.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "monetizable": true,
+                    "example": "10000"
+                },
+                "formatted_original_amount": {
+                    "type": "string",
+                    "desc": "The SKU price amount for the associated price list, in cents before any applied rule, formatted.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "monetizable": true,
+                    "example": "€100,00"
+                },
                 "compare_at_amount_cents": {
                     "type": "integer",
                     "desc": "The compared price amount, in cents. Useful to display a percentage discount.",
@@ -22901,6 +23302,28 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "rules": {
+                    "type": "json",
+                    "desc": "The rules (using Rules Engine) to be applied.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": "{}"
+                },
+                "rule_outcomes": {
+                    "type": "json",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}"
                 },
                 "metadata": {
                     "type": "object",
@@ -23019,6 +23442,7 @@
                 "updated_at",
                 "reference",
                 "reference_origin",
+                "rules",
                 "metadata",
                 "q",
                 "price_list_id",
@@ -23370,6 +23794,28 @@
                     "sortable": true,
                     "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                 },
+                "rules": {
+                    "type": "json",
+                    "desc": "The rules (using Rules Engine) to be applied.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": "{}"
+                },
+                "rule_outcomes": {
+                    "type": "json",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}"
+                },
                 "metadata": {
                     "type": "object",
                     "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
@@ -23431,6 +23877,7 @@
                 "updated_at",
                 "reference",
                 "reference_origin",
+                "rules",
                 "metadata",
                 "q",
                 "prices_id",
@@ -24173,7 +24620,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "currency_code": {
@@ -24671,7 +25119,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "versions": {
@@ -25582,7 +26031,11 @@
                     "polymorphic": true,
                     "eager_load_on_include": false,
                     "parent_resource": "Api::ResourceErrorResource",
-                    "class_name": "Resource"
+                    "class_name": "Resource",
+                    "enum": [
+                        "orders",
+                        "returns"
+                    ]
                 }
             },
             "filters": [
@@ -29467,6 +29920,30 @@
                     "sortable": false,
                     "parent_resource": "Api::SkuResource",
                     "class_name": "Version"
+                },
+                "jwt_customer": {
+                    "type": "has_one",
+                    "desc": "The customer associated to the JWT.",
+                    "class_name": "Customer",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "parent_resource": "Api::SkuResource"
+                },
+                "jwt_markets": {
+                    "type": "has_many",
+                    "desc": "The markets associated to the JWT.",
+                    "class_name": "Market",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "parent_resource": "Api::SkuResource"
+                },
+                "jwt_stock_locations": {
+                    "type": "has_many",
+                    "desc": "The stock locations associated to the JWT.",
+                    "class_name": "StockLocation",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "parent_resource": "Api::SkuResource"
                 }
             },
             "filters": [
@@ -30065,7 +30542,8 @@
                         "free_gift_promotions",
                         "fixed_price_promotions",
                         "external_promotions",
-                        "fixed_amount_promotions"
+                        "fixed_amount_promotions",
+                        "flex_promotions"
                     ]
                 },
                 "versions": {
@@ -32425,8 +32903,6 @@
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
-                    "filterable": true,
-                    "sortable": false,
                     "parent_resource": "Api::SubscriptionModelResource",
                     "class_name": "Attachment"
                 }
@@ -32443,7 +32919,6 @@
                 "reference_origin",
                 "metadata",
                 "q",
-                "attachments_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",

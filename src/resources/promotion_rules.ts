@@ -10,6 +10,7 @@ import type { FreeGiftPromotion } from './free_gift_promotions'
 import type { FixedPricePromotion } from './fixed_price_promotions'
 import type { ExternalPromotion } from './external_promotions'
 import type { FixedAmountPromotion } from './fixed_amount_promotions'
+import type { FlexPromotion } from './flex_promotions'
 
 
 type PromotionRuleType = 'promotion_rules'
@@ -25,7 +26,7 @@ interface PromotionRule extends Resource {
 	readonly type: PromotionRuleType
 
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
 	versions?: Version[] | null
 
 }

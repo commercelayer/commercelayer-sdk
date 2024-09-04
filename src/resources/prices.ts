@@ -22,7 +22,7 @@ type PriceTierRel = ResourceRel & { type: PriceTierType }
 
 
 export type PriceSort = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceSort
-// export type PriceFilter = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceFilter
+// export type PriceFilter = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents' | 'rules'> & ResourceFilter
 
 
 interface Price extends Resource {
@@ -55,6 +55,16 @@ interface Price extends Resource {
 	 */
 	formatted_amount?: string | null
 	/** 
+	 * The SKU price amount for the associated price list, in cents before any applied rule.
+	 * @example ```"10000"```
+	 */
+	original_amount_cents?: number | null
+	/** 
+	 * The SKU price amount for the associated price list, in cents before any applied rule, formatted.
+	 * @example ```"€100,00"```
+	 */
+	formatted_original_amount?: string | null
+	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount.
 	 * @example ```"13000"```
 	 */
@@ -69,6 +79,16 @@ interface Price extends Resource {
 	 * @example ```"€130,00"```
 	 */
 	formatted_compare_at_amount?: string | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```"{}"```
+	 */
+	rules?: object | null
+	/** 
+	 * The rule outcomes.
+	 * @example ```"{}"```
+	 */
+	rule_outcomes?: object | null
 
 	price_list?: PriceList | null
 	sku?: Sku | null
@@ -101,6 +121,11 @@ interface PriceCreate extends ResourceCreate {
 	 * @example ```"13000"```
 	 */
 	compare_at_amount_cents?: number | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```"{}"```
+	 */
+	rules?: object | null
 
 	price_list: PriceListRel
 	sku: SkuRel
@@ -126,6 +151,11 @@ interface PriceUpdate extends ResourceUpdate {
 	 * @example ```"13000"```
 	 */
 	compare_at_amount_cents?: number | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```"{}"```
+	 */
+	rules?: object | null
 
 	price_list?: PriceListRel | null
 	sku?: SkuRel | null

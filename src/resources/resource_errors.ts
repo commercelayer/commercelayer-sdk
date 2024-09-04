@@ -2,6 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
 
+import type { Order } from './orders'
+import type { Return } from './returns'
 
 
 type ResourceErrorType = 'resource_errors'
@@ -32,7 +34,7 @@ interface ResourceError extends Resource {
 	 */
 	message: string
 
-	resource?: Resource | null
+	resource?: Order | Return | null
 
 }
 

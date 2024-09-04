@@ -13,6 +13,9 @@ import type { Link } from './links'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { Customer } from './customers'
+import type { Market } from './markets'
+import type { StockLocation } from './stock_locations'
 
 
 type SkuType = 'skus'
@@ -94,6 +97,9 @@ interface Sku extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	jwt_customer?: Customer | null
+	jwt_markets?: Market[] | null
+	jwt_stock_locations?: StockLocation[] | null
 
 }
 
@@ -281,6 +287,21 @@ class Skus extends ApiResource<Sku> {
 	async versions(skuId: string | Sku, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `skus/${_skuId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async jwt_customer(skuId: string | Sku, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<Customer>({ type: 'customers' }, `skus/${_skuId}/jwt_customer`, params, options) as unknown as Customer
+	}
+
+	async jwt_markets(skuId: string | Sku, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `skus/${_skuId}/jwt_markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async jwt_stock_locations(skuId: string | Sku, params?: QueryParamsList<StockLocation>, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `skus/${_skuId}/jwt_stock_locations`, params, options) as unknown as ListResponse<StockLocation>
 	}
 
 

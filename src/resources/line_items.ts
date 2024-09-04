@@ -23,6 +23,7 @@ import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promo
 import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
 import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
 import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
+import type { FlexPromotion, FlexPromotionType } from './flex_promotions'
 
 
 type LineItemType = 'line_items'
@@ -41,6 +42,7 @@ type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
 type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
 type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
+type FlexPromotionRel = ResourceRel & { type: FlexPromotionType }
 type TagRel = ResourceRel & { type: TagType }
 
 
@@ -193,10 +195,10 @@ interface LineItem extends Resource {
 	 */
 	tax_breakdown?: Record<string, any> | null
 	/** 
-	 * The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', or 'fixed_amount_promotions'.
+	 * The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.
 	 * @example ```"skus"```
 	 */
-	item_type?: 'skus' | 'bundles' | 'gift_cards' | 'shipments' | 'payment_methods' | 'adjustments' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'buy_x_pay_y_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
+	item_type?: 'skus' | 'bundles' | 'gift_cards' | 'shipments' | 'payment_methods' | 'adjustments' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'buy_x_pay_y_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | 'flex_promotions' | null
 	/** 
 	 * The frequency which generates a subscription. Must be supported by existing associated subscription_model.
 	 * @example ```"monthly"```
@@ -219,7 +221,7 @@ interface LineItem extends Resource {
 	circuit_failure_count?: number | null
 
 	order?: Order | null
-	item?: Sku | Bundle | GiftCard | Shipment | PaymentMethod | Adjustment | PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
+	item?: Sku | Bundle | GiftCard | Shipment | PaymentMethod | Adjustment | PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
 	sku?: Sku | null
 	bundle?: Bundle | null
 	adjustment?: Adjustment | null
@@ -290,10 +292,10 @@ interface LineItemCreate extends ResourceCreate {
 	 */
 	image_url?: string | null
 	/** 
-	 * The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', or 'fixed_amount_promotions'.
+	 * The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.
 	 * @example ```"skus"```
 	 */
-	item_type?: 'skus' | 'bundles' | 'gift_cards' | 'shipments' | 'payment_methods' | 'adjustments' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'buy_x_pay_y_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | null
+	item_type?: 'skus' | 'bundles' | 'gift_cards' | 'shipments' | 'payment_methods' | 'adjustments' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'buy_x_pay_y_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | 'flex_promotions' | null
 	/** 
 	 * The frequency which generates a subscription. Must be supported by existing associated subscription_model.
 	 * @example ```"monthly"```
@@ -301,7 +303,7 @@ interface LineItemCreate extends ResourceCreate {
 	frequency?: string | null
 
 	order: OrderRel
-	item?: SkuRel | BundleRel | GiftCardRel | ShipmentRel | PaymentMethodRel | AdjustmentRel | PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
+	item?: SkuRel | BundleRel | GiftCardRel | ShipmentRel | PaymentMethodRel | AdjustmentRel | PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | FlexPromotionRel | null
 	tags?: TagRel[] | null
 
 }

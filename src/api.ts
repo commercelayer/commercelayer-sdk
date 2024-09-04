@@ -49,6 +49,7 @@ export { default as ExternalPromotions } from './resources/external_promotions'
 export { default as ExternalTaxCalculators } from './resources/external_tax_calculators'
 export { default as FixedAmountPromotions } from './resources/fixed_amount_promotions'
 export { default as FixedPricePromotions } from './resources/fixed_price_promotions'
+export { default as FlexPromotions } from './resources/flex_promotions'
 export { default as FreeGiftPromotions } from './resources/free_gift_promotions'
 export { default as FreeShippingPromotions } from './resources/free_shipping_promotions'
 export { default as Geocoders } from './resources/geocoders'
@@ -176,6 +177,7 @@ export type ResourceTypeLock =
 |	'external_tax_calculators'
 |	'fixed_amount_promotions'
 |	'fixed_price_promotions'
+|	'flex_promotions'
 |	'free_gift_promotions'
 |	'free_shipping_promotions'
 |	'geocoders'
@@ -303,6 +305,7 @@ export const resourceList = [
 	'external_tax_calculators',
 	'fixed_amount_promotions',
 	'fixed_price_promotions',
+	'flex_promotions',
 	'free_gift_promotions',
 	'free_shipping_promotions',
 	'geocoders',
@@ -471,6 +474,7 @@ export type CreatableResourceType =
 |	'external_tax_calculators'
 |	'fixed_amount_promotions'
 |	'fixed_price_promotions'
+|	'flex_promotions'
 |	'free_gift_promotions'
 |	'free_shipping_promotions'
 |	'gift_card_recipients'
@@ -584,6 +588,7 @@ export type UpdatableResourceType =
 |	'external_tax_calculators'
 |	'fixed_amount_promotions'
 |	'fixed_price_promotions'
+|	'flex_promotions'
 |	'free_gift_promotions'
 |	'free_shipping_promotions'
 |	'gift_card_recipients'
@@ -695,6 +700,7 @@ export type DeletableResourceType =
 |	'external_tax_calculators'
 |	'fixed_amount_promotions'
 |	'fixed_price_promotions'
+|	'flex_promotions'
 |	'free_gift_promotions'
 |	'free_shipping_promotions'
 |	'gift_card_recipients'
@@ -779,6 +785,7 @@ export type TaggableResourceType =
 |	'external_promotions'
 |	'fixed_amount_promotions'
 |	'fixed_price_promotions'
+|	'flex_promotions'
 |	'free_gift_promotions'
 |	'free_shipping_promotions'
 |	'gift_cards'
@@ -836,6 +843,7 @@ export type VersionableResourceType =
 |	'external_tax_calculators'
 |	'fixed_amount_promotions'
 |	'fixed_price_promotions'
+|	'flex_promotions'
 |	'free_gift_promotions'
 |	'free_shipping_promotions'
 |	'gift_card_recipients'
@@ -951,6 +959,7 @@ export type ResourceFields = {
 	external_tax_calculators: models.ExternalTaxCalculator,
 	fixed_amount_promotions: models.FixedAmountPromotion,
 	fixed_price_promotions: models.FixedPricePromotion,
+	flex_promotions: models.FlexPromotion,
 	free_gift_promotions: models.FreeGiftPromotion,
 	free_shipping_promotions: models.FreeShippingPromotion,
 	geocoders: models.Geocoder,
@@ -1079,6 +1088,7 @@ export type ResourceSortFields = {
 	external_tax_calculators: models.ExternalTaxCalculatorSort,
 	fixed_amount_promotions: models.FixedAmountPromotionSort,
 	fixed_price_promotions: models.FixedPricePromotionSort,
+	flex_promotions: models.FlexPromotionSort,
 	free_gift_promotions: models.FreeGiftPromotionSort,
 	free_shipping_promotions: models.FreeShippingPromotionSort,
 	geocoders: models.GeocoderSort,

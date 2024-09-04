@@ -13,7 +13,7 @@ type PriceListRel = ResourceRel & { type: PriceListType }
 
 
 export type PriceListSort = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included'> & ResourceSort
-// export type PriceListFilter = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included'> & ResourceFilter
+// export type PriceListFilter = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included' | 'rules'> & ResourceFilter
 
 
 interface PriceList extends Resource {
@@ -40,6 +40,16 @@ interface PriceList extends Resource {
 	 * @example ```"true"```
 	 */
 	tax_included?: boolean | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```"{}"```
+	 */
+	rules?: object | null
+	/** 
+	 * The rule outcomes.
+	 * @example ```"{}"```
+	 */
+	rule_outcomes?: object | null
 
 	prices?: Price[] | null
 	price_list_schedulers?: PriceListScheduler[] | null
@@ -71,6 +81,11 @@ interface PriceListCreate extends ResourceCreate {
 	 * @example ```"true"```
 	 */
 	tax_included?: boolean | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```"{}"```
+	 */
+	rules?: object | null
 	
 }
 
@@ -97,6 +112,11 @@ interface PriceListUpdate extends ResourceUpdate {
 	 * @example ```"true"```
 	 */
 	tax_included?: boolean | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```"{}"```
+	 */
+	rules?: object | null
 	
 }
 

@@ -799,6 +799,7 @@ const fixAttributeType = (attr: Attribute): string => {
 			case 'integer': return 'number'
 			case 'object': return 'Record<string, any>'
 			case 'object[]': return 'Array<Record<string, any>>'
+			case 'json': return 'object'
 			default: return attr.type
 		}
 }

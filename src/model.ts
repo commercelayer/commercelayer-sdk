@@ -45,6 +45,7 @@ export type { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionUpdat
 export type { ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorUpdate, ExternalTaxCalculatorSort } from './resources/external_tax_calculators'
 export type { FixedAmountPromotion, FixedAmountPromotionCreate, FixedAmountPromotionUpdate, FixedAmountPromotionSort } from './resources/fixed_amount_promotions'
 export type { FixedPricePromotion, FixedPricePromotionCreate, FixedPricePromotionUpdate, FixedPricePromotionSort } from './resources/fixed_price_promotions'
+export type { FlexPromotion, FlexPromotionCreate, FlexPromotionUpdate, FlexPromotionSort } from './resources/flex_promotions'
 export type { FreeGiftPromotion, FreeGiftPromotionCreate, FreeGiftPromotionUpdate, FreeGiftPromotionSort } from './resources/free_gift_promotions'
 export type { FreeShippingPromotion, FreeShippingPromotionCreate, FreeShippingPromotionUpdate, FreeShippingPromotionSort } from './resources/free_shipping_promotions'
 export type { Geocoder, GeocoderSort } from './resources/geocoders'
