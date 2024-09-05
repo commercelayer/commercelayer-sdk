@@ -9,8 +9,8 @@ type ExportType = 'exports'
 type ExportRel = ResourceRel & { type: ExportType }
 
 
-export type ExportSort = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceSort
-// export type ExportFilter = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceFilter
+export type ExportSort = Pick<Export, 'id' | 'attachment_url' | 'completed_at' | 'format' | 'interrupted_at' | 'records_count' | 'resource_type' | 'started_at' | 'status'> & ResourceSort
+// export type ExportFilter = Pick<Export, 'id' | 'attachment_url' | 'completed_at' | 'format' | 'interrupted_at' | 'records_count' | 'resource_type' | 'started_at' | 'status'> & ResourceFilter
 
 
 interface Export extends Resource {
@@ -18,44 +18,34 @@ interface Export extends Resource {
 	readonly type: ExportType
 
 	/** 
-	 * The type of resource being exported.
-	 * @example ```"skus"```
+	 * The URL to the output file, which will be generated upon export completion.
+	 * @example ```"http://cl_exports.s3.amazonaws.com/"```
 	 */
-	resource_type: string
+	attachment_url?: string | null
 	/** 
-	 * The format of the export one of 'json' (default) or 'csv'.
-	 * @example ```"json"```
+	 * Time at which the export was completed.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
-	format?: string | null
+	completed_at?: string | null
 	/** 
-	 * The export job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.
-	 * @example ```"in_progress"```
+	 * Send this attribute if you want to skip exporting redundant attributes (IDs, timestamps, blanks, etc.), useful when combining export and import to duplicate your dataset.
 	 */
-	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
-	/** 
-	 * List of related resources that should be included in the export.
-	 * @example ```"prices.price_tiers"```
-	 */
-	includes?: string[] | null
+	dry_data?: boolean | null
 	/** 
 	 * The filters used to select the records to be exported.
 	 * @example ```"[object Object]"```
 	 */
 	filters?: Record<string, any> | null
 	/** 
-	 * Send this attribute if you want to skip exporting redundant attributes (IDs, timestamps, blanks, etc.), useful when combining export and import to duplicate your dataset.
+	 * The format of the export one of 'json' (default) or 'csv'.
+	 * @example ```"json"```
 	 */
-	dry_data?: boolean | null
+	format?: string | null
 	/** 
-	 * Time at which the export was started.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 * List of related resources that should be included in the export.
+	 * @example ```"prices.price_tiers"```
 	 */
-	started_at?: string | null
-	/** 
-	 * Time at which the export was completed.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	completed_at?: string | null
+	includes?: string[] | null
 	/** 
 	 * Time at which the export was interrupted.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
@@ -67,10 +57,20 @@ interface Export extends Resource {
 	 */
 	records_count?: number | null
 	/** 
-	 * The URL to the output file, which will be generated upon export completion.
-	 * @example ```"http://cl_exports.s3.amazonaws.com/"```
+	 * The type of resource being exported.
+	 * @example ```"skus"```
 	 */
-	attachment_url?: string | null
+	resource_type: string
+	/** 
+	 * Time at which the export was started.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	started_at?: string | null
+	/** 
+	 * The export job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.
+	 * @example ```"in_progress"```
+	 */
+	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
 
 	events?: Event[] | null
 
@@ -80,10 +80,14 @@ interface Export extends Resource {
 interface ExportCreate extends ResourceCreate {
 	
 	/** 
-	 * The type of resource being exported.
-	 * @example ```"skus"```
+	 * Send this attribute if you want to skip exporting redundant attributes (IDs, timestamps, blanks, etc.), useful when combining export and import to duplicate your dataset.
 	 */
-	resource_type: string
+	dry_data?: boolean | null
+	/** 
+	 * The filters used to select the records to be exported.
+	 * @example ```"[object Object]"```
+	 */
+	filters?: Record<string, any> | null
 	/** 
 	 * The format of the export one of 'json' (default) or 'csv'.
 	 * @example ```"json"```
@@ -95,14 +99,10 @@ interface ExportCreate extends ResourceCreate {
 	 */
 	includes?: string[] | null
 	/** 
-	 * The filters used to select the records to be exported.
-	 * @example ```"[object Object]"```
+	 * The type of resource being exported.
+	 * @example ```"skus"```
 	 */
-	filters?: Record<string, any> | null
-	/** 
-	 * Send this attribute if you want to skip exporting redundant attributes (IDs, timestamps, blanks, etc.), useful when combining export and import to duplicate your dataset.
-	 */
-	dry_data?: boolean | null
+	resource_type: string
 	
 }
 

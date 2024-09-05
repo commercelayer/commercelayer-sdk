@@ -2,25 +2,25 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Sku, SkuType } from './skus'
-import type { StockLocation, StockLocationType } from './stock_locations'
-import type { Shipment, ShipmentType } from './shipments'
-import type { LineItem, LineItemType } from './line_items'
 import type { Attachment } from './attachments'
+import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Event } from './events'
+import type { LineItem, LineItemType } from './line_items'
+import type { Shipment, ShipmentType } from './shipments'
+import type { Sku, SkuType } from './skus'
 import type { Version } from './versions'
 
 
 type StockTransferType = 'stock_transfers'
 type StockTransferRel = ResourceRel & { type: StockTransferType }
-type SkuRel = ResourceRel & { type: SkuType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
-type ShipmentRel = ResourceRel & { type: ShipmentType }
 type LineItemRel = ResourceRel & { type: LineItemType }
+type ShipmentRel = ResourceRel & { type: ShipmentType }
+type SkuRel = ResourceRel & { type: SkuType }
 
 
-export type StockTransferSort = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'completed_at' | 'cancelled_at'> & ResourceSort
-// export type StockTransferFilter = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'completed_at' | 'cancelled_at'> & ResourceFilter
+export type StockTransferSort = Pick<StockTransfer, 'id' | 'cancelled_at' | 'completed_at' | 'number' | 'quantity' | 'status'> & ResourceSort
+// export type StockTransferFilter = Pick<StockTransfer, 'id' | 'cancelled_at' | 'completed_at' | 'number' | 'quantity' | 'status'> & ResourceFilter
 
 
 interface StockTransfer extends Resource {
@@ -28,10 +28,25 @@ interface StockTransfer extends Resource {
 	readonly type: StockTransferType
 
 	/** 
+	 * Time at which the stock transfer was cancelled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	cancelled_at?: string | null
+	/** 
+	 * Time at which the stock transfer was completed.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	completed_at?: string | null
+	/** 
 	 * Unique identifier for the stock transfer (numeric).
 	 * @example ```"1234"```
 	 */
 	number?: string | null
+	/** 
+	 * The stock quantity to be transferred from the origin stock location to destination one.
+	 * @example ```"2"```
+	 */
+	quantity: number
 	/** 
 	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
@@ -42,29 +57,14 @@ interface StockTransfer extends Resource {
 	 * @example ```"draft"```
 	 */
 	status: 'draft' | 'upcoming' | 'on_hold' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
-	/** 
-	 * The stock quantity to be transferred from the origin stock location to destination one.
-	 * @example ```"2"```
-	 */
-	quantity: number
-	/** 
-	 * Time at which the stock transfer was completed.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	completed_at?: string | null
-	/** 
-	 * Time at which the stock transfer was cancelled.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	cancelled_at?: string | null
 
-	sku?: Sku | null
-	origin_stock_location?: StockLocation | null
-	destination_stock_location?: StockLocation | null
-	shipment?: Shipment | null
-	line_item?: LineItem | null
 	attachments?: Attachment[] | null
+	destination_stock_location?: StockLocation | null
 	events?: Event[] | null
+	line_item?: LineItem | null
+	origin_stock_location?: StockLocation | null
+	shipment?: Shipment | null
+	sku?: Sku | null
 	versions?: Version[] | null
 
 }
@@ -78,21 +78,21 @@ interface StockTransferCreate extends ResourceCreate {
 	 */
 	number?: string | null
 	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
-	 */
-	sku_code?: string | null
-	/** 
 	 * The stock quantity to be transferred from the origin stock location to destination one.
 	 * @example ```"2"```
 	 */
 	quantity: number
+	/** 
+	 * The code of the associated SKU.
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
+	sku_code?: string | null
 
-	sku: SkuRel
-	origin_stock_location: StockLocationRel
 	destination_stock_location: StockLocationRel
-	shipment?: ShipmentRel | null
 	line_item?: LineItemRel | null
+	origin_stock_location: StockLocationRel
+	shipment?: ShipmentRel | null
+	sku: SkuRel
 
 }
 
@@ -100,20 +100,20 @@ interface StockTransferCreate extends ResourceCreate {
 interface StockTransferUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Unique identifier for the stock transfer (numeric).
-	 * @example ```"1234"```
-	 */
-	number?: string | null
-	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
-	 */
-	sku_code?: string | null
-	/** 
-	 * Send this attribute if you want to mark this stock transfer as upcoming.
+	 * Send this attribute if you want to cancel this stock transfer.
 	 * @example ```"true"```
 	 */
-	_upcoming?: boolean | null
+	_cancel?: boolean | null
+	/** 
+	 * Send this attribute if you want to complete this stock transfer.
+	 * @example ```"true"```
+	 */
+	_complete?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this stock transfer as in transit.
+	 * @example ```"true"```
+	 */
+	_in_transit?: boolean | null
 	/** 
 	 * Send this attribute if you want to put this stock transfer on hold.
 	 * @example ```"true"```
@@ -125,26 +125,26 @@ interface StockTransferUpdate extends ResourceUpdate {
 	 */
 	_picking?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this stock transfer as in transit.
+	 * Send this attribute if you want to mark this stock transfer as upcoming.
 	 * @example ```"true"```
 	 */
-	_in_transit?: boolean | null
+	_upcoming?: boolean | null
 	/** 
-	 * Send this attribute if you want to complete this stock transfer.
-	 * @example ```"true"```
+	 * Unique identifier for the stock transfer (numeric).
+	 * @example ```"1234"```
 	 */
-	_complete?: boolean | null
+	number?: string | null
 	/** 
-	 * Send this attribute if you want to cancel this stock transfer.
-	 * @example ```"true"```
+	 * The code of the associated SKU.
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
-	_cancel?: boolean | null
+	sku_code?: string | null
 
-	sku?: SkuRel | null
-	origin_stock_location?: StockLocationRel | null
 	destination_stock_location?: StockLocationRel | null
-	shipment?: ShipmentRel | null
 	line_item?: LineItemRel | null
+	origin_stock_location?: StockLocationRel | null
+	shipment?: ShipmentRel | null
+	sku?: SkuRel | null
 
 }
 
@@ -165,14 +165,9 @@ class StockTransfers extends ApiResource<StockTransfer> {
 		await this.resources.delete((typeof id === 'string')? { id, type: StockTransfers.TYPE } : id, options)
 	}
 
-	async sku(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
+	async attachments(stockTransferId: string | StockTransfer, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_transfers/${_stockTransferId}/sku`, params, options) as unknown as Sku
-	}
-
-	async origin_stock_location(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
-		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_transfers/${_stockTransferId}/origin_stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_transfers/${_stockTransferId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async destination_stock_location(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
@@ -180,9 +175,9 @@ class StockTransfers extends ApiResource<StockTransfer> {
 		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_transfers/${_stockTransferId}/destination_stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async shipment(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
+	async events(stockTransferId: string | StockTransfer, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
-		return this.resources.fetch<Shipment>({ type: 'shipments' }, `stock_transfers/${_stockTransferId}/shipment`, params, options) as unknown as Shipment
+		return this.resources.fetch<Event>({ type: 'events' }, `stock_transfers/${_stockTransferId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async line_item(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
@@ -190,14 +185,19 @@ class StockTransfers extends ApiResource<StockTransfer> {
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_transfers/${_stockTransferId}/line_item`, params, options) as unknown as LineItem
 	}
 
-	async attachments(stockTransferId: string | StockTransfer, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async origin_stock_location(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
 		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_transfers/${_stockTransferId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_transfers/${_stockTransferId}/origin_stock_location`, params, options) as unknown as StockLocation
 	}
 
-	async events(stockTransferId: string | StockTransfer, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+	async shipment(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
 		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `stock_transfers/${_stockTransferId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Shipment>({ type: 'shipments' }, `stock_transfers/${_stockTransferId}/shipment`, params, options) as unknown as Shipment
+	}
+
+	async sku(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_transfers/${_stockTransferId}/sku`, params, options) as unknown as Sku
 	}
 
 	async versions(stockTransferId: string | StockTransfer, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
@@ -205,8 +205,16 @@ class StockTransfers extends ApiResource<StockTransfer> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `stock_transfers/${_stockTransferId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async _upcoming(id: string | StockTransfer, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _upcoming: true }, params, options)
+	async _cancel(id: string | StockTransfer, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _cancel: true }, params, options)
+	}
+
+	async _complete(id: string | StockTransfer, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _complete: true }, params, options)
+	}
+
+	async _in_transit(id: string | StockTransfer, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _in_transit: true }, params, options)
 	}
 
 	async _on_hold(id: string | StockTransfer, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
@@ -217,16 +225,8 @@ class StockTransfers extends ApiResource<StockTransfer> {
 		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _picking: true }, params, options)
 	}
 
-	async _in_transit(id: string | StockTransfer, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _in_transit: true }, params, options)
-	}
-
-	async _complete(id: string | StockTransfer, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _complete: true }, params, options)
-	}
-
-	async _cancel(id: string | StockTransfer, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
-		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _cancel: true }, params, options)
+	async _upcoming(id: string | StockTransfer, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
+		return this.resources.update<StockTransferUpdate, StockTransfer>({ id: (typeof id === 'string')? id: id.id, type: StockTransfers.TYPE, _upcoming: true }, params, options)
 	}
 
 

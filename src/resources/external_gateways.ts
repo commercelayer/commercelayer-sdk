@@ -2,17 +2,17 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { ExternalPayment } from './external_payments'
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
-import type { ExternalPayment } from './external_payments'
 
 
 type ExternalGatewayType = 'external_gateways'
 type ExternalGatewayRel = ResourceRel & { type: ExternalGatewayType }
 
 
-export type ExternalGatewaySort = Pick<ExternalGateway, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
-// export type ExternalGatewayFilter = Pick<ExternalGateway, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
+export type ExternalGatewaySort = Pick<ExternalGateway, 'id' | 'circuit_failure_count' | 'circuit_state' | 'name'> & ResourceSort
+// export type ExternalGatewayFilter = Pick<ExternalGateway, 'id' | 'circuit_failure_count' | 'circuit_state' | 'name'> & ResourceFilter
 
 
 interface ExternalGateway extends Resource {
@@ -20,11 +20,6 @@ interface ExternalGateway extends Resource {
 	readonly type: ExternalGatewayType
 
 	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
-	 */
-	name: string
-	/** 
 	 * The endpoint used by the external gateway to authorize payments.
 	 * @example ```"https://external_gateway.com/authorize"```
 	 */
@@ -35,39 +30,44 @@ interface ExternalGateway extends Resource {
 	 */
 	capture_url?: string | null
 	/** 
-	 * The endpoint used by the external gateway to void payments.
-	 * @example ```"https://external_gateway.com/void"```
+	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
+	 * @example ```"5"```
 	 */
-	void_url?: string | null
-	/** 
-	 * The endpoint used by the external gateway to refund payments.
-	 * @example ```"https://external_gateway.com/refund"```
-	 */
-	refund_url?: string | null
-	/** 
-	 * The endpoint used by the external gateway to create a customer payment token.
-	 * @example ```"https://external_gateway.com/token"```
-	 */
-	token_url?: string | null
+	circuit_failure_count?: number | null
 	/** 
 	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
 	 * @example ```"closed"```
 	 */
 	circuit_state?: string | null
 	/** 
-	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```"5"```
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
 	 */
-	circuit_failure_count?: number | null
+	name: string
+	/** 
+	 * The endpoint used by the external gateway to refund payments.
+	 * @example ```"https://external_gateway.com/refund"```
+	 */
+	refund_url?: string | null
 	/** 
 	 * The shared secret used to sign the external request payload.
 	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
 	 */
 	shared_secret: string
+	/** 
+	 * The endpoint used by the external gateway to create a customer payment token.
+	 * @example ```"https://external_gateway.com/token"```
+	 */
+	token_url?: string | null
+	/** 
+	 * The endpoint used by the external gateway to void payments.
+	 * @example ```"https://external_gateway.com/void"```
+	 */
+	void_url?: string | null
 
+	external_payments?: ExternalPayment[] | null
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
-	external_payments?: ExternalPayment[] | null
 
 }
 
@@ -75,11 +75,6 @@ interface ExternalGateway extends Resource {
 interface ExternalGatewayCreate extends ResourceCreate {
 	
 	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
-	 */
-	name: string
-	/** 
 	 * The endpoint used by the external gateway to authorize payments.
 	 * @example ```"https://external_gateway.com/authorize"```
 	 */
@@ -90,10 +85,10 @@ interface ExternalGatewayCreate extends ResourceCreate {
 	 */
 	capture_url?: string | null
 	/** 
-	 * The endpoint used by the external gateway to void payments.
-	 * @example ```"https://external_gateway.com/void"```
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
 	 */
-	void_url?: string | null
+	name: string
 	/** 
 	 * The endpoint used by the external gateway to refund payments.
 	 * @example ```"https://external_gateway.com/refund"```
@@ -104,6 +99,11 @@ interface ExternalGatewayCreate extends ResourceCreate {
 	 * @example ```"https://external_gateway.com/token"```
 	 */
 	token_url?: string | null
+	/** 
+	 * The endpoint used by the external gateway to void payments.
+	 * @example ```"https://external_gateway.com/void"```
+	 */
+	void_url?: string | null
 	
 }
 
@@ -111,10 +111,10 @@ interface ExternalGatewayCreate extends ResourceCreate {
 interface ExternalGatewayUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
+	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.
+	 * @example ```"true"```
 	 */
-	name?: string | null
+	_reset_circuit?: boolean | null
 	/** 
 	 * The endpoint used by the external gateway to authorize payments.
 	 * @example ```"https://external_gateway.com/authorize"```
@@ -126,10 +126,10 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 	 */
 	capture_url?: string | null
 	/** 
-	 * The endpoint used by the external gateway to void payments.
-	 * @example ```"https://external_gateway.com/void"```
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
 	 */
-	void_url?: string | null
+	name?: string | null
 	/** 
 	 * The endpoint used by the external gateway to refund payments.
 	 * @example ```"https://external_gateway.com/refund"```
@@ -141,10 +141,10 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 	 */
 	token_url?: string | null
 	/** 
-	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.
-	 * @example ```"true"```
+	 * The endpoint used by the external gateway to void payments.
+	 * @example ```"https://external_gateway.com/void"```
 	 */
-	_reset_circuit?: boolean | null
+	void_url?: string | null
 	
 }
 
@@ -165,6 +165,11 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ExternalGateways.TYPE } : id, options)
 	}
 
+	async external_payments(externalGatewayId: string | ExternalGateway, params?: QueryParamsList<ExternalPayment>, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
+		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
+		return this.resources.fetch<ExternalPayment>({ type: 'external_payments' }, `external_gateways/${_externalGatewayId}/external_payments`, params, options) as unknown as ListResponse<ExternalPayment>
+	}
+
 	async payment_methods(externalGatewayId: string | ExternalGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `external_gateways/${_externalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
@@ -173,11 +178,6 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 	async versions(externalGatewayId: string | ExternalGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `external_gateways/${_externalGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
-	async external_payments(externalGatewayId: string | ExternalGateway, params?: QueryParamsList<ExternalPayment>, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
-		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
-		return this.resources.fetch<ExternalPayment>({ type: 'external_payments' }, `external_gateways/${_externalGatewayId}/external_payments`, params, options) as unknown as ListResponse<ExternalPayment>
 	}
 
 	async _reset_circuit(id: string | ExternalGateway, params?: QueryParamsRetrieve<ExternalGateway>, options?: ResourcesConfig): Promise<ExternalGateway> {

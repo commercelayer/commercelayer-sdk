@@ -34,6 +34,11 @@ interface OrderAmountPromotionRule extends Resource {
 	readonly type: OrderAmountPromotionRuleType
 
 	/** 
+	 * Apply the promotion only when order is over this amount, formatted.
+	 * @example ```"€10,00"```
+	 */
+	formatted_order_amount?: string | null
+	/** 
 	 * Apply the promotion only when order is over this amount, in cents.
 	 * @example ```"1000"```
 	 */
@@ -43,11 +48,6 @@ interface OrderAmountPromotionRule extends Resource {
 	 * @example ```"10"```
 	 */
 	order_amount_float?: number | null
-	/** 
-	 * Apply the promotion only when order is over this amount, formatted.
-	 * @example ```"€10,00"```
-	 */
-	formatted_order_amount?: string | null
 	/** 
 	 * Send this attribute if you want to compare the specified amount with order's subtotal (excluding discounts, if any).
 	 * @example ```"true"```

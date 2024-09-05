@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { Attachment } from './attachments'
 import type { Market, MarketType } from './markets'
 import type { PaymentGateway, PaymentGatewayType } from './payment_gateways'
-import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
 
@@ -14,8 +14,8 @@ type MarketRel = ResourceRel & { type: MarketType }
 type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
 
 
-export type PaymentMethodSort = Pick<PaymentMethod, 'id' | 'name' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceSort
-// export type PaymentMethodFilter = Pick<PaymentMethod, 'id' | 'name' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceFilter
+export type PaymentMethodSort = Pick<PaymentMethod, 'id' | 'currency_code' | 'disabled_at' | 'name' | 'payment_source_type' | 'price_amount_cents'> & ResourceSort
+// export type PaymentMethodFilter = Pick<PaymentMethod, 'id' | 'currency_code' | 'disabled_at' | 'name' | 'payment_source_type' | 'price_amount_cents'> & ResourceFilter
 
 
 interface PaymentMethod extends Resource {
@@ -23,51 +23,9 @@ interface PaymentMethod extends Resource {
 	readonly type: PaymentMethodType
 
 	/** 
-	 * The payment method's internal name.
-	 * @example ```"Stripe Payment"```
-	 */
-	name?: string | null
-	/** 
-	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
-	 * @example ```"stripe_payments"```
-	 */
-	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
-	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard.
-	 * @example ```"EUR"```
-	 */
-	currency_code?: string | null
-	/** 
-	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.
-	 */
-	moto?: boolean | null
-	/** 
-	 * Send this attribute if you want to require the payment capture before fulfillment.
-	 * @example ```"true"```
-	 */
-	require_capture?: boolean | null
-	/** 
-	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
-	 * @example ```"true"```
-	 */
-	auto_place?: boolean | null
-	/** 
 	 * Send this attribute if you want to automatically capture the payment upon authorization.
 	 */
 	auto_capture?: boolean | null
-	/** 
-	 * The payment method's price, in cents.
-	 */
-	price_amount_cents: number
-	/** 
-	 * The payment method's price, float.
-	 */
-	price_amount_float?: number | null
-	/** 
-	 * The payment method's price, formatted.
-	 * @example ```"€0,00"```
-	 */
-	formatted_price_amount?: string | null
 	/** 
 	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.
 	 */
@@ -77,26 +35,34 @@ interface PaymentMethod extends Resource {
 	 */
 	auto_capture_max_amount_float?: number | null
 	/** 
-	 * The automatic capture max amount, formatted.
-	 * @example ```"€0,00"```
+	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
+	 * @example ```"true"```
 	 */
-	formatted_auto_capture_max_amount?: string | null
+	auto_place?: boolean | null
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
+	 * @example ```"EUR"```
+	 */
+	currency_code?: string | null
 	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
-
-	market?: Market | null
-	payment_gateway?: PaymentGateway | null
-	attachments?: Attachment[] | null
-	versions?: Version[] | null
-
-}
-
-
-interface PaymentMethodCreate extends ResourceCreate {
-	
+	/** 
+	 * The automatic capture max amount, formatted.
+	 * @example ```"€0,00"```
+	 */
+	formatted_auto_capture_max_amount?: string | null
+	/** 
+	 * The payment method's price, formatted.
+	 * @example ```"€0,00"```
+	 */
+	formatted_price_amount?: string | null
+	/** 
+	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.
+	 */
+	moto?: boolean | null
 	/** 
 	 * The payment method's internal name.
 	 * @example ```"Stripe Payment"```
@@ -108,36 +74,29 @@ interface PaymentMethodCreate extends ResourceCreate {
 	 */
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard.
-	 * @example ```"EUR"```
+	 * The payment method's price, in cents.
 	 */
-	currency_code?: string | null
+	price_amount_cents: number
 	/** 
-	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.
+	 * The payment method's price, float.
 	 */
-	moto?: boolean | null
+	price_amount_float?: number | null
 	/** 
 	 * Send this attribute if you want to require the payment capture before fulfillment.
 	 * @example ```"true"```
 	 */
 	require_capture?: boolean | null
-	/** 
-	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
-	 * @example ```"true"```
-	 */
-	auto_place?: boolean | null
-	/** 
-	 * Send this attribute if you want to automatically capture the payment upon authorization.
-	 */
-	auto_capture?: boolean | null
-	/** 
-	 * The payment method's price, in cents.
-	 */
-	price_amount_cents: number
-	/** 
-	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.
-	 */
-	auto_capture_max_amount_cents?: number | null
+
+	attachments?: Attachment[] | null
+	market?: Market | null
+	payment_gateway?: PaymentGateway | null
+	versions?: Version[] | null
+
+}
+
+
+interface PaymentMethodCreate extends ResourceCreate {
+	
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
@@ -148,6 +107,47 @@ interface PaymentMethodCreate extends ResourceCreate {
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to automatically capture the payment upon authorization.
+	 */
+	auto_capture?: boolean | null
+	/** 
+	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.
+	 */
+	auto_capture_max_amount_cents?: number | null
+	/** 
+	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
+	 * @example ```"true"```
+	 */
+	auto_place?: boolean | null
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
+	 * @example ```"EUR"```
+	 */
+	currency_code?: string | null
+	/** 
+	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.
+	 */
+	moto?: boolean | null
+	/** 
+	 * The payment method's internal name.
+	 * @example ```"Stripe Payment"```
+	 */
+	name?: string | null
+	/** 
+	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
+	 * @example ```"stripe_payments"```
+	 */
+	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
+	/** 
+	 * The payment method's price, in cents.
+	 */
+	price_amount_cents: number
+	/** 
+	 * Send this attribute if you want to require the payment capture before fulfillment.
+	 * @example ```"true"```
+	 */
+	require_capture?: boolean | null
 
 	market?: MarketRel | null
 	payment_gateway: PaymentGatewayRel
@@ -157,6 +157,38 @@ interface PaymentMethodCreate extends ResourceCreate {
 
 interface PaymentMethodUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```"true"```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```"true"```
+	 */
+	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to automatically capture the payment upon authorization.
+	 */
+	auto_capture?: boolean | null
+	/** 
+	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.
+	 */
+	auto_capture_max_amount_cents?: number | null
+	/** 
+	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
+	 * @example ```"true"```
+	 */
+	auto_place?: boolean | null
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
+	 * @example ```"EUR"```
+	 */
+	currency_code?: string | null
+	/** 
+	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.
+	 */
+	moto?: boolean | null
 	/** 
 	 * The payment method's internal name.
 	 * @example ```"Stripe Payment"```
@@ -168,46 +200,14 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 	 */
 	payment_source_type?: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers' | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard.
-	 * @example ```"EUR"```
+	 * The payment method's price, in cents.
 	 */
-	currency_code?: string | null
-	/** 
-	 * Send this attribute if you want to mark the payment as MOTO, must be supported by payment gateway.
-	 */
-	moto?: boolean | null
+	price_amount_cents?: number | null
 	/** 
 	 * Send this attribute if you want to require the payment capture before fulfillment.
 	 * @example ```"true"```
 	 */
 	require_capture?: boolean | null
-	/** 
-	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
-	 * @example ```"true"```
-	 */
-	auto_place?: boolean | null
-	/** 
-	 * Send this attribute if you want to automatically capture the payment upon authorization.
-	 */
-	auto_capture?: boolean | null
-	/** 
-	 * The payment method's price, in cents.
-	 */
-	price_amount_cents?: number | null
-	/** 
-	 * Send this attribute if you want to limit automatic capture to orders for which the total amount is equal or less than the specified value, in cents.
-	 */
-	auto_capture_max_amount_cents?: number | null
-	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
-	 */
-	_disable?: boolean | null
-	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
-	 */
-	_enable?: boolean | null
 
 	market?: MarketRel | null
 	payment_gateway?: PaymentGatewayRel | null
@@ -231,6 +231,11 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 		await this.resources.delete((typeof id === 'string')? { id, type: PaymentMethods.TYPE } : id, options)
 	}
 
+	async attachments(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_methods/${_paymentMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
 	async market(paymentMethodId: string | PaymentMethod, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `payment_methods/${_paymentMethodId}/market`, params, options) as unknown as Market
@@ -239,11 +244,6 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 	async payment_gateway(paymentMethodId: string | PaymentMethod, params?: QueryParamsRetrieve<PaymentGateway>, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `payment_methods/${_paymentMethodId}/payment_gateway`, params, options) as unknown as PaymentGateway
-	}
-
-	async attachments(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_methods/${_paymentMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async versions(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

@@ -2,16 +2,16 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
 import type { Event } from './events'
+import type { Order } from './orders'
 
 
 type OrderFactoryType = 'order_factories'
 type OrderFactoryRel = ResourceRel & { type: OrderFactoryType }
 
 
-export type OrderFactorySort = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSort
-// export type OrderFactoryFilter = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
+export type OrderFactorySort = Pick<OrderFactory, 'id' | 'completed_at' | 'errors_count' | 'failed_at' | 'started_at' | 'status'> & ResourceSort
+// export type OrderFactoryFilter = Pick<OrderFactory, 'id' | 'completed_at' | 'errors_count' | 'failed_at' | 'started_at' | 'status'> & ResourceFilter
 
 
 interface OrderFactory extends Resource {
@@ -19,35 +19,25 @@ interface OrderFactory extends Resource {
 	readonly type: OrderFactoryType
 
 	/** 
-	 * The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.
-	 * @example ```"in_progress"```
-	 */
-	status: 'pending' | 'in_progress' | 'failed' | 'completed'
-	/** 
-	 * Time at which the order copy was started.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	started_at?: string | null
-	/** 
 	 * Time at which the order copy was completed.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	completed_at?: string | null
 	/** 
-	 * Time at which the order copy has failed.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 * Indicates the number of copy errors, if any.
+	 * @example ```"2"```
 	 */
-	failed_at?: string | null
+	errors_count?: number | null
 	/** 
 	 * Contains the order copy errors, if any.
 	 * @example ```"[object Object]"```
 	 */
 	errors_log?: Record<string, any> | null
 	/** 
-	 * Indicates the number of copy errors, if any.
-	 * @example ```"2"```
+	 * Time at which the order copy has failed.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
-	errors_count?: number | null
+	failed_at?: string | null
 	/** 
 	 * Indicates if the target order must be placed upon copy.
 	 * @example ```"true"```
@@ -58,10 +48,20 @@ interface OrderFactory extends Resource {
 	 * @example ```"true"```
 	 */
 	reuse_wallet?: boolean | null
+	/** 
+	 * Time at which the order copy was started.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	started_at?: string | null
+	/** 
+	 * The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.
+	 * @example ```"in_progress"```
+	 */
+	status: 'pending' | 'in_progress' | 'failed' | 'completed'
 
+	events?: Event[] | null
 	source_order?: Order | null
 	target_order?: Order | null
-	events?: Event[] | null
 
 }
 
@@ -69,6 +69,11 @@ interface OrderFactory extends Resource {
 class OrderFactories extends ApiResource<OrderFactory> {
 
 	static readonly TYPE: OrderFactoryType = 'order_factories' as const
+
+	async events(orderFactoryId: string | OrderFactory, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _orderFactoryId = (orderFactoryId as OrderFactory).id || orderFactoryId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `order_factories/${_orderFactoryId}/events`, params, options) as unknown as ListResponse<Event>
+	}
 
 	async source_order(orderFactoryId: string | OrderFactory, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _orderFactoryId = (orderFactoryId as OrderFactory).id || orderFactoryId as string
@@ -78,11 +83,6 @@ class OrderFactories extends ApiResource<OrderFactory> {
 	async target_order(orderFactoryId: string | OrderFactory, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _orderFactoryId = (orderFactoryId as OrderFactory).id || orderFactoryId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `order_factories/${_orderFactoryId}/target_order`, params, options) as unknown as Order
-	}
-
-	async events(orderFactoryId: string | OrderFactory, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _orderFactoryId = (orderFactoryId as OrderFactory).id || orderFactoryId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `order_factories/${_orderFactoryId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

@@ -25,9 +25,9 @@ describe('AxerveGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: randomValue('string', 'name'),
-			login: randomValue('string', 'login'),
 			api_key: randomValue('string', 'api_key'),
+			login: randomValue('string', 'login'),
+			name: randomValue('string', 'name'),
 			axerve_payments: [ cl.axerve_payments.relationship(TestData.id) ],
 		}
 
@@ -203,6 +203,27 @@ describe('AxerveGateways resource', () => {
 
   
 
+	/* relationship.axerve_payments start */
+	it(resourceType + '.axerve_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { axerve_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'axerve_payments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].axerve_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.axerve_payments stop */
+	
+
 	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
@@ -243,27 +264,6 @@ describe('AxerveGateways resource', () => {
 	
 	})
 	/* relationship.versions stop */
-	
-
-	/* relationship.axerve_payments start */
-	it(resourceType + '.axerve_payments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { axerve_payments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'axerve_payments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].axerve_payments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.axerve_payments stop */
 	
   
 })

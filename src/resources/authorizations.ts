@@ -2,11 +2,11 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
 import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Version } from './versions'
 import type { Capture } from './captures'
+import type { Event } from './events'
+import type { Order } from './orders'
+import type { Version } from './versions'
 import type { Void } from './voids'
 
 
@@ -14,24 +14,14 @@ type AuthorizationType = 'authorizations'
 type AuthorizationRel = ResourceRel & { type: AuthorizationType }
 
 
-export type AuthorizationSort = Pick<Authorization, 'id' | 'number' | 'amount_cents'> & ResourceSort
-// export type AuthorizationFilter = Pick<Authorization, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
+export type AuthorizationSort = Pick<Authorization, 'id' | 'amount_cents' | 'number'> & ResourceSort
+// export type AuthorizationFilter = Pick<Authorization, 'id' | 'amount_cents' | 'currency_code' | 'error_code' | 'error_detail' | 'gateway_transaction_id' | 'message' | 'number' | 'succeeded' | 'token'> & ResourceFilter
 
 
 interface Authorization extends Resource {
 	
 	readonly type: AuthorizationType
 
-	/** 
-	 * The transaction number, auto generated.
-	 * @example ```"42/T/001"```
-	 */
-	number: string
-	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
-	 * @example ```"EUR"```
-	 */
-	currency_code: string
 	/** 
 	 * The transaction amount, in cents.
 	 * @example ```"1500"```
@@ -43,50 +33,6 @@ interface Authorization extends Resource {
 	 */
 	amount_float: number
 	/** 
-	 * The transaction amount, formatted.
-	 * @example ```"€15,00"```
-	 */
-	formatted_amount: string
-	/** 
-	 * Indicates if the transaction is successful.
-	 */
-	succeeded: boolean
-	/** 
-	 * The message returned by the payment gateway.
-	 * @example ```"Accepted"```
-	 */
-	message?: string | null
-	/** 
-	 * The error code, if any, returned by the payment gateway.
-	 * @example ```"00001"```
-	 */
-	error_code?: string | null
-	/** 
-	 * The error detail, if any, returned by the payment gateway.
-	 * @example ```"Already settled"```
-	 */
-	error_detail?: string | null
-	/** 
-	 * The token identifying the transaction, returned by the payment gateway.
-	 * @example ```"xxxx-yyyy-zzzz"```
-	 */
-	token?: string | null
-	/** 
-	 * The ID identifying the transaction, returned by the payment gateway.
-	 * @example ```"xxxx-yyyy-zzzz"```
-	 */
-	gateway_transaction_id?: string | null
-	/** 
-	 * The CVV code returned by the payment gateway.
-	 * @example ```"000"```
-	 */
-	cvv_code?: string | null
-	/** 
-	 * The CVV message returned by the payment gateway.
-	 * @example ```"validated"```
-	 */
-	cvv_message?: string | null
-	/** 
 	 * The AVS code returned by the payment gateway.
 	 * @example ```"000"```
 	 */
@@ -96,11 +42,6 @@ interface Authorization extends Resource {
 	 * @example ```"validated"```
 	 */
 	avs_message?: string | null
-	/** 
-	 * The fraud review message, if any, returned by the payment gateway.
-	 * @example ```"passed"```
-	 */
-	fraud_review?: string | null
 	/** 
 	 * The amount to be captured, in cents.
 	 * @example ```"500"```
@@ -112,11 +53,6 @@ interface Authorization extends Resource {
 	 */
 	capture_amount_float?: number | null
 	/** 
-	 * The amount to be captured, formatted.
-	 * @example ```"€5,00"```
-	 */
-	formatted_capture_amount?: string | null
-	/** 
 	 * The balance to be captured, in cents.
 	 * @example ```"1000"```
 	 */
@@ -127,10 +63,79 @@ interface Authorization extends Resource {
 	 */
 	capture_balance_float?: number | null
 	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
+	 * @example ```"EUR"```
+	 */
+	currency_code: string
+	/** 
+	 * The CVV code returned by the payment gateway.
+	 * @example ```"000"```
+	 */
+	cvv_code?: string | null
+	/** 
+	 * The CVV message returned by the payment gateway.
+	 * @example ```"validated"```
+	 */
+	cvv_message?: string | null
+	/** 
+	 * The error code, if any, returned by the payment gateway.
+	 * @example ```"00001"```
+	 */
+	error_code?: string | null
+	/** 
+	 * The error detail, if any, returned by the payment gateway.
+	 * @example ```"Already settled"```
+	 */
+	error_detail?: string | null
+	/** 
+	 * The transaction amount, formatted.
+	 * @example ```"€15,00"```
+	 */
+	formatted_amount: string
+	/** 
+	 * The amount to be captured, formatted.
+	 * @example ```"€5,00"```
+	 */
+	formatted_capture_amount?: string | null
+	/** 
 	 * The balance to be captured, formatted.
 	 * @example ```"€10,00"```
 	 */
 	formatted_capture_balance?: string | null
+	/** 
+	 * The balance to be voided, formatted.
+	 * @example ```"€15,00"```
+	 */
+	formatted_void_balance?: string | null
+	/** 
+	 * The fraud review message, if any, returned by the payment gateway.
+	 * @example ```"passed"```
+	 */
+	fraud_review?: string | null
+	/** 
+	 * The ID identifying the transaction, returned by the payment gateway.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	gateway_transaction_id?: string | null
+	/** 
+	 * The message returned by the payment gateway.
+	 * @example ```"Accepted"```
+	 */
+	message?: string | null
+	/** 
+	 * The transaction number, auto generated.
+	 * @example ```"42/T/001"```
+	 */
+	number: string
+	/** 
+	 * Indicates if the transaction is successful.
+	 */
+	succeeded: boolean
+	/** 
+	 * The token identifying the transaction, returned by the payment gateway.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	token?: string | null
 	/** 
 	 * The balance to be voided, in cents.
 	 * @example ```"1500"```
@@ -141,17 +146,12 @@ interface Authorization extends Resource {
 	 * @example ```"15"```
 	 */
 	void_balance_float?: number | null
-	/** 
-	 * The balance to be voided, formatted.
-	 * @example ```"€15,00"```
-	 */
-	formatted_void_balance?: string | null
 
-	order?: Order | null
 	attachments?: Attachment[] | null
-	events?: Event[] | null
-	versions?: Version[] | null
 	captures?: Capture[] | null
+	events?: Event[] | null
+	order?: Order | null
+	versions?: Version[] | null
 	voids?: Void[] | null
 
 }
@@ -159,15 +159,6 @@ interface Authorization extends Resource {
 
 interface AuthorizationUpdate extends ResourceUpdate {
 	
-	/** 
-	 * Indicates if the transaction is successful.
-	 */
-	succeeded?: boolean | null
-	/** 
-	 * Send this attribute if you want to forward a stuck transaction to succeeded and update associated order states accordingly.
-	 * @example ```"true"```
-	 */
-	_forward?: boolean | null
 	/** 
 	 * Send this attribute if you want to create a capture for this authorization.
 	 * @example ```"true"```
@@ -179,10 +170,19 @@ interface AuthorizationUpdate extends ResourceUpdate {
 	 */
 	_capture_amount_cents?: number | null
 	/** 
+	 * Send this attribute if you want to forward a stuck transaction to succeeded and update associated order states accordingly.
+	 * @example ```"true"```
+	 */
+	_forward?: boolean | null
+	/** 
 	 * Send this attribute if you want to create a void for this authorization.
 	 * @example ```"true"```
 	 */
 	_void?: boolean | null
+	/** 
+	 * Indicates if the transaction is successful.
+	 */
+	succeeded?: boolean | null
 	
 }
 
@@ -195,24 +195,9 @@ class Authorizations extends ApiResource<Authorization> {
 		return this.resources.update<AuthorizationUpdate, Authorization>({ ...resource, type: Authorizations.TYPE }, params, options)
 	}
 
-	async order(authorizationId: string | Authorization, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
-		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `authorizations/${_authorizationId}/order`, params, options) as unknown as Order
-	}
-
 	async attachments(authorizationId: string | Authorization, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `authorizations/${_authorizationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async events(authorizationId: string | Authorization, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `authorizations/${_authorizationId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(authorizationId: string | Authorization, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `authorizations/${_authorizationId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async captures(authorizationId: string | Authorization, params?: QueryParamsList<Capture>, options?: ResourcesConfig): Promise<ListResponse<Capture>> {
@@ -220,13 +205,24 @@ class Authorizations extends ApiResource<Authorization> {
 		return this.resources.fetch<Capture>({ type: 'captures' }, `authorizations/${_authorizationId}/captures`, params, options) as unknown as ListResponse<Capture>
 	}
 
+	async events(authorizationId: string | Authorization, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `authorizations/${_authorizationId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async order(authorizationId: string | Authorization, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
+		return this.resources.fetch<Order>({ type: 'orders' }, `authorizations/${_authorizationId}/order`, params, options) as unknown as Order
+	}
+
+	async versions(authorizationId: string | Authorization, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `authorizations/${_authorizationId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
 	async voids(authorizationId: string | Authorization, params?: QueryParamsList<Void>, options?: ResourcesConfig): Promise<ListResponse<Void>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Void>({ type: 'voids' }, `authorizations/${_authorizationId}/voids`, params, options) as unknown as ListResponse<Void>
-	}
-
-	async _forward(id: string | Authorization, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
-		return this.resources.update<AuthorizationUpdate, Authorization>({ id: (typeof id === 'string')? id: id.id, type: Authorizations.TYPE, _forward: true }, params, options)
 	}
 
 	async _capture(id: string | Authorization, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
@@ -235,6 +231,10 @@ class Authorizations extends ApiResource<Authorization> {
 
 	async _capture_amount_cents(id: string | Authorization, triggerValue: number, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
 		return this.resources.update<AuthorizationUpdate, Authorization>({ id: (typeof id === 'string')? id: id.id, type: Authorizations.TYPE, _capture_amount_cents: triggerValue }, params, options)
+	}
+
+	async _forward(id: string | Authorization, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
+		return this.resources.update<AuthorizationUpdate, Authorization>({ id: (typeof id === 'string')? id: id.id, type: Authorizations.TYPE, _forward: true }, params, options)
 	}
 
 	async _void(id: string | Authorization, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {

@@ -15,8 +15,8 @@ type SkuRel = ResourceRel & { type: SkuType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 
 
-export type LinkSort = Pick<Link, 'id' | 'name' | 'starts_at' | 'expires_at' | 'item_type' | 'disabled_at'> & ResourceSort
-// export type LinkFilter = Pick<Link, 'id' | 'name' | 'client_id' | 'scope' | 'starts_at' | 'expires_at' | 'item_type' | 'disabled_at'> & ResourceFilter
+export type LinkSort = Pick<Link, 'id' | 'disabled_at' | 'expires_at' | 'item_type' | 'name' | 'starts_at'> & ResourceSort
+// export type LinkFilter = Pick<Link, 'id' | 'client_id' | 'disabled_at' | 'expires_at' | 'item_type' | 'name' | 'scope' | 'starts_at'> & ResourceFilter
 
 
 interface Link extends Resource {
@@ -24,15 +24,40 @@ interface Link extends Resource {
 	readonly type: LinkType
 
 	/** 
-	 * The link internal name.
-	 * @example ```"FW SALE 2023"```
+	 * Indicates if the link is active (enabled and not expired).
+	 * @example ```"true"```
 	 */
-	name: string
+	active?: boolean | null
 	/** 
 	 * The link application client id, used to fetch JWT.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_id: string
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
+	/** 
+	 * The link URL second level domain.
+	 * @example ```"commercelayer.link"```
+	 */
+	domain?: string | null
+	/** 
+	 * The expiration date/time of this link (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at: string
+	/** 
+	 * The type of the associated item. One of 'orders', 'skus', or 'sku_lists'.
+	 * @example ```"orders"```
+	 */
+	item_type?: 'orders' | 'skus' | 'sku_lists' | null
+	/** 
+	 * The link internal name.
+	 * @example ```"FW SALE 2023"```
+	 */
+	name: string
 	/** 
 	 * The link application scope, used to fetch JWT.
 	 * @example ```"market:id:GhvCxsElAQ,market:id:kJhgVcxZDr"```
@@ -43,85 +68,25 @@ interface Link extends Resource {
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at: string
-	/** 
-	 * The expiration date/time of this link (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at: string
-	/** 
-	 * Indicates if the link is active (enabled and not expired).
-	 * @example ```"true"```
-	 */
-	active?: boolean | null
 	/** 
 	 * The link status. One of 'disabled', 'expired', 'pending', or 'active'.
 	 * @example ```"pending"```
 	 */
 	status?: 'disabled' | 'expired' | 'pending' | 'active' | null
 	/** 
-	 * The link URL second level domain.
-	 * @example ```"commercelayer.link"```
-	 */
-	domain?: string | null
-	/** 
 	 * The link URL.
 	 * @example ```"https://c11r.link/ZXUtd2VzdC0xLzE5ZjBlMGVlLTg4OGMtNDQ1Yi1iYTA0LTg3MTUxY2FjZjFmYQ"```
 	 */
 	url?: string | null
-	/** 
-	 * The type of the associated item. One of 'orders', 'skus', or 'sku_lists'.
-	 * @example ```"orders"```
-	 */
-	item_type?: 'orders' | 'skus' | 'sku_lists' | null
-	/** 
-	 * Time at which this resource was disabled.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	disabled_at?: string | null
 
-	item?: Order | Sku | SkuList | null
 	events?: Event[] | null
+	item?: Order | Sku | SkuList | null
 
 }
 
 
 interface LinkCreate extends ResourceCreate {
 	
-	/** 
-	 * The link internal name.
-	 * @example ```"FW SALE 2023"```
-	 */
-	name: string
-	/** 
-	 * The link application client id, used to fetch JWT.
-	 * @example ```"xxxx-yyyy-zzzz"```
-	 */
-	client_id: string
-	/** 
-	 * The link application scope, used to fetch JWT.
-	 * @example ```"market:id:GhvCxsElAQ,market:id:kJhgVcxZDr"```
-	 */
-	scope: string
-	/** 
-	 * The activation date/time of this link.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	starts_at: string
-	/** 
-	 * The expiration date/time of this link (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at: string
-	/** 
-	 * The link URL second level domain.
-	 * @example ```"commercelayer.link"```
-	 */
-	domain?: string | null
-	/** 
-	 * The type of the associated item. One of 'orders', 'skus', or 'sku_lists'.
-	 * @example ```"orders"```
-	 */
-	item_type?: 'orders' | 'skus' | 'sku_lists' | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
@@ -132,6 +97,41 @@ interface LinkCreate extends ResourceCreate {
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * The link application client id, used to fetch JWT.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	client_id: string
+	/** 
+	 * The link URL second level domain.
+	 * @example ```"commercelayer.link"```
+	 */
+	domain?: string | null
+	/** 
+	 * The expiration date/time of this link (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at: string
+	/** 
+	 * The type of the associated item. One of 'orders', 'skus', or 'sku_lists'.
+	 * @example ```"orders"```
+	 */
+	item_type?: 'orders' | 'skus' | 'sku_lists' | null
+	/** 
+	 * The link internal name.
+	 * @example ```"FW SALE 2023"```
+	 */
+	name: string
+	/** 
+	 * The link application scope, used to fetch JWT.
+	 * @example ```"market:id:GhvCxsElAQ,market:id:kJhgVcxZDr"```
+	 */
+	scope: string
+	/** 
+	 * The activation date/time of this link.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	starts_at: string
 
 	item: OrderRel | SkuRel | SkuListRel
 
@@ -141,15 +141,35 @@ interface LinkCreate extends ResourceCreate {
 interface LinkUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The link internal name.
-	 * @example ```"FW SALE 2023"```
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```"true"```
 	 */
-	name?: string | null
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```"true"```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The link application client id, used to fetch JWT.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_id?: string | null
+	/** 
+	 * The link URL second level domain.
+	 * @example ```"commercelayer.link"```
+	 */
+	domain?: string | null
+	/** 
+	 * The expiration date/time of this link (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at?: string | null
+	/** 
+	 * The link internal name.
+	 * @example ```"FW SALE 2023"```
+	 */
+	name?: string | null
 	/** 
 	 * The link application scope, used to fetch JWT.
 	 * @example ```"market:id:GhvCxsElAQ,market:id:kJhgVcxZDr"```
@@ -160,26 +180,6 @@ interface LinkUpdate extends ResourceUpdate {
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at?: string | null
-	/** 
-	 * The expiration date/time of this link (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at?: string | null
-	/** 
-	 * The link URL second level domain.
-	 * @example ```"commercelayer.link"```
-	 */
-	domain?: string | null
-	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
-	 */
-	_disable?: boolean | null
-	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
-	 */
-	_enable?: boolean | null
 
 	item?: OrderRel | SkuRel | SkuListRel | null
 

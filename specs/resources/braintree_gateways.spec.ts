@@ -25,11 +25,11 @@ describe('BraintreeGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: randomValue('string', 'name'),
 			merchant_account_id: randomValue('string', 'merchant_account_id'),
 			merchant_id: randomValue('string', 'merchant_id'),
-			public_key: randomValue('string', 'public_key'),
+			name: randomValue('string', 'name'),
 			private_key: randomValue('string', 'private_key'),
+			public_key: randomValue('string', 'public_key'),
 			braintree_payments: [ cl.braintree_payments.relationship(TestData.id) ],
 		}
 
@@ -205,6 +205,27 @@ describe('BraintreeGateways resource', () => {
 
   
 
+	/* relationship.braintree_payments start */
+	it(resourceType + '.braintree_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { braintree_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'braintree_payments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].braintree_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.braintree_payments stop */
+	
+
 	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
@@ -245,27 +266,6 @@ describe('BraintreeGateways resource', () => {
 	
 	})
 	/* relationship.versions stop */
-	
-
-	/* relationship.braintree_payments start */
-	it(resourceType + '.braintree_payments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { braintree_payments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'braintree_payments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].braintree_payments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.braintree_payments stop */
 	
   
 })

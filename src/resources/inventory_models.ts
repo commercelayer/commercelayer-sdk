@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { InventoryStockLocation } from './inventory_stock_locations'
-import type { InventoryReturnLocation } from './inventory_return_locations'
 import type { Attachment } from './attachments'
+import type { InventoryReturnLocation } from './inventory_return_locations'
+import type { InventoryStockLocation } from './inventory_stock_locations'
 import type { Version } from './versions'
 
 
@@ -12,8 +12,8 @@ type InventoryModelType = 'inventory_models'
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 
 
-export type InventoryModelSort = Pick<InventoryModel, 'id' | 'name' | 'strategy' | 'stock_locations_cutoff' | 'stock_reservation_cutoff'> & ResourceSort
-// export type InventoryModelFilter = Pick<InventoryModel, 'id' | 'name' | 'strategy' | 'stock_locations_cutoff' | 'stock_reservation_cutoff'> & ResourceFilter
+export type InventoryModelSort = Pick<InventoryModel, 'id' | 'name' | 'stock_locations_cutoff' | 'stock_reservation_cutoff' | 'strategy'> & ResourceSort
+// export type InventoryModelFilter = Pick<InventoryModel, 'id' | 'name' | 'stock_locations_cutoff' | 'stock_reservation_cutoff' | 'strategy'> & ResourceFilter
 
 
 interface InventoryModel extends Resource {
@@ -21,15 +21,20 @@ interface InventoryModel extends Resource {
 	readonly type: InventoryModelType
 
 	/** 
+	 * Indicates if the the stock will be decremented manually after the order approval.
+	 * @example ```"true"```
+	 */
+	manual_stock_decrement?: boolean | null
+	/** 
 	 * The inventory model's internal name.
 	 * @example ```"EU Inventory Model"```
 	 */
 	name: string
 	/** 
-	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.
-	 * @example ```"no_split"```
+	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment.
+	 * @example ```"true"```
 	 */
-	strategy?: string | null
+	put_stock_transfers_on_hold?: boolean | null
 	/** 
 	 * The maximum number of stock locations used for inventory computation.
 	 * @example ```"3"```
@@ -41,19 +46,14 @@ interface InventoryModel extends Resource {
 	 */
 	stock_reservation_cutoff?: number | null
 	/** 
-	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment.
-	 * @example ```"true"```
+	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.
+	 * @example ```"no_split"```
 	 */
-	put_stock_transfers_on_hold?: boolean | null
-	/** 
-	 * Indicates if the the stock will be decremented manually after the order approval.
-	 * @example ```"true"```
-	 */
-	manual_stock_decrement?: boolean | null
+	strategy?: string | null
 
-	inventory_stock_locations?: InventoryStockLocation[] | null
-	inventory_return_locations?: InventoryReturnLocation[] | null
 	attachments?: Attachment[] | null
+	inventory_return_locations?: InventoryReturnLocation[] | null
+	inventory_stock_locations?: InventoryStockLocation[] | null
 	versions?: Version[] | null
 
 }
@@ -62,15 +62,20 @@ interface InventoryModel extends Resource {
 interface InventoryModelCreate extends ResourceCreate {
 	
 	/** 
+	 * Indicates if the the stock will be decremented manually after the order approval.
+	 * @example ```"true"```
+	 */
+	manual_stock_decrement?: boolean | null
+	/** 
 	 * The inventory model's internal name.
 	 * @example ```"EU Inventory Model"```
 	 */
 	name: string
 	/** 
-	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.
-	 * @example ```"no_split"```
+	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment.
+	 * @example ```"true"```
 	 */
-	strategy?: string | null
+	put_stock_transfers_on_hold?: boolean | null
 	/** 
 	 * The maximum number of stock locations used for inventory computation.
 	 * @example ```"3"```
@@ -82,15 +87,10 @@ interface InventoryModelCreate extends ResourceCreate {
 	 */
 	stock_reservation_cutoff?: number | null
 	/** 
-	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment.
-	 * @example ```"true"```
+	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.
+	 * @example ```"no_split"```
 	 */
-	put_stock_transfers_on_hold?: boolean | null
-	/** 
-	 * Indicates if the the stock will be decremented manually after the order approval.
-	 * @example ```"true"```
-	 */
-	manual_stock_decrement?: boolean | null
+	strategy?: string | null
 	
 }
 
@@ -98,15 +98,20 @@ interface InventoryModelCreate extends ResourceCreate {
 interface InventoryModelUpdate extends ResourceUpdate {
 	
 	/** 
+	 * Indicates if the the stock will be decremented manually after the order approval.
+	 * @example ```"true"```
+	 */
+	manual_stock_decrement?: boolean | null
+	/** 
 	 * The inventory model's internal name.
 	 * @example ```"EU Inventory Model"```
 	 */
 	name?: string | null
 	/** 
-	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.
-	 * @example ```"no_split"```
+	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment.
+	 * @example ```"true"```
 	 */
-	strategy?: string | null
+	put_stock_transfers_on_hold?: boolean | null
 	/** 
 	 * The maximum number of stock locations used for inventory computation.
 	 * @example ```"3"```
@@ -118,15 +123,10 @@ interface InventoryModelUpdate extends ResourceUpdate {
 	 */
 	stock_reservation_cutoff?: number | null
 	/** 
-	 * Indicates if the the stock transfers must be put on hold automatically with the associated shipment.
-	 * @example ```"true"```
+	 * The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.
+	 * @example ```"no_split"```
 	 */
-	put_stock_transfers_on_hold?: boolean | null
-	/** 
-	 * Indicates if the the stock will be decremented manually after the order approval.
-	 * @example ```"true"```
-	 */
-	manual_stock_decrement?: boolean | null
+	strategy?: string | null
 	
 }
 
@@ -147,9 +147,9 @@ class InventoryModels extends ApiResource<InventoryModel> {
 		await this.resources.delete((typeof id === 'string')? { id, type: InventoryModels.TYPE } : id, options)
 	}
 
-	async inventory_stock_locations(inventoryModelId: string | InventoryModel, params?: QueryParamsList<InventoryStockLocation>, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
+	async attachments(inventoryModelId: string | InventoryModel, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _inventoryModelId = (inventoryModelId as InventoryModel).id || inventoryModelId as string
-		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `inventory_models/${_inventoryModelId}/inventory_stock_locations`, params, options) as unknown as ListResponse<InventoryStockLocation>
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `inventory_models/${_inventoryModelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async inventory_return_locations(inventoryModelId: string | InventoryModel, params?: QueryParamsList<InventoryReturnLocation>, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
@@ -157,9 +157,9 @@ class InventoryModels extends ApiResource<InventoryModel> {
 		return this.resources.fetch<InventoryReturnLocation>({ type: 'inventory_return_locations' }, `inventory_models/${_inventoryModelId}/inventory_return_locations`, params, options) as unknown as ListResponse<InventoryReturnLocation>
 	}
 
-	async attachments(inventoryModelId: string | InventoryModel, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async inventory_stock_locations(inventoryModelId: string | InventoryModel, params?: QueryParamsList<InventoryStockLocation>, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
 		const _inventoryModelId = (inventoryModelId as InventoryModel).id || inventoryModelId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `inventory_models/${_inventoryModelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `inventory_models/${_inventoryModelId}/inventory_stock_locations`, params, options) as unknown as ListResponse<InventoryStockLocation>
 	}
 
 	async versions(inventoryModelId: string | InventoryModel, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

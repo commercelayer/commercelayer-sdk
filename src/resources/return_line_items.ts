@@ -2,18 +2,18 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
-import type { Return, ReturnType } from './returns'
 import type { LineItem, LineItemType } from './line_items'
+import type { Return, ReturnType } from './returns'
 
 
 type ReturnLineItemType = 'return_line_items'
 type ReturnLineItemRel = ResourceRel & { type: ReturnLineItemType }
-type ReturnRel = ResourceRel & { type: ReturnType }
 type LineItemRel = ResourceRel & { type: LineItemType }
+type ReturnRel = ResourceRel & { type: ReturnType }
 
 
-export type ReturnLineItemSort = Pick<ReturnLineItem, 'id' | 'quantity' | 'total_amount_cents' | 'restocked_at'> & ResourceSort
-// export type ReturnLineItemFilter = Pick<ReturnLineItem, 'id' | 'quantity' | 'total_amount_cents' | 'return_reason' | 'restocked_at'> & ResourceFilter
+export type ReturnLineItemSort = Pick<ReturnLineItem, 'id' | 'quantity' | 'restocked_at' | 'total_amount_cents'> & ResourceSort
+// export type ReturnLineItemFilter = Pick<ReturnLineItem, 'id' | 'quantity' | 'restocked_at' | 'return_reason' | 'total_amount_cents'> & ResourceFilter
 
 
 interface ReturnLineItem extends Resource {
@@ -21,30 +21,45 @@ interface ReturnLineItem extends Resource {
 	readonly type: ReturnLineItemType
 
 	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
-	 */
-	sku_code?: string | null
-	/** 
 	 * The code of the associated bundle.
 	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
 	 */
 	bundle_code?: string | null
 	/** 
-	 * The return line item quantity.
-	 * @example ```"4"```
+	 * The return line item total amount, formatted. This can be useful to display the amount with currency in you views.
+	 * @example ```"€88,00"```
 	 */
-	quantity: number
+	formatted_total_amount?: string | null
+	/** 
+	 * The image_url of the associated line item.
+	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
+	 */
+	image_url?: string | null
 	/** 
 	 * The name of the line item.
 	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
 	 */
 	name?: string | null
 	/** 
-	 * The image_url of the associated line item.
-	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
+	 * The return line item quantity.
+	 * @example ```"4"```
 	 */
-	image_url?: string | null
+	quantity: number
+	/** 
+	 * Time at which the return line item was restocked.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	restocked_at?: string | null
+	/** 
+	 * Set of key-value pairs that you can use to add details about return reason.
+	 * @example ```"[object Object]"```
+	 */
+	return_reason?: Record<string, any> | null
+	/** 
+	 * The code of the associated SKU.
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 */
+	sku_code?: string | null
 	/** 
 	 * Calculated as line item unit amount x returned quantity and applied discounts, if any.
 	 * @example ```"8800"```
@@ -55,24 +70,9 @@ interface ReturnLineItem extends Resource {
 	 * @example ```"88"```
 	 */
 	total_amount_float: number
-	/** 
-	 * The return line item total amount, formatted. This can be useful to display the amount with currency in you views.
-	 * @example ```"€88,00"```
-	 */
-	formatted_total_amount?: string | null
-	/** 
-	 * Set of key-value pairs that you can use to add details about return reason.
-	 * @example ```"[object Object]"```
-	 */
-	return_reason?: Record<string, any> | null
-	/** 
-	 * Time at which the return line item was restocked.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	restocked_at?: string | null
 
-	return?: Return | null
 	line_item?: LineItem | null
+	return?: Return | null
 
 }
 
@@ -90,8 +90,8 @@ interface ReturnLineItemCreate extends ResourceCreate {
 	 */
 	return_reason?: Record<string, any> | null
 
-	return: ReturnRel
 	line_item: LineItemRel
+	return: ReturnRel
 
 }
 
@@ -99,15 +99,15 @@ interface ReturnLineItemCreate extends ResourceCreate {
 interface ReturnLineItemUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The return line item quantity.
-	 * @example ```"4"```
-	 */
-	quantity?: number | null
-	/** 
 	 * Send this attribute if you want to restock the line item.
 	 * @example ```"true"```
 	 */
 	_restock?: boolean | null
+	/** 
+	 * The return line item quantity.
+	 * @example ```"4"```
+	 */
+	quantity?: number | null
 	/** 
 	 * Set of key-value pairs that you can use to add details about return reason.
 	 * @example ```"[object Object]"```
@@ -133,14 +133,14 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ReturnLineItems.TYPE } : id, options)
 	}
 
-	async return(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
-		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId as string
-		return this.resources.fetch<Return>({ type: 'returns' }, `return_line_items/${_returnLineItemId}/return`, params, options) as unknown as Return
-	}
-
 	async line_item(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `return_line_items/${_returnLineItemId}/line_item`, params, options) as unknown as LineItem
+	}
+
+	async return(returnLineItemId: string | ReturnLineItem, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
+		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId as string
+		return this.resources.fetch<Return>({ type: 'returns' }, `return_line_items/${_returnLineItemId}/return`, params, options) as unknown as Return
 	}
 
 	async _restock(id: string | ReturnLineItem, params?: QueryParamsRetrieve<ReturnLineItem>, options?: ResourcesConfig): Promise<ReturnLineItem> {

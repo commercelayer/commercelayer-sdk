@@ -152,27 +152,6 @@ describe('Events resource', () => {
 
   
 
-	/* relationship.webhooks start */
-	it(resourceType + '.webhooks', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { webhooks: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'webhooks')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].webhooks(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.webhooks stop */
-	
-
 	/* relationship.last_event_callbacks start */
 	it(resourceType + '.last_event_callbacks', async () => {
 	
@@ -192,6 +171,27 @@ describe('Events resource', () => {
 	
 	})
 	/* relationship.last_event_callbacks stop */
+	
+
+	/* relationship.webhooks start */
+	it(resourceType + '.webhooks', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { webhooks: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'webhooks')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].webhooks(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.webhooks stop */
 	
   
 

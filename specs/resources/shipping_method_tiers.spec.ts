@@ -128,27 +128,6 @@ describe('ShippingMethodTiers resource', () => {
 
   
 
-	/* relationship.shipping_method start */
-	it(resourceType + '.shipping_method', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { shipping_methods: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'shipping_method')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].shipping_method(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.shipping_method stop */
-	
-
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
@@ -168,6 +147,27 @@ describe('ShippingMethodTiers resource', () => {
 	
 	})
 	/* relationship.attachments stop */
+	
+
+	/* relationship.shipping_method start */
+	it(resourceType + '.shipping_method', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { shipping_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'shipping_method')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].shipping_method(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.shipping_method stop */
 	
 
 	/* relationship.versions start */

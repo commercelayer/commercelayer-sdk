@@ -9,7 +9,7 @@ type ApplicationRel = ResourceRel & { type: ApplicationType }
 
 
 export type ApplicationSort = Pick<Application, 'id'> & ResourceSort
-// export type ApplicationFilter = Pick<Application, 'id' | 'name' | 'kind' | 'public_access' | 'scopes'> & ResourceFilter
+// export type ApplicationFilter = Pick<Application, 'id' | 'kind' | 'name' | 'public_access' | 'scopes'> & ResourceFilter
 
 
 interface Application extends Resource {
@@ -17,15 +17,15 @@ interface Application extends Resource {
 	readonly type: ApplicationType
 
 	/** 
-	 * The application's internal name.
-	 * @example ```"My app"```
-	 */
-	name?: string | null
-	/** 
 	 * The application's kind, can be one of: 'sales_channel', 'integration' and 'webapp'.
 	 * @example ```"sales-channel"```
 	 */
 	kind?: string | null
+	/** 
+	 * The application's internal name.
+	 * @example ```"My app"```
+	 */
+	name?: string | null
 	/** 
 	 * Indicates if the application has public access.
 	 * @example ```"true"```

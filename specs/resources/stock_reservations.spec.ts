@@ -243,27 +243,6 @@ describe('StockReservations resource', () => {
 	/* relationship.order stop */
 	
 
-	/* relationship.stock_item start */
-	it(resourceType + '.stock_item', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { stock_items: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'stock_item')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].stock_item(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.stock_item stop */
-	
-
 	/* relationship.reserved_stock start */
 	it(resourceType + '.reserved_stock', async () => {
 	
@@ -304,6 +283,27 @@ describe('StockReservations resource', () => {
 	
 	})
 	/* relationship.sku stop */
+	
+
+	/* relationship.stock_item start */
+	it(resourceType + '.stock_item', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stock_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stock_item')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stock_item(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.stock_item stop */
 	
   
 

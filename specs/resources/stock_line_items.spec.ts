@@ -26,10 +26,10 @@ describe('StockLineItems resource', () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
-			shipment: cl.shipments.relationship(TestData.id),
 			line_item: cl.line_items.relationship(TestData.id),
-			stock_item: cl.stock_items.relationship(TestData.id),
+			shipment: cl.shipments.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
+			stock_item: cl.stock_items.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -204,27 +204,6 @@ describe('StockLineItems resource', () => {
 
   
 
-	/* relationship.shipment start */
-	it(resourceType + '.shipment', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { shipments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'shipment')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].shipment(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.shipment stop */
-	
-
 	/* relationship.line_item start */
 	it(resourceType + '.line_item', async () => {
 	
@@ -246,25 +225,25 @@ describe('StockLineItems resource', () => {
 	/* relationship.line_item stop */
 	
 
-	/* relationship.stock_item start */
-	it(resourceType + '.stock_item', async () => {
+	/* relationship.shipment start */
+	it(resourceType + '.shipment', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { stock_items: CommonData.paramsFields } }
+		const params = { fields: { shipments: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'stock_item')
+			checkCommon(request, resourceType, id, currentAccessToken, 'shipment')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].stock_item(id, params, CommonData.options)
+		await cl[resourceType].shipment(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.stock_item stop */
+	/* relationship.shipment stop */
 	
 
 	/* relationship.sku start */
@@ -286,6 +265,27 @@ describe('StockLineItems resource', () => {
 	
 	})
 	/* relationship.sku stop */
+	
+
+	/* relationship.stock_item start */
+	it(resourceType + '.stock_item', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stock_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stock_item')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stock_item(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.stock_item stop */
 	
 
 	/* relationship.versions start */
@@ -310,10 +310,10 @@ describe('StockLineItems resource', () => {
 	
   
 
-	/* trigger._reserve_stock start */
-	it(resourceType + '._reserve_stock', async () => {
+	/* trigger._decrement_stock start */
+	it(resourceType + '._decrement_stock', async () => {
 	
-		let triggerAttr = '_reserve_stock'
+		let triggerAttr = '_decrement_stock'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
 	
 		const triggerValue = true
@@ -328,12 +328,12 @@ describe('StockLineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._reserve_stock(id, {}, CommonData.options)
+		await cl[resourceType]._decrement_stock(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* trigger._reserve_stock stop */
+	/* trigger._decrement_stock stop */
 	
 
 	/* trigger._release_stock start */
@@ -362,10 +362,10 @@ describe('StockLineItems resource', () => {
 	/* trigger._release_stock stop */
 	
 
-	/* trigger._decrement_stock start */
-	it(resourceType + '._decrement_stock', async () => {
+	/* trigger._reserve_stock start */
+	it(resourceType + '._reserve_stock', async () => {
 	
-		let triggerAttr = '_decrement_stock'
+		let triggerAttr = '_reserve_stock'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
 	
 		const triggerValue = true
@@ -380,11 +380,11 @@ describe('StockLineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._decrement_stock(id, {}, CommonData.options)
+		await cl[resourceType]._reserve_stock(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* trigger._decrement_stock stop */
+	/* trigger._reserve_stock stop */
 	
 })

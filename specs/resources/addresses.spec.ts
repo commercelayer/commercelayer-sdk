@@ -25,11 +25,11 @@ describe('Addresses resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			line_1: randomValue('string', 'line_1'),
 			city: randomValue('string', 'city'),
-			state_code: randomValue('string', 'state_code'),
 			country_code: randomValue('string', 'country_code'),
+			line_1: randomValue('string', 'line_1'),
 			phone: randomValue('string', 'phone'),
+			state_code: randomValue('string', 'state_code'),
 			geocoder: cl.geocoders.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
@@ -206,27 +206,6 @@ describe('Addresses resource', () => {
 
   
 
-	/* relationship.geocoder start */
-	it(resourceType + '.geocoder', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { geocoders: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'geocoder')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].geocoder(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.geocoder stop */
-	
-
 	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
@@ -246,6 +225,27 @@ describe('Addresses resource', () => {
 	
 	})
 	/* relationship.events stop */
+	
+
+	/* relationship.geocoder start */
+	it(resourceType + '.geocoder', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { geocoders: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'geocoder')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].geocoder(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.geocoder stop */
 	
 
 	/* relationship.tags start */

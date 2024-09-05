@@ -25,8 +25,8 @@ describe('TaxjarAccounts resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: randomValue('string', 'name'),
 			api_key: randomValue('string', 'api_key'),
+			name: randomValue('string', 'name'),
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 
@@ -202,27 +202,6 @@ describe('TaxjarAccounts resource', () => {
 
   
 
-	/* relationship.markets start */
-	it(resourceType + '.markets', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { markets: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'markets')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].markets(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.markets stop */
-	
-
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
@@ -244,25 +223,25 @@ describe('TaxjarAccounts resource', () => {
 	/* relationship.attachments stop */
 	
 
-	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	/* relationship.markets start */
+	it(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { versions: CommonData.paramsFields } }
+		const params = { fields: { markets: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourceType, id, currentAccessToken, 'markets')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourceType].markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.versions stop */
+	/* relationship.markets stop */
 	
 
 	/* relationship.tax_categories start */
@@ -284,6 +263,27 @@ describe('TaxjarAccounts resource', () => {
 	
 	})
 	/* relationship.tax_categories stop */
+	
+
+	/* relationship.versions start */
+	it(resourceType + '.versions', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { versions: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].versions(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.versions stop */
 	
   
 })

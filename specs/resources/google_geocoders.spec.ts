@@ -25,8 +25,8 @@ describe('GoogleGeocoders resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: randomValue('string', 'name'),
 			api_key: randomValue('string', 'api_key'),
+			name: randomValue('string', 'name'),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -201,27 +201,6 @@ describe('GoogleGeocoders resource', () => {
 
   
 
-	/* relationship.markets start */
-	it(resourceType + '.markets', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { markets: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'markets')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].markets(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.markets stop */
-	
-
 	/* relationship.addresses start */
 	it(resourceType + '.addresses', async () => {
 	
@@ -262,6 +241,27 @@ describe('GoogleGeocoders resource', () => {
 	
 	})
 	/* relationship.attachments stop */
+	
+
+	/* relationship.markets start */
+	it(resourceType + '.markets', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { markets: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'markets')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].markets(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.markets stop */
 	
   
 })

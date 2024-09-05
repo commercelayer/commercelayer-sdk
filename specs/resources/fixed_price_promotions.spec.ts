@@ -25,16 +25,16 @@ describe('FixedPricePromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: randomValue('string', 'name'),
-			starts_at: randomValue('string', 'starts_at'),
 			expires_at: randomValue('string', 'expires_at'),
 			fixed_amount_cents: randomValue('integer', 'fixed_amount_cents'),
-			market: cl.markets.relationship(TestData.id),
-			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
-			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
+			name: randomValue('string', 'name'),
+			starts_at: randomValue('string', 'starts_at'),
 			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
 			custom_promotion_rule: cl.custom_promotion_rules.relationship(TestData.id),
+			market: cl.markets.relationship(TestData.id),
+			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
 			sku_list: cl.sku_lists.relationship(TestData.id),
+			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
@@ -210,6 +210,111 @@ describe('FixedPricePromotions resource', () => {
 
   
 
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.attachments stop */
+	
+
+	/* relationship.coupon_codes_promotion_rule start */
+	it(resourceType + '.coupon_codes_promotion_rule', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { coupon_codes_promotion_rules: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'coupon_codes_promotion_rule')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].coupon_codes_promotion_rule(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.coupon_codes_promotion_rule stop */
+	
+
+	/* relationship.coupons start */
+	it(resourceType + '.coupons', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { coupons: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'coupons')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].coupons(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.coupons stop */
+	
+
+	/* relationship.custom_promotion_rule start */
+	it(resourceType + '.custom_promotion_rule', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { custom_promotion_rules: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'custom_promotion_rule')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].custom_promotion_rule(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.custom_promotion_rule stop */
+	
+
+	/* relationship.events start */
+	it(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.events stop */
+	
+
 	/* relationship.market start */
 	it(resourceType + '.market', async () => {
 	
@@ -252,69 +357,6 @@ describe('FixedPricePromotions resource', () => {
 	/* relationship.order_amount_promotion_rule stop */
 	
 
-	/* relationship.sku_list_promotion_rule start */
-	it(resourceType + '.sku_list_promotion_rule', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { sku_list_promotion_rules: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'sku_list_promotion_rule')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].sku_list_promotion_rule(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.sku_list_promotion_rule stop */
-	
-
-	/* relationship.coupon_codes_promotion_rule start */
-	it(resourceType + '.coupon_codes_promotion_rule', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { coupon_codes_promotion_rules: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'coupon_codes_promotion_rule')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].coupon_codes_promotion_rule(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.coupon_codes_promotion_rule stop */
-	
-
-	/* relationship.custom_promotion_rule start */
-	it(resourceType + '.custom_promotion_rule', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { custom_promotion_rules: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'custom_promotion_rule')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].custom_promotion_rule(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.custom_promotion_rule stop */
-	
-
 	/* relationship.sku_list start */
 	it(resourceType + '.sku_list', async () => {
 	
@@ -336,67 +378,46 @@ describe('FixedPricePromotions resource', () => {
 	/* relationship.sku_list stop */
 	
 
-	/* relationship.coupons start */
-	it(resourceType + '.coupons', async () => {
+	/* relationship.sku_list_promotion_rule start */
+	it(resourceType + '.sku_list_promotion_rule', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { coupons: CommonData.paramsFields } }
+		const params = { fields: { sku_list_promotion_rules: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'coupons')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku_list_promotion_rule')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].coupons(id, params, CommonData.options)
+		await cl[resourceType].sku_list_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.coupons stop */
+	/* relationship.sku_list_promotion_rule stop */
 	
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	/* relationship.skus start */
+	it(resourceType + '.skus', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
+		const params = { fields: { skus: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourceType, id, currentAccessToken, 'skus')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourceType].skus(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.attachments stop */
-	
-
-	/* relationship.events start */
-	it(resourceType + '.events', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { events: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'events')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].events(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.events stop */
+	/* relationship.skus stop */
 	
 
 	/* relationship.tags start */
@@ -439,27 +460,6 @@ describe('FixedPricePromotions resource', () => {
 	
 	})
 	/* relationship.versions stop */
-	
-
-	/* relationship.skus start */
-	it(resourceType + '.skus', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { skus: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'skus')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].skus(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.skus stop */
 	
   
 

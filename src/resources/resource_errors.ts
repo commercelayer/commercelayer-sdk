@@ -10,19 +10,14 @@ type ResourceErrorType = 'resource_errors'
 type ResourceErrorRel = ResourceRel & { type: ResourceErrorType }
 
 
-export type ResourceErrorSort = Pick<ResourceError, 'id' | 'name' | 'code'> & ResourceSort
-// export type ResourceErrorFilter = Pick<ResourceError, 'id' | 'name' | 'code' | 'message'> & ResourceFilter
+export type ResourceErrorSort = Pick<ResourceError, 'id' | 'code' | 'name'> & ResourceSort
+// export type ResourceErrorFilter = Pick<ResourceError, 'id' | 'code' | 'message' | 'name'> & ResourceFilter
 
 
 interface ResourceError extends Resource {
 	
 	readonly type: ResourceErrorType
 
-	/** 
-	 * The resource attribute name related to the error.
-	 * @example ```"number"```
-	 */
-	name: string
 	/** 
 	 * The error code.
 	 * @example ```"BLANK"```
@@ -33,6 +28,11 @@ interface ResourceError extends Resource {
 	 * @example ```"can't be blank"```
 	 */
 	message: string
+	/** 
+	 * The resource attribute name related to the error.
+	 * @example ```"number"```
+	 */
+	name: string
 
 	resource?: Order | Return | null
 

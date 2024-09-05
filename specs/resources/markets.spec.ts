@@ -26,13 +26,13 @@ describe('Markets resource', () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			merchant: cl.merchants.relationship(TestData.id),
-			price_list: cl.price_lists.relationship(TestData.id),
-			inventory_model: cl.inventory_models.relationship(TestData.id),
-			subscription_model: cl.subscription_models.relationship(TestData.id),
-			tax_calculator: cl.avalara_accounts.relationship(TestData.id),
 			customer_group: cl.customer_groups.relationship(TestData.id),
 			geocoder: cl.geocoders.relationship(TestData.id),
+			inventory_model: cl.inventory_models.relationship(TestData.id),
+			merchant: cl.merchants.relationship(TestData.id),
+			price_list: cl.price_lists.relationship(TestData.id),
+			subscription_model: cl.subscription_models.relationship(TestData.id),
+			tax_calculator: cl.avalara_accounts.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -207,109 +207,46 @@ describe('Markets resource', () => {
 
   
 
-	/* relationship.merchant start */
-	it(resourceType + '.merchant', async () => {
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { merchants: CommonData.paramsFields } }
+		const params = { fields: { attachments: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'merchant')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].merchant(id, params, CommonData.options)
+		await cl[resourceType].attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.merchant stop */
+	/* relationship.attachments stop */
 	
 
-	/* relationship.price_list start */
-	it(resourceType + '.price_list', async () => {
+	/* relationship.base_price_list start */
+	it(resourceType + '.base_price_list', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_lists: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'price_list')
+			checkCommon(request, resourceType, id, currentAccessToken, 'base_price_list')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].price_list(id, params, CommonData.options)
+		await cl[resourceType].base_price_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.price_list stop */
-	
-
-	/* relationship.inventory_model start */
-	it(resourceType + '.inventory_model', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { inventory_models: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'inventory_model')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].inventory_model(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.inventory_model stop */
-	
-
-	/* relationship.subscription_model start */
-	it(resourceType + '.subscription_model', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { subscription_models: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'subscription_model')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].subscription_model(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.subscription_model stop */
-	
-
-	/* relationship.tax_calculator start */
-	it(resourceType + '.tax_calculator', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { tax_calculators: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'tax_calculator')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].tax_calculator(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.tax_calculator stop */
+	/* relationship.base_price_list stop */
 	
 
 	/* relationship.customer_group start */
@@ -354,6 +291,69 @@ describe('Markets resource', () => {
 	/* relationship.geocoder stop */
 	
 
+	/* relationship.inventory_model start */
+	it(resourceType + '.inventory_model', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { inventory_models: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'inventory_model')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].inventory_model(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.inventory_model stop */
+	
+
+	/* relationship.merchant start */
+	it(resourceType + '.merchant', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { merchants: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'merchant')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].merchant(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.merchant stop */
+	
+
+	/* relationship.price_list start */
+	it(resourceType + '.price_list', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { price_lists: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'price_list')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].price_list(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.price_list stop */
+	
+
 	/* relationship.price_list_schedulers start */
 	it(resourceType + '.price_list_schedulers', async () => {
 	
@@ -375,25 +375,46 @@ describe('Markets resource', () => {
 	/* relationship.price_list_schedulers stop */
 	
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	/* relationship.subscription_model start */
+	it(resourceType + '.subscription_model', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
+		const params = { fields: { subscription_models: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourceType, id, currentAccessToken, 'subscription_model')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourceType].subscription_model(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.attachments stop */
+	/* relationship.subscription_model stop */
+	
+
+	/* relationship.tax_calculator start */
+	it(resourceType + '.tax_calculator', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { tax_calculators: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'tax_calculator')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].tax_calculator(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.tax_calculator stop */
 	
 
 	/* relationship.versions start */

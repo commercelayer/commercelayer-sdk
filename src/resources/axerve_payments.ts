@@ -21,35 +21,20 @@ interface AxervePayment extends Resource {
 	readonly type: AxervePaymentType
 
 	/** 
-	 * The merchant login code.
-	 * @example ```"xxxx-yyyy-zzzz"```
-	 */
-	login: string
-	/** 
-	 * The URL where the payer is redirected after they approve the payment.
-	 * @example ```"https://yourdomain.com/thankyou"```
-	 */
-	return_url: string
-	/** 
-	 * The Axerve payment request data, collected by client.
+	 * The details of the buyer creating the payment.
 	 * @example ```"[object Object]"```
 	 */
-	payment_request_data?: Record<string, any> | null
+	buyer_details?: Record<string, any> | null
 	/** 
 	 * The IP adress of the client creating the payment.
 	 * @example ```"213.45.120.5"```
 	 */
 	client_ip?: string | null
 	/** 
-	 * The details of the buyer creating the payment.
-	 * @example ```"[object Object]"```
+	 * The merchant login code.
+	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
-	buyer_details?: Record<string, any> | null
-	/** 
-	 * Requires the creation of a token to represent this payment, mandatory to use customer's wallet and order subscriptions.
-	 * @example ```"true"```
-	 */
-	request_token?: boolean | null
+	login: string
 	/** 
 	 * Indicates if the order current amount differs form the one of the associated authorization.
 	 */
@@ -59,6 +44,21 @@ interface AxervePayment extends Resource {
 	 * @example ```"[object Object]"```
 	 */
 	payment_instrument?: Record<string, any> | null
+	/** 
+	 * The Axerve payment request data, collected by client.
+	 * @example ```"[object Object]"```
+	 */
+	payment_request_data?: Record<string, any> | null
+	/** 
+	 * Requires the creation of a token to represent this payment, mandatory to use customer's wallet and order subscriptions.
+	 * @example ```"true"```
+	 */
+	request_token?: boolean | null
+	/** 
+	 * The URL where the payer is redirected after they approve the payment.
+	 * @example ```"https://yourdomain.com/thankyou"```
+	 */
+	return_url: string
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
@@ -70,25 +70,25 @@ interface AxervePayment extends Resource {
 interface AxervePaymentCreate extends ResourceCreate {
 	
 	/** 
-	 * The URL where the payer is redirected after they approve the payment.
-	 * @example ```"https://yourdomain.com/thankyou"```
+	 * The details of the buyer creating the payment.
+	 * @example ```"[object Object]"```
 	 */
-	return_url: string
+	buyer_details?: Record<string, any> | null
 	/** 
 	 * The IP adress of the client creating the payment.
 	 * @example ```"213.45.120.5"```
 	 */
 	client_ip?: string | null
 	/** 
-	 * The details of the buyer creating the payment.
-	 * @example ```"[object Object]"```
-	 */
-	buyer_details?: Record<string, any> | null
-	/** 
 	 * Requires the creation of a token to represent this payment, mandatory to use customer's wallet and order subscriptions.
 	 * @example ```"true"```
 	 */
 	request_token?: boolean | null
+	/** 
+	 * The URL where the payer is redirected after they approve the payment.
+	 * @example ```"https://yourdomain.com/thankyou"```
+	 */
+	return_url: string
 
 	order: OrderRel
 
@@ -98,15 +98,15 @@ interface AxervePaymentCreate extends ResourceCreate {
 interface AxervePaymentUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The Axerve payment request data, collected by client.
-	 * @example ```"[object Object]"```
-	 */
-	payment_request_data?: Record<string, any> | null
-	/** 
 	 * Send this attribute if you want to update the payment with fresh order data.
 	 * @example ```"true"```
 	 */
 	_update?: boolean | null
+	/** 
+	 * The Axerve payment request data, collected by client.
+	 * @example ```"[object Object]"```
+	 */
+	payment_request_data?: Record<string, any> | null
 
 	order?: OrderRel | null
 

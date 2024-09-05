@@ -128,27 +128,6 @@ describe('PriceTiers resource', () => {
 
   
 
-	/* relationship.price start */
-	it(resourceType + '.price', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { prices: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'price')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].price(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.price stop */
-	
-
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
@@ -168,6 +147,27 @@ describe('PriceTiers resource', () => {
 	
 	})
 	/* relationship.attachments stop */
+	
+
+	/* relationship.price start */
+	it(resourceType + '.price', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { prices: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'price')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].price(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.price stop */
 	
 
 	/* relationship.versions start */

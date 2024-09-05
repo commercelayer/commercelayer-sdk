@@ -25,10 +25,10 @@ describe('KlarnaGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: randomValue('string', 'name'),
-			country_code: randomValue('string', 'country_code'),
 			api_key: randomValue('string', 'api_key'),
 			api_secret: randomValue('string', 'api_secret'),
+			country_code: randomValue('string', 'country_code'),
+			name: randomValue('string', 'name'),
 			klarna_payments: [ cl.klarna_payments.relationship(TestData.id) ],
 		}
 
@@ -204,6 +204,27 @@ describe('KlarnaGateways resource', () => {
 
   
 
+	/* relationship.klarna_payments start */
+	it(resourceType + '.klarna_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { klarna_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'klarna_payments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].klarna_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.klarna_payments stop */
+	
+
 	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
@@ -244,27 +265,6 @@ describe('KlarnaGateways resource', () => {
 	
 	})
 	/* relationship.versions stop */
-	
-
-	/* relationship.klarna_payments start */
-	it(resourceType + '.klarna_payments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { klarna_payments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'klarna_payments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].klarna_payments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.klarna_payments stop */
 	
   
 })

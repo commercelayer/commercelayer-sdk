@@ -25,10 +25,10 @@ describe('FlexPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: randomValue('string', 'name'),
-			starts_at: randomValue('string', 'starts_at'),
 			expires_at: randomValue('string', 'expires_at'),
-			rules: randomValue('json', 'rules'),
+			name: randomValue('string', 'name'),
+			rules: randomValue('object', 'rules'),
+			starts_at: randomValue('string', 'starts_at'),
 			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
@@ -205,6 +205,27 @@ describe('FlexPromotions resource', () => {
 
   
 
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.attachments stop */
+	
+
 	/* relationship.coupon_codes_promotion_rule start */
 	it(resourceType + '.coupon_codes_promotion_rule', async () => {
 	
@@ -245,27 +266,6 @@ describe('FlexPromotions resource', () => {
 	
 	})
 	/* relationship.coupons stop */
-	
-
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].attachments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.attachments stop */
 	
 
 	/* relationship.events start */

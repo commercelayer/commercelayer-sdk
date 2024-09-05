@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market, MarketType } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
+import type { Market, MarketType } from './markets'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
 
@@ -15,8 +15,8 @@ type MarketRel = ResourceRel & { type: MarketType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type SkuOptionSort = Pick<SkuOption, 'id' | 'name' | 'currency_code' | 'price_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceSort
-// export type SkuOptionFilter = Pick<SkuOption, 'id' | 'name' | 'currency_code' | 'description' | 'price_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceFilter
+export type SkuOptionSort = Pick<SkuOption, 'id' | 'currency_code' | 'delay_days' | 'delay_hours' | 'name' | 'price_amount_cents'> & ResourceSort
+// export type SkuOptionFilter = Pick<SkuOption, 'id' | 'currency_code' | 'delay_days' | 'delay_hours' | 'description' | 'name' | 'price_amount_cents'> & ResourceFilter
 
 
 interface SkuOption extends Resource {
@@ -24,20 +24,35 @@ interface SkuOption extends Resource {
 	readonly type: SkuOptionType
 
 	/** 
-	 * The SKU option's internal name.
-	 * @example ```"Embossing"```
-	 */
-	name: string
-	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
+	 * The delay time, in days (rounded).
+	 * @example ```"2"```
+	 */
+	delay_days?: number | null
+	/** 
+	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
+	 * @example ```"48"```
+	 */
+	delay_hours?: number | null
+	/** 
 	 * An internal description of the SKU option.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
+	/** 
+	 * The price of this shipping method, formatted.
+	 * @example ```"€10,00"```
+	 */
+	formatted_price_amount?: string | null
+	/** 
+	 * The SKU option's internal name.
+	 * @example ```"Embossing"```
+	 */
+	name: string
 	/** 
 	 * The price of this shipping method, in cents.
 	 * @example ```"1000"```
@@ -49,29 +64,14 @@ interface SkuOption extends Resource {
 	 */
 	price_amount_float?: number | null
 	/** 
-	 * The price of this shipping method, formatted.
-	 * @example ```"€10,00"```
-	 */
-	formatted_price_amount?: string | null
-	/** 
-	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
-	 * @example ```"48"```
-	 */
-	delay_hours?: number | null
-	/** 
-	 * The delay time, in days (rounded).
-	 * @example ```"2"```
-	 */
-	delay_days?: number | null
-	/** 
 	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
 
-	market?: Market | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
+	market?: Market | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
 
@@ -81,30 +81,30 @@ interface SkuOption extends Resource {
 interface SkuOptionCreate extends ResourceCreate {
 	
 	/** 
-	 * The SKU option's internal name.
-	 * @example ```"Embossing"```
-	 */
-	name: string
-	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
+	/** 
+	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
+	 * @example ```"48"```
+	 */
+	delay_hours?: number | null
 	/** 
 	 * An internal description of the SKU option.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
+	 * The SKU option's internal name.
+	 * @example ```"Embossing"```
+	 */
+	name: string
+	/** 
 	 * The price of this shipping method, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents?: number | null
-	/** 
-	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
-	 * @example ```"48"```
-	 */
-	delay_hours?: number | null
 	/** 
 	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
@@ -120,30 +120,30 @@ interface SkuOptionCreate extends ResourceCreate {
 interface SkuOptionUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The SKU option's internal name.
-	 * @example ```"Embossing"```
-	 */
-	name?: string | null
-	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
+	/** 
+	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
+	 * @example ```"48"```
+	 */
+	delay_hours?: number | null
 	/** 
 	 * An internal description of the SKU option.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
+	 * The SKU option's internal name.
+	 * @example ```"Embossing"```
+	 */
+	name?: string | null
+	/** 
 	 * The price of this shipping method, in cents.
 	 * @example ```"1000"```
 	 */
 	price_amount_cents?: number | null
-	/** 
-	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
-	 * @example ```"48"```
-	 */
-	delay_hours?: number | null
 	/** 
 	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
@@ -172,11 +172,6 @@ class SkuOptions extends ApiResource<SkuOption> {
 		await this.resources.delete((typeof id === 'string')? { id, type: SkuOptions.TYPE } : id, options)
 	}
 
-	async market(skuOptionId: string | SkuOption, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
-		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `sku_options/${_skuOptionId}/market`, params, options) as unknown as Market
-	}
-
 	async attachments(skuOptionId: string | SkuOption, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_options/${_skuOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
@@ -185,6 +180,11 @@ class SkuOptions extends ApiResource<SkuOption> {
 	async events(skuOptionId: string | SkuOption, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `sku_options/${_skuOptionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async market(skuOptionId: string | SkuOption, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
+		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `sku_options/${_skuOptionId}/market`, params, options) as unknown as Market
 	}
 
 	async tags(skuOptionId: string | SkuOption, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {

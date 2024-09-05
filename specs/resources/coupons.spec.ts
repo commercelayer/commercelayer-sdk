@@ -26,8 +26,8 @@ describe('Coupons resource', () => {
 
     const createAttributes = {
 			code: randomValue('string', 'code'),
-			promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
 			coupon_recipient: cl.coupon_recipients.relationship(TestData.id),
+			promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
@@ -203,27 +203,6 @@ describe('Coupons resource', () => {
 
   
 
-	/* relationship.promotion_rule start */
-	it(resourceType + '.promotion_rule', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { coupon_codes_promotion_rules: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'promotion_rule')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].promotion_rule(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.promotion_rule stop */
-	
-
 	/* relationship.coupon_recipient start */
 	it(resourceType + '.coupon_recipient', async () => {
 	
@@ -264,6 +243,27 @@ describe('Coupons resource', () => {
 	
 	})
 	/* relationship.events stop */
+	
+
+	/* relationship.promotion_rule start */
+	it(resourceType + '.promotion_rule', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { coupon_codes_promotion_rules: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'promotion_rule')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].promotion_rule(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.promotion_rule stop */
 	
 
 	/* relationship.tags start */

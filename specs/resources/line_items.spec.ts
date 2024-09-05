@@ -26,8 +26,8 @@ describe('LineItems resource', () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
-			order: cl.orders.relationship(TestData.id),
 			item: cl.skus.relationship(TestData.id),
+			order: cl.orders.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
@@ -203,25 +203,25 @@ describe('LineItems resource', () => {
 
   
 
-	/* relationship.order start */
-	it(resourceType + '.order', async () => {
+	/* relationship.events start */
+	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { orders: CommonData.paramsFields } }
+		const params = { fields: { events: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'order')
+			checkCommon(request, resourceType, id, currentAccessToken, 'events')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].order(id, params, CommonData.options)
+		await cl[resourceType].events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.order stop */
+	/* relationship.events stop */
 	
 
 	/* relationship.line_item_options start */
@@ -245,6 +245,27 @@ describe('LineItems resource', () => {
 	/* relationship.line_item_options stop */
 	
 
+	/* relationship.order start */
+	it(resourceType + '.order', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { orders: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'order')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].order(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.order stop */
+	
+
 	/* relationship.return_line_items start */
 	it(resourceType + '.return_line_items', async () => {
 	
@@ -264,27 +285,6 @@ describe('LineItems resource', () => {
 	
 	})
 	/* relationship.return_line_items stop */
-	
-
-	/* relationship.stock_reservations start */
-	it(resourceType + '.stock_reservations', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { stock_reservations: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'stock_reservations')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].stock_reservations(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.stock_reservations stop */
 	
 
 	/* relationship.stock_line_items start */
@@ -308,6 +308,27 @@ describe('LineItems resource', () => {
 	/* relationship.stock_line_items stop */
 	
 
+	/* relationship.stock_reservations start */
+	it(resourceType + '.stock_reservations', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stock_reservations: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stock_reservations')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stock_reservations(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.stock_reservations stop */
+	
+
 	/* relationship.stock_transfers start */
 	it(resourceType + '.stock_transfers', async () => {
 	
@@ -327,27 +348,6 @@ describe('LineItems resource', () => {
 	
 	})
 	/* relationship.stock_transfers stop */
-	
-
-	/* relationship.events start */
-	it(resourceType + '.events', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { events: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'events')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].events(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.events stop */
 	
 
 	/* relationship.tags start */

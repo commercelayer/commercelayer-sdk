@@ -152,27 +152,6 @@ describe('Authorizations resource', () => {
 
   
 
-	/* relationship.order start */
-	it(resourceType + '.order', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { orders: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'order')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].order(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.order stop */
-	
-
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
@@ -192,48 +171,6 @@ describe('Authorizations resource', () => {
 	
 	})
 	/* relationship.attachments stop */
-	
-
-	/* relationship.events start */
-	it(resourceType + '.events', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { events: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'events')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].events(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.events stop */
-	
-
-	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { versions: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].versions(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.versions stop */
 	
 
 	/* relationship.captures start */
@@ -257,6 +194,69 @@ describe('Authorizations resource', () => {
 	/* relationship.captures stop */
 	
 
+	/* relationship.events start */
+	it(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.events stop */
+	
+
+	/* relationship.order start */
+	it(resourceType + '.order', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { orders: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'order')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].order(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.order stop */
+	
+
+	/* relationship.versions start */
+	it(resourceType + '.versions', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { versions: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].versions(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.versions stop */
+	
+
 	/* relationship.voids start */
 	it(resourceType + '.voids', async () => {
 	
@@ -278,32 +278,6 @@ describe('Authorizations resource', () => {
 	/* relationship.voids stop */
 	
   
-
-	/* trigger._forward start */
-	it(resourceType + '._forward', async () => {
-	
-		let triggerAttr = '_forward'
-		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
-	
-		const triggerValue = true
-		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			const data = JSON.parse(String(request.options.body))
-			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
-			checkCommonData(data, resourceType, attributes, id)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType]._forward(id, {}, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* trigger._forward stop */
-	
 
 	/* trigger._capture start */
 	it(resourceType + '._capture', async () => {
@@ -355,6 +329,32 @@ describe('Authorizations resource', () => {
 	
 	})
 	/* trigger._capture_amount_cents stop */
+	
+
+	/* trigger._forward start */
+	it(resourceType + '._forward', async () => {
+	
+		let triggerAttr = '_forward'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._forward(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._forward stop */
 	
 
 	/* trigger._void start */

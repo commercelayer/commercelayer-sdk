@@ -3,8 +3,8 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 import type { StripePayment } from './stripe_payments'
+import type { Version } from './versions'
 
 
 type StripeGatewayType = 'stripe_gateways'
@@ -20,15 +20,15 @@ interface StripeGateway extends Resource {
 	readonly type: StripeGatewayType
 
 	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
-	 */
-	name: string
-	/** 
 	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.
 	 * @example ```"true"```
 	 */
 	auto_payments?: boolean | null
+	/** 
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
+	 */
+	name: string
 	/** 
 	 * The gateway webhook endpoint ID, generated automatically.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -46,8 +46,8 @@ interface StripeGateway extends Resource {
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	stripe_payments?: StripePayment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -55,25 +55,25 @@ interface StripeGateway extends Resource {
 interface StripeGatewayCreate extends ResourceCreate {
 	
 	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
+	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.
+	 * @example ```"true"```
 	 */
-	name: string
+	auto_payments?: boolean | null
 	/** 
 	 * The gateway login.
 	 * @example ```"sk_live_xxxx-yyyy-zzzz"```
 	 */
 	login: string
 	/** 
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
+	 */
+	name: string
+	/** 
 	 * The gateway publishable API key.
 	 * @example ```"pk_live_xxxx-yyyy-zzzz"```
 	 */
 	publishable_key?: string | null
-	/** 
-	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.
-	 * @example ```"true"```
-	 */
-	auto_payments?: boolean | null
 	
 }
 
@@ -81,15 +81,15 @@ interface StripeGatewayCreate extends ResourceCreate {
 interface StripeGatewayUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
-	 */
-	name?: string | null
-	/** 
 	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.
 	 * @example ```"true"```
 	 */
 	auto_payments?: boolean | null
+	/** 
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
+	 */
+	name?: string | null
 	
 }
 
@@ -115,14 +115,14 @@ class StripeGateways extends ApiResource<StripeGateway> {
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `stripe_gateways/${_stripeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_gateways/${_stripeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
 	async stripe_payments(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<StripePayment>, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
 		return this.resources.fetch<StripePayment>({ type: 'stripe_payments' }, `stripe_gateways/${_stripeGatewayId}/stripe_payments`, params, options) as unknown as ListResponse<StripePayment>
+	}
+
+	async versions(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_gateways/${_stripeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

@@ -3,8 +3,8 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
+import type { Version } from './versions'
 
 
 type SatispayGatewayType = 'satispay_gateways'
@@ -21,6 +21,11 @@ interface SatispayGateway extends Resource {
 	readonly type: SatispayGatewayType
 
 	/** 
+	 * The Satispay API key auto generated basing on activation code.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	key_id: string
+	/** 
 	 * The payment gateway's internal name.
 	 * @example ```"US payment gateway"```
 	 */
@@ -31,19 +36,14 @@ interface SatispayGateway extends Resource {
 	 */
 	token: string
 	/** 
-	 * The Satispay API key auto generated basing on activation code.
-	 * @example ```"xxxx-yyyy-zzzz"```
-	 */
-	key_id: string
-	/** 
 	 * The gateway webhook URL, generated automatically.
 	 * @example ```"https://core.commercelayer.co/webhook_callbacks/satispay_gateways/xxxxx"```
 	 */
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	satispay_payments?: SatispayPayment[] | null
+	versions?: Version[] | null
 
 }
 
@@ -100,14 +100,14 @@ class SatispayGateways extends ApiResource<SatispayGateway> {
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `satispay_gateways/${_satispayGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(satispayGatewayId: string | SatispayGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _satispayGatewayId = (satispayGatewayId as SatispayGateway).id || satispayGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `satispay_gateways/${_satispayGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
 	async satispay_payments(satispayGatewayId: string | SatispayGateway, params?: QueryParamsList<SatispayPayment>, options?: ResourcesConfig): Promise<ListResponse<SatispayPayment>> {
 		const _satispayGatewayId = (satispayGatewayId as SatispayGateway).id || satispayGatewayId as string
 		return this.resources.fetch<SatispayPayment>({ type: 'satispay_payments' }, `satispay_gateways/${_satispayGatewayId}/satispay_payments`, params, options) as unknown as ListResponse<SatispayPayment>
+	}
+
+	async versions(satispayGatewayId: string | SatispayGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _satispayGatewayId = (satispayGatewayId as SatispayGateway).id || satispayGatewayId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `satispay_gateways/${_satispayGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

@@ -25,9 +25,9 @@ describe('PaypalGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: randomValue('string', 'name'),
 			client_id: randomValue('string', 'client_id'),
 			client_secret: randomValue('string', 'client_secret'),
+			name: randomValue('string', 'name'),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -223,27 +223,6 @@ describe('PaypalGateways resource', () => {
 	/* relationship.payment_methods stop */
 	
 
-	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { versions: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].versions(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.versions stop */
-	
-
 	/* relationship.paypal_payments start */
 	it(resourceType + '.paypal_payments', async () => {
 	
@@ -263,6 +242,27 @@ describe('PaypalGateways resource', () => {
 	
 	})
 	/* relationship.paypal_payments stop */
+	
+
+	/* relationship.versions start */
+	it(resourceType + '.versions', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { versions: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].versions(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.versions stop */
 	
   
 })

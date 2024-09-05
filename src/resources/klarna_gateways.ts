@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
-import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
 
 
 type KlarnaGatewayType = 'klarna_gateways'
@@ -26,25 +26,15 @@ interface KlarnaGateway extends Resource {
 	 */
 	name: string
 
+	klarna_payments?: KlarnaPayment[] | null
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
-	klarna_payments?: KlarnaPayment[] | null
 
 }
 
 
 interface KlarnaGatewayCreate extends ResourceCreate {
 	
-	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
-	 */
-	name: string
-	/** 
-	 * The gateway country code one of EU, US, or OC.
-	 * @example ```"EU"```
-	 */
-	country_code: string
 	/** 
 	 * The public key linked to your API credential.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -55,6 +45,16 @@ interface KlarnaGatewayCreate extends ResourceCreate {
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	api_secret: string
+	/** 
+	 * The gateway country code one of EU, US, or OC.
+	 * @example ```"EU"```
+	 */
+	country_code: string
+	/** 
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
+	 */
+	name: string
 
 	klarna_payments?: KlarnaPaymentRel[] | null
 
@@ -63,16 +63,6 @@ interface KlarnaGatewayCreate extends ResourceCreate {
 
 interface KlarnaGatewayUpdate extends ResourceUpdate {
 	
-	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
-	 */
-	name?: string | null
-	/** 
-	 * The gateway country code one of EU, US, or OC.
-	 * @example ```"EU"```
-	 */
-	country_code?: string | null
 	/** 
 	 * The public key linked to your API credential.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -83,6 +73,16 @@ interface KlarnaGatewayUpdate extends ResourceUpdate {
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	api_secret?: string | null
+	/** 
+	 * The gateway country code one of EU, US, or OC.
+	 * @example ```"EU"```
+	 */
+	country_code?: string | null
+	/** 
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
+	 */
+	name?: string | null
 
 	klarna_payments?: KlarnaPaymentRel[] | null
 
@@ -105,6 +105,11 @@ class KlarnaGateways extends ApiResource<KlarnaGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: KlarnaGateways.TYPE } : id, options)
 	}
 
+	async klarna_payments(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<KlarnaPayment>, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
+		const _klarnaGatewayId = (klarnaGatewayId as KlarnaGateway).id || klarnaGatewayId as string
+		return this.resources.fetch<KlarnaPayment>({ type: 'klarna_payments' }, `klarna_gateways/${_klarnaGatewayId}/klarna_payments`, params, options) as unknown as ListResponse<KlarnaPayment>
+	}
+
 	async payment_methods(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _klarnaGatewayId = (klarnaGatewayId as KlarnaGateway).id || klarnaGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `klarna_gateways/${_klarnaGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
@@ -113,11 +118,6 @@ class KlarnaGateways extends ApiResource<KlarnaGateway> {
 	async versions(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _klarnaGatewayId = (klarnaGatewayId as KlarnaGateway).id || klarnaGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `klarna_gateways/${_klarnaGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
-	async klarna_payments(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<KlarnaPayment>, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
-		const _klarnaGatewayId = (klarnaGatewayId as KlarnaGateway).id || klarnaGatewayId as string
-		return this.resources.fetch<KlarnaPayment>({ type: 'klarna_payments' }, `klarna_gateways/${_klarnaGatewayId}/klarna_payments`, params, options) as unknown as ListResponse<KlarnaPayment>
 	}
 
 

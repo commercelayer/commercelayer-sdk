@@ -25,8 +25,8 @@ describe('SubscriptionModels resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			name: randomValue('string', 'name'),
 			frequencies: randomValue('string[]', 'frequencies'),
+			name: randomValue('string', 'name'),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -201,6 +201,27 @@ describe('SubscriptionModels resource', () => {
 
   
 
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.attachments stop */
+	
+
 	/* relationship.markets start */
 	it(resourceType + '.markets', async () => {
 	
@@ -241,27 +262,6 @@ describe('SubscriptionModels resource', () => {
 	
 	})
 	/* relationship.order_subscriptions stop */
-	
-
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].attachments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.attachments stop */
 	
   
 })

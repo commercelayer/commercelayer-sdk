@@ -83,7 +83,7 @@ type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
 
 
 export type AttachmentSort = Pick<Attachment, 'id' | 'name'> & ResourceSort
-// export type AttachmentFilter = Pick<Attachment, 'id' | 'name' | 'description'> & ResourceFilter
+// export type AttachmentFilter = Pick<Attachment, 'id' | 'description' | 'name'> & ResourceFilter
 
 
 interface Attachment extends Resource {
@@ -91,15 +91,15 @@ interface Attachment extends Resource {
 	readonly type: AttachmentType
 
 	/** 
-	 * The internal name of the attachment.
-	 * @example ```"DDT transport document"```
-	 */
-	name: string
-	/** 
 	 * An internal description of the attachment.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
+	/** 
+	 * The internal name of the attachment.
+	 * @example ```"DDT transport document"```
+	 */
+	name: string
 	/** 
 	 * The attachment URL.
 	 * @example ```"https://s3.yourdomain.com/attachment.pdf"```
@@ -114,15 +114,15 @@ interface Attachment extends Resource {
 interface AttachmentCreate extends ResourceCreate {
 	
 	/** 
-	 * The internal name of the attachment.
-	 * @example ```"DDT transport document"```
-	 */
-	name: string
-	/** 
 	 * An internal description of the attachment.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
+	/** 
+	 * The internal name of the attachment.
+	 * @example ```"DDT transport document"```
+	 */
+	name: string
 	/** 
 	 * The attachment URL.
 	 * @example ```"https://s3.yourdomain.com/attachment.pdf"```
@@ -137,15 +137,15 @@ interface AttachmentCreate extends ResourceCreate {
 interface AttachmentUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The internal name of the attachment.
-	 * @example ```"DDT transport document"```
-	 */
-	name?: string | null
-	/** 
 	 * An internal description of the attachment.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
+	/** 
+	 * The internal name of the attachment.
+	 * @example ```"DDT transport document"```
+	 */
+	name?: string | null
 	/** 
 	 * The attachment URL.
 	 * @example ```"https://s3.yourdomain.com/attachment.pdf"```

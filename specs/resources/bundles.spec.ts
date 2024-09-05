@@ -204,6 +204,48 @@ describe('Bundles resource', () => {
 
   
 
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.attachments stop */
+	
+
+	/* relationship.events start */
+	it(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.events stop */
+	
+
 	/* relationship.market start */
 	it(resourceType + '.market', async () => {
 	
@@ -267,48 +309,6 @@ describe('Bundles resource', () => {
 	/* relationship.skus stop */
 	
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].attachments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.attachments stop */
-	
-
-	/* relationship.events start */
-	it(resourceType + '.events', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { events: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'events')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].events(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.events stop */
-	
-
 	/* relationship.tags start */
 	it(resourceType + '.tags', async () => {
 	
@@ -352,32 +352,6 @@ describe('Bundles resource', () => {
 	
   
 
-	/* trigger._compute_price_amount start */
-	it(resourceType + '._compute_price_amount', async () => {
-	
-		let triggerAttr = '_compute_price_amount'
-		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
-	
-		const triggerValue = true
-		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			const data = JSON.parse(String(request.options.body))
-			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
-			checkCommonData(data, resourceType, attributes, id)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType]._compute_price_amount(id, {}, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* trigger._compute_price_amount stop */
-	
-
 	/* trigger._compute_compare_at_amount start */
 	it(resourceType + '._compute_compare_at_amount', async () => {
 	
@@ -402,5 +376,31 @@ describe('Bundles resource', () => {
 	
 	})
 	/* trigger._compute_compare_at_amount stop */
+	
+
+	/* trigger._compute_price_amount start */
+	it(resourceType + '._compute_price_amount', async () => {
+	
+		let triggerAttr = '_compute_price_amount'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._compute_price_amount(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._compute_price_amount stop */
 	
 })

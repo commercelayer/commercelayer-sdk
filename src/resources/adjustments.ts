@@ -9,24 +9,14 @@ type AdjustmentType = 'adjustments'
 type AdjustmentRel = ResourceRel & { type: AdjustmentType }
 
 
-export type AdjustmentSort = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceSort
-// export type AdjustmentFilter = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceFilter
+export type AdjustmentSort = Pick<Adjustment, 'id' | 'amount_cents' | 'currency_code' | 'name'> & ResourceSort
+// export type AdjustmentFilter = Pick<Adjustment, 'id' | 'amount_cents' | 'currency_code' | 'name'> & ResourceFilter
 
 
 interface Adjustment extends Resource {
 	
 	readonly type: AdjustmentType
 
-	/** 
-	 * The adjustment name.
-	 * @example ```"Additional service"```
-	 */
-	name: string
-	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard.
-	 * @example ```"EUR"```
-	 */
-	currency_code: string
 	/** 
 	 * The adjustment amount, in cents.
 	 * @example ```"1500"```
@@ -38,15 +28,25 @@ interface Adjustment extends Resource {
 	 */
 	amount_float: number
 	/** 
-	 * The adjustment amount, formatted.
-	 * @example ```"€15,00"```
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
+	 * @example ```"EUR"```
 	 */
-	formatted_amount: string
+	currency_code: string
 	/** 
 	 * Indicates if negative adjustment amount is distributed for tax calculation.
 	 * @example ```"true"```
 	 */
 	distribute_discount?: boolean | null
+	/** 
+	 * The adjustment amount, formatted.
+	 * @example ```"€15,00"```
+	 */
+	formatted_amount: string
+	/** 
+	 * The adjustment name.
+	 * @example ```"Additional service"```
+	 */
+	name: string
 
 	versions?: Version[] | null
 
@@ -56,25 +56,25 @@ interface Adjustment extends Resource {
 interface AdjustmentCreate extends ResourceCreate {
 	
 	/** 
-	 * The adjustment name.
-	 * @example ```"Additional service"```
+	 * The adjustment amount, in cents.
+	 * @example ```"1500"```
 	 */
-	name: string
+	amount_cents: number
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code: string
 	/** 
-	 * The adjustment amount, in cents.
-	 * @example ```"1500"```
-	 */
-	amount_cents: number
-	/** 
 	 * Indicates if negative adjustment amount is distributed for tax calculation.
 	 * @example ```"true"```
 	 */
 	distribute_discount?: boolean | null
+	/** 
+	 * The adjustment name.
+	 * @example ```"Additional service"```
+	 */
+	name: string
 	
 }
 
@@ -82,25 +82,25 @@ interface AdjustmentCreate extends ResourceCreate {
 interface AdjustmentUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The adjustment name.
-	 * @example ```"Additional service"```
+	 * The adjustment amount, in cents.
+	 * @example ```"1500"```
 	 */
-	name?: string | null
+	amount_cents?: number | null
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * The adjustment amount, in cents.
-	 * @example ```"1500"```
-	 */
-	amount_cents?: number | null
-	/** 
 	 * Indicates if negative adjustment amount is distributed for tax calculation.
 	 * @example ```"true"```
 	 */
 	distribute_discount?: boolean | null
+	/** 
+	 * The adjustment name.
+	 * @example ```"Additional service"```
+	 */
+	name?: string | null
 	
 }
 

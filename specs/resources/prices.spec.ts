@@ -27,8 +27,8 @@ describe('Prices resource', () => {
     const createAttributes = {
 			amount_cents: randomValue('integer', 'amount_cents'),
 			price_list: cl.price_lists.relationship(TestData.id),
-			sku: cl.skus.relationship(TestData.id),
 			price_tiers: [ cl.price_tiers.relationship(TestData.id) ],
+			sku: cl.skus.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -203,111 +203,6 @@ describe('Prices resource', () => {
 
   
 
-	/* relationship.price_list start */
-	it(resourceType + '.price_list', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { price_lists: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'price_list')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].price_list(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.price_list stop */
-	
-
-	/* relationship.sku start */
-	it(resourceType + '.sku', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { skus: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'sku')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].sku(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.sku stop */
-	
-
-	/* relationship.price_tiers start */
-	it(resourceType + '.price_tiers', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { price_tiers: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'price_tiers')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].price_tiers(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.price_tiers stop */
-	
-
-	/* relationship.price_volume_tiers start */
-	it(resourceType + '.price_volume_tiers', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { price_volume_tiers: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'price_volume_tiers')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].price_volume_tiers(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.price_volume_tiers stop */
-	
-
-	/* relationship.price_frequency_tiers start */
-	it(resourceType + '.price_frequency_tiers', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { price_frequency_tiers: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'price_frequency_tiers')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].price_frequency_tiers(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.price_frequency_tiers stop */
-	
-
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
@@ -327,27 +222,6 @@ describe('Prices resource', () => {
 	
 	})
 	/* relationship.attachments stop */
-	
-
-	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { versions: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].versions(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.versions stop */
 	
 
 	/* relationship.jwt_customer start */
@@ -411,6 +285,132 @@ describe('Prices resource', () => {
 	
 	})
 	/* relationship.jwt_stock_locations stop */
+	
+
+	/* relationship.price_frequency_tiers start */
+	it(resourceType + '.price_frequency_tiers', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { price_frequency_tiers: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'price_frequency_tiers')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].price_frequency_tiers(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.price_frequency_tiers stop */
+	
+
+	/* relationship.price_list start */
+	it(resourceType + '.price_list', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { price_lists: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'price_list')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].price_list(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.price_list stop */
+	
+
+	/* relationship.price_tiers start */
+	it(resourceType + '.price_tiers', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { price_tiers: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'price_tiers')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].price_tiers(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.price_tiers stop */
+	
+
+	/* relationship.price_volume_tiers start */
+	it(resourceType + '.price_volume_tiers', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { price_volume_tiers: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'price_volume_tiers')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].price_volume_tiers(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.price_volume_tiers stop */
+	
+
+	/* relationship.sku start */
+	it(resourceType + '.sku', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { skus: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.sku stop */
+	
+
+	/* relationship.versions start */
+	it(resourceType + '.versions', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { versions: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].versions(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.versions stop */
 	
   
 })

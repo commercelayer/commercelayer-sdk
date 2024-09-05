@@ -201,27 +201,6 @@ describe('CouponRecipients resource', () => {
 
   
 
-	/* relationship.customer start */
-	it(resourceType + '.customer', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { customers: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'customer')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].customer(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.customer stop */
-	
-
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
@@ -241,6 +220,27 @@ describe('CouponRecipients resource', () => {
 	
 	})
 	/* relationship.attachments stop */
+	
+
+	/* relationship.customer start */
+	it(resourceType + '.customer', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { customers: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'customer')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].customer(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.customer stop */
 	
 
 	/* relationship.versions start */

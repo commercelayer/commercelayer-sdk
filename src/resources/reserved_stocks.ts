@@ -2,8 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { StockItem } from './stock_items'
 import type { Sku } from './skus'
+import type { StockItem } from './stock_items'
 import type { StockReservation } from './stock_reservations'
 import type { Version } from './versions'
 
@@ -26,8 +26,8 @@ interface ReservedStock extends Resource {
 	 */
 	quantity: number
 
-	stock_item?: StockItem | null
 	sku?: Sku | null
+	stock_item?: StockItem | null
 	stock_reservations?: StockReservation[] | null
 	versions?: Version[] | null
 
@@ -38,14 +38,14 @@ class ReservedStocks extends ApiResource<ReservedStock> {
 
 	static readonly TYPE: ReservedStockType = 'reserved_stocks' as const
 
-	async stock_item(reservedStockId: string | ReservedStock, params?: QueryParamsRetrieve<StockItem>, options?: ResourcesConfig): Promise<StockItem> {
-		const _reservedStockId = (reservedStockId as ReservedStock).id || reservedStockId as string
-		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `reserved_stocks/${_reservedStockId}/stock_item`, params, options) as unknown as StockItem
-	}
-
 	async sku(reservedStockId: string | ReservedStock, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		const _reservedStockId = (reservedStockId as ReservedStock).id || reservedStockId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `reserved_stocks/${_reservedStockId}/sku`, params, options) as unknown as Sku
+	}
+
+	async stock_item(reservedStockId: string | ReservedStock, params?: QueryParamsRetrieve<StockItem>, options?: ResourcesConfig): Promise<StockItem> {
+		const _reservedStockId = (reservedStockId as ReservedStock).id || reservedStockId as string
+		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `reserved_stocks/${_reservedStockId}/stock_item`, params, options) as unknown as StockItem
 	}
 
 	async stock_reservations(reservedStockId: string | ReservedStock, params?: QueryParamsList<StockReservation>, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {

@@ -25,8 +25,8 @@ describe('CouponCodesPromotionRules resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			promotion: cl.percentage_discount_promotions.relationship(TestData.id),
 			coupons: [ cl.coupons.relationship(TestData.id) ],
+			promotion: cl.percentage_discount_promotions.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -201,27 +201,6 @@ describe('CouponCodesPromotionRules resource', () => {
 
   
 
-	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { versions: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].versions(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.versions stop */
-	
-
 	/* relationship.coupons start */
 	it(resourceType + '.coupons', async () => {
 	
@@ -241,6 +220,27 @@ describe('CouponCodesPromotionRules resource', () => {
 	
 	})
 	/* relationship.coupons stop */
+	
+
+	/* relationship.versions start */
+	it(resourceType + '.versions', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { versions: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].versions(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.versions stop */
 	
   
 })

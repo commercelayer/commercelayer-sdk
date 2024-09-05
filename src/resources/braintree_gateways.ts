@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
-import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
 
 
 type BraintreeGatewayType = 'braintree_gateways'
@@ -21,11 +21,6 @@ interface BraintreeGateway extends Resource {
 	readonly type: BraintreeGatewayType
 
 	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
-	 */
-	name: string
-	/** 
 	 * The dynamic descriptor name. Must be composed by business name (3, 7 or 12 chars), an asterisk (*) and the product name (18, 14 or 9 chars), for a total length of 22 chars.
 	 * @example ```"company*productabc1234"```
 	 */
@@ -41,14 +36,19 @@ interface BraintreeGateway extends Resource {
 	 */
 	descriptor_url?: string | null
 	/** 
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
+	 */
+	name: string
+	/** 
 	 * The gateway webhook URL, generated automatically.
 	 * @example ```"https://core.commercelayer.co/webhook_callbacks/braintree_gateways/xxxxx"```
 	 */
 	webhook_endpoint_url?: string | null
 
+	braintree_payments?: BraintreePayment[] | null
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
-	braintree_payments?: BraintreePayment[] | null
 
 }
 
@@ -56,10 +56,20 @@ interface BraintreeGateway extends Resource {
 interface BraintreeGatewayCreate extends ResourceCreate {
 	
 	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
+	 * The dynamic descriptor name. Must be composed by business name (3, 7 or 12 chars), an asterisk (*) and the product name (18, 14 or 9 chars), for a total length of 22 chars.
+	 * @example ```"company*productabc1234"```
 	 */
-	name: string
+	descriptor_name?: string | null
+	/** 
+	 * The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods.
+	 * @example ```"3125551212"```
+	 */
+	descriptor_phone?: string | null
+	/** 
+	 * The dynamic descriptor URL.
+	 * @example ```"company.com"```
+	 */
+	descriptor_url?: string | null
 	/** 
 	 * The gateway merchant account ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -71,15 +81,28 @@ interface BraintreeGatewayCreate extends ResourceCreate {
 	 */
 	merchant_id: string
 	/** 
-	 * The gateway API public key.
-	 * @example ```"xxxx-yyyy-zzzz"```
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
 	 */
-	public_key: string
+	name: string
 	/** 
 	 * The gateway API private key.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	private_key: string
+	/** 
+	 * The gateway API public key.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	public_key: string
+
+	braintree_payments?: BraintreePaymentRel[] | null
+
+}
+
+
+interface BraintreeGatewayUpdate extends ResourceUpdate {
+	
 	/** 
 	 * The dynamic descriptor name. Must be composed by business name (3, 7 or 12 chars), an asterisk (*) and the product name (18, 14 or 9 chars), for a total length of 22 chars.
 	 * @example ```"company*productabc1234"```
@@ -95,19 +118,6 @@ interface BraintreeGatewayCreate extends ResourceCreate {
 	 * @example ```"company.com"```
 	 */
 	descriptor_url?: string | null
-
-	braintree_payments?: BraintreePaymentRel[] | null
-
-}
-
-
-interface BraintreeGatewayUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
-	 */
-	name?: string | null
 	/** 
 	 * The gateway merchant account ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -119,30 +129,20 @@ interface BraintreeGatewayUpdate extends ResourceUpdate {
 	 */
 	merchant_id?: string | null
 	/** 
-	 * The gateway API public key.
-	 * @example ```"xxxx-yyyy-zzzz"```
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
 	 */
-	public_key?: string | null
+	name?: string | null
 	/** 
 	 * The gateway API private key.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	private_key?: string | null
 	/** 
-	 * The dynamic descriptor name. Must be composed by business name (3, 7 or 12 chars), an asterisk (*) and the product name (18, 14 or 9 chars), for a total length of 22 chars.
-	 * @example ```"company*productabc1234"```
+	 * The gateway API public key.
+	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
-	descriptor_name?: string | null
-	/** 
-	 * The dynamic descriptor phone number. Must be 10-14 characters and can only contain numbers, dashes, parentheses and periods.
-	 * @example ```"3125551212"```
-	 */
-	descriptor_phone?: string | null
-	/** 
-	 * The dynamic descriptor URL.
-	 * @example ```"company.com"```
-	 */
-	descriptor_url?: string | null
+	public_key?: string | null
 
 	braintree_payments?: BraintreePaymentRel[] | null
 
@@ -165,6 +165,11 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: BraintreeGateways.TYPE } : id, options)
 	}
 
+	async braintree_payments(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<BraintreePayment>, options?: ResourcesConfig): Promise<ListResponse<BraintreePayment>> {
+		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
+		return this.resources.fetch<BraintreePayment>({ type: 'braintree_payments' }, `braintree_gateways/${_braintreeGatewayId}/braintree_payments`, params, options) as unknown as ListResponse<BraintreePayment>
+	}
+
 	async payment_methods(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `braintree_gateways/${_braintreeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
@@ -173,11 +178,6 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 	async versions(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `braintree_gateways/${_braintreeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
-	async braintree_payments(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<BraintreePayment>, options?: ResourcesConfig): Promise<ListResponse<BraintreePayment>> {
-		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
-		return this.resources.fetch<BraintreePayment>({ type: 'braintree_payments' }, `braintree_gateways/${_braintreeGatewayId}/braintree_payments`, params, options) as unknown as ListResponse<BraintreePayment>
 	}
 
 

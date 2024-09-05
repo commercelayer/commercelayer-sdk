@@ -2,8 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Customer, CustomerType } from './customers'
 import type { Attachment } from './attachments'
+import type { Customer, CustomerType } from './customers'
 import type { Version } from './versions'
 
 
@@ -36,8 +36,8 @@ interface GiftCardRecipient extends Resource {
 	 */
 	last_name?: string | null
 
-	customer?: Customer | null
 	attachments?: Attachment[] | null
+	customer?: Customer | null
 	versions?: Version[] | null
 
 }
@@ -105,14 +105,14 @@ class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
 		await this.resources.delete((typeof id === 'string')? { id, type: GiftCardRecipients.TYPE } : id, options)
 	}
 
-	async customer(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
-		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId as string
-		return this.resources.fetch<Customer>({ type: 'customers' }, `gift_card_recipients/${_giftCardRecipientId}/customer`, params, options) as unknown as Customer
-	}
-
 	async attachments(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `gift_card_recipients/${_giftCardRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async customer(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
+		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId as string
+		return this.resources.fetch<Customer>({ type: 'customers' }, `gift_card_recipients/${_giftCardRecipientId}/customer`, params, options) as unknown as Customer
 	}
 
 	async versions(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

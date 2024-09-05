@@ -25,8 +25,8 @@ describe('Imports resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			resource_type: randomValue('string', 'resource_type'),
 			inputs: randomValue('object[]', 'inputs'),
+			resource_type: randomValue('string', 'resource_type'),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

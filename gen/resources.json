@@ -10811,7 +10811,7 @@
                     ]
                 },
                 "rules": {
-                    "type": "json",
+                    "type": "object",
                     "desc": "The discount rule to be applied.",
                     "required": "required",
                     "creatable": true,
@@ -10913,7 +10913,7 @@
                     "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                 },
                 "rule_outcomes": {
-                    "type": "json",
+                    "type": "object",
                     "desc": "The rule outcomes.",
                     "required": "optional",
                     "creatable": false,
@@ -16277,6 +16277,14 @@
                     "sortable": true,
                     "parent_resource": "Api::MarketResource",
                     "class_name": "PriceList"
+                },
+                "base_price_list": {
+                    "type": "has_one",
+                    "desc": "The base price list associated to the market, no matter the active price scheduler.",
+                    "class_name": "PriceList",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "parent_resource": "Api::MarketResource"
                 },
                 "inventory_model": {
                     "type": "has_one",
@@ -23304,7 +23312,7 @@
                     "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                 },
                 "rules": {
-                    "type": "json",
+                    "type": "object",
                     "desc": "The rules (using Rules Engine) to be applied.",
                     "required": "optional",
                     "creatable": true,
@@ -23315,7 +23323,7 @@
                     "example": "{}"
                 },
                 "rule_outcomes": {
-                    "type": "json",
+                    "type": "object",
                     "desc": "The rule outcomes.",
                     "required": "optional",
                     "creatable": false,
@@ -23795,7 +23803,7 @@
                     "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                 },
                 "rules": {
-                    "type": "json",
+                    "type": "object",
                     "desc": "The rules (using Rules Engine) to be applied.",
                     "required": "optional",
                     "creatable": true,
@@ -23806,7 +23814,7 @@
                     "example": "{}"
                 },
                 "rule_outcomes": {
-                    "type": "json",
+                    "type": "object",
                     "desc": "The rule outcomes.",
                     "required": "optional",
                     "creatable": false,

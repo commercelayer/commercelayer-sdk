@@ -2,8 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Webhook } from './webhooks'
 import type { EventCallback } from './event_callbacks'
+import type { Webhook } from './webhooks'
 
 
 type EventType = 'events'
@@ -24,8 +24,8 @@ interface Event extends Resource {
 	 */
 	name: string
 
-	webhooks?: Webhook[] | null
 	last_event_callbacks?: EventCallback[] | null
+	webhooks?: Webhook[] | null
 
 }
 
@@ -49,14 +49,14 @@ class Events extends ApiResource<Event> {
 		return this.resources.update<EventUpdate, Event>({ ...resource, type: Events.TYPE }, params, options)
 	}
 
-	async webhooks(eventId: string | Event, params?: QueryParamsList<Webhook>, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {
-		const _eventId = (eventId as Event).id || eventId as string
-		return this.resources.fetch<Webhook>({ type: 'webhooks' }, `events/${_eventId}/webhooks`, params, options) as unknown as ListResponse<Webhook>
-	}
-
 	async last_event_callbacks(eventId: string | Event, params?: QueryParamsList<EventCallback>, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		const _eventId = (eventId as Event).id || eventId as string
 		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `events/${_eventId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
+	}
+
+	async webhooks(eventId: string | Event, params?: QueryParamsList<Webhook>, options?: ResourcesConfig): Promise<ListResponse<Webhook>> {
+		const _eventId = (eventId as Event).id || eventId as string
+		return this.resources.fetch<Webhook>({ type: 'webhooks' }, `events/${_eventId}/webhooks`, params, options) as unknown as ListResponse<Webhook>
 	}
 
 	async _trigger(id: string | Event, params?: QueryParamsRetrieve<Event>, options?: ResourcesConfig): Promise<Event> {

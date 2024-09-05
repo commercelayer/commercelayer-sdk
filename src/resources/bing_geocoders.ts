@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Market } from './markets'
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
+import type { Market } from './markets'
 
 
 type BingGeocoderType = 'bing_geocoders'
@@ -25,9 +25,9 @@ interface BingGeocoder extends Resource {
 	 */
 	name: string
 
-	markets?: Market[] | null
 	addresses?: Address[] | null
 	attachments?: Attachment[] | null
+	markets?: Market[] | null
 
 }
 
@@ -35,15 +35,15 @@ interface BingGeocoder extends Resource {
 interface BingGeocoderCreate extends ResourceCreate {
 	
 	/** 
-	 * The geocoder's internal name.
-	 * @example ```"Default geocoder"```
-	 */
-	name: string
-	/** 
 	 * The Bing Virtualearth key.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	key: string
+	/** 
+	 * The geocoder's internal name.
+	 * @example ```"Default geocoder"```
+	 */
+	name: string
 	
 }
 
@@ -51,15 +51,15 @@ interface BingGeocoderCreate extends ResourceCreate {
 interface BingGeocoderUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The geocoder's internal name.
-	 * @example ```"Default geocoder"```
-	 */
-	name?: string | null
-	/** 
 	 * The Bing Virtualearth key.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	key?: string | null
+	/** 
+	 * The geocoder's internal name.
+	 * @example ```"Default geocoder"```
+	 */
+	name?: string | null
 	
 }
 
@@ -80,11 +80,6 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 		await this.resources.delete((typeof id === 'string')? { id, type: BingGeocoders.TYPE } : id, options)
 	}
 
-	async markets(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `bing_geocoders/${_bingGeocoderId}/markets`, params, options) as unknown as ListResponse<Market>
-	}
-
 	async addresses(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList<Address>, options?: ResourcesConfig): Promise<ListResponse<Address>> {
 		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `bing_geocoders/${_bingGeocoderId}/addresses`, params, options) as unknown as ListResponse<Address>
@@ -93,6 +88,11 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 	async attachments(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bing_geocoders/${_bingGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async markets(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `bing_geocoders/${_bingGeocoderId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
 

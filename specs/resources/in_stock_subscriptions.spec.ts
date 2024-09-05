@@ -25,8 +25,8 @@ describe('InStockSubscriptions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			market: cl.markets.relationship(TestData.id),
 			customer: cl.customers.relationship(TestData.id),
+			market: cl.markets.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
 		}
 
@@ -202,27 +202,6 @@ describe('InStockSubscriptions resource', () => {
 
   
 
-	/* relationship.market start */
-	it(resourceType + '.market', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { markets: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'market')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].market(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.market stop */
-	
-
 	/* relationship.customer start */
 	it(resourceType + '.customer', async () => {
 	
@@ -244,27 +223,6 @@ describe('InStockSubscriptions resource', () => {
 	/* relationship.customer stop */
 	
 
-	/* relationship.sku start */
-	it(resourceType + '.sku', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { skus: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'sku')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].sku(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.sku stop */
-	
-
 	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
@@ -284,6 +242,48 @@ describe('InStockSubscriptions resource', () => {
 	
 	})
 	/* relationship.events stop */
+	
+
+	/* relationship.market start */
+	it(resourceType + '.market', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { markets: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'market')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].market(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.market stop */
+	
+
+	/* relationship.sku start */
+	it(resourceType + '.sku', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { skus: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.sku stop */
 	
 
 	/* relationship.versions start */

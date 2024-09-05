@@ -25,8 +25,8 @@ describe('RecurringOrderCopies resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			source_order: cl.orders.relationship(TestData.id),
 			order_subscription: cl.order_subscriptions.relationship(TestData.id),
+			source_order: cl.orders.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -201,48 +201,6 @@ describe('RecurringOrderCopies resource', () => {
 
   
 
-	/* relationship.source_order start */
-	it(resourceType + '.source_order', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { orders: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'source_order')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].source_order(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.source_order stop */
-	
-
-	/* relationship.target_order start */
-	it(resourceType + '.target_order', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { orders: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'target_order')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].target_order(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.target_order stop */
-	
-
 	/* relationship.events start */
 	it(resourceType + '.events', async () => {
 	
@@ -283,6 +241,48 @@ describe('RecurringOrderCopies resource', () => {
 	
 	})
 	/* relationship.order_subscription stop */
+	
+
+	/* relationship.source_order start */
+	it(resourceType + '.source_order', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { orders: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'source_order')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].source_order(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.source_order stop */
+	
+
+	/* relationship.target_order start */
+	it(resourceType + '.target_order', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { orders: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'target_order')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].target_order(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.target_order stop */
 	
   
 })

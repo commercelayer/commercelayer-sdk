@@ -2,35 +2,25 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
-import type { Version } from './versions'
+import type { Order } from './orders'
 import type { Authorization } from './authorizations'
+import type { Version } from './versions'
 
 
 type VoidType = 'voids'
 type VoidRel = ResourceRel & { type: VoidType }
 
 
-export type VoidSort = Pick<Void, 'id' | 'number' | 'amount_cents'> & ResourceSort
-// export type VoidFilter = Pick<Void, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
+export type VoidSort = Pick<Void, 'id' | 'amount_cents' | 'number'> & ResourceSort
+// export type VoidFilter = Pick<Void, 'id' | 'amount_cents' | 'currency_code' | 'error_code' | 'error_detail' | 'gateway_transaction_id' | 'message' | 'number' | 'succeeded' | 'token'> & ResourceFilter
 
 
 interface Void extends Resource {
 	
 	readonly type: VoidType
 
-	/** 
-	 * The transaction number, auto generated.
-	 * @example ```"42/T/001"```
-	 */
-	number: string
-	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
-	 * @example ```"EUR"```
-	 */
-	currency_code: string
 	/** 
 	 * The transaction amount, in cents.
 	 * @example ```"1500"```
@@ -42,19 +32,10 @@ interface Void extends Resource {
 	 */
 	amount_float: number
 	/** 
-	 * The transaction amount, formatted.
-	 * @example ```"€15,00"```
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
+	 * @example ```"EUR"```
 	 */
-	formatted_amount: string
-	/** 
-	 * Indicates if the transaction is successful.
-	 */
-	succeeded: boolean
-	/** 
-	 * The message returned by the payment gateway.
-	 * @example ```"Accepted"```
-	 */
-	message?: string | null
+	currency_code: string
 	/** 
 	 * The error code, if any, returned by the payment gateway.
 	 * @example ```"00001"```
@@ -66,21 +47,40 @@ interface Void extends Resource {
 	 */
 	error_detail?: string | null
 	/** 
-	 * The token identifying the transaction, returned by the payment gateway.
-	 * @example ```"xxxx-yyyy-zzzz"```
+	 * The transaction amount, formatted.
+	 * @example ```"€15,00"```
 	 */
-	token?: string | null
+	formatted_amount: string
 	/** 
 	 * The ID identifying the transaction, returned by the payment gateway.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	gateway_transaction_id?: string | null
+	/** 
+	 * The message returned by the payment gateway.
+	 * @example ```"Accepted"```
+	 */
+	message?: string | null
+	/** 
+	 * The transaction number, auto generated.
+	 * @example ```"42/T/001"```
+	 */
+	number: string
+	/** 
+	 * Indicates if the transaction is successful.
+	 */
+	succeeded: boolean
+	/** 
+	 * The token identifying the transaction, returned by the payment gateway.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	token?: string | null
 
-	order?: Order | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
+	order?: Order | null
 	reference_authorization?: Authorization | null
+	versions?: Version[] | null
 
 }
 
@@ -88,11 +88,6 @@ interface Void extends Resource {
 class Voids extends ApiResource<Void> {
 
 	static readonly TYPE: VoidType = 'voids' as const
-
-	async order(voidId: string | Void, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
-		const _voidId = (voidId as Void).id || voidId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `voids/${_voidId}/order`, params, options) as unknown as Order
-	}
 
 	async attachments(voidId: string | Void, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _voidId = (voidId as Void).id || voidId as string
@@ -104,14 +99,19 @@ class Voids extends ApiResource<Void> {
 		return this.resources.fetch<Event>({ type: 'events' }, `voids/${_voidId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async versions(voidId: string | Void, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async order(voidId: string | Void, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _voidId = (voidId as Void).id || voidId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `voids/${_voidId}/versions`, params, options) as unknown as ListResponse<Version>
+		return this.resources.fetch<Order>({ type: 'orders' }, `voids/${_voidId}/order`, params, options) as unknown as Order
 	}
 
 	async reference_authorization(voidId: string | Void, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `voids/${_voidId}/reference_authorization`, params, options) as unknown as Authorization
+	}
+
+	async versions(voidId: string | Void, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _voidId = (voidId as Void).id || voidId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `voids/${_voidId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

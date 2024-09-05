@@ -200,27 +200,6 @@ describe('BillingInfoValidationRules resource', () => {
 
   
 
-	/* relationship.market start */
-	it(resourceType + '.market', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { markets: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'market')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].market(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.market stop */
-	
-
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
@@ -240,6 +219,27 @@ describe('BillingInfoValidationRules resource', () => {
 	
 	})
 	/* relationship.attachments stop */
+	
+
+	/* relationship.market start */
+	it(resourceType + '.market', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { markets: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'market')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].market(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.market stop */
 	
 
 	/* relationship.versions start */

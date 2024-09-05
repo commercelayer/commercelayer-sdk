@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
-import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
 
 
 type CheckoutComGatewayType = 'checkout_com_gateways'
@@ -41,9 +41,9 @@ interface CheckoutComGateway extends Resource {
 	 */
 	webhook_endpoint_url?: string | null
 
+	checkout_com_payments?: CheckoutComPayment[] | null
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
-	checkout_com_payments?: CheckoutComPayment[] | null
 
 }
 
@@ -56,15 +56,15 @@ interface CheckoutComGatewayCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * The gateway secret key.
-	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
-	 */
-	secret_key: string
-	/** 
 	 * The gateway public key.
 	 * @example ```"pk_test_xxxx-yyyy-zzzz"```
 	 */
 	public_key: string
+	/** 
+	 * The gateway secret key.
+	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
+	 */
+	secret_key: string
 
 	checkout_com_payments?: CheckoutComPaymentRel[] | null
 
@@ -79,15 +79,15 @@ interface CheckoutComGatewayUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The gateway secret key.
-	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
-	 */
-	secret_key?: string | null
-	/** 
 	 * The gateway public key.
 	 * @example ```"pk_test_xxxx-yyyy-zzzz"```
 	 */
 	public_key?: string | null
+	/** 
+	 * The gateway secret key.
+	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
+	 */
+	secret_key?: string | null
 
 	checkout_com_payments?: CheckoutComPaymentRel[] | null
 
@@ -110,6 +110,11 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: CheckoutComGateways.TYPE } : id, options)
 	}
 
+	async checkout_com_payments(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<CheckoutComPayment>, options?: ResourcesConfig): Promise<ListResponse<CheckoutComPayment>> {
+		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
+		return this.resources.fetch<CheckoutComPayment>({ type: 'checkout_com_payments' }, `checkout_com_gateways/${_checkoutComGatewayId}/checkout_com_payments`, params, options) as unknown as ListResponse<CheckoutComPayment>
+	}
+
 	async payment_methods(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `checkout_com_gateways/${_checkoutComGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
@@ -118,11 +123,6 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 	async versions(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `checkout_com_gateways/${_checkoutComGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
-	async checkout_com_payments(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<CheckoutComPayment>, options?: ResourcesConfig): Promise<ListResponse<CheckoutComPayment>> {
-		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
-		return this.resources.fetch<CheckoutComPayment>({ type: 'checkout_com_payments' }, `checkout_com_gateways/${_checkoutComGatewayId}/checkout_com_payments`, params, options) as unknown as ListResponse<CheckoutComPayment>
 	}
 
 

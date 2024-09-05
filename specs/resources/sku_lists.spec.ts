@@ -201,67 +201,25 @@ describe('SkuLists resource', () => {
 
   
 
-	/* relationship.customer start */
-	it(resourceType + '.customer', async () => {
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { customers: CommonData.paramsFields } }
+		const params = { fields: { attachments: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'customer')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].customer(id, params, CommonData.options)
+		await cl[resourceType].attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.customer stop */
-	
-
-	/* relationship.skus start */
-	it(resourceType + '.skus', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { skus: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'skus')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].skus(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.skus stop */
-	
-
-	/* relationship.sku_list_items start */
-	it(resourceType + '.sku_list_items', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { sku_list_items: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'sku_list_items')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].sku_list_items(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.sku_list_items stop */
+	/* relationship.attachments stop */
 	
 
 	/* relationship.bundles start */
@@ -285,25 +243,25 @@ describe('SkuLists resource', () => {
 	/* relationship.bundles stop */
 	
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	/* relationship.customer start */
+	it(resourceType + '.customer', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
+		const params = { fields: { customers: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourceType, id, currentAccessToken, 'customer')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourceType].customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.attachments stop */
+	/* relationship.customer stop */
 	
 
 	/* relationship.links start */
@@ -325,6 +283,48 @@ describe('SkuLists resource', () => {
 	
 	})
 	/* relationship.links stop */
+	
+
+	/* relationship.sku_list_items start */
+	it(resourceType + '.sku_list_items', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { sku_list_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku_list_items')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku_list_items(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.sku_list_items stop */
+	
+
+	/* relationship.skus start */
+	it(resourceType + '.skus', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { skus: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'skus')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].skus(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.skus stop */
 	
 
 	/* relationship.versions start */

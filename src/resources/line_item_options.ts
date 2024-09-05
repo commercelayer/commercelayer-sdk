@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { Event } from './events'
 import type { LineItem, LineItemType } from './line_items'
 import type { SkuOption, SkuOptionType } from './sku_options'
-import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 
 
@@ -15,8 +15,8 @@ type SkuOptionRel = ResourceRel & { type: SkuOptionType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type LineItemOptionSort = Pick<LineItemOption, 'id' | 'name' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'delay_hours'> & ResourceSort
-// export type LineItemOptionFilter = Pick<LineItemOption, 'id' | 'name' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceFilter
+export type LineItemOptionSort = Pick<LineItemOption, 'id' | 'currency_code' | 'delay_hours' | 'name' | 'quantity' | 'unit_amount_cents'> & ResourceSort
+// export type LineItemOptionFilter = Pick<LineItemOption, 'id' | 'currency_code' | 'delay_days' | 'delay_hours' | 'name' | 'quantity' | 'unit_amount_cents'> & ResourceFilter
 
 
 interface LineItemOption extends Resource {
@@ -24,35 +24,45 @@ interface LineItemOption extends Resource {
 	readonly type: LineItemOptionType
 
 	/** 
-	 * The name of the line item option. When blank, it gets populated with the name of the associated SKU option.
-	 * @example ```"Embossing"```
-	 */
-	name?: string | null
-	/** 
-	 * The line item option's quantity.
-	 * @example ```"2"```
-	 */
-	quantity: number
-	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard, automatically inherited from the order's market.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price.
-	 * @example ```"990"```
+	 * The shipping delay that the customer can expect when adding this option (days, rounded).
+	 * @example ```"2"```
 	 */
-	unit_amount_cents?: number | null
+	delay_days?: number | null
 	/** 
-	 * The unit amount of the line item option, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
-	 * @example ```"9.9"```
+	 * The shipping delay that the customer can expect when adding this option (hours). Inherited from the associated SKU option.
+	 * @example ```"48"```
 	 */
-	unit_amount_float?: number | null
+	delay_hours?: number | null
+	/** 
+	 * The unit amount x quantity, formatted. This can be useful to display the amount with currency in you views.
+	 * @example ```"€18,80"```
+	 */
+	formatted_total_amount?: string | null
 	/** 
 	 * The unit amount of the line item option, formatted. This can be useful to display the amount with currency in you views.
 	 * @example ```"€9,90"```
 	 */
 	formatted_unit_amount?: string | null
+	/** 
+	 * The name of the line item option. When blank, it gets populated with the name of the associated SKU option.
+	 * @example ```"Embossing"```
+	 */
+	name?: string | null
+	/** 
+	 * Set of key-value pairs that represent the selected options.
+	 * @example ```"[object Object]"```
+	 */
+	options: Record<string, any>
+	/** 
+	 * The line item option's quantity.
+	 * @example ```"2"```
+	 */
+	quantity: number
 	/** 
 	 * The unit amount x quantity, in cents.
 	 * @example ```"1880"```
@@ -64,29 +74,19 @@ interface LineItemOption extends Resource {
 	 */
 	total_amount_float: number
 	/** 
-	 * The unit amount x quantity, formatted. This can be useful to display the amount with currency in you views.
-	 * @example ```"€18,80"```
+	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price.
+	 * @example ```"990"```
 	 */
-	formatted_total_amount?: string | null
+	unit_amount_cents?: number | null
 	/** 
-	 * The shipping delay that the customer can expect when adding this option (hours). Inherited from the associated SKU option.
-	 * @example ```"48"```
+	 * The unit amount of the line item option, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
+	 * @example ```"9.9"```
 	 */
-	delay_hours?: number | null
-	/** 
-	 * The shipping delay that the customer can expect when adding this option (days, rounded).
-	 * @example ```"2"```
-	 */
-	delay_days?: number | null
-	/** 
-	 * Set of key-value pairs that represent the selected options.
-	 * @example ```"[object Object]"```
-	 */
-	options: Record<string, any>
+	unit_amount_float?: number | null
 
+	events?: Event[] | null
 	line_item?: LineItem | null
 	sku_option?: SkuOption | null
-	events?: Event[] | null
 	tags?: Tag[] | null
 
 }
@@ -100,15 +100,15 @@ interface LineItemOptionCreate extends ResourceCreate {
 	 */
 	name?: string | null
 	/** 
-	 * The line item option's quantity.
-	 * @example ```"2"```
-	 */
-	quantity: number
-	/** 
 	 * Set of key-value pairs that represent the selected options.
 	 * @example ```"[object Object]"```
 	 */
 	options: Record<string, any>
+	/** 
+	 * The line item option's quantity.
+	 * @example ```"2"```
+	 */
+	quantity: number
 
 	line_item: LineItemRel
 	sku_option: SkuOptionRel
@@ -125,15 +125,15 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The line item option's quantity.
-	 * @example ```"2"```
-	 */
-	quantity?: number | null
-	/** 
 	 * Set of key-value pairs that represent the selected options.
 	 * @example ```"[object Object]"```
 	 */
 	options?: Record<string, any> | null
+	/** 
+	 * The line item option's quantity.
+	 * @example ```"2"```
+	 */
+	quantity?: number | null
 
 	sku_option?: SkuOptionRel | null
 	tags?: TagRel[] | null
@@ -157,6 +157,11 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 		await this.resources.delete((typeof id === 'string')? { id, type: LineItemOptions.TYPE } : id, options)
 	}
 
+	async events(lineItemOptionId: string | LineItemOption, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `line_item_options/${_lineItemOptionId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
 	async line_item(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `line_item_options/${_lineItemOptionId}/line_item`, params, options) as unknown as LineItem
@@ -165,11 +170,6 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 	async sku_option(lineItemOptionId: string | LineItemOption, params?: QueryParamsRetrieve<SkuOption>, options?: ResourcesConfig): Promise<SkuOption> {
 		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
 		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `line_item_options/${_lineItemOptionId}/sku_option`, params, options) as unknown as SkuOption
-	}
-
-	async events(lineItemOptionId: string | LineItemOption, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `line_item_options/${_lineItemOptionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async tags(lineItemOptionId: string | LineItemOption, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {

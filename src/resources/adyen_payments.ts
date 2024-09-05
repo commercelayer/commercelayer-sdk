@@ -21,10 +21,14 @@ interface AdyenPayment extends Resource {
 	readonly type: AdyenPaymentType
 
 	/** 
-	 * The public key linked to your API credential.
-	 * @example ```"xxxx-yyyy-zzzz"```
+	 * Indicates if the order current amount differs form the one of the associated authorization.
 	 */
-	public_key?: string | null
+	mismatched_amounts?: boolean | null
+	/** 
+	 * Information about the payment instrument used in the transaction.
+	 * @example ```"[object Object]"```
+	 */
+	payment_instrument?: Record<string, any> | null
 	/** 
 	 * The merchant available payment methods for the assoiated order (i.e. country and amount). Required by the Adyen JS SDK.
 	 * @example ```"[object Object]"```
@@ -46,14 +50,10 @@ interface AdyenPayment extends Resource {
 	 */
 	payment_response?: Record<string, any> | null
 	/** 
-	 * Indicates if the order current amount differs form the one of the associated authorization.
+	 * The public key linked to your API credential.
+	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
-	mismatched_amounts?: boolean | null
-	/** 
-	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
-	 */
-	payment_instrument?: Record<string, any> | null
+	public_key?: string | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
@@ -72,6 +72,11 @@ interface AdyenPaymentCreate extends ResourceCreate {
 interface AdyenPaymentUpdate extends ResourceUpdate {
 	
 	/** 
+	 * Send this attribute if you want to send additional details the payment request.
+	 * @example ```"true"```
+	 */
+	_details?: boolean | null
+	/** 
 	 * The Adyen payment request data, collected by client.
 	 * @example ```"[object Object]"```
 	 */
@@ -86,11 +91,6 @@ interface AdyenPaymentUpdate extends ResourceUpdate {
 	 * @example ```"[object Object]"```
 	 */
 	payment_response?: Record<string, any> | null
-	/** 
-	 * Send this attribute if you want to send additional details the payment request.
-	 * @example ```"true"```
-	 */
-	_details?: boolean | null
 
 	order?: OrderRel | null
 

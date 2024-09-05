@@ -26,8 +26,8 @@ describe('CustomerAddresses resource', () => {
 
     const createAttributes = {
 			customer_email: randomValue('string', 'customer_email'),
-			customer: cl.customers.relationship(TestData.id),
 			address: cl.addresses.relationship(TestData.id),
+			customer: cl.customers.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -202,27 +202,6 @@ describe('CustomerAddresses resource', () => {
 
   
 
-	/* relationship.customer start */
-	it(resourceType + '.customer', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { customers: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'customer')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].customer(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.customer stop */
-	
-
 	/* relationship.address start */
 	it(resourceType + '.address', async () => {
 	
@@ -242,6 +221,27 @@ describe('CustomerAddresses resource', () => {
 	
 	})
 	/* relationship.address stop */
+	
+
+	/* relationship.customer start */
+	it(resourceType + '.customer', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { customers: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'customer')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].customer(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.customer stop */
 	
 
 	/* relationship.events start */
