@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
 import type { Customer } from './customers'
 import type { Market } from './markets'
+import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
 
@@ -12,8 +12,8 @@ type CustomerGroupType = 'customer_groups'
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 
 
-export type CustomerGroupSort = Pick<CustomerGroup, 'id' | 'code' | 'name'> & ResourceSort
-// export type CustomerGroupFilter = Pick<CustomerGroup, 'id' | 'code' | 'name'> & ResourceFilter
+export type CustomerGroupSort = Pick<CustomerGroup, 'id' | 'name' | 'code'> & ResourceSort
+// export type CustomerGroupFilter = Pick<CustomerGroup, 'id' | 'name' | 'code'> & ResourceFilter
 
 
 interface CustomerGroup extends Resource {
@@ -21,19 +21,19 @@ interface CustomerGroup extends Resource {
 	readonly type: CustomerGroupType
 
 	/** 
-	 * A string that you can use to identify the customer group (must be unique within the environment).
-	 * @example ```"vip1"```
-	 */
-	code?: string | null
-	/** 
 	 * The customer group's internal name.
 	 * @example ```"VIP"```
 	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the customer group (must be unique within the environment).
+	 * @example ```"vip1"```
+	 */
+	code?: string | null
 
-	attachments?: Attachment[] | null
 	customers?: Customer[] | null
 	markets?: Market[] | null
+	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
 }
@@ -42,15 +42,15 @@ interface CustomerGroup extends Resource {
 interface CustomerGroupCreate extends ResourceCreate {
 	
 	/** 
-	 * A string that you can use to identify the customer group (must be unique within the environment).
-	 * @example ```"vip1"```
-	 */
-	code?: string | null
-	/** 
 	 * The customer group's internal name.
 	 * @example ```"VIP"```
 	 */
 	name: string
+	/** 
+	 * A string that you can use to identify the customer group (must be unique within the environment).
+	 * @example ```"vip1"```
+	 */
+	code?: string | null
 	
 }
 
@@ -58,15 +58,15 @@ interface CustomerGroupCreate extends ResourceCreate {
 interface CustomerGroupUpdate extends ResourceUpdate {
 	
 	/** 
-	 * A string that you can use to identify the customer group (must be unique within the environment).
-	 * @example ```"vip1"```
-	 */
-	code?: string | null
-	/** 
 	 * The customer group's internal name.
 	 * @example ```"VIP"```
 	 */
 	name?: string | null
+	/** 
+	 * A string that you can use to identify the customer group (must be unique within the environment).
+	 * @example ```"vip1"```
+	 */
+	code?: string | null
 	
 }
 
@@ -87,11 +87,6 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 		await this.resources.delete((typeof id === 'string')? { id, type: CustomerGroups.TYPE } : id, options)
 	}
 
-	async attachments(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customer_groups/${_customerGroupId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
 	async customers(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Customer>, options?: ResourcesConfig): Promise<ListResponse<Customer>> {
 		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_groups/${_customerGroupId}/customers`, params, options) as unknown as ListResponse<Customer>
@@ -100,6 +95,11 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 	async markets(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
 		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `customer_groups/${_customerGroupId}/markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async attachments(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customer_groups/${_customerGroupId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async versions(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

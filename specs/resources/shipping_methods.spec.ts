@@ -28,10 +28,10 @@ describe('ShippingMethods resource', () => {
 			name: randomValue('string', 'name'),
 			price_amount_cents: randomValue('integer', 'price_amount_cents'),
 			market: cl.markets.relationship(TestData.id),
-			shipping_category: cl.shipping_categories.relationship(TestData.id),
-			shipping_method_tiers: [ cl.shipping_method_tiers.relationship(TestData.id) ],
 			shipping_zone: cl.shipping_zones.relationship(TestData.id),
+			shipping_category: cl.shipping_categories.relationship(TestData.id),
 			stock_location: cl.stock_locations.relationship(TestData.id),
+			shipping_method_tiers: [ cl.shipping_method_tiers.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -206,48 +206,6 @@ describe('ShippingMethods resource', () => {
 
   
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].attachments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.attachments stop */
-	
-
-	/* relationship.delivery_lead_time_for_shipment start */
-	it(resourceType + '.delivery_lead_time_for_shipment', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { delivery_lead_times: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'delivery_lead_time_for_shipment')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].delivery_lead_time_for_shipment(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.delivery_lead_time_for_shipment stop */
-	
-
 	/* relationship.market start */
 	it(resourceType + '.market', async () => {
 	
@@ -269,6 +227,27 @@ describe('ShippingMethods resource', () => {
 	/* relationship.market stop */
 	
 
+	/* relationship.shipping_zone start */
+	it(resourceType + '.shipping_zone', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { shipping_zones: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'shipping_zone')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].shipping_zone(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.shipping_zone stop */
+	
+
 	/* relationship.shipping_category start */
 	it(resourceType + '.shipping_category', async () => {
 	
@@ -288,6 +267,48 @@ describe('ShippingMethods resource', () => {
 	
 	})
 	/* relationship.shipping_category stop */
+	
+
+	/* relationship.stock_location start */
+	it(resourceType + '.stock_location', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stock_locations: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stock_location')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stock_location(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.stock_location stop */
+	
+
+	/* relationship.delivery_lead_time_for_shipment start */
+	it(resourceType + '.delivery_lead_time_for_shipment', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { delivery_lead_times: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'delivery_lead_time_for_shipment')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].delivery_lead_time_for_shipment(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.delivery_lead_time_for_shipment stop */
 	
 
 	/* relationship.shipping_method_tiers start */
@@ -332,46 +353,25 @@ describe('ShippingMethods resource', () => {
 	/* relationship.shipping_weight_tiers stop */
 	
 
-	/* relationship.shipping_zone start */
-	it(resourceType + '.shipping_zone', async () => {
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { shipping_zones: CommonData.paramsFields } }
+		const params = { fields: { attachments: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'shipping_zone')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].shipping_zone(id, params, CommonData.options)
+		await cl[resourceType].attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.shipping_zone stop */
-	
-
-	/* relationship.stock_location start */
-	it(resourceType + '.stock_location', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { stock_locations: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'stock_location')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].stock_location(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.stock_location stop */
+	/* relationship.attachments stop */
 	
 
 	/* relationship.versions start */

@@ -25,11 +25,11 @@ describe('Addresses resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			city: randomValue('string', 'city'),
-			country_code: randomValue('string', 'country_code'),
 			line_1: randomValue('string', 'line_1'),
-			phone: randomValue('string', 'phone'),
+			city: randomValue('string', 'city'),
 			state_code: randomValue('string', 'state_code'),
+			country_code: randomValue('string', 'country_code'),
+			phone: randomValue('string', 'phone'),
 			geocoder: cl.geocoders.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
@@ -206,27 +206,6 @@ describe('Addresses resource', () => {
 
   
 
-	/* relationship.events start */
-	it(resourceType + '.events', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { events: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'events')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].events(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.events stop */
-	
-
 	/* relationship.geocoder start */
 	it(resourceType + '.geocoder', async () => {
 	
@@ -246,6 +225,27 @@ describe('Addresses resource', () => {
 	
 	})
 	/* relationship.geocoder stop */
+	
+
+	/* relationship.events start */
+	it(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.events stop */
 	
 
 	/* relationship.tags start */

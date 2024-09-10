@@ -26,8 +26,8 @@ describe('GiftCards resource', () => {
 
     const createAttributes = {
 			balance_cents: randomValue('integer', 'balance_cents'),
-			gift_card_recipient: cl.gift_card_recipients.relationship(TestData.id),
 			market: cl.markets.relationship(TestData.id),
+			gift_card_recipient: cl.gift_card_recipients.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
@@ -203,6 +203,48 @@ describe('GiftCards resource', () => {
 
   
 
+	/* relationship.market start */
+	it(resourceType + '.market', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { markets: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'market')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].market(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.market stop */
+	
+
+	/* relationship.gift_card_recipient start */
+	it(resourceType + '.gift_card_recipient', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { gift_card_recipients: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'gift_card_recipient')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].gift_card_recipient(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.gift_card_recipient stop */
+	
+
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
@@ -243,48 +285,6 @@ describe('GiftCards resource', () => {
 	
 	})
 	/* relationship.events stop */
-	
-
-	/* relationship.gift_card_recipient start */
-	it(resourceType + '.gift_card_recipient', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { gift_card_recipients: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'gift_card_recipient')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].gift_card_recipient(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.gift_card_recipient stop */
-	
-
-	/* relationship.market start */
-	it(resourceType + '.market', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { markets: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'market')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].market(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.market stop */
 	
 
 	/* relationship.tags start */
@@ -330,6 +330,32 @@ describe('GiftCards resource', () => {
 	
   
 
+	/* trigger._purchase start */
+	it(resourceType + '._purchase', async () => {
+	
+		let triggerAttr = '_purchase'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._purchase(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._purchase stop */
+	
+
 	/* trigger._activate start */
 	it(resourceType + '._activate', async () => {
 	
@@ -354,32 +380,6 @@ describe('GiftCards resource', () => {
 	
 	})
 	/* trigger._activate stop */
-	
-
-	/* trigger._balance_change_cents start */
-	it(resourceType + '._balance_change_cents', async () => {
-	
-		let triggerAttr = '_balance_change_cents'
-		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
-	
-		const triggerValue = randomValue('integer')
-		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			const data = JSON.parse(String(request.options.body))
-			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
-			checkCommonData(data, resourceType, attributes, id)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType]._balance_change_cents(id, triggerValue, {}, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* trigger._balance_change_cents stop */
 	
 
 	/* trigger._deactivate start */
@@ -408,13 +408,13 @@ describe('GiftCards resource', () => {
 	/* trigger._deactivate stop */
 	
 
-	/* trigger._purchase start */
-	it(resourceType + '._purchase', async () => {
+	/* trigger._balance_change_cents start */
+	it(resourceType + '._balance_change_cents', async () => {
 	
-		let triggerAttr = '_purchase'
+		let triggerAttr = '_balance_change_cents'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
 	
-		const triggerValue = true
+		const triggerValue = randomValue('integer')
 		const attributes = { [triggerAttr]: triggerValue }
 	    const id = TestData.id
 	
@@ -426,11 +426,11 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._purchase(id, {}, CommonData.options)
+		await cl[resourceType]._balance_change_cents(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* trigger._purchase stop */
+	/* trigger._balance_change_cents stop */
 	
 })

@@ -25,8 +25,8 @@ describe('Webhooks resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			callback_url: randomValue('string', 'callback_url'),
 			topic: randomValue('string', 'topic'),
+			callback_url: randomValue('string', 'callback_url'),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

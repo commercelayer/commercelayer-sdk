@@ -26,8 +26,8 @@ describe('CheckoutComGateways resource', () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			public_key: randomValue('string', 'public_key'),
 			secret_key: randomValue('string', 'secret_key'),
+			public_key: randomValue('string', 'public_key'),
 			checkout_com_payments: [ cl.checkout_com_payments.relationship(TestData.id) ],
 		}
 
@@ -203,27 +203,6 @@ describe('CheckoutComGateways resource', () => {
 
   
 
-	/* relationship.checkout_com_payments start */
-	it(resourceType + '.checkout_com_payments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { checkout_com_payments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'checkout_com_payments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].checkout_com_payments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.checkout_com_payments stop */
-	
-
 	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
@@ -264,6 +243,27 @@ describe('CheckoutComGateways resource', () => {
 	
 	})
 	/* relationship.versions stop */
+	
+
+	/* relationship.checkout_com_payments start */
+	it(resourceType + '.checkout_com_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { checkout_com_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'checkout_com_payments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].checkout_com_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.checkout_com_payments stop */
 	
   
 })

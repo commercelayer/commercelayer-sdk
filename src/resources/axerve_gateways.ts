@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { AxervePayment, AxervePaymentType } from './axerve_payments'
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
+import type { AxervePayment, AxervePaymentType } from './axerve_payments'
 
 
 type AxerveGatewayType = 'axerve_gateways'
@@ -21,24 +21,24 @@ interface AxerveGateway extends Resource {
 	readonly type: AxerveGatewayType
 
 	/** 
-	 * The merchant login code.
-	 * @example ```"xxxx-yyyy-zzzz"```
-	 */
-	login: string
-	/** 
 	 * The payment gateway's internal name.
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * The merchant login code.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	login: string
 	/** 
 	 * The gateway webhook URL, generated automatically.
 	 * @example ```"https://core.commercelayer.co/webhook_callbacks/axerve_gateways/xxxxx"```
 	 */
 	webhook_endpoint_url?: string | null
 
-	axerve_payments?: AxervePayment[] | null
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
+	axerve_payments?: AxervePayment[] | null
 
 }
 
@@ -46,20 +46,20 @@ interface AxerveGateway extends Resource {
 interface AxerveGatewayCreate extends ResourceCreate {
 	
 	/** 
-	 * The gateway API key.
-	 * @example ```"xxxx-yyyy-zzzz"```
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
 	 */
-	api_key: string
+	name: string
 	/** 
 	 * The merchant login code.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	login: string
 	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
+	 * The gateway API key.
+	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
-	name: string
+	api_key: string
 
 	axerve_payments?: AxervePaymentRel[] | null
 
@@ -69,20 +69,20 @@ interface AxerveGatewayCreate extends ResourceCreate {
 interface AxerveGatewayUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The gateway API key.
-	 * @example ```"xxxx-yyyy-zzzz"```
+	 * The payment gateway's internal name.
+	 * @example ```"US payment gateway"```
 	 */
-	api_key?: string | null
+	name?: string | null
 	/** 
 	 * The merchant login code.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	login?: string | null
 	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
+	 * The gateway API key.
+	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
-	name?: string | null
+	api_key?: string | null
 
 	axerve_payments?: AxervePaymentRel[] | null
 
@@ -105,11 +105,6 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 		await this.resources.delete((typeof id === 'string')? { id, type: AxerveGateways.TYPE } : id, options)
 	}
 
-	async axerve_payments(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList<AxervePayment>, options?: ResourcesConfig): Promise<ListResponse<AxervePayment>> {
-		const _axerveGatewayId = (axerveGatewayId as AxerveGateway).id || axerveGatewayId as string
-		return this.resources.fetch<AxervePayment>({ type: 'axerve_payments' }, `axerve_gateways/${_axerveGatewayId}/axerve_payments`, params, options) as unknown as ListResponse<AxervePayment>
-	}
-
 	async payment_methods(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _axerveGatewayId = (axerveGatewayId as AxerveGateway).id || axerveGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `axerve_gateways/${_axerveGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
@@ -118,6 +113,11 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 	async versions(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _axerveGatewayId = (axerveGatewayId as AxerveGateway).id || axerveGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `axerve_gateways/${_axerveGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async axerve_payments(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList<AxervePayment>, options?: ResourcesConfig): Promise<ListResponse<AxervePayment>> {
+		const _axerveGatewayId = (axerveGatewayId as AxerveGateway).id || axerveGatewayId as string
+		return this.resources.fetch<AxervePayment>({ type: 'axerve_payments' }, `axerve_gateways/${_axerveGatewayId}/axerve_payments`, params, options) as unknown as ListResponse<AxervePayment>
 	}
 
 

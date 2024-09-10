@@ -2,27 +2,37 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
-import type { Order } from './orders'
+import type { Version } from './versions'
 import type { Authorization } from './authorizations'
 import type { Refund } from './refunds'
 import type { Return } from './returns'
-import type { Version } from './versions'
 
 
 type CaptureType = 'captures'
 type CaptureRel = ResourceRel & { type: CaptureType }
 
 
-export type CaptureSort = Pick<Capture, 'id' | 'amount_cents' | 'number'> & ResourceSort
-// export type CaptureFilter = Pick<Capture, 'id' | 'amount_cents' | 'currency_code' | 'error_code' | 'error_detail' | 'gateway_transaction_id' | 'message' | 'number' | 'succeeded' | 'token'> & ResourceFilter
+export type CaptureSort = Pick<Capture, 'id' | 'number' | 'amount_cents'> & ResourceSort
+// export type CaptureFilter = Pick<Capture, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
 
 interface Capture extends Resource {
 	
 	readonly type: CaptureType
 
+	/** 
+	 * The transaction number, auto generated.
+	 * @example ```"42/T/001"```
+	 */
+	number: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
+	 * @example ```"EUR"```
+	 */
+	currency_code: string
 	/** 
 	 * The transaction amount, in cents.
 	 * @example ```"1500"```
@@ -34,10 +44,19 @@ interface Capture extends Resource {
 	 */
 	amount_float: number
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
-	 * @example ```"EUR"```
+	 * The transaction amount, formatted.
+	 * @example ```"€15,00"```
 	 */
-	currency_code: string
+	formatted_amount: string
+	/** 
+	 * Indicates if the transaction is successful.
+	 */
+	succeeded: boolean
+	/** 
+	 * The message returned by the payment gateway.
+	 * @example ```"Accepted"```
+	 */
+	message?: string | null
 	/** 
 	 * The error code, if any, returned by the payment gateway.
 	 * @example ```"00001"```
@@ -49,35 +68,15 @@ interface Capture extends Resource {
 	 */
 	error_detail?: string | null
 	/** 
-	 * The transaction amount, formatted.
-	 * @example ```"€15,00"```
+	 * The token identifying the transaction, returned by the payment gateway.
+	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
-	formatted_amount: string
-	/** 
-	 * The amount to be refunded, formatted.
-	 * @example ```"€5,00"```
-	 */
-	formatted_refund_amount?: string | null
-	/** 
-	 * The balance to be refunded, formatted.
-	 * @example ```"€10,00"```
-	 */
-	formatted_refund_balance?: string | null
+	token?: string | null
 	/** 
 	 * The ID identifying the transaction, returned by the payment gateway.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	gateway_transaction_id?: string | null
-	/** 
-	 * The message returned by the payment gateway.
-	 * @example ```"Accepted"```
-	 */
-	message?: string | null
-	/** 
-	 * The transaction number, auto generated.
-	 * @example ```"42/T/001"```
-	 */
-	number: string
 	/** 
 	 * The amount to be refunded, in cents.
 	 * @example ```"500"```
@@ -89,6 +88,11 @@ interface Capture extends Resource {
 	 */
 	refund_amount_float?: number | null
 	/** 
+	 * The amount to be refunded, formatted.
+	 * @example ```"€5,00"```
+	 */
+	formatted_refund_amount?: string | null
+	/** 
 	 * The balance to be refunded, in cents.
 	 * @example ```"1000"```
 	 */
@@ -99,28 +103,28 @@ interface Capture extends Resource {
 	 */
 	refund_balance_float?: number | null
 	/** 
-	 * Indicates if the transaction is successful.
+	 * The balance to be refunded, formatted.
+	 * @example ```"€10,00"```
 	 */
-	succeeded: boolean
-	/** 
-	 * The token identifying the transaction, returned by the payment gateway.
-	 * @example ```"xxxx-yyyy-zzzz"```
-	 */
-	token?: string | null
+	formatted_refund_balance?: string | null
 
+	order?: Order | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	order?: Order | null
+	versions?: Version[] | null
 	reference_authorization?: Authorization | null
 	refunds?: Refund[] | null
 	return?: Return | null
-	versions?: Version[] | null
 
 }
 
 
 interface CaptureUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Indicates if the transaction is successful.
+	 */
+	succeeded?: boolean | null
 	/** 
 	 * Send this attribute if you want to forward a stuck transaction to succeeded and update associated order states accordingly.
 	 * @example ```"true"```
@@ -136,10 +140,6 @@ interface CaptureUpdate extends ResourceUpdate {
 	 * @example ```"500"```
 	 */
 	_refund_amount_cents?: number | null
-	/** 
-	 * Indicates if the transaction is successful.
-	 */
-	succeeded?: boolean | null
 	
 }
 
@@ -152,6 +152,11 @@ class Captures extends ApiResource<Capture> {
 		return this.resources.update<CaptureUpdate, Capture>({ ...resource, type: Captures.TYPE }, params, options)
 	}
 
+	async order(captureId: string | Capture, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+		const _captureId = (captureId as Capture).id || captureId as string
+		return this.resources.fetch<Order>({ type: 'orders' }, `captures/${_captureId}/order`, params, options) as unknown as Order
+	}
+
 	async attachments(captureId: string | Capture, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _captureId = (captureId as Capture).id || captureId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `captures/${_captureId}/attachments`, params, options) as unknown as ListResponse<Attachment>
@@ -162,9 +167,9 @@ class Captures extends ApiResource<Capture> {
 		return this.resources.fetch<Event>({ type: 'events' }, `captures/${_captureId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async order(captureId: string | Capture, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+	async versions(captureId: string | Capture, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _captureId = (captureId as Capture).id || captureId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `captures/${_captureId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Version>({ type: 'versions' }, `captures/${_captureId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async reference_authorization(captureId: string | Capture, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
@@ -180,11 +185,6 @@ class Captures extends ApiResource<Capture> {
 	async return(captureId: string | Capture, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
 		const _captureId = (captureId as Capture).id || captureId as string
 		return this.resources.fetch<Return>({ type: 'returns' }, `captures/${_captureId}/return`, params, options) as unknown as Return
-	}
-
-	async versions(captureId: string | Capture, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _captureId = (captureId as Capture).id || captureId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `captures/${_captureId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _forward(id: string | Capture, params?: QueryParamsRetrieve<Capture>, options?: ResourcesConfig): Promise<Capture> {

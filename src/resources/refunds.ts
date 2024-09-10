@@ -2,26 +2,36 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
-import type { Order } from './orders'
+import type { Version } from './versions'
 import type { Capture } from './captures'
 import type { Return } from './returns'
-import type { Version } from './versions'
 
 
 type RefundType = 'refunds'
 type RefundRel = ResourceRel & { type: RefundType }
 
 
-export type RefundSort = Pick<Refund, 'id' | 'amount_cents' | 'number'> & ResourceSort
-// export type RefundFilter = Pick<Refund, 'id' | 'amount_cents' | 'currency_code' | 'error_code' | 'error_detail' | 'gateway_transaction_id' | 'message' | 'number' | 'succeeded' | 'token'> & ResourceFilter
+export type RefundSort = Pick<Refund, 'id' | 'number' | 'amount_cents'> & ResourceSort
+// export type RefundFilter = Pick<Refund, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
 
 interface Refund extends Resource {
 	
 	readonly type: RefundType
 
+	/** 
+	 * The transaction number, auto generated.
+	 * @example ```"42/T/001"```
+	 */
+	number: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
+	 * @example ```"EUR"```
+	 */
+	currency_code: string
 	/** 
 	 * The transaction amount, in cents.
 	 * @example ```"1500"```
@@ -33,10 +43,19 @@ interface Refund extends Resource {
 	 */
 	amount_float: number
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
-	 * @example ```"EUR"```
+	 * The transaction amount, formatted.
+	 * @example ```"€15,00"```
 	 */
-	currency_code: string
+	formatted_amount: string
+	/** 
+	 * Indicates if the transaction is successful.
+	 */
+	succeeded: boolean
+	/** 
+	 * The message returned by the payment gateway.
+	 * @example ```"Accepted"```
+	 */
+	message?: string | null
 	/** 
 	 * The error code, if any, returned by the payment gateway.
 	 * @example ```"00001"```
@@ -48,41 +67,22 @@ interface Refund extends Resource {
 	 */
 	error_detail?: string | null
 	/** 
-	 * The transaction amount, formatted.
-	 * @example ```"€15,00"```
+	 * The token identifying the transaction, returned by the payment gateway.
+	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
-	formatted_amount: string
+	token?: string | null
 	/** 
 	 * The ID identifying the transaction, returned by the payment gateway.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	gateway_transaction_id?: string | null
-	/** 
-	 * The message returned by the payment gateway.
-	 * @example ```"Accepted"```
-	 */
-	message?: string | null
-	/** 
-	 * The transaction number, auto generated.
-	 * @example ```"42/T/001"```
-	 */
-	number: string
-	/** 
-	 * Indicates if the transaction is successful.
-	 */
-	succeeded: boolean
-	/** 
-	 * The token identifying the transaction, returned by the payment gateway.
-	 * @example ```"xxxx-yyyy-zzzz"```
-	 */
-	token?: string | null
 
+	order?: Order | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	order?: Order | null
+	versions?: Version[] | null
 	reference_capture?: Capture | null
 	return?: Return | null
-	versions?: Version[] | null
 
 }
 
@@ -90,6 +90,11 @@ interface Refund extends Resource {
 class Refunds extends ApiResource<Refund> {
 
 	static readonly TYPE: RefundType = 'refunds' as const
+
+	async order(refundId: string | Refund, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+		const _refundId = (refundId as Refund).id || refundId as string
+		return this.resources.fetch<Order>({ type: 'orders' }, `refunds/${_refundId}/order`, params, options) as unknown as Order
+	}
 
 	async attachments(refundId: string | Refund, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _refundId = (refundId as Refund).id || refundId as string
@@ -101,9 +106,9 @@ class Refunds extends ApiResource<Refund> {
 		return this.resources.fetch<Event>({ type: 'events' }, `refunds/${_refundId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
-	async order(refundId: string | Refund, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+	async versions(refundId: string | Refund, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _refundId = (refundId as Refund).id || refundId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `refunds/${_refundId}/order`, params, options) as unknown as Order
+		return this.resources.fetch<Version>({ type: 'versions' }, `refunds/${_refundId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async reference_capture(refundId: string | Refund, params?: QueryParamsRetrieve<Capture>, options?: ResourcesConfig): Promise<Capture> {
@@ -114,11 +119,6 @@ class Refunds extends ApiResource<Refund> {
 	async return(refundId: string | Refund, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
 		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Return>({ type: 'returns' }, `refunds/${_refundId}/return`, params, options) as unknown as Return
-	}
-
-	async versions(refundId: string | Refund, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _refundId = (refundId as Refund).id || refundId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `refunds/${_refundId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

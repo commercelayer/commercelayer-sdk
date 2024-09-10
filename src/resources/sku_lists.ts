@@ -2,12 +2,12 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
-import type { Bundle } from './bundles'
 import type { Customer, CustomerType } from './customers'
-import type { Link } from './links'
-import type { SkuListItem } from './sku_list_items'
 import type { Sku } from './skus'
+import type { SkuListItem } from './sku_list_items'
+import type { Bundle } from './bundles'
+import type { Attachment } from './attachments'
+import type { Link } from './links'
 import type { Version } from './versions'
 
 
@@ -16,14 +16,24 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 
 
-export type SkuListSort = Pick<SkuList, 'id' | 'manual' | 'name' | 'slug'> & ResourceSort
-// export type SkuListFilter = Pick<SkuList, 'id' | 'description' | 'image_url' | 'manual' | 'name' | 'slug'> & ResourceFilter
+export type SkuListSort = Pick<SkuList, 'id' | 'name' | 'slug' | 'manual'> & ResourceSort
+// export type SkuListFilter = Pick<SkuList, 'id' | 'name' | 'slug' | 'description' | 'image_url' | 'manual'> & ResourceFilter
 
 
 interface SkuList extends Resource {
 	
 	readonly type: SkuListType
 
+	/** 
+	 * The SKU list's internal name.
+	 * @example ```"Personal list"```
+	 */
+	name: string
+	/** 
+	 * The SKU list's internal slug.
+	 * @example ```"personal-list-1"```
+	 */
+	slug: string
 	/** 
 	 * An internal description of the SKU list.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
@@ -39,27 +49,17 @@ interface SkuList extends Resource {
 	 */
 	manual?: boolean | null
 	/** 
-	 * The SKU list's internal name.
-	 * @example ```"Personal list"```
-	 */
-	name: string
-	/** 
 	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
-	/** 
-	 * The SKU list's internal slug.
-	 * @example ```"personal-list-1"```
-	 */
-	slug: string
 
-	attachments?: Attachment[] | null
-	bundles?: Bundle[] | null
 	customer?: Customer | null
-	links?: Link[] | null
-	sku_list_items?: SkuListItem[] | null
 	skus?: Sku[] | null
+	sku_list_items?: SkuListItem[] | null
+	bundles?: Bundle[] | null
+	attachments?: Attachment[] | null
+	links?: Link[] | null
 	versions?: Version[] | null
 
 }
@@ -68,6 +68,11 @@ interface SkuList extends Resource {
 interface SkuListCreate extends ResourceCreate {
 	
 	/** 
+	 * The SKU list's internal name.
+	 * @example ```"Personal list"```
+	 */
+	name: string
+	/** 
 	 * An internal description of the SKU list.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
@@ -81,11 +86,6 @@ interface SkuListCreate extends ResourceCreate {
 	 * Indicates if the SKU list is populated manually.
 	 */
 	manual?: boolean | null
-	/** 
-	 * The SKU list's internal name.
-	 * @example ```"Personal list"```
-	 */
-	name: string
 	/** 
 	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
@@ -100,6 +100,11 @@ interface SkuListCreate extends ResourceCreate {
 interface SkuListUpdate extends ResourceUpdate {
 	
 	/** 
+	 * The SKU list's internal name.
+	 * @example ```"Personal list"```
+	 */
+	name?: string | null
+	/** 
 	 * An internal description of the SKU list.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
@@ -113,11 +118,6 @@ interface SkuListUpdate extends ResourceUpdate {
 	 * Indicates if the SKU list is populated manually.
 	 */
 	manual?: boolean | null
-	/** 
-	 * The SKU list's internal name.
-	 * @example ```"Personal list"```
-	 */
-	name?: string | null
 	/** 
 	 * The regex that will be evaluated to match the SKU codes.
 	 * @example ```"^(A|B).*$"```
@@ -145,24 +145,14 @@ class SkuLists extends ApiResource<SkuList> {
 		await this.resources.delete((typeof id === 'string')? { id, type: SkuLists.TYPE } : id, options)
 	}
 
-	async attachments(skuListId: string | SkuList, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _skuListId = (skuListId as SkuList).id || skuListId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_lists/${_skuListId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async bundles(skuListId: string | SkuList, params?: QueryParamsList<Bundle>, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
-		const _skuListId = (skuListId as SkuList).id || skuListId as string
-		return this.resources.fetch<Bundle>({ type: 'bundles' }, `sku_lists/${_skuListId}/bundles`, params, options) as unknown as ListResponse<Bundle>
-	}
-
 	async customer(skuListId: string | SkuList, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
 		const _skuListId = (skuListId as SkuList).id || skuListId as string
 		return this.resources.fetch<Customer>({ type: 'customers' }, `sku_lists/${_skuListId}/customer`, params, options) as unknown as Customer
 	}
 
-	async links(skuListId: string | SkuList, params?: QueryParamsList<Link>, options?: ResourcesConfig): Promise<ListResponse<Link>> {
+	async skus(skuListId: string | SkuList, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _skuListId = (skuListId as SkuList).id || skuListId as string
-		return this.resources.fetch<Link>({ type: 'links' }, `sku_lists/${_skuListId}/links`, params, options) as unknown as ListResponse<Link>
+		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_lists/${_skuListId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 	async sku_list_items(skuListId: string | SkuList, params?: QueryParamsList<SkuListItem>, options?: ResourcesConfig): Promise<ListResponse<SkuListItem>> {
@@ -170,9 +160,19 @@ class SkuLists extends ApiResource<SkuList> {
 		return this.resources.fetch<SkuListItem>({ type: 'sku_list_items' }, `sku_lists/${_skuListId}/sku_list_items`, params, options) as unknown as ListResponse<SkuListItem>
 	}
 
-	async skus(skuListId: string | SkuList, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+	async bundles(skuListId: string | SkuList, params?: QueryParamsList<Bundle>, options?: ResourcesConfig): Promise<ListResponse<Bundle>> {
 		const _skuListId = (skuListId as SkuList).id || skuListId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_lists/${_skuListId}/skus`, params, options) as unknown as ListResponse<Sku>
+		return this.resources.fetch<Bundle>({ type: 'bundles' }, `sku_lists/${_skuListId}/bundles`, params, options) as unknown as ListResponse<Bundle>
+	}
+
+	async attachments(skuListId: string | SkuList, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _skuListId = (skuListId as SkuList).id || skuListId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_lists/${_skuListId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async links(skuListId: string | SkuList, params?: QueryParamsList<Link>, options?: ResourcesConfig): Promise<ListResponse<Link>> {
+		const _skuListId = (skuListId as SkuList).id || skuListId as string
+		return this.resources.fetch<Link>({ type: 'links' }, `sku_lists/${_skuListId}/links`, params, options) as unknown as ListResponse<Link>
 	}
 
 	async versions(skuListId: string | SkuList, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

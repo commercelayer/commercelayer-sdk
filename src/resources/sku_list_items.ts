@@ -2,15 +2,15 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Sku, SkuType } from './skus'
 import type { SkuList, SkuListType } from './sku_lists'
+import type { Sku, SkuType } from './skus'
 import type { Version } from './versions'
 
 
 type SkuListItemType = 'sku_list_items'
 type SkuListItemRel = ResourceRel & { type: SkuListItemType }
-type SkuRel = ResourceRel & { type: SkuType }
 type SkuListRel = ResourceRel & { type: SkuListType }
+type SkuRel = ResourceRel & { type: SkuType }
 
 
 export type SkuListItemSort = Pick<SkuListItem, 'id' | 'position' | 'quantity'> & ResourceSort
@@ -27,18 +27,18 @@ interface SkuListItem extends Resource {
 	 */
 	position?: number | null
 	/** 
-	 * The SKU quantity for this SKU list item.
-	 * @example ```"1"```
-	 */
-	quantity?: number | null
-	/** 
 	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
+	/** 
+	 * The SKU quantity for this SKU list item.
+	 * @example ```"1"```
+	 */
+	quantity?: number | null
 
-	sku?: Sku | null
 	sku_list?: SkuList | null
+	sku?: Sku | null
 	versions?: Version[] | null
 
 }
@@ -52,18 +52,18 @@ interface SkuListItemCreate extends ResourceCreate {
 	 */
 	position?: number | null
 	/** 
-	 * The SKU quantity for this SKU list item.
-	 * @example ```"1"```
-	 */
-	quantity?: number | null
-	/** 
 	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
+	/** 
+	 * The SKU quantity for this SKU list item.
+	 * @example ```"1"```
+	 */
+	quantity?: number | null
 
-	sku: SkuRel
 	sku_list: SkuListRel
+	sku: SkuRel
 
 }
 
@@ -76,15 +76,15 @@ interface SkuListItemUpdate extends ResourceUpdate {
 	 */
 	position?: number | null
 	/** 
-	 * The SKU quantity for this SKU list item.
-	 * @example ```"1"```
-	 */
-	quantity?: number | null
-	/** 
 	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
+	/** 
+	 * The SKU quantity for this SKU list item.
+	 * @example ```"1"```
+	 */
+	quantity?: number | null
 	
 }
 
@@ -105,14 +105,14 @@ class SkuListItems extends ApiResource<SkuListItem> {
 		await this.resources.delete((typeof id === 'string')? { id, type: SkuListItems.TYPE } : id, options)
 	}
 
-	async sku(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
-		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_items/${_skuListItemId}/sku`, params, options) as unknown as Sku
-	}
-
 	async sku_list(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve<SkuList>, options?: ResourcesConfig): Promise<SkuList> {
 		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
 		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_items/${_skuListItemId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async sku(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
+		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_items/${_skuListItemId}/sku`, params, options) as unknown as Sku
 	}
 
 	async versions(skuListItemId: string | SkuListItem, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

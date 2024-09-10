@@ -17,55 +17,45 @@ interface Organization extends Resource {
 	readonly type: OrganizationType
 
 	/** 
-	 * Indicates if the phone attribute is required for addresses, default is true.
-	 * @example ```"true"```
+	 * The organization's internal name.
+	 * @example ```"The Blue Brand"```
 	 */
-	addresses_phone_required?: boolean | null
+	name?: string | null
 	/** 
-	 * The maximum number of SKUs allowed for bundles, default is 10.
-	 * @example ```"10"```
+	 * The organization's slug name.
+	 * @example ```"the-blue-brand"```
 	 */
-	bundles_max_items_count?: number | null
-	/** 
-	 * The maximum number of concurrent cleanups allowed for your organization, default is 10.
-	 * @example ```"10"```
-	 */
-	cleanups_max_concurrent_count?: number | null
-	/** 
-	 * The organization's configuration.
-	 * @example ```"[object Object]"```
-	 */
-	config?: Record<string, any> | null
-	/** 
-	 * The maximum length for coupon code, default is 40.
-	 * @example ```"40"```
-	 */
-	coupons_max_code_length?: number | null
-	/** 
-	 * The minimum length for coupon code, default is 8.
-	 * @example ```"8"```
-	 */
-	coupons_min_code_length?: number | null
+	slug?: string | null
 	/** 
 	 * The organization's domain.
 	 * @example ```"the-blue-brand.commercelayer.io"```
 	 */
 	domain?: string | null
 	/** 
-	 * The maximum number of concurrent exports allowed for your organization, default is 10.
-	 * @example ```"10"```
+	 * The organization's support phone.
+	 * @example ```"+01 30800857"```
 	 */
-	exports_max_concurrent_count?: number | null
+	support_phone?: string | null
 	/** 
-	 * Enables raising of API errors in case of external promotion failure, default is false.
-	 * @example ```"true"```
+	 * The organization's support email.
+	 * @example ```"support@bluebrand.com"```
 	 */
-	external_promotions_errors?: boolean | null
+	support_email?: string | null
+	/** 
+	 * The URL to the organization's logo.
+	 * @example ```"https://bluebrand.com/img/logo.svg"```
+	 */
+	logo_url?: string | null
 	/** 
 	 * The URL to the organization's favicon.
 	 * @example ```"https://bluebrand.com/img/favicon.ico"```
 	 */
 	favicon_url?: string | null
+	/** 
+	 * The organization's primary color.
+	 * @example ```"#C8984E"```
+	 */
+	primary_color?: string | null
 	/** 
 	 * The organization's Google Tag Manager ID.
 	 * @example ```"GTM-5FJXX6"```
@@ -77,58 +67,68 @@ interface Organization extends Resource {
 	 */
 	gtm_id_test?: string | null
 	/** 
-	 * The maximum number of concurrent imports allowed for your organization, default is 10.
+	 * Indicates if the phone attribute is required for addresses, default is true.
+	 * @example ```"true"```
+	 */
+	addresses_phone_required?: boolean | null
+	/** 
+	 * The maximum number of SKUs allowed for bundles, default is 10.
 	 * @example ```"10"```
 	 */
-	imports_max_concurrent_count?: number | null
+	bundles_max_items_count?: number | null
 	/** 
-	 * The URL to the organization's logo.
-	 * @example ```"https://bluebrand.com/img/logo.svg"```
+	 * The minimum length for coupon code, default is 8.
+	 * @example ```"8"```
 	 */
-	logo_url?: string | null
+	coupons_min_code_length?: number | null
 	/** 
-	 * The organization's internal name.
-	 * @example ```"The Blue Brand"```
+	 * The maximum length for coupon code, default is 40.
+	 * @example ```"40"```
 	 */
-	name?: string | null
-	/** 
-	 * Enables orders number editing as a string in live (for enterprise plans only).
-	 */
-	orders_number_editable_live?: boolean | null
-	/** 
-	 * Enables orders number editing as a string in test (for enterprise plans only).
-	 */
-	orders_number_editable_test?: boolean | null
-	/** 
-	 * The organization's primary color.
-	 * @example ```"#C8984E"```
-	 */
-	primary_color?: string | null
+	coupons_max_code_length?: number | null
 	/** 
 	 * The maximum number of active concurrent promotions allowed for your organization, default is 10.
 	 * @example ```"10"```
 	 */
 	promotions_max_concurrent_count?: number | null
 	/** 
-	 * The organization's slug name.
-	 * @example ```"the-blue-brand"```
+	 * The maximum number of concurrent imports allowed for your organization, default is 10.
+	 * @example ```"10"```
 	 */
-	slug?: string | null
+	imports_max_concurrent_count?: number | null
 	/** 
-	 * The organization's support email.
-	 * @example ```"support@bluebrand.com"```
+	 * The maximum number of concurrent exports allowed for your organization, default is 10.
+	 * @example ```"10"```
 	 */
-	support_email?: string | null
+	exports_max_concurrent_count?: number | null
 	/** 
-	 * The organization's support phone.
-	 * @example ```"+01 30800857"```
+	 * The maximum number of concurrent cleanups allowed for your organization, default is 10.
+	 * @example ```"10"```
 	 */
-	support_phone?: string | null
+	cleanups_max_concurrent_count?: number | null
+	/** 
+	 * Enables orders number editing as a string in test (for enterprise plans only).
+	 */
+	orders_number_editable_test?: boolean | null
+	/** 
+	 * Enables orders number editing as a string in live (for enterprise plans only).
+	 */
+	orders_number_editable_live?: boolean | null
 	/** 
 	 * Enables raising of API errors in case of tax calculation failure, default is false.
 	 * @example ```"true"```
 	 */
 	tax_calculators_errors?: boolean | null
+	/** 
+	 * Enables raising of API errors in case of external promotion failure, default is false.
+	 * @example ```"true"```
+	 */
+	external_promotions_errors?: boolean | null
+	/** 
+	 * The organization's configuration.
+	 * @example ```"[object Object]"```
+	 */
+	config?: Record<string, any> | null
 	
 }
 

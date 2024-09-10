@@ -25,8 +25,8 @@ describe('PriceLists resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			currency_code: randomValue('string', 'currency_code'),
 			name: randomValue('string', 'name'),
+			currency_code: randomValue('string', 'currency_code'),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -201,25 +201,25 @@ describe('PriceLists resource', () => {
 
   
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	/* relationship.prices start */
+	it(resourceType + '.prices', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
+		const params = { fields: { prices: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourceType, id, currentAccessToken, 'prices')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourceType].prices(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.attachments stop */
+	/* relationship.prices stop */
 	
 
 	/* relationship.price_list_schedulers start */
@@ -243,25 +243,25 @@ describe('PriceLists resource', () => {
 	/* relationship.price_list_schedulers stop */
 	
 
-	/* relationship.prices start */
-	it(resourceType + '.prices', async () => {
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { prices: CommonData.paramsFields } }
+		const params = { fields: { attachments: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'prices')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].prices(id, params, CommonData.options)
+		await cl[resourceType].attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.prices stop */
+	/* relationship.attachments stop */
 	
 
 	/* relationship.versions start */

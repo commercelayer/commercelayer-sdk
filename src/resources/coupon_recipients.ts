@@ -2,8 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
 import type { Customer, CustomerType } from './customers'
+import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
 
@@ -36,8 +36,8 @@ interface CouponRecipient extends Resource {
 	 */
 	last_name?: string | null
 
-	attachments?: Attachment[] | null
 	customer?: Customer | null
+	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
 }
@@ -105,14 +105,14 @@ class CouponRecipients extends ApiResource<CouponRecipient> {
 		await this.resources.delete((typeof id === 'string')? { id, type: CouponRecipients.TYPE } : id, options)
 	}
 
-	async attachments(couponRecipientId: string | CouponRecipient, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${_couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
 	async customer(couponRecipientId: string | CouponRecipient, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
 		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
 		return this.resources.fetch<Customer>({ type: 'customers' }, `coupon_recipients/${_couponRecipientId}/customer`, params, options) as unknown as Customer
+	}
+
+	async attachments(couponRecipientId: string | CouponRecipient, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${_couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async versions(couponRecipientId: string | CouponRecipient, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

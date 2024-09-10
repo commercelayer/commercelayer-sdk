@@ -2,8 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
+import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
 
@@ -12,8 +12,8 @@ type ShippingWeightTierRel = ResourceRel & { type: ShippingWeightTierType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
-export type ShippingWeightTierSort = Pick<ShippingWeightTier, 'id' | 'name' | 'price_amount_cents' | 'up_to'> & ResourceSort
-// export type ShippingWeightTierFilter = Pick<ShippingWeightTier, 'id' | 'name' | 'price_amount_cents' | 'up_to'> & ResourceFilter
+export type ShippingWeightTierSort = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort
+// export type ShippingWeightTierFilter = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
 
 interface ShippingWeightTier extends Resource {
@@ -21,15 +21,15 @@ interface ShippingWeightTier extends Resource {
 	readonly type: ShippingWeightTierType
 
 	/** 
-	 * The price of this shipping method tier, formatted.
-	 * @example ```"€10,00"```
-	 */
-	formatted_price_amount?: string | null
-	/** 
 	 * The shipping method tier's name.
 	 * @example ```"Light shipping under 3kg"```
 	 */
 	name: string
+	/** 
+	 * The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).
+	 * @example ```"20.5"```
+	 */
+	up_to?: number | null
 	/** 
 	 * The price of this shipping method tier, in cents.
 	 * @example ```"1000"```
@@ -41,13 +41,13 @@ interface ShippingWeightTier extends Resource {
 	 */
 	price_amount_float?: number | null
 	/** 
-	 * The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).
-	 * @example ```"20.5"```
+	 * The price of this shipping method tier, formatted.
+	 * @example ```"€10,00"```
 	 */
-	up_to?: number | null
+	formatted_price_amount?: string | null
 
-	attachments?: Attachment[] | null
 	shipping_method?: ShippingMethod | null
+	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
 }
@@ -61,15 +61,15 @@ interface ShippingWeightTierCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * The price of this shipping method tier, in cents.
-	 * @example ```"1000"```
-	 */
-	price_amount_cents: number
-	/** 
 	 * The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).
 	 * @example ```"20.5"```
 	 */
 	up_to?: number | null
+	/** 
+	 * The price of this shipping method tier, in cents.
+	 * @example ```"1000"```
+	 */
+	price_amount_cents: number
 
 	shipping_method: ShippingMethodRel
 
@@ -84,15 +84,15 @@ interface ShippingWeightTierUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The price of this shipping method tier, in cents.
-	 * @example ```"1000"```
-	 */
-	price_amount_cents?: number | null
-	/** 
 	 * The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).
 	 * @example ```"20.5"```
 	 */
 	up_to?: number | null
+	/** 
+	 * The price of this shipping method tier, in cents.
+	 * @example ```"1000"```
+	 */
+	price_amount_cents?: number | null
 
 	shipping_method?: ShippingMethodRel | null
 
@@ -115,14 +115,14 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ShippingWeightTiers.TYPE } : id, options)
 	}
 
-	async attachments(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_weight_tiers/${_shippingWeightTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
 	async shipping_method(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
 		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
 		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `shipping_weight_tiers/${_shippingWeightTierId}/shipping_method`, params, options) as unknown as ShippingMethod
+	}
+
+	async attachments(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_weight_tiers/${_shippingWeightTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async versions(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

@@ -152,27 +152,6 @@ describe('Events resource', () => {
 
   
 
-	/* relationship.last_event_callbacks start */
-	it(resourceType + '.last_event_callbacks', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { event_callbacks: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'last_event_callbacks')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].last_event_callbacks(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.last_event_callbacks stop */
-	
-
 	/* relationship.webhooks start */
 	it(resourceType + '.webhooks', async () => {
 	
@@ -192,6 +171,27 @@ describe('Events resource', () => {
 	
 	})
 	/* relationship.webhooks stop */
+	
+
+	/* relationship.last_event_callbacks start */
+	it(resourceType + '.last_event_callbacks', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_callbacks: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'last_event_callbacks')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].last_event_callbacks(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.last_event_callbacks stop */
 	
   
 

@@ -2,19 +2,19 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { Order, OrderType } from './orders'
 import type { Event } from './events'
 import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
-import type { Order, OrderType } from './orders'
 
 
 type RecurringOrderCopyType = 'recurring_order_copies'
 type RecurringOrderCopyRel = ResourceRel & { type: RecurringOrderCopyType }
-type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
 type OrderRel = ResourceRel & { type: OrderType }
+type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
 
 
-export type RecurringOrderCopySort = Pick<RecurringOrderCopy, 'id' | 'completed_at' | 'errors_count' | 'failed_at' | 'started_at' | 'status'> & ResourceSort
-// export type RecurringOrderCopyFilter = Pick<RecurringOrderCopy, 'id' | 'completed_at' | 'errors_count' | 'failed_at' | 'started_at' | 'status'> & ResourceFilter
+export type RecurringOrderCopySort = Pick<RecurringOrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSort
+// export type RecurringOrderCopyFilter = Pick<RecurringOrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
 
 interface RecurringOrderCopy extends Resource {
@@ -22,25 +22,35 @@ interface RecurringOrderCopy extends Resource {
 	readonly type: RecurringOrderCopyType
 
 	/** 
+	 * The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.
+	 * @example ```"in_progress"```
+	 */
+	status: 'pending' | 'in_progress' | 'failed' | 'completed'
+	/** 
+	 * Time at which the order copy was started.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	started_at?: string | null
+	/** 
 	 * Time at which the order copy was completed.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	completed_at?: string | null
 	/** 
-	 * Indicates the number of copy errors, if any.
-	 * @example ```"2"```
+	 * Time at which the order copy has failed.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
-	errors_count?: number | null
+	failed_at?: string | null
 	/** 
 	 * Contains the order copy errors, if any.
 	 * @example ```"[object Object]"```
 	 */
 	errors_log?: Record<string, any> | null
 	/** 
-	 * Time at which the order copy has failed.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 * Indicates the number of copy errors, if any.
+	 * @example ```"2"```
 	 */
-	failed_at?: string | null
+	errors_count?: number | null
 	/** 
 	 * Indicates if the target order must be placed upon copy.
 	 * @example ```"true"```
@@ -51,21 +61,11 @@ interface RecurringOrderCopy extends Resource {
 	 * @example ```"true"```
 	 */
 	reuse_wallet?: boolean | null
-	/** 
-	 * Time at which the order copy was started.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	started_at?: string | null
-	/** 
-	 * The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.
-	 * @example ```"in_progress"```
-	 */
-	status: 'pending' | 'in_progress' | 'failed' | 'completed'
 
-	events?: Event[] | null
-	order_subscription?: OrderSubscription | null
 	source_order?: Order | null
 	target_order?: Order | null
+	events?: Event[] | null
+	order_subscription?: OrderSubscription | null
 
 }
 
@@ -83,8 +83,8 @@ interface RecurringOrderCopyCreate extends ResourceCreate {
 	 */
 	reuse_wallet?: boolean | null
 
-	order_subscription: OrderSubscriptionRel
 	source_order: OrderRel
+	order_subscription: OrderSubscriptionRel
 
 }
 
@@ -108,16 +108,6 @@ class RecurringOrderCopies extends ApiResource<RecurringOrderCopy> {
 		await this.resources.delete((typeof id === 'string')? { id, type: RecurringOrderCopies.TYPE } : id, options)
 	}
 
-	async events(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `recurring_order_copies/${_recurringOrderCopyId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async order_subscription(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
-		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
-		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `recurring_order_copies/${_recurringOrderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
-	}
-
 	async source_order(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `recurring_order_copies/${_recurringOrderCopyId}/source_order`, params, options) as unknown as Order
@@ -126,6 +116,16 @@ class RecurringOrderCopies extends ApiResource<RecurringOrderCopy> {
 	async target_order(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `recurring_order_copies/${_recurringOrderCopyId}/target_order`, params, options) as unknown as Order
+	}
+
+	async events(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `recurring_order_copies/${_recurringOrderCopyId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async order_subscription(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
+		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
+		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `recurring_order_copies/${_recurringOrderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
 	}
 
 

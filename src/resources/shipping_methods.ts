@@ -2,28 +2,28 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
-import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { Market, MarketType } from './markets'
+import type { ShippingZone, ShippingZoneType } from './shipping_zones'
 import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { ShippingMethodTier, ShippingMethodTierType } from './shipping_method_tiers'
 import type { ShippingWeightTier } from './shipping_weight_tiers'
-import type { ShippingZone, ShippingZoneType } from './shipping_zones'
-import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
 
 type ShippingMethodType = 'shipping_methods'
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 type MarketRel = ResourceRel & { type: MarketType }
-type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
-type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
+type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
+type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 
 
-export type ShippingMethodSort = Pick<ShippingMethod, 'id' | 'circuit_failure_count' | 'circuit_state' | 'currency_code' | 'disabled_at' | 'free_over_amount_cents' | 'name' | 'price_amount_cents' | 'scheme'> & ResourceSort
-// export type ShippingMethodFilter = Pick<ShippingMethod, 'id' | 'circuit_failure_count' | 'circuit_state' | 'currency_code' | 'disabled_at' | 'free_over_amount_cents' | 'name' | 'price_amount_cents' | 'scheme'> & ResourceFilter
+export type ShippingMethodSort = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type ShippingMethodFilter = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface ShippingMethod extends Resource {
@@ -31,70 +31,25 @@ interface ShippingMethod extends Resource {
 	readonly type: ShippingMethodType
 
 	/** 
-	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```"5"```
+	 * The shipping method's name.
+	 * @example ```"Standard shipping"```
 	 */
-	circuit_failure_count?: number | null
+	name: string
 	/** 
-	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
-	 * @example ```"closed"```
+	 * The shipping method's scheme. One of 'flat', 'weight_tiered', or 'external'.
+	 * @example ```"flat"```
 	 */
-	circuit_state?: string | null
+	scheme?: 'flat' | 'weight_tiered' | 'external' | null
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Time at which this resource was disabled.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	disabled_at?: string | null
-	/** 
 	 * The URL used to overwrite prices by an external source.
 	 * @example ```"https://external_prices.yourbrand.com"```
 	 */
 	external_prices_url?: string | null
-	/** 
-	 * Apply free shipping if the order amount is over this value, formatted.
-	 * @example ```"€99,00"```
-	 */
-	formatted_free_over_amount?: string | null
-	/** 
-	 * The price of this shipping method, formatted.
-	 * @example ```"€10,00"```
-	 */
-	formatted_price_amount?: string | null
-	/** 
-	 * The calculated price (zero or price amount) when associated to a shipment, formatted.
-	 * @example ```"€0,00"```
-	 */
-	formatted_price_amount_for_shipment?: string | null
-	/** 
-	 * Apply free shipping if the order amount is over this value, in cents.
-	 * @example ```"9900"```
-	 */
-	free_over_amount_cents?: number | null
-	/** 
-	 * Apply free shipping if the order amount is over this value, float.
-	 * @example ```"99"```
-	 */
-	free_over_amount_float?: number | null
-	/** 
-	 * The maximum weight for which this shipping method is available.
-	 * @example ```"300"```
-	 */
-	max_weight?: number | null
-	/** 
-	 * The minimum weight for which this shipping method is available.
-	 * @example ```"3"```
-	 */
-	min_weight?: number | null
-	/** 
-	 * The shipping method's name.
-	 * @example ```"Standard shipping"```
-	 */
-	name: string
 	/** 
 	 * The price of this shipping method, in cents.
 	 * @example ```"1000"```
@@ -106,6 +61,31 @@ interface ShippingMethod extends Resource {
 	 */
 	price_amount_float?: number | null
 	/** 
+	 * The price of this shipping method, formatted.
+	 * @example ```"€10,00"```
+	 */
+	formatted_price_amount?: string | null
+	/** 
+	 * Apply free shipping if the order amount is over this value, in cents.
+	 * @example ```"9900"```
+	 */
+	free_over_amount_cents?: number | null
+	/** 
+	 * Apply free shipping if the order amount is over this value, float.
+	 * @example ```"99"```
+	 */
+	free_over_amount_float?: number | null
+	/** 
+	 * Apply free shipping if the order amount is over this value, formatted.
+	 * @example ```"€99,00"```
+	 */
+	formatted_free_over_amount?: string | null
+	/** 
+	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
+	 * @example ```"true"```
+	 */
+	use_subtotal?: boolean | null
+	/** 
 	 * The calculated price (zero or price amount) when associated to a shipment, in cents.
 	 */
 	price_amount_for_shipment_cents?: number | null
@@ -114,29 +94,49 @@ interface ShippingMethod extends Resource {
 	 */
 	price_amount_for_shipment_float?: number | null
 	/** 
-	 * The shipping method's scheme. One of 'flat', 'weight_tiered', or 'external'.
-	 * @example ```"flat"```
+	 * The calculated price (zero or price amount) when associated to a shipment, formatted.
+	 * @example ```"€0,00"```
 	 */
-	scheme?: 'flat' | 'weight_tiered' | 'external' | null
+	formatted_price_amount_for_shipment?: string | null
+	/** 
+	 * The minimum weight for which this shipping method is available.
+	 * @example ```"3"```
+	 */
+	min_weight?: number | null
+	/** 
+	 * The maximum weight for which this shipping method is available.
+	 * @example ```"300"```
+	 */
+	max_weight?: number | null
 	/** 
 	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
 	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
-	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
-	 * @example ```"true"```
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
-	use_subtotal?: boolean | null
+	disabled_at?: string | null
+	/** 
+	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
+	 * @example ```"closed"```
+	 */
+	circuit_state?: string | null
+	/** 
+	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
+	 * @example ```"5"```
+	 */
+	circuit_failure_count?: number | null
 
-	attachments?: Attachment[] | null
-	delivery_lead_time_for_shipment?: DeliveryLeadTime | null
 	market?: Market | null
+	shipping_zone?: ShippingZone | null
 	shipping_category?: ShippingCategory | null
+	stock_location?: StockLocation | null
+	delivery_lead_time_for_shipment?: DeliveryLeadTime | null
 	shipping_method_tiers?: ShippingMethodTier[] | null
 	shipping_weight_tiers?: ShippingWeightTier[] | null
-	shipping_zone?: ShippingZone | null
-	stock_location?: StockLocation | null
+	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
 }
@@ -145,15 +145,15 @@ interface ShippingMethod extends Resource {
 interface ShippingMethodCreate extends ResourceCreate {
 	
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * The shipping method's name.
+	 * @example ```"Standard shipping"```
 	 */
-	_disable?: boolean | null
+	name: string
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * The shipping method's scheme. One of 'flat', 'weight_tiered', or 'external'.
+	 * @example ```"flat"```
 	 */
-	_enable?: boolean | null
+	scheme?: 'flat' | 'weight_tiered' | 'external' | null
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
@@ -165,51 +165,51 @@ interface ShippingMethodCreate extends ResourceCreate {
 	 */
 	external_prices_url?: string | null
 	/** 
+	 * The price of this shipping method, in cents.
+	 * @example ```"1000"```
+	 */
+	price_amount_cents: number
+	/** 
 	 * Apply free shipping if the order amount is over this value, in cents.
 	 * @example ```"9900"```
 	 */
 	free_over_amount_cents?: number | null
 	/** 
-	 * The maximum weight for which this shipping method is available.
-	 * @example ```"300"```
+	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
+	 * @example ```"true"```
 	 */
-	max_weight?: number | null
+	use_subtotal?: boolean | null
 	/** 
 	 * The minimum weight for which this shipping method is available.
 	 * @example ```"3"```
 	 */
 	min_weight?: number | null
 	/** 
-	 * The shipping method's name.
-	 * @example ```"Standard shipping"```
+	 * The maximum weight for which this shipping method is available.
+	 * @example ```"300"```
 	 */
-	name: string
-	/** 
-	 * The price of this shipping method, in cents.
-	 * @example ```"1000"```
-	 */
-	price_amount_cents: number
-	/** 
-	 * The shipping method's scheme. One of 'flat', 'weight_tiered', or 'external'.
-	 * @example ```"flat"```
-	 */
-	scheme?: 'flat' | 'weight_tiered' | 'external' | null
+	max_weight?: number | null
 	/** 
 	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
 	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
-	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
+	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
-	use_subtotal?: boolean | null
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```"true"```
+	 */
+	_enable?: boolean | null
 
 	market?: MarketRel | null
-	shipping_category?: ShippingCategoryRel | null
-	shipping_method_tiers?: ShippingMethodTierRel[] | null
 	shipping_zone?: ShippingZoneRel | null
+	shipping_category?: ShippingCategoryRel | null
 	stock_location?: StockLocationRel | null
+	shipping_method_tiers?: ShippingMethodTierRel[] | null
 
 }
 
@@ -217,20 +217,15 @@ interface ShippingMethodCreate extends ResourceCreate {
 interface ShippingMethodUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * The shipping method's name.
+	 * @example ```"Standard shipping"```
 	 */
-	_disable?: boolean | null
+	name?: string | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * The shipping method's scheme. One of 'flat', 'weight_tiered', or 'external'.
+	 * @example ```"flat"```
 	 */
-	_enable?: boolean | null
-	/** 
-	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.
-	 * @example ```"true"```
-	 */
-	_reset_circuit?: boolean | null
+	scheme?: 'flat' | 'weight_tiered' | 'external' | null
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
@@ -242,51 +237,56 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	 */
 	external_prices_url?: string | null
 	/** 
+	 * The price of this shipping method, in cents.
+	 * @example ```"1000"```
+	 */
+	price_amount_cents?: number | null
+	/** 
 	 * Apply free shipping if the order amount is over this value, in cents.
 	 * @example ```"9900"```
 	 */
 	free_over_amount_cents?: number | null
 	/** 
-	 * The maximum weight for which this shipping method is available.
-	 * @example ```"300"```
+	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
+	 * @example ```"true"```
 	 */
-	max_weight?: number | null
+	use_subtotal?: boolean | null
 	/** 
 	 * The minimum weight for which this shipping method is available.
 	 * @example ```"3"```
 	 */
 	min_weight?: number | null
 	/** 
-	 * The shipping method's name.
-	 * @example ```"Standard shipping"```
+	 * The maximum weight for which this shipping method is available.
+	 * @example ```"300"```
 	 */
-	name?: string | null
-	/** 
-	 * The price of this shipping method, in cents.
-	 * @example ```"1000"```
-	 */
-	price_amount_cents?: number | null
-	/** 
-	 * The shipping method's scheme. One of 'flat', 'weight_tiered', or 'external'.
-	 * @example ```"flat"```
-	 */
-	scheme?: 'flat' | 'weight_tiered' | 'external' | null
+	max_weight?: number | null
 	/** 
 	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
 	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
-	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
+	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
-	use_subtotal?: boolean | null
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```"true"```
+	 */
+	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
+	 * @example ```"true"```
+	 */
+	_reset_circuit?: boolean | null
 
 	market?: MarketRel | null
-	shipping_category?: ShippingCategoryRel | null
-	shipping_method_tiers?: ShippingMethodTierRel[] | null
 	shipping_zone?: ShippingZoneRel | null
+	shipping_category?: ShippingCategoryRel | null
 	stock_location?: StockLocationRel | null
+	shipping_method_tiers?: ShippingMethodTierRel[] | null
 
 }
 
@@ -307,24 +307,29 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ShippingMethods.TYPE } : id, options)
 	}
 
-	async attachments(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_methods/${_shippingMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async delivery_lead_time_for_shipment(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<DeliveryLeadTime>, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
-		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `shipping_methods/${_shippingMethodId}/delivery_lead_time_for_shipment`, params, options) as unknown as DeliveryLeadTime
-	}
-
 	async market(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `shipping_methods/${_shippingMethodId}/market`, params, options) as unknown as Market
 	}
 
+	async shipping_zone(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<ShippingZone>, options?: ResourcesConfig): Promise<ShippingZone> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
+		return this.resources.fetch<ShippingZone>({ type: 'shipping_zones' }, `shipping_methods/${_shippingMethodId}/shipping_zone`, params, options) as unknown as ShippingZone
+	}
+
 	async shipping_category(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<ShippingCategory>, options?: ResourcesConfig): Promise<ShippingCategory> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
 		return this.resources.fetch<ShippingCategory>({ type: 'shipping_categories' }, `shipping_methods/${_shippingMethodId}/shipping_category`, params, options) as unknown as ShippingCategory
+	}
+
+	async stock_location(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `shipping_methods/${_shippingMethodId}/stock_location`, params, options) as unknown as StockLocation
+	}
+
+	async delivery_lead_time_for_shipment(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<DeliveryLeadTime>, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
+		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `shipping_methods/${_shippingMethodId}/delivery_lead_time_for_shipment`, params, options) as unknown as DeliveryLeadTime
 	}
 
 	async shipping_method_tiers(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<ShippingMethodTier>, options?: ResourcesConfig): Promise<ListResponse<ShippingMethodTier>> {
@@ -337,14 +342,9 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 		return this.resources.fetch<ShippingWeightTier>({ type: 'shipping_weight_tiers' }, `shipping_methods/${_shippingMethodId}/shipping_weight_tiers`, params, options) as unknown as ListResponse<ShippingWeightTier>
 	}
 
-	async shipping_zone(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<ShippingZone>, options?: ResourcesConfig): Promise<ShippingZone> {
+	async attachments(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<ShippingZone>({ type: 'shipping_zones' }, `shipping_methods/${_shippingMethodId}/shipping_zone`, params, options) as unknown as ShippingZone
-	}
-
-	async stock_location(shippingMethodId: string | ShippingMethod, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
-		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `shipping_methods/${_shippingMethodId}/stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_methods/${_shippingMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async versions(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

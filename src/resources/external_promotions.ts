@@ -2,34 +2,34 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
-import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
-import type { Coupon } from './coupons'
-import type { CustomPromotionRule, CustomPromotionRuleType } from './custom_promotion_rules'
-import type { Event } from './events'
 import type { Market, MarketType } from './markets'
 import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
-import type { SkuList, SkuListType } from './sku_lists'
 import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
-import type { Sku } from './skus'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
+import type { CustomPromotionRule, CustomPromotionRuleType } from './custom_promotion_rules'
+import type { SkuList, SkuListType } from './sku_lists'
+import type { Coupon } from './coupons'
+import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { Sku } from './skus'
 import type { PromotionRule } from './promotion_rules'
 
 
 type ExternalPromotionType = 'external_promotions'
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
-type CustomPromotionRuleRel = ResourceRel & { type: CustomPromotionRuleType }
 type MarketRel = ResourceRel & { type: MarketType }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
-type SkuListRel = ResourceRel & { type: SkuListType }
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type CustomPromotionRuleRel = ResourceRel & { type: CustomPromotionRuleType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type ExternalPromotionSort = Pick<ExternalPromotion, 'id' | 'circuit_failure_count' | 'circuit_state' | 'currency_code' | 'disabled_at' | 'exclusive' | 'expires_at' | 'name' | 'priority' | 'starts_at' | 'total_usage_count' | 'total_usage_limit'> & ResourceSort
-// export type ExternalPromotionFilter = Pick<ExternalPromotion, 'id' | 'circuit_failure_count' | 'circuit_state' | 'currency_code' | 'disabled_at' | 'expires_at' | 'name' | 'priority' | 'starts_at' | 'total_usage_count' | 'total_usage_limit'> & ResourceFilter
+export type ExternalPromotionSort = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type ExternalPromotionFilter = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface ExternalPromotion extends Resource {
@@ -37,100 +37,135 @@ interface ExternalPromotion extends Resource {
 	readonly type: ExternalPromotionType
 
 	/** 
-	 * Indicates if the promotion is active (enabled and not expired).
-	 * @example ```"true"```
+	 * The promotion's internal name.
+	 * @example ```"Personal promotion"```
 	 */
-	active?: boolean | null
-	/** 
-	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```"5"```
-	 */
-	circuit_failure_count?: number | null
-	/** 
-	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
-	 * @example ```"closed"```
-	 */
-	circuit_state?: string | null
+	name: string
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Time at which this resource was disabled.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	disabled_at?: string | null
-	/** 
 	 * Indicates if the promotion will be applied exclusively, based on its priority score.
 	 * @example ```"true"```
 	 */
 	exclusive?: boolean | null
-	/** 
-	 * The expiration date/time of this promotion (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at: string
-	/** 
-	 * The promotion's internal name.
-	 * @example ```"Personal promotion"```
-	 */
-	name: string
 	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
 	 * @example ```"2"```
 	 */
 	priority?: number | null
 	/** 
-	 * The URL to the service that will compute the discount.
-	 * @example ```"https://external_promotion.yourbrand.com"```
-	 */
-	promotion_url: string
-	/** 
-	 * The shared secret used to sign the external request payload.
-	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
-	 */
-	shared_secret: string
-	/** 
 	 * The activation date/time of this promotion.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at: string
 	/** 
-	 * The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.
-	 * @example ```"pending"```
+	 * The expiration date/time of this promotion (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
-	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
+	expires_at: string
+	/** 
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * @example ```"5"```
+	 */
+	total_usage_limit?: number | null
 	/** 
 	 * The number of times this promotion has been applied.
 	 * @example ```"2"```
 	 */
 	total_usage_count?: number | null
 	/** 
-	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * Indicates if the promotion is active (enabled and not expired).
+	 * @example ```"true"```
+	 */
+	active?: boolean | null
+	/** 
+	 * The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.
+	 * @example ```"pending"```
+	 */
+	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
+	/** 
+	 * The URL to the service that will compute the discount.
+	 * @example ```"https://external_promotion.yourbrand.com"```
+	 */
+	promotion_url: string
+	/** 
+	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
+	 * @example ```"closed"```
+	 */
+	circuit_state?: string | null
+	/** 
+	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
 	 * @example ```"5"```
 	 */
-	total_usage_limit?: number | null
+	circuit_failure_count?: number | null
+	/** 
+	 * The shared secret used to sign the external request payload.
+	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
+	 */
+	shared_secret: string
 
-	attachments?: Attachment[] | null
-	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
-	coupons?: Coupon[] | null
-	custom_promotion_rule?: CustomPromotionRule | null
-	events?: Event[] | null
 	market?: Market | null
-	order_amount_promotion_rule?: OrderAmountPromotionRule | null
 	promotion_rules?: PromotionRule[] | null
-	sku_list?: SkuList | null
+	order_amount_promotion_rule?: OrderAmountPromotionRule | null
 	sku_list_promotion_rule?: SkuListPromotionRule | null
-	skus?: Sku[] | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
+	custom_promotion_rule?: CustomPromotionRule | null
+	sku_list?: SkuList | null
+	coupons?: Coupon[] | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	skus?: Sku[] | null
 
 }
 
 
 interface ExternalPromotionCreate extends ResourceCreate {
 	
+	/** 
+	 * The promotion's internal name.
+	 * @example ```"Personal promotion"```
+	 */
+	name: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
+	 * @example ```"EUR"```
+	 */
+	currency_code?: string | null
+	/** 
+	 * Indicates if the promotion will be applied exclusively, based on its priority score.
+	 * @example ```"true"```
+	 */
+	exclusive?: boolean | null
+	/** 
+	 * The priority assigned to the promotion (lower means higher priority).
+	 * @example ```"2"```
+	 */
+	priority?: number | null
+	/** 
+	 * The activation date/time of this promotion.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	starts_at: string
+	/** 
+	 * The expiration date/time of this promotion (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at: string
+	/** 
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * @example ```"5"```
+	 */
+	total_usage_limit?: number | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
@@ -142,52 +177,17 @@ interface ExternalPromotionCreate extends ResourceCreate {
 	 */
 	_enable?: boolean | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard.
-	 * @example ```"EUR"```
-	 */
-	currency_code?: string | null
-	/** 
-	 * Indicates if the promotion will be applied exclusively, based on its priority score.
-	 * @example ```"true"```
-	 */
-	exclusive?: boolean | null
-	/** 
-	 * The expiration date/time of this promotion (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at: string
-	/** 
-	 * The promotion's internal name.
-	 * @example ```"Personal promotion"```
-	 */
-	name: string
-	/** 
-	 * The priority assigned to the promotion (lower means higher priority).
-	 * @example ```"2"```
-	 */
-	priority?: number | null
-	/** 
 	 * The URL to the service that will compute the discount.
 	 * @example ```"https://external_promotion.yourbrand.com"```
 	 */
 	promotion_url: string
-	/** 
-	 * The activation date/time of this promotion.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	starts_at: string
-	/** 
-	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
-	 */
-	total_usage_limit?: number | null
 
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
-	custom_promotion_rule?: CustomPromotionRuleRel | null
 	market?: MarketRel | null
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
-	sku_list?: SkuListRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	custom_promotion_rule?: CustomPromotionRuleRel | null
+	sku_list?: SkuListRel | null
 	tags?: TagRel[] | null
 
 }
@@ -196,20 +196,10 @@ interface ExternalPromotionCreate extends ResourceCreate {
 interface ExternalPromotionUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * The promotion's internal name.
+	 * @example ```"Personal promotion"```
 	 */
-	_disable?: boolean | null
-	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
-	 */
-	_enable?: boolean | null
-	/** 
-	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.
-	 * @example ```"true"```
-	 */
-	_reset_circuit?: boolean | null
+	name?: string | null
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
@@ -221,42 +211,52 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	 */
 	exclusive?: boolean | null
 	/** 
-	 * The expiration date/time of this promotion (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at?: string | null
-	/** 
-	 * The promotion's internal name.
-	 * @example ```"Personal promotion"```
-	 */
-	name?: string | null
-	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
 	 * @example ```"2"```
 	 */
 	priority?: number | null
-	/** 
-	 * The URL to the service that will compute the discount.
-	 * @example ```"https://external_promotion.yourbrand.com"```
-	 */
-	promotion_url?: string | null
 	/** 
 	 * The activation date/time of this promotion.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at?: string | null
 	/** 
+	 * The expiration date/time of this promotion (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at?: string | null
+	/** 
 	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
 	 * @example ```"5"```
 	 */
 	total_usage_limit?: number | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```"true"```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```"true"```
+	 */
+	_enable?: boolean | null
+	/** 
+	 * The URL to the service that will compute the discount.
+	 * @example ```"https://external_promotion.yourbrand.com"```
+	 */
+	promotion_url?: string | null
+	/** 
+	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
+	 * @example ```"true"```
+	 */
+	_reset_circuit?: boolean | null
 
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
-	custom_promotion_rule?: CustomPromotionRuleRel | null
 	market?: MarketRel | null
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
-	sku_list?: SkuListRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	custom_promotion_rule?: CustomPromotionRuleRel | null
+	sku_list?: SkuListRel | null
 	tags?: TagRel[] | null
 
 }
@@ -278,31 +278,6 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ExternalPromotions.TYPE } : id, options)
 	}
 
-	async attachments(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_promotions/${_externalPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async coupon_codes_promotion_rule(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve<CouponCodesPromotionRule>, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
-		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `external_promotions/${_externalPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
-	}
-
-	async coupons(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Coupon>, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
-		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `external_promotions/${_externalPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
-	}
-
-	async custom_promotion_rule(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve<CustomPromotionRule>, options?: ResourcesConfig): Promise<CustomPromotionRule> {
-		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
-		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `external_promotions/${_externalPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
-	}
-
-	async events(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `external_promotions/${_externalPromotionId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
 	async market(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `external_promotions/${_externalPromotionId}/market`, params, options) as unknown as Market
@@ -313,19 +288,39 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `external_promotions/${_externalPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
 	}
 
-	async sku_list(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve<SkuList>, options?: ResourcesConfig): Promise<SkuList> {
-		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `external_promotions/${_externalPromotionId}/sku_list`, params, options) as unknown as SkuList
-	}
-
 	async sku_list_promotion_rule(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve<SkuListPromotionRule>, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `external_promotions/${_externalPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
 	}
 
-	async skus(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+	async coupon_codes_promotion_rule(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve<CouponCodesPromotionRule>, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `external_promotions/${_externalPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `external_promotions/${_externalPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	}
+
+	async custom_promotion_rule(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve<CustomPromotionRule>, options?: ResourcesConfig): Promise<CustomPromotionRule> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `external_promotions/${_externalPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
+	}
+
+	async sku_list(externalPromotionId: string | ExternalPromotion, params?: QueryParamsRetrieve<SkuList>, options?: ResourcesConfig): Promise<SkuList> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `external_promotions/${_externalPromotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async coupons(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Coupon>, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<Coupon>({ type: 'coupons' }, `external_promotions/${_externalPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
+	}
+
+	async attachments(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_promotions/${_externalPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `external_promotions/${_externalPromotionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async tags(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
@@ -336,6 +331,11 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 	async versions(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `external_promotions/${_externalPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async skus(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `external_promotions/${_externalPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 	async _disable(id: string | ExternalPromotion, params?: QueryParamsRetrieve<ExternalPromotion>, options?: ResourcesConfig): Promise<ExternalPromotion> {

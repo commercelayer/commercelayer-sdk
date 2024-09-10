@@ -11,7 +11,7 @@ type CustomerPasswordResetRel = ResourceRel & { type: CustomerPasswordResetType 
 
 
 export type CustomerPasswordResetSort = Pick<CustomerPasswordReset, 'id'> & ResourceSort
-// export type CustomerPasswordResetFilter = Pick<CustomerPasswordReset, 'id' | 'reset_password_at' | 'reset_password_token'> & ResourceFilter
+// export type CustomerPasswordResetFilter = Pick<CustomerPasswordReset, 'id' | 'reset_password_token' | 'reset_password_at'> & ResourceFilter
 
 
 interface CustomerPasswordReset extends Resource {
@@ -24,15 +24,15 @@ interface CustomerPasswordReset extends Resource {
 	 */
 	customer_email: string
 	/** 
-	 * Time at which the password was reset.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	reset_password_at?: string | null
-	/** 
 	 * Automatically generated on create. Send its value as the '_reset_password_token' argument when updating the customer password.
 	 * @example ```"xhFfkmfybsLxzaAP6xcs"```
 	 */
 	reset_password_token?: string | null
+	/** 
+	 * Time at which the password was reset.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	reset_password_at?: string | null
 
 	customer?: Customer | null
 	events?: Event[] | null
@@ -54,15 +54,15 @@ interface CustomerPasswordResetCreate extends ResourceCreate {
 interface CustomerPasswordResetUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send the 'reset_password_token' that you got on create when updating the customer password.
-	 * @example ```"xhFfkmfybsLxzaAP6xcs"```
-	 */
-	_reset_password_token?: string | null
-	/** 
 	 * The customer new password. This will be accepted only if a valid '_reset_password_token' is sent with the request.
 	 * @example ```"secret"```
 	 */
 	customer_password?: string | null
+	/** 
+	 * Send the 'reset_password_token' that you got on create when updating the customer password.
+	 * @example ```"xhFfkmfybsLxzaAP6xcs"```
+	 */
+	_reset_password_token?: string | null
 	
 }
 

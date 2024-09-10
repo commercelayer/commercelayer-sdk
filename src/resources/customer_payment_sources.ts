@@ -42,15 +42,15 @@ interface CustomerPaymentSource extends Resource {
 	readonly type: CustomerPaymentSourceType
 
 	/** 
-	 * Returns the customer gateway token stored in the gateway.
-	 * @example ```"cus_xxxyyyzzz"```
-	 */
-	customer_token?: string | null
-	/** 
 	 * Returns the associated payment source's name.
 	 * @example ```"XXXX-XXXX-XXXX-1111"```
 	 */
 	name?: string | null
+	/** 
+	 * Returns the customer gateway token stored in the gateway.
+	 * @example ```"cus_xxxyyyzzz"```
+	 */
+	customer_token?: string | null
 	/** 
 	 * Returns the payment source token stored in the gateway.
 	 * @example ```"pm_xxxyyyzzz"```

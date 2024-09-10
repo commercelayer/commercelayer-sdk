@@ -2,34 +2,34 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
-import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
-import type { Coupon } from './coupons'
-import type { CustomPromotionRule, CustomPromotionRuleType } from './custom_promotion_rules'
-import type { Event } from './events'
 import type { Market, MarketType } from './markets'
 import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
-import type { SkuList, SkuListType } from './sku_lists'
 import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
-import type { Sku } from './skus'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
+import type { CustomPromotionRule, CustomPromotionRuleType } from './custom_promotion_rules'
+import type { SkuList, SkuListType } from './sku_lists'
+import type { Coupon } from './coupons'
+import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { Sku } from './skus'
 import type { PromotionRule } from './promotion_rules'
 
 
 type FreeGiftPromotionType = 'free_gift_promotions'
 type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
-type CustomPromotionRuleRel = ResourceRel & { type: CustomPromotionRuleType }
 type MarketRel = ResourceRel & { type: MarketType }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
-type SkuListRel = ResourceRel & { type: SkuListType }
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
+type CustomPromotionRuleRel = ResourceRel & { type: CustomPromotionRuleType }
+type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type FreeGiftPromotionSort = Pick<FreeGiftPromotion, 'id' | 'currency_code' | 'disabled_at' | 'exclusive' | 'expires_at' | 'name' | 'priority' | 'starts_at' | 'total_usage_count' | 'total_usage_limit'> & ResourceSort
-// export type FreeGiftPromotionFilter = Pick<FreeGiftPromotion, 'id' | 'currency_code' | 'disabled_at' | 'expires_at' | 'name' | 'priority' | 'starts_at' | 'total_usage_count' | 'total_usage_limit'> & ResourceFilter
+export type FreeGiftPromotionSort = Pick<FreeGiftPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
+// export type FreeGiftPromotionFilter = Pick<FreeGiftPromotion, 'id' | 'name' | 'currency_code' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
 
 
 interface FreeGiftPromotion extends Resource {
@@ -37,40 +37,20 @@ interface FreeGiftPromotion extends Resource {
 	readonly type: FreeGiftPromotionType
 
 	/** 
-	 * Indicates if the promotion is active (enabled and not expired).
-	 * @example ```"true"```
+	 * The promotion's internal name.
+	 * @example ```"Personal promotion"```
 	 */
-	active?: boolean | null
+	name: string
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Time at which this resource was disabled.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	disabled_at?: string | null
-	/** 
 	 * Indicates if the promotion will be applied exclusively, based on its priority score.
 	 * @example ```"true"```
 	 */
 	exclusive?: boolean | null
-	/** 
-	 * The expiration date/time of this promotion (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at: string
-	/** 
-	 * The max quantity of free gifts globally applicable by the promotion.
-	 * @example ```"3"```
-	 */
-	max_quantity?: number | null
-	/** 
-	 * The promotion's internal name.
-	 * @example ```"Personal promotion"```
-	 */
-	name: string
 	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
 	 * @example ```"2"```
@@ -82,40 +62,95 @@ interface FreeGiftPromotion extends Resource {
 	 */
 	starts_at: string
 	/** 
-	 * The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.
-	 * @example ```"pending"```
+	 * The expiration date/time of this promotion (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
-	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
+	expires_at: string
+	/** 
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * @example ```"5"```
+	 */
+	total_usage_limit?: number | null
 	/** 
 	 * The number of times this promotion has been applied.
 	 * @example ```"2"```
 	 */
 	total_usage_count?: number | null
 	/** 
-	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
+	 * Indicates if the promotion is active (enabled and not expired).
+	 * @example ```"true"```
 	 */
-	total_usage_limit?: number | null
+	active?: boolean | null
+	/** 
+	 * The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.
+	 * @example ```"pending"```
+	 */
+	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
+	/** 
+	 * The max quantity of free gifts globally applicable by the promotion.
+	 * @example ```"3"```
+	 */
+	max_quantity?: number | null
 
-	attachments?: Attachment[] | null
-	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
-	coupons?: Coupon[] | null
-	custom_promotion_rule?: CustomPromotionRule | null
-	events?: Event[] | null
 	market?: Market | null
-	order_amount_promotion_rule?: OrderAmountPromotionRule | null
 	promotion_rules?: PromotionRule[] | null
-	sku_list?: SkuList | null
+	order_amount_promotion_rule?: OrderAmountPromotionRule | null
 	sku_list_promotion_rule?: SkuListPromotionRule | null
-	skus?: Sku[] | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
+	custom_promotion_rule?: CustomPromotionRule | null
+	sku_list?: SkuList | null
+	coupons?: Coupon[] | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	skus?: Sku[] | null
 
 }
 
 
 interface FreeGiftPromotionCreate extends ResourceCreate {
 	
+	/** 
+	 * The promotion's internal name.
+	 * @example ```"Personal promotion"```
+	 */
+	name: string
+	/** 
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
+	 * @example ```"EUR"```
+	 */
+	currency_code?: string | null
+	/** 
+	 * Indicates if the promotion will be applied exclusively, based on its priority score.
+	 * @example ```"true"```
+	 */
+	exclusive?: boolean | null
+	/** 
+	 * The priority assigned to the promotion (lower means higher priority).
+	 * @example ```"2"```
+	 */
+	priority?: number | null
+	/** 
+	 * The activation date/time of this promotion.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	starts_at: string
+	/** 
+	 * The expiration date/time of this promotion (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at: string
+	/** 
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * @example ```"5"```
+	 */
+	total_usage_limit?: number | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
@@ -127,52 +162,17 @@ interface FreeGiftPromotionCreate extends ResourceCreate {
 	 */
 	_enable?: boolean | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard.
-	 * @example ```"EUR"```
-	 */
-	currency_code?: string | null
-	/** 
-	 * Indicates if the promotion will be applied exclusively, based on its priority score.
-	 * @example ```"true"```
-	 */
-	exclusive?: boolean | null
-	/** 
-	 * The expiration date/time of this promotion (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at: string
-	/** 
 	 * The max quantity of free gifts globally applicable by the promotion.
 	 * @example ```"3"```
 	 */
 	max_quantity?: number | null
-	/** 
-	 * The promotion's internal name.
-	 * @example ```"Personal promotion"```
-	 */
-	name: string
-	/** 
-	 * The priority assigned to the promotion (lower means higher priority).
-	 * @example ```"2"```
-	 */
-	priority?: number | null
-	/** 
-	 * The activation date/time of this promotion.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	starts_at: string
-	/** 
-	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
-	 */
-	total_usage_limit?: number | null
 
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
-	custom_promotion_rule?: CustomPromotionRuleRel | null
 	market?: MarketRel | null
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
-	sku_list: SkuListRel
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	custom_promotion_rule?: CustomPromotionRuleRel | null
+	sku_list: SkuListRel
 	tags?: TagRel[] | null
 
 }
@@ -181,15 +181,10 @@ interface FreeGiftPromotionCreate extends ResourceCreate {
 interface FreeGiftPromotionUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * The promotion's internal name.
+	 * @example ```"Personal promotion"```
 	 */
-	_disable?: boolean | null
-	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
-	 */
-	_enable?: boolean | null
+	name?: string | null
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
@@ -200,21 +195,6 @@ interface FreeGiftPromotionUpdate extends ResourceUpdate {
 	 * @example ```"true"```
 	 */
 	exclusive?: boolean | null
-	/** 
-	 * The expiration date/time of this promotion (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at?: string | null
-	/** 
-	 * The max quantity of free gifts globally applicable by the promotion.
-	 * @example ```"3"```
-	 */
-	max_quantity?: number | null
-	/** 
-	 * The promotion's internal name.
-	 * @example ```"Personal promotion"```
-	 */
-	name?: string | null
 	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
 	 * @example ```"2"```
@@ -226,17 +206,37 @@ interface FreeGiftPromotionUpdate extends ResourceUpdate {
 	 */
 	starts_at?: string | null
 	/** 
+	 * The expiration date/time of this promotion (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at?: string | null
+	/** 
 	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
 	 * @example ```"5"```
 	 */
 	total_usage_limit?: number | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```"true"```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```"true"```
+	 */
+	_enable?: boolean | null
+	/** 
+	 * The max quantity of free gifts globally applicable by the promotion.
+	 * @example ```"3"```
+	 */
+	max_quantity?: number | null
 
-	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
-	custom_promotion_rule?: CustomPromotionRuleRel | null
 	market?: MarketRel | null
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
-	sku_list?: SkuListRel | null
 	sku_list_promotion_rule?: SkuListPromotionRuleRel | null
+	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
+	custom_promotion_rule?: CustomPromotionRuleRel | null
+	sku_list?: SkuListRel | null
 	tags?: TagRel[] | null
 
 }
@@ -258,31 +258,6 @@ class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 		await this.resources.delete((typeof id === 'string')? { id, type: FreeGiftPromotions.TYPE } : id, options)
 	}
 
-	async attachments(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `free_gift_promotions/${_freeGiftPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async coupon_codes_promotion_rule(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve<CouponCodesPromotionRule>, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
-		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `free_gift_promotions/${_freeGiftPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
-	}
-
-	async coupons(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Coupon>, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
-		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `free_gift_promotions/${_freeGiftPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
-	}
-
-	async custom_promotion_rule(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve<CustomPromotionRule>, options?: ResourcesConfig): Promise<CustomPromotionRule> {
-		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
-		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `free_gift_promotions/${_freeGiftPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
-	}
-
-	async events(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `free_gift_promotions/${_freeGiftPromotionId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
 	async market(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `free_gift_promotions/${_freeGiftPromotionId}/market`, params, options) as unknown as Market
@@ -293,19 +268,39 @@ class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 		return this.resources.fetch<OrderAmountPromotionRule>({ type: 'order_amount_promotion_rules' }, `free_gift_promotions/${_freeGiftPromotionId}/order_amount_promotion_rule`, params, options) as unknown as OrderAmountPromotionRule
 	}
 
-	async sku_list(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve<SkuList>, options?: ResourcesConfig): Promise<SkuList> {
-		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `free_gift_promotions/${_freeGiftPromotionId}/sku_list`, params, options) as unknown as SkuList
-	}
-
 	async sku_list_promotion_rule(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve<SkuListPromotionRule>, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
 		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
 		return this.resources.fetch<SkuListPromotionRule>({ type: 'sku_list_promotion_rules' }, `free_gift_promotions/${_freeGiftPromotionId}/sku_list_promotion_rule`, params, options) as unknown as SkuListPromotionRule
 	}
 
-	async skus(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+	async coupon_codes_promotion_rule(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve<CouponCodesPromotionRule>, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `free_gift_promotions/${_freeGiftPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
+		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `free_gift_promotions/${_freeGiftPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
+	}
+
+	async custom_promotion_rule(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve<CustomPromotionRule>, options?: ResourcesConfig): Promise<CustomPromotionRule> {
+		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
+		return this.resources.fetch<CustomPromotionRule>({ type: 'custom_promotion_rules' }, `free_gift_promotions/${_freeGiftPromotionId}/custom_promotion_rule`, params, options) as unknown as CustomPromotionRule
+	}
+
+	async sku_list(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsRetrieve<SkuList>, options?: ResourcesConfig): Promise<SkuList> {
+		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `free_gift_promotions/${_freeGiftPromotionId}/sku_list`, params, options) as unknown as SkuList
+	}
+
+	async coupons(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Coupon>, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
+		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
+		return this.resources.fetch<Coupon>({ type: 'coupons' }, `free_gift_promotions/${_freeGiftPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
+	}
+
+	async attachments(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `free_gift_promotions/${_freeGiftPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `free_gift_promotions/${_freeGiftPromotionId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async tags(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
@@ -316,6 +311,11 @@ class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 	async versions(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `free_gift_promotions/${_freeGiftPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async skus(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
+		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
+		return this.resources.fetch<Sku>({ type: 'skus' }, `free_gift_promotions/${_freeGiftPromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
 	async _disable(id: string | FreeGiftPromotion, params?: QueryParamsRetrieve<FreeGiftPromotion>, options?: ResourcesConfig): Promise<FreeGiftPromotion> {

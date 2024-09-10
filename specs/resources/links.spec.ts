@@ -25,11 +25,11 @@ describe('Links resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			client_id: randomValue('string', 'client_id'),
-			expires_at: randomValue('string', 'expires_at'),
 			name: randomValue('string', 'name'),
+			client_id: randomValue('string', 'client_id'),
 			scope: randomValue('string', 'scope'),
 			starts_at: randomValue('string', 'starts_at'),
+			expires_at: randomValue('string', 'expires_at'),
 			item: cl.orders.relationship(TestData.id),
 		}
 

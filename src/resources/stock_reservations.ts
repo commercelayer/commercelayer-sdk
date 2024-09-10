@@ -4,9 +4,9 @@ import type { QueryParamsRetrieve } from '../query'
 
 import type { LineItem } from './line_items'
 import type { Order } from './orders'
+import type { StockItem, StockItemType } from './stock_items'
 import type { ReservedStock } from './reserved_stocks'
 import type { Sku } from './skus'
-import type { StockItem, StockItemType } from './stock_items'
 
 
 type StockReservationType = 'stock_reservations'
@@ -14,8 +14,8 @@ type StockReservationRel = ResourceRel & { type: StockReservationType }
 type StockItemRel = ResourceRel & { type: StockItemType }
 
 
-export type StockReservationSort = Pick<StockReservation, 'id' | 'expires_at' | 'quantity' | 'status'> & ResourceSort
-// export type StockReservationFilter = Pick<StockReservation, 'id' | 'expires_at' | 'quantity' | 'status'> & ResourceFilter
+export type StockReservationSort = Pick<StockReservation, 'id' | 'status' | 'quantity' | 'expires_at'> & ResourceSort
+// export type StockReservationFilter = Pick<StockReservation, 'id' | 'status' | 'quantity' | 'expires_at'> & ResourceFilter
 
 
 interface StockReservation extends Resource {
@@ -23,26 +23,26 @@ interface StockReservation extends Resource {
 	readonly type: StockReservationType
 
 	/** 
-	 * The expiration date/time of this stock reservation.
-	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 * The stock reservation status. One of 'draft' (default), or 'pending'.
+	 * @example ```"draft"```
 	 */
-	expires_at: string
+	status: 'draft' | 'pending'
 	/** 
 	 * The stock reservation quantity.
 	 * @example ```"4"```
 	 */
 	quantity: number
 	/** 
-	 * The stock reservation status. One of 'draft' (default), or 'pending'.
-	 * @example ```"draft"```
+	 * The expiration date/time of this stock reservation.
+	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
-	status: 'draft' | 'pending'
+	expires_at: string
 
 	line_item?: LineItem | null
 	order?: Order | null
+	stock_item?: StockItem | null
 	reserved_stock?: ReservedStock | null
 	sku?: Sku | null
-	stock_item?: StockItem | null
 
 }
 
@@ -63,15 +63,15 @@ interface StockReservationCreate extends ResourceCreate {
 interface StockReservationUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send this attribute if you want to mark this stock reservation as pending.
-	 * @example ```"true"```
-	 */
-	_pending?: boolean | null
-	/** 
 	 * The stock reservation quantity.
 	 * @example ```"4"```
 	 */
 	quantity?: number | null
+	/** 
+	 * Send this attribute if you want to mark this stock reservation as pending.
+	 * @example ```"true"```
+	 */
+	_pending?: boolean | null
 	
 }
 
@@ -102,6 +102,11 @@ class StockReservations extends ApiResource<StockReservation> {
 		return this.resources.fetch<Order>({ type: 'orders' }, `stock_reservations/${_stockReservationId}/order`, params, options) as unknown as Order
 	}
 
+	async stock_item(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<StockItem>, options?: ResourcesConfig): Promise<StockItem> {
+		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
+		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `stock_reservations/${_stockReservationId}/stock_item`, params, options) as unknown as StockItem
+	}
+
 	async reserved_stock(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<ReservedStock>, options?: ResourcesConfig): Promise<ReservedStock> {
 		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
 		return this.resources.fetch<ReservedStock>({ type: 'reserved_stocks' }, `stock_reservations/${_stockReservationId}/reserved_stock`, params, options) as unknown as ReservedStock
@@ -110,11 +115,6 @@ class StockReservations extends ApiResource<StockReservation> {
 	async sku(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_reservations/${_stockReservationId}/sku`, params, options) as unknown as Sku
-	}
-
-	async stock_item(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<StockItem>, options?: ResourcesConfig): Promise<StockItem> {
-		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
-		return this.resources.fetch<StockItem>({ type: 'stock_items' }, `stock_reservations/${_stockReservationId}/stock_item`, params, options) as unknown as StockItem
 	}
 
 	async _pending(id: string | StockReservation, params?: QueryParamsRetrieve<StockReservation>, options?: ResourcesConfig): Promise<StockReservation> {

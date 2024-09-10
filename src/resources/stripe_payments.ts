@@ -21,54 +21,54 @@ interface StripePayment extends Resource {
 	readonly type: StripePaymentType
 
 	/** 
-	 * The Stripe charge ID. Identifies money movement upon the payment intent confirmation.
-	 * @example ```"ch_1234XXX"```
+	 * The Stripe payment intent ID. Required to identify a payment session on stripe.
+	 * @example ```"pi_1234XXX"```
 	 */
-	charge_id?: string | null
+	stripe_id?: string | null
 	/** 
 	 * The Stripe payment intent client secret. Required to create a charge through Stripe.js.
 	 * @example ```"pi_1234XXX_secret_5678YYY"```
 	 */
 	client_secret?: string | null
 	/** 
-	 * Indicates if the order current amount differs form the one of the created payment intent.
+	 * The Stripe charge ID. Identifies money movement upon the payment intent confirmation.
+	 * @example ```"ch_1234XXX"```
 	 */
-	mismatched_amounts?: boolean | null
-	/** 
-	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.
-	 * @example ```"[object Object]"```
-	 */
-	options?: Record<string, any> | null
-	/** 
-	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
-	 */
-	payment_instrument?: Record<string, any> | null
-	/** 
-	 * Stripe 'payment_method', set by webhook.
-	 * @example ```"[object Object]"```
-	 */
-	payment_method?: Record<string, any> | null
+	charge_id?: string | null
 	/** 
 	 * The Stripe publishable API key.
 	 * @example ```"pk_live_xxxx-yyyy-zzzz"```
 	 */
 	publishable_key?: string | null
 	/** 
-	 * The email address to send the receipt to.
-	 * @example ```"john@example.com"```
+	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.
+	 * @example ```"[object Object]"```
 	 */
-	receipt_email?: string | null
+	options?: Record<string, any> | null
+	/** 
+	 * Stripe 'payment_method', set by webhook.
+	 * @example ```"[object Object]"```
+	 */
+	payment_method?: Record<string, any> | null
+	/** 
+	 * Indicates if the order current amount differs form the one of the created payment intent.
+	 */
+	mismatched_amounts?: boolean | null
 	/** 
 	 * The URL to return to when a redirect payment is completed.
 	 * @example ```"https://yourdomain.com/thankyou"```
 	 */
 	return_url?: string | null
 	/** 
-	 * The Stripe payment intent ID. Required to identify a payment session on stripe.
-	 * @example ```"pi_1234XXX"```
+	 * The email address to send the receipt to.
+	 * @example ```"john@example.com"```
 	 */
-	stripe_id?: string | null
+	receipt_email?: string | null
+	/** 
+	 * Information about the payment instrument used in the transaction.
+	 * @example ```"[object Object]"```
+	 */
+	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
@@ -80,6 +80,11 @@ interface StripePayment extends Resource {
 interface StripePaymentCreate extends ResourceCreate {
 	
 	/** 
+	 * The Stripe payment intent ID. Required to identify a payment session on stripe.
+	 * @example ```"pi_1234XXX"```
+	 */
+	stripe_id?: string | null
+	/** 
 	 * The Stripe payment intent client secret. Required to create a charge through Stripe.js.
 	 * @example ```"pi_1234XXX_secret_5678YYY"```
 	 */
@@ -90,20 +95,15 @@ interface StripePaymentCreate extends ResourceCreate {
 	 */
 	options?: Record<string, any> | null
 	/** 
-	 * The email address to send the receipt to.
-	 * @example ```"john@example.com"```
-	 */
-	receipt_email?: string | null
-	/** 
 	 * The URL to return to when a redirect payment is completed.
 	 * @example ```"https://yourdomain.com/thankyou"```
 	 */
 	return_url?: string | null
 	/** 
-	 * The Stripe payment intent ID. Required to identify a payment session on stripe.
-	 * @example ```"pi_1234XXX"```
+	 * The email address to send the receipt to.
+	 * @example ```"john@example.com"```
 	 */
-	stripe_id?: string | null
+	receipt_email?: string | null
 
 	order: OrderRel
 
@@ -112,16 +112,6 @@ interface StripePaymentCreate extends ResourceCreate {
 
 interface StripePaymentUpdate extends ResourceUpdate {
 	
-	/** 
-	 * Send this attribute if you want to refresh the payment status, can be used as webhooks fallback logic.
-	 * @example ```"true"```
-	 */
-	_refresh?: boolean | null
-	/** 
-	 * Send this attribute if you want to update the created payment intent with fresh order data.
-	 * @example ```"true"```
-	 */
-	_update?: boolean | null
 	/** 
 	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.
 	 * @example ```"[object Object]"```
@@ -132,6 +122,16 @@ interface StripePaymentUpdate extends ResourceUpdate {
 	 * @example ```"https://yourdomain.com/thankyou"```
 	 */
 	return_url?: string | null
+	/** 
+	 * Send this attribute if you want to update the created payment intent with fresh order data.
+	 * @example ```"true"```
+	 */
+	_update?: boolean | null
+	/** 
+	 * Send this attribute if you want to refresh the payment status, can be used as webhooks fallback logic.
+	 * @example ```"true"```
+	 */
+	_refresh?: boolean | null
 
 	order?: OrderRel | null
 
@@ -169,12 +169,12 @@ class StripePayments extends ApiResource<StripePayment> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_payments/${_stripePaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async _refresh(id: string | StripePayment, params?: QueryParamsRetrieve<StripePayment>, options?: ResourcesConfig): Promise<StripePayment> {
-		return this.resources.update<StripePaymentUpdate, StripePayment>({ id: (typeof id === 'string')? id: id.id, type: StripePayments.TYPE, _refresh: true }, params, options)
-	}
-
 	async _update(id: string | StripePayment, params?: QueryParamsRetrieve<StripePayment>, options?: ResourcesConfig): Promise<StripePayment> {
 		return this.resources.update<StripePaymentUpdate, StripePayment>({ id: (typeof id === 'string')? id: id.id, type: StripePayments.TYPE, _update: true }, params, options)
+	}
+
+	async _refresh(id: string | StripePayment, params?: QueryParamsRetrieve<StripePayment>, options?: ResourcesConfig): Promise<StripePayment> {
+		return this.resources.update<StripePaymentUpdate, StripePayment>({ id: (typeof id === 'string')? id: id.id, type: StripePayments.TYPE, _refresh: true }, params, options)
 	}
 
 

@@ -128,6 +128,27 @@ describe('Transactions resource', () => {
 
   
 
+	/* relationship.order start */
+	it(resourceType + '.order', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { orders: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'order')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].order(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.order stop */
+	
+
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
@@ -168,27 +189,6 @@ describe('Transactions resource', () => {
 	
 	})
 	/* relationship.events stop */
-	
-
-	/* relationship.order start */
-	it(resourceType + '.order', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { orders: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'order')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].order(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.order stop */
 	
 
 	/* relationship.versions start */

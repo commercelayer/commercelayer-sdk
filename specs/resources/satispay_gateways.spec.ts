@@ -223,27 +223,6 @@ describe('SatispayGateways resource', () => {
 	/* relationship.payment_methods stop */
 	
 
-	/* relationship.satispay_payments start */
-	it(resourceType + '.satispay_payments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { satispay_payments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'satispay_payments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].satispay_payments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.satispay_payments stop */
-	
-
 	/* relationship.versions start */
 	it(resourceType + '.versions', async () => {
 	
@@ -263,6 +242,27 @@ describe('SatispayGateways resource', () => {
 	
 	})
 	/* relationship.versions stop */
+	
+
+	/* relationship.satispay_payments start */
+	it(resourceType + '.satispay_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { satispay_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'satispay_payments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].satispay_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.satispay_payments stop */
 	
   
 })

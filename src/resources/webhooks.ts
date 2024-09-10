@@ -10,8 +10,8 @@ type WebhookType = 'webhooks'
 type WebhookRel = ResourceRel & { type: WebhookType }
 
 
-export type WebhookSort = Pick<Webhook, 'id' | 'circuit_failure_count' | 'circuit_state' | 'disabled_at'> & ResourceSort
-// export type WebhookFilter = Pick<Webhook, 'id' | 'circuit_failure_count' | 'circuit_state' | 'disabled_at' | 'name' | 'topic'> & ResourceFilter
+export type WebhookSort = Pick<Webhook, 'id' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type WebhookFilter = Pick<Webhook, 'id' | 'name' | 'topic' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface Webhook extends Resource {
@@ -19,45 +19,45 @@ interface Webhook extends Resource {
 	readonly type: WebhookType
 
 	/** 
+	 * Unique name for the webhook.
+	 * @example ```"myorg-orders.place"```
+	 */
+	name?: string | null
+	/** 
+	 * The identifier of the resource/event that will trigger the webhook.
+	 * @example ```"orders.place"```
+	 */
+	topic: string
+	/** 
 	 * URI where the webhook subscription should send the POST request when the event occurs.
 	 * @example ```"https://yourapp.com/webhooks"```
 	 */
 	callback_url: string
-	/** 
-	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```"5"```
-	 */
-	circuit_failure_count?: number | null
-	/** 
-	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
-	 * @example ```"closed"```
-	 */
-	circuit_state?: string | null
-	/** 
-	 * Time at which this resource was disabled.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	disabled_at?: string | null
 	/** 
 	 * List of related resources that should be included in the webhook body.
 	 * @example ```"customer,shipping_address,billing_address"```
 	 */
 	include_resources?: string[] | null
 	/** 
-	 * Unique name for the webhook.
-	 * @example ```"myorg-orders.place"```
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
-	name?: string | null
+	disabled_at?: string | null
+	/** 
+	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
+	 * @example ```"closed"```
+	 */
+	circuit_state?: string | null
+	/** 
+	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
+	 * @example ```"5"```
+	 */
+	circuit_failure_count?: number | null
 	/** 
 	 * The shared secret used to sign the external request payload.
 	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
 	 */
 	shared_secret: string
-	/** 
-	 * The identifier of the resource/event that will trigger the webhook.
-	 * @example ```"orders.place"```
-	 */
-	topic: string
 
 	last_event_callbacks?: EventCallback[] | null
 	versions?: Version[] | null
@@ -68,15 +68,15 @@ interface Webhook extends Resource {
 interface WebhookCreate extends ResourceCreate {
 	
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * Unique name for the webhook.
+	 * @example ```"myorg-orders.place"```
 	 */
-	_disable?: boolean | null
+	name?: string | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * The identifier of the resource/event that will trigger the webhook.
+	 * @example ```"orders.place"```
 	 */
-	_enable?: boolean | null
+	topic: string
 	/** 
 	 * URI where the webhook subscription should send the POST request when the event occurs.
 	 * @example ```"https://yourapp.com/webhooks"```
@@ -88,22 +88,6 @@ interface WebhookCreate extends ResourceCreate {
 	 */
 	include_resources?: string[] | null
 	/** 
-	 * Unique name for the webhook.
-	 * @example ```"myorg-orders.place"```
-	 */
-	name?: string | null
-	/** 
-	 * The identifier of the resource/event that will trigger the webhook.
-	 * @example ```"orders.place"```
-	 */
-	topic: string
-	
-}
-
-
-interface WebhookUpdate extends ResourceUpdate {
-	
-	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
@@ -113,11 +97,22 @@ interface WebhookUpdate extends ResourceUpdate {
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null
+	
+}
+
+
+interface WebhookUpdate extends ResourceUpdate {
+	
 	/** 
-	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.
-	 * @example ```"true"```
+	 * Unique name for the webhook.
+	 * @example ```"myorg-orders.place"```
 	 */
-	_reset_circuit?: boolean | null
+	name?: string | null
+	/** 
+	 * The identifier of the resource/event that will trigger the webhook.
+	 * @example ```"orders.place"```
+	 */
+	topic?: string | null
 	/** 
 	 * URI where the webhook subscription should send the POST request when the event occurs.
 	 * @example ```"https://yourapp.com/webhooks"```
@@ -129,15 +124,20 @@ interface WebhookUpdate extends ResourceUpdate {
 	 */
 	include_resources?: string[] | null
 	/** 
-	 * Unique name for the webhook.
-	 * @example ```"myorg-orders.place"```
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```"true"```
 	 */
-	name?: string | null
+	_disable?: boolean | null
 	/** 
-	 * The identifier of the resource/event that will trigger the webhook.
-	 * @example ```"orders.place"```
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```"true"```
 	 */
-	topic?: string | null
+	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
+	 * @example ```"true"```
+	 */
+	_reset_circuit?: boolean | null
 	
 }
 

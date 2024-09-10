@@ -10,8 +10,8 @@ type CleanupType = 'cleanups'
 type CleanupRel = ResourceRel & { type: CleanupType }
 
 
-export type CleanupSort = Pick<Cleanup, 'id' | 'completed_at' | 'errors_count' | 'interrupted_at' | 'processed_count' | 'records_count' | 'resource_type' | 'started_at' | 'status'> & ResourceSort
-// export type CleanupFilter = Pick<Cleanup, 'id' | 'completed_at' | 'errors_count' | 'interrupted_at' | 'processed_count' | 'records_count' | 'resource_type' | 'started_at' | 'status'> & ResourceFilter
+export type CleanupSort = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceSort
+// export type CleanupFilter = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceFilter
 
 
 interface Cleanup extends Resource {
@@ -19,55 +19,55 @@ interface Cleanup extends Resource {
 	readonly type: CleanupType
 
 	/** 
-	 * Time at which the cleanup was completed.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	completed_at?: string | null
-	/** 
-	 * Indicates the number of cleanup errors, if any.
-	 * @example ```"30"```
-	 */
-	errors_count?: number | null
-	/** 
-	 * Contains the cleanup errors, if any.
-	 * @example ```"[object Object]"```
-	 */
-	errors_log?: Record<string, any> | null
-	/** 
-	 * The filters used to select the records to be cleaned.
-	 * @example ```"[object Object]"```
-	 */
-	filters?: Record<string, any> | null
-	/** 
-	 * Time at which the cleanup was interrupted.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	interrupted_at?: string | null
-	/** 
-	 * Indicates the number of records that have been cleaned.
-	 * @example ```"270"```
-	 */
-	processed_count?: number | null
-	/** 
-	 * Indicates the number of records to be cleaned.
-	 * @example ```"300"```
-	 */
-	records_count?: number | null
-	/** 
 	 * The type of resource being cleaned.
 	 * @example ```"skus"```
 	 */
 	resource_type: string
+	/** 
+	 * The cleanup job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.
+	 * @example ```"in_progress"```
+	 */
+	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
 	/** 
 	 * Time at which the cleanup was started.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	started_at?: string | null
 	/** 
-	 * The cleanup job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.
-	 * @example ```"in_progress"```
+	 * Time at which the cleanup was completed.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
-	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
+	completed_at?: string | null
+	/** 
+	 * Time at which the cleanup was interrupted.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	interrupted_at?: string | null
+	/** 
+	 * The filters used to select the records to be cleaned.
+	 * @example ```"[object Object]"```
+	 */
+	filters?: Record<string, any> | null
+	/** 
+	 * Indicates the number of records to be cleaned.
+	 * @example ```"300"```
+	 */
+	records_count?: number | null
+	/** 
+	 * Indicates the number of cleanup errors, if any.
+	 * @example ```"30"```
+	 */
+	errors_count?: number | null
+	/** 
+	 * Indicates the number of records that have been cleaned.
+	 * @example ```"270"```
+	 */
+	processed_count?: number | null
+	/** 
+	 * Contains the cleanup errors, if any.
+	 * @example ```"[object Object]"```
+	 */
+	errors_log?: Record<string, any> | null
 
 	events?: Event[] | null
 	versions?: Version[] | null
@@ -78,15 +78,15 @@ interface Cleanup extends Resource {
 interface CleanupCreate extends ResourceCreate {
 	
 	/** 
-	 * The filters used to select the records to be cleaned.
-	 * @example ```"[object Object]"```
-	 */
-	filters?: Record<string, any> | null
-	/** 
 	 * The type of resource being cleaned.
 	 * @example ```"skus"```
 	 */
 	resource_type: string
+	/** 
+	 * The filters used to select the records to be cleaned.
+	 * @example ```"[object Object]"```
+	 */
+	filters?: Record<string, any> | null
 	
 }
 

@@ -9,7 +9,7 @@ type VersionRel = ResourceRel & { type: VersionType }
 
 
 export type VersionSort = Pick<Version, 'id'> & ResourceSort
-// export type VersionFilter = Pick<Version, 'id' | 'resource_id' | 'resource_type'> & ResourceFilter
+// export type VersionFilter = Pick<Version, 'id' | 'resource_type' | 'resource_id'> & ResourceFilter
 
 
 interface Version extends Resource {
@@ -17,25 +17,25 @@ interface Version extends Resource {
 	readonly type: VersionType
 
 	/** 
-	 * The object changes payload.
-	 * @example ```"[object Object]"```
+	 * The type of the versioned resource.
+	 * @example ```"orders"```
 	 */
-	changes?: Record<string, any> | null
-	/** 
-	 * The event which generates the version.
-	 * @example ```"update"```
-	 */
-	event?: string | null
+	resource_type?: string | null
 	/** 
 	 * The versioned resource id.
 	 * @example ```"PzdJhdLdYV"```
 	 */
 	resource_id?: string | null
 	/** 
-	 * The type of the versioned resource.
-	 * @example ```"orders"```
+	 * The event which generates the version.
+	 * @example ```"update"```
 	 */
-	resource_type?: string | null
+	event?: string | null
+	/** 
+	 * The object changes payload.
+	 * @example ```"[object Object]"```
+	 */
+	changes?: Record<string, any> | null
 	/** 
 	 * Information about who triggered the change.
 	 * @example ```"[object Object]"```

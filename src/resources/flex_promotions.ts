@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Coupon } from './coupons'
+import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
@@ -16,8 +16,8 @@ type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRul
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type FlexPromotionSort = Pick<FlexPromotion, 'id' | 'disabled_at' | 'exclusive' | 'expires_at' | 'name' | 'priority' | 'starts_at' | 'total_usage_count' | 'total_usage_limit'> & ResourceSort
-// export type FlexPromotionFilter = Pick<FlexPromotion, 'id' | 'disabled_at' | 'expires_at' | 'name' | 'priority' | 'starts_at' | 'total_usage_count' | 'total_usage_limit'> & ResourceFilter
+export type FlexPromotionSort = Pick<FlexPromotion, 'id' | 'name' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
+// export type FlexPromotionFilter = Pick<FlexPromotion, 'id' | 'name' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
 
 
 interface FlexPromotion extends Resource {
@@ -25,69 +25,69 @@ interface FlexPromotion extends Resource {
 	readonly type: FlexPromotionType
 
 	/** 
-	 * Indicates if the promotion is active (enabled and not expired).
-	 * @example ```"true"```
+	 * The promotion's internal name.
+	 * @example ```"Personal promotion"```
 	 */
-	active?: boolean | null
-	/** 
-	 * Time at which this resource was disabled.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	disabled_at?: string | null
+	name: string
 	/** 
 	 * Indicates if the promotion will be applied exclusively, based on its priority score.
 	 * @example ```"true"```
 	 */
 	exclusive?: boolean | null
 	/** 
-	 * The expiration date/time of this promotion (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at: string
-	/** 
-	 * The promotion's internal name.
-	 * @example ```"Personal promotion"```
-	 */
-	name: string
-	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
 	 * @example ```"2"```
 	 */
 	priority?: number | null
-	/** 
-	 * The rule outcomes.
-	 * @example ```"[object Object]"```
-	 */
-	rule_outcomes?: Record<string, any> | null
-	/** 
-	 * The discount rule to be applied.
-	 * @example ```"[object Object]"```
-	 */
-	rules: Record<string, any>
 	/** 
 	 * The activation date/time of this promotion.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at: string
 	/** 
-	 * The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.
-	 * @example ```"pending"```
+	 * The expiration date/time of this promotion (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
-	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
+	expires_at: string
+	/** 
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * @example ```"5"```
+	 */
+	total_usage_limit?: number | null
 	/** 
 	 * The number of times this promotion has been applied.
 	 * @example ```"2"```
 	 */
 	total_usage_count?: number | null
 	/** 
-	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
+	 * Indicates if the promotion is active (enabled and not expired).
+	 * @example ```"true"```
 	 */
-	total_usage_limit?: number | null
+	active?: boolean | null
+	/** 
+	 * The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.
+	 * @example ```"pending"```
+	 */
+	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
+	/** 
+	 * The discount rule to be applied.
+	 * @example ```"[object Object]"```
+	 */
+	rules: Record<string, any>
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
+	/** 
+	 * The rule outcomes.
+	 * @example ```"[object Object]"```
+	 */
+	rule_outcomes?: Record<string, any> | null
 
-	attachments?: Attachment[] | null
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
 	coupons?: Coupon[] | null
+	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
@@ -98,6 +98,41 @@ interface FlexPromotion extends Resource {
 interface FlexPromotionCreate extends ResourceCreate {
 	
 	/** 
+	 * The promotion's internal name.
+	 * @example ```"Personal promotion"```
+	 */
+	name: string
+	/** 
+	 * Indicates if the promotion will be applied exclusively, based on its priority score.
+	 * @example ```"true"```
+	 */
+	exclusive?: boolean | null
+	/** 
+	 * The priority assigned to the promotion (lower means higher priority).
+	 * @example ```"2"```
+	 */
+	priority?: number | null
+	/** 
+	 * The activation date/time of this promotion.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	starts_at: string
+	/** 
+	 * The expiration date/time of this promotion (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at: string
+	/** 
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * @example ```"5"```
+	 */
+	total_usage_limit?: number | null
+	/** 
+	 * The discount rule to be applied.
+	 * @example ```"[object Object]"```
+	 */
+	rules: Record<string, any>
+	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
@@ -107,41 +142,6 @@ interface FlexPromotionCreate extends ResourceCreate {
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null
-	/** 
-	 * Indicates if the promotion will be applied exclusively, based on its priority score.
-	 * @example ```"true"```
-	 */
-	exclusive?: boolean | null
-	/** 
-	 * The expiration date/time of this promotion (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at: string
-	/** 
-	 * The promotion's internal name.
-	 * @example ```"Personal promotion"```
-	 */
-	name: string
-	/** 
-	 * The priority assigned to the promotion (lower means higher priority).
-	 * @example ```"2"```
-	 */
-	priority?: number | null
-	/** 
-	 * The discount rule to be applied.
-	 * @example ```"[object Object]"```
-	 */
-	rules: Record<string, any>
-	/** 
-	 * The activation date/time of this promotion.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	starts_at: string
-	/** 
-	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
-	 */
-	total_usage_limit?: number | null
 
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	tags?: TagRel[] | null
@@ -152,6 +152,41 @@ interface FlexPromotionCreate extends ResourceCreate {
 interface FlexPromotionUpdate extends ResourceUpdate {
 	
 	/** 
+	 * The promotion's internal name.
+	 * @example ```"Personal promotion"```
+	 */
+	name?: string | null
+	/** 
+	 * Indicates if the promotion will be applied exclusively, based on its priority score.
+	 * @example ```"true"```
+	 */
+	exclusive?: boolean | null
+	/** 
+	 * The priority assigned to the promotion (lower means higher priority).
+	 * @example ```"2"```
+	 */
+	priority?: number | null
+	/** 
+	 * The activation date/time of this promotion.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	starts_at?: string | null
+	/** 
+	 * The expiration date/time of this promotion (must be after starts_at).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at?: string | null
+	/** 
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * @example ```"5"```
+	 */
+	total_usage_limit?: number | null
+	/** 
+	 * The discount rule to be applied.
+	 * @example ```"[object Object]"```
+	 */
+	rules?: Record<string, any> | null
+	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
@@ -161,41 +196,6 @@ interface FlexPromotionUpdate extends ResourceUpdate {
 	 * @example ```"true"```
 	 */
 	_enable?: boolean | null
-	/** 
-	 * Indicates if the promotion will be applied exclusively, based on its priority score.
-	 * @example ```"true"```
-	 */
-	exclusive?: boolean | null
-	/** 
-	 * The expiration date/time of this promotion (must be after starts_at).
-	 * @example ```"2018-01-02T12:00:00.000Z"```
-	 */
-	expires_at?: string | null
-	/** 
-	 * The promotion's internal name.
-	 * @example ```"Personal promotion"```
-	 */
-	name?: string | null
-	/** 
-	 * The priority assigned to the promotion (lower means higher priority).
-	 * @example ```"2"```
-	 */
-	priority?: number | null
-	/** 
-	 * The discount rule to be applied.
-	 * @example ```"[object Object]"```
-	 */
-	rules?: Record<string, any> | null
-	/** 
-	 * The activation date/time of this promotion.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	starts_at?: string | null
-	/** 
-	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
-	 */
-	total_usage_limit?: number | null
 
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	tags?: TagRel[] | null
@@ -219,11 +219,6 @@ class FlexPromotions extends ApiResource<FlexPromotion> {
 		await this.resources.delete((typeof id === 'string')? { id, type: FlexPromotions.TYPE } : id, options)
 	}
 
-	async attachments(flexPromotionId: string | FlexPromotion, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _flexPromotionId = (flexPromotionId as FlexPromotion).id || flexPromotionId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `flex_promotions/${_flexPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
 	async coupon_codes_promotion_rule(flexPromotionId: string | FlexPromotion, params?: QueryParamsRetrieve<CouponCodesPromotionRule>, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
 		const _flexPromotionId = (flexPromotionId as FlexPromotion).id || flexPromotionId as string
 		return this.resources.fetch<CouponCodesPromotionRule>({ type: 'coupon_codes_promotion_rules' }, `flex_promotions/${_flexPromotionId}/coupon_codes_promotion_rule`, params, options) as unknown as CouponCodesPromotionRule
@@ -232,6 +227,11 @@ class FlexPromotions extends ApiResource<FlexPromotion> {
 	async coupons(flexPromotionId: string | FlexPromotion, params?: QueryParamsList<Coupon>, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
 		const _flexPromotionId = (flexPromotionId as FlexPromotion).id || flexPromotionId as string
 		return this.resources.fetch<Coupon>({ type: 'coupons' }, `flex_promotions/${_flexPromotionId}/coupons`, params, options) as unknown as ListResponse<Coupon>
+	}
+
+	async attachments(flexPromotionId: string | FlexPromotion, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _flexPromotionId = (flexPromotionId as FlexPromotion).id || flexPromotionId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `flex_promotions/${_flexPromotionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async events(flexPromotionId: string | FlexPromotion, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {

@@ -268,7 +268,7 @@
                 "billing_info": {
                     "type": "string",
                     "desc": "Customer's billing information (i.e. VAT number, codice fiscale).",
-                    "required": "configurable",
+                    "required": "optional",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -7990,7 +7990,7 @@
                 "_trigger": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to force webhooks execution for this event.",
+                    "desc": "Send this attribute if you want to force webhooks execution for this event. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -8704,7 +8704,7 @@
                 "_reset_circuit": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.",
+                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -9278,7 +9278,7 @@
                 "_reset_circuit": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.",
+                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -9637,7 +9637,7 @@
                 "_reset_circuit": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.",
+                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -14444,7 +14444,7 @@
                 },
                 "_reserve_stock": {
                     "type": "boolean",
-                    "desc": "Send this attribute if you want to reserve the stock for the line item's SKUs quantity. Stock reservations expiration depends on the inventory model's cutoff. When used on update the existing active stock reservations are renewed.",
+                    "desc": "Send this attribute if you want to reserve the stock for the line item's SKUs quantity. Stock reservations expiration depends on the inventory model's cutoff. When used on update the existing active stock reservations are renewed. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": true,
@@ -14532,9 +14532,10 @@
                 },
                 "options_amount_cents": {
                     "type": "integer",
-                    "desc": "The options amount of the line item, in cents.",
+                    "desc": "The options amount of the line item, in cents. Cannot be passed by sales channels.",
+                    "prohibited": true,
                     "creatable": false,
-                    "updatable": false,
+                    "updatable": true,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
@@ -14821,7 +14822,7 @@
                 "_reset_circuit": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.",
+                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -16596,7 +16597,7 @@
             "fields": {
                 "number": {
                     "type": "string",
-                    "desc": "The order identifier. Can be specified if unique within the organization (for enterprise plans only), default to numeric ID otherwise.",
+                    "desc": "The order identifier. Can be specified if unique within the organization (for enterprise plans only), default to numeric ID otherwise. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "required": "optional, default to numeric ID",
                     "creatable": true,
@@ -17721,7 +17722,7 @@
                 "_pending": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to move a draft or placing order to pending.",
+                    "desc": "Send this attribute if you want to move a draft or placing order to pending. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -17755,7 +17756,7 @@
                 "_approve": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to approve a placed order.",
+                    "desc": "Send this attribute if you want to approve a placed order. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -17767,7 +17768,7 @@
                 "_approve_and_capture": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to approve and capture a placed order.",
+                    "desc": "Send this attribute if you want to approve and capture a placed order. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -17800,7 +17801,7 @@
                 "_capture": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to capture an authorized order.",
+                    "desc": "Send this attribute if you want to capture an authorized order. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -17812,7 +17813,7 @@
                 "_refund": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to refund a captured order.",
+                    "desc": "Send this attribute if you want to refund a captured order. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -17824,7 +17825,7 @@
                 "_fulfill": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered).",
+                    "desc": "Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered). Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -18009,7 +18010,7 @@
                 "_start_editing": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to edit the order after it is placed. Remember you cannot exceed the original total amount.",
+                    "desc": "Send this attribute if you want to edit the order after it is placed. Remember you cannot exceed the original total amount. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "required": "optional",
                     "creatable": false,
@@ -18022,7 +18023,7 @@
                 "_stop_editing": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute to stop the editing for the order and return back to placed status.",
+                    "desc": "Send this attribute to stop the editing for the order and return back to placed status. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "required": "optional",
                     "creatable": false,
@@ -18149,7 +18150,7 @@
                 "_reset_circuit": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.",
+                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -18953,6 +18954,7 @@
                     "type": "boolean",
                     "desc": "Indicates if the payment source within the source order customer's wallet must be copied.",
                     "required": "optional, default is 'true'",
+                    "default": true,
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
@@ -19032,6 +19034,30 @@
                 "cancel_source_order": {
                     "type": "boolean",
                     "desc": "Indicates if the source order must be cancelled upon copy.",
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "apply_promotions": {
+                    "type": "boolean",
+                    "desc": "Indicates if promotions got applied upon copy.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "ignore_invalid_coupon": {
+                    "type": "boolean",
+                    "desc": "Indicates to ignore invalid coupon code during copy.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
@@ -19226,6 +19252,7 @@
                     "type": "boolean",
                     "desc": "Indicates if the payment source within the source order customer's wallet must be copied.",
                     "required": "optional, default is 'true'",
+                    "default": true,
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
@@ -25277,6 +25304,7 @@
                     "type": "boolean",
                     "desc": "Indicates if the payment source within the source order customer's wallet must be copied.",
                     "required": "optional, default is 'true'",
+                    "default": true,
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
@@ -27327,7 +27355,7 @@
             "fields": {
                 "number": {
                     "type": "string",
-                    "desc": "Unique identifier for the shipment.",
+                    "desc": "Unique identifier for the shipment. Cannot be passed by sales channels.",
                     "required": "required",
                     "prohibited": true,
                     "creatable": false,
@@ -27414,7 +27442,7 @@
                 "_upcoming": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to mark this shipment as upcoming.",
+                    "desc": "Send this attribute if you want to mark this shipment as upcoming. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -27427,7 +27455,7 @@
                 "_cancel": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to mark this shipment as cancelled (unless already shipped or delivered).",
+                    "desc": "Send this attribute if you want to mark this shipment as cancelled (unless already shipped or delivered). Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -27512,7 +27540,7 @@
                 "_reserve_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically reserve the stock for each of the associated stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically reserve the stock for each of the associated stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -27525,7 +27553,7 @@
                 "_release_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically destroy the stock reservations for each of the associated stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically destroy the stock reservations for each of the associated stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -27538,7 +27566,7 @@
                 "_decrement_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically decrement and release the stock for each of the associated stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically decrement and release the stock for each of the associated stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -28096,7 +28124,7 @@
                 "_reserve_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically reserve the stock for this stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically reserve the stock for this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -28109,7 +28137,7 @@
                 "_release_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -28122,7 +28150,7 @@
                 "_decrement_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically decrement and release the stock this stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically decrement and release the stock this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -28725,7 +28753,7 @@
                 "_reset_circuit": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.",
+                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -31065,7 +31093,7 @@
                 "_validate": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to validate the stock item quantity against the existing reserved stock one, returns an error in case the former is smaller.",
+                    "desc": "Send this attribute if you want to validate the stock item quantity against the existing reserved stock one, returns an error in case the former is smaller. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -31283,7 +31311,7 @@
                 "_reserve_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically reserve the stock for this stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically reserve the stock for this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -31296,7 +31324,7 @@
                 "_release_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -31309,7 +31337,7 @@
                 "_decrement_stock": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to automatically decrement and release the stock this stock line item. Can be done only when fulfillment is in progress.",
+                    "desc": "Send this attribute if you want to automatically decrement and release the stock this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.",
                     "required": "optional",
                     "prohibited": true,
                     "creatable": false,
@@ -34789,7 +34817,7 @@
                 "_reset_circuit": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.",
+                    "desc": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,

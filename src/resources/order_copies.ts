@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { Order, OrderType } from './orders'
 import type { Event } from './events'
 import type { OrderSubscription } from './order_subscriptions'
-import type { Order, OrderType } from './orders'
 
 
 type OrderCopyType = 'order_copies'
@@ -12,8 +12,8 @@ type OrderCopyRel = ResourceRel & { type: OrderCopyType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type OrderCopySort = Pick<OrderCopy, 'id' | 'completed_at' | 'errors_count' | 'failed_at' | 'started_at' | 'status'> & ResourceSort
-// export type OrderCopyFilter = Pick<OrderCopy, 'id' | 'completed_at' | 'errors_count' | 'failed_at' | 'started_at' | 'status'> & ResourceFilter
+export type OrderCopySort = Pick<OrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceSort
+// export type OrderCopyFilter = Pick<OrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
 
 interface OrderCopy extends Resource {
@@ -21,30 +21,35 @@ interface OrderCopy extends Resource {
 	readonly type: OrderCopyType
 
 	/** 
-	 * Indicates if the source order must be cancelled upon copy.
-	 * @example ```"true"```
+	 * The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.
+	 * @example ```"in_progress"```
 	 */
-	cancel_source_order?: boolean | null
+	status: 'pending' | 'in_progress' | 'failed' | 'completed'
+	/** 
+	 * Time at which the order copy was started.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	started_at?: string | null
 	/** 
 	 * Time at which the order copy was completed.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	completed_at?: string | null
 	/** 
-	 * Indicates the number of copy errors, if any.
-	 * @example ```"2"```
+	 * Time at which the order copy has failed.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
-	errors_count?: number | null
+	failed_at?: string | null
 	/** 
 	 * Contains the order copy errors, if any.
 	 * @example ```"[object Object]"```
 	 */
 	errors_log?: Record<string, any> | null
 	/** 
-	 * Time at which the order copy has failed.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 * Indicates the number of copy errors, if any.
+	 * @example ```"2"```
 	 */
-	failed_at?: string | null
+	errors_count?: number | null
 	/** 
 	 * Indicates if the target order must be placed upon copy.
 	 * @example ```"true"```
@@ -56,20 +61,25 @@ interface OrderCopy extends Resource {
 	 */
 	reuse_wallet?: boolean | null
 	/** 
-	 * Time at which the order copy was started.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 * Indicates if the source order must be cancelled upon copy.
+	 * @example ```"true"```
 	 */
-	started_at?: string | null
+	cancel_source_order?: boolean | null
 	/** 
-	 * The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.
-	 * @example ```"in_progress"```
+	 * Indicates if promotions got applied upon copy.
+	 * @example ```"true"```
 	 */
-	status: 'pending' | 'in_progress' | 'failed' | 'completed'
+	apply_promotions?: boolean | null
+	/** 
+	 * Indicates to ignore invalid coupon code during copy.
+	 * @example ```"true"```
+	 */
+	ignore_invalid_coupon?: boolean | null
 
-	events?: Event[] | null
-	order_subscription?: OrderSubscription | null
 	source_order?: Order | null
 	target_order?: Order | null
+	events?: Event[] | null
+	order_subscription?: OrderSubscription | null
 
 }
 
@@ -77,11 +87,6 @@ interface OrderCopy extends Resource {
 interface OrderCopyCreate extends ResourceCreate {
 	
 	/** 
-	 * Indicates if the source order must be cancelled upon copy.
-	 * @example ```"true"```
-	 */
-	cancel_source_order?: boolean | null
-	/** 
 	 * Indicates if the target order must be placed upon copy.
 	 * @example ```"true"```
 	 */
@@ -91,6 +96,21 @@ interface OrderCopyCreate extends ResourceCreate {
 	 * @example ```"true"```
 	 */
 	reuse_wallet?: boolean | null
+	/** 
+	 * Indicates if the source order must be cancelled upon copy.
+	 * @example ```"true"```
+	 */
+	cancel_source_order?: boolean | null
+	/** 
+	 * Indicates if promotions got applied upon copy.
+	 * @example ```"true"```
+	 */
+	apply_promotions?: boolean | null
+	/** 
+	 * Indicates to ignore invalid coupon code during copy.
+	 * @example ```"true"```
+	 */
+	ignore_invalid_coupon?: boolean | null
 
 	source_order: OrderRel
 
@@ -116,16 +136,6 @@ class OrderCopies extends ApiResource<OrderCopy> {
 		await this.resources.delete((typeof id === 'string')? { id, type: OrderCopies.TYPE } : id, options)
 	}
 
-	async events(orderCopyId: string | OrderCopy, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `order_copies/${_orderCopyId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async order_subscription(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
-		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId as string
-		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_copies/${_orderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
-	}
-
 	async source_order(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `order_copies/${_orderCopyId}/source_order`, params, options) as unknown as Order
@@ -134,6 +144,16 @@ class OrderCopies extends ApiResource<OrderCopy> {
 	async target_order(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `order_copies/${_orderCopyId}/target_order`, params, options) as unknown as Order
+	}
+
+	async events(orderCopyId: string | OrderCopy, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `order_copies/${_orderCopyId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async order_subscription(orderCopyId: string | OrderCopy, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
+		const _orderCopyId = (orderCopyId as OrderCopy).id || orderCopyId as string
+		return this.resources.fetch<OrderSubscription>({ type: 'order_subscriptions' }, `order_copies/${_orderCopyId}/order_subscription`, params, options) as unknown as OrderSubscription
 	}
 
 

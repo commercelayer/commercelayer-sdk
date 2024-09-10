@@ -3,11 +3,11 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Address, AddressType } from './addresses'
-import type { Attachment } from './attachments'
-import type { InventoryReturnLocation } from './inventory_return_locations'
 import type { InventoryStockLocation } from './inventory_stock_locations'
+import type { InventoryReturnLocation } from './inventory_return_locations'
 import type { StockItem } from './stock_items'
 import type { StockTransfer } from './stock_transfers'
+import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
 
@@ -16,14 +16,24 @@ type StockLocationRel = ResourceRel & { type: StockLocationType }
 type AddressRel = ResourceRel & { type: AddressType }
 
 
-export type StockLocationSort = Pick<StockLocation, 'id' | 'code' | 'label_format' | 'name' | 'suppress_etd'> & ResourceSort
-// export type StockLocationFilter = Pick<StockLocation, 'id' | 'code' | 'label_format' | 'name' | 'suppress_etd'> & ResourceFilter
+export type StockLocationSort = Pick<StockLocation, 'id' | 'name' | 'code' | 'label_format' | 'suppress_etd'> & ResourceSort
+// export type StockLocationFilter = Pick<StockLocation, 'id' | 'name' | 'code' | 'label_format' | 'suppress_etd'> & ResourceFilter
 
 
 interface StockLocation extends Resource {
 	
 	readonly type: StockLocationType
 
+	/** 
+	 * Unique identifier for the stock location (numeric).
+	 * @example ```"1234"```
+	 */
+	number?: number | null
+	/** 
+	 * The stock location's internal name.
+	 * @example ```"Primary warehouse"```
+	 */
+	name: string
 	/** 
 	 * A string that you can use to identify the stock location (must be unique within the environment).
 	 * @example ```"europe1"```
@@ -35,26 +45,16 @@ interface StockLocation extends Resource {
 	 */
 	label_format?: string | null
 	/** 
-	 * The stock location's internal name.
-	 * @example ```"Primary warehouse"```
-	 */
-	name: string
-	/** 
-	 * Unique identifier for the stock location (numeric).
-	 * @example ```"1234"```
-	 */
-	number?: number | null
-	/** 
 	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments.
 	 */
 	suppress_etd?: boolean | null
 
 	address?: Address | null
-	attachments?: Attachment[] | null
-	inventory_return_locations?: InventoryReturnLocation[] | null
 	inventory_stock_locations?: InventoryStockLocation[] | null
+	inventory_return_locations?: InventoryReturnLocation[] | null
 	stock_items?: StockItem[] | null
 	stock_transfers?: StockTransfer[] | null
+	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
 }
@@ -63,6 +63,11 @@ interface StockLocation extends Resource {
 interface StockLocationCreate extends ResourceCreate {
 	
 	/** 
+	 * The stock location's internal name.
+	 * @example ```"Primary warehouse"```
+	 */
+	name: string
+	/** 
 	 * A string that you can use to identify the stock location (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
@@ -72,11 +77,6 @@ interface StockLocationCreate extends ResourceCreate {
 	 * @example ```"PDF"```
 	 */
 	label_format?: string | null
-	/** 
-	 * The stock location's internal name.
-	 * @example ```"Primary warehouse"```
-	 */
-	name: string
 	/** 
 	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments.
 	 */
@@ -90,6 +90,11 @@ interface StockLocationCreate extends ResourceCreate {
 interface StockLocationUpdate extends ResourceUpdate {
 	
 	/** 
+	 * The stock location's internal name.
+	 * @example ```"Primary warehouse"```
+	 */
+	name?: string | null
+	/** 
 	 * A string that you can use to identify the stock location (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
@@ -99,11 +104,6 @@ interface StockLocationUpdate extends ResourceUpdate {
 	 * @example ```"PDF"```
 	 */
 	label_format?: string | null
-	/** 
-	 * The stock location's internal name.
-	 * @example ```"Primary warehouse"```
-	 */
-	name?: string | null
 	/** 
 	 * Flag it if you want to skip the electronic invoice creation when generating the customs info for this stock location shipments.
 	 */
@@ -135,19 +135,14 @@ class StockLocations extends ApiResource<StockLocation> {
 		return this.resources.fetch<Address>({ type: 'addresses' }, `stock_locations/${_stockLocationId}/address`, params, options) as unknown as Address
 	}
 
-	async attachments(stockLocationId: string | StockLocation, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async inventory_stock_locations(stockLocationId: string | StockLocation, params?: QueryParamsList<InventoryStockLocation>, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_locations/${_stockLocationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `stock_locations/${_stockLocationId}/inventory_stock_locations`, params, options) as unknown as ListResponse<InventoryStockLocation>
 	}
 
 	async inventory_return_locations(stockLocationId: string | StockLocation, params?: QueryParamsList<InventoryReturnLocation>, options?: ResourcesConfig): Promise<ListResponse<InventoryReturnLocation>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
 		return this.resources.fetch<InventoryReturnLocation>({ type: 'inventory_return_locations' }, `stock_locations/${_stockLocationId}/inventory_return_locations`, params, options) as unknown as ListResponse<InventoryReturnLocation>
-	}
-
-	async inventory_stock_locations(stockLocationId: string | StockLocation, params?: QueryParamsList<InventoryStockLocation>, options?: ResourcesConfig): Promise<ListResponse<InventoryStockLocation>> {
-		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
-		return this.resources.fetch<InventoryStockLocation>({ type: 'inventory_stock_locations' }, `stock_locations/${_stockLocationId}/inventory_stock_locations`, params, options) as unknown as ListResponse<InventoryStockLocation>
 	}
 
 	async stock_items(stockLocationId: string | StockLocation, params?: QueryParamsList<StockItem>, options?: ResourcesConfig): Promise<ListResponse<StockItem>> {
@@ -158,6 +153,11 @@ class StockLocations extends ApiResource<StockLocation> {
 	async stock_transfers(stockLocationId: string | StockLocation, params?: QueryParamsList<StockTransfer>, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
 		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `stock_locations/${_stockLocationId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+	}
+
+	async attachments(stockLocationId: string | StockLocation, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_locations/${_stockLocationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async versions(stockLocationId: string | StockLocation, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

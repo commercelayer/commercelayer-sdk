@@ -2,8 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
 import type { Order, OrderType } from './orders'
+import type { Attachment } from './attachments'
 
 
 type PaymentOptionType = 'payment_options'
@@ -12,7 +12,7 @@ type OrderRel = ResourceRel & { type: OrderType }
 
 
 export type PaymentOptionSort = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type'> & ResourceSort
-// export type PaymentOptionFilter = Pick<PaymentOption, 'id' | 'data' | 'name' | 'payment_source_type'> & ResourceFilter
+// export type PaymentOptionFilter = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type' | 'data'> & ResourceFilter
 
 
 interface PaymentOption extends Resource {
@@ -20,11 +20,6 @@ interface PaymentOption extends Resource {
 	readonly type: PaymentOptionType
 
 	/** 
-	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
-	 * @example ```"[object Object]"```
-	 */
-	data: Record<string, any>
-	/** 
 	 * The payment option's name. Wehn blank is inherited by payment source type.
 	 * @example ```"Stripe Payment Option"```
 	 */
@@ -34,9 +29,14 @@ interface PaymentOption extends Resource {
 	 * @example ```"stripe_payments"```
 	 */
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
+	/** 
+	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
+	 * @example ```"[object Object]"```
+	 */
+	data: Record<string, any>
 
-	attachments?: Attachment[] | null
 	order?: Order | null
+	attachments?: Attachment[] | null
 
 }
 
@@ -44,11 +44,6 @@ interface PaymentOption extends Resource {
 interface PaymentOptionCreate extends ResourceCreate {
 	
 	/** 
-	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
-	 * @example ```"[object Object]"```
-	 */
-	data: Record<string, any>
-	/** 
 	 * The payment option's name. Wehn blank is inherited by payment source type.
 	 * @example ```"Stripe Payment Option"```
 	 */
@@ -58,6 +53,11 @@ interface PaymentOptionCreate extends ResourceCreate {
 	 * @example ```"stripe_payments"```
 	 */
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
+	/** 
+	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
+	 * @example ```"[object Object]"```
+	 */
+	data: Record<string, any>
 
 	order: OrderRel
 
@@ -67,15 +67,15 @@ interface PaymentOptionCreate extends ResourceCreate {
 interface PaymentOptionUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
-	 * @example ```"[object Object]"```
-	 */
-	data?: Record<string, any> | null
-	/** 
 	 * The payment option's name. Wehn blank is inherited by payment source type.
 	 * @example ```"Stripe Payment Option"```
 	 */
 	name?: string | null
+	/** 
+	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
+	 * @example ```"[object Object]"```
+	 */
+	data?: Record<string, any> | null
 
 	order?: OrderRel | null
 
@@ -98,14 +98,14 @@ class PaymentOptions extends ApiResource<PaymentOption> {
 		await this.resources.delete((typeof id === 'string')? { id, type: PaymentOptions.TYPE } : id, options)
 	}
 
-	async attachments(paymentOptionId: string | PaymentOption, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _paymentOptionId = (paymentOptionId as PaymentOption).id || paymentOptionId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_options/${_paymentOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
 	async order(paymentOptionId: string | PaymentOption, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _paymentOptionId = (paymentOptionId as PaymentOption).id || paymentOptionId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `payment_options/${_paymentOptionId}/order`, params, options) as unknown as Order
+	}
+
+	async attachments(paymentOptionId: string | PaymentOption, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _paymentOptionId = (paymentOptionId as PaymentOption).id || paymentOptionId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_options/${_paymentOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 

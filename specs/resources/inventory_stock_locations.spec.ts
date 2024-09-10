@@ -26,8 +26,8 @@ describe('InventoryStockLocations resource', () => {
 
     const createAttributes = {
 			priority: randomValue('integer', 'priority'),
-			inventory_model: cl.inventory_models.relationship(TestData.id),
 			stock_location: cl.stock_locations.relationship(TestData.id),
+			inventory_model: cl.inventory_models.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -202,27 +202,6 @@ describe('InventoryStockLocations resource', () => {
 
   
 
-	/* relationship.inventory_model start */
-	it(resourceType + '.inventory_model', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { inventory_models: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'inventory_model')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].inventory_model(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.inventory_model stop */
-	
-
 	/* relationship.stock_location start */
 	it(resourceType + '.stock_location', async () => {
 	
@@ -242,6 +221,27 @@ describe('InventoryStockLocations resource', () => {
 	
 	})
 	/* relationship.stock_location stop */
+	
+
+	/* relationship.inventory_model start */
+	it(resourceType + '.inventory_model', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { inventory_models: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'inventory_model')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].inventory_model(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.inventory_model stop */
 	
 
 	/* relationship.versions start */

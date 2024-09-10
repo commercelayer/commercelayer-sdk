@@ -25,8 +25,8 @@ describe('StripeGateways resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			login: randomValue('string', 'login'),
 			name: randomValue('string', 'name'),
+			login: randomValue('string', 'login'),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -222,27 +222,6 @@ describe('StripeGateways resource', () => {
 	/* relationship.payment_methods stop */
 	
 
-	/* relationship.stripe_payments start */
-	it(resourceType + '.stripe_payments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { stripe_payments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'stripe_payments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].stripe_payments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.stripe_payments stop */
-	
-
 	/* relationship.versions start */
 	it(resourceType + '.versions', async () => {
 	
@@ -262,6 +241,27 @@ describe('StripeGateways resource', () => {
 	
 	})
 	/* relationship.versions stop */
+	
+
+	/* relationship.stripe_payments start */
+	it(resourceType + '.stripe_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stripe_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stripe_payments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stripe_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.stripe_payments stop */
 	
   
 })

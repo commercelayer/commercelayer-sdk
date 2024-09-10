@@ -2,8 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
 import type { Market } from './markets'
+import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
 
@@ -11,8 +11,8 @@ type ExternalTaxCalculatorType = 'external_tax_calculators'
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
 
 
-export type ExternalTaxCalculatorSort = Pick<ExternalTaxCalculator, 'id' | 'circuit_failure_count' | 'circuit_state' | 'name'> & ResourceSort
-// export type ExternalTaxCalculatorFilter = Pick<ExternalTaxCalculator, 'id' | 'circuit_failure_count' | 'circuit_state' | 'name'> & ResourceFilter
+export type ExternalTaxCalculatorSort = Pick<ExternalTaxCalculator, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type ExternalTaxCalculatorFilter = Pick<ExternalTaxCalculator, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface ExternalTaxCalculator extends Resource {
@@ -20,33 +20,33 @@ interface ExternalTaxCalculator extends Resource {
 	readonly type: ExternalTaxCalculatorType
 
 	/** 
-	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```"5"```
+	 * The tax calculator's internal name.
+	 * @example ```"Personal tax calculator"```
 	 */
-	circuit_failure_count?: number | null
+	name: string
+	/** 
+	 * The URL to the service that will compute the taxes.
+	 * @example ```"https://external_calculator.yourbrand.com"```
+	 */
+	tax_calculator_url: string
 	/** 
 	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
 	 * @example ```"closed"```
 	 */
 	circuit_state?: string | null
 	/** 
-	 * The tax calculator's internal name.
-	 * @example ```"Personal tax calculator"```
+	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
+	 * @example ```"5"```
 	 */
-	name: string
+	circuit_failure_count?: number | null
 	/** 
 	 * The shared secret used to sign the external request payload.
 	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
 	 */
 	shared_secret: string
-	/** 
-	 * The URL to the service that will compute the taxes.
-	 * @example ```"https://external_calculator.yourbrand.com"```
-	 */
-	tax_calculator_url: string
 
-	attachments?: Attachment[] | null
 	markets?: Market[] | null
+	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
 }
@@ -71,11 +71,6 @@ interface ExternalTaxCalculatorCreate extends ResourceCreate {
 interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count.
-	 * @example ```"true"```
-	 */
-	_reset_circuit?: boolean | null
-	/** 
 	 * The tax calculator's internal name.
 	 * @example ```"Personal tax calculator"```
 	 */
@@ -85,6 +80,11 @@ interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	 * @example ```"https://external_calculator.yourbrand.com"```
 	 */
 	tax_calculator_url?: string | null
+	/** 
+	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
+	 * @example ```"true"```
+	 */
+	_reset_circuit?: boolean | null
 	
 }
 
@@ -105,14 +105,14 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ExternalTaxCalculators.TYPE } : id, options)
 	}
 
-	async attachments(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_tax_calculators/${_externalTaxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
 	async markets(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
 		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `external_tax_calculators/${_externalTaxCalculatorId}/markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async attachments(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `external_tax_calculators/${_externalTaxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async versions(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

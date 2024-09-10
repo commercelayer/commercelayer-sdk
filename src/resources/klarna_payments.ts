@@ -21,15 +21,25 @@ interface KlarnaPayment extends Resource {
 	readonly type: KlarnaPaymentType
 
 	/** 
-	 * The token returned by a successful client authorization, mandatory to place the order.
+	 * The identifier of the payment session.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
-	auth_token?: string | null
+	session_id?: string | null
 	/** 
 	 * The public token linked to your API credential. Available upon session creation.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_token?: string | null
+	/** 
+	 * The merchant available payment methods for the assoiated order. Available upon session creation.
+	 * @example ```"[object Object]"```
+	 */
+	payment_methods: Array<Record<string, any>>
+	/** 
+	 * The token returned by a successful client authorization, mandatory to place the order.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	auth_token?: string | null
 	/** 
 	 * Indicates if the order current amount differs form the one of the created payment intent.
 	 */
@@ -39,16 +49,6 @@ interface KlarnaPayment extends Resource {
 	 * @example ```"[object Object]"```
 	 */
 	payment_instrument?: Record<string, any> | null
-	/** 
-	 * The merchant available payment methods for the assoiated order. Available upon session creation.
-	 * @example ```"[object Object]"```
-	 */
-	payment_methods: Array<Record<string, any>>
-	/** 
-	 * The identifier of the payment session.
-	 * @example ```"xxxx-yyyy-zzzz"```
-	 */
-	session_id?: string | null
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
@@ -67,15 +67,15 @@ interface KlarnaPaymentCreate extends ResourceCreate {
 interface KlarnaPaymentUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send this attribute if you want to update the payment session with fresh order data.
-	 * @example ```"true"```
-	 */
-	_update?: boolean | null
-	/** 
 	 * The token returned by a successful client authorization, mandatory to place the order.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	auth_token?: string | null
+	/** 
+	 * Send this attribute if you want to update the payment session with fresh order data.
+	 * @example ```"true"```
+	 */
+	_update?: boolean | null
 
 	order?: OrderRel | null
 

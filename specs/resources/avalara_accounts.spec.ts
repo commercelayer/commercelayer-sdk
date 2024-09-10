@@ -25,10 +25,10 @@ describe('AvalaraAccounts resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			company_code: randomValue('string', 'company_code'),
 			name: randomValue('string', 'name'),
-			password: randomValue('string', 'password'),
 			username: randomValue('string', 'username'),
+			password: randomValue('string', 'password'),
+			company_code: randomValue('string', 'company_code'),
 			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 
@@ -204,6 +204,27 @@ describe('AvalaraAccounts resource', () => {
 
   
 
+	/* relationship.markets start */
+	it(resourceType + '.markets', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { markets: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'markets')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].markets(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.markets stop */
+	
+
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	
@@ -225,46 +246,25 @@ describe('AvalaraAccounts resource', () => {
 	/* relationship.attachments stop */
 	
 
-	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	/* relationship.versions start */
+	it(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { events: CommonData.paramsFields } }
+		const params = { fields: { versions: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].events(id, params, CommonData.options)
+		await cl[resourceType].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.events stop */
-	
-
-	/* relationship.markets start */
-	it(resourceType + '.markets', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { markets: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'markets')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].markets(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.markets stop */
+	/* relationship.versions stop */
 	
 
 	/* relationship.tax_categories start */
@@ -288,25 +288,25 @@ describe('AvalaraAccounts resource', () => {
 	/* relationship.tax_categories stop */
 	
 
-	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	/* relationship.events start */
+	it(resourceType + '.events', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { versions: CommonData.paramsFields } }
+		const params = { fields: { events: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourceType, id, currentAccessToken, 'events')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourceType].events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.versions stop */
+	/* relationship.events stop */
 	
   
 })

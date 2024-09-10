@@ -26,8 +26,8 @@ describe('StockItems resource', () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
-			sku: cl.skus.relationship(TestData.id),
 			stock_location: cl.stock_locations.relationship(TestData.id),
+			sku: cl.skus.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -202,46 +202,25 @@ describe('StockItems resource', () => {
 
   
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	/* relationship.stock_location start */
+	it(resourceType + '.stock_location', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
+		const params = { fields: { stock_locations: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stock_location')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourceType].stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.attachments stop */
-	
-
-	/* relationship.reserved_stock start */
-	it(resourceType + '.reserved_stock', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { reserved_stocks: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'reserved_stock')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].reserved_stock(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.reserved_stock stop */
+	/* relationship.stock_location stop */
 	
 
 	/* relationship.sku start */
@@ -265,25 +244,25 @@ describe('StockItems resource', () => {
 	/* relationship.sku stop */
 	
 
-	/* relationship.stock_location start */
-	it(resourceType + '.stock_location', async () => {
+	/* relationship.reserved_stock start */
+	it(resourceType + '.reserved_stock', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { stock_locations: CommonData.paramsFields } }
+		const params = { fields: { reserved_stocks: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'stock_location')
+			checkCommon(request, resourceType, id, currentAccessToken, 'reserved_stock')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].stock_location(id, params, CommonData.options)
+		await cl[resourceType].reserved_stock(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.stock_location stop */
+	/* relationship.reserved_stock stop */
 	
 
 	/* relationship.stock_reservations start */
@@ -305,6 +284,27 @@ describe('StockItems resource', () => {
 	
 	})
 	/* relationship.stock_reservations stop */
+	
+
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.attachments stop */
 	
 
 	/* relationship.versions start */

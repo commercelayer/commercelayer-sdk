@@ -2,22 +2,22 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
-import type { Event } from './events'
+import type { Shipment, ShipmentType } from './shipments'
 import type { Package, PackageType } from './packages'
 import type { ParcelLineItem } from './parcel_line_items'
-import type { Shipment, ShipmentType } from './shipments'
+import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Version } from './versions'
 
 
 type ParcelType = 'parcels'
 type ParcelRel = ResourceRel & { type: ParcelType }
-type PackageRel = ResourceRel & { type: PackageType }
 type ShipmentRel = ResourceRel & { type: ShipmentType }
+type PackageRel = ResourceRel & { type: PackageType }
 
 
-export type ParcelSort = Pick<Parcel, 'id' | 'carrier_weight_oz' | 'tracking_status' | 'tracking_status_updated_at' | 'weight'> & ResourceSort
-// export type ParcelFilter = Pick<Parcel, 'id' | 'carrier_weight_oz' | 'contents_explanation' | 'delivery_confirmation' | 'incoterm' | 'shipping_label_file_type' | 'shipping_label_resolution' | 'shipping_label_size' | 'shipping_label_url' | 'tracking_number' | 'tracking_status' | 'tracking_status_detail' | 'tracking_status_updated_at' | 'weight'> & ResourceFilter
+export type ParcelSort = Pick<Parcel, 'id' | 'weight' | 'tracking_status' | 'tracking_status_updated_at' | 'carrier_weight_oz'> & ResourceSort
+// export type ParcelFilter = Pick<Parcel, 'id' | 'weight' | 'contents_explanation' | 'shipping_label_url' | 'shipping_label_file_type' | 'shipping_label_size' | 'shipping_label_resolution' | 'tracking_number' | 'tracking_status' | 'tracking_status_detail' | 'tracking_status_updated_at' | 'carrier_weight_oz' | 'incoterm' | 'delivery_confirmation'> & ResourceFilter
 
 
 interface Parcel extends Resource {
@@ -25,96 +25,81 @@ interface Parcel extends Resource {
 	readonly type: ParcelType
 
 	/** 
-	 * The weight of the parcel as measured by the carrier in ounces (if available).
-	 * @example ```"42.32"```
+	 * Unique identifier for the parcel.
+	 * @example ```"#1234/S/001/P/001"```
 	 */
-	carrier_weight_oz?: string | null
+	number?: string | null
 	/** 
-	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute.
+	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```"1000"```
 	 */
-	contents_explanation?: string | null
+	weight: number
 	/** 
-	 * The type of item you are sending.
-	 * @example ```"merchandise"```
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
+	 * @example ```"gr"```
 	 */
-	contents_type?: string | null
-	/** 
-	 * Indicates if the provided information is accurate.
-	 */
-	customs_certify?: boolean | null
-	/** 
-	 * Indicates if the parcel requires customs info to get the shipping rates.
-	 */
-	customs_info_required?: boolean | null
-	/** 
-	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this.
-	 * @example ```"John Doe"```
-	 */
-	customs_signer?: string | null
-	/** 
-	 * The type of delivery confirmation option upon delivery.
-	 * @example ```"SIGNATURE"```
-	 */
-	delivery_confirmation?: string | null
+	unit_of_weight: 'gr' | 'oz' | 'lb'
 	/** 
 	 * When shipping outside the US, you need to provide either an Exemption and Exclusion Legend (EEL) code or a Proof of Filing Citation (PFC). Which you need is based on the value of the goods being shipped. Value can be one of "EEL" o "PFC".
 	 * @example ```"EEL"```
 	 */
 	eel_pfc?: string | null
 	/** 
-	 * The type of Incoterm (if available).
-	 * @example ```"EXW"```
+	 * The type of item you are sending.
+	 * @example ```"merchandise"```
 	 */
-	incoterm?: string | null
+	contents_type?: string | null
+	/** 
+	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute.
+	 */
+	contents_explanation?: string | null
+	/** 
+	 * Indicates if the provided information is accurate.
+	 */
+	customs_certify?: boolean | null
+	/** 
+	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this.
+	 * @example ```"John Doe"```
+	 */
+	customs_signer?: string | null
 	/** 
 	 * In case the shipment cannot be delivered, this option tells the carrier what you want to happen to the parcel. You can pass either 'return', or 'abandon'. The value defaults to 'return'. If you pass 'abandon', you will not receive the parcel back if it cannot be delivered.
 	 * @example ```"return"```
 	 */
 	non_delivery_option?: string | null
 	/** 
-	 * Unique identifier for the parcel.
-	 * @example ```"#1234/S/001/P/001"```
-	 */
-	number?: string | null
-	/** 
-	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required.
-	 */
-	restriction_comments?: string | null
-	/** 
 	 * Describes if your parcel requires any special treatment or quarantine when entering the country. Can be one of 'none', 'other', 'quarantine', or 'sanitary_phytosanitary_inspection'.
 	 * @example ```"none"```
 	 */
 	restriction_type?: string | null
 	/** 
-	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'.
-	 * @example ```"application/pdf"```
+	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required.
 	 */
-	shipping_label_file_type?: string | null
+	restriction_comments?: string | null
 	/** 
-	 * The shipping label resolution.
-	 * @example ```"200"```
+	 * Indicates if the parcel requires customs info to get the shipping rates.
 	 */
-	shipping_label_resolution?: string | null
-	/** 
-	 * The shipping label size.
-	 * @example ```"4x7"```
-	 */
-	shipping_label_size?: string | null
+	customs_info_required?: boolean | null
 	/** 
 	 * The shipping label url, ready to be downloaded and printed.
 	 * @example ```"https://bucket.s3-us-west-2.amazonaws.com/files/postage_label/20180101/123.pdf"```
 	 */
 	shipping_label_url?: string | null
 	/** 
-	 * The name of the person who signed for the parcel (if available).
-	 * @example ```"John Smith"```
+	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'.
+	 * @example ```"application/pdf"```
 	 */
-	signed_by?: string | null
+	shipping_label_file_type?: string | null
 	/** 
-	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
-	 * @example ```"[object Object]"```
+	 * The shipping label size.
+	 * @example ```"4x7"```
 	 */
-	tracking_details?: Record<string, any> | null
+	shipping_label_size?: string | null
+	/** 
+	 * The shipping label resolution.
+	 * @example ```"200"```
+	 */
+	shipping_label_resolution?: string | null
 	/** 
 	 * The tracking number associated to this parcel.
 	 * @example ```"1Z4V2A000000000000"```
@@ -136,21 +121,36 @@ interface Parcel extends Resource {
 	 */
 	tracking_status_updated_at?: string | null
 	/** 
-	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
-	 * @example ```"gr"```
+	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
+	 * @example ```"[object Object]"```
 	 */
-	unit_of_weight: 'gr' | 'oz' | 'lb'
+	tracking_details?: Record<string, any> | null
 	/** 
-	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"1000"```
+	 * The weight of the parcel as measured by the carrier in ounces (if available).
+	 * @example ```"42.32"```
 	 */
-	weight: number
+	carrier_weight_oz?: string | null
+	/** 
+	 * The name of the person who signed for the parcel (if available).
+	 * @example ```"John Smith"```
+	 */
+	signed_by?: string | null
+	/** 
+	 * The type of Incoterm (if available).
+	 * @example ```"EXW"```
+	 */
+	incoterm?: string | null
+	/** 
+	 * The type of delivery confirmation option upon delivery.
+	 * @example ```"SIGNATURE"```
+	 */
+	delivery_confirmation?: string | null
 
-	attachments?: Attachment[] | null
-	events?: Event[] | null
+	shipment?: Shipment | null
 	package?: Package | null
 	parcel_line_items?: ParcelLineItem[] | null
-	shipment?: Shipment | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 	versions?: Version[] | null
 
 }
@@ -159,91 +159,76 @@ interface Parcel extends Resource {
 interface ParcelCreate extends ResourceCreate {
 	
 	/** 
-	 * The weight of the parcel as measured by the carrier in ounces (if available).
-	 * @example ```"42.32"```
+	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```"1000"```
 	 */
-	carrier_weight_oz?: string | null
+	weight: number
 	/** 
-	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
+	 * @example ```"gr"```
 	 */
-	contents_explanation?: string | null
-	/** 
-	 * The type of item you are sending.
-	 * @example ```"merchandise"```
-	 */
-	contents_type?: string | null
-	/** 
-	 * Indicates if the provided information is accurate.
-	 */
-	customs_certify?: boolean | null
-	/** 
-	 * Indicates if the parcel requires customs info to get the shipping rates.
-	 */
-	customs_info_required?: boolean | null
-	/** 
-	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this.
-	 * @example ```"John Doe"```
-	 */
-	customs_signer?: string | null
-	/** 
-	 * The type of delivery confirmation option upon delivery.
-	 * @example ```"SIGNATURE"```
-	 */
-	delivery_confirmation?: string | null
+	unit_of_weight: 'gr' | 'oz' | 'lb'
 	/** 
 	 * When shipping outside the US, you need to provide either an Exemption and Exclusion Legend (EEL) code or a Proof of Filing Citation (PFC). Which you need is based on the value of the goods being shipped. Value can be one of "EEL" o "PFC".
 	 * @example ```"EEL"```
 	 */
 	eel_pfc?: string | null
 	/** 
-	 * The type of Incoterm (if available).
-	 * @example ```"EXW"```
+	 * The type of item you are sending.
+	 * @example ```"merchandise"```
 	 */
-	incoterm?: string | null
+	contents_type?: string | null
+	/** 
+	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute.
+	 */
+	contents_explanation?: string | null
+	/** 
+	 * Indicates if the provided information is accurate.
+	 */
+	customs_certify?: boolean | null
+	/** 
+	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this.
+	 * @example ```"John Doe"```
+	 */
+	customs_signer?: string | null
 	/** 
 	 * In case the shipment cannot be delivered, this option tells the carrier what you want to happen to the parcel. You can pass either 'return', or 'abandon'. The value defaults to 'return'. If you pass 'abandon', you will not receive the parcel back if it cannot be delivered.
 	 * @example ```"return"```
 	 */
 	non_delivery_option?: string | null
 	/** 
-	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required.
-	 */
-	restriction_comments?: string | null
-	/** 
 	 * Describes if your parcel requires any special treatment or quarantine when entering the country. Can be one of 'none', 'other', 'quarantine', or 'sanitary_phytosanitary_inspection'.
 	 * @example ```"none"```
 	 */
 	restriction_type?: string | null
 	/** 
-	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'.
-	 * @example ```"application/pdf"```
+	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required.
 	 */
-	shipping_label_file_type?: string | null
+	restriction_comments?: string | null
 	/** 
-	 * The shipping label resolution.
-	 * @example ```"200"```
+	 * Indicates if the parcel requires customs info to get the shipping rates.
 	 */
-	shipping_label_resolution?: string | null
-	/** 
-	 * The shipping label size.
-	 * @example ```"4x7"```
-	 */
-	shipping_label_size?: string | null
+	customs_info_required?: boolean | null
 	/** 
 	 * The shipping label url, ready to be downloaded and printed.
 	 * @example ```"https://bucket.s3-us-west-2.amazonaws.com/files/postage_label/20180101/123.pdf"```
 	 */
 	shipping_label_url?: string | null
 	/** 
-	 * The name of the person who signed for the parcel (if available).
-	 * @example ```"John Smith"```
+	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'.
+	 * @example ```"application/pdf"```
 	 */
-	signed_by?: string | null
+	shipping_label_file_type?: string | null
 	/** 
-	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
-	 * @example ```"[object Object]"```
+	 * The shipping label size.
+	 * @example ```"4x7"```
 	 */
-	tracking_details?: Record<string, any> | null
+	shipping_label_size?: string | null
+	/** 
+	 * The shipping label resolution.
+	 * @example ```"200"```
+	 */
+	shipping_label_resolution?: string | null
 	/** 
 	 * The tracking number associated to this parcel.
 	 * @example ```"1Z4V2A000000000000"```
@@ -265,18 +250,33 @@ interface ParcelCreate extends ResourceCreate {
 	 */
 	tracking_status_updated_at?: string | null
 	/** 
-	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
-	 * @example ```"gr"```
+	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
+	 * @example ```"[object Object]"```
 	 */
-	unit_of_weight: 'gr' | 'oz' | 'lb'
+	tracking_details?: Record<string, any> | null
 	/** 
-	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"1000"```
+	 * The weight of the parcel as measured by the carrier in ounces (if available).
+	 * @example ```"42.32"```
 	 */
-	weight: number
+	carrier_weight_oz?: string | null
+	/** 
+	 * The name of the person who signed for the parcel (if available).
+	 * @example ```"John Smith"```
+	 */
+	signed_by?: string | null
+	/** 
+	 * The type of Incoterm (if available).
+	 * @example ```"EXW"```
+	 */
+	incoterm?: string | null
+	/** 
+	 * The type of delivery confirmation option upon delivery.
+	 * @example ```"SIGNATURE"```
+	 */
+	delivery_confirmation?: string | null
 
-	package: PackageRel
 	shipment: ShipmentRel
+	package: PackageRel
 
 }
 
@@ -284,91 +284,76 @@ interface ParcelCreate extends ResourceCreate {
 interface ParcelUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The weight of the parcel as measured by the carrier in ounces (if available).
-	 * @example ```"42.32"```
+	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```"1000"```
 	 */
-	carrier_weight_oz?: string | null
+	weight?: number | null
 	/** 
-	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
+	 * @example ```"gr"```
 	 */
-	contents_explanation?: string | null
-	/** 
-	 * The type of item you are sending.
-	 * @example ```"merchandise"```
-	 */
-	contents_type?: string | null
-	/** 
-	 * Indicates if the provided information is accurate.
-	 */
-	customs_certify?: boolean | null
-	/** 
-	 * Indicates if the parcel requires customs info to get the shipping rates.
-	 */
-	customs_info_required?: boolean | null
-	/** 
-	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this.
-	 * @example ```"John Doe"```
-	 */
-	customs_signer?: string | null
-	/** 
-	 * The type of delivery confirmation option upon delivery.
-	 * @example ```"SIGNATURE"```
-	 */
-	delivery_confirmation?: string | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
 	 * When shipping outside the US, you need to provide either an Exemption and Exclusion Legend (EEL) code or a Proof of Filing Citation (PFC). Which you need is based on the value of the goods being shipped. Value can be one of "EEL" o "PFC".
 	 * @example ```"EEL"```
 	 */
 	eel_pfc?: string | null
 	/** 
-	 * The type of Incoterm (if available).
-	 * @example ```"EXW"```
+	 * The type of item you are sending.
+	 * @example ```"merchandise"```
 	 */
-	incoterm?: string | null
+	contents_type?: string | null
+	/** 
+	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute.
+	 */
+	contents_explanation?: string | null
+	/** 
+	 * Indicates if the provided information is accurate.
+	 */
+	customs_certify?: boolean | null
+	/** 
+	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this.
+	 * @example ```"John Doe"```
+	 */
+	customs_signer?: string | null
 	/** 
 	 * In case the shipment cannot be delivered, this option tells the carrier what you want to happen to the parcel. You can pass either 'return', or 'abandon'. The value defaults to 'return'. If you pass 'abandon', you will not receive the parcel back if it cannot be delivered.
 	 * @example ```"return"```
 	 */
 	non_delivery_option?: string | null
 	/** 
-	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required.
-	 */
-	restriction_comments?: string | null
-	/** 
 	 * Describes if your parcel requires any special treatment or quarantine when entering the country. Can be one of 'none', 'other', 'quarantine', or 'sanitary_phytosanitary_inspection'.
 	 * @example ```"none"```
 	 */
 	restriction_type?: string | null
 	/** 
-	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'.
-	 * @example ```"application/pdf"```
+	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required.
 	 */
-	shipping_label_file_type?: string | null
+	restriction_comments?: string | null
 	/** 
-	 * The shipping label resolution.
-	 * @example ```"200"```
+	 * Indicates if the parcel requires customs info to get the shipping rates.
 	 */
-	shipping_label_resolution?: string | null
-	/** 
-	 * The shipping label size.
-	 * @example ```"4x7"```
-	 */
-	shipping_label_size?: string | null
+	customs_info_required?: boolean | null
 	/** 
 	 * The shipping label url, ready to be downloaded and printed.
 	 * @example ```"https://bucket.s3-us-west-2.amazonaws.com/files/postage_label/20180101/123.pdf"```
 	 */
 	shipping_label_url?: string | null
 	/** 
-	 * The name of the person who signed for the parcel (if available).
-	 * @example ```"John Smith"```
+	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'.
+	 * @example ```"application/pdf"```
 	 */
-	signed_by?: string | null
+	shipping_label_file_type?: string | null
 	/** 
-	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
-	 * @example ```"[object Object]"```
+	 * The shipping label size.
+	 * @example ```"4x7"```
 	 */
-	tracking_details?: Record<string, any> | null
+	shipping_label_size?: string | null
+	/** 
+	 * The shipping label resolution.
+	 * @example ```"200"```
+	 */
+	shipping_label_resolution?: string | null
 	/** 
 	 * The tracking number associated to this parcel.
 	 * @example ```"1Z4V2A000000000000"```
@@ -390,18 +375,33 @@ interface ParcelUpdate extends ResourceUpdate {
 	 */
 	tracking_status_updated_at?: string | null
 	/** 
-	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
-	 * @example ```"gr"```
+	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
+	 * @example ```"[object Object]"```
 	 */
-	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
+	tracking_details?: Record<string, any> | null
 	/** 
-	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"1000"```
+	 * The weight of the parcel as measured by the carrier in ounces (if available).
+	 * @example ```"42.32"```
 	 */
-	weight?: number | null
+	carrier_weight_oz?: string | null
+	/** 
+	 * The name of the person who signed for the parcel (if available).
+	 * @example ```"John Smith"```
+	 */
+	signed_by?: string | null
+	/** 
+	 * The type of Incoterm (if available).
+	 * @example ```"EXW"```
+	 */
+	incoterm?: string | null
+	/** 
+	 * The type of delivery confirmation option upon delivery.
+	 * @example ```"SIGNATURE"```
+	 */
+	delivery_confirmation?: string | null
 
-	package?: PackageRel | null
 	shipment?: ShipmentRel | null
+	package?: PackageRel | null
 
 }
 
@@ -422,14 +422,9 @@ class Parcels extends ApiResource<Parcel> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Parcels.TYPE } : id, options)
 	}
 
-	async attachments(parcelId: string | Parcel, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async shipment(parcelId: string | Parcel, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
 		const _parcelId = (parcelId as Parcel).id || parcelId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `parcels/${_parcelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async events(parcelId: string | Parcel, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _parcelId = (parcelId as Parcel).id || parcelId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `parcels/${_parcelId}/events`, params, options) as unknown as ListResponse<Event>
+		return this.resources.fetch<Shipment>({ type: 'shipments' }, `parcels/${_parcelId}/shipment`, params, options) as unknown as Shipment
 	}
 
 	async package(parcelId: string | Parcel, params?: QueryParamsRetrieve<Package>, options?: ResourcesConfig): Promise<Package> {
@@ -442,9 +437,14 @@ class Parcels extends ApiResource<Parcel> {
 		return this.resources.fetch<ParcelLineItem>({ type: 'parcel_line_items' }, `parcels/${_parcelId}/parcel_line_items`, params, options) as unknown as ListResponse<ParcelLineItem>
 	}
 
-	async shipment(parcelId: string | Parcel, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
+	async attachments(parcelId: string | Parcel, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _parcelId = (parcelId as Parcel).id || parcelId as string
-		return this.resources.fetch<Shipment>({ type: 'shipments' }, `parcels/${_parcelId}/shipment`, params, options) as unknown as Shipment
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `parcels/${_parcelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(parcelId: string | Parcel, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _parcelId = (parcelId as Parcel).id || parcelId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `parcels/${_parcelId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async versions(parcelId: string | Parcel, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

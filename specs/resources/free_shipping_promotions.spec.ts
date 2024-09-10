@@ -25,15 +25,15 @@ describe('FreeShippingPromotions resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			expires_at: randomValue('string', 'expires_at'),
 			name: randomValue('string', 'name'),
 			starts_at: randomValue('string', 'starts_at'),
-			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
-			custom_promotion_rule: cl.custom_promotion_rules.relationship(TestData.id),
+			expires_at: randomValue('string', 'expires_at'),
 			market: cl.markets.relationship(TestData.id),
 			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
-			sku_list: cl.sku_lists.relationship(TestData.id),
 			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
+			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
+			custom_promotion_rule: cl.custom_promotion_rules.relationship(TestData.id),
+			sku_list: cl.sku_lists.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
 		}
 
@@ -209,111 +209,6 @@ describe('FreeShippingPromotions resource', () => {
 
   
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].attachments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.attachments stop */
-	
-
-	/* relationship.coupon_codes_promotion_rule start */
-	it(resourceType + '.coupon_codes_promotion_rule', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { coupon_codes_promotion_rules: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'coupon_codes_promotion_rule')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].coupon_codes_promotion_rule(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.coupon_codes_promotion_rule stop */
-	
-
-	/* relationship.coupons start */
-	it(resourceType + '.coupons', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { coupons: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'coupons')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].coupons(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.coupons stop */
-	
-
-	/* relationship.custom_promotion_rule start */
-	it(resourceType + '.custom_promotion_rule', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { custom_promotion_rules: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'custom_promotion_rule')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].custom_promotion_rule(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.custom_promotion_rule stop */
-	
-
-	/* relationship.events start */
-	it(resourceType + '.events', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { events: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'events')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].events(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.events stop */
-	
-
 	/* relationship.market start */
 	it(resourceType + '.market', async () => {
 	
@@ -356,6 +251,69 @@ describe('FreeShippingPromotions resource', () => {
 	/* relationship.order_amount_promotion_rule stop */
 	
 
+	/* relationship.sku_list_promotion_rule start */
+	it(resourceType + '.sku_list_promotion_rule', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { sku_list_promotion_rules: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku_list_promotion_rule')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku_list_promotion_rule(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.sku_list_promotion_rule stop */
+	
+
+	/* relationship.coupon_codes_promotion_rule start */
+	it(resourceType + '.coupon_codes_promotion_rule', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { coupon_codes_promotion_rules: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'coupon_codes_promotion_rule')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].coupon_codes_promotion_rule(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.coupon_codes_promotion_rule stop */
+	
+
+	/* relationship.custom_promotion_rule start */
+	it(resourceType + '.custom_promotion_rule', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { custom_promotion_rules: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'custom_promotion_rule')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].custom_promotion_rule(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.custom_promotion_rule stop */
+	
+
 	/* relationship.sku_list start */
 	it(resourceType + '.sku_list', async () => {
 	
@@ -377,25 +335,67 @@ describe('FreeShippingPromotions resource', () => {
 	/* relationship.sku_list stop */
 	
 
-	/* relationship.sku_list_promotion_rule start */
-	it(resourceType + '.sku_list_promotion_rule', async () => {
+	/* relationship.coupons start */
+	it(resourceType + '.coupons', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { sku_list_promotion_rules: CommonData.paramsFields } }
+		const params = { fields: { coupons: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'sku_list_promotion_rule')
+			checkCommon(request, resourceType, id, currentAccessToken, 'coupons')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].sku_list_promotion_rule(id, params, CommonData.options)
+		await cl[resourceType].coupons(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.sku_list_promotion_rule stop */
+	/* relationship.coupons stop */
+	
+
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.attachments stop */
+	
+
+	/* relationship.events start */
+	it(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.events stop */
 	
 
 	/* relationship.tags start */

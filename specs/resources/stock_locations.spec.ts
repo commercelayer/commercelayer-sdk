@@ -222,25 +222,25 @@ describe('StockLocations resource', () => {
 	/* relationship.address stop */
 	
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	/* relationship.inventory_stock_locations start */
+	it(resourceType + '.inventory_stock_locations', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
+		const params = { fields: { inventory_stock_locations: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourceType, id, currentAccessToken, 'inventory_stock_locations')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourceType].inventory_stock_locations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.attachments stop */
+	/* relationship.inventory_stock_locations stop */
 	
 
 	/* relationship.inventory_return_locations start */
@@ -262,27 +262,6 @@ describe('StockLocations resource', () => {
 	
 	})
 	/* relationship.inventory_return_locations stop */
-	
-
-	/* relationship.inventory_stock_locations start */
-	it(resourceType + '.inventory_stock_locations', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { inventory_stock_locations: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'inventory_stock_locations')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].inventory_stock_locations(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.inventory_stock_locations stop */
 	
 
 	/* relationship.stock_items start */
@@ -325,6 +304,27 @@ describe('StockLocations resource', () => {
 	
 	})
 	/* relationship.stock_transfers stop */
+	
+
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.attachments stop */
 	
 
 	/* relationship.versions start */

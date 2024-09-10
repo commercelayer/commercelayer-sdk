@@ -2,16 +2,16 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Address, AddressType } from './addresses'
 import type { Customer, CustomerType } from './customers'
+import type { Address, AddressType } from './addresses'
 import type { Event } from './events'
 import type { Version } from './versions'
 
 
 type CustomerAddressType = 'customer_addresses'
 type CustomerAddressRel = ResourceRel & { type: CustomerAddressType }
-type AddressRel = ResourceRel & { type: AddressType }
 type CustomerRel = ResourceRel & { type: CustomerType }
+type AddressRel = ResourceRel & { type: AddressType }
 
 
 export type CustomerAddressSort = Pick<CustomerAddress, 'id'> & ResourceSort
@@ -23,18 +23,18 @@ interface CustomerAddress extends Resource {
 	readonly type: CustomerAddressType
 
 	/** 
-	 * The email of the customer associated to the address.
-	 * @example ```"john@example.com"```
-	 */
-	customer_email: string
-	/** 
 	 * Returns the associated address' name.
 	 * @example ```"John Smith, 2883 Geraldine Lane Apt.23, 10013 New York NY (US) (212) 646-338-1228"```
 	 */
 	name?: string | null
+	/** 
+	 * The email of the customer associated to the address.
+	 * @example ```"john@example.com"```
+	 */
+	customer_email: string
 
-	address?: Address | null
 	customer?: Customer | null
+	address?: Address | null
 	events?: Event[] | null
 	versions?: Version[] | null
 
@@ -49,16 +49,16 @@ interface CustomerAddressCreate extends ResourceCreate {
 	 */
 	customer_email: string
 
-	address: AddressRel
 	customer: CustomerRel
+	address: AddressRel
 
 }
 
 
 interface CustomerAddressUpdate extends ResourceUpdate {
 	
-	address?: AddressRel | null
 	customer?: CustomerRel | null
+	address?: AddressRel | null
 
 }
 
@@ -79,14 +79,14 @@ class CustomerAddresses extends ApiResource<CustomerAddress> {
 		await this.resources.delete((typeof id === 'string')? { id, type: CustomerAddresses.TYPE } : id, options)
 	}
 
-	async address(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
-		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `customer_addresses/${_customerAddressId}/address`, params, options) as unknown as Address
-	}
-
 	async customer(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
 		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_addresses/${_customerAddressId}/customer`, params, options) as unknown as Customer
+	}
+
+	async address(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
+		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
+		return this.resources.fetch<Address>({ type: 'addresses' }, `customer_addresses/${_customerAddressId}/address`, params, options) as unknown as Address
 	}
 
 	async events(customerAddressId: string | CustomerAddress, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {

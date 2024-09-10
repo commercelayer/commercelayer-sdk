@@ -26,11 +26,11 @@ describe('StockTransfers resource', () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
-			destination_stock_location: cl.stock_locations.relationship(TestData.id),
-			line_item: cl.line_items.relationship(TestData.id),
-			origin_stock_location: cl.stock_locations.relationship(TestData.id),
-			shipment: cl.shipments.relationship(TestData.id),
 			sku: cl.skus.relationship(TestData.id),
+			origin_stock_location: cl.stock_locations.relationship(TestData.id),
+			destination_stock_location: cl.stock_locations.relationship(TestData.id),
+			shipment: cl.shipments.relationship(TestData.id),
+			line_item: cl.line_items.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -205,88 +205,25 @@ describe('StockTransfers resource', () => {
 
   
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	/* relationship.sku start */
+	it(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
+		const params = { fields: { skus: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourceType].sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.attachments stop */
-	
-
-	/* relationship.destination_stock_location start */
-	it(resourceType + '.destination_stock_location', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { stock_locations: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'destination_stock_location')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].destination_stock_location(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.destination_stock_location stop */
-	
-
-	/* relationship.events start */
-	it(resourceType + '.events', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { events: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'events')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].events(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.events stop */
-	
-
-	/* relationship.line_item start */
-	it(resourceType + '.line_item', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { line_items: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'line_item')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].line_item(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.line_item stop */
+	/* relationship.sku stop */
 	
 
 	/* relationship.origin_stock_location start */
@@ -310,6 +247,27 @@ describe('StockTransfers resource', () => {
 	/* relationship.origin_stock_location stop */
 	
 
+	/* relationship.destination_stock_location start */
+	it(resourceType + '.destination_stock_location', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stock_locations: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'destination_stock_location')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].destination_stock_location(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.destination_stock_location stop */
+	
+
 	/* relationship.shipment start */
 	it(resourceType + '.shipment', async () => {
 	
@@ -331,25 +289,67 @@ describe('StockTransfers resource', () => {
 	/* relationship.shipment stop */
 	
 
-	/* relationship.sku start */
-	it(resourceType + '.sku', async () => {
+	/* relationship.line_item start */
+	it(resourceType + '.line_item', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { skus: CommonData.paramsFields } }
+		const params = { fields: { line_items: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'sku')
+			checkCommon(request, resourceType, id, currentAccessToken, 'line_item')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].sku(id, params, CommonData.options)
+		await cl[resourceType].line_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.sku stop */
+	/* relationship.line_item stop */
+	
+
+	/* relationship.attachments start */
+	it(resourceType + '.attachments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { attachments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].attachments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.attachments stop */
+	
+
+	/* relationship.events start */
+	it(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.events stop */
 	
 
 	/* relationship.versions start */
@@ -374,10 +374,10 @@ describe('StockTransfers resource', () => {
 	
   
 
-	/* trigger._cancel start */
-	it(resourceType + '._cancel', async () => {
+	/* trigger._upcoming start */
+	it(resourceType + '._upcoming', async () => {
 	
-		let triggerAttr = '_cancel'
+		let triggerAttr = '_upcoming'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
 	
 		const triggerValue = true
@@ -392,64 +392,12 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._cancel(id, {}, CommonData.options)
+		await cl[resourceType]._upcoming(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* trigger._cancel stop */
-	
-
-	/* trigger._complete start */
-	it(resourceType + '._complete', async () => {
-	
-		let triggerAttr = '_complete'
-		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
-	
-		const triggerValue = true
-		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			const data = JSON.parse(String(request.options.body))
-			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
-			checkCommonData(data, resourceType, attributes, id)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType]._complete(id, {}, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* trigger._complete stop */
-	
-
-	/* trigger._in_transit start */
-	it(resourceType + '._in_transit', async () => {
-	
-		let triggerAttr = '_in_transit'
-		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
-	
-		const triggerValue = true
-		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			const data = JSON.parse(String(request.options.body))
-			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
-			checkCommonData(data, resourceType, attributes, id)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType]._in_transit(id, {}, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* trigger._in_transit stop */
+	/* trigger._upcoming stop */
 	
 
 	/* trigger._on_hold start */
@@ -504,10 +452,10 @@ describe('StockTransfers resource', () => {
 	/* trigger._picking stop */
 	
 
-	/* trigger._upcoming start */
-	it(resourceType + '._upcoming', async () => {
+	/* trigger._in_transit start */
+	it(resourceType + '._in_transit', async () => {
 	
-		let triggerAttr = '_upcoming'
+		let triggerAttr = '_in_transit'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
 	
 		const triggerValue = true
@@ -522,11 +470,63 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._upcoming(id, {}, CommonData.options)
+		await cl[resourceType]._in_transit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* trigger._upcoming stop */
+	/* trigger._in_transit stop */
+	
+
+	/* trigger._complete start */
+	it(resourceType + '._complete', async () => {
+	
+		let triggerAttr = '_complete'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._complete(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._complete stop */
+	
+
+	/* trigger._cancel start */
+	it(resourceType + '._cancel', async () => {
+	
+		let triggerAttr = '_cancel'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._cancel(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._cancel stop */
 	
 })

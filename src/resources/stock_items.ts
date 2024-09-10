@@ -2,18 +2,18 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
-import type { ReservedStock } from './reserved_stocks'
-import type { Sku, SkuType } from './skus'
 import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Sku, SkuType } from './skus'
+import type { ReservedStock } from './reserved_stocks'
 import type { StockReservation } from './stock_reservations'
+import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
 
 type StockItemType = 'stock_items'
 type StockItemRel = ResourceRel & { type: StockItemType }
-type SkuRel = ResourceRel & { type: SkuType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
+type SkuRel = ResourceRel & { type: SkuType }
 
 
 export type StockItemSort = Pick<StockItem, 'id' | 'quantity'> & ResourceSort
@@ -25,21 +25,21 @@ interface StockItem extends Resource {
 	readonly type: StockItemType
 
 	/** 
-	 * The stock item quantity.
-	 * @example ```"100"```
-	 */
-	quantity: number
-	/** 
 	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
+	/** 
+	 * The stock item quantity.
+	 * @example ```"100"```
+	 */
+	quantity: number
 
-	attachments?: Attachment[] | null
-	reserved_stock?: ReservedStock | null
-	sku?: Sku | null
 	stock_location?: StockLocation | null
+	sku?: Sku | null
+	reserved_stock?: ReservedStock | null
 	stock_reservations?: StockReservation[] | null
+	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
 }
@@ -48,18 +48,18 @@ interface StockItem extends Resource {
 interface StockItemCreate extends ResourceCreate {
 	
 	/** 
-	 * The stock item quantity.
-	 * @example ```"100"```
-	 */
-	quantity: number
-	/** 
 	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
+	/** 
+	 * The stock item quantity.
+	 * @example ```"100"```
+	 */
+	quantity: number
 
-	sku?: SkuRel | null
 	stock_location: StockLocationRel
+	sku?: SkuRel | null
 
 }
 
@@ -67,23 +67,23 @@ interface StockItemCreate extends ResourceCreate {
 interface StockItemUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send this attribute if you want to validate the stock item quantity against the existing reserved stock one, returns an error in case the former is smaller.
-	 * @example ```"true"```
+	 * The code of the associated SKU.
+	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
-	_validate?: boolean | null
+	sku_code?: string | null
 	/** 
 	 * The stock item quantity.
 	 * @example ```"100"```
 	 */
 	quantity?: number | null
 	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+	 * Send this attribute if you want to validate the stock item quantity against the existing reserved stock one, returns an error in case the former is smaller. Cannot be passed by sales channels.
+	 * @example ```"true"```
 	 */
-	sku_code?: string | null
+	_validate?: boolean | null
 
-	sku?: SkuRel | null
 	stock_location?: StockLocationRel | null
+	sku?: SkuRel | null
 
 }
 
@@ -104,14 +104,9 @@ class StockItems extends ApiResource<StockItem> {
 		await this.resources.delete((typeof id === 'string')? { id, type: StockItems.TYPE } : id, options)
 	}
 
-	async attachments(stockItemId: string | StockItem, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async stock_location(stockItemId: string | StockItem, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_items/${_stockItemId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async reserved_stock(stockItemId: string | StockItem, params?: QueryParamsRetrieve<ReservedStock>, options?: ResourcesConfig): Promise<ReservedStock> {
-		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
-		return this.resources.fetch<ReservedStock>({ type: 'reserved_stocks' }, `stock_items/${_stockItemId}/reserved_stock`, params, options) as unknown as ReservedStock
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_items/${_stockItemId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
 	async sku(stockItemId: string | StockItem, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
@@ -119,14 +114,19 @@ class StockItems extends ApiResource<StockItem> {
 		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_items/${_stockItemId}/sku`, params, options) as unknown as Sku
 	}
 
-	async stock_location(stockItemId: string | StockItem, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
+	async reserved_stock(stockItemId: string | StockItem, params?: QueryParamsRetrieve<ReservedStock>, options?: ResourcesConfig): Promise<ReservedStock> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `stock_items/${_stockItemId}/stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<ReservedStock>({ type: 'reserved_stocks' }, `stock_items/${_stockItemId}/reserved_stock`, params, options) as unknown as ReservedStock
 	}
 
 	async stock_reservations(stockItemId: string | StockItem, params?: QueryParamsList<StockReservation>, options?: ResourcesConfig): Promise<ListResponse<StockReservation>> {
 		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
 		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `stock_items/${_stockItemId}/stock_reservations`, params, options) as unknown as ListResponse<StockReservation>
+	}
+
+	async attachments(stockItemId: string | StockItem, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _stockItemId = (stockItemId as StockItem).id || stockItemId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_items/${_stockItemId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async versions(stockItemId: string | StockItem, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

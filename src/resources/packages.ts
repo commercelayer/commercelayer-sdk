@@ -2,9 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
-import type { Parcel } from './parcels'
 import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Parcel } from './parcels'
+import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
 
@@ -13,8 +13,8 @@ type PackageRel = ResourceRel & { type: PackageType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
 
 
-export type PackageSort = Pick<Package, 'id' | 'code' | 'height' | 'length' | 'name' | 'unit_of_length' | 'width'> & ResourceSort
-// export type PackageFilter = Pick<Package, 'id' | 'code' | 'height' | 'length' | 'name' | 'unit_of_length' | 'width'> & ResourceFilter
+export type PackageSort = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'width' | 'height' | 'unit_of_length'> & ResourceSort
+// export type PackageFilter = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'width' | 'height' | 'unit_of_length'> & ResourceFilter
 
 
 interface Package extends Resource {
@@ -22,39 +22,39 @@ interface Package extends Resource {
 	readonly type: PackageType
 
 	/** 
+	 * Unique name for the package.
+	 * @example ```"Large (60x40x30)"```
+	 */
+	name: string
+	/** 
 	 * The package identifying code.
 	 * @example ```"YYYY 2000"```
 	 */
 	code?: string | null
-	/** 
-	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"25"```
-	 */
-	height: number
 	/** 
 	 * The package length, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"40"```
 	 */
 	length: number
 	/** 
-	 * Unique name for the package.
-	 * @example ```"Large (60x40x30)"```
+	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```"40"```
 	 */
-	name: string
+	width: number
+	/** 
+	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```"25"```
+	 */
+	height: number
 	/** 
 	 * The unit of length. Can be one of 'cm', or 'in'.
 	 * @example ```"gr"```
 	 */
 	unit_of_length: string
-	/** 
-	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"40"```
-	 */
-	width: number
 
-	attachments?: Attachment[] | null
-	parcels?: Parcel[] | null
 	stock_location?: StockLocation | null
+	parcels?: Parcel[] | null
+	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
 }
@@ -63,35 +63,35 @@ interface Package extends Resource {
 interface PackageCreate extends ResourceCreate {
 	
 	/** 
+	 * Unique name for the package.
+	 * @example ```"Large (60x40x30)"```
+	 */
+	name: string
+	/** 
 	 * The package identifying code.
 	 * @example ```"YYYY 2000"```
 	 */
 	code?: string | null
-	/** 
-	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"25"```
-	 */
-	height: number
 	/** 
 	 * The package length, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"40"```
 	 */
 	length: number
 	/** 
-	 * Unique name for the package.
-	 * @example ```"Large (60x40x30)"```
+	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```"40"```
 	 */
-	name: string
+	width: number
+	/** 
+	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```"25"```
+	 */
+	height: number
 	/** 
 	 * The unit of length. Can be one of 'cm', or 'in'.
 	 * @example ```"gr"```
 	 */
 	unit_of_length: string
-	/** 
-	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"40"```
-	 */
-	width: number
 
 	stock_location: StockLocationRel
 
@@ -101,35 +101,35 @@ interface PackageCreate extends ResourceCreate {
 interface PackageUpdate extends ResourceUpdate {
 	
 	/** 
+	 * Unique name for the package.
+	 * @example ```"Large (60x40x30)"```
+	 */
+	name?: string | null
+	/** 
 	 * The package identifying code.
 	 * @example ```"YYYY 2000"```
 	 */
 	code?: string | null
-	/** 
-	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"25"```
-	 */
-	height?: number | null
 	/** 
 	 * The package length, used to automatically calculate the tax rates from the available carrier accounts.
 	 * @example ```"40"```
 	 */
 	length?: number | null
 	/** 
-	 * Unique name for the package.
-	 * @example ```"Large (60x40x30)"```
+	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```"40"```
 	 */
-	name?: string | null
+	width?: number | null
+	/** 
+	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```"25"```
+	 */
+	height?: number | null
 	/** 
 	 * The unit of length. Can be one of 'cm', or 'in'.
 	 * @example ```"gr"```
 	 */
 	unit_of_length?: string | null
-	/** 
-	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"40"```
-	 */
-	width?: number | null
 
 	stock_location?: StockLocationRel | null
 
@@ -152,9 +152,9 @@ class Packages extends ApiResource<Package> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Packages.TYPE } : id, options)
 	}
 
-	async attachments(packageId: string | Package, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+	async stock_location(packageId: string | Package, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
 		const _packageId = (packageId as Package).id || packageId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `packages/${_packageId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `packages/${_packageId}/stock_location`, params, options) as unknown as StockLocation
 	}
 
 	async parcels(packageId: string | Package, params?: QueryParamsList<Parcel>, options?: ResourcesConfig): Promise<ListResponse<Parcel>> {
@@ -162,9 +162,9 @@ class Packages extends ApiResource<Package> {
 		return this.resources.fetch<Parcel>({ type: 'parcels' }, `packages/${_packageId}/parcels`, params, options) as unknown as ListResponse<Parcel>
 	}
 
-	async stock_location(packageId: string | Package, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
+	async attachments(packageId: string | Package, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _packageId = (packageId as Package).id || packageId as string
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `packages/${_packageId}/stock_location`, params, options) as unknown as StockLocation
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `packages/${_packageId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async versions(packageId: string | Package, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

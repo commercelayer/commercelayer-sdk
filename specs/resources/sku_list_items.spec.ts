@@ -25,8 +25,8 @@ describe('SkuListItems resource', () => {
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			sku: cl.skus.relationship(TestData.id),
 			sku_list: cl.sku_lists.relationship(TestData.id),
+			sku: cl.skus.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -201,27 +201,6 @@ describe('SkuListItems resource', () => {
 
   
 
-	/* relationship.sku start */
-	it(resourceType + '.sku', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { skus: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'sku')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].sku(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.sku stop */
-	
-
 	/* relationship.sku_list start */
 	it(resourceType + '.sku_list', async () => {
 	
@@ -241,6 +220,27 @@ describe('SkuListItems resource', () => {
 	
 	})
 	/* relationship.sku_list stop */
+	
+
+	/* relationship.sku start */
+	it(resourceType + '.sku', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { skus: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.sku stop */
 	
 
 	/* relationship.versions start */

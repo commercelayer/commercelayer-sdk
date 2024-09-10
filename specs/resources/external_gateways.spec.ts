@@ -200,27 +200,6 @@ describe('ExternalGateways resource', () => {
 
   
 
-	/* relationship.external_payments start */
-	it(resourceType + '.external_payments', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { external_payments: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'external_payments')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].external_payments(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.external_payments stop */
-	
-
 	/* relationship.payment_methods start */
 	it(resourceType + '.payment_methods', async () => {
 	
@@ -261,6 +240,27 @@ describe('ExternalGateways resource', () => {
 	
 	})
 	/* relationship.versions stop */
+	
+
+	/* relationship.external_payments start */
+	it(resourceType + '.external_payments', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { external_payments: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'external_payments')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].external_payments(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.external_payments stop */
 	
   
 

@@ -2,8 +2,8 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
 import type { Sku, SkuType } from './skus'
+import type { Attachment } from './attachments'
 import type { Version } from './versions'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
 import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
@@ -39,9 +39,9 @@ interface TaxCategory extends Resource {
 	 */
 	sku_code?: string | null
 
-	attachments?: Attachment[] | null
 	sku?: Sku | null
 	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
+	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
 }
@@ -100,14 +100,14 @@ class TaxCategories extends ApiResource<TaxCategory> {
 		await this.resources.delete((typeof id === 'string')? { id, type: TaxCategories.TYPE } : id, options)
 	}
 
-	async attachments(taxCategoryId: string | TaxCategory, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_categories/${_taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
 	async sku(taxCategoryId: string | TaxCategory, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `tax_categories/${_taxCategoryId}/sku`, params, options) as unknown as Sku
+	}
+
+	async attachments(taxCategoryId: string | TaxCategory, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_categories/${_taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async versions(taxCategoryId: string | TaxCategory, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

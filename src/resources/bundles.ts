@@ -2,11 +2,11 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Attachment } from './attachments'
-import type { Event } from './events'
 import type { Market, MarketType } from './markets'
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
+import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
 
@@ -18,8 +18,8 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type BundleSort = Pick<Bundle, 'id' | 'code' | 'compare_at_amount_cents' | 'currency_code' | 'price_amount_cents'> & ResourceSort
-// export type BundleFilter = Pick<Bundle, 'id' | 'code' | 'compare_at_amount_cents' | 'currency_code' | 'description' | 'do_not_ship' | 'do_not_track' | 'image_url' | 'name' | 'price_amount_cents'> & ResourceFilter
+export type BundleSort = Pick<Bundle, 'id' | 'code' | 'currency_code' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceSort
+// export type BundleFilter = Pick<Bundle, 'id' | 'code' | 'name' | 'currency_code' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceFilter
 
 
 interface Bundle extends Resource {
@@ -32,15 +32,10 @@ interface Bundle extends Resource {
 	 */
 	code: string
 	/** 
-	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * The internal name of the bundle.
+	 * @example ```"Men's Black T-shirt (XL) with Black Cap and Socks, all with White Logo"```
 	 */
-	compare_at_amount_cents?: number | null
-	/** 
-	 * The compared price amount, float.
-	 * @example ```"130"```
-	 */
-	compare_at_amount_float?: number | null
+	name: string
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
@@ -52,6 +47,11 @@ interface Bundle extends Resource {
 	 */
 	description?: string | null
 	/** 
+	 * The URL of an image that represents the bundle.
+	 * @example ```"https://img.yourdomain.com/bundles/xYZkjABcde.png"```
+	 */
+	image_url?: string | null
+	/** 
 	 * Indicates if the bundle doesn't generate shipments (all sku_list's SKUs must be do_not_ship).
 	 */
 	do_not_ship?: boolean | null
@@ -59,26 +59,6 @@ interface Bundle extends Resource {
 	 * Indicates if the bundle doesn't track the stock inventory (all sku_list's SKUs must be do_not_track).
 	 */
 	do_not_track?: boolean | null
-	/** 
-	 * The compared price amount, formatted.
-	 * @example ```"€130,00"```
-	 */
-	formatted_compare_at_amount?: string | null
-	/** 
-	 * The bundle price amount for the associated market, formatted.
-	 * @example ```"€100,00"```
-	 */
-	formatted_price_amount?: string | null
-	/** 
-	 * The URL of an image that represents the bundle.
-	 * @example ```"https://img.yourdomain.com/bundles/xYZkjABcde.png"```
-	 */
-	image_url?: string | null
-	/** 
-	 * The internal name of the bundle.
-	 * @example ```"Men's Black T-shirt (XL) with Black Cap and Socks, all with White Logo"```
-	 */
-	name: string
 	/** 
 	 * The bundle price amount for the associated market, in cents.
 	 * @example ```"10000"```
@@ -90,16 +70,36 @@ interface Bundle extends Resource {
 	 */
 	price_amount_float?: number | null
 	/** 
+	 * The bundle price amount for the associated market, formatted.
+	 * @example ```"€100,00"```
+	 */
+	formatted_price_amount?: string | null
+	/** 
+	 * The compared price amount, in cents. Useful to display a percentage discount.
+	 * @example ```"13000"```
+	 */
+	compare_at_amount_cents?: number | null
+	/** 
+	 * The compared price amount, float.
+	 * @example ```"130"```
+	 */
+	compare_at_amount_float?: number | null
+	/** 
+	 * The compared price amount, formatted.
+	 * @example ```"€130,00"```
+	 */
+	formatted_compare_at_amount?: string | null
+	/** 
 	 * The total number of SKUs in the bundle.
 	 * @example ```"2"```
 	 */
 	skus_count?: number | null
 
-	attachments?: Attachment[] | null
-	events?: Event[] | null
 	market?: Market | null
 	sku_list?: SkuList | null
 	skus?: Sku[] | null
+	attachments?: Attachment[] | null
+	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
 
@@ -109,25 +109,15 @@ interface Bundle extends Resource {
 interface BundleCreate extends ResourceCreate {
 	
 	/** 
-	 * Send this attribute if you want to compute the compare_at_amount_cents as the sum of the prices of the bundle SKUs for the market.
-	 * @example ```"true"```
-	 */
-	_compute_compare_at_amount?: boolean | null
-	/** 
-	 * Send this attribute if you want to compute the price_amount_cents as the sum of the prices of the bundle SKUs for the market.
-	 * @example ```"true"```
-	 */
-	_compute_price_amount?: boolean | null
-	/** 
 	 * The bundle code, that uniquely identifies the bundle within the market.
 	 * @example ```"BUNDMM000000FFFFFFXLXX"```
 	 */
 	code: string
 	/** 
-	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * The internal name of the bundle.
+	 * @example ```"Men's Black T-shirt (XL) with Black Cap and Socks, all with White Logo"```
 	 */
-	compare_at_amount_cents?: number | null
+	name: string
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
@@ -144,15 +134,25 @@ interface BundleCreate extends ResourceCreate {
 	 */
 	image_url?: string | null
 	/** 
-	 * The internal name of the bundle.
-	 * @example ```"Men's Black T-shirt (XL) with Black Cap and Socks, all with White Logo"```
-	 */
-	name: string
-	/** 
 	 * The bundle price amount for the associated market, in cents.
 	 * @example ```"10000"```
 	 */
 	price_amount_cents?: number | null
+	/** 
+	 * The compared price amount, in cents. Useful to display a percentage discount.
+	 * @example ```"13000"```
+	 */
+	compare_at_amount_cents?: number | null
+	/** 
+	 * Send this attribute if you want to compute the price_amount_cents as the sum of the prices of the bundle SKUs for the market.
+	 * @example ```"true"```
+	 */
+	_compute_price_amount?: boolean | null
+	/** 
+	 * Send this attribute if you want to compute the compare_at_amount_cents as the sum of the prices of the bundle SKUs for the market.
+	 * @example ```"true"```
+	 */
+	_compute_compare_at_amount?: boolean | null
 
 	market?: MarketRel | null
 	sku_list: SkuListRel
@@ -164,25 +164,15 @@ interface BundleCreate extends ResourceCreate {
 interface BundleUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Send this attribute if you want to compute the compare_at_amount_cents as the sum of the prices of the bundle SKUs for the market.
-	 * @example ```"true"```
-	 */
-	_compute_compare_at_amount?: boolean | null
-	/** 
-	 * Send this attribute if you want to compute the price_amount_cents as the sum of the prices of the bundle SKUs for the market.
-	 * @example ```"true"```
-	 */
-	_compute_price_amount?: boolean | null
-	/** 
 	 * The bundle code, that uniquely identifies the bundle within the market.
 	 * @example ```"BUNDMM000000FFFFFFXLXX"```
 	 */
 	code?: string | null
 	/** 
-	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * The internal name of the bundle.
+	 * @example ```"Men's Black T-shirt (XL) with Black Cap and Socks, all with White Logo"```
 	 */
-	compare_at_amount_cents?: number | null
+	name?: string | null
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
@@ -199,15 +189,25 @@ interface BundleUpdate extends ResourceUpdate {
 	 */
 	image_url?: string | null
 	/** 
-	 * The internal name of the bundle.
-	 * @example ```"Men's Black T-shirt (XL) with Black Cap and Socks, all with White Logo"```
-	 */
-	name?: string | null
-	/** 
 	 * The bundle price amount for the associated market, in cents.
 	 * @example ```"10000"```
 	 */
 	price_amount_cents?: number | null
+	/** 
+	 * The compared price amount, in cents. Useful to display a percentage discount.
+	 * @example ```"13000"```
+	 */
+	compare_at_amount_cents?: number | null
+	/** 
+	 * Send this attribute if you want to compute the price_amount_cents as the sum of the prices of the bundle SKUs for the market.
+	 * @example ```"true"```
+	 */
+	_compute_price_amount?: boolean | null
+	/** 
+	 * Send this attribute if you want to compute the compare_at_amount_cents as the sum of the prices of the bundle SKUs for the market.
+	 * @example ```"true"```
+	 */
+	_compute_compare_at_amount?: boolean | null
 
 	tags?: TagRel[] | null
 
@@ -230,16 +230,6 @@ class Bundles extends ApiResource<Bundle> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Bundles.TYPE } : id, options)
 	}
 
-	async attachments(bundleId: string | Bundle, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _bundleId = (bundleId as Bundle).id || bundleId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bundles/${_bundleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async events(bundleId: string | Bundle, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _bundleId = (bundleId as Bundle).id || bundleId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `bundles/${_bundleId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
 	async market(bundleId: string | Bundle, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
 		return this.resources.fetch<Market>({ type: 'markets' }, `bundles/${_bundleId}/market`, params, options) as unknown as Market
@@ -255,6 +245,16 @@ class Bundles extends ApiResource<Bundle> {
 		return this.resources.fetch<Sku>({ type: 'skus' }, `bundles/${_bundleId}/skus`, params, options) as unknown as ListResponse<Sku>
 	}
 
+	async attachments(bundleId: string | Bundle, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bundles/${_bundleId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(bundleId: string | Bundle, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `bundles/${_bundleId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
 	async tags(bundleId: string | Bundle, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `bundles/${_bundleId}/tags`, params, options) as unknown as ListResponse<Tag>
@@ -265,12 +265,12 @@ class Bundles extends ApiResource<Bundle> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `bundles/${_bundleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
-	async _compute_compare_at_amount(id: string | Bundle, params?: QueryParamsRetrieve<Bundle>, options?: ResourcesConfig): Promise<Bundle> {
-		return this.resources.update<BundleUpdate, Bundle>({ id: (typeof id === 'string')? id: id.id, type: Bundles.TYPE, _compute_compare_at_amount: true }, params, options)
-	}
-
 	async _compute_price_amount(id: string | Bundle, params?: QueryParamsRetrieve<Bundle>, options?: ResourcesConfig): Promise<Bundle> {
 		return this.resources.update<BundleUpdate, Bundle>({ id: (typeof id === 'string')? id: id.id, type: Bundles.TYPE, _compute_price_amount: true }, params, options)
+	}
+
+	async _compute_compare_at_amount(id: string | Bundle, params?: QueryParamsRetrieve<Bundle>, options?: ResourcesConfig): Promise<Bundle> {
+		return this.resources.update<BundleUpdate, Bundle>({ id: (typeof id === 'string')? id: id.id, type: Bundles.TYPE, _compute_compare_at_amount: true }, params, options)
 	}
 
 
