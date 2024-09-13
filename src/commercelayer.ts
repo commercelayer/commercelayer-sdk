@@ -166,14 +166,11 @@ class CommerceLayerClient {
 
 		debug('new commercelayer instance %O', config)
 
-		console.log(config)
-		console.log('----------')
 		if ((!config.organization || !config.domain) && config.accessToken) {
 			const tokenData = extractTokenData(config.accessToken)
 			if (!config.organization && tokenData?.organization?.slug) config.organization = tokenData.organization.slug
 			if (!config.domain && tokenData?.iss) config.domain = String(tokenData.iss).replace('https://auth.', '')
 		}
-		console.log(config)
 
 		this.#adapter = new ResourceAdapter(config)
 		this.#slug = config.organization ?? ''
