@@ -166,7 +166,7 @@ class CommerceLayerClient {
 
 		debug('new commercelayer instance %O', config)
 
-		// Take organization and domain from access token if not user defined
+		// Take organization and domain from access token if not defined by user
 		if ((!config.organization || !config.domain) && config.accessToken) {
 			const tokenData = extractTokenData(config.accessToken)
 			if (!config.organization && tokenData?.organization?.slug) config.organization = tokenData.organization.slug
