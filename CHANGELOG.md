@@ -1,3 +1,10 @@
+## [6.18.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.18.0...v6.18.1) (2024-09-13)
+
+
+### Bug Fixes
+
+* remove test logs ([6c6604b](https://github.com/commercelayer/commercelayer-sdk/commit/6c6604beba6e61c7fc8976f0c42cbc9d7acdc89b))
+
 # [6.18.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.17.0...v6.18.0) (2024-09-13)
 
 
