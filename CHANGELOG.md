@@ -1,3 +1,10 @@
+# [6.18.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.17.0...v6.18.0) (2024-09-13)
+
+
+### Features
+
+* self defined domain ([1fda8e1](https://github.com/commercelayer/commercelayer-sdk/commit/1fda8e1b92ea5883d7f512b7737fe090baddcd5c))
+
 # [6.17.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.16.0...v6.17.0) (2024-09-10)
 
 
