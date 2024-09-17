@@ -3,11 +3,9 @@ import CommerceLayer, { CommerceLayerClient, type CommerceLayerInitConfig, Comme
 import getToken, { AccessToken } from './token'
 
 
-const ENV = ''
 
-
-export const getAccessToken = async (): Promise<AccessToken> => {
-	const auth = await getToken('integration', ENV).catch(err => {
+export const getAccessToken = async (env?: string): Promise<AccessToken> => {
+	const auth = await getToken('integration', env).catch(err => {
 		console.log(`${err.message}\n`)
 		process.exit()
 	})
@@ -15,12 +13,15 @@ export const getAccessToken = async (): Promise<AccessToken> => {
 }
 
 
-export const initConfig = async (): Promise<CommerceLayerInitConfig> => {
+export const initConfig = async (env?: string): Promise<CommerceLayerInitConfig> => {
 
-	const auth = await getAccessToken()
+	let accessToken = process.env.CL_SDK_ACCESS_TOKEN
+	// let organization = process.env.CL_SDK_ORGANIZATION
 
-	const accessToken = process.env.CL_SDK_ACCESS_TOKEN || (auth ? auth.accessToken : '')
-	// const organization = process.env.CL_SDK_ORGANIZATION || 'sdk-test-org'
+	if (env || !accessToken) {
+		const auth = await getAccessToken(env)
+		accessToken = auth?.accessToken || ''
+	}
 
 	return {
 		// organization,
