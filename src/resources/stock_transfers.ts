@@ -19,8 +19,8 @@ type ShipmentRel = ResourceRel & { type: ShipmentType }
 type LineItemRel = ResourceRel & { type: LineItemType }
 
 
-export type StockTransferSort = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'completed_at' | 'cancelled_at'> & ResourceSort
-// export type StockTransferFilter = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'completed_at' | 'cancelled_at'> & ResourceFilter
+export type StockTransferSort = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'on_hold_at' | 'picking_at' | 'in_transit_at' | 'completed_at' | 'cancelled_at'> & ResourceSort
+// export type StockTransferFilter = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'on_hold_at' | 'picking_at' | 'in_transit_at' | 'completed_at' | 'cancelled_at'> & ResourceFilter
 
 
 interface StockTransfer extends Resource {
@@ -47,6 +47,21 @@ interface StockTransfer extends Resource {
 	 * @example ```"2"```
 	 */
 	quantity: number
+	/** 
+	 * Time at which the stock transfer was put on hold.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	on_hold_at?: string | null
+	/** 
+	 * Time at which the stock transfer was picking.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	picking_at?: string | null
+	/** 
+	 * Time at which the stock transfer was in transit.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	in_transit_at?: string | null
 	/** 
 	 * Time at which the stock transfer was completed.
 	 * @example ```"2018-01-01T12:00:00.000Z"```

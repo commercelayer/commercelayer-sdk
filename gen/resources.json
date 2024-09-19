@@ -12193,7 +12193,7 @@
                     "example": "€150,00"
                 },
                 "balance_max_cents": {
-                    "type": "string",
+                    "type": "integer",
                     "desc": "The gift card balance max, in cents.",
                     "required": "optional",
                     "creatable": true,
@@ -15522,7 +15522,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "example": "https://c11r.link/ZXUtd2VzdC0xLzE5ZjBlMGVlLTg4OGMtNDQ1Yi1iYTA0LTg3MTUxY2FjZjFmYQ"
+                    "example": "https://commercelayer.link/ZXUtd2VzdC0xLzE5ZjBlMGVlLTg4OGMtNDQ1Yi1iYTA0LTg3MTUxY2FjZjFmYQ"
                 },
                 "item_type": {
                     "type": "string",
@@ -32011,6 +32011,36 @@
                     "sortable": true,
                     "example": "2"
                 },
+                "on_hold_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the stock transfer was put on hold.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "picking_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the stock transfer was picking.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "in_transit_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the stock transfer was in transit.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
                 "completed_at": {
                     "type": "datetime",
                     "desc": "Time at which the stock transfer was completed.",
@@ -32262,6 +32292,9 @@
                 "number",
                 "status",
                 "quantity",
+                "on_hold_at",
+                "picking_at",
+                "in_transit_at",
                 "completed_at",
                 "cancelled_at",
                 "created_at",
@@ -32278,6 +32311,12 @@
                 "attachments_id",
                 "events_id",
                 "ids",
+                "on_hold_at_from",
+                "on_hold_at_to",
+                "picking_at_from",
+                "picking_at_to",
+                "in_transit_at_from",
+                "in_transit_at_to",
                 "completed_at_from",
                 "completed_at_to",
                 "cancelled_at_from",

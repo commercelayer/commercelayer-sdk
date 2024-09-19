@@ -65,7 +65,7 @@ interface Link extends Resource {
 	domain?: string | null
 	/** 
 	 * The link URL.
-	 * @example ```"https://c11r.link/ZXUtd2VzdC0xLzE5ZjBlMGVlLTg4OGMtNDQ1Yi1iYTA0LTg3MTUxY2FjZjFmYQ"```
+	 * @example ```"https://commercelayer.link/ZXUtd2VzdC0xLzE5ZjBlMGVlLTg4OGMtNDQ1Yi1iYTA0LTg3MTUxY2FjZjFmYQ"```
 	 */
 	url?: string | null
 	/** 

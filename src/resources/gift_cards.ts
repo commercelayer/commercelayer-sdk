@@ -74,7 +74,7 @@ interface GiftCard extends Resource {
 	 * The gift card balance max, in cents.
 	 * @example ```"100000"```
 	 */
-	balance_max_cents?: string | null
+	balance_max_cents?: number | null
 	/** 
 	 * The gift card balance max, float.
 	 * @example ```"1000"```
@@ -156,7 +156,7 @@ interface GiftCardCreate extends ResourceCreate {
 	 * The gift card balance max, in cents.
 	 * @example ```"100000"```
 	 */
-	balance_max_cents?: string | null
+	balance_max_cents?: number | null
 	/** 
 	 * Indicates if the gift card can be used only one.
 	 */
@@ -210,7 +210,7 @@ interface GiftCardUpdate extends ResourceUpdate {
 	 * The gift card balance max, in cents.
 	 * @example ```"100000"```
 	 */
-	balance_max_cents?: string | null
+	balance_max_cents?: number | null
 	/** 
 	 * Indicates if the gift card can be used only one.
 	 */
