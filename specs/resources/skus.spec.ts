@@ -329,6 +329,48 @@ describe('Skus resource', () => {
 	/* relationship.sku_options stop */
 	
 
+	/* relationship.sku_list_items start */
+	it(resourceType + '.sku_list_items', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { sku_list_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku_list_items')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku_list_items(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.sku_list_items stop */
+	
+
+	/* relationship.sku_lists start */
+	it(resourceType + '.sku_lists', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { sku_lists: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'sku_lists')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].sku_lists(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.sku_lists stop */
+	
+
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	

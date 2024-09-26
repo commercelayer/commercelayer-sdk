@@ -6,6 +6,7 @@ import type { Shipment, ShipmentType } from './shipments'
 import type { LineItem, LineItemType } from './line_items'
 import type { StockItem, StockItemType } from './stock_items'
 import type { Sku, SkuType } from './skus'
+import type { StockReservation } from './stock_reservations'
 import type { Version } from './versions'
 
 
@@ -45,6 +46,7 @@ interface StockLineItem extends Resource {
 	line_item?: LineItem | null
 	stock_item?: StockItem | null
 	sku?: Sku | null
+	stock_reservation?: StockReservation | null
 	versions?: Version[] | null
 
 }
@@ -141,6 +143,11 @@ class StockLineItems extends ApiResource<StockLineItem> {
 	async sku(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_line_items/${_stockLineItemId}/sku`, params, options) as unknown as Sku
+	}
+
+	async stock_reservation(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve<StockReservation>, options?: ResourcesConfig): Promise<StockReservation> {
+		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
+		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `stock_line_items/${_stockLineItemId}/stock_reservation`, params, options) as unknown as StockReservation
 	}
 
 	async versions(stockLineItemId: string | StockLineItem, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

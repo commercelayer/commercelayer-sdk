@@ -8,6 +8,8 @@ import type { StockItem } from './stock_items'
 import type { StockReservation } from './stock_reservations'
 import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { SkuOption } from './sku_options'
+import type { SkuListItem } from './sku_list_items'
+import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Link } from './links'
 import type { Event } from './events'
@@ -92,6 +94,8 @@ interface Sku extends Resource {
 	stock_reservations?: StockReservation[] | null
 	delivery_lead_times?: DeliveryLeadTime[] | null
 	sku_options?: SkuOption[] | null
+	sku_list_items?: SkuListItem[] | null
+	sku_lists?: SkuList[] | null
 	attachments?: Attachment[] | null
 	links?: Link[] | null
 	events?: Event[] | null
@@ -262,6 +266,16 @@ class Skus extends ApiResource<Sku> {
 	async sku_options(skuId: string | Sku, params?: QueryParamsList<SkuOption>, options?: ResourcesConfig): Promise<ListResponse<SkuOption>> {
 		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<SkuOption>({ type: 'sku_options' }, `skus/${_skuId}/sku_options`, params, options) as unknown as ListResponse<SkuOption>
+	}
+
+	async sku_list_items(skuId: string | Sku, params?: QueryParamsList<SkuListItem>, options?: ResourcesConfig): Promise<ListResponse<SkuListItem>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<SkuListItem>({ type: 'sku_list_items' }, `skus/${_skuId}/sku_list_items`, params, options) as unknown as ListResponse<SkuListItem>
+	}
+
+	async sku_lists(skuId: string | Sku, params?: QueryParamsList<SkuList>, options?: ResourcesConfig): Promise<ListResponse<SkuList>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `skus/${_skuId}/sku_lists`, params, options) as unknown as ListResponse<SkuList>
 	}
 
 	async attachments(skuId: string | Sku, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

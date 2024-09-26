@@ -6,6 +6,7 @@ import type { Sku, SkuType } from './skus'
 import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Shipment, ShipmentType } from './shipments'
 import type { LineItem, LineItemType } from './line_items'
+import type { StockReservation } from './stock_reservations'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
@@ -78,6 +79,7 @@ interface StockTransfer extends Resource {
 	destination_stock_location?: StockLocation | null
 	shipment?: Shipment | null
 	line_item?: LineItem | null
+	stock_reservation?: StockReservation | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
@@ -203,6 +205,11 @@ class StockTransfers extends ApiResource<StockTransfer> {
 	async line_item(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_transfers/${_stockTransferId}/line_item`, params, options) as unknown as LineItem
+	}
+
+	async stock_reservation(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<StockReservation>, options?: ResourcesConfig): Promise<StockReservation> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `stock_transfers/${_stockTransferId}/stock_reservation`, params, options) as unknown as StockReservation
 	}
 
 	async attachments(stockTransferId: string | StockTransfer, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

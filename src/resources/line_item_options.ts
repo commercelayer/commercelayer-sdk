@@ -39,7 +39,7 @@ interface LineItemOption extends Resource {
 	 */
 	currency_code?: string | null
 	/** 
-	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price.
+	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price. Cannot be passed by sales channels.
 	 * @example ```"990"```
 	 */
 	unit_amount_cents?: number | null
@@ -105,6 +105,11 @@ interface LineItemOptionCreate extends ResourceCreate {
 	 */
 	quantity: number
 	/** 
+	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price. Cannot be passed by sales channels.
+	 * @example ```"990"```
+	 */
+	unit_amount_cents?: number | null
+	/** 
 	 * Set of key-value pairs that represent the selected options.
 	 * @example ```"[object Object]"```
 	 */
@@ -129,6 +134,11 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 	 * @example ```"2"```
 	 */
 	quantity?: number | null
+	/** 
+	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price. Cannot be passed by sales channels.
+	 * @example ```"990"```
+	 */
+	unit_amount_cents?: number | null
 	/** 
 	 * Set of key-value pairs that represent the selected options.
 	 * @example ```"[object Object]"```

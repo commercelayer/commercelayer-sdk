@@ -4,6 +4,8 @@ import type { QueryParamsRetrieve } from '../query'
 
 import type { LineItem } from './line_items'
 import type { Order } from './orders'
+import type { StockLineItem } from './stock_line_items'
+import type { StockTransfer } from './stock_transfers'
 import type { StockItem, StockItemType } from './stock_items'
 import type { ReservedStock } from './reserved_stocks'
 import type { Sku } from './skus'
@@ -40,6 +42,8 @@ interface StockReservation extends Resource {
 
 	line_item?: LineItem | null
 	order?: Order | null
+	stock_line_item?: StockLineItem | null
+	stock_transfer?: StockTransfer | null
 	stock_item?: StockItem | null
 	reserved_stock?: ReservedStock | null
 	sku?: Sku | null
@@ -100,6 +104,16 @@ class StockReservations extends ApiResource<StockReservation> {
 	async order(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `stock_reservations/${_stockReservationId}/order`, params, options) as unknown as Order
+	}
+
+	async stock_line_item(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<StockLineItem>, options?: ResourcesConfig): Promise<StockLineItem> {
+		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
+		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `stock_reservations/${_stockReservationId}/stock_line_item`, params, options) as unknown as StockLineItem
+	}
+
+	async stock_transfer(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
+		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
+		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `stock_reservations/${_stockReservationId}/stock_transfer`, params, options) as unknown as StockTransfer
 	}
 
 	async stock_item(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<StockItem>, options?: ResourcesConfig): Promise<StockItem> {

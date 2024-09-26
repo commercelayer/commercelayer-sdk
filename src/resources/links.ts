@@ -16,7 +16,7 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 
 
 export type LinkSort = Pick<Link, 'id' | 'name' | 'starts_at' | 'expires_at' | 'item_type' | 'disabled_at'> & ResourceSort
-// export type LinkFilter = Pick<Link, 'id' | 'name' | 'client_id' | 'scope' | 'starts_at' | 'expires_at' | 'item_type' | 'disabled_at'> & ResourceFilter
+// export type LinkFilter = Pick<Link, 'id' | 'name' | 'client_id' | 'scope' | 'starts_at' | 'expires_at' | 'item_type' | 'params' | 'disabled_at'> & ResourceFilter
 
 
 interface Link extends Resource {
@@ -74,6 +74,11 @@ interface Link extends Resource {
 	 */
 	item_type?: 'orders' | 'skus' | 'sku_lists' | null
 	/** 
+	 * The link params to be passed in URL the query string.
+	 * @example ```"[object Object]"```
+	 */
+	params?: Record<string, any> | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -123,6 +128,11 @@ interface LinkCreate extends ResourceCreate {
 	 */
 	item_type?: 'orders' | 'skus' | 'sku_lists' | null
 	/** 
+	 * The link params to be passed in URL the query string.
+	 * @example ```"[object Object]"```
+	 */
+	params?: Record<string, any> | null
+	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```
 	 */
@@ -170,6 +180,11 @@ interface LinkUpdate extends ResourceUpdate {
 	 * @example ```"commercelayer.link"```
 	 */
 	domain?: string | null
+	/** 
+	 * The link params to be passed in URL the query string.
+	 * @example ```"[object Object]"```
+	 */
+	params?: Record<string, any> | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```"true"```

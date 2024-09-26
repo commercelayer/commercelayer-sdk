@@ -288,6 +288,27 @@ describe('StockLineItems resource', () => {
 	/* relationship.sku stop */
 	
 
+	/* relationship.stock_reservation start */
+	it(resourceType + '.stock_reservation', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stock_reservations: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stock_reservation')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stock_reservation(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.stock_reservation stop */
+	
+
 	/* relationship.versions start */
 	it(resourceType + '.versions', async () => {
 	

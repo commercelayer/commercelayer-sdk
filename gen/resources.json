@@ -14395,7 +14395,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": false,
                     "example": "TSHIRTMM000000FFFFFFXLXX"
                 },
@@ -15078,6 +15078,7 @@
             },
             "filters": [
                 "id",
+                "sku_code",
                 "quantity",
                 "currency_code",
                 "unit_amount_cents",
@@ -15170,9 +15171,10 @@
                 },
                 "unit_amount_cents": {
                     "type": "integer",
-                    "desc": "The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price.",
-                    "creatable": false,
-                    "updatable": false,
+                    "desc": "The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price. Cannot be passed by sales channels.",
+                    "prohibited": true,
+                    "creatable": true,
+                    "updatable": true,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
@@ -15541,6 +15543,20 @@
                         "sku_lists"
                     ]
                 },
+                "params": {
+                    "type": "object",
+                    "desc": "The link params to be passed in URL the query string.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "param1": "ABC",
+                        "param2": "XYZ"
+                    }
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -15682,6 +15698,7 @@
                 "starts_at",
                 "expires_at",
                 "item_type",
+                "params",
                 "disabled_at",
                 "created_at",
                 "updated_at",
@@ -28276,6 +28293,17 @@
                     "parent_resource": "Api::StockLineItemResource",
                     "class_name": "Sku"
                 },
+                "stock_reservation": {
+                    "type": "has_one",
+                    "desc": "The associated stock reservation.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::StockLineItemResource",
+                    "class_name": "StockReservation"
+                },
                 "versions": {
                     "type": "has_many",
                     "desc": "The associated changes.",
@@ -28302,6 +28330,7 @@
                 "line_item_id",
                 "stock_item_id",
                 "sku_id",
+                "stock_reservation_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -29912,6 +29941,22 @@
                     "virtual": true,
                     "parent_resource": "Api::SkuResource"
                 },
+                "sku_list_items": {
+                    "type": "has_many",
+                    "desc": "The associated SKU list items.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::SkuResource",
+                    "class_name": "SkuListItem"
+                },
+                "sku_lists": {
+                    "type": "has_many",
+                    "desc": "The associated SKU lists.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::SkuResource",
+                    "class_name": "SkuList"
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -30002,6 +30047,8 @@
                 "stock_items_id",
                 "stock_reservations_id",
                 "delivery_lead_times_id",
+                "sku_list_items_id",
+                "sku_lists_id",
                 "attachments_id",
                 "links_id",
                 "events_id",
@@ -31463,6 +31510,17 @@
                     "parent_resource": "Api::StockLineItemResource",
                     "class_name": "Sku"
                 },
+                "stock_reservation": {
+                    "type": "has_one",
+                    "desc": "The associated stock reservation.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::StockLineItemResource",
+                    "class_name": "StockReservation"
+                },
                 "versions": {
                     "type": "has_many",
                     "desc": "The associated changes.",
@@ -31489,6 +31547,7 @@
                 "line_item_id",
                 "stock_item_id",
                 "sku_id",
+                "stock_reservation_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -31882,6 +31941,28 @@
                     "parent_resource": "Api::StockReservationResource",
                     "class_name": "Order"
                 },
+                "stock_line_item": {
+                    "type": "has_one",
+                    "desc": "The associated stock line item.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::StockReservationResource",
+                    "class_name": "StockLineItem"
+                },
+                "stock_transfer": {
+                    "type": "has_one",
+                    "desc": "The associated stock transfer.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::StockReservationResource",
+                    "class_name": "StockTransfer"
+                },
                 "stock_item": {
                     "type": "has_one",
                     "desc": "The associated stock item.",
@@ -31930,6 +32011,8 @@
                 "q",
                 "line_item_id",
                 "order_id",
+                "stock_line_item_id",
+                "stock_transfer_id",
                 "stock_item_id",
                 "reserved_stock_id",
                 "sku_id",
@@ -32260,6 +32343,17 @@
                     "parent_resource": "Api::StockTransferResource",
                     "class_name": "LineItem"
                 },
+                "stock_reservation": {
+                    "type": "has_one",
+                    "desc": "The associated stock reservation.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::StockTransferResource",
+                    "class_name": "StockReservation"
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -32309,6 +32403,7 @@
                 "destination_stock_location_id",
                 "shipment_id",
                 "line_item_id",
+                "stock_reservation_id",
                 "attachments_id",
                 "events_id",
                 "ids",
