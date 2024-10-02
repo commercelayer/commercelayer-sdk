@@ -2,7 +2,6 @@ import { FetchError } from './fetch'
 
 
 enum ErrorType {
-
 	CLIENT = 'client',		  				// Generic Client error
 	REQUEST = 'request',						// Error preparing API request
 	RESPONSE = 'response',					// Error response from API
