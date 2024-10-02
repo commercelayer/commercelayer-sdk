@@ -32542,6 +32542,17 @@
                     "sortable": false,
                     "example": "pk_live_xxxx-yyyy-zzzz"
                 },
+                "connected_account": {
+                    "type": "string",
+                    "desc": "The account (if any) for which the funds of the PaymentIntent are intended.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "xxxx-yyyy-zzzz"
+                },
                 "auto_payments": {
                     "type": "boolean",
                     "desc": "Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.",

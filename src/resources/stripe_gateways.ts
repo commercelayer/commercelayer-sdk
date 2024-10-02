@@ -25,6 +25,11 @@ interface StripeGateway extends Resource {
 	 */
 	name: string
 	/** 
+	 * The account (if any) for which the funds of the PaymentIntent are intended.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	connected_account?: string | null
+	/** 
 	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.
 	 * @example ```"true"```
 	 */
@@ -70,6 +75,11 @@ interface StripeGatewayCreate extends ResourceCreate {
 	 */
 	publishable_key?: string | null
 	/** 
+	 * The account (if any) for which the funds of the PaymentIntent are intended.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	connected_account?: string | null
+	/** 
 	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.
 	 * @example ```"true"```
 	 */
@@ -85,6 +95,11 @@ interface StripeGatewayUpdate extends ResourceUpdate {
 	 * @example ```"US payment gateway"```
 	 */
 	name?: string | null
+	/** 
+	 * The account (if any) for which the funds of the PaymentIntent are intended.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	connected_account?: string | null
 	/** 
 	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.
 	 * @example ```"true"```
