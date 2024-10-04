@@ -20427,136 +20427,6 @@
                     "sortable": false,
                     "example": "GTM-5FJXX7"
                 },
-                "addresses_phone_required": {
-                    "type": "boolean",
-                    "desc": "Indicates if the phone attribute is required for addresses, default is true.",
-                    "required": "optional, default is true",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "true"
-                },
-                "bundles_max_items_count": {
-                    "type": "integer",
-                    "desc": "The maximum number of SKUs allowed for bundles, default is 10.",
-                    "required": "optional, default is 10",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "10"
-                },
-                "coupons_min_code_length": {
-                    "type": "integer",
-                    "desc": "The minimum length for coupon code, default is 8.",
-                    "required": "optional, default is 8",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "8"
-                },
-                "coupons_max_code_length": {
-                    "type": "integer",
-                    "desc": "The maximum length for coupon code, default is 40.",
-                    "required": "optional, default is 40",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "40"
-                },
-                "promotions_max_concurrent_count": {
-                    "type": "integer",
-                    "desc": "The maximum number of active concurrent promotions allowed for your organization, default is 10.",
-                    "required": "optional, default is 10",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "10"
-                },
-                "imports_max_concurrent_count": {
-                    "type": "integer",
-                    "desc": "The maximum number of concurrent imports allowed for your organization, default is 10.",
-                    "required": "optional, default is 10",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "10"
-                },
-                "exports_max_concurrent_count": {
-                    "type": "integer",
-                    "desc": "The maximum number of concurrent exports allowed for your organization, default is 10.",
-                    "required": "optional, default is 10",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "10"
-                },
-                "cleanups_max_concurrent_count": {
-                    "type": "integer",
-                    "desc": "The maximum number of concurrent cleanups allowed for your organization, default is 10.",
-                    "required": "optional, default is 10",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "10"
-                },
-                "orders_number_editable_test": {
-                    "type": "boolean",
-                    "desc": "Enables orders number editing as a string in test (for enterprise plans only).",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "false"
-                },
-                "orders_number_editable_live": {
-                    "type": "boolean",
-                    "desc": "Enables orders number editing as a string in live (for enterprise plans only).",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "false"
-                },
-                "tax_calculators_errors": {
-                    "type": "boolean",
-                    "desc": "Enables raising of API errors in case of tax calculation failure, default is false.",
-                    "required": "optional, default is false",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "true"
-                },
-                "external_promotions_errors": {
-                    "type": "boolean",
-                    "desc": "Enables raising of API errors in case of external promotion failure, default is false.",
-                    "required": "optional, default is false",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "true"
-                },
                 "config": {
                     "type": "object",
                     "desc": "The organization's configuration.",
@@ -20670,6 +20540,226 @@
                             }
                         }
                     }
+                },
+                "api_auth_redirect": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Enables the redirect on the new Auth API.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "api_rules_engine": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables the rules engine for flex promotions and sku list rules.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
+                "addresses_phone_required": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Indicates if the phone attribute is required for addresses, default is true.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "orders_autorefresh_cutoff_test": {
+                    "type": "integer",
+                    "default": 50,
+                    "desc": "The maximum number line items allowed for a test order before disabling the autorefresh option.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "50"
+                },
+                "orders_autorefresh_cutoff_live": {
+                    "type": "integer",
+                    "default": 500,
+                    "desc": "The maximum number line items allowed for a live order before disabling the autorefresh option.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "500"
+                },
+                "orders_number_editable_test": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables orders number editing as a string in test (for enterprise plans only).",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
+                "orders_number_editable_live": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables orders number editing as a string in live (for enterprise plans only).",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
+                "orders_number_as_reference": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Enables to use the order number as payment reference on supported gateways.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "bundles_max_items_count": {
+                    "type": "integer",
+                    "default": 10,
+                    "desc": "The maximum number of SKUs allowed for bundles, default is 10.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "10"
+                },
+                "coupons_min_code_length": {
+                    "type": "integer",
+                    "default": 8,
+                    "desc": "The minimum length for coupon code, default is 8.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "8"
+                },
+                "coupons_max_code_length": {
+                    "type": "integer",
+                    "default": 40,
+                    "desc": "The maximum length for coupon code, default is 40.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "40"
+                },
+                "gift_cards_min_code_length": {
+                    "type": "integer",
+                    "default": 8,
+                    "desc": "The minimum length for gift card code, default is 8.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "8"
+                },
+                "gift_cards_max_code_length": {
+                    "type": "integer",
+                    "default": 40,
+                    "desc": "The maximum length for gift card code, default is 40.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "40"
+                },
+                "cleanups_max_concurrent_count": {
+                    "type": "integer",
+                    "default": 10,
+                    "desc": "The maximum number of concurrent cleanups allowed for your organization, default is 10.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "10"
+                },
+                "exports_max_concurrent_count": {
+                    "type": "integer",
+                    "default": 10,
+                    "desc": "The maximum number of concurrent exports allowed for your organization, default is 10.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "10"
+                },
+                "imports_max_concurrent_count": {
+                    "type": "integer",
+                    "default": 10,
+                    "desc": "The maximum number of concurrent imports allowed for your organization, default is 10.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "10"
+                },
+                "promotions_max_concurrent_count": {
+                    "type": "integer",
+                    "default": 10,
+                    "desc": "The maximum number of active concurrent promotions allowed for your organization, default is 10.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "10"
+                },
+                "imports_trigger_webhooks": {
+                    "type": "integer",
+                    "default": false,
+                    "desc": "Enables triggering of webhooks during imports, default is false.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
+                "tax_calculators_errors": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables raising of API errors in case of tax calculation failure, default is false.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
+                "external_promotions_errors": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables raising of API errors in case of external promotion failure, default is false.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
                 },
                 "id": {
                     "format": "id",

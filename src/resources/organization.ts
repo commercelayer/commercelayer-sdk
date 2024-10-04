@@ -67,10 +67,47 @@ interface Organization extends Resource {
 	 */
 	gtm_id_test?: string | null
 	/** 
+	 * The organization's configuration.
+	 * @example ```"[object Object]"```
+	 */
+	config?: Record<string, any> | null
+	/** 
+	 * Enables the redirect on the new Auth API.
+	 * @example ```"true"```
+	 */
+	api_auth_redirect?: boolean | null
+	/** 
+	 * Enables the rules engine for flex promotions and sku list rules.
+	 */
+	api_rules_engine?: boolean | null
+	/** 
 	 * Indicates if the phone attribute is required for addresses, default is true.
 	 * @example ```"true"```
 	 */
 	addresses_phone_required?: boolean | null
+	/** 
+	 * The maximum number line items allowed for a test order before disabling the autorefresh option.
+	 * @example ```"50"```
+	 */
+	orders_autorefresh_cutoff_test?: number | null
+	/** 
+	 * The maximum number line items allowed for a live order before disabling the autorefresh option.
+	 * @example ```"500"```
+	 */
+	orders_autorefresh_cutoff_live?: number | null
+	/** 
+	 * Enables orders number editing as a string in test (for enterprise plans only).
+	 */
+	orders_number_editable_test?: boolean | null
+	/** 
+	 * Enables orders number editing as a string in live (for enterprise plans only).
+	 */
+	orders_number_editable_live?: boolean | null
+	/** 
+	 * Enables to use the order number as payment reference on supported gateways.
+	 * @example ```"true"```
+	 */
+	orders_number_as_reference?: boolean | null
 	/** 
 	 * The maximum number of SKUs allowed for bundles, default is 10.
 	 * @example ```"10"```
@@ -87,48 +124,47 @@ interface Organization extends Resource {
 	 */
 	coupons_max_code_length?: number | null
 	/** 
-	 * The maximum number of active concurrent promotions allowed for your organization, default is 10.
-	 * @example ```"10"```
+	 * The minimum length for gift card code, default is 8.
+	 * @example ```"8"```
 	 */
-	promotions_max_concurrent_count?: number | null
+	gift_cards_min_code_length?: number | null
 	/** 
-	 * The maximum number of concurrent imports allowed for your organization, default is 10.
-	 * @example ```"10"```
+	 * The maximum length for gift card code, default is 40.
+	 * @example ```"40"```
 	 */
-	imports_max_concurrent_count?: number | null
-	/** 
-	 * The maximum number of concurrent exports allowed for your organization, default is 10.
-	 * @example ```"10"```
-	 */
-	exports_max_concurrent_count?: number | null
+	gift_cards_max_code_length?: number | null
 	/** 
 	 * The maximum number of concurrent cleanups allowed for your organization, default is 10.
 	 * @example ```"10"```
 	 */
 	cleanups_max_concurrent_count?: number | null
 	/** 
-	 * Enables orders number editing as a string in test (for enterprise plans only).
+	 * The maximum number of concurrent exports allowed for your organization, default is 10.
+	 * @example ```"10"```
 	 */
-	orders_number_editable_test?: boolean | null
+	exports_max_concurrent_count?: number | null
 	/** 
-	 * Enables orders number editing as a string in live (for enterprise plans only).
+	 * The maximum number of concurrent imports allowed for your organization, default is 10.
+	 * @example ```"10"```
 	 */
-	orders_number_editable_live?: boolean | null
+	imports_max_concurrent_count?: number | null
+	/** 
+	 * The maximum number of active concurrent promotions allowed for your organization, default is 10.
+	 * @example ```"10"```
+	 */
+	promotions_max_concurrent_count?: number | null
+	/** 
+	 * Enables triggering of webhooks during imports, default is false.
+	 */
+	imports_trigger_webhooks?: number | null
 	/** 
 	 * Enables raising of API errors in case of tax calculation failure, default is false.
-	 * @example ```"true"```
 	 */
 	tax_calculators_errors?: boolean | null
 	/** 
 	 * Enables raising of API errors in case of external promotion failure, default is false.
-	 * @example ```"true"```
 	 */
 	external_promotions_errors?: boolean | null
-	/** 
-	 * The organization's configuration.
-	 * @example ```"[object Object]"```
-	 */
-	config?: Record<string, any> | null
 	
 }
 
