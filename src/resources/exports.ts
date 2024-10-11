@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
@@ -107,12 +107,19 @@ interface ExportCreate extends ResourceCreate {
 }
 
 
+type ExportUpdate = ResourceUpdate
+
+
 class Exports extends ApiResource<Export> {
 
 	static readonly TYPE: ExportType = 'exports' as const
 
 	async create(resource: ExportCreate, params?: QueryParamsRetrieve<Export>, options?: ResourcesConfig): Promise<Export> {
 		return this.resources.create<ExportCreate, Export>({ ...resource, type: Exports.TYPE }, params, options)
+	}
+
+	async update(resource: ExportUpdate, params?: QueryParamsRetrieve<Export>, options?: ResourcesConfig): Promise<Export> {
+		return this.resources.update<ExportUpdate, Export>({ ...resource, type: Exports.TYPE }, params, options)
 	}
 
 	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
@@ -148,4 +155,4 @@ class Exports extends ApiResource<Export> {
 
 export default Exports
 
-export type { Export, ExportCreate, ExportType }
+export type { Export, ExportCreate, ExportUpdate, ExportType }

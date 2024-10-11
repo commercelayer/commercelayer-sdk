@@ -17,7 +17,7 @@ type TagRel = ResourceRel & { type: TagType }
 
 
 export type FlexPromotionSort = Pick<FlexPromotion, 'id' | 'name' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
-// export type FlexPromotionFilter = Pick<FlexPromotion, 'id' | 'name' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
+// export type FlexPromotionFilter = Pick<FlexPromotion, 'id' | 'name' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'rules' | 'disabled_at'> & ResourceFilter
 
 
 interface FlexPromotion extends Resource {

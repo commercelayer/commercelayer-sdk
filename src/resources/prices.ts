@@ -89,6 +89,11 @@ interface Price extends Resource {
 	 * @example ```"[object Object]"```
 	 */
 	rule_outcomes?: Record<string, any> | null
+	/** 
+	 * The custom_claim attached to the current JWT (if any).
+	 * @example ```"[object Object]"```
+	 */
+	jwt_custom_claim?: Record<string, any> | null
 
 	price_list?: PriceList | null
 	sku?: Sku | null

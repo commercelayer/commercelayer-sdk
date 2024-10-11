@@ -62,8 +62,8 @@ type WireTransferRel = ResourceRel & { type: WireTransferType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type OrderSort = Pick<Order, 'id' | 'number' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
-// export type OrderFilter = Pick<Order, 'id' | 'number' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'customer_email' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
+export type OrderSort = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type OrderFilter = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'customer_email' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface Order extends Resource {
@@ -75,6 +75,11 @@ interface Order extends Resource {
 	 * @example ```"1234"```
 	 */
 	number?: string | null
+	/** 
+	 * The affiliate code, if any, the seller will transfer commission on shop by link transactions.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	affiliate_code?: string | null
 	/** 
 	 * Save this attribute as 'false' if you want prevent the order to be refreshed automatically at each change (much faster).
 	 * @example ```"true"```
@@ -643,6 +648,11 @@ interface OrderCreate extends ResourceCreate {
 	 */
 	number?: string | null
 	/** 
+	 * The affiliate code, if any, the seller will transfer commission on shop by link transactions.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	affiliate_code?: string | null
+	/** 
 	 * Save this attribute as 'false' if you want prevent the order to be refreshed automatically at each change (much faster).
 	 * @example ```"true"```
 	 */
@@ -745,6 +755,11 @@ interface OrderUpdate extends ResourceUpdate {
 	 * @example ```"1234"```
 	 */
 	number?: string | null
+	/** 
+	 * The affiliate code, if any, the seller will transfer commission on shop by link transactions.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	affiliate_code?: string | null
 	/** 
 	 * Save this attribute as 'false' if you want prevent the order to be refreshed automatically at each change (much faster).
 	 * @example ```"true"```

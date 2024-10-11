@@ -26,6 +26,7 @@ describe('CustomerSubscriptions resource', () => {
 
     const createAttributes = {
 			customer_email: randomValue('string', 'customer_email'),
+			reference: randomValue('string', 'reference'),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

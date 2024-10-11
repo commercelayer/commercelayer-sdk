@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -87,9 +87,28 @@ interface Refund extends Resource {
 }
 
 
+interface RefundUpdate extends ResourceUpdate {
+	
+	/** 
+	 * Indicates if the transaction is successful.
+	 */
+	succeeded?: boolean | null
+	/** 
+	 * Send this attribute if you want to forward a stuck transaction to succeeded and update associated order states accordingly.
+	 * @example ```"true"```
+	 */
+	_forward?: boolean | null
+	
+}
+
+
 class Refunds extends ApiResource<Refund> {
 
 	static readonly TYPE: RefundType = 'refunds' as const
+
+	async update(resource: RefundUpdate, params?: QueryParamsRetrieve<Refund>, options?: ResourcesConfig): Promise<Refund> {
+		return this.resources.update<RefundUpdate, Refund>({ ...resource, type: Refunds.TYPE }, params, options)
+	}
 
 	async order(refundId: string | Refund, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _refundId = (refundId as Refund).id || refundId as string
@@ -121,6 +140,10 @@ class Refunds extends ApiResource<Refund> {
 		return this.resources.fetch<Return>({ type: 'returns' }, `refunds/${_refundId}/return`, params, options) as unknown as Return
 	}
 
+	async _forward(id: string | Refund, params?: QueryParamsRetrieve<Refund>, options?: ResourcesConfig): Promise<Refund> {
+		return this.resources.update<RefundUpdate, Refund>({ id: (typeof id === 'string')? id: id.id, type: Refunds.TYPE, _forward: true }, params, options)
+	}
+
 
 	isRefund(resource: any): resource is Refund {
 		return resource.type && (resource.type === Refunds.TYPE)
@@ -145,4 +168,4 @@ class Refunds extends ApiResource<Refund> {
 
 export default Refunds
 
-export type { Refund, RefundType }
+export type { Refund, RefundUpdate, RefundType }

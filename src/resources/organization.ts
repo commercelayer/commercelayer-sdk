@@ -77,7 +77,7 @@ interface Organization extends Resource {
 	 */
 	api_auth_redirect?: boolean | null
 	/** 
-	 * Enables the rules engine for flex promotions and sku list rules.
+	 * Enables the rules engine for flex promotions and price list rules.
 	 */
 	api_rules_engine?: boolean | null
 	/** 

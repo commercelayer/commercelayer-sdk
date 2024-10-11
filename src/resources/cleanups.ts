@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
@@ -91,12 +91,19 @@ interface CleanupCreate extends ResourceCreate {
 }
 
 
+type CleanupUpdate = ResourceUpdate
+
+
 class Cleanups extends ApiResource<Cleanup> {
 
 	static readonly TYPE: CleanupType = 'cleanups' as const
 
 	async create(resource: CleanupCreate, params?: QueryParamsRetrieve<Cleanup>, options?: ResourcesConfig): Promise<Cleanup> {
 		return this.resources.create<CleanupCreate, Cleanup>({ ...resource, type: Cleanups.TYPE }, params, options)
+	}
+
+	async update(resource: CleanupUpdate, params?: QueryParamsRetrieve<Cleanup>, options?: ResourcesConfig): Promise<Cleanup> {
+		return this.resources.update<CleanupUpdate, Cleanup>({ ...resource, type: Cleanups.TYPE }, params, options)
 	}
 
 	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
@@ -137,4 +144,4 @@ class Cleanups extends ApiResource<Cleanup> {
 
 export default Cleanups
 
-export type { Cleanup, CleanupCreate, CleanupType }
+export type { Cleanup, CleanupCreate, CleanupUpdate, CleanupType }

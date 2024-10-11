@@ -5347,6 +5347,7 @@
                 "list",
                 "retrieve",
                 "create",
+                "update",
                 "delete"
             ],
             "examples": {},
@@ -7648,6 +7649,17 @@
                     "sortable": false,
                     "example": "john@example.com"
                 },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -7681,17 +7693,6 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
-                },
-                "reference": {
-                    "type": "string",
-                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "ANY-EXTERNAL-REFEFERNCE"
                 },
                 "reference_origin": {
                     "type": "string",
@@ -7752,9 +7753,9 @@
             },
             "filters": [
                 "id",
+                "reference",
                 "created_at",
                 "updated_at",
-                "reference",
                 "reference_origin",
                 "metadata",
                 "q",
@@ -8289,6 +8290,7 @@
                 "list",
                 "retrieve",
                 "create",
+                "update",
                 "delete"
             ],
             "examples": {},
@@ -10817,7 +10819,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": false,
                     "example": "{}"
                 },
@@ -11006,6 +11008,7 @@
                 "expires_at",
                 "total_usage_limit",
                 "total_usage_count",
+                "rules",
                 "disabled_at",
                 "created_at",
                 "updated_at",
@@ -12887,6 +12890,7 @@
                 "list",
                 "retrieve",
                 "create",
+                "update",
                 "delete"
             ],
             "examples": {},
@@ -16625,6 +16629,18 @@
                     "sortable": true,
                     "example": "1234"
                 },
+                "affiliate_code": {
+                    "type": "string",
+                    "desc": "The affiliate code, if any, the seller will transfer commission on shop by link transactions.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "exportable": false,
+                    "example": "xxxx-yyyy-zzzz"
+                },
                 "autorefresh": {
                     "type": "boolean",
                     "desc": "Save this attribute as 'false' if you want prevent the order to be refreshed automatically at each change (much faster).",
@@ -18562,6 +18578,7 @@
             "filters": [
                 "id",
                 "number",
+                "affiliate_code",
                 "place_async",
                 "status",
                 "payment_status",
@@ -20555,7 +20572,7 @@
                 "api_rules_engine": {
                     "type": "boolean",
                     "default": false,
-                    "desc": "Enables the rules engine for flex promotions and sku list rules.",
+                    "desc": "Enables the rules engine for flex promotions and price list rules.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -23468,6 +23485,17 @@
                     "sortable": false,
                     "example": "{}"
                 },
+                "jwt_custom_claim": {
+                    "type": "object",
+                    "desc": "The custom_claim attached to the current JWT (if any).",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}",
+                    "exportable": false
+                },
                 "metadata": {
                     "type": "object",
                     "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
@@ -23557,6 +23585,7 @@
                     "class_name": "Customer",
                     "eager_load_on_include": false,
                     "virtual": true,
+                    "exportable": false,
                     "parent_resource": "Api::PriceResource"
                 },
                 "jwt_markets": {
@@ -23565,6 +23594,7 @@
                     "class_name": "Market",
                     "eager_load_on_include": false,
                     "virtual": true,
+                    "exportable": false,
                     "parent_resource": "Api::PriceResource"
                 },
                 "jwt_stock_locations": {
@@ -23573,6 +23603,7 @@
                     "class_name": "StockLocation",
                     "eager_load_on_include": false,
                     "virtual": true,
+                    "exportable": false,
                     "parent_resource": "Api::PriceResource"
                 }
             },
@@ -25572,7 +25603,8 @@
             "deprecated": false,
             "actions": [
                 "list",
-                "retrieve"
+                "retrieve",
+                "update"
             ],
             "examples": {},
             "filter_scopes": [
@@ -29965,6 +29997,17 @@
                     "sortable": true,
                     "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                 },
+                "jwt_custom_claim": {
+                    "type": "object",
+                    "desc": "The custom_claim attached to the current JWT (if any).",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}",
+                    "exportable": false
+                },
                 "metadata": {
                     "type": "object",
                     "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
@@ -30099,6 +30142,7 @@
                     "class_name": "Customer",
                     "eager_load_on_include": false,
                     "virtual": true,
+                    "exportable": false,
                     "parent_resource": "Api::SkuResource"
                 },
                 "jwt_markets": {
@@ -30107,6 +30151,7 @@
                     "class_name": "Market",
                     "eager_load_on_include": false,
                     "virtual": true,
+                    "exportable": false,
                     "parent_resource": "Api::SkuResource"
                 },
                 "jwt_stock_locations": {
@@ -30115,6 +30160,7 @@
                     "class_name": "StockLocation",
                     "eager_load_on_include": false,
                     "virtual": true,
+                    "exportable": false,
                     "parent_resource": "Api::SkuResource"
                 }
             },
@@ -33175,6 +33221,8 @@
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
+                    "filterable": true,
+                    "sortable": false,
                     "parent_resource": "Api::SubscriptionModelResource",
                     "class_name": "Attachment"
                 }
@@ -33191,6 +33239,7 @@
                 "reference_origin",
                 "metadata",
                 "q",
+                "attachments_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -34611,7 +34660,8 @@
             "deprecated": false,
             "actions": [
                 "list",
-                "retrieve"
+                "retrieve",
+                "update"
             ],
             "examples": {},
             "filter_scopes": [

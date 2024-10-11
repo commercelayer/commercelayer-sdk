@@ -73,6 +73,30 @@ describe('Imports resource', () => {
   /* spec.retrieve.stop */
 
 
+  /* spec.update.start */
+  it(resourceType + '.update', async () => {
+
+    const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
+    const resData = { id: TestData.id, ...attributes}
+
+    cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, resData.id)
+      return interceptRequest()
+    })
+
+    await cl[resourceType].update(resData, params, CommonData.options)
+      .then((res: Import) =>  expect(res).not.toBeNull())
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+
+  })
+  /* spec.update.stop */
+
+
   /* spec.delete.start */
   it(resourceType + '.delete', async () => {
 

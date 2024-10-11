@@ -87,6 +87,11 @@ interface Sku extends Resource {
 	 * @example ```"[object Object]"```
 	 */
 	inventory?: Record<string, any> | null
+	/** 
+	 * The custom_claim attached to the current JWT (if any).
+	 * @example ```"[object Object]"```
+	 */
+	jwt_custom_claim?: Record<string, any> | null
 
 	shipping_category?: ShippingCategory | null
 	prices?: Price[] | null

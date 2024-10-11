@@ -32,15 +32,15 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.25.7",
+    "@babel/preset-env": "^7.25.8",
     "@babel/preset-typescript": "^7.25.7",
     "@commercelayer/eslint-config-ts": "1.4.5",
-    "@commercelayer/js-auth": "^6.6.0",
+    "@commercelayer/js-auth": "^6.6.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/debug": "^4.1.12",
     "@types/jest": "^29.5.13",
-    "@types/node": "^22.7.4",
+    "@types/node": "^22.7.5",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.1",
     "jest": "^29.7.0",
@@ -50,7 +50,7 @@
     "semantic-release": "^24.1.2",
     "tsup": "^8.3.0",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   },
   "repository": "github:commercelayer/commercelayer-sdk",
   "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues",
