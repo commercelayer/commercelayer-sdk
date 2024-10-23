@@ -140,6 +140,11 @@ interface CaptureUpdate extends ResourceUpdate {
 	 * @example ```"500"```
 	 */
 	_refund_amount_cents?: number | null
+	/** 
+	 * Send this attribute if you want to refund a succeeded capture of a pending order (which is left unpaid).
+	 * @example ```"true"```
+	 */
+	_cancel?: boolean | null
 	
 }
 
@@ -197,6 +202,10 @@ class Captures extends ApiResource<Capture> {
 
 	async _refund_amount_cents(id: string | Capture, triggerValue: number, params?: QueryParamsRetrieve<Capture>, options?: ResourcesConfig): Promise<Capture> {
 		return this.resources.update<CaptureUpdate, Capture>({ id: (typeof id === 'string')? id: id.id, type: Captures.TYPE, _refund_amount_cents: triggerValue }, params, options)
+	}
+
+	async _cancel(id: string | Capture, params?: QueryParamsRetrieve<Capture>, options?: ResourcesConfig): Promise<Capture> {
+		return this.resources.update<CaptureUpdate, Capture>({ id: (typeof id === 'string')? id: id.id, type: Captures.TYPE, _cancel: true }, params, options)
 	}
 
 

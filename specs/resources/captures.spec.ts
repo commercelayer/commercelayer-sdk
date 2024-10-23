@@ -377,4 +377,30 @@ describe('Captures resource', () => {
 	})
 	/* trigger._refund_amount_cents stop */
 	
+
+	/* trigger._cancel start */
+	it(resourceType + '._cancel', async () => {
+	
+		let triggerAttr = '_cancel'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType]._cancel(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._cancel stop */
+	
 })

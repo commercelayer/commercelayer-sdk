@@ -42,12 +42,12 @@ interface Link extends Resource {
 	 * The activation date/time of this link.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
-	starts_at: string
+	starts_at?: string | null
 	/** 
 	 * The expiration date/time of this link (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
-	expires_at: string
+	expires_at?: string | null
 	/** 
 	 * Indicates if the link is active (enabled and not expired).
 	 * @example ```"true"```
@@ -111,12 +111,12 @@ interface LinkCreate extends ResourceCreate {
 	 * The activation date/time of this link.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
-	starts_at: string
+	starts_at?: string | null
 	/** 
 	 * The expiration date/time of this link (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
-	expires_at: string
+	expires_at?: string | null
 	/** 
 	 * The link URL second level domain.
 	 * @example ```"commercelayer.link"```

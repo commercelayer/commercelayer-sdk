@@ -15,13 +15,15 @@ const objectFilters = ['_jcont']
 type QueryResType<T extends Resource> = T['type']
 
 export type QueryInclude = string[]
+
 type QueryResourceFields<R extends ResourceTypeLock> = keyof ResourceFields[R]
 export type QueryArrayFields<R extends Resource> = Array<QueryResourceFields<QueryResType<R>>>
 export type QueryRecordFields = { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
+export type QueryFields<R extends Resource> = QueryArrayFields<R> | QueryRecordFields
 
 export interface QueryParamsRetrieve<R extends Resource = Resource> {
 	include?: QueryInclude
-	fields?: QueryArrayFields<R> | QueryRecordFields
+	fields?: QueryFields<R>
 }
 
 type QuerySortType = 'asc' | 'desc'
@@ -29,12 +31,15 @@ type QueryResourceSortable<R extends Resource> = ResourceSortFields[QueryResType
 type QueryResourceSortableFields<R extends Resource> = StringKey<QueryResourceSortable<R>>
 export type QueryArraySortable<R extends Resource> = Array<QueryResourceSortableFields<R> | `-${QueryResourceSortableFields<R>}`>
 export type QueryRecordSortable<R extends Resource> = Partial<Record<keyof QueryResourceSortable<R>, QuerySortType>>
+export type QuerySort<R extends Resource> = QueryArraySortable<R> | QueryRecordSortable<R>
+
 export type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>
+
 export type QueryPageNumber = number
 export type QueryPageSize = PositiveNumberRange<25>
 
 export interface QueryParamsList<R extends Resource = Resource> extends QueryParamsRetrieve<R> {
-	sort?: QueryArraySortable<R> | QueryRecordSortable<R>
+	sort?: QuerySort<R>
 	filters?: QueryFilter
 	pageNumber?: QueryPageNumber
 	pageSize?: QueryPageSize

@@ -183,6 +183,11 @@ interface AuthorizationUpdate extends ResourceUpdate {
 	 * @example ```"true"```
 	 */
 	_void?: boolean | null
+	/** 
+	 * Send this attribute if you want to void a succeeded authorization of a pending order (which is left unpaid).
+	 * @example ```"true"```
+	 */
+	_cancel?: boolean | null
 	
 }
 
@@ -239,6 +244,10 @@ class Authorizations extends ApiResource<Authorization> {
 
 	async _void(id: string | Authorization, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
 		return this.resources.update<AuthorizationUpdate, Authorization>({ id: (typeof id === 'string')? id: id.id, type: Authorizations.TYPE, _void: true }, params, options)
+	}
+
+	async _cancel(id: string | Authorization, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
+		return this.resources.update<AuthorizationUpdate, Authorization>({ id: (typeof id === 'string')? id: id.id, type: Authorizations.TYPE, _cancel: true }, params, options)
 	}
 
 

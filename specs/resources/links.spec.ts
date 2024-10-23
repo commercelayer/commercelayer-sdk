@@ -28,8 +28,6 @@ describe('Links resource', () => {
 			name: randomValue('string', 'name'),
 			client_id: randomValue('string', 'client_id'),
 			scope: randomValue('string', 'scope'),
-			starts_at: randomValue('string', 'starts_at'),
-			expires_at: randomValue('string', 'expires_at'),
 			item: cl.orders.relationship(TestData.id),
 		}
 

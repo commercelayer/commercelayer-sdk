@@ -1878,6 +1878,17 @@
                     "sortable": false,
                     "monetizable": true,
                     "example": "€15,00"
+                },
+                "_cancel": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to void a succeeded authorization of a pending order (which is left unpaid).",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 }
             },
             "relationships": {
@@ -4543,6 +4554,17 @@
                     "sortable": false,
                     "monetizable": true,
                     "example": "€10,00"
+                },
+                "_cancel": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to refund a succeeded capture of a pending order (which is left unpaid).",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 }
             },
             "relationships": {
@@ -15463,7 +15485,7 @@
                 "starts_at": {
                     "type": "datetime",
                     "desc": "The activation date/time of this link.",
-                    "required": "required",
+                    "required": "optional, default to current time",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -15474,7 +15496,7 @@
                 "expires_at": {
                     "type": "datetime",
                     "desc": "The expiration date/time of this link (must be after starts_at).",
-                    "required": "required",
+                    "required": "optional, default to one month since current time",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
