@@ -8,8 +8,16 @@ import Debug from './debug'
 const debug = Debug('query')
 
 
-const arrayFilters = ['_any', '_all', '_in']
+const arrayFilters = ['_any', '_all', '_in', '_not_in_or_null']
+const isArrayFilter = (filter: string): boolean => {
+	return arrayFilters.some(f => filter.endsWith(f))
+}
+
 const objectFilters = ['_jcont']
+const isObjectFilter = (filter: string): boolean => {
+	return objectFilters.some(f => filter.endsWith(f))
+}
+
 
 // type QueryResType<T> = T extends { type: infer Type } ? Type : never
 type QueryResType<T extends Resource> = T['type']
@@ -85,14 +93,13 @@ const generateQueryStringParams = <R extends Resource>(params: QueryParams<R> | 
 		// Filters
 		if (params.filters) {
 			Object.entries(params.filters).forEach(([p, v]) => {
-				const filter = p.substring(p.lastIndexOf('_'))
 				let val
 				if (Array.isArray(v)) {
-					if (!arrayFilters.includes(filter)) throw new SdkError({ message: `Wrong ${filter} filter: Array value is supported only for the following filters: ${arrayFilters.join(', ')}`, type: ErrorType.REQUEST })
+					if (!isArrayFilter(p)) throw new SdkError({ message: `Incorrect filter: Array value is supported only for the following filters: ${arrayFilters.join(', ')}`, type: ErrorType.REQUEST })
 					val = v.join(',')
 				}
 				else if (typeof v === 'object') {
-					if (!objectFilters.includes(filter)) throw new SdkError({ message: `Wrong ${filter} filter: Object value is supported only for the following filters: ${objectFilters.join(', ')}`, type: ErrorType.REQUEST })
+					if (!isObjectFilter(p)) throw new SdkError({ message: `Incorrect filter: Object value is supported only for the following filters: ${objectFilters.join(', ')}`, type: ErrorType.REQUEST })
 					val = JSON.stringify(v)
 				}
 				else val = String(v)
