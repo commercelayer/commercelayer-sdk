@@ -1,3 +1,10 @@
+## [6.24.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.24.1...v6.24.2) (2024-10-30)
+
+
+### Bug Fixes
+
+* fix query filters check error message ([0c96b16](https://github.com/commercelayer/commercelayer-sdk/commit/0c96b16b2d2e84a98809ad8d0978871e0ec76079))
+
 ## [6.24.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.24.0...v6.24.1) (2024-10-30)
 
 
