@@ -95,11 +95,11 @@ const generateQueryStringParams = <R extends Resource>(params: QueryParams<R> | 
 			Object.entries(params.filters).forEach(([p, v]) => {
 				let val
 				if (Array.isArray(v)) {
-					if (!isArrayFilter(p)) throw new SdkError({ message: `Incorrect filter: Array value is supported only for the following filters: ${arrayFilters.join(', ')}`, type: ErrorType.REQUEST })
+					if (!isArrayFilter(p)) throw new SdkError({ message: `Incorrect filter [${p}]: Array value is supported only for the following filters: ${arrayFilters.join(', ')}`, type: ErrorType.REQUEST })
 					val = v.join(',')
 				}
 				else if (typeof v === 'object') {
-					if (!isObjectFilter(p)) throw new SdkError({ message: `Incorrect filter: Object value is supported only for the following filters: ${objectFilters.join(', ')}`, type: ErrorType.REQUEST })
+					if (!isObjectFilter(p)) throw new SdkError({ message: `Incorrect filter [${p}]: Object value is supported only for the following filters: ${objectFilters.join(', ')}`, type: ErrorType.REQUEST })
 					val = JSON.stringify(v)
 				}
 				else val = String(v)
