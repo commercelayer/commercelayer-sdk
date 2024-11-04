@@ -26,12 +26,14 @@ export class FetchError extends Error {
   readonly #errors?: any[]
   readonly #status: number
   readonly #statusText: string
+  readonly #request?: Partial<FetchRequestOptions>
 
-  constructor(status: number, statusText: string, body?: any) {
+  constructor(status: number, statusText: string, body?: any, request?: FetchRequestOptions) {
     super(statusText)
     this.#status = status
     this.#statusText = statusText
     if (body) this.#errors = body.errors
+    if (request) this.#request = request
   }
 
 
@@ -40,6 +42,8 @@ export class FetchError extends Error {
   get status(): number { return this.#status }
 
   get statusText(): string { return this.#statusText }
+
+  get request(): Partial<FetchRequestOptions> | undefined { return this.#request }
 
 }
 
@@ -75,7 +79,7 @@ export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, cl
     : undefined
     
   if (!response.ok) {
-    let error = new FetchError(response.status, response.statusText, responseBody)
+    let error = new FetchError(response.status, response.statusText, responseBody, requestOptions)
     if (interceptors?.response?.onFailure) error = await interceptors.response.onFailure(error)
     if (error) throw error
   }
