@@ -41,7 +41,26 @@ describe('SDK:error suite', () => {
 	})
 
 
-	it('ErrorInterceptor.error', async () => {
+	it('ErrorInterceptor.request', async () => {
+
+		cl.addResponseInterceptor(undefined, (error: ErrorObj): ErrorObj => {
+			expect(error).toBeDefined()
+			expect(error.request).toBeUndefined()
+			return error
+		})
+
+		try {
+			await cl.customers.create({ email: '' })
+		} catch (error) {
+			expect(error.type).toBe(ErrorType.CLIENT)
+		}
+
+		cl.removeInterceptors()
+
+	})
+
+
+	it('ErrorInterceptor.response', async () => {
 
 		cl = await getClient({})
 
@@ -56,6 +75,8 @@ describe('SDK:error suite', () => {
 		} catch (error) {
 			expect(error.type).toBe(ErrorType.RESPONSE)
 		}
+
+		cl.removeInterceptors()
 
 	})
 
