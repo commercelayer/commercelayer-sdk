@@ -9,6 +9,8 @@ let cl: CommerceLayerClient
 
 beforeAll(async () => { cl = await getClient({}) })
 
+afterAll(() => { cl.removeInterceptors() })
+
 
 describe('SDK:error suite', () => {
 
@@ -61,8 +63,6 @@ describe('SDK:error suite', () => {
 			expect(error.type).toBe(ErrorType.RESPONSE)
 			expect(interceptor).toBeTruthy()
 		}
-
-		cl.removeInterceptors()
 
 	})
 
