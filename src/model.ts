@@ -114,6 +114,7 @@ export type { StockLineItem, StockLineItemCreate, StockLineItemUpdate, StockLine
 export type { StockLocation, StockLocationCreate, StockLocationUpdate, StockLocationSort } from './resources/stock_locations'
 export type { StockReservation, StockReservationCreate, StockReservationUpdate, StockReservationSort } from './resources/stock_reservations'
 export type { StockTransfer, StockTransferCreate, StockTransferUpdate, StockTransferSort } from './resources/stock_transfers'
+export type { Store, StoreCreate, StoreUpdate, StoreSort } from './resources/stores'
 export type { StripeGateway, StripeGatewayCreate, StripeGatewayUpdate, StripeGatewaySort } from './resources/stripe_gateways'
 export type { StripePayment, StripePaymentCreate, StripePaymentUpdate, StripePaymentSort } from './resources/stripe_payments'
 export type { SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate, SubscriptionModelSort } from './resources/subscription_models'

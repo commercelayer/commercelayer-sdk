@@ -29,6 +29,7 @@ describe('PaymentMethods resource', () => {
 			price_amount_cents: randomValue('integer', 'price_amount_cents'),
 			market: cl.markets.relationship(TestData.id),
 			payment_gateway: cl.payment_gateways.relationship(TestData.id),
+			store: cl.stores.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -243,6 +244,27 @@ describe('PaymentMethods resource', () => {
 	
 	})
 	/* relationship.payment_gateway stop */
+	
+
+	/* relationship.store start */
+	it(resourceType + '.store', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'store')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].store(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.store stop */
 	
 
 	/* relationship.attachments start */

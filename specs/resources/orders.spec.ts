@@ -29,6 +29,7 @@ describe('Orders resource', () => {
 			customer: cl.customers.relationship(TestData.id),
 			shipping_address: cl.addresses.relationship(TestData.id),
 			billing_address: cl.addresses.relationship(TestData.id),
+			store: cl.stores.relationship(TestData.id),
 			payment_method: cl.payment_methods.relationship(TestData.id),
 			payment_source: cl.adyen_payments.relationship(TestData.id),
 			tags: [ cl.tags.relationship(TestData.id) ],
@@ -288,6 +289,27 @@ describe('Orders resource', () => {
 	
 	})
 	/* relationship.billing_address stop */
+	
+
+	/* relationship.store start */
+	it(resourceType + '.store', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'store')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].store(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.store stop */
 	
 
 	/* relationship.available_payment_methods start */

@@ -306,6 +306,27 @@ describe('StockLocations resource', () => {
 	/* relationship.stock_transfers stop */
 	
 
+	/* relationship.stores start */
+	it(resourceType + '.stores', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'stores')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourceType].stores(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.stores stop */
+	
+
 	/* relationship.attachments start */
 	it(resourceType + '.attachments', async () => {
 	

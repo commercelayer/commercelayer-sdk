@@ -7,6 +7,7 @@ import type { InventoryStockLocation } from './inventory_stock_locations'
 import type { InventoryReturnLocation } from './inventory_return_locations'
 import type { StockItem } from './stock_items'
 import type { StockTransfer } from './stock_transfers'
+import type { Store } from './stores'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
@@ -54,6 +55,7 @@ interface StockLocation extends Resource {
 	inventory_return_locations?: InventoryReturnLocation[] | null
 	stock_items?: StockItem[] | null
 	stock_transfers?: StockTransfer[] | null
+	stores?: Store[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
@@ -153,6 +155,11 @@ class StockLocations extends ApiResource<StockLocation> {
 	async stock_transfers(stockLocationId: string | StockLocation, params?: QueryParamsList<StockTransfer>, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
 		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `stock_locations/${_stockLocationId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+	}
+
+	async stores(stockLocationId: string | StockLocation, params?: QueryParamsList<Store>, options?: ResourcesConfig): Promise<ListResponse<Store>> {
+		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
+		return this.resources.fetch<Store>({ type: 'stores' }, `stock_locations/${_stockLocationId}/stores`, params, options) as unknown as ListResponse<Store>
 	}
 
 	async attachments(stockLocationId: string | StockLocation, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
