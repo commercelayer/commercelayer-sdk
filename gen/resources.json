@@ -10843,7 +10843,8 @@
                     "fetchable": true,
                     "filterable": true,
                     "sortable": false,
-                    "example": "{}"
+                    "example": "{}",
+                    "action": "show"
                 },
                 "id": {
                     "format": "id",
@@ -10945,7 +10946,8 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "example": "{}"
+                    "example": "{}",
+                    "action": "show"
                 },
                 "metadata": {
                     "type": "object",
@@ -14808,8 +14810,8 @@
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
+                    "filterable": false,
+                    "sortable": false,
                     "example": "SUMMERDISCOUNT"
                 },
                 "id": {
@@ -15116,7 +15118,6 @@
                 "name",
                 "image_url",
                 "item_type",
-                "coupon_code",
                 "circuit_state",
                 "circuit_failure_count",
                 "created_at",
@@ -16392,6 +16393,14 @@
                     "parent_resource": "Api::MarketResource",
                     "class_name": "Geocoder"
                 },
+                "stores": {
+                    "type": "has_many",
+                    "desc": "The associated stores.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::MarketResource",
+                    "class_name": "Store"
+                },
                 "price_list_schedulers": {
                     "type": "has_many",
                     "desc": "The associated price list schedulers.",
@@ -16449,6 +16458,7 @@
                 "tax_calculator_id",
                 "customer_group_id",
                 "geocoder_id",
+                "stores_id",
                 "price_list_schedulers_id",
                 "order_validation_rules_id",
                 "attachments_id",
@@ -18318,6 +18328,17 @@
                     "sortable": false,
                     "parent_resource": "Api::OrderResource"
                 },
+                "store": {
+                    "type": "has_one",
+                    "desc": "The associated store.",
+                    "required": "optional, set by scope",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::OrderResource",
+                    "class_name": "Store"
+                },
                 "available_payment_methods": {
                     "type": "has_many",
                     "desc": "The available payment methods for the order. Useful to present the customer with a list of choices during the checkout. Only enabled payment methods are included in the list.",
@@ -18646,6 +18667,7 @@
                 "customer_id",
                 "shipping_address_id",
                 "billing_address_id",
+                "store_id",
                 "payment_method_id",
                 "payment_source_id",
                 "line_items_id",
@@ -20602,6 +20624,17 @@
                     "sortable": false,
                     "example": "false"
                 },
+                "api_purge_single_resource": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables the purge of cached single resources when list is purged.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
                 "addresses_phone_required": {
                     "type": "boolean",
                     "default": true,
@@ -20755,6 +20788,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "10"
+                },
+                "imports_purge_cache": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Enables purging of cached resources upon succeeded imports.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "promotions_max_concurrent_count": {
                     "type": "integer",
@@ -22208,6 +22252,17 @@
                     "parent_resource": "Api::PaymentMethodResource",
                     "class_name": "PaymentGateway"
                 },
+                "store": {
+                    "type": "has_one",
+                    "desc": "The associated store.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::PaymentMethodResource",
+                    "class_name": "Store"
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -22243,6 +22298,7 @@
                 "q",
                 "market_id",
                 "payment_gateway_id",
+                "store_id",
                 "attachments_id",
                 "ids",
                 "disabled_at_from",
@@ -23494,7 +23550,8 @@
                     "fetchable": true,
                     "filterable": true,
                     "sortable": false,
-                    "example": "{}"
+                    "example": "{}",
+                    "action": "show"
                 },
                 "rule_outcomes": {
                     "type": "object",
@@ -23505,7 +23562,8 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "example": "{}"
+                    "example": "{}",
+                    "action": "show"
                 },
                 "jwt_custom_claim": {
                     "type": "object",
@@ -23999,7 +24057,8 @@
                     "fetchable": true,
                     "filterable": true,
                     "sortable": false,
-                    "example": "{}"
+                    "example": "{}",
+                    "action": "show"
                 },
                 "rule_outcomes": {
                     "type": "object",
@@ -24010,7 +24069,8 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "example": "{}"
+                    "example": "{}",
+                    "action": "show"
                 },
                 "metadata": {
                     "type": "object",
@@ -31894,6 +31954,13 @@
                     "parent_resource": "Api::StockLocationResource",
                     "class_name": "StockTransfer"
                 },
+                "stores": {
+                    "type": "has_many",
+                    "desc": "The associated stores.",
+                    "filterable": true,
+                    "parent_resource": "Api::StockLocationResource",
+                    "class_name": "Store"
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -31931,6 +31998,7 @@
                 "inventory_return_locations_id",
                 "stock_items_id",
                 "stock_transfers_id",
+                "stores_id",
                 "attachments_id",
                 "ids",
                 "created_at_from",
@@ -32575,6 +32643,202 @@
                 "completed_at_to",
                 "cancelled_at_from",
                 "cancelled_at_to",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to"
+            ]
+        }
+    },
+    {
+        "id": "store",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "actions": [
+                "list",
+                "retrieve",
+                "create",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The store's internal name.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "Rome Shop"
+                },
+                "code": {
+                    "type": "string",
+                    "desc": "A string that you can use to identify the store (must be unique within the environment).",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "europe1"
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                }
+            },
+            "relationships": {
+                "market": {
+                    "type": "has_one",
+                    "desc": "The associated market.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::StoreResource",
+                    "class_name": "Market"
+                },
+                "merchant": {
+                    "type": "has_one",
+                    "desc": "The associated merchant.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::StoreResource",
+                    "class_name": "Merchant"
+                },
+                "stock_location": {
+                    "type": "has_one",
+                    "desc": "The associated stock location.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::StoreResource",
+                    "class_name": "StockLocation"
+                },
+                "orders": {
+                    "type": "has_many",
+                    "desc": "The associated orders.",
+                    "parent_resource": "Api::StoreResource",
+                    "class_name": "Order"
+                },
+                "payment_methods": {
+                    "type": "has_many",
+                    "desc": "The associated payment methods.",
+                    "parent_resource": "Api::StoreResource",
+                    "class_name": "PaymentMethod"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::StoreResource",
+                    "class_name": "Event"
+                },
+                "versions": {
+                    "type": "has_many",
+                    "desc": "The associated changes.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "parent_resource": "Api::StoreResource",
+                    "class_name": "Version"
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "code",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "q",
+                "market_id",
+                "merchant_id",
+                "stock_location_id",
+                "events_id",
+                "ids",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",

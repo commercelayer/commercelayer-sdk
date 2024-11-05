@@ -81,6 +81,10 @@ interface Organization extends Resource {
 	 */
 	api_rules_engine?: boolean | null
 	/** 
+	 * Enables the purge of cached single resources when list is purged.
+	 */
+	api_purge_single_resource?: boolean | null
+	/** 
 	 * Indicates if the phone attribute is required for addresses, default is true.
 	 * @example ```"true"```
 	 */
@@ -148,6 +152,11 @@ interface Organization extends Resource {
 	 * @example ```"10"```
 	 */
 	imports_max_concurrent_count?: number | null
+	/** 
+	 * Enables purging of cached resources upon succeeded imports.
+	 * @example ```"true"```
+	 */
+	imports_purge_cache?: boolean | null
 	/** 
 	 * The maximum number of active concurrent promotions allowed for your organization, default is 10.
 	 * @example ```"10"```

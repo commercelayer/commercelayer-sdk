@@ -9,6 +9,7 @@ import type { SubscriptionModel, SubscriptionModelType } from './subscription_mo
 import type { TaxCalculator } from './tax_calculators'
 import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { Geocoder, GeocoderType } from './geocoders'
+import type { Store } from './stores'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
@@ -104,6 +105,7 @@ interface Market extends Resource {
 	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
 	customer_group?: CustomerGroup | null
 	geocoder?: Geocoder | null
+	stores?: Store[] | null
 	price_list_schedulers?: PriceListScheduler[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
@@ -283,6 +285,11 @@ class Markets extends ApiResource<Market> {
 	async geocoder(marketId: string | Market, params?: QueryParamsRetrieve<Geocoder>, options?: ResourcesConfig): Promise<Geocoder> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `markets/${_marketId}/geocoder`, params, options) as unknown as Geocoder
+	}
+
+	async stores(marketId: string | Market, params?: QueryParamsList<Store>, options?: ResourcesConfig): Promise<ListResponse<Store>> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<Store>({ type: 'stores' }, `markets/${_marketId}/stores`, params, options) as unknown as ListResponse<Store>
 	}
 
 	async price_list_schedulers(marketId: string | Market, params?: QueryParamsList<PriceListScheduler>, options?: ResourcesConfig): Promise<ListResponse<PriceListScheduler>> {

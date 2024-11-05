@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
 import type { PaymentGateway, PaymentGatewayType } from './payment_gateways'
+import type { Store, StoreType } from './stores'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
@@ -12,6 +13,7 @@ type PaymentMethodType = 'payment_methods'
 type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 type MarketRel = ResourceRel & { type: MarketType }
 type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
+type StoreRel = ResourceRel & { type: StoreType }
 
 
 export type PaymentMethodSort = Pick<PaymentMethod, 'id' | 'name' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceSort
@@ -89,6 +91,7 @@ interface PaymentMethod extends Resource {
 
 	market?: Market | null
 	payment_gateway?: PaymentGateway | null
+	store?: Store | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
@@ -151,6 +154,7 @@ interface PaymentMethodCreate extends ResourceCreate {
 
 	market?: MarketRel | null
 	payment_gateway: PaymentGatewayRel
+	store?: StoreRel | null
 
 }
 
@@ -211,6 +215,7 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 
 	market?: MarketRel | null
 	payment_gateway?: PaymentGatewayRel | null
+	store?: StoreRel | null
 
 }
 
@@ -239,6 +244,11 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 	async payment_gateway(paymentMethodId: string | PaymentMethod, params?: QueryParamsRetrieve<PaymentGateway>, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `payment_methods/${_paymentMethodId}/payment_gateway`, params, options) as unknown as PaymentGateway
+	}
+
+	async store(paymentMethodId: string | PaymentMethod, params?: QueryParamsRetrieve<Store>, options?: ResourcesConfig): Promise<Store> {
+		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
+		return this.resources.fetch<Store>({ type: 'stores' }, `payment_methods/${_paymentMethodId}/store`, params, options) as unknown as Store
 	}
 
 	async attachments(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
