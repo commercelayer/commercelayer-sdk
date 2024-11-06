@@ -118,6 +118,7 @@ export { default as StockLineItems } from './resources/stock_line_items'
 export { default as StockLocations } from './resources/stock_locations'
 export { default as StockReservations } from './resources/stock_reservations'
 export { default as StockTransfers } from './resources/stock_transfers'
+export { default as Stores } from './resources/stores'
 export { default as StripeGateways } from './resources/stripe_gateways'
 export { default as StripePayments } from './resources/stripe_payments'
 export { default as SubscriptionModels } from './resources/subscription_models'
@@ -246,6 +247,7 @@ export type ResourceTypeLock =
 |	'stock_locations'
 |	'stock_reservations'
 |	'stock_transfers'
+|	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
 |	'subscription_models'
@@ -374,6 +376,7 @@ export const resourceList = [
 	'stock_locations',
 	'stock_reservations',
 	'stock_transfers',
+	'stores',
 	'stripe_gateways',
 	'stripe_payments',
 	'subscription_models',
@@ -532,6 +535,7 @@ export type CreatableResourceType =
 |	'stock_locations'
 |	'stock_reservations'
 |	'stock_transfers'
+|	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
 |	'subscription_models'
@@ -649,6 +653,7 @@ export type UpdatableResourceType =
 |	'stock_locations'
 |	'stock_reservations'
 |	'stock_transfers'
+|	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
 |	'subscription_models'
@@ -763,6 +768,7 @@ export type DeletableResourceType =
 |	'stock_locations'
 |	'stock_reservations'
 |	'stock_transfers'
+|	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
 |	'subscription_models'
@@ -902,6 +908,7 @@ export type VersionableResourceType =
 |	'stock_line_items'
 |	'stock_locations'
 |	'stock_transfers'
+|	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
 |	'tax_calculators'
@@ -1033,6 +1040,7 @@ export type ResourceFields = {
 	stock_locations: models.StockLocation,
 	stock_reservations: models.StockReservation,
 	stock_transfers: models.StockTransfer,
+	stores: models.Store,
 	stripe_gateways: models.StripeGateway,
 	stripe_payments: models.StripePayment,
 	subscription_models: models.SubscriptionModel,
@@ -1162,6 +1170,7 @@ export type ResourceSortFields = {
 	stock_locations: models.StockLocationSort,
 	stock_reservations: models.StockReservationSort,
 	stock_transfers: models.StockTransferSort,
+	stores: models.StoreSort,
 	stripe_gateways: models.StripeGatewaySort,
 	stripe_payments: models.StripePaymentSort,
 	subscription_models: models.SubscriptionModelSort,

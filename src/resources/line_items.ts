@@ -46,8 +46,8 @@ type FlexPromotionRel = ResourceRel & { type: FlexPromotionType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type LineItemSort = Pick<LineItem, 'id' | 'currency_code' | 'unit_amount_cents' | 'compare_at_amount_cents' | 'options_amount_cents' | 'discount_cents' | 'total_amount_cents' | 'tax_amount_cents' | 'name' | 'item_type' | 'coupon_code' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
-// export type LineItemFilter = Pick<LineItem, 'id' | 'sku_code' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'compare_at_amount_cents' | 'options_amount_cents' | 'discount_cents' | 'total_amount_cents' | 'tax_amount_cents' | 'name' | 'image_url' | 'item_type' | 'coupon_code' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
+export type LineItemSort = Pick<LineItem, 'id' | 'currency_code' | 'unit_amount_cents' | 'compare_at_amount_cents' | 'options_amount_cents' | 'discount_cents' | 'total_amount_cents' | 'tax_amount_cents' | 'name' | 'item_type' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type LineItemFilter = Pick<LineItem, 'id' | 'sku_code' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'compare_at_amount_cents' | 'options_amount_cents' | 'discount_cents' | 'total_amount_cents' | 'tax_amount_cents' | 'name' | 'image_url' | 'item_type' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface LineItem extends Resource {

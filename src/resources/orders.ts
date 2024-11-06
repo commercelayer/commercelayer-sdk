@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Market, MarketType } from './markets'
 import type { Customer, CustomerType } from './customers'
 import type { Address, AddressType } from './addresses'
+import type { Store, StoreType } from './stores'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { Sku } from './skus'
@@ -48,6 +49,7 @@ type OrderRel = ResourceRel & { type: OrderType }
 type MarketRel = ResourceRel & { type: MarketType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 type AddressRel = ResourceRel & { type: AddressType }
+type StoreRel = ResourceRel & { type: StoreType }
 type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
 type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
@@ -606,6 +608,7 @@ interface Order extends Resource {
 	customer?: Customer | null
 	shipping_address?: Address | null
 	billing_address?: Address | null
+	store?: Store | null
 	available_payment_methods?: PaymentMethod[] | null
 	available_customer_payment_sources?: CustomerPaymentSource[] | null
 	available_free_skus?: Sku[] | null
@@ -741,6 +744,7 @@ interface OrderCreate extends ResourceCreate {
 	customer?: CustomerRel | null
 	shipping_address?: AddressRel | null
 	billing_address?: AddressRel | null
+	store?: StoreRel | null
 	payment_method?: PaymentMethodRel | null
 	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel | null
 	tags?: TagRel[] | null
@@ -998,6 +1002,7 @@ interface OrderUpdate extends ResourceUpdate {
 	customer?: CustomerRel | null
 	shipping_address?: AddressRel | null
 	billing_address?: AddressRel | null
+	store?: StoreRel | null
 	payment_method?: PaymentMethodRel | null
 	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel | null
 	tags?: TagRel[] | null
@@ -1039,6 +1044,11 @@ class Orders extends ApiResource<Order> {
 	async billing_address(orderId: string | Order, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Address>({ type: 'addresses' }, `orders/${_orderId}/billing_address`, params, options) as unknown as Address
+	}
+
+	async store(orderId: string | Order, params?: QueryParamsRetrieve<Store>, options?: ResourcesConfig): Promise<Store> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<Store>({ type: 'stores' }, `orders/${_orderId}/store`, params, options) as unknown as Store
 	}
 
 	async available_payment_methods(orderId: string | Order, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
