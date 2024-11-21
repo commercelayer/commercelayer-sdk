@@ -4,7 +4,7 @@ import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter
 
 
 
-type OrganizationType = 'organization'
+type OrganizationType = 'organizations'
 type OrganizationRel = ResourceRel & { type: OrganizationType }
 
 
@@ -180,7 +180,7 @@ interface Organization extends Resource {
 
 class Organizations extends ApiSingleton<Organization> {
 
-	static readonly TYPE: OrganizationType = 'organization' as const
+	static readonly TYPE: OrganizationType = 'organizations' as const
 
 	
 
@@ -201,6 +201,10 @@ class Organizations extends ApiSingleton<Organization> {
 
 	type(): OrganizationType {
 		return Organizations.TYPE
+	}
+
+	path(): string {
+		return 'organization'
 	}
 
 }

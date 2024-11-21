@@ -4,7 +4,7 @@ import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter
 
 
 
-type ApplicationType = 'application'
+type ApplicationType = 'applications'
 type ApplicationRel = ResourceRel & { type: ApplicationType }
 
 
@@ -47,7 +47,7 @@ interface Application extends Resource {
 
 class Applications extends ApiSingleton<Application> {
 
-	static readonly TYPE: ApplicationType = 'application' as const
+	static readonly TYPE: ApplicationType = 'applications' as const
 
 	
 
@@ -68,6 +68,10 @@ class Applications extends ApiSingleton<Application> {
 
 	type(): ApplicationType {
 		return Applications.TYPE
+	}
+
+	path(): string {
+		return 'application'
 	}
 
 }

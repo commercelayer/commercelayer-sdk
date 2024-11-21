@@ -21,12 +21,20 @@ async function refreshToken(old: string): Promise<string> {
 	const config = await initConfig()
 	const cl = commercelayer(config)
 
-	cl.config({ refreshToken, fetch: customFetch })
-
+	// cl.config({ refreshToken, fetch: customFetch })
 	try {
 
-		const res = await (await cl.customers.list()).first()
-		console.log(res)
+		const org = await cl.organization.retrieve({ fields: ['name', 'slug']})
+		console.log(org)
+
+		const app = await cl.application.retrieve({ fields: ['name', 'kind']})
+		console.log(app)
+
+		const priceListIds = ['xlqjNCmDGL','vkmQxCWOAk']
+		for (const id of priceListIds) {
+			await cl.price_lists.delete(id)
+			console.log('Deleted price list ' + id)
+		}
 
 	} catch (error: any) {
 		handleError(error, true)

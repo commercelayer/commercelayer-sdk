@@ -15,7 +15,12 @@ export const getAccessToken = async (env?: string): Promise<AccessToken> => {
 
 export const initConfig = async (env?: string): Promise<CommerceLayerInitConfig> => {
 
-	let accessToken = process.env.CL_SDK_ACCESS_TOKEN
+	let accessToken
+	if (process.env.CL_SDK_ACCESS_TOKEN) {
+		accessToken = process.env.CL_SDK_ACCESS_TOKEN
+		console.log('ENV access token:')
+		console.log(accessToken)
+	}
 	// let organization = process.env.CL_SDK_ORGANIZATION
 
 	if (env || !accessToken) {

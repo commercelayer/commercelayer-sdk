@@ -201,9 +201,10 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const definitions: string[] = []
 	Object.entries(resources).forEach(([type, res]) => {
+		const fieldName = res.singleton? Inflector.singularize(type) : type
 		let def = defTpl
 		def = def.replace(/##__TAB__##/g, '\t')
-		def = def.replace(/##__RESOURCE_TYPE__##/, type)
+		def = def.replace(/##__RESOURCE_TYPE__##/, fieldName)
 		def = def.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
 		definitions.push(def)
 	})
@@ -220,9 +221,10 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const initializations: string[] = []
 	if (!CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+		const fieldName = res.singleton? Inflector.singularize(type) : type
 		let ini = iniTpl
 		ini = ini.replace(/##__TAB__##/g, '\t')
-		ini = ini.replace(/##__RESOURCE_TYPE__##/, type)
+		ini = ini.replace(/##__RESOURCE_TYPE__##/, fieldName)
 		ini = ini.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
 		initializations.push(ini)
 	})
@@ -239,9 +241,10 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const leazyLoaders: string[] = []
 	if (CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+		const fieldName = res.singleton? Inflector.singularize(type) : type
 		let ll = llTpl
 		ll = ll.replace(/##__TAB__##/g, '\t')
-		ll = ll.replace(/##__RESOURCE_TYPE__##/g, type)
+		ll = ll.replace(/##__RESOURCE_TYPE__##/g, fieldName)
 		ll = ll.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
 		leazyLoaders.push(ll)
 	})
@@ -669,6 +672,8 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	})
 
 
+	const singletonResource = (resModelType === 'ApiSingleton')
+
 	// Trigger functions (only boolean)
 	if (CONFIG.TRIGGER_FUNCTIONS) triggerFunctions(type, resName, resource, operations)
 
@@ -679,7 +684,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.size > 0) ? `, ${Array.from(resMod).join(', ')}` : '')
 	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, resModelInterface)
 	res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
-	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, (resModelType === 'ApiSingleton') ? '' : `, ${resModelInterface}Sort`)
+	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, singletonResource? '' : `, ${resModelInterface}Sort`)
 
 	const importQueryModels = (qryMod.size > 0) ? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
 	res = res.replace(/##__IMPORT_QUERY_MODELS__##/, importQueryModels)
@@ -736,6 +741,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		.map(i => `import type { ${i}${relationshipTypes.has(i) ? `, ${i}Type` : ''} } from './${Inflector.underscore(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
+
+	// Singleton path override
+	res = res.replace(/##__SINGLETON_PATH_OVERRIDE__##/, singletonResource? `\n\tpath(): string {\n\t\treturn '${Inflector.singularize(type)}'\n\t}\n`: '')
 
 	// Enum types definitions
 

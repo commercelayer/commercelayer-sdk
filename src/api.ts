@@ -12,7 +12,7 @@ export { default as Addresses } from './resources/addresses'
 export { default as Adjustments } from './resources/adjustments'
 export { default as AdyenGateways } from './resources/adyen_gateways'
 export { default as AdyenPayments } from './resources/adyen_payments'
-export { default as Applications } from './resources/application'
+export { default as Applications } from './resources/applications'
 export { default as Attachments } from './resources/attachments'
 export { default as Authorizations } from './resources/authorizations'
 export { default as AvalaraAccounts } from './resources/avalara_accounts'
@@ -76,7 +76,7 @@ export { default as OrderFactories } from './resources/order_factories'
 export { default as OrderSubscriptionItems } from './resources/order_subscription_items'
 export { default as OrderSubscriptions } from './resources/order_subscriptions'
 export { default as Orders } from './resources/orders'
-export { default as Organizations } from './resources/organization'
+export { default as Organizations } from './resources/organizations'
 export { default as Packages } from './resources/packages'
 export { default as ParcelLineItems } from './resources/parcel_line_items'
 export { default as Parcels } from './resources/parcels'
@@ -141,7 +141,7 @@ export type ResourceTypeLock =
 |	'adjustments'
 |	'adyen_gateways'
 |	'adyen_payments'
-|	'application'
+|	'applications'
 |	'attachments'
 |	'authorizations'
 |	'avalara_accounts'
@@ -205,7 +205,7 @@ export type ResourceTypeLock =
 |	'order_subscription_items'
 |	'order_subscriptions'
 |	'orders'
-|	'organization'
+|	'organizations'
 |	'packages'
 |	'parcel_line_items'
 |	'parcels'
@@ -264,13 +264,13 @@ export type ResourceTypeLock =
 // ##__API_RESOURCE_TYPES_STOP__##
 
 
-export const resourceList = [
+export const resourceList: ResourceTypeLock[] = [
 	// ##__API_RESOURCE_LIST_START__##
 	'addresses',
 	'adjustments',
 	'adyen_gateways',
 	'adyen_payments',
-	'application',
+	'applications',
 	'attachments',
 	'authorizations',
 	'avalara_accounts',
@@ -334,7 +334,7 @@ export const resourceList = [
 	'order_subscription_items',
 	'order_subscriptions',
 	'orders',
-	'organization',
+	'organizations',
 	'packages',
 	'parcel_line_items',
 	'parcels',
@@ -394,10 +394,10 @@ export const resourceList = [
 ] as const
 
 
-export const singletonList = [
+export const singletonList: ResourceTypeLock[] = [
 	// ##__API_RESOURCE_SINGLETON_START__##
-	'application',
-	'organization'
+	'applications',
+	'organizations'
 	// ##__API_RESOURCE_SINGLETON_STOP__##
 ] as const
 
@@ -428,8 +428,8 @@ export type RetrievableResource = Resource & {
 // Listable resources
 export type ListableResourceType = Exclude<ResourceTypeLock,
 	// ##__API_RESOURCE_NOT_LISTABLE_START__##
-	'application'
-|	'organization'
+	'applications'
+|	'organizations'
 // ##__API_RESOURCE_NOT_LISTABLE_STOP__##
 >
 
@@ -934,7 +934,7 @@ export type ResourceFields = {
 	adjustments: models.Adjustment,
 	adyen_gateways: models.AdyenGateway,
 	adyen_payments: models.AdyenPayment,
-	application: models.Application,
+	applications: models.Application,
 	attachments: models.Attachment,
 	authorizations: models.Authorization,
 	avalara_accounts: models.AvalaraAccount,
@@ -998,7 +998,7 @@ export type ResourceFields = {
 	order_subscription_items: models.OrderSubscriptionItem,
 	order_subscriptions: models.OrderSubscription,
 	orders: models.Order,
-	organization: models.Organization,
+	organizations: models.Organization,
 	packages: models.Package,
 	parcel_line_items: models.ParcelLineItem,
 	parcels: models.Parcel,
@@ -1064,7 +1064,7 @@ export type ResourceSortFields = {
 	adjustments: models.AdjustmentSort,
 	adyen_gateways: models.AdyenGatewaySort,
 	adyen_payments: models.AdyenPaymentSort,
-	application: models.ApplicationSort,
+	applications: models.ApplicationSort,
 	attachments: models.AttachmentSort,
 	authorizations: models.AuthorizationSort,
 	avalara_accounts: models.AvalaraAccountSort,
@@ -1128,7 +1128,7 @@ export type ResourceSortFields = {
 	order_subscription_items: models.OrderSubscriptionItemSort,
 	order_subscriptions: models.OrderSubscriptionSort,
 	orders: models.OrderSort,
-	organization: models.OrganizationSort,
+	organizations: models.OrganizationSort,
 	packages: models.PackageSort,
 	parcel_line_items: models.ParcelLineItemSort,
 	parcels: models.ParcelSort,

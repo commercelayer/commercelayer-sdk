@@ -18,7 +18,7 @@ beforeAll(async () => { cl = await getClient() })
 
 describe('Organizations resource', () => {
 
-  const resourceType = 'organization'
+  const resourceType = 'organizations'
 
 
   /* spec.singleton.start */

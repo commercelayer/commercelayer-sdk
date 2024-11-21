@@ -18,7 +18,7 @@ export const CommerceLayerStatic = {
 	},
 
 	isSingleton: (resource: ResourceTypeLock): boolean => {
-		return (singletonList as unknown as ResourceTypeLock[]).includes(resource)
+		return singletonList.includes(resource)
 	},
 
 	isSdkError: (error: unknown): error is SdkError => {

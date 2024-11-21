@@ -143,14 +143,14 @@ class ResourceAdapter {
 
 
 
-	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
+	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig, path?: string): Promise<R> {
 
 		debug('singleton: %o, %O, %O', resource, params || {}, options || {})
 
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const res = await this.#client.request('GET', `${resource.type}`, undefined, { ...options, params: queryParams })
+		const res = await this.#client.request('GET', `${path || resource.type}`, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
@@ -286,6 +286,10 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	abstract type(): ResourceTypeLock
 
+	protected path(): string {
+		return this.type()
+	}
+
 
 
 	// reference, reference_origin and metadata attributes are always updatable
@@ -318,7 +322,7 @@ abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 	async retrieve(params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
-		return this.resources.singleton<R>({ type: this.type() }, params, options)
+		return this.resources.singleton<R>({ type: this.type() }, params, options, this.path())
 	}
 
 }
