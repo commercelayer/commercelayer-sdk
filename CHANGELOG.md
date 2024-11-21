@@ -1,3 +1,11 @@
+## [6.25.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.25.0...v6.25.1) (2024-11-21)
+
+
+### Bug Fixes
+
+* fix singleton specs ([2a2b4fd](https://github.com/commercelayer/commercelayer-sdk/commit/2a2b4fd194092b52657011f118ac057f72f3c94d))
+* fix singletons resource type ([9c45250](https://github.com/commercelayer/commercelayer-sdk/commit/9c452502f60616cf7482d12abe20f203d64fc2fd))
+
 # [6.25.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.24.2...v6.25.0) (2024-11-06)
 
 
