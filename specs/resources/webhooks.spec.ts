@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('Webhooks resource', () => {
 
   const resourceType = 'webhooks'
+  const resourcePath = 'webhooks'
 
 
   /* spec.create.start */
@@ -36,13 +37,13 @@ describe('Webhooks resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourceType].isWebhook(data.data)).toBeTruthy()
+      expect(cl[resourcePath].isWebhook(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, params, CommonData.options)
+    await cl[resourcePath].create(resData, params, CommonData.options)
       .then((res: Webhook) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -59,12 +60,12 @@ describe('Webhooks resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: Webhook) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -83,12 +84,12 @@ describe('Webhooks resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('PATCH')
-      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
       checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, params, CommonData.options)
+    await cl[resourcePath].update(resData, params, CommonData.options)
       .then((res: Webhook) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -104,11 +105,11 @@ describe('Webhooks resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('DELETE')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       return interceptRequest()
     })
 
-    await cl[resourceType].delete(id, CommonData.options)
+    await cl[resourcePath].delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -123,12 +124,12 @@ describe('Webhooks resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -140,9 +141,9 @@ describe('Webhooks resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isWebhook(resource)).toBeTruthy()
+    expect(cl[resourcePath].isWebhook(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -152,10 +153,10 @@ describe('Webhooks resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
+    const relId = cl[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -190,7 +191,7 @@ describe('Webhooks resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as Webhook
+    const res = cl[resourcePath].parse(payload) as Webhook
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -209,12 +210,12 @@ describe('Webhooks resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'last_event_callbacks')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'last_event_callbacks')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].last_event_callbacks(id, params, CommonData.options)
+		await cl[resourcePath].last_event_callbacks(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -230,12 +231,12 @@ describe('Webhooks resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -257,12 +258,12 @@ describe('Webhooks resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._disable(id, {}, CommonData.options)
+		await cl[resourcePath]._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -283,12 +284,12 @@ describe('Webhooks resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._enable(id, {}, CommonData.options)
+		await cl[resourcePath]._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -309,12 +310,12 @@ describe('Webhooks resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._reset_circuit(id, {}, CommonData.options)
+		await cl[resourcePath]._reset_circuit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('Markets resource', () => {
 
   const resourceType = 'markets'
+  const resourcePath = 'markets'
 
 
   /* spec.create.start */
@@ -42,13 +43,13 @@ describe('Markets resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourceType].isMarket(data.data)).toBeTruthy()
+      expect(cl[resourcePath].isMarket(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, params, CommonData.options)
+    await cl[resourcePath].create(resData, params, CommonData.options)
       .then((res: Market) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -65,12 +66,12 @@ describe('Markets resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: Market) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -89,12 +90,12 @@ describe('Markets resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('PATCH')
-      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
       checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, params, CommonData.options)
+    await cl[resourcePath].update(resData, params, CommonData.options)
       .then((res: Market) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -110,11 +111,11 @@ describe('Markets resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('DELETE')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       return interceptRequest()
     })
 
-    await cl[resourceType].delete(id, CommonData.options)
+    await cl[resourcePath].delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -129,12 +130,12 @@ describe('Markets resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -146,9 +147,9 @@ describe('Markets resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isMarket(resource)).toBeTruthy()
+    expect(cl[resourcePath].isMarket(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -158,10 +159,10 @@ describe('Markets resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
+    const relId = cl[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -196,7 +197,7 @@ describe('Markets resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as Market
+    const res = cl[resourcePath].parse(payload) as Market
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -215,12 +216,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'merchant')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'merchant')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].merchant(id, params, CommonData.options)
+		await cl[resourcePath].merchant(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -236,12 +237,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'price_list')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'price_list')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].price_list(id, params, CommonData.options)
+		await cl[resourcePath].price_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -257,12 +258,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'base_price_list')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'base_price_list')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].base_price_list(id, params, CommonData.options)
+		await cl[resourcePath].base_price_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -278,12 +279,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'inventory_model')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'inventory_model')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].inventory_model(id, params, CommonData.options)
+		await cl[resourcePath].inventory_model(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -299,12 +300,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'subscription_model')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'subscription_model')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].subscription_model(id, params, CommonData.options)
+		await cl[resourcePath].subscription_model(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -320,12 +321,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'tax_calculator')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'tax_calculator')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].tax_calculator(id, params, CommonData.options)
+		await cl[resourcePath].tax_calculator(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -341,12 +342,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'customer_group')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'customer_group')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].customer_group(id, params, CommonData.options)
+		await cl[resourcePath].customer_group(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -362,12 +363,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'geocoder')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'geocoder')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].geocoder(id, params, CommonData.options)
+		await cl[resourcePath].geocoder(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -383,12 +384,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'stores')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'stores')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].stores(id, params, CommonData.options)
+		await cl[resourcePath].stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -404,12 +405,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'price_list_schedulers')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'price_list_schedulers')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].price_list_schedulers(id, params, CommonData.options)
+		await cl[resourcePath].price_list_schedulers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -425,12 +426,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'attachments')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourcePath].attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -446,12 +447,12 @@ describe('Markets resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -473,12 +474,12 @@ describe('Markets resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._disable(id, {}, CommonData.options)
+		await cl[resourcePath]._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -499,12 +500,12 @@ describe('Markets resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._enable(id, {}, CommonData.options)
+		await cl[resourcePath]._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

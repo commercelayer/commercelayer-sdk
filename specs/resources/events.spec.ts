@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('Events resource', () => {
 
   const resourceType = 'events'
+  const resourcePath = 'events'
 
 
   /* spec.retrieve.start */
@@ -29,12 +30,12 @@ describe('Events resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: Event) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -53,12 +54,12 @@ describe('Events resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('PATCH')
-      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
       checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, params, CommonData.options)
+    await cl[resourcePath].update(resData, params, CommonData.options)
       .then((res: Event) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -74,12 +75,12 @@ describe('Events resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -91,9 +92,9 @@ describe('Events resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isEvent(resource)).toBeTruthy()
+    expect(cl[resourcePath].isEvent(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -103,10 +104,10 @@ describe('Events resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
+    const relId = cl[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -141,7 +142,7 @@ describe('Events resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as Event
+    const res = cl[resourcePath].parse(payload) as Event
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -160,12 +161,12 @@ describe('Events resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'webhooks')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'webhooks')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].webhooks(id, params, CommonData.options)
+		await cl[resourcePath].webhooks(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -181,12 +182,12 @@ describe('Events resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'last_event_callbacks')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'last_event_callbacks')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].last_event_callbacks(id, params, CommonData.options)
+		await cl[resourcePath].last_event_callbacks(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -208,12 +209,12 @@ describe('Events resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._trigger(id, {}, CommonData.options)
+		await cl[resourcePath]._trigger(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

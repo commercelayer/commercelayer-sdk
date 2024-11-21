@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('CouponCodesPromotionRules resource', () => {
 
   const resourceType = 'coupon_codes_promotion_rules'
+  const resourcePath = 'coupon_codes_promotion_rules'
 
 
   /* spec.create.start */
@@ -36,13 +37,13 @@ describe('CouponCodesPromotionRules resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourceType].isCouponCodesPromotionRule(data.data)).toBeTruthy()
+      expect(cl[resourcePath].isCouponCodesPromotionRule(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, params, CommonData.options)
+    await cl[resourcePath].create(resData, params, CommonData.options)
       .then((res: CouponCodesPromotionRule) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -59,12 +60,12 @@ describe('CouponCodesPromotionRules resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: CouponCodesPromotionRule) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -83,12 +84,12 @@ describe('CouponCodesPromotionRules resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('PATCH')
-      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
       checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, params, CommonData.options)
+    await cl[resourcePath].update(resData, params, CommonData.options)
       .then((res: CouponCodesPromotionRule) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -104,11 +105,11 @@ describe('CouponCodesPromotionRules resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('DELETE')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       return interceptRequest()
     })
 
-    await cl[resourceType].delete(id, CommonData.options)
+    await cl[resourcePath].delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -123,12 +124,12 @@ describe('CouponCodesPromotionRules resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -140,9 +141,9 @@ describe('CouponCodesPromotionRules resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isCouponCodesPromotionRule(resource)).toBeTruthy()
+    expect(cl[resourcePath].isCouponCodesPromotionRule(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -152,10 +153,10 @@ describe('CouponCodesPromotionRules resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
+    const relId = cl[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -190,7 +191,7 @@ describe('CouponCodesPromotionRules resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as CouponCodesPromotionRule
+    const res = cl[resourcePath].parse(payload) as CouponCodesPromotionRule
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -209,12 +210,12 @@ describe('CouponCodesPromotionRules resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -230,12 +231,12 @@ describe('CouponCodesPromotionRules resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'coupons')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'coupons')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].coupons(id, params, CommonData.options)
+		await cl[resourcePath].coupons(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

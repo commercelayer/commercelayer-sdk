@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('CustomerGroups resource', () => {
 
   const resourceType = 'customer_groups'
+  const resourcePath = 'customer_groups'
 
 
   /* spec.create.start */
@@ -35,13 +36,13 @@ describe('CustomerGroups resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourceType].isCustomerGroup(data.data)).toBeTruthy()
+      expect(cl[resourcePath].isCustomerGroup(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, params, CommonData.options)
+    await cl[resourcePath].create(resData, params, CommonData.options)
       .then((res: CustomerGroup) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -58,12 +59,12 @@ describe('CustomerGroups resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: CustomerGroup) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -82,12 +83,12 @@ describe('CustomerGroups resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('PATCH')
-      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
       checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, params, CommonData.options)
+    await cl[resourcePath].update(resData, params, CommonData.options)
       .then((res: CustomerGroup) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -103,11 +104,11 @@ describe('CustomerGroups resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('DELETE')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       return interceptRequest()
     })
 
-    await cl[resourceType].delete(id, CommonData.options)
+    await cl[resourcePath].delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -122,12 +123,12 @@ describe('CustomerGroups resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -139,9 +140,9 @@ describe('CustomerGroups resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isCustomerGroup(resource)).toBeTruthy()
+    expect(cl[resourcePath].isCustomerGroup(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -151,10 +152,10 @@ describe('CustomerGroups resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
+    const relId = cl[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -189,7 +190,7 @@ describe('CustomerGroups resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as CustomerGroup
+    const res = cl[resourcePath].parse(payload) as CustomerGroup
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -208,12 +209,12 @@ describe('CustomerGroups resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'customers')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'customers')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].customers(id, params, CommonData.options)
+		await cl[resourcePath].customers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -229,12 +230,12 @@ describe('CustomerGroups resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'markets')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'markets')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].markets(id, params, CommonData.options)
+		await cl[resourcePath].markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -250,12 +251,12 @@ describe('CustomerGroups resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'attachments')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourcePath].attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -271,12 +272,12 @@ describe('CustomerGroups resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

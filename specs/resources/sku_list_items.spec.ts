@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('SkuListItems resource', () => {
 
   const resourceType = 'sku_list_items'
+  const resourcePath = 'sku_list_items'
 
 
   /* spec.create.start */
@@ -36,13 +37,13 @@ describe('SkuListItems resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourceType].isSkuListItem(data.data)).toBeTruthy()
+      expect(cl[resourcePath].isSkuListItem(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, params, CommonData.options)
+    await cl[resourcePath].create(resData, params, CommonData.options)
       .then((res: SkuListItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -59,12 +60,12 @@ describe('SkuListItems resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: SkuListItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -83,12 +84,12 @@ describe('SkuListItems resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('PATCH')
-      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
       checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, params, CommonData.options)
+    await cl[resourcePath].update(resData, params, CommonData.options)
       .then((res: SkuListItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -104,11 +105,11 @@ describe('SkuListItems resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('DELETE')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       return interceptRequest()
     })
 
-    await cl[resourceType].delete(id, CommonData.options)
+    await cl[resourcePath].delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -123,12 +124,12 @@ describe('SkuListItems resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -140,9 +141,9 @@ describe('SkuListItems resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isSkuListItem(resource)).toBeTruthy()
+    expect(cl[resourcePath].isSkuListItem(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -152,10 +153,10 @@ describe('SkuListItems resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
+    const relId = cl[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -190,7 +191,7 @@ describe('SkuListItems resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as SkuListItem
+    const res = cl[resourcePath].parse(payload) as SkuListItem
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -209,12 +210,12 @@ describe('SkuListItems resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'sku_list')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'sku_list')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].sku_list(id, params, CommonData.options)
+		await cl[resourcePath].sku_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -230,12 +231,12 @@ describe('SkuListItems resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'sku')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'sku')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].sku(id, params, CommonData.options)
+		await cl[resourcePath].sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -251,12 +252,12 @@ describe('SkuListItems resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

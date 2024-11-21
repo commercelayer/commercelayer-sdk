@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('OrderSubscriptions resource', () => {
 
   const resourceType = 'order_subscriptions'
+  const resourcePath = 'order_subscriptions'
 
 
   /* spec.create.start */
@@ -38,13 +39,13 @@ describe('OrderSubscriptions resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourceType].isOrderSubscription(data.data)).toBeTruthy()
+      expect(cl[resourcePath].isOrderSubscription(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, params, CommonData.options)
+    await cl[resourcePath].create(resData, params, CommonData.options)
       .then((res: OrderSubscription) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -61,12 +62,12 @@ describe('OrderSubscriptions resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: OrderSubscription) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -85,12 +86,12 @@ describe('OrderSubscriptions resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('PATCH')
-      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
       checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, params, CommonData.options)
+    await cl[resourcePath].update(resData, params, CommonData.options)
       .then((res: OrderSubscription) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -106,11 +107,11 @@ describe('OrderSubscriptions resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('DELETE')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       return interceptRequest()
     })
 
-    await cl[resourceType].delete(id, CommonData.options)
+    await cl[resourcePath].delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -125,12 +126,12 @@ describe('OrderSubscriptions resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -142,9 +143,9 @@ describe('OrderSubscriptions resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isOrderSubscription(resource)).toBeTruthy()
+    expect(cl[resourcePath].isOrderSubscription(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,10 +155,10 @@ describe('OrderSubscriptions resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
+    const relId = cl[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -192,7 +193,7 @@ describe('OrderSubscriptions resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as OrderSubscription
+    const res = cl[resourcePath].parse(payload) as OrderSubscription
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -211,12 +212,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'market')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'market')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].market(id, params, CommonData.options)
+		await cl[resourcePath].market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -232,12 +233,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'subscription_model')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'subscription_model')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].subscription_model(id, params, CommonData.options)
+		await cl[resourcePath].subscription_model(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -253,12 +254,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'source_order')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'source_order')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].source_order(id, params, CommonData.options)
+		await cl[resourcePath].source_order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -274,12 +275,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'customer')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'customer')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].customer(id, params, CommonData.options)
+		await cl[resourcePath].customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -295,12 +296,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'customer_payment_source')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'customer_payment_source')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].customer_payment_source(id, params, CommonData.options)
+		await cl[resourcePath].customer_payment_source(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -316,12 +317,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'order_subscription_items')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'order_subscription_items')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].order_subscription_items(id, params, CommonData.options)
+		await cl[resourcePath].order_subscription_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -337,12 +338,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'order_factories')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'order_factories')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].order_factories(id, params, CommonData.options)
+		await cl[resourcePath].order_factories(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -358,12 +359,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'recurring_order_copies')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'recurring_order_copies')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].recurring_order_copies(id, params, CommonData.options)
+		await cl[resourcePath].recurring_order_copies(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -379,12 +380,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'orders')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'orders')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].orders(id, params, CommonData.options)
+		await cl[resourcePath].orders(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -400,12 +401,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'events')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].events(id, params, CommonData.options)
+		await cl[resourcePath].events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -421,12 +422,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'tags')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'tags')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].tags(id, params, CommonData.options)
+		await cl[resourcePath].tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -442,12 +443,12 @@ describe('OrderSubscriptions resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -469,12 +470,12 @@ describe('OrderSubscriptions resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._activate(id, {}, CommonData.options)
+		await cl[resourcePath]._activate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -495,12 +496,12 @@ describe('OrderSubscriptions resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._deactivate(id, {}, CommonData.options)
+		await cl[resourcePath]._deactivate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -521,12 +522,12 @@ describe('OrderSubscriptions resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._cancel(id, {}, CommonData.options)
+		await cl[resourcePath]._cancel(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -547,12 +548,12 @@ describe('OrderSubscriptions resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._convert(id, {}, CommonData.options)
+		await cl[resourcePath]._convert(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

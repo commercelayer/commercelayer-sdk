@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('StockTransfers resource', () => {
 
   const resourceType = 'stock_transfers'
+  const resourcePath = 'stock_transfers'
 
 
   /* spec.create.start */
@@ -40,13 +41,13 @@ describe('StockTransfers resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourceType].isStockTransfer(data.data)).toBeTruthy()
+      expect(cl[resourcePath].isStockTransfer(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, params, CommonData.options)
+    await cl[resourcePath].create(resData, params, CommonData.options)
       .then((res: StockTransfer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -63,12 +64,12 @@ describe('StockTransfers resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: StockTransfer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -87,12 +88,12 @@ describe('StockTransfers resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('PATCH')
-      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
       checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, params, CommonData.options)
+    await cl[resourcePath].update(resData, params, CommonData.options)
       .then((res: StockTransfer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -108,11 +109,11 @@ describe('StockTransfers resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('DELETE')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       return interceptRequest()
     })
 
-    await cl[resourceType].delete(id, CommonData.options)
+    await cl[resourcePath].delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -127,12 +128,12 @@ describe('StockTransfers resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -144,9 +145,9 @@ describe('StockTransfers resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isStockTransfer(resource)).toBeTruthy()
+    expect(cl[resourcePath].isStockTransfer(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -156,10 +157,10 @@ describe('StockTransfers resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
+    const relId = cl[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -194,7 +195,7 @@ describe('StockTransfers resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as StockTransfer
+    const res = cl[resourcePath].parse(payload) as StockTransfer
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -213,12 +214,12 @@ describe('StockTransfers resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'sku')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'sku')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].sku(id, params, CommonData.options)
+		await cl[resourcePath].sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -234,12 +235,12 @@ describe('StockTransfers resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'origin_stock_location')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'origin_stock_location')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].origin_stock_location(id, params, CommonData.options)
+		await cl[resourcePath].origin_stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -255,12 +256,12 @@ describe('StockTransfers resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'destination_stock_location')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'destination_stock_location')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].destination_stock_location(id, params, CommonData.options)
+		await cl[resourcePath].destination_stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -276,12 +277,12 @@ describe('StockTransfers resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'shipment')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'shipment')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].shipment(id, params, CommonData.options)
+		await cl[resourcePath].shipment(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -297,12 +298,12 @@ describe('StockTransfers resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'line_item')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'line_item')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].line_item(id, params, CommonData.options)
+		await cl[resourcePath].line_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -318,12 +319,12 @@ describe('StockTransfers resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'stock_reservation')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'stock_reservation')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].stock_reservation(id, params, CommonData.options)
+		await cl[resourcePath].stock_reservation(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -339,12 +340,12 @@ describe('StockTransfers resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'attachments')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourcePath].attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -360,12 +361,12 @@ describe('StockTransfers resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'events')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'events')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].events(id, params, CommonData.options)
+		await cl[resourcePath].events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -381,12 +382,12 @@ describe('StockTransfers resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -408,12 +409,12 @@ describe('StockTransfers resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._upcoming(id, {}, CommonData.options)
+		await cl[resourcePath]._upcoming(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -434,12 +435,12 @@ describe('StockTransfers resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._on_hold(id, {}, CommonData.options)
+		await cl[resourcePath]._on_hold(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -460,12 +461,12 @@ describe('StockTransfers resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._picking(id, {}, CommonData.options)
+		await cl[resourcePath]._picking(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -486,12 +487,12 @@ describe('StockTransfers resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._in_transit(id, {}, CommonData.options)
+		await cl[resourcePath]._in_transit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -512,12 +513,12 @@ describe('StockTransfers resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._complete(id, {}, CommonData.options)
+		await cl[resourcePath]._complete(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -538,12 +539,12 @@ describe('StockTransfers resource', () => {
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._cancel(id, {}, CommonData.options)
+		await cl[resourcePath]._cancel(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

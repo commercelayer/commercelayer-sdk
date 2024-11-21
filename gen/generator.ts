@@ -16,6 +16,7 @@ export const CONFIG = {
 }
 /**** **** **** **** **** **** **** **** ****/
 
+
 const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
 
@@ -460,10 +461,15 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	const allOperations = ['list', 'create', 'retrieve', 'update', 'delete', 'singleton']
 
+	let singleton = false
+
 	// Generate CRUD operations specs
 	allOperations.forEach(op => {
 		if (!Object.values(resource.operations).map(o => {
-			if ((o.name === 'list') && o.singleton) return 'singleton'
+			if ((o.name === 'list') && o.singleton) {
+				singleton = true
+				return 'singleton'
+			}
 			else return o.name
 		}).includes(op)) {
 			const opStartIdx = findLine(`spec.${op}.start`, lines).index - 2
@@ -519,6 +525,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
 	spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
+	spec = spec.replace(/##__RESOURCE_PATH__##/g, singleton? Inflector.singularize(type) : type)
 	// Clear unused placeholders
 	spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '')
 	spec = spec.replace(/##__TRIGGER_SPECS__##/g, '')

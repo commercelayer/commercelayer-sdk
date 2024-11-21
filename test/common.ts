@@ -150,8 +150,8 @@ export { handleError, interceptRequest, randomValue }
 
 
 
-const checkCommon = (request: RequestObj, type: string, id?: string, token?: string, relationship?: string) => {
-	expect(request.url.pathname).toBe('/api/' + type + (id ? `/${id}` : '') + (relationship ? `/${relationship}`: ''))
+const checkCommon = (request: RequestObj, path: string, id?: string, token?: string, relationship?: string) => {
+	expect(request.url.pathname).toBe('/api/' + path + (id ? `/${id}` : '') + (relationship ? `/${relationship}`: ''))
 	expect(request.options.headers).toBeDefined()
 	if (request.options.headers) expect(request.options.headers['Authorization']).toContain('Bearer ' + (token || ''))
 	expect(request.options.signal).not.toBeNull()
