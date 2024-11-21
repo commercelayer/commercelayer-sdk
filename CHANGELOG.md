@@ -1,3 +1,16 @@
+# [6.25.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.24.2...v6.25.0) (2024-11-06)
+
+
+### Bug Fixes
+
+* fix errors spec ([43c668c](https://github.com/commercelayer/commercelayer-sdk/commit/43c668c88b1ddae9e55722f712018e64ad14770a))
+
+
+### Features
+
+* add request to fetch error and test spec ([10f44e6](https://github.com/commercelayer/commercelayer-sdk/commit/10f44e6a458ce0d7485e6e082fae73a3e2b83b33))
+* update resources to schema v7.4.0 ([75d00dd](https://github.com/commercelayer/commercelayer-sdk/commit/75d00ddba19faba0c74a20c0a1812b99ebc5d6c8))
+
 ## [6.24.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.24.1...v6.24.2) (2024-10-30)
 
 
