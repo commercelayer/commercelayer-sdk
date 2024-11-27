@@ -508,11 +508,9 @@ In this case you can define a special function that takes care of refreshing the
 
 ## Need help?
 
-1. Join [Commerce Layer's Slack community](https://slack.commercelayer.app).
-
-2. Create an [issue](https://github.com/commercelayer/commercelayer-sdk/issues) in this repository.
-
-3. Ping us [on Twitter](https://twitter.com/commercelayer).
+- Join [Commerce Layer's Discord community](https://discord.gg/commercelayer).
+- Ping us on [Bluesky](https://bsky.app/profile/commercelayer.io), [X (formerly Twitter)](https://x.com/commercelayer), or [LinkedIn](https://www.linkedin.com/company/commerce-layer).
+- Is there a bug? Create an [issue](https://github.com/commercelayer/commercelayer-sdk/issues) on this repository.
 
 ## License
 
