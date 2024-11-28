@@ -70,9 +70,10 @@ const isTimeoutError = (error: any): boolean => {
 }
 
 const isExpiredTokenError = (error: any): boolean => {
+	const invalidTokenCodes = ['INVALID_TOKEN'/*, 'UNAUTHORIZED' */]
 	return (ApiError.isApiError(error) && (error.status === 401) && (
-		['INVALID_TOKEN', 'UNAUTHORIZED'].includes(error.code || '') ||
-		(error.errors && (error.errors.length > 0) && ['INVALID_TOKEN', 'UNAUTHORIZED'].includes(error.errors[0].code as string))
+		invalidTokenCodes.includes(error.code || '') ||
+		(error.errors && (error.errors.length > 0) && invalidTokenCodes.includes(error.errors[0].code as string))
 	))
 }
 
