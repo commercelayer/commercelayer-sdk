@@ -1,3 +1,10 @@
+## [6.25.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.25.1...v6.25.2) (2024-11-29)
+
+
+### Bug Fixes
+
+* fix invalid token error codes ([a43db15](https://github.com/commercelayer/commercelayer-sdk/commit/a43db152a4b73f65cfa8b688a86c288247546ceb))
+
 ## [6.25.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.25.0...v6.25.1) (2024-11-21)
 
 
