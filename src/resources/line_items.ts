@@ -8,6 +8,7 @@ import type { ReturnLineItem } from './return_line_items'
 import type { StockReservation } from './stock_reservations'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
+import type { Notification } from './notifications'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Sku, SkuType } from './skus'
@@ -80,7 +81,7 @@ interface LineItem extends Resource {
 	 */
 	currency_code?: string | null
 	/** 
-	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods.
+	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods. Cannot be passed by sales channels.
 	 * @example ```"10000"```
 	 */
 	unit_amount_cents?: number | null
@@ -195,10 +196,10 @@ interface LineItem extends Resource {
 	 */
 	tax_breakdown?: Record<string, any> | null
 	/** 
-	 * The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.
+	 * The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'discount_engine_items', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.
 	 * @example ```"skus"```
 	 */
-	item_type?: 'skus' | 'bundles' | 'gift_cards' | 'shipments' | 'payment_methods' | 'adjustments' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'buy_x_pay_y_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | 'flex_promotions' | null
+	item_type?: 'skus' | 'bundles' | 'gift_cards' | 'shipments' | 'payment_methods' | 'adjustments' | 'discount_engine_items' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'buy_x_pay_y_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | 'flex_promotions' | null
 	/** 
 	 * The frequency which generates a subscription. Must be supported by existing associated subscription_model.
 	 * @example ```"monthly"```
@@ -233,6 +234,7 @@ interface LineItem extends Resource {
 	stock_reservations?: StockReservation[] | null
 	stock_line_items?: StockLineItem[] | null
 	stock_transfers?: StockTransfer[] | null
+	notifications?: Notification[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
 
@@ -272,7 +274,7 @@ interface LineItemCreate extends ResourceCreate {
 	 */
 	_reserve_stock?: boolean | null
 	/** 
-	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods.
+	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods. Cannot be passed by sales channels.
 	 * @example ```"10000"```
 	 */
 	unit_amount_cents?: number | null
@@ -292,10 +294,10 @@ interface LineItemCreate extends ResourceCreate {
 	 */
 	image_url?: string | null
 	/** 
-	 * The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.
+	 * The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'discount_engine_items', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.
 	 * @example ```"skus"```
 	 */
-	item_type?: 'skus' | 'bundles' | 'gift_cards' | 'shipments' | 'payment_methods' | 'adjustments' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'buy_x_pay_y_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | 'flex_promotions' | null
+	item_type?: 'skus' | 'bundles' | 'gift_cards' | 'shipments' | 'payment_methods' | 'adjustments' | 'discount_engine_items' | 'percentage_discount_promotions' | 'free_shipping_promotions' | 'buy_x_pay_y_promotions' | 'free_gift_promotions' | 'fixed_price_promotions' | 'external_promotions' | 'fixed_amount_promotions' | 'flex_promotions' | null
 	/** 
 	 * The frequency which generates a subscription. Must be supported by existing associated subscription_model.
 	 * @example ```"monthly"```
@@ -337,7 +339,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	 */
 	_reserve_stock?: boolean | null
 	/** 
-	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods.
+	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods. Cannot be passed by sales channels.
 	 * @example ```"10000"```
 	 */
 	unit_amount_cents?: number | null
@@ -421,6 +423,11 @@ class LineItems extends ApiResource<LineItem> {
 	async stock_transfers(lineItemId: string | LineItem, params?: QueryParamsList<StockTransfer>, options?: ResourcesConfig): Promise<ListResponse<StockTransfer>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
 		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `line_items/${_lineItemId}/stock_transfers`, params, options) as unknown as ListResponse<StockTransfer>
+	}
+
+	async notifications(lineItemId: string | LineItem, params?: QueryParamsList<Notification>, options?: ResourcesConfig): Promise<ListResponse<Notification>> {
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
+		return this.resources.fetch<Notification>({ type: 'notifications' }, `line_items/${_lineItemId}/notifications`, params, options) as unknown as ListResponse<Notification>
 	}
 
 	async events(lineItemId: string | LineItem, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {

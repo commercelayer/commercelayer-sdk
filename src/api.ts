@@ -18,7 +18,6 @@ export { default as Authorizations } from './resources/authorizations'
 export { default as AvalaraAccounts } from './resources/avalara_accounts'
 export { default as AxerveGateways } from './resources/axerve_gateways'
 export { default as AxervePayments } from './resources/axerve_payments'
-export { default as BillingInfoValidationRules } from './resources/billing_info_validation_rules'
 export { default as BingGeocoders } from './resources/bing_geocoders'
 export { default as BraintreeGateways } from './resources/braintree_gateways'
 export { default as BraintreePayments } from './resources/braintree_payments'
@@ -70,6 +69,7 @@ export { default as ManualGateways } from './resources/manual_gateways'
 export { default as ManualTaxCalculators } from './resources/manual_tax_calculators'
 export { default as Markets } from './resources/markets'
 export { default as Merchants } from './resources/merchants'
+export { default as Notifications } from './resources/notifications'
 export { default as OrderAmountPromotionRules } from './resources/order_amount_promotion_rules'
 export { default as OrderCopies } from './resources/order_copies'
 export { default as OrderFactories } from './resources/order_factories'
@@ -147,7 +147,6 @@ export type ResourceTypeLock =
 |	'avalara_accounts'
 |	'axerve_gateways'
 |	'axerve_payments'
-|	'billing_info_validation_rules'
 |	'bing_geocoders'
 |	'braintree_gateways'
 |	'braintree_payments'
@@ -199,6 +198,7 @@ export type ResourceTypeLock =
 |	'manual_tax_calculators'
 |	'markets'
 |	'merchants'
+|	'notifications'
 |	'order_amount_promotion_rules'
 |	'order_copies'
 |	'order_factories'
@@ -276,7 +276,6 @@ export const resourceList: ResourceTypeLock[] = [
 	'avalara_accounts',
 	'axerve_gateways',
 	'axerve_payments',
-	'billing_info_validation_rules',
 	'bing_geocoders',
 	'braintree_gateways',
 	'braintree_payments',
@@ -328,6 +327,7 @@ export const resourceList: ResourceTypeLock[] = [
 	'manual_tax_calculators',
 	'markets',
 	'merchants',
+	'notifications',
 	'order_amount_promotion_rules',
 	'order_copies',
 	'order_factories',
@@ -449,7 +449,6 @@ export type CreatableResourceType =
 |	'avalara_accounts'
 |	'axerve_gateways'
 |	'axerve_payments'
-|	'billing_info_validation_rules'
 |	'bing_geocoders'
 |	'braintree_gateways'
 |	'braintree_payments'
@@ -497,6 +496,7 @@ export type CreatableResourceType =
 |	'manual_tax_calculators'
 |	'markets'
 |	'merchants'
+|	'notifications'
 |	'order_amount_promotion_rules'
 |	'order_copies'
 |	'order_subscription_items'
@@ -564,7 +564,6 @@ export type UpdatableResourceType =
 |	'avalara_accounts'
 |	'axerve_gateways'
 |	'axerve_payments'
-|	'billing_info_validation_rules'
 |	'bing_geocoders'
 |	'braintree_gateways'
 |	'braintree_payments'
@@ -614,6 +613,7 @@ export type UpdatableResourceType =
 |	'manual_tax_calculators'
 |	'markets'
 |	'merchants'
+|	'notifications'
 |	'order_amount_promotion_rules'
 |	'order_copies'
 |	'order_subscription_items'
@@ -682,7 +682,6 @@ export type DeletableResourceType =
 |	'avalara_accounts'
 |	'axerve_gateways'
 |	'axerve_payments'
-|	'billing_info_validation_rules'
 |	'bing_geocoders'
 |	'braintree_gateways'
 |	'braintree_payments'
@@ -730,6 +729,7 @@ export type DeletableResourceType =
 |	'manual_tax_calculators'
 |	'markets'
 |	'merchants'
+|	'notifications'
 |	'order_amount_promotion_rules'
 |	'order_copies'
 |	'order_subscription_items'
@@ -829,7 +829,6 @@ export type VersionableResourceType =
 |	'avalara_accounts'
 |	'axerve_gateways'
 |	'axerve_payments'
-|	'billing_info_validation_rules'
 |	'braintree_gateways'
 |	'braintree_payments'
 |	'bundles'
@@ -940,7 +939,6 @@ export type ResourceFields = {
 	avalara_accounts: models.AvalaraAccount,
 	axerve_gateways: models.AxerveGateway,
 	axerve_payments: models.AxervePayment,
-	billing_info_validation_rules: models.BillingInfoValidationRule,
 	bing_geocoders: models.BingGeocoder,
 	braintree_gateways: models.BraintreeGateway,
 	braintree_payments: models.BraintreePayment,
@@ -992,6 +990,7 @@ export type ResourceFields = {
 	manual_tax_calculators: models.ManualTaxCalculator,
 	markets: models.Market,
 	merchants: models.Merchant,
+	notifications: models.Notification,
 	order_amount_promotion_rules: models.OrderAmountPromotionRule,
 	order_copies: models.OrderCopy,
 	order_factories: models.OrderFactory,
@@ -1070,7 +1069,6 @@ export type ResourceSortFields = {
 	avalara_accounts: models.AvalaraAccountSort,
 	axerve_gateways: models.AxerveGatewaySort,
 	axerve_payments: models.AxervePaymentSort,
-	billing_info_validation_rules: models.BillingInfoValidationRuleSort,
 	bing_geocoders: models.BingGeocoderSort,
 	braintree_gateways: models.BraintreeGatewaySort,
 	braintree_payments: models.BraintreePaymentSort,
@@ -1122,6 +1120,7 @@ export type ResourceSortFields = {
 	manual_tax_calculators: models.ManualTaxCalculatorSort,
 	markets: models.MarketSort,
 	merchants: models.MerchantSort,
+	notifications: models.NotificationSort,
 	order_amount_promotion_rules: models.OrderAmountPromotionRuleSort,
 	order_copies: models.OrderCopySort,
 	order_factories: models.OrderFactorySort,

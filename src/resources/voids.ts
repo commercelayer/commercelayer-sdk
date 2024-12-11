@@ -7,6 +7,16 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
 import type { Authorization } from './authorizations'
+import type { AdyenPayment } from './adyen_payments'
+import type { AxervePayment } from './axerve_payments'
+import type { BraintreePayment } from './braintree_payments'
+import type { CheckoutComPayment } from './checkout_com_payments'
+import type { ExternalPayment } from './external_payments'
+import type { KlarnaPayment } from './klarna_payments'
+import type { PaypalPayment } from './paypal_payments'
+import type { SatispayPayment } from './satispay_payments'
+import type { StripePayment } from './stripe_payments'
+import type { WireTransfer } from './wire_transfers'
 
 
 type VoidType = 'voids'
@@ -77,6 +87,7 @@ interface Void extends Resource {
 	gateway_transaction_id?: string | null
 
 	order?: Order | null
+	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null

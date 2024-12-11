@@ -64,7 +64,7 @@ interface SkuOption extends Resource {
 	 */
 	delay_days?: number | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes.
+	 * The regex that will be evaluated to match the SKU codes, max size is 5000.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -106,7 +106,7 @@ interface SkuOptionCreate extends ResourceCreate {
 	 */
 	delay_hours?: number | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes.
+	 * The regex that will be evaluated to match the SKU codes, max size is 5000.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -145,7 +145,7 @@ interface SkuOptionUpdate extends ResourceUpdate {
 	 */
 	delay_hours?: number | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes.
+	 * The regex that will be evaluated to match the SKU codes, max size is 5000.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null

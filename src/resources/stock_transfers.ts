@@ -44,7 +44,7 @@ interface StockTransfer extends Resource {
 	 */
 	status: 'draft' | 'upcoming' | 'on_hold' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
 	/** 
-	 * The stock quantity to be transferred from the origin stock location to destination one.
+	 * The stock quantity to be transferred from the origin stock location to destination one. Updatable unless stock transfer is completed or cancelled and depending on origin stock availability.
 	 * @example ```"2"```
 	 */
 	quantity: number
@@ -100,7 +100,7 @@ interface StockTransferCreate extends ResourceCreate {
 	 */
 	sku_code?: string | null
 	/** 
-	 * The stock quantity to be transferred from the origin stock location to destination one.
+	 * The stock quantity to be transferred from the origin stock location to destination one. Updatable unless stock transfer is completed or cancelled and depending on origin stock availability.
 	 * @example ```"2"```
 	 */
 	quantity: number
@@ -126,6 +126,11 @@ interface StockTransferUpdate extends ResourceUpdate {
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
+	/** 
+	 * The stock quantity to be transferred from the origin stock location to destination one. Updatable unless stock transfer is completed or cancelled and depending on origin stock availability.
+	 * @example ```"2"```
+	 */
+	quantity?: number | null
 	/** 
 	 * Send this attribute if you want to mark this stock transfer as upcoming.
 	 * @example ```"true"```

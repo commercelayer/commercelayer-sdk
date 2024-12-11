@@ -71,6 +71,11 @@ interface OrderCopy extends Resource {
 	 */
 	apply_promotions?: boolean | null
 	/** 
+	 * Indicates to ignore any errors during copy.
+	 * @example ```"true"```
+	 */
+	skip_errors?: boolean | null
+	/** 
 	 * Indicates to ignore invalid coupon code during copy.
 	 * @example ```"true"```
 	 */
@@ -106,6 +111,11 @@ interface OrderCopyCreate extends ResourceCreate {
 	 * @example ```"true"```
 	 */
 	apply_promotions?: boolean | null
+	/** 
+	 * Indicates to ignore any errors during copy.
+	 * @example ```"true"```
+	 */
+	skip_errors?: boolean | null
 	/** 
 	 * Indicates to ignore invalid coupon code during copy.
 	 * @example ```"true"```

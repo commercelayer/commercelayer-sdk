@@ -81,9 +81,19 @@ interface Organization extends Resource {
 	 */
 	api_rules_engine?: boolean | null
 	/** 
+	 * Forces the usage of the new Authentication API.
+	 * @example ```"true"```
+	 */
+	api_new_auth?: boolean | null
+	/** 
 	 * Enables the purge of cached single resources when list is purged.
 	 */
 	api_purge_single_resource?: boolean | null
+	/** 
+	 * The maximum length for the regular expressions, default is 5000.
+	 * @example ```"5000"```
+	 */
+	api_max_regex_length?: number | null
 	/** 
 	 * Indicates if the phone attribute is required for addresses, default is true.
 	 * @example ```"true"```
@@ -158,6 +168,10 @@ interface Organization extends Resource {
 	 */
 	imports_purge_cache?: boolean | null
 	/** 
+	 * Disables the interruption of the import in case its errors exceeds the 10% threshold, default is false.
+	 */
+	imports_skip_errors?: boolean | null
+	/** 
 	 * The maximum number of active concurrent promotions allowed for your organization, default is 10.
 	 * @example ```"10"```
 	 */
@@ -166,6 +180,19 @@ interface Organization extends Resource {
 	 * Enables triggering of webhooks during imports, default is false.
 	 */
 	imports_trigger_webhooks?: number | null
+	/** 
+	 * Enables the use of an external discount engine in place of the standard one, default is false.
+	 */
+	discount_engines_enabled?: boolean | null
+	/** 
+	 * Enables raising of API errors in case of discount engine failure, default is false.
+	 */
+	discount_engines_errors?: boolean | null
+	/** 
+	 * The maximum length for the tag name, default is 25.
+	 * @example ```"25"```
+	 */
+	tags_max_name_length?: number | null
 	/** 
 	 * Enables raising of API errors in case of tax calculation failure, default is false.
 	 */

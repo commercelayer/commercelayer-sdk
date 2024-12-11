@@ -796,6 +796,27 @@ describe('Orders resource', () => {
 	/* relationship.attachments stop */
 	
 
+	/* relationship.notifications start */
+	it(resourceType + '.notifications', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { notifications: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'notifications')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].notifications(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.notifications stop */
+	
+
 	/* relationship.links start */
 	it(resourceType + '.links', async () => {
 	
@@ -1264,6 +1285,32 @@ describe('Orders resource', () => {
 	
 	})
 	/* trigger._nullify_payment_source stop */
+	
+
+	/* trigger._fix_payment_source start */
+	it(resourceType + '._fix_payment_source', async () => {
+	
+		let triggerAttr = '_fix_payment_source'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath]._fix_payment_source(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._fix_payment_source stop */
 	
 
 	/* trigger._billing_address_clone_id start */

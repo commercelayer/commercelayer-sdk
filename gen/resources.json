@@ -5,6 +5,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -369,12 +371,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::AddressResource",
                     "class_name": "Tag"
                 },
@@ -430,6 +433,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -617,6 +622,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -868,6 +875,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -1116,6 +1125,8 @@
         "attributes": {
             "singleton": true,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "retrieve"
             ],
@@ -1274,6 +1285,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -1425,6 +1438,7 @@
                         "customers",
                         "delivery_lead_times",
                         "shipping_methods",
+                        "discount_engines",
                         "gift_card_recipients",
                         "gift_cards",
                         "inventory_models",
@@ -1467,6 +1481,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -1904,6 +1920,33 @@
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Order"
                 },
+                "payment_source": {
+                    "type": "has_one",
+                    "desc": "The associated payment source.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "sortable": false,
+                    "filterable": true,
+                    "polymorphic": true,
+                    "abstract": true,
+                    "eager_load_on_include": false,
+                    "parent_resource": "Api::TransactionResource",
+                    "class_name": "PaymentSource",
+                    "enum": [
+                        "adyen_payments",
+                        "axerve_payments",
+                        "braintree_payments",
+                        "checkout_com_payments",
+                        "credit_cards",
+                        "external_payments",
+                        "klarna_payments",
+                        "paypal_payments",
+                        "satispay_payments",
+                        "stripe_payments",
+                        "wire_transfers"
+                    ]
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -1963,6 +2006,7 @@
                 "metadata",
                 "q",
                 "order_id",
+                "payment_source_id",
                 "attachments_id",
                 "events_id",
                 "ids",
@@ -1979,6 +2023,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -2212,6 +2258,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -2393,6 +2441,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -2640,7 +2690,9 @@
         "type": "resources",
         "attributes": {
             "singleton": false,
-            "deprecated": false,
+            "deprecated": true,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -2793,6 +2845,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -2957,6 +3011,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -3193,6 +3249,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -3402,6 +3460,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -3704,12 +3764,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::BundleResource",
                     "class_name": "Tag"
                 },
@@ -3761,6 +3822,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -4157,12 +4220,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::BuyXPayYPromotionResource",
                     "class_name": "Tag"
                 },
@@ -4236,6 +4300,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -4580,6 +4646,33 @@
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Order"
                 },
+                "payment_source": {
+                    "type": "has_one",
+                    "desc": "The associated payment source.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "sortable": false,
+                    "filterable": true,
+                    "polymorphic": true,
+                    "abstract": true,
+                    "eager_load_on_include": false,
+                    "parent_resource": "Api::TransactionResource",
+                    "class_name": "PaymentSource",
+                    "enum": [
+                        "adyen_payments",
+                        "axerve_payments",
+                        "braintree_payments",
+                        "checkout_com_payments",
+                        "credit_cards",
+                        "external_payments",
+                        "klarna_payments",
+                        "paypal_payments",
+                        "satispay_payments",
+                        "stripe_payments",
+                        "wire_transfers"
+                    ]
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -4657,6 +4750,7 @@
                 "metadata",
                 "q",
                 "order_id",
+                "payment_source_id",
                 "attachments_id",
                 "events_id",
                 "return_id",
@@ -4674,6 +4768,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -4855,6 +4951,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -5057,6 +5155,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -5365,6 +5465,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -5619,6 +5721,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -5797,12 +5901,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::CouponResource",
                     "class_name": "Tag"
                 },
@@ -5851,6 +5956,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -6019,6 +6126,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -6191,6 +6300,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": true,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -6481,6 +6592,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -6663,6 +6776,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -6735,6 +6850,17 @@
                 "shopper_reference": {
                     "type": "string",
                     "desc": "A reference to uniquely identify the shopper during payment sessions.",
+                    "required": "required, auto generated if missing",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "xxx-yyy-zzz"
+                },
+                "profile_id": {
+                    "type": "string",
+                    "desc": "A reference to uniquely identify the customer on any connected external services.",
                     "required": "required, auto generated if missing",
                     "creatable": true,
                     "updatable": true,
@@ -6897,12 +7023,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::CustomerResource",
                     "class_name": "Tag"
                 }
@@ -6942,6 +7069,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -7112,6 +7241,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -7272,6 +7403,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -7279,7 +7412,14 @@
                 "update",
                 "delete"
             ],
-            "examples": {},
+            "examples": {
+                "updatable": {
+                    "fields": [
+                        "customer_password",
+                        "_reset_password_token"
+                    ]
+                }
+            },
             "filter_scopes": [],
             "fields": {
                 "customer_email": {
@@ -7452,6 +7592,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -7650,6 +7792,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -7797,6 +7941,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -7986,11 +8132,327 @@
         }
     },
     {
+        "id": "discount_engine",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "addon": true,
+            "hidden": true,
+            "actions": [
+                "list",
+                "retrieve"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The discount engine's internal name.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "Personal discount engine"
+                },
+                "type": {
+                    "type": "string",
+                    "desc": "The discount engine's type.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "talon_one_accounts",
+                    "enum": [
+                        "talon_one_accounts"
+                    ]
+                },
+                "manage_gift_cards": {
+                    "type": "boolean",
+                    "desc": "Indicates if the discount engine manages both promotions and gift cards application at once.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "delegate": "manage_gift_cards?",
+                    "example": true
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                }
+            },
+            "relationships": {
+                "markets": {
+                    "type": "has_many",
+                    "desc": "The associated markets.",
+                    "parent_resource": "Api::TalonOneAccountResource",
+                    "class_name": "Market"
+                },
+                "discount_engine_items": {
+                    "type": "has_many",
+                    "desc": "The associated discount engine items.",
+                    "parent_resource": "Api::TalonOneAccountResource",
+                    "class_name": "DiscountEngineItem"
+                },
+                "attachments": {
+                    "type": "has_many",
+                    "desc": "The associated attachments.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::DiscountEngineResource",
+                    "class_name": "Attachment"
+                },
+                "versions": {
+                    "type": "has_many",
+                    "desc": "The associated changes.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "parent_resource": "Api::DiscountEngineResource",
+                    "class_name": "Version"
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "type",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "q",
+                "attachments_id",
+                "ids",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to"
+            ]
+        }
+    },
+    {
+        "id": "discount_engine_item",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "addon": false,
+            "hidden": true,
+            "actions": [
+                "list",
+                "retrieve"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "body": {
+                    "type": "object",
+                    "desc": "The body of the external discount engine response.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                }
+            },
+            "relationships": {
+                "discount_engine": {
+                    "type": "has_one",
+                    "desc": "The associated discount engine.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::DiscountEngineItemResource",
+                    "class_name": "DiscountEngine"
+                },
+                "order": {
+                    "type": "has_one",
+                    "desc": "The associated order.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::DiscountEngineItemResource",
+                    "class_name": "Order"
+                }
+            },
+            "filters": [
+                "id",
+                "body",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "q",
+                "discount_engine_id",
+                "order_id",
+                "ids",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to"
+            ]
+        }
+    },
+    {
         "id": "event",
         "type": "resources",
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -8133,6 +8595,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -8308,6 +8772,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -8558,6 +9024,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -8822,6 +9290,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -9007,6 +9477,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -9439,12 +9911,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::ExternalPromotionResource",
                     "class_name": "Tag"
                 },
@@ -9518,6 +9991,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -9749,6 +10224,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -10145,12 +10622,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::FixedAmountPromotionResource",
                     "class_name": "Tag"
                 },
@@ -10222,6 +10700,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -10618,12 +11098,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::FixedPricePromotionResource",
                     "class_name": "Tag"
                 },
@@ -10695,6 +11176,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -11002,12 +11485,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::FlexPromotionResource",
                     "class_name": "Tag"
                 },
@@ -11065,6 +11549,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -11440,12 +11926,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::FreeGiftPromotionResource",
                     "class_name": "Tag"
                 },
@@ -11517,6 +12004,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -11880,12 +12369,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Tag"
                 },
@@ -11949,6 +12439,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -12099,6 +12591,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -12516,12 +13010,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::GiftCardResource",
                     "class_name": "Tag"
                 },
@@ -12574,6 +13069,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -12746,6 +13243,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -12910,6 +13409,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -13245,6 +13746,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -13478,6 +13981,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -13690,6 +14195,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -13841,6 +14348,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -14004,6 +14513,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -14186,6 +14697,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -14406,6 +14919,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -14495,8 +15010,9 @@
                 },
                 "unit_amount_cents": {
                     "type": "integer",
-                    "desc": "The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods.",
+                    "desc": "The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods. Cannot be passed by sales channels.",
                     "required": "required, unless computed",
+                    "prohibited": true,
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -14768,7 +15284,7 @@
                 },
                 "item_type": {
                     "type": "string",
-                    "desc": "The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.",
+                    "desc": "The type of the associated item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'discount_engine_items', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.",
                     "delegate": "item_resource_type",
                     "creatable": true,
                     "updatable": false,
@@ -14783,6 +15299,7 @@
                         "shipments",
                         "payment_methods",
                         "adjustments",
+                        "discount_engine_items",
                         "percentage_discount_promotions",
                         "free_shipping_promotions",
                         "buy_x_pay_y_promotions",
@@ -14932,7 +15449,7 @@
                 },
                 "item": {
                     "type": "has_one",
-                    "desc": "The polymorphic item associated to the line item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.",
+                    "desc": "The polymorphic item associated to the line item. One of 'skus', 'bundles', 'gift_cards', 'shipments', 'payment_methods', 'adjustments', 'discount_engine_items', 'percentage_discount_promotions', 'free_shipping_promotions', 'buy_x_pay_y_promotions', 'free_gift_promotions', 'fixed_price_promotions', 'external_promotions', 'fixed_amount_promotions', or 'flex_promotions'.",
                     "required": "optional",
                     "creatable": true,
                     "updatable": false,
@@ -14949,6 +15466,7 @@
                         "shipments",
                         "payment_methods",
                         "adjustments",
+                        "discount_engine_items",
                         "percentage_discount_promotions",
                         "free_shipping_promotions",
                         "buy_x_pay_y_promotions",
@@ -15084,6 +15602,14 @@
                     "parent_resource": "Api::LineItemResource",
                     "class_name": "StockTransfer"
                 },
+                "notifications": {
+                    "type": "has_many",
+                    "desc": "The associated notifications.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::LineItemResource",
+                    "class_name": "Notification"
+                },
                 "events": {
                     "type": "has_many",
                     "desc": "The associated events.",
@@ -15094,12 +15620,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::LineItemResource",
                     "class_name": "Tag"
                 }
@@ -15138,6 +15665,7 @@
                 "stock_reservations_id",
                 "stock_line_items_id",
                 "stock_transfers_id",
+                "notifications_id",
                 "events_id",
                 "tags_id",
                 "ids",
@@ -15154,6 +15682,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -15398,12 +15928,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::LineItemOptionResource",
                     "class_name": "Tag"
                 }
@@ -15440,6 +15971,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -15754,6 +16287,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -15892,6 +16427,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -16063,6 +16600,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -16354,6 +16893,17 @@
                     "parent_resource": "Api::MarketResource",
                     "class_name": "SubscriptionModel"
                 },
+                "discount_engine": {
+                    "type": "has_one",
+                    "desc": "The associated discount engine.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::MarketResource",
+                    "class_name": "DiscountEngine"
+                },
                 "tax_calculator": {
                     "type": "has_one",
                     "desc": "The associated tax calculator.",
@@ -16455,6 +17005,7 @@
                 "price_list_id",
                 "inventory_model_id",
                 "subscription_model_id",
+                "discount_engine_id",
                 "tax_calculator_id",
                 "customer_group_id",
                 "geocoder_id",
@@ -16478,6 +17029,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -16621,11 +17174,175 @@
         }
     },
     {
+        "id": "notification",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "addon": false,
+            "hidden": false,
+            "actions": [
+                "list",
+                "retrieve",
+                "create",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The internal name of the notification.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "DDT transport document"
+                },
+                "flash": {
+                    "type": "boolean",
+                    "desc": "Indicates if the notification is temporary, valid for the ones created by external services.",
+                    "required": "optional, default is 'false'",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": false
+                },
+                "body": {
+                    "type": "object",
+                    "desc": "An internal body of the notification.",
+                    "required": "optional, default to {}",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": {
+                        "sku": "REDHANDBAG",
+                        "name": "Enjoy your free item"
+                    }
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                }
+            },
+            "relationships": {
+                "notifiable": {
+                    "type": "has_one",
+                    "desc": "The resource the notification belongs to.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "polymorphic": true,
+                    "eager_load_on_include": false,
+                    "parent_resource": "Api::NotificationResource",
+                    "class_name": "Notifiable",
+                    "enum": [
+                        "orders",
+                        "line_items"
+                    ]
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "flash",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "q",
+                "ids",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to"
+            ]
+        }
+    },
+    {
         "id": "order",
         "type": "resources",
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -16663,7 +17380,7 @@
                 },
                 "affiliate_code": {
                     "type": "string",
-                    "desc": "The affiliate code, if any, the seller will transfer commission on shop by link transactions.",
+                    "desc": "The affiliate code, if any, to track commissions using any third party services.",
                     "required": "optional",
                     "creatable": true,
                     "updatable": true,
@@ -17693,7 +18410,7 @@
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": false,
                     "example": {
                         "foo": "bar"
@@ -17921,6 +18638,18 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "false"
+                },
+                "_fix_payment_source": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to set the payment source associated with the last succeeded authorization. At the end of the fix the order should be placed and authorized and ready for approval. Cannot be passed by sales channels.",
+                    "prohibited": true,
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "_billing_address_clone_id": {
                     "type": "string",
@@ -18409,6 +19138,17 @@
                         "wire_transfers"
                     ]
                 },
+                "discount_engine_item": {
+                    "type": "has_one",
+                    "desc": "The associated external engine applied discount.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::OrderResource",
+                    "class_name": "DiscountEngineItem"
+                },
                 "line_items": {
                     "type": "has_many",
                     "desc": "The associated line items.",
@@ -18571,6 +19311,14 @@
                     "parent_resource": "Api::OrderResource",
                     "class_name": "Attachment"
                 },
+                "notifications": {
+                    "type": "has_many",
+                    "desc": "The associated notifications.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::OrderResource",
+                    "class_name": "Notification"
+                },
                 "links": {
                     "type": "has_many",
                     "desc": "The associated links.",
@@ -18597,12 +19345,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::OrderResource",
                     "class_name": "Tag"
                 },
@@ -18646,6 +19395,7 @@
                 "total_amount_cents",
                 "fees_amount_cents",
                 "duty_amount_cents",
+                "payment_source_details",
                 "token",
                 "placed_at",
                 "approved_at",
@@ -18670,6 +19420,7 @@
                 "store_id",
                 "payment_method_id",
                 "payment_source_id",
+                "discount_engine_item_id",
                 "line_items_id",
                 "line_item_options_id",
                 "stock_reservations_id",
@@ -18688,6 +19439,7 @@
                 "order_copies_id",
                 "recurring_order_copies_id",
                 "attachments_id",
+                "notifications_id",
                 "links_id",
                 "resource_errors_id",
                 "events_id",
@@ -18722,6 +19474,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -18923,6 +19677,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -19132,6 +19888,18 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "skip_errors": {
+                    "type": "boolean",
+                    "desc": "Indicates to ignore any errors during copy.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "ignore_invalid_coupon": {
                     "type": "boolean",
                     "desc": "Indicates to ignore invalid coupon code during copy.",
@@ -19224,6 +19992,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -19477,6 +20247,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -19875,12 +20647,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::OrderSubscriptionResource",
                     "class_name": "Tag"
                 },
@@ -19944,6 +20717,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -20233,6 +21008,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": true,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -20382,6 +21159,8 @@
         "attributes": {
             "singleton": true,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "retrieve"
             ],
@@ -20624,6 +21403,17 @@
                     "sortable": false,
                     "example": "false"
                 },
+                "api_new_auth": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Forces the usage of the new Authentication API.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "api_purge_single_resource": {
                     "type": "boolean",
                     "default": false,
@@ -20634,6 +21424,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "false"
+                },
+                "api_max_regex_length": {
+                    "type": "integer",
+                    "default": 5000,
+                    "desc": "The maximum length for the regular expressions, default is 5000.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "5000"
                 },
                 "addresses_phone_required": {
                     "type": "boolean",
@@ -20800,6 +21601,17 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "imports_skip_errors": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Disables the interruption of the import in case its errors exceeds the 10% threshold, default is false.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
                 "promotions_max_concurrent_count": {
                     "type": "integer",
                     "default": 10,
@@ -20821,6 +21633,40 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "false"
+                },
+                "discount_engines_enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "addon": true,
+                    "desc": "Enables the use of an external discount engine in place of the standard one, default is false.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
+                "discount_engines_errors": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables raising of API errors in case of discount engine failure, default is false.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
+                "tags_max_name_length": {
+                    "type": "integer",
+                    "default": 25,
+                    "desc": "The maximum length for the tag name, default is 25.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "25"
                 },
                 "tax_calculators_errors": {
                     "type": "boolean",
@@ -20926,6 +21772,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -21144,6 +21992,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -21615,6 +22465,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -21823,6 +22675,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -21958,6 +22812,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -22316,6 +23172,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -22493,6 +23351,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -22664,6 +23524,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -22915,6 +23777,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -23289,12 +24153,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::PercentageDiscountPromotionResource",
                     "class_name": "Tag"
                 },
@@ -23366,6 +24231,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -23719,6 +24586,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -23938,6 +24807,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -24153,6 +25024,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -24406,6 +25279,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -24613,6 +25488,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -24832,6 +25709,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -25192,12 +26071,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Tag"
                 },
@@ -25261,6 +26141,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -25415,6 +26297,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -25683,6 +26567,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -25922,6 +26808,33 @@
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Order"
                 },
+                "payment_source": {
+                    "type": "has_one",
+                    "desc": "The associated payment source.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "sortable": false,
+                    "filterable": true,
+                    "polymorphic": true,
+                    "abstract": true,
+                    "eager_load_on_include": false,
+                    "parent_resource": "Api::TransactionResource",
+                    "class_name": "PaymentSource",
+                    "enum": [
+                        "adyen_payments",
+                        "axerve_payments",
+                        "braintree_payments",
+                        "checkout_com_payments",
+                        "credit_cards",
+                        "external_payments",
+                        "klarna_payments",
+                        "paypal_payments",
+                        "satispay_payments",
+                        "stripe_payments",
+                        "wire_transfers"
+                    ]
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -25993,6 +26906,7 @@
                 "metadata",
                 "q",
                 "order_id",
+                "payment_source_id",
                 "attachments_id",
                 "events_id",
                 "reference_capture_id",
@@ -26011,6 +26925,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -26166,6 +27082,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -26322,6 +27240,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -26791,12 +27711,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::ReturnResource",
                     "class_name": "Tag"
                 },
@@ -26870,6 +27791,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -27129,6 +28052,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -27332,6 +28257,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -27565,6 +28492,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -28214,12 +29143,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::ShipmentResource",
                     "class_name": "Tag"
                 },
@@ -28303,6 +29233,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": true,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -28549,6 +29481,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -28706,6 +29640,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -29185,6 +30121,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -29391,6 +30329,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -29600,6 +30540,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -29621,72 +30563,6 @@
                     "sortable": true,
                     "example": "Europe (main countries)"
                 },
-                "country_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated to match the shipping address country code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"
-                },
-                "not_country_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated as negative match for the shipping address country code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "AT|BE|BG|CZ|DK|EE|DE"
-                },
-                "state_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated to match the shipping address state code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "A[KLRZ]|C[AOT]|D[CE]|FL"
-                },
-                "not_state_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated as negative match for the shipping address state code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "A[KLRZ]|C[AOT]"
-                },
-                "zip_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated to match the shipping address zip code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "(?i)(JE1|JE2|JE3|JE4|JE5)"
-                },
-                "not_zip_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated as negative match for the shipping zip country code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "(?i)(JE1|JE2|JE3)"
-                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -29698,6 +30574,72 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "country_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated to match the shipping address country code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"
+                },
+                "not_country_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "AT|BE|BG|CZ|DK|EE|DE"
+                },
+                "state_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated to match the shipping address state code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "A[KLRZ]|C[AOT]|D[CE]|FL"
+                },
+                "not_state_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "A[KLRZ]|C[AOT]"
+                },
+                "zip_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated to match the shipping address zip code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "(?i)(JE1|JE2|JE3|JE4|JE5)"
+                },
+                "not_zip_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "(?i)(JE1|JE2|JE3)"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -29802,6 +30744,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -30198,12 +31142,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::SkuResource",
                     "class_name": "Tag"
                 },
@@ -30286,6 +31231,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -30359,7 +31306,7 @@
                 },
                 "sku_code_regex": {
                     "type": "string",
-                    "desc": "The regex that will be evaluated to match the SKU codes.",
+                    "desc": "The regex that will be evaluated to match the SKU codes, max size is 5000.",
                     "required": "required, if manual is falsy",
                     "creatable": true,
                     "updatable": true,
@@ -30531,6 +31478,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -30705,6 +31654,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -30903,6 +31854,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -31002,7 +31955,7 @@
                 },
                 "sku_code_regex": {
                     "type": "string",
-                    "desc": "The regex that will be evaluated to match the SKU codes.",
+                    "desc": "The regex that will be evaluated to match the SKU codes, max size is 5000.",
                     "required": "optional",
                     "creatable": true,
                     "updatable": true,
@@ -31111,12 +32064,13 @@
                 },
                 "tags": {
                     "type": "has_many",
-                    "desc": "The associated tags.",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
                     "creatable": true,
                     "fetchable": true,
                     "updatable": true,
                     "filterable": true,
                     "sortable": false,
+                    "prohibited": true,
                     "parent_resource": "Api::SkuOptionResource",
                     "class_name": "Tag"
                 },
@@ -31164,6 +32118,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": true,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -31324,6 +32280,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -31531,6 +32489,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -31780,6 +32740,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -32014,6 +32976,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -32258,6 +33222,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -32312,10 +33278,10 @@
                 },
                 "quantity": {
                     "type": "integer",
-                    "desc": "The stock quantity to be transferred from the origin stock location to destination one.",
+                    "desc": "The stock quantity to be transferred from the origin stock location to destination one. Updatable unless stock transfer is completed or cancelled and depending on origin stock availability.",
                     "required": "required",
                     "creatable": true,
-                    "updatable": false,
+                    "updatable": true,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
@@ -32656,6 +33622,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -32852,6 +33820,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -33075,6 +34045,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -33350,6 +34322,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -33540,6 +34514,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -33650,11 +34626,211 @@
         }
     },
     {
+        "id": "talon_one_account",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "addon": true,
+            "hidden": true,
+            "actions": [
+                "list",
+                "retrieve",
+                "create",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The discount engine's internal name.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "Personal discount engine"
+                },
+                "type": {
+                    "type": "string",
+                    "desc": "The discount engine's type.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "talon_one_accounts",
+                    "enum": [
+                        "talon_one_accounts"
+                    ]
+                },
+                "manage_gift_cards": {
+                    "type": "boolean",
+                    "desc": "Indicates if the discount engine manages both promotions and gift cards application at once.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "delegate": "manage_gift_cards?",
+                    "example": true
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                },
+                "api_key": {
+                    "type": "string",
+                    "desc": "The Talon.One account API key.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": true,
+                    "example": "TALON_ONE_API_KEY"
+                },
+                "baseurl": {
+                    "type": "string",
+                    "desc": "The Talon.One API baseurl (excluding the talon.io domain).",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": true,
+                    "example": "yourbaseurl"
+                }
+            },
+            "relationships": {
+                "markets": {
+                    "type": "has_many",
+                    "desc": "The associated markets.",
+                    "parent_resource": "Api::TalonOneAccountResource",
+                    "class_name": "Market"
+                },
+                "discount_engine_items": {
+                    "type": "has_many",
+                    "desc": "The associated discount engine items.",
+                    "parent_resource": "Api::TalonOneAccountResource",
+                    "class_name": "DiscountEngineItem"
+                },
+                "attachments": {
+                    "type": "has_many",
+                    "desc": "The associated attachments.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::TalonOneAccountResource",
+                    "class_name": "Attachment"
+                },
+                "versions": {
+                    "type": "has_many",
+                    "desc": "The associated changes.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "parent_resource": "Api::TalonOneAccountResource",
+                    "class_name": "Version"
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "type",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "q",
+                "attachments_id",
+                "ids",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to"
+            ]
+        }
+    },
+    {
         "id": "tax_calculator",
         "type": "resources",
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -33812,6 +34988,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -33991,6 +35169,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -34022,72 +35202,6 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "0.22"
-                },
-                "country_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated to match the shipping address country code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"
-                },
-                "not_country_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated as negative match for the shipping address country code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "AT|BE|BG|CZ|DK|EE|DE"
-                },
-                "state_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated to match the shipping address state code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "A[KLRZ]|C[AOT]|D[CE]|FL"
-                },
-                "not_state_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated as negative match for the shipping address state code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "A[KLRZ]|C[AOT]"
-                },
-                "zip_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated to match the shipping address zip code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "(?i)(JE1|JE2|JE3|JE4|JE5)"
-                },
-                "not_zip_code_regex": {
-                    "type": "string",
-                    "desc": "The regex that will be evaluated as negative match for the shipping zip country code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "(?i)(JE1|JE2|JE3)"
                 },
                 "freight_taxable": {
                     "type": "boolean",
@@ -34158,6 +35272,72 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "country_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated to match the shipping address country code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"
+                },
+                "not_country_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "AT|BE|BG|CZ|DK|EE|DE"
+                },
+                "state_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated to match the shipping address state code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "A[KLRZ]|C[AOT]|D[CE]|FL"
+                },
+                "not_state_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "A[KLRZ]|C[AOT]"
+                },
+                "zip_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated to match the shipping address zip code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "(?i)(JE1|JE2|JE3|JE4|JE5)"
+                },
+                "not_zip_code_regex": {
+                    "type": "string",
+                    "desc": "The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "(?i)(JE1|JE2|JE3)"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -34271,6 +35451,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -34452,6 +35634,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -34690,6 +35874,33 @@
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Order"
                 },
+                "payment_source": {
+                    "type": "has_one",
+                    "desc": "The associated payment source.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "sortable": false,
+                    "filterable": true,
+                    "polymorphic": true,
+                    "abstract": true,
+                    "eager_load_on_include": false,
+                    "parent_resource": "Api::TransactionResource",
+                    "class_name": "PaymentSource",
+                    "enum": [
+                        "adyen_payments",
+                        "axerve_payments",
+                        "braintree_payments",
+                        "checkout_com_payments",
+                        "credit_cards",
+                        "external_payments",
+                        "klarna_payments",
+                        "paypal_payments",
+                        "satispay_payments",
+                        "stripe_payments",
+                        "wire_transfers"
+                    ]
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -34737,6 +35948,7 @@
                 "metadata",
                 "q",
                 "order_id",
+                "payment_source_id",
                 "attachments_id",
                 "events_id",
                 "ids",
@@ -34753,6 +35965,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve"
@@ -34944,6 +36158,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -35183,6 +36399,33 @@
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Order"
                 },
+                "payment_source": {
+                    "type": "has_one",
+                    "desc": "The associated payment source.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "sortable": false,
+                    "filterable": true,
+                    "polymorphic": true,
+                    "abstract": true,
+                    "eager_load_on_include": false,
+                    "parent_resource": "Api::TransactionResource",
+                    "class_name": "PaymentSource",
+                    "enum": [
+                        "adyen_payments",
+                        "axerve_payments",
+                        "braintree_payments",
+                        "checkout_com_payments",
+                        "credit_cards",
+                        "external_payments",
+                        "klarna_payments",
+                        "paypal_payments",
+                        "satispay_payments",
+                        "stripe_payments",
+                        "wire_transfers"
+                    ]
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -35242,6 +36485,7 @@
                 "metadata",
                 "q",
                 "order_id",
+                "payment_source_id",
                 "attachments_id",
                 "events_id",
                 "reference_authorization_id",
@@ -35259,6 +36503,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",
@@ -35530,6 +36776,8 @@
         "attributes": {
             "singleton": false,
             "deprecated": false,
+            "addon": false,
+            "hidden": false,
             "actions": [
                 "list",
                 "retrieve",

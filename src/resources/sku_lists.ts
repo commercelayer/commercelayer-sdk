@@ -49,7 +49,7 @@ interface SkuList extends Resource {
 	 */
 	manual?: boolean | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes.
+	 * The regex that will be evaluated to match the SKU codes, max size is 5000.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -87,7 +87,7 @@ interface SkuListCreate extends ResourceCreate {
 	 */
 	manual?: boolean | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes.
+	 * The regex that will be evaluated to match the SKU codes, max size is 5000.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -119,7 +119,7 @@ interface SkuListUpdate extends ResourceUpdate {
 	 */
 	manual?: boolean | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes.
+	 * The regex that will be evaluated to match the SKU codes, max size is 5000.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null

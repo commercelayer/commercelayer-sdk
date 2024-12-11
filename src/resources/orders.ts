@@ -27,6 +27,7 @@ import type { OrderFactory } from './order_factories'
 import type { OrderCopy } from './order_copies'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Attachment } from './attachments'
+import type { Notification } from './notifications'
 import type { Link } from './links'
 import type { ResourceError } from './resource_errors'
 import type { Event } from './events'
@@ -65,7 +66,7 @@ type TagRel = ResourceRel & { type: TagType }
 
 
 export type OrderSort = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
-// export type OrderFilter = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'customer_email' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
+// export type OrderFilter = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'customer_email' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'payment_source_details' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface Order extends Resource {
@@ -78,7 +79,7 @@ interface Order extends Resource {
 	 */
 	number?: string | null
 	/** 
-	 * The affiliate code, if any, the seller will transfer commission on shop by link transactions.
+	 * The affiliate code, if any, to track commissions using any third party services.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	affiliate_code?: string | null
@@ -634,6 +635,7 @@ interface Order extends Resource {
 	order_copies?: OrderCopy[] | null
 	recurring_order_copies?: RecurringOrderCopy[] | null
 	attachments?: Attachment[] | null
+	notifications?: Notification[] | null
 	links?: Link[] | null
 	resource_errors?: ResourceError[] | null
 	events?: Event[] | null
@@ -651,7 +653,7 @@ interface OrderCreate extends ResourceCreate {
 	 */
 	number?: string | null
 	/** 
-	 * The affiliate code, if any, the seller will transfer commission on shop by link transactions.
+	 * The affiliate code, if any, to track commissions using any third party services.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	affiliate_code?: string | null
@@ -760,7 +762,7 @@ interface OrderUpdate extends ResourceUpdate {
 	 */
 	number?: string | null
 	/** 
-	 * The affiliate code, if any, the seller will transfer commission on shop by link transactions.
+	 * The affiliate code, if any, to track commissions using any third party services.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	affiliate_code?: string | null
@@ -917,6 +919,11 @@ interface OrderUpdate extends ResourceUpdate {
 	 * Send this attribute if you want to nullify the payment source for this order.
 	 */
 	_nullify_payment_source?: boolean | null
+	/** 
+	 * Send this attribute if you want to set the payment source associated with the last succeeded authorization. At the end of the fix the order should be placed and authorized and ready for approval. Cannot be passed by sales channels.
+	 * @example ```"true"```
+	 */
+	_fix_payment_source?: boolean | null
 	/** 
 	 * The id of the address that you want to clone to create the order's billing address.
 	 * @example ```"1234"```
@@ -1166,6 +1173,11 @@ class Orders extends ApiResource<Order> {
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `orders/${_orderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
+	async notifications(orderId: string | Order, params?: QueryParamsList<Notification>, options?: ResourcesConfig): Promise<ListResponse<Notification>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<Notification>({ type: 'notifications' }, `orders/${_orderId}/notifications`, params, options) as unknown as ListResponse<Notification>
+	}
+
 	async links(orderId: string | Order, params?: QueryParamsList<Link>, options?: ResourcesConfig): Promise<ListResponse<Link>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Link>({ type: 'links' }, `orders/${_orderId}/links`, params, options) as unknown as ListResponse<Link>
@@ -1245,6 +1257,10 @@ class Orders extends ApiResource<Order> {
 
 	async _nullify_payment_source(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _nullify_payment_source: true }, params, options)
+	}
+
+	async _fix_payment_source(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _fix_payment_source: true }, params, options)
 	}
 
 	async _billing_address_clone_id(id: string | Order, triggerValue: string, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {

@@ -53,6 +53,11 @@ interface Customer extends Resource {
 	 * @example ```"xxx-yyy-zzz"```
 	 */
 	shopper_reference?: string | null
+	/** 
+	 * A reference to uniquely identify the customer on any connected external services.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	profile_id?: string | null
 
 	customer_group?: CustomerGroup | null
 	customer_addresses?: CustomerAddress[] | null
@@ -86,6 +91,11 @@ interface CustomerCreate extends ResourceCreate {
 	 * @example ```"xxx-yyy-zzz"```
 	 */
 	shopper_reference?: string | null
+	/** 
+	 * A reference to uniquely identify the customer on any connected external services.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	profile_id?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null
@@ -110,6 +120,11 @@ interface CustomerUpdate extends ResourceUpdate {
 	 * @example ```"xxx-yyy-zzz"```
 	 */
 	shopper_reference?: string | null
+	/** 
+	 * A reference to uniquely identify the customer on any connected external services.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	profile_id?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null
