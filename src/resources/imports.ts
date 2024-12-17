@@ -10,7 +10,7 @@ type ImportRel = ResourceRel & { type: ImportType }
 
 
 export type ImportSort = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'attachment_url'> & ResourceSort
-// export type ImportFilter = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'attachment_url'> & ResourceFilter
+// export type ImportFilter = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'errors_log' | 'warnings_log' | 'attachment_url'> & ResourceFilter
 
 
 interface Import extends Resource {
@@ -124,7 +124,15 @@ interface ImportCreate extends ResourceCreate {
 }
 
 
-type ImportUpdate = ResourceUpdate
+interface ImportUpdate extends ResourceUpdate {
+	
+	/** 
+	 * Send this attribute if you want to mark status as 'interrupted'.
+	 * @example ```"true"```
+	 */
+	_interrupt?: boolean | null
+	
+}
 
 
 class Imports extends ApiResource<Import> {
@@ -146,6 +154,10 @@ class Imports extends ApiResource<Import> {
 	async events(importId: string | Import, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _importId = (importId as Import).id || importId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `imports/${_importId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async _interrupt(id: string | Import, params?: QueryParamsRetrieve<Import>, options?: ResourcesConfig): Promise<Import> {
+		return this.resources.update<ImportUpdate, Import>({ id: (typeof id === 'string')? id: id.id, type: Imports.TYPE, _interrupt: true }, params, options)
 	}
 
 

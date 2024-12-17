@@ -223,4 +223,30 @@ describe('Imports resource', () => {
 	/* relationship.events stop */
 	
   
+
+	/* trigger._interrupt start */
+	it(resourceType + '._interrupt', async () => {
+	
+		let triggerAttr = '_interrupt'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	    const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath]._interrupt(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._interrupt stop */
+	
 })

@@ -11,7 +11,7 @@ type CleanupRel = ResourceRel & { type: CleanupType }
 
 
 export type CleanupSort = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceSort
-// export type CleanupFilter = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count'> & ResourceFilter
+// export type CleanupFilter = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count' | 'errors_log'> & ResourceFilter
 
 
 interface Cleanup extends Resource {
@@ -91,7 +91,15 @@ interface CleanupCreate extends ResourceCreate {
 }
 
 
-type CleanupUpdate = ResourceUpdate
+interface CleanupUpdate extends ResourceUpdate {
+	
+	/** 
+	 * Send this attribute if you want to mark status as 'interrupted'.
+	 * @example ```"true"```
+	 */
+	_interrupt?: boolean | null
+	
+}
 
 
 class Cleanups extends ApiResource<Cleanup> {
@@ -118,6 +126,10 @@ class Cleanups extends ApiResource<Cleanup> {
 	async versions(cleanupId: string | Cleanup, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _cleanupId = (cleanupId as Cleanup).id || cleanupId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `cleanups/${_cleanupId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _interrupt(id: string | Cleanup, params?: QueryParamsRetrieve<Cleanup>, options?: ResourcesConfig): Promise<Cleanup> {
+		return this.resources.update<CleanupUpdate, Cleanup>({ id: (typeof id === 'string')? id: id.id, type: Cleanups.TYPE, _interrupt: true }, params, options)
 	}
 
 

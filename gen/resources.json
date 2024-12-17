@@ -723,6 +723,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": true,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "api_key": {
@@ -734,6 +735,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "public_key": {
@@ -906,6 +908,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": {
                         "foo": "bar"
                     }
@@ -919,6 +922,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": {
                         "foo": "bar"
                     }
@@ -932,6 +936,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": {
                         "foo": "bar"
                     }
@@ -945,6 +950,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": {
                         "foo": "bar"
                     }
@@ -1191,6 +1197,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "scopes": {
@@ -2141,6 +2148,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "user@mydomain.com"
                 },
                 "password": {
@@ -2152,6 +2160,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "secret"
                 },
                 "company_code": {
@@ -2163,6 +2172,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "MYCOMPANY"
                 },
                 "commit_invoice": {
@@ -2359,6 +2369,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "api_key": {
@@ -2370,6 +2381,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "webhook_endpoint_url": {
@@ -2462,6 +2474,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "return_url": {
@@ -2484,6 +2497,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": {
                         "foo": "bar"
                     }
@@ -2961,6 +2975,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 }
             },
@@ -3112,6 +3127,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "merchant_id": {
@@ -3123,6 +3139,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "public_key": {
@@ -3145,6 +3162,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "descriptor_name": {
@@ -4821,6 +4839,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "{ username: \"xxxx\", password: \"secret\" }"
                 },
                 "id": {
@@ -5052,6 +5071,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "sk_test_xxxx-yyyy-zzzz"
                 },
                 "public_key": {
@@ -5083,6 +5103,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "confidential": true,
                     "example": "xxxx-yyyy-zzzz"
                 },
@@ -5274,6 +5295,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": {
                         "foo": "bar"
                     }
@@ -5583,7 +5605,7 @@
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": false,
                     "example": {
                         "ABC": {
@@ -5604,6 +5626,17 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_interrupt": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark status as 'interrupted'.",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -5694,6 +5727,7 @@
                 "records_count",
                 "errors_count",
                 "processed_count",
+                "errors_log",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -6353,6 +6387,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "4111111111111111"
                 },
                 "month": {
@@ -6808,6 +6843,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "secret"
                 },
                 "status": {
@@ -7440,6 +7476,7 @@
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
+                    "exportable": false,
                     "sortable": false,
                     "example": "xhFfkmfybsLxzaAP6xcs"
                 },
@@ -7452,6 +7489,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "secret"
                 },
                 "_reset_password_token": {
@@ -8825,7 +8863,7 @@
                 },
                 "includes": {
                     "type": "array",
-                    "desc": "List of related resources that should be included in the export.",
+                    "desc": "List of related resources that should be included in the export (redundant when 'fields' are specified).",
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
@@ -8833,6 +8871,21 @@
                     "sortable": false,
                     "example": [
                         "prices.price_tiers"
+                    ]
+                },
+                "fields": {
+                    "type": "array",
+                    "desc": "List of fields to export for the main and related resources (automatically included). Pass the asterisk '*' to include all exportable fields for the main and related resources.",
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": [
+                        "code",
+                        "name",
+                        "prices.*",
+                        "prices.price_tiers.price_amount_cents"
                     ]
                 },
                 "filters": {
@@ -8907,6 +8960,18 @@
                     "sortable": true,
                     "example": "http://cl_exports.s3.amazonaws.com/"
                 },
+                "errors_log": {
+                    "type": "object",
+                    "desc": "Contains the exports errors, if any.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "RuntimeError": "query timeout"
+                    }
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -8918,6 +8983,17 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_interrupt": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark status as 'interrupted'.",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -8997,6 +9073,7 @@
                 "interrupted_at",
                 "records_count",
                 "attachment_url",
+                "errors_log",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -9214,6 +9291,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "confidential": true,
                     "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
                 },
@@ -9322,6 +9400,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": {
                         "foo": "bar"
                     }
@@ -9792,6 +9871,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "confidential": true,
                     "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
                 },
@@ -10154,6 +10234,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "confidential": true,
                     "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
                 },
@@ -13359,6 +13440,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 }
             },
@@ -13579,7 +13661,7 @@
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": false,
                     "example": {
                         "ABC": {
@@ -13595,7 +13677,7 @@
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": false,
                     "example": {
                         "ABC": [
@@ -13635,6 +13717,17 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_interrupt": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark status as 'interrupted'.",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -13718,6 +13811,8 @@
                 "warnings_count",
                 "destroyed_count",
                 "processed_count",
+                "errors_log",
+                "warnings_log",
                 "attachment_url",
                 "created_at",
                 "updated_at",
@@ -14625,6 +14720,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "api_secret": {
@@ -14636,6 +14732,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 }
             },
@@ -14752,6 +14849,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "mismatched_amounts": {
@@ -16090,7 +16188,7 @@
                 "item_type": {
                     "type": "string",
                     "desc": "The type of the associated item. One of 'orders', 'skus', or 'sku_lists'.",
-                    "delegate": "item_resource_type",
+                    "delegate": "resource_item_type",
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
@@ -16767,6 +16865,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "confidential": true,
                     "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
                 },
@@ -23119,6 +23218,12 @@
                     "parent_resource": "Api::PaymentMethodResource",
                     "class_name": "Store"
                 },
+                "orders": {
+                    "type": "has_many",
+                    "desc": "The associated orders.",
+                    "parent_resource": "Api::PaymentMethodResource",
+                    "class_name": "Order"
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -23452,6 +23557,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "client_secret": {
@@ -23463,6 +23569,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 }
             },
@@ -28153,6 +28260,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "623ECX"
                 },
                 "skey": {
@@ -28164,6 +28272,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "-----BEGIN RSA PRIVATE KEY-----"
                 },
                 "pkey": {
@@ -28175,6 +28284,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "-----BEGIN PUBLIC KEY-----"
                 },
                 "key_id": {
@@ -28186,6 +28296,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "webhook_endpoint_url": {
@@ -28333,6 +28444,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": {
                         "foo": "bar"
                     }
@@ -33921,6 +34033,7 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": "sk_live_xxxx-yyyy-zzzz"
                 },
                 "publishable_key": {
@@ -33975,6 +34088,7 @@
                     "filterable": false,
                     "sortable": false,
                     "confidential": true,
+                    "exportable": false,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "webhook_endpoint_url": {
@@ -34122,6 +34236,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "example": {
                         "id": "pm_xxx"
                     }
@@ -36653,6 +36768,7 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
+                    "exportable": false,
                     "confidential": true,
                     "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
                 },

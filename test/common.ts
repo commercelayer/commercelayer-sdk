@@ -68,7 +68,7 @@ const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerCli
 		if (token === null) throw new Error('Unable to get access token')
 		accessToken = token.accessToken
 	}
-	
+
 
 	const client = CommerceLayer({ organization, accessToken, domain })
 	currentAccessToken = accessToken
@@ -151,7 +151,7 @@ export { handleError, interceptRequest, randomValue }
 
 
 const checkCommon = (request: RequestObj, path: string, id?: string, token?: string, relationship?: string) => {
-	expect(request.url.pathname).toBe('/api/' + path + (id ? `/${id}` : '') + (relationship ? `/${relationship}`: ''))
+	expect(request.url.pathname).toBe('/api/' + path + (id ? `/${id}` : '') + (relationship ? `/${relationship}` : ''))
 	expect(request.options.headers).toBeDefined()
 	if (request.options.headers) expect(request.options.headers['Authorization']).toContain('Bearer ' + (token || ''))
 	expect(request.options.signal).not.toBeNull()
@@ -175,7 +175,7 @@ const checkParam = (url: string | URL, name: string, value: string | number | bo
 	expect(params.get(name)).toBe(String(value))
 }
 
-const checkCommonParamsList = (request: RequestObj, params: QueryParamsList<Resource>) =>  {
+const checkCommonParamsList = (request: RequestObj, params: QueryParamsList<Resource>) => {
 	const url = new URL(request.url)
 	if (params.pageNumber) checkParam(url, 'page[number]', params.pageNumber)
 	if (params.pageSize) checkParam(url, 'page[size]', params.pageSize)

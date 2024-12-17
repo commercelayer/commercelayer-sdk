@@ -10,7 +10,7 @@ type ExportRel = ResourceRel & { type: ExportType }
 
 
 export type ExportSort = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceSort
-// export type ExportFilter = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceFilter
+// export type ExportFilter = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url' | 'errors_log'> & ResourceFilter
 
 
 interface Export extends Resource {
@@ -33,10 +33,15 @@ interface Export extends Resource {
 	 */
 	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
 	/** 
-	 * List of related resources that should be included in the export.
+	 * List of related resources that should be included in the export (redundant when 'fields' are specified).
 	 * @example ```"prices.price_tiers"```
 	 */
 	includes?: string[] | null
+	/** 
+	 * List of fields to export for the main and related resources (automatically included). Pass the asterisk '*' to include all exportable fields for the main and related resources.
+	 * @example ```"code,name,prices.*,prices.price_tiers.price_amount_cents"```
+	 */
+	fields?: string[] | null
 	/** 
 	 * The filters used to select the records to be exported.
 	 * @example ```"[object Object]"```
@@ -71,6 +76,11 @@ interface Export extends Resource {
 	 * @example ```"http://cl_exports.s3.amazonaws.com/"```
 	 */
 	attachment_url?: string | null
+	/** 
+	 * Contains the exports errors, if any.
+	 * @example ```"[object Object]"```
+	 */
+	errors_log?: Record<string, any> | null
 
 	events?: Event[] | null
 
@@ -90,10 +100,15 @@ interface ExportCreate extends ResourceCreate {
 	 */
 	format?: string | null
 	/** 
-	 * List of related resources that should be included in the export.
+	 * List of related resources that should be included in the export (redundant when 'fields' are specified).
 	 * @example ```"prices.price_tiers"```
 	 */
 	includes?: string[] | null
+	/** 
+	 * List of fields to export for the main and related resources (automatically included). Pass the asterisk '*' to include all exportable fields for the main and related resources.
+	 * @example ```"code,name,prices.*,prices.price_tiers.price_amount_cents"```
+	 */
+	fields?: string[] | null
 	/** 
 	 * The filters used to select the records to be exported.
 	 * @example ```"[object Object]"```
@@ -107,7 +122,15 @@ interface ExportCreate extends ResourceCreate {
 }
 
 
-type ExportUpdate = ResourceUpdate
+interface ExportUpdate extends ResourceUpdate {
+	
+	/** 
+	 * Send this attribute if you want to mark status as 'interrupted'.
+	 * @example ```"true"```
+	 */
+	_interrupt?: boolean | null
+	
+}
 
 
 class Exports extends ApiResource<Export> {
@@ -129,6 +152,10 @@ class Exports extends ApiResource<Export> {
 	async events(exportId: string | Export, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _exportId = (exportId as Export).id || exportId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `exports/${_exportId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async _interrupt(id: string | Export, params?: QueryParamsRetrieve<Export>, options?: ResourcesConfig): Promise<Export> {
+		return this.resources.update<ExportUpdate, Export>({ id: (typeof id === 'string')? id: id.id, type: Exports.TYPE, _interrupt: true }, params, options)
 	}
 
 
