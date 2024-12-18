@@ -744,7 +744,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImportsModels)
-		.filter(i => !typesArray.includes(i))	// exludes resource self reference
+		.filter(i => !typesArray.includes(i))	// excludes resource self reference
 		.map(i => `import type { ${i}${relationshipTypes.has(i) ? `, ${i}Type` : ''} } from './${Inflector.underscore(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
