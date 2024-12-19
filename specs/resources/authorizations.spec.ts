@@ -288,7 +288,7 @@ describe('Authorizations resource', () => {
 	
 		const triggerValue = true
 		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
+	  const id = TestData.id
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
@@ -314,7 +314,7 @@ describe('Authorizations resource', () => {
 	
 		const triggerValue = true
 		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
+	  const id = TestData.id
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
@@ -340,7 +340,7 @@ describe('Authorizations resource', () => {
 	
 		const triggerValue = randomValue('integer')
 		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
+	  const id = TestData.id
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
@@ -366,7 +366,7 @@ describe('Authorizations resource', () => {
 	
 		const triggerValue = true
 		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
+	  const id = TestData.id
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
@@ -392,7 +392,7 @@ describe('Authorizations resource', () => {
 	
 		const triggerValue = true
 		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
+	  const id = TestData.id
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))

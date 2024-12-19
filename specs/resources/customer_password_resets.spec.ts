@@ -252,7 +252,7 @@ describe('CustomerPasswordResets resource', () => {
 	
 		const triggerValue = randomValue('string')
 		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
+	  const id = TestData.id
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))

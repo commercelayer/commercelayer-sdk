@@ -275,7 +275,7 @@ describe('CheckoutComPayments resource', () => {
 	
 		const triggerValue = true
 		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
+	  const id = TestData.id
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
@@ -301,7 +301,7 @@ describe('CheckoutComPayments resource', () => {
 	
 		const triggerValue = true
 		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
+	  const id = TestData.id
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))

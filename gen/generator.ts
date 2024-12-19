@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync
 import { basename } from 'node:path'
 import Fixer from './fixer'
 import Inflector from './inflector'
+import { updateLicense } from './license'
 
 
 /**** SDK source code generator settings ****/
@@ -151,6 +152,8 @@ const generate = async (localSchema?: boolean) => {
 	updateSdkInterfaces(resources)
 	updateModelTypes(resources)
 	// updateApiMicroClients(resources)
+
+	updateLicense()
 
 	console.log(`SDK generation completed [${global.version}].\n`)
 
