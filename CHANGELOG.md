@@ -1,3 +1,10 @@
+## [6.27.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.27.0...v6.27.1) (2024-12-20)
+
+
+### Bug Fixes
+
+* fix singleton retrieve template ([63b97a2](https://github.com/commercelayer/commercelayer-sdk/commit/63b97a2da2667fa219dcb6981cd1e16fa80a0678))
+
 # [6.27.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.26.0...v6.27.0) (2024-12-17)
 
 
