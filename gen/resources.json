@@ -11513,6 +11513,18 @@
                     "example": "{}",
                     "action": "show"
                 },
+                "resource_payload": {
+                    "type": "object",
+                    "desc": "The payload used to evaluate the rules.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}",
+                    "action": "show"
+                },
                 "metadata": {
                     "type": "object",
                     "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
@@ -24539,6 +24551,18 @@
                     "example": "{}",
                     "action": "show"
                 },
+                "resource_payload": {
+                    "type": "object",
+                    "desc": "The payload used to evaluate the rules.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}",
+                    "action": "show"
+                },
                 "jwt_custom_claim": {
                     "type": "object",
                     "desc": "The custom_claim attached to the current JWT (if any).",
@@ -25041,6 +25065,18 @@
                 "rule_outcomes": {
                     "type": "object",
                     "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}",
+                    "action": "show"
+                },
+                "resource_payload": {
+                    "type": "object",
+                    "desc": "The payload used to evaluate the rules.",
                     "required": "optional",
                     "creatable": false,
                     "updatable": false,

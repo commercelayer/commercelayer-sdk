@@ -6,7 +6,7 @@ import type * as models from './model'
 // ##__API_RESOURCES_START__##
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
- * ©2024 Commerce Layer Inc.
+ * ©2025 Commerce Layer Inc.
  **/
 export { default as Addresses } from './resources/addresses'
 export { default as Adjustments } from './resources/adjustments'

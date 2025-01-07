@@ -84,6 +84,11 @@ interface FlexPromotion extends Resource {
 	 * @example ```"[object Object]"```
 	 */
 	rule_outcomes?: Record<string, any> | null
+	/** 
+	 * The payload used to evaluate the rules.
+	 * @example ```"[object Object]"```
+	 */
+	resource_payload?: Record<string, any> | null
 
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
 	coupons?: Coupon[] | null

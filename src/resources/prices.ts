@@ -90,6 +90,11 @@ interface Price extends Resource {
 	 */
 	rule_outcomes?: Record<string, any> | null
 	/** 
+	 * The payload used to evaluate the rules.
+	 * @example ```"[object Object]"```
+	 */
+	resource_payload?: Record<string, any> | null
+	/** 
 	 * The custom_claim attached to the current JWT (if any).
 	 * @example ```"[object Object]"```
 	 */
