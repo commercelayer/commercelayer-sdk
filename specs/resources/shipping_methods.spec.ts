@@ -375,6 +375,27 @@ describe('ShippingMethods resource', () => {
 	/* relationship.attachments stop */
 	
 
+	/* relationship.notifications start */
+	it(resourceType + '.notifications', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { notifications: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'notifications')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].notifications(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.notifications stop */
+	
+
 	/* relationship.versions start */
 	it(resourceType + '.versions', async () => {
 	

@@ -10,6 +10,7 @@ import type { DeliveryLeadTime } from './delivery_lead_times'
 import type { ShippingMethodTier, ShippingMethodTierType } from './shipping_method_tiers'
 import type { ShippingWeightTier } from './shipping_weight_tiers'
 import type { Attachment } from './attachments'
+import type { Notification } from './notifications'
 import type { Version } from './versions'
 
 
@@ -137,6 +138,7 @@ interface ShippingMethod extends Resource {
 	shipping_method_tiers?: ShippingMethodTier[] | null
 	shipping_weight_tiers?: ShippingWeightTier[] | null
 	attachments?: Attachment[] | null
+	notifications?: Notification[] | null
 	versions?: Version[] | null
 
 }
@@ -345,6 +347,11 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 	async attachments(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_methods/${_shippingMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async notifications(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Notification>, options?: ResourcesConfig): Promise<ListResponse<Notification>> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
+		return this.resources.fetch<Notification>({ type: 'notifications' }, `shipping_methods/${_shippingMethodId}/notifications`, params, options) as unknown as ListResponse<Notification>
 	}
 
 	async versions(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

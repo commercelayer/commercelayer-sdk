@@ -39,6 +39,8 @@ export { default as CustomerPaymentSources } from './resources/customer_payment_
 export { default as CustomerSubscriptions } from './resources/customer_subscriptions'
 export { default as Customers } from './resources/customers'
 export { default as DeliveryLeadTimes } from './resources/delivery_lead_times'
+export { default as DiscountEngineItems } from './resources/discount_engine_items'
+export { default as DiscountEngines } from './resources/discount_engines'
 export { default as EventCallbacks } from './resources/event_callbacks'
 export { default as Events } from './resources/events'
 export { default as Exports } from './resources/exports'
@@ -123,6 +125,7 @@ export { default as StripeGateways } from './resources/stripe_gateways'
 export { default as StripePayments } from './resources/stripe_payments'
 export { default as SubscriptionModels } from './resources/subscription_models'
 export { default as Tags } from './resources/tags'
+export { default as TalonOneAccounts } from './resources/talon_one_accounts'
 export { default as TaxCalculators } from './resources/tax_calculators'
 export { default as TaxCategories } from './resources/tax_categories'
 export { default as TaxRules } from './resources/tax_rules'
@@ -168,6 +171,8 @@ export type ResourceTypeLock =
 |	'customer_subscriptions'
 |	'customers'
 |	'delivery_lead_times'
+|	'discount_engine_items'
+|	'discount_engines'
 |	'event_callbacks'
 |	'events'
 |	'exports'
@@ -252,6 +257,7 @@ export type ResourceTypeLock =
 |	'stripe_payments'
 |	'subscription_models'
 |	'tags'
+|	'talon_one_accounts'
 |	'tax_calculators'
 |	'tax_categories'
 |	'tax_rules'
@@ -297,6 +303,8 @@ export const resourceList: ResourceTypeLock[] = [
 	'customer_subscriptions',
 	'customers',
 	'delivery_lead_times',
+	'discount_engine_items',
+	'discount_engines',
 	'event_callbacks',
 	'events',
 	'exports',
@@ -381,6 +389,7 @@ export const resourceList: ResourceTypeLock[] = [
 	'stripe_payments',
 	'subscription_models',
 	'tags',
+	'talon_one_accounts',
 	'tax_calculators',
 	'tax_categories',
 	'tax_rules',
@@ -540,6 +549,7 @@ export type CreatableResourceType =
 |	'stripe_payments'
 |	'subscription_models'
 |	'tags'
+|	'talon_one_accounts'
 |	'tax_categories'
 |	'tax_rules'
 |	'taxjar_accounts'
@@ -658,6 +668,7 @@ export type UpdatableResourceType =
 |	'stripe_payments'
 |	'subscription_models'
 |	'tags'
+|	'talon_one_accounts'
 |	'tax_categories'
 |	'tax_rules'
 |	'taxjar_accounts'
@@ -773,6 +784,7 @@ export type DeletableResourceType =
 |	'stripe_payments'
 |	'subscription_models'
 |	'tags'
+|	'talon_one_accounts'
 |	'tax_categories'
 |	'tax_rules'
 |	'taxjar_accounts'
@@ -847,6 +859,7 @@ export type VersionableResourceType =
 |	'customer_payment_sources'
 |	'customer_subscriptions'
 |	'delivery_lead_times'
+|	'discount_engines'
 |	'external_gateways'
 |	'external_payments'
 |	'external_promotions'
@@ -910,6 +923,7 @@ export type VersionableResourceType =
 |	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
+|	'talon_one_accounts'
 |	'tax_calculators'
 |	'tax_categories'
 |	'tax_rules'
@@ -960,6 +974,8 @@ export type ResourceFields = {
 	customer_subscriptions: models.CustomerSubscription,
 	customers: models.Customer,
 	delivery_lead_times: models.DeliveryLeadTime,
+	discount_engine_items: models.DiscountEngineItem,
+	discount_engines: models.DiscountEngine,
 	event_callbacks: models.EventCallback,
 	events: models.Event,
 	exports: models.Export,
@@ -1044,6 +1060,7 @@ export type ResourceFields = {
 	stripe_payments: models.StripePayment,
 	subscription_models: models.SubscriptionModel,
 	tags: models.Tag,
+	talon_one_accounts: models.TalonOneAccount,
 	tax_calculators: models.TaxCalculator,
 	tax_categories: models.TaxCategory,
 	tax_rules: models.TaxRule,
@@ -1090,6 +1107,8 @@ export type ResourceSortFields = {
 	customer_subscriptions: models.CustomerSubscriptionSort,
 	customers: models.CustomerSort,
 	delivery_lead_times: models.DeliveryLeadTimeSort,
+	discount_engine_items: models.DiscountEngineItemSort,
+	discount_engines: models.DiscountEngineSort,
 	event_callbacks: models.EventCallbackSort,
 	events: models.EventSort,
 	exports: models.ExportSort,
@@ -1174,6 +1193,7 @@ export type ResourceSortFields = {
 	stripe_payments: models.StripePaymentSort,
 	subscription_models: models.SubscriptionModelSort,
 	tags: models.TagSort,
+	talon_one_accounts: models.TalonOneAccountSort,
 	tax_calculators: models.TaxCalculatorSort,
 	tax_categories: models.TaxCategorySort,
 	tax_rules: models.TaxRuleSort,

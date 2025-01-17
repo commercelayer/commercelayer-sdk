@@ -81,6 +81,16 @@ interface Organization extends Resource {
 	 */
 	api_rules_engine?: boolean | null
 	/** 
+	 * The fallback maximum number of conditions within a rules payload on a ruleable object, default is 150.
+	 * @example ```"150"```
+	 */
+	api_rules_engine_max_conditions_size?: number | null
+	/** 
+	 * The fallback maximum number of rules within a rules payload on a ruleable object, default is 15.
+	 * @example ```"15"```
+	 */
+	api_rules_engine_max_rules_size?: number | null
+	/** 
 	 * Forces the usage of the new Authentication API.
 	 * @example ```"true"```
 	 */
@@ -177,6 +187,26 @@ interface Organization extends Resource {
 	 */
 	promotions_max_concurrent_count?: number | null
 	/** 
+	 * The maximum number of conditions within a rules payload on a promotion object, default is 150.
+	 * @example ```"150"```
+	 */
+	promotions_max_conditions_size?: number | null
+	/** 
+	 * The maximum number of rules within a rules payload on a promotion object, default is 15.
+	 * @example ```"15"```
+	 */
+	promotions_max_rules_size?: number | null
+	/** 
+	 * The maximum number of conditions within a rules payload on a price list object, default is 150.
+	 * @example ```"150"```
+	 */
+	price_lists_max_conditions_size?: number | null
+	/** 
+	 * The maximum number of rules within a rules payload on a price list object, default is 15.
+	 * @example ```"15"```
+	 */
+	price_lists_max_rules_size?: number | null
+	/** 
 	 * Enables triggering of webhooks during imports, default is false.
 	 */
 	imports_trigger_webhooks?: number | null
@@ -193,6 +223,11 @@ interface Organization extends Resource {
 	 * @example ```"25"```
 	 */
 	tags_max_name_length?: number | null
+	/** 
+	 * The maximum allowed number of tags for each resource, default is 10.
+	 * @example ```"10"```
+	 */
+	tags_max_allowed_number?: number | null
 	/** 
 	 * Enables raising of API errors in case of tax calculation failure, default is false.
 	 */

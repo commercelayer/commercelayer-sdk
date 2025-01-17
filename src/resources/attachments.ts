@@ -24,6 +24,7 @@ import type { CouponRecipient, CouponRecipientType } from './coupon_recipients'
 import type { Customer, CustomerType } from './customers'
 import type { DeliveryLeadTime, DeliveryLeadTimeType } from './delivery_lead_times'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
+import type { DiscountEngine, DiscountEngineType } from './discount_engines'
 import type { GiftCardRecipient, GiftCardRecipientType } from './gift_card_recipients'
 import type { GiftCard, GiftCardType } from './gift_cards'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
@@ -65,6 +66,7 @@ type CouponRecipientRel = ResourceRel & { type: CouponRecipientType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 type DeliveryLeadTimeRel = ResourceRel & { type: DeliveryLeadTimeType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
+type DiscountEngineRel = ResourceRel & { type: DiscountEngineType }
 type GiftCardRecipientRel = ResourceRel & { type: GiftCardRecipientType }
 type GiftCardRel = ResourceRel & { type: GiftCardType }
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
@@ -106,7 +108,7 @@ interface Attachment extends Resource {
 	 */
 	url?: string | null
 
-	attachable?: Geocoder | PriceList | PaymentMethod | Market | CustomerGroup | Order | Transaction | Promotion | TaxCalculator | TaxCategory | Sku | ShippingCategory | Bundle | SkuList | StockItem | StockLocation | Return | CarrierAccount | CouponRecipient | Customer | DeliveryLeadTime | ShippingMethod | GiftCardRecipient | GiftCard | InventoryModel | StockTransfer | SkuOption | Merchant | SubscriptionModel | Shipment | PaymentOption | Package | Parcel | Price | PriceTier | ShippingMethodTier | ShippingZone | null
+	attachable?: Geocoder | PriceList | PaymentMethod | Market | CustomerGroup | Order | Transaction | Promotion | TaxCalculator | TaxCategory | Sku | ShippingCategory | Bundle | SkuList | StockItem | StockLocation | Return | CarrierAccount | CouponRecipient | Customer | DeliveryLeadTime | ShippingMethod | DiscountEngine | GiftCardRecipient | GiftCard | InventoryModel | StockTransfer | SkuOption | Merchant | SubscriptionModel | Shipment | PaymentOption | Package | Parcel | Price | PriceTier | ShippingMethodTier | ShippingZone | null
 
 }
 
@@ -129,7 +131,7 @@ interface AttachmentCreate extends ResourceCreate {
 	 */
 	url?: string | null
 
-	attachable: GeocoderRel | PriceListRel | PaymentMethodRel | MarketRel | CustomerGroupRel | OrderRel | TransactionRel | PromotionRel | TaxCalculatorRel | TaxCategoryRel | SkuRel | ShippingCategoryRel | BundleRel | SkuListRel | StockItemRel | StockLocationRel | ReturnRel | CarrierAccountRel | CouponRecipientRel | CustomerRel | DeliveryLeadTimeRel | ShippingMethodRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | StockTransferRel | SkuOptionRel | MerchantRel | SubscriptionModelRel | ShipmentRel | PaymentOptionRel | PackageRel | ParcelRel | PriceRel | PriceTierRel | ShippingMethodTierRel | ShippingZoneRel
+	attachable: GeocoderRel | PriceListRel | PaymentMethodRel | MarketRel | CustomerGroupRel | OrderRel | TransactionRel | PromotionRel | TaxCalculatorRel | TaxCategoryRel | SkuRel | ShippingCategoryRel | BundleRel | SkuListRel | StockItemRel | StockLocationRel | ReturnRel | CarrierAccountRel | CouponRecipientRel | CustomerRel | DeliveryLeadTimeRel | ShippingMethodRel | DiscountEngineRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | StockTransferRel | SkuOptionRel | MerchantRel | SubscriptionModelRel | ShipmentRel | PaymentOptionRel | PackageRel | ParcelRel | PriceRel | PriceTierRel | ShippingMethodTierRel | ShippingZoneRel
 
 }
 
@@ -152,7 +154,7 @@ interface AttachmentUpdate extends ResourceUpdate {
 	 */
 	url?: string | null
 
-	attachable?: GeocoderRel | PriceListRel | PaymentMethodRel | MarketRel | CustomerGroupRel | OrderRel | TransactionRel | PromotionRel | TaxCalculatorRel | TaxCategoryRel | SkuRel | ShippingCategoryRel | BundleRel | SkuListRel | StockItemRel | StockLocationRel | ReturnRel | CarrierAccountRel | CouponRecipientRel | CustomerRel | DeliveryLeadTimeRel | ShippingMethodRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | StockTransferRel | SkuOptionRel | MerchantRel | SubscriptionModelRel | ShipmentRel | PaymentOptionRel | PackageRel | ParcelRel | PriceRel | PriceTierRel | ShippingMethodTierRel | ShippingZoneRel | null
+	attachable?: GeocoderRel | PriceListRel | PaymentMethodRel | MarketRel | CustomerGroupRel | OrderRel | TransactionRel | PromotionRel | TaxCalculatorRel | TaxCategoryRel | SkuRel | ShippingCategoryRel | BundleRel | SkuListRel | StockItemRel | StockLocationRel | ReturnRel | CarrierAccountRel | CouponRecipientRel | CustomerRel | DeliveryLeadTimeRel | ShippingMethodRel | DiscountEngineRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | StockTransferRel | SkuOptionRel | MerchantRel | SubscriptionModelRel | ShipmentRel | PaymentOptionRel | PackageRel | ParcelRel | PriceRel | PriceTierRel | ShippingMethodTierRel | ShippingZoneRel | null
 
 }
 

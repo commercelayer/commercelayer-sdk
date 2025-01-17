@@ -17424,7 +17424,8 @@
                     "class_name": "Notifiable",
                     "enum": [
                         "orders",
-                        "line_items"
+                        "line_items",
+                        "shipping_methods"
                     ]
                 }
             },
@@ -21514,6 +21515,28 @@
                     "sortable": false,
                     "example": "false"
                 },
+                "api_rules_engine_max_conditions_size": {
+                    "type": "integer",
+                    "default": 150,
+                    "desc": "The fallback maximum number of conditions within a rules payload on a ruleable object, default is 150.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "150"
+                },
+                "api_rules_engine_max_rules_size": {
+                    "type": "integer",
+                    "default": 15,
+                    "desc": "The fallback maximum number of rules within a rules payload on a ruleable object, default is 15.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "15"
+                },
                 "api_new_auth": {
                     "type": "boolean",
                     "default": true,
@@ -21734,6 +21757,50 @@
                     "sortable": false,
                     "example": "10"
                 },
+                "promotions_max_conditions_size": {
+                    "type": "integer",
+                    "default": 150,
+                    "desc": "The maximum number of conditions within a rules payload on a promotion object, default is 150.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "150"
+                },
+                "promotions_max_rules_size": {
+                    "type": "integer",
+                    "default": 15,
+                    "desc": "The maximum number of rules within a rules payload on a promotion object, default is 15.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "15"
+                },
+                "price_lists_max_conditions_size": {
+                    "type": "integer",
+                    "default": 150,
+                    "desc": "The maximum number of conditions within a rules payload on a price list object, default is 150.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "150"
+                },
+                "price_lists_max_rules_size": {
+                    "type": "integer",
+                    "default": 15,
+                    "desc": "The maximum number of rules within a rules payload on a price list object, default is 15.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "15"
+                },
                 "imports_trigger_webhooks": {
                     "type": "integer",
                     "default": false,
@@ -21778,6 +21845,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "25"
+                },
+                "tags_max_allowed_number": {
+                    "type": "integer",
+                    "default": 10,
+                    "desc": "The maximum allowed number of tags for each resource, default is 10.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "10"
                 },
                 "tax_calculators_errors": {
                     "type": "boolean",
@@ -24483,6 +24561,17 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "processed_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was processed by API.",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -24702,6 +24791,8 @@
                 "price_tiers_id",
                 "attachments_id",
                 "ids",
+                "processed_at_from",
+                "processed_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -30218,6 +30309,14 @@
                     "parent_resource": "Api::ShippingMethodResource",
                     "class_name": "Attachment"
                 },
+                "notifications": {
+                    "type": "has_many",
+                    "desc": "The associated notifications.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::ShippingMethodResource",
+                    "class_name": "Notification"
+                },
                 "versions": {
                     "type": "has_many",
                     "desc": "The associated changes.",
@@ -30252,6 +30351,7 @@
                 "stock_location_id",
                 "shipping_method_tiers_id",
                 "attachments_id",
+                "notifications_id",
                 "ids",
                 "disabled_at_from",
                 "disabled_at_to",

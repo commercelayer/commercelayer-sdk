@@ -80,6 +80,11 @@ interface Price extends Resource {
 	 */
 	formatted_compare_at_amount?: string | null
 	/** 
+	 * Time at which the resource was processed by API.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	processed_at?: string | null
+	/** 
 	 * The rules (using Rules Engine) to be applied.
 	 * @example ```"[object Object]"```
 	 */
@@ -161,6 +166,11 @@ interface PriceUpdate extends ResourceUpdate {
 	 * @example ```"13000"```
 	 */
 	compare_at_amount_cents?: number | null
+	/** 
+	 * Time at which the resource was processed by API.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	processed_at?: string | null
 	/** 
 	 * The rules (using Rules Engine) to be applied.
 	 * @example ```"[object Object]"```

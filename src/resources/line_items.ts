@@ -17,6 +17,7 @@ import type { GiftCard, GiftCardType } from './gift_cards'
 import type { Shipment, ShipmentType } from './shipments'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { Adjustment, AdjustmentType } from './adjustments'
+import type { DiscountEngineItem, DiscountEngineItemType } from './discount_engine_items'
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
 import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
 import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
@@ -36,6 +37,7 @@ type GiftCardRel = ResourceRel & { type: GiftCardType }
 type ShipmentRel = ResourceRel & { type: ShipmentType }
 type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 type AdjustmentRel = ResourceRel & { type: AdjustmentType }
+type DiscountEngineItemRel = ResourceRel & { type: DiscountEngineItemType }
 type PercentageDiscountPromotionRel = ResourceRel & { type: PercentageDiscountPromotionType }
 type FreeShippingPromotionRel = ResourceRel & { type: FreeShippingPromotionType }
 type BuyXPayYPromotionRel = ResourceRel & { type: BuyXPayYPromotionType }
@@ -222,7 +224,7 @@ interface LineItem extends Resource {
 	circuit_failure_count?: number | null
 
 	order?: Order | null
-	item?: Sku | Bundle | GiftCard | Shipment | PaymentMethod | Adjustment | PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
+	item?: Sku | Bundle | GiftCard | Shipment | PaymentMethod | Adjustment | DiscountEngineItem | PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
 	sku?: Sku | null
 	bundle?: Bundle | null
 	adjustment?: Adjustment | null
@@ -305,7 +307,7 @@ interface LineItemCreate extends ResourceCreate {
 	frequency?: string | null
 
 	order: OrderRel
-	item?: SkuRel | BundleRel | GiftCardRel | ShipmentRel | PaymentMethodRel | AdjustmentRel | PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | FlexPromotionRel | null
+	item?: SkuRel | BundleRel | GiftCardRel | ShipmentRel | PaymentMethodRel | AdjustmentRel | DiscountEngineItemRel | PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | FlexPromotionRel | null
 	tags?: TagRel[] | null
 
 }
