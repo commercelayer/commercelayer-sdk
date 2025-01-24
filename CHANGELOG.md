@@ -1,3 +1,11 @@
+## [6.29.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.29.0...v6.29.1) (2025-01-24)
+
+
+### Bug Fixes
+
+* fix deprecated packages ([6aabf41](https://github.com/commercelayer/commercelayer-sdk/commit/6aabf41436b0d911c56c8607be1af1d3e0a2aecb))
+* fix deprecated packages ([#347](https://github.com/commercelayer/commercelayer-sdk/issues/347)) ([1bfa44c](https://github.com/commercelayer/commercelayer-sdk/commit/1bfa44cf2068f53a37b1ab4fe52f5ac48aeec8ae))
+
 # [6.29.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.28.0...v6.29.0) (2025-01-17)
 
 
