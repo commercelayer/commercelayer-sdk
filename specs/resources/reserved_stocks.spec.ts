@@ -4,7 +4,7 @@
  **/
 
 import { CommerceLayerClient, ReservedStock } from '../../src'
-import isEqual from 'lodash.isequal'
+import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -81,10 +81,10 @@ describe('ReservedStocks resource', () => {
   it(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
-    expect(isEqual(relId, { id: TestData.id, type: resourceType}))
+    expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
     const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
-    expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+    expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
   /* spec.relationship.stop */

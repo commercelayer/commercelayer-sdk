@@ -2,8 +2,7 @@
 import getToken from './token'
 import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
 import dotenv from 'dotenv'
-import { inspect } from 'util'
-import isEqual from 'lodash.isequal'
+import { inspect, isDeepStrictEqual } from 'util'
 import { RequestConfig } from '../src/client'
 import { Resource } from '../src/resource'
 
@@ -166,7 +165,7 @@ const checkCommonData = (data: any, type: string, attributes: any, id?: string) 
 		...data.data.attributes,
 		...relationships
 	}
-	expect(isEqual(received, attributes)).toBeTruthy()
+	expect(isDeepStrictEqual(received, attributes)).toBeTruthy()
 }
 
 const checkParam = (url: string | URL, name: string, value: string | number | boolean) => {
