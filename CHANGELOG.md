@@ -1,3 +1,10 @@
+## [6.29.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.29.1...v6.29.2) (2025-01-28)
+
+
+### Bug Fixes
+
+* fix example field in attribute's comment ([cef667e](https://github.com/commercelayer/commercelayer-sdk/commit/cef667e409c128bfd21684fc29e8c2b44792dda4))
+
 ## [6.29.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.29.0...v6.29.1) (2025-01-24)
 
 
