@@ -55,12 +55,12 @@ interface Shipment extends Resource {
 	currency_code?: string | null
 	/** 
 	 * The cost of this shipment from the selected carrier account, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	cost_amount_cents?: number | null
 	/** 
 	 * The cost of this shipment from the selected carrier account, float.
-	 * @example ```"10"```
+	 * @example ```10```
 	 */
 	cost_amount_float?: number | null
 	/** 
@@ -70,7 +70,7 @@ interface Shipment extends Resource {
 	formatted_cost_amount?: string | null
 	/** 
 	 * The total number of SKUs in the shipment's line items. This can be useful to display a preview of the shipment content.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	skus_count?: number | null
 	/** 
@@ -80,7 +80,7 @@ interface Shipment extends Resource {
 	selected_rate_id?: string | null
 	/** 
 	 * The available shipping rates.
-	 * @example ```"[object Object]"```
+	 * @example ```[{"id":"rate_f89e4663c3ed47ee94d37763f6d21d54","rate":"45.59","carrier":"DHLExpress","service":"MedicalExpress"}]```
 	 */
 	rates?: Array<Record<string, any>> | null
 	/** 
@@ -95,7 +95,7 @@ interface Shipment extends Resource {
 	purchase_error_message?: string | null
 	/** 
 	 * Any errors collected when fetching shipping rates.
-	 * @example ```"[object Object]"```
+	 * @example ```[{"carrier":"DHLExpress","message":"to_address.postal_code: Shorter than minimum length 3","type":"rate_error"}]```
 	 */
 	get_rates_errors?: Array<Record<string, any>> | null
 	/** 
@@ -192,62 +192,62 @@ interface ShipmentUpdate extends ResourceUpdate {
 	number?: string | null
 	/** 
 	 * Send this attribute if you want to mark this shipment as upcoming. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_upcoming?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this shipment as cancelled (unless already shipped or delivered). Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_cancel?: boolean | null
 	/** 
 	 * Send this attribute if you want to put this shipment on hold.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_on_hold?: boolean | null
 	/** 
 	 * Send this attribute if you want to start picking this shipment.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_picking?: boolean | null
 	/** 
 	 * Send this attribute if you want to start packing this shipment.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_packing?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this shipment as ready to ship.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_ready_to_ship?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this shipment as shipped.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_ship?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this shipment as delivered.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_deliver?: boolean | null
 	/** 
 	 * Send this attribute if you want to automatically reserve the stock for each of the associated stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_reserve_stock?: boolean | null
 	/** 
 	 * Send this attribute if you want to automatically destroy the stock reservations for each of the associated stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_release_stock?: boolean | null
 	/** 
 	 * Send this attribute if you want to automatically decrement and release the stock for each of the associated stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_decrement_stock?: boolean | null
 	/** 
 	 * Send this attribute if you want get the shipping rates from the associated carrier accounts.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_get_rates?: boolean | null
 	/** 
@@ -257,7 +257,7 @@ interface ShipmentUpdate extends ResourceUpdate {
 	selected_rate_id?: string | null
 	/** 
 	 * Send this attribute if you want to purchase this shipment with the selected rate.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_purchase?: boolean | null
 

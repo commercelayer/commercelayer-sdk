@@ -34,17 +34,17 @@ interface Export extends Resource {
 	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
 	/** 
 	 * List of related resources that should be included in the export (redundant when 'fields' are specified).
-	 * @example ```"prices.price_tiers"```
+	 * @example ```["prices.price_tiers"]```
 	 */
 	includes?: string[] | null
 	/** 
 	 * List of fields to export for the main and related resources (automatically included). Pass the asterisk '*' to include all exportable fields for the main and related resources.
-	 * @example ```"code,name,prices.*,prices.price_tiers.price_amount_cents"```
+	 * @example ```["code","name","prices.*","prices.price_tiers.price_amount_cents"]```
 	 */
 	fields?: string[] | null
 	/** 
 	 * The filters used to select the records to be exported.
-	 * @example ```"[object Object]"```
+	 * @example ```{"code_eq":"AAA"}```
 	 */
 	filters?: Record<string, any> | null
 	/** 
@@ -68,7 +68,7 @@ interface Export extends Resource {
 	interrupted_at?: string | null
 	/** 
 	 * Indicates the number of records to be exported.
-	 * @example ```"300"```
+	 * @example ```300```
 	 */
 	records_count?: number | null
 	/** 
@@ -78,7 +78,7 @@ interface Export extends Resource {
 	attachment_url?: string | null
 	/** 
 	 * Contains the exports errors, if any.
-	 * @example ```"[object Object]"```
+	 * @example ```{"RuntimeError":"query timeout"}```
 	 */
 	errors_log?: Record<string, any> | null
 
@@ -101,17 +101,17 @@ interface ExportCreate extends ResourceCreate {
 	format?: string | null
 	/** 
 	 * List of related resources that should be included in the export (redundant when 'fields' are specified).
-	 * @example ```"prices.price_tiers"```
+	 * @example ```["prices.price_tiers"]```
 	 */
 	includes?: string[] | null
 	/** 
 	 * List of fields to export for the main and related resources (automatically included). Pass the asterisk '*' to include all exportable fields for the main and related resources.
-	 * @example ```"code,name,prices.*,prices.price_tiers.price_amount_cents"```
+	 * @example ```["code","name","prices.*","prices.price_tiers.price_amount_cents"]```
 	 */
 	fields?: string[] | null
 	/** 
 	 * The filters used to select the records to be exported.
-	 * @example ```"[object Object]"```
+	 * @example ```{"code_eq":"AAA"}```
 	 */
 	filters?: Record<string, any> | null
 	/** 
@@ -126,7 +126,7 @@ interface ExportUpdate extends ResourceUpdate {
 	
 	/** 
 	 * Send this attribute if you want to mark status as 'interrupted'.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_interrupt?: boolean | null
 	

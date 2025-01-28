@@ -39,7 +39,7 @@ interface PriceListScheduler extends Resource {
 	expires_at: string
 	/** 
 	 * Indicates if the price list scheduler is active (enabled and not expired).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	active?: boolean | null
 	/** 
@@ -80,12 +80,12 @@ interface PriceListSchedulerCreate extends ResourceCreate {
 	expires_at: string
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 
@@ -114,12 +114,12 @@ interface PriceListSchedulerUpdate extends ResourceUpdate {
 	expires_at?: string | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 

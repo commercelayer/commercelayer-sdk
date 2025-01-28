@@ -27,7 +27,7 @@ interface StockLocation extends Resource {
 
 	/** 
 	 * Unique identifier for the stock location (numeric).
-	 * @example ```"1234"```
+	 * @example ```1234```
 	 */
 	number?: number | null
 	/** 

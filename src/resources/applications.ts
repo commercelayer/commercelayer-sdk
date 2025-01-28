@@ -28,7 +28,7 @@ interface Application extends Resource {
 	kind?: string | null
 	/** 
 	 * Indicates if the application has public access.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	public_access?: boolean | null
 	/** 

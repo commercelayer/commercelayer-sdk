@@ -48,12 +48,12 @@ interface FixedPricePromotion extends Resource {
 	currency_code?: string | null
 	/** 
 	 * Indicates if the promotion will be applied exclusively, based on its priority score.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	exclusive?: boolean | null
 	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	priority?: number | null
 	/** 
@@ -68,17 +68,17 @@ interface FixedPricePromotion extends Resource {
 	expires_at: string
 	/** 
 	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	total_usage_limit?: number | null
 	/** 
 	 * The number of times this promotion has been applied.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	total_usage_count?: number | null
 	/** 
 	 * Indicates if the promotion is active (enabled and not expired).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	active?: boolean | null
 	/** 
@@ -93,12 +93,12 @@ interface FixedPricePromotion extends Resource {
 	disabled_at?: string | null
 	/** 
 	 * The price fixed amount to be applied on matching SKUs, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	fixed_amount_cents: number
 	/** 
 	 * The discount fixed amount to be applied, float.
-	 * @example ```"10"```
+	 * @example ```10```
 	 */
 	fixed_amount_float?: number | null
 	/** 
@@ -138,12 +138,12 @@ interface FixedPricePromotionCreate extends ResourceCreate {
 	currency_code?: string | null
 	/** 
 	 * Indicates if the promotion will be applied exclusively, based on its priority score.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	exclusive?: boolean | null
 	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	priority?: number | null
 	/** 
@@ -158,22 +158,22 @@ interface FixedPricePromotionCreate extends ResourceCreate {
 	expires_at: string
 	/** 
 	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	total_usage_limit?: number | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 	/** 
 	 * The price fixed amount to be applied on matching SKUs, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	fixed_amount_cents: number
 
@@ -202,12 +202,12 @@ interface FixedPricePromotionUpdate extends ResourceUpdate {
 	currency_code?: string | null
 	/** 
 	 * Indicates if the promotion will be applied exclusively, based on its priority score.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	exclusive?: boolean | null
 	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	priority?: number | null
 	/** 
@@ -222,22 +222,22 @@ interface FixedPricePromotionUpdate extends ResourceUpdate {
 	expires_at?: string | null
 	/** 
 	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	total_usage_limit?: number | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 	/** 
 	 * The price fixed amount to be applied on matching SKUs, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	fixed_amount_cents?: number | null
 

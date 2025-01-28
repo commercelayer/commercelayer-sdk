@@ -31,7 +31,7 @@ interface StockItem extends Resource {
 	sku_code?: string | null
 	/** 
 	 * The stock item quantity.
-	 * @example ```"100"```
+	 * @example ```100```
 	 */
 	quantity: number
 
@@ -54,7 +54,7 @@ interface StockItemCreate extends ResourceCreate {
 	sku_code?: string | null
 	/** 
 	 * The stock item quantity.
-	 * @example ```"100"```
+	 * @example ```100```
 	 */
 	quantity: number
 
@@ -73,12 +73,12 @@ interface StockItemUpdate extends ResourceUpdate {
 	sku_code?: string | null
 	/** 
 	 * The stock item quantity.
-	 * @example ```"100"```
+	 * @example ```100```
 	 */
 	quantity?: number | null
 	/** 
 	 * Send this attribute if you want to validate the stock item quantity against the existing reserved stock one, returns an error in case the former is smaller. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_validate?: boolean | null
 

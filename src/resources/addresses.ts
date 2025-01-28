@@ -103,22 +103,22 @@ interface Address extends Resource {
 	notes?: string | null
 	/** 
 	 * The address geocoded latitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
-	 * @example ```"40.6971494"```
+	 * @example ```40.6971494```
 	 */
 	lat?: number | null
 	/** 
 	 * The address geocoded longitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
-	 * @example ```"-74.2598672"```
+	 * @example ```-74.2598672```
 	 */
 	lng?: number | null
 	/** 
 	 * Indicates if the latitude and logitude are present, either geocoded or manually updated.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	is_localized?: boolean | null
 	/** 
 	 * Indicates if the address has been successfully geocoded.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	is_geocoded?: boolean | null
 	/** 
@@ -218,12 +218,12 @@ interface AddressCreate extends ResourceCreate {
 	notes?: string | null
 	/** 
 	 * The address geocoded latitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
-	 * @example ```"40.6971494"```
+	 * @example ```40.6971494```
 	 */
 	lat?: number | null
 	/** 
 	 * The address geocoded longitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
-	 * @example ```"-74.2598672"```
+	 * @example ```-74.2598672```
 	 */
 	lng?: number | null
 	/** 
@@ -306,12 +306,12 @@ interface AddressUpdate extends ResourceUpdate {
 	notes?: string | null
 	/** 
 	 * The address geocoded latitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
-	 * @example ```"40.6971494"```
+	 * @example ```40.6971494```
 	 */
 	lat?: number | null
 	/** 
 	 * The address geocoded longitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
-	 * @example ```"-74.2598672"```
+	 * @example ```-74.2598672```
 	 */
 	lng?: number | null
 	/** 

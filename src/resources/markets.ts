@@ -43,7 +43,7 @@ interface Market extends Resource {
 
 	/** 
 	 * Unique identifier for the market (numeric).
-	 * @example ```"1234"```
+	 * @example ```1234```
 	 */
 	number?: number | null
 	/** 
@@ -78,12 +78,12 @@ interface Market extends Resource {
 	external_order_validation_url?: string | null
 	/** 
 	 * Indicates if market belongs to a customer_group.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	private?: boolean | null
 	/** 
 	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	shipping_cost_cutoff?: number | null
 	/** 
@@ -147,17 +147,17 @@ interface MarketCreate extends ResourceCreate {
 	external_order_validation_url?: string | null
 	/** 
 	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	shipping_cost_cutoff?: number | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 
@@ -206,17 +206,17 @@ interface MarketUpdate extends ResourceUpdate {
 	external_order_validation_url?: string | null
 	/** 
 	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	shipping_cost_cutoff?: number | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 

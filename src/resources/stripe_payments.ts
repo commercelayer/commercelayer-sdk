@@ -42,12 +42,12 @@ interface StripePayment extends Resource {
 	publishable_key?: string | null
 	/** 
 	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.
-	 * @example ```"[object Object]"```
+	 * @example ```{"customer":"cus_xxx","payment_method":"pm_xxx"}```
 	 */
 	options?: Record<string, any> | null
 	/** 
 	 * Stripe 'payment_method', set by webhook.
-	 * @example ```"[object Object]"```
+	 * @example ```{"id":"pm_xxx"}```
 	 */
 	payment_method?: Record<string, any> | null
 	/** 
@@ -66,7 +66,7 @@ interface StripePayment extends Resource {
 	receipt_email?: string | null
 	/** 
 	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
+	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
 	payment_instrument?: Record<string, any> | null
 
@@ -91,7 +91,7 @@ interface StripePaymentCreate extends ResourceCreate {
 	client_secret?: string | null
 	/** 
 	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.
-	 * @example ```"[object Object]"```
+	 * @example ```{"customer":"cus_xxx","payment_method":"pm_xxx"}```
 	 */
 	options?: Record<string, any> | null
 	/** 
@@ -114,7 +114,7 @@ interface StripePaymentUpdate extends ResourceUpdate {
 	
 	/** 
 	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.
-	 * @example ```"[object Object]"```
+	 * @example ```{"customer":"cus_xxx","payment_method":"pm_xxx"}```
 	 */
 	options?: Record<string, any> | null
 	/** 
@@ -124,12 +124,12 @@ interface StripePaymentUpdate extends ResourceUpdate {
 	return_url?: string | null
 	/** 
 	 * Send this attribute if you want to update the created payment intent with fresh order data.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_update?: boolean | null
 	/** 
 	 * Send this attribute if you want to refresh the payment status, can be used as webhooks fallback logic.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_refresh?: boolean | null
 

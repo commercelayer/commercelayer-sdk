@@ -54,37 +54,37 @@ interface Import extends Resource {
 	interrupted_at?: string | null
 	/** 
 	 * Array of objects representing the resources that are being imported.
-	 * @example ```"[object Object],[object Object]"```
+	 * @example ```[{"code":"ABC","name":"Foo"},{"code":"DEF","name":"Bar"}]```
 	 */
 	inputs: Array<Record<string, any>>
 	/** 
 	 * Indicates the size of the objects to be imported.
-	 * @example ```"300"```
+	 * @example ```300```
 	 */
 	inputs_size?: number | null
 	/** 
 	 * Indicates the number of import errors, if any.
-	 * @example ```"30"```
+	 * @example ```30```
 	 */
 	errors_count?: number | null
 	/** 
 	 * Indicates the number of import warnings, if any.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	warnings_count?: number | null
 	/** 
 	 * Indicates the number of records that have been processed (created or updated).
-	 * @example ```"270"```
+	 * @example ```270```
 	 */
 	processed_count?: number | null
 	/** 
 	 * Contains the import errors, if any.
-	 * @example ```"[object Object]"```
+	 * @example ```{"ABC":{"name":["has already been taken"]}}```
 	 */
 	errors_log?: Record<string, any> | null
 	/** 
 	 * Contains the import warnings, if any.
-	 * @example ```"[object Object]"```
+	 * @example ```{"ABC":["could not be deleted"]}```
 	 */
 	warnings_log?: Record<string, any> | null
 	/** 
@@ -117,7 +117,7 @@ interface ImportCreate extends ResourceCreate {
 	parent_resource_id?: string | null
 	/** 
 	 * Array of objects representing the resources that are being imported.
-	 * @example ```"[object Object],[object Object]"```
+	 * @example ```[{"code":"ABC","name":"Foo"},{"code":"DEF","name":"Bar"}]```
 	 */
 	inputs: Array<Record<string, any>>
 	
@@ -128,7 +128,7 @@ interface ImportUpdate extends ResourceUpdate {
 	
 	/** 
 	 * Send this attribute if you want to mark status as 'interrupted'.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_interrupt?: boolean | null
 	

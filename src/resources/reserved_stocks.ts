@@ -22,7 +22,7 @@ interface ReservedStock extends Resource {
 
 	/** 
 	 * The stock item reserved quantity.
-	 * @example ```"100"```
+	 * @example ```100```
 	 */
 	quantity: number
 

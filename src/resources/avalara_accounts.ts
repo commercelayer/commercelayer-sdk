@@ -39,12 +39,12 @@ interface AvalaraAccount extends Resource {
 	company_code: string
 	/** 
 	 * Indicates if the transaction will be recorded and visible on the Avalara website.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	commit_invoice?: boolean | null
 	/** 
 	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	ddp?: boolean | null
 
@@ -81,12 +81,12 @@ interface AvalaraAccountCreate extends ResourceCreate {
 	company_code: string
 	/** 
 	 * Indicates if the transaction will be recorded and visible on the Avalara website.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	commit_invoice?: boolean | null
 	/** 
 	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	ddp?: boolean | null
 
@@ -119,12 +119,12 @@ interface AvalaraAccountUpdate extends ResourceUpdate {
 	company_code?: string | null
 	/** 
 	 * Indicates if the transaction will be recorded and visible on the Avalara website.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	commit_invoice?: boolean | null
 	/** 
 	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	ddp?: boolean | null
 

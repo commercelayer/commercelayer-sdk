@@ -40,22 +40,22 @@ interface OrderFactory extends Resource {
 	failed_at?: string | null
 	/** 
 	 * Contains the order copy errors, if any.
-	 * @example ```"[object Object]"```
+	 * @example ```{"status":["cannot transition from draft to placed"]}```
 	 */
 	errors_log?: Record<string, any> | null
 	/** 
 	 * Indicates the number of copy errors, if any.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	errors_count?: number | null
 	/** 
 	 * Indicates if the target order must be placed upon copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	place_target_order?: boolean | null
 	/** 
 	 * Indicates if the payment source within the source order customer's wallet must be copied.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	reuse_wallet?: boolean | null
 

@@ -53,12 +53,12 @@ interface ShippingMethod extends Resource {
 	external_prices_url?: string | null
 	/** 
 	 * The price of this shipping method, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents: number
 	/** 
 	 * The price of this shipping method, float.
-	 * @example ```"10"```
+	 * @example ```10```
 	 */
 	price_amount_float?: number | null
 	/** 
@@ -68,12 +68,12 @@ interface ShippingMethod extends Resource {
 	formatted_price_amount?: string | null
 	/** 
 	 * Apply free shipping if the order amount is over this value, in cents.
-	 * @example ```"9900"```
+	 * @example ```9900```
 	 */
 	free_over_amount_cents?: number | null
 	/** 
 	 * Apply free shipping if the order amount is over this value, float.
-	 * @example ```"99"```
+	 * @example ```99```
 	 */
 	free_over_amount_float?: number | null
 	/** 
@@ -83,7 +83,7 @@ interface ShippingMethod extends Resource {
 	formatted_free_over_amount?: string | null
 	/** 
 	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	use_subtotal?: boolean | null
 	/** 
@@ -101,12 +101,12 @@ interface ShippingMethod extends Resource {
 	formatted_price_amount_for_shipment?: string | null
 	/** 
 	 * The minimum weight for which this shipping method is available.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	min_weight?: number | null
 	/** 
 	 * The maximum weight for which this shipping method is available.
-	 * @example ```"300"```
+	 * @example ```300```
 	 */
 	max_weight?: number | null
 	/** 
@@ -126,7 +126,7 @@ interface ShippingMethod extends Resource {
 	circuit_state?: string | null
 	/** 
 	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	circuit_failure_count?: number | null
 
@@ -168,27 +168,27 @@ interface ShippingMethodCreate extends ResourceCreate {
 	external_prices_url?: string | null
 	/** 
 	 * The price of this shipping method, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents: number
 	/** 
 	 * Apply free shipping if the order amount is over this value, in cents.
-	 * @example ```"9900"```
+	 * @example ```9900```
 	 */
 	free_over_amount_cents?: number | null
 	/** 
 	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	use_subtotal?: boolean | null
 	/** 
 	 * The minimum weight for which this shipping method is available.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	min_weight?: number | null
 	/** 
 	 * The maximum weight for which this shipping method is available.
-	 * @example ```"300"```
+	 * @example ```300```
 	 */
 	max_weight?: number | null
 	/** 
@@ -198,12 +198,12 @@ interface ShippingMethodCreate extends ResourceCreate {
 	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 
@@ -240,27 +240,27 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	external_prices_url?: string | null
 	/** 
 	 * The price of this shipping method, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents?: number | null
 	/** 
 	 * Apply free shipping if the order amount is over this value, in cents.
-	 * @example ```"9900"```
+	 * @example ```9900```
 	 */
 	free_over_amount_cents?: number | null
 	/** 
 	 * Send this attribute if you want to compare the free over amount with order's subtotal (excluding discounts, if any).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	use_subtotal?: boolean | null
 	/** 
 	 * The minimum weight for which this shipping method is available.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	min_weight?: number | null
 	/** 
 	 * The maximum weight for which this shipping method is available.
-	 * @example ```"300"```
+	 * @example ```300```
 	 */
 	max_weight?: number | null
 	/** 
@@ -270,17 +270,17 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 	/** 
 	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
 

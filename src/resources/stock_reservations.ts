@@ -31,7 +31,7 @@ interface StockReservation extends Resource {
 	status: 'draft' | 'pending'
 	/** 
 	 * The stock reservation quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 	/** 
@@ -55,7 +55,7 @@ interface StockReservationCreate extends ResourceCreate {
 	
 	/** 
 	 * The stock reservation quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 
@@ -68,12 +68,12 @@ interface StockReservationUpdate extends ResourceUpdate {
 	
 	/** 
 	 * The stock reservation quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity?: number | null
 	/** 
 	 * Send this attribute if you want to mark this stock reservation as pending.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_pending?: boolean | null
 	

@@ -28,12 +28,12 @@ interface ExternalPayment extends Resource {
 	payment_source_token: string
 	/** 
 	 * External payment options.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	options?: Record<string, any> | null
 	/** 
 	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
+	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
 	payment_instrument?: Record<string, any> | null
 
@@ -54,7 +54,7 @@ interface ExternalPaymentCreate extends ResourceCreate {
 	payment_source_token: string
 	/** 
 	 * External payment options.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	options?: Record<string, any> | null
 
@@ -67,7 +67,7 @@ interface ExternalPaymentUpdate extends ResourceUpdate {
 	
 	/** 
 	 * External payment options.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	options?: Record<string, any> | null
 

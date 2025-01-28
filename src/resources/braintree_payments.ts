@@ -37,17 +37,17 @@ interface BraintreePayment extends Resource {
 	payment_id?: string | null
 	/** 
 	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	local?: boolean | null
 	/** 
 	 * Braintree payment options, 'customer_id' and 'payment_method_token'.
-	 * @example ```"[object Object]"```
+	 * @example ```{"customer_id":"1234567890"}```
 	 */
 	options?: Record<string, any> | null
 	/** 
 	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
+	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
 	payment_instrument?: Record<string, any> | null
 
@@ -67,12 +67,12 @@ interface BraintreePaymentCreate extends ResourceCreate {
 	payment_id?: string | null
 	/** 
 	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	local?: boolean | null
 	/** 
 	 * Braintree payment options, 'customer_id' and 'payment_method_token'.
-	 * @example ```"[object Object]"```
+	 * @example ```{"customer_id":"1234567890"}```
 	 */
 	options?: Record<string, any> | null
 
@@ -95,12 +95,12 @@ interface BraintreePaymentUpdate extends ResourceUpdate {
 	payment_id?: string | null
 	/** 
 	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	local?: boolean | null
 	/** 
 	 * Braintree payment options, 'customer_id' and 'payment_method_token'.
-	 * @example ```"[object Object]"```
+	 * @example ```{"customer_id":"1234567890"}```
 	 */
 	options?: Record<string, any> | null
 

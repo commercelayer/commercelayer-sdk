@@ -69,12 +69,12 @@ interface LineItem extends Resource {
 	bundle_code?: string | null
 	/** 
 	 * The line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 	/** 
 	 * When creating or updating a new line item, set this attribute to '1' if you want to inject the unit_amount_cents price from an external source. Any successive price computation will be done externally, until the attribute is reset to '0'.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_external_price?: boolean | null
 	/** 
@@ -84,12 +84,12 @@ interface LineItem extends Resource {
 	currency_code?: string | null
 	/** 
 	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods. Cannot be passed by sales channels.
-	 * @example ```"10000"```
+	 * @example ```10000```
 	 */
 	unit_amount_cents?: number | null
 	/** 
 	 * The unit amount of the line item, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
-	 * @example ```"100"```
+	 * @example ```100```
 	 */
 	unit_amount_float?: number | null
 	/** 
@@ -99,12 +99,12 @@ interface LineItem extends Resource {
 	formatted_unit_amount?: string | null
 	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
 	/** 
 	 * The compared price amount, float.
-	 * @example ```"130"```
+	 * @example ```130```
 	 */
 	compare_at_amount_float?: number | null
 	/** 
@@ -114,12 +114,12 @@ interface LineItem extends Resource {
 	formatted_compare_at_amount?: string | null
 	/** 
 	 * The options amount of the line item, in cents. Cannot be passed by sales channels.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	options_amount_cents?: number | null
 	/** 
 	 * The options amount of the line item, float.
-	 * @example ```"10"```
+	 * @example ```10```
 	 */
 	options_amount_float?: number | null
 	/** 
@@ -129,12 +129,12 @@ interface LineItem extends Resource {
 	formatted_options_amount?: string | null
 	/** 
 	 * The discount applied to the line item, in cents. When you apply a discount to an order, this is automatically calculated basing on the line item total_amount_cents value.
-	 * @example ```"-1000"```
+	 * @example ```-1000```
 	 */
 	discount_cents?: number | null
 	/** 
 	 * The discount applied to the line item, float. When you apply a discount to an order, this is automatically calculated basing on the line item total_amount_cents value.
-	 * @example ```"10"```
+	 * @example ```10```
 	 */
 	discount_float?: number | null
 	/** 
@@ -144,12 +144,12 @@ interface LineItem extends Resource {
 	formatted_discount?: string | null
 	/** 
 	 * Calculated as unit amount x quantity + options amount, in cents.
-	 * @example ```"18800"```
+	 * @example ```18800```
 	 */
 	total_amount_cents?: number | null
 	/** 
 	 * Calculated as unit amount x quantity + options amount, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
-	 * @example ```"188"```
+	 * @example ```188```
 	 */
 	total_amount_float: number
 	/** 
@@ -159,12 +159,12 @@ interface LineItem extends Resource {
 	formatted_total_amount?: string | null
 	/** 
 	 * The collected tax amount, otherwise calculated as total amount cents - discount cent * tax rate, in cents.
-	 * @example ```"1880"```
+	 * @example ```1880```
 	 */
 	tax_amount_cents?: number | null
 	/** 
 	 * The collected tax amount, otherwise calculated as total amount cents - discount cent * tax rate, float.
-	 * @example ```"18.8"```
+	 * @example ```18.8```
 	 */
 	tax_amount_float: number
 	/** 
@@ -184,17 +184,17 @@ interface LineItem extends Resource {
 	image_url?: string | null
 	/** 
 	 * The discount breakdown for this line item (if calculated).
-	 * @example ```"[object Object]"```
+	 * @example ```{"41":{"name":"10% ALL","cents":-900,"weight":0.416,"coupon_code":"XXXXXXXX"}}```
 	 */
 	discount_breakdown?: Record<string, any> | null
 	/** 
 	 * The tax rate for this line item (if calculated).
-	 * @example ```"0.22"```
+	 * @example ```0.22```
 	 */
 	tax_rate?: number | null
 	/** 
 	 * The tax breakdown for this line item (if calculated).
-	 * @example ```"[object Object]"```
+	 * @example ```{"id":"1234","city_amount":"0.0","state_amount":6.6,"city_tax_rate":0,"county_amount":2.78,"taxable_amount":139,"county_tax_rate":0.02,"tax_collectable":10.08,"special_tax_rate":0.005,"combined_tax_rate":0.0725,"city_taxable_amount":0,"state_sales_tax_rate":0.0475,"state_taxable_amount":139,"county_taxable_amount":139,"special_district_amount":0.7,"special_district_taxable_amount":139}```
 	 */
 	tax_breakdown?: Record<string, any> | null
 	/** 
@@ -219,7 +219,7 @@ interface LineItem extends Resource {
 	circuit_state?: string | null
 	/** 
 	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	circuit_failure_count?: number | null
 
@@ -257,32 +257,32 @@ interface LineItemCreate extends ResourceCreate {
 	bundle_code?: string | null
 	/** 
 	 * The line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 	/** 
 	 * When creating or updating a new line item, set this attribute to '1' if you want to inject the unit_amount_cents price from an external source. Any successive price computation will be done externally, until the attribute is reset to '0'.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_external_price?: boolean | null
 	/** 
 	 * When creating a new line item, set this attribute to '1' if you want to update the line item quantity (if present) instead of creating a new line item for the same SKU.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_update_quantity?: boolean | null
 	/** 
 	 * Send this attribute if you want to reserve the stock for the line item's SKUs quantity. Stock reservations expiration depends on the inventory model's cutoff. When used on update the existing active stock reservations are renewed. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_reserve_stock?: boolean | null
 	/** 
 	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods. Cannot be passed by sales channels.
-	 * @example ```"10000"```
+	 * @example ```10000```
 	 */
 	unit_amount_cents?: number | null
 	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
 	/** 
@@ -327,32 +327,32 @@ interface LineItemUpdate extends ResourceUpdate {
 	bundle_code?: string | null
 	/** 
 	 * The line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity?: number | null
 	/** 
 	 * When creating or updating a new line item, set this attribute to '1' if you want to inject the unit_amount_cents price from an external source. Any successive price computation will be done externally, until the attribute is reset to '0'.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_external_price?: boolean | null
 	/** 
 	 * Send this attribute if you want to reserve the stock for the line item's SKUs quantity. Stock reservations expiration depends on the inventory model's cutoff. When used on update the existing active stock reservations are renewed. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_reserve_stock?: boolean | null
 	/** 
 	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods. Cannot be passed by sales channels.
-	 * @example ```"10000"```
+	 * @example ```10000```
 	 */
 	unit_amount_cents?: number | null
 	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
 	/** 
 	 * The options amount of the line item, in cents. Cannot be passed by sales channels.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	options_amount_cents?: number | null
 	/** 
@@ -372,7 +372,7 @@ interface LineItemUpdate extends ResourceUpdate {
 	frequency?: string | null
 	/** 
 	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
 

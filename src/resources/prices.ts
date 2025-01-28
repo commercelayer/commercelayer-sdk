@@ -41,12 +41,12 @@ interface Price extends Resource {
 	sku_code?: string | null
 	/** 
 	 * The SKU price amount for the associated price list, in cents.
-	 * @example ```"10000"```
+	 * @example ```10000```
 	 */
 	amount_cents: number
 	/** 
 	 * The SKU price amount for the associated price list, float.
-	 * @example ```"100"```
+	 * @example ```100```
 	 */
 	amount_float?: number | null
 	/** 
@@ -56,7 +56,7 @@ interface Price extends Resource {
 	formatted_amount?: string | null
 	/** 
 	 * The SKU price amount for the associated price list, in cents before any applied rule.
-	 * @example ```"10000"```
+	 * @example ```10000```
 	 */
 	original_amount_cents?: number | null
 	/** 
@@ -66,12 +66,12 @@ interface Price extends Resource {
 	formatted_original_amount?: string | null
 	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
 	/** 
 	 * The compared price amount, float.
-	 * @example ```"130"```
+	 * @example ```130```
 	 */
 	compare_at_amount_float?: number | null
 	/** 
@@ -86,22 +86,22 @@ interface Price extends Resource {
 	processed_at?: string | null
 	/** 
 	 * The rules (using Rules Engine) to be applied.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rules?: Record<string, any> | null
 	/** 
 	 * The rule outcomes.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rule_outcomes?: Record<string, any> | null
 	/** 
 	 * The payload used to evaluate the rules.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	resource_payload?: Record<string, any> | null
 	/** 
 	 * The custom_claim attached to the current JWT (if any).
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	jwt_custom_claim?: Record<string, any> | null
 
@@ -128,17 +128,17 @@ interface PriceCreate extends ResourceCreate {
 	sku_code?: string | null
 	/** 
 	 * The SKU price amount for the associated price list, in cents.
-	 * @example ```"10000"```
+	 * @example ```10000```
 	 */
 	amount_cents: number
 	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
 	/** 
 	 * The rules (using Rules Engine) to be applied.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rules?: Record<string, any> | null
 
@@ -158,12 +158,12 @@ interface PriceUpdate extends ResourceUpdate {
 	sku_code?: string | null
 	/** 
 	 * The SKU price amount for the associated price list, in cents.
-	 * @example ```"10000"```
+	 * @example ```10000```
 	 */
 	amount_cents?: number | null
 	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
 	/** 
@@ -173,7 +173,7 @@ interface PriceUpdate extends ResourceUpdate {
 	processed_at?: string | null
 	/** 
 	 * The rules (using Rules Engine) to be applied.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rules?: Record<string, any> | null
 

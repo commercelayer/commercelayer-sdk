@@ -31,7 +31,7 @@ interface StripeGateway extends Resource {
 	connected_account?: string | null
 	/** 
 	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	auto_payments?: boolean | null
 	/** 
@@ -81,7 +81,7 @@ interface StripeGatewayCreate extends ResourceCreate {
 	connected_account?: string | null
 	/** 
 	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	auto_payments?: boolean | null
 	
@@ -102,7 +102,7 @@ interface StripeGatewayUpdate extends ResourceUpdate {
 	connected_account?: string | null
 	/** 
 	 * Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	auto_payments?: boolean | null
 	

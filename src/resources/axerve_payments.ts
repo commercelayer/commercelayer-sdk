@@ -32,7 +32,7 @@ interface AxervePayment extends Resource {
 	return_url: string
 	/** 
 	 * The Axerve payment request data, collected by client.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_request_data?: Record<string, any> | null
 	/** 
@@ -42,12 +42,12 @@ interface AxervePayment extends Resource {
 	client_ip?: string | null
 	/** 
 	 * The details of the buyer creating the payment.
-	 * @example ```"[object Object]"```
+	 * @example ```{"cardHolder":{"email":"george.harrison@gmail.com"},"shippingAddress":{"firstName":"George"}}```
 	 */
 	buyer_details?: Record<string, any> | null
 	/** 
 	 * Requires the creation of a token to represent this payment, mandatory to use customer's wallet and order subscriptions.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	request_token?: boolean | null
 	/** 
@@ -56,7 +56,7 @@ interface AxervePayment extends Resource {
 	mismatched_amounts?: boolean | null
 	/** 
 	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
+	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
 	payment_instrument?: Record<string, any> | null
 
@@ -81,12 +81,12 @@ interface AxervePaymentCreate extends ResourceCreate {
 	client_ip?: string | null
 	/** 
 	 * The details of the buyer creating the payment.
-	 * @example ```"[object Object]"```
+	 * @example ```{"cardHolder":{"email":"george.harrison@gmail.com"},"shippingAddress":{"firstName":"George"}}```
 	 */
 	buyer_details?: Record<string, any> | null
 	/** 
 	 * Requires the creation of a token to represent this payment, mandatory to use customer's wallet and order subscriptions.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	request_token?: boolean | null
 
@@ -99,12 +99,12 @@ interface AxervePaymentUpdate extends ResourceUpdate {
 	
 	/** 
 	 * The Axerve payment request data, collected by client.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_request_data?: Record<string, any> | null
 	/** 
 	 * Send this attribute if you want to update the payment with fresh order data.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_update?: boolean | null
 

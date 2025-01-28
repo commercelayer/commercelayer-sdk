@@ -40,12 +40,12 @@ interface SkuOption extends Resource {
 	description?: string | null
 	/** 
 	 * The price of this shipping method, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents?: number | null
 	/** 
 	 * The price of this shipping method, float.
-	 * @example ```"10"```
+	 * @example ```10```
 	 */
 	price_amount_float?: number | null
 	/** 
@@ -55,12 +55,12 @@ interface SkuOption extends Resource {
 	formatted_price_amount?: string | null
 	/** 
 	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
-	 * @example ```"48"```
+	 * @example ```48```
 	 */
 	delay_hours?: number | null
 	/** 
 	 * The delay time, in days (rounded).
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	delay_days?: number | null
 	/** 
@@ -97,12 +97,12 @@ interface SkuOptionCreate extends ResourceCreate {
 	description?: string | null
 	/** 
 	 * The price of this shipping method, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents?: number | null
 	/** 
 	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
-	 * @example ```"48"```
+	 * @example ```48```
 	 */
 	delay_hours?: number | null
 	/** 
@@ -136,12 +136,12 @@ interface SkuOptionUpdate extends ResourceUpdate {
 	description?: string | null
 	/** 
 	 * The price of this shipping method, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents?: number | null
 	/** 
 	 * The delay time (in hours) that should be added to the delivery lead time when this option is purchased.
-	 * @example ```"48"```
+	 * @example ```48```
 	 */
 	delay_hours?: number | null
 	/** 

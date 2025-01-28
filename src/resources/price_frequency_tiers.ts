@@ -28,17 +28,17 @@ interface PriceFrequencyTier extends Resource {
 	name: string
 	/** 
 	 * The tier upper limit, expressed as the line item frequency in days (or frequency label, ie 'monthly'). When 'null' it means infinity (useful to have an always matching tier).
-	 * @example ```"7"```
+	 * @example ```7```
 	 */
 	up_to?: number | null
 	/** 
 	 * The price of this price tier, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents: number
 	/** 
 	 * The price of this price tier, float.
-	 * @example ```"10"```
+	 * @example ```10```
 	 */
 	price_amount_float?: number | null
 	/** 
@@ -64,12 +64,12 @@ interface PriceFrequencyTierCreate extends ResourceCreate {
 	name: string
 	/** 
 	 * The tier upper limit, expressed as the line item frequency in days (or frequency label, ie 'monthly'). When 'null' it means infinity (useful to have an always matching tier).
-	 * @example ```"7"```
+	 * @example ```7```
 	 */
 	up_to?: number | null
 	/** 
 	 * The price of this price tier, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents: number
 
@@ -87,12 +87,12 @@ interface PriceFrequencyTierUpdate extends ResourceUpdate {
 	name?: string | null
 	/** 
 	 * The tier upper limit, expressed as the line item frequency in days (or frequency label, ie 'monthly'). When 'null' it means infinity (useful to have an always matching tier).
-	 * @example ```"7"```
+	 * @example ```7```
 	 */
 	up_to?: number | null
 	/** 
 	 * The price of this price tier, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents?: number | null
 

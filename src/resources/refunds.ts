@@ -44,12 +44,12 @@ interface Refund extends Resource {
 	currency_code: string
 	/** 
 	 * The transaction amount, in cents.
-	 * @example ```"1500"```
+	 * @example ```1500```
 	 */
 	amount_cents: number
 	/** 
 	 * The transaction amount, float.
-	 * @example ```"15"```
+	 * @example ```15```
 	 */
 	amount_float: number
 	/** 
@@ -106,7 +106,7 @@ interface RefundUpdate extends ResourceUpdate {
 	succeeded?: boolean | null
 	/** 
 	 * Send this attribute if you want to forward a stuck transaction to succeeded and update associated order states accordingly.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_forward?: boolean | null
 	

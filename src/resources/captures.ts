@@ -45,12 +45,12 @@ interface Capture extends Resource {
 	currency_code: string
 	/** 
 	 * The transaction amount, in cents.
-	 * @example ```"1500"```
+	 * @example ```1500```
 	 */
 	amount_cents: number
 	/** 
 	 * The transaction amount, float.
-	 * @example ```"15"```
+	 * @example ```15```
 	 */
 	amount_float: number
 	/** 
@@ -89,12 +89,12 @@ interface Capture extends Resource {
 	gateway_transaction_id?: string | null
 	/** 
 	 * The amount to be refunded, in cents.
-	 * @example ```"500"```
+	 * @example ```500```
 	 */
 	refund_amount_cents?: number | null
 	/** 
 	 * The amount to be refunded, float.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	refund_amount_float?: number | null
 	/** 
@@ -104,12 +104,12 @@ interface Capture extends Resource {
 	formatted_refund_amount?: string | null
 	/** 
 	 * The balance to be refunded, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	refund_balance_cents?: number | null
 	/** 
 	 * The balance to be refunded, float.
-	 * @example ```"10"```
+	 * @example ```10```
 	 */
 	refund_balance_float?: number | null
 	/** 
@@ -138,22 +138,22 @@ interface CaptureUpdate extends ResourceUpdate {
 	succeeded?: boolean | null
 	/** 
 	 * Send this attribute if you want to forward a stuck transaction to succeeded and update associated order states accordingly.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_forward?: boolean | null
 	/** 
 	 * Send this attribute if you want to create a refund for this capture.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_refund?: boolean | null
 	/** 
 	 * Send this attribute as a value in cents if you want to overwrite the amount to be refunded.
-	 * @example ```"500"```
+	 * @example ```500```
 	 */
 	_refund_amount_cents?: number | null
 	/** 
 	 * Send this attribute if you want to refund a succeeded capture of a pending order (which is left unpaid).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_cancel?: boolean | null
 	

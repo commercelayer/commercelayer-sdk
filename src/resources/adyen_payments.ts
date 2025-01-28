@@ -27,22 +27,22 @@ interface AdyenPayment extends Resource {
 	public_key?: string | null
 	/** 
 	 * The merchant available payment methods for the assoiated order (i.e. country and amount). Required by the Adyen JS SDK.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_methods: Record<string, any>
 	/** 
 	 * The Adyen payment request data, collected by client.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_request_data?: Record<string, any> | null
 	/** 
 	 * The Adyen additional details request data, collected by client.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_request_details?: Record<string, any> | null
 	/** 
 	 * The Adyen payment response, used by client (includes 'resultCode' and 'action').
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_response?: Record<string, any> | null
 	/** 
@@ -51,7 +51,7 @@ interface AdyenPayment extends Resource {
 	mismatched_amounts?: boolean | null
 	/** 
 	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
+	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
 	payment_instrument?: Record<string, any> | null
 
@@ -73,22 +73,22 @@ interface AdyenPaymentUpdate extends ResourceUpdate {
 	
 	/** 
 	 * The Adyen payment request data, collected by client.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_request_data?: Record<string, any> | null
 	/** 
 	 * The Adyen additional details request data, collected by client.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_request_details?: Record<string, any> | null
 	/** 
 	 * The Adyen payment response, used by client (includes 'resultCode' and 'action').
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_response?: Record<string, any> | null
 	/** 
 	 * Send this attribute if you want to send additional details the payment request.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_details?: boolean | null
 

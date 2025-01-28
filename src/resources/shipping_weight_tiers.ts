@@ -27,17 +27,17 @@ interface ShippingWeightTier extends Resource {
 	name: string
 	/** 
 	 * The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).
-	 * @example ```"20.5"```
+	 * @example ```20.5```
 	 */
 	up_to?: number | null
 	/** 
 	 * The price of this shipping method tier, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents: number
 	/** 
 	 * The price of this shipping method tier, float.
-	 * @example ```"10"```
+	 * @example ```10```
 	 */
 	price_amount_float?: number | null
 	/** 
@@ -62,12 +62,12 @@ interface ShippingWeightTierCreate extends ResourceCreate {
 	name: string
 	/** 
 	 * The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).
-	 * @example ```"20.5"```
+	 * @example ```20.5```
 	 */
 	up_to?: number | null
 	/** 
 	 * The price of this shipping method tier, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents: number
 
@@ -85,12 +85,12 @@ interface ShippingWeightTierUpdate extends ResourceUpdate {
 	name?: string | null
 	/** 
 	 * The tier upper limit. When 'null' it means infinity (useful to have an always matching tier).
-	 * @example ```"20.5"```
+	 * @example ```20.5```
 	 */
 	up_to?: number | null
 	/** 
 	 * The price of this shipping method tier, in cents.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	price_amount_cents?: number | null
 

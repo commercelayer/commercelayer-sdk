@@ -33,7 +33,7 @@ interface Notification extends Resource {
 	flash?: boolean | null
 	/** 
 	 * An internal body of the notification.
-	 * @example ```"[object Object]"```
+	 * @example ```{"sku":"REDHANDBAG","name":"Enjoy your free item"}```
 	 */
 	body?: Record<string, any> | null
 
@@ -55,7 +55,7 @@ interface NotificationCreate extends ResourceCreate {
 	flash?: boolean | null
 	/** 
 	 * An internal body of the notification.
-	 * @example ```"[object Object]"```
+	 * @example ```{"sku":"REDHANDBAG","name":"Enjoy your free item"}```
 	 */
 	body?: Record<string, any> | null
 
@@ -77,7 +77,7 @@ interface NotificationUpdate extends ResourceUpdate {
 	flash?: boolean | null
 	/** 
 	 * An internal body of the notification.
-	 * @example ```"[object Object]"```
+	 * @example ```{"sku":"REDHANDBAG","name":"Enjoy your free item"}```
 	 */
 	body?: Record<string, any> | null
 

@@ -56,7 +56,7 @@ interface ExternalGateway extends Resource {
 	circuit_state?: string | null
 	/** 
 	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	circuit_failure_count?: number | null
 	/** 
@@ -142,7 +142,7 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 	token_url?: string | null
 	/** 
 	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
 	

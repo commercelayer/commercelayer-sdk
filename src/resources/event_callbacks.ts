@@ -24,7 +24,7 @@ interface EventCallback extends Resource {
 	callback_url: string
 	/** 
 	 * The payload sent to the callback endpoint, including the event affected resource and the specified includes.
-	 * @example ```"[object Object]"```
+	 * @example ```{"data":{"attributes":{"id":"PYWehaoXJj","type":"orders"}}}```
 	 */
 	payload?: Record<string, any> | null
 	/** 

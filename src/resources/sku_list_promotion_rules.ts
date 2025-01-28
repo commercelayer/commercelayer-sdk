@@ -38,12 +38,12 @@ interface SkuListPromotionRule extends Resource {
 
 	/** 
 	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	all_skus?: boolean | null
 	/** 
 	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	min_quantity?: number | null
 
@@ -59,12 +59,12 @@ interface SkuListPromotionRuleCreate extends ResourceCreate {
 	
 	/** 
 	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	all_skus?: boolean | null
 	/** 
 	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	min_quantity?: number | null
 
@@ -78,12 +78,12 @@ interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 	
 	/** 
 	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	all_skus?: boolean | null
 	/** 
 	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	min_quantity?: number | null
 

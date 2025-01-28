@@ -35,7 +35,7 @@ interface CustomPromotionRule extends Resource {
 
 	/** 
 	 * The filters used to trigger promotion on the matching order and its relationships attributes.
-	 * @example ```"[object Object]"```
+	 * @example ```{"status_eq":"pending","line_items_sku_code_eq":"AAA"}```
 	 */
 	filters?: Record<string, any> | null
 
@@ -49,7 +49,7 @@ interface CustomPromotionRuleCreate extends ResourceCreate {
 	
 	/** 
 	 * The filters used to trigger promotion on the matching order and its relationships attributes.
-	 * @example ```"[object Object]"```
+	 * @example ```{"status_eq":"pending","line_items_sku_code_eq":"AAA"}```
 	 */
 	filters?: Record<string, any> | null
 
@@ -62,7 +62,7 @@ interface CustomPromotionRuleUpdate extends ResourceUpdate {
 	
 	/** 
 	 * The filters used to trigger promotion on the matching order and its relationships attributes.
-	 * @example ```"[object Object]"```
+	 * @example ```{"status_eq":"pending","line_items_sku_code_eq":"AAA"}```
 	 */
 	filters?: Record<string, any> | null
 

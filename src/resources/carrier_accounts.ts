@@ -37,7 +37,7 @@ interface CarrierAccount extends Resource {
 	easypost_id?: string | null
 	/** 
 	 * The Easypost carrier accounts credentials fields.
-	 * @example ```"[object Object]"```
+	 * @example ```{"username":"xxxx","password":"secret"}```
 	 */
 	credentials: Record<string, any>
 
@@ -62,7 +62,7 @@ interface CarrierAccountCreate extends ResourceCreate {
 	easypost_type: string
 	/** 
 	 * The Easypost carrier accounts credentials fields.
-	 * @example ```"[object Object]"```
+	 * @example ```{"username":"xxxx","password":"secret"}```
 	 */
 	credentials: Record<string, any>
 
@@ -85,7 +85,7 @@ interface CarrierAccountUpdate extends ResourceUpdate {
 	easypost_type?: string | null
 	/** 
 	 * The Easypost carrier accounts credentials fields.
-	 * @example ```"[object Object]"```
+	 * @example ```{"username":"xxxx","password":"secret"}```
 	 */
 	credentials?: Record<string, any> | null
 

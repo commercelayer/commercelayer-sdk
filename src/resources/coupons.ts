@@ -35,12 +35,12 @@ interface Coupon extends Resource {
 	customer_single_use?: boolean | null
 	/** 
 	 * The total number of times this coupon can be used.
-	 * @example ```"50"```
+	 * @example ```50```
 	 */
 	usage_limit?: number | null
 	/** 
 	 * The number of times this coupon has been used.
-	 * @example ```"20"```
+	 * @example ```20```
 	 */
 	usage_count?: number | null
 	/** 
@@ -76,7 +76,7 @@ interface CouponCreate extends ResourceCreate {
 	customer_single_use?: boolean | null
 	/** 
 	 * The total number of times this coupon can be used.
-	 * @example ```"50"```
+	 * @example ```50```
 	 */
 	usage_limit?: number | null
 	/** 
@@ -110,7 +110,7 @@ interface CouponUpdate extends ResourceUpdate {
 	customer_single_use?: boolean | null
 	/** 
 	 * The total number of times this coupon can be used.
-	 * @example ```"50"```
+	 * @example ```50```
 	 */
 	usage_limit?: number | null
 	/** 

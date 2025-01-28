@@ -32,7 +32,7 @@ interface ReturnLineItem extends Resource {
 	bundle_code?: string | null
 	/** 
 	 * The return line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 	/** 
@@ -47,12 +47,12 @@ interface ReturnLineItem extends Resource {
 	image_url?: string | null
 	/** 
 	 * Calculated as line item unit amount x returned quantity and applied discounts, if any.
-	 * @example ```"8800"```
+	 * @example ```8800```
 	 */
 	total_amount_cents?: number | null
 	/** 
 	 * The return line item total amount, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
-	 * @example ```"88"```
+	 * @example ```88```
 	 */
 	total_amount_float: number
 	/** 
@@ -62,7 +62,7 @@ interface ReturnLineItem extends Resource {
 	formatted_total_amount?: string | null
 	/** 
 	 * Set of key-value pairs that you can use to add details about return reason.
-	 * @example ```"[object Object]"```
+	 * @example ```{"size":"was wrong"}```
 	 */
 	return_reason?: Record<string, any> | null
 	/** 
@@ -81,12 +81,12 @@ interface ReturnLineItemCreate extends ResourceCreate {
 	
 	/** 
 	 * The return line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 	/** 
 	 * Set of key-value pairs that you can use to add details about return reason.
-	 * @example ```"[object Object]"```
+	 * @example ```{"size":"was wrong"}```
 	 */
 	return_reason?: Record<string, any> | null
 
@@ -100,17 +100,17 @@ interface ReturnLineItemUpdate extends ResourceUpdate {
 	
 	/** 
 	 * The return line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity?: number | null
 	/** 
 	 * Send this attribute if you want to restock the line item.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_restock?: boolean | null
 	/** 
 	 * Set of key-value pairs that you can use to add details about return reason.
-	 * @example ```"[object Object]"```
+	 * @example ```{"size":"was wrong"}```
 	 */
 	return_reason?: Record<string, any> | null
 	

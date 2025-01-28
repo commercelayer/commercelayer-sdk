@@ -67,7 +67,7 @@ interface CheckoutComPayment extends Resource {
 	redirect_uri?: string | null
 	/** 
 	 * The Checkout.com payment response, used to fetch internal data.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_response?: Record<string, any> | null
 	/** 
@@ -76,7 +76,7 @@ interface CheckoutComPayment extends Resource {
 	mismatched_amounts?: boolean | null
 	/** 
 	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
+	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
 	payment_instrument?: Record<string, any> | null
 
@@ -149,12 +149,12 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	failure_url?: string | null
 	/** 
 	 * Send this attribute if you want to send additional details the payment request (i.e. upon 3DS check).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_details?: boolean | null
 	/** 
 	 * Send this attribute if you want to refresh all the pending transactions, can be used as webhooks fallback logic.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_refresh?: boolean | null
 

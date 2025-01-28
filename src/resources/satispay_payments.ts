@@ -47,12 +47,12 @@ interface SatispayPayment extends Resource {
 	payment_url?: string | null
 	/** 
 	 * The Satispay payment response, used to fetch internal data.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_response?: Record<string, any> | null
 	/** 
 	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
+	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
 	payment_instrument?: Record<string, any> | null
 
@@ -90,7 +90,7 @@ interface SatispayPaymentUpdate extends ResourceUpdate {
 	redirect_url?: string | null
 	/** 
 	 * Send this attribute if you want to refresh all the pending transactions, can be used as webhooks fallback logic.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_refresh?: boolean | null
 

@@ -33,7 +33,7 @@ interface ParcelLineItem extends Resource {
 	bundle_code?: string | null
 	/** 
 	 * The parcel line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 	/** 
@@ -58,7 +58,7 @@ interface ParcelLineItemCreate extends ResourceCreate {
 	
 	/** 
 	 * The parcel line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 

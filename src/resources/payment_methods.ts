@@ -46,12 +46,12 @@ interface PaymentMethod extends Resource {
 	moto?: boolean | null
 	/** 
 	 * Send this attribute if you want to require the payment capture before fulfillment.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	require_capture?: boolean | null
 	/** 
 	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	auto_place?: boolean | null
 	/** 
@@ -123,12 +123,12 @@ interface PaymentMethodCreate extends ResourceCreate {
 	moto?: boolean | null
 	/** 
 	 * Send this attribute if you want to require the payment capture before fulfillment.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	require_capture?: boolean | null
 	/** 
 	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	auto_place?: boolean | null
 	/** 
@@ -145,12 +145,12 @@ interface PaymentMethodCreate extends ResourceCreate {
 	auto_capture_max_amount_cents?: number | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 
@@ -184,12 +184,12 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 	moto?: boolean | null
 	/** 
 	 * Send this attribute if you want to require the payment capture before fulfillment.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	require_capture?: boolean | null
 	/** 
 	 * Send this attribute if you want to automatically place the order upon authorization performed asynchronously.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	auto_place?: boolean | null
 	/** 
@@ -206,12 +206,12 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 	auto_capture_max_amount_cents?: number | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 

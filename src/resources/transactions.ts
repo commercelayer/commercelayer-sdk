@@ -42,12 +42,12 @@ interface Transaction extends Resource {
 	currency_code: string
 	/** 
 	 * The transaction amount, in cents.
-	 * @example ```"1500"```
+	 * @example ```1500```
 	 */
 	amount_cents: number
 	/** 
 	 * The transaction amount, float.
-	 * @example ```"15"```
+	 * @example ```15```
 	 */
 	amount_float: number
 	/** 

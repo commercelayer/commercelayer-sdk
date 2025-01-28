@@ -31,7 +31,7 @@ interface Parcel extends Resource {
 	number?: string | null
 	/** 
 	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	weight: number
 	/** 
@@ -122,7 +122,7 @@ interface Parcel extends Resource {
 	tracking_status_updated_at?: string | null
 	/** 
 	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
-	 * @example ```"[object Object]"```
+	 * @example ```[{"object":"TrackingDetail","message":"Pre-Shipment information received","status":"pre_transit","datetime":"2018-02-27T16:02:17Z","source":"DHLExpress","tracking_location":{"object":"TrackingLocation"}}]```
 	 */
 	tracking_details?: Record<string, any> | null
 	/** 
@@ -160,7 +160,7 @@ interface ParcelCreate extends ResourceCreate {
 	
 	/** 
 	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	weight: number
 	/** 
@@ -251,7 +251,7 @@ interface ParcelCreate extends ResourceCreate {
 	tracking_status_updated_at?: string | null
 	/** 
 	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
-	 * @example ```"[object Object]"```
+	 * @example ```[{"object":"TrackingDetail","message":"Pre-Shipment information received","status":"pre_transit","datetime":"2018-02-27T16:02:17Z","source":"DHLExpress","tracking_location":{"object":"TrackingLocation"}}]```
 	 */
 	tracking_details?: Record<string, any> | null
 	/** 
@@ -285,7 +285,7 @@ interface ParcelUpdate extends ResourceUpdate {
 	
 	/** 
 	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	weight?: number | null
 	/** 
@@ -376,7 +376,7 @@ interface ParcelUpdate extends ResourceUpdate {
 	tracking_status_updated_at?: string | null
 	/** 
 	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
-	 * @example ```"[object Object]"```
+	 * @example ```[{"object":"TrackingDetail","message":"Pre-Shipment information received","status":"pre_transit","datetime":"2018-02-27T16:02:17Z","source":"DHLExpress","tracking_location":{"object":"TrackingLocation"}}]```
 	 */
 	tracking_details?: Record<string, any> | null
 	/** 

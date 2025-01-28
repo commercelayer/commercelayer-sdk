@@ -45,7 +45,7 @@ interface StockTransfer extends Resource {
 	status: 'draft' | 'upcoming' | 'on_hold' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
 	/** 
 	 * The stock quantity to be transferred from the origin stock location to destination one. Updatable unless stock transfer is completed or cancelled and depending on origin stock availability.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	quantity: number
 	/** 
@@ -101,7 +101,7 @@ interface StockTransferCreate extends ResourceCreate {
 	sku_code?: string | null
 	/** 
 	 * The stock quantity to be transferred from the origin stock location to destination one. Updatable unless stock transfer is completed or cancelled and depending on origin stock availability.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	quantity: number
 
@@ -128,37 +128,37 @@ interface StockTransferUpdate extends ResourceUpdate {
 	sku_code?: string | null
 	/** 
 	 * The stock quantity to be transferred from the origin stock location to destination one. Updatable unless stock transfer is completed or cancelled and depending on origin stock availability.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	quantity?: number | null
 	/** 
 	 * Send this attribute if you want to mark this stock transfer as upcoming.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_upcoming?: boolean | null
 	/** 
 	 * Send this attribute if you want to put this stock transfer on hold.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_on_hold?: boolean | null
 	/** 
 	 * Send this attribute if you want to start picking this stock transfer.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_picking?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this stock transfer as in transit.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_in_transit?: boolean | null
 	/** 
 	 * Send this attribute if you want to complete this stock transfer.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_complete?: boolean | null
 	/** 
 	 * Send this attribute if you want to cancel this stock transfer.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_cancel?: boolean | null
 

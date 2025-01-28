@@ -34,7 +34,7 @@ interface EventUpdate extends ResourceUpdate {
 	
 	/** 
 	 * Send this attribute if you want to force webhooks execution for this event. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_trigger?: boolean | null
 	

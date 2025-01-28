@@ -35,7 +35,7 @@ interface Webhook extends Resource {
 	callback_url: string
 	/** 
 	 * List of related resources that should be included in the webhook body.
-	 * @example ```"customer,shipping_address,billing_address"```
+	 * @example ```["customer","shipping_address","billing_address"]```
 	 */
 	include_resources?: string[] | null
 	/** 
@@ -50,7 +50,7 @@ interface Webhook extends Resource {
 	circuit_state?: string | null
 	/** 
 	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	circuit_failure_count?: number | null
 	/** 
@@ -84,17 +84,17 @@ interface WebhookCreate extends ResourceCreate {
 	callback_url: string
 	/** 
 	 * List of related resources that should be included in the webhook body.
-	 * @example ```"customer,shipping_address,billing_address"```
+	 * @example ```["customer","shipping_address","billing_address"]```
 	 */
 	include_resources?: string[] | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 	
@@ -120,22 +120,22 @@ interface WebhookUpdate extends ResourceUpdate {
 	callback_url?: string | null
 	/** 
 	 * List of related resources that should be included in the webhook body.
-	 * @example ```"customer,shipping_address,billing_address"```
+	 * @example ```["customer","shipping_address","billing_address"]```
 	 */
 	include_resources?: string[] | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 	/** 
 	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
 	

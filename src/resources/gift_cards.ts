@@ -42,12 +42,12 @@ interface GiftCard extends Resource {
 	currency_code?: string | null
 	/** 
 	 * The gift card initial balance, in cents.
-	 * @example ```"15000"```
+	 * @example ```15000```
 	 */
 	initial_balance_cents: number
 	/** 
 	 * The gift card initial balance, float.
-	 * @example ```"150"```
+	 * @example ```150```
 	 */
 	initial_balance_float: number
 	/** 
@@ -57,12 +57,12 @@ interface GiftCard extends Resource {
 	formatted_initial_balance: string
 	/** 
 	 * The gift card balance, in cents.
-	 * @example ```"15000"```
+	 * @example ```15000```
 	 */
 	balance_cents: number
 	/** 
 	 * The gift card balance, float.
-	 * @example ```"150"```
+	 * @example ```150```
 	 */
 	balance_float: number
 	/** 
@@ -72,12 +72,12 @@ interface GiftCard extends Resource {
 	formatted_balance: string
 	/** 
 	 * The gift card balance max, in cents.
-	 * @example ```"100000"```
+	 * @example ```100000```
 	 */
 	balance_max_cents?: number | null
 	/** 
 	 * The gift card balance max, float.
-	 * @example ```"1000"```
+	 * @example ```1000```
 	 */
 	balance_max_float?: number | null
 	/** 
@@ -87,12 +87,12 @@ interface GiftCard extends Resource {
 	formatted_balance_max?: string | null
 	/** 
 	 * The gift card balance log. Tracks all the gift card transactions.
-	 * @example ```"[object Object],[object Object]"```
+	 * @example ```[{"datetime":"2019-12-23T12:00:00.000Z","balance_change_cents":-10000},{"datetime":"2020-02-01T12:00:00.000Z","balance_change_cents":5000}]```
 	 */
 	balance_log: Array<Record<string, any>>
 	/** 
 	 * The gift card usage log. Tracks all the gift card usage actions by orders.
-	 * @example ```"[object Object]"```
+	 * @example ```{"eNoKkhmbNp":[{"action":"use","amount_cents":-1000,"balance_cents":4000,"order_number":"11111","datetime":"2020-02-01T12:00:00.000Z"}]}```
 	 */
 	usage_log: Record<string, any>
 	/** 
@@ -101,12 +101,12 @@ interface GiftCard extends Resource {
 	single_use?: boolean | null
 	/** 
 	 * Indicates if the gift card can be recharged.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	rechargeable?: boolean | null
 	/** 
 	 * Indicates if redeemed gift card amount is distributed for tax calculation.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	distribute_discount?: boolean | null
 	/** 
@@ -149,12 +149,12 @@ interface GiftCardCreate extends ResourceCreate {
 	currency_code?: string | null
 	/** 
 	 * The gift card balance, in cents.
-	 * @example ```"15000"```
+	 * @example ```15000```
 	 */
 	balance_cents: number
 	/** 
 	 * The gift card balance max, in cents.
-	 * @example ```"100000"```
+	 * @example ```100000```
 	 */
 	balance_max_cents?: number | null
 	/** 
@@ -163,12 +163,12 @@ interface GiftCardCreate extends ResourceCreate {
 	single_use?: boolean | null
 	/** 
 	 * Indicates if the gift card can be recharged.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	rechargeable?: boolean | null
 	/** 
 	 * Indicates if redeemed gift card amount is distributed for tax calculation.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	distribute_discount?: boolean | null
 	/** 
@@ -203,12 +203,12 @@ interface GiftCardUpdate extends ResourceUpdate {
 	currency_code?: string | null
 	/** 
 	 * The gift card balance, in cents.
-	 * @example ```"15000"```
+	 * @example ```15000```
 	 */
 	balance_cents?: number | null
 	/** 
 	 * The gift card balance max, in cents.
-	 * @example ```"100000"```
+	 * @example ```100000```
 	 */
 	balance_max_cents?: number | null
 	/** 
@@ -217,12 +217,12 @@ interface GiftCardUpdate extends ResourceUpdate {
 	single_use?: boolean | null
 	/** 
 	 * Indicates if the gift card can be recharged.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	rechargeable?: boolean | null
 	/** 
 	 * Indicates if redeemed gift card amount is distributed for tax calculation.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	distribute_discount?: boolean | null
 	/** 
@@ -242,22 +242,22 @@ interface GiftCardUpdate extends ResourceUpdate {
 	recipient_email?: string | null
 	/** 
 	 * Send this attribute if you want to confirm a draft gift card. The gift card becomes 'inactive', waiting to be activated.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_purchase?: boolean | null
 	/** 
 	 * Send this attribute if you want to activate a gift card.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_activate?: boolean | null
 	/** 
 	 * Send this attribute if you want to deactivate a gift card.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_deactivate?: boolean | null
 	/** 
 	 * The balance change, in cents. Send a negative value to reduces the card balance by the specified amount. Send a positive value to recharge the gift card (if rechargeable).
-	 * @example ```"-5000"```
+	 * @example ```-5000```
 	 */
 	_balance_change_cents?: number | null
 

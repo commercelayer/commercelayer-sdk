@@ -23,7 +23,7 @@ interface InventoryReturnLocation extends Resource {
 
 	/** 
 	 * The inventory return location priority within the associated invetory model.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	priority: number
 
@@ -38,7 +38,7 @@ interface InventoryReturnLocationCreate extends ResourceCreate {
 	
 	/** 
 	 * The inventory return location priority within the associated invetory model.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	priority: number
 
@@ -52,7 +52,7 @@ interface InventoryReturnLocationUpdate extends ResourceUpdate {
 	
 	/** 
 	 * The inventory return location priority within the associated invetory model.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	priority?: number | null
 

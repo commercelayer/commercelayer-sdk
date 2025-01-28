@@ -45,27 +45,27 @@ interface Cleanup extends Resource {
 	interrupted_at?: string | null
 	/** 
 	 * The filters used to select the records to be cleaned.
-	 * @example ```"[object Object]"```
+	 * @example ```{"code_eq":"AAA"}```
 	 */
 	filters?: Record<string, any> | null
 	/** 
 	 * Indicates the number of records to be cleaned.
-	 * @example ```"300"```
+	 * @example ```300```
 	 */
 	records_count?: number | null
 	/** 
 	 * Indicates the number of cleanup errors, if any.
-	 * @example ```"30"```
+	 * @example ```30```
 	 */
 	errors_count?: number | null
 	/** 
 	 * Indicates the number of records that have been cleaned.
-	 * @example ```"270"```
+	 * @example ```270```
 	 */
 	processed_count?: number | null
 	/** 
 	 * Contains the cleanup errors, if any.
-	 * @example ```"[object Object]"```
+	 * @example ```{"ABC":{"name":["has already been taken"]}}```
 	 */
 	errors_log?: Record<string, any> | null
 
@@ -84,7 +84,7 @@ interface CleanupCreate extends ResourceCreate {
 	resource_type: string
 	/** 
 	 * The filters used to select the records to be cleaned.
-	 * @example ```"[object Object]"```
+	 * @example ```{"code_eq":"AAA"}```
 	 */
 	filters?: Record<string, any> | null
 	
@@ -95,7 +95,7 @@ interface CleanupUpdate extends ResourceUpdate {
 	
 	/** 
 	 * Send this attribute if you want to mark status as 'interrupted'.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_interrupt?: boolean | null
 	

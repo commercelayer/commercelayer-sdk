@@ -41,7 +41,7 @@ interface InStockSubscription extends Resource {
 	sku_code?: string | null
 	/** 
 	 * The threshold at which to trigger the back in stock notification.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	stock_threshold?: number | null
 
@@ -68,7 +68,7 @@ interface InStockSubscriptionCreate extends ResourceCreate {
 	sku_code?: string | null
 	/** 
 	 * The threshold at which to trigger the back in stock notification.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	stock_threshold?: number | null
 
@@ -88,17 +88,17 @@ interface InStockSubscriptionUpdate extends ResourceUpdate {
 	sku_code?: string | null
 	/** 
 	 * The threshold at which to trigger the back in stock notification.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	stock_threshold?: number | null
 	/** 
 	 * Send this attribute if you want to activate an inactive subscription.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_activate?: boolean | null
 	/** 
 	 * Send this attribute if you want to dactivate an active subscription.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_deactivate?: boolean | null
 

@@ -37,22 +37,22 @@ interface PriceList extends Resource {
 	currency_code: string
 	/** 
 	 * Indicates if the associated prices include taxes.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	tax_included?: boolean | null
 	/** 
 	 * The rules (using Rules Engine) to be applied.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rules?: Record<string, any> | null
 	/** 
 	 * The rule outcomes.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rule_outcomes?: Record<string, any> | null
 	/** 
 	 * The payload used to evaluate the rules.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	resource_payload?: Record<string, any> | null
 
@@ -83,12 +83,12 @@ interface PriceListCreate extends ResourceCreate {
 	currency_code: string
 	/** 
 	 * Indicates if the associated prices include taxes.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	tax_included?: boolean | null
 	/** 
 	 * The rules (using Rules Engine) to be applied.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rules?: Record<string, any> | null
 	
@@ -114,12 +114,12 @@ interface PriceListUpdate extends ResourceUpdate {
 	currency_code?: string | null
 	/** 
 	 * Indicates if the associated prices include taxes.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	tax_included?: boolean | null
 	/** 
 	 * The rules (using Rules Engine) to be applied.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rules?: Record<string, any> | null
 	

@@ -85,12 +85,12 @@ interface Order extends Resource {
 	affiliate_code?: string | null
 	/** 
 	 * Save this attribute as 'false' if you want prevent the order to be refreshed automatically at each change (much faster).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	autorefresh?: boolean | null
 	/** 
 	 * Save this attribute as 'true' if you want perform the place asynchronously. Payment errors, if any, will be collected afterwards.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	place_async?: boolean | null
 	/** 
@@ -110,12 +110,12 @@ interface Order extends Resource {
 	fulfillment_status: 'unfulfilled' | 'in_progress' | 'fulfilled' | 'not_required'
 	/** 
 	 * Indicates if the order has been placed as guest.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	guest?: boolean | null
 	/** 
 	 * Indicates if the order can be edited.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	editable?: boolean | null
 	/** 
@@ -135,27 +135,27 @@ interface Order extends Resource {
 	currency_code?: string | null
 	/** 
 	 * Indicates if taxes are included in the order amounts, automatically inherited from the order's price list.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	tax_included?: boolean | null
 	/** 
 	 * The tax rate for this order (if calculated).
-	 * @example ```"0.22"```
+	 * @example ```0.22```
 	 */
 	tax_rate?: number | null
 	/** 
 	 * Indicates if taxes are applied to shipping costs.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	freight_taxable?: boolean | null
 	/** 
 	 * Indicates if taxes are applied to payment methods costs.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	payment_method_taxable?: boolean | null
 	/** 
 	 * Indicates if taxes are applied to positive adjustments.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	adjustment_taxable?: boolean | null
 	/** 
@@ -188,12 +188,12 @@ interface Order extends Resource {
 	gift_card_code?: string | null
 	/** 
 	 * The sum of all the SKU line items total amounts, in cents.
-	 * @example ```"5000"```
+	 * @example ```5000```
 	 */
 	subtotal_amount_cents?: number | null
 	/** 
 	 * The sum of all the SKU line items total amounts, float.
-	 * @example ```"50"```
+	 * @example ```50```
 	 */
 	subtotal_amount_float?: number | null
 	/** 
@@ -203,12 +203,12 @@ interface Order extends Resource {
 	formatted_subtotal_amount?: string | null
 	/** 
 	 * The sum of all the shipping costs, in cents.
-	 * @example ```"1200"```
+	 * @example ```1200```
 	 */
 	shipping_amount_cents?: number | null
 	/** 
 	 * The sum of all the shipping costs, float.
-	 * @example ```"12"```
+	 * @example ```12```
 	 */
 	shipping_amount_float?: number | null
 	/** 
@@ -231,12 +231,12 @@ interface Order extends Resource {
 	formatted_payment_method_amount?: string | null
 	/** 
 	 * The sum of all the discounts applied to the order, in cents (negative amount).
-	 * @example ```"-500"```
+	 * @example ```-500```
 	 */
 	discount_amount_cents?: number | null
 	/** 
 	 * The sum of all the discounts applied to the order, float.
-	 * @example ```"-5"```
+	 * @example ```-5```
 	 */
 	discount_amount_float?: number | null
 	/** 
@@ -246,12 +246,12 @@ interface Order extends Resource {
 	formatted_discount_amount?: string | null
 	/** 
 	 * The sum of all the adjustments applied to the order, in cents.
-	 * @example ```"1500"```
+	 * @example ```1500```
 	 */
 	adjustment_amount_cents?: number | null
 	/** 
 	 * The sum of all the adjustments applied to the order, float.
-	 * @example ```"15"```
+	 * @example ```15```
 	 */
 	adjustment_amount_float?: number | null
 	/** 
@@ -261,12 +261,12 @@ interface Order extends Resource {
 	formatted_adjustment_amount?: string | null
 	/** 
 	 * The sum of all the gift_cards applied to the order, in cents.
-	 * @example ```"1500"```
+	 * @example ```1500```
 	 */
 	gift_card_amount_cents?: number | null
 	/** 
 	 * The sum of all the gift_cards applied to the order, float.
-	 * @example ```"15"```
+	 * @example ```15```
 	 */
 	gift_card_amount_float?: number | null
 	/** 
@@ -276,12 +276,12 @@ interface Order extends Resource {
 	formatted_gift_card_amount?: string | null
 	/** 
 	 * The sum of all the taxes applied to the order, in cents.
-	 * @example ```"1028"```
+	 * @example ```1028```
 	 */
 	total_tax_amount_cents?: number | null
 	/** 
 	 * The sum of all the taxes applied to the order, float.
-	 * @example ```"10.28"```
+	 * @example ```10.28```
 	 */
 	total_tax_amount_float?: number | null
 	/** 
@@ -291,12 +291,12 @@ interface Order extends Resource {
 	formatted_total_tax_amount?: string | null
 	/** 
 	 * The taxes applied to the order's subtotal, in cents.
-	 * @example ```"902"```
+	 * @example ```902```
 	 */
 	subtotal_tax_amount_cents?: number | null
 	/** 
 	 * The taxes applied to the order's subtotal, float.
-	 * @example ```"9.02"```
+	 * @example ```9.02```
 	 */
 	subtotal_tax_amount_float?: number | null
 	/** 
@@ -306,12 +306,12 @@ interface Order extends Resource {
 	formatted_subtotal_tax_amount?: string | null
 	/** 
 	 * The taxes applied to the order's shipping costs, in cents.
-	 * @example ```"216"```
+	 * @example ```216```
 	 */
 	shipping_tax_amount_cents?: number | null
 	/** 
 	 * The taxes applied to the order's shipping costs, float.
-	 * @example ```"2.16"```
+	 * @example ```2.16```
 	 */
 	shipping_tax_amount_float?: number | null
 	/** 
@@ -334,12 +334,12 @@ interface Order extends Resource {
 	formatted_payment_method_tax_amount?: string | null
 	/** 
 	 * The taxes applied to the order adjustments, in cents.
-	 * @example ```"900"```
+	 * @example ```900```
 	 */
 	adjustment_tax_amount_cents?: number | null
 	/** 
 	 * The taxes applied to the order adjustments, float.
-	 * @example ```"9"```
+	 * @example ```9```
 	 */
 	adjustment_tax_amount_float?: number | null
 	/** 
@@ -349,12 +349,12 @@ interface Order extends Resource {
 	formatted_adjustment_tax_amount?: string | null
 	/** 
 	 * The order's total amount, in cents.
-	 * @example ```"5700"```
+	 * @example ```5700```
 	 */
 	total_amount_cents?: number | null
 	/** 
 	 * The order's total amount, float.
-	 * @example ```"57"```
+	 * @example ```57```
 	 */
 	total_amount_float?: number | null
 	/** 
@@ -364,12 +364,12 @@ interface Order extends Resource {
 	formatted_total_amount?: string | null
 	/** 
 	 * The order's total taxable amount, in cents (without discounts).
-	 * @example ```"4672"```
+	 * @example ```4672```
 	 */
 	total_taxable_amount_cents?: number | null
 	/** 
 	 * The order's total taxable amount, float.
-	 * @example ```"46.72"```
+	 * @example ```46.72```
 	 */
 	total_taxable_amount_float?: number | null
 	/** 
@@ -379,12 +379,12 @@ interface Order extends Resource {
 	formatted_total_taxable_amount?: string | null
 	/** 
 	 * The order's subtotal taxable amount, in cents (equal to subtotal_amount_cents when prices don't include taxes).
-	 * @example ```"4098"```
+	 * @example ```4098```
 	 */
 	subtotal_taxable_amount_cents?: number | null
 	/** 
 	 * The order's subtotal taxable amount, float.
-	 * @example ```"40.98"```
+	 * @example ```40.98```
 	 */
 	subtotal_taxable_amount_float?: number | null
 	/** 
@@ -394,12 +394,12 @@ interface Order extends Resource {
 	formatted_subtotal_taxable_amount?: string | null
 	/** 
 	 * The order's shipping taxable amount, in cents (equal to shipping_amount_cents when prices don't include taxes).
-	 * @example ```"984"```
+	 * @example ```984```
 	 */
 	shipping_taxable_amount_cents?: number | null
 	/** 
 	 * The order's shipping taxable amount, float.
-	 * @example ```"9.84"```
+	 * @example ```9.84```
 	 */
 	shipping_taxable_amount_float?: number | null
 	/** 
@@ -422,12 +422,12 @@ interface Order extends Resource {
 	formatted_payment_method_taxable_amount?: string | null
 	/** 
 	 * The order's adjustment taxable amount, in cents (equal to discount_adjustment_cents when prices don't include taxes).
-	 * @example ```"120"```
+	 * @example ```120```
 	 */
 	adjustment_taxable_amount_cents?: number | null
 	/** 
 	 * The order's adjustment taxable amount, float.
-	 * @example ```"1.2"```
+	 * @example ```1.2```
 	 */
 	adjustment_taxable_amount_float?: number | null
 	/** 
@@ -437,12 +437,12 @@ interface Order extends Resource {
 	formatted_adjustment_taxable_amount?: string | null
 	/** 
 	 * The order's total amount (when prices include taxes) or the order's total + taxes amount (when prices don't include taxes, e.g. US Markets or B2B).
-	 * @example ```"5700"```
+	 * @example ```5700```
 	 */
 	total_amount_with_taxes_cents?: number | null
 	/** 
 	 * The order's total amount with taxes, float.
-	 * @example ```"57"```
+	 * @example ```57```
 	 */
 	total_amount_with_taxes_float?: number | null
 	/** 
@@ -491,37 +491,37 @@ interface Order extends Resource {
 	formatted_place_total_amount?: string | null
 	/** 
 	 * The total number of SKUs in the order's line items. This can be useful to display a preview of the customer shopping cart content.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	skus_count?: number | null
 	/** 
 	 * The total number of line item options. This can be useful to display a preview of the customer shopping cart content.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	line_item_options_count?: number | null
 	/** 
 	 * The total number of shipments. This can be useful to manage the shipping method(s) selection during checkout.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	shipments_count?: number | null
 	/** 
 	 * The total number of tax calculations. This can be useful to monitor external tax service usage.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	tax_calculations_count?: number | null
 	/** 
 	 * The total number of external validation performed. This can be useful to monitor if external validation has been triggered.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	validations_count?: number | null
 	/** 
 	 * The total number of resource errors.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	errors_count?: number | null
 	/** 
 	 * An object that contains the shareable details of the order's payment source.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_source_details?: Record<string, any> | null
 	/** 
@@ -601,7 +601,7 @@ interface Order extends Resource {
 	circuit_state?: string | null
 	/** 
 	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	circuit_failure_count?: number | null
 
@@ -659,17 +659,17 @@ interface OrderCreate extends ResourceCreate {
 	affiliate_code?: string | null
 	/** 
 	 * Save this attribute as 'false' if you want prevent the order to be refreshed automatically at each change (much faster).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	autorefresh?: boolean | null
 	/** 
 	 * Save this attribute as 'true' if you want perform the place asynchronously. Payment errors, if any, will be collected afterwards.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	place_async?: boolean | null
 	/** 
 	 * Indicates if the order has been placed as guest.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	guest?: boolean | null
 	/** 
@@ -689,17 +689,17 @@ interface OrderCreate extends ResourceCreate {
 	language_code?: string | null
 	/** 
 	 * Indicates if taxes are applied to shipping costs.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	freight_taxable?: boolean | null
 	/** 
 	 * Indicates if taxes are applied to payment methods costs.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	payment_method_taxable?: boolean | null
 	/** 
 	 * Indicates if taxes are applied to positive adjustments.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	adjustment_taxable?: boolean | null
 	/** 
@@ -768,17 +768,17 @@ interface OrderUpdate extends ResourceUpdate {
 	affiliate_code?: string | null
 	/** 
 	 * Save this attribute as 'false' if you want prevent the order to be refreshed automatically at each change (much faster).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	autorefresh?: boolean | null
 	/** 
 	 * Save this attribute as 'true' if you want perform the place asynchronously. Payment errors, if any, will be collected afterwards.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	place_async?: boolean | null
 	/** 
 	 * Indicates if the order has been placed as guest.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	guest?: boolean | null
 	/** 
@@ -798,17 +798,17 @@ interface OrderUpdate extends ResourceUpdate {
 	language_code?: string | null
 	/** 
 	 * Indicates if taxes are applied to shipping costs.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	freight_taxable?: boolean | null
 	/** 
 	 * Indicates if taxes are applied to payment methods costs.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	payment_method_taxable?: boolean | null
 	/** 
 	 * Indicates if taxes are applied to positive adjustments.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	adjustment_taxable?: boolean | null
 	/** 
@@ -852,67 +852,67 @@ interface OrderUpdate extends ResourceUpdate {
 	privacy_url?: string | null
 	/** 
 	 * Send this attribute if you want to archive the order.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_archive?: boolean | null
 	/** 
 	 * Send this attribute if you want to unarchive the order.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_unarchive?: boolean | null
 	/** 
 	 * Send this attribute if you want to move a draft or placing order to pending. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_pending?: boolean | null
 	/** 
 	 * Send this attribute if you want to place the order.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_place?: boolean | null
 	/** 
 	 * Send this attribute if you want to cancel a placed order. The order's authorization will be automatically voided.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_cancel?: boolean | null
 	/** 
 	 * Send this attribute if you want to approve a placed order. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_approve?: boolean | null
 	/** 
 	 * Send this attribute if you want to approve and capture a placed order. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_approve_and_capture?: boolean | null
 	/** 
 	 * Send this attribute if you want to authorize the order's payment source.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_authorize?: boolean | null
 	/** 
 	 * Send this attribute as a value in cents if you want to overwrite the amount to be authorized.
-	 * @example ```"500"```
+	 * @example ```500```
 	 */
 	_authorization_amount_cents?: number | null
 	/** 
 	 * Send this attribute if you want to capture an authorized order. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_capture?: boolean | null
 	/** 
 	 * Send this attribute if you want to refund a captured order. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_refund?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered). Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_fulfill?: boolean | null
 	/** 
 	 * Send this attribute if you want to force tax calculation for this order (a tax calculator must be associated to the order's market).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_update_taxes?: boolean | null
 	/** 
@@ -921,7 +921,7 @@ interface OrderUpdate extends ResourceUpdate {
 	_nullify_payment_source?: boolean | null
 	/** 
 	 * Send this attribute if you want to set the payment source associated with the last succeeded authorization. At the end of the fix the order should be placed and authorized and ready for approval. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_fix_payment_source?: boolean | null
 	/** 
@@ -941,67 +941,67 @@ interface OrderUpdate extends ResourceUpdate {
 	_customer_payment_source_id?: string | null
 	/** 
 	 * Send this attribute if you want the shipping address to be cloned from the order's billing address.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_shipping_address_same_as_billing?: boolean | null
 	/** 
 	 * Send this attribute if you want the billing address to be cloned from the order's shipping address.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_billing_address_same_as_shipping?: boolean | null
 	/** 
 	 * Send this attribute if you want commit the sales tax invoice to the associated tax calculator (currently supported by Avalara).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_commit_invoice?: boolean | null
 	/** 
 	 * Send this attribute if you want refund the sales tax invoice to the associated tax calculator (currently supported by Avalara).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_refund_invoice?: boolean | null
 	/** 
 	 * Send this attribute if you want the order's payment source to be saved in the customer's wallet as a customer payment source.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_save_payment_source_to_customer_wallet?: boolean | null
 	/** 
 	 * Send this attribute if you want the order's shipping address to be saved in the customer's address book as a customer address.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_save_shipping_address_to_customer_address_book?: boolean | null
 	/** 
 	 * Send this attribute if you want the order's billing address to be saved in the customer's address book as a customer address.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_save_billing_address_to_customer_address_book?: boolean | null
 	/** 
 	 * Send this attribute if you want to manually refresh the order.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_refresh?: boolean | null
 	/** 
 	 * Send this attribute if you want to trigger the external validation for the order.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_validate?: boolean | null
 	/** 
 	 * Send this attribute upon/after placing the order if you want to create order subscriptions from the line items that have a frequency.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_create_subscriptions?: boolean | null
 	/** 
 	 * Send this attribute if you want to edit the order after it is placed. Remember you cannot exceed the original total amount. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_start_editing?: boolean | null
 	/** 
 	 * Send this attribute to stop the editing for the order and return back to placed status. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_stop_editing?: boolean | null
 	/** 
 	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
 

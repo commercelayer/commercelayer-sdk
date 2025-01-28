@@ -48,17 +48,17 @@ interface OrderSubscription extends Resource {
 	frequency: string
 	/** 
 	 * Indicates if the subscription will be activated considering the placed source order as its first run.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	activate_by_source_order?: boolean | null
 	/** 
 	 * Indicates if the subscription created orders are automatically placed at the end of the copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	place_target_order?: boolean | null
 	/** 
 	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run. Must be included between 1 and 720 hours.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	renewal_alert_period?: number | null
 	/** 
@@ -88,17 +88,17 @@ interface OrderSubscription extends Resource {
 	next_run_at?: string | null
 	/** 
 	 * The number of times this subscription has run.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	occurrencies?: number | null
 	/** 
 	 * Indicates the number of subscription errors, if any.
-	 * @example ```"3"```
+	 * @example ```3```
 	 */
 	errors_count?: number | null
 	/** 
 	 * Indicates if the subscription has succeeded on its last run.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	succeeded_on_last_run?: boolean | null
 
@@ -127,17 +127,17 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 	frequency: string
 	/** 
 	 * Indicates if the subscription will be activated considering the placed source order as its first run.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	activate_by_source_order?: boolean | null
 	/** 
 	 * Indicates if the subscription created orders are automatically placed at the end of the copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	place_target_order?: boolean | null
 	/** 
 	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run. Must be included between 1 and 720 hours.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	renewal_alert_period?: number | null
 	/** 
@@ -167,17 +167,17 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	frequency?: string | null
 	/** 
 	 * Indicates if the subscription will be activated considering the placed source order as its first run.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	activate_by_source_order?: boolean | null
 	/** 
 	 * Indicates if the subscription created orders are automatically placed at the end of the copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	place_target_order?: boolean | null
 	/** 
 	 * Indicates the number of hours the renewal alert will be triggered before the subscription next run. Must be included between 1 and 720 hours.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	renewal_alert_period?: number | null
 	/** 
@@ -192,22 +192,22 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	next_run_at?: string | null
 	/** 
 	 * Send this attribute if you want to mark this subscription as active.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_activate?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this subscription as inactive.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_deactivate?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this subscription as cancelled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_cancel?: boolean | null
 	/** 
 	 * Send this attribute if you want to convert a manual subscription to an automatic one. A subscription model is required before conversion.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_convert?: boolean | null
 

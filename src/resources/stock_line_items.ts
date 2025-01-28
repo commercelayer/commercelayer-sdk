@@ -38,7 +38,7 @@ interface StockLineItem extends Resource {
 	bundle_code?: string | null
 	/** 
 	 * The line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 
@@ -61,7 +61,7 @@ interface StockLineItemCreate extends ResourceCreate {
 	sku_code?: string | null
 	/** 
 	 * The line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 
@@ -82,22 +82,22 @@ interface StockLineItemUpdate extends ResourceUpdate {
 	sku_code?: string | null
 	/** 
 	 * The line item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity?: number | null
 	/** 
 	 * Send this attribute if you want to automatically reserve the stock for this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_reserve_stock?: boolean | null
 	/** 
 	 * Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_release_stock?: boolean | null
 	/** 
 	 * Send this attribute if you want to automatically decrement and release the stock this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_decrement_stock?: boolean | null
 

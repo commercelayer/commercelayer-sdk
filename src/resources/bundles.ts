@@ -61,12 +61,12 @@ interface Bundle extends Resource {
 	do_not_track?: boolean | null
 	/** 
 	 * The bundle price amount for the associated market, in cents.
-	 * @example ```"10000"```
+	 * @example ```10000```
 	 */
 	price_amount_cents?: number | null
 	/** 
 	 * The bundle price amount for the associated market, float.
-	 * @example ```"100"```
+	 * @example ```100```
 	 */
 	price_amount_float?: number | null
 	/** 
@@ -76,12 +76,12 @@ interface Bundle extends Resource {
 	formatted_price_amount?: string | null
 	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
 	/** 
 	 * The compared price amount, float.
-	 * @example ```"130"```
+	 * @example ```130```
 	 */
 	compare_at_amount_float?: number | null
 	/** 
@@ -91,7 +91,7 @@ interface Bundle extends Resource {
 	formatted_compare_at_amount?: string | null
 	/** 
 	 * The total number of SKUs in the bundle.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	skus_count?: number | null
 
@@ -135,22 +135,22 @@ interface BundleCreate extends ResourceCreate {
 	image_url?: string | null
 	/** 
 	 * The bundle price amount for the associated market, in cents.
-	 * @example ```"10000"```
+	 * @example ```10000```
 	 */
 	price_amount_cents?: number | null
 	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
 	/** 
 	 * Send this attribute if you want to compute the price_amount_cents as the sum of the prices of the bundle SKUs for the market.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_compute_price_amount?: boolean | null
 	/** 
 	 * Send this attribute if you want to compute the compare_at_amount_cents as the sum of the prices of the bundle SKUs for the market.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_compute_compare_at_amount?: boolean | null
 
@@ -190,22 +190,22 @@ interface BundleUpdate extends ResourceUpdate {
 	image_url?: string | null
 	/** 
 	 * The bundle price amount for the associated market, in cents.
-	 * @example ```"10000"```
+	 * @example ```10000```
 	 */
 	price_amount_cents?: number | null
 	/** 
 	 * The compared price amount, in cents. Useful to display a percentage discount.
-	 * @example ```"13000"```
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
 	/** 
 	 * Send this attribute if you want to compute the price_amount_cents as the sum of the prices of the bundle SKUs for the market.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_compute_price_amount?: boolean | null
 	/** 
 	 * Send this attribute if you want to compute the compare_at_amount_cents as the sum of the prices of the bundle SKUs for the market.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_compute_compare_at_amount?: boolean | null
 

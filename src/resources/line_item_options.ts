@@ -30,7 +30,7 @@ interface LineItemOption extends Resource {
 	name?: string | null
 	/** 
 	 * The line item option's quantity.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	quantity: number
 	/** 
@@ -40,12 +40,12 @@ interface LineItemOption extends Resource {
 	currency_code?: string | null
 	/** 
 	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price. Cannot be passed by sales channels.
-	 * @example ```"990"```
+	 * @example ```990```
 	 */
 	unit_amount_cents?: number | null
 	/** 
 	 * The unit amount of the line item option, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
-	 * @example ```"9.9"```
+	 * @example ```9.9```
 	 */
 	unit_amount_float?: number | null
 	/** 
@@ -55,12 +55,12 @@ interface LineItemOption extends Resource {
 	formatted_unit_amount?: string | null
 	/** 
 	 * The unit amount x quantity, in cents.
-	 * @example ```"1880"```
+	 * @example ```1880```
 	 */
 	total_amount_cents?: number | null
 	/** 
 	 * The unit amount x quantity, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
-	 * @example ```"18.8"```
+	 * @example ```18.8```
 	 */
 	total_amount_float: number
 	/** 
@@ -70,17 +70,17 @@ interface LineItemOption extends Resource {
 	formatted_total_amount?: string | null
 	/** 
 	 * The shipping delay that the customer can expect when adding this option (hours). Inherited from the associated SKU option.
-	 * @example ```"48"```
+	 * @example ```48```
 	 */
 	delay_hours?: number | null
 	/** 
 	 * The shipping delay that the customer can expect when adding this option (days, rounded).
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	delay_days?: number | null
 	/** 
 	 * Set of key-value pairs that represent the selected options.
-	 * @example ```"[object Object]"```
+	 * @example ```{"embossing_text":"Happy Birthday!"}```
 	 */
 	options: Record<string, any>
 
@@ -101,17 +101,17 @@ interface LineItemOptionCreate extends ResourceCreate {
 	name?: string | null
 	/** 
 	 * The line item option's quantity.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	quantity: number
 	/** 
 	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price. Cannot be passed by sales channels.
-	 * @example ```"990"```
+	 * @example ```990```
 	 */
 	unit_amount_cents?: number | null
 	/** 
 	 * Set of key-value pairs that represent the selected options.
-	 * @example ```"[object Object]"```
+	 * @example ```{"embossing_text":"Happy Birthday!"}```
 	 */
 	options: Record<string, any>
 
@@ -131,17 +131,17 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 	name?: string | null
 	/** 
 	 * The line item option's quantity.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	quantity?: number | null
 	/** 
 	 * The unit amount of the line item option, in cents. When you add a line item option to an order, this is automatically populated from associated SKU option's price. Cannot be passed by sales channels.
-	 * @example ```"990"```
+	 * @example ```990```
 	 */
 	unit_amount_cents?: number | null
 	/** 
 	 * Set of key-value pairs that represent the selected options.
-	 * @example ```"[object Object]"```
+	 * @example ```{"embossing_text":"Happy Birthday!"}```
 	 */
 	options?: Record<string, any> | null
 

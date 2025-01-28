@@ -33,17 +33,17 @@ interface Package extends Resource {
 	code?: string | null
 	/** 
 	 * The package length, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"40"```
+	 * @example ```40```
 	 */
 	length: number
 	/** 
 	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"40"```
+	 * @example ```40```
 	 */
 	width: number
 	/** 
 	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"25"```
+	 * @example ```25```
 	 */
 	height: number
 	/** 
@@ -74,17 +74,17 @@ interface PackageCreate extends ResourceCreate {
 	code?: string | null
 	/** 
 	 * The package length, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"40"```
+	 * @example ```40```
 	 */
 	length: number
 	/** 
 	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"40"```
+	 * @example ```40```
 	 */
 	width: number
 	/** 
 	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"25"```
+	 * @example ```25```
 	 */
 	height: number
 	/** 
@@ -112,17 +112,17 @@ interface PackageUpdate extends ResourceUpdate {
 	code?: string | null
 	/** 
 	 * The package length, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"40"```
+	 * @example ```40```
 	 */
 	length?: number | null
 	/** 
 	 * The package width, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"40"```
+	 * @example ```40```
 	 */
 	width?: number | null
 	/** 
 	 * The package height, used to automatically calculate the tax rates from the available carrier accounts.
-	 * @example ```"25"```
+	 * @example ```25```
 	 */
 	height?: number | null
 	/** 

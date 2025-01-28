@@ -31,7 +31,7 @@ interface PaymentOption extends Resource {
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	/** 
 	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
-	 * @example ```"[object Object]"```
+	 * @example ```{"application_fee_amount":1000,"on_behalf_of":"pm_xxx"}```
 	 */
 	data: Record<string, any>
 
@@ -55,7 +55,7 @@ interface PaymentOptionCreate extends ResourceCreate {
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	/** 
 	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
-	 * @example ```"[object Object]"```
+	 * @example ```{"application_fee_amount":1000,"on_behalf_of":"pm_xxx"}```
 	 */
 	data: Record<string, any>
 
@@ -73,7 +73,7 @@ interface PaymentOptionUpdate extends ResourceUpdate {
 	name?: string | null
 	/** 
 	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
-	 * @example ```"[object Object]"```
+	 * @example ```{"application_fee_amount":1000,"on_behalf_of":"pm_xxx"}```
 	 */
 	data?: Record<string, any> | null
 

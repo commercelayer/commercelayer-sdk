@@ -37,17 +37,17 @@ interface OrderSubscriptionItem extends Resource {
 	bundle_code?: string | null
 	/** 
 	 * The subscription item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 	/** 
 	 * The unit amount of the subscription item, in cents.
-	 * @example ```"9900"```
+	 * @example ```9900```
 	 */
 	unit_amount_cents?: number | null
 	/** 
 	 * The unit amount of the subscription item, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
-	 * @example ```"99"```
+	 * @example ```99```
 	 */
 	unit_amount_float?: number | null
 	/** 
@@ -57,12 +57,12 @@ interface OrderSubscriptionItem extends Resource {
 	formatted_unit_amount?: string | null
 	/** 
 	 * Calculated as unit amount x quantity amount, in cents.
-	 * @example ```"18800"```
+	 * @example ```18800```
 	 */
 	total_amount_cents?: number | null
 	/** 
 	 * Calculated as unit amount x quantity amount, float. This can be useful to track the purchase on thrid party systems, e.g Google Analyitcs Enhanced Ecommerce.
-	 * @example ```"188"```
+	 * @example ```188```
 	 */
 	total_amount_float: number
 	/** 
@@ -95,12 +95,12 @@ interface OrderSubscriptionItemCreate extends ResourceCreate {
 	bundle_code?: string | null
 	/** 
 	 * The subscription item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity: number
 	/** 
 	 * The unit amount of the subscription item, in cents.
-	 * @example ```"9900"```
+	 * @example ```9900```
 	 */
 	unit_amount_cents?: number | null
 
@@ -127,12 +127,12 @@ interface OrderSubscriptionItemUpdate extends ResourceUpdate {
 	bundle_code?: string | null
 	/** 
 	 * The subscription item quantity.
-	 * @example ```"4"```
+	 * @example ```4```
 	 */
 	quantity?: number | null
 	/** 
 	 * The unit amount of the subscription item, in cents.
-	 * @example ```"9900"```
+	 * @example ```9900```
 	 */
 	unit_amount_cents?: number | null
 	

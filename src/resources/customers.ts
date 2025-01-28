@@ -45,7 +45,7 @@ interface Customer extends Resource {
 	has_password?: boolean | null
 	/** 
 	 * The total number of orders for the customer.
-	 * @example ```"6"```
+	 * @example ```6```
 	 */
 	total_orders_count?: number | null
 	/** 

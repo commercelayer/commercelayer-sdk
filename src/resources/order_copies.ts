@@ -42,42 +42,42 @@ interface OrderCopy extends Resource {
 	failed_at?: string | null
 	/** 
 	 * Contains the order copy errors, if any.
-	 * @example ```"[object Object]"```
+	 * @example ```{"status":["cannot transition from draft to placed"]}```
 	 */
 	errors_log?: Record<string, any> | null
 	/** 
 	 * Indicates the number of copy errors, if any.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	errors_count?: number | null
 	/** 
 	 * Indicates if the target order must be placed upon copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	place_target_order?: boolean | null
 	/** 
 	 * Indicates if the payment source within the source order customer's wallet must be copied.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	reuse_wallet?: boolean | null
 	/** 
 	 * Indicates if the source order must be cancelled upon copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	cancel_source_order?: boolean | null
 	/** 
 	 * Indicates if promotions got applied upon copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	apply_promotions?: boolean | null
 	/** 
 	 * Indicates to ignore any errors during copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	skip_errors?: boolean | null
 	/** 
 	 * Indicates to ignore invalid coupon code during copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	ignore_invalid_coupon?: boolean | null
 
@@ -93,32 +93,32 @@ interface OrderCopyCreate extends ResourceCreate {
 	
 	/** 
 	 * Indicates if the target order must be placed upon copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	place_target_order?: boolean | null
 	/** 
 	 * Indicates if the payment source within the source order customer's wallet must be copied.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	reuse_wallet?: boolean | null
 	/** 
 	 * Indicates if the source order must be cancelled upon copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	cancel_source_order?: boolean | null
 	/** 
 	 * Indicates if promotions got applied upon copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	apply_promotions?: boolean | null
 	/** 
 	 * Indicates to ignore any errors during copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	skip_errors?: boolean | null
 	/** 
 	 * Indicates to ignore invalid coupon code during copy.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	ignore_invalid_coupon?: boolean | null
 

@@ -20,7 +20,7 @@ interface DiscountEngineItem extends Resource {
 
 	/** 
 	 * The body of the external discount engine response.
-	 * @example ```"[object Object]"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	body: Record<string, any>
 

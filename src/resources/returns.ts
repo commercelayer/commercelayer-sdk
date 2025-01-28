@@ -49,7 +49,7 @@ interface Return extends Resource {
 	customer_email?: string | null
 	/** 
 	 * The total number of SKUs in the return's line items. This can be useful to display a preview of the return content.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	skus_count?: number | null
 	/** 
@@ -89,12 +89,12 @@ interface Return extends Resource {
 	archived_at?: string | null
 	/** 
 	 * The amount to be refunded, estimated by associated return line items, in cents.
-	 * @example ```"500"```
+	 * @example ```500```
 	 */
 	estimated_refund_amount_cents?: number | null
 	/** 
 	 * The amount to be refunded, estimated by associated return line items, float.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	estimated_refund_amount_float?: number | null
 	/** 
@@ -134,57 +134,57 @@ interface ReturnUpdate extends ResourceUpdate {
 	
 	/** 
 	 * Send this attribute if you want to activate this return.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_request?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this return as approved.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_approve?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this return as cancelled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_cancel?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this return as shipped.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_ship?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this return as rejected.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_reject?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this return as received.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_receive?: boolean | null
 	/** 
 	 * Send this attribute if you want to restock all of the return line items.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_restock?: boolean | null
 	/** 
 	 * Send this attribute if you want to archive the return.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_archive?: boolean | null
 	/** 
 	 * Send this attribute if you want to unarchive the return.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_unarchive?: boolean | null
 	/** 
 	 * Send this attribute if you want to create a refund for this return.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_refund?: boolean | null
 	/** 
 	 * Send this attribute as a value in cents to specify the amount to be refunded.
-	 * @example ```"500"```
+	 * @example ```500```
 	 */
 	_refund_amount_cents?: number | null
 

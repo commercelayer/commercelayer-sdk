@@ -23,7 +23,7 @@ interface InventoryStockLocation extends Resource {
 
 	/** 
 	 * The stock location priority within the associated invetory model.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	priority: number
 	/** 
@@ -42,7 +42,7 @@ interface InventoryStockLocationCreate extends ResourceCreate {
 	
 	/** 
 	 * The stock location priority within the associated invetory model.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	priority: number
 	/** 
@@ -60,7 +60,7 @@ interface InventoryStockLocationUpdate extends ResourceUpdate {
 	
 	/** 
 	 * The stock location priority within the associated invetory model.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	priority?: number | null
 	/** 

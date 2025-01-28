@@ -23,7 +23,7 @@ interface SkuListItem extends Resource {
 
 	/** 
 	 * The SKU list item's position.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	position?: number | null
 	/** 
@@ -33,7 +33,7 @@ interface SkuListItem extends Resource {
 	sku_code?: string | null
 	/** 
 	 * The SKU quantity for this SKU list item.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	quantity?: number | null
 
@@ -48,7 +48,7 @@ interface SkuListItemCreate extends ResourceCreate {
 	
 	/** 
 	 * The SKU list item's position.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	position?: number | null
 	/** 
@@ -58,7 +58,7 @@ interface SkuListItemCreate extends ResourceCreate {
 	sku_code?: string | null
 	/** 
 	 * The SKU quantity for this SKU list item.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	quantity?: number | null
 
@@ -72,7 +72,7 @@ interface SkuListItemUpdate extends ResourceUpdate {
 	
 	/** 
 	 * The SKU list item's position.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	position?: number | null
 	/** 
@@ -82,7 +82,7 @@ interface SkuListItemUpdate extends ResourceUpdate {
 	sku_code?: string | null
 	/** 
 	 * The SKU quantity for this SKU list item.
-	 * @example ```"1"```
+	 * @example ```1```
 	 */
 	quantity?: number | null
 	

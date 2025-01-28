@@ -50,7 +50,7 @@ interface Link extends Resource {
 	expires_at?: string | null
 	/** 
 	 * Indicates if the link is active (enabled and not expired).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	active?: boolean | null
 	/** 
@@ -75,7 +75,7 @@ interface Link extends Resource {
 	item_type?: 'orders' | 'skus' | 'sku_lists' | null
 	/** 
 	 * The link params to be passed in URL the query string.
-	 * @example ```"[object Object]"```
+	 * @example ```{"param1":"ABC","param2":"XYZ"}```
 	 */
 	params?: Record<string, any> | null
 	/** 
@@ -129,17 +129,17 @@ interface LinkCreate extends ResourceCreate {
 	item_type?: 'orders' | 'skus' | 'sku_lists' | null
 	/** 
 	 * The link params to be passed in URL the query string.
-	 * @example ```"[object Object]"```
+	 * @example ```{"param1":"ABC","param2":"XYZ"}```
 	 */
 	params?: Record<string, any> | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 
@@ -182,17 +182,17 @@ interface LinkUpdate extends ResourceUpdate {
 	domain?: string | null
 	/** 
 	 * The link params to be passed in URL the query string.
-	 * @example ```"[object Object]"```
+	 * @example ```{"param1":"ABC","param2":"XYZ"}```
 	 */
 	params?: Record<string, any> | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 

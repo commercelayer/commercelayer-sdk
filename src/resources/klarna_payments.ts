@@ -32,7 +32,7 @@ interface KlarnaPayment extends Resource {
 	client_token?: string | null
 	/** 
 	 * The merchant available payment methods for the assoiated order. Available upon session creation.
-	 * @example ```"[object Object]"```
+	 * @example ```[{"foo":"bar"}]```
 	 */
 	payment_methods: Array<Record<string, any>>
 	/** 
@@ -46,7 +46,7 @@ interface KlarnaPayment extends Resource {
 	mismatched_amounts?: boolean | null
 	/** 
 	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
+	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
 	payment_instrument?: Record<string, any> | null
 
@@ -73,7 +73,7 @@ interface KlarnaPaymentUpdate extends ResourceUpdate {
 	auth_token?: string | null
 	/** 
 	 * Send this attribute if you want to update the payment session with fresh order data.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_update?: boolean | null
 

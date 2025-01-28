@@ -31,12 +31,12 @@ interface FlexPromotion extends Resource {
 	name: string
 	/** 
 	 * Indicates if the promotion will be applied exclusively, based on its priority score.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	exclusive?: boolean | null
 	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	priority?: number | null
 	/** 
@@ -51,17 +51,17 @@ interface FlexPromotion extends Resource {
 	expires_at: string
 	/** 
 	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	total_usage_limit?: number | null
 	/** 
 	 * The number of times this promotion has been applied.
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	total_usage_count?: number | null
 	/** 
 	 * Indicates if the promotion is active (enabled and not expired).
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	active?: boolean | null
 	/** 
@@ -71,7 +71,7 @@ interface FlexPromotion extends Resource {
 	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
 	/** 
 	 * The discount rule to be applied.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rules: Record<string, any>
 	/** 
@@ -81,12 +81,12 @@ interface FlexPromotion extends Resource {
 	disabled_at?: string | null
 	/** 
 	 * The rule outcomes.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rule_outcomes?: Record<string, any> | null
 	/** 
 	 * The payload used to evaluate the rules.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	resource_payload?: Record<string, any> | null
 
@@ -109,12 +109,12 @@ interface FlexPromotionCreate extends ResourceCreate {
 	name: string
 	/** 
 	 * Indicates if the promotion will be applied exclusively, based on its priority score.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	exclusive?: boolean | null
 	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	priority?: number | null
 	/** 
@@ -129,22 +129,22 @@ interface FlexPromotionCreate extends ResourceCreate {
 	expires_at: string
 	/** 
 	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	total_usage_limit?: number | null
 	/** 
 	 * The discount rule to be applied.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rules: Record<string, any>
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 
@@ -163,12 +163,12 @@ interface FlexPromotionUpdate extends ResourceUpdate {
 	name?: string | null
 	/** 
 	 * Indicates if the promotion will be applied exclusively, based on its priority score.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	exclusive?: boolean | null
 	/** 
 	 * The priority assigned to the promotion (lower means higher priority).
-	 * @example ```"2"```
+	 * @example ```2```
 	 */
 	priority?: number | null
 	/** 
@@ -183,22 +183,22 @@ interface FlexPromotionUpdate extends ResourceUpdate {
 	expires_at?: string | null
 	/** 
 	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
-	 * @example ```"5"```
+	 * @example ```5```
 	 */
 	total_usage_limit?: number | null
 	/** 
 	 * The discount rule to be applied.
-	 * @example ```"[object Object]"```
+	 * @example ```{}```
 	 */
 	rules?: Record<string, any> | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 

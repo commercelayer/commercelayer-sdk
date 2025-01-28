@@ -32,17 +32,17 @@ interface AdyenGateway extends Resource {
 	live_url_prefix: string
 	/** 
 	 * The checkout API version, supported range is from 66 to 71, default is 71.
-	 * @example ```"71"```
+	 * @example ```71```
 	 */
 	api_version?: number | null
 	/** 
 	 * Indicates if the gateway will leverage on the Adyen notification webhooks, using latest API version.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	async_api?: boolean | null
 	/** 
 	 * Indicates if the gateway will use the native customer payment sources.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	native_customer_payment_sources?: boolean | null
 	/** 
@@ -92,17 +92,17 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	live_url_prefix: string
 	/** 
 	 * The checkout API version, supported range is from 66 to 71, default is 71.
-	 * @example ```"71"```
+	 * @example ```71```
 	 */
 	api_version?: number | null
 	/** 
 	 * Indicates if the gateway will leverage on the Adyen notification webhooks, using latest API version.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	async_api?: boolean | null
 	/** 
 	 * Indicates if the gateway will use the native customer payment sources.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	native_customer_payment_sources?: boolean | null
 	/** 
@@ -145,17 +145,17 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	live_url_prefix?: string | null
 	/** 
 	 * The checkout API version, supported range is from 66 to 71, default is 71.
-	 * @example ```"71"```
+	 * @example ```71```
 	 */
 	api_version?: number | null
 	/** 
 	 * Indicates if the gateway will leverage on the Adyen notification webhooks, using latest API version.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	async_api?: boolean | null
 	/** 
 	 * Indicates if the gateway will use the native customer payment sources.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	native_customer_payment_sources?: boolean | null
 	/** 

@@ -26,7 +26,7 @@ interface TaxRule extends Resource {
 	name: string
 	/** 
 	 * The tax rate for this rule.
-	 * @example ```"0.22"```
+	 * @example ```0.22```
 	 */
 	tax_rate?: number | null
 	/** 
@@ -47,7 +47,7 @@ interface TaxRule extends Resource {
 	adjustment_taxable?: boolean | null
 	/** 
 	 * The breakdown for this tax rule (if calculated).
-	 * @example ```"[object Object]"```
+	 * @example ```{"41":{"tax_rate":0.22}}```
 	 */
 	breakdown?: Record<string, any> | null
 	/** 
@@ -96,7 +96,7 @@ interface TaxRuleCreate extends ResourceCreate {
 	name: string
 	/** 
 	 * The tax rate for this rule.
-	 * @example ```"0.22"```
+	 * @example ```0.22```
 	 */
 	tax_rate?: number | null
 	/** 
@@ -160,7 +160,7 @@ interface TaxRuleUpdate extends ResourceUpdate {
 	name?: string | null
 	/** 
 	 * The tax rate for this rule.
-	 * @example ```"0.22"```
+	 * @example ```0.22```
 	 */
 	tax_rate?: number | null
 	/** 
