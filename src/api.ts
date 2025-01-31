@@ -123,6 +123,7 @@ export { default as StockTransfers } from './resources/stock_transfers'
 export { default as Stores } from './resources/stores'
 export { default as StripeGateways } from './resources/stripe_gateways'
 export { default as StripePayments } from './resources/stripe_payments'
+export { default as StripeTaxAccounts } from './resources/stripe_tax_accounts'
 export { default as SubscriptionModels } from './resources/subscription_models'
 export { default as Tags } from './resources/tags'
 export { default as TalonOneAccounts } from './resources/talon_one_accounts'
@@ -132,6 +133,7 @@ export { default as TaxRules } from './resources/tax_rules'
 export { default as TaxjarAccounts } from './resources/taxjar_accounts'
 export { default as Transactions } from './resources/transactions'
 export { default as Versions } from './resources/versions'
+export { default as VertexAccounts } from './resources/vertex_accounts'
 export { default as Voids } from './resources/voids'
 export { default as Webhooks } from './resources/webhooks'
 export { default as WireTransfers } from './resources/wire_transfers'
@@ -255,6 +257,7 @@ export type ResourceTypeLock =
 |	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
+|	'stripe_tax_accounts'
 |	'subscription_models'
 |	'tags'
 |	'talon_one_accounts'
@@ -264,6 +267,7 @@ export type ResourceTypeLock =
 |	'taxjar_accounts'
 |	'transactions'
 |	'versions'
+|	'vertex_accounts'
 |	'voids'
 |	'webhooks'
 |	'wire_transfers'
@@ -387,6 +391,7 @@ export const resourceList: ResourceTypeLock[] = [
 	'stores',
 	'stripe_gateways',
 	'stripe_payments',
+	'stripe_tax_accounts',
 	'subscription_models',
 	'tags',
 	'talon_one_accounts',
@@ -396,6 +401,7 @@ export const resourceList: ResourceTypeLock[] = [
 	'taxjar_accounts',
 	'transactions',
 	'versions',
+	'vertex_accounts',
 	'voids',
 	'webhooks',
 	'wire_transfers'
@@ -547,12 +553,14 @@ export type CreatableResourceType =
 |	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
+|	'stripe_tax_accounts'
 |	'subscription_models'
 |	'tags'
 |	'talon_one_accounts'
 |	'tax_categories'
 |	'tax_rules'
 |	'taxjar_accounts'
+|	'vertex_accounts'
 |	'webhooks'
 |	'wire_transfers'
 // ##__API_RESOURCE_CREATABLE_STOP__##
@@ -666,12 +674,14 @@ export type UpdatableResourceType =
 |	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
+|	'stripe_tax_accounts'
 |	'subscription_models'
 |	'tags'
 |	'talon_one_accounts'
 |	'tax_categories'
 |	'tax_rules'
 |	'taxjar_accounts'
+|	'vertex_accounts'
 |	'voids'
 |	'webhooks'
 |	'wire_transfers'
@@ -782,12 +792,14 @@ export type DeletableResourceType =
 |	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
+|	'stripe_tax_accounts'
 |	'subscription_models'
 |	'tags'
 |	'talon_one_accounts'
 |	'tax_categories'
 |	'tax_rules'
 |	'taxjar_accounts'
+|	'vertex_accounts'
 |	'webhooks'
 |	'wire_transfers'
 // ##__API_RESOURCE_DELETABLE_STOP__##
@@ -860,6 +872,7 @@ export type VersionableResourceType =
 |	'customer_subscriptions'
 |	'delivery_lead_times'
 |	'discount_engines'
+|	'exports'
 |	'external_gateways'
 |	'external_payments'
 |	'external_promotions'
@@ -923,12 +936,14 @@ export type VersionableResourceType =
 |	'stores'
 |	'stripe_gateways'
 |	'stripe_payments'
+|	'stripe_tax_accounts'
 |	'talon_one_accounts'
 |	'tax_calculators'
 |	'tax_categories'
 |	'tax_rules'
 |	'taxjar_accounts'
 |	'transactions'
+|	'vertex_accounts'
 |	'voids'
 |	'webhooks'
 |	'wire_transfers'
@@ -1058,6 +1073,7 @@ export type ResourceFields = {
 	stores: models.Store,
 	stripe_gateways: models.StripeGateway,
 	stripe_payments: models.StripePayment,
+	stripe_tax_accounts: models.StripeTaxAccount,
 	subscription_models: models.SubscriptionModel,
 	tags: models.Tag,
 	talon_one_accounts: models.TalonOneAccount,
@@ -1067,6 +1083,7 @@ export type ResourceFields = {
 	taxjar_accounts: models.TaxjarAccount,
 	transactions: models.Transaction,
 	versions: models.Version,
+	vertex_accounts: models.VertexAccount,
 	voids: models.Void,
 	webhooks: models.Webhook,
 	wire_transfers: models.WireTransfer
@@ -1191,6 +1208,7 @@ export type ResourceSortFields = {
 	stores: models.StoreSort,
 	stripe_gateways: models.StripeGatewaySort,
 	stripe_payments: models.StripePaymentSort,
+	stripe_tax_accounts: models.StripeTaxAccountSort,
 	subscription_models: models.SubscriptionModelSort,
 	tags: models.TagSort,
 	talon_one_accounts: models.TalonOneAccountSort,
@@ -1200,6 +1218,7 @@ export type ResourceSortFields = {
 	taxjar_accounts: models.TaxjarAccountSort,
 	transactions: models.TransactionSort,
 	versions: models.VersionSort,
+	vertex_accounts: models.VertexAccountSort,
 	voids: models.VoidSort,
 	webhooks: models.WebhookSort,
 	wire_transfers: models.WireTransferSort

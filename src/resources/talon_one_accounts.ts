@@ -29,6 +29,11 @@ interface TalonOneAccount extends Resource {
 	 * Indicates if the discount engine manages both promotions and gift cards application at once.
 	 */
 	manage_gift_cards?: boolean | null
+	/** 
+	 * The API endpoint as computed by specified baseurl.
+	 * @example ```"https://my_baseurl.talon.one/v2"```
+	 */
+	api_endpoint?: string | null
 
 	markets?: Market[] | null
 	discount_engine_items?: DiscountEngineItem[] | null
@@ -51,7 +56,7 @@ interface TalonOneAccountCreate extends ResourceCreate {
 	 */
 	api_key: string
 	/** 
-	 * The Talon.One API baseurl (excluding the talon.io domain).
+	 * The Talon.One API baseurl (excluding the talon.one suffix).
 	 * @example ```"yourbaseurl"```
 	 */
 	baseurl: string
@@ -72,7 +77,7 @@ interface TalonOneAccountUpdate extends ResourceUpdate {
 	 */
 	api_key?: string | null
 	/** 
-	 * The Talon.One API baseurl (excluding the talon.io domain).
+	 * The Talon.One API baseurl (excluding the talon.one suffix).
 	 * @example ```"yourbaseurl"```
 	 */
 	baseurl?: string | null

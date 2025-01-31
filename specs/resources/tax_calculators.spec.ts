@@ -171,6 +171,27 @@ describe('TaxCalculators resource', () => {
 	/* relationship.attachments stop */
 	
 
+	/* relationship.events start */
+	it(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.events stop */
+	
+
 	/* relationship.versions start */
 	it(resourceType + '.versions', async () => {
 	

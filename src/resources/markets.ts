@@ -14,6 +14,8 @@ import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
+import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
+import type { VertexAccount, VertexAccountType } from './vertex_accounts'
 import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
 import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
@@ -26,6 +28,8 @@ type PriceListRel = ResourceRel & { type: PriceListType }
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
 type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
+type StripeTaxAccountRel = ResourceRel & { type: StripeTaxAccountType }
+type VertexAccountRel = ResourceRel & { type: VertexAccountType }
 type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
 type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
@@ -102,7 +106,7 @@ interface Market extends Resource {
 	base_price_list?: PriceList | null
 	inventory_model?: InventoryModel | null
 	subscription_model?: SubscriptionModel | null
-	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
+	tax_calculator?: AvalaraAccount | StripeTaxAccount | VertexAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
 	customer_group?: CustomerGroup | null
 	geocoder?: Geocoder | null
 	stores?: Store[] | null
@@ -165,7 +169,7 @@ interface MarketCreate extends ResourceCreate {
 	price_list: PriceListRel
 	inventory_model: InventoryModelRel
 	subscription_model?: SubscriptionModelRel | null
-	tax_calculator?: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
+	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
 	geocoder?: GeocoderRel | null
 
@@ -224,7 +228,7 @@ interface MarketUpdate extends ResourceUpdate {
 	price_list?: PriceListRel | null
 	inventory_model?: InventoryModelRel | null
 	subscription_model?: SubscriptionModelRel | null
-	tax_calculator?: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
+	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
 	geocoder?: GeocoderRel | null
 

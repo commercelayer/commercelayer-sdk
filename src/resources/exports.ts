@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
+import type { Version } from './versions'
 
 
 type ExportType = 'exports'
@@ -83,6 +84,7 @@ interface Export extends Resource {
 	errors_log?: Record<string, any> | null
 
 	events?: Event[] | null
+	versions?: Version[] | null
 
 }
 
@@ -152,6 +154,11 @@ class Exports extends ApiResource<Export> {
 	async events(exportId: string | Export, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _exportId = (exportId as Export).id || exportId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `exports/${_exportId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async versions(exportId: string | Export, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+		const _exportId = (exportId as Export).id || exportId as string
+		return this.resources.fetch<Version>({ type: 'versions' }, `exports/${_exportId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async _interrupt(id: string | Export, params?: QueryParamsRetrieve<Export>, options?: ResourcesConfig): Promise<Export> {

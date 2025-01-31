@@ -6,6 +6,8 @@ import type { Sku, SkuType } from './skus'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
+import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
+import type { VertexAccount, VertexAccountType } from './vertex_accounts'
 import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
 import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
@@ -15,6 +17,8 @@ type TaxCategoryType = 'tax_categories'
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 type SkuRel = ResourceRel & { type: SkuType }
 type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
+type StripeTaxAccountRel = ResourceRel & { type: StripeTaxAccountType }
+type VertexAccountRel = ResourceRel & { type: VertexAccountType }
 type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
 type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
@@ -40,7 +44,7 @@ interface TaxCategory extends Resource {
 	sku_code?: string | null
 
 	sku?: Sku | null
-	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
+	tax_calculator?: AvalaraAccount | StripeTaxAccount | VertexAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
@@ -61,7 +65,7 @@ interface TaxCategoryCreate extends ResourceCreate {
 	sku_code?: string | null
 
 	sku: SkuRel
-	tax_calculator: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
+	tax_calculator: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
 
 }
 

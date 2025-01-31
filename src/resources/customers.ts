@@ -58,6 +58,11 @@ interface Customer extends Resource {
 	 * @example ```"xxx-yyy-zzz"```
 	 */
 	profile_id?: string | null
+	/** 
+	 * A specific code to identify the tax exemption reason for this customer.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	tax_exemption_code?: string | null
 
 	customer_group?: CustomerGroup | null
 	customer_addresses?: CustomerAddress[] | null
@@ -96,6 +101,11 @@ interface CustomerCreate extends ResourceCreate {
 	 * @example ```"xxx-yyy-zzz"```
 	 */
 	profile_id?: string | null
+	/** 
+	 * A specific code to identify the tax exemption reason for this customer.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	tax_exemption_code?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null
@@ -125,6 +135,11 @@ interface CustomerUpdate extends ResourceUpdate {
 	 * @example ```"xxx-yyy-zzz"```
 	 */
 	profile_id?: string | null
+	/** 
+	 * A specific code to identify the tax exemption reason for this customer.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	tax_exemption_code?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null

@@ -4,9 +4,9 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Version } from './versions'
 import type { TaxCategory, TaxCategoryType } from './tax_categories'
-import type { Event } from './events'
 
 
 type AvalaraAccountType = 'avalara_accounts'
@@ -50,9 +50,9 @@ interface AvalaraAccount extends Resource {
 
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
+	events?: Event[] | null
 	versions?: Version[] | null
 	tax_categories?: TaxCategory[] | null
-	events?: Event[] | null
 
 }
 
@@ -159,6 +159,11 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `avalara_accounts/${_avalaraAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
+	async events(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `avalara_accounts/${_avalaraAccountId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
 	async versions(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `avalara_accounts/${_avalaraAccountId}/versions`, params, options) as unknown as ListResponse<Version>
@@ -167,11 +172,6 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 	async tax_categories(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<TaxCategory>, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `avalara_accounts/${_avalaraAccountId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
-	}
-
-	async events(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `avalara_accounts/${_avalaraAccountId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 

@@ -1151,13 +1151,44 @@
                 },
                 "kind": {
                     "type": "string",
-                    "desc": "The application's kind, can be one of: 'sales_channel', 'integration' and 'webapp'.",
+                    "desc": "The application's kind. One of 'dashboard', 'user', 'metrics', 'contentful', 'bundles', 'customers', 'datocms', 'exports', 'external', 'gift_cards', 'imports', 'integration', 'inventory', 'orders', 'price_lists', 'promotions', 'resources', 'returns', 'sales_channel', 'sanity', 'shipments', 'skus', 'sku_lists', 'stock_transfers', 'subscriptions', 'tags', 'webapp', 'webhooks', or 'zapier'.",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": false,
-                    "example": "sales-channel"
+                    "example": "sales-channel",
+                    "enum": [
+                        "dashboard",
+                        "user",
+                        "metrics",
+                        "contentful",
+                        "bundles",
+                        "customers",
+                        "datocms",
+                        "exports",
+                        "external",
+                        "gift_cards",
+                        "imports",
+                        "integration",
+                        "inventory",
+                        "orders",
+                        "price_lists",
+                        "promotions",
+                        "resources",
+                        "returns",
+                        "sales_channel",
+                        "sanity",
+                        "shipments",
+                        "skus",
+                        "sku_lists",
+                        "stock_transfers",
+                        "subscriptions",
+                        "tags",
+                        "webapp",
+                        "webhooks",
+                        "zapier"
+                    ]
                 },
                 "public_access": {
                     "type": "boolean",
@@ -2065,6 +2096,8 @@
                     "example": "avalara_accounts",
                     "enum": [
                         "avalara_accounts",
+                        "stripe_tax_accounts",
+                        "vertex_accounts",
                         "taxjar_accounts",
                         "manual_tax_calculators",
                         "external_tax_calculators"
@@ -2200,7 +2233,7 @@
                 "markets": {
                     "type": "has_many",
                     "desc": "The associated markets.",
-                    "parent_resource": "Api::TaxjarAccountResource",
+                    "parent_resource": "Api::VertexAccountResource",
                     "class_name": "Market"
                 },
                 "attachments": {
@@ -2210,6 +2243,14 @@
                     "sortable": false,
                     "parent_resource": "Api::AvalaraAccountResource",
                     "class_name": "Attachment"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::AvalaraAccountResource",
+                    "class_name": "Event"
                 },
                 "versions": {
                     "type": "has_many",
@@ -2231,14 +2272,6 @@
                     "sortable": false,
                     "parent_resource": "Api::AvalaraAccountResource",
                     "class_name": "TaxCategory"
-                },
-                "events": {
-                    "type": "has_many",
-                    "desc": "The associated events.",
-                    "filterable": true,
-                    "sortable": false,
-                    "parent_resource": "Api::AvalaraAccountResource",
-                    "class_name": "Event"
                 }
             },
             "filters": [
@@ -2252,8 +2285,8 @@
                 "metadata",
                 "q",
                 "attachments_id",
-                "tax_categories_id",
                 "events_id",
+                "tax_categories_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -6905,6 +6938,18 @@
                     "sortable": false,
                     "example": "xxx-yyy-zzz"
                 },
+                "tax_exemption_code": {
+                    "type": "string",
+                    "desc": "A specific code to identify the tax exemption reason for this customer.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "xxx-yyy-zzz"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -9061,6 +9106,17 @@
                     "sortable": false,
                     "parent_resource": "Api::ExportResource",
                     "class_name": "Event"
+                },
+                "versions": {
+                    "type": "has_many",
+                    "desc": "The associated changes.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "parent_resource": "Api::ExportResource",
+                    "class_name": "Version"
                 }
             },
             "filters": [
@@ -10106,6 +10162,8 @@
                     "example": "avalara_accounts",
                     "enum": [
                         "avalara_accounts",
+                        "stripe_tax_accounts",
+                        "vertex_accounts",
                         "taxjar_accounts",
                         "manual_tax_calculators",
                         "external_tax_calculators"
@@ -10255,7 +10313,7 @@
                 "markets": {
                     "type": "has_many",
                     "desc": "The associated markets.",
-                    "parent_resource": "Api::TaxjarAccountResource",
+                    "parent_resource": "Api::VertexAccountResource",
                     "class_name": "Market"
                 },
                 "attachments": {
@@ -10265,6 +10323,14 @@
                     "sortable": false,
                     "parent_resource": "Api::ExternalTaxCalculatorResource",
                     "class_name": "Attachment"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::ExternalTaxCalculatorResource",
+                    "class_name": "Event"
                 },
                 "versions": {
                     "type": "has_many",
@@ -10291,6 +10357,7 @@
                 "circuit_failure_count",
                 "q",
                 "attachments_id",
+                "events_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -16572,6 +16639,8 @@
                     "example": "avalara_accounts",
                     "enum": [
                         "avalara_accounts",
+                        "stripe_tax_accounts",
+                        "vertex_accounts",
                         "taxjar_accounts",
                         "manual_tax_calculators",
                         "external_tax_calculators"
@@ -16651,7 +16720,7 @@
                 "markets": {
                     "type": "has_many",
                     "desc": "The associated markets.",
-                    "parent_resource": "Api::TaxjarAccountResource",
+                    "parent_resource": "Api::VertexAccountResource",
                     "class_name": "Market"
                 },
                 "attachments": {
@@ -16661,6 +16730,14 @@
                     "sortable": false,
                     "parent_resource": "Api::ManualTaxCalculatorResource",
                     "class_name": "Attachment"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::ManualTaxCalculatorResource",
+                    "class_name": "Event"
                 },
                 "versions": {
                     "type": "has_many",
@@ -16695,6 +16772,7 @@
                 "metadata",
                 "q",
                 "attachments_id",
+                "events_id",
                 "tax_rules_id",
                 "ids",
                 "created_at_from",
@@ -17027,6 +17105,8 @@
                     "class_name": "TaxCalculator",
                     "enum": [
                         "avalara_accounts",
+                        "stripe_tax_accounts",
+                        "vertex_accounts",
                         "taxjar_accounts",
                         "manual_tax_calculators",
                         "external_tax_calculators"
@@ -30090,6 +30170,17 @@
                         "lb"
                     ]
                 },
+                "tax_code": {
+                    "type": "string",
+                    "desc": "The freight tax identifier code, specific for a particular tax calculator.",
+                    "required": "optional, default to tax calculator generic freight code",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "FR010000"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -34350,6 +34441,28 @@
                     "sortable": false,
                     "example": "pk_live_xxxx-yyyy-zzzz"
                 },
+                "on_behalf_of": {
+                    "type": "string",
+                    "desc": "The Stripe account ID that these funds are intended for.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "xxxx-yyyy-zzzz"
+                },
+                "transfer_group": {
+                    "type": "string",
+                    "desc": "A string that identifies the resulting payment as part of a group.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "xxxx-yyyy-zzzz"
+                },
                 "options": {
                     "type": "object",
                     "desc": "Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.",
@@ -34559,6 +34672,210 @@
                 "reference_origin",
                 "metadata",
                 "q",
+                "ids",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to"
+            ]
+        }
+    },
+    {
+        "id": "stripe_tax_account",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "addon": false,
+            "hidden": false,
+            "actions": [
+                "list",
+                "retrieve",
+                "create",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The tax calculator's internal name.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "Personal tax calculator"
+                },
+                "type": {
+                    "type": "string",
+                    "desc": "The tax calculator's type.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "avalara_accounts",
+                    "enum": [
+                        "avalara_accounts",
+                        "stripe_tax_accounts",
+                        "vertex_accounts",
+                        "taxjar_accounts",
+                        "manual_tax_calculators",
+                        "external_tax_calculators"
+                    ]
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                },
+                "api_key": {
+                    "type": "string",
+                    "desc": "The Stripe account API key.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": true,
+                    "example": "STRIPE_API_KEY"
+                },
+                "commit_invoice": {
+                    "type": "boolean",
+                    "desc": "Indicates if the transaction will be recorded and visible on the Stripe website.",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                }
+            },
+            "relationships": {
+                "markets": {
+                    "type": "has_many",
+                    "desc": "The associated markets.",
+                    "parent_resource": "Api::VertexAccountResource",
+                    "class_name": "Market"
+                },
+                "attachments": {
+                    "type": "has_many",
+                    "desc": "The associated attachments.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::StripeTaxAccountResource",
+                    "class_name": "Attachment"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::StripeTaxAccountResource",
+                    "class_name": "Event"
+                },
+                "versions": {
+                    "type": "has_many",
+                    "desc": "The associated changes.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "parent_resource": "Api::StripeTaxAccountResource",
+                    "class_name": "Version"
+                },
+                "tax_categories": {
+                    "type": "has_many",
+                    "desc": "The associated tax categories.",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "parent_resource": "Api::StripeTaxAccountResource",
+                    "class_name": "TaxCategory"
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "type",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "q",
+                "attachments_id",
+                "events_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -35012,7 +35329,7 @@
                 },
                 "baseurl": {
                     "type": "string",
-                    "desc": "The Talon.One API baseurl (excluding the talon.io domain).",
+                    "desc": "The Talon.One API baseurl (excluding the talon.one suffix).",
                     "required": "required",
                     "creatable": true,
                     "updatable": true,
@@ -35020,6 +35337,16 @@
                     "filterable": false,
                     "sortable": true,
                     "example": "yourbaseurl"
+                },
+                "api_endpoint": {
+                    "type": "string",
+                    "desc": "The API endpoint as computed by specified baseurl.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://my_baseurl.talon.one/v2"
                 }
             },
             "relationships": {
@@ -35112,6 +35439,8 @@
                     "example": "avalara_accounts",
                     "enum": [
                         "avalara_accounts",
+                        "stripe_tax_accounts",
+                        "vertex_accounts",
                         "taxjar_accounts",
                         "manual_tax_calculators",
                         "external_tax_calculators"
@@ -35191,7 +35520,7 @@
                 "markets": {
                     "type": "has_many",
                     "desc": "The associated markets.",
-                    "parent_resource": "Api::TaxjarAccountResource",
+                    "parent_resource": "Api::VertexAccountResource",
                     "class_name": "Market"
                 },
                 "attachments": {
@@ -35201,6 +35530,14 @@
                     "sortable": false,
                     "parent_resource": "Api::TaxCalculatorResource",
                     "class_name": "Attachment"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::TaxCalculatorResource",
+                    "class_name": "Event"
                 },
                 "versions": {
                     "type": "has_many",
@@ -35225,6 +35562,7 @@
                 "metadata",
                 "q",
                 "attachments_id",
+                "events_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -35369,6 +35707,8 @@
                     "class_name": "TaxCalculator",
                     "enum": [
                         "avalara_accounts",
+                        "stripe_tax_accounts",
+                        "vertex_accounts",
                         "taxjar_accounts",
                         "manual_tax_calculators",
                         "external_tax_calculators"
@@ -35737,6 +36077,8 @@
                     "example": "avalara_accounts",
                     "enum": [
                         "avalara_accounts",
+                        "stripe_tax_accounts",
+                        "vertex_accounts",
                         "taxjar_accounts",
                         "manual_tax_calculators",
                         "external_tax_calculators"
@@ -35827,7 +36169,7 @@
                 "markets": {
                     "type": "has_many",
                     "desc": "The associated markets.",
-                    "parent_resource": "Api::TaxjarAccountResource",
+                    "parent_resource": "Api::VertexAccountResource",
                     "class_name": "Market"
                 },
                 "attachments": {
@@ -35837,6 +36179,14 @@
                     "sortable": false,
                     "parent_resource": "Api::TaxjarAccountResource",
                     "class_name": "Attachment"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::TaxjarAccountResource",
+                    "class_name": "Event"
                 },
                 "versions": {
                     "type": "has_many",
@@ -35871,6 +36221,7 @@
                 "metadata",
                 "q",
                 "attachments_id",
+                "events_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -36400,6 +36751,273 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
+            ]
+        }
+    },
+    {
+        "id": "vertex_account",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "addon": false,
+            "hidden": false,
+            "actions": [
+                "list",
+                "retrieve",
+                "create",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The tax calculator's internal name.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "Personal tax calculator"
+                },
+                "type": {
+                    "type": "string",
+                    "desc": "The tax calculator's type.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "avalara_accounts",
+                    "enum": [
+                        "avalara_accounts",
+                        "stripe_tax_accounts",
+                        "vertex_accounts",
+                        "taxjar_accounts",
+                        "manual_tax_calculators",
+                        "external_tax_calculators"
+                    ]
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                },
+                "kind": {
+                    "type": "string",
+                    "desc": "The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.",
+                    "required": "optional, default is 'cloud'",
+                    "default": "cloud",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "cloud",
+                    "enum": [
+                        "cloud",
+                        "on_demand",
+                        "on_premise"
+                    ]
+                },
+                "baseurl": {
+                    "type": "string",
+                    "desc": "The Vertex API baseurl, optional for 'cloud' kind.",
+                    "required": "optional, if cloud",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "yourbaseurl"
+                },
+                "client_id": {
+                    "type": "string",
+                    "desc": "The Vertex account client ID.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": true,
+                    "example": "xxx-yyy-zzz"
+                },
+                "client_secret": {
+                    "type": "string",
+                    "desc": "The Vertex account client secret.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": true,
+                    "example": "xxx-yyy-zzz"
+                },
+                "api_endpoint": {
+                    "type": "string",
+                    "desc": "The API endpoint as computed by specified kind and baseurl.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://my_baseurl.ondemand.vertexinc.com"
+                },
+                "commit_invoice": {
+                    "type": "boolean",
+                    "desc": "Indicates if the transaction will be recorded and visible on the Vertex website.",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_refresh_token": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to manually refresh the access token.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "token_expires_at": {
+                    "type": "datetime",
+                    "desc": "The expiration date/time of the access token.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2018-01-02T12:00:00.000Z"
+                }
+            },
+            "relationships": {
+                "markets": {
+                    "type": "has_many",
+                    "desc": "The associated markets.",
+                    "parent_resource": "Api::VertexAccountResource",
+                    "class_name": "Market"
+                },
+                "attachments": {
+                    "type": "has_many",
+                    "desc": "The associated attachments.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::VertexAccountResource",
+                    "class_name": "Attachment"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::VertexAccountResource",
+                    "class_name": "Event"
+                },
+                "versions": {
+                    "type": "has_many",
+                    "desc": "The associated changes.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "parent_resource": "Api::VertexAccountResource",
+                    "class_name": "Version"
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "type",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "q",
+                "attachments_id",
+                "events_id",
+                "ids",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to",
+                "token_expires_at_from",
+                "token_expires_at_to"
             ]
         }
     },

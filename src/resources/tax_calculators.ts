@@ -4,6 +4,7 @@ import type { QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Version } from './versions'
 
 
@@ -27,6 +28,7 @@ interface TaxCalculator extends Resource {
 
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
+	events?: Event[] | null
 	versions?: Version[] | null
 
 }
@@ -44,6 +46,11 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
 	async attachments(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_calculators/${_taxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `tax_calculators/${_taxCalculatorId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async versions(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

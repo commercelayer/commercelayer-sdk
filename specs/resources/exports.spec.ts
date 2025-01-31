@@ -221,6 +221,27 @@ describe('Exports resource', () => {
 	})
 	/* relationship.events stop */
 	
+
+	/* relationship.versions start */
+	it(resourceType + '.versions', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { versions: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].versions(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.versions stop */
+	
   
 
 	/* trigger._interrupt start */

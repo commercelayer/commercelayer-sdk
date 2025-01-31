@@ -115,6 +115,11 @@ interface ShippingMethod extends Resource {
 	 */
 	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
+	 * The freight tax identifier code, specific for a particular tax calculator.
+	 * @example ```"FR010000"```
+	 */
+	tax_code?: string | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -197,6 +202,11 @@ interface ShippingMethodCreate extends ResourceCreate {
 	 */
 	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
+	 * The freight tax identifier code, specific for a particular tax calculator.
+	 * @example ```"FR010000"```
+	 */
+	tax_code?: string | null
+	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```true```
 	 */
@@ -268,6 +278,11 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	 * @example ```"gr"```
 	 */
 	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
+	/** 
+	 * The freight tax identifier code, specific for a particular tax calculator.
+	 * @example ```"FR010000"```
+	 */
+	tax_code?: string | null
 	/** 
 	 * Send this attribute if you want to mark this resource as disabled.
 	 * @example ```true```

@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Version } from './versions'
 import type { TaxCategory, TaxCategoryType } from './tax_categories'
 
@@ -29,6 +30,7 @@ interface TaxjarAccount extends Resource {
 
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
+	events?: Event[] | null
 	versions?: Version[] | null
 	tax_categories?: TaxCategory[] | null
 
@@ -95,6 +97,11 @@ class TaxjarAccounts extends ApiResource<TaxjarAccount> {
 	async attachments(taxjarAccountId: string | TaxjarAccount, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _taxjarAccountId = (taxjarAccountId as TaxjarAccount).id || taxjarAccountId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `taxjar_accounts/${_taxjarAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(taxjarAccountId: string | TaxjarAccount, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _taxjarAccountId = (taxjarAccountId as TaxjarAccount).id || taxjarAccountId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `taxjar_accounts/${_taxjarAccountId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async versions(taxjarAccountId: string | TaxjarAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

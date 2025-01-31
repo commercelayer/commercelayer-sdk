@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Version } from './versions'
 import type { TaxRule, TaxRuleType } from './tax_rules'
 
@@ -29,6 +30,7 @@ interface ManualTaxCalculator extends Resource {
 
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
+	events?: Event[] | null
 	versions?: Version[] | null
 	tax_rules?: TaxRule[] | null
 
@@ -85,6 +87,11 @@ class ManualTaxCalculators extends ApiResource<ManualTaxCalculator> {
 	async attachments(manualTaxCalculatorId: string | ManualTaxCalculator, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _manualTaxCalculatorId = (manualTaxCalculatorId as ManualTaxCalculator).id || manualTaxCalculatorId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `manual_tax_calculators/${_manualTaxCalculatorId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(manualTaxCalculatorId: string | ManualTaxCalculator, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _manualTaxCalculatorId = (manualTaxCalculatorId as ManualTaxCalculator).id || manualTaxCalculatorId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `manual_tax_calculators/${_manualTaxCalculatorId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async versions(manualTaxCalculatorId: string | ManualTaxCalculator, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

@@ -41,6 +41,16 @@ interface StripePayment extends Resource {
 	 */
 	publishable_key?: string | null
 	/** 
+	 * The Stripe account ID that these funds are intended for.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	on_behalf_of?: string | null
+	/** 
+	 * A string that identifies the resulting payment as part of a group.
+	 * @example ```"xxxx-yyyy-zzzz"```
+	 */
+	transfer_group?: string | null
+	/** 
 	 * Stripe payment options: 'customer', 'payment_method', 'return_url', etc. Check Stripe payment intent API for more details.
 	 * @example ```{"customer":"cus_xxx","payment_method":"pm_xxx"}```
 	 */
