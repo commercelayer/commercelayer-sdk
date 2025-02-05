@@ -41,6 +41,10 @@ interface AdyenGateway extends Resource {
 	 */
 	async_api?: boolean | null
 	/** 
+	 * Send this attribute if you want to enable partial payments for the order.
+	 */
+	partial_payments?: boolean | null
+	/** 
 	 * Indicates if the gateway will use the native customer payment sources.
 	 * @example ```true```
 	 */
@@ -101,6 +105,10 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	 */
 	async_api?: boolean | null
 	/** 
+	 * Send this attribute if you want to enable partial payments for the order.
+	 */
+	partial_payments?: boolean | null
+	/** 
 	 * Indicates if the gateway will use the native customer payment sources.
 	 * @example ```true```
 	 */
@@ -153,6 +161,10 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	async_api?: boolean | null
+	/** 
+	 * Send this attribute if you want to enable partial payments for the order.
+	 */
+	partial_payments?: boolean | null
 	/** 
 	 * Indicates if the gateway will use the native customer payment sources.
 	 * @example ```true```

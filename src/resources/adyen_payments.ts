@@ -82,10 +82,10 @@ interface AdyenPaymentUpdate extends ResourceUpdate {
 	 */
 	payment_request_details?: Record<string, any> | null
 	/** 
-	 * The Adyen payment response, used by client (includes 'resultCode' and 'action').
-	 * @example ```{"foo":"bar"}```
+	 * Send this attribute if you want to authorize the payment.
+	 * @example ```true```
 	 */
-	payment_response?: Record<string, any> | null
+	_authorize?: boolean | null
 	/** 
 	 * Send this attribute if you want to send additional details the payment request.
 	 * @example ```true```
@@ -126,6 +126,10 @@ class AdyenPayments extends ApiResource<AdyenPayment> {
 	async versions(adyenPaymentId: string | AdyenPayment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _adyenPaymentId = (adyenPaymentId as AdyenPayment).id || adyenPaymentId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `adyen_payments/${_adyenPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _authorize(id: string | AdyenPayment, params?: QueryParamsRetrieve<AdyenPayment>, options?: ResourcesConfig): Promise<AdyenPayment> {
+		return this.resources.update<AdyenPaymentUpdate, AdyenPayment>({ id: (typeof id === 'string')? id: id.id, type: AdyenPayments.TYPE, _authorize: true }, params, options)
 	}
 
 	async _details(id: string | AdyenPayment, params?: QueryParamsRetrieve<AdyenPayment>, options?: ResourcesConfig): Promise<AdyenPayment> {

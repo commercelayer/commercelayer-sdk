@@ -920,7 +920,7 @@ interface OrderUpdate extends ResourceUpdate {
 	 */
 	_nullify_payment_source?: boolean | null
 	/** 
-	 * Send this attribute if you want to set the payment source associated with the last succeeded authorization. At the end of the fix the order should be placed and authorized and ready for approval. Cannot be passed by sales channels.
+	 * Send this attribute if you want to set the payment source associated with the last succeeded authorization. At the end of the fix the order should be placed and authorized and ready to be approved. A tentative to fix the payment source is done before approval automatically. Cannot be passed by sales channels.
 	 * @example ```true```
 	 */
 	_fix_payment_source?: boolean | null

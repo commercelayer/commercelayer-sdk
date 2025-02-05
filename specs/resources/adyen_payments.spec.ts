@@ -265,6 +265,32 @@ describe('AdyenPayments resource', () => {
 	
   
 
+	/* trigger._authorize start */
+	it(resourceType + '._authorize', async () => {
+	
+		let triggerAttr = '_authorize'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath]._authorize(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._authorize stop */
+	
+
 	/* trigger._details start */
 	it(resourceType + '._details', async () => {
 	

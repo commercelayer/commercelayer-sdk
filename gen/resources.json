@@ -784,6 +784,17 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "partial_payments": {
+                    "type": "boolean",
+                    "desc": "Send this attribute if you want to enable partial payments for the order.",
+                    "required": "optional, default is 'false'",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
                 "native_customer_payment_sources": {
                     "type": "boolean",
                     "desc": "Indicates if the gateway will use the native customer payment sources.",
@@ -946,7 +957,7 @@
                     "desc": "The Adyen payment response, used by client (includes 'resultCode' and 'action').",
                     "required": "optional",
                     "creatable": false,
-                    "updatable": true,
+                    "updatable": false,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
@@ -975,7 +986,6 @@
                     "fetchable": false,
                     "filterable": false,
                     "sortable": false,
-                    "deprecated": true,
                     "example": "true"
                 },
                 "_details": {
@@ -1151,7 +1161,7 @@
                 },
                 "kind": {
                     "type": "string",
-                    "desc": "The application's kind. One of 'dashboard', 'user', 'metrics', 'contentful', 'bundles', 'customers', 'datocms', 'exports', 'external', 'gift_cards', 'imports', 'integration', 'inventory', 'orders', 'price_lists', 'promotions', 'resources', 'returns', 'sales_channel', 'sanity', 'shipments', 'skus', 'sku_lists', 'stock_transfers', 'subscriptions', 'tags', 'webapp', 'webhooks', or 'zapier'.",
+                    "desc": "The application's kind. One of 'sales_channel', 'integration', or 'webapp'.",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -18710,6 +18720,7 @@
                     "type": "boolean",
                     "trigger": true,
                     "desc": "Send this attribute if you want to place the order.",
+                    "idempotent": true,
                     "creatable": false,
                     "updatable": true,
                     "fetchable": false,
@@ -18756,6 +18767,7 @@
                     "type": "boolean",
                     "trigger": true,
                     "desc": "Send this attribute if you want to authorize the order's payment source.",
+                    "idempotent": true,
                     "creatable": false,
                     "updatable": true,
                     "fetchable": false,
@@ -18766,6 +18778,7 @@
                 "_authorization_amount_cents": {
                     "type": "integer",
                     "desc": "Send this attribute as a value in cents if you want to overwrite the amount to be authorized.",
+                    "idempotent": true,
                     "creatable": false,
                     "updatable": true,
                     "fetchable": false,
@@ -18834,7 +18847,7 @@
                 "_fix_payment_source": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to set the payment source associated with the last succeeded authorization. At the end of the fix the order should be placed and authorized and ready for approval. Cannot be passed by sales channels.",
+                    "desc": "Send this attribute if you want to set the payment source associated with the last succeeded authorization. At the end of the fix the order should be placed and authorized and ready to be approved. A tentative to fix the payment source is done before approval automatically. Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,

@@ -22,7 +22,7 @@ interface Application extends Resource {
 	 */
 	name?: string | null
 	/** 
-	 * The application's kind. One of 'dashboard', 'user', 'metrics', 'contentful', 'bundles', 'customers', 'datocms', 'exports', 'external', 'gift_cards', 'imports', 'integration', 'inventory', 'orders', 'price_lists', 'promotions', 'resources', 'returns', 'sales_channel', 'sanity', 'shipments', 'skus', 'sku_lists', 'stock_transfers', 'subscriptions', 'tags', 'webapp', 'webhooks', or 'zapier'.
+	 * The application's kind. One of 'sales_channel', 'integration', or 'webapp'.
 	 * @example ```"sales-channel"```
 	 */
 	kind?: 'dashboard' | 'user' | 'metrics' | 'contentful' | 'bundles' | 'customers' | 'datocms' | 'exports' | 'external' | 'gift_cards' | 'imports' | 'integration' | 'inventory' | 'orders' | 'price_lists' | 'promotions' | 'resources' | 'returns' | 'sales_channel' | 'sanity' | 'shipments' | 'skus' | 'sku_lists' | 'stock_transfers' | 'subscriptions' | 'tags' | 'webapp' | 'webhooks' | 'zapier' | null
