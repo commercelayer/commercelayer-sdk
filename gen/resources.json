@@ -21729,6 +21729,17 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "orders_invalid_coupon_errors": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Enables raising of API errors in case the provided coupon code is invalid, default is true.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "bundles_max_items_count": {
                     "type": "integer",
                     "default": 10,

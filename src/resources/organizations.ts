@@ -133,6 +133,11 @@ interface Organization extends Resource {
 	 */
 	orders_number_as_reference?: boolean | null
 	/** 
+	 * Enables raising of API errors in case the provided coupon code is invalid, default is true.
+	 * @example ```true```
+	 */
+	orders_invalid_coupon_errors?: boolean | null
+	/** 
 	 * The maximum number of SKUs allowed for bundles, default is 10.
 	 * @example ```10```
 	 */
