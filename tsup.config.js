@@ -1,6 +1,6 @@
 import { defineConfig } from 'tsup'
 
-const env = process.env.NODE_ENV
+const env = 'production' // process.env.NODE_ENV
 
 
 export default defineConfig(() => ({
@@ -8,14 +8,18 @@ export default defineConfig(() => ({
   clean: true,
   dts: true,
   format: ['cjs', 'esm'],
-  minify: true,
+  minify: (env === 'production'),
   bundle: true,
-  // treeshake: true,
-  // watch: env === 'development',
+  treeshake: true,
+  watch: (env === 'development'),
   target: 'es2020',
   entry: ['src/index.ts'],
   outDir: 'lib',
-  splitting: false,
+  splitting: true,
   shims: true,
-  cjsInterop: true
+  cjsInterop: true,
+  skipNodeModulesBundle: true,
+  footer: {
+    js: 'module.exports = module.exports.default;'
+  }
 }))
