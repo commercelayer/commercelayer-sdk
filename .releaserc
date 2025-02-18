@@ -5,7 +5,7 @@
 		{ "name": "main", "channel": "latest" },
 		"+([0-9])?(.{+([0-9]),x}).x",
 		{ "name": "beta", "prerelease": true },
-		{ "name": "sdk7", "channel": "sdk7", "prerelease": "alfa" }
+		{ "name": "sdk7", "channel": "sdk7", "prerelease": "alfa" },
 		{ "name": "prerelease", "prerelease": "rc" }
 	],
 	"plugins": [
