@@ -6,17 +6,17 @@ it(resourceType + '.##__OPERATION_NAME__##', async () => {
 
 	const triggerValue = ##__TRIGGER_VALUE__##
 	const attributes = { [triggerAttr]: triggerValue }
-    const id = TestData.id
+  const id = TestData.id
 
 	const intId = cl.addRequestInterceptor((request) => {
 		const data = JSON.parse(String(request.options.body))
 		expect(request.options.method).toBe('PATCH')
-		checkCommon(request, resourceType, id, currentAccessToken)
+		checkCommon(request, resourcePath, id, currentAccessToken)
 		checkCommonData(data, resourceType, attributes, id)
 		return interceptRequest()
 	})
 
-	await cl[resourceType].##__OPERATION_NAME__##(##__TRIGGER_PARAMS__##, {}, CommonData.options)
+	await cl[resourcePath].##__OPERATION_NAME__##(##__TRIGGER_PARAMS__##, {}, CommonData.options)
 		.catch(handleError)
 		.finally(() => cl.removeInterceptor('request'))
 

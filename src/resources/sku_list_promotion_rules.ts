@@ -2,6 +2,9 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { Version } from './versions'
+import type { SkuList, SkuListType } from './sku_lists'
+import type { Sku } from './skus'
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
 import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
 import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
@@ -9,9 +12,7 @@ import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promo
 import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
 import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
 import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
-import type { Version } from './versions'
-import type { SkuList, SkuListType } from './sku_lists'
-import type { Sku } from './skus'
+import type { FlexPromotion, FlexPromotionType } from './flex_promotions'
 
 
 type SkuListPromotionRuleType = 'sku_list_promotion_rules'
@@ -23,6 +24,7 @@ type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
 type FixedPricePromotionRel = ResourceRel & { type: FixedPricePromotionType }
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
 type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
+type FlexPromotionRel = ResourceRel & { type: FlexPromotionType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 
 
@@ -35,17 +37,17 @@ interface SkuListPromotionRule extends Resource {
 	readonly type: SkuListPromotionRuleType
 
 	/** 
-	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order..
-	 * @example ```"true"```
+	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
+	 * @example ```true```
 	 */
 	all_skus?: boolean | null
 	/** 
-	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured..
-	 * @example ```"3"```
+	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
+	 * @example ```3```
 	 */
 	min_quantity?: number | null
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | null
+	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
 	versions?: Version[] | null
 	sku_list?: SkuList | null
 	skus?: Sku[] | null
@@ -56,17 +58,17 @@ interface SkuListPromotionRule extends Resource {
 interface SkuListPromotionRuleCreate extends ResourceCreate {
 	
 	/** 
-	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order..
-	 * @example ```"true"```
+	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
+	 * @example ```true```
 	 */
 	all_skus?: boolean | null
 	/** 
-	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured..
-	 * @example ```"3"```
+	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
+	 * @example ```3```
 	 */
 	min_quantity?: number | null
 
-	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel
+	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | FlexPromotionRel
 	sku_list?: SkuListRel | null
 
 }
@@ -75,17 +77,17 @@ interface SkuListPromotionRuleCreate extends ResourceCreate {
 interface SkuListPromotionRuleUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order..
-	 * @example ```"true"```
+	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
+	 * @example ```true```
 	 */
 	all_skus?: boolean | null
 	/** 
-	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured..
-	 * @example ```"3"```
+	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
+	 * @example ```3```
 	 */
 	min_quantity?: number | null
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | null
+	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | FlexPromotionRel | null
 	sku_list?: SkuListRel | null
 
 }

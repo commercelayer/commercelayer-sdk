@@ -19,37 +19,37 @@ interface ShippingZone extends Resource {
 	readonly type: ShippingZoneType
 
 	/** 
-	 * The shipping zone's internal name..
+	 * The shipping zone's internal name.
 	 * @example ```"Europe (main countries)"```
 	 */
 	name: string
 	/** 
-	 * The regex that will be evaluated to match the shipping address country code..
+	 * The regex that will be evaluated to match the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
 	 */
 	country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address country code..
+	 * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
 	 */
 	not_country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address state code..
+	 * The regex that will be evaluated to match the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
 	 */
 	state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address state code..
+	 * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]"```
 	 */
 	not_state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address zip code..
+	 * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
 	 */
 	zip_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping zip country code..
+	 * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3)"```
 	 */
 	not_zip_code_regex?: string | null
@@ -63,37 +63,37 @@ interface ShippingZone extends Resource {
 interface ShippingZoneCreate extends ResourceCreate {
 	
 	/** 
-	 * The shipping zone's internal name..
+	 * The shipping zone's internal name.
 	 * @example ```"Europe (main countries)"```
 	 */
 	name: string
 	/** 
-	 * The regex that will be evaluated to match the shipping address country code..
+	 * The regex that will be evaluated to match the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
 	 */
 	country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address country code..
+	 * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
 	 */
 	not_country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address state code..
+	 * The regex that will be evaluated to match the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
 	 */
 	state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address state code..
+	 * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]"```
 	 */
 	not_state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address zip code..
+	 * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
 	 */
 	zip_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping zip country code..
+	 * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3)"```
 	 */
 	not_zip_code_regex?: string | null
@@ -104,37 +104,37 @@ interface ShippingZoneCreate extends ResourceCreate {
 interface ShippingZoneUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The shipping zone's internal name..
+	 * The shipping zone's internal name.
 	 * @example ```"Europe (main countries)"```
 	 */
 	name?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address country code..
+	 * The regex that will be evaluated to match the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
 	 */
 	country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address country code..
+	 * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
 	 */
 	not_country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address state code..
+	 * The regex that will be evaluated to match the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
 	 */
 	state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address state code..
+	 * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]"```
 	 */
 	not_state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address zip code..
+	 * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
 	 */
 	zip_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping zip country code..
+	 * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3)"```
 	 */
 	not_zip_code_regex?: string | null

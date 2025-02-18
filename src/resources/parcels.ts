@@ -16,8 +16,8 @@ type ShipmentRel = ResourceRel & { type: ShipmentType }
 type PackageRel = ResourceRel & { type: PackageType }
 
 
-export type ParcelSort = Pick<Parcel, 'id' | 'weight' | 'unit_of_weight' | 'tracking_status' | 'tracking_status_updated_at' | 'carrier_weight_oz'> & ResourceSort
-// export type ParcelFilter = Pick<Parcel, 'id' | 'weight' | 'unit_of_weight' | 'contents_explanation' | 'shipping_label_url' | 'shipping_label_file_type' | 'shipping_label_size' | 'shipping_label_resolution' | 'tracking_number' | 'tracking_status' | 'tracking_status_detail' | 'tracking_status_updated_at' | 'carrier_weight_oz' | 'incoterm' | 'delivery_confirmation'> & ResourceFilter
+export type ParcelSort = Pick<Parcel, 'id' | 'weight' | 'tracking_status' | 'tracking_status_updated_at' | 'carrier_weight_oz'> & ResourceSort
+// export type ParcelFilter = Pick<Parcel, 'id' | 'weight' | 'contents_explanation' | 'shipping_label_url' | 'shipping_label_file_type' | 'shipping_label_size' | 'shipping_label_resolution' | 'tracking_number' | 'tracking_status' | 'tracking_status_detail' | 'tracking_status_updated_at' | 'carrier_weight_oz' | 'incoterm' | 'delivery_confirmation'> & ResourceFilter
 
 
 interface Parcel extends Resource {
@@ -30,27 +30,27 @@ interface Parcel extends Resource {
 	 */
 	number?: string | null
 	/** 
-	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts..
-	 * @example ```"1000"```
+	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```1000```
 	 */
 	weight: number
 	/** 
-	 * Can be one of 'gr', 'lb', or 'oz'.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
-	unit_of_weight: string
+	unit_of_weight: 'gr' | 'oz' | 'lb'
 	/** 
-	 * When shipping outside the US, you need to provide either an Exemption and Exclusion Legend (EEL) code or a Proof of Filing Citation (PFC). Which you need is based on the value of the goods being shipped. Value can be one of "EEL" o "PFC"..
+	 * When shipping outside the US, you need to provide either an Exemption and Exclusion Legend (EEL) code or a Proof of Filing Citation (PFC). Which you need is based on the value of the goods being shipped. Value can be one of "EEL" o "PFC".
 	 * @example ```"EEL"```
 	 */
 	eel_pfc?: string | null
 	/** 
-	 * The type of item you are sending. Can be one of 'merchandise', 'gift', 'documents', 'returned_goods', 'sample', or 'other'..
+	 * The type of item you are sending.
 	 * @example ```"merchandise"```
 	 */
 	contents_type?: string | null
 	/** 
-	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute..
+	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute.
 	 */
 	contents_explanation?: string | null
 	/** 
@@ -58,71 +58,71 @@ interface Parcel extends Resource {
 	 */
 	customs_certify?: boolean | null
 	/** 
-	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this..
+	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this.
 	 * @example ```"John Doe"```
 	 */
 	customs_signer?: string | null
 	/** 
-	 * In case the shipment cannot be delivered, this option tells the carrier what you want to happen to the parcel. You can pass either 'return', or 'abandon'. The value defaults to 'return'. If you pass 'abandon', you will not receive the parcel back if it cannot be delivered..
+	 * In case the shipment cannot be delivered, this option tells the carrier what you want to happen to the parcel. You can pass either 'return', or 'abandon'. The value defaults to 'return'. If you pass 'abandon', you will not receive the parcel back if it cannot be delivered.
 	 * @example ```"return"```
 	 */
 	non_delivery_option?: string | null
 	/** 
-	 * Describes if your parcel requires any special treatment or quarantine when entering the country. Can be one of 'none', 'other', 'quarantine', or 'sanitary_phytosanitary_inspection'..
+	 * Describes if your parcel requires any special treatment or quarantine when entering the country. Can be one of 'none', 'other', 'quarantine', or 'sanitary_phytosanitary_inspection'.
 	 * @example ```"none"```
 	 */
 	restriction_type?: string | null
 	/** 
-	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required..
+	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required.
 	 */
 	restriction_comments?: string | null
 	/** 
-	 * Indicates if the parcel requires customs info to get the shipping rates..
+	 * Indicates if the parcel requires customs info to get the shipping rates.
 	 */
 	customs_info_required?: boolean | null
 	/** 
-	 * The shipping label url, ready to be downloaded and printed..
+	 * The shipping label url, ready to be downloaded and printed.
 	 * @example ```"https://bucket.s3-us-west-2.amazonaws.com/files/postage_label/20180101/123.pdf"```
 	 */
 	shipping_label_url?: string | null
 	/** 
-	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'..
+	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'.
 	 * @example ```"application/pdf"```
 	 */
 	shipping_label_file_type?: string | null
 	/** 
-	 * The shipping label size..
+	 * The shipping label size.
 	 * @example ```"4x7"```
 	 */
 	shipping_label_size?: string | null
 	/** 
-	 * The shipping label resolution..
+	 * The shipping label resolution.
 	 * @example ```"200"```
 	 */
 	shipping_label_resolution?: string | null
 	/** 
-	 * The tracking number associated to this parcel..
+	 * The tracking number associated to this parcel.
 	 * @example ```"1Z4V2A000000000000"```
 	 */
 	tracking_number?: string | null
 	/** 
-	 * The tracking status for this parcel, automatically updated in real time by the shipping carrier..
+	 * The tracking status for this parcel, automatically updated in real time by the shipping carrier.
 	 * @example ```"delivered"```
 	 */
 	tracking_status?: string | null
 	/** 
-	 * Additional information about the tracking status, automatically updated in real time by the shipping carrier..
+	 * Additional information about the tracking status, automatically updated in real time by the shipping carrier.
 	 * @example ```"arrived_at_destination"```
 	 */
 	tracking_status_detail?: string | null
 	/** 
-	 * Time at which the parcel's tracking status was last updated..
+	 * Time at which the parcel's tracking status was last updated.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	tracking_status_updated_at?: string | null
 	/** 
-	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier..
-	 * @example ```"[object Object]"```
+	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
+	 * @example ```[{"object":"TrackingDetail","message":"Pre-Shipment information received","status":"pre_transit","datetime":"2018-02-27T16:02:17Z","source":"DHLExpress","tracking_location":{"object":"TrackingLocation"}}]```
 	 */
 	tracking_details?: Record<string, any> | null
 	/** 
@@ -136,12 +136,12 @@ interface Parcel extends Resource {
 	 */
 	signed_by?: string | null
 	/** 
-	 * The type of Incoterm (if available)..
+	 * The type of Incoterm (if available).
 	 * @example ```"EXW"```
 	 */
 	incoterm?: string | null
 	/** 
-	 * The type of delivery confirmation option upon delivery..
+	 * The type of delivery confirmation option upon delivery.
 	 * @example ```"SIGNATURE"```
 	 */
 	delivery_confirmation?: string | null
@@ -159,27 +159,27 @@ interface Parcel extends Resource {
 interface ParcelCreate extends ResourceCreate {
 	
 	/** 
-	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts..
-	 * @example ```"1000"```
+	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```1000```
 	 */
 	weight: number
 	/** 
-	 * Can be one of 'gr', 'lb', or 'oz'.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
-	unit_of_weight: string
+	unit_of_weight: 'gr' | 'oz' | 'lb'
 	/** 
-	 * When shipping outside the US, you need to provide either an Exemption and Exclusion Legend (EEL) code or a Proof of Filing Citation (PFC). Which you need is based on the value of the goods being shipped. Value can be one of "EEL" o "PFC"..
+	 * When shipping outside the US, you need to provide either an Exemption and Exclusion Legend (EEL) code or a Proof of Filing Citation (PFC). Which you need is based on the value of the goods being shipped. Value can be one of "EEL" o "PFC".
 	 * @example ```"EEL"```
 	 */
 	eel_pfc?: string | null
 	/** 
-	 * The type of item you are sending. Can be one of 'merchandise', 'gift', 'documents', 'returned_goods', 'sample', or 'other'..
+	 * The type of item you are sending.
 	 * @example ```"merchandise"```
 	 */
 	contents_type?: string | null
 	/** 
-	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute..
+	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute.
 	 */
 	contents_explanation?: string | null
 	/** 
@@ -187,71 +187,71 @@ interface ParcelCreate extends ResourceCreate {
 	 */
 	customs_certify?: boolean | null
 	/** 
-	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this..
+	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this.
 	 * @example ```"John Doe"```
 	 */
 	customs_signer?: string | null
 	/** 
-	 * In case the shipment cannot be delivered, this option tells the carrier what you want to happen to the parcel. You can pass either 'return', or 'abandon'. The value defaults to 'return'. If you pass 'abandon', you will not receive the parcel back if it cannot be delivered..
+	 * In case the shipment cannot be delivered, this option tells the carrier what you want to happen to the parcel. You can pass either 'return', or 'abandon'. The value defaults to 'return'. If you pass 'abandon', you will not receive the parcel back if it cannot be delivered.
 	 * @example ```"return"```
 	 */
 	non_delivery_option?: string | null
 	/** 
-	 * Describes if your parcel requires any special treatment or quarantine when entering the country. Can be one of 'none', 'other', 'quarantine', or 'sanitary_phytosanitary_inspection'..
+	 * Describes if your parcel requires any special treatment or quarantine when entering the country. Can be one of 'none', 'other', 'quarantine', or 'sanitary_phytosanitary_inspection'.
 	 * @example ```"none"```
 	 */
 	restriction_type?: string | null
 	/** 
-	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required..
+	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required.
 	 */
 	restriction_comments?: string | null
 	/** 
-	 * Indicates if the parcel requires customs info to get the shipping rates..
+	 * Indicates if the parcel requires customs info to get the shipping rates.
 	 */
 	customs_info_required?: boolean | null
 	/** 
-	 * The shipping label url, ready to be downloaded and printed..
+	 * The shipping label url, ready to be downloaded and printed.
 	 * @example ```"https://bucket.s3-us-west-2.amazonaws.com/files/postage_label/20180101/123.pdf"```
 	 */
 	shipping_label_url?: string | null
 	/** 
-	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'..
+	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'.
 	 * @example ```"application/pdf"```
 	 */
 	shipping_label_file_type?: string | null
 	/** 
-	 * The shipping label size..
+	 * The shipping label size.
 	 * @example ```"4x7"```
 	 */
 	shipping_label_size?: string | null
 	/** 
-	 * The shipping label resolution..
+	 * The shipping label resolution.
 	 * @example ```"200"```
 	 */
 	shipping_label_resolution?: string | null
 	/** 
-	 * The tracking number associated to this parcel..
+	 * The tracking number associated to this parcel.
 	 * @example ```"1Z4V2A000000000000"```
 	 */
 	tracking_number?: string | null
 	/** 
-	 * The tracking status for this parcel, automatically updated in real time by the shipping carrier..
+	 * The tracking status for this parcel, automatically updated in real time by the shipping carrier.
 	 * @example ```"delivered"```
 	 */
 	tracking_status?: string | null
 	/** 
-	 * Additional information about the tracking status, automatically updated in real time by the shipping carrier..
+	 * Additional information about the tracking status, automatically updated in real time by the shipping carrier.
 	 * @example ```"arrived_at_destination"```
 	 */
 	tracking_status_detail?: string | null
 	/** 
-	 * Time at which the parcel's tracking status was last updated..
+	 * Time at which the parcel's tracking status was last updated.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	tracking_status_updated_at?: string | null
 	/** 
-	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier..
-	 * @example ```"[object Object]"```
+	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
+	 * @example ```[{"object":"TrackingDetail","message":"Pre-Shipment information received","status":"pre_transit","datetime":"2018-02-27T16:02:17Z","source":"DHLExpress","tracking_location":{"object":"TrackingLocation"}}]```
 	 */
 	tracking_details?: Record<string, any> | null
 	/** 
@@ -265,12 +265,12 @@ interface ParcelCreate extends ResourceCreate {
 	 */
 	signed_by?: string | null
 	/** 
-	 * The type of Incoterm (if available)..
+	 * The type of Incoterm (if available).
 	 * @example ```"EXW"```
 	 */
 	incoterm?: string | null
 	/** 
-	 * The type of delivery confirmation option upon delivery..
+	 * The type of delivery confirmation option upon delivery.
 	 * @example ```"SIGNATURE"```
 	 */
 	delivery_confirmation?: string | null
@@ -284,27 +284,27 @@ interface ParcelCreate extends ResourceCreate {
 interface ParcelUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts..
-	 * @example ```"1000"```
+	 * The parcel weight, used to automatically calculate the tax rates from the available carrier accounts.
+	 * @example ```1000```
 	 */
 	weight?: number | null
 	/** 
-	 * Can be one of 'gr', 'lb', or 'oz'.
+	 * The unit of weight. One of 'gr', 'oz', or 'lb'.
 	 * @example ```"gr"```
 	 */
-	unit_of_weight?: string | null
+	unit_of_weight?: 'gr' | 'oz' | 'lb' | null
 	/** 
-	 * When shipping outside the US, you need to provide either an Exemption and Exclusion Legend (EEL) code or a Proof of Filing Citation (PFC). Which you need is based on the value of the goods being shipped. Value can be one of "EEL" o "PFC"..
+	 * When shipping outside the US, you need to provide either an Exemption and Exclusion Legend (EEL) code or a Proof of Filing Citation (PFC). Which you need is based on the value of the goods being shipped. Value can be one of "EEL" o "PFC".
 	 * @example ```"EEL"```
 	 */
 	eel_pfc?: string | null
 	/** 
-	 * The type of item you are sending. Can be one of 'merchandise', 'gift', 'documents', 'returned_goods', 'sample', or 'other'..
+	 * The type of item you are sending.
 	 * @example ```"merchandise"```
 	 */
 	contents_type?: string | null
 	/** 
-	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute..
+	 * If you specify 'other' in the 'contents_type' attribute, you must supply a brief description in this attribute.
 	 */
 	contents_explanation?: string | null
 	/** 
@@ -312,71 +312,71 @@ interface ParcelUpdate extends ResourceUpdate {
 	 */
 	customs_certify?: boolean | null
 	/** 
-	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this..
+	 * This is the name of the person who is certifying that the information provided on the customs form is accurate. Use a name of the person in your organization who is responsible for this.
 	 * @example ```"John Doe"```
 	 */
 	customs_signer?: string | null
 	/** 
-	 * In case the shipment cannot be delivered, this option tells the carrier what you want to happen to the parcel. You can pass either 'return', or 'abandon'. The value defaults to 'return'. If you pass 'abandon', you will not receive the parcel back if it cannot be delivered..
+	 * In case the shipment cannot be delivered, this option tells the carrier what you want to happen to the parcel. You can pass either 'return', or 'abandon'. The value defaults to 'return'. If you pass 'abandon', you will not receive the parcel back if it cannot be delivered.
 	 * @example ```"return"```
 	 */
 	non_delivery_option?: string | null
 	/** 
-	 * Describes if your parcel requires any special treatment or quarantine when entering the country. Can be one of 'none', 'other', 'quarantine', or 'sanitary_phytosanitary_inspection'..
+	 * Describes if your parcel requires any special treatment or quarantine when entering the country. Can be one of 'none', 'other', 'quarantine', or 'sanitary_phytosanitary_inspection'.
 	 * @example ```"none"```
 	 */
 	restriction_type?: string | null
 	/** 
-	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required..
+	 * If you specify 'other' in the restriction type, you must supply a brief description of what is required.
 	 */
 	restriction_comments?: string | null
 	/** 
-	 * Indicates if the parcel requires customs info to get the shipping rates..
+	 * Indicates if the parcel requires customs info to get the shipping rates.
 	 */
 	customs_info_required?: boolean | null
 	/** 
-	 * The shipping label url, ready to be downloaded and printed..
+	 * The shipping label url, ready to be downloaded and printed.
 	 * @example ```"https://bucket.s3-us-west-2.amazonaws.com/files/postage_label/20180101/123.pdf"```
 	 */
 	shipping_label_url?: string | null
 	/** 
-	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'..
+	 * The shipping label file type. One of 'application/pdf', 'application/zpl', 'application/epl2', or 'image/png'.
 	 * @example ```"application/pdf"```
 	 */
 	shipping_label_file_type?: string | null
 	/** 
-	 * The shipping label size..
+	 * The shipping label size.
 	 * @example ```"4x7"```
 	 */
 	shipping_label_size?: string | null
 	/** 
-	 * The shipping label resolution..
+	 * The shipping label resolution.
 	 * @example ```"200"```
 	 */
 	shipping_label_resolution?: string | null
 	/** 
-	 * The tracking number associated to this parcel..
+	 * The tracking number associated to this parcel.
 	 * @example ```"1Z4V2A000000000000"```
 	 */
 	tracking_number?: string | null
 	/** 
-	 * The tracking status for this parcel, automatically updated in real time by the shipping carrier..
+	 * The tracking status for this parcel, automatically updated in real time by the shipping carrier.
 	 * @example ```"delivered"```
 	 */
 	tracking_status?: string | null
 	/** 
-	 * Additional information about the tracking status, automatically updated in real time by the shipping carrier..
+	 * Additional information about the tracking status, automatically updated in real time by the shipping carrier.
 	 * @example ```"arrived_at_destination"```
 	 */
 	tracking_status_detail?: string | null
 	/** 
-	 * Time at which the parcel's tracking status was last updated..
+	 * Time at which the parcel's tracking status was last updated.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	tracking_status_updated_at?: string | null
 	/** 
-	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier..
-	 * @example ```"[object Object]"```
+	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
+	 * @example ```[{"object":"TrackingDetail","message":"Pre-Shipment information received","status":"pre_transit","datetime":"2018-02-27T16:02:17Z","source":"DHLExpress","tracking_location":{"object":"TrackingLocation"}}]```
 	 */
 	tracking_details?: Record<string, any> | null
 	/** 
@@ -390,12 +390,12 @@ interface ParcelUpdate extends ResourceUpdate {
 	 */
 	signed_by?: string | null
 	/** 
-	 * The type of Incoterm (if available)..
+	 * The type of Incoterm (if available).
 	 * @example ```"EXW"```
 	 */
 	incoterm?: string | null
 	/** 
-	 * The type of delivery confirmation option upon delivery..
+	 * The type of delivery confirmation option upon delivery.
 	 * @example ```"SIGNATURE"```
 	 */
 	delivery_confirmation?: string | null

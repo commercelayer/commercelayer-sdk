@@ -1,10 +1,10 @@
 /**
- * ©2024 Commerce Layer Inc.
+ * ©2025 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
 import { CommerceLayerClient, AdyenPayment } from '../../src'
-import isEqual from 'lodash.isequal'
+import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('AdyenPayments resource', () => {
 
   const resourceType = 'adyen_payments'
+  const resourcePath = 'adyen_payments'
 
 
   /* spec.create.start */
@@ -35,13 +36,13 @@ describe('AdyenPayments resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourceType].isAdyenPayment(data.data)).toBeTruthy()
+      expect(cl[resourcePath].isAdyenPayment(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, params, CommonData.options)
+    await cl[resourcePath].create(resData, params, CommonData.options)
       .then((res: AdyenPayment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -58,12 +59,12 @@ describe('AdyenPayments resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: AdyenPayment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -82,12 +83,12 @@ describe('AdyenPayments resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('PATCH')
-      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
       checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, params, CommonData.options)
+    await cl[resourcePath].update(resData, params, CommonData.options)
       .then((res: AdyenPayment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -103,11 +104,11 @@ describe('AdyenPayments resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('DELETE')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       return interceptRequest()
     })
 
-    await cl[resourceType].delete(id, CommonData.options)
+    await cl[resourcePath].delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -122,12 +123,12 @@ describe('AdyenPayments resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -139,9 +140,9 @@ describe('AdyenPayments resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isAdyenPayment(resource)).toBeTruthy()
+    expect(cl[resourcePath].isAdyenPayment(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -151,11 +152,11 @@ describe('AdyenPayments resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
-    expect(isEqual(relId, { id: TestData.id, type: resourceType}))
+    const relId = cl[resourcePath].relationship(TestData.id)
+    expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
-    expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
   /* spec.relationship.stop */
@@ -189,7 +190,7 @@ describe('AdyenPayments resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as AdyenPayment
+    const res = cl[resourcePath].parse(payload) as AdyenPayment
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -208,12 +209,12 @@ describe('AdyenPayments resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'order')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'order')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].order(id, params, CommonData.options)
+		await cl[resourcePath].order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -229,12 +230,12 @@ describe('AdyenPayments resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'payment_gateway')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'payment_gateway')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].payment_gateway(id, params, CommonData.options)
+		await cl[resourcePath].payment_gateway(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -250,12 +251,12 @@ describe('AdyenPayments resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -263,6 +264,32 @@ describe('AdyenPayments resource', () => {
 	/* relationship.versions stop */
 	
   
+
+	/* trigger._authorize start */
+	it(resourceType + '._authorize', async () => {
+	
+		let triggerAttr = '_authorize'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath]._authorize(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._authorize stop */
+	
 
 	/* trigger._details start */
 	it(resourceType + '._details', async () => {
@@ -272,17 +299,17 @@ describe('AdyenPayments resource', () => {
 	
 		const triggerValue = true
 		const attributes = { [triggerAttr]: triggerValue }
-	    const id = TestData.id
+	  const id = TestData.id
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			const data = JSON.parse(String(request.options.body))
 			expect(request.options.method).toBe('PATCH')
-			checkCommon(request, resourceType, id, currentAccessToken)
+			checkCommon(request, resourcePath, id, currentAccessToken)
 			checkCommonData(data, resourceType, attributes, id)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType]._details(id, {}, CommonData.options)
+		await cl[resourcePath]._details(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

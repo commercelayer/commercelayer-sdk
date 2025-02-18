@@ -12,7 +12,7 @@ type CouponRecipientRel = ResourceRel & { type: CouponRecipientType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 
 
-export type CouponRecipientSort = Pick<CouponRecipient, 'id'> & ResourceSort
+export type CouponRecipientSort = Pick<CouponRecipient, 'id' | 'email'> & ResourceSort
 // export type CouponRecipientFilter = Pick<CouponRecipient, 'id' | 'email' | 'first_name' | 'last_name'> & ResourceFilter
 
 

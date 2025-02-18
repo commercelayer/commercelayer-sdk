@@ -30,7 +30,7 @@ interface InStockSubscription extends Resource {
 	 */
 	status: 'active' | 'inactive' | 'notified'
 	/** 
-	 * The email of the associated customer, replace the relationship..
+	 * The email of the associated customer, replace the relationship.
 	 * @example ```"john@example.com"```
 	 */
 	customer_email?: string | null
@@ -40,8 +40,8 @@ interface InStockSubscription extends Resource {
 	 */
 	sku_code?: string | null
 	/** 
-	 * The threshold at which to trigger the back in stock notification..
-	 * @example ```"3"```
+	 * The threshold at which to trigger the back in stock notification.
+	 * @example ```3```
 	 */
 	stock_threshold?: number | null
 
@@ -57,7 +57,7 @@ interface InStockSubscription extends Resource {
 interface InStockSubscriptionCreate extends ResourceCreate {
 	
 	/** 
-	 * The email of the associated customer, replace the relationship..
+	 * The email of the associated customer, replace the relationship.
 	 * @example ```"john@example.com"```
 	 */
 	customer_email?: string | null
@@ -67,8 +67,8 @@ interface InStockSubscriptionCreate extends ResourceCreate {
 	 */
 	sku_code?: string | null
 	/** 
-	 * The threshold at which to trigger the back in stock notification..
-	 * @example ```"3"```
+	 * The threshold at which to trigger the back in stock notification.
+	 * @example ```3```
 	 */
 	stock_threshold?: number | null
 
@@ -87,18 +87,18 @@ interface InStockSubscriptionUpdate extends ResourceUpdate {
 	 */
 	sku_code?: string | null
 	/** 
-	 * The threshold at which to trigger the back in stock notification..
-	 * @example ```"3"```
+	 * The threshold at which to trigger the back in stock notification.
+	 * @example ```3```
 	 */
 	stock_threshold?: number | null
 	/** 
-	 * Send this attribute if you want to activate an inactive subscription..
-	 * @example ```"true"```
+	 * Send this attribute if you want to activate an inactive subscription.
+	 * @example ```true```
 	 */
 	_activate?: boolean | null
 	/** 
-	 * Send this attribute if you want to dactivate an active subscription..
-	 * @example ```"true"```
+	 * Send this attribute if you want to dactivate an active subscription.
+	 * @example ```true```
 	 */
 	_deactivate?: boolean | null
 

@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Price } from './prices'
+import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
@@ -12,7 +13,7 @@ type PriceListRel = ResourceRel & { type: PriceListType }
 
 
 export type PriceListSort = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included'> & ResourceSort
-// export type PriceListFilter = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included'> & ResourceFilter
+// export type PriceListFilter = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included' | 'rules'> & ResourceFilter
 
 
 interface PriceList extends Resource {
@@ -25,22 +26,38 @@ interface PriceList extends Resource {
 	 */
 	name: string
 	/** 
-	 * A string that you can use to identify the price list (must be unique within the environment)..
+	 * A string that you can use to identify the price list (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code: string
 	/** 
-	 * Indicates if the associated prices include taxes..
-	 * @example ```"true"```
+	 * Indicates if the associated prices include taxes.
+	 * @example ```true```
 	 */
 	tax_included?: boolean | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```{}```
+	 */
+	rules?: Record<string, any> | null
+	/** 
+	 * The rule outcomes.
+	 * @example ```{}```
+	 */
+	rule_outcomes?: Record<string, any> | null
+	/** 
+	 * The payload used to evaluate the rules.
+	 * @example ```{}```
+	 */
+	resource_payload?: Record<string, any> | null
 
 	prices?: Price[] | null
+	price_list_schedulers?: PriceListScheduler[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
@@ -55,20 +72,25 @@ interface PriceListCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * A string that you can use to identify the price list (must be unique within the environment)..
+	 * A string that you can use to identify the price list (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code: string
 	/** 
-	 * Indicates if the associated prices include taxes..
-	 * @example ```"true"```
+	 * Indicates if the associated prices include taxes.
+	 * @example ```true```
 	 */
 	tax_included?: boolean | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```{}```
+	 */
+	rules?: Record<string, any> | null
 	
 }
 
@@ -81,20 +103,25 @@ interface PriceListUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * A string that you can use to identify the price list (must be unique within the environment)..
+	 * A string that you can use to identify the price list (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Indicates if the associated prices include taxes..
-	 * @example ```"true"```
+	 * Indicates if the associated prices include taxes.
+	 * @example ```true```
 	 */
 	tax_included?: boolean | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```{}```
+	 */
+	rules?: Record<string, any> | null
 	
 }
 
@@ -118,6 +145,11 @@ class PriceLists extends ApiResource<PriceList> {
 	async prices(priceListId: string | PriceList, params?: QueryParamsList<Price>, options?: ResourcesConfig): Promise<ListResponse<Price>> {
 		const _priceListId = (priceListId as PriceList).id || priceListId as string
 		return this.resources.fetch<Price>({ type: 'prices' }, `price_lists/${_priceListId}/prices`, params, options) as unknown as ListResponse<Price>
+	}
+
+	async price_list_schedulers(priceListId: string | PriceList, params?: QueryParamsList<PriceListScheduler>, options?: ResourcesConfig): Promise<ListResponse<PriceListScheduler>> {
+		const _priceListId = (priceListId as PriceList).id || priceListId as string
+		return this.resources.fetch<PriceListScheduler>({ type: 'price_list_schedulers' }, `price_lists/${_priceListId}/price_list_schedulers`, params, options) as unknown as ListResponse<PriceListScheduler>
 	}
 
 	async attachments(priceListId: string | PriceList, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

@@ -21,33 +21,33 @@ interface BraintreePayment extends Resource {
 	readonly type: BraintreePaymentType
 
 	/** 
-	 * The Braintree payment client token. Required by the Braintree JS SDK..
+	 * The Braintree payment client token. Required by the Braintree JS SDK.
 	 * @example ```"xxxx.yyyy.zzzz"```
 	 */
 	client_token: string
 	/** 
-	 * The Braintree payment method nonce. Sent by the Braintree JS SDK..
+	 * The Braintree payment method nonce. Sent by the Braintree JS SDK.
 	 * @example ```"xxxx.yyyy.zzzz"```
 	 */
 	payment_method_nonce?: string | null
 	/** 
-	 * The Braintree payment ID used by local payment and sent by the Braintree JS SDK..
+	 * The Braintree payment ID used by local payment and sent by the Braintree JS SDK.
 	 * @example ```"xxxx.yyyy.zzzz"```
 	 */
 	payment_id?: string | null
 	/** 
-	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction..
-	 * @example ```"true"```
+	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction.
+	 * @example ```true```
 	 */
 	local?: boolean | null
 	/** 
-	 * Braintree payment options: 'customer_id' and 'payment_method_token'.
-	 * @example ```"[object Object]"```
+	 * Braintree payment options, 'customer_id' and 'payment_method_token'.
+	 * @example ```{"customer_id":"1234567890"}```
 	 */
 	options?: Record<string, any> | null
 	/** 
 	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
+	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
 	payment_instrument?: Record<string, any> | null
 
@@ -61,18 +61,18 @@ interface BraintreePayment extends Resource {
 interface BraintreePaymentCreate extends ResourceCreate {
 	
 	/** 
-	 * The Braintree payment ID used by local payment and sent by the Braintree JS SDK..
+	 * The Braintree payment ID used by local payment and sent by the Braintree JS SDK.
 	 * @example ```"xxxx.yyyy.zzzz"```
 	 */
 	payment_id?: string | null
 	/** 
-	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction..
-	 * @example ```"true"```
+	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction.
+	 * @example ```true```
 	 */
 	local?: boolean | null
 	/** 
-	 * Braintree payment options: 'customer_id' and 'payment_method_token'.
-	 * @example ```"[object Object]"```
+	 * Braintree payment options, 'customer_id' and 'payment_method_token'.
+	 * @example ```{"customer_id":"1234567890"}```
 	 */
 	options?: Record<string, any> | null
 
@@ -84,23 +84,23 @@ interface BraintreePaymentCreate extends ResourceCreate {
 interface BraintreePaymentUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The Braintree payment method nonce. Sent by the Braintree JS SDK..
+	 * The Braintree payment method nonce. Sent by the Braintree JS SDK.
 	 * @example ```"xxxx.yyyy.zzzz"```
 	 */
 	payment_method_nonce?: string | null
 	/** 
-	 * The Braintree payment ID used by local payment and sent by the Braintree JS SDK..
+	 * The Braintree payment ID used by local payment and sent by the Braintree JS SDK.
 	 * @example ```"xxxx.yyyy.zzzz"```
 	 */
 	payment_id?: string | null
 	/** 
-	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction..
-	 * @example ```"true"```
+	 * Indicates if the payment is local, in such case Braintree will trigger a webhook call passing the "payment_id" and "payment_method_nonce" in order to complete the transaction.
+	 * @example ```true```
 	 */
 	local?: boolean | null
 	/** 
-	 * Braintree payment options: 'customer_id' and 'payment_method_token'.
-	 * @example ```"[object Object]"```
+	 * Braintree payment options, 'customer_id' and 'payment_method_token'.
+	 * @example ```{"customer_id":"1234567890"}```
 	 */
 	options?: Record<string, any> | null
 

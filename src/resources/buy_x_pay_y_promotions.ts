@@ -3,7 +3,6 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market, MarketType } from './markets'
-import type { PromotionRule } from './promotion_rules'
 import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
 import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
@@ -15,6 +14,7 @@ import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
 import type { Sku } from './skus'
+import type { PromotionRule } from './promotion_rules'
 
 
 type BuyXPayYPromotionType = 'buy_x_pay_y_promotions'
@@ -37,68 +37,73 @@ interface BuyXPayYPromotion extends Resource {
 	readonly type: BuyXPayYPromotionType
 
 	/** 
-	 * The promotion's internal name..
+	 * The promotion's internal name.
 	 * @example ```"Personal promotion"```
 	 */
 	name: string
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Indicates if the promotion will be applied exclusively, based on its priority score..
-	 * @example ```"true"```
+	 * Indicates if the promotion will be applied exclusively, based on its priority score.
+	 * @example ```true```
 	 */
 	exclusive?: boolean | null
 	/** 
-	 * The priority assigned to the promotion (lower means higher priority)..
-	 * @example ```"2"```
+	 * The priority assigned to the promotion (lower means higher priority).
+	 * @example ```2```
 	 */
 	priority?: number | null
 	/** 
-	 * The activation date/time of this promotion..
+	 * The activation date/time of this promotion.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at: string
 	/** 
-	 * The expiration date/time of this promotion (must be after starts_at)..
+	 * The expiration date/time of this promotion (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at: string
 	/** 
-	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times..
-	 * @example ```"5"```
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * @example ```5```
 	 */
 	total_usage_limit?: number | null
 	/** 
-	 * The number of times this promotion has been applied..
-	 * @example ```"2"```
+	 * The number of times this promotion has been applied.
+	 * @example ```2```
 	 */
 	total_usage_count?: number | null
 	/** 
-	 * Indicates if the promotion is active (enabled and not expired)..
-	 * @example ```"true"```
+	 * Indicates if the promotion is active (enabled and not expired).
+	 * @example ```true```
 	 */
 	active?: boolean | null
 	/** 
-	 * Time at which this resource was disabled..
+	 * The promotion status. One of 'disabled', 'expired', 'pending', 'active', or 'inactive'.
+	 * @example ```"pending"```
+	 */
+	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
+	/** 
+	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
 	/** 
-	 * The quantity which defines the threshold for free items (works by multiple of x)..
-	 * @example ```"3"```
+	 * The quantity which defines the threshold for free items (works by multiple of x).
+	 * @example ```3```
 	 */
 	x: number
 	/** 
-	 * The quantity which defines how many items you get for free, with the formula x-y..
-	 * @example ```"2"```
+	 * The quantity which defines how many items you get for free, with the formula x-y.
+	 * @example ```2```
 	 */
 	y: number
 	/** 
-	 * Indicates if the cheapest items are discounted, allowing all of the SKUs in the associated list to be eligible for counting..
-	 * @example ```"true"```
+	 * Indicates if the cheapest items are discounted, allowing all of the SKUs in the associated list to be eligible for counting.
+	 * @example ```true```
 	 */
 	cheapest_free?: boolean | null
 
@@ -122,63 +127,63 @@ interface BuyXPayYPromotion extends Resource {
 interface BuyXPayYPromotionCreate extends ResourceCreate {
 	
 	/** 
-	 * The promotion's internal name..
+	 * The promotion's internal name.
 	 * @example ```"Personal promotion"```
 	 */
 	name: string
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Indicates if the promotion will be applied exclusively, based on its priority score..
-	 * @example ```"true"```
+	 * Indicates if the promotion will be applied exclusively, based on its priority score.
+	 * @example ```true```
 	 */
 	exclusive?: boolean | null
 	/** 
-	 * The priority assigned to the promotion (lower means higher priority)..
-	 * @example ```"2"```
+	 * The priority assigned to the promotion (lower means higher priority).
+	 * @example ```2```
 	 */
 	priority?: number | null
 	/** 
-	 * The activation date/time of this promotion..
+	 * The activation date/time of this promotion.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at: string
 	/** 
-	 * The expiration date/time of this promotion (must be after starts_at)..
+	 * The expiration date/time of this promotion (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at: string
 	/** 
-	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times..
-	 * @example ```"5"```
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * @example ```5```
 	 */
 	total_usage_limit?: number | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
-	 * @example ```"true"```
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
-	 * @example ```"true"```
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 	/** 
-	 * The quantity which defines the threshold for free items (works by multiple of x)..
-	 * @example ```"3"```
+	 * The quantity which defines the threshold for free items (works by multiple of x).
+	 * @example ```3```
 	 */
 	x: number
 	/** 
-	 * The quantity which defines how many items you get for free, with the formula x-y..
-	 * @example ```"2"```
+	 * The quantity which defines how many items you get for free, with the formula x-y.
+	 * @example ```2```
 	 */
 	y: number
 	/** 
-	 * Indicates if the cheapest items are discounted, allowing all of the SKUs in the associated list to be eligible for counting..
-	 * @example ```"true"```
+	 * Indicates if the cheapest items are discounted, allowing all of the SKUs in the associated list to be eligible for counting.
+	 * @example ```true```
 	 */
 	cheapest_free?: boolean | null
 
@@ -196,63 +201,63 @@ interface BuyXPayYPromotionCreate extends ResourceCreate {
 interface BuyXPayYPromotionUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The promotion's internal name..
+	 * The promotion's internal name.
 	 * @example ```"Personal promotion"```
 	 */
 	name?: string | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * Indicates if the promotion will be applied exclusively, based on its priority score..
-	 * @example ```"true"```
+	 * Indicates if the promotion will be applied exclusively, based on its priority score.
+	 * @example ```true```
 	 */
 	exclusive?: boolean | null
 	/** 
-	 * The priority assigned to the promotion (lower means higher priority)..
-	 * @example ```"2"```
+	 * The priority assigned to the promotion (lower means higher priority).
+	 * @example ```2```
 	 */
 	priority?: number | null
 	/** 
-	 * The activation date/time of this promotion..
+	 * The activation date/time of this promotion.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	starts_at?: string | null
 	/** 
-	 * The expiration date/time of this promotion (must be after starts_at)..
+	 * The expiration date/time of this promotion (must be after starts_at).
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at?: string | null
 	/** 
-	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times..
-	 * @example ```"5"```
+	 * The total number of times this promotion can be applied. When 'null' it means promotion can be applied infinite times.
+	 * @example ```5```
 	 */
 	total_usage_limit?: number | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
-	 * @example ```"true"```
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
-	 * @example ```"true"```
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 	/** 
-	 * The quantity which defines the threshold for free items (works by multiple of x)..
-	 * @example ```"3"```
+	 * The quantity which defines the threshold for free items (works by multiple of x).
+	 * @example ```3```
 	 */
 	x?: number | null
 	/** 
-	 * The quantity which defines how many items you get for free, with the formula x-y..
-	 * @example ```"2"```
+	 * The quantity which defines how many items you get for free, with the formula x-y.
+	 * @example ```2```
 	 */
 	y?: number | null
 	/** 
-	 * Indicates if the cheapest items are discounted, allowing all of the SKUs in the associated list to be eligible for counting..
-	 * @example ```"true"```
+	 * Indicates if the cheapest items are discounted, allowing all of the SKUs in the associated list to be eligible for counting.
+	 * @example ```true```
 	 */
 	cheapest_free?: boolean | null
 

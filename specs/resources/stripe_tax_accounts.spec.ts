@@ -1,10 +1,10 @@
 /**
- * ©2024 Commerce Layer Inc.
+ * ©2025 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, BillingInfoValidationRule } from '../../src'
-import isEqual from 'lodash.isequal'
+import { CommerceLayerClient, StripeTaxAccount } from '../../src'
+import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -16,16 +16,19 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('BillingInfoValidationRules resource', () => {
+describe('StripeTaxAccounts resource', () => {
 
-  const resourceType = 'billing_info_validation_rules'
+  const resourceType = 'stripe_tax_accounts'
+  const resourcePath = 'stripe_tax_accounts'
 
 
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			market: cl.markets.relationship(TestData.id),
+			name: randomValue('string', 'name'),
+			api_key: randomValue('string', 'api_key'),
+			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -35,14 +38,14 @@ describe('BillingInfoValidationRules resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourceType].isBillingInfoValidationRule(data.data)).toBeTruthy()
+      expect(cl[resourcePath].isStripeTaxAccount(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourceType].create(resData, params, CommonData.options)
-      .then((res: BillingInfoValidationRule) =>  expect(res).not.toBeNull())
+    await cl[resourcePath].create(resData, params, CommonData.options)
+      .then((res: StripeTaxAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -58,13 +61,13 @@ describe('BillingInfoValidationRules resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
-      .then((res: BillingInfoValidationRule) =>  expect(res).not.toBeNull())
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
+      .then((res: StripeTaxAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -82,13 +85,13 @@ describe('BillingInfoValidationRules resource', () => {
     cl.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('PATCH')
-      checkCommon(request, resourceType, resData.id, currentAccessToken)
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
       checkCommonData(data, resourceType, attributes, resData.id)
       return interceptRequest()
     })
 
-    await cl[resourceType].update(resData, params, CommonData.options)
-      .then((res: BillingInfoValidationRule) =>  expect(res).not.toBeNull())
+    await cl[resourcePath].update(resData, params, CommonData.options)
+      .then((res: StripeTaxAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -103,11 +106,11 @@ describe('BillingInfoValidationRules resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('DELETE')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       return interceptRequest()
     })
 
-    await cl[resourceType].delete(id, CommonData.options)
+    await cl[resourcePath].delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -122,12 +125,12 @@ describe('BillingInfoValidationRules resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -139,9 +142,9 @@ describe('BillingInfoValidationRules resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isBillingInfoValidationRule(resource)).toBeTruthy()
+    expect(cl[resourcePath].isStripeTaxAccount(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -151,11 +154,11 @@ describe('BillingInfoValidationRules resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
-    expect(isEqual(relId, { id: TestData.id, type: resourceType}))
+    const relId = cl[resourcePath].relationship(TestData.id)
+    expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
-    expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
   /* spec.relationship.stop */
@@ -189,7 +192,7 @@ describe('BillingInfoValidationRules resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as BillingInfoValidationRule
+    const res = cl[resourcePath].parse(payload) as StripeTaxAccount
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -200,25 +203,25 @@ describe('BillingInfoValidationRules resource', () => {
 
   
 
-	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	/* relationship.markets start */
+	it(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'market')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'markets')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].market(id, params, CommonData.options)
+		await cl[resourcePath].markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.market stop */
+	/* relationship.markets stop */
 	
 
 	/* relationship.attachments start */
@@ -229,17 +232,38 @@ describe('BillingInfoValidationRules resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'attachments')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourcePath].attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.attachments stop */
+	
+
+	/* relationship.events start */
+	it(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.events stop */
 	
 
 	/* relationship.versions start */
@@ -250,17 +274,38 @@ describe('BillingInfoValidationRules resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
 	/* relationship.versions stop */
+	
+
+	/* relationship.tax_categories start */
+	it(resourceType + '.tax_categories', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { tax_categories: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'tax_categories')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].tax_categories(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.tax_categories stop */
 	
   
 })

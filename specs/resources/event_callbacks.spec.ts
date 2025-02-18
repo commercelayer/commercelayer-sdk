@@ -1,10 +1,10 @@
 /**
- * ©2024 Commerce Layer Inc.
+ * ©2025 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
 import { CommerceLayerClient, EventCallback } from '../../src'
-import isEqual from 'lodash.isequal'
+import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('EventCallbacks resource', () => {
 
   const resourceType = 'event_callbacks'
+  const resourcePath = 'event_callbacks'
 
 
   /* spec.retrieve.start */
@@ -29,12 +30,12 @@ describe('EventCallbacks resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: EventCallback) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -50,12 +51,12 @@ describe('EventCallbacks resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -67,9 +68,9 @@ describe('EventCallbacks resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isEventCallback(resource)).toBeTruthy()
+    expect(cl[resourcePath].isEventCallback(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -79,11 +80,11 @@ describe('EventCallbacks resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
-    expect(isEqual(relId, { id: TestData.id, type: resourceType}))
+    const relId = cl[resourcePath].relationship(TestData.id)
+    expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
-    expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
   /* spec.relationship.stop */
@@ -117,7 +118,7 @@ describe('EventCallbacks resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as EventCallback
+    const res = cl[resourcePath].parse(payload) as EventCallback
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -136,12 +137,12 @@ describe('EventCallbacks resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'webhook')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'webhook')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].webhook(id, params, CommonData.options)
+		await cl[resourcePath].webhook(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

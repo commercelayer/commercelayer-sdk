@@ -2,6 +2,7 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
 
+import type { Market } from './markets'
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
 
@@ -24,6 +25,7 @@ interface Geocoder extends Resource {
 	 */
 	name: string
 
+	markets?: Market[] | null
 	addresses?: Address[] | null
 	attachments?: Attachment[] | null
 
@@ -33,6 +35,11 @@ interface Geocoder extends Resource {
 class Geocoders extends ApiResource<Geocoder> {
 
 	static readonly TYPE: GeocoderType = 'geocoders' as const
+
+	async markets(geocoderId: string | Geocoder, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `geocoders/${_geocoderId}/markets`, params, options) as unknown as ListResponse<Market>
+	}
 
 	async addresses(geocoderId: string | Geocoder, params?: QueryParamsList<Address>, options?: ResourcesConfig): Promise<ListResponse<Address>> {
 		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string

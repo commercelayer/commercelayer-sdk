@@ -7,6 +7,7 @@ import type { Sku } from './skus'
 import type { SkuListItem } from './sku_list_items'
 import type { Bundle } from './bundles'
 import type { Attachment } from './attachments'
+import type { Link } from './links'
 import type { Version } from './versions'
 
 
@@ -24,31 +25,31 @@ interface SkuList extends Resource {
 	readonly type: SkuListType
 
 	/** 
-	 * The SKU list's internal name..
+	 * The SKU list's internal name.
 	 * @example ```"Personal list"```
 	 */
 	name: string
 	/** 
-	 * The SKU list's internal slug..
+	 * The SKU list's internal slug.
 	 * @example ```"personal-list-1"```
 	 */
 	slug: string
 	/** 
-	 * An internal description of the SKU list..
+	 * An internal description of the SKU list.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The URL of an image that represents the SKU list..
+	 * The URL of an image that represents the SKU list.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * Indicates if the SKU list is populated manually..
+	 * Indicates if the SKU list is populated manually.
 	 */
 	manual?: boolean | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes..
+	 * The regex that will be evaluated to match the SKU codes, max size is 5000.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -58,6 +59,7 @@ interface SkuList extends Resource {
 	sku_list_items?: SkuListItem[] | null
 	bundles?: Bundle[] | null
 	attachments?: Attachment[] | null
+	links?: Link[] | null
 	versions?: Version[] | null
 
 }
@@ -66,26 +68,26 @@ interface SkuList extends Resource {
 interface SkuListCreate extends ResourceCreate {
 	
 	/** 
-	 * The SKU list's internal name..
+	 * The SKU list's internal name.
 	 * @example ```"Personal list"```
 	 */
 	name: string
 	/** 
-	 * An internal description of the SKU list..
+	 * An internal description of the SKU list.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The URL of an image that represents the SKU list..
+	 * The URL of an image that represents the SKU list.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * Indicates if the SKU list is populated manually..
+	 * Indicates if the SKU list is populated manually.
 	 */
 	manual?: boolean | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes..
+	 * The regex that will be evaluated to match the SKU codes, max size is 5000.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -98,26 +100,26 @@ interface SkuListCreate extends ResourceCreate {
 interface SkuListUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The SKU list's internal name..
+	 * The SKU list's internal name.
 	 * @example ```"Personal list"```
 	 */
 	name?: string | null
 	/** 
-	 * An internal description of the SKU list..
+	 * An internal description of the SKU list.
 	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
 	 */
 	description?: string | null
 	/** 
-	 * The URL of an image that represents the SKU list..
+	 * The URL of an image that represents the SKU list.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * Indicates if the SKU list is populated manually..
+	 * Indicates if the SKU list is populated manually.
 	 */
 	manual?: boolean | null
 	/** 
-	 * The regex that will be evaluated to match the SKU codes..
+	 * The regex that will be evaluated to match the SKU codes, max size is 5000.
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
@@ -166,6 +168,11 @@ class SkuLists extends ApiResource<SkuList> {
 	async attachments(skuListId: string | SkuList, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _skuListId = (skuListId as SkuList).id || skuListId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `sku_lists/${_skuListId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async links(skuListId: string | SkuList, params?: QueryParamsList<Link>, options?: ResourcesConfig): Promise<ListResponse<Link>> {
+		const _skuListId = (skuListId as SkuList).id || skuListId as string
+		return this.resources.fetch<Link>({ type: 'links' }, `sku_lists/${_skuListId}/links`, params, options) as unknown as ListResponse<Link>
 	}
 
 	async versions(skuListId: string | SkuList, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

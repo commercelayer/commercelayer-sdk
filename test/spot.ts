@@ -1,4 +1,5 @@
-import { handleError, init } from './util'
+import { getAccessToken, handleError, init, initConfig } from './util'
+import commercelayer from '../src'
 
 
 
@@ -9,21 +10,34 @@ async function customFetch(input: string | URL | Request, init?: RequestInit) {
 	return res
 }
 
+async function refreshToken(old: string): Promise<string> {
+	console.log('Getting new access token from auth server')
+	// if (true) throw new Error('Error refreshing test expired access token')
+	return (await getAccessToken()).accessToken
+}
 
-	; (async () => {
+; (async () => {
 
-		const cl = await init()
+	const config = await initConfig()
+	const cl = commercelayer(config)
 
-		try {
+	// cl.config({ refreshToken, fetch: customFetch })
+	try {
 
-			cl.config({ fetch: customFetch })
+		const org = await cl.organization.retrieve({ fields: ['name', 'slug']})
+		console.log(org)
 
-			const res = await cl.orders.list({'fields': ['number']})
-			console.log(res)
+		const app = await cl.application.retrieve({ fields: ['name', 'kind']})
+		console.log(app)
 
-
-		} catch (error: any) {
-			handleError(error, true)
+		const priceListIds = ['xlqjNCmDGL','vkmQxCWOAk']
+		for (const id of priceListIds) {
+			await cl.price_lists.delete(id)
+			console.log('Deleted price list ' + id)
 		}
 
-	})()
+	} catch (error: any) {
+		handleError(error, true)
+	}
+
+})()

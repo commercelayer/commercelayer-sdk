@@ -4,6 +4,8 @@ import type { QueryParamsRetrieve } from '../query'
 
 import type { LineItem } from './line_items'
 import type { Order } from './orders'
+import type { StockLineItem } from './stock_line_items'
+import type { StockTransfer } from './stock_transfers'
 import type { StockItem, StockItemType } from './stock_items'
 import type { ReservedStock } from './reserved_stocks'
 import type { Sku } from './skus'
@@ -23,23 +25,25 @@ interface StockReservation extends Resource {
 	readonly type: StockReservationType
 
 	/** 
-	 * The stock reservation status, one of 'draft' or 'pending'..
+	 * The stock reservation status. One of 'draft' (default), or 'pending'.
 	 * @example ```"draft"```
 	 */
 	status: 'draft' | 'pending'
 	/** 
-	 * The stock reservation quantity..
-	 * @example ```"4"```
+	 * The stock reservation quantity.
+	 * @example ```4```
 	 */
 	quantity: number
 	/** 
-	 * The expiration date/time of this stock reservation..
+	 * The expiration date/time of this stock reservation.
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at: string
 
 	line_item?: LineItem | null
 	order?: Order | null
+	stock_line_item?: StockLineItem | null
+	stock_transfer?: StockTransfer | null
 	stock_item?: StockItem | null
 	reserved_stock?: ReservedStock | null
 	sku?: Sku | null
@@ -50,8 +54,8 @@ interface StockReservation extends Resource {
 interface StockReservationCreate extends ResourceCreate {
 	
 	/** 
-	 * The stock reservation quantity..
-	 * @example ```"4"```
+	 * The stock reservation quantity.
+	 * @example ```4```
 	 */
 	quantity: number
 
@@ -63,13 +67,13 @@ interface StockReservationCreate extends ResourceCreate {
 interface StockReservationUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The stock reservation quantity..
-	 * @example ```"4"```
+	 * The stock reservation quantity.
+	 * @example ```4```
 	 */
 	quantity?: number | null
 	/** 
-	 * Send this attribute if you want to mark this stock reservation as pending..
-	 * @example ```"true"```
+	 * Send this attribute if you want to mark this stock reservation as pending.
+	 * @example ```true```
 	 */
 	_pending?: boolean | null
 	
@@ -100,6 +104,16 @@ class StockReservations extends ApiResource<StockReservation> {
 	async order(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `stock_reservations/${_stockReservationId}/order`, params, options) as unknown as Order
+	}
+
+	async stock_line_item(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<StockLineItem>, options?: ResourcesConfig): Promise<StockLineItem> {
+		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
+		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `stock_reservations/${_stockReservationId}/stock_line_item`, params, options) as unknown as StockLineItem
+	}
+
+	async stock_transfer(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {
+		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
+		return this.resources.fetch<StockTransfer>({ type: 'stock_transfers' }, `stock_reservations/${_stockReservationId}/stock_transfer`, params, options) as unknown as StockTransfer
 	}
 
 	async stock_item(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<StockItem>, options?: ResourcesConfig): Promise<StockItem> {

@@ -39,7 +39,7 @@ class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOU
 	type(): ##__MODEL_RESOURCE_INTERFACE__##Type {
 		return ##__RESOURCE_CLASS__##.TYPE
 	}
-
+##__SINGLETON_PATH_OVERRIDE__##
 }
 
 

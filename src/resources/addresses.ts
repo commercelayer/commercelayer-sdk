@@ -67,7 +67,7 @@ interface Address extends Resource {
 	 */
 	zip_code?: string | null
 	/** 
-	 * State, province or region code..
+	 * State, province or region code.
 	 * @example ```"NY"```
 	 */
 	state_code: string
@@ -77,7 +77,7 @@ interface Address extends Resource {
 	 */
 	country_code: string
 	/** 
-	 * Phone number (including extension)..
+	 * Phone number (including extension).
 	 * @example ```"(212) 646-338-1228"```
 	 */
 	phone: string
@@ -92,33 +92,33 @@ interface Address extends Resource {
 	 */
 	name?: string | null
 	/** 
-	 * Email address..
+	 * Email address.
 	 * @example ```"john@example.com"```
 	 */
 	email?: string | null
 	/** 
-	 * A free notes attached to the address. When used as a shipping address, this can be useful to let the customers add specific delivery instructions..
+	 * A free notes attached to the address. When used as a shipping address, this can be useful to let the customers add specific delivery instructions.
 	 * @example ```"Please ring the bell twice"```
 	 */
 	notes?: string | null
 	/** 
-	 * The address geocoded latitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market..
-	 * @example ```"40.6971494"```
+	 * The address geocoded latitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
+	 * @example ```40.6971494```
 	 */
 	lat?: number | null
 	/** 
-	 * The address geocoded longitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market..
-	 * @example ```"-74.2598672"```
+	 * The address geocoded longitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
+	 * @example ```-74.2598672```
 	 */
 	lng?: number | null
 	/** 
 	 * Indicates if the latitude and logitude are present, either geocoded or manually updated.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	is_localized?: boolean | null
 	/** 
 	 * Indicates if the address has been successfully geocoded.
-	 * @example ```"true"```
+	 * @example ```true```
 	 */
 	is_geocoded?: boolean | null
 	/** 
@@ -192,7 +192,7 @@ interface AddressCreate extends ResourceCreate {
 	 */
 	zip_code?: string | null
 	/** 
-	 * State, province or region code..
+	 * State, province or region code.
 	 * @example ```"NY"```
 	 */
 	state_code: string
@@ -202,28 +202,28 @@ interface AddressCreate extends ResourceCreate {
 	 */
 	country_code: string
 	/** 
-	 * Phone number (including extension)..
+	 * Phone number (including extension).
 	 * @example ```"(212) 646-338-1228"```
 	 */
 	phone: string
 	/** 
-	 * Email address..
+	 * Email address.
 	 * @example ```"john@example.com"```
 	 */
 	email?: string | null
 	/** 
-	 * A free notes attached to the address. When used as a shipping address, this can be useful to let the customers add specific delivery instructions..
+	 * A free notes attached to the address. When used as a shipping address, this can be useful to let the customers add specific delivery instructions.
 	 * @example ```"Please ring the bell twice"```
 	 */
 	notes?: string | null
 	/** 
-	 * The address geocoded latitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market..
-	 * @example ```"40.6971494"```
+	 * The address geocoded latitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
+	 * @example ```40.6971494```
 	 */
 	lat?: number | null
 	/** 
-	 * The address geocoded longitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market..
-	 * @example ```"-74.2598672"```
+	 * The address geocoded longitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
+	 * @example ```-74.2598672```
 	 */
 	lng?: number | null
 	/** 
@@ -280,7 +280,7 @@ interface AddressUpdate extends ResourceUpdate {
 	 */
 	zip_code?: string | null
 	/** 
-	 * State, province or region code..
+	 * State, province or region code.
 	 * @example ```"NY"```
 	 */
 	state_code?: string | null
@@ -290,28 +290,28 @@ interface AddressUpdate extends ResourceUpdate {
 	 */
 	country_code?: string | null
 	/** 
-	 * Phone number (including extension)..
+	 * Phone number (including extension).
 	 * @example ```"(212) 646-338-1228"```
 	 */
 	phone?: string | null
 	/** 
-	 * Email address..
+	 * Email address.
 	 * @example ```"john@example.com"```
 	 */
 	email?: string | null
 	/** 
-	 * A free notes attached to the address. When used as a shipping address, this can be useful to let the customers add specific delivery instructions..
+	 * A free notes attached to the address. When used as a shipping address, this can be useful to let the customers add specific delivery instructions.
 	 * @example ```"Please ring the bell twice"```
 	 */
 	notes?: string | null
 	/** 
-	 * The address geocoded latitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market..
-	 * @example ```"40.6971494"```
+	 * The address geocoded latitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
+	 * @example ```40.6971494```
 	 */
 	lat?: number | null
 	/** 
-	 * The address geocoded longitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market..
-	 * @example ```"-74.2598672"```
+	 * The address geocoded longitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.
+	 * @example ```-74.2598672```
 	 */
 	lng?: number | null
 	/** 

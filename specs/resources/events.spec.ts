@@ -1,10 +1,10 @@
 /**
- * ©2024 Commerce Layer Inc.
+ * ©2025 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
 import { CommerceLayerClient, Event } from '../../src'
-import isEqual from 'lodash.isequal'
+import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -19,6 +19,7 @@ beforeAll(async () => { cl = await getClient() })
 describe('Events resource', () => {
 
   const resourceType = 'events'
+  const resourcePath = 'events'
 
 
   /* spec.retrieve.start */
@@ -29,18 +30,42 @@ describe('Events resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: Event) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
   })
   /* spec.retrieve.stop */
+
+
+  /* spec.update.start */
+  it(resourceType + '.update', async () => {
+
+    const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
+    const resData = { id: TestData.id, ...attributes}
+
+    cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, resData.id)
+      return interceptRequest()
+    })
+
+    await cl[resourcePath].update(resData, params, CommonData.options)
+      .then((res: Event) =>  expect(res).not.toBeNull())
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+
+  })
+  /* spec.update.stop */
 
 
   /* spec.list.start */
@@ -50,12 +75,12 @@ describe('Events resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -67,9 +92,9 @@ describe('Events resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isEvent(resource)).toBeTruthy()
+    expect(cl[resourcePath].isEvent(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -79,11 +104,11 @@ describe('Events resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
-    expect(isEqual(relId, { id: TestData.id, type: resourceType}))
+    const relId = cl[resourcePath].relationship(TestData.id)
+    expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
-    expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
   /* spec.relationship.stop */
@@ -117,7 +142,7 @@ describe('Events resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as Event
+    const res = cl[resourcePath].parse(payload) as Event
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -136,12 +161,12 @@ describe('Events resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'webhooks')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'webhooks')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].webhooks(id, params, CommonData.options)
+		await cl[resourcePath].webhooks(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -157,12 +182,12 @@ describe('Events resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'last_event_callbacks')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'last_event_callbacks')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].last_event_callbacks(id, params, CommonData.options)
+		await cl[resourcePath].last_event_callbacks(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -170,4 +195,30 @@ describe('Events resource', () => {
 	/* relationship.last_event_callbacks stop */
 	
   
+
+	/* trigger._trigger start */
+	it(resourceType + '._trigger', async () => {
+	
+		let triggerAttr = '_trigger'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath]._trigger(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._trigger stop */
+	
 })

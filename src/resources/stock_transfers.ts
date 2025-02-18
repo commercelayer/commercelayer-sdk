@@ -6,6 +6,8 @@ import type { Sku, SkuType } from './skus'
 import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Shipment, ShipmentType } from './shipments'
 import type { LineItem, LineItemType } from './line_items'
+import type { StockReservation } from './stock_reservations'
+import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
 
@@ -18,8 +20,8 @@ type ShipmentRel = ResourceRel & { type: ShipmentType }
 type LineItemRel = ResourceRel & { type: LineItemType }
 
 
-export type StockTransferSort = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'completed_at' | 'cancelled_at'> & ResourceSort
-// export type StockTransferFilter = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'completed_at' | 'cancelled_at'> & ResourceFilter
+export type StockTransferSort = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'on_hold_at' | 'picking_at' | 'in_transit_at' | 'completed_at' | 'cancelled_at'> & ResourceSort
+// export type StockTransferFilter = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'on_hold_at' | 'picking_at' | 'in_transit_at' | 'completed_at' | 'cancelled_at'> & ResourceFilter
 
 
 interface StockTransfer extends Resource {
@@ -27,32 +29,47 @@ interface StockTransfer extends Resource {
 	readonly type: StockTransferType
 
 	/** 
-	 * Unique identifier for the stock transfer (numeric)..
+	 * Unique identifier for the stock transfer (numeric).
 	 * @example ```"1234"```
 	 */
 	number?: string | null
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The stock transfer status, one of 'draft', 'upcoming', 'on_hold', 'picking', 'in_transit', 'completed', or 'cancelled'.
+	 * The stock transfer status. One of 'draft' (default), 'upcoming', 'on_hold', 'picking', 'in_transit', 'completed', or 'cancelled'.
 	 * @example ```"draft"```
 	 */
 	status: 'draft' | 'upcoming' | 'on_hold' | 'picking' | 'in_transit' | 'completed' | 'cancelled'
 	/** 
-	 * The stock quantity to be transferred from the origin stock location to destination one.
-	 * @example ```"2"```
+	 * The stock quantity to be transferred from the origin stock location to destination one. Updatable unless stock transfer is completed or cancelled and depending on origin stock availability.
+	 * @example ```2```
 	 */
 	quantity: number
 	/** 
-	 * Time at which the stock transfer was completed..
+	 * Time at which the stock transfer was put on hold.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	on_hold_at?: string | null
+	/** 
+	 * Time at which the stock transfer was picking.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	picking_at?: string | null
+	/** 
+	 * Time at which the stock transfer was in transit.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	in_transit_at?: string | null
+	/** 
+	 * Time at which the stock transfer was completed.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	completed_at?: string | null
 	/** 
-	 * Time at which the stock transfer was cancelled..
+	 * Time at which the stock transfer was cancelled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	cancelled_at?: string | null
@@ -62,6 +79,8 @@ interface StockTransfer extends Resource {
 	destination_stock_location?: StockLocation | null
 	shipment?: Shipment | null
 	line_item?: LineItem | null
+	stock_reservation?: StockReservation | null
+	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
 
@@ -71,13 +90,18 @@ interface StockTransfer extends Resource {
 interface StockTransferCreate extends ResourceCreate {
 	
 	/** 
-	 * The code of the associated SKU..
+	 * Unique identifier for the stock transfer (numeric).
+	 * @example ```"1234"```
+	 */
+	number?: string | null
+	/** 
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The stock quantity to be transferred from the origin stock location to destination one.
-	 * @example ```"2"```
+	 * The stock quantity to be transferred from the origin stock location to destination one. Updatable unless stock transfer is completed or cancelled and depending on origin stock availability.
+	 * @example ```2```
 	 */
 	quantity: number
 
@@ -93,44 +117,56 @@ interface StockTransferCreate extends ResourceCreate {
 interface StockTransferUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The code of the associated SKU..
+	 * Unique identifier for the stock transfer (numeric).
+	 * @example ```"1234"```
+	 */
+	number?: string | null
+	/** 
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * Send this attribute if you want to mark this stock transfer as upcoming..
-	 * @example ```"true"```
+	 * The stock quantity to be transferred from the origin stock location to destination one. Updatable unless stock transfer is completed or cancelled and depending on origin stock availability.
+	 * @example ```2```
+	 */
+	quantity?: number | null
+	/** 
+	 * Send this attribute if you want to mark this stock transfer as upcoming.
+	 * @example ```true```
 	 */
 	_upcoming?: boolean | null
 	/** 
-	 * Send this attribute if you want to put this stock transfer on hold..
-	 * @example ```"true"```
+	 * Send this attribute if you want to put this stock transfer on hold.
+	 * @example ```true```
 	 */
 	_on_hold?: boolean | null
 	/** 
-	 * Send this attribute if you want to start picking this stock transfer..
-	 * @example ```"true"```
+	 * Send this attribute if you want to start picking this stock transfer.
+	 * @example ```true```
 	 */
 	_picking?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this stock transfer as in transit..
-	 * @example ```"true"```
+	 * Send this attribute if you want to mark this stock transfer as in transit.
+	 * @example ```true```
 	 */
 	_in_transit?: boolean | null
 	/** 
-	 * Send this attribute if you want to complete this stock transfer..
-	 * @example ```"true"```
+	 * Send this attribute if you want to complete this stock transfer.
+	 * @example ```true```
 	 */
 	_complete?: boolean | null
 	/** 
-	 * Send this attribute if you want to cancel this stock transfer..
-	 * @example ```"true"```
+	 * Send this attribute if you want to cancel this stock transfer.
+	 * @example ```true```
 	 */
 	_cancel?: boolean | null
 
 	sku?: SkuRel | null
 	origin_stock_location?: StockLocationRel | null
 	destination_stock_location?: StockLocationRel | null
+	shipment?: ShipmentRel | null
+	line_item?: LineItemRel | null
 
 }
 
@@ -174,6 +210,16 @@ class StockTransfers extends ApiResource<StockTransfer> {
 	async line_item(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `stock_transfers/${_stockTransferId}/line_item`, params, options) as unknown as LineItem
+	}
+
+	async stock_reservation(stockTransferId: string | StockTransfer, params?: QueryParamsRetrieve<StockReservation>, options?: ResourcesConfig): Promise<StockReservation> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `stock_transfers/${_stockTransferId}/stock_reservation`, params, options) as unknown as StockReservation
+	}
+
+	async attachments(stockTransferId: string | StockTransfer, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_transfers/${_stockTransferId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
 	async events(stockTransferId: string | StockTransfer, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {

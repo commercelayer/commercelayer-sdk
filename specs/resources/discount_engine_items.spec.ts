@@ -1,10 +1,10 @@
 /**
- * ©2024 Commerce Layer Inc.
+ * ©2025 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, OrderValidationRule } from '../../src'
-import isEqual from 'lodash.isequal'
+import { CommerceLayerClient, DiscountEngineItem } from '../../src'
+import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -16,9 +16,10 @@ let cl: CommerceLayerClient
 beforeAll(async () => { cl = await getClient() })
 
 
-describe('OrderValidationRules resource', () => {
+describe('DiscountEngineItems resource', () => {
 
-  const resourceType = 'order_validation_rules'
+  const resourceType = 'discount_engine_items'
+  const resourcePath = 'discount_engine_items'
 
 
   /* spec.retrieve.start */
@@ -29,13 +30,13 @@ describe('OrderValidationRules resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
-      .then((res: OrderValidationRule) =>  expect(res).not.toBeNull())
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
+      .then((res: DiscountEngineItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -50,12 +51,12 @@ describe('OrderValidationRules resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -67,9 +68,9 @@ describe('OrderValidationRules resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isOrderValidationRule(resource)).toBeTruthy()
+    expect(cl[resourcePath].isDiscountEngineItem(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -79,11 +80,11 @@ describe('OrderValidationRules resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
-    expect(isEqual(relId, { id: TestData.id, type: resourceType}))
+    const relId = cl[resourcePath].relationship(TestData.id)
+    expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
-    expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
   /* spec.relationship.stop */
@@ -117,7 +118,7 @@ describe('OrderValidationRules resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as OrderValidationRule
+    const res = cl[resourcePath].parse(payload) as DiscountEngineItem
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -128,67 +129,46 @@ describe('OrderValidationRules resource', () => {
 
   
 
-	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	/* relationship.discount_engine start */
+	it(resourceType + '.discount_engine', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { markets: CommonData.paramsFields } }
+		const params = { fields: { discount_engines: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'market')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'discount_engine')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].market(id, params, CommonData.options)
+		await cl[resourcePath].discount_engine(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.market stop */
+	/* relationship.discount_engine stop */
 	
 
-	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	/* relationship.order start */
+	it(resourceType + '.order', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { attachments: CommonData.paramsFields } }
+		const params = { fields: { orders: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'order')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourcePath].order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.attachments stop */
-	
-
-	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { versions: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourceType].versions(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.versions stop */
+	/* relationship.order stop */
 	
   
 })

@@ -6,6 +6,7 @@ import type { Shipment, ShipmentType } from './shipments'
 import type { LineItem, LineItemType } from './line_items'
 import type { StockItem, StockItemType } from './stock_items'
 import type { Sku, SkuType } from './skus'
+import type { StockReservation } from './stock_reservations'
 import type { Version } from './versions'
 
 
@@ -26,18 +27,18 @@ interface StockLineItem extends Resource {
 	readonly type: StockLineItemType
 
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The code of the associated bundle..
+	 * The code of the associated bundle.
 	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
 	 */
 	bundle_code?: string | null
 	/** 
-	 * The line item quantity..
-	 * @example ```"4"```
+	 * The line item quantity.
+	 * @example ```4```
 	 */
 	quantity: number
 
@@ -45,6 +46,7 @@ interface StockLineItem extends Resource {
 	line_item?: LineItem | null
 	stock_item?: StockItem | null
 	sku?: Sku | null
+	stock_reservation?: StockReservation | null
 	versions?: Version[] | null
 
 }
@@ -53,13 +55,13 @@ interface StockLineItem extends Resource {
 interface StockLineItemCreate extends ResourceCreate {
 	
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The line item quantity..
-	 * @example ```"4"```
+	 * The line item quantity.
+	 * @example ```4```
 	 */
 	quantity: number
 
@@ -74,28 +76,28 @@ interface StockLineItemCreate extends ResourceCreate {
 interface StockLineItemUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The line item quantity..
-	 * @example ```"4"```
+	 * The line item quantity.
+	 * @example ```4```
 	 */
 	quantity?: number | null
 	/** 
-	 * Send this attribute if you want to automatically reserve the stock for this stock line item. Can be done only when fulfillment is in progress..
-	 * @example ```"true"```
+	 * Send this attribute if you want to automatically reserve the stock for this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.
+	 * @example ```true```
 	 */
 	_reserve_stock?: boolean | null
 	/** 
-	 * Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress..
-	 * @example ```"true"```
+	 * Send this attribute if you want to automatically destroy the stock reservation for this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.
+	 * @example ```true```
 	 */
 	_release_stock?: boolean | null
 	/** 
-	 * Send this attribute if you want to automatically decrement and release the stock this stock line item. Can be done only when fulfillment is in progress..
-	 * @example ```"true"```
+	 * Send this attribute if you want to automatically decrement and release the stock this stock line item. Can be done only when fulfillment is in progress. Cannot be passed by sales channels.
+	 * @example ```true```
 	 */
 	_decrement_stock?: boolean | null
 
@@ -141,6 +143,11 @@ class StockLineItems extends ApiResource<StockLineItem> {
 	async sku(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_line_items/${_stockLineItemId}/sku`, params, options) as unknown as Sku
+	}
+
+	async stock_reservation(stockLineItemId: string | StockLineItem, params?: QueryParamsRetrieve<StockReservation>, options?: ResourcesConfig): Promise<StockReservation> {
+		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
+		return this.resources.fetch<StockReservation>({ type: 'stock_reservations' }, `stock_line_items/${_stockLineItemId}/stock_reservation`, params, options) as unknown as StockReservation
 	}
 
 	async versions(stockLineItemId: string | StockLineItem, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

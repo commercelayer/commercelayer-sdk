@@ -6,10 +6,19 @@ import type { Merchant, MerchantType } from './merchants'
 import type { PriceList, PriceListType } from './price_lists'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { SubscriptionModel, SubscriptionModelType } from './subscription_models'
-import type { TaxCalculator, TaxCalculatorType } from './tax_calculators'
+import type { TaxCalculator } from './tax_calculators'
 import type { CustomerGroup, CustomerGroupType } from './customer_groups'
+import type { Geocoder, GeocoderType } from './geocoders'
+import type { Store } from './stores'
+import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
+import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
+import type { VertexAccount, VertexAccountType } from './vertex_accounts'
+import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
+import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
+import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
 
 
 type MarketType = 'markets'
@@ -18,8 +27,14 @@ type MerchantRel = ResourceRel & { type: MerchantType }
 type PriceListRel = ResourceRel & { type: PriceListType }
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
-type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
+type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
+type StripeTaxAccountRel = ResourceRel & { type: StripeTaxAccountType }
+type VertexAccountRel = ResourceRel & { type: VertexAccountType }
+type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
+type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
+type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
+type GeocoderRel = ResourceRel & { type: GeocoderType }
 
 
 export type MarketSort = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceSort
@@ -32,7 +47,7 @@ interface Market extends Resource {
 
 	/** 
 	 * Unique identifier for the market (numeric).
-	 * @example ```"1234"```
+	 * @example ```1234```
 	 */
 	number?: number | null
 	/** 
@@ -41,7 +56,7 @@ interface Market extends Resource {
 	 */
 	name: string
 	/** 
-	 * A string that you can use to identify the market (must be unique within the environment)..
+	 * A string that you can use to identify the market (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
@@ -56,37 +71,46 @@ interface Market extends Resource {
 	 */
 	checkout_url?: string | null
 	/** 
-	 * The URL used to overwrite prices by an external source..
+	 * The URL used to overwrite prices by an external source.
 	 * @example ```"https://external_prices.yourbrand.com"```
 	 */
 	external_prices_url?: string | null
 	/** 
-	 * The URL used to validate orders by an external source..
+	 * The URL used to validate orders by an external source.
 	 * @example ```"https://external_validation.yourbrand.com"```
 	 */
 	external_order_validation_url?: string | null
 	/** 
-	 * Indicates if market belongs to a customer_group..
-	 * @example ```"true"```
+	 * Indicates if market belongs to a customer_group.
+	 * @example ```true```
 	 */
 	private?: boolean | null
 	/** 
-	 * Time at which this resource was disabled..
+	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
+	 * @example ```3```
+	 */
+	shipping_cost_cutoff?: number | null
+	/** 
+	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
 	/** 
-	 * The shared secret used to sign the external request payload..
+	 * The shared secret used to sign the external request payload.
 	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
 	 */
 	shared_secret: string
 
 	merchant?: Merchant | null
 	price_list?: PriceList | null
+	base_price_list?: PriceList | null
 	inventory_model?: InventoryModel | null
 	subscription_model?: SubscriptionModel | null
-	tax_calculator?: TaxCalculator | null
+	tax_calculator?: AvalaraAccount | StripeTaxAccount | VertexAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
 	customer_group?: CustomerGroup | null
+	geocoder?: Geocoder | null
+	stores?: Store[] | null
+	price_list_schedulers?: PriceListScheduler[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
@@ -101,7 +125,7 @@ interface MarketCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * A string that you can use to identify the market (must be unique within the environment)..
+	 * A string that you can use to identify the market (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
@@ -116,23 +140,28 @@ interface MarketCreate extends ResourceCreate {
 	 */
 	checkout_url?: string | null
 	/** 
-	 * The URL used to overwrite prices by an external source..
+	 * The URL used to overwrite prices by an external source.
 	 * @example ```"https://external_prices.yourbrand.com"```
 	 */
 	external_prices_url?: string | null
 	/** 
-	 * The URL used to validate orders by an external source..
+	 * The URL used to validate orders by an external source.
 	 * @example ```"https://external_validation.yourbrand.com"```
 	 */
 	external_order_validation_url?: string | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
-	 * @example ```"true"```
+	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
+	 * @example ```3```
+	 */
+	shipping_cost_cutoff?: number | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
-	 * @example ```"true"```
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 
@@ -140,8 +169,9 @@ interface MarketCreate extends ResourceCreate {
 	price_list: PriceListRel
 	inventory_model: InventoryModelRel
 	subscription_model?: SubscriptionModelRel | null
-	tax_calculator?: TaxCalculatorRel | null
+	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
+	geocoder?: GeocoderRel | null
 
 }
 
@@ -154,7 +184,7 @@ interface MarketUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * A string that you can use to identify the market (must be unique within the environment)..
+	 * A string that you can use to identify the market (must be unique within the environment).
 	 * @example ```"europe1"```
 	 */
 	code?: string | null
@@ -169,23 +199,28 @@ interface MarketUpdate extends ResourceUpdate {
 	 */
 	checkout_url?: string | null
 	/** 
-	 * The URL used to overwrite prices by an external source..
+	 * The URL used to overwrite prices by an external source.
 	 * @example ```"https://external_prices.yourbrand.com"```
 	 */
 	external_prices_url?: string | null
 	/** 
-	 * The URL used to validate orders by an external source..
+	 * The URL used to validate orders by an external source.
 	 * @example ```"https://external_validation.yourbrand.com"```
 	 */
 	external_order_validation_url?: string | null
 	/** 
-	 * Send this attribute if you want to mark this resource as disabled..
-	 * @example ```"true"```
+	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
+	 * @example ```3```
+	 */
+	shipping_cost_cutoff?: number | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
 	 */
 	_disable?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark this resource as enabled..
-	 * @example ```"true"```
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
 	 */
 	_enable?: boolean | null
 
@@ -193,8 +228,9 @@ interface MarketUpdate extends ResourceUpdate {
 	price_list?: PriceListRel | null
 	inventory_model?: InventoryModelRel | null
 	subscription_model?: SubscriptionModelRel | null
-	tax_calculator?: TaxCalculatorRel | null
+	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
+	geocoder?: GeocoderRel | null
 
 }
 
@@ -225,6 +261,11 @@ class Markets extends ApiResource<Market> {
 		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `markets/${_marketId}/price_list`, params, options) as unknown as PriceList
 	}
 
+	async base_price_list(marketId: string | Market, params?: QueryParamsRetrieve<PriceList>, options?: ResourcesConfig): Promise<PriceList> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `markets/${_marketId}/base_price_list`, params, options) as unknown as PriceList
+	}
+
 	async inventory_model(marketId: string | Market, params?: QueryParamsRetrieve<InventoryModel>, options?: ResourcesConfig): Promise<InventoryModel> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `markets/${_marketId}/inventory_model`, params, options) as unknown as InventoryModel
@@ -243,6 +284,21 @@ class Markets extends ApiResource<Market> {
 	async customer_group(marketId: string | Market, params?: QueryParamsRetrieve<CustomerGroup>, options?: ResourcesConfig): Promise<CustomerGroup> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `markets/${_marketId}/customer_group`, params, options) as unknown as CustomerGroup
+	}
+
+	async geocoder(marketId: string | Market, params?: QueryParamsRetrieve<Geocoder>, options?: ResourcesConfig): Promise<Geocoder> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `markets/${_marketId}/geocoder`, params, options) as unknown as Geocoder
+	}
+
+	async stores(marketId: string | Market, params?: QueryParamsList<Store>, options?: ResourcesConfig): Promise<ListResponse<Store>> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<Store>({ type: 'stores' }, `markets/${_marketId}/stores`, params, options) as unknown as ListResponse<Store>
+	}
+
+	async price_list_schedulers(marketId: string | Market, params?: QueryParamsList<PriceListScheduler>, options?: ResourcesConfig): Promise<ListResponse<PriceListScheduler>> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<PriceListScheduler>({ type: 'price_list_schedulers' }, `markets/${_marketId}/price_list_schedulers`, params, options) as unknown as ListResponse<PriceListScheduler>
 	}
 
 	async attachments(marketId: string | Market, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

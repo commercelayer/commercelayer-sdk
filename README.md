@@ -20,9 +20,12 @@ A JavaScript Library wrapper that makes it quick and easy to interact with the [
 - [Installation](#installation)
 - [Authentication](#authentication)
 - [Import](#import)
+- [Options](#options)
 - [SDK usage](#sdk-usage)
 - [Overriding credentials](#overriding-credentials)
 - [Handling validation errors](#handling-validation-errors)
+- [Using interceptors](#using-interceptors)
+- [Refreshing access token](#refreshing-access-token)
 - [Contributors guide](#contributors-guide)
 - [Need help?](#need-help)
 - [License](#license)
@@ -64,6 +67,37 @@ const cl = CommerceLayer({
   organization: 'your-organization-slug',
   accessToken: 'your-access-token'
 })
+```
+
+### Options
+
+When instantiating a new SDK client you can pass some options to initialize it:
+
+```javascript
+{
+  organization: string        // The organization slug
+  accessToken: string         // A valid API access token
+  timeout?: number            // A custom request timout (<= 15 secs [default])
+  headers?: RequestHeaders    // Custom request headers
+  userAgent?: string          // Custom user-agent useful in certaing contexts but often not allowed by browsers
+  fetch?: Fetch               // A specific fetch implementation 
+  refreshToken?: RefreshToken // A function responsible for token refresh
+}
+```
+
+Same options can be changed after SDK initialization or passed at runtime while executing an API call:
+
+```javascript
+  const options = { ... }
+
+  // Instantiate the client using desired options
+  const cl = CommerceLayer(options)
+
+  // Change configuration after client cteation
+  cl.config(options)
+
+  // Use runtime configuration without persisting settings
+  cl.customers.list({}, options)
 ```
 
 ## SDK usage
@@ -265,10 +299,10 @@ Many resources have relationships with other resources and instead of including 
 
 ```javascript
 // Fetch 1-to-1 related resource: billing address of an order
-const billingAddress = cl.orders.billing_address('xYZkjABcde')
+const billingAddress = await cl.orders.billing_address('xYZkjABcde')
 
 // Fetch 1-to-N related resources: orders associated to a customer
-const orders = cl.customers.orders('XyzKjAbCDe', { fields: ['status', 'number'] })
+const orders = await cl.customers.orders('XyzKjAbCDe', { fields: ['status', 'number'] })
 ```
 
 In general:
@@ -291,7 +325,7 @@ resources.
 
 ```javascript
 // Get the total number of placed orders
-const placedOrders = cl.orders.count({ filters: { status_eq: 'placed' } })
+const placedOrders = await cl.orders.count({ filters: { status_eq: 'placed' } })
 
 ```
 
@@ -388,6 +422,76 @@ Commerce Layer API returns specific errors (with extra information) on each attr
 
 ℹ️ Check our API reference for more information about the [errors](https://docs.commercelayer.io/developers/handling-errors) returned by the API.
 
+## Using interceptors
+
+You can use interceptors to intercept SDK messages and modify them on the fly before the request is sent to the API or before the response is parsed and returned by the client. You can also access the error object before it is thrown by the SDK.
+
+Interceptors are special functions that are able to handle SDK messages and return a (eventually) modified version of them for use by the client.
+
+```javascript
+  const requestInterceptor = (request: RequestObj): RequestObj => {
+    console.log(request)
+    return request
+  }
+
+  const responseInterceptor = (response: ResponseObj): ResponseObj => {
+    console.log(response)
+    return response
+  }
+
+  const errorInterceptor = (error: ErrorObj): ErrorObj => {
+    console.log(error)
+    return error
+  }
+```
+
+Here an example of how to use them:
+
+```javascript
+  // Add the interceptors (only one or all if needed)
+  cl.addRequestInterceptor(requestInterceptor)
+  cl.addResponseInterceptor(responseInterceptor, errorInterceptor)
+
+  const customers = await cl.customers.list()
+
+  // Remove interceptors
+  // Tt is possible to remove only a specific interceptor: cl.removeInterceptor('request')
+  cl.removeInterceptors()
+```
+
+#### Raw Response Reader
+
+The *RawResponseReader* is a special interceptor that allows to catch the original message coming frome the API before it is parsed and translated in SDK objects.
+
+```javascript
+  // Add a RawResponseReader capable of capturing also response headers
+  const rrr = cl.addRawResponseReader({ headers: true })
+  
+  const customers = await cl.customers.list()
+
+  cl.removeRawResponseReader()
+
+  console.log(rrr.rawResponse)
+  console.log(rrr.headers)
+```
+
+## Refreshing access token
+
+It is possible that you are using an access token that is about to expire especially if it has been used for many API calls.
+In this case you can define a special function that takes care of refreshing the token when a call fails because it has expired.
+
+```javascript
+  async function myRefreshTokenFunction(espiredToken: string): Promise<string> {
+    // Get a new access token using for example our js-auth library
+    return (await getAccessToken()).accessToken
+  }
+
+  cl.config({ refreshToken: myRefreshTokenFunction })
+
+  // If needed you can later retrieve the new access token
+  const newToken = cl.currentAccessToken
+```
+
 ## Contributors guide
 
 1. Fork [this repository](https://github.com/commercelayer/commercelayer-sdk) (learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
@@ -404,11 +508,9 @@ Commerce Layer API returns specific errors (with extra information) on each attr
 
 ## Need help?
 
-1. Join [Commerce Layer's Slack community](https://slack.commercelayer.app).
-
-2. Create an [issue](https://github.com/commercelayer/commercelayer-sdk/issues) in this repository.
-
-3. Ping us [on Twitter](https://twitter.com/commercelayer).
+- Join [Commerce Layer's Discord community](https://discord.gg/commercelayer).
+- Ping us on [Bluesky](https://bsky.app/profile/commercelayer.io), [X (formerly Twitter)](https://x.com/commercelayer), or [LinkedIn](https://www.linkedin.com/company/commerce-layer).
+- Is there a bug? Create an [issue](https://github.com/commercelayer/commercelayer-sdk/issues) on this repository.
 
 ## License
 

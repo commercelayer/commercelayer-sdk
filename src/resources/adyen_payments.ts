@@ -21,37 +21,37 @@ interface AdyenPayment extends Resource {
 	readonly type: AdyenPaymentType
 
 	/** 
-	 * The public key linked to your API credential..
+	 * The public key linked to your API credential.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	public_key?: string | null
 	/** 
-	 * The merchant available payment methods for the assoiated order (i.e. country and amount). Required by the Adyen JS SDK..
-	 * @example ```"[object Object]"```
+	 * The merchant available payment methods for the assoiated order (i.e. country and amount). Required by the Adyen JS SDK.
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_methods: Record<string, any>
 	/** 
-	 * The Adyen payment request data, collected by client..
-	 * @example ```"[object Object]"```
+	 * The Adyen payment request data, collected by client.
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_request_data?: Record<string, any> | null
 	/** 
-	 * The Adyen additional details request data, collected by client..
-	 * @example ```"[object Object]"```
+	 * The Adyen additional details request data, collected by client.
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_request_details?: Record<string, any> | null
 	/** 
-	 * The Adyen payment response, used by client (includes 'resultCode' and 'action')..
-	 * @example ```"[object Object]"```
+	 * The Adyen payment response, used by client (includes 'resultCode' and 'action').
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_response?: Record<string, any> | null
 	/** 
-	 * Indicates if the order current amount differs form the one of the associated authorization..
+	 * Indicates if the order current amount differs form the one of the associated authorization.
 	 */
 	mismatched_amounts?: boolean | null
 	/** 
 	 * Information about the payment instrument used in the transaction.
-	 * @example ```"[object Object]"```
+	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
 	payment_instrument?: Record<string, any> | null
 
@@ -72,23 +72,23 @@ interface AdyenPaymentCreate extends ResourceCreate {
 interface AdyenPaymentUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The Adyen payment request data, collected by client..
-	 * @example ```"[object Object]"```
+	 * The Adyen payment request data, collected by client.
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_request_data?: Record<string, any> | null
 	/** 
-	 * The Adyen additional details request data, collected by client..
-	 * @example ```"[object Object]"```
+	 * The Adyen additional details request data, collected by client.
+	 * @example ```{"foo":"bar"}```
 	 */
 	payment_request_details?: Record<string, any> | null
 	/** 
-	 * The Adyen payment response, used by client (includes 'resultCode' and 'action')..
-	 * @example ```"[object Object]"```
+	 * Send this attribute if you want to authorize the payment.
+	 * @example ```true```
 	 */
-	payment_response?: Record<string, any> | null
+	_authorize?: boolean | null
 	/** 
-	 * Send this attribute if you want to send additional details the payment request..
-	 * @example ```"true"```
+	 * Send this attribute if you want to send additional details the payment request.
+	 * @example ```true```
 	 */
 	_details?: boolean | null
 
@@ -126,6 +126,10 @@ class AdyenPayments extends ApiResource<AdyenPayment> {
 	async versions(adyenPaymentId: string | AdyenPayment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _adyenPaymentId = (adyenPaymentId as AdyenPayment).id || adyenPaymentId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `adyen_payments/${_adyenPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _authorize(id: string | AdyenPayment, params?: QueryParamsRetrieve<AdyenPayment>, options?: ResourcesConfig): Promise<AdyenPayment> {
+		return this.resources.update<AdyenPaymentUpdate, AdyenPayment>({ id: (typeof id === 'string')? id: id.id, type: AdyenPayments.TYPE, _authorize: true }, params, options)
 	}
 
 	async _details(id: string | AdyenPayment, params?: QueryParamsRetrieve<AdyenPayment>, options?: ResourcesConfig): Promise<AdyenPayment> {

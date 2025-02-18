@@ -1,3 +1,368 @@
+# [6.32.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.31.0...v6.32.0) (2025-02-06)
+
+
+### Features
+
+* update resources to schema v7.7.2 ([0cff96c](https://github.com/commercelayer/commercelayer-sdk/commit/0cff96c3a6b4bcac2076f4343cc18119067ff718))
+
+# [6.31.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.30.0...v6.31.0) (2025-02-05)
+
+
+### Features
+
+* update resources to schema v7.7.1 ([bb554b5](https://github.com/commercelayer/commercelayer-sdk/commit/bb554b549bbb46215c4aef38c531e5d215f0c96f))
+
+# [6.30.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.29.2...v6.30.0) (2025-01-31)
+
+
+### Features
+
+* update resources to schema v7.7.0 ([48131fd](https://github.com/commercelayer/commercelayer-sdk/commit/48131fd40228189b4a2c75df2025b96fb1ae4df7))
+
+## [6.29.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.29.1...v6.29.2) (2025-01-28)
+
+
+### Bug Fixes
+
+* fix example field in attribute's comment ([cef667e](https://github.com/commercelayer/commercelayer-sdk/commit/cef667e409c128bfd21684fc29e8c2b44792dda4))
+
+## [6.29.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.29.0...v6.29.1) (2025-01-24)
+
+
+### Bug Fixes
+
+* fix deprecated packages ([6aabf41](https://github.com/commercelayer/commercelayer-sdk/commit/6aabf41436b0d911c56c8607be1af1d3e0a2aecb))
+* fix deprecated packages ([#347](https://github.com/commercelayer/commercelayer-sdk/issues/347)) ([1bfa44c](https://github.com/commercelayer/commercelayer-sdk/commit/1bfa44cf2068f53a37b1ab4fe52f5ac48aeec8ae))
+
+# [6.29.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.28.0...v6.29.0) (2025-01-17)
+
+
+### Features
+
+* update resources to schema v7.6.2 ([f320ff9](https://github.com/commercelayer/commercelayer-sdk/commit/f320ff9c527a2ae4bb82a09dd4e5200c28af16b1))
+
+# [6.28.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.27.1...v6.28.0) (2025-01-07)
+
+
+### Features
+
+* update resources to schema v7.6.1 ([fdf2e0c](https://github.com/commercelayer/commercelayer-sdk/commit/fdf2e0c8529480c49befdac3c2c6d9eface31920))
+
+## [6.27.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.27.0...v6.27.1) (2024-12-20)
+
+
+### Bug Fixes
+
+* fix singleton retrieve template ([63b97a2](https://github.com/commercelayer/commercelayer-sdk/commit/63b97a2da2667fa219dcb6981cd1e16fa80a0678))
+
+# [6.27.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.26.0...v6.27.0) (2024-12-17)
+
+
+### Features
+
+* update resources to schema v7.6.0 ([a0ea5ee](https://github.com/commercelayer/commercelayer-sdk/commit/a0ea5eeb7264f82effd27346e45bc7def34f99a9))
+
+# [6.26.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.25.2...v6.26.0) (2024-12-11)
+
+
+### Features
+
+* update resources to schema v7.5.0 ([191bfb1](https://github.com/commercelayer/commercelayer-sdk/commit/191bfb1f8de29eb331240163c915126e8fd1cee4))
+
+## [6.25.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.25.1...v6.25.2) (2024-11-29)
+
+
+### Bug Fixes
+
+* fix invalid token error codes ([a43db15](https://github.com/commercelayer/commercelayer-sdk/commit/a43db152a4b73f65cfa8b688a86c288247546ceb))
+
+## [6.25.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.25.0...v6.25.1) (2024-11-21)
+
+
+### Bug Fixes
+
+* fix singleton specs ([2a2b4fd](https://github.com/commercelayer/commercelayer-sdk/commit/2a2b4fd194092b52657011f118ac057f72f3c94d))
+* fix singletons resource type ([9c45250](https://github.com/commercelayer/commercelayer-sdk/commit/9c452502f60616cf7482d12abe20f203d64fc2fd))
+
+# [6.25.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.24.2...v6.25.0) (2024-11-06)
+
+
+### Bug Fixes
+
+* fix errors spec ([43c668c](https://github.com/commercelayer/commercelayer-sdk/commit/43c668c88b1ddae9e55722f712018e64ad14770a))
+
+
+### Features
+
+* add request to fetch error and test spec ([10f44e6](https://github.com/commercelayer/commercelayer-sdk/commit/10f44e6a458ce0d7485e6e082fae73a3e2b83b33))
+* update resources to schema v7.4.0 ([75d00dd](https://github.com/commercelayer/commercelayer-sdk/commit/75d00ddba19faba0c74a20c0a1812b99ebc5d6c8))
+
+## [6.24.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.24.1...v6.24.2) (2024-10-30)
+
+
+### Bug Fixes
+
+* fix query filters check error message ([0c96b16](https://github.com/commercelayer/commercelayer-sdk/commit/0c96b16b2d2e84a98809ad8d0978871e0ec76079))
+
+## [6.24.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.24.0...v6.24.1) (2024-10-30)
+
+
+### Bug Fixes
+
+* query filters check ([1c7782f](https://github.com/commercelayer/commercelayer-sdk/commit/1c7782fa944e2e8eeee1949535d6732f26bfe340))
+
+# [6.24.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.23.0...v6.24.0) (2024-10-23)
+
+
+### Features
+
+* update resources to schema v7.3.1 ([c529f27](https://github.com/commercelayer/commercelayer-sdk/commit/c529f27a5835376882b651ffd4931a91fe5200a0))
+
+# [6.23.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.22.0...v6.23.0) (2024-10-11)
+
+
+### Features
+
+* update resources to schema v7.3.0 ([f025af4](https://github.com/commercelayer/commercelayer-sdk/commit/f025af4d5206c38f523a632d814d4ee41d8530dd))
+
+# [6.22.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.21.0...v6.22.0) (2024-10-04)
+
+
+### Features
+
+* update resources to schema v7.2.2 ([a0ce3f1](https://github.com/commercelayer/commercelayer-sdk/commit/a0ce3f12040098d26b38f2f60976751bf44a848e))
+
+# [6.21.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.20.0...v6.21.0) (2024-10-02)
+
+
+### Features
+
+* update resources to schema v7.2.1 ([3128a82](https://github.com/commercelayer/commercelayer-sdk/commit/3128a82f964bb303ec49fb34587f5f208134c62e))
+
+# [6.20.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.19.1...v6.20.0) (2024-09-26)
+
+
+### Features
+
+* update resources to schema v7.2.0 ([e553452](https://github.com/commercelayer/commercelayer-sdk/commit/e5534520d0f61983d31c8ad3454af94d67d79930))
+
+## [6.19.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.19.0...v6.19.1) (2024-09-24)
+
+
+### Bug Fixes
+
+* update resources to schema v7.1.2 ([5cc9e48](https://github.com/commercelayer/commercelayer-sdk/commit/5cc9e48d02099f0855963824e1f4761e052ec0ff))
+
+# [6.19.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.18.1...v6.19.0) (2024-09-19)
+
+
+### Features
+
+* update resources to schema v7.1.1 ([3d05eb6](https://github.com/commercelayer/commercelayer-sdk/commit/3d05eb661f7d65d669c37516be60ca7060785648))
+
+## [6.18.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.18.0...v6.18.1) (2024-09-13)
+
+
+### Bug Fixes
+
+* remove test logs ([6c6604b](https://github.com/commercelayer/commercelayer-sdk/commit/6c6604beba6e61c7fc8976f0c42cbc9d7acdc89b))
+
+# [6.18.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.17.0...v6.18.0) (2024-09-13)
+
+
+### Features
+
+* self defined domain ([1fda8e1](https://github.com/commercelayer/commercelayer-sdk/commit/1fda8e1b92ea5883d7f512b7737fe090baddcd5c))
+
+# [6.17.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.16.0...v6.17.0) (2024-09-10)
+
+
+### Features
+
+* update resources to schema v7.1.0 ([98ea1d2](https://github.com/commercelayer/commercelayer-sdk/commit/98ea1d2aaba4bfd168099ea64b32a4418e7eeaf4))
+
+# [6.16.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.15.0...v6.16.0) (2024-09-05)
+
+
+### Features
+
+* update resources to schema v7.0.1 ([db19e61](https://github.com/commercelayer/commercelayer-sdk/commit/db19e61604e8d1593972e63a747ddc2860edf7ea))
+
+# [6.15.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.14.1...v6.15.0) (2024-09-04)
+
+
+### Features
+
+* update resources to schema v7.0.0 ([f54e54b](https://github.com/commercelayer/commercelayer-sdk/commit/f54e54bbeb85f47a663cadadc8aa867fb2246518))
+
+## [6.14.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.14.0...v6.14.1) (2024-08-27)
+
+
+### Bug Fixes
+
+* performance optimization ([4914bf4](https://github.com/commercelayer/commercelayer-sdk/commit/4914bf46ae0d28d8b18ff1b7c50abeeaa58048b2))
+
+# [6.14.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.13.0...v6.14.0) (2024-08-23)
+
+
+### Features
+
+* update resources to schema v6.3.0 ([841887e](https://github.com/commercelayer/commercelayer-sdk/commit/841887e91de86ab028144706a1893ffd1a291264))
+
+# [6.13.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.12.0...v6.13.0) (2024-08-16)
+
+
+### Bug Fixes
+
+* fix init config check ([8e4fbf1](https://github.com/commercelayer/commercelayer-sdk/commit/8e4fbf1c430ac7e4369f67c1afe1ed2d9d870004))
+* optional organization slug ([7e265a6](https://github.com/commercelayer/commercelayer-sdk/commit/7e265a605ba69cbbe49d9c3589692377074546a7))
+
+
+### Features
+
+* update resources to schema v6.2.1 ([2fb5faa](https://github.com/commercelayer/commercelayer-sdk/commit/2fb5faa4cb2cac9fb0d00a2f115c8fd9b14c864f))
+
+# [6.12.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.11.0...v6.12.0) (2024-08-13)
+
+
+### Features
+
+* update resources to schema v6.2.0 ([bbe731a](https://github.com/commercelayer/commercelayer-sdk/commit/bbe731a8c9e07e6f85176800ea15c8486db0f610))
+
+# [6.11.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.10.0...v6.11.0) (2024-07-23)
+
+
+### Features
+
+* update resources to schema v6.1.0 ([8213e4f](https://github.com/commercelayer/commercelayer-sdk/commit/8213e4feecbd39fc70231d0de6bf1b8ebeeb90de))
+
+# [6.10.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.9.1...v6.10.0) (2024-07-15)
+
+
+### Bug Fixes
+
+* fix parser and generator ([d3bb3c5](https://github.com/commercelayer/commercelayer-sdk/commit/d3bb3c5a0b95bab8d813e8a88cbdffaa53e3d80f))
+
+
+### Features
+
+* update resources to schema v6.0.0 ([1cc2928](https://github.com/commercelayer/commercelayer-sdk/commit/1cc292876298df432d22b9a078965b32c34d8773))
+
+## [6.9.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.9.0...v6.9.1) (2024-06-21)
+
+
+### Bug Fixes
+
+* fix AbortSignal.timeout function check ([1d616b1](https://github.com/commercelayer/commercelayer-sdk/commit/1d616b13c1e193fd7271207b40288f7103b081be))
+
+# [6.9.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.8.2...v6.9.0) (2024-06-20)
+
+
+### Features
+
+* update resources to schema v5.4.3 ([f34856d](https://github.com/commercelayer/commercelayer-sdk/commit/f34856d31a6a955a02da76ed64d28cf1eefbc6d5))
+
+## [6.8.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.8.1...v6.8.2) (2024-06-20)
+
+
+### Bug Fixes
+
+* fix browser error parsing response body with status 204 ([4e80b29](https://github.com/commercelayer/commercelayer-sdk/commit/4e80b2903b6aa64e3e4bb79e6eabf1736c7253ec))
+* fix specs timeout ([a0d1c8b](https://github.com/commercelayer/commercelayer-sdk/commit/a0d1c8b446bd8f55904b135ff57121332bd22fb1))
+
+## [6.8.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.8.0...v6.8.1) (2024-06-19)
+
+
+### Bug Fixes
+
+* fix empty errors and timeout issue ([8bf22f4](https://github.com/commercelayer/commercelayer-sdk/commit/8bf22f49178468995ac26c8789f04a675b0bb39f))
+* fix empty errors and timeout issue ([#341](https://github.com/commercelayer/commercelayer-sdk/issues/341)) ([d029ab5](https://github.com/commercelayer/commercelayer-sdk/commit/d029ab559b9a56cc4a3d7b6c5477e45c0e59f83d))
+
+# [6.8.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.7.2...v6.8.0) (2024-06-12)
+
+
+### Features
+
+* update resources to schema v5.4.2 ([ba45aba](https://github.com/commercelayer/commercelayer-sdk/commit/ba45aba1378d5b44a5686444ce5f9c4970908fea))
+
+## [6.7.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.7.1...v6.7.2) (2024-06-11)
+
+
+### Bug Fixes
+
+* error handling delete empty response ([21730ce](https://github.com/commercelayer/commercelayer-sdk/commit/21730ce50e9fcb7128564b720a3458a197209032))
+* error parsing response body throws an exception ([49e5f86](https://github.com/commercelayer/commercelayer-sdk/commit/49e5f86b1c726d6a91459b984454c7672905e8b1))
+
+## [6.7.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.7.0...v6.7.1) (2024-06-11)
+
+
+### Bug Fixes
+
+* fix empty body response ([f93ba83](https://github.com/commercelayer/commercelayer-sdk/commit/f93ba83a4c16effdb6001c9410fe2ded3668945f))
+
+# [6.7.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.6.0...v6.7.0) (2024-06-11)
+
+
+### Features
+
+* update resources to schema v5.4.1 ([a35d9d3](https://github.com/commercelayer/commercelayer-sdk/commit/a35d9d354716502acd5130870ffd4a3566e739dd))
+
+# [6.6.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.5.0...v6.6.0) (2024-06-06)
+
+
+### Features
+
+* update resources to schema v5.4.0 ([aaf9f61](https://github.com/commercelayer/commercelayer-sdk/commit/aaf9f6179aebcd51832bb3be53f088d614fde3f6))
+
+# [6.5.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.4.0...v6.5.0) (2024-06-04)
+
+
+### Bug Fixes
+
+* fix test security issue ([a42d2b3](https://github.com/commercelayer/commercelayer-sdk/commit/a42d2b3274fda0d334fd5e27849fb1af769fc137))
+* handle token refresh errors ([82c46e1](https://github.com/commercelayer/commercelayer-sdk/commit/82c46e1058c74c48234060d296b0a45a9373552f))
+
+
+### Features
+
+* add refreshToken function ([b586b67](https://github.com/commercelayer/commercelayer-sdk/commit/b586b677942c66fda1fb7b4000fcd9ea4ef35925))
+
+# [6.4.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.3.0...v6.4.0) (2024-05-31)
+
+
+### Features
+
+* update resources to schema v5.3.3 ([edc83f8](https://github.com/commercelayer/commercelayer-sdk/commit/edc83f8fdf36e998f134d473016d0709261b3bc3))
+
+# [6.3.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.2.0...v6.3.0) (2024-05-24)
+
+
+### Features
+
+* update resources to schema v5.3.2 ([7800fed](https://github.com/commercelayer/commercelayer-sdk/commit/7800fedcf1ec4f5b92c433a35ffd31fb522951dc))
+
+# [6.2.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.1.0...v6.2.0) (2024-05-21)
+
+
+### Features
+
+* update resources to schema v5.3.1 ([8f6ea22](https://github.com/commercelayer/commercelayer-sdk/commit/8f6ea221ff6f1079326f0467da41b42260cd8b81))
+
+# [6.1.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.2...v6.1.0) (2024-05-17)
+
+
+### Features
+
+* update resources to schema v5.3.0 ([3700e08](https://github.com/commercelayer/commercelayer-sdk/commit/3700e083b71d55cf08edeccb6ba3a744ec07e880))
+* update resources to schema v5.3.0 ([#338](https://github.com/commercelayer/commercelayer-sdk/issues/338)) ([dc644ed](https://github.com/commercelayer/commercelayer-sdk/commit/dc644eda96983467f7955d2e518b9ecb0a667a4f))
+
+## [6.0.2](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.1...v6.0.2) (2024-05-07)
+
+
+### Bug Fixes
+
+* fix rate limit headers ([e4dddc5](https://github.com/commercelayer/commercelayer-sdk/commit/e4dddc5e8bcaebb84f01f9601747f9606972e3bc))
+
 ## [6.0.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.0.0...v6.0.1) (2024-04-30)
 
 

@@ -20,27 +20,27 @@ interface SubscriptionModel extends Resource {
 	readonly type: SubscriptionModelType
 
 	/** 
-	 * The subscription model's internal name..
+	 * The subscription model's internal name.
 	 * @example ```"EU Subscription Model"```
 	 */
 	name: string
 	/** 
-	 * The subscription model's strategy used to generate order subscriptions: one between 'by_frequency' (default) and 'by_line_items'..
+	 * The subscription model's strategy used to generate order subscriptions: one between 'by_frequency' (default) and 'by_line_items'.
 	 * @example ```"by_frequency"```
 	 */
 	strategy?: string | null
 	/** 
-	 * An object that contains the frequencies available for this subscription model. Supported ones are 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or your custom crontab expression (min unit is hour)..
-	 * @example ```"hourly,10 * * * *,weekly,monthly,two-month"```
+	 * An object that contains the frequencies available for this subscription model. Supported ones are 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or your custom crontab expression (min unit is hour).
+	 * @example ```["hourly","10 * * * *","weekly","monthly","two-month"]```
 	 */
 	frequencies: string[]
 	/** 
-	 * Indicates if the created subscriptions will be activated considering the placed source order as its first run, default to true..
-	 * @example ```"true"```
+	 * Indicates if the created subscriptions will be activated considering the placed source order as its first run, default to true.
+	 * @example ```true```
 	 */
 	auto_activate?: boolean | null
 	/** 
-	 * Indicates if the created subscriptions will be cancelled in case the source order is cancelled, default to false..
+	 * Indicates if the created subscriptions will be cancelled in case the source order is cancelled, default to false.
 	 */
 	auto_cancel?: boolean | null
 
@@ -54,27 +54,27 @@ interface SubscriptionModel extends Resource {
 interface SubscriptionModelCreate extends ResourceCreate {
 	
 	/** 
-	 * The subscription model's internal name..
+	 * The subscription model's internal name.
 	 * @example ```"EU Subscription Model"```
 	 */
 	name: string
 	/** 
-	 * The subscription model's strategy used to generate order subscriptions: one between 'by_frequency' (default) and 'by_line_items'..
+	 * The subscription model's strategy used to generate order subscriptions: one between 'by_frequency' (default) and 'by_line_items'.
 	 * @example ```"by_frequency"```
 	 */
 	strategy?: string | null
 	/** 
-	 * An object that contains the frequencies available for this subscription model. Supported ones are 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or your custom crontab expression (min unit is hour)..
-	 * @example ```"hourly,10 * * * *,weekly,monthly,two-month"```
+	 * An object that contains the frequencies available for this subscription model. Supported ones are 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or your custom crontab expression (min unit is hour).
+	 * @example ```["hourly","10 * * * *","weekly","monthly","two-month"]```
 	 */
 	frequencies: string[]
 	/** 
-	 * Indicates if the created subscriptions will be activated considering the placed source order as its first run, default to true..
-	 * @example ```"true"```
+	 * Indicates if the created subscriptions will be activated considering the placed source order as its first run, default to true.
+	 * @example ```true```
 	 */
 	auto_activate?: boolean | null
 	/** 
-	 * Indicates if the created subscriptions will be cancelled in case the source order is cancelled, default to false..
+	 * Indicates if the created subscriptions will be cancelled in case the source order is cancelled, default to false.
 	 */
 	auto_cancel?: boolean | null
 	
@@ -84,27 +84,27 @@ interface SubscriptionModelCreate extends ResourceCreate {
 interface SubscriptionModelUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The subscription model's internal name..
+	 * The subscription model's internal name.
 	 * @example ```"EU Subscription Model"```
 	 */
 	name?: string | null
 	/** 
-	 * The subscription model's strategy used to generate order subscriptions: one between 'by_frequency' (default) and 'by_line_items'..
+	 * The subscription model's strategy used to generate order subscriptions: one between 'by_frequency' (default) and 'by_line_items'.
 	 * @example ```"by_frequency"```
 	 */
 	strategy?: string | null
 	/** 
-	 * An object that contains the frequencies available for this subscription model. Supported ones are 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or your custom crontab expression (min unit is hour)..
-	 * @example ```"hourly,10 * * * *,weekly,monthly,two-month"```
+	 * An object that contains the frequencies available for this subscription model. Supported ones are 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or your custom crontab expression (min unit is hour).
+	 * @example ```["hourly","10 * * * *","weekly","monthly","two-month"]```
 	 */
 	frequencies?: string[] | null
 	/** 
-	 * Indicates if the created subscriptions will be activated considering the placed source order as its first run, default to true..
-	 * @example ```"true"```
+	 * Indicates if the created subscriptions will be activated considering the placed source order as its first run, default to true.
+	 * @example ```true```
 	 */
 	auto_activate?: boolean | null
 	/** 
-	 * Indicates if the created subscriptions will be cancelled in case the source order is cancelled, default to false..
+	 * Indicates if the created subscriptions will be cancelled in case the source order is cancelled, default to false.
 	 */
 	auto_cancel?: boolean | null
 	

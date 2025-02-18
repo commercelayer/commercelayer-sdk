@@ -6,6 +6,16 @@ import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { AdyenPayment } from './adyen_payments'
+import type { AxervePayment } from './axerve_payments'
+import type { BraintreePayment } from './braintree_payments'
+import type { CheckoutComPayment } from './checkout_com_payments'
+import type { ExternalPayment } from './external_payments'
+import type { KlarnaPayment } from './klarna_payments'
+import type { PaypalPayment } from './paypal_payments'
+import type { SatispayPayment } from './satispay_payments'
+import type { StripePayment } from './stripe_payments'
+import type { WireTransfer } from './wire_transfers'
 
 
 type TransactionType = 'transactions'
@@ -26,22 +36,22 @@ interface Transaction extends Resource {
 	 */
 	number: string
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
 	 * @example ```"EUR"```
 	 */
 	currency_code: string
 	/** 
-	 * The transaction amount, in cents..
-	 * @example ```"1500"```
+	 * The transaction amount, in cents.
+	 * @example ```1500```
 	 */
 	amount_cents: number
 	/** 
-	 * The transaction amount, float..
-	 * @example ```"15"```
+	 * The transaction amount, float.
+	 * @example ```15```
 	 */
 	amount_float: number
 	/** 
-	 * The transaction amount, formatted..
+	 * The transaction amount, formatted.
 	 * @example ```"€15,00"```
 	 */
 	formatted_amount: string
@@ -76,6 +86,7 @@ interface Transaction extends Resource {
 	gateway_transaction_id?: string | null
 
 	order?: Order | null
+	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null

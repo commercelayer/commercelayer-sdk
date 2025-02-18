@@ -1,5 +1,5 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
@@ -7,6 +7,16 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
 import type { Authorization } from './authorizations'
+import type { AdyenPayment } from './adyen_payments'
+import type { AxervePayment } from './axerve_payments'
+import type { BraintreePayment } from './braintree_payments'
+import type { CheckoutComPayment } from './checkout_com_payments'
+import type { ExternalPayment } from './external_payments'
+import type { KlarnaPayment } from './klarna_payments'
+import type { PaypalPayment } from './paypal_payments'
+import type { SatispayPayment } from './satispay_payments'
+import type { StripePayment } from './stripe_payments'
+import type { WireTransfer } from './wire_transfers'
 
 
 type VoidType = 'voids'
@@ -27,22 +37,22 @@ interface Void extends Resource {
 	 */
 	number: string
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
 	 * @example ```"EUR"```
 	 */
 	currency_code: string
 	/** 
-	 * The transaction amount, in cents..
-	 * @example ```"1500"```
+	 * The transaction amount, in cents.
+	 * @example ```1500```
 	 */
 	amount_cents: number
 	/** 
-	 * The transaction amount, float..
-	 * @example ```"15"```
+	 * The transaction amount, float.
+	 * @example ```15```
 	 */
 	amount_float: number
 	/** 
-	 * The transaction amount, formatted..
+	 * The transaction amount, formatted.
 	 * @example ```"€15,00"```
 	 */
 	formatted_amount: string
@@ -77,6 +87,7 @@ interface Void extends Resource {
 	gateway_transaction_id?: string | null
 
 	order?: Order | null
+	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
@@ -85,9 +96,28 @@ interface Void extends Resource {
 }
 
 
+interface VoidUpdate extends ResourceUpdate {
+	
+	/** 
+	 * Indicates if the transaction is successful.
+	 */
+	succeeded?: boolean | null
+	/** 
+	 * Send this attribute if you want to forward a stuck transaction to succeeded and update associated order states accordingly.
+	 * @example ```true```
+	 */
+	_forward?: boolean | null
+	
+}
+
+
 class Voids extends ApiResource<Void> {
 
 	static readonly TYPE: VoidType = 'voids' as const
+
+	async update(resource: VoidUpdate, params?: QueryParamsRetrieve<Void>, options?: ResourcesConfig): Promise<Void> {
+		return this.resources.update<VoidUpdate, Void>({ ...resource, type: Voids.TYPE }, params, options)
+	}
 
 	async order(voidId: string | Void, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _voidId = (voidId as Void).id || voidId as string
@@ -114,6 +144,10 @@ class Voids extends ApiResource<Void> {
 		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `voids/${_voidId}/reference_authorization`, params, options) as unknown as Authorization
 	}
 
+	async _forward(id: string | Void, params?: QueryParamsRetrieve<Void>, options?: ResourcesConfig): Promise<Void> {
+		return this.resources.update<VoidUpdate, Void>({ id: (typeof id === 'string')? id: id.id, type: Voids.TYPE, _forward: true }, params, options)
+	}
+
 
 	isVoid(resource: any): resource is Void {
 		return resource.type && (resource.type === Voids.TYPE)
@@ -138,4 +172,4 @@ class Voids extends ApiResource<Void> {
 
 export default Voids
 
-export type { Void, VoidType }
+export type { Void, VoidUpdate, VoidType }

@@ -37,6 +37,7 @@ export type AccessToken = {
 const initEnv = (env?: string): AuthData | undefined => {
 
 	if (env) {
+		console.log('**** Test Environment: ' + env)
 		const cfg = dotenv.config({ path: `./test/env/.env.${env}`, override: true })
 		if (cfg.error) throw cfg.error
 	}

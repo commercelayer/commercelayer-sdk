@@ -21,7 +21,7 @@ interface Merchant extends Resource {
 	readonly type: MerchantType
 
 	/** 
-	 * The merchant's internal name..
+	 * The merchant's internal name.
 	 * @example ```"The Brand Inc."```
 	 */
 	name: string
@@ -36,7 +36,7 @@ interface Merchant extends Resource {
 interface MerchantCreate extends ResourceCreate {
 	
 	/** 
-	 * The merchant's internal name..
+	 * The merchant's internal name.
 	 * @example ```"The Brand Inc."```
 	 */
 	name: string
@@ -49,7 +49,7 @@ interface MerchantCreate extends ResourceCreate {
 interface MerchantUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The merchant's internal name..
+	 * The merchant's internal name.
 	 * @example ```"The Brand Inc."```
 	 */
 	name?: string | null

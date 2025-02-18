@@ -4,7 +4,7 @@ import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter
 
 
 
-type ApplicationType = 'application'
+type ApplicationType = 'applications'
 type ApplicationRel = ResourceRel & { type: ApplicationType }
 
 
@@ -17,27 +17,27 @@ interface Application extends Resource {
 	readonly type: ApplicationType
 
 	/** 
-	 * The application's internal name..
+	 * The application's internal name.
 	 * @example ```"My app"```
 	 */
 	name?: string | null
 	/** 
-	 * The application's kind, can be one of: 'sales_channel', 'integration' and 'webapp'..
+	 * The application's kind. One of 'sales_channel', 'integration', or 'webapp'.
 	 * @example ```"sales-channel"```
 	 */
-	kind?: string | null
+	kind?: 'dashboard' | 'user' | 'metrics' | 'contentful' | 'bundles' | 'customers' | 'datocms' | 'exports' | 'external' | 'gift_cards' | 'imports' | 'integration' | 'inventory' | 'orders' | 'price_lists' | 'promotions' | 'resources' | 'returns' | 'sales_channel' | 'sanity' | 'shipments' | 'skus' | 'sku_lists' | 'stock_transfers' | 'subscriptions' | 'tags' | 'webapp' | 'webhooks' | 'zapier' | null
 	/** 
-	 * Indicates if the application has public access..
-	 * @example ```"true"```
+	 * Indicates if the application has public access.
+	 * @example ```true```
 	 */
 	public_access?: boolean | null
 	/** 
-	 * The application's redirect URI..
+	 * The application's redirect URI.
 	 * @example ```"https://bluebrand.com/img/logo.svg"```
 	 */
 	redirect_uri?: string | null
 	/** 
-	 * The application's scopes..
+	 * The application's scopes.
 	 * @example ```"market:all market:9 market:122 market:6 stock_location:6 stock_location:33"```
 	 */
 	scopes?: string | null
@@ -47,7 +47,7 @@ interface Application extends Resource {
 
 class Applications extends ApiSingleton<Application> {
 
-	static readonly TYPE: ApplicationType = 'application' as const
+	static readonly TYPE: ApplicationType = 'applications' as const
 
 	
 
@@ -68,6 +68,10 @@ class Applications extends ApiSingleton<Application> {
 
 	type(): ApplicationType {
 		return Applications.TYPE
+	}
+
+	path(): string {
+		return 'application'
 	}
 
 }

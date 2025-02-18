@@ -26,96 +26,101 @@ interface GiftCard extends Resource {
 	readonly type: GiftCardType
 
 	/** 
-	 * The gift card status, one of 'draft', 'inactive', 'active', or 'redeemed'..
+	 * The gift card status. One of 'draft' (default), 'inactive', 'active', or 'redeemed'.
 	 * @example ```"draft"```
 	 */
 	status: 'draft' | 'inactive' | 'active' | 'redeemed'
 	/** 
-	 * The gift card code UUID. If not set, it's automatically generated..
+	 * The gift card code UUID. If not set, it's automatically generated.
 	 * @example ```"32db311a-75d9-4c17-9e34-2be220137ad6"```
 	 */
 	code?: string | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * The gift card initial balance, in cents..
-	 * @example ```"15000"```
+	 * The gift card initial balance, in cents.
+	 * @example ```15000```
 	 */
 	initial_balance_cents: number
 	/** 
-	 * The gift card initial balance, float..
-	 * @example ```"150"```
+	 * The gift card initial balance, float.
+	 * @example ```150```
 	 */
 	initial_balance_float: number
 	/** 
-	 * The gift card initial balance, formatted..
+	 * The gift card initial balance, formatted.
 	 * @example ```"€150,00"```
 	 */
 	formatted_initial_balance: string
 	/** 
-	 * The gift card balance, in cents..
-	 * @example ```"15000"```
+	 * The gift card balance, in cents.
+	 * @example ```15000```
 	 */
 	balance_cents: number
 	/** 
-	 * The gift card balance, float..
-	 * @example ```"150"```
+	 * The gift card balance, float.
+	 * @example ```150```
 	 */
 	balance_float: number
 	/** 
-	 * The gift card balance, formatted..
+	 * The gift card balance, formatted.
 	 * @example ```"€150,00"```
 	 */
 	formatted_balance: string
 	/** 
-	 * The gift card balance max, in cents..
-	 * @example ```"100000"```
+	 * The gift card balance max, in cents.
+	 * @example ```100000```
 	 */
-	balance_max_cents?: string | null
+	balance_max_cents?: number | null
 	/** 
-	 * The gift card balance max, float..
-	 * @example ```"1000"```
+	 * The gift card balance max, float.
+	 * @example ```1000```
 	 */
 	balance_max_float?: number | null
 	/** 
-	 * The gift card balance max, formatted..
+	 * The gift card balance max, formatted.
 	 * @example ```"€1000,00"```
 	 */
 	formatted_balance_max?: string | null
 	/** 
-	 * The gift card balance log. Tracks all the gift card transactions..
-	 * @example ```"[object Object],[object Object]"```
+	 * The gift card balance log. Tracks all the gift card transactions.
+	 * @example ```[{"datetime":"2019-12-23T12:00:00.000Z","balance_change_cents":-10000},{"datetime":"2020-02-01T12:00:00.000Z","balance_change_cents":5000}]```
 	 */
 	balance_log: Array<Record<string, any>>
 	/** 
-	 * Indicates if the gift card can be used only one..
+	 * The gift card usage log. Tracks all the gift card usage actions by orders.
+	 * @example ```{"eNoKkhmbNp":[{"action":"use","amount_cents":-1000,"balance_cents":4000,"order_number":"11111","datetime":"2020-02-01T12:00:00.000Z"}]}```
+	 */
+	usage_log: Record<string, any>
+	/** 
+	 * Indicates if the gift card can be used only one.
 	 */
 	single_use?: boolean | null
 	/** 
-	 * Indicates if the gift card can be recharged..
-	 * @example ```"true"```
+	 * Indicates if the gift card can be recharged.
+	 * @example ```true```
 	 */
 	rechargeable?: boolean | null
 	/** 
-	 * Indicates if redeemed gift card amount is distributed for tax calculation..
-	 * @example ```"true"```
+	 * Indicates if redeemed gift card amount is distributed for tax calculation.
+	 * @example ```true```
 	 */
 	distribute_discount?: boolean | null
 	/** 
-	 * The URL of an image that represents the gift card..
+	 * The URL of an image that represents the gift card.
 	 * @example ```"https://img.yourdomain.com/gift_cards/32db311a.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * Time at which the gift card will expire..
+	 * Time at which the gift card will expire.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	expires_at?: string | null
 	/** 
-	 * The email address of the associated recipient. When creating or updating a gift card, this is a shortcut to find or create the associated recipient by email..
+	 * The email address of the associated recipient. When creating or updating a gift card, this is a shortcut to find or create the associated recipient by email.
 	 * @example ```"john@example.com"```
 	 */
 	recipient_email?: string | null
@@ -133,51 +138,51 @@ interface GiftCard extends Resource {
 interface GiftCardCreate extends ResourceCreate {
 	
 	/** 
-	 * The gift card code UUID. If not set, it's automatically generated..
+	 * The gift card code UUID. If not set, it's automatically generated.
 	 * @example ```"32db311a-75d9-4c17-9e34-2be220137ad6"```
 	 */
 	code?: string | null
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * The gift card balance, in cents..
-	 * @example ```"15000"```
+	 * The gift card balance, in cents.
+	 * @example ```15000```
 	 */
 	balance_cents: number
 	/** 
-	 * The gift card balance max, in cents..
-	 * @example ```"100000"```
+	 * The gift card balance max, in cents.
+	 * @example ```100000```
 	 */
-	balance_max_cents?: string | null
+	balance_max_cents?: number | null
 	/** 
-	 * Indicates if the gift card can be used only one..
+	 * Indicates if the gift card can be used only one.
 	 */
 	single_use?: boolean | null
 	/** 
-	 * Indicates if the gift card can be recharged..
-	 * @example ```"true"```
+	 * Indicates if the gift card can be recharged.
+	 * @example ```true```
 	 */
 	rechargeable?: boolean | null
 	/** 
-	 * Indicates if redeemed gift card amount is distributed for tax calculation..
-	 * @example ```"true"```
+	 * Indicates if redeemed gift card amount is distributed for tax calculation.
+	 * @example ```true```
 	 */
 	distribute_discount?: boolean | null
 	/** 
-	 * The URL of an image that represents the gift card..
+	 * The URL of an image that represents the gift card.
 	 * @example ```"https://img.yourdomain.com/gift_cards/32db311a.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * Time at which the gift card will expire..
+	 * Time at which the gift card will expire.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	expires_at?: string | null
 	/** 
-	 * The email address of the associated recipient. When creating or updating a gift card, this is a shortcut to find or create the associated recipient by email..
+	 * The email address of the associated recipient. When creating or updating a gift card, this is a shortcut to find or create the associated recipient by email.
 	 * @example ```"john@example.com"```
 	 */
 	recipient_email?: string | null
@@ -192,67 +197,67 @@ interface GiftCardCreate extends ResourceCreate {
 interface GiftCardUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * The gift card balance, in cents..
-	 * @example ```"15000"```
+	 * The gift card balance, in cents.
+	 * @example ```15000```
 	 */
 	balance_cents?: number | null
 	/** 
-	 * The gift card balance max, in cents..
-	 * @example ```"100000"```
+	 * The gift card balance max, in cents.
+	 * @example ```100000```
 	 */
-	balance_max_cents?: string | null
+	balance_max_cents?: number | null
 	/** 
-	 * Indicates if the gift card can be used only one..
+	 * Indicates if the gift card can be used only one.
 	 */
 	single_use?: boolean | null
 	/** 
-	 * Indicates if the gift card can be recharged..
-	 * @example ```"true"```
+	 * Indicates if the gift card can be recharged.
+	 * @example ```true```
 	 */
 	rechargeable?: boolean | null
 	/** 
-	 * Indicates if redeemed gift card amount is distributed for tax calculation..
-	 * @example ```"true"```
+	 * Indicates if redeemed gift card amount is distributed for tax calculation.
+	 * @example ```true```
 	 */
 	distribute_discount?: boolean | null
 	/** 
-	 * The URL of an image that represents the gift card..
+	 * The URL of an image that represents the gift card.
 	 * @example ```"https://img.yourdomain.com/gift_cards/32db311a.png"```
 	 */
 	image_url?: string | null
 	/** 
-	 * Time at which the gift card will expire..
+	 * Time at which the gift card will expire.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	expires_at?: string | null
 	/** 
-	 * The email address of the associated recipient. When creating or updating a gift card, this is a shortcut to find or create the associated recipient by email..
+	 * The email address of the associated recipient. When creating or updating a gift card, this is a shortcut to find or create the associated recipient by email.
 	 * @example ```"john@example.com"```
 	 */
 	recipient_email?: string | null
 	/** 
-	 * Send this attribute if you want to confirm a draft gift card. The gift card becomes 'inactive', waiting to be activated..
-	 * @example ```"true"```
+	 * Send this attribute if you want to confirm a draft gift card. The gift card becomes 'inactive', waiting to be activated.
+	 * @example ```true```
 	 */
 	_purchase?: boolean | null
 	/** 
-	 * Send this attribute if you want to activate a gift card..
-	 * @example ```"true"```
+	 * Send this attribute if you want to activate a gift card.
+	 * @example ```true```
 	 */
 	_activate?: boolean | null
 	/** 
-	 * Send this attribute if you want to deactivate a gift card..
-	 * @example ```"true"```
+	 * Send this attribute if you want to deactivate a gift card.
+	 * @example ```true```
 	 */
 	_deactivate?: boolean | null
 	/** 
-	 * The balance change, in cents. Send a negative value to reduces the card balance by the specified amount. Send a positive value to recharge the gift card (if rechargeable)..
-	 * @example ```"-5000"```
+	 * The balance change, in cents. Send a negative value to reduces the card balance by the specified amount. Send a positive value to recharge the gift card (if rechargeable).
+	 * @example ```-5000```
 	 */
 	_balance_change_cents?: number | null
 

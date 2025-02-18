@@ -33,12 +33,12 @@ interface Version extends Resource {
 	event?: string | null
 	/** 
 	 * The object changes payload.
-	 * @example ```"[object Object]"```
+	 * @example ```{"status":["draft","placed"]}```
 	 */
 	changes?: Record<string, any> | null
 	/** 
-	 * Information about who triggered the change..
-	 * @example ```"[object Object]"```
+	 * Information about who triggered the change.
+	 * @example ```{"application":{"id":"DNOPYiZYpn","kind":"sales_channel","public":true},"owner":{"id":"yQQrBhLBmQ","type":"Customer"}}```
 	 */
 	who?: Record<string, any> | null
 	

@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
+import type { Event } from './events'
 import type { Version } from './versions'
 import type { TaxCategory, TaxCategoryType } from './tax_categories'
 
@@ -22,33 +23,34 @@ interface AvalaraAccount extends Resource {
 	readonly type: AvalaraAccountType
 
 	/** 
-	 * The tax calculator's internal name..
+	 * The tax calculator's internal name.
 	 * @example ```"Personal tax calculator"```
 	 */
 	name: string
 	/** 
-	 * The Avalara account username..
+	 * The Avalara account username.
 	 * @example ```"user@mydomain.com"```
 	 */
 	username: string
 	/** 
-	 * The Avalara company code..
+	 * The Avalara company code.
 	 * @example ```"MYCOMPANY"```
 	 */
 	company_code: string
 	/** 
-	 * Indicates if the transaction will be recorded and visible on the Avalara website..
-	 * @example ```"true"```
+	 * Indicates if the transaction will be recorded and visible on the Avalara website.
+	 * @example ```true```
 	 */
 	commit_invoice?: boolean | null
 	/** 
-	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
-	 * @example ```"true"```
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.
+	 * @example ```true```
 	 */
 	ddp?: boolean | null
 
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
+	events?: Event[] | null
 	versions?: Version[] | null
 	tax_categories?: TaxCategory[] | null
 
@@ -58,33 +60,33 @@ interface AvalaraAccount extends Resource {
 interface AvalaraAccountCreate extends ResourceCreate {
 	
 	/** 
-	 * The tax calculator's internal name..
+	 * The tax calculator's internal name.
 	 * @example ```"Personal tax calculator"```
 	 */
 	name: string
 	/** 
-	 * The Avalara account username..
+	 * The Avalara account username.
 	 * @example ```"user@mydomain.com"```
 	 */
 	username: string
 	/** 
-	 * The Avalara account password..
+	 * The Avalara account password.
 	 * @example ```"secret"```
 	 */
 	password: string
 	/** 
-	 * The Avalara company code..
+	 * The Avalara company code.
 	 * @example ```"MYCOMPANY"```
 	 */
 	company_code: string
 	/** 
-	 * Indicates if the transaction will be recorded and visible on the Avalara website..
-	 * @example ```"true"```
+	 * Indicates if the transaction will be recorded and visible on the Avalara website.
+	 * @example ```true```
 	 */
 	commit_invoice?: boolean | null
 	/** 
-	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
-	 * @example ```"true"```
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.
+	 * @example ```true```
 	 */
 	ddp?: boolean | null
 
@@ -96,33 +98,33 @@ interface AvalaraAccountCreate extends ResourceCreate {
 interface AvalaraAccountUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The tax calculator's internal name..
+	 * The tax calculator's internal name.
 	 * @example ```"Personal tax calculator"```
 	 */
 	name?: string | null
 	/** 
-	 * The Avalara account username..
+	 * The Avalara account username.
 	 * @example ```"user@mydomain.com"```
 	 */
 	username?: string | null
 	/** 
-	 * The Avalara account password..
+	 * The Avalara account password.
 	 * @example ```"secret"```
 	 */
 	password?: string | null
 	/** 
-	 * The Avalara company code..
+	 * The Avalara company code.
 	 * @example ```"MYCOMPANY"```
 	 */
 	company_code?: string | null
 	/** 
-	 * Indicates if the transaction will be recorded and visible on the Avalara website..
-	 * @example ```"true"```
+	 * Indicates if the transaction will be recorded and visible on the Avalara website.
+	 * @example ```true```
 	 */
 	commit_invoice?: boolean | null
 	/** 
-	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities..
-	 * @example ```"true"```
+	 * Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.
+	 * @example ```true```
 	 */
 	ddp?: boolean | null
 
@@ -155,6 +157,11 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 	async attachments(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `avalara_accounts/${_avalaraAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async events(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `avalara_accounts/${_avalaraAccountId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
 	async versions(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

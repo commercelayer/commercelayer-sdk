@@ -21,8 +21,8 @@ type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type CustomerSort = Pick<Customer, 'id' | 'status' | 'total_orders_count'> & ResourceSort
-// export type CustomerFilter = Pick<Customer, 'id' | 'email' | 'status' | 'has_password' | 'total_orders_count'> & ResourceFilter
+export type CustomerSort = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count'> & ResourceSort
+// export type CustomerFilter = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count'> & ResourceFilter
 
 
 interface Customer extends Resource {
@@ -35,19 +35,34 @@ interface Customer extends Resource {
 	 */
 	email: string
 	/** 
-	 * The customer's status, one of 'prospect', 'acquired', or 'repeat'..
+	 * The customer's status. One of 'prospect' (default), 'acquired', or 'repeat'.
 	 * @example ```"prospect"```
 	 */
 	status: 'prospect' | 'acquired' | 'repeat'
 	/** 
-	 * Indicates if the customer has a password..
+	 * Indicates if the customer has a password.
 	 */
 	has_password?: boolean | null
 	/** 
-	 * The total number of orders for the customer..
-	 * @example ```"6"```
+	 * The total number of orders for the customer.
+	 * @example ```6```
 	 */
 	total_orders_count?: number | null
+	/** 
+	 * A reference to uniquely identify the shopper during payment sessions.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	shopper_reference?: string | null
+	/** 
+	 * A reference to uniquely identify the customer on any connected external services.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	profile_id?: string | null
+	/** 
+	 * A specific code to identify the tax exemption reason for this customer.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	tax_exemption_code?: string | null
 
 	customer_group?: CustomerGroup | null
 	customer_addresses?: CustomerAddress[] | null
@@ -72,10 +87,25 @@ interface CustomerCreate extends ResourceCreate {
 	 */
 	email: string
 	/** 
-	 * The customer's password. Initiate a customer password reset flow if you need to change it..
+	 * The customer's password. Initiate a customer password reset flow if you need to change it.
 	 * @example ```"secret"```
 	 */
 	password?: string | null
+	/** 
+	 * A reference to uniquely identify the shopper during payment sessions.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	shopper_reference?: string | null
+	/** 
+	 * A reference to uniquely identify the customer on any connected external services.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	profile_id?: string | null
+	/** 
+	 * A specific code to identify the tax exemption reason for this customer.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	tax_exemption_code?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null
@@ -91,10 +121,25 @@ interface CustomerUpdate extends ResourceUpdate {
 	 */
 	email?: string | null
 	/** 
-	 * The customer's password. Initiate a customer password reset flow if you need to change it..
+	 * The customer's password. Initiate a customer password reset flow if you need to change it.
 	 * @example ```"secret"```
 	 */
 	password?: string | null
+	/** 
+	 * A reference to uniquely identify the shopper during payment sessions.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	shopper_reference?: string | null
+	/** 
+	 * A reference to uniquely identify the customer on any connected external services.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	profile_id?: string | null
+	/** 
+	 * A specific code to identify the tax exemption reason for this customer.
+	 * @example ```"xxx-yyy-zzz"```
+	 */
+	tax_exemption_code?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null

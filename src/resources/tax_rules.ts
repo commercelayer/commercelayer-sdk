@@ -20,66 +20,66 @@ interface TaxRule extends Resource {
 	readonly type: TaxRuleType
 
 	/** 
-	 * The tax rule internal name..
+	 * The tax rule internal name.
 	 * @example ```"Fixed 22%"```
 	 */
 	name: string
 	/** 
-	 * The tax rate for this rule..
-	 * @example ```"0.22"```
+	 * The tax rate for this rule.
+	 * @example ```0.22```
 	 */
 	tax_rate?: number | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address country code..
+	 * Indicates if the freight is taxable.
+	 */
+	freight_taxable?: boolean | null
+	/** 
+	 * Indicates if the payment method is taxable.
+	 */
+	payment_method_taxable?: boolean | null
+	/** 
+	 * Indicates if gift cards are taxable.
+	 */
+	gift_card_taxable?: boolean | null
+	/** 
+	 * Indicates if adjustemnts are taxable.
+	 */
+	adjustment_taxable?: boolean | null
+	/** 
+	 * The breakdown for this tax rule (if calculated).
+	 * @example ```{"41":{"tax_rate":0.22}}```
+	 */
+	breakdown?: Record<string, any> | null
+	/** 
+	 * The regex that will be evaluated to match the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
 	 */
 	country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address country code..
+	 * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
 	 */
 	not_country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address state code..
+	 * The regex that will be evaluated to match the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
 	 */
 	state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address state code..
+	 * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]"```
 	 */
 	not_state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address zip code..
+	 * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
 	 */
 	zip_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping zip country code..
+	 * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3)"```
 	 */
 	not_zip_code_regex?: string | null
-	/** 
-	 * Indicates if the freight is taxable..
-	 */
-	freight_taxable?: boolean | null
-	/** 
-	 * Indicates if the payment method is taxable..
-	 */
-	payment_method_taxable?: boolean | null
-	/** 
-	 * Indicates if gift cards are taxable..
-	 */
-	gift_card_taxable?: boolean | null
-	/** 
-	 * Indicates if adjustemnts are taxable..
-	 */
-	adjustment_taxable?: boolean | null
-	/** 
-	 * The breakdown for this tax rule (if calculated)..
-	 * @example ```"[object Object]"```
-	 */
-	breakdown?: Record<string, any> | null
 
 	manual_tax_calculator?: ManualTaxCalculator | null
 	versions?: Version[] | null
@@ -90,61 +90,61 @@ interface TaxRule extends Resource {
 interface TaxRuleCreate extends ResourceCreate {
 	
 	/** 
-	 * The tax rule internal name..
+	 * The tax rule internal name.
 	 * @example ```"Fixed 22%"```
 	 */
 	name: string
 	/** 
-	 * The tax rate for this rule..
-	 * @example ```"0.22"```
+	 * The tax rate for this rule.
+	 * @example ```0.22```
 	 */
 	tax_rate?: number | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address country code..
+	 * Indicates if the freight is taxable.
+	 */
+	freight_taxable?: boolean | null
+	/** 
+	 * Indicates if the payment method is taxable.
+	 */
+	payment_method_taxable?: boolean | null
+	/** 
+	 * Indicates if gift cards are taxable.
+	 */
+	gift_card_taxable?: boolean | null
+	/** 
+	 * Indicates if adjustemnts are taxable.
+	 */
+	adjustment_taxable?: boolean | null
+	/** 
+	 * The regex that will be evaluated to match the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
 	 */
 	country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address country code..
+	 * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
 	 */
 	not_country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address state code..
+	 * The regex that will be evaluated to match the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
 	 */
 	state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address state code..
+	 * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]"```
 	 */
 	not_state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address zip code..
+	 * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
 	 */
 	zip_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping zip country code..
+	 * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3)"```
 	 */
 	not_zip_code_regex?: string | null
-	/** 
-	 * Indicates if the freight is taxable..
-	 */
-	freight_taxable?: boolean | null
-	/** 
-	 * Indicates if the payment method is taxable..
-	 */
-	payment_method_taxable?: boolean | null
-	/** 
-	 * Indicates if gift cards are taxable..
-	 */
-	gift_card_taxable?: boolean | null
-	/** 
-	 * Indicates if adjustemnts are taxable..
-	 */
-	adjustment_taxable?: boolean | null
 
 	manual_tax_calculator: ManualTaxCalculatorRel
 
@@ -154,61 +154,61 @@ interface TaxRuleCreate extends ResourceCreate {
 interface TaxRuleUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The tax rule internal name..
+	 * The tax rule internal name.
 	 * @example ```"Fixed 22%"```
 	 */
 	name?: string | null
 	/** 
-	 * The tax rate for this rule..
-	 * @example ```"0.22"```
+	 * The tax rate for this rule.
+	 * @example ```0.22```
 	 */
 	tax_rate?: number | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address country code..
+	 * Indicates if the freight is taxable.
+	 */
+	freight_taxable?: boolean | null
+	/** 
+	 * Indicates if the payment method is taxable.
+	 */
+	payment_method_taxable?: boolean | null
+	/** 
+	 * Indicates if gift cards are taxable.
+	 */
+	gift_card_taxable?: boolean | null
+	/** 
+	 * Indicates if adjustemnts are taxable.
+	 */
+	adjustment_taxable?: boolean | null
+	/** 
+	 * The regex that will be evaluated to match the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
 	 */
 	country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address country code..
+	 * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
 	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
 	 */
 	not_country_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address state code..
+	 * The regex that will be evaluated to match the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
 	 */
 	state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping address state code..
+	 * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
 	 * @example ```"A[KLRZ]|C[AOT]"```
 	 */
 	not_state_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated to match the shipping address zip code..
+	 * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
 	 */
 	zip_code_regex?: string | null
 	/** 
-	 * The regex that will be evaluated as negative match for the shipping zip country code..
+	 * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
 	 * @example ```"(?i)(JE1|JE2|JE3)"```
 	 */
 	not_zip_code_regex?: string | null
-	/** 
-	 * Indicates if the freight is taxable..
-	 */
-	freight_taxable?: boolean | null
-	/** 
-	 * Indicates if the payment method is taxable..
-	 */
-	payment_method_taxable?: boolean | null
-	/** 
-	 * Indicates if gift cards are taxable..
-	 */
-	gift_card_taxable?: boolean | null
-	/** 
-	 * Indicates if adjustemnts are taxable..
-	 */
-	adjustment_taxable?: boolean | null
 
 	manual_tax_calculator?: ManualTaxCalculatorRel | null
 

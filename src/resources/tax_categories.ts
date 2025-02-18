@@ -3,18 +3,22 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Sku, SkuType } from './skus'
+import type { Attachment } from './attachments'
+import type { Version } from './versions'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
+import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
+import type { VertexAccount, VertexAccountType } from './vertex_accounts'
 import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
 import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
 
 
 type TaxCategoryType = 'tax_categories'
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 type SkuRel = ResourceRel & { type: SkuType }
 type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
+type StripeTaxAccountRel = ResourceRel & { type: StripeTaxAccountType }
+type VertexAccountRel = ResourceRel & { type: VertexAccountType }
 type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
 type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
@@ -29,18 +33,18 @@ interface TaxCategory extends Resource {
 	readonly type: TaxCategoryType
 
 	/** 
-	 * The tax category identifier code, specific for a particular tax calculator..
+	 * The tax category identifier code, specific for a particular tax calculator.
 	 * @example ```"31000"```
 	 */
 	code: string
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 
 	sku?: Sku | null
-	tax_calculator?: AvalaraAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
+	tax_calculator?: AvalaraAccount | StripeTaxAccount | VertexAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
@@ -50,18 +54,18 @@ interface TaxCategory extends Resource {
 interface TaxCategoryCreate extends ResourceCreate {
 	
 	/** 
-	 * The tax category identifier code, specific for a particular tax calculator..
+	 * The tax category identifier code, specific for a particular tax calculator.
 	 * @example ```"31000"```
 	 */
 	code: string
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 
 	sku: SkuRel
-	tax_calculator: AvalaraAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
+	tax_calculator: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
 
 }
 
@@ -69,12 +73,12 @@ interface TaxCategoryCreate extends ResourceCreate {
 interface TaxCategoryUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The tax category identifier code, specific for a particular tax calculator..
+	 * The tax category identifier code, specific for a particular tax calculator.
 	 * @example ```"31000"```
 	 */
 	code?: string | null
 	/** 
-	 * The code of the associated SKU..
+	 * The code of the associated SKU.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null

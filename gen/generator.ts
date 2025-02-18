@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync
 import { basename } from 'node:path'
 import Fixer from './fixer'
 import Inflector from './inflector'
+import { updateLicense } from './license'
 
 
 /**** SDK source code generator settings ****/
@@ -15,6 +16,7 @@ export const CONFIG = {
 	MICRO_CLIENTS: false
 }
 /**** **** **** **** **** **** **** **** ****/
+
 
 const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
@@ -151,6 +153,8 @@ const generate = async (localSchema?: boolean) => {
 	updateModelTypes(resources)
 	// updateApiMicroClients(resources)
 
+	updateLicense()
+
 	console.log(`SDK generation completed [${global.version}].\n`)
 
 }
@@ -201,9 +205,10 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const definitions: string[] = []
 	Object.entries(resources).forEach(([type, res]) => {
+		const fieldName = res.singleton? Inflector.singularize(type) : type
 		let def = defTpl
 		def = def.replace(/##__TAB__##/g, '\t')
-		def = def.replace(/##__RESOURCE_TYPE__##/, type)
+		def = def.replace(/##__RESOURCE_TYPE__##/, fieldName)
 		def = def.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
 		definitions.push(def)
 	})
@@ -220,9 +225,10 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const initializations: string[] = []
 	if (!CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+		const fieldName = res.singleton? Inflector.singularize(type) : type
 		let ini = iniTpl
 		ini = ini.replace(/##__TAB__##/g, '\t')
-		ini = ini.replace(/##__RESOURCE_TYPE__##/, type)
+		ini = ini.replace(/##__RESOURCE_TYPE__##/, fieldName)
 		ini = ini.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
 		initializations.push(ini)
 	})
@@ -239,9 +245,10 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const leazyLoaders: string[] = []
 	if (CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+		const fieldName = res.singleton? Inflector.singularize(type) : type
 		let ll = llTpl
 		ll = ll.replace(/##__TAB__##/g, '\t')
-		ll = ll.replace(/##__RESOURCE_TYPE__##/g, type)
+		ll = ll.replace(/##__RESOURCE_TYPE__##/g, fieldName)
 		ll = ll.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
 		leazyLoaders.push(ll)
 	})
@@ -457,10 +464,15 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	const allOperations = ['list', 'create', 'retrieve', 'update', 'delete', 'singleton']
 
+	let singleton = false
+
 	// Generate CRUD operations specs
 	allOperations.forEach(op => {
 		if (!Object.values(resource.operations).map(o => {
-			if ((o.name === 'list') && o.singleton) return 'singleton'
+			if ((o.name === 'list') && o.singleton) {
+				singleton = true
+				return 'singleton'
+			}
 			else return o.name
 		}).includes(op)) {
 			const opStartIdx = findLine(`spec.${op}.start`, lines).index - 2
@@ -516,6 +528,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
 	spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
+	spec = spec.replace(/##__RESOURCE_PATH__##/g, singleton? Inflector.singularize(type) : type)
 	// Clear unused placeholders
 	spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '')
 	spec = spec.replace(/##__TRIGGER_SPECS__##/g, '')
@@ -629,8 +642,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 
 	// Operations
-	const qryMod = new Set<string>()
-	const resMod = new Set<string>()
+	const qryMod = new Set<string>()	// Query models (Retrieve/List)
+	const resMod = new Set<string>()	// Resource generic models (Es. ResponseList)
+	// const relMod = new Set<string>()	// Relationships models
 	Object.entries(resource.operations).forEach(([opName, op]) => {
 		const tpl = op.singleton ? templates['singleton'] : templates[opName]
 		if (op.singleton) resModelType = 'ApiSingleton'
@@ -645,7 +659,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			else {
 				const tplOp = templatedOperation(resName, opName, op, tpl)
 				operations.push(tplOp.operation)
-				tplOp.types.forEach(t => { declaredTypes.add(t) })
+				tplOp.types.forEach(t => declaredTypes.add(t))
 			}
 		}
 		else {
@@ -659,10 +673,16 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 						resMod.add('ListResponse')
 					}
 				operations.push(tplrOp.operation)
+				tplrOp.types.forEach(t => {	// Fix tax_calculators issue
+					// relMod.add(t)	// Add releationship type
+					declaredImportsModels.add(t)	// Add import type
+				})
 			} else console.log('Unknown operation: ' + opName)
 		}
 	})
 
+
+	const singletonResource = (resModelType === 'ApiSingleton')
 
 	// Trigger functions (only boolean)
 	if (CONFIG.TRIGGER_FUNCTIONS) triggerFunctions(type, resName, resource, operations)
@@ -674,7 +694,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.size > 0) ? `, ${Array.from(resMod).join(', ')}` : '')
 	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, resModelInterface)
 	res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
-	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, (resModelType === 'ApiSingleton') ? '' : `, ${resModelInterface}Sort`)
+	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, singletonResource? '' : `, ${resModelInterface}Sort`)
 
 	const importQueryModels = (qryMod.size > 0) ? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
 	res = res.replace(/##__IMPORT_QUERY_MODELS__##/, importQueryModels)
@@ -704,7 +724,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		resourceInterfaces.push(`Resource${cudSuffix}`)
 		const component: Component = resource.components[t]
 		const tplCmp = templatedComponent(resName, t, component)
-		tplCmp.models.forEach(m => declaredImportsModels.add(m))
+		tplCmp.models.forEach(m => {
+			if (m !== 'Resource') declaredImportsModels.add(m)	// Fix resource_errors issue
+		})
 		modelInterfaces.push(tplCmp.component)
 		if (cudSuffix) tplCmp.models.forEach(t => relationshipTypes.add(t))
 		else {
@@ -725,10 +747,13 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImportsModels)
-		.filter(i => !typesArray.includes(i))	// exludes resource self reference
+		.filter(i => !typesArray.includes(i))	// excludes resource self reference
 		.map(i => `import type { ${i}${relationshipTypes.has(i) ? `, ${i}Type` : ''} } from './${Inflector.underscore(Inflector.pluralize(i))}'`)
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
+
+	// Singleton path override
+	res = res.replace(/##__SINGLETON_PATH_OVERRIDE__##/, singletonResource? `\n\tpath(): string {\n\t\treturn '${Inflector.singularize(type)}'\n\t}\n`: '')
 
 	// Enum types definitions
 
@@ -792,6 +817,7 @@ const fixAttributeType = (attr: Attribute): string => {
 			case 'integer': return 'number'
 			case 'object': return 'Record<string, any>'
 			case 'object[]': return 'Array<Record<string, any>>'
+			case 'json': return 'object'
 			default: return attr.type
 		}
 }
@@ -834,7 +860,10 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			if (cudModel || a.fetchable) {
 				let attrType = fixAttributeType(a)
 				if (a.enum) enums[a.name] = attrType
-				if (a.description || a.example) fields.push(`/** ${a.description? `\n\t * ${a.description}.` : ''}${a.example? `\n\t * @example \`\`\`"${a.example}"\`\`\``: ''}\n\t */`)
+				if (a.description || a.example) {
+					const desc = (a.description && !a.description.endsWith('.')) ? `${a.description}.` : a.description
+					fields.push(`/** ${desc ? `\n\t * ${desc}` : ''}${a.example ? `\n\t * @example \`\`\`${JSON.stringify(a.example)}\`\`\`` : ''}\n\t */`)
+				}
 				fields.push(`${a.name}${a.required ? '' : '?'}: ${attrType}${a.required ? '' : ' | null'}`)
 			}
 		}

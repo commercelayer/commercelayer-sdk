@@ -22,7 +22,7 @@ type PriceTierRel = ResourceRel & { type: PriceTierType }
 
 
 export type PriceSort = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceSort
-// export type PriceFilter = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceFilter
+// export type PriceFilter = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents' | 'rules'> & ResourceFilter
 
 
 interface Price extends Resource {
@@ -30,45 +30,80 @@ interface Price extends Resource {
 	readonly type: PriceType
 
 	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated price list..
+	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated price list.
 	 * @example ```"EUR"```
 	 */
 	currency_code?: string | null
 	/** 
-	 * The code of the associated SKU. When creating a price, either a valid sku_code or a SKU relationship must be present..
+	 * The code of the associated SKU. When creating a price, either a valid sku_code or a SKU relationship must be present.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The SKU price amount for the associated price list, in cents..
-	 * @example ```"10000"```
+	 * The SKU price amount for the associated price list, in cents.
+	 * @example ```10000```
 	 */
 	amount_cents: number
 	/** 
-	 * The SKU price amount for the associated price list, float..
-	 * @example ```"100"```
+	 * The SKU price amount for the associated price list, float.
+	 * @example ```100```
 	 */
 	amount_float?: number | null
 	/** 
-	 * The SKU price amount for the associated price list, formatted..
+	 * The SKU price amount for the associated price list, formatted.
 	 * @example ```"€100,00"```
 	 */
 	formatted_amount?: string | null
 	/** 
-	 * The compared price amount, in cents. Useful to display a percentage discount..
-	 * @example ```"13000"```
+	 * The SKU price amount for the associated price list, in cents before any applied rule.
+	 * @example ```10000```
+	 */
+	original_amount_cents?: number | null
+	/** 
+	 * The SKU price amount for the associated price list, in cents before any applied rule, formatted.
+	 * @example ```"€100,00"```
+	 */
+	formatted_original_amount?: string | null
+	/** 
+	 * The compared price amount, in cents. Useful to display a percentage discount.
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
 	/** 
-	 * The compared price amount, float..
-	 * @example ```"130"```
+	 * The compared price amount, float.
+	 * @example ```130```
 	 */
 	compare_at_amount_float?: number | null
 	/** 
-	 * The compared price amount, formatted..
+	 * The compared price amount, formatted.
 	 * @example ```"€130,00"```
 	 */
 	formatted_compare_at_amount?: string | null
+	/** 
+	 * Time at which the resource was processed by API.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	processed_at?: string | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```{}```
+	 */
+	rules?: Record<string, any> | null
+	/** 
+	 * The rule outcomes.
+	 * @example ```{}```
+	 */
+	rule_outcomes?: Record<string, any> | null
+	/** 
+	 * The payload used to evaluate the rules.
+	 * @example ```{}```
+	 */
+	resource_payload?: Record<string, any> | null
+	/** 
+	 * The custom_claim attached to the current JWT (if any).
+	 * @example ```{}```
+	 */
+	jwt_custom_claim?: Record<string, any> | null
 
 	price_list?: PriceList | null
 	sku?: Sku | null
@@ -87,20 +122,25 @@ interface Price extends Resource {
 interface PriceCreate extends ResourceCreate {
 	
 	/** 
-	 * The code of the associated SKU. When creating a price, either a valid sku_code or a SKU relationship must be present..
+	 * The code of the associated SKU. When creating a price, either a valid sku_code or a SKU relationship must be present.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The SKU price amount for the associated price list, in cents..
-	 * @example ```"10000"```
+	 * The SKU price amount for the associated price list, in cents.
+	 * @example ```10000```
 	 */
 	amount_cents: number
 	/** 
-	 * The compared price amount, in cents. Useful to display a percentage discount..
-	 * @example ```"13000"```
+	 * The compared price amount, in cents. Useful to display a percentage discount.
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```{}```
+	 */
+	rules?: Record<string, any> | null
 
 	price_list: PriceListRel
 	sku: SkuRel
@@ -112,20 +152,30 @@ interface PriceCreate extends ResourceCreate {
 interface PriceUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The code of the associated SKU. When creating a price, either a valid sku_code or a SKU relationship must be present..
+	 * The code of the associated SKU. When creating a price, either a valid sku_code or a SKU relationship must be present.
 	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
 	 */
 	sku_code?: string | null
 	/** 
-	 * The SKU price amount for the associated price list, in cents..
-	 * @example ```"10000"```
+	 * The SKU price amount for the associated price list, in cents.
+	 * @example ```10000```
 	 */
 	amount_cents?: number | null
 	/** 
-	 * The compared price amount, in cents. Useful to display a percentage discount..
-	 * @example ```"13000"```
+	 * The compared price amount, in cents. Useful to display a percentage discount.
+	 * @example ```13000```
 	 */
 	compare_at_amount_cents?: number | null
+	/** 
+	 * Time at which the resource was processed by API.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	processed_at?: string | null
+	/** 
+	 * The rules (using Rules Engine) to be applied.
+	 * @example ```{}```
+	 */
+	rules?: Record<string, any> | null
 
 	price_list?: PriceListRel | null
 	sku?: SkuRel | null

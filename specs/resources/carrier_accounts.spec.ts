@@ -1,10 +1,10 @@
 /**
- * ©2024 Commerce Layer Inc.
+ * ©2025 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
 import { CommerceLayerClient, CarrierAccount } from '../../src'
-import isEqual from 'lodash.isequal'
+import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -19,6 +19,39 @@ beforeAll(async () => { cl = await getClient() })
 describe('CarrierAccounts resource', () => {
 
   const resourceType = 'carrier_accounts'
+  const resourcePath = 'carrier_accounts'
+
+
+  /* spec.create.start */
+  it(resourceType + '.create', async () => {
+
+    const createAttributes = {
+			name: randomValue('string', 'name'),
+			easypost_type: randomValue('string', 'easypost_type'),
+			credentials: randomValue('object', 'credentials'),
+			market: cl.markets.relationship(TestData.id),
+		}
+
+    const attributes = { ...createAttributes, reference: TestData.reference }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
+    const resData = attributes
+
+    cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('POST')
+      checkCommon(request, resourcePath)
+      checkCommonData(data, resourceType, attributes)
+      expect(cl[resourcePath].isCarrierAccount(data.data)).toBeTruthy()
+      return interceptRequest()
+    })
+
+    await cl[resourcePath].create(resData, params, CommonData.options)
+      .then((res: CarrierAccount) =>  expect(res).not.toBeNull())
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+
+  })
+  /* spec.create.stop */
 
 
   /* spec.retrieve.start */
@@ -29,18 +62,61 @@ describe('CarrierAccounts resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].retrieve(id, params, CommonData.options)
+    await cl[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: CarrierAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
   })
   /* spec.retrieve.stop */
+
+
+  /* spec.update.start */
+  it(resourceType + '.update', async () => {
+
+    const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
+    const params = { fields: { [resourceType]: CommonData.paramsFields } }
+    const resData = { id: TestData.id, ...attributes}
+
+    cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourcePath, resData.id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, resData.id)
+      return interceptRequest()
+    })
+
+    await cl[resourcePath].update(resData, params, CommonData.options)
+      .then((res: CarrierAccount) =>  expect(res).not.toBeNull())
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+
+  })
+  /* spec.update.stop */
+
+
+  /* spec.delete.start */
+  it(resourceType + '.delete', async () => {
+
+    const id = TestData.id
+
+    cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('DELETE')
+      checkCommon(request, resourcePath, id, currentAccessToken)
+      return interceptRequest()
+    })
+
+    await cl[resourcePath].delete(id, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+
+  })
+  /* spec.delete.stop */
 
 
   /* spec.list.start */
@@ -50,12 +126,12 @@ describe('CarrierAccounts resource', () => {
 
     cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await cl[resourceType].list(params, CommonData.options)
+    await cl[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -67,9 +143,9 @@ describe('CarrierAccounts resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourceType].isCarrierAccount(resource)).toBeTruthy()
+    expect(cl[resourcePath].isCarrierAccount(resource)).toBeTruthy()
 
-    const type = cl[resourceType].type()
+    const type = cl[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -79,11 +155,11 @@ describe('CarrierAccounts resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourceType].relationship(TestData.id)
-    expect(isEqual(relId, { id: TestData.id, type: resourceType}))
+    const relId = cl[resourcePath].relationship(TestData.id)
+    expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourceType].relationship({ id: TestData.id, type: resourceType })
-    expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
+    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
   /* spec.relationship.stop */
@@ -117,7 +193,7 @@ describe('CarrierAccounts resource', () => {
     }
     `
 
-    const res = cl[resourceType].parse(payload) as CarrierAccount
+    const res = cl[resourcePath].parse(payload) as CarrierAccount
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -136,12 +212,12 @@ describe('CarrierAccounts resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'market')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'market')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].market(id, params, CommonData.options)
+		await cl[resourcePath].market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -157,12 +233,12 @@ describe('CarrierAccounts resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'attachments')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'attachments')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].attachments(id, params, CommonData.options)
+		await cl[resourcePath].attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -178,12 +254,12 @@ describe('CarrierAccounts resource', () => {
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await cl[resourceType].versions(id, params, CommonData.options)
+		await cl[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

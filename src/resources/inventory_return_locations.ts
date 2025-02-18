@@ -22,8 +22,8 @@ interface InventoryReturnLocation extends Resource {
 	readonly type: InventoryReturnLocationType
 
 	/** 
-	 * The inventory return location priority within the associated invetory model..
-	 * @example ```"1"```
+	 * The inventory return location priority within the associated invetory model.
+	 * @example ```1```
 	 */
 	priority: number
 
@@ -37,8 +37,8 @@ interface InventoryReturnLocation extends Resource {
 interface InventoryReturnLocationCreate extends ResourceCreate {
 	
 	/** 
-	 * The inventory return location priority within the associated invetory model..
-	 * @example ```"1"```
+	 * The inventory return location priority within the associated invetory model.
+	 * @example ```1```
 	 */
 	priority: number
 
@@ -51,8 +51,8 @@ interface InventoryReturnLocationCreate extends ResourceCreate {
 interface InventoryReturnLocationUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The inventory return location priority within the associated invetory model..
-	 * @example ```"1"```
+	 * The inventory return location priority within the associated invetory model.
+	 * @example ```1```
 	 */
 	priority?: number | null
 

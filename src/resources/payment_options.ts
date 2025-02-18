@@ -20,18 +20,18 @@ interface PaymentOption extends Resource {
 	readonly type: PaymentOptionType
 
 	/** 
-	 * The payment option's name. Wehn blank is inherited by payment source type..
+	 * The payment option's name. Wehn blank is inherited by payment source type.
 	 * @example ```"Stripe Payment Option"```
 	 */
 	name?: string | null
 	/** 
-	 * The payment source type, can be one of: 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'..
+	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"stripe_payments"```
 	 */
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	/** 
-	 * The payment options data to be added to the payment source payload. Check payment specific API for more details..
-	 * @example ```"[object Object]"```
+	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
+	 * @example ```{"application_fee_amount":1000,"on_behalf_of":"pm_xxx"}```
 	 */
 	data: Record<string, any>
 
@@ -44,18 +44,18 @@ interface PaymentOption extends Resource {
 interface PaymentOptionCreate extends ResourceCreate {
 	
 	/** 
-	 * The payment option's name. Wehn blank is inherited by payment source type..
+	 * The payment option's name. Wehn blank is inherited by payment source type.
 	 * @example ```"Stripe Payment Option"```
 	 */
 	name?: string | null
 	/** 
-	 * The payment source type, can be one of: 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'..
+	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"stripe_payments"```
 	 */
 	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	/** 
-	 * The payment options data to be added to the payment source payload. Check payment specific API for more details..
-	 * @example ```"[object Object]"```
+	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
+	 * @example ```{"application_fee_amount":1000,"on_behalf_of":"pm_xxx"}```
 	 */
 	data: Record<string, any>
 
@@ -67,13 +67,13 @@ interface PaymentOptionCreate extends ResourceCreate {
 interface PaymentOptionUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The payment option's name. Wehn blank is inherited by payment source type..
+	 * The payment option's name. Wehn blank is inherited by payment source type.
 	 * @example ```"Stripe Payment Option"```
 	 */
 	name?: string | null
 	/** 
-	 * The payment options data to be added to the payment source payload. Check payment specific API for more details..
-	 * @example ```"[object Object]"```
+	 * The payment options data to be added to the payment source payload. Check payment specific API for more details.
+	 * @example ```{"application_fee_amount":1000,"on_behalf_of":"pm_xxx"}```
 	 */
 	data?: Record<string, any> | null
 

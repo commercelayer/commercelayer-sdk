@@ -2,6 +2,7 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { Market } from './markets'
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
 
@@ -24,6 +25,7 @@ interface BingGeocoder extends Resource {
 	 */
 	name: string
 
+	markets?: Market[] | null
 	addresses?: Address[] | null
 	attachments?: Attachment[] | null
 
@@ -76,6 +78,11 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 
 	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete((typeof id === 'string')? { id, type: BingGeocoders.TYPE } : id, options)
+	}
+
+	async markets(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `bing_geocoders/${_bingGeocoderId}/markets`, params, options) as unknown as ListResponse<Market>
 	}
 
 	async addresses(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList<Address>, options?: ResourcesConfig): Promise<ListResponse<Address>> {
