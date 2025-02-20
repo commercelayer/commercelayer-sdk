@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "6.33.0",
+  "version": "7.0.0-beta.2",
   "main": "lib/index.cjs",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
@@ -46,7 +46,7 @@
     "node": ">=22"
   },
   "devDependencies": {
-    "@commercelayer/eslint-config-ts": "^2.1.0",
+    "@commercelayer/eslint-config-ts": "^2.2.0",
     "@commercelayer/js-auth": "^6.7.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
