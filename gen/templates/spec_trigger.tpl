@@ -1,5 +1,6 @@
+
 /* trigger.##__OPERATION_NAME__## start */
-it(resourceType + '.##__OPERATION_NAME__##', async () => {
+test(resourceType + '.##__OPERATION_NAME__##', async () => {
 
 	let triggerAttr = '##__OPERATION_NAME__##'
 	if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

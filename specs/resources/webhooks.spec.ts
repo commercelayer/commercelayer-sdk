@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll } from 'vitest'
 import { CommerceLayerClient, Webhook } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('Webhooks resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			topic: randomValue('string', 'topic'),
@@ -53,7 +54,7 @@ describe('Webhooks resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -75,7 +76,7 @@ describe('Webhooks resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -99,7 +100,7 @@ describe('Webhooks resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -118,7 +119,7 @@ describe('Webhooks resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -138,7 +139,7 @@ describe('Webhooks resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isWebhook(resource)).toBeTruthy()
@@ -151,7 +152,7 @@ describe('Webhooks resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -165,7 +166,7 @@ describe('Webhooks resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -202,8 +203,9 @@ describe('Webhooks resource', () => {
 
   
 
+	
 	/* relationship.last_event_callbacks start */
-	it(resourceType + '.last_event_callbacks', async () => {
+	test(resourceType + '.last_event_callbacks', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_callbacks: CommonData.paramsFields } }
@@ -223,8 +225,9 @@ describe('Webhooks resource', () => {
 	/* relationship.last_event_callbacks stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -245,8 +248,9 @@ describe('Webhooks resource', () => {
 	
   
 
+	
 	/* trigger._disable start */
-	it(resourceType + '._disable', async () => {
+	test(resourceType + '._disable', async () => {
 	
 		let triggerAttr = '_disable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -271,8 +275,9 @@ describe('Webhooks resource', () => {
 	/* trigger._disable stop */
 	
 
+	
 	/* trigger._enable start */
-	it(resourceType + '._enable', async () => {
+	test(resourceType + '._enable', async () => {
 	
 		let triggerAttr = '_enable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -297,8 +302,9 @@ describe('Webhooks resource', () => {
 	/* trigger._enable stop */
 	
 
+	
 	/* trigger._reset_circuit start */
-	it(resourceType + '._reset_circuit', async () => {
+	test(resourceType + '._reset_circuit', async () => {
 	
 		let triggerAttr = '_reset_circuit'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

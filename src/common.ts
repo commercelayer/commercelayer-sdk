@@ -12,3 +12,9 @@ const isResourceType = (resource: any): resource is ResourceType => {
 
 
 export { isResourceId, isResourceType }
+
+
+
+export const DBG = {
+	verbose: false
+}

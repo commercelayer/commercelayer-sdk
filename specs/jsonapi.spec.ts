@@ -1,4 +1,5 @@
 
+import { expect, test, beforeAll } from 'vitest'
 import { CommerceLayerClient } from '../src'
 import { getClient, TestData } from '../test/common'
 import { normalize, denormalize } from '../src/jsonapi'
@@ -14,7 +15,7 @@ beforeAll(async () => { cl = await getClient() })
 
 describe('SDK:jsonapi suite', () => {
 
-	it('jsonapi.normalize', async () => {
+	test('jsonapi.normalize', async () => {
 
 		const type: ResourceTypeLock = 'customers'
 
@@ -57,7 +58,7 @@ describe('SDK:jsonapi suite', () => {
 	})
 
 
-	it('jsonapi.denormalize', async () => {
+	test('jsonapi.denormalize', async () => {
 
 		const jsonApi = {
 			data: {

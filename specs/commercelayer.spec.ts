@@ -1,4 +1,5 @@
 
+import { expect, test, beforeAll } from 'vitest'
 import { CommerceLayer, CommerceLayerClient, CommerceLayerStatic } from '../src'
 import { getClient, organization, } from '../test/common'
 import getAccessToken from '../test/token'
@@ -12,7 +13,7 @@ beforeAll(async () => { cl = await getClient() })
 
 describe('SDK:commercelayer suite', () => {
 
-	it('commercelayer.resources', async () => {
+	test('commercelayer.resources', async () => {
 
 		const resources = CommerceLayerStatic.resources()
 
@@ -26,7 +27,7 @@ describe('SDK:commercelayer suite', () => {
 	})
 
 
-	it('commercelayer.organization', async () => {
+	test('commercelayer.organization', async () => {
 
 		expect(cl.currentOrganization).toEqual(organization)
 	
@@ -36,7 +37,7 @@ describe('SDK:commercelayer suite', () => {
 	})
 
 
-	it('commercelayer.rawResponse', async () => {
+	test('commercelayer.rawResponse', async () => {
 
 		const headers = true
 
@@ -58,7 +59,7 @@ describe('SDK:commercelayer suite', () => {
 	})
 
 
-	it('commercelayer.refreshToken', async () => {
+	test('commercelayer.refreshToken', async () => {
 
 		let refreshed = false
 

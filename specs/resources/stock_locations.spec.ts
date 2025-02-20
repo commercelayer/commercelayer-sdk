@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll } from 'vitest'
 import { CommerceLayerClient, StockLocation } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('StockLocations resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -53,7 +54,7 @@ describe('StockLocations resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -75,7 +76,7 @@ describe('StockLocations resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -99,7 +100,7 @@ describe('StockLocations resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -118,7 +119,7 @@ describe('StockLocations resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -138,7 +139,7 @@ describe('StockLocations resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isStockLocation(resource)).toBeTruthy()
@@ -151,7 +152,7 @@ describe('StockLocations resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -165,7 +166,7 @@ describe('StockLocations resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -202,8 +203,9 @@ describe('StockLocations resource', () => {
 
   
 
+	
 	/* relationship.address start */
-	it(resourceType + '.address', async () => {
+	test(resourceType + '.address', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { addresses: CommonData.paramsFields } }
@@ -223,8 +225,9 @@ describe('StockLocations resource', () => {
 	/* relationship.address stop */
 	
 
+	
 	/* relationship.inventory_stock_locations start */
-	it(resourceType + '.inventory_stock_locations', async () => {
+	test(resourceType + '.inventory_stock_locations', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { inventory_stock_locations: CommonData.paramsFields } }
@@ -244,8 +247,9 @@ describe('StockLocations resource', () => {
 	/* relationship.inventory_stock_locations stop */
 	
 
+	
 	/* relationship.inventory_return_locations start */
-	it(resourceType + '.inventory_return_locations', async () => {
+	test(resourceType + '.inventory_return_locations', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { inventory_return_locations: CommonData.paramsFields } }
@@ -265,8 +269,9 @@ describe('StockLocations resource', () => {
 	/* relationship.inventory_return_locations stop */
 	
 
+	
 	/* relationship.stock_items start */
-	it(resourceType + '.stock_items', async () => {
+	test(resourceType + '.stock_items', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_items: CommonData.paramsFields } }
@@ -286,8 +291,9 @@ describe('StockLocations resource', () => {
 	/* relationship.stock_items stop */
 	
 
+	
 	/* relationship.stock_transfers start */
-	it(resourceType + '.stock_transfers', async () => {
+	test(resourceType + '.stock_transfers', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_transfers: CommonData.paramsFields } }
@@ -307,8 +313,9 @@ describe('StockLocations resource', () => {
 	/* relationship.stock_transfers stop */
 	
 
+	
 	/* relationship.stores start */
-	it(resourceType + '.stores', async () => {
+	test(resourceType + '.stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stores: CommonData.paramsFields } }
@@ -328,8 +335,9 @@ describe('StockLocations resource', () => {
 	/* relationship.stores stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -349,8 +357,9 @@ describe('StockLocations resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }

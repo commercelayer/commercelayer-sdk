@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll } from 'vitest'
 import { CommerceLayerClient, Authorization } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('Authorizations resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -45,7 +46,7 @@ describe('Authorizations resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -69,7 +70,7 @@ describe('Authorizations resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -89,7 +90,7 @@ describe('Authorizations resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isAuthorization(resource)).toBeTruthy()
@@ -102,7 +103,7 @@ describe('Authorizations resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -116,7 +117,7 @@ describe('Authorizations resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -153,8 +154,9 @@ describe('Authorizations resource', () => {
 
   
 
+	
 	/* relationship.order start */
-	it(resourceType + '.order', async () => {
+	test(resourceType + '.order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -174,8 +176,9 @@ describe('Authorizations resource', () => {
 	/* relationship.order stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -195,8 +198,9 @@ describe('Authorizations resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -216,8 +220,9 @@ describe('Authorizations resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -237,8 +242,9 @@ describe('Authorizations resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.captures start */
-	it(resourceType + '.captures', async () => {
+	test(resourceType + '.captures', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { captures: CommonData.paramsFields } }
@@ -258,8 +264,9 @@ describe('Authorizations resource', () => {
 	/* relationship.captures stop */
 	
 
+	
 	/* relationship.voids start */
-	it(resourceType + '.voids', async () => {
+	test(resourceType + '.voids', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { voids: CommonData.paramsFields } }
@@ -280,8 +287,9 @@ describe('Authorizations resource', () => {
 	
   
 
+	
 	/* trigger._forward start */
-	it(resourceType + '._forward', async () => {
+	test(resourceType + '._forward', async () => {
 	
 		let triggerAttr = '_forward'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -306,8 +314,9 @@ describe('Authorizations resource', () => {
 	/* trigger._forward stop */
 	
 
+	
 	/* trigger._capture start */
-	it(resourceType + '._capture', async () => {
+	test(resourceType + '._capture', async () => {
 	
 		let triggerAttr = '_capture'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -332,8 +341,9 @@ describe('Authorizations resource', () => {
 	/* trigger._capture stop */
 	
 
+	
 	/* trigger._capture_amount_cents start */
-	it(resourceType + '._capture_amount_cents', async () => {
+	test(resourceType + '._capture_amount_cents', async () => {
 	
 		let triggerAttr = '_capture_amount_cents'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -358,8 +368,9 @@ describe('Authorizations resource', () => {
 	/* trigger._capture_amount_cents stop */
 	
 
+	
 	/* trigger._void start */
-	it(resourceType + '._void', async () => {
+	test(resourceType + '._void', async () => {
 	
 		let triggerAttr = '_void'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -384,8 +395,9 @@ describe('Authorizations resource', () => {
 	/* trigger._void stop */
 	
 
+	
 	/* trigger._cancel start */
-	it(resourceType + '._cancel', async () => {
+	test(resourceType + '._cancel', async () => {
 	
 		let triggerAttr = '_cancel'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

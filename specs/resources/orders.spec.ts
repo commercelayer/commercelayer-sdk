@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll } from 'vitest'
 import { CommerceLayerClient, Order } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('Orders resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			market: cl.markets.relationship(TestData.id),
@@ -59,7 +60,7 @@ describe('Orders resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -81,7 +82,7 @@ describe('Orders resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -105,7 +106,7 @@ describe('Orders resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -124,7 +125,7 @@ describe('Orders resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -144,7 +145,7 @@ describe('Orders resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isOrder(resource)).toBeTruthy()
@@ -157,7 +158,7 @@ describe('Orders resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -171,7 +172,7 @@ describe('Orders resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -208,8 +209,9 @@ describe('Orders resource', () => {
 
   
 
+	
 	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	test(resourceType + '.market', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -229,8 +231,9 @@ describe('Orders resource', () => {
 	/* relationship.market stop */
 	
 
+	
 	/* relationship.customer start */
-	it(resourceType + '.customer', async () => {
+	test(resourceType + '.customer', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customers: CommonData.paramsFields } }
@@ -250,8 +253,9 @@ describe('Orders resource', () => {
 	/* relationship.customer stop */
 	
 
+	
 	/* relationship.shipping_address start */
-	it(resourceType + '.shipping_address', async () => {
+	test(resourceType + '.shipping_address', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { addresses: CommonData.paramsFields } }
@@ -271,8 +275,9 @@ describe('Orders resource', () => {
 	/* relationship.shipping_address stop */
 	
 
+	
 	/* relationship.billing_address start */
-	it(resourceType + '.billing_address', async () => {
+	test(resourceType + '.billing_address', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { addresses: CommonData.paramsFields } }
@@ -292,8 +297,9 @@ describe('Orders resource', () => {
 	/* relationship.billing_address stop */
 	
 
+	
 	/* relationship.store start */
-	it(resourceType + '.store', async () => {
+	test(resourceType + '.store', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stores: CommonData.paramsFields } }
@@ -313,8 +319,9 @@ describe('Orders resource', () => {
 	/* relationship.store stop */
 	
 
+	
 	/* relationship.available_payment_methods start */
-	it(resourceType + '.available_payment_methods', async () => {
+	test(resourceType + '.available_payment_methods', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { payment_methods: CommonData.paramsFields } }
@@ -334,8 +341,9 @@ describe('Orders resource', () => {
 	/* relationship.available_payment_methods stop */
 	
 
+	
 	/* relationship.available_customer_payment_sources start */
-	it(resourceType + '.available_customer_payment_sources', async () => {
+	test(resourceType + '.available_customer_payment_sources', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customer_payment_sources: CommonData.paramsFields } }
@@ -355,8 +363,9 @@ describe('Orders resource', () => {
 	/* relationship.available_customer_payment_sources stop */
 	
 
+	
 	/* relationship.available_free_skus start */
-	it(resourceType + '.available_free_skus', async () => {
+	test(resourceType + '.available_free_skus', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { skus: CommonData.paramsFields } }
@@ -376,8 +385,9 @@ describe('Orders resource', () => {
 	/* relationship.available_free_skus stop */
 	
 
+	
 	/* relationship.available_free_bundles start */
-	it(resourceType + '.available_free_bundles', async () => {
+	test(resourceType + '.available_free_bundles', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { bundles: CommonData.paramsFields } }
@@ -397,8 +407,9 @@ describe('Orders resource', () => {
 	/* relationship.available_free_bundles stop */
 	
 
+	
 	/* relationship.payment_method start */
-	it(resourceType + '.payment_method', async () => {
+	test(resourceType + '.payment_method', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { payment_methods: CommonData.paramsFields } }
@@ -418,8 +429,9 @@ describe('Orders resource', () => {
 	/* relationship.payment_method stop */
 	
 
+	
 	/* relationship.line_items start */
-	it(resourceType + '.line_items', async () => {
+	test(resourceType + '.line_items', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { line_items: CommonData.paramsFields } }
@@ -439,8 +451,9 @@ describe('Orders resource', () => {
 	/* relationship.line_items stop */
 	
 
+	
 	/* relationship.line_item_options start */
-	it(resourceType + '.line_item_options', async () => {
+	test(resourceType + '.line_item_options', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { line_item_options: CommonData.paramsFields } }
@@ -460,8 +473,9 @@ describe('Orders resource', () => {
 	/* relationship.line_item_options stop */
 	
 
+	
 	/* relationship.stock_reservations start */
-	it(resourceType + '.stock_reservations', async () => {
+	test(resourceType + '.stock_reservations', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_reservations: CommonData.paramsFields } }
@@ -481,8 +495,9 @@ describe('Orders resource', () => {
 	/* relationship.stock_reservations stop */
 	
 
+	
 	/* relationship.stock_line_items start */
-	it(resourceType + '.stock_line_items', async () => {
+	test(resourceType + '.stock_line_items', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_line_items: CommonData.paramsFields } }
@@ -502,8 +517,9 @@ describe('Orders resource', () => {
 	/* relationship.stock_line_items stop */
 	
 
+	
 	/* relationship.stock_transfers start */
-	it(resourceType + '.stock_transfers', async () => {
+	test(resourceType + '.stock_transfers', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_transfers: CommonData.paramsFields } }
@@ -523,8 +539,9 @@ describe('Orders resource', () => {
 	/* relationship.stock_transfers stop */
 	
 
+	
 	/* relationship.shipments start */
-	it(resourceType + '.shipments', async () => {
+	test(resourceType + '.shipments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipments: CommonData.paramsFields } }
@@ -544,8 +561,9 @@ describe('Orders resource', () => {
 	/* relationship.shipments stop */
 	
 
+	
 	/* relationship.payment_options start */
-	it(resourceType + '.payment_options', async () => {
+	test(resourceType + '.payment_options', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { payment_options: CommonData.paramsFields } }
@@ -565,8 +583,9 @@ describe('Orders resource', () => {
 	/* relationship.payment_options stop */
 	
 
+	
 	/* relationship.authorizations start */
-	it(resourceType + '.authorizations', async () => {
+	test(resourceType + '.authorizations', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { authorizations: CommonData.paramsFields } }
@@ -586,8 +605,9 @@ describe('Orders resource', () => {
 	/* relationship.authorizations stop */
 	
 
+	
 	/* relationship.captures start */
-	it(resourceType + '.captures', async () => {
+	test(resourceType + '.captures', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { captures: CommonData.paramsFields } }
@@ -607,8 +627,9 @@ describe('Orders resource', () => {
 	/* relationship.captures stop */
 	
 
+	
 	/* relationship.voids start */
-	it(resourceType + '.voids', async () => {
+	test(resourceType + '.voids', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { voids: CommonData.paramsFields } }
@@ -628,8 +649,9 @@ describe('Orders resource', () => {
 	/* relationship.voids stop */
 	
 
+	
 	/* relationship.refunds start */
-	it(resourceType + '.refunds', async () => {
+	test(resourceType + '.refunds', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { refunds: CommonData.paramsFields } }
@@ -649,8 +671,9 @@ describe('Orders resource', () => {
 	/* relationship.refunds stop */
 	
 
+	
 	/* relationship.returns start */
-	it(resourceType + '.returns', async () => {
+	test(resourceType + '.returns', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { returns: CommonData.paramsFields } }
@@ -670,8 +693,9 @@ describe('Orders resource', () => {
 	/* relationship.returns stop */
 	
 
+	
 	/* relationship.order_subscription start */
-	it(resourceType + '.order_subscription', async () => {
+	test(resourceType + '.order_subscription', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { order_subscriptions: CommonData.paramsFields } }
@@ -691,8 +715,9 @@ describe('Orders resource', () => {
 	/* relationship.order_subscription stop */
 	
 
+	
 	/* relationship.order_subscriptions start */
-	it(resourceType + '.order_subscriptions', async () => {
+	test(resourceType + '.order_subscriptions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { order_subscriptions: CommonData.paramsFields } }
@@ -712,8 +737,9 @@ describe('Orders resource', () => {
 	/* relationship.order_subscriptions stop */
 	
 
+	
 	/* relationship.order_factories start */
-	it(resourceType + '.order_factories', async () => {
+	test(resourceType + '.order_factories', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { order_factories: CommonData.paramsFields } }
@@ -733,8 +759,9 @@ describe('Orders resource', () => {
 	/* relationship.order_factories stop */
 	
 
+	
 	/* relationship.order_copies start */
-	it(resourceType + '.order_copies', async () => {
+	test(resourceType + '.order_copies', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { order_copies: CommonData.paramsFields } }
@@ -754,8 +781,9 @@ describe('Orders resource', () => {
 	/* relationship.order_copies stop */
 	
 
+	
 	/* relationship.recurring_order_copies start */
-	it(resourceType + '.recurring_order_copies', async () => {
+	test(resourceType + '.recurring_order_copies', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { recurring_order_copies: CommonData.paramsFields } }
@@ -775,8 +803,9 @@ describe('Orders resource', () => {
 	/* relationship.recurring_order_copies stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -796,8 +825,9 @@ describe('Orders resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.notifications start */
-	it(resourceType + '.notifications', async () => {
+	test(resourceType + '.notifications', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { notifications: CommonData.paramsFields } }
@@ -817,8 +847,9 @@ describe('Orders resource', () => {
 	/* relationship.notifications stop */
 	
 
+	
 	/* relationship.links start */
-	it(resourceType + '.links', async () => {
+	test(resourceType + '.links', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { links: CommonData.paramsFields } }
@@ -838,8 +869,9 @@ describe('Orders resource', () => {
 	/* relationship.links stop */
 	
 
+	
 	/* relationship.resource_errors start */
-	it(resourceType + '.resource_errors', async () => {
+	test(resourceType + '.resource_errors', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { resource_errors: CommonData.paramsFields } }
@@ -859,8 +891,9 @@ describe('Orders resource', () => {
 	/* relationship.resource_errors stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -880,8 +913,9 @@ describe('Orders resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.tags start */
-	it(resourceType + '.tags', async () => {
+	test(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
@@ -901,8 +935,9 @@ describe('Orders resource', () => {
 	/* relationship.tags stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -923,8 +958,9 @@ describe('Orders resource', () => {
 	
   
 
+	
 	/* trigger._archive start */
-	it(resourceType + '._archive', async () => {
+	test(resourceType + '._archive', async () => {
 	
 		let triggerAttr = '_archive'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -949,8 +985,9 @@ describe('Orders resource', () => {
 	/* trigger._archive stop */
 	
 
+	
 	/* trigger._unarchive start */
-	it(resourceType + '._unarchive', async () => {
+	test(resourceType + '._unarchive', async () => {
 	
 		let triggerAttr = '_unarchive'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -975,8 +1012,9 @@ describe('Orders resource', () => {
 	/* trigger._unarchive stop */
 	
 
+	
 	/* trigger._pending start */
-	it(resourceType + '._pending', async () => {
+	test(resourceType + '._pending', async () => {
 	
 		let triggerAttr = '_pending'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1001,8 +1039,9 @@ describe('Orders resource', () => {
 	/* trigger._pending stop */
 	
 
+	
 	/* trigger._place start */
-	it(resourceType + '._place', async () => {
+	test(resourceType + '._place', async () => {
 	
 		let triggerAttr = '_place'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1027,8 +1066,9 @@ describe('Orders resource', () => {
 	/* trigger._place stop */
 	
 
+	
 	/* trigger._cancel start */
-	it(resourceType + '._cancel', async () => {
+	test(resourceType + '._cancel', async () => {
 	
 		let triggerAttr = '_cancel'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1053,8 +1093,9 @@ describe('Orders resource', () => {
 	/* trigger._cancel stop */
 	
 
+	
 	/* trigger._approve start */
-	it(resourceType + '._approve', async () => {
+	test(resourceType + '._approve', async () => {
 	
 		let triggerAttr = '_approve'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1079,8 +1120,9 @@ describe('Orders resource', () => {
 	/* trigger._approve stop */
 	
 
+	
 	/* trigger._approve_and_capture start */
-	it(resourceType + '._approve_and_capture', async () => {
+	test(resourceType + '._approve_and_capture', async () => {
 	
 		let triggerAttr = '_approve_and_capture'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1105,8 +1147,9 @@ describe('Orders resource', () => {
 	/* trigger._approve_and_capture stop */
 	
 
+	
 	/* trigger._authorize start */
-	it(resourceType + '._authorize', async () => {
+	test(resourceType + '._authorize', async () => {
 	
 		let triggerAttr = '_authorize'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1131,8 +1174,9 @@ describe('Orders resource', () => {
 	/* trigger._authorize stop */
 	
 
+	
 	/* trigger._authorization_amount_cents start */
-	it(resourceType + '._authorization_amount_cents', async () => {
+	test(resourceType + '._authorization_amount_cents', async () => {
 	
 		let triggerAttr = '_authorization_amount_cents'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1157,8 +1201,9 @@ describe('Orders resource', () => {
 	/* trigger._authorization_amount_cents stop */
 	
 
+	
 	/* trigger._capture start */
-	it(resourceType + '._capture', async () => {
+	test(resourceType + '._capture', async () => {
 	
 		let triggerAttr = '_capture'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1183,8 +1228,9 @@ describe('Orders resource', () => {
 	/* trigger._capture stop */
 	
 
+	
 	/* trigger._refund start */
-	it(resourceType + '._refund', async () => {
+	test(resourceType + '._refund', async () => {
 	
 		let triggerAttr = '_refund'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1209,8 +1255,9 @@ describe('Orders resource', () => {
 	/* trigger._refund stop */
 	
 
+	
 	/* trigger._fulfill start */
-	it(resourceType + '._fulfill', async () => {
+	test(resourceType + '._fulfill', async () => {
 	
 		let triggerAttr = '_fulfill'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1235,8 +1282,9 @@ describe('Orders resource', () => {
 	/* trigger._fulfill stop */
 	
 
+	
 	/* trigger._update_taxes start */
-	it(resourceType + '._update_taxes', async () => {
+	test(resourceType + '._update_taxes', async () => {
 	
 		let triggerAttr = '_update_taxes'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1261,8 +1309,9 @@ describe('Orders resource', () => {
 	/* trigger._update_taxes stop */
 	
 
+	
 	/* trigger._nullify_payment_source start */
-	it(resourceType + '._nullify_payment_source', async () => {
+	test(resourceType + '._nullify_payment_source', async () => {
 	
 		let triggerAttr = '_nullify_payment_source'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1287,8 +1336,9 @@ describe('Orders resource', () => {
 	/* trigger._nullify_payment_source stop */
 	
 
+	
 	/* trigger._fix_payment_source start */
-	it(resourceType + '._fix_payment_source', async () => {
+	test(resourceType + '._fix_payment_source', async () => {
 	
 		let triggerAttr = '_fix_payment_source'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1313,8 +1363,9 @@ describe('Orders resource', () => {
 	/* trigger._fix_payment_source stop */
 	
 
+	
 	/* trigger._billing_address_clone_id start */
-	it(resourceType + '._billing_address_clone_id', async () => {
+	test(resourceType + '._billing_address_clone_id', async () => {
 	
 		let triggerAttr = '_billing_address_clone_id'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1339,8 +1390,9 @@ describe('Orders resource', () => {
 	/* trigger._billing_address_clone_id stop */
 	
 
+	
 	/* trigger._shipping_address_clone_id start */
-	it(resourceType + '._shipping_address_clone_id', async () => {
+	test(resourceType + '._shipping_address_clone_id', async () => {
 	
 		let triggerAttr = '_shipping_address_clone_id'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1365,8 +1417,9 @@ describe('Orders resource', () => {
 	/* trigger._shipping_address_clone_id stop */
 	
 
+	
 	/* trigger._customer_payment_source_id start */
-	it(resourceType + '._customer_payment_source_id', async () => {
+	test(resourceType + '._customer_payment_source_id', async () => {
 	
 		let triggerAttr = '_customer_payment_source_id'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1391,8 +1444,9 @@ describe('Orders resource', () => {
 	/* trigger._customer_payment_source_id stop */
 	
 
+	
 	/* trigger._shipping_address_same_as_billing start */
-	it(resourceType + '._shipping_address_same_as_billing', async () => {
+	test(resourceType + '._shipping_address_same_as_billing', async () => {
 	
 		let triggerAttr = '_shipping_address_same_as_billing'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1417,8 +1471,9 @@ describe('Orders resource', () => {
 	/* trigger._shipping_address_same_as_billing stop */
 	
 
+	
 	/* trigger._billing_address_same_as_shipping start */
-	it(resourceType + '._billing_address_same_as_shipping', async () => {
+	test(resourceType + '._billing_address_same_as_shipping', async () => {
 	
 		let triggerAttr = '_billing_address_same_as_shipping'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1443,8 +1498,9 @@ describe('Orders resource', () => {
 	/* trigger._billing_address_same_as_shipping stop */
 	
 
+	
 	/* trigger._commit_invoice start */
-	it(resourceType + '._commit_invoice', async () => {
+	test(resourceType + '._commit_invoice', async () => {
 	
 		let triggerAttr = '_commit_invoice'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1469,8 +1525,9 @@ describe('Orders resource', () => {
 	/* trigger._commit_invoice stop */
 	
 
+	
 	/* trigger._refund_invoice start */
-	it(resourceType + '._refund_invoice', async () => {
+	test(resourceType + '._refund_invoice', async () => {
 	
 		let triggerAttr = '_refund_invoice'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1495,8 +1552,9 @@ describe('Orders resource', () => {
 	/* trigger._refund_invoice stop */
 	
 
+	
 	/* trigger._save_payment_source_to_customer_wallet start */
-	it(resourceType + '._save_payment_source_to_customer_wallet', async () => {
+	test(resourceType + '._save_payment_source_to_customer_wallet', async () => {
 	
 		let triggerAttr = '_save_payment_source_to_customer_wallet'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1521,8 +1579,9 @@ describe('Orders resource', () => {
 	/* trigger._save_payment_source_to_customer_wallet stop */
 	
 
+	
 	/* trigger._save_shipping_address_to_customer_address_book start */
-	it(resourceType + '._save_shipping_address_to_customer_address_book', async () => {
+	test(resourceType + '._save_shipping_address_to_customer_address_book', async () => {
 	
 		let triggerAttr = '_save_shipping_address_to_customer_address_book'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1547,8 +1606,9 @@ describe('Orders resource', () => {
 	/* trigger._save_shipping_address_to_customer_address_book stop */
 	
 
+	
 	/* trigger._save_billing_address_to_customer_address_book start */
-	it(resourceType + '._save_billing_address_to_customer_address_book', async () => {
+	test(resourceType + '._save_billing_address_to_customer_address_book', async () => {
 	
 		let triggerAttr = '_save_billing_address_to_customer_address_book'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1573,8 +1633,9 @@ describe('Orders resource', () => {
 	/* trigger._save_billing_address_to_customer_address_book stop */
 	
 
+	
 	/* trigger._refresh start */
-	it(resourceType + '._refresh', async () => {
+	test(resourceType + '._refresh', async () => {
 	
 		let triggerAttr = '_refresh'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1599,8 +1660,9 @@ describe('Orders resource', () => {
 	/* trigger._refresh stop */
 	
 
+	
 	/* trigger._validate start */
-	it(resourceType + '._validate', async () => {
+	test(resourceType + '._validate', async () => {
 	
 		let triggerAttr = '_validate'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1625,8 +1687,9 @@ describe('Orders resource', () => {
 	/* trigger._validate stop */
 	
 
+	
 	/* trigger._create_subscriptions start */
-	it(resourceType + '._create_subscriptions', async () => {
+	test(resourceType + '._create_subscriptions', async () => {
 	
 		let triggerAttr = '_create_subscriptions'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1651,8 +1714,9 @@ describe('Orders resource', () => {
 	/* trigger._create_subscriptions stop */
 	
 
+	
 	/* trigger._start_editing start */
-	it(resourceType + '._start_editing', async () => {
+	test(resourceType + '._start_editing', async () => {
 	
 		let triggerAttr = '_start_editing'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1677,8 +1741,9 @@ describe('Orders resource', () => {
 	/* trigger._start_editing stop */
 	
 
+	
 	/* trigger._stop_editing start */
-	it(resourceType + '._stop_editing', async () => {
+	test(resourceType + '._stop_editing', async () => {
 	
 		let triggerAttr = '_stop_editing'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -1703,8 +1768,9 @@ describe('Orders resource', () => {
 	/* trigger._stop_editing stop */
 	
 
+	
 	/* trigger._reset_circuit start */
-	it(resourceType + '._reset_circuit', async () => {
+	test(resourceType + '._reset_circuit', async () => {
 	
 		let triggerAttr = '_reset_circuit'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

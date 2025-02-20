@@ -1,5 +1,6 @@
+
 /* relationship.##__OPERATION_NAME__## start */
-it(resourceType + '.##__OPERATION_NAME__##', async () => {
+test(resourceType + '.##__OPERATION_NAME__##', async () => {
 
 	const id = TestData.id
 	const params = { fields: { ##__RELATIONSHIP_TYPE__##: CommonData.paramsFields } }
