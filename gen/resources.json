@@ -18813,7 +18813,7 @@
                 "_fulfill": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered). Cannot be passed by sales channels.",
+                    "desc": "Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered, alternatively order must be approved). Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -22806,7 +22806,7 @@
                 "name": {
                     "type": "string",
                     "desc": "The internal name of the associated line item.",
-                    "required": "required",
+                    "required": "required, inherited by line item",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -29657,6 +29657,28 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "name": {
+                    "type": "string",
+                    "desc": "The internal name of the associated line item.",
+                    "required": "required, inherited by line item",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "Men's Black T-shirt with White Logo (XL)"
+                },
+                "image_url": {
+                    "type": "string",
+                    "desc": "The image_url of the associated line item.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://img.yourdomain.com/skus/xYZkjABcde.png"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -32935,6 +32957,28 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "true"
+                },
+                "name": {
+                    "type": "string",
+                    "desc": "The internal name of the associated line item.",
+                    "required": "required, inherited by line item",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "Men's Black T-shirt with White Logo (XL)"
+                },
+                "image_url": {
+                    "type": "string",
+                    "desc": "The image_url of the associated line item.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://img.yourdomain.com/skus/xYZkjABcde.png"
                 },
                 "id": {
                     "format": "id",
