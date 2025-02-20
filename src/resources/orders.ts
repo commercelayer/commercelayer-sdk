@@ -906,7 +906,7 @@ interface OrderUpdate extends ResourceUpdate {
 	 */
 	_refund?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered). Cannot be passed by sales channels.
+	 * Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered, alternatively order must be approved). Cannot be passed by sales channels.
 	 * @example ```true```
 	 */
 	_fulfill?: boolean | null

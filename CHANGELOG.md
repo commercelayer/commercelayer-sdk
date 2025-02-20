@@ -1,3 +1,17 @@
+# [6.33.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.32.0...v6.33.0) (2025-02-20)
+
+
+### Features
+
+* update resources to schema v7.7.3 ([daa86e5](https://github.com/commercelayer/commercelayer-sdk/commit/daa86e57b1f86e82c5e1448bd39f599ac30edb07))
+
+# [6.32.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.31.0...v6.32.0) (2025-02-06)
+
+
+### Features
+
+* update resources to schema v7.7.2 ([0cff96c](https://github.com/commercelayer/commercelayer-sdk/commit/0cff96c3a6b4bcac2076f4343cc18119067ff718))
+
 # [6.31.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.30.0...v6.31.0) (2025-02-05)
 
 
