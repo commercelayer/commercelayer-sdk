@@ -18,8 +18,5 @@ export default defineConfig(() => ({
   splitting: true,
   shims: true,
   cjsInterop: true,
-  skipNodeModulesBundle: true,
-  footer: {
-    js: 'module.exports = module.exports.default;'
-  }
+  skipNodeModulesBundle: true
 }))
