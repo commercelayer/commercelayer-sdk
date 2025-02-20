@@ -1,5 +1,5 @@
 
-import { expect, test, beforeAll } from 'vitest'
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayer, CommerceLayerClient, CommerceLayerStatic } from '../src'
 import { getClient, organization, } from '../test/common'
 import getAccessToken from '../test/token'

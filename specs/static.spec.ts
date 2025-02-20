@@ -1,5 +1,5 @@
 
-import { expect, test, beforeAll } from 'vitest'
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, CommerceLayerStatic } from '../src'
 import { OPEN_API_SCHEMA_VERSION } from '../src/commercelayer'
 import { getClient, organization } from '../test/common'

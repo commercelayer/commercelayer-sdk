@@ -1,5 +1,5 @@
 
-import { expect, test, beforeAll, afterAll } from 'vitest'
+import { expect, test, beforeAll, afterAll, describe } from 'vitest'
 import { CommerceLayerClient, ErrorObj } from '../src'
 import { ErrorType } from '../src/error'
 import { getClient } from '../test/common'

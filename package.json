@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "7.0.0-beta.1",
+  "version": "6.33.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
@@ -22,7 +22,7 @@
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
     "build": "tsup",
     "generate": "tsx gen/generator.ts",
-    "generate-local": "pnpm generate --local",
+    "generate-local": "tsx gen/generator.ts -- --local",
     "lint": "eslint ./src --ext .ts",
     "lintspec": "eslint ./specs/resources/ --ext .spec.ts",
     "semantic-release": "semantic-release",
@@ -46,14 +46,14 @@
     "node": ">=22"
   },
   "devDependencies": {
-    "@commercelayer/eslint-config-ts": "1.4.5",
+    "@commercelayer/eslint-config-ts": "^2.1.0",
     "@commercelayer/js-auth": "^6.7.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/debug": "^4.1.12",
-    "@types/jest": "^29.5.14",
     "@types/node": "^22.13.4",
     "@vitest/coverage-v8": "3.0.6",
+    "@vitest/eslint-plugin": "^1.1.31",
     "dotenv": "^16.4.7",
     "eslint": "^8.57.1",
     "json-typescript": "^1.1.2",
@@ -71,5 +71,8 @@
   },
   "resolutions": {
     "ansi-regex": "5.0.1"
+  },
+  "dependencies": {
+    "uninstall": "^0.0.0"
   }
 }

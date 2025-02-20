@@ -3,7 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { expect, test, beforeAll } from 'vitest'
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, Organization } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

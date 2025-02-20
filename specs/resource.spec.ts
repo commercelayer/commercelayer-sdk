@@ -1,5 +1,5 @@
 
-import { expect, test, beforeAll } from 'vitest'
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, Customer } from '../src'
 import { ListResponse } from '../src/resource'
 import { getClient } from '../test/common'

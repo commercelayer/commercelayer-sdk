@@ -1,7 +1,7 @@
 
+import dotenv from 'dotenv'
 import getToken from './token'
 import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
-import dotenv from 'dotenv'
 import { inspect, isDeepStrictEqual } from 'util'
 import { RequestConfig } from '../src/client'
 import { Resource } from '../src/resource'

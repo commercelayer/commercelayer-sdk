@@ -2,6 +2,8 @@
   "extends": [
     "@commercelayer/eslint-config-ts"
   ],
+  "plugins": [
+  ],
   "ignorePatterns": [
     "test/**/*.ts",
     "gen/**/*.ts",
@@ -10,6 +12,12 @@
   ],
   "globals": {
     "vi": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022
+  },
+  "env": {
+    
   },
   "rules": {
     "prettier/prettier": "off",
