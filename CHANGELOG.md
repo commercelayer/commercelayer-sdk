@@ -1,3 +1,10 @@
+# [7.0.0-beta.4](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.3...v7.0.0-beta.4) (2025-02-20)
+
+
+### Bug Fixes
+
+* fix cjs exports ([e886276](https://github.com/commercelayer/commercelayer-sdk/commit/e886276609875f5d8253c57de1c4744e9b385f1b))
+
 # [7.0.0-beta.3](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.2...v7.0.0-beta.3) (2025-02-20)
 
 
