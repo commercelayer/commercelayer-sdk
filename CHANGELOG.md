@@ -1,3 +1,10 @@
+# [7.0.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.1...v7.0.0-beta.2) (2025-02-20)
+
+
+### Bug Fixes
+
+* fix vitest settings ([ba33274](https://github.com/commercelayer/commercelayer-sdk/commit/ba33274c2cad9f83be48733c495d94a24ba5195b))
+
 # [7.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.33.0...v7.0.0-beta.1) (2025-02-20)
 
 
