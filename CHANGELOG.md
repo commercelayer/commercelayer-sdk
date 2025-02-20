@@ -1,3 +1,11 @@
+# [7.0.0-beta.5](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.4...v7.0.0-beta.5) (2025-02-20)
+
+
+### Bug Fixes
+
+* fix npm registry ([5d7d41d](https://github.com/commercelayer/commercelayer-sdk/commit/5d7d41de6e0bd74f7136220a26e247d9954596a3))
+* fix tsup config ([2b669f1](https://github.com/commercelayer/commercelayer-sdk/commit/2b669f1ca017b174150aa149fe924ca065091782))
+
 # [7.0.0-beta.4](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.3...v7.0.0-beta.4) (2025-02-20)
 
 
