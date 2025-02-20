@@ -22,7 +22,7 @@
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
     "build": "tsup",
     "generate": "tsx gen/generator.ts",
-    "generate-local": "tsx gen/generator.ts -- --local",
+    "generate-local": "pnpm generate --local",
     "lint": "eslint ./src --ext .ts",
     "lintspec": "eslint ./specs/resources/ --ext .spec.ts",
     "semantic-release": "semantic-release",
