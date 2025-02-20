@@ -1,3 +1,13 @@
+# [7.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.33.0...v7.0.0-beta.1) (2025-02-20)
+
+
+* feat!: remove support for node.js <22 BREAKING CHANGE: remove support for node.js <22 ([8f9dddd](https://github.com/commercelayer/commercelayer-sdk/commit/8f9dddd1880db17e1b991c0e599ee453aabd9c9f))
+
+
+### BREAKING CHANGES
+
+* remove support for node.js <22
+
 # [6.33.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.32.0...v6.33.0) (2025-02-20)
 
 
