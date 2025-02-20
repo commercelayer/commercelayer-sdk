@@ -14,7 +14,7 @@
       },
       "require": {
         "types": "./lib/index.d.cts",
-        "default": "./lib/index.js"
+        "default": "./lib/index.cjs"
       }
     }
   },
