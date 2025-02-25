@@ -51,7 +51,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/debug": "^4.1.12",
-    "@types/node": "^22.13.4",
+    "@types/node": "^22.13.5",
     "@vitest/coverage-v8": "3.0.6",
     "@vitest/eslint-plugin": "^1.1.31",
     "dotenv": "^16.4.7",
@@ -62,7 +62,7 @@
     "tsup": "^8.3.6",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3",
-    "vitest": "^3.0.6"
+    "vitest": "^3.0.7"
   },
   "repository": "github:commercelayer/commercelayer-sdk",
   "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues",

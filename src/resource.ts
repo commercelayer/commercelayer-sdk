@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } f
 import { generateQueryStringParams, isParamsList } from './query'
 import type { ResourceTypeLock } from './api'
 import config from './config'
+import { SdkError } from './error'
 
 
 import Debug from './debug'
@@ -100,8 +101,23 @@ type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
 type ResourcesConfig = Partial<ResourcesInitConfig>
 
 
-export const apiResourceAdapter = (config: ResourcesInitConfig): ResourceAdapter => {
-	return new ResourceAdapter(config)
+export class ApiResourceAdapter {
+
+	private static adapter: ResourceAdapter
+
+	static get(config?: ResourcesInitConfig): ResourceAdapter {
+		if (config) return ApiResourceAdapter.adapter = new ResourceAdapter(config)
+		else {
+			if (ApiResourceAdapter.adapter) return ApiResourceAdapter.adapter
+			else throw new SdkError({ message: 'Invalid adapter config' })
+		}
+	}
+
+	static config(config: ResourcesConfig): void {
+		if (ApiResourceAdapter.adapter) ApiResourceAdapter.adapter.config(config)
+			else throw new SdkError({ message: 'Adapter not inizialized' })
+	}
+
 }
 
 
