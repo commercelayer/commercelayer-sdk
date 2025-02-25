@@ -3,7 +3,7 @@ import * as api from './api'
 import type { ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj, InterceptorManager } from './interceptor'
 import { CommerceLayerStatic } from './static'
-import ResourceAdapter, { type ResourcesInitConfig } from './resource'
+import ResourceAdapter, { ApiResourceAdapter, type ResourcesInitConfig } from './resource'
 import { extractTokenData } from './util'
 
 
@@ -32,7 +32,7 @@ class CommerceLayerClient {
 	readonly openApiSchemaVersion = OPEN_API_SCHEMA_VERSION
 
 	readonly #adapter: ResourceAdapter
-	#slug: string
+	// #slug: string
 
 	// ##__CL_RESOURCES_DEF_START__##
 	// ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##
@@ -175,12 +175,12 @@ class CommerceLayerClient {
 		// Take organization and domain from access token if not defined by user
 		if ((!config.organization || !config.domain) && config.accessToken) {
 			const tokenData = extractTokenData(config.accessToken)
-			if (!config.organization && tokenData?.organization?.slug) config.organization = tokenData.organization.slug
-			if (!config.domain && tokenData?.iss) config.domain = String(tokenData.iss).replace('https://auth.', '')
+			if (!config.organization && tokenData?.organization) config.organization = tokenData.organization
+			if (!config.domain && tokenData?.domain) config.domain = tokenData.domain
 		}
 
 		this.#adapter = new ResourceAdapter(config)
-		this.#slug = config.organization ?? ''
+		// this.#slug = config.organization ?? ''
 
 		// ##__CL_RESOURCES_INIT_START__##
 		// ##__CL_RESOURCES_INIT_TEMPLATE:: ##__TAB__####__TAB__##this.##__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)
@@ -322,13 +322,13 @@ class CommerceLayerClient {
 	// ##__CL_RESOURCES_LEAZY_LOADING_STOP__##
 
 	
-	get currentOrganization(): string { return this.#slug }
+	get currentOrganization(): string { return this.#adapter?.client?.currentOrganization }
 	get currentAccessToken(): string { return this.#adapter?.client?.currentAccessToken }
 	private get interceptors(): InterceptorManager { return this.#adapter.client.interceptors }
 
 
 	private localConfig(config: Partial<SdkConfig> & { organization?: string }): void {
-		if (config.organization) this.#slug = config.organization
+		// if (config.organization) this.#slug = config.organization
 	}
 
 
@@ -340,7 +340,7 @@ class CommerceLayerClient {
 		this.localConfig(config)
 		// ResourceAdapter config
 		// To rebuild baseUrl in client in case only the domain is defined
-		if (!config.organization) config.organization = this.currentOrganization
+		// if (!config.organization) config.organization = this.currentOrganization
 		this.#adapter.config(config)
 
 		return this

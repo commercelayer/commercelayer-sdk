@@ -1,14 +1,15 @@
 import type { ObjectType } from "../src/types"
+import { SdkError } from "./error"
 // import path from 'node:path'
 
 
 
-const sleep = async (ms: number): Promise<NodeJS.Timeout> => {
+export const sleep = async (ms: number): Promise<NodeJS.Timeout> => {
 	return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 
-const sortObjectFields = (obj: ObjectType): ObjectType => {
+export const sortObjectFields = (obj: ObjectType): ObjectType => {
 	const sorted = Object.keys(obj).sort().reduce((accumulator: ObjectType, key: string) => {
 		accumulator[key] = obj[key];
 		return accumulator;
@@ -43,23 +44,31 @@ const packageInfo = (fields?: string | string[], options?: any): Record<string, 
 }
 */
 
-const extractTokenData = (token: string): any => {
+export type TokenData = {
+	organization: string,
+	domain?: string,
+	expiration: number
+}
+
+export const extractTokenData = (token: string): TokenData | undefined => {
 	try {
-		return JSON.parse(atob(token.split('.')[1]))
+		const data = JSON.parse(atob(token.split('.')[1]))
+		return {
+			organization: data.organization.slug,
+			domain: data.iss? String(data.iss).replace('https://auth.', '') : undefined,
+			expiration: data.exp
+		}
 	} catch (err: any) {
 		return undefined
 	}
 }
 
 
-const isTokenExpired = (token: string): boolean => {
+export const isTokenExpired = (token: string): boolean => {
 	try {
 		const tokenData = extractTokenData(token)
-		return (((tokenData.exp * 1000) - Date.now()) < 0)
+		return tokenData?.expiration? (((tokenData.expiration * 1000) - Date.now()) < 0) : false
 	} catch (err: any) {
 		return false
 	}
 }
-
-
-export { sleep, sortObjectFields, /* packageInfo */ isTokenExpired, extractTokenData }

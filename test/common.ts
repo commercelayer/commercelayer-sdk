@@ -90,7 +90,7 @@ const fakeClient = async (): Promise<CommerceLayerClient> => {
 
 
 const getClient = (config?: CommerceLayerConfig): Promise<CommerceLayerClient> => {
-	return config ?  initClient(config) : fakeClient()
+	return config ? initClient(config) : fakeClient()
 }
 
 const printObject = (obj: unknown): string => {

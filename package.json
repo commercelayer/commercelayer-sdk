@@ -28,6 +28,7 @@
     "semantic-release": "semantic-release",
     "test": "vitest",
     "test-local": "tsx test/spot.ts",
+    "test-tree": "tsx test/tree.ts",
     "coverage": "vitest run --coverage"
   },
   "keywords": [
