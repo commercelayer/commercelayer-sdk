@@ -1,3 +1,11 @@
+# [7.0.0-beta.6](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.5...v7.0.0-beta.6) (2025-02-25)
+
+
+### Features
+
+* add adapter instances ([fac2899](https://github.com/commercelayer/commercelayer-sdk/commit/fac28994546cd78b971dfd2713cb4d0ac9b00bff))
+* add common adapter ([facc79f](https://github.com/commercelayer/commercelayer-sdk/commit/facc79fa251596344db4c08fe297e8067646ce97))
+
 # [7.0.0-beta.5](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.4...v7.0.0-beta.5) (2025-02-20)
 
 
