@@ -3,7 +3,7 @@ import type { InterceptorManager } from './interceptor'
 import config from './config'
 import type { FetchResponse, FetchRequestOptions, FetchClientOptions, Fetch } from './fetch'
 import { fetchURL } from './fetch'
-import { isTokenExpired } from './util'
+import { extractTokenData, isTokenExpired } from './util'
 
 
 import Debug from './debug'
@@ -14,6 +14,7 @@ const debug = Debug('client')
 const baseURL = (organization: string, domain?: string): string => {
 	return `https://${organization.toLowerCase()}.${domain || config.default.domain}/api`
 }
+
 
 
 type RequestParams = Record<string, string | number | boolean>
@@ -49,14 +50,25 @@ export type Method = 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH'
 class ApiClient {
 
 	static create(options: ApiClientInitConfig): ApiClient {
+
+		// Take organization and domain from access token if not defined by user
+		if ((!options.organization || !options.domain) && options.accessToken) {
+			const tokenData = extractTokenData(options.accessToken)
+			if (!options.organization && tokenData?.organization) options.organization = tokenData.organization
+			if (!options.domain && tokenData?.domain) options.domain = tokenData.domain
+		}
+
 		for (const attr of config.client.requiredAttributes)
-			if (!options || !options[attr as keyof ApiClientInitConfig]) throw new SdkError({ message: `Undefined '${attr}' parameter` })
+			if (!options[attr]) throw new SdkError({ message: `Undefined '${attr}' parameter` })
 		return new ApiClient(options)
+
 	}
 
 
 	#baseUrl: string
 	#accessToken: string
+	#organization: string
+	#domain?: string
 	readonly #clientConfig: RequestConfig
 	readonly #interceptors: InterceptorManager
 
@@ -67,6 +79,8 @@ class ApiClient {
 
 		this.#baseUrl = baseURL(options.organization ?? '', options.domain)
 		this.#accessToken = options.accessToken
+		this.#organization = options.organization ?? ''	// organization is always defined
+		this.#domain = options.domain
 
 		const fetchConfig: RequestConfig = {
 			timeout: options.timeout || config.client.timeout,
@@ -130,7 +144,9 @@ class ApiClient {
 		if (config.refreshToken) this.#clientConfig.refreshToken = config.refreshToken
 
 		// API Client config
-		if (config.organization) this.#baseUrl = baseURL(config.organization, config.domain)
+		if (config.organization || config.domain) this.#baseUrl = baseURL(config.organization || this.#organization, config.domain || this.#domain)
+		if (config.organization) this.#organization = config.organization
+		if (config.domain) this.#domain = config.domain
 		if (config.accessToken) {
 			this.#accessToken = config.accessToken
 			def.headers.Authorization = 'Bearer ' + this.#accessToken
@@ -191,7 +207,7 @@ class ApiClient {
 		} catch (err: any) {	// Error executing api call
 
 			if (isExpiredTokenError(err) && this.#clientConfig.refreshToken && isTokenExpired(this.#accessToken)) {	// If token has expired and must be refreshed
-				
+
 				debug('Access token has expired')
 				const newAccessToken = await this.#clientConfig.refreshToken(this.#accessToken)	// Refresh access token ...
 					.catch((e: any) => {	// Error refreshing access token
@@ -229,6 +245,10 @@ class ApiClient {
 
 	get currentAccessToken(): string {
 		return this.#accessToken
+	}
+
+	get currentOrganization(): string {
+		return this.#organization
 	}
 
 }

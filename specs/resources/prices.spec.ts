@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, Price } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('Prices resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			amount_cents: randomValue('integer', 'amount_cents'),
@@ -55,7 +56,7 @@ describe('Prices resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -77,7 +78,7 @@ describe('Prices resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -101,7 +102,7 @@ describe('Prices resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -120,7 +121,7 @@ describe('Prices resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -140,7 +141,7 @@ describe('Prices resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isPrice(resource)).toBeTruthy()
@@ -153,7 +154,7 @@ describe('Prices resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -167,7 +168,7 @@ describe('Prices resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -204,8 +205,9 @@ describe('Prices resource', () => {
 
   
 
+	
 	/* relationship.price_list start */
-	it(resourceType + '.price_list', async () => {
+	test(resourceType + '.price_list', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_lists: CommonData.paramsFields } }
@@ -225,8 +227,9 @@ describe('Prices resource', () => {
 	/* relationship.price_list stop */
 	
 
+	
 	/* relationship.sku start */
-	it(resourceType + '.sku', async () => {
+	test(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { skus: CommonData.paramsFields } }
@@ -246,8 +249,9 @@ describe('Prices resource', () => {
 	/* relationship.sku stop */
 	
 
+	
 	/* relationship.price_tiers start */
-	it(resourceType + '.price_tiers', async () => {
+	test(resourceType + '.price_tiers', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_tiers: CommonData.paramsFields } }
@@ -267,8 +271,9 @@ describe('Prices resource', () => {
 	/* relationship.price_tiers stop */
 	
 
+	
 	/* relationship.price_volume_tiers start */
-	it(resourceType + '.price_volume_tiers', async () => {
+	test(resourceType + '.price_volume_tiers', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_volume_tiers: CommonData.paramsFields } }
@@ -288,8 +293,9 @@ describe('Prices resource', () => {
 	/* relationship.price_volume_tiers stop */
 	
 
+	
 	/* relationship.price_frequency_tiers start */
-	it(resourceType + '.price_frequency_tiers', async () => {
+	test(resourceType + '.price_frequency_tiers', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_frequency_tiers: CommonData.paramsFields } }
@@ -309,8 +315,9 @@ describe('Prices resource', () => {
 	/* relationship.price_frequency_tiers stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -330,8 +337,9 @@ describe('Prices resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -351,8 +359,9 @@ describe('Prices resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.jwt_customer start */
-	it(resourceType + '.jwt_customer', async () => {
+	test(resourceType + '.jwt_customer', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customers: CommonData.paramsFields } }
@@ -372,8 +381,9 @@ describe('Prices resource', () => {
 	/* relationship.jwt_customer stop */
 	
 
+	
 	/* relationship.jwt_markets start */
-	it(resourceType + '.jwt_markets', async () => {
+	test(resourceType + '.jwt_markets', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -393,8 +403,9 @@ describe('Prices resource', () => {
 	/* relationship.jwt_markets stop */
 	
 
+	
 	/* relationship.jwt_stock_locations start */
-	it(resourceType + '.jwt_stock_locations', async () => {
+	test(resourceType + '.jwt_stock_locations', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_locations: CommonData.paramsFields } }

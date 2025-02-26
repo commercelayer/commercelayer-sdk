@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, Market } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('Markets resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -59,7 +60,7 @@ describe('Markets resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -81,7 +82,7 @@ describe('Markets resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -105,7 +106,7 @@ describe('Markets resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -124,7 +125,7 @@ describe('Markets resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -144,7 +145,7 @@ describe('Markets resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isMarket(resource)).toBeTruthy()
@@ -157,7 +158,7 @@ describe('Markets resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -171,7 +172,7 @@ describe('Markets resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -208,8 +209,9 @@ describe('Markets resource', () => {
 
   
 
+	
 	/* relationship.merchant start */
-	it(resourceType + '.merchant', async () => {
+	test(resourceType + '.merchant', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { merchants: CommonData.paramsFields } }
@@ -229,8 +231,9 @@ describe('Markets resource', () => {
 	/* relationship.merchant stop */
 	
 
+	
 	/* relationship.price_list start */
-	it(resourceType + '.price_list', async () => {
+	test(resourceType + '.price_list', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_lists: CommonData.paramsFields } }
@@ -250,8 +253,9 @@ describe('Markets resource', () => {
 	/* relationship.price_list stop */
 	
 
+	
 	/* relationship.base_price_list start */
-	it(resourceType + '.base_price_list', async () => {
+	test(resourceType + '.base_price_list', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_lists: CommonData.paramsFields } }
@@ -271,8 +275,9 @@ describe('Markets resource', () => {
 	/* relationship.base_price_list stop */
 	
 
+	
 	/* relationship.inventory_model start */
-	it(resourceType + '.inventory_model', async () => {
+	test(resourceType + '.inventory_model', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { inventory_models: CommonData.paramsFields } }
@@ -292,8 +297,9 @@ describe('Markets resource', () => {
 	/* relationship.inventory_model stop */
 	
 
+	
 	/* relationship.subscription_model start */
-	it(resourceType + '.subscription_model', async () => {
+	test(resourceType + '.subscription_model', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { subscription_models: CommonData.paramsFields } }
@@ -313,8 +319,9 @@ describe('Markets resource', () => {
 	/* relationship.subscription_model stop */
 	
 
+	
 	/* relationship.tax_calculator start */
-	it(resourceType + '.tax_calculator', async () => {
+	test(resourceType + '.tax_calculator', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tax_calculators: CommonData.paramsFields } }
@@ -334,8 +341,9 @@ describe('Markets resource', () => {
 	/* relationship.tax_calculator stop */
 	
 
+	
 	/* relationship.customer_group start */
-	it(resourceType + '.customer_group', async () => {
+	test(resourceType + '.customer_group', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customer_groups: CommonData.paramsFields } }
@@ -355,8 +363,9 @@ describe('Markets resource', () => {
 	/* relationship.customer_group stop */
 	
 
+	
 	/* relationship.geocoder start */
-	it(resourceType + '.geocoder', async () => {
+	test(resourceType + '.geocoder', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { geocoders: CommonData.paramsFields } }
@@ -376,8 +385,9 @@ describe('Markets resource', () => {
 	/* relationship.geocoder stop */
 	
 
+	
 	/* relationship.stores start */
-	it(resourceType + '.stores', async () => {
+	test(resourceType + '.stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stores: CommonData.paramsFields } }
@@ -397,8 +407,9 @@ describe('Markets resource', () => {
 	/* relationship.stores stop */
 	
 
+	
 	/* relationship.price_list_schedulers start */
-	it(resourceType + '.price_list_schedulers', async () => {
+	test(resourceType + '.price_list_schedulers', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_list_schedulers: CommonData.paramsFields } }
@@ -418,8 +429,9 @@ describe('Markets resource', () => {
 	/* relationship.price_list_schedulers stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -439,8 +451,9 @@ describe('Markets resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -461,8 +474,9 @@ describe('Markets resource', () => {
 	
   
 
+	
 	/* trigger._disable start */
-	it(resourceType + '._disable', async () => {
+	test(resourceType + '._disable', async () => {
 	
 		let triggerAttr = '_disable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -487,8 +501,9 @@ describe('Markets resource', () => {
 	/* trigger._disable stop */
 	
 
+	
 	/* trigger._enable start */
-	it(resourceType + '._enable', async () => {
+	test(resourceType + '._enable', async () => {
 	
 		let triggerAttr = '_enable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

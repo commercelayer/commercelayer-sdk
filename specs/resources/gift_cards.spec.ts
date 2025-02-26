@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, GiftCard } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			balance_cents: randomValue('integer', 'balance_cents'),
@@ -55,7 +56,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -77,7 +78,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -101,7 +102,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -120,7 +121,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -140,7 +141,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isGiftCard(resource)).toBeTruthy()
@@ -153,7 +154,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -167,7 +168,7 @@ describe('GiftCards resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -204,8 +205,9 @@ describe('GiftCards resource', () => {
 
   
 
+	
 	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	test(resourceType + '.market', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -225,8 +227,9 @@ describe('GiftCards resource', () => {
 	/* relationship.market stop */
 	
 
+	
 	/* relationship.gift_card_recipient start */
-	it(resourceType + '.gift_card_recipient', async () => {
+	test(resourceType + '.gift_card_recipient', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { gift_card_recipients: CommonData.paramsFields } }
@@ -246,8 +249,9 @@ describe('GiftCards resource', () => {
 	/* relationship.gift_card_recipient stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -267,8 +271,9 @@ describe('GiftCards resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -288,8 +293,9 @@ describe('GiftCards resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.tags start */
-	it(resourceType + '.tags', async () => {
+	test(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
@@ -309,8 +315,9 @@ describe('GiftCards resource', () => {
 	/* relationship.tags stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -331,8 +338,9 @@ describe('GiftCards resource', () => {
 	
   
 
+	
 	/* trigger._purchase start */
-	it(resourceType + '._purchase', async () => {
+	test(resourceType + '._purchase', async () => {
 	
 		let triggerAttr = '_purchase'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -357,8 +365,9 @@ describe('GiftCards resource', () => {
 	/* trigger._purchase stop */
 	
 
+	
 	/* trigger._activate start */
-	it(resourceType + '._activate', async () => {
+	test(resourceType + '._activate', async () => {
 	
 		let triggerAttr = '_activate'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -383,8 +392,9 @@ describe('GiftCards resource', () => {
 	/* trigger._activate stop */
 	
 
+	
 	/* trigger._deactivate start */
-	it(resourceType + '._deactivate', async () => {
+	test(resourceType + '._deactivate', async () => {
 	
 		let triggerAttr = '_deactivate'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -409,8 +419,9 @@ describe('GiftCards resource', () => {
 	/* trigger._deactivate stop */
 	
 
+	
 	/* trigger._balance_change_cents start */
-	it(resourceType + '._balance_change_cents', async () => {
+	test(resourceType + '._balance_change_cents', async () => {
 	
 		let triggerAttr = '_balance_change_cents'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

@@ -1,7 +1,7 @@
 
+import dotenv from 'dotenv'
 import getToken from './token'
 import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
-import dotenv from 'dotenv'
 import { inspect, isDeepStrictEqual } from 'util'
 import { RequestConfig } from '../src/client'
 import { Resource } from '../src/resource'
@@ -9,7 +9,7 @@ import { Resource } from '../src/resource'
 
 dotenv.config()
 
-const GLOBAL_TIMEOUT = 15000
+export const GLOBAL_TIMEOUT = 15000
 
 const organization = process.env.CL_SDK_ORGANIZATION as string
 const domain = process.env.CL_SDK_DOMAIN as string
@@ -73,7 +73,8 @@ const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerCli
 	currentAccessToken = accessToken
 
 	client.config({ timeout: config.timeout || GLOBAL_TIMEOUT })
-	try { jest.setTimeout(config.timeout || GLOBAL_TIMEOUT) } catch(err: any) {}
+	try { vi.setConfig({ testTimeout: config.timeout || GLOBAL_TIMEOUT })  } catch(err: any) {}
+
 
 	return client
 
@@ -89,7 +90,7 @@ const fakeClient = async (): Promise<CommerceLayerClient> => {
 
 
 const getClient = (config?: CommerceLayerConfig): Promise<CommerceLayerClient> => {
-	return config ?  initClient(config) : fakeClient()
+	return config ? initClient(config) : fakeClient()
 }
 
 const printObject = (obj: unknown): string => {

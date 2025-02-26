@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, Capture } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('Captures resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -45,7 +46,7 @@ describe('Captures resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -69,7 +70,7 @@ describe('Captures resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -89,7 +90,7 @@ describe('Captures resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isCapture(resource)).toBeTruthy()
@@ -102,7 +103,7 @@ describe('Captures resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -116,7 +117,7 @@ describe('Captures resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -153,8 +154,9 @@ describe('Captures resource', () => {
 
   
 
+	
 	/* relationship.order start */
-	it(resourceType + '.order', async () => {
+	test(resourceType + '.order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -174,8 +176,9 @@ describe('Captures resource', () => {
 	/* relationship.order stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -195,8 +198,9 @@ describe('Captures resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -216,8 +220,9 @@ describe('Captures resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -237,8 +242,9 @@ describe('Captures resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.reference_authorization start */
-	it(resourceType + '.reference_authorization', async () => {
+	test(resourceType + '.reference_authorization', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { authorizations: CommonData.paramsFields } }
@@ -258,8 +264,9 @@ describe('Captures resource', () => {
 	/* relationship.reference_authorization stop */
 	
 
+	
 	/* relationship.refunds start */
-	it(resourceType + '.refunds', async () => {
+	test(resourceType + '.refunds', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { refunds: CommonData.paramsFields } }
@@ -279,8 +286,9 @@ describe('Captures resource', () => {
 	/* relationship.refunds stop */
 	
 
+	
 	/* relationship.return start */
-	it(resourceType + '.return', async () => {
+	test(resourceType + '.return', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { returns: CommonData.paramsFields } }
@@ -301,8 +309,9 @@ describe('Captures resource', () => {
 	
   
 
+	
 	/* trigger._forward start */
-	it(resourceType + '._forward', async () => {
+	test(resourceType + '._forward', async () => {
 	
 		let triggerAttr = '_forward'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -327,8 +336,9 @@ describe('Captures resource', () => {
 	/* trigger._forward stop */
 	
 
+	
 	/* trigger._refund start */
-	it(resourceType + '._refund', async () => {
+	test(resourceType + '._refund', async () => {
 	
 		let triggerAttr = '_refund'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -353,8 +363,9 @@ describe('Captures resource', () => {
 	/* trigger._refund stop */
 	
 
+	
 	/* trigger._refund_amount_cents start */
-	it(resourceType + '._refund_amount_cents', async () => {
+	test(resourceType + '._refund_amount_cents', async () => {
 	
 		let triggerAttr = '_refund_amount_cents'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -379,8 +390,9 @@ describe('Captures resource', () => {
 	/* trigger._refund_amount_cents stop */
 	
 
+	
 	/* trigger._cancel start */
-	it(resourceType + '._cancel', async () => {
+	test(resourceType + '._cancel', async () => {
 	
 		let triggerAttr = '_cancel'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

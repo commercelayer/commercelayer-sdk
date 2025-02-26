@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, AdyenPayment } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('AdyenPayments resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			order: cl.orders.relationship(TestData.id),
@@ -52,7 +53,7 @@ describe('AdyenPayments resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -74,7 +75,7 @@ describe('AdyenPayments resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -98,7 +99,7 @@ describe('AdyenPayments resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -117,7 +118,7 @@ describe('AdyenPayments resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -137,7 +138,7 @@ describe('AdyenPayments resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isAdyenPayment(resource)).toBeTruthy()
@@ -150,7 +151,7 @@ describe('AdyenPayments resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -164,7 +165,7 @@ describe('AdyenPayments resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -201,8 +202,9 @@ describe('AdyenPayments resource', () => {
 
   
 
+	
 	/* relationship.order start */
-	it(resourceType + '.order', async () => {
+	test(resourceType + '.order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -222,8 +224,9 @@ describe('AdyenPayments resource', () => {
 	/* relationship.order stop */
 	
 
+	
 	/* relationship.payment_gateway start */
-	it(resourceType + '.payment_gateway', async () => {
+	test(resourceType + '.payment_gateway', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { payment_gateways: CommonData.paramsFields } }
@@ -243,8 +246,9 @@ describe('AdyenPayments resource', () => {
 	/* relationship.payment_gateway stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -265,8 +269,9 @@ describe('AdyenPayments resource', () => {
 	
   
 
+	
 	/* trigger._authorize start */
-	it(resourceType + '._authorize', async () => {
+	test(resourceType + '._authorize', async () => {
 	
 		let triggerAttr = '_authorize'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -291,8 +296,9 @@ describe('AdyenPayments resource', () => {
 	/* trigger._authorize stop */
 	
 
+	
 	/* trigger._details start */
-	it(resourceType + '._details', async () => {
+	test(resourceType + '._details', async () => {
 	
 		let triggerAttr = '_details'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, ShippingMethod } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('ShippingMethods resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -58,7 +59,7 @@ describe('ShippingMethods resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -80,7 +81,7 @@ describe('ShippingMethods resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -104,7 +105,7 @@ describe('ShippingMethods resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -123,7 +124,7 @@ describe('ShippingMethods resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -143,7 +144,7 @@ describe('ShippingMethods resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isShippingMethod(resource)).toBeTruthy()
@@ -156,7 +157,7 @@ describe('ShippingMethods resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -170,7 +171,7 @@ describe('ShippingMethods resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -207,8 +208,9 @@ describe('ShippingMethods resource', () => {
 
   
 
+	
 	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	test(resourceType + '.market', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -228,8 +230,9 @@ describe('ShippingMethods resource', () => {
 	/* relationship.market stop */
 	
 
+	
 	/* relationship.shipping_zone start */
-	it(resourceType + '.shipping_zone', async () => {
+	test(resourceType + '.shipping_zone', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipping_zones: CommonData.paramsFields } }
@@ -249,8 +252,9 @@ describe('ShippingMethods resource', () => {
 	/* relationship.shipping_zone stop */
 	
 
+	
 	/* relationship.shipping_category start */
-	it(resourceType + '.shipping_category', async () => {
+	test(resourceType + '.shipping_category', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipping_categories: CommonData.paramsFields } }
@@ -270,8 +274,9 @@ describe('ShippingMethods resource', () => {
 	/* relationship.shipping_category stop */
 	
 
+	
 	/* relationship.stock_location start */
-	it(resourceType + '.stock_location', async () => {
+	test(resourceType + '.stock_location', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_locations: CommonData.paramsFields } }
@@ -291,8 +296,9 @@ describe('ShippingMethods resource', () => {
 	/* relationship.stock_location stop */
 	
 
+	
 	/* relationship.delivery_lead_time_for_shipment start */
-	it(resourceType + '.delivery_lead_time_for_shipment', async () => {
+	test(resourceType + '.delivery_lead_time_for_shipment', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { delivery_lead_times: CommonData.paramsFields } }
@@ -312,8 +318,9 @@ describe('ShippingMethods resource', () => {
 	/* relationship.delivery_lead_time_for_shipment stop */
 	
 
+	
 	/* relationship.shipping_method_tiers start */
-	it(resourceType + '.shipping_method_tiers', async () => {
+	test(resourceType + '.shipping_method_tiers', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipping_method_tiers: CommonData.paramsFields } }
@@ -333,8 +340,9 @@ describe('ShippingMethods resource', () => {
 	/* relationship.shipping_method_tiers stop */
 	
 
+	
 	/* relationship.shipping_weight_tiers start */
-	it(resourceType + '.shipping_weight_tiers', async () => {
+	test(resourceType + '.shipping_weight_tiers', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipping_weight_tiers: CommonData.paramsFields } }
@@ -354,8 +362,9 @@ describe('ShippingMethods resource', () => {
 	/* relationship.shipping_weight_tiers stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -375,8 +384,9 @@ describe('ShippingMethods resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.notifications start */
-	it(resourceType + '.notifications', async () => {
+	test(resourceType + '.notifications', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { notifications: CommonData.paramsFields } }
@@ -396,8 +406,9 @@ describe('ShippingMethods resource', () => {
 	/* relationship.notifications stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -418,8 +429,9 @@ describe('ShippingMethods resource', () => {
 	
   
 
+	
 	/* trigger._disable start */
-	it(resourceType + '._disable', async () => {
+	test(resourceType + '._disable', async () => {
 	
 		let triggerAttr = '_disable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -444,8 +456,9 @@ describe('ShippingMethods resource', () => {
 	/* trigger._disable stop */
 	
 
+	
 	/* trigger._enable start */
-	it(resourceType + '._enable', async () => {
+	test(resourceType + '._enable', async () => {
 	
 		let triggerAttr = '_enable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -470,8 +483,9 @@ describe('ShippingMethods resource', () => {
 	/* trigger._enable stop */
 	
 
+	
 	/* trigger._reset_circuit start */
-	it(resourceType + '._reset_circuit', async () => {
+	test(resourceType + '._reset_circuit', async () => {
 	
 		let triggerAttr = '_reset_circuit'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

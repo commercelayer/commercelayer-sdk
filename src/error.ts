@@ -58,7 +58,7 @@ class ApiError extends SdkError {
 
 
 const isRequestError = (error: any): error is TypeError => {
-	return error instanceof TypeError
+	return (error instanceof TypeError) && (error.message !== 'fetch failed')
 }
 
 const isCancelError = (error: any): boolean => {
@@ -79,7 +79,7 @@ const isExpiredTokenError = (error: any): boolean => {
 
 
 const handleError = (error: Error): never => {
-
+console.log(error)
 	if (SdkError.isSdkError(error) || ApiError.isApiError(error)) throw error
 
 	let sdkError = new SdkError({ message: error.message })

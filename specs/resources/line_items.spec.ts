@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, LineItem } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('LineItems resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
@@ -55,7 +56,7 @@ describe('LineItems resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -77,7 +78,7 @@ describe('LineItems resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -101,7 +102,7 @@ describe('LineItems resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -120,7 +121,7 @@ describe('LineItems resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -140,7 +141,7 @@ describe('LineItems resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isLineItem(resource)).toBeTruthy()
@@ -153,7 +154,7 @@ describe('LineItems resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -167,7 +168,7 @@ describe('LineItems resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -204,8 +205,9 @@ describe('LineItems resource', () => {
 
   
 
+	
 	/* relationship.order start */
-	it(resourceType + '.order', async () => {
+	test(resourceType + '.order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -225,8 +227,9 @@ describe('LineItems resource', () => {
 	/* relationship.order stop */
 	
 
+	
 	/* relationship.line_item_options start */
-	it(resourceType + '.line_item_options', async () => {
+	test(resourceType + '.line_item_options', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { line_item_options: CommonData.paramsFields } }
@@ -246,8 +249,9 @@ describe('LineItems resource', () => {
 	/* relationship.line_item_options stop */
 	
 
+	
 	/* relationship.return_line_items start */
-	it(resourceType + '.return_line_items', async () => {
+	test(resourceType + '.return_line_items', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { return_line_items: CommonData.paramsFields } }
@@ -267,8 +271,9 @@ describe('LineItems resource', () => {
 	/* relationship.return_line_items stop */
 	
 
+	
 	/* relationship.stock_reservations start */
-	it(resourceType + '.stock_reservations', async () => {
+	test(resourceType + '.stock_reservations', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_reservations: CommonData.paramsFields } }
@@ -288,8 +293,9 @@ describe('LineItems resource', () => {
 	/* relationship.stock_reservations stop */
 	
 
+	
 	/* relationship.stock_line_items start */
-	it(resourceType + '.stock_line_items', async () => {
+	test(resourceType + '.stock_line_items', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_line_items: CommonData.paramsFields } }
@@ -309,8 +315,9 @@ describe('LineItems resource', () => {
 	/* relationship.stock_line_items stop */
 	
 
+	
 	/* relationship.stock_transfers start */
-	it(resourceType + '.stock_transfers', async () => {
+	test(resourceType + '.stock_transfers', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_transfers: CommonData.paramsFields } }
@@ -330,8 +337,9 @@ describe('LineItems resource', () => {
 	/* relationship.stock_transfers stop */
 	
 
+	
 	/* relationship.notifications start */
-	it(resourceType + '.notifications', async () => {
+	test(resourceType + '.notifications', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { notifications: CommonData.paramsFields } }
@@ -351,8 +359,9 @@ describe('LineItems resource', () => {
 	/* relationship.notifications stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -372,8 +381,9 @@ describe('LineItems resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.tags start */
-	it(resourceType + '.tags', async () => {
+	test(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
@@ -394,8 +404,9 @@ describe('LineItems resource', () => {
 	
   
 
+	
 	/* trigger._external_price start */
-	it(resourceType + '._external_price', async () => {
+	test(resourceType + '._external_price', async () => {
 	
 		let triggerAttr = '_external_price'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -420,8 +431,9 @@ describe('LineItems resource', () => {
 	/* trigger._external_price stop */
 	
 
+	
 	/* trigger._reserve_stock start */
-	it(resourceType + '._reserve_stock', async () => {
+	test(resourceType + '._reserve_stock', async () => {
 	
 		let triggerAttr = '_reserve_stock'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -446,8 +458,9 @@ describe('LineItems resource', () => {
 	/* trigger._reserve_stock stop */
 	
 
+	
 	/* trigger._reset_circuit start */
-	it(resourceType + '._reset_circuit', async () => {
+	test(resourceType + '._reset_circuit', async () => {
 	
 		let triggerAttr = '_reset_circuit'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

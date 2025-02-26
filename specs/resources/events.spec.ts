@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, Event } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('Events resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -45,7 +46,7 @@ describe('Events resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -69,7 +70,7 @@ describe('Events resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -89,7 +90,7 @@ describe('Events resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isEvent(resource)).toBeTruthy()
@@ -102,7 +103,7 @@ describe('Events resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -116,7 +117,7 @@ describe('Events resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -153,8 +154,9 @@ describe('Events resource', () => {
 
   
 
+	
 	/* relationship.webhooks start */
-	it(resourceType + '.webhooks', async () => {
+	test(resourceType + '.webhooks', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { webhooks: CommonData.paramsFields } }
@@ -174,8 +176,9 @@ describe('Events resource', () => {
 	/* relationship.webhooks stop */
 	
 
+	
 	/* relationship.last_event_callbacks start */
-	it(resourceType + '.last_event_callbacks', async () => {
+	test(resourceType + '.last_event_callbacks', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_callbacks: CommonData.paramsFields } }
@@ -196,8 +199,9 @@ describe('Events resource', () => {
 	
   
 
+	
 	/* trigger._trigger start */
-	it(resourceType + '._trigger', async () => {
+	test(resourceType + '._trigger', async () => {
 	
 		let triggerAttr = '_trigger'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

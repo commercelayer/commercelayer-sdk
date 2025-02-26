@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, StockReservation } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
@@ -53,7 +54,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -75,7 +76,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -99,7 +100,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -118,7 +119,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -138,7 +139,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isStockReservation(resource)).toBeTruthy()
@@ -151,7 +152,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -165,7 +166,7 @@ describe('StockReservations resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -202,8 +203,9 @@ describe('StockReservations resource', () => {
 
   
 
+	
 	/* relationship.line_item start */
-	it(resourceType + '.line_item', async () => {
+	test(resourceType + '.line_item', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { line_items: CommonData.paramsFields } }
@@ -223,8 +225,9 @@ describe('StockReservations resource', () => {
 	/* relationship.line_item stop */
 	
 
+	
 	/* relationship.order start */
-	it(resourceType + '.order', async () => {
+	test(resourceType + '.order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -244,8 +247,9 @@ describe('StockReservations resource', () => {
 	/* relationship.order stop */
 	
 
+	
 	/* relationship.stock_line_item start */
-	it(resourceType + '.stock_line_item', async () => {
+	test(resourceType + '.stock_line_item', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_line_items: CommonData.paramsFields } }
@@ -265,8 +269,9 @@ describe('StockReservations resource', () => {
 	/* relationship.stock_line_item stop */
 	
 
+	
 	/* relationship.stock_transfer start */
-	it(resourceType + '.stock_transfer', async () => {
+	test(resourceType + '.stock_transfer', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_transfers: CommonData.paramsFields } }
@@ -286,8 +291,9 @@ describe('StockReservations resource', () => {
 	/* relationship.stock_transfer stop */
 	
 
+	
 	/* relationship.stock_item start */
-	it(resourceType + '.stock_item', async () => {
+	test(resourceType + '.stock_item', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_items: CommonData.paramsFields } }
@@ -307,8 +313,9 @@ describe('StockReservations resource', () => {
 	/* relationship.stock_item stop */
 	
 
+	
 	/* relationship.reserved_stock start */
-	it(resourceType + '.reserved_stock', async () => {
+	test(resourceType + '.reserved_stock', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { reserved_stocks: CommonData.paramsFields } }
@@ -328,8 +335,9 @@ describe('StockReservations resource', () => {
 	/* relationship.reserved_stock stop */
 	
 
+	
 	/* relationship.sku start */
-	it(resourceType + '.sku', async () => {
+	test(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { skus: CommonData.paramsFields } }
@@ -350,8 +358,9 @@ describe('StockReservations resource', () => {
 	
   
 
+	
 	/* trigger._pending start */
-	it(resourceType + '._pending', async () => {
+	test(resourceType + '._pending', async () => {
 	
 		let triggerAttr = '_pending'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

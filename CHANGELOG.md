@@ -1,3 +1,71 @@
+# [7.0.0-beta.7](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.6...v7.0.0-beta.7) (2025-02-26)
+
+
+### Features
+
+* generate resource instances ([a1301e2](https://github.com/commercelayer/commercelayer-sdk/commit/a1301e273d4fd8c470dfe794fcd6eaaa05f48007))
+
+# [7.0.0-beta.6](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.5...v7.0.0-beta.6) (2025-02-25)
+
+
+### Features
+
+* add adapter instances ([fac2899](https://github.com/commercelayer/commercelayer-sdk/commit/fac28994546cd78b971dfd2713cb4d0ac9b00bff))
+* add common adapter ([facc79f](https://github.com/commercelayer/commercelayer-sdk/commit/facc79fa251596344db4c08fe297e8067646ce97))
+
+# [7.0.0-beta.5](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.4...v7.0.0-beta.5) (2025-02-20)
+
+
+### Bug Fixes
+
+* fix npm registry ([5d7d41d](https://github.com/commercelayer/commercelayer-sdk/commit/5d7d41de6e0bd74f7136220a26e247d9954596a3))
+* fix tsup config ([2b669f1](https://github.com/commercelayer/commercelayer-sdk/commit/2b669f1ca017b174150aa149fe924ca065091782))
+
+# [7.0.0-beta.4](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.3...v7.0.0-beta.4) (2025-02-20)
+
+
+### Bug Fixes
+
+* fix cjs exports ([e886276](https://github.com/commercelayer/commercelayer-sdk/commit/e886276609875f5d8253c57de1c4744e9b385f1b))
+
+# [7.0.0-beta.3](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.2...v7.0.0-beta.3) (2025-02-20)
+
+
+### Bug Fixes
+
+* fix cjs lib settings ([e53c89b](https://github.com/commercelayer/commercelayer-sdk/commit/e53c89b03232beff8bf6f602d04e0c09b628d37b))
+
+# [7.0.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.1...v7.0.0-beta.2) (2025-02-20)
+
+
+### Bug Fixes
+
+* fix vitest settings ([ba33274](https://github.com/commercelayer/commercelayer-sdk/commit/ba33274c2cad9f83be48733c495d94a24ba5195b))
+
+# [7.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.33.0...v7.0.0-beta.1) (2025-02-20)
+
+
+* feat!: remove support for node.js <22 BREAKING CHANGE: remove support for node.js <22 ([8f9dddd](https://github.com/commercelayer/commercelayer-sdk/commit/8f9dddd1880db17e1b991c0e599ee453aabd9c9f))
+
+
+### BREAKING CHANGES
+
+* remove support for node.js <22
+
+# [6.33.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.32.0...v6.33.0) (2025-02-20)
+
+
+### Features
+
+* update resources to schema v7.7.3 ([daa86e5](https://github.com/commercelayer/commercelayer-sdk/commit/daa86e57b1f86e82c5e1448bd39f599ac30edb07))
+
+# [6.32.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.31.0...v6.32.0) (2025-02-06)
+
+
+### Features
+
+* update resources to schema v7.7.2 ([0cff96c](https://github.com/commercelayer/commercelayer-sdk/commit/0cff96c3a6b4bcac2076f4343cc18119067ff718))
+
 # [6.31.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.30.0...v6.31.0) (2025-02-05)
 
 

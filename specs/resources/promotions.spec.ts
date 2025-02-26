@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, Promotion } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('Promotions resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -45,7 +46,7 @@ describe('Promotions resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -65,7 +66,7 @@ describe('Promotions resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isPromotion(resource)).toBeTruthy()
@@ -78,7 +79,7 @@ describe('Promotions resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -92,7 +93,7 @@ describe('Promotions resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -129,8 +130,9 @@ describe('Promotions resource', () => {
 
   
 
+	
 	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	test(resourceType + '.market', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -150,8 +152,9 @@ describe('Promotions resource', () => {
 	/* relationship.market stop */
 	
 
+	
 	/* relationship.order_amount_promotion_rule start */
-	it(resourceType + '.order_amount_promotion_rule', async () => {
+	test(resourceType + '.order_amount_promotion_rule', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { order_amount_promotion_rules: CommonData.paramsFields } }
@@ -171,8 +174,9 @@ describe('Promotions resource', () => {
 	/* relationship.order_amount_promotion_rule stop */
 	
 
+	
 	/* relationship.sku_list_promotion_rule start */
-	it(resourceType + '.sku_list_promotion_rule', async () => {
+	test(resourceType + '.sku_list_promotion_rule', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { sku_list_promotion_rules: CommonData.paramsFields } }
@@ -192,8 +196,9 @@ describe('Promotions resource', () => {
 	/* relationship.sku_list_promotion_rule stop */
 	
 
+	
 	/* relationship.coupon_codes_promotion_rule start */
-	it(resourceType + '.coupon_codes_promotion_rule', async () => {
+	test(resourceType + '.coupon_codes_promotion_rule', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { coupon_codes_promotion_rules: CommonData.paramsFields } }
@@ -213,8 +218,9 @@ describe('Promotions resource', () => {
 	/* relationship.coupon_codes_promotion_rule stop */
 	
 
+	
 	/* relationship.custom_promotion_rule start */
-	it(resourceType + '.custom_promotion_rule', async () => {
+	test(resourceType + '.custom_promotion_rule', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { custom_promotion_rules: CommonData.paramsFields } }
@@ -234,8 +240,9 @@ describe('Promotions resource', () => {
 	/* relationship.custom_promotion_rule stop */
 	
 
+	
 	/* relationship.sku_list start */
-	it(resourceType + '.sku_list', async () => {
+	test(resourceType + '.sku_list', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { sku_lists: CommonData.paramsFields } }
@@ -255,8 +262,9 @@ describe('Promotions resource', () => {
 	/* relationship.sku_list stop */
 	
 
+	
 	/* relationship.coupons start */
-	it(resourceType + '.coupons', async () => {
+	test(resourceType + '.coupons', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { coupons: CommonData.paramsFields } }
@@ -276,8 +284,9 @@ describe('Promotions resource', () => {
 	/* relationship.coupons stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -297,8 +306,9 @@ describe('Promotions resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -318,8 +328,9 @@ describe('Promotions resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.tags start */
-	it(resourceType + '.tags', async () => {
+	test(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
@@ -339,8 +350,9 @@ describe('Promotions resource', () => {
 	/* relationship.tags stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }

@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, Parcel } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('Parcels resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			weight: randomValue('number', 'weight'),
@@ -55,7 +56,7 @@ describe('Parcels resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -77,7 +78,7 @@ describe('Parcels resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -101,7 +102,7 @@ describe('Parcels resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -120,7 +121,7 @@ describe('Parcels resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -140,7 +141,7 @@ describe('Parcels resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isParcel(resource)).toBeTruthy()
@@ -153,7 +154,7 @@ describe('Parcels resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -167,7 +168,7 @@ describe('Parcels resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -204,8 +205,9 @@ describe('Parcels resource', () => {
 
   
 
+	
 	/* relationship.shipment start */
-	it(resourceType + '.shipment', async () => {
+	test(resourceType + '.shipment', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipments: CommonData.paramsFields } }
@@ -225,8 +227,9 @@ describe('Parcels resource', () => {
 	/* relationship.shipment stop */
 	
 
+	
 	/* relationship.package start */
-	it(resourceType + '.package', async () => {
+	test(resourceType + '.package', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { packages: CommonData.paramsFields } }
@@ -246,8 +249,9 @@ describe('Parcels resource', () => {
 	/* relationship.package stop */
 	
 
+	
 	/* relationship.parcel_line_items start */
-	it(resourceType + '.parcel_line_items', async () => {
+	test(resourceType + '.parcel_line_items', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { parcel_line_items: CommonData.paramsFields } }
@@ -267,8 +271,9 @@ describe('Parcels resource', () => {
 	/* relationship.parcel_line_items stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -288,8 +293,9 @@ describe('Parcels resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -309,8 +315,9 @@ describe('Parcels resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }

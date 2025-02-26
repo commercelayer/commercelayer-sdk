@@ -114,7 +114,7 @@ const generate = async (localSchema?: boolean) => {
 	mkdirSync(testDir, { recursive: true })
 
 
-	const resources: { [key: string]: ApiRes } = {}
+	const resources: Record<string, ApiRes> = {}
 
 	Object.entries(fixedSchema.resources).forEach(([type, res]) => {
 
@@ -152,6 +152,7 @@ const generate = async (localSchema?: boolean) => {
 	updateSdkInterfaces(resources)
 	updateModelTypes(resources)
 	// updateApiMicroClients(resources)
+	updateResourceInstances(resources)
 
 	updateLicense()
 
@@ -184,7 +185,50 @@ const tabsString = (num: number): string => {
 }
 
 
-const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
+const updateResourceInstances = (resources: Record<string, ApiRes>): void => {
+
+	const filePath = 'src/instance.ts'
+
+	const cl = readFileSync(filePath, { encoding: 'utf-8' })
+
+	const lines = cl.split('\n')
+
+
+	const classes: string[] = Object.values(resources).map(r => `\t${r.apiClass}`)
+
+	const resStartIdx = findLine('##__RESOURCE_CLASS_LIST_START__##', lines).index + 1
+	const resStopIdx = findLine('##__RESOURCE_CLASS_LIST_STOP__##', lines).index
+	lines.splice(resStartIdx, resStopIdx - resStartIdx, classes.join(',\n'))
+
+
+	const insTplLine = findLine('##__CL_INSTANCES_TEMPLATE::', lines)
+	const insTplIdx = insTplLine.offset + '##__CL_INSTANCES_TEMPLATE::'.length + 1
+	const insTpl = insTplLine.text.substring(insTplIdx)
+
+	const instances: string[] = []
+	Object.entries(resources).forEach(([type, res]) => {
+		let fieldName = res.singleton? Inflector.singularize(type) : type
+		if (fieldName === 'exports') fieldName = 'exportz'	// fix reserved word 'exports
+		let ins = insTpl
+		ins = ins.replace(/##__TAB__##/g, '\t')
+		ins = ins.replace(/##__RESOURCE_TYPE__##/, fieldName)
+		ins = ins.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
+		instances.push(ins)
+	})
+
+	const insStartIdx = findLine('##__CL_INSTANCES_START__##', lines).index + 2
+	const insStopIdx = findLine('##__CL_INSTANCES_STOP__##', lines).index
+	lines.splice(insStartIdx, insStopIdx - insStartIdx, ...instances)
+
+
+	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
+
+	console.log('API client instances generated.')
+
+}
+
+
+const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
 
 	const filePath = 'src/commercelayer.ts'
 
@@ -265,7 +309,7 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 }
 
 
-const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
+const updateModelTypes = (resources: Record<string, ApiRes>): void => {
 
 	const filePath = 'src/model.ts'
 
@@ -303,7 +347,7 @@ const updateModelTypes = (resources: { [key: string]: ApiRes }): void => {
 }
 
 
-const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
+const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
 	const filePath = 'src/api.ts'
 
@@ -421,7 +465,7 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 
 
 
-const updateApiMicroClients = (resources: { [key: string]: ApiRes }): void => {
+const updateApiMicroClients = (resources: Record<string, ApiRes>): void => {
 
 	const filePath = 'src/micro.ts'
 

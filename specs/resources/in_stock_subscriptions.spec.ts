@@ -3,6 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, InStockSubscription } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ describe('InStockSubscriptions resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			market: cl.markets.relationship(TestData.id),
@@ -54,7 +55,7 @@ describe('InStockSubscriptions resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -76,7 +77,7 @@ describe('InStockSubscriptions resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -100,7 +101,7 @@ describe('InStockSubscriptions resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -119,7 +120,7 @@ describe('InStockSubscriptions resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -139,7 +140,7 @@ describe('InStockSubscriptions resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isInStockSubscription(resource)).toBeTruthy()
@@ -152,7 +153,7 @@ describe('InStockSubscriptions resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -166,7 +167,7 @@ describe('InStockSubscriptions resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -203,8 +204,9 @@ describe('InStockSubscriptions resource', () => {
 
   
 
+	
 	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	test(resourceType + '.market', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -224,8 +226,9 @@ describe('InStockSubscriptions resource', () => {
 	/* relationship.market stop */
 	
 
+	
 	/* relationship.customer start */
-	it(resourceType + '.customer', async () => {
+	test(resourceType + '.customer', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customers: CommonData.paramsFields } }
@@ -245,8 +248,9 @@ describe('InStockSubscriptions resource', () => {
 	/* relationship.customer stop */
 	
 
+	
 	/* relationship.sku start */
-	it(resourceType + '.sku', async () => {
+	test(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { skus: CommonData.paramsFields } }
@@ -266,8 +270,9 @@ describe('InStockSubscriptions resource', () => {
 	/* relationship.sku stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -287,8 +292,9 @@ describe('InStockSubscriptions resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -309,8 +315,9 @@ describe('InStockSubscriptions resource', () => {
 	
   
 
+	
 	/* trigger._activate start */
-	it(resourceType + '._activate', async () => {
+	test(resourceType + '._activate', async () => {
 	
 		let triggerAttr = '_activate'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -335,8 +342,9 @@ describe('InStockSubscriptions resource', () => {
 	/* trigger._activate stop */
 	
 
+	
 	/* trigger._deactivate start */
-	it(resourceType + '._deactivate', async () => {
+	test(resourceType + '._deactivate', async () => {
 	
 		let triggerAttr = '_deactivate'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
