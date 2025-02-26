@@ -40,7 +40,7 @@ interface ParcelLineItem extends Resource {
 	 * The internal name of the associated line item.
 	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
 	 */
-	name: string
+	name?: string | null
 	/** 
 	 * The image_url of the associated line item.
 	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```

@@ -41,6 +41,7 @@ export { default as Customers } from './resources/customers'
 export { default as DeliveryLeadTimes } from './resources/delivery_lead_times'
 export { default as DiscountEngineItems } from './resources/discount_engine_items'
 export { default as DiscountEngines } from './resources/discount_engines'
+export { default as EasypostPickups } from './resources/easypost_pickups'
 export { default as EventCallbacks } from './resources/event_callbacks'
 export { default as Events } from './resources/events'
 export { default as Exports } from './resources/exports'
@@ -88,6 +89,7 @@ export { default as PaymentOptions } from './resources/payment_options'
 export { default as PaypalGateways } from './resources/paypal_gateways'
 export { default as PaypalPayments } from './resources/paypal_payments'
 export { default as PercentageDiscountPromotions } from './resources/percentage_discount_promotions'
+export { default as Pickups } from './resources/pickups'
 export { default as PriceFrequencyTiers } from './resources/price_frequency_tiers'
 export { default as PriceListSchedulers } from './resources/price_list_schedulers'
 export { default as PriceLists } from './resources/price_lists'
@@ -175,6 +177,7 @@ export type ResourceTypeLock =
 |	'delivery_lead_times'
 |	'discount_engine_items'
 |	'discount_engines'
+|	'easypost_pickups'
 |	'event_callbacks'
 |	'events'
 |	'exports'
@@ -222,6 +225,7 @@ export type ResourceTypeLock =
 |	'paypal_gateways'
 |	'paypal_payments'
 |	'percentage_discount_promotions'
+|	'pickups'
 |	'price_frequency_tiers'
 |	'price_list_schedulers'
 |	'price_lists'
@@ -309,6 +313,7 @@ export const resourceList: ResourceTypeLock[] = [
 	'delivery_lead_times',
 	'discount_engine_items',
 	'discount_engines',
+	'easypost_pickups',
 	'event_callbacks',
 	'events',
 	'exports',
@@ -356,6 +361,7 @@ export const resourceList: ResourceTypeLock[] = [
 	'paypal_gateways',
 	'paypal_payments',
 	'percentage_discount_promotions',
+	'pickups',
 	'price_frequency_tiers',
 	'price_list_schedulers',
 	'price_lists',
@@ -484,6 +490,7 @@ export type CreatableResourceType =
 |	'customer_subscriptions'
 |	'customers'
 |	'delivery_lead_times'
+|	'easypost_pickups'
 |	'exports'
 |	'external_gateways'
 |	'external_payments'
@@ -603,6 +610,7 @@ export type UpdatableResourceType =
 |	'customer_subscriptions'
 |	'customers'
 |	'delivery_lead_times'
+|	'easypost_pickups'
 |	'events'
 |	'exports'
 |	'external_gateways'
@@ -723,6 +731,7 @@ export type DeletableResourceType =
 |	'customer_subscriptions'
 |	'customers'
 |	'delivery_lead_times'
+|	'easypost_pickups'
 |	'exports'
 |	'external_gateways'
 |	'external_payments'
@@ -991,6 +1000,7 @@ export type ResourceFields = {
 	delivery_lead_times: models.DeliveryLeadTime,
 	discount_engine_items: models.DiscountEngineItem,
 	discount_engines: models.DiscountEngine,
+	easypost_pickups: models.EasypostPickup,
 	event_callbacks: models.EventCallback,
 	events: models.Event,
 	exports: models.Export,
@@ -1038,6 +1048,7 @@ export type ResourceFields = {
 	paypal_gateways: models.PaypalGateway,
 	paypal_payments: models.PaypalPayment,
 	percentage_discount_promotions: models.PercentageDiscountPromotion,
+	pickups: models.Pickup,
 	price_frequency_tiers: models.PriceFrequencyTier,
 	price_list_schedulers: models.PriceListScheduler,
 	price_lists: models.PriceList,
@@ -1126,6 +1137,7 @@ export type ResourceSortFields = {
 	delivery_lead_times: models.DeliveryLeadTimeSort,
 	discount_engine_items: models.DiscountEngineItemSort,
 	discount_engines: models.DiscountEngineSort,
+	easypost_pickups: models.EasypostPickupSort,
 	event_callbacks: models.EventCallbackSort,
 	events: models.EventSort,
 	exports: models.ExportSort,
@@ -1173,6 +1185,7 @@ export type ResourceSortFields = {
 	paypal_gateways: models.PaypalGatewaySort,
 	paypal_payments: models.PaypalPaymentSort,
 	percentage_discount_promotions: models.PercentageDiscountPromotionSort,
+	pickups: models.PickupSort,
 	price_frequency_tiers: models.PriceFrequencyTierSort,
 	price_list_schedulers: models.PriceListSchedulerSort,
 	price_lists: models.PriceListSort,
