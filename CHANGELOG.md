@@ -1,3 +1,10 @@
+# [7.0.0-beta.7](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.6...v7.0.0-beta.7) (2025-02-26)
+
+
+### Features
+
+* generate resource instances ([a1301e2](https://github.com/commercelayer/commercelayer-sdk/commit/a1301e273d4fd8c470dfe794fcd6eaaa05f48007))
+
 # [7.0.0-beta.6](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.5...v7.0.0-beta.6) (2025-02-25)
 
 
