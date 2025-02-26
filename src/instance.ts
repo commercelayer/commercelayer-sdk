@@ -36,6 +36,7 @@ import {
 	DeliveryLeadTimes,
 	DiscountEngineItems,
 	DiscountEngines,
+	EasypostPickups,
 	EventCallbacks,
 	Events,
 	Exports,
@@ -83,6 +84,7 @@ import {
 	PaypalGateways,
 	PaypalPayments,
 	PercentageDiscountPromotions,
+	Pickups,
 	PriceFrequencyTiers,
 	PriceListSchedulers,
 	PriceLists,
@@ -171,6 +173,7 @@ import {
 	export const delivery_lead_times = new DeliveryLeadTimes()
 	export const discount_engine_items = new DiscountEngineItems()
 	export const discount_engines = new DiscountEngines()
+	export const easypost_pickups = new EasypostPickups()
 	export const event_callbacks = new EventCallbacks()
 	export const events = new Events()
 	export const exportz = new Exports()
@@ -218,6 +221,7 @@ import {
 	export const paypal_gateways = new PaypalGateways()
 	export const paypal_payments = new PaypalPayments()
 	export const percentage_discount_promotions = new PercentageDiscountPromotions()
+	export const pickups = new Pickups()
 	export const price_frequency_tiers = new PriceFrequencyTiers()
 	export const price_list_schedulers = new PriceListSchedulers()
 	export const price_lists = new PriceLists()

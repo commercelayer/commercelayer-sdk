@@ -9,6 +9,7 @@ import type { StockLocation } from './stock_locations'
 import type { Address, AddressType } from './addresses'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { DeliveryLeadTime } from './delivery_lead_times'
+import type { Pickup } from './pickups'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
 import type { LineItem } from './line_items'
@@ -157,6 +158,7 @@ interface Shipment extends Resource {
 	shipping_address?: Address | null
 	shipping_method?: ShippingMethod | null
 	delivery_lead_time?: DeliveryLeadTime | null
+	pickup?: Pickup | null
 	stock_line_items?: StockLineItem[] | null
 	stock_transfers?: StockTransfer[] | null
 	line_items?: LineItem[] | null
@@ -324,6 +326,11 @@ class Shipments extends ApiResource<Shipment> {
 	async delivery_lead_time(shipmentId: string | Shipment, params?: QueryParamsRetrieve<DeliveryLeadTime>, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
 		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
 		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `shipments/${_shipmentId}/delivery_lead_time`, params, options) as unknown as DeliveryLeadTime
+	}
+
+	async pickup(shipmentId: string | Shipment, params?: QueryParamsRetrieve<Pickup>, options?: ResourcesConfig): Promise<Pickup> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<Pickup>({ type: 'pickups' }, `shipments/${_shipmentId}/pickup`, params, options) as unknown as Pickup
 	}
 
 	async stock_line_items(shipmentId: string | Shipment, params?: QueryParamsList<StockLineItem>, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
