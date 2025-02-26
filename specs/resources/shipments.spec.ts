@@ -374,6 +374,27 @@ describe('Shipments resource', () => {
 	/* relationship.delivery_lead_time stop */
 	
 
+	/* relationship.pickup start */
+	it(resourceType + '.pickup', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { pickups: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'pickup')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].pickup(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.pickup stop */
+	
+
 	/* relationship.stock_line_items start */
 	it(resourceType + '.stock_line_items', async () => {
 	
