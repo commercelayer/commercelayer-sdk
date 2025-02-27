@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, CheckoutComGateway } from '../../src'
+import { CommerceLayerClient, CheckoutComGateway, checkout_com_gateways } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -202,6 +202,14 @@ describe('CheckoutComGateways resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(checkout_com_gateways)
+		expect(checkout_com_gateways.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

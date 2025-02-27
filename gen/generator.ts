@@ -2,7 +2,7 @@
 import apiSchema, { Resource, Operation, Component, Cardinality, Attribute } from './schema'
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs'
 import { basename } from 'node:path'
-import Fixer from './fixer'
+import Fixer, { fixReservedWord } from './fixer'
 import Inflector from './inflector'
 import { updateLicense } from './license'
 
@@ -207,11 +207,10 @@ const updateResourceInstances = (resources: Record<string, ApiRes>): void => {
 
 	const instances: string[] = []
 	Object.entries(resources).forEach(([type, res]) => {
-		let fieldName = res.singleton? Inflector.singularize(type) : type
-		if (fieldName === 'exports') fieldName = 'exportz'	// fix reserved word 'exports
+		const fieldName = res.singleton? Inflector.singularize(type) : type
 		let ins = insTpl
 		ins = ins.replace(/##__TAB__##/g, '\t')
-		ins = ins.replace(/##__RESOURCE_TYPE__##/, fieldName)
+		ins = ins.replace(/##__RESOURCE_TYPE__##/, fixReservedWord(fieldName))
 		ins = ins.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
 		instances.push(ins)
 	})
@@ -570,9 +569,11 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 	// Header
 	spec = copyrightHeader(spec)
 
+	const pathAndName = singleton? Inflector.singularize(type) : type
 	spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
 	spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
-	spec = spec.replace(/##__RESOURCE_PATH__##/g, singleton? Inflector.singularize(type) : type)
+	spec = spec.replace(/##__RESOURCE_PATH__##/g, pathAndName)
+	spec = spec.replace(/##__RESOURCE_INSTANCE__##/g, fixReservedWord(pathAndName))
 	// Clear unused placeholders
 	spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '')
 	spec = spec.replace(/##__TRIGGER_SPECS__##/g, '')

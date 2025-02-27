@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, CustomerPasswordReset } from '../../src'
+import { CommerceLayerClient, CustomerPasswordReset, customer_password_resets } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -199,6 +199,14 @@ describe('CustomerPasswordResets resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(customer_password_resets)
+		expect(customer_password_resets.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

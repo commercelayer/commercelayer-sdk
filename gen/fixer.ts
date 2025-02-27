@@ -115,6 +115,14 @@ export const fixSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
 }
 
 
+export const fixReservedWord = (word: string): string => {
+	switch (word) {
+		case 'exports': return 'exportz'
+		default: return word
+	}
+}
+
+
 
 export default {
 	fixSchema

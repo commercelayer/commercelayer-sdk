@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, StripeGateway } from '../../src'
+import { CommerceLayerClient, StripeGateway, stripe_gateways } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -200,6 +200,14 @@ describe('StripeGateways resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(stripe_gateways)
+		expect(stripe_gateways.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

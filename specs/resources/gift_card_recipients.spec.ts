@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, GiftCardRecipient } from '../../src'
+import { CommerceLayerClient, GiftCardRecipient, gift_card_recipients } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -200,6 +200,14 @@ describe('GiftCardRecipients resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(gift_card_recipients)
+		expect(gift_card_recipients.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

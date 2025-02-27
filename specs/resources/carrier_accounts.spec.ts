@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, CarrierAccount } from '../../src'
+import { CommerceLayerClient, CarrierAccount, carrier_accounts } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -202,6 +202,14 @@ describe('CarrierAccounts resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(carrier_accounts)
+		expect(carrier_accounts.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

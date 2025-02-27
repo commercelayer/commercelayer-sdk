@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, ##__RESOURCE_MODEL__## } from '../../src'
+import { CommerceLayerClient, ##__RESOURCE_MODEL__##, ##__RESOURCE_INSTANCE__## } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -216,6 +216,14 @@ describe('##__RESOURCE_CLASS__## resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(##__RESOURCE_INSTANCE__##)
+		expect(##__RESOURCE_INSTANCE__##.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   ##__RELATIONSHIP_SPECS__##
   ##__TRIGGER_SPECS__##

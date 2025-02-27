@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, DiscountEngineItem } from '../../src'
+import { CommerceLayerClient, DiscountEngineItem, discount_engine_items } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -127,6 +127,14 @@ describe('DiscountEngineItems resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(discount_engine_items)
+		expect(discount_engine_items.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, PriceFrequencyTier } from '../../src'
+import { CommerceLayerClient, PriceFrequencyTier, price_frequency_tiers } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -201,6 +201,14 @@ describe('PriceFrequencyTiers resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(price_frequency_tiers)
+		expect(price_frequency_tiers.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

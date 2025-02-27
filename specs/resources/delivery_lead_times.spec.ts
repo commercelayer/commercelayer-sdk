@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, DeliveryLeadTime } from '../../src'
+import { CommerceLayerClient, DeliveryLeadTime, delivery_lead_times } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -202,6 +202,14 @@ describe('DeliveryLeadTimes resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(delivery_lead_times)
+		expect(delivery_lead_times.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, ExternalTaxCalculator } from '../../src'
+import { CommerceLayerClient, ExternalTaxCalculator, external_tax_calculators } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -200,6 +200,14 @@ describe('ExternalTaxCalculators resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(external_tax_calculators)
+		expect(external_tax_calculators.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, PercentageDiscountPromotion } from '../../src'
+import { CommerceLayerClient, PercentageDiscountPromotion, percentage_discount_promotions } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -209,6 +209,14 @@ describe('PercentageDiscountPromotions resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(percentage_discount_promotions)
+		expect(percentage_discount_promotions.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

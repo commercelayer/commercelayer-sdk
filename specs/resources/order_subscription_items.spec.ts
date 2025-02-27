@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, OrderSubscriptionItem } from '../../src'
+import { CommerceLayerClient, OrderSubscriptionItem, order_subscription_items } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -204,6 +204,14 @@ describe('OrderSubscriptionItems resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(order_subscription_items)
+		expect(order_subscription_items.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, AdyenGateway } from '../../src'
+import { CommerceLayerClient, AdyenGateway, adyen_gateways } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -203,6 +203,14 @@ describe('AdyenGateways resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(adyen_gateways)
+		expect(adyen_gateways.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 

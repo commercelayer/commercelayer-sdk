@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, KlarnaGateway } from '../../src'
+import { CommerceLayerClient, KlarnaGateway, klarna_gateways } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -203,6 +203,14 @@ describe('KlarnaGateways resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(klarna_gateways)
+		expect(klarna_gateways.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
 
