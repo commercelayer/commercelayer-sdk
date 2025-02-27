@@ -1,3 +1,18 @@
+# [7.0.0-beta.8](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.7...v7.0.0-beta.8) (2025-02-27)
+
+
+### Bug Fixes
+
+* fix tsup config ([be73c66](https://github.com/commercelayer/commercelayer-sdk/commit/be73c6627673ff9d1834921f8b2cb1e02fc1167d))
+* update dependencies ([95218bd](https://github.com/commercelayer/commercelayer-sdk/commit/95218bddd650879edcd9b217fdc79bcbcfcc3d66))
+
+
+### Features
+
+* add instance specs ([f615ece](https://github.com/commercelayer/commercelayer-sdk/commit/f615ece654b573df5aacf7c0a85ecedaa70a0c6b))
+* update resources to scgema v7.8.0 ([d000a01](https://github.com/commercelayer/commercelayer-sdk/commit/d000a01844a0c6dae84f4a57b8db53753571db4f))
+* update resources to schema v 7.8.0 ([3347112](https://github.com/commercelayer/commercelayer-sdk/commit/334711236ea9618495d473ada028348070aa3e89))
+
 # [7.0.0-beta.7](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.6...v7.0.0-beta.7) (2025-02-26)
 
 
