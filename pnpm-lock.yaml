@@ -10,10 +10,6 @@ overrides:
 importers:
 
   .:
-    dependencies:
-      uninstall:
-        specifier: ^0.0.0
-        version: 0.0.0
     devDependencies:
       '@commercelayer/eslint-config-ts':
         specifier: ^2.2.0
@@ -2782,9 +2778,6 @@ packages:
   unicorn-magic@0.3.0:
     resolution: {integrity: sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA==}
     engines: {node: '>=18'}
-
-  uninstall@0.0.0:
-    resolution: {integrity: sha512-pjP/0+A4gsbDVa8XH/S2GZdT9NPJW8NFMy3GI7HnsWG+NAmFSSj3QidNosXBI9cPtxxNExEDdhKFO6sli8K3mA==}
 
   unique-string@3.0.0:
     resolution: {integrity: sha512-VGXBUVwxKMBUznyffQweQABPRRW1vHZAbadFZud4pLFAqRGvv/96vafgjWFqzourzr8YonlQiPgH0YCJfawoGQ==}
@@ -5792,8 +5785,6 @@ snapshots:
   unicorn-magic@0.1.0: {}
 
   unicorn-magic@0.3.0: {}
-
-  uninstall@0.0.0: {}
 
   unique-string@3.0.0:
     dependencies:
