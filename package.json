@@ -73,8 +73,5 @@
   },
   "resolutions": {
     "ansi-regex": "5.0.1"
-  },
-  "dependencies": {
-    "uninstall": "^0.0.0"
   }
 }
