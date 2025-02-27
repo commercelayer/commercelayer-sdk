@@ -19,4 +19,4 @@ export default defineConfig(() => ({
   shims: true,
   cjsInterop: true,
   skipNodeModulesBundle: true
-})) 
+}))
