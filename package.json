@@ -17,7 +17,7 @@
         "default": "./lib/index.cjs"
       }
     }
-  }, 
+  },
   "scripts": {
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
     "build": "tsup",
