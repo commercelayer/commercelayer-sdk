@@ -1,3 +1,10 @@
+## [7.0.0-beta.10](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.9...v7.0.0-beta.10) (2025-02-27)
+
+### Bug Fixes
+
+* change release config ([7da11ff](https://github.com/commercelayer/commercelayer-sdk/commit/7da11ff62f7813eaf38a044151e19fade09746ff))
+* update dependencies ([f2a216a](https://github.com/commercelayer/commercelayer-sdk/commit/f2a216a0e834142d02de1510fc3d0b7269525380))
+
 # [7.0.0-beta.9](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.8...v7.0.0-beta.9) (2025-02-27)
 
 
