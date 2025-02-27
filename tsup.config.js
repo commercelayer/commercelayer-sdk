@@ -1,6 +1,6 @@
 import { defineConfig } from 'tsup'
 
-const env = 'production' // process.env.NODE_ENV
+const env = process.env.NODE_ENV
 
 
 export default defineConfig(() => ({
