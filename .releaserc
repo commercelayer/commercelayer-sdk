@@ -8,8 +8,36 @@
 		{ "name": "prerelease", "prerelease": "rc" }
 	],
 	"plugins": [
-		"@semantic-release/commit-analyzer",
-		"@semantic-release/release-notes-generator",
+		["@semantic-release/commit-analyzer", {
+			"preset": "angular",
+			"releaseRules": [
+				{ "type": "breaking", "release": "major" },
+				{ "type": "resources", "release": "minor" },
+				{ "type": "feature", "release": "minor" },
+				{ "type": "bugfix", "release": "patch" },
+				{ "type": "refactor", "release": "patch" },
+				{ "scope": "no-release", "release": false }
+			]
+		}],
+		["@semantic-release/release-notes-generator", {
+			"preset": "conventionalcommits",
+			"presetConfig": {
+				"types": [
+					{ "type": "breaking", "section": "Breaking Changes" },
+					{ "type": "resources", "section": "API Resources" },
+					{ "type": "feat", "section": "Features" },
+					{ "type": "feature", "section": "Features" },
+					{ "type": "fix", "section": "Bug Fixes" },
+					{ "type": "bugfix", "section": "Bug Fixes" },
+					{ "type": "perf", "section": "Performance" },
+					{ "type": "refactor", "section": "Refactoring", "hidden": true },
+					{ "type": "test", "section": "Testing", "hidden": true },
+					{ "type": "docs", "section": "Documentation" },
+					{ "type": "chore", "hidden": true },
+					{ "type": "style", "hidden": true }
+				]
+			}
+		}],
 		"@semantic-release/npm",
 		"@semantic-release/github",
 		["@semantic-release/changelog", {
