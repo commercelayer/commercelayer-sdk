@@ -9,11 +9,11 @@ import { updateLicense } from './license'
 
 /**** SDK source code generator settings ****/
 export const CONFIG = {
+	LOCAL_SCHEMA: false,
 	RELATIONSHIP_FUNCTIONS: true,
 	TRIGGER_FUNCTIONS: true,
-	LEAZY_LOADING: true,
-	LOCAL: false,
-	MICRO_CLIENTS: false
+	RESOURCES_LEAZY_LOADING: true,
+	RESOURCES_FULL_BUNDLE: false
 }
 /**** **** **** **** **** **** **** **** ****/
 
@@ -56,7 +56,7 @@ const loadTemplates = (): void => {
 const generate = async (localSchema?: boolean) => {
 
 	console.log('>> Local schema: ' + (localSchema || false) + '\n')
-	CONFIG.LOCAL = localSchema || false
+	CONFIG.LOCAL_SCHEMA = localSchema || false
 
 	if (!localSchema) {
 
@@ -207,7 +207,7 @@ const updateResourceInstances = (resources: Record<string, ApiRes>): void => {
 
 	const instances: string[] = []
 	Object.entries(resources).forEach(([type, res]) => {
-		const fieldName = res.singleton? Inflector.singularize(type) : type
+		const fieldName = res.singleton ? Inflector.singularize(type) : type
 		let ins = insTpl
 		ins = ins.replace(/##__TAB__##/g, '\t')
 		ins = ins.replace(/##__RESOURCE_TYPE__##/, fixReservedWord(fieldName))
@@ -242,19 +242,24 @@ const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
 	}
 
 	// Definitions
-	const defTplLine = findLine('##__CL_RESOURCES_DEF_TEMPLATE::', lines)
-	const defTplIdx = defTplLine.offset + '##__CL_RESOURCES_DEF_TEMPLATE::'.length + 1
-	const defTpl = defTplLine.text.substring(defTplIdx)
-
 	const definitions: string[] = []
-	Object.entries(resources).forEach(([type, res]) => {
-		const fieldName = res.singleton? Inflector.singularize(type) : type
-		let def = defTpl
-		def = def.replace(/##__TAB__##/g, '\t')
-		def = def.replace(/##__RESOURCE_TYPE__##/, fieldName)
-		def = def.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
-		definitions.push(def)
-	})
+
+	if (CONFIG.RESOURCES_FULL_BUNDLE) {
+
+		const defTplLine = findLine('##__CL_RESOURCES_DEF_TEMPLATE::', lines)
+		const defTplIdx = defTplLine.offset + '##__CL_RESOURCES_DEF_TEMPLATE::'.length + 1
+		const defTpl = defTplLine.text.substring(defTplIdx)
+
+		Object.entries(resources).forEach(([type, res]) => {
+			const fieldName = res.singleton ? Inflector.singularize(type) : type
+			let def = defTpl
+			def = def.replace(/##__TAB__##/g, '\t')
+			def = def.replace(/##__RESOURCE_TYPE__##/, fieldName)
+			def = def.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
+			definitions.push(def)
+		})
+
+	}
 
 	const defStartIdx = findLine('##__CL_RESOURCES_DEF_START__##', lines).index + 2
 	const defStopIdx = findLine('##__CL_RESOURCES_DEF_STOP__##', lines).index
@@ -262,19 +267,24 @@ const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
 
 
 	// Initializations
-	const iniTplLine = findLine('##__CL_RESOURCES_INIT_TEMPLATE::', lines)
-	const iniTplIdx = iniTplLine.offset + '##__CL_RESOURCES_INIT_TEMPLATE::'.length + 1
-	const iniTpl = iniTplLine.text.substring(iniTplIdx)
-
 	const initializations: string[] = []
-	if (!CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
-		const fieldName = res.singleton? Inflector.singularize(type) : type
-		let ini = iniTpl
-		ini = ini.replace(/##__TAB__##/g, '\t')
-		ini = ini.replace(/##__RESOURCE_TYPE__##/, fieldName)
-		ini = ini.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
-		initializations.push(ini)
-	})
+
+	if (CONFIG.RESOURCES_FULL_BUNDLE) {
+
+		const iniTplLine = findLine('##__CL_RESOURCES_INIT_TEMPLATE::', lines)
+		const iniTplIdx = iniTplLine.offset + '##__CL_RESOURCES_INIT_TEMPLATE::'.length + 1
+		const iniTpl = iniTplLine.text.substring(iniTplIdx)
+
+		if (!CONFIG.RESOURCES_LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+			const fieldName = res.singleton ? Inflector.singularize(type) : type
+			let ini = iniTpl
+			ini = ini.replace(/##__TAB__##/g, '\t')
+			ini = ini.replace(/##__RESOURCE_TYPE__##/, fieldName)
+			ini = ini.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
+			initializations.push(ini)
+		})
+
+	}
 
 	const iniStartIdx = findLine('##__CL_RESOURCES_INIT_START__##', lines).index + 2
 	const iniStopIdx = findLine('##__CL_RESOURCES_INIT_STOP__##', lines).index
@@ -282,19 +292,24 @@ const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
 
 
 	// Leazy Loading
-	const llTplLine = findLine('##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::', lines)
-	const llTplIdx = llTplLine.offset + '##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::'.length + 1
-	const llTpl = llTplLine.text.substring(llTplIdx)
-
 	const leazyLoaders: string[] = []
-	if (CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
-		const fieldName = res.singleton? Inflector.singularize(type) : type
-		let ll = llTpl
-		ll = ll.replace(/##__TAB__##/g, '\t')
-		ll = ll.replace(/##__RESOURCE_TYPE__##/g, fieldName)
-		ll = ll.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
-		leazyLoaders.push(ll)
-	})
+
+	if (CONFIG.RESOURCES_FULL_BUNDLE) {
+
+		const llTplLine = findLine('##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::', lines)
+		const llTplIdx = llTplLine.offset + '##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::'.length + 1
+		const llTpl = llTplLine.text.substring(llTplIdx)
+
+		if (CONFIG.RESOURCES_LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+			const fieldName = res.singleton ? Inflector.singularize(type) : type
+			let ll = llTpl
+			ll = ll.replace(/##__TAB__##/g, '\t')
+			ll = ll.replace(/##__RESOURCE_TYPE__##/g, fieldName)
+			ll = ll.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
+			leazyLoaders.push(ll)
+		})
+
+	}
 
 	const llStartIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_START__##', lines).index + 2
 	const llStopIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_STOP__##', lines).index
@@ -464,40 +479,6 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
 
 
-const updateApiMicroClients = (resources: Record<string, ApiRes>): void => {
-
-	const filePath = 'src/micro.ts'
-
-	const cl = readFileSync(filePath, { encoding: 'utf-8' })
-
-	const lines = cl.split('\n')
-
-	const cltTpl = templates.client
-
-	const clients: string[] = [copyrightHeader(templates.header)]
-
-	if (CONFIG.MICRO_CLIENTS) {
-		Object.entries(resources).forEach(([type, res]) => {
-			let clt = cltTpl
-			clt = clt.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
-			clt = clt.replace(/##__RESOURCE_CLASS_INIT__##/g, Inflector.camelize(res.apiClass, true))
-			clients.push(`${clt}\n`)
-		})
-	}
-
-	const cltStartIdx = findLine('##__API_RESOURCES_MICRO_CLIENTS_START__##', lines).index + 1
-	const cltStopIdx = findLine('##__API_RESOURCES_MICRO_CLIENTS_STOP__##', lines).index
-	lines.splice(cltStartIdx, cltStopIdx - cltStartIdx, ...clients)
-
-	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
-
-	if (CONFIG.MICRO_CLIENTS) console.log('API micro clients generated.')
-	else console.log('API micro clients generation skipped.')
-
-}
-
-
-
 const generateSpec = (type: string, name: string, resource: Resource): string => {
 
 	let spec = templates.spec
@@ -569,7 +550,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 	// Header
 	spec = copyrightHeader(spec)
 
-	const pathAndName = singleton? Inflector.singularize(type) : type
+	const pathAndName = singleton ? Inflector.singularize(type) : type
 	spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
 	spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
 	spec = spec.replace(/##__RESOURCE_PATH__##/g, pathAndName)
@@ -739,7 +720,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.size > 0) ? `, ${Array.from(resMod).join(', ')}` : '')
 	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, resModelInterface)
 	res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
-	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, singletonResource? '' : `, ${resModelInterface}Sort`)
+	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, singletonResource ? '' : `, ${resModelInterface}Sort`)
 
 	const importQueryModels = (qryMod.size > 0) ? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
 	res = res.replace(/##__IMPORT_QUERY_MODELS__##/, importQueryModels)
@@ -798,7 +779,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
 	// Singleton path override
-	res = res.replace(/##__SINGLETON_PATH_OVERRIDE__##/, singletonResource? `\n\tpath(): string {\n\t\treturn '${Inflector.singularize(type)}'\n\t}\n`: '')
+	res = res.replace(/##__SINGLETON_PATH_OVERRIDE__##/, singletonResource ? `\n\tpath(): string {\n\t\treturn '${Inflector.singularize(type)}'\n\t}\n` : '')
 
 	// Enum types definitions
 

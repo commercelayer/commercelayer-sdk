@@ -15,7 +15,7 @@ export default defineConfig(() => ({
   target: 'es2020',
   entry: ['src/**/*.ts'],
   outDir: 'lib',
-  splitting: false,
+  splitting: true,
   shims: true,
   cjsInterop: true,
   skipNodeModulesBundle: true
