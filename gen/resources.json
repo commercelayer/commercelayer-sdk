@@ -17423,6 +17423,28 @@
                     "parent_resource": "Api::MarketResource",
                     "class_name": "Geocoder"
                 },
+                "default_shipping_method": {
+                    "type": "has_one",
+                    "desc": "The default shipping method for shipments.",
+                    "class_name": "ShippingMethod",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::MarketResource"
+                },
+                "default_payment_method": {
+                    "type": "has_one",
+                    "desc": "The default payment method for orders.",
+                    "class_name": "PaymentMethod",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::MarketResource"
+                },
                 "stores": {
                     "type": "has_many",
                     "desc": "The associated stores.",
@@ -17489,6 +17511,8 @@
                 "tax_calculator_id",
                 "customer_group_id",
                 "geocoder_id",
+                "default_shipping_method_id",
+                "default_payment_method_id",
                 "stores_id",
                 "price_list_schedulers_id",
                 "order_validation_rules_id",
@@ -19551,6 +19575,22 @@
                     "sortable": true,
                     "parent_resource": "Api::OrderResource",
                     "class_name": "Store"
+                },
+                "default_shipping_method": {
+                    "type": "has_one",
+                    "desc": "The shipping method to use as default for shipments.",
+                    "class_name": "ShippingMethod",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "parent_resource": "Api::OrderResource"
+                },
+                "default_payment_method": {
+                    "type": "has_one",
+                    "desc": "The payment method to use as default.",
+                    "class_name": "PaymentMethod",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "parent_resource": "Api::OrderResource"
                 },
                 "available_payment_methods": {
                     "type": "has_many",

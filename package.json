@@ -1,7 +1,12 @@
 {
   "name": "@commercelayer/sdk",
+<<<<<<< HEAD
   "version": "7.0.0-beta.11",
   "main": "lib/index.cjs",
+=======
+  "version": "6.34.0",
+  "main": "lib/index.js",
+>>>>>>> main
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
   "type": "module",
@@ -63,8 +68,8 @@
     "semantic-release": "^24.2.3",
     "tsup": "^8.4.0",
     "tsx": "^4.19.3",
-    "typescript": "^5.7.3",
-    "vitest": "^3.0.7"
+    "vitest": "^3.0.7",
+    "typescript": "^5.8.2"
   },
   "repository": "github:commercelayer/commercelayer-sdk",
   "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues",

@@ -327,7 +327,52 @@ describe('Orders resource', () => {
 	/* relationship.store stop */
 	
 
+<<<<<<< HEAD
 	
+=======
+	/* relationship.default_shipping_method start */
+	it(resourceType + '.default_shipping_method', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { shipping_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'default_shipping_method')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].default_shipping_method(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.default_shipping_method stop */
+	
+
+	/* relationship.default_payment_method start */
+	it(resourceType + '.default_payment_method', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'default_payment_method')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].default_payment_method(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.default_payment_method stop */
+	
+
+>>>>>>> main
 	/* relationship.available_payment_methods start */
 	test(resourceType + '.available_payment_methods', async () => {
 	
