@@ -327,11 +327,9 @@ describe('Orders resource', () => {
 	/* relationship.store stop */
 	
 
-<<<<<<< HEAD
 	
-=======
 	/* relationship.default_shipping_method start */
-	it(resourceType + '.default_shipping_method', async () => {
+	test(resourceType + '.default_shipping_method', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipping_methods: CommonData.paramsFields } }
@@ -351,8 +349,9 @@ describe('Orders resource', () => {
 	/* relationship.default_shipping_method stop */
 	
 
+	
 	/* relationship.default_payment_method start */
-	it(resourceType + '.default_payment_method', async () => {
+	test(resourceType + '.default_payment_method', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { payment_methods: CommonData.paramsFields } }
@@ -372,7 +371,7 @@ describe('Orders resource', () => {
 	/* relationship.default_payment_method stop */
 	
 
->>>>>>> main
+	
 	/* relationship.available_payment_methods start */
 	test(resourceType + '.available_payment_methods', async () => {
 	

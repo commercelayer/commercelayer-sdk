@@ -391,14 +391,9 @@ describe('Shipments resource', () => {
 	/* relationship.delivery_lead_time stop */
 	
 
-<<<<<<< HEAD
 	
 	/* relationship.pickup start */
 	test(resourceType + '.pickup', async () => {
-=======
-	/* relationship.pickup start */
-	it(resourceType + '.pickup', async () => {
->>>>>>> main
 	
 		const id = TestData.id
 		const params = { fields: { pickups: CommonData.paramsFields } }
@@ -418,10 +413,7 @@ describe('Shipments resource', () => {
 	/* relationship.pickup stop */
 	
 
-<<<<<<< HEAD
 	
-=======
->>>>>>> main
 	/* relationship.stock_line_items start */
 	test(resourceType + '.stock_line_items', async () => {
 	

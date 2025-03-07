@@ -3,12 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-<<<<<<< HEAD
 import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, Pickup, pickups } from '../../src'
-=======
-import { CommerceLayerClient, Pickup } from '../../src'
->>>>>>> main
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,11 +24,7 @@ describe('Pickups resource', () => {
 
 
   /* spec.retrieve.start */
-<<<<<<< HEAD
   test(resourceType + '.retrieve', async () => {
-=======
-  it(resourceType + '.retrieve', async () => {
->>>>>>> main
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -54,11 +46,7 @@ describe('Pickups resource', () => {
 
 
   /* spec.list.start */
-<<<<<<< HEAD
   test(resourceType + '.list', async () => {
-=======
-  it(resourceType + '.list', async () => {
->>>>>>> main
 
     const params = CommonData.paramsList
 
@@ -78,11 +66,7 @@ describe('Pickups resource', () => {
 
 
   /* spec.type.start */
-<<<<<<< HEAD
   test(resourceType + '.type', async () => {
-=======
-  it(resourceType + '.type', async () => {
->>>>>>> main
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isPickup(resource)).toBeTruthy()
@@ -95,11 +79,7 @@ describe('Pickups resource', () => {
 
 
   /* spec.relationship.start */
-<<<<<<< HEAD
   test(resourceType + '.relationship', async () => {
-=======
-  it(resourceType + '.relationship', async () => {
->>>>>>> main
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -113,11 +93,7 @@ describe('Pickups resource', () => {
 
   /* spec.parse.start */
   /*
-<<<<<<< HEAD
   test(resourceType + '.parse', async () => {
-=======
-  it(resourceType + '.parse', async () => {
->>>>>>> main
 
     const reference = 'myReferenceId'
 
@@ -152,7 +128,6 @@ describe('Pickups resource', () => {
   */
   /* spec.parse.stop */
 
-<<<<<<< HEAD
 
   /* spec.instance start */
 	test(resourceType + '.instance', async () => {
@@ -166,12 +141,6 @@ describe('Pickups resource', () => {
 	
 	/* relationship.shipment start */
 	test(resourceType + '.shipment', async () => {
-=======
-  
-
-	/* relationship.shipment start */
-	it(resourceType + '.shipment', async () => {
->>>>>>> main
 	
 		const id = TestData.id
 		const params = { fields: { shipments: CommonData.paramsFields } }
@@ -191,14 +160,9 @@ describe('Pickups resource', () => {
 	/* relationship.shipment stop */
 	
 
-<<<<<<< HEAD
 	
 	/* relationship.parcels start */
 	test(resourceType + '.parcels', async () => {
-=======
-	/* relationship.parcels start */
-	it(resourceType + '.parcels', async () => {
->>>>>>> main
 	
 		const id = TestData.id
 		const params = { fields: { parcels: CommonData.paramsFields } }
@@ -218,14 +182,9 @@ describe('Pickups resource', () => {
 	/* relationship.parcels stop */
 	
 
-<<<<<<< HEAD
 	
 	/* relationship.events start */
 	test(resourceType + '.events', async () => {
-=======
-	/* relationship.events start */
-	it(resourceType + '.events', async () => {
->>>>>>> main
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }

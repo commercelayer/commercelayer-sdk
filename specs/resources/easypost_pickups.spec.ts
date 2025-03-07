@@ -3,12 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-<<<<<<< HEAD
 import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, EasypostPickup, easypost_pickups } from '../../src'
-=======
-import { CommerceLayerClient, EasypostPickup } from '../../src'
->>>>>>> main
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,11 +24,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.create.start */
-<<<<<<< HEAD
   test(resourceType + '.create', async () => {
-=======
-  it(resourceType + '.create', async () => {
->>>>>>> main
 
     const createAttributes = {
 			min_datetime: randomValue('string', 'min_datetime'),
@@ -63,11 +55,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.retrieve.start */
-<<<<<<< HEAD
   test(resourceType + '.retrieve', async () => {
-=======
-  it(resourceType + '.retrieve', async () => {
->>>>>>> main
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -89,11 +77,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.update.start */
-<<<<<<< HEAD
   test(resourceType + '.update', async () => {
-=======
-  it(resourceType + '.update', async () => {
->>>>>>> main
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -117,11 +101,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.delete.start */
-<<<<<<< HEAD
   test(resourceType + '.delete', async () => {
-=======
-  it(resourceType + '.delete', async () => {
->>>>>>> main
 
     const id = TestData.id
 
@@ -140,11 +120,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.list.start */
-<<<<<<< HEAD
   test(resourceType + '.list', async () => {
-=======
-  it(resourceType + '.list', async () => {
->>>>>>> main
 
     const params = CommonData.paramsList
 
@@ -164,11 +140,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.type.start */
-<<<<<<< HEAD
   test(resourceType + '.type', async () => {
-=======
-  it(resourceType + '.type', async () => {
->>>>>>> main
 
     const resource = { id: TestData.id, type: resourceType }
     expect(cl[resourcePath].isEasypostPickup(resource)).toBeTruthy()
@@ -181,11 +153,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.relationship.start */
-<<<<<<< HEAD
   test(resourceType + '.relationship', async () => {
-=======
-  it(resourceType + '.relationship', async () => {
->>>>>>> main
 
     const relId = cl[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -199,11 +167,7 @@ describe('EasypostPickups resource', () => {
 
   /* spec.parse.start */
   /*
-<<<<<<< HEAD
   test(resourceType + '.parse', async () => {
-=======
-  it(resourceType + '.parse', async () => {
->>>>>>> main
 
     const reference = 'myReferenceId'
 
@@ -238,7 +202,6 @@ describe('EasypostPickups resource', () => {
   */
   /* spec.parse.stop */
 
-<<<<<<< HEAD
 
   /* spec.instance start */
 	test(resourceType + '.instance', async () => {
@@ -252,12 +215,6 @@ describe('EasypostPickups resource', () => {
 	
 	/* relationship.shipment start */
 	test(resourceType + '.shipment', async () => {
-=======
-  
-
-	/* relationship.shipment start */
-	it(resourceType + '.shipment', async () => {
->>>>>>> main
 	
 		const id = TestData.id
 		const params = { fields: { shipments: CommonData.paramsFields } }
@@ -277,14 +234,9 @@ describe('EasypostPickups resource', () => {
 	/* relationship.shipment stop */
 	
 
-<<<<<<< HEAD
 	
 	/* relationship.parcels start */
 	test(resourceType + '.parcels', async () => {
-=======
-	/* relationship.parcels start */
-	it(resourceType + '.parcels', async () => {
->>>>>>> main
 	
 		const id = TestData.id
 		const params = { fields: { parcels: CommonData.paramsFields } }
@@ -304,14 +256,9 @@ describe('EasypostPickups resource', () => {
 	/* relationship.parcels stop */
 	
 
-<<<<<<< HEAD
 	
 	/* relationship.events start */
 	test(resourceType + '.events', async () => {
-=======
-	/* relationship.events start */
-	it(resourceType + '.events', async () => {
->>>>>>> main
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -332,14 +279,9 @@ describe('EasypostPickups resource', () => {
 	
   
 
-<<<<<<< HEAD
 	
 	/* trigger._purchase start */
 	test(resourceType + '._purchase', async () => {
-=======
-	/* trigger._purchase start */
-	it(resourceType + '._purchase', async () => {
->>>>>>> main
 	
 		let triggerAttr = '_purchase'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
