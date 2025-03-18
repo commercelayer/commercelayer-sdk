@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, InStockSubscription, in_stock_subscriptions } from '../../src'
+import { CommerceLayerClient, InStockSubscription, in_stock_subscriptions, markets, customers, skus } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -27,9 +27,9 @@ describe('InStockSubscriptions resource', () => {
   test(resourceType + '.create', async () => {
 
     const createAttributes = {
-			market: cl.markets.relationship(TestData.id),
-			customer: cl.customers.relationship(TestData.id),
-			sku: cl.skus.relationship(TestData.id),
+			market: markets.relationship(TestData.id),
+			customer: customers.relationship(TestData.id),
+			sku: skus.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -41,11 +41,11 @@ describe('InStockSubscriptions resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isInStockSubscription(data.data)).toBeTruthy()
+      expect(in_stock_subscriptions.isInStockSubscription(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await in_stock_subscriptions.create(resData, params, CommonData.options)
       .then((res: InStockSubscription) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -67,7 +67,7 @@ describe('InStockSubscriptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await in_stock_subscriptions.retrieve(id, params, CommonData.options)
       .then((res: InStockSubscription) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -91,7 +91,7 @@ describe('InStockSubscriptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await in_stock_subscriptions.update(resData, params, CommonData.options)
       .then((res: InStockSubscription) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -111,7 +111,7 @@ describe('InStockSubscriptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await in_stock_subscriptions.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -131,7 +131,7 @@ describe('InStockSubscriptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await in_stock_subscriptions.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -143,9 +143,9 @@ describe('InStockSubscriptions resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isInStockSubscription(resource)).toBeTruthy()
+    expect(in_stock_subscriptions.isInStockSubscription(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = in_stock_subscriptions.type()
     expect(type).toBe(resourceType)
 
   })
@@ -155,10 +155,10 @@ describe('InStockSubscriptions resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = in_stock_subscriptions.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = in_stock_subscriptions.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -193,7 +193,7 @@ describe('InStockSubscriptions resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as InStockSubscription
+    const res = in_stock_subscriptions.parse(payload) as InStockSubscription
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -226,7 +226,7 @@ describe('InStockSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await in_stock_subscriptions.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -248,7 +248,7 @@ describe('InStockSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer(id, params, CommonData.options)
+		await in_stock_subscriptions.customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -270,7 +270,7 @@ describe('InStockSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku(id, params, CommonData.options)
+		await in_stock_subscriptions.sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -292,7 +292,7 @@ describe('InStockSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await in_stock_subscriptions.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -314,7 +314,7 @@ describe('InStockSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await in_stock_subscriptions.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -342,7 +342,7 @@ describe('InStockSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._activate(id, {}, CommonData.options)
+		await in_stock_subscriptions._activate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -369,7 +369,7 @@ describe('InStockSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._deactivate(id, {}, CommonData.options)
+		await in_stock_subscriptions._deactivate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

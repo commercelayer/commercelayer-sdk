@@ -12,7 +12,7 @@ test(resourceType + '.##__OPERATION_NAME__##', async () => {
 		return interceptRequest()
 	})
 
-	await cl[resourcePath].##__OPERATION_NAME__##(id, params, CommonData.options)
+	await ##__RESOURCE_PATH__##.##__OPERATION_NAME__##(id, params, CommonData.options)
 		.catch(handleError)
 		.finally(() => cl.removeInterceptor('request'))
 

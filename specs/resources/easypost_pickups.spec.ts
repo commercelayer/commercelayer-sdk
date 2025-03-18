@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, EasypostPickup, easypost_pickups } from '../../src'
+import { CommerceLayerClient, EasypostPickup, easypost_pickups, shipments } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -29,7 +29,7 @@ describe('EasypostPickups resource', () => {
     const createAttributes = {
 			min_datetime: randomValue('string', 'min_datetime'),
 			max_datetime: randomValue('string', 'max_datetime'),
-			shipment: cl.shipments.relationship(TestData.id),
+			shipment: shipments.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -41,11 +41,11 @@ describe('EasypostPickups resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isEasypostPickup(data.data)).toBeTruthy()
+      expect(easypost_pickups.isEasypostPickup(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await easypost_pickups.create(resData, params, CommonData.options)
       .then((res: EasypostPickup) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -67,7 +67,7 @@ describe('EasypostPickups resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await easypost_pickups.retrieve(id, params, CommonData.options)
       .then((res: EasypostPickup) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -91,7 +91,7 @@ describe('EasypostPickups resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await easypost_pickups.update(resData, params, CommonData.options)
       .then((res: EasypostPickup) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -111,7 +111,7 @@ describe('EasypostPickups resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await easypost_pickups.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -131,7 +131,7 @@ describe('EasypostPickups resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await easypost_pickups.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -143,9 +143,9 @@ describe('EasypostPickups resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isEasypostPickup(resource)).toBeTruthy()
+    expect(easypost_pickups.isEasypostPickup(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = easypost_pickups.type()
     expect(type).toBe(resourceType)
 
   })
@@ -155,10 +155,10 @@ describe('EasypostPickups resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = easypost_pickups.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = easypost_pickups.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -193,7 +193,7 @@ describe('EasypostPickups resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as EasypostPickup
+    const res = easypost_pickups.parse(payload) as EasypostPickup
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -226,7 +226,7 @@ describe('EasypostPickups resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipment(id, params, CommonData.options)
+		await easypost_pickups.shipment(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -248,7 +248,7 @@ describe('EasypostPickups resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].parcels(id, params, CommonData.options)
+		await easypost_pickups.parcels(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -270,7 +270,7 @@ describe('EasypostPickups resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await easypost_pickups.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -298,7 +298,7 @@ describe('EasypostPickups resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._purchase(id, {}, CommonData.options)
+		await easypost_pickups._purchase(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

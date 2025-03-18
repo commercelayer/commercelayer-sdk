@@ -1,6 +1,6 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient } from '../src'
+import { application, CommerceLayerClient } from '../src'
 import { getClient, CommonData, handleError, interceptRequest } from '../test/common'
 
 
@@ -34,7 +34,7 @@ describe('Test headers', () => {
 			return interceptRequest()
 		})
 
-		await cl.application.retrieve(params, options)
+		await application.retrieve(params, options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 
@@ -47,7 +47,7 @@ describe('Test headers', () => {
 
 		const reader = cl.addRawResponseReader({ headers: true })
 
-		await cl.application.retrieve(params, CommonData.options)
+		await application.retrieve(params, CommonData.options)
 
 		expect(reader.headers).not.toBeUndefined()
 		expect(reader.headers?.['x-ratelimit-limit']).not.toBeUndefined()

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Link, links } from '../../src'
+import { CommerceLayerClient, Link, links, orders } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -30,7 +30,7 @@ describe('Links resource', () => {
 			name: randomValue('string', 'name'),
 			client_id: randomValue('string', 'client_id'),
 			scope: randomValue('string', 'scope'),
-			item: cl.orders.relationship(TestData.id),
+			item: orders.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +42,11 @@ describe('Links resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isLink(data.data)).toBeTruthy()
+      expect(links.isLink(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await links.create(resData, params, CommonData.options)
       .then((res: Link) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -68,7 +68,7 @@ describe('Links resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await links.retrieve(id, params, CommonData.options)
       .then((res: Link) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -92,7 +92,7 @@ describe('Links resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await links.update(resData, params, CommonData.options)
       .then((res: Link) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -112,7 +112,7 @@ describe('Links resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await links.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -132,7 +132,7 @@ describe('Links resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await links.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -144,9 +144,9 @@ describe('Links resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isLink(resource)).toBeTruthy()
+    expect(links.isLink(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = links.type()
     expect(type).toBe(resourceType)
 
   })
@@ -156,10 +156,10 @@ describe('Links resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = links.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = links.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -194,7 +194,7 @@ describe('Links resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Link
+    const res = links.parse(payload) as Link
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -227,7 +227,7 @@ describe('Links resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await links.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -255,7 +255,7 @@ describe('Links resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._disable(id, {}, CommonData.options)
+		await links._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -282,7 +282,7 @@ describe('Links resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._enable(id, {}, CommonData.options)
+		await links._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -3,7 +3,7 @@ import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient } from '../src'
 import { getClient, TestData } from '../test/common'
 import { normalize, denormalize } from '../src/jsonapi'
-import { ResourceTypeLock } from '../src/api'
+import { customer_subscriptions, customers, orders, ResourceTypeLock } from '../src/api'
 import { isDeepStrictEqual } from 'node:util'
 
 
@@ -25,9 +25,9 @@ describe('SDK:jsonapi suite', () => {
 			reference: TestData.reference,
 			reference_origin: TestData.reference_origin,
 			metadata: TestData.metadata,
-			customer_group: cl.customers.relationship(TestData.id),
-			order: cl.orders.relationship(TestData.id),
-			customer_subscriptions: cl.customer_subscriptions.relationship(null)
+			customer_group: customers.relationship(TestData.id),
+			order: orders.relationship(TestData.id),
+			customer_subscriptions: customer_subscriptions.relationship(null)
 		}
 
 		const expected = {

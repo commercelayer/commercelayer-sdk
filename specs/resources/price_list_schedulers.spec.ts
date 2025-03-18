@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, PriceListScheduler, price_list_schedulers } from '../../src'
+import { CommerceLayerClient, PriceListScheduler, price_list_schedulers, markets, price_lists } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -30,8 +30,8 @@ describe('PriceListSchedulers resource', () => {
 			name: randomValue('string', 'name'),
 			starts_at: randomValue('string', 'starts_at'),
 			expires_at: randomValue('string', 'expires_at'),
-			market: cl.markets.relationship(TestData.id),
-			price_list: cl.price_lists.relationship(TestData.id),
+			market: markets.relationship(TestData.id),
+			price_list: price_lists.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -43,11 +43,11 @@ describe('PriceListSchedulers resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isPriceListScheduler(data.data)).toBeTruthy()
+      expect(price_list_schedulers.isPriceListScheduler(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await price_list_schedulers.create(resData, params, CommonData.options)
       .then((res: PriceListScheduler) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -69,7 +69,7 @@ describe('PriceListSchedulers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await price_list_schedulers.retrieve(id, params, CommonData.options)
       .then((res: PriceListScheduler) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -93,7 +93,7 @@ describe('PriceListSchedulers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await price_list_schedulers.update(resData, params, CommonData.options)
       .then((res: PriceListScheduler) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -113,7 +113,7 @@ describe('PriceListSchedulers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await price_list_schedulers.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -133,7 +133,7 @@ describe('PriceListSchedulers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await price_list_schedulers.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -145,9 +145,9 @@ describe('PriceListSchedulers resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isPriceListScheduler(resource)).toBeTruthy()
+    expect(price_list_schedulers.isPriceListScheduler(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = price_list_schedulers.type()
     expect(type).toBe(resourceType)
 
   })
@@ -157,10 +157,10 @@ describe('PriceListSchedulers resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = price_list_schedulers.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = price_list_schedulers.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -195,7 +195,7 @@ describe('PriceListSchedulers resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as PriceListScheduler
+    const res = price_list_schedulers.parse(payload) as PriceListScheduler
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -228,7 +228,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await price_list_schedulers.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -250,7 +250,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price_list(id, params, CommonData.options)
+		await price_list_schedulers.price_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -272,7 +272,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await price_list_schedulers.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -294,7 +294,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await price_list_schedulers.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -322,7 +322,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._disable(id, {}, CommonData.options)
+		await price_list_schedulers._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -349,7 +349,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._enable(id, {}, CommonData.options)
+		await price_list_schedulers._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

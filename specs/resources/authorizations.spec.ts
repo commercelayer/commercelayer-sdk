@@ -36,7 +36,7 @@ describe('Authorizations resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await authorizations.retrieve(id, params, CommonData.options)
       .then((res: Authorization) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -60,7 +60,7 @@ describe('Authorizations resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await authorizations.update(resData, params, CommonData.options)
       .then((res: Authorization) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -81,7 +81,7 @@ describe('Authorizations resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await authorizations.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -93,9 +93,9 @@ describe('Authorizations resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isAuthorization(resource)).toBeTruthy()
+    expect(authorizations.isAuthorization(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = authorizations.type()
     expect(type).toBe(resourceType)
 
   })
@@ -105,10 +105,10 @@ describe('Authorizations resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = authorizations.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = authorizations.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -143,7 +143,7 @@ describe('Authorizations resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Authorization
+    const res = authorizations.parse(payload) as Authorization
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -176,7 +176,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await authorizations.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -198,7 +198,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await authorizations.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -220,7 +220,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await authorizations.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -242,7 +242,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await authorizations.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -264,7 +264,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].captures(id, params, CommonData.options)
+		await authorizations.captures(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -286,7 +286,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].voids(id, params, CommonData.options)
+		await authorizations.voids(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -314,7 +314,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._forward(id, {}, CommonData.options)
+		await authorizations._forward(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -341,7 +341,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._capture(id, {}, CommonData.options)
+		await authorizations._capture(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -368,7 +368,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._capture_amount_cents(id, triggerValue, {}, CommonData.options)
+		await authorizations._capture_amount_cents(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -395,7 +395,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._void(id, {}, CommonData.options)
+		await authorizations._void(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -422,7 +422,7 @@ describe('Authorizations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._cancel(id, {}, CommonData.options)
+		await authorizations._cancel(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

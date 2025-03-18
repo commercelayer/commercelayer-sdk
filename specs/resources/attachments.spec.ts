@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Attachment, attachments } from '../../src'
+import { CommerceLayerClient, Attachment, attachments, geocoders } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,7 +28,7 @@ describe('Attachments resource', () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			attachable: cl.geocoders.relationship(TestData.id),
+			attachable: geocoders.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -40,11 +40,11 @@ describe('Attachments resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isAttachment(data.data)).toBeTruthy()
+      expect(attachments.isAttachment(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await attachments.create(resData, params, CommonData.options)
       .then((res: Attachment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -66,7 +66,7 @@ describe('Attachments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await attachments.retrieve(id, params, CommonData.options)
       .then((res: Attachment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -90,7 +90,7 @@ describe('Attachments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await attachments.update(resData, params, CommonData.options)
       .then((res: Attachment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -110,7 +110,7 @@ describe('Attachments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await attachments.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -130,7 +130,7 @@ describe('Attachments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await attachments.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -142,9 +142,9 @@ describe('Attachments resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isAttachment(resource)).toBeTruthy()
+    expect(attachments.isAttachment(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = attachments.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,10 +154,10 @@ describe('Attachments resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = attachments.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = attachments.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -192,7 +192,7 @@ describe('Attachments resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Attachment
+    const res = attachments.parse(payload) as Attachment
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)

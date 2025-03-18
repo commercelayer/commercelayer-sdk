@@ -36,7 +36,7 @@ describe('Geocoders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await geocoders.retrieve(id, params, CommonData.options)
       .then((res: Geocoder) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -57,7 +57,7 @@ describe('Geocoders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await geocoders.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -69,9 +69,9 @@ describe('Geocoders resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isGeocoder(resource)).toBeTruthy()
+    expect(geocoders.isGeocoder(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = geocoders.type()
     expect(type).toBe(resourceType)
 
   })
@@ -81,10 +81,10 @@ describe('Geocoders resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = geocoders.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = geocoders.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -119,7 +119,7 @@ describe('Geocoders resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Geocoder
+    const res = geocoders.parse(payload) as Geocoder
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -152,7 +152,7 @@ describe('Geocoders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].markets(id, params, CommonData.options)
+		await geocoders.markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -174,7 +174,7 @@ describe('Geocoders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].addresses(id, params, CommonData.options)
+		await geocoders.addresses(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -196,7 +196,7 @@ describe('Geocoders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await geocoders.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

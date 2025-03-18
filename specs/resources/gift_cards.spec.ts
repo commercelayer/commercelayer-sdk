@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, GiftCard, gift_cards } from '../../src'
+import { CommerceLayerClient, GiftCard, gift_cards, markets, gift_card_recipients, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,9 +28,9 @@ describe('GiftCards resource', () => {
 
     const createAttributes = {
 			balance_cents: randomValue('integer', 'balance_cents'),
-			market: cl.markets.relationship(TestData.id),
-			gift_card_recipient: cl.gift_card_recipients.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			market: markets.relationship(TestData.id),
+			gift_card_recipient: gift_card_recipients.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +42,11 @@ describe('GiftCards resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isGiftCard(data.data)).toBeTruthy()
+      expect(gift_cards.isGiftCard(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await gift_cards.create(resData, params, CommonData.options)
       .then((res: GiftCard) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -68,7 +68,7 @@ describe('GiftCards resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await gift_cards.retrieve(id, params, CommonData.options)
       .then((res: GiftCard) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -92,7 +92,7 @@ describe('GiftCards resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await gift_cards.update(resData, params, CommonData.options)
       .then((res: GiftCard) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -112,7 +112,7 @@ describe('GiftCards resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await gift_cards.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -132,7 +132,7 @@ describe('GiftCards resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await gift_cards.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -144,9 +144,9 @@ describe('GiftCards resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isGiftCard(resource)).toBeTruthy()
+    expect(gift_cards.isGiftCard(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = gift_cards.type()
     expect(type).toBe(resourceType)
 
   })
@@ -156,10 +156,10 @@ describe('GiftCards resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = gift_cards.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = gift_cards.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -194,7 +194,7 @@ describe('GiftCards resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as GiftCard
+    const res = gift_cards.parse(payload) as GiftCard
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -227,7 +227,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await gift_cards.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -249,7 +249,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].gift_card_recipient(id, params, CommonData.options)
+		await gift_cards.gift_card_recipient(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -271,7 +271,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await gift_cards.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -293,7 +293,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await gift_cards.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -315,7 +315,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await gift_cards.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -337,7 +337,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await gift_cards.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -365,7 +365,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._purchase(id, {}, CommonData.options)
+		await gift_cards._purchase(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -392,7 +392,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._activate(id, {}, CommonData.options)
+		await gift_cards._activate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -419,7 +419,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._deactivate(id, {}, CommonData.options)
+		await gift_cards._deactivate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -446,7 +446,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._balance_change_cents(id, triggerValue, {}, CommonData.options)
+		await gift_cards._balance_change_cents(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -473,7 +473,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await gift_cards._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -500,7 +500,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await gift_cards._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -36,7 +36,7 @@ describe('Refunds resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await refunds.retrieve(id, params, CommonData.options)
       .then((res: Refund) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -60,7 +60,7 @@ describe('Refunds resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await refunds.update(resData, params, CommonData.options)
       .then((res: Refund) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -81,7 +81,7 @@ describe('Refunds resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await refunds.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -93,9 +93,9 @@ describe('Refunds resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isRefund(resource)).toBeTruthy()
+    expect(refunds.isRefund(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = refunds.type()
     expect(type).toBe(resourceType)
 
   })
@@ -105,10 +105,10 @@ describe('Refunds resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = refunds.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = refunds.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -143,7 +143,7 @@ describe('Refunds resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Refund
+    const res = refunds.parse(payload) as Refund
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -176,7 +176,7 @@ describe('Refunds resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await refunds.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -198,7 +198,7 @@ describe('Refunds resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await refunds.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -220,7 +220,7 @@ describe('Refunds resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await refunds.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -242,7 +242,7 @@ describe('Refunds resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await refunds.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -264,7 +264,7 @@ describe('Refunds resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].reference_capture(id, params, CommonData.options)
+		await refunds.reference_capture(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -286,7 +286,7 @@ describe('Refunds resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].return(id, params, CommonData.options)
+		await refunds.return(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -314,7 +314,7 @@ describe('Refunds resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._forward(id, {}, CommonData.options)
+		await refunds._forward(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

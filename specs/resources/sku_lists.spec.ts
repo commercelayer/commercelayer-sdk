@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, SkuList, sku_lists } from '../../src'
+import { CommerceLayerClient, SkuList, sku_lists, customers } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,7 +28,7 @@ describe('SkuLists resource', () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			customer: cl.customers.relationship(TestData.id),
+			customer: customers.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -40,11 +40,11 @@ describe('SkuLists resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isSkuList(data.data)).toBeTruthy()
+      expect(sku_lists.isSkuList(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await sku_lists.create(resData, params, CommonData.options)
       .then((res: SkuList) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -66,7 +66,7 @@ describe('SkuLists resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await sku_lists.retrieve(id, params, CommonData.options)
       .then((res: SkuList) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -90,7 +90,7 @@ describe('SkuLists resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await sku_lists.update(resData, params, CommonData.options)
       .then((res: SkuList) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -110,7 +110,7 @@ describe('SkuLists resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await sku_lists.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -130,7 +130,7 @@ describe('SkuLists resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await sku_lists.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -142,9 +142,9 @@ describe('SkuLists resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isSkuList(resource)).toBeTruthy()
+    expect(sku_lists.isSkuList(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = sku_lists.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,10 +154,10 @@ describe('SkuLists resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = sku_lists.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = sku_lists.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -192,7 +192,7 @@ describe('SkuLists resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as SkuList
+    const res = sku_lists.parse(payload) as SkuList
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -225,7 +225,7 @@ describe('SkuLists resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer(id, params, CommonData.options)
+		await sku_lists.customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,7 +247,7 @@ describe('SkuLists resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].skus(id, params, CommonData.options)
+		await sku_lists.skus(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -269,7 +269,7 @@ describe('SkuLists resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_list_items(id, params, CommonData.options)
+		await sku_lists.sku_list_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -291,7 +291,7 @@ describe('SkuLists resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].bundles(id, params, CommonData.options)
+		await sku_lists.bundles(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -313,7 +313,7 @@ describe('SkuLists resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await sku_lists.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -335,7 +335,7 @@ describe('SkuLists resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].links(id, params, CommonData.options)
+		await sku_lists.links(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -357,7 +357,7 @@ describe('SkuLists resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await sku_lists.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

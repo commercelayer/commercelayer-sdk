@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, TaxCategory, tax_categories } from '../../src'
+import { CommerceLayerClient, TaxCategory, tax_categories, skus, avalara_accounts } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,8 +28,8 @@ describe('TaxCategories resource', () => {
 
     const createAttributes = {
 			code: randomValue('string', 'code'),
-			sku: cl.skus.relationship(TestData.id),
-			tax_calculator: cl.avalara_accounts.relationship(TestData.id),
+			sku: skus.relationship(TestData.id),
+			tax_calculator: avalara_accounts.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -41,11 +41,11 @@ describe('TaxCategories resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isTaxCategory(data.data)).toBeTruthy()
+      expect(tax_categories.isTaxCategory(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await tax_categories.create(resData, params, CommonData.options)
       .then((res: TaxCategory) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -67,7 +67,7 @@ describe('TaxCategories resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await tax_categories.retrieve(id, params, CommonData.options)
       .then((res: TaxCategory) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -91,7 +91,7 @@ describe('TaxCategories resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await tax_categories.update(resData, params, CommonData.options)
       .then((res: TaxCategory) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -111,7 +111,7 @@ describe('TaxCategories resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await tax_categories.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -131,7 +131,7 @@ describe('TaxCategories resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await tax_categories.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -143,9 +143,9 @@ describe('TaxCategories resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isTaxCategory(resource)).toBeTruthy()
+    expect(tax_categories.isTaxCategory(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = tax_categories.type()
     expect(type).toBe(resourceType)
 
   })
@@ -155,10 +155,10 @@ describe('TaxCategories resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = tax_categories.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = tax_categories.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -193,7 +193,7 @@ describe('TaxCategories resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as TaxCategory
+    const res = tax_categories.parse(payload) as TaxCategory
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -226,7 +226,7 @@ describe('TaxCategories resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku(id, params, CommonData.options)
+		await tax_categories.sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -248,7 +248,7 @@ describe('TaxCategories resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await tax_categories.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -270,7 +270,7 @@ describe('TaxCategories resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await tax_categories.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, CarrierAccount, carrier_accounts } from '../../src'
+import { CommerceLayerClient, CarrierAccount, carrier_accounts, markets } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -30,7 +30,7 @@ describe('CarrierAccounts resource', () => {
 			name: randomValue('string', 'name'),
 			easypost_type: randomValue('string', 'easypost_type'),
 			credentials: randomValue('object', 'credentials'),
-			market: cl.markets.relationship(TestData.id),
+			market: markets.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +42,11 @@ describe('CarrierAccounts resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isCarrierAccount(data.data)).toBeTruthy()
+      expect(carrier_accounts.isCarrierAccount(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await carrier_accounts.create(resData, params, CommonData.options)
       .then((res: CarrierAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -68,7 +68,7 @@ describe('CarrierAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await carrier_accounts.retrieve(id, params, CommonData.options)
       .then((res: CarrierAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -92,7 +92,7 @@ describe('CarrierAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await carrier_accounts.update(resData, params, CommonData.options)
       .then((res: CarrierAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -112,7 +112,7 @@ describe('CarrierAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await carrier_accounts.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -132,7 +132,7 @@ describe('CarrierAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await carrier_accounts.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -144,9 +144,9 @@ describe('CarrierAccounts resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isCarrierAccount(resource)).toBeTruthy()
+    expect(carrier_accounts.isCarrierAccount(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = carrier_accounts.type()
     expect(type).toBe(resourceType)
 
   })
@@ -156,10 +156,10 @@ describe('CarrierAccounts resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = carrier_accounts.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = carrier_accounts.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -194,7 +194,7 @@ describe('CarrierAccounts resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as CarrierAccount
+    const res = carrier_accounts.parse(payload) as CarrierAccount
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -227,7 +227,7 @@ describe('CarrierAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await carrier_accounts.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -249,7 +249,7 @@ describe('CarrierAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await carrier_accounts.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -271,7 +271,7 @@ describe('CarrierAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await carrier_accounts.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -36,7 +36,7 @@ describe('DiscountEngines resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await discount_engines.retrieve(id, params, CommonData.options)
       .then((res: DiscountEngine) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -57,7 +57,7 @@ describe('DiscountEngines resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await discount_engines.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -69,9 +69,9 @@ describe('DiscountEngines resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isDiscountEngine(resource)).toBeTruthy()
+    expect(discount_engines.isDiscountEngine(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = discount_engines.type()
     expect(type).toBe(resourceType)
 
   })
@@ -81,10 +81,10 @@ describe('DiscountEngines resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = discount_engines.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = discount_engines.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -119,7 +119,7 @@ describe('DiscountEngines resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as DiscountEngine
+    const res = discount_engines.parse(payload) as DiscountEngine
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -152,7 +152,7 @@ describe('DiscountEngines resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].markets(id, params, CommonData.options)
+		await discount_engines.markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -174,7 +174,7 @@ describe('DiscountEngines resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].discount_engine_items(id, params, CommonData.options)
+		await discount_engines.discount_engine_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -196,7 +196,7 @@ describe('DiscountEngines resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await discount_engines.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -218,7 +218,7 @@ describe('DiscountEngines resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await discount_engines.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

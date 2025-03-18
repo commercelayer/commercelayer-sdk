@@ -40,11 +40,11 @@ describe('Webhooks resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isWebhook(data.data)).toBeTruthy()
+      expect(webhooks.isWebhook(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await webhooks.create(resData, params, CommonData.options)
       .then((res: Webhook) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -66,7 +66,7 @@ describe('Webhooks resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await webhooks.retrieve(id, params, CommonData.options)
       .then((res: Webhook) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -90,7 +90,7 @@ describe('Webhooks resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await webhooks.update(resData, params, CommonData.options)
       .then((res: Webhook) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -110,7 +110,7 @@ describe('Webhooks resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await webhooks.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -130,7 +130,7 @@ describe('Webhooks resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await webhooks.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -142,9 +142,9 @@ describe('Webhooks resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isWebhook(resource)).toBeTruthy()
+    expect(webhooks.isWebhook(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = webhooks.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,10 +154,10 @@ describe('Webhooks resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = webhooks.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = webhooks.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -192,7 +192,7 @@ describe('Webhooks resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Webhook
+    const res = webhooks.parse(payload) as Webhook
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -225,7 +225,7 @@ describe('Webhooks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].last_event_callbacks(id, params, CommonData.options)
+		await webhooks.last_event_callbacks(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,7 +247,7 @@ describe('Webhooks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await webhooks.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -275,7 +275,7 @@ describe('Webhooks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._disable(id, {}, CommonData.options)
+		await webhooks._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -302,7 +302,7 @@ describe('Webhooks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._enable(id, {}, CommonData.options)
+		await webhooks._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -329,7 +329,7 @@ describe('Webhooks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reset_circuit(id, {}, CommonData.options)
+		await webhooks._reset_circuit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, ParcelLineItem, parcel_line_items } from '../../src'
+import { CommerceLayerClient, ParcelLineItem, parcel_line_items, parcels, stock_line_items } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,8 +28,8 @@ describe('ParcelLineItems resource', () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
-			parcel: cl.parcels.relationship(TestData.id),
-			stock_line_item: cl.stock_line_items.relationship(TestData.id),
+			parcel: parcels.relationship(TestData.id),
+			stock_line_item: stock_line_items.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -41,11 +41,11 @@ describe('ParcelLineItems resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isParcelLineItem(data.data)).toBeTruthy()
+      expect(parcel_line_items.isParcelLineItem(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await parcel_line_items.create(resData, params, CommonData.options)
       .then((res: ParcelLineItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -67,7 +67,7 @@ describe('ParcelLineItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await parcel_line_items.retrieve(id, params, CommonData.options)
       .then((res: ParcelLineItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -91,7 +91,7 @@ describe('ParcelLineItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await parcel_line_items.update(resData, params, CommonData.options)
       .then((res: ParcelLineItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -111,7 +111,7 @@ describe('ParcelLineItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await parcel_line_items.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -131,7 +131,7 @@ describe('ParcelLineItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await parcel_line_items.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -143,9 +143,9 @@ describe('ParcelLineItems resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isParcelLineItem(resource)).toBeTruthy()
+    expect(parcel_line_items.isParcelLineItem(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = parcel_line_items.type()
     expect(type).toBe(resourceType)
 
   })
@@ -155,10 +155,10 @@ describe('ParcelLineItems resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = parcel_line_items.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = parcel_line_items.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -193,7 +193,7 @@ describe('ParcelLineItems resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ParcelLineItem
+    const res = parcel_line_items.parse(payload) as ParcelLineItem
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -226,7 +226,7 @@ describe('ParcelLineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].parcel(id, params, CommonData.options)
+		await parcel_line_items.parcel(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -248,7 +248,7 @@ describe('ParcelLineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_line_item(id, params, CommonData.options)
+		await parcel_line_items.stock_line_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -270,7 +270,7 @@ describe('ParcelLineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await parcel_line_items.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

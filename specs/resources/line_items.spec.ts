@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, LineItem, line_items } from '../../src'
+import { CommerceLayerClient, LineItem, line_items, orders, skus, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,9 +28,9 @@ describe('LineItems resource', () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
-			order: cl.orders.relationship(TestData.id),
-			item: cl.skus.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			order: orders.relationship(TestData.id),
+			item: skus.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +42,11 @@ describe('LineItems resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isLineItem(data.data)).toBeTruthy()
+      expect(line_items.isLineItem(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await line_items.create(resData, params, CommonData.options)
       .then((res: LineItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -68,7 +68,7 @@ describe('LineItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await line_items.retrieve(id, params, CommonData.options)
       .then((res: LineItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -92,7 +92,7 @@ describe('LineItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await line_items.update(resData, params, CommonData.options)
       .then((res: LineItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -112,7 +112,7 @@ describe('LineItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await line_items.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -132,7 +132,7 @@ describe('LineItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await line_items.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -144,9 +144,9 @@ describe('LineItems resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isLineItem(resource)).toBeTruthy()
+    expect(line_items.isLineItem(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = line_items.type()
     expect(type).toBe(resourceType)
 
   })
@@ -156,10 +156,10 @@ describe('LineItems resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = line_items.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = line_items.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -194,7 +194,7 @@ describe('LineItems resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as LineItem
+    const res = line_items.parse(payload) as LineItem
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -227,7 +227,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await line_items.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -249,7 +249,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].line_item_options(id, params, CommonData.options)
+		await line_items.line_item_options(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -271,7 +271,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].return_line_items(id, params, CommonData.options)
+		await line_items.return_line_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -293,7 +293,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_reservations(id, params, CommonData.options)
+		await line_items.stock_reservations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -315,7 +315,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_line_items(id, params, CommonData.options)
+		await line_items.stock_line_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -337,7 +337,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_transfers(id, params, CommonData.options)
+		await line_items.stock_transfers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -359,7 +359,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].notifications(id, params, CommonData.options)
+		await line_items.notifications(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -381,7 +381,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await line_items.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -403,7 +403,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await line_items.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -431,7 +431,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._external_price(id, {}, CommonData.options)
+		await line_items._external_price(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -458,7 +458,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reserve_stock(id, {}, CommonData.options)
+		await line_items._reserve_stock(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -485,7 +485,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reset_circuit(id, {}, CommonData.options)
+		await line_items._reset_circuit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -512,7 +512,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await line_items._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -539,7 +539,7 @@ describe('LineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await line_items._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

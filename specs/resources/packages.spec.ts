@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Package, packages } from '../../src'
+import { CommerceLayerClient, Package, packages, stock_locations } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -32,7 +32,7 @@ describe('Packages resource', () => {
 			width: randomValue('number', 'width'),
 			height: randomValue('number', 'height'),
 			unit_of_length: randomValue('string', 'unit_of_length'),
-			stock_location: cl.stock_locations.relationship(TestData.id),
+			stock_location: stock_locations.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -44,11 +44,11 @@ describe('Packages resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isPackage(data.data)).toBeTruthy()
+      expect(packages.isPackage(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await packages.create(resData, params, CommonData.options)
       .then((res: Package) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -70,7 +70,7 @@ describe('Packages resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await packages.retrieve(id, params, CommonData.options)
       .then((res: Package) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -94,7 +94,7 @@ describe('Packages resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await packages.update(resData, params, CommonData.options)
       .then((res: Package) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -114,7 +114,7 @@ describe('Packages resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await packages.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -134,7 +134,7 @@ describe('Packages resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await packages.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -146,9 +146,9 @@ describe('Packages resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isPackage(resource)).toBeTruthy()
+    expect(packages.isPackage(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = packages.type()
     expect(type).toBe(resourceType)
 
   })
@@ -158,10 +158,10 @@ describe('Packages resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = packages.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = packages.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -196,7 +196,7 @@ describe('Packages resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Package
+    const res = packages.parse(payload) as Package
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -229,7 +229,7 @@ describe('Packages resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_location(id, params, CommonData.options)
+		await packages.stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -251,7 +251,7 @@ describe('Packages resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].parcels(id, params, CommonData.options)
+		await packages.parcels(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -273,7 +273,7 @@ describe('Packages resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await packages.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -295,7 +295,7 @@ describe('Packages resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await packages.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

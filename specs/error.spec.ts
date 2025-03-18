@@ -1,6 +1,6 @@
 
 import { expect, test, beforeAll, afterAll, describe } from 'vitest'
-import { CommerceLayerClient, ErrorObj } from '../src'
+import { CommerceLayerClient, customers, ErrorObj } from '../src'
 import { ErrorType } from '../src/error'
 import { getClient } from '../test/common'
 import { DBG } from '../src/common'
@@ -18,7 +18,7 @@ describe('SDK:error suite', () => {
 
 	test('ApiError', async () => {
 		try {
-			await cl.customers.retrieve('fake-id')
+			await customers.retrieve('fake-id')
 		} catch (error) {
 			expect(cl.isApiError(error)).toBeTruthy()
 			expect(error.status).toBe(404)
@@ -28,7 +28,7 @@ describe('SDK:error suite', () => {
 
 	test('ApiError.first', async () => {
 		try {
-			await cl.customers.create({ email: '' })
+			await customers.create({ email: '' })
 		} catch (error) {
 			expect(error.first()).not.toBeUndefined()
 		}
@@ -39,7 +39,7 @@ describe('SDK:error suite', () => {
 		try {
 			cl.config({ domain: 'fake.domain.xx', accessToken: 'fake-access-token' })
 			DBG.verbose = true
-			await cl.customers.list({ pageSize: 1})
+			await customers.list({ pageSize: 1})
 		} catch (error) {
 			expect(error.type).toEqual(ErrorType.CLIENT)
 		} finally {
@@ -63,7 +63,7 @@ describe('SDK:error suite', () => {
 		})
 
 		try {
-			await cl.customers.create({ email: '' })
+			await customers.create({ email: '' })
 		} catch (error) {
 			expect(error.type).toBe(ErrorType.RESPONSE)
 			expect(interceptor).toBeTruthy()

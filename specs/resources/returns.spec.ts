@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Return, returns } from '../../src'
+import { CommerceLayerClient, Return, returns, orders, stock_locations, captures, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -27,10 +27,10 @@ describe('Returns resource', () => {
   test(resourceType + '.create', async () => {
 
     const createAttributes = {
-			order: cl.orders.relationship(TestData.id),
-			stock_location: cl.stock_locations.relationship(TestData.id),
-			reference_capture: cl.captures.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			order: orders.relationship(TestData.id),
+			stock_location: stock_locations.relationship(TestData.id),
+			reference_capture: captures.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +42,11 @@ describe('Returns resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isReturn(data.data)).toBeTruthy()
+      expect(returns.isReturn(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await returns.create(resData, params, CommonData.options)
       .then((res: Return) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -68,7 +68,7 @@ describe('Returns resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await returns.retrieve(id, params, CommonData.options)
       .then((res: Return) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -92,7 +92,7 @@ describe('Returns resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await returns.update(resData, params, CommonData.options)
       .then((res: Return) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -112,7 +112,7 @@ describe('Returns resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await returns.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -132,7 +132,7 @@ describe('Returns resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await returns.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -144,9 +144,9 @@ describe('Returns resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isReturn(resource)).toBeTruthy()
+    expect(returns.isReturn(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = returns.type()
     expect(type).toBe(resourceType)
 
   })
@@ -156,10 +156,10 @@ describe('Returns resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = returns.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = returns.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -194,7 +194,7 @@ describe('Returns resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Return
+    const res = returns.parse(payload) as Return
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -227,7 +227,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await returns.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -249,7 +249,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer(id, params, CommonData.options)
+		await returns.customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -271,7 +271,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_location(id, params, CommonData.options)
+		await returns.stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -293,7 +293,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].origin_address(id, params, CommonData.options)
+		await returns.origin_address(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -315,7 +315,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].destination_address(id, params, CommonData.options)
+		await returns.destination_address(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -337,7 +337,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].reference_capture(id, params, CommonData.options)
+		await returns.reference_capture(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -359,7 +359,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].reference_refund(id, params, CommonData.options)
+		await returns.reference_refund(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -381,7 +381,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].return_line_items(id, params, CommonData.options)
+		await returns.return_line_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -403,7 +403,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await returns.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -425,7 +425,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].resource_errors(id, params, CommonData.options)
+		await returns.resource_errors(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -447,7 +447,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await returns.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -469,7 +469,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await returns.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -491,7 +491,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await returns.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -519,7 +519,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._request(id, {}, CommonData.options)
+		await returns._request(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -546,7 +546,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._approve(id, {}, CommonData.options)
+		await returns._approve(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -573,7 +573,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._cancel(id, {}, CommonData.options)
+		await returns._cancel(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -600,7 +600,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._ship(id, {}, CommonData.options)
+		await returns._ship(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -627,7 +627,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reject(id, {}, CommonData.options)
+		await returns._reject(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -654,7 +654,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._receive(id, {}, CommonData.options)
+		await returns._receive(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -681,7 +681,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._restock(id, {}, CommonData.options)
+		await returns._restock(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -708,7 +708,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._archive(id, {}, CommonData.options)
+		await returns._archive(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -735,7 +735,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._unarchive(id, {}, CommonData.options)
+		await returns._unarchive(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -762,7 +762,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._refund(id, {}, CommonData.options)
+		await returns._refund(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -789,7 +789,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._refund_amount_cents(id, triggerValue, {}, CommonData.options)
+		await returns._refund_amount_cents(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -816,7 +816,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await returns._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -843,7 +843,7 @@ describe('Returns resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await returns._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

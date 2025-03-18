@@ -36,7 +36,7 @@ describe('PromotionRules resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await promotion_rules.retrieve(id, params, CommonData.options)
       .then((res: PromotionRule) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -57,7 +57,7 @@ describe('PromotionRules resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await promotion_rules.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -69,9 +69,9 @@ describe('PromotionRules resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isPromotionRule(resource)).toBeTruthy()
+    expect(promotion_rules.isPromotionRule(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = promotion_rules.type()
     expect(type).toBe(resourceType)
 
   })
@@ -81,10 +81,10 @@ describe('PromotionRules resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = promotion_rules.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = promotion_rules.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -119,7 +119,7 @@ describe('PromotionRules resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as PromotionRule
+    const res = promotion_rules.parse(payload) as PromotionRule
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -152,7 +152,7 @@ describe('PromotionRules resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await promotion_rules.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

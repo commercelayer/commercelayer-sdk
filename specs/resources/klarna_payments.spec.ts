@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, KlarnaPayment, klarna_payments } from '../../src'
+import { CommerceLayerClient, KlarnaPayment, klarna_payments, orders } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -27,7 +27,7 @@ describe('KlarnaPayments resource', () => {
   test(resourceType + '.create', async () => {
 
     const createAttributes = {
-			order: cl.orders.relationship(TestData.id),
+			order: orders.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -39,11 +39,11 @@ describe('KlarnaPayments resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isKlarnaPayment(data.data)).toBeTruthy()
+      expect(klarna_payments.isKlarnaPayment(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await klarna_payments.create(resData, params, CommonData.options)
       .then((res: KlarnaPayment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -65,7 +65,7 @@ describe('KlarnaPayments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await klarna_payments.retrieve(id, params, CommonData.options)
       .then((res: KlarnaPayment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -89,7 +89,7 @@ describe('KlarnaPayments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await klarna_payments.update(resData, params, CommonData.options)
       .then((res: KlarnaPayment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -109,7 +109,7 @@ describe('KlarnaPayments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await klarna_payments.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -129,7 +129,7 @@ describe('KlarnaPayments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await klarna_payments.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,9 +141,9 @@ describe('KlarnaPayments resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isKlarnaPayment(resource)).toBeTruthy()
+    expect(klarna_payments.isKlarnaPayment(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = klarna_payments.type()
     expect(type).toBe(resourceType)
 
   })
@@ -153,10 +153,10 @@ describe('KlarnaPayments resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = klarna_payments.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = klarna_payments.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -191,7 +191,7 @@ describe('KlarnaPayments resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as KlarnaPayment
+    const res = klarna_payments.parse(payload) as KlarnaPayment
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -224,7 +224,7 @@ describe('KlarnaPayments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await klarna_payments.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -246,7 +246,7 @@ describe('KlarnaPayments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_gateway(id, params, CommonData.options)
+		await klarna_payments.payment_gateway(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -268,7 +268,7 @@ describe('KlarnaPayments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await klarna_payments.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -296,7 +296,7 @@ describe('KlarnaPayments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._update(id, {}, CommonData.options)
+		await klarna_payments._update(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

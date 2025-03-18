@@ -36,7 +36,7 @@ describe('ReservedStocks resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await reserved_stocks.retrieve(id, params, CommonData.options)
       .then((res: ReservedStock) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -57,7 +57,7 @@ describe('ReservedStocks resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await reserved_stocks.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -69,9 +69,9 @@ describe('ReservedStocks resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isReservedStock(resource)).toBeTruthy()
+    expect(reserved_stocks.isReservedStock(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = reserved_stocks.type()
     expect(type).toBe(resourceType)
 
   })
@@ -81,10 +81,10 @@ describe('ReservedStocks resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = reserved_stocks.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = reserved_stocks.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -119,7 +119,7 @@ describe('ReservedStocks resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ReservedStock
+    const res = reserved_stocks.parse(payload) as ReservedStock
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -152,7 +152,7 @@ describe('ReservedStocks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_item(id, params, CommonData.options)
+		await reserved_stocks.stock_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -174,7 +174,7 @@ describe('ReservedStocks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku(id, params, CommonData.options)
+		await reserved_stocks.sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -196,7 +196,7 @@ describe('ReservedStocks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_reservations(id, params, CommonData.options)
+		await reserved_stocks.stock_reservations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -218,7 +218,7 @@ describe('ReservedStocks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await reserved_stocks.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

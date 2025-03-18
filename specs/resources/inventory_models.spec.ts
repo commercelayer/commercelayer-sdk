@@ -39,11 +39,11 @@ describe('InventoryModels resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isInventoryModel(data.data)).toBeTruthy()
+      expect(inventory_models.isInventoryModel(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await inventory_models.create(resData, params, CommonData.options)
       .then((res: InventoryModel) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -65,7 +65,7 @@ describe('InventoryModels resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await inventory_models.retrieve(id, params, CommonData.options)
       .then((res: InventoryModel) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -89,7 +89,7 @@ describe('InventoryModels resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await inventory_models.update(resData, params, CommonData.options)
       .then((res: InventoryModel) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -109,7 +109,7 @@ describe('InventoryModels resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await inventory_models.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -129,7 +129,7 @@ describe('InventoryModels resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await inventory_models.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,9 +141,9 @@ describe('InventoryModels resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isInventoryModel(resource)).toBeTruthy()
+    expect(inventory_models.isInventoryModel(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = inventory_models.type()
     expect(type).toBe(resourceType)
 
   })
@@ -153,10 +153,10 @@ describe('InventoryModels resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = inventory_models.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = inventory_models.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -191,7 +191,7 @@ describe('InventoryModels resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as InventoryModel
+    const res = inventory_models.parse(payload) as InventoryModel
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -224,7 +224,7 @@ describe('InventoryModels resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].inventory_stock_locations(id, params, CommonData.options)
+		await inventory_models.inventory_stock_locations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -246,7 +246,7 @@ describe('InventoryModels resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].inventory_return_locations(id, params, CommonData.options)
+		await inventory_models.inventory_return_locations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -268,7 +268,7 @@ describe('InventoryModels resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await inventory_models.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -290,7 +290,7 @@ describe('InventoryModels resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await inventory_models.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

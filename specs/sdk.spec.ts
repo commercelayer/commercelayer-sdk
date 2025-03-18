@@ -1,6 +1,6 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Customer } from '../src'
+import { CommerceLayerClient, Customer, customers } from '../src'
 import { sleep, sortObjectFields } from '../src/util'
 import { checkParam, getClient, handleError, interceptRequest, TestData } from '../test/common'
 import { isResourceType } from '../src/common'
@@ -80,7 +80,7 @@ describe('SDK suite', () => {
       return interceptRequest()
     })
 
-    await cl.customers.list({})
+    await customers.list({})
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     

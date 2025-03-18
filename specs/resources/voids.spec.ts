@@ -36,7 +36,7 @@ describe('Voids resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await voids.retrieve(id, params, CommonData.options)
       .then((res: Void) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -60,7 +60,7 @@ describe('Voids resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await voids.update(resData, params, CommonData.options)
       .then((res: Void) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -81,7 +81,7 @@ describe('Voids resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await voids.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -93,9 +93,9 @@ describe('Voids resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isVoid(resource)).toBeTruthy()
+    expect(voids.isVoid(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = voids.type()
     expect(type).toBe(resourceType)
 
   })
@@ -105,10 +105,10 @@ describe('Voids resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = voids.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = voids.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -143,7 +143,7 @@ describe('Voids resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Void
+    const res = voids.parse(payload) as Void
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -176,7 +176,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await voids.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -198,7 +198,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await voids.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -220,7 +220,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await voids.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -242,7 +242,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await voids.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -264,7 +264,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].reference_authorization(id, params, CommonData.options)
+		await voids.reference_authorization(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -292,7 +292,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._forward(id, {}, CommonData.options)
+		await voids._forward(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

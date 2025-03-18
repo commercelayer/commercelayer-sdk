@@ -40,11 +40,11 @@ describe('Imports resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isImport(data.data)).toBeTruthy()
+      expect(imports.isImport(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await imports.create(resData, params, CommonData.options)
       .then((res: Import) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -66,7 +66,7 @@ describe('Imports resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await imports.retrieve(id, params, CommonData.options)
       .then((res: Import) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -90,7 +90,7 @@ describe('Imports resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await imports.update(resData, params, CommonData.options)
       .then((res: Import) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -110,7 +110,7 @@ describe('Imports resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await imports.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -130,7 +130,7 @@ describe('Imports resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await imports.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -142,9 +142,9 @@ describe('Imports resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isImport(resource)).toBeTruthy()
+    expect(imports.isImport(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = imports.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,10 +154,10 @@ describe('Imports resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = imports.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = imports.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -192,7 +192,7 @@ describe('Imports resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Import
+    const res = imports.parse(payload) as Import
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -225,7 +225,7 @@ describe('Imports resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await imports.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -253,7 +253,7 @@ describe('Imports resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._interrupt(id, {}, CommonData.options)
+		await imports._interrupt(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

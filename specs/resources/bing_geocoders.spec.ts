@@ -40,11 +40,11 @@ describe('BingGeocoders resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isBingGeocoder(data.data)).toBeTruthy()
+      expect(bing_geocoders.isBingGeocoder(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await bing_geocoders.create(resData, params, CommonData.options)
       .then((res: BingGeocoder) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -66,7 +66,7 @@ describe('BingGeocoders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await bing_geocoders.retrieve(id, params, CommonData.options)
       .then((res: BingGeocoder) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -90,7 +90,7 @@ describe('BingGeocoders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await bing_geocoders.update(resData, params, CommonData.options)
       .then((res: BingGeocoder) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -110,7 +110,7 @@ describe('BingGeocoders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await bing_geocoders.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -130,7 +130,7 @@ describe('BingGeocoders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await bing_geocoders.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -142,9 +142,9 @@ describe('BingGeocoders resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isBingGeocoder(resource)).toBeTruthy()
+    expect(bing_geocoders.isBingGeocoder(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = bing_geocoders.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,10 +154,10 @@ describe('BingGeocoders resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = bing_geocoders.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = bing_geocoders.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -192,7 +192,7 @@ describe('BingGeocoders resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as BingGeocoder
+    const res = bing_geocoders.parse(payload) as BingGeocoder
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -225,7 +225,7 @@ describe('BingGeocoders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].markets(id, params, CommonData.options)
+		await bing_geocoders.markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,7 +247,7 @@ describe('BingGeocoders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].addresses(id, params, CommonData.options)
+		await bing_geocoders.addresses(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -269,7 +269,7 @@ describe('BingGeocoders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await bing_geocoders.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

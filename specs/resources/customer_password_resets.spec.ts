@@ -39,11 +39,11 @@ describe('CustomerPasswordResets resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isCustomerPasswordReset(data.data)).toBeTruthy()
+      expect(customer_password_resets.isCustomerPasswordReset(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await customer_password_resets.create(resData, params, CommonData.options)
       .then((res: CustomerPasswordReset) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -65,7 +65,7 @@ describe('CustomerPasswordResets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await customer_password_resets.retrieve(id, params, CommonData.options)
       .then((res: CustomerPasswordReset) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -89,7 +89,7 @@ describe('CustomerPasswordResets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await customer_password_resets.update(resData, params, CommonData.options)
       .then((res: CustomerPasswordReset) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -109,7 +109,7 @@ describe('CustomerPasswordResets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await customer_password_resets.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -129,7 +129,7 @@ describe('CustomerPasswordResets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await customer_password_resets.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,9 +141,9 @@ describe('CustomerPasswordResets resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isCustomerPasswordReset(resource)).toBeTruthy()
+    expect(customer_password_resets.isCustomerPasswordReset(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = customer_password_resets.type()
     expect(type).toBe(resourceType)
 
   })
@@ -153,10 +153,10 @@ describe('CustomerPasswordResets resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = customer_password_resets.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = customer_password_resets.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -191,7 +191,7 @@ describe('CustomerPasswordResets resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as CustomerPasswordReset
+    const res = customer_password_resets.parse(payload) as CustomerPasswordReset
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -224,7 +224,7 @@ describe('CustomerPasswordResets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer(id, params, CommonData.options)
+		await customer_password_resets.customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -246,7 +246,7 @@ describe('CustomerPasswordResets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await customer_password_resets.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -274,7 +274,7 @@ describe('CustomerPasswordResets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reset_password_token(id, triggerValue, {}, CommonData.options)
+		await customer_password_resets._reset_password_token(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

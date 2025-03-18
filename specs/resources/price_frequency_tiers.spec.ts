@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, PriceFrequencyTier, price_frequency_tiers } from '../../src'
+import { CommerceLayerClient, PriceFrequencyTier, price_frequency_tiers, prices } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -29,7 +29,7 @@ describe('PriceFrequencyTiers resource', () => {
     const createAttributes = {
 			name: randomValue('string', 'name'),
 			price_amount_cents: randomValue('integer', 'price_amount_cents'),
-			price: cl.prices.relationship(TestData.id),
+			price: prices.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -41,11 +41,11 @@ describe('PriceFrequencyTiers resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isPriceFrequencyTier(data.data)).toBeTruthy()
+      expect(price_frequency_tiers.isPriceFrequencyTier(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await price_frequency_tiers.create(resData, params, CommonData.options)
       .then((res: PriceFrequencyTier) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -67,7 +67,7 @@ describe('PriceFrequencyTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await price_frequency_tiers.retrieve(id, params, CommonData.options)
       .then((res: PriceFrequencyTier) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -91,7 +91,7 @@ describe('PriceFrequencyTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await price_frequency_tiers.update(resData, params, CommonData.options)
       .then((res: PriceFrequencyTier) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -111,7 +111,7 @@ describe('PriceFrequencyTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await price_frequency_tiers.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -131,7 +131,7 @@ describe('PriceFrequencyTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await price_frequency_tiers.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -143,9 +143,9 @@ describe('PriceFrequencyTiers resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isPriceFrequencyTier(resource)).toBeTruthy()
+    expect(price_frequency_tiers.isPriceFrequencyTier(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = price_frequency_tiers.type()
     expect(type).toBe(resourceType)
 
   })
@@ -155,10 +155,10 @@ describe('PriceFrequencyTiers resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = price_frequency_tiers.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = price_frequency_tiers.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -193,7 +193,7 @@ describe('PriceFrequencyTiers resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as PriceFrequencyTier
+    const res = price_frequency_tiers.parse(payload) as PriceFrequencyTier
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -226,7 +226,7 @@ describe('PriceFrequencyTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price(id, params, CommonData.options)
+		await price_frequency_tiers.price(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -248,7 +248,7 @@ describe('PriceFrequencyTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await price_frequency_tiers.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -270,7 +270,7 @@ describe('PriceFrequencyTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await price_frequency_tiers.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -292,7 +292,7 @@ describe('PriceFrequencyTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await price_frequency_tiers.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

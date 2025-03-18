@@ -36,7 +36,7 @@ describe('Events resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await events.retrieve(id, params, CommonData.options)
       .then((res: Event) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -60,7 +60,7 @@ describe('Events resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await events.update(resData, params, CommonData.options)
       .then((res: Event) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -81,7 +81,7 @@ describe('Events resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await events.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -93,9 +93,9 @@ describe('Events resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isEvent(resource)).toBeTruthy()
+    expect(events.isEvent(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = events.type()
     expect(type).toBe(resourceType)
 
   })
@@ -105,10 +105,10 @@ describe('Events resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = events.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = events.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -143,7 +143,7 @@ describe('Events resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Event
+    const res = events.parse(payload) as Event
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -176,7 +176,7 @@ describe('Events resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].webhooks(id, params, CommonData.options)
+		await events.webhooks(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -198,7 +198,7 @@ describe('Events resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].last_event_callbacks(id, params, CommonData.options)
+		await events.last_event_callbacks(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -226,7 +226,7 @@ describe('Events resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._trigger(id, {}, CommonData.options)
+		await events._trigger(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -36,7 +36,7 @@ describe('EventCallbacks resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await event_callbacks.retrieve(id, params, CommonData.options)
       .then((res: EventCallback) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -57,7 +57,7 @@ describe('EventCallbacks resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await event_callbacks.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -69,9 +69,9 @@ describe('EventCallbacks resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isEventCallback(resource)).toBeTruthy()
+    expect(event_callbacks.isEventCallback(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = event_callbacks.type()
     expect(type).toBe(resourceType)
 
   })
@@ -81,10 +81,10 @@ describe('EventCallbacks resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = event_callbacks.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = event_callbacks.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -119,7 +119,7 @@ describe('EventCallbacks resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as EventCallback
+    const res = event_callbacks.parse(payload) as EventCallback
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -152,7 +152,7 @@ describe('EventCallbacks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].webhook(id, params, CommonData.options)
+		await event_callbacks.webhook(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

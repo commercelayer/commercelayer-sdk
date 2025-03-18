@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Market, markets } from '../../src'
+import { CommerceLayerClient, Market, markets, merchants, price_lists, inventory_models, subscription_models, avalara_accounts, customer_groups, geocoders, shipping_methods, payment_methods } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,15 +28,15 @@ describe('Markets resource', () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			merchant: cl.merchants.relationship(TestData.id),
-			price_list: cl.price_lists.relationship(TestData.id),
-			inventory_model: cl.inventory_models.relationship(TestData.id),
-			subscription_model: cl.subscription_models.relationship(TestData.id),
-			tax_calculator: cl.avalara_accounts.relationship(TestData.id),
-			customer_group: cl.customer_groups.relationship(TestData.id),
-			geocoder: cl.geocoders.relationship(TestData.id),
-			default_shipping_method: cl.shipping_methods.relationship(TestData.id),
-			default_payment_method: cl.payment_methods.relationship(TestData.id),
+			merchant: merchants.relationship(TestData.id),
+			price_list: price_lists.relationship(TestData.id),
+			inventory_model: inventory_models.relationship(TestData.id),
+			subscription_model: subscription_models.relationship(TestData.id),
+			tax_calculator: avalara_accounts.relationship(TestData.id),
+			customer_group: customer_groups.relationship(TestData.id),
+			geocoder: geocoders.relationship(TestData.id),
+			default_shipping_method: shipping_methods.relationship(TestData.id),
+			default_payment_method: payment_methods.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -48,11 +48,11 @@ describe('Markets resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isMarket(data.data)).toBeTruthy()
+      expect(markets.isMarket(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await markets.create(resData, params, CommonData.options)
       .then((res: Market) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -74,7 +74,7 @@ describe('Markets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await markets.retrieve(id, params, CommonData.options)
       .then((res: Market) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -98,7 +98,7 @@ describe('Markets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await markets.update(resData, params, CommonData.options)
       .then((res: Market) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -118,7 +118,7 @@ describe('Markets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await markets.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -138,7 +138,7 @@ describe('Markets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await markets.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -150,9 +150,9 @@ describe('Markets resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isMarket(resource)).toBeTruthy()
+    expect(markets.isMarket(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = markets.type()
     expect(type).toBe(resourceType)
 
   })
@@ -162,10 +162,10 @@ describe('Markets resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = markets.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = markets.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -200,7 +200,7 @@ describe('Markets resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Market
+    const res = markets.parse(payload) as Market
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -233,7 +233,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].merchant(id, params, CommonData.options)
+		await markets.merchant(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -255,7 +255,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price_list(id, params, CommonData.options)
+		await markets.price_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -277,7 +277,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].base_price_list(id, params, CommonData.options)
+		await markets.base_price_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -299,7 +299,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].inventory_model(id, params, CommonData.options)
+		await markets.inventory_model(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -321,7 +321,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].subscription_model(id, params, CommonData.options)
+		await markets.subscription_model(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -343,7 +343,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tax_calculator(id, params, CommonData.options)
+		await markets.tax_calculator(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -365,7 +365,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer_group(id, params, CommonData.options)
+		await markets.customer_group(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -387,7 +387,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].geocoder(id, params, CommonData.options)
+		await markets.geocoder(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -409,7 +409,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].default_shipping_method(id, params, CommonData.options)
+		await markets.default_shipping_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -431,7 +431,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].default_payment_method(id, params, CommonData.options)
+		await markets.default_payment_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -453,7 +453,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stores(id, params, CommonData.options)
+		await markets.stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -475,7 +475,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price_list_schedulers(id, params, CommonData.options)
+		await markets.price_list_schedulers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -497,7 +497,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await markets.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -519,7 +519,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await markets.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -547,7 +547,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._disable(id, {}, CommonData.options)
+		await markets._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -574,7 +574,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._enable(id, {}, CommonData.options)
+		await markets._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

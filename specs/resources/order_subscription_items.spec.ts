@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, OrderSubscriptionItem, order_subscription_items } from '../../src'
+import { CommerceLayerClient, OrderSubscriptionItem, order_subscription_items, order_subscriptions, skus, skus, bundles, adjustments } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,11 +28,11 @@ describe('OrderSubscriptionItems resource', () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
-			order_subscription: cl.order_subscriptions.relationship(TestData.id),
-			item: cl.skus.relationship(TestData.id),
-			sku: cl.skus.relationship(TestData.id),
-			bundle: cl.bundles.relationship(TestData.id),
-			adjustment: cl.adjustments.relationship(TestData.id),
+			order_subscription: order_subscriptions.relationship(TestData.id),
+			item: skus.relationship(TestData.id),
+			sku: skus.relationship(TestData.id),
+			bundle: bundles.relationship(TestData.id),
+			adjustment: adjustments.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -44,11 +44,11 @@ describe('OrderSubscriptionItems resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isOrderSubscriptionItem(data.data)).toBeTruthy()
+      expect(order_subscription_items.isOrderSubscriptionItem(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await order_subscription_items.create(resData, params, CommonData.options)
       .then((res: OrderSubscriptionItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -70,7 +70,7 @@ describe('OrderSubscriptionItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await order_subscription_items.retrieve(id, params, CommonData.options)
       .then((res: OrderSubscriptionItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -94,7 +94,7 @@ describe('OrderSubscriptionItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await order_subscription_items.update(resData, params, CommonData.options)
       .then((res: OrderSubscriptionItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -114,7 +114,7 @@ describe('OrderSubscriptionItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await order_subscription_items.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -134,7 +134,7 @@ describe('OrderSubscriptionItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await order_subscription_items.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -146,9 +146,9 @@ describe('OrderSubscriptionItems resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isOrderSubscriptionItem(resource)).toBeTruthy()
+    expect(order_subscription_items.isOrderSubscriptionItem(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = order_subscription_items.type()
     expect(type).toBe(resourceType)
 
   })
@@ -158,10 +158,10 @@ describe('OrderSubscriptionItems resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = order_subscription_items.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = order_subscription_items.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -196,7 +196,7 @@ describe('OrderSubscriptionItems resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as OrderSubscriptionItem
+    const res = order_subscription_items.parse(payload) as OrderSubscriptionItem
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -229,7 +229,7 @@ describe('OrderSubscriptionItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_subscription(id, params, CommonData.options)
+		await order_subscription_items.order_subscription(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -251,7 +251,7 @@ describe('OrderSubscriptionItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].source_line_item(id, params, CommonData.options)
+		await order_subscription_items.source_line_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

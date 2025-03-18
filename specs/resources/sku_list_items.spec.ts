@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, SkuListItem, sku_list_items } from '../../src'
+import { CommerceLayerClient, SkuListItem, sku_list_items, sku_lists, skus } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -27,8 +27,8 @@ describe('SkuListItems resource', () => {
   test(resourceType + '.create', async () => {
 
     const createAttributes = {
-			sku_list: cl.sku_lists.relationship(TestData.id),
-			sku: cl.skus.relationship(TestData.id),
+			sku_list: sku_lists.relationship(TestData.id),
+			sku: skus.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -40,11 +40,11 @@ describe('SkuListItems resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isSkuListItem(data.data)).toBeTruthy()
+      expect(sku_list_items.isSkuListItem(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await sku_list_items.create(resData, params, CommonData.options)
       .then((res: SkuListItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -66,7 +66,7 @@ describe('SkuListItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await sku_list_items.retrieve(id, params, CommonData.options)
       .then((res: SkuListItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -90,7 +90,7 @@ describe('SkuListItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await sku_list_items.update(resData, params, CommonData.options)
       .then((res: SkuListItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -110,7 +110,7 @@ describe('SkuListItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await sku_list_items.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -130,7 +130,7 @@ describe('SkuListItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await sku_list_items.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -142,9 +142,9 @@ describe('SkuListItems resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isSkuListItem(resource)).toBeTruthy()
+    expect(sku_list_items.isSkuListItem(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = sku_list_items.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,10 +154,10 @@ describe('SkuListItems resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = sku_list_items.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = sku_list_items.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -192,7 +192,7 @@ describe('SkuListItems resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as SkuListItem
+    const res = sku_list_items.parse(payload) as SkuListItem
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -225,7 +225,7 @@ describe('SkuListItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_list(id, params, CommonData.options)
+		await sku_list_items.sku_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,7 +247,7 @@ describe('SkuListItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku(id, params, CommonData.options)
+		await sku_list_items.sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -269,7 +269,7 @@ describe('SkuListItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await sku_list_items.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

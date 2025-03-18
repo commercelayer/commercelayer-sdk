@@ -35,7 +35,7 @@ describe('Organizations resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(params, CommonData.options)
+    await organization.retrieve(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -47,9 +47,9 @@ describe('Organizations resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isOrganization(resource)).toBeTruthy()
+    expect(organization.isOrganization(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = organization.type()
     expect(type).toBe(resourceType)
 
   })
@@ -59,10 +59,10 @@ describe('Organizations resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = organization.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = organization.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -97,7 +97,7 @@ describe('Organizations resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Organization
+    const res = organization.parse(payload) as Organization
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Order, orders } from '../../src'
+import { CommerceLayerClient, Order, orders, markets, customers, addresses, addresses, stores, payment_methods, adyen_payments, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -27,14 +27,14 @@ describe('Orders resource', () => {
   test(resourceType + '.create', async () => {
 
     const createAttributes = {
-			market: cl.markets.relationship(TestData.id),
-			customer: cl.customers.relationship(TestData.id),
-			shipping_address: cl.addresses.relationship(TestData.id),
-			billing_address: cl.addresses.relationship(TestData.id),
-			store: cl.stores.relationship(TestData.id),
-			payment_method: cl.payment_methods.relationship(TestData.id),
-			payment_source: cl.adyen_payments.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			market: markets.relationship(TestData.id),
+			customer: customers.relationship(TestData.id),
+			shipping_address: addresses.relationship(TestData.id),
+			billing_address: addresses.relationship(TestData.id),
+			store: stores.relationship(TestData.id),
+			payment_method: payment_methods.relationship(TestData.id),
+			payment_source: adyen_payments.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -46,11 +46,11 @@ describe('Orders resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isOrder(data.data)).toBeTruthy()
+      expect(orders.isOrder(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await orders.create(resData, params, CommonData.options)
       .then((res: Order) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -72,7 +72,7 @@ describe('Orders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await orders.retrieve(id, params, CommonData.options)
       .then((res: Order) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -96,7 +96,7 @@ describe('Orders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await orders.update(resData, params, CommonData.options)
       .then((res: Order) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -116,7 +116,7 @@ describe('Orders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await orders.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -136,7 +136,7 @@ describe('Orders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await orders.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -148,9 +148,9 @@ describe('Orders resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isOrder(resource)).toBeTruthy()
+    expect(orders.isOrder(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = orders.type()
     expect(type).toBe(resourceType)
 
   })
@@ -160,10 +160,10 @@ describe('Orders resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = orders.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = orders.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -198,7 +198,7 @@ describe('Orders resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Order
+    const res = orders.parse(payload) as Order
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -231,7 +231,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await orders.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -253,7 +253,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer(id, params, CommonData.options)
+		await orders.customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -275,7 +275,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_address(id, params, CommonData.options)
+		await orders.shipping_address(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -297,7 +297,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].billing_address(id, params, CommonData.options)
+		await orders.billing_address(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -319,7 +319,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].store(id, params, CommonData.options)
+		await orders.store(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -341,7 +341,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].default_shipping_method(id, params, CommonData.options)
+		await orders.default_shipping_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -363,7 +363,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].default_payment_method(id, params, CommonData.options)
+		await orders.default_payment_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -385,7 +385,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].available_payment_methods(id, params, CommonData.options)
+		await orders.available_payment_methods(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -407,7 +407,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].available_customer_payment_sources(id, params, CommonData.options)
+		await orders.available_customer_payment_sources(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -429,7 +429,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].available_free_skus(id, params, CommonData.options)
+		await orders.available_free_skus(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -451,7 +451,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].available_free_bundles(id, params, CommonData.options)
+		await orders.available_free_bundles(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -473,7 +473,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_method(id, params, CommonData.options)
+		await orders.payment_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -495,7 +495,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].line_items(id, params, CommonData.options)
+		await orders.line_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -517,7 +517,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].line_item_options(id, params, CommonData.options)
+		await orders.line_item_options(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -539,7 +539,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_reservations(id, params, CommonData.options)
+		await orders.stock_reservations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -561,7 +561,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_line_items(id, params, CommonData.options)
+		await orders.stock_line_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -583,7 +583,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_transfers(id, params, CommonData.options)
+		await orders.stock_transfers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -605,7 +605,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipments(id, params, CommonData.options)
+		await orders.shipments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -627,7 +627,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_options(id, params, CommonData.options)
+		await orders.payment_options(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -649,7 +649,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].authorizations(id, params, CommonData.options)
+		await orders.authorizations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -671,7 +671,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].captures(id, params, CommonData.options)
+		await orders.captures(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -693,7 +693,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].voids(id, params, CommonData.options)
+		await orders.voids(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -715,7 +715,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].refunds(id, params, CommonData.options)
+		await orders.refunds(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -737,7 +737,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].returns(id, params, CommonData.options)
+		await orders.returns(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -759,7 +759,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_subscription(id, params, CommonData.options)
+		await orders.order_subscription(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -781,7 +781,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_subscriptions(id, params, CommonData.options)
+		await orders.order_subscriptions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -803,7 +803,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_factories(id, params, CommonData.options)
+		await orders.order_factories(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -825,7 +825,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_copies(id, params, CommonData.options)
+		await orders.order_copies(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -847,7 +847,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].recurring_order_copies(id, params, CommonData.options)
+		await orders.recurring_order_copies(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -869,7 +869,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await orders.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -891,7 +891,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].notifications(id, params, CommonData.options)
+		await orders.notifications(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -913,7 +913,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].links(id, params, CommonData.options)
+		await orders.links(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -935,7 +935,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].resource_errors(id, params, CommonData.options)
+		await orders.resource_errors(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -957,7 +957,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await orders.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -979,7 +979,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await orders.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1001,7 +1001,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await orders.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1029,7 +1029,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._archive(id, {}, CommonData.options)
+		await orders._archive(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1056,7 +1056,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._unarchive(id, {}, CommonData.options)
+		await orders._unarchive(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1083,7 +1083,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._pending(id, {}, CommonData.options)
+		await orders._pending(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1110,7 +1110,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._place(id, {}, CommonData.options)
+		await orders._place(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1137,7 +1137,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._cancel(id, {}, CommonData.options)
+		await orders._cancel(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1164,7 +1164,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._approve(id, {}, CommonData.options)
+		await orders._approve(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1191,7 +1191,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._approve_and_capture(id, {}, CommonData.options)
+		await orders._approve_and_capture(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1218,7 +1218,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._authorize(id, {}, CommonData.options)
+		await orders._authorize(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1245,7 +1245,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._authorization_amount_cents(id, triggerValue, {}, CommonData.options)
+		await orders._authorization_amount_cents(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1272,7 +1272,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._capture(id, {}, CommonData.options)
+		await orders._capture(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1299,7 +1299,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._refund(id, {}, CommonData.options)
+		await orders._refund(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1326,7 +1326,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._fulfill(id, {}, CommonData.options)
+		await orders._fulfill(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1353,7 +1353,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._update_taxes(id, {}, CommonData.options)
+		await orders._update_taxes(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1380,7 +1380,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._nullify_payment_source(id, {}, CommonData.options)
+		await orders._nullify_payment_source(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1407,7 +1407,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._fix_payment_source(id, {}, CommonData.options)
+		await orders._fix_payment_source(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1434,7 +1434,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._billing_address_clone_id(id, triggerValue, {}, CommonData.options)
+		await orders._billing_address_clone_id(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1461,7 +1461,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._shipping_address_clone_id(id, triggerValue, {}, CommonData.options)
+		await orders._shipping_address_clone_id(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1488,7 +1488,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._customer_payment_source_id(id, triggerValue, {}, CommonData.options)
+		await orders._customer_payment_source_id(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1515,7 +1515,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._shipping_address_same_as_billing(id, {}, CommonData.options)
+		await orders._shipping_address_same_as_billing(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1542,7 +1542,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._billing_address_same_as_shipping(id, {}, CommonData.options)
+		await orders._billing_address_same_as_shipping(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1569,7 +1569,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._commit_invoice(id, {}, CommonData.options)
+		await orders._commit_invoice(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1596,7 +1596,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._refund_invoice(id, {}, CommonData.options)
+		await orders._refund_invoice(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1623,7 +1623,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._save_payment_source_to_customer_wallet(id, {}, CommonData.options)
+		await orders._save_payment_source_to_customer_wallet(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1650,7 +1650,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._save_shipping_address_to_customer_address_book(id, {}, CommonData.options)
+		await orders._save_shipping_address_to_customer_address_book(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1677,7 +1677,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._save_billing_address_to_customer_address_book(id, {}, CommonData.options)
+		await orders._save_billing_address_to_customer_address_book(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1704,7 +1704,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._refresh(id, {}, CommonData.options)
+		await orders._refresh(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1731,7 +1731,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._validate(id, {}, CommonData.options)
+		await orders._validate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1758,7 +1758,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._create_subscriptions(id, {}, CommonData.options)
+		await orders._create_subscriptions(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1785,7 +1785,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._start_editing(id, {}, CommonData.options)
+		await orders._start_editing(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1812,7 +1812,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._stop_editing(id, {}, CommonData.options)
+		await orders._stop_editing(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1839,7 +1839,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reset_circuit(id, {}, CommonData.options)
+		await orders._reset_circuit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1866,7 +1866,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await orders._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1893,7 +1893,7 @@ describe('Orders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await orders._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

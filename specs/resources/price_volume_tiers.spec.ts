@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, PriceVolumeTier, price_volume_tiers } from '../../src'
+import { CommerceLayerClient, PriceVolumeTier, price_volume_tiers, prices } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -29,7 +29,7 @@ describe('PriceVolumeTiers resource', () => {
     const createAttributes = {
 			name: randomValue('string', 'name'),
 			price_amount_cents: randomValue('integer', 'price_amount_cents'),
-			price: cl.prices.relationship(TestData.id),
+			price: prices.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -41,11 +41,11 @@ describe('PriceVolumeTiers resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isPriceVolumeTier(data.data)).toBeTruthy()
+      expect(price_volume_tiers.isPriceVolumeTier(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await price_volume_tiers.create(resData, params, CommonData.options)
       .then((res: PriceVolumeTier) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -67,7 +67,7 @@ describe('PriceVolumeTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await price_volume_tiers.retrieve(id, params, CommonData.options)
       .then((res: PriceVolumeTier) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -91,7 +91,7 @@ describe('PriceVolumeTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await price_volume_tiers.update(resData, params, CommonData.options)
       .then((res: PriceVolumeTier) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -111,7 +111,7 @@ describe('PriceVolumeTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await price_volume_tiers.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -131,7 +131,7 @@ describe('PriceVolumeTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await price_volume_tiers.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -143,9 +143,9 @@ describe('PriceVolumeTiers resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isPriceVolumeTier(resource)).toBeTruthy()
+    expect(price_volume_tiers.isPriceVolumeTier(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = price_volume_tiers.type()
     expect(type).toBe(resourceType)
 
   })
@@ -155,10 +155,10 @@ describe('PriceVolumeTiers resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = price_volume_tiers.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = price_volume_tiers.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -193,7 +193,7 @@ describe('PriceVolumeTiers resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as PriceVolumeTier
+    const res = price_volume_tiers.parse(payload) as PriceVolumeTier
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -226,7 +226,7 @@ describe('PriceVolumeTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price(id, params, CommonData.options)
+		await price_volume_tiers.price(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -248,7 +248,7 @@ describe('PriceVolumeTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await price_volume_tiers.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -270,7 +270,7 @@ describe('PriceVolumeTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await price_volume_tiers.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -292,7 +292,7 @@ describe('PriceVolumeTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await price_volume_tiers.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

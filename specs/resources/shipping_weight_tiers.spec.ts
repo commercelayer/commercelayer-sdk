@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, ShippingWeightTier, shipping_weight_tiers } from '../../src'
+import { CommerceLayerClient, ShippingWeightTier, shipping_weight_tiers, shipping_methods } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -29,7 +29,7 @@ describe('ShippingWeightTiers resource', () => {
     const createAttributes = {
 			name: randomValue('string', 'name'),
 			price_amount_cents: randomValue('integer', 'price_amount_cents'),
-			shipping_method: cl.shipping_methods.relationship(TestData.id),
+			shipping_method: shipping_methods.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -41,11 +41,11 @@ describe('ShippingWeightTiers resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isShippingWeightTier(data.data)).toBeTruthy()
+      expect(shipping_weight_tiers.isShippingWeightTier(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await shipping_weight_tiers.create(resData, params, CommonData.options)
       .then((res: ShippingWeightTier) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -67,7 +67,7 @@ describe('ShippingWeightTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await shipping_weight_tiers.retrieve(id, params, CommonData.options)
       .then((res: ShippingWeightTier) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -91,7 +91,7 @@ describe('ShippingWeightTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await shipping_weight_tiers.update(resData, params, CommonData.options)
       .then((res: ShippingWeightTier) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -111,7 +111,7 @@ describe('ShippingWeightTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await shipping_weight_tiers.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -131,7 +131,7 @@ describe('ShippingWeightTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await shipping_weight_tiers.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -143,9 +143,9 @@ describe('ShippingWeightTiers resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isShippingWeightTier(resource)).toBeTruthy()
+    expect(shipping_weight_tiers.isShippingWeightTier(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = shipping_weight_tiers.type()
     expect(type).toBe(resourceType)
 
   })
@@ -155,10 +155,10 @@ describe('ShippingWeightTiers resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = shipping_weight_tiers.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = shipping_weight_tiers.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -193,7 +193,7 @@ describe('ShippingWeightTiers resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ShippingWeightTier
+    const res = shipping_weight_tiers.parse(payload) as ShippingWeightTier
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -226,7 +226,7 @@ describe('ShippingWeightTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_method(id, params, CommonData.options)
+		await shipping_weight_tiers.shipping_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -248,7 +248,7 @@ describe('ShippingWeightTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await shipping_weight_tiers.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -270,7 +270,7 @@ describe('ShippingWeightTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await shipping_weight_tiers.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

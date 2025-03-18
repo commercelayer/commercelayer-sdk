@@ -39,11 +39,11 @@ describe('ExternalGateways resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isExternalGateway(data.data)).toBeTruthy()
+      expect(external_gateways.isExternalGateway(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await external_gateways.create(resData, params, CommonData.options)
       .then((res: ExternalGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -65,7 +65,7 @@ describe('ExternalGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await external_gateways.retrieve(id, params, CommonData.options)
       .then((res: ExternalGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -89,7 +89,7 @@ describe('ExternalGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await external_gateways.update(resData, params, CommonData.options)
       .then((res: ExternalGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -109,7 +109,7 @@ describe('ExternalGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await external_gateways.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -129,7 +129,7 @@ describe('ExternalGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await external_gateways.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,9 +141,9 @@ describe('ExternalGateways resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isExternalGateway(resource)).toBeTruthy()
+    expect(external_gateways.isExternalGateway(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = external_gateways.type()
     expect(type).toBe(resourceType)
 
   })
@@ -153,10 +153,10 @@ describe('ExternalGateways resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = external_gateways.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = external_gateways.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -191,7 +191,7 @@ describe('ExternalGateways resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ExternalGateway
+    const res = external_gateways.parse(payload) as ExternalGateway
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -224,7 +224,7 @@ describe('ExternalGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_methods(id, params, CommonData.options)
+		await external_gateways.payment_methods(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -246,7 +246,7 @@ describe('ExternalGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await external_gateways.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -268,7 +268,7 @@ describe('ExternalGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].external_payments(id, params, CommonData.options)
+		await external_gateways.external_payments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -296,7 +296,7 @@ describe('ExternalGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reset_circuit(id, {}, CommonData.options)
+		await external_gateways._reset_circuit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

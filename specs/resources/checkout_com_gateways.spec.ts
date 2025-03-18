@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, CheckoutComGateway, checkout_com_gateways } from '../../src'
+import { CommerceLayerClient, CheckoutComGateway, checkout_com_gateways, checkout_com_payments } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -30,7 +30,7 @@ describe('CheckoutComGateways resource', () => {
 			name: randomValue('string', 'name'),
 			secret_key: randomValue('string', 'secret_key'),
 			public_key: randomValue('string', 'public_key'),
-			checkout_com_payments: [ cl.checkout_com_payments.relationship(TestData.id) ],
+			checkout_com_payments: [ checkout_com_payments.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +42,11 @@ describe('CheckoutComGateways resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isCheckoutComGateway(data.data)).toBeTruthy()
+      expect(checkout_com_gateways.isCheckoutComGateway(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await checkout_com_gateways.create(resData, params, CommonData.options)
       .then((res: CheckoutComGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -68,7 +68,7 @@ describe('CheckoutComGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await checkout_com_gateways.retrieve(id, params, CommonData.options)
       .then((res: CheckoutComGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -92,7 +92,7 @@ describe('CheckoutComGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await checkout_com_gateways.update(resData, params, CommonData.options)
       .then((res: CheckoutComGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -112,7 +112,7 @@ describe('CheckoutComGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await checkout_com_gateways.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -132,7 +132,7 @@ describe('CheckoutComGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await checkout_com_gateways.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -144,9 +144,9 @@ describe('CheckoutComGateways resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isCheckoutComGateway(resource)).toBeTruthy()
+    expect(checkout_com_gateways.isCheckoutComGateway(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = checkout_com_gateways.type()
     expect(type).toBe(resourceType)
 
   })
@@ -156,10 +156,10 @@ describe('CheckoutComGateways resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = checkout_com_gateways.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = checkout_com_gateways.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -194,7 +194,7 @@ describe('CheckoutComGateways resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as CheckoutComGateway
+    const res = checkout_com_gateways.parse(payload) as CheckoutComGateway
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -227,7 +227,7 @@ describe('CheckoutComGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_methods(id, params, CommonData.options)
+		await checkout_com_gateways.payment_methods(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -249,7 +249,7 @@ describe('CheckoutComGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await checkout_com_gateways.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -271,7 +271,7 @@ describe('CheckoutComGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].checkout_com_payments(id, params, CommonData.options)
+		await checkout_com_gateways.checkout_com_payments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

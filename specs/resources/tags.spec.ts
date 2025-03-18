@@ -39,11 +39,11 @@ describe('Tags resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isTag(data.data)).toBeTruthy()
+      expect(tags.isTag(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await tags.create(resData, params, CommonData.options)
       .then((res: Tag) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -65,7 +65,7 @@ describe('Tags resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await tags.retrieve(id, params, CommonData.options)
       .then((res: Tag) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -89,7 +89,7 @@ describe('Tags resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await tags.update(resData, params, CommonData.options)
       .then((res: Tag) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -109,7 +109,7 @@ describe('Tags resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await tags.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -129,7 +129,7 @@ describe('Tags resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await tags.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,9 +141,9 @@ describe('Tags resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isTag(resource)).toBeTruthy()
+    expect(tags.isTag(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = tags.type()
     expect(type).toBe(resourceType)
 
   })
@@ -153,10 +153,10 @@ describe('Tags resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = tags.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = tags.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -191,7 +191,7 @@ describe('Tags resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Tag
+    const res = tags.parse(payload) as Tag
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)

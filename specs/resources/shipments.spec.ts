@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Shipment, shipments } from '../../src'
+import { CommerceLayerClient, Shipment, shipments, orders, shipping_categories, inventory_stock_locations, addresses, shipping_methods, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -27,12 +27,12 @@ describe('Shipments resource', () => {
   test(resourceType + '.create', async () => {
 
     const createAttributes = {
-			order: cl.orders.relationship(TestData.id),
-			shipping_category: cl.shipping_categories.relationship(TestData.id),
-			inventory_stock_location: cl.inventory_stock_locations.relationship(TestData.id),
-			shipping_address: cl.addresses.relationship(TestData.id),
-			shipping_method: cl.shipping_methods.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			order: orders.relationship(TestData.id),
+			shipping_category: shipping_categories.relationship(TestData.id),
+			inventory_stock_location: inventory_stock_locations.relationship(TestData.id),
+			shipping_address: addresses.relationship(TestData.id),
+			shipping_method: shipping_methods.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -44,11 +44,11 @@ describe('Shipments resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isShipment(data.data)).toBeTruthy()
+      expect(shipments.isShipment(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await shipments.create(resData, params, CommonData.options)
       .then((res: Shipment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -70,7 +70,7 @@ describe('Shipments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await shipments.retrieve(id, params, CommonData.options)
       .then((res: Shipment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -94,7 +94,7 @@ describe('Shipments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await shipments.update(resData, params, CommonData.options)
       .then((res: Shipment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -114,7 +114,7 @@ describe('Shipments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await shipments.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -134,7 +134,7 @@ describe('Shipments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await shipments.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -146,9 +146,9 @@ describe('Shipments resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isShipment(resource)).toBeTruthy()
+    expect(shipments.isShipment(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = shipments.type()
     expect(type).toBe(resourceType)
 
   })
@@ -158,10 +158,10 @@ describe('Shipments resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = shipments.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = shipments.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -196,7 +196,7 @@ describe('Shipments resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Shipment
+    const res = shipments.parse(payload) as Shipment
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -229,7 +229,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await shipments.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -251,7 +251,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_category(id, params, CommonData.options)
+		await shipments.shipping_category(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -273,7 +273,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].inventory_stock_location(id, params, CommonData.options)
+		await shipments.inventory_stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -295,7 +295,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_location(id, params, CommonData.options)
+		await shipments.stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -317,7 +317,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].origin_address(id, params, CommonData.options)
+		await shipments.origin_address(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -339,7 +339,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_address(id, params, CommonData.options)
+		await shipments.shipping_address(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -361,7 +361,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_method(id, params, CommonData.options)
+		await shipments.shipping_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -383,7 +383,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].delivery_lead_time(id, params, CommonData.options)
+		await shipments.delivery_lead_time(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -405,7 +405,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].pickup(id, params, CommonData.options)
+		await shipments.pickup(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -427,7 +427,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_line_items(id, params, CommonData.options)
+		await shipments.stock_line_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -449,7 +449,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_transfers(id, params, CommonData.options)
+		await shipments.stock_transfers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -471,7 +471,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].line_items(id, params, CommonData.options)
+		await shipments.line_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -493,7 +493,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].available_shipping_methods(id, params, CommonData.options)
+		await shipments.available_shipping_methods(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -515,7 +515,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].carrier_accounts(id, params, CommonData.options)
+		await shipments.carrier_accounts(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -537,7 +537,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].parcels(id, params, CommonData.options)
+		await shipments.parcels(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -559,7 +559,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await shipments.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -581,7 +581,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await shipments.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -603,7 +603,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await shipments.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -625,7 +625,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await shipments.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -653,7 +653,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._upcoming(id, {}, CommonData.options)
+		await shipments._upcoming(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -680,7 +680,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._cancel(id, {}, CommonData.options)
+		await shipments._cancel(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -707,7 +707,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._on_hold(id, {}, CommonData.options)
+		await shipments._on_hold(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -734,7 +734,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._picking(id, {}, CommonData.options)
+		await shipments._picking(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -761,7 +761,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._packing(id, {}, CommonData.options)
+		await shipments._packing(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -788,7 +788,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._ready_to_ship(id, {}, CommonData.options)
+		await shipments._ready_to_ship(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -815,7 +815,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._ship(id, {}, CommonData.options)
+		await shipments._ship(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -842,7 +842,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._deliver(id, {}, CommonData.options)
+		await shipments._deliver(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -869,7 +869,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reserve_stock(id, {}, CommonData.options)
+		await shipments._reserve_stock(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -896,7 +896,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._release_stock(id, {}, CommonData.options)
+		await shipments._release_stock(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -923,7 +923,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._decrement_stock(id, {}, CommonData.options)
+		await shipments._decrement_stock(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -950,7 +950,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._get_rates(id, {}, CommonData.options)
+		await shipments._get_rates(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -977,7 +977,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._purchase(id, {}, CommonData.options)
+		await shipments._purchase(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1004,7 +1004,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await shipments._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -1031,7 +1031,7 @@ describe('Shipments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await shipments._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

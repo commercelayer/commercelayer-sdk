@@ -36,7 +36,7 @@ describe('Promotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await promotions.retrieve(id, params, CommonData.options)
       .then((res: Promotion) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -57,7 +57,7 @@ describe('Promotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await promotions.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -69,9 +69,9 @@ describe('Promotions resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isPromotion(resource)).toBeTruthy()
+    expect(promotions.isPromotion(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = promotions.type()
     expect(type).toBe(resourceType)
 
   })
@@ -81,10 +81,10 @@ describe('Promotions resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = promotions.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = promotions.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -119,7 +119,7 @@ describe('Promotions resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Promotion
+    const res = promotions.parse(payload) as Promotion
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -152,7 +152,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await promotions.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -174,7 +174,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_amount_promotion_rule(id, params, CommonData.options)
+		await promotions.order_amount_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -196,7 +196,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_list_promotion_rule(id, params, CommonData.options)
+		await promotions.sku_list_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -218,7 +218,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].coupon_codes_promotion_rule(id, params, CommonData.options)
+		await promotions.coupon_codes_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -240,7 +240,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].custom_promotion_rule(id, params, CommonData.options)
+		await promotions.custom_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -262,7 +262,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_list(id, params, CommonData.options)
+		await promotions.sku_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -284,7 +284,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].coupons(id, params, CommonData.options)
+		await promotions.coupons(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -306,7 +306,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await promotions.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -328,7 +328,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await promotions.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -350,7 +350,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await promotions.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -372,7 +372,7 @@ describe('Promotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await promotions.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

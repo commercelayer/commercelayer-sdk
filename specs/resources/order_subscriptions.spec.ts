@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, OrderSubscription, order_subscriptions } from '../../src'
+import { CommerceLayerClient, OrderSubscription, order_subscriptions, markets, orders, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,9 +28,9 @@ describe('OrderSubscriptions resource', () => {
 
     const createAttributes = {
 			frequency: randomValue('string', 'frequency'),
-			market: cl.markets.relationship(TestData.id),
-			source_order: cl.orders.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			market: markets.relationship(TestData.id),
+			source_order: orders.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +42,11 @@ describe('OrderSubscriptions resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isOrderSubscription(data.data)).toBeTruthy()
+      expect(order_subscriptions.isOrderSubscription(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await order_subscriptions.create(resData, params, CommonData.options)
       .then((res: OrderSubscription) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -68,7 +68,7 @@ describe('OrderSubscriptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await order_subscriptions.retrieve(id, params, CommonData.options)
       .then((res: OrderSubscription) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -92,7 +92,7 @@ describe('OrderSubscriptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await order_subscriptions.update(resData, params, CommonData.options)
       .then((res: OrderSubscription) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -112,7 +112,7 @@ describe('OrderSubscriptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await order_subscriptions.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -132,7 +132,7 @@ describe('OrderSubscriptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await order_subscriptions.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -144,9 +144,9 @@ describe('OrderSubscriptions resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isOrderSubscription(resource)).toBeTruthy()
+    expect(order_subscriptions.isOrderSubscription(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = order_subscriptions.type()
     expect(type).toBe(resourceType)
 
   })
@@ -156,10 +156,10 @@ describe('OrderSubscriptions resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = order_subscriptions.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = order_subscriptions.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -194,7 +194,7 @@ describe('OrderSubscriptions resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as OrderSubscription
+    const res = order_subscriptions.parse(payload) as OrderSubscription
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -227,7 +227,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await order_subscriptions.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -249,7 +249,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].subscription_model(id, params, CommonData.options)
+		await order_subscriptions.subscription_model(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -271,7 +271,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].source_order(id, params, CommonData.options)
+		await order_subscriptions.source_order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -293,7 +293,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer(id, params, CommonData.options)
+		await order_subscriptions.customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -315,7 +315,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer_payment_source(id, params, CommonData.options)
+		await order_subscriptions.customer_payment_source(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -337,7 +337,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_subscription_items(id, params, CommonData.options)
+		await order_subscriptions.order_subscription_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -359,7 +359,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_factories(id, params, CommonData.options)
+		await order_subscriptions.order_factories(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -381,7 +381,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].recurring_order_copies(id, params, CommonData.options)
+		await order_subscriptions.recurring_order_copies(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -403,7 +403,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].orders(id, params, CommonData.options)
+		await order_subscriptions.orders(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -425,7 +425,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await order_subscriptions.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -447,7 +447,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await order_subscriptions.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -469,7 +469,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await order_subscriptions.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -497,7 +497,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._activate(id, {}, CommonData.options)
+		await order_subscriptions._activate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -524,7 +524,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._deactivate(id, {}, CommonData.options)
+		await order_subscriptions._deactivate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -551,7 +551,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._cancel(id, {}, CommonData.options)
+		await order_subscriptions._cancel(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -578,7 +578,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._convert(id, {}, CommonData.options)
+		await order_subscriptions._convert(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -605,7 +605,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await order_subscriptions._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -632,7 +632,7 @@ describe('OrderSubscriptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await order_subscriptions._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, OrderCopy, order_copies } from '../../src'
+import { CommerceLayerClient, OrderCopy, order_copies, orders } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -27,7 +27,7 @@ describe('OrderCopies resource', () => {
   test(resourceType + '.create', async () => {
 
     const createAttributes = {
-			source_order: cl.orders.relationship(TestData.id),
+			source_order: orders.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -39,11 +39,11 @@ describe('OrderCopies resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isOrderCopy(data.data)).toBeTruthy()
+      expect(order_copies.isOrderCopy(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await order_copies.create(resData, params, CommonData.options)
       .then((res: OrderCopy) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -65,7 +65,7 @@ describe('OrderCopies resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await order_copies.retrieve(id, params, CommonData.options)
       .then((res: OrderCopy) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -89,7 +89,7 @@ describe('OrderCopies resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await order_copies.update(resData, params, CommonData.options)
       .then((res: OrderCopy) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -109,7 +109,7 @@ describe('OrderCopies resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await order_copies.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -129,7 +129,7 @@ describe('OrderCopies resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await order_copies.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,9 +141,9 @@ describe('OrderCopies resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isOrderCopy(resource)).toBeTruthy()
+    expect(order_copies.isOrderCopy(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = order_copies.type()
     expect(type).toBe(resourceType)
 
   })
@@ -153,10 +153,10 @@ describe('OrderCopies resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = order_copies.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = order_copies.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -191,7 +191,7 @@ describe('OrderCopies resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as OrderCopy
+    const res = order_copies.parse(payload) as OrderCopy
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -224,7 +224,7 @@ describe('OrderCopies resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].source_order(id, params, CommonData.options)
+		await order_copies.source_order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -246,7 +246,7 @@ describe('OrderCopies resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].target_order(id, params, CommonData.options)
+		await order_copies.target_order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -268,7 +268,7 @@ describe('OrderCopies resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await order_copies.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -290,7 +290,7 @@ describe('OrderCopies resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_subscription(id, params, CommonData.options)
+		await order_copies.order_subscription(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

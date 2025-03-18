@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, BraintreeGateway, braintree_gateways } from '../../src'
+import { CommerceLayerClient, BraintreeGateway, braintree_gateways, braintree_payments } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -32,7 +32,7 @@ describe('BraintreeGateways resource', () => {
 			merchant_id: randomValue('string', 'merchant_id'),
 			public_key: randomValue('string', 'public_key'),
 			private_key: randomValue('string', 'private_key'),
-			braintree_payments: [ cl.braintree_payments.relationship(TestData.id) ],
+			braintree_payments: [ braintree_payments.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -44,11 +44,11 @@ describe('BraintreeGateways resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isBraintreeGateway(data.data)).toBeTruthy()
+      expect(braintree_gateways.isBraintreeGateway(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await braintree_gateways.create(resData, params, CommonData.options)
       .then((res: BraintreeGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -70,7 +70,7 @@ describe('BraintreeGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await braintree_gateways.retrieve(id, params, CommonData.options)
       .then((res: BraintreeGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -94,7 +94,7 @@ describe('BraintreeGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await braintree_gateways.update(resData, params, CommonData.options)
       .then((res: BraintreeGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -114,7 +114,7 @@ describe('BraintreeGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await braintree_gateways.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -134,7 +134,7 @@ describe('BraintreeGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await braintree_gateways.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -146,9 +146,9 @@ describe('BraintreeGateways resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isBraintreeGateway(resource)).toBeTruthy()
+    expect(braintree_gateways.isBraintreeGateway(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = braintree_gateways.type()
     expect(type).toBe(resourceType)
 
   })
@@ -158,10 +158,10 @@ describe('BraintreeGateways resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = braintree_gateways.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = braintree_gateways.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -196,7 +196,7 @@ describe('BraintreeGateways resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as BraintreeGateway
+    const res = braintree_gateways.parse(payload) as BraintreeGateway
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -229,7 +229,7 @@ describe('BraintreeGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_methods(id, params, CommonData.options)
+		await braintree_gateways.payment_methods(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -251,7 +251,7 @@ describe('BraintreeGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await braintree_gateways.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -273,7 +273,7 @@ describe('BraintreeGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].braintree_payments(id, params, CommonData.options)
+		await braintree_gateways.braintree_payments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

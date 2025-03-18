@@ -1,6 +1,6 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayer, CommerceLayerClient, CommerceLayerStatic } from '../src'
+import { CommerceLayer, CommerceLayerClient, CommerceLayerStatic, customers } from '../src'
 import { getClient, organization, } from '../test/common'
 import getAccessToken from '../test/token'
 
@@ -47,7 +47,7 @@ describe('SDK:commercelayer suite', () => {
 		expect(reader).not.toBeUndefined()
 		expect(reader.id).toBeGreaterThanOrEqual(0)
 
-		await cli.customers.list({ pageSize: 1 })
+		await customers.list({ pageSize: 1 })
 		expect(reader.rawResponse?.data).not.toBeUndefined()
 		if (headers) expect(reader.headers).not.toBeUndefined()
 		else expect(reader.headers).toBeUndefined()
@@ -82,7 +82,7 @@ describe('SDK:commercelayer suite', () => {
 
 		expect(cli.currentAccessToken).toBe(expiredToken)
 
-		await cli.customers.list({ pageSize: 1 })
+		await customers.list({ pageSize: 1 })
 
 		expect(refreshed).toBeTruthy()
 		expect(cli.currentAccessToken).toBeDefined()

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, ShippingMethod, shipping_methods } from '../../src'
+import { CommerceLayerClient, ShippingMethod, shipping_methods, markets, shipping_zones, shipping_categories, stock_locations, shipping_method_tiers } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -29,11 +29,11 @@ describe('ShippingMethods resource', () => {
     const createAttributes = {
 			name: randomValue('string', 'name'),
 			price_amount_cents: randomValue('integer', 'price_amount_cents'),
-			market: cl.markets.relationship(TestData.id),
-			shipping_zone: cl.shipping_zones.relationship(TestData.id),
-			shipping_category: cl.shipping_categories.relationship(TestData.id),
-			stock_location: cl.stock_locations.relationship(TestData.id),
-			shipping_method_tiers: [ cl.shipping_method_tiers.relationship(TestData.id) ],
+			market: markets.relationship(TestData.id),
+			shipping_zone: shipping_zones.relationship(TestData.id),
+			shipping_category: shipping_categories.relationship(TestData.id),
+			stock_location: stock_locations.relationship(TestData.id),
+			shipping_method_tiers: [ shipping_method_tiers.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -45,11 +45,11 @@ describe('ShippingMethods resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isShippingMethod(data.data)).toBeTruthy()
+      expect(shipping_methods.isShippingMethod(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await shipping_methods.create(resData, params, CommonData.options)
       .then((res: ShippingMethod) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -71,7 +71,7 @@ describe('ShippingMethods resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await shipping_methods.retrieve(id, params, CommonData.options)
       .then((res: ShippingMethod) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -95,7 +95,7 @@ describe('ShippingMethods resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await shipping_methods.update(resData, params, CommonData.options)
       .then((res: ShippingMethod) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -115,7 +115,7 @@ describe('ShippingMethods resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await shipping_methods.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -135,7 +135,7 @@ describe('ShippingMethods resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await shipping_methods.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -147,9 +147,9 @@ describe('ShippingMethods resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isShippingMethod(resource)).toBeTruthy()
+    expect(shipping_methods.isShippingMethod(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = shipping_methods.type()
     expect(type).toBe(resourceType)
 
   })
@@ -159,10 +159,10 @@ describe('ShippingMethods resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = shipping_methods.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = shipping_methods.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -197,7 +197,7 @@ describe('ShippingMethods resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ShippingMethod
+    const res = shipping_methods.parse(payload) as ShippingMethod
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -230,7 +230,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await shipping_methods.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -252,7 +252,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_zone(id, params, CommonData.options)
+		await shipping_methods.shipping_zone(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -274,7 +274,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_category(id, params, CommonData.options)
+		await shipping_methods.shipping_category(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -296,7 +296,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_location(id, params, CommonData.options)
+		await shipping_methods.stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -318,7 +318,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].delivery_lead_time_for_shipment(id, params, CommonData.options)
+		await shipping_methods.delivery_lead_time_for_shipment(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -340,7 +340,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_method_tiers(id, params, CommonData.options)
+		await shipping_methods.shipping_method_tiers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -362,7 +362,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_weight_tiers(id, params, CommonData.options)
+		await shipping_methods.shipping_weight_tiers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -384,7 +384,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await shipping_methods.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -406,7 +406,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].notifications(id, params, CommonData.options)
+		await shipping_methods.notifications(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -428,7 +428,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await shipping_methods.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -456,7 +456,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._disable(id, {}, CommonData.options)
+		await shipping_methods._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -483,7 +483,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._enable(id, {}, CommonData.options)
+		await shipping_methods._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -510,7 +510,7 @@ describe('ShippingMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reset_circuit(id, {}, CommonData.options)
+		await shipping_methods._reset_circuit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

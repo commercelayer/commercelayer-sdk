@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, StockTransfer, stock_transfers } from '../../src'
+import { CommerceLayerClient, StockTransfer, stock_transfers, skus, stock_locations, stock_locations, shipments, line_items } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,11 +28,11 @@ describe('StockTransfers resource', () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
-			sku: cl.skus.relationship(TestData.id),
-			origin_stock_location: cl.stock_locations.relationship(TestData.id),
-			destination_stock_location: cl.stock_locations.relationship(TestData.id),
-			shipment: cl.shipments.relationship(TestData.id),
-			line_item: cl.line_items.relationship(TestData.id),
+			sku: skus.relationship(TestData.id),
+			origin_stock_location: stock_locations.relationship(TestData.id),
+			destination_stock_location: stock_locations.relationship(TestData.id),
+			shipment: shipments.relationship(TestData.id),
+			line_item: line_items.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -44,11 +44,11 @@ describe('StockTransfers resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isStockTransfer(data.data)).toBeTruthy()
+      expect(stock_transfers.isStockTransfer(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await stock_transfers.create(resData, params, CommonData.options)
       .then((res: StockTransfer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -70,7 +70,7 @@ describe('StockTransfers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await stock_transfers.retrieve(id, params, CommonData.options)
       .then((res: StockTransfer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -94,7 +94,7 @@ describe('StockTransfers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await stock_transfers.update(resData, params, CommonData.options)
       .then((res: StockTransfer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -114,7 +114,7 @@ describe('StockTransfers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await stock_transfers.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -134,7 +134,7 @@ describe('StockTransfers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await stock_transfers.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -146,9 +146,9 @@ describe('StockTransfers resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isStockTransfer(resource)).toBeTruthy()
+    expect(stock_transfers.isStockTransfer(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = stock_transfers.type()
     expect(type).toBe(resourceType)
 
   })
@@ -158,10 +158,10 @@ describe('StockTransfers resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = stock_transfers.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = stock_transfers.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -196,7 +196,7 @@ describe('StockTransfers resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as StockTransfer
+    const res = stock_transfers.parse(payload) as StockTransfer
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -229,7 +229,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku(id, params, CommonData.options)
+		await stock_transfers.sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -251,7 +251,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].origin_stock_location(id, params, CommonData.options)
+		await stock_transfers.origin_stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -273,7 +273,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].destination_stock_location(id, params, CommonData.options)
+		await stock_transfers.destination_stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -295,7 +295,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipment(id, params, CommonData.options)
+		await stock_transfers.shipment(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -317,7 +317,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].line_item(id, params, CommonData.options)
+		await stock_transfers.line_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -339,7 +339,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_reservation(id, params, CommonData.options)
+		await stock_transfers.stock_reservation(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -361,7 +361,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await stock_transfers.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -383,7 +383,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await stock_transfers.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -405,7 +405,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await stock_transfers.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -433,7 +433,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._upcoming(id, {}, CommonData.options)
+		await stock_transfers._upcoming(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -460,7 +460,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._on_hold(id, {}, CommonData.options)
+		await stock_transfers._on_hold(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -487,7 +487,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._picking(id, {}, CommonData.options)
+		await stock_transfers._picking(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -514,7 +514,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._in_transit(id, {}, CommonData.options)
+		await stock_transfers._in_transit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -541,7 +541,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._complete(id, {}, CommonData.options)
+		await stock_transfers._complete(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -568,7 +568,7 @@ describe('StockTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._cancel(id, {}, CommonData.options)
+		await stock_transfers._cancel(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

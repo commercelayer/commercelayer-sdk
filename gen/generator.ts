@@ -152,7 +152,6 @@ const generate = async (localSchema?: boolean) => {
 	updateSdkInterfaces(resources)
 	updateModelTypes(resources)
 	// updateApiMicroClients(resources)
-	updateResourceInstances(resources)
 
 	updateLicense()
 
@@ -184,47 +183,6 @@ const tabsString = (num: number): string => {
 	return str
 }
 
-
-const updateResourceInstances = (resources: Record<string, ApiRes>): void => {
-
-	const filePath = 'src/instance.ts'
-
-	const cl = readFileSync(filePath, { encoding: 'utf-8' })
-
-	const lines = cl.split('\n')
-
-
-	const classes: string[] = Object.values(resources).map(r => `\t${r.apiClass}`)
-
-	const resStartIdx = findLine('##__RESOURCE_CLASS_LIST_START__##', lines).index + 1
-	const resStopIdx = findLine('##__RESOURCE_CLASS_LIST_STOP__##', lines).index
-	lines.splice(resStartIdx, resStopIdx - resStartIdx, classes.join(',\n'))
-
-
-	const insTplLine = findLine('##__CL_INSTANCES_TEMPLATE::', lines)
-	const insTplIdx = insTplLine.offset + '##__CL_INSTANCES_TEMPLATE::'.length + 1
-	const insTpl = insTplLine.text.substring(insTplIdx)
-
-	const instances: string[] = []
-	Object.entries(resources).forEach(([type, res]) => {
-		const fieldName = res.singleton ? Inflector.singularize(type) : type
-		let ins = insTpl
-		ins = ins.replace(/##__TAB__##/g, '\t')
-		ins = ins.replace(/##__RESOURCE_TYPE__##/, fixReservedWord(fieldName))
-		ins = ins.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
-		instances.push(ins)
-	})
-
-	const insStartIdx = findLine('##__CL_INSTANCES_START__##', lines).index + 2
-	const insStopIdx = findLine('##__CL_INSTANCES_STOP__##', lines).index
-	lines.splice(insStartIdx, insStopIdx - insStartIdx, ...instances)
-
-
-	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
-
-	console.log('API client instances generated.')
-
-}
 
 
 const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
@@ -391,11 +349,14 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
 	Object.entries(resources).forEach(([type, res]) => {
 
+		const pathAndName = res.singleton? Inflector.singularize(type) : type
+
 		let exp = expTpl
 		exp = exp.replace(/##__TAB__##/g, '\t')
 		exp = exp.replace(/##__RESOURCE_TYPE__##/, type)
 		exp = exp.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
-		exp = exp.replace(/##__RESOURCE_PATH__##/, res.singleton? Inflector.singularize(type) : type)
+		exp = exp.replace(/##__RESOURCE_PATH__##/, pathAndName)
+		exp = exp.replace(/##__RESOURCE_INSTANCE__##/, pathAndName /* fixReservedWord(pathAndName) */)
 		exp = exp.replace(/##__RESOURCE_MODEL__##/, Inflector.singularize(res.apiClass))
 		exports.push(exp)
 
@@ -552,10 +513,12 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 	spec = copyrightHeader(spec)
 
 	const pathAndName = singleton ? Inflector.singularize(type) : type
+	const importInstances: string[] = [ pathAndName /* fixReservedWord(pathAndName) */ ]
+
 	spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
 	spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
 	spec = spec.replace(/##__RESOURCE_PATH__##/g, pathAndName)
-	spec = spec.replace(/##__RESOURCE_INSTANCE__##/g, fixReservedWord(pathAndName))
+	spec = spec.replace(/##__RESOURCE_INSTANCE__##/g, pathAndName /* fixReservedWord(pathAndName) */)
 	// Clear unused placeholders
 	spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '')
 	spec = spec.replace(/##__TRIGGER_SPECS__##/g, '')
@@ -564,7 +527,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 		let obj = '{\n'
 
-		// Attriburtes
+		// Attributes
 		const reqType = resource.operations.create.requestType
 		const attributes = reqType ? resource.components[reqType].attributes : {}
 		const required = Object.values(attributes).filter(attr => attr.required)
@@ -575,7 +538,8 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 		const relationships = reqType ? resource.components[reqType].relationships : {}
 		const filtered = Object.values(relationships).filter(rel => !rel.deprecated)
 		filtered.forEach(f => {
-			let relVal: string | string[] = `cl.${f.type}.relationship(TestData.id)`
+			importInstances.push(f.type)
+			let relVal: string | string[] = `${f.type}.relationship(TestData.id)`
 			if (f.cardinality === 'to_many') relVal = `[ ${relVal} ]`
 			obj += `\t\t\t${f.name}: ${relVal},\n`
 		})
@@ -588,6 +552,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	const modelName = String(Object.keys(resource.components)[0].replace(/(Create|Update)$/g, ''))
 	spec = spec.replace(/##__RESOURCE_MODEL__##/g, modelName)
+	spec = spec.replace(/##__IMPORT_INSTANCES__##/, importInstances.join(', '))
 
 
 	return spec

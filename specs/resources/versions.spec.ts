@@ -36,7 +36,7 @@ describe('Versions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await versions.retrieve(id, params, CommonData.options)
       .then((res: Version) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -57,7 +57,7 @@ describe('Versions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await versions.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -69,9 +69,9 @@ describe('Versions resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isVersion(resource)).toBeTruthy()
+    expect(versions.isVersion(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = versions.type()
     expect(type).toBe(resourceType)
 
   })
@@ -81,10 +81,10 @@ describe('Versions resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = versions.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = versions.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -119,7 +119,7 @@ describe('Versions resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Version
+    const res = versions.parse(payload) as Version
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)

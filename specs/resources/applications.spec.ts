@@ -35,7 +35,7 @@ describe('Applications resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(params, CommonData.options)
+    await application.retrieve(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -47,9 +47,9 @@ describe('Applications resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isApplication(resource)).toBeTruthy()
+    expect(application.isApplication(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = application.type()
     expect(type).toBe(resourceType)
 
   })
@@ -59,10 +59,10 @@ describe('Applications resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = application.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = application.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -97,7 +97,7 @@ describe('Applications resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Application
+    const res = application.parse(payload) as Application
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)

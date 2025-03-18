@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, RecurringOrderCopy, recurring_order_copies } from '../../src'
+import { CommerceLayerClient, RecurringOrderCopy, recurring_order_copies, orders, order_subscriptions } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -27,8 +27,8 @@ describe('RecurringOrderCopies resource', () => {
   test(resourceType + '.create', async () => {
 
     const createAttributes = {
-			source_order: cl.orders.relationship(TestData.id),
-			order_subscription: cl.order_subscriptions.relationship(TestData.id),
+			source_order: orders.relationship(TestData.id),
+			order_subscription: order_subscriptions.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -40,11 +40,11 @@ describe('RecurringOrderCopies resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isRecurringOrderCopy(data.data)).toBeTruthy()
+      expect(recurring_order_copies.isRecurringOrderCopy(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await recurring_order_copies.create(resData, params, CommonData.options)
       .then((res: RecurringOrderCopy) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -66,7 +66,7 @@ describe('RecurringOrderCopies resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await recurring_order_copies.retrieve(id, params, CommonData.options)
       .then((res: RecurringOrderCopy) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -90,7 +90,7 @@ describe('RecurringOrderCopies resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await recurring_order_copies.update(resData, params, CommonData.options)
       .then((res: RecurringOrderCopy) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -110,7 +110,7 @@ describe('RecurringOrderCopies resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await recurring_order_copies.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -130,7 +130,7 @@ describe('RecurringOrderCopies resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await recurring_order_copies.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -142,9 +142,9 @@ describe('RecurringOrderCopies resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isRecurringOrderCopy(resource)).toBeTruthy()
+    expect(recurring_order_copies.isRecurringOrderCopy(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = recurring_order_copies.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,10 +154,10 @@ describe('RecurringOrderCopies resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = recurring_order_copies.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = recurring_order_copies.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -192,7 +192,7 @@ describe('RecurringOrderCopies resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as RecurringOrderCopy
+    const res = recurring_order_copies.parse(payload) as RecurringOrderCopy
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -225,7 +225,7 @@ describe('RecurringOrderCopies resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].source_order(id, params, CommonData.options)
+		await recurring_order_copies.source_order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,7 +247,7 @@ describe('RecurringOrderCopies resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].target_order(id, params, CommonData.options)
+		await recurring_order_copies.target_order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -269,7 +269,7 @@ describe('RecurringOrderCopies resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await recurring_order_copies.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -291,7 +291,7 @@ describe('RecurringOrderCopies resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_subscription(id, params, CommonData.options)
+		await recurring_order_copies.order_subscription(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

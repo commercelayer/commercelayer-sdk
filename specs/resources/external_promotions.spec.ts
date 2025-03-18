@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, ExternalPromotion, external_promotions } from '../../src'
+import { CommerceLayerClient, ExternalPromotion, external_promotions, markets, order_amount_promotion_rules, sku_list_promotion_rules, coupon_codes_promotion_rules, custom_promotion_rules, sku_lists, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -31,13 +31,13 @@ describe('ExternalPromotions resource', () => {
 			starts_at: randomValue('string', 'starts_at'),
 			expires_at: randomValue('string', 'expires_at'),
 			promotion_url: randomValue('string', 'promotion_url'),
-			market: cl.markets.relationship(TestData.id),
-			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
-			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
-			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
-			custom_promotion_rule: cl.custom_promotion_rules.relationship(TestData.id),
-			sku_list: cl.sku_lists.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			market: markets.relationship(TestData.id),
+			order_amount_promotion_rule: order_amount_promotion_rules.relationship(TestData.id),
+			sku_list_promotion_rule: sku_list_promotion_rules.relationship(TestData.id),
+			coupon_codes_promotion_rule: coupon_codes_promotion_rules.relationship(TestData.id),
+			custom_promotion_rule: custom_promotion_rules.relationship(TestData.id),
+			sku_list: sku_lists.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -49,11 +49,11 @@ describe('ExternalPromotions resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isExternalPromotion(data.data)).toBeTruthy()
+      expect(external_promotions.isExternalPromotion(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await external_promotions.create(resData, params, CommonData.options)
       .then((res: ExternalPromotion) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -75,7 +75,7 @@ describe('ExternalPromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await external_promotions.retrieve(id, params, CommonData.options)
       .then((res: ExternalPromotion) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -99,7 +99,7 @@ describe('ExternalPromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await external_promotions.update(resData, params, CommonData.options)
       .then((res: ExternalPromotion) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -119,7 +119,7 @@ describe('ExternalPromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await external_promotions.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -139,7 +139,7 @@ describe('ExternalPromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await external_promotions.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -151,9 +151,9 @@ describe('ExternalPromotions resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isExternalPromotion(resource)).toBeTruthy()
+    expect(external_promotions.isExternalPromotion(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = external_promotions.type()
     expect(type).toBe(resourceType)
 
   })
@@ -163,10 +163,10 @@ describe('ExternalPromotions resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = external_promotions.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = external_promotions.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -201,7 +201,7 @@ describe('ExternalPromotions resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ExternalPromotion
+    const res = external_promotions.parse(payload) as ExternalPromotion
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -234,7 +234,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await external_promotions.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -256,7 +256,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_amount_promotion_rule(id, params, CommonData.options)
+		await external_promotions.order_amount_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -278,7 +278,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_list_promotion_rule(id, params, CommonData.options)
+		await external_promotions.sku_list_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -300,7 +300,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].coupon_codes_promotion_rule(id, params, CommonData.options)
+		await external_promotions.coupon_codes_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -322,7 +322,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].custom_promotion_rule(id, params, CommonData.options)
+		await external_promotions.custom_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -344,7 +344,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_list(id, params, CommonData.options)
+		await external_promotions.sku_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -366,7 +366,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].coupons(id, params, CommonData.options)
+		await external_promotions.coupons(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -388,7 +388,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await external_promotions.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -410,7 +410,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await external_promotions.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -432,7 +432,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await external_promotions.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -454,7 +454,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await external_promotions.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -476,7 +476,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].skus(id, params, CommonData.options)
+		await external_promotions.skus(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -504,7 +504,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._disable(id, {}, CommonData.options)
+		await external_promotions._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -531,7 +531,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._enable(id, {}, CommonData.options)
+		await external_promotions._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -558,7 +558,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await external_promotions._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -585,7 +585,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await external_promotions._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -612,7 +612,7 @@ describe('ExternalPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reset_circuit(id, {}, CommonData.options)
+		await external_promotions._reset_circuit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Export, exportz } from '../../src'
+import { CommerceLayerClient, Export, exports } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -39,11 +39,11 @@ describe('Exports resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isExport(data.data)).toBeTruthy()
+      expect(exports.isExport(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await exports.create(resData, params, CommonData.options)
       .then((res: Export) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -65,7 +65,7 @@ describe('Exports resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await exports.retrieve(id, params, CommonData.options)
       .then((res: Export) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -89,7 +89,7 @@ describe('Exports resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await exports.update(resData, params, CommonData.options)
       .then((res: Export) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -109,7 +109,7 @@ describe('Exports resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await exports.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -129,7 +129,7 @@ describe('Exports resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await exports.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,9 +141,9 @@ describe('Exports resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isExport(resource)).toBeTruthy()
+    expect(exports.isExport(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = exports.type()
     expect(type).toBe(resourceType)
 
   })
@@ -153,10 +153,10 @@ describe('Exports resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = exports.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = exports.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -191,7 +191,7 @@ describe('Exports resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Export
+    const res = exports.parse(payload) as Export
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -203,8 +203,8 @@ describe('Exports resource', () => {
 
   /* spec.instance start */
 	test(resourceType + '.instance', async () => {
-    expect(exportz)
-		expect(exportz.type()).toBe(resourceType)
+    expect(exports)
+		expect(exports.type()).toBe(resourceType)
 	})
 	/* spec.instance stop */
 
@@ -224,7 +224,7 @@ describe('Exports resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await exports.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -246,7 +246,7 @@ describe('Exports resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await exports.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -274,7 +274,7 @@ describe('Exports resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._interrupt(id, {}, CommonData.options)
+		await exports._interrupt(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

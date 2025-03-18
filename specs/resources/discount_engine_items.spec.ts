@@ -36,7 +36,7 @@ describe('DiscountEngineItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await discount_engine_items.retrieve(id, params, CommonData.options)
       .then((res: DiscountEngineItem) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -57,7 +57,7 @@ describe('DiscountEngineItems resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await discount_engine_items.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -69,9 +69,9 @@ describe('DiscountEngineItems resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isDiscountEngineItem(resource)).toBeTruthy()
+    expect(discount_engine_items.isDiscountEngineItem(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = discount_engine_items.type()
     expect(type).toBe(resourceType)
 
   })
@@ -81,10 +81,10 @@ describe('DiscountEngineItems resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = discount_engine_items.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = discount_engine_items.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -119,7 +119,7 @@ describe('DiscountEngineItems resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as DiscountEngineItem
+    const res = discount_engine_items.parse(payload) as DiscountEngineItem
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -152,7 +152,7 @@ describe('DiscountEngineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].discount_engine(id, params, CommonData.options)
+		await discount_engine_items.discount_engine(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -174,7 +174,7 @@ describe('DiscountEngineItems resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await discount_engine_items.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

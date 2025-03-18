@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Price, prices } from '../../src'
+import { CommerceLayerClient, Price, prices, price_lists, skus, price_tiers } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,9 +28,9 @@ describe('Prices resource', () => {
 
     const createAttributes = {
 			amount_cents: randomValue('integer', 'amount_cents'),
-			price_list: cl.price_lists.relationship(TestData.id),
-			sku: cl.skus.relationship(TestData.id),
-			price_tiers: [ cl.price_tiers.relationship(TestData.id) ],
+			price_list: price_lists.relationship(TestData.id),
+			sku: skus.relationship(TestData.id),
+			price_tiers: [ price_tiers.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +42,11 @@ describe('Prices resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isPrice(data.data)).toBeTruthy()
+      expect(prices.isPrice(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await prices.create(resData, params, CommonData.options)
       .then((res: Price) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -68,7 +68,7 @@ describe('Prices resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await prices.retrieve(id, params, CommonData.options)
       .then((res: Price) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -92,7 +92,7 @@ describe('Prices resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await prices.update(resData, params, CommonData.options)
       .then((res: Price) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -112,7 +112,7 @@ describe('Prices resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await prices.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -132,7 +132,7 @@ describe('Prices resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await prices.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -144,9 +144,9 @@ describe('Prices resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isPrice(resource)).toBeTruthy()
+    expect(prices.isPrice(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = prices.type()
     expect(type).toBe(resourceType)
 
   })
@@ -156,10 +156,10 @@ describe('Prices resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = prices.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = prices.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -194,7 +194,7 @@ describe('Prices resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Price
+    const res = prices.parse(payload) as Price
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -227,7 +227,7 @@ describe('Prices resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price_list(id, params, CommonData.options)
+		await prices.price_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -249,7 +249,7 @@ describe('Prices resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku(id, params, CommonData.options)
+		await prices.sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -271,7 +271,7 @@ describe('Prices resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price_tiers(id, params, CommonData.options)
+		await prices.price_tiers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -293,7 +293,7 @@ describe('Prices resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price_volume_tiers(id, params, CommonData.options)
+		await prices.price_volume_tiers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -315,7 +315,7 @@ describe('Prices resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price_frequency_tiers(id, params, CommonData.options)
+		await prices.price_frequency_tiers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -337,7 +337,7 @@ describe('Prices resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await prices.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -359,7 +359,7 @@ describe('Prices resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await prices.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -381,7 +381,7 @@ describe('Prices resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].jwt_customer(id, params, CommonData.options)
+		await prices.jwt_customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -403,7 +403,7 @@ describe('Prices resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].jwt_markets(id, params, CommonData.options)
+		await prices.jwt_markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -425,7 +425,7 @@ describe('Prices resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].jwt_stock_locations(id, params, CommonData.options)
+		await prices.jwt_stock_locations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

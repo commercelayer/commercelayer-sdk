@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, CouponCodesPromotionRule, coupon_codes_promotion_rules } from '../../src'
+import { CommerceLayerClient, CouponCodesPromotionRule, coupon_codes_promotion_rules, percentage_discount_promotions, coupons } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -27,8 +27,8 @@ describe('CouponCodesPromotionRules resource', () => {
   test(resourceType + '.create', async () => {
 
     const createAttributes = {
-			promotion: cl.percentage_discount_promotions.relationship(TestData.id),
-			coupons: [ cl.coupons.relationship(TestData.id) ],
+			promotion: percentage_discount_promotions.relationship(TestData.id),
+			coupons: [ coupons.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -40,11 +40,11 @@ describe('CouponCodesPromotionRules resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isCouponCodesPromotionRule(data.data)).toBeTruthy()
+      expect(coupon_codes_promotion_rules.isCouponCodesPromotionRule(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await coupon_codes_promotion_rules.create(resData, params, CommonData.options)
       .then((res: CouponCodesPromotionRule) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -66,7 +66,7 @@ describe('CouponCodesPromotionRules resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await coupon_codes_promotion_rules.retrieve(id, params, CommonData.options)
       .then((res: CouponCodesPromotionRule) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -90,7 +90,7 @@ describe('CouponCodesPromotionRules resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await coupon_codes_promotion_rules.update(resData, params, CommonData.options)
       .then((res: CouponCodesPromotionRule) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -110,7 +110,7 @@ describe('CouponCodesPromotionRules resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await coupon_codes_promotion_rules.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -130,7 +130,7 @@ describe('CouponCodesPromotionRules resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await coupon_codes_promotion_rules.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -142,9 +142,9 @@ describe('CouponCodesPromotionRules resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isCouponCodesPromotionRule(resource)).toBeTruthy()
+    expect(coupon_codes_promotion_rules.isCouponCodesPromotionRule(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = coupon_codes_promotion_rules.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,10 +154,10 @@ describe('CouponCodesPromotionRules resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = coupon_codes_promotion_rules.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = coupon_codes_promotion_rules.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -192,7 +192,7 @@ describe('CouponCodesPromotionRules resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as CouponCodesPromotionRule
+    const res = coupon_codes_promotion_rules.parse(payload) as CouponCodesPromotionRule
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -225,7 +225,7 @@ describe('CouponCodesPromotionRules resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await coupon_codes_promotion_rules.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,7 +247,7 @@ describe('CouponCodesPromotionRules resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].coupons(id, params, CommonData.options)
+		await coupon_codes_promotion_rules.coupons(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

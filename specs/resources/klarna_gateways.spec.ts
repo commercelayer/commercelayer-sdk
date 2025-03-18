@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, KlarnaGateway, klarna_gateways } from '../../src'
+import { CommerceLayerClient, KlarnaGateway, klarna_gateways, klarna_payments } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -31,7 +31,7 @@ describe('KlarnaGateways resource', () => {
 			country_code: randomValue('string', 'country_code'),
 			api_key: randomValue('string', 'api_key'),
 			api_secret: randomValue('string', 'api_secret'),
-			klarna_payments: [ cl.klarna_payments.relationship(TestData.id) ],
+			klarna_payments: [ klarna_payments.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -43,11 +43,11 @@ describe('KlarnaGateways resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isKlarnaGateway(data.data)).toBeTruthy()
+      expect(klarna_gateways.isKlarnaGateway(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await klarna_gateways.create(resData, params, CommonData.options)
       .then((res: KlarnaGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -69,7 +69,7 @@ describe('KlarnaGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await klarna_gateways.retrieve(id, params, CommonData.options)
       .then((res: KlarnaGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -93,7 +93,7 @@ describe('KlarnaGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await klarna_gateways.update(resData, params, CommonData.options)
       .then((res: KlarnaGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -113,7 +113,7 @@ describe('KlarnaGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await klarna_gateways.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -133,7 +133,7 @@ describe('KlarnaGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await klarna_gateways.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -145,9 +145,9 @@ describe('KlarnaGateways resource', () => {
   test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isKlarnaGateway(resource)).toBeTruthy()
+    expect(klarna_gateways.isKlarnaGateway(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = klarna_gateways.type()
     expect(type).toBe(resourceType)
 
   })
@@ -157,10 +157,10 @@ describe('KlarnaGateways resource', () => {
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = klarna_gateways.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = klarna_gateways.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -195,7 +195,7 @@ describe('KlarnaGateways resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as KlarnaGateway
+    const res = klarna_gateways.parse(payload) as KlarnaGateway
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -228,7 +228,7 @@ describe('KlarnaGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_methods(id, params, CommonData.options)
+		await klarna_gateways.payment_methods(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -250,7 +250,7 @@ describe('KlarnaGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await klarna_gateways.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -272,7 +272,7 @@ describe('KlarnaGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].klarna_payments(id, params, CommonData.options)
+		await klarna_gateways.klarna_payments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
