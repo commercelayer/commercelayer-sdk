@@ -139,6 +139,7 @@ class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule> {
 }
 
 
-export default OrderAmountPromotionRules
+const instance = new OrderAmountPromotionRules()
+export default instance
 
 export type { OrderAmountPromotionRule, OrderAmountPromotionRuleCreate, OrderAmountPromotionRuleUpdate, OrderAmountPromotionRuleType }

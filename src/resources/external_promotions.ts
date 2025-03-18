@@ -241,6 +241,14 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
+	/** 
 	 * The URL to the service that will compute the discount.
 	 * @example ```"https://external_promotion.yourbrand.com"```
 	 */
@@ -346,6 +354,14 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ id: (typeof id === 'string')? id: id.id, type: ExternalPromotions.TYPE, _enable: true }, params, options)
 	}
 
+	async _add_tags(id: string | ExternalPromotion, triggerValue: string, params?: QueryParamsRetrieve<ExternalPromotion>, options?: ResourcesConfig): Promise<ExternalPromotion> {
+		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ id: (typeof id === 'string')? id: id.id, type: ExternalPromotions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | ExternalPromotion, triggerValue: string, params?: QueryParamsRetrieve<ExternalPromotion>, options?: ResourcesConfig): Promise<ExternalPromotion> {
+		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ id: (typeof id === 'string')? id: id.id, type: ExternalPromotions.TYPE, _remove_tags: triggerValue }, params, options)
+	}
+
 	async _reset_circuit(id: string | ExternalPromotion, params?: QueryParamsRetrieve<ExternalPromotion>, options?: ResourcesConfig): Promise<ExternalPromotion> {
 		return this.resources.update<ExternalPromotionUpdate, ExternalPromotion>({ id: (typeof id === 'string')? id: id.id, type: ExternalPromotions.TYPE, _reset_circuit: true }, params, options)
 	}
@@ -372,6 +388,7 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 }
 
 
-export default ExternalPromotions
+const instance = new ExternalPromotions()
+export default instance
 
 export type { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionUpdate, ExternalPromotionType }

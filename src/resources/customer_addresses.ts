@@ -121,6 +121,7 @@ class CustomerAddresses extends ApiResource<CustomerAddress> {
 }
 
 
-export default CustomerAddresses
+const instance = new CustomerAddresses()
+export default instance
 
 export type { CustomerAddress, CustomerAddressCreate, CustomerAddressUpdate, CustomerAddressType }

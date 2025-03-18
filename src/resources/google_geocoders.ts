@@ -117,6 +117,7 @@ class GoogleGeocoders extends ApiResource<GoogleGeocoder> {
 }
 
 
-export default GoogleGeocoders
+const instance = new GoogleGeocoders()
+export default instance
 
 export type { GoogleGeocoder, GoogleGeocoderCreate, GoogleGeocoderUpdate, GoogleGeocoderType }

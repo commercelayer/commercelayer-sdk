@@ -1,5 +1,5 @@
 import { getAccessToken, handleError, init, initConfig } from './util'
-import commercelayer from '../src'
+import commercelayer, { customers, organization, application } from '../src'
 
 
 
@@ -18,23 +18,22 @@ async function refreshToken(old: string): Promise<string> {
 
 ; (async () => {
 
-	const config = await initConfig()
-	const cl = commercelayer(config)
+	// const config = await initConfig()
+	// const cl = commercelayer(config)
 
 	// cl.config({ refreshToken, fetch: customFetch })
 	try {
 
-		const org = await cl.organization.retrieve({ fields: ['name', 'slug']})
+		// console.log(cl.currentOrganization)
+
+		const org = await organization.retrieve({ fields: ['name', 'slug']})
 		console.log(org)
 
-		const app = await cl.application.retrieve({ fields: ['name', 'kind']})
+		const app = await application.retrieve({ fields: ['name', 'kind']})
 		console.log(app)
 
-		const priceListIds = ['xlqjNCmDGL','vkmQxCWOAk']
-		for (const id of priceListIds) {
-			await cl.price_lists.delete(id)
-			console.log('Deleted price list ' + id)
-		}
+		const customer = (await customers.list()).first()
+		console.log(customer)
 
 	} catch (error: any) {
 		handleError(error, true)

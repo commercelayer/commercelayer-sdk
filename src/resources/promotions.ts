@@ -181,6 +181,7 @@ class Promotions extends ApiResource<Promotion> {
 }
 
 
-export default Promotions
+const instance = new Promotions()
+export default instance
 
 export type { Promotion, PromotionType }

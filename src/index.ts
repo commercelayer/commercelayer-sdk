@@ -2,7 +2,7 @@
 // SDK
 export { default, CommerceLayer } from './commercelayer'
 
-export * from './instance'
+export * from './api'
 
 // Commerce Layer static functions
 export { CommerceLayerStatic } from './static'

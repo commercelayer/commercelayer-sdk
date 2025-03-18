@@ -277,6 +277,7 @@ class Organizations extends ApiSingleton<Organization> {
 }
 
 
-export default Organizations
+const instance = new Organizations()
+export default instance
 
 export type { Organization, OrganizationType }

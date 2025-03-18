@@ -262,6 +262,14 @@ interface ShipmentUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_purchase?: boolean | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	shipping_category?: ShippingCategoryRel | null
 	inventory_stock_location?: InventoryStockLocationRel | null
@@ -435,6 +443,14 @@ class Shipments extends ApiResource<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _purchase: true }, params, options)
 	}
 
+	async _add_tags(id: string | Shipment, triggerValue: string, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | Shipment, triggerValue: string, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _remove_tags: triggerValue }, params, options)
+	}
+
 
 	isShipment(resource: any): resource is Shipment {
 		return resource.type && (resource.type === Shipments.TYPE)
@@ -457,6 +473,7 @@ class Shipments extends ApiResource<Shipment> {
 }
 
 
-export default Shipments
+const instance = new Shipments()
+export default instance
 
 export type { Shipment, ShipmentCreate, ShipmentUpdate, ShipmentType }

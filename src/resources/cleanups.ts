@@ -154,6 +154,7 @@ class Cleanups extends ApiResource<Cleanup> {
 }
 
 
-export default Cleanups
+const instance = new Cleanups()
+export default instance
 
 export type { Cleanup, CleanupCreate, CleanupUpdate, CleanupType }

@@ -112,6 +112,7 @@ class Merchants extends ApiResource<Merchant> {
 }
 
 
-export default Merchants
+const instance = new Merchants()
+export default instance
 
 export type { Merchant, MerchantCreate, MerchantUpdate, MerchantType }

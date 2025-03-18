@@ -226,6 +226,14 @@ interface PercentageDiscountPromotionUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
+	/** 
 	 * The discount percentage to be applied.
 	 * @example ```10```
 	 */
@@ -326,6 +334,14 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 		return this.resources.update<PercentageDiscountPromotionUpdate, PercentageDiscountPromotion>({ id: (typeof id === 'string')? id: id.id, type: PercentageDiscountPromotions.TYPE, _enable: true }, params, options)
 	}
 
+	async _add_tags(id: string | PercentageDiscountPromotion, triggerValue: string, params?: QueryParamsRetrieve<PercentageDiscountPromotion>, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
+		return this.resources.update<PercentageDiscountPromotionUpdate, PercentageDiscountPromotion>({ id: (typeof id === 'string')? id: id.id, type: PercentageDiscountPromotions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | PercentageDiscountPromotion, triggerValue: string, params?: QueryParamsRetrieve<PercentageDiscountPromotion>, options?: ResourcesConfig): Promise<PercentageDiscountPromotion> {
+		return this.resources.update<PercentageDiscountPromotionUpdate, PercentageDiscountPromotion>({ id: (typeof id === 'string')? id: id.id, type: PercentageDiscountPromotions.TYPE, _remove_tags: triggerValue }, params, options)
+	}
+
 
 	isPercentageDiscountPromotion(resource: any): resource is PercentageDiscountPromotion {
 		return resource.type && (resource.type === PercentageDiscountPromotions.TYPE)
@@ -348,6 +364,7 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 }
 
 
-export default PercentageDiscountPromotions
+const instance = new PercentageDiscountPromotions()
+export default instance
 
 export type { PercentageDiscountPromotion, PercentageDiscountPromotionCreate, PercentageDiscountPromotionUpdate, PercentageDiscountPromotionType }

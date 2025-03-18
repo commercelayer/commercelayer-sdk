@@ -395,6 +395,7 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 		exp = exp.replace(/##__TAB__##/g, '\t')
 		exp = exp.replace(/##__RESOURCE_TYPE__##/, type)
 		exp = exp.replace(/##__RESOURCE_CLASS__##/, res.apiClass)
+		exp = exp.replace(/##__RESOURCE_PATH__##/, res.singleton? Inflector.singularize(type) : type)
 		exp = exp.replace(/##__RESOURCE_MODEL__##/, Inflector.singularize(res.apiClass))
 		exports.push(exp)
 

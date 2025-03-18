@@ -148,6 +148,7 @@ class Adjustments extends ApiResource<Adjustment> {
 }
 
 
-export default Adjustments
+const instance = new Adjustments()
+export default instance
 
 export type { Adjustment, AdjustmentCreate, AdjustmentUpdate, AdjustmentType }

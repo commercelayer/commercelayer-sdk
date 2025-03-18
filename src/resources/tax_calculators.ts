@@ -80,6 +80,7 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
 }
 
 
-export default TaxCalculators
+const instance = new TaxCalculators()
+export default instance
 
 export type { TaxCalculator, TaxCalculatorType }

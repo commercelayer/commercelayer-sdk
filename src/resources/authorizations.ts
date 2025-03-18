@@ -283,6 +283,7 @@ class Authorizations extends ApiResource<Authorization> {
 }
 
 
-export default Authorizations
+const instance = new Authorizations()
+export default instance
 
 export type { Authorization, AuthorizationUpdate, AuthorizationType }

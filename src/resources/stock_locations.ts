@@ -194,6 +194,7 @@ class StockLocations extends ApiResource<StockLocation> {
 }
 
 
-export default StockLocations
+const instance = new StockLocations()
+export default instance
 
 export type { StockLocation, StockLocationCreate, StockLocationUpdate, StockLocationType }

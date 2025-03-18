@@ -140,6 +140,7 @@ class Transactions extends ApiResource<Transaction> {
 }
 
 
-export default Transactions
+const instance = new Transactions()
+export default instance
 
 export type { Transaction, TransactionType }

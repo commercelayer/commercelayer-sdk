@@ -147,6 +147,7 @@ class CarrierAccounts extends ApiResource<CarrierAccount> {
 }
 
 
-export default CarrierAccounts
+const instance = new CarrierAccounts()
+export default instance
 
 export type { CarrierAccount, CarrierAccountCreate, CarrierAccountUpdate, CarrierAccountType }

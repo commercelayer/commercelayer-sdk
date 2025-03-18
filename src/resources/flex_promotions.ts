@@ -201,6 +201,14 @@ interface FlexPromotionUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
 	tags?: TagRel[] | null
@@ -262,6 +270,14 @@ class FlexPromotions extends ApiResource<FlexPromotion> {
 		return this.resources.update<FlexPromotionUpdate, FlexPromotion>({ id: (typeof id === 'string')? id: id.id, type: FlexPromotions.TYPE, _enable: true }, params, options)
 	}
 
+	async _add_tags(id: string | FlexPromotion, triggerValue: string, params?: QueryParamsRetrieve<FlexPromotion>, options?: ResourcesConfig): Promise<FlexPromotion> {
+		return this.resources.update<FlexPromotionUpdate, FlexPromotion>({ id: (typeof id === 'string')? id: id.id, type: FlexPromotions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | FlexPromotion, triggerValue: string, params?: QueryParamsRetrieve<FlexPromotion>, options?: ResourcesConfig): Promise<FlexPromotion> {
+		return this.resources.update<FlexPromotionUpdate, FlexPromotion>({ id: (typeof id === 'string')? id: id.id, type: FlexPromotions.TYPE, _remove_tags: triggerValue }, params, options)
+	}
+
 
 	isFlexPromotion(resource: any): resource is FlexPromotion {
 		return resource.type && (resource.type === FlexPromotions.TYPE)
@@ -284,6 +300,7 @@ class FlexPromotions extends ApiResource<FlexPromotion> {
 }
 
 
-export default FlexPromotions
+const instance = new FlexPromotions()
+export default instance
 
 export type { FlexPromotion, FlexPromotionCreate, FlexPromotionUpdate, FlexPromotionType }

@@ -213,6 +213,14 @@ interface FreeShippingPromotionUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	market?: MarketRel | null
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
@@ -304,6 +312,14 @@ class FreeShippingPromotions extends ApiResource<FreeShippingPromotion> {
 		return this.resources.update<FreeShippingPromotionUpdate, FreeShippingPromotion>({ id: (typeof id === 'string')? id: id.id, type: FreeShippingPromotions.TYPE, _enable: true }, params, options)
 	}
 
+	async _add_tags(id: string | FreeShippingPromotion, triggerValue: string, params?: QueryParamsRetrieve<FreeShippingPromotion>, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
+		return this.resources.update<FreeShippingPromotionUpdate, FreeShippingPromotion>({ id: (typeof id === 'string')? id: id.id, type: FreeShippingPromotions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | FreeShippingPromotion, triggerValue: string, params?: QueryParamsRetrieve<FreeShippingPromotion>, options?: ResourcesConfig): Promise<FreeShippingPromotion> {
+		return this.resources.update<FreeShippingPromotionUpdate, FreeShippingPromotion>({ id: (typeof id === 'string')? id: id.id, type: FreeShippingPromotions.TYPE, _remove_tags: triggerValue }, params, options)
+	}
+
 
 	isFreeShippingPromotion(resource: any): resource is FreeShippingPromotion {
 		return resource.type && (resource.type === FreeShippingPromotions.TYPE)
@@ -326,6 +342,7 @@ class FreeShippingPromotions extends ApiResource<FreeShippingPromotion> {
 }
 
 
-export default FreeShippingPromotions
+const instance = new FreeShippingPromotions()
+export default instance
 
 export type { FreeShippingPromotion, FreeShippingPromotionCreate, FreeShippingPromotionUpdate, FreeShippingPromotionType }

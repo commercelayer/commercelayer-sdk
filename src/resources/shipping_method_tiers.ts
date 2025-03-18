@@ -93,6 +93,7 @@ class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
 }
 
 
-export default ShippingMethodTiers
+const instance = new ShippingMethodTiers()
+export default instance
 
 export type { ShippingMethodTier, ShippingMethodTierType }

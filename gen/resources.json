@@ -290,6 +290,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -3720,6 +3740,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -4086,6 +4126,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -5887,6 +5947,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -6971,6 +7051,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -10105,6 +10205,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -10865,6 +10985,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -11341,6 +11481,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -11813,6 +11973,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -12201,6 +12381,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -12656,6 +12856,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -13359,6 +13579,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -15843,6 +16083,26 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -16302,6 +16562,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -19462,6 +19742,26 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -20799,7 +21099,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The subscription status. One of 'draft' (default), 'inactive', 'active', or 'cancelled'.",
+                    "desc": "The subscription status. One of 'draft' (default), 'inactive', 'active', 'running', or 'cancelled'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -20811,6 +21111,7 @@
                         "draft",
                         "inactive",
                         "active",
+                        "running",
                         "cancelled"
                     ]
                 },
@@ -21016,6 +21317,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -22841,7 +23162,7 @@
                     "example": "2018-01-01T12:00:00.000Z"
                 },
                 "tracking_details": {
-                    "type": "object",
+                    "type": "array",
                     "desc": "The parcel's full tracking history, automatically updated in real time by the shipping carrier.",
                     "required": "optional",
                     "creatable": true,
@@ -23125,7 +23446,6 @@
                 "name": {
                     "type": "string",
                     "desc": "The internal name of the associated line item.",
-                    "required": "required, inherited by line item",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -23136,7 +23456,6 @@
                 "image_url": {
                     "type": "string",
                     "desc": "The image_url of the associated line item.",
-                    "required": "optional",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -24600,6 +24919,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -26738,6 +27077,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -28374,6 +28733,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -28667,7 +29046,6 @@
                 "name": {
                     "type": "string",
                     "desc": "The name of the line item.",
-                    "required": "optional",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -28678,7 +29056,6 @@
                 "image_url": {
                     "type": "string",
                     "desc": "The image_url of the associated line item.",
-                    "required": "optional",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -29762,6 +30139,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -30156,7 +30553,6 @@
                 "name": {
                     "type": "string",
                     "desc": "The internal name of the associated line item.",
-                    "required": "required, inherited by line item",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -30167,7 +30563,6 @@
                 "image_url": {
                     "type": "string",
                     "desc": "The image_url of the associated line item.",
-                    "required": "optional",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -31860,6 +32255,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -32857,6 +33272,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -33457,7 +33892,6 @@
                 "name": {
                     "type": "string",
                     "desc": "The internal name of the associated line item.",
-                    "required": "required, inherited by line item",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -33468,7 +33902,6 @@
                 "image_url": {
                     "type": "string",
                     "desc": "The image_url of the associated line item.",
-                    "required": "optional",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -34847,11 +35280,22 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "example": "xxxx-yyyy-zzzz"
+                    "example": "acct_xxxx-yyyy-zzzz"
                 },
                 "auto_payments": {
                     "type": "boolean",
                     "desc": "Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.",
+                    "required": "optional, default is 'false'",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.",
                     "required": "optional, default is 'false'",
                     "creatable": true,
                     "updatable": true,

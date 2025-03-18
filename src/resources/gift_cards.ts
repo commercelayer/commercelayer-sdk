@@ -260,6 +260,14 @@ interface GiftCardUpdate extends ResourceUpdate {
 	 * @example ```-5000```
 	 */
 	_balance_change_cents?: number | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	market?: MarketRel | null
 	gift_card_recipient?: GiftCardRecipientRel | null
@@ -330,6 +338,14 @@ class GiftCards extends ApiResource<GiftCard> {
 		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _balance_change_cents: triggerValue }, params, options)
 	}
 
+	async _add_tags(id: string | GiftCard, triggerValue: string, params?: QueryParamsRetrieve<GiftCard>, options?: ResourcesConfig): Promise<GiftCard> {
+		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | GiftCard, triggerValue: string, params?: QueryParamsRetrieve<GiftCard>, options?: ResourcesConfig): Promise<GiftCard> {
+		return this.resources.update<GiftCardUpdate, GiftCard>({ id: (typeof id === 'string')? id: id.id, type: GiftCards.TYPE, _remove_tags: triggerValue }, params, options)
+	}
+
 
 	isGiftCard(resource: any): resource is GiftCard {
 		return resource.type && (resource.type === GiftCards.TYPE)
@@ -352,6 +368,7 @@ class GiftCards extends ApiResource<GiftCard> {
 }
 
 
-export default GiftCards
+const instance = new GiftCards()
+export default instance
 
 export type { GiftCard, GiftCardCreate, GiftCardUpdate, GiftCardType }

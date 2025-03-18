@@ -123,6 +123,14 @@ interface CouponUpdate extends ResourceUpdate {
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	expires_at?: string | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	promotion_rule?: CouponCodesPromotionRuleRel | null
 	coupon_recipient?: CouponRecipientRel | null
@@ -172,6 +180,14 @@ class Coupons extends ApiResource<Coupon> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `coupons/${_couponId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async _add_tags(id: string | Coupon, triggerValue: string, params?: QueryParamsRetrieve<Coupon>, options?: ResourcesConfig): Promise<Coupon> {
+		return this.resources.update<CouponUpdate, Coupon>({ id: (typeof id === 'string')? id: id.id, type: Coupons.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | Coupon, triggerValue: string, params?: QueryParamsRetrieve<Coupon>, options?: ResourcesConfig): Promise<Coupon> {
+		return this.resources.update<CouponUpdate, Coupon>({ id: (typeof id === 'string')? id: id.id, type: Coupons.TYPE, _remove_tags: triggerValue }, params, options)
+	}
+
 
 	isCoupon(resource: any): resource is Coupon {
 		return resource.type && (resource.type === Coupons.TYPE)
@@ -194,6 +210,7 @@ class Coupons extends ApiResource<Coupon> {
 }
 
 
-export default Coupons
+const instance = new Coupons()
+export default instance
 
 export type { Coupon, CouponCreate, CouponUpdate, CouponType }

@@ -195,6 +195,7 @@ class PriceListSchedulers extends ApiResource<PriceListScheduler> {
 }
 
 
-export default PriceListSchedulers
+const instance = new PriceListSchedulers()
+export default instance
 
 export type { PriceListScheduler, PriceListSchedulerCreate, PriceListSchedulerUpdate, PriceListSchedulerType }

@@ -136,6 +136,7 @@ class TaxjarAccounts extends ApiResource<TaxjarAccount> {
 }
 
 
-export default TaxjarAccounts
+const instance = new TaxjarAccounts()
+export default instance
 
 export type { TaxjarAccount, TaxjarAccountCreate, TaxjarAccountUpdate, TaxjarAccountType }

@@ -187,6 +187,14 @@ interface ReturnUpdate extends ResourceUpdate {
 	 * @example ```500```
 	 */
 	_refund_amount_cents?: number | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	stock_location?: StockLocationRel | null
 	reference_capture?: CaptureRel | null
@@ -320,6 +328,14 @@ class Returns extends ApiResource<Return> {
 		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _refund_amount_cents: triggerValue }, params, options)
 	}
 
+	async _add_tags(id: string | Return, triggerValue: string, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | Return, triggerValue: string, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
+		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _remove_tags: triggerValue }, params, options)
+	}
+
 
 	isReturn(resource: any): resource is Return {
 		return resource.type && (resource.type === Returns.TYPE)
@@ -342,6 +358,7 @@ class Returns extends ApiResource<Return> {
 }
 
 
-export default Returns
+const instance = new Returns()
+export default instance
 
 export type { Return, ReturnCreate, ReturnUpdate, ReturnType }

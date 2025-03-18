@@ -144,6 +144,14 @@ interface LineItemOptionUpdate extends ResourceUpdate {
 	 * @example ```{"embossing_text":"Happy Birthday!"}```
 	 */
 	options?: Record<string, any> | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	sku_option?: SkuOptionRel | null
 	tags?: TagRel[] | null
@@ -187,6 +195,14 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 		return this.resources.fetch<Tag>({ type: 'tags' }, `line_item_options/${_lineItemOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
+	async _add_tags(id: string | LineItemOption, triggerValue: string, params?: QueryParamsRetrieve<LineItemOption>, options?: ResourcesConfig): Promise<LineItemOption> {
+		return this.resources.update<LineItemOptionUpdate, LineItemOption>({ id: (typeof id === 'string')? id: id.id, type: LineItemOptions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | LineItemOption, triggerValue: string, params?: QueryParamsRetrieve<LineItemOption>, options?: ResourcesConfig): Promise<LineItemOption> {
+		return this.resources.update<LineItemOptionUpdate, LineItemOption>({ id: (typeof id === 'string')? id: id.id, type: LineItemOptions.TYPE, _remove_tags: triggerValue }, params, options)
+	}
+
 
 	isLineItemOption(resource: any): resource is LineItemOption {
 		return resource.type && (resource.type === LineItemOptions.TYPE)
@@ -209,6 +225,7 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 }
 
 
-export default LineItemOptions
+const instance = new LineItemOptions()
+export default instance
 
 export type { LineItemOption, LineItemOptionCreate, LineItemOptionUpdate, LineItemOptionType }
