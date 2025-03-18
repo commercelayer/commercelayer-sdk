@@ -140,6 +140,14 @@ interface CustomerUpdate extends ResourceUpdate {
 	 * @example ```"xxx-yyy-zzz"```
 	 */
 	tax_exemption_code?: string | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null
@@ -216,6 +224,14 @@ class Customers extends ApiResource<Customer> {
 	async tags(customerId: string | Customer, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _customerId = (customerId as Customer).id || customerId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `customers/${_customerId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async _add_tags(id: string | Customer, triggerValue: string, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.update<CustomerUpdate, Customer>({ id: (typeof id === 'string')? id: id.id, type: Customers.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | Customer, triggerValue: string, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.update<CustomerUpdate, Customer>({ id: (typeof id === 'string')? id: id.id, type: Customers.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

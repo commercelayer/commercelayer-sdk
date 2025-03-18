@@ -236,6 +236,14 @@ interface FixedPricePromotionUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
+	/** 
 	 * The price fixed amount to be applied on matching SKUs, in cents.
 	 * @example ```1000```
 	 */
@@ -334,6 +342,14 @@ class FixedPricePromotions extends ApiResource<FixedPricePromotion> {
 
 	async _enable(id: string | FixedPricePromotion, params?: QueryParamsRetrieve<FixedPricePromotion>, options?: ResourcesConfig): Promise<FixedPricePromotion> {
 		return this.resources.update<FixedPricePromotionUpdate, FixedPricePromotion>({ id: (typeof id === 'string')? id: id.id, type: FixedPricePromotions.TYPE, _enable: true }, params, options)
+	}
+
+	async _add_tags(id: string | FixedPricePromotion, triggerValue: string, params?: QueryParamsRetrieve<FixedPricePromotion>, options?: ResourcesConfig): Promise<FixedPricePromotion> {
+		return this.resources.update<FixedPricePromotionUpdate, FixedPricePromotion>({ id: (typeof id === 'string')? id: id.id, type: FixedPricePromotions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | FixedPricePromotion, triggerValue: string, params?: QueryParamsRetrieve<FixedPricePromotion>, options?: ResourcesConfig): Promise<FixedPricePromotion> {
+		return this.resources.update<FixedPricePromotionUpdate, FixedPricePromotion>({ id: (typeof id === 'string')? id: id.id, type: FixedPricePromotions.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

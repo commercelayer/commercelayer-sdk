@@ -1007,6 +1007,14 @@ interface OrderUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	market?: MarketRel | null
 	customer?: CustomerRel | null
@@ -1338,6 +1346,14 @@ class Orders extends ApiResource<Order> {
 
 	async _reset_circuit(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _reset_circuit: true }, params, options)
+	}
+
+	async _add_tags(id: string | Order, triggerValue: string, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | Order, triggerValue: string, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

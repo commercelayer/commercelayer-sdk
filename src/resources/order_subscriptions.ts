@@ -37,10 +37,10 @@ interface OrderSubscription extends Resource {
 	 */
 	number?: string | null
 	/** 
-	 * The subscription status. One of 'draft' (default), 'inactive', 'active', or 'cancelled'.
+	 * The subscription status. One of 'draft' (default), 'inactive', 'active', 'running', or 'cancelled'.
 	 * @example ```"draft"```
 	 */
-	status: 'draft' | 'inactive' | 'active' | 'cancelled'
+	status: 'draft' | 'inactive' | 'active' | 'running' | 'cancelled'
 	/** 
 	 * The frequency of the subscription. Use one of the supported within 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or provide your custom crontab expression (min unit is hour). Must be supported by existing associated subscription_model.
 	 * @example ```"monthly"```
@@ -210,6 +210,14 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_convert?: boolean | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	customer_payment_source?: CustomerPaymentSourceRel | null
 	tags?: TagRel[] | null
@@ -307,6 +315,14 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 
 	async _convert(id: string | OrderSubscription, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
 		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ id: (typeof id === 'string')? id: id.id, type: OrderSubscriptions.TYPE, _convert: true }, params, options)
+	}
+
+	async _add_tags(id: string | OrderSubscription, triggerValue: string, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
+		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ id: (typeof id === 'string')? id: id.id, type: OrderSubscriptions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | OrderSubscription, triggerValue: string, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {
+		return this.resources.update<OrderSubscriptionUpdate, OrderSubscription>({ id: (typeof id === 'string')? id: id.id, type: OrderSubscriptions.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

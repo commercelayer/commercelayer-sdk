@@ -208,6 +208,14 @@ interface BundleUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_compute_compare_at_amount?: boolean | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	tags?: TagRel[] | null
 
@@ -271,6 +279,14 @@ class Bundles extends ApiResource<Bundle> {
 
 	async _compute_compare_at_amount(id: string | Bundle, params?: QueryParamsRetrieve<Bundle>, options?: ResourcesConfig): Promise<Bundle> {
 		return this.resources.update<BundleUpdate, Bundle>({ id: (typeof id === 'string')? id: id.id, type: Bundles.TYPE, _compute_compare_at_amount: true }, params, options)
+	}
+
+	async _add_tags(id: string | Bundle, triggerValue: string, params?: QueryParamsRetrieve<Bundle>, options?: ResourcesConfig): Promise<Bundle> {
+		return this.resources.update<BundleUpdate, Bundle>({ id: (typeof id === 'string')? id: id.id, type: Bundles.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | Bundle, triggerValue: string, params?: QueryParamsRetrieve<Bundle>, options?: ResourcesConfig): Promise<Bundle> {
+		return this.resources.update<BundleUpdate, Bundle>({ id: (typeof id === 'string')? id: id.id, type: Bundles.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

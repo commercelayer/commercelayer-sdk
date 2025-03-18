@@ -226,6 +226,14 @@ interface FreeGiftPromotionUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
+	/** 
 	 * The max quantity of free gifts globally applicable by the promotion.
 	 * @example ```3```
 	 */
@@ -324,6 +332,14 @@ class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 
 	async _enable(id: string | FreeGiftPromotion, params?: QueryParamsRetrieve<FreeGiftPromotion>, options?: ResourcesConfig): Promise<FreeGiftPromotion> {
 		return this.resources.update<FreeGiftPromotionUpdate, FreeGiftPromotion>({ id: (typeof id === 'string')? id: id.id, type: FreeGiftPromotions.TYPE, _enable: true }, params, options)
+	}
+
+	async _add_tags(id: string | FreeGiftPromotion, triggerValue: string, params?: QueryParamsRetrieve<FreeGiftPromotion>, options?: ResourcesConfig): Promise<FreeGiftPromotion> {
+		return this.resources.update<FreeGiftPromotionUpdate, FreeGiftPromotion>({ id: (typeof id === 'string')? id: id.id, type: FreeGiftPromotions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | FreeGiftPromotion, triggerValue: string, params?: QueryParamsRetrieve<FreeGiftPromotion>, options?: ResourcesConfig): Promise<FreeGiftPromotion> {
+		return this.resources.update<FreeGiftPromotionUpdate, FreeGiftPromotion>({ id: (typeof id === 'string')? id: id.id, type: FreeGiftPromotions.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 
