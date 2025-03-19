@@ -246,6 +246,14 @@ interface BuyXPayYPromotionUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
+	/** 
 	 * The quantity which defines the threshold for free items (works by multiple of x).
 	 * @example ```3```
 	 */
@@ -354,6 +362,14 @@ class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
 
 	async _enable(id: string | BuyXPayYPromotion, params?: QueryParamsRetrieve<BuyXPayYPromotion>, options?: ResourcesConfig): Promise<BuyXPayYPromotion> {
 		return this.resources.update<BuyXPayYPromotionUpdate, BuyXPayYPromotion>({ id: (typeof id === 'string')? id: id.id, type: BuyXPayYPromotions.TYPE, _enable: true }, params, options)
+	}
+
+	async _add_tags(id: string | BuyXPayYPromotion, triggerValue: string, params?: QueryParamsRetrieve<BuyXPayYPromotion>, options?: ResourcesConfig): Promise<BuyXPayYPromotion> {
+		return this.resources.update<BuyXPayYPromotionUpdate, BuyXPayYPromotion>({ id: (typeof id === 'string')? id: id.id, type: BuyXPayYPromotions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | BuyXPayYPromotion, triggerValue: string, params?: QueryParamsRetrieve<BuyXPayYPromotion>, options?: ResourcesConfig): Promise<BuyXPayYPromotion> {
+		return this.resources.update<BuyXPayYPromotionUpdate, BuyXPayYPromotion>({ id: (typeof id === 'string')? id: id.id, type: BuyXPayYPromotions.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

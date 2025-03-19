@@ -290,6 +290,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -763,7 +783,7 @@
                 "api_version": {
                     "type": "integer",
                     "desc": "The checkout API version, supported range is from 66 to 71, default is 71.",
-                    "required": "optional, default is 71",
+                    "required": "optional, default is '71'",
                     "default": 71,
                     "creatable": true,
                     "updatable": true,
@@ -1487,6 +1507,8 @@
                         "delivery_lead_times",
                         "shipping_methods",
                         "discount_engines",
+                        "shipments",
+                        "parcels",
                         "gift_card_recipients",
                         "gift_cards",
                         "inventory_models",
@@ -1494,10 +1516,8 @@
                         "sku_options",
                         "merchants",
                         "subscription_models",
-                        "shipments",
                         "payment_options",
                         "packages",
-                        "parcels",
                         "prices",
                         "price_tiers",
                         "shipping_method_tiers",
@@ -3720,6 +3740,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -4086,6 +4126,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -5887,6 +5947,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -6971,6 +7051,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -8539,6 +8639,285 @@
         }
     },
     {
+        "id": "easypost_pickup",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "addon": false,
+            "hidden": false,
+            "actions": [
+                "list",
+                "retrieve",
+                "create",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "type": {
+                    "type": "string",
+                    "desc": "The pick up's type.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "easypost_pickups",
+                    "enum": [
+                        "easypost_pickups"
+                    ]
+                },
+                "status": {
+                    "type": "string",
+                    "desc": "The pick up status.",
+                    "required": "optional, default is 'unknown'",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "unknown"
+                },
+                "internal_id": {
+                    "type": "string",
+                    "desc": "The pick up service internal ID.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pickup_13e5d7e2a7824432a07975bc553944bc"
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                },
+                "selected_rate_id": {
+                    "type": "string",
+                    "desc": "The selected purchase rate from the available pick up rates.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pickuprate_a6cd2647a898410aa5d33febde44e1b2"
+                },
+                "rates": {
+                    "type": "array",
+                    "desc": "The available pick up rates.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": [
+                        {
+                            "id": "pickuprate_a6cd2647a898410aa5d33febde44e1b2",
+                            "rate": "45.59",
+                            "carrier": "USPS",
+                            "service": "NextDay"
+                        }
+                    ]
+                },
+                "instructions": {
+                    "type": "string",
+                    "desc": "Additional text to help the driver successfully obtain the package, automatically enriched with parcels and package informations.",
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "Knock loudly"
+                },
+                "min_datetime": {
+                    "type": "datetime",
+                    "desc": "The earliest time at which the package is available to pick up, must be larger than 2 hours from creation time.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "max_datetime": {
+                    "type": "datetime",
+                    "desc": "The latest time at which the package is available to pick up, must be smaller than 24 hours from creation time.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "_purchase": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to purchase this pick up with the selected rate.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "purchase_started_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the purchasing of the pick up rate started.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "purchase_completed_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the purchasing of the pick up rate completed.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                }
+            },
+            "relationships": {
+                "shipment": {
+                    "type": "has_one",
+                    "desc": "The associated shipment.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::PickupResource",
+                    "class_name": "Shipment"
+                },
+                "parcels": {
+                    "type": "has_many",
+                    "desc": "The associated parcels.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::PickupResource",
+                    "class_name": "Parcel"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::EasypostPickupResource",
+                    "class_name": "Event"
+                }
+            },
+            "filters": [
+                "id",
+                "type",
+                "status",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "min_datetime",
+                "max_datetime",
+                "purchase_started_at",
+                "purchase_completed_at",
+                "q",
+                "shipment_id",
+                "parcels_id",
+                "events_id",
+                "ids",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to",
+                "min_datetime_from",
+                "min_datetime_to",
+                "max_datetime_from",
+                "max_datetime_to",
+                "purchase_started_at_from",
+                "purchase_started_at_to",
+                "purchase_completed_at_from",
+                "purchase_completed_at_to"
+            ]
+        }
+    },
+    {
         "id": "event",
         "type": "resources",
         "attributes": {
@@ -9826,6 +10205,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -10586,6 +10985,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -11062,6 +11481,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -11534,6 +11973,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -11922,6 +12381,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -12377,6 +12856,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -13080,6 +13579,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -14191,7 +14710,7 @@
                 "strategy": {
                     "type": "string",
                     "desc": "The inventory model's shipping strategy: one between 'no_split' (default), 'split_shipments', 'ship_from_primary' and 'ship_from_first_available_or_primary'.",
-                    "required": "optional, default is no_split",
+                    "required": "optional, default is 'no_split'",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -14202,7 +14721,7 @@
                 "stock_locations_cutoff": {
                     "type": "integer",
                     "desc": "The maximum number of stock locations used for inventory computation.",
-                    "required": "optional, default is 2",
+                    "required": "optional, default is '2'",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -14213,7 +14732,7 @@
                 "stock_reservation_cutoff": {
                     "type": "integer",
                     "desc": "The duration in seconds of the generated stock reservations.",
-                    "required": "optional, default is 3600",
+                    "required": "optional, default is '3600'",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -15564,6 +16083,26 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -16023,6 +16562,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -17144,6 +17703,28 @@
                     "parent_resource": "Api::MarketResource",
                     "class_name": "Geocoder"
                 },
+                "default_shipping_method": {
+                    "type": "has_one",
+                    "desc": "The default shipping method for shipments.",
+                    "class_name": "ShippingMethod",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::MarketResource"
+                },
+                "default_payment_method": {
+                    "type": "has_one",
+                    "desc": "The default payment method for orders.",
+                    "class_name": "PaymentMethod",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::MarketResource"
+                },
                 "stores": {
                     "type": "has_many",
                     "desc": "The associated stores.",
@@ -17210,6 +17791,8 @@
                 "tax_calculator_id",
                 "customer_group_id",
                 "geocoder_id",
+                "default_shipping_method_id",
+                "default_payment_method_id",
                 "stores_id",
                 "price_list_schedulers_id",
                 "order_validation_rules_id",
@@ -18813,7 +19396,7 @@
                 "_fulfill": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered). Cannot be passed by sales channels.",
+                    "desc": "Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered, alternatively order must be approved). Cannot be passed by sales channels.",
                     "prohibited": true,
                     "creatable": false,
                     "updatable": true,
@@ -19159,6 +19742,26 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -19272,6 +19875,22 @@
                     "sortable": true,
                     "parent_resource": "Api::OrderResource",
                     "class_name": "Store"
+                },
+                "default_shipping_method": {
+                    "type": "has_one",
+                    "desc": "The shipping method to use as default for shipments.",
+                    "class_name": "ShippingMethod",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "parent_resource": "Api::OrderResource"
+                },
+                "default_payment_method": {
+                    "type": "has_one",
+                    "desc": "The payment method to use as default.",
+                    "class_name": "PaymentMethod",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "parent_resource": "Api::OrderResource"
                 },
                 "available_payment_methods": {
                     "type": "has_many",
@@ -20480,7 +21099,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The subscription status. One of 'draft' (default), 'inactive', 'active', or 'cancelled'.",
+                    "desc": "The subscription status. One of 'draft' (default), 'inactive', 'active', 'running', or 'cancelled'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -20492,6 +21111,7 @@
                         "draft",
                         "inactive",
                         "active",
+                        "running",
                         "cancelled"
                     ]
                 },
@@ -20533,7 +21153,7 @@
                 "renewal_alert_period": {
                     "type": "integer",
                     "desc": "Indicates the number of hours the renewal alert will be triggered before the subscription next run. Must be included between 1 and 720 hours.",
-                    "required": "optional, default is \"1\"",
+                    "required": "optional, default is '1'",
                     "default": 1,
                     "creatable": true,
                     "updatable": true,
@@ -20697,6 +21317,26 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
                 },
                 "created_at": {
                     "type": "datetime",
@@ -22522,7 +23162,7 @@
                     "example": "2018-01-01T12:00:00.000Z"
                 },
                 "tracking_details": {
-                    "type": "object",
+                    "type": "array",
                     "desc": "The parcel's full tracking history, automatically updated in real time by the shipping carrier.",
                     "required": "optional",
                     "creatable": true,
@@ -22806,7 +23446,6 @@
                 "name": {
                     "type": "string",
                     "desc": "The internal name of the associated line item.",
-                    "required": "required",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -22817,7 +23456,6 @@
                 "image_url": {
                     "type": "string",
                     "desc": "The image_url of the associated line item.",
-                    "required": "optional",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -24282,6 +24920,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -24519,6 +25177,177 @@
                 "expires_at_to",
                 "disabled_at_from",
                 "disabled_at_to",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to"
+            ]
+        }
+    },
+    {
+        "id": "pickup",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "addon": false,
+            "hidden": false,
+            "actions": [
+                "list",
+                "retrieve"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "type": {
+                    "type": "string",
+                    "desc": "The pick up's type.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "easypost_pickups",
+                    "enum": [
+                        "easypost_pickups"
+                    ]
+                },
+                "status": {
+                    "type": "string",
+                    "desc": "The pick up status.",
+                    "required": "optional, default is 'unknown'",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "unknown"
+                },
+                "internal_id": {
+                    "type": "string",
+                    "desc": "The pick up service internal ID.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "pickup_13e5d7e2a7824432a07975bc553944bc"
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                }
+            },
+            "relationships": {
+                "shipment": {
+                    "type": "has_one",
+                    "desc": "The associated shipment.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "parent_resource": "Api::PickupResource",
+                    "class_name": "Shipment"
+                },
+                "parcels": {
+                    "type": "has_many",
+                    "desc": "The associated parcels.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::PickupResource",
+                    "class_name": "Parcel"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::PickupResource",
+                    "class_name": "Event"
+                }
+            },
+            "filters": [
+                "id",
+                "type",
+                "status",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "q",
+                "shipment_id",
+                "parcels_id",
+                "events_id",
+                "ids",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -26248,6 +27077,26 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -27884,6 +28733,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -28177,7 +29046,6 @@
                 "name": {
                     "type": "string",
                     "desc": "The name of the line item.",
-                    "required": "optional",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -28188,7 +29056,6 @@
                 "image_url": {
                     "type": "string",
                     "desc": "The image_url of the associated line item.",
-                    "required": "optional",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -29272,6 +30139,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -29411,6 +30298,12 @@
                     "eager_load_on_include": false,
                     "virtual": true,
                     "parent_resource": "Api::ShipmentResource"
+                },
+                "pickup": {
+                    "type": "has_one",
+                    "desc": "The pick up for the shipment.",
+                    "parent_resource": "Api::ShipmentResource",
+                    "class_name": "Pickup"
                 },
                 "shipment_line_items": {
                     "type": "has_many",
@@ -29656,6 +30549,26 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "true"
+                },
+                "name": {
+                    "type": "string",
+                    "desc": "The internal name of the associated line item.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "Men's Black T-shirt with White Logo (XL)"
+                },
+                "image_url": {
+                    "type": "string",
+                    "desc": "The image_url of the associated line item.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://img.yourdomain.com/skus/xYZkjABcde.png"
                 },
                 "id": {
                     "format": "id",
@@ -31342,6 +32255,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -32339,6 +33272,26 @@
                     "sortable": true,
                     "example": "XAyRWNUzyN"
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -32935,6 +33888,26 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "true"
+                },
+                "name": {
+                    "type": "string",
+                    "desc": "The internal name of the associated line item.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "Men's Black T-shirt with White Logo (XL)"
+                },
+                "image_url": {
+                    "type": "string",
+                    "desc": "The image_url of the associated line item.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://img.yourdomain.com/skus/xYZkjABcde.png"
                 },
                 "id": {
                     "format": "id",
@@ -34307,11 +35280,22 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "example": "xxxx-yyyy-zzzz"
+                    "example": "acct_xxxx-yyyy-zzzz"
                 },
                 "auto_payments": {
                     "type": "boolean",
                     "desc": "Indicates if the gateway will accept payment methods enabled in the Stripe dashboard.",
+                    "required": "optional, default is 'false'",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.",
                     "required": "optional, default is 'false'",
                     "creatable": true,
                     "updatable": true,
@@ -34940,7 +35924,7 @@
                 "strategy": {
                     "type": "string",
                     "desc": "The subscription model's strategy used to generate order subscriptions: one between 'by_frequency' (default) and 'by_line_items'.",
-                    "required": "optional, default is by_frequency",
+                    "required": "optional, default is 'by_frequency'",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -37411,7 +38395,7 @@
                 "name": {
                     "type": "string",
                     "desc": "Unique name for the webhook.",
-                    "required": "optional, default is \"Webhook",
+                    "required": "optional, default is 'Webhook {id}'",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,

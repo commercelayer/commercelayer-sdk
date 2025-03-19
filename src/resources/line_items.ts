@@ -375,6 +375,14 @@ interface LineItemUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	tags?: TagRel[] | null
 
@@ -452,6 +460,14 @@ class LineItems extends ApiResource<LineItem> {
 
 	async _reset_circuit(id: string | LineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _reset_circuit: true }, params, options)
+	}
+
+	async _add_tags(id: string | LineItem, triggerValue: string, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
+		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | LineItem, triggerValue: string, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
+		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

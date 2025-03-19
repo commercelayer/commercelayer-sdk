@@ -26,7 +26,7 @@ interface StripeGateway extends Resource {
 	name: string
 	/** 
 	 * The account (if any) for which the funds of the PaymentIntent are intended.
-	 * @example ```"xxxx-yyyy-zzzz"```
+	 * @example ```"acct_xxxx-yyyy-zzzz"```
 	 */
 	connected_account?: string | null
 	/** 
@@ -34,6 +34,11 @@ interface StripeGateway extends Resource {
 	 * @example ```true```
 	 */
 	auto_payments?: boolean | null
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
 	/** 
 	 * The gateway webhook endpoint ID, generated automatically.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -76,7 +81,7 @@ interface StripeGatewayCreate extends ResourceCreate {
 	publishable_key?: string | null
 	/** 
 	 * The account (if any) for which the funds of the PaymentIntent are intended.
-	 * @example ```"xxxx-yyyy-zzzz"```
+	 * @example ```"acct_xxxx-yyyy-zzzz"```
 	 */
 	connected_account?: string | null
 	/** 
@@ -84,6 +89,11 @@ interface StripeGatewayCreate extends ResourceCreate {
 	 * @example ```true```
 	 */
 	auto_payments?: boolean | null
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
 	
 }
 
@@ -97,7 +107,7 @@ interface StripeGatewayUpdate extends ResourceUpdate {
 	name?: string | null
 	/** 
 	 * The account (if any) for which the funds of the PaymentIntent are intended.
-	 * @example ```"xxxx-yyyy-zzzz"```
+	 * @example ```"acct_xxxx-yyyy-zzzz"```
 	 */
 	connected_account?: string | null
 	/** 
@@ -105,6 +115,11 @@ interface StripeGatewayUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	auto_payments?: boolean | null
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
 	
 }
 

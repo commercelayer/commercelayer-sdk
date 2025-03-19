@@ -9,6 +9,8 @@ import type { SubscriptionModel, SubscriptionModelType } from './subscription_mo
 import type { TaxCalculator } from './tax_calculators'
 import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { Geocoder, GeocoderType } from './geocoders'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
+import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { Store } from './stores'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
@@ -35,6 +37,8 @@ type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 type GeocoderRel = ResourceRel & { type: GeocoderType }
+type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
+type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 
 
 export type MarketSort = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceSort
@@ -109,6 +113,8 @@ interface Market extends Resource {
 	tax_calculator?: AvalaraAccount | StripeTaxAccount | VertexAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
 	customer_group?: CustomerGroup | null
 	geocoder?: Geocoder | null
+	default_shipping_method?: ShippingMethod | null
+	default_payment_method?: PaymentMethod | null
 	stores?: Store[] | null
 	price_list_schedulers?: PriceListScheduler[] | null
 	attachments?: Attachment[] | null
@@ -172,6 +178,8 @@ interface MarketCreate extends ResourceCreate {
 	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
 	geocoder?: GeocoderRel | null
+	default_shipping_method?: ShippingMethodRel | null
+	default_payment_method?: PaymentMethodRel | null
 
 }
 
@@ -231,6 +239,8 @@ interface MarketUpdate extends ResourceUpdate {
 	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
 	geocoder?: GeocoderRel | null
+	default_shipping_method?: ShippingMethodRel | null
+	default_payment_method?: PaymentMethodRel | null
 
 }
 
@@ -289,6 +299,16 @@ class Markets extends ApiResource<Market> {
 	async geocoder(marketId: string | Market, params?: QueryParamsRetrieve<Geocoder>, options?: ResourcesConfig): Promise<Geocoder> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `markets/${_marketId}/geocoder`, params, options) as unknown as Geocoder
+	}
+
+	async default_shipping_method(marketId: string | Market, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `markets/${_marketId}/default_shipping_method`, params, options) as unknown as ShippingMethod
+	}
+
+	async default_payment_method(marketId: string | Market, params?: QueryParamsRetrieve<PaymentMethod>, options?: ResourcesConfig): Promise<PaymentMethod> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `markets/${_marketId}/default_payment_method`, params, options) as unknown as PaymentMethod
 	}
 
 	async stores(marketId: string | Market, params?: QueryParamsList<Store>, options?: ResourcesConfig): Promise<ListResponse<Store>> {

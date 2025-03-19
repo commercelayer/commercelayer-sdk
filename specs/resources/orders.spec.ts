@@ -313,6 +313,48 @@ describe('Orders resource', () => {
 	/* relationship.store stop */
 	
 
+	/* relationship.default_shipping_method start */
+	it(resourceType + '.default_shipping_method', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { shipping_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'default_shipping_method')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].default_shipping_method(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.default_shipping_method stop */
+	
+
+	/* relationship.default_payment_method start */
+	it(resourceType + '.default_payment_method', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { payment_methods: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'default_payment_method')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].default_payment_method(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.default_payment_method stop */
+	
+
 	/* relationship.available_payment_methods start */
 	it(resourceType + '.available_payment_methods', async () => {
 	
@@ -1727,5 +1769,57 @@ describe('Orders resource', () => {
 	
 	})
 	/* trigger._reset_circuit stop */
+	
+
+	/* trigger._add_tags start */
+	it(resourceType + '._add_tags', async () => {
+	
+		let triggerAttr = '_add_tags'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = randomValue('string')
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._add_tags stop */
+	
+
+	/* trigger._remove_tags start */
+	it(resourceType + '._remove_tags', async () => {
+	
+		let triggerAttr = '_remove_tags'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = randomValue('string')
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._remove_tags stop */
 	
 })

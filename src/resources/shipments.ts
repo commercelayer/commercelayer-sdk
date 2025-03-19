@@ -9,6 +9,7 @@ import type { StockLocation } from './stock_locations'
 import type { Address, AddressType } from './addresses'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { DeliveryLeadTime } from './delivery_lead_times'
+import type { Pickup } from './pickups'
 import type { StockLineItem } from './stock_line_items'
 import type { StockTransfer } from './stock_transfers'
 import type { LineItem } from './line_items'
@@ -157,6 +158,7 @@ interface Shipment extends Resource {
 	shipping_address?: Address | null
 	shipping_method?: ShippingMethod | null
 	delivery_lead_time?: DeliveryLeadTime | null
+	pickup?: Pickup | null
 	stock_line_items?: StockLineItem[] | null
 	stock_transfers?: StockTransfer[] | null
 	line_items?: LineItem[] | null
@@ -260,6 +262,14 @@ interface ShipmentUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_purchase?: boolean | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	shipping_category?: ShippingCategoryRel | null
 	inventory_stock_location?: InventoryStockLocationRel | null
@@ -324,6 +334,11 @@ class Shipments extends ApiResource<Shipment> {
 	async delivery_lead_time(shipmentId: string | Shipment, params?: QueryParamsRetrieve<DeliveryLeadTime>, options?: ResourcesConfig): Promise<DeliveryLeadTime> {
 		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
 		return this.resources.fetch<DeliveryLeadTime>({ type: 'delivery_lead_times' }, `shipments/${_shipmentId}/delivery_lead_time`, params, options) as unknown as DeliveryLeadTime
+	}
+
+	async pickup(shipmentId: string | Shipment, params?: QueryParamsRetrieve<Pickup>, options?: ResourcesConfig): Promise<Pickup> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<Pickup>({ type: 'pickups' }, `shipments/${_shipmentId}/pickup`, params, options) as unknown as Pickup
 	}
 
 	async stock_line_items(shipmentId: string | Shipment, params?: QueryParamsList<StockLineItem>, options?: ResourcesConfig): Promise<ListResponse<StockLineItem>> {
@@ -426,6 +441,14 @@ class Shipments extends ApiResource<Shipment> {
 
 	async _purchase(id: string | Shipment, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _purchase: true }, params, options)
+	}
+
+	async _add_tags(id: string | Shipment, triggerValue: string, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | Shipment, triggerValue: string, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
+		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

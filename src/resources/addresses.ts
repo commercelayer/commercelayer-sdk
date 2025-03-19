@@ -319,6 +319,14 @@ interface AddressUpdate extends ResourceUpdate {
 	 * @example ```"VAT ID IT02382940977"```
 	 */
 	billing_info?: string | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	geocoder?: GeocoderRel | null
 	tags?: TagRel[] | null
@@ -360,6 +368,14 @@ class Addresses extends ApiResource<Address> {
 	async versions(addressId: string | Address, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _addressId = (addressId as Address).id || addressId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `addresses/${_addressId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _add_tags(id: string | Address, triggerValue: string, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
+		return this.resources.update<AddressUpdate, Address>({ id: (typeof id === 'string')? id: id.id, type: Addresses.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | Address, triggerValue: string, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
+		return this.resources.update<AddressUpdate, Address>({ id: (typeof id === 'string')? id: id.id, type: Addresses.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

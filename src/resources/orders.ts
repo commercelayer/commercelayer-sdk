@@ -6,6 +6,7 @@ import type { Market, MarketType } from './markets'
 import type { Customer, CustomerType } from './customers'
 import type { Address, AddressType } from './addresses'
 import type { Store, StoreType } from './stores'
+import type { ShippingMethod } from './shipping_methods'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { Sku } from './skus'
@@ -610,6 +611,8 @@ interface Order extends Resource {
 	shipping_address?: Address | null
 	billing_address?: Address | null
 	store?: Store | null
+	default_shipping_method?: ShippingMethod | null
+	default_payment_method?: PaymentMethod | null
 	available_payment_methods?: PaymentMethod[] | null
 	available_customer_payment_sources?: CustomerPaymentSource[] | null
 	available_free_skus?: Sku[] | null
@@ -906,7 +909,7 @@ interface OrderUpdate extends ResourceUpdate {
 	 */
 	_refund?: boolean | null
 	/** 
-	 * Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered). Cannot be passed by sales channels.
+	 * Send this attribute if you want to mark as fulfilled the order (shipments must be cancelled, shipped or delivered, alternatively order must be approved). Cannot be passed by sales channels.
 	 * @example ```true```
 	 */
 	_fulfill?: boolean | null
@@ -1004,6 +1007,14 @@ interface OrderUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	market?: MarketRel | null
 	customer?: CustomerRel | null
@@ -1056,6 +1067,16 @@ class Orders extends ApiResource<Order> {
 	async store(orderId: string | Order, params?: QueryParamsRetrieve<Store>, options?: ResourcesConfig): Promise<Store> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Store>({ type: 'stores' }, `orders/${_orderId}/store`, params, options) as unknown as Store
+	}
+
+	async default_shipping_method(orderId: string | Order, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `orders/${_orderId}/default_shipping_method`, params, options) as unknown as ShippingMethod
+	}
+
+	async default_payment_method(orderId: string | Order, params?: QueryParamsRetrieve<PaymentMethod>, options?: ResourcesConfig): Promise<PaymentMethod> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `orders/${_orderId}/default_payment_method`, params, options) as unknown as PaymentMethod
 	}
 
 	async available_payment_methods(orderId: string | Order, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
@@ -1325,6 +1346,14 @@ class Orders extends ApiResource<Order> {
 
 	async _reset_circuit(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _reset_circuit: true }, params, options)
+	}
+
+	async _add_tags(id: string | Order, triggerValue: string, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | Order, triggerValue: string, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

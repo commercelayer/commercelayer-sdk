@@ -220,6 +220,14 @@ interface SkuUpdate extends ResourceUpdate {
 	 * Indicates if the SKU doesn't track the stock inventory.
 	 */
 	do_not_track?: boolean | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	shipping_category?: ShippingCategoryRel | null
 	tags?: TagRel[] | null
@@ -321,6 +329,14 @@ class Skus extends ApiResource<Sku> {
 	async jwt_stock_locations(skuId: string | Sku, params?: QueryParamsList<StockLocation>, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {
 		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `skus/${_skuId}/jwt_stock_locations`, params, options) as unknown as ListResponse<StockLocation>
+	}
+
+	async _add_tags(id: string | Sku, triggerValue: string, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
+		return this.resources.update<SkuUpdate, Sku>({ id: (typeof id === 'string')? id: id.id, type: Skus.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | Sku, triggerValue: string, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
+		return this.resources.update<SkuUpdate, Sku>({ id: (typeof id === 'string')? id: id.id, type: Skus.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

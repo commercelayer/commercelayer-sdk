@@ -236,6 +236,14 @@ interface FixedAmountPromotionUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
+	/** 
 	 * The discount fixed amount to be applied, in cents.
 	 * @example ```1000```
 	 */
@@ -334,6 +342,14 @@ class FixedAmountPromotions extends ApiResource<FixedAmountPromotion> {
 
 	async _enable(id: string | FixedAmountPromotion, params?: QueryParamsRetrieve<FixedAmountPromotion>, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
 		return this.resources.update<FixedAmountPromotionUpdate, FixedAmountPromotion>({ id: (typeof id === 'string')? id: id.id, type: FixedAmountPromotions.TYPE, _enable: true }, params, options)
+	}
+
+	async _add_tags(id: string | FixedAmountPromotion, triggerValue: string, params?: QueryParamsRetrieve<FixedAmountPromotion>, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
+		return this.resources.update<FixedAmountPromotionUpdate, FixedAmountPromotion>({ id: (typeof id === 'string')? id: id.id, type: FixedAmountPromotions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | FixedAmountPromotion, triggerValue: string, params?: QueryParamsRetrieve<FixedAmountPromotion>, options?: ResourcesConfig): Promise<FixedAmountPromotion> {
+		return this.resources.update<FixedAmountPromotionUpdate, FixedAmountPromotion>({ id: (typeof id === 'string')? id: id.id, type: FixedAmountPromotions.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 

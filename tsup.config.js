@@ -10,7 +10,7 @@ export default defineConfig(() => ({
   format: ['cjs', 'esm'],
   minify: true,
   bundle: true,
-  // treeshake: true,
+  treeshake: true,
   // watch: env === 'development',
   target: 'es2020',
   entry: ['src/index.ts'],

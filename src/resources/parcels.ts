@@ -124,7 +124,7 @@ interface Parcel extends Resource {
 	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
 	 * @example ```[{"object":"TrackingDetail","message":"Pre-Shipment information received","status":"pre_transit","datetime":"2018-02-27T16:02:17Z","source":"DHLExpress","tracking_location":{"object":"TrackingLocation"}}]```
 	 */
-	tracking_details?: Record<string, any> | null
+	tracking_details?: Array<Record<string, any>> | null
 	/** 
 	 * The weight of the parcel as measured by the carrier in ounces (if available).
 	 * @example ```"42.32"```
@@ -253,7 +253,7 @@ interface ParcelCreate extends ResourceCreate {
 	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
 	 * @example ```[{"object":"TrackingDetail","message":"Pre-Shipment information received","status":"pre_transit","datetime":"2018-02-27T16:02:17Z","source":"DHLExpress","tracking_location":{"object":"TrackingLocation"}}]```
 	 */
-	tracking_details?: Record<string, any> | null
+	tracking_details?: Array<Record<string, any>> | null
 	/** 
 	 * The weight of the parcel as measured by the carrier in ounces (if available).
 	 * @example ```"42.32"```
@@ -378,7 +378,7 @@ interface ParcelUpdate extends ResourceUpdate {
 	 * The parcel's full tracking history, automatically updated in real time by the shipping carrier.
 	 * @example ```[{"object":"TrackingDetail","message":"Pre-Shipment information received","status":"pre_transit","datetime":"2018-02-27T16:02:17Z","source":"DHLExpress","tracking_location":{"object":"TrackingLocation"}}]```
 	 */
-	tracking_details?: Record<string, any> | null
+	tracking_details?: Array<Record<string, any>> | null
 	/** 
 	 * The weight of the parcel as measured by the carrier in ounces (if available).
 	 * @example ```"42.32"```

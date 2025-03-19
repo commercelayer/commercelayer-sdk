@@ -149,6 +149,14 @@ interface SkuOptionUpdate extends ResourceUpdate {
 	 * @example ```"^(A|B).*$"```
 	 */
 	sku_code_regex?: string | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	market?: MarketRel | null
 	tags?: TagRel[] | null
@@ -195,6 +203,14 @@ class SkuOptions extends ApiResource<SkuOption> {
 	async versions(skuOptionId: string | SkuOption, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `sku_options/${_skuOptionId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _add_tags(id: string | SkuOption, triggerValue: string, params?: QueryParamsRetrieve<SkuOption>, options?: ResourcesConfig): Promise<SkuOption> {
+		return this.resources.update<SkuOptionUpdate, SkuOption>({ id: (typeof id === 'string')? id: id.id, type: SkuOptions.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | SkuOption, triggerValue: string, params?: QueryParamsRetrieve<SkuOption>, options?: ResourcesConfig): Promise<SkuOption> {
+		return this.resources.update<SkuOptionUpdate, SkuOption>({ id: (typeof id === 'string')? id: id.id, type: SkuOptions.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 
