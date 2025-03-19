@@ -10,6 +10,9 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json', 'html'],
       include: ['src/**/*.ts']
-    }
+    },
+    // fileParallelism: false,
+    // testTimeout: 15_000,
+    // maxConcurrency: 1
   }
 })

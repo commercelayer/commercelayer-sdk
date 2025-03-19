@@ -1,6 +1,6 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayer, CommerceLayerClient, CommerceLayerStatic, customers } from '../src'
+import { CommerceLayer, CommerceLayerClient, CommerceLayerInitConfig, CommerceLayerStatic, customers } from '../src'
 import { getClient, organization, } from '../test/common'
 import getAccessToken from '../test/token'
 
@@ -73,16 +73,18 @@ describe('SDK:commercelayer suite', () => {
 		const domain = process.env.CL_SDK_DOMAIN as string
 		const expiredToken = process.env.CL_SDK_ACCESS_TOKEN_EXPIRED as string
 
-		const cli = CommerceLayer({
+		const config: CommerceLayerInitConfig = {
 			organization,
 			domain,
 			accessToken: expiredToken,
 			refreshToken
-		})
+		}
+
+		const cli = CommerceLayer(config)
 
 		expect(cli.currentAccessToken).toBe(expiredToken)
 
-		await customers.list({ pageSize: 1 })
+		await customers.list({ pageSize: 1 }, config)
 
 		expect(refreshed).toBeTruthy()
 		expect(cli.currentAccessToken).toBeDefined()

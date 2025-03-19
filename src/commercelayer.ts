@@ -31,7 +31,7 @@ class CommerceLayerClient {
 	static get openApiSchemaVersion(): string { return OPEN_API_SCHEMA_VERSION }
 	readonly openApiSchemaVersion = OPEN_API_SCHEMA_VERSION
 
-	readonly #adapter: ResourceAdapter
+	// readonly #adapter: ResourceAdapter
 	// #slug: string
 
 	// ##__CL_RESOURCES_DEF_START__##
@@ -43,7 +43,7 @@ class CommerceLayerClient {
 
 		debug('new commercelayer instance %O', config)
 
-		this.#adapter = ApiResourceAdapter.init(config) // new ResourceAdapter(config)
+		/* this.#adapter = */ApiResourceAdapter.init(config) // new ResourceAdapter(config)
 		// this.#slug = config.organization ?? ''
 
 		// ##__CL_RESOURCES_INIT_START__##
@@ -56,10 +56,10 @@ class CommerceLayerClient {
 	// ##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return this.###__RESOURCE_TYPE__## || (this.###__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)) }
 	// ##__CL_RESOURCES_LEAZY_LOADING_STOP__##
 
-	
-	get currentOrganization(): string { return this.#adapter?.client?.currentOrganization }
-	get currentAccessToken(): string { return this.#adapter?.client?.currentAccessToken }
-	private get interceptors(): InterceptorManager { return this.#adapter.client.interceptors }
+	private get adapter(): ResourceAdapter { return ApiResourceAdapter.get() }
+	get currentOrganization(): string { return this.adapter?.client?.currentOrganization }
+	get currentAccessToken(): string { return this.adapter?.client?.currentAccessToken }
+	private get interceptors(): InterceptorManager { return this.adapter.client.interceptors }
 
 
 	private localConfig(config: Partial<SdkConfig> & { organization?: string }): void {
@@ -76,7 +76,7 @@ class CommerceLayerClient {
 		// ResourceAdapter config
 		// To rebuild baseUrl in client in case only the domain is defined
 		// if (!config.organization) config.organization = this.currentOrganization
-		this.#adapter.config(config)
+		this.adapter.config(config)
 
 		return this
 

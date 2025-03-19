@@ -35,22 +35,7 @@ describe('SDK:error suite', () => {
 	})
 
 
-	test('ApiError.type', async () => {
-		try {
-			cl.config({ domain: 'fake.domain.xx', accessToken: 'fake-access-token' })
-			DBG.verbose = true
-			await customers.list({ pageSize: 1})
-		} catch (error) {
-			expect(error.type).toEqual(ErrorType.CLIENT)
-		} finally {
-			DBG.verbose = false
-		}
-	})
-
-
 	test('ErrorInterceptor.response', async () => {
-
-		cl = await getClient({})
 
 		let interceptor = false
 
@@ -69,6 +54,19 @@ describe('SDK:error suite', () => {
 			expect(interceptor).toBeTruthy()
 		}
 
+	})
+
+
+	test('ApiError.type', async () => {
+		try {
+			cl.config({ domain: 'fake.domain.xx', accessToken: 'fake-access-token' })
+			DBG.verbose = true
+			await customers.list({ pageSize: 1})
+		} catch (error) {
+			expect(error.type).toEqual(ErrorType.CLIENT)
+		} finally {
+			DBG.verbose = false
+		}
 	})
 
 })

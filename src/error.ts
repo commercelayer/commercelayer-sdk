@@ -79,7 +79,7 @@ const isExpiredTokenError = (error: any): boolean => {
 
 
 const handleError = (error: Error): never => {
-console.log(error)
+
 	if (SdkError.isSdkError(error) || ApiError.isApiError(error)) throw error
 
 	let sdkError = new SdkError({ message: error.message })

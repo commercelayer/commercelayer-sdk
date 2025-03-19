@@ -185,6 +185,9 @@ class ApiClient {
 		const accessToken = options?.accessToken || this.#accessToken
 		if (accessToken) headers.Authorization = 'Bearer ' + accessToken
 
+		const refreshToken = options?.refreshToken || this.#clientConfig.refreshToken
+		const fetchFunction = options?.fetch || this.#clientConfig.fetch
+
 		const requestOptions: FetchRequestOptions = { method, body: bodyData, headers }
 
 		// Timeout
@@ -198,7 +201,7 @@ class ApiClient {
 
 		const clientOptions: FetchClientOptions = {
 			interceptors: this.interceptors,
-			fetch: options?.fetch || this.#clientConfig.fetch
+			fetch: fetchFunction
 		}
 
 		// const start = Date.now()
@@ -206,10 +209,10 @@ class ApiClient {
 			return await fetchURL(url, requestOptions, clientOptions).catch((error: Error) => handleError(error))
 		} catch (err: any) {	// Error executing api call
 
-			if (isExpiredTokenError(err) && this.#clientConfig.refreshToken && isTokenExpired(this.#accessToken)) {	// If token has expired and must be refreshed
+			if (isExpiredTokenError(err) && refreshToken && isTokenExpired(accessToken)) {	// If token has expired and must be refreshed
 
 				debug('Access token has expired')
-				const newAccessToken = await this.#clientConfig.refreshToken(this.#accessToken)	// Refresh access token ...
+				const newAccessToken = await refreshToken(this.#accessToken)	// Refresh access token ...
 					.catch((e: any) => {	// Error refreshing access token
 						debug('Refresh token error: %s', e.message)
 						const tokenError = new SdkError({ message: 'Error refreshing access token', type: ErrorType.TOKEN_REFRESH })
@@ -220,6 +223,7 @@ class ApiClient {
 				if (newAccessToken) {	// ... set new access token in current config and repeat call
 					debug('Access token refreshed')
 					this.config({ accessToken: newAccessToken })
+					this.#accessToken = newAccessToken
 					if (requestOptions.headers) (requestOptions.headers as Record<string, string>).Authorization = `Bearer ${newAccessToken}`
 					const response = await fetchURL(url, requestOptions, clientOptions).catch((error: Error) => handleError(error))
 					return response

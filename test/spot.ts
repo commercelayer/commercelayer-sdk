@@ -18,10 +18,10 @@ async function refreshToken(old: string): Promise<string> {
 
 ; (async () => {
 
-	// const config = await initConfig()
-	// const cl = commercelayer(config)
+	const config = await initConfig()
+	const cl = commercelayer(config)
 
-	// cl.config({ refreshToken, fetch: customFetch })
+	cl.config({ refreshToken, fetch: customFetch, accessToken: process.env.CL_SDK_ACCESS_TOKEN_EXPIRED })
 	try {
 
 		// console.log(cl.currentOrganization)
