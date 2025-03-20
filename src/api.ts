@@ -142,6 +142,7 @@ export { default as wire_transfers } from './resources/wire_transfers'
 // ##__API_RESOURCES_STOP__##
 
 
+/**
 export type ResourceTypeLock =
 	// ##__API_RESOURCE_TYPES_START__##
 	'addresses'
@@ -276,9 +277,10 @@ export type ResourceTypeLock =
 |	'webhooks'
 |	'wire_transfers'
 // ##__API_RESOURCE_TYPES_STOP__##
+**/
 
 
-export const resourceList: ResourceTypeLock[] = [
+const apiResources = [
 	// ##__API_RESOURCE_LIST_START__##
 	'addresses',
 	'adjustments',
@@ -413,6 +415,9 @@ export const resourceList: ResourceTypeLock[] = [
 	'wire_transfers'
 	// ##__API_RESOURCE_LIST_STOP__##
 ] as const
+
+export type ResourceTypeLock = typeof apiResources[number]
+export const resourceList: Readonly<ResourceTypeLock[]> = apiResources
 
 
 export const singletonList: ResourceTypeLock[] = [

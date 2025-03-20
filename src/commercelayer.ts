@@ -1,7 +1,7 @@
 
 // import * as api from './api'
 import type { ResourceTypeLock } from './api'
-import type { ApiError } from './error'
+import { SdkError, type ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj, InterceptorManager } from './interceptor'
 import { CommerceLayerStatic } from './static'
 import ResourceAdapter, { ApiResourceAdapter, type ResourcesInitConfig } from './resource'
@@ -31,6 +31,8 @@ class CommerceLayerClient {
 	static get openApiSchemaVersion(): string { return OPEN_API_SCHEMA_VERSION }
 	readonly openApiSchemaVersion = OPEN_API_SCHEMA_VERSION
 
+	private static cl: CommerceLayerClient
+
 	// readonly #adapter: ResourceAdapter
 	// #slug: string
 
@@ -39,11 +41,19 @@ class CommerceLayerClient {
 	// ##__CL_RESOURCES_DEF_STOP__##
 
 
-	constructor(config: CommerceLayerInitConfig) {
+	static get (config?: CommerceLayerInitConfig): CommerceLayerClient {
+		if (config) return (CommerceLayerClient.cl = new CommerceLayerClient(config))
+		else
+		if (!CommerceLayerClient.cl) throw new Error('CommerceLayer client not initialized')
+		return CommerceLayerClient.cl
+	}
+
+
+	private constructor(config: CommerceLayerInitConfig) {
 
 		debug('new commercelayer instance %O', config)
 
-		/* this.#adapter = */ApiResourceAdapter.init(config) // new ResourceAdapter(config)
+		/* this.#adapter = */ApiResourceAdapter.get(config) // new ResourceAdapter(config)
 		// this.#slug = config.organization ?? ''
 
 		// ##__CL_RESOURCES_INIT_START__##
@@ -161,7 +171,7 @@ class CommerceLayerClient {
 
 
 const CommerceLayer = (config: CommerceLayerInitConfig): CommerceLayerClient => {
-	return new CommerceLayerClient(config)
+	return CommerceLayerClient.get(config)
 }
 
 

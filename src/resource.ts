@@ -110,12 +110,8 @@ export class ApiResourceAdapter {
 	private constructor() { }
 
 
-	static init(config: ResourcesInitConfig): ResourceAdapter {
-		return (ApiResourceAdapter.adapter = new ResourceAdapter(config))
-	}
-
 	static get(config?: ResourcesInitConfig): ResourceAdapter {
-		if (config) return ApiResourceAdapter.init(config)
+		if (config) return (ApiResourceAdapter.adapter = new ResourceAdapter(config))
 		else {
 			if (ApiResourceAdapter.adapter) return ApiResourceAdapter.adapter
 			else throw new SdkError({ message: 'Commerce Layer not initialized' })
