@@ -1,3 +1,14 @@
+## [7.0.0-beta.13](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.12...v7.0.0-beta.13) (2025-03-24)
+
+### Features
+
+* client as singleton ([7b9682a](https://github.com/commercelayer/commercelayer-sdk/commit/7b9682ac1391019abe6fa1b92d36e3bcd6d90352))
+
+### Bug Fixes
+
+* fix concurrent specs ([975bed5](https://github.com/commercelayer/commercelayer-sdk/commit/975bed59d15f46ed0682c38ffb5f02683831c44a))
+* fix specs ([b25543a](https://github.com/commercelayer/commercelayer-sdk/commit/b25543adbbc5f9c5207b5780a463f96820017fdc))
+
 ## [7.0.0-beta.12](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.11...v7.0.0-beta.12) (2025-03-18)
 
 ### Features
