@@ -102,7 +102,7 @@ type ResourcesConfig = Partial<ResourcesInitConfig>
 
 
 
-export class ApiResourceAdapter {
+class ApiResourceAdapter {
 
 	private static adapter: ResourceAdapter
 
@@ -110,8 +110,12 @@ export class ApiResourceAdapter {
 	private constructor() { }
 
 
+	static init(config: ResourcesInitConfig): ResourceAdapter {
+		return (ApiResourceAdapter.adapter = new ResourceAdapter(config))
+	}
+
 	static get(config?: ResourcesInitConfig): ResourceAdapter {
-		if (config) return (ApiResourceAdapter.adapter = new ResourceAdapter(config))
+		if (config) return ApiResourceAdapter.init(config)
 		else {
 			if (ApiResourceAdapter.adapter) return ApiResourceAdapter.adapter
 			else throw new SdkError({ message: 'Commerce Layer not initialized' })
@@ -310,7 +314,7 @@ abstract class ApiResourceBase<R extends Resource> {
 	}
 
 	protected relationshipOneToMany<RR extends ResourceRel>(...ids: string[]): RR[] {
-		return (((ids === null) || (ids.length === 0) || (ids[0] === null))? [ { id: null, type: this.type() } ] : ids.map(id => { return { id, type: this.type() } })) as RR[]
+		return (((ids === null) || (ids.length === 0) || (ids[0] === null)) ? [{ id: null, type: this.type() }] : ids.map(id => { return { id, type: this.type() } })) as RR[]
 	}
 
 	abstract type(): ResourceTypeLock
@@ -357,7 +361,5 @@ abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 
 
-export default ResourceAdapter
-
-export { ApiResource, ApiSingleton }
+export { ApiResourceAdapter, ApiResource, ApiSingleton }
 export type { ResourcesConfig, ResourcesInitConfig, ResourceAdapter }
