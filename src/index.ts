@@ -2,7 +2,9 @@
 // SDK
 export { default, CommerceLayer } from './commercelayer'
 
-export * from './api'
+
+export { OPEN_API_SCHEMA_VERSION } from './api'
+export * from './adapter'
 
 // Commerce Layer static functions
 export { CommerceLayerStatic } from './static'

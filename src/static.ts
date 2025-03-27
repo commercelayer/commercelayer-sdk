@@ -1,8 +1,6 @@
 
-import { resourceList, singletonList, type ResourceTypeLock } from './api'
+import { OPEN_API_SCHEMA_VERSION, resourceList, singletonList, type ResourceTypeLock } from './api'
 import { SdkError, ApiError} from './error'
-import CommerceLayer, { OPEN_API_SCHEMA_VERSION } from './commercelayer'
-import type { CommerceLayerClient, CommerceLayerInitConfig } from './commercelayer'
 import { isTokenExpired } from './util'
 
 
@@ -27,10 +25,6 @@ export const CommerceLayerStatic = {
 
 	isApiError: (error: unknown): error is ApiError => {
 		return ApiError.isApiError(error)
-	},
-
-	init: (config: CommerceLayerInitConfig): CommerceLayerClient => {
-		return CommerceLayer(config)
 	},
 
 	isTokenExpired: (token: string): boolean => {
