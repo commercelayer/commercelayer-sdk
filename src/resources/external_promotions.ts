@@ -388,6 +388,7 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 }
 
 
-export default ExternalPromotions
+const instance = new ExternalPromotions()
+export default instance
 
 export type { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionUpdate, ExternalPromotionType }

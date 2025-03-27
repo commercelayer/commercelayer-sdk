@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, Merchant } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, Merchant, merchants, addresses } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,11 +24,11 @@ describe('Merchants resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			address: cl.addresses.relationship(TestData.id),
+			address: addresses.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -39,11 +40,11 @@ describe('Merchants resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isMerchant(data.data)).toBeTruthy()
+      expect(merchants.isMerchant(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await merchants.create(resData, params, CommonData.options)
       .then((res: Merchant) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -53,7 +54,7 @@ describe('Merchants resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -65,7 +66,7 @@ describe('Merchants resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await merchants.retrieve(id, params, CommonData.options)
       .then((res: Merchant) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -75,7 +76,7 @@ describe('Merchants resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -89,7 +90,7 @@ describe('Merchants resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await merchants.update(resData, params, CommonData.options)
       .then((res: Merchant) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -99,7 +100,7 @@ describe('Merchants resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -109,7 +110,7 @@ describe('Merchants resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await merchants.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -118,7 +119,7 @@ describe('Merchants resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -129,7 +130,7 @@ describe('Merchants resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await merchants.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -138,12 +139,12 @@ describe('Merchants resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isMerchant(resource)).toBeTruthy()
+    expect(merchants.isMerchant(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = merchants.type()
     expect(type).toBe(resourceType)
 
   })
@@ -151,12 +152,12 @@ describe('Merchants resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = merchants.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = merchants.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -165,7 +166,7 @@ describe('Merchants resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -191,7 +192,7 @@ describe('Merchants resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Merchant
+    const res = merchants.parse(payload) as Merchant
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -200,10 +201,19 @@ describe('Merchants resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(merchants)
+		expect(merchants.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.address start */
-	it(resourceType + '.address', async () => {
+	test(resourceType + '.address', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { addresses: CommonData.paramsFields } }
@@ -215,7 +225,7 @@ describe('Merchants resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].address(id, params, CommonData.options)
+		await merchants.address(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -223,8 +233,9 @@ describe('Merchants resource', () => {
 	/* relationship.address stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -236,7 +247,7 @@ describe('Merchants resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await merchants.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -244,8 +255,9 @@ describe('Merchants resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -257,7 +269,7 @@ describe('Merchants resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await merchants.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

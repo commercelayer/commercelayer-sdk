@@ -143,6 +143,7 @@ class TalonOneAccounts extends ApiResource<TalonOneAccount> {
 }
 
 
-export default TalonOneAccounts
+const instance = new TalonOneAccounts()
+export default instance
 
 export type { TalonOneAccount, TalonOneAccountCreate, TalonOneAccountUpdate, TalonOneAccountType }

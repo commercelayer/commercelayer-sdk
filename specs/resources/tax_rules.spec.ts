@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, TaxRule } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, TaxRule, tax_rules, manual_tax_calculators } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,11 +24,11 @@ describe('TaxRules resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			manual_tax_calculator: cl.manual_tax_calculators.relationship(TestData.id),
+			manual_tax_calculator: manual_tax_calculators.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -39,11 +40,11 @@ describe('TaxRules resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isTaxRule(data.data)).toBeTruthy()
+      expect(tax_rules.isTaxRule(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await tax_rules.create(resData, params, CommonData.options)
       .then((res: TaxRule) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -53,7 +54,7 @@ describe('TaxRules resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -65,7 +66,7 @@ describe('TaxRules resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await tax_rules.retrieve(id, params, CommonData.options)
       .then((res: TaxRule) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -75,7 +76,7 @@ describe('TaxRules resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -89,7 +90,7 @@ describe('TaxRules resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await tax_rules.update(resData, params, CommonData.options)
       .then((res: TaxRule) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -99,7 +100,7 @@ describe('TaxRules resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -109,7 +110,7 @@ describe('TaxRules resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await tax_rules.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -118,7 +119,7 @@ describe('TaxRules resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -129,7 +130,7 @@ describe('TaxRules resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await tax_rules.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -138,12 +139,12 @@ describe('TaxRules resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isTaxRule(resource)).toBeTruthy()
+    expect(tax_rules.isTaxRule(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = tax_rules.type()
     expect(type).toBe(resourceType)
 
   })
@@ -151,12 +152,12 @@ describe('TaxRules resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = tax_rules.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = tax_rules.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -165,7 +166,7 @@ describe('TaxRules resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -191,7 +192,7 @@ describe('TaxRules resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as TaxRule
+    const res = tax_rules.parse(payload) as TaxRule
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -200,10 +201,19 @@ describe('TaxRules resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(tax_rules)
+		expect(tax_rules.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.manual_tax_calculator start */
-	it(resourceType + '.manual_tax_calculator', async () => {
+	test(resourceType + '.manual_tax_calculator', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { manual_tax_calculators: CommonData.paramsFields } }
@@ -215,7 +225,7 @@ describe('TaxRules resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].manual_tax_calculator(id, params, CommonData.options)
+		await tax_rules.manual_tax_calculator(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -223,8 +233,9 @@ describe('TaxRules resource', () => {
 	/* relationship.manual_tax_calculator stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -236,7 +247,7 @@ describe('TaxRules resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await tax_rules.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

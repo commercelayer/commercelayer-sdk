@@ -85,6 +85,7 @@ class Tags extends ApiResource<Tag> {
 }
 
 
-export default Tags
+const instance = new Tags()
+export default instance
 
 export type { Tag, TagCreate, TagUpdate, TagType }

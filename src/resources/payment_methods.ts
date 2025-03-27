@@ -298,6 +298,7 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 }
 
 
-export default PaymentMethods
+const instance = new PaymentMethods()
+export default instance
 
 export type { PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate, PaymentMethodType }

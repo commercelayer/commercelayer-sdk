@@ -177,6 +177,7 @@ class Refunds extends ApiResource<Refund> {
 }
 
 
-export default Refunds
+const instance = new Refunds()
+export default instance
 
 export type { Refund, RefundUpdate, RefundType }

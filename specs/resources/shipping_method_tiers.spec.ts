@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, ShippingMethodTier } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, ShippingMethodTier, shipping_method_tiers } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('ShippingMethodTiers resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -35,7 +36,7 @@ describe('ShippingMethodTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await shipping_method_tiers.retrieve(id, params, CommonData.options)
       .then((res: ShippingMethodTier) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -45,7 +46,7 @@ describe('ShippingMethodTiers resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -56,7 +57,7 @@ describe('ShippingMethodTiers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await shipping_method_tiers.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -65,12 +66,12 @@ describe('ShippingMethodTiers resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isShippingMethodTier(resource)).toBeTruthy()
+    expect(shipping_method_tiers.isShippingMethodTier(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = shipping_method_tiers.type()
     expect(type).toBe(resourceType)
 
   })
@@ -78,12 +79,12 @@ describe('ShippingMethodTiers resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = shipping_method_tiers.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = shipping_method_tiers.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -92,7 +93,7 @@ describe('ShippingMethodTiers resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -118,7 +119,7 @@ describe('ShippingMethodTiers resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ShippingMethodTier
+    const res = shipping_method_tiers.parse(payload) as ShippingMethodTier
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -127,10 +128,19 @@ describe('ShippingMethodTiers resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(shipping_method_tiers)
+		expect(shipping_method_tiers.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.shipping_method start */
-	it(resourceType + '.shipping_method', async () => {
+	test(resourceType + '.shipping_method', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipping_methods: CommonData.paramsFields } }
@@ -142,7 +152,7 @@ describe('ShippingMethodTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_method(id, params, CommonData.options)
+		await shipping_method_tiers.shipping_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -150,8 +160,9 @@ describe('ShippingMethodTiers resource', () => {
 	/* relationship.shipping_method stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -163,7 +174,7 @@ describe('ShippingMethodTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await shipping_method_tiers.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -171,8 +182,9 @@ describe('ShippingMethodTiers resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -184,7 +196,7 @@ describe('ShippingMethodTiers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await shipping_method_tiers.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

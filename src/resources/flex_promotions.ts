@@ -300,6 +300,7 @@ class FlexPromotions extends ApiResource<FlexPromotion> {
 }
 
 
-export default FlexPromotions
+const instance = new FlexPromotions()
+export default instance
 
 export type { FlexPromotion, FlexPromotionCreate, FlexPromotionUpdate, FlexPromotionType }

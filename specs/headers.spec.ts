@@ -1,5 +1,6 @@
 
-import { CommerceLayerClient } from '../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { application, CommerceLayerClient } from '../src'
 import { getClient, CommonData, handleError, interceptRequest } from '../test/common'
 
 
@@ -12,7 +13,7 @@ beforeAll(async () => { cl = await getClient({ timeout: 15000 }) })
 
 describe('Test headers', () => {
 
-	it('Request headers', async () => {
+	test('Request headers', async () => {
 
 		const testHeaderValue = 'test-value'
 		const params = { fields: { addresses: CommonData.paramsFields } }
@@ -33,20 +34,20 @@ describe('Test headers', () => {
 			return interceptRequest()
 		})
 
-		await cl.application.retrieve(params, options)
+		await application.retrieve(params, options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 
 	})
 
 
-	it('Response headers', async () => {
+	test('Response headers', async () => {
 
 		const params = { fields: { addresses: CommonData.paramsFields } }
 
 		const reader = cl.addRawResponseReader({ headers: true })
 
-		await cl.application.retrieve(params, CommonData.options)
+		await application.retrieve(params, CommonData.options)
 
 		expect(reader.headers).not.toBeUndefined()
 		expect(reader.headers?.['x-ratelimit-limit']).not.toBeUndefined()

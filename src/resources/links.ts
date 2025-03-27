@@ -252,6 +252,7 @@ class Links extends ApiResource<Link> {
 }
 
 
-export default Links
+const instance = new Links()
+export default instance
 
 export type { Link, LinkCreate, LinkUpdate, LinkType }

@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, ManualTaxCalculator } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, ManualTaxCalculator, manual_tax_calculators, tax_rules } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,11 +24,11 @@ describe('ManualTaxCalculators resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			tax_rules: [ cl.tax_rules.relationship(TestData.id) ],
+			tax_rules: [ tax_rules.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -39,11 +40,11 @@ describe('ManualTaxCalculators resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isManualTaxCalculator(data.data)).toBeTruthy()
+      expect(manual_tax_calculators.isManualTaxCalculator(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await manual_tax_calculators.create(resData, params, CommonData.options)
       .then((res: ManualTaxCalculator) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -53,7 +54,7 @@ describe('ManualTaxCalculators resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -65,7 +66,7 @@ describe('ManualTaxCalculators resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await manual_tax_calculators.retrieve(id, params, CommonData.options)
       .then((res: ManualTaxCalculator) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -75,7 +76,7 @@ describe('ManualTaxCalculators resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -89,7 +90,7 @@ describe('ManualTaxCalculators resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await manual_tax_calculators.update(resData, params, CommonData.options)
       .then((res: ManualTaxCalculator) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -99,7 +100,7 @@ describe('ManualTaxCalculators resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -109,7 +110,7 @@ describe('ManualTaxCalculators resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await manual_tax_calculators.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -118,7 +119,7 @@ describe('ManualTaxCalculators resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -129,7 +130,7 @@ describe('ManualTaxCalculators resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await manual_tax_calculators.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -138,12 +139,12 @@ describe('ManualTaxCalculators resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isManualTaxCalculator(resource)).toBeTruthy()
+    expect(manual_tax_calculators.isManualTaxCalculator(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = manual_tax_calculators.type()
     expect(type).toBe(resourceType)
 
   })
@@ -151,12 +152,12 @@ describe('ManualTaxCalculators resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = manual_tax_calculators.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = manual_tax_calculators.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -165,7 +166,7 @@ describe('ManualTaxCalculators resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -191,7 +192,7 @@ describe('ManualTaxCalculators resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ManualTaxCalculator
+    const res = manual_tax_calculators.parse(payload) as ManualTaxCalculator
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -200,10 +201,19 @@ describe('ManualTaxCalculators resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(manual_tax_calculators)
+		expect(manual_tax_calculators.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.markets start */
-	it(resourceType + '.markets', async () => {
+	test(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -215,7 +225,7 @@ describe('ManualTaxCalculators resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].markets(id, params, CommonData.options)
+		await manual_tax_calculators.markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -223,8 +233,9 @@ describe('ManualTaxCalculators resource', () => {
 	/* relationship.markets stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -236,7 +247,7 @@ describe('ManualTaxCalculators resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await manual_tax_calculators.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -244,8 +255,9 @@ describe('ManualTaxCalculators resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -257,7 +269,7 @@ describe('ManualTaxCalculators resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await manual_tax_calculators.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -265,8 +277,9 @@ describe('ManualTaxCalculators resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -278,7 +291,7 @@ describe('ManualTaxCalculators resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await manual_tax_calculators.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -286,8 +299,9 @@ describe('ManualTaxCalculators resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.tax_rules start */
-	it(resourceType + '.tax_rules', async () => {
+	test(resourceType + '.tax_rules', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tax_rules: CommonData.paramsFields } }
@@ -299,7 +313,7 @@ describe('ManualTaxCalculators resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tax_rules(id, params, CommonData.options)
+		await manual_tax_calculators.tax_rules(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

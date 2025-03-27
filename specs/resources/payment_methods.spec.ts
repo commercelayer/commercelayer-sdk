@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, PaymentMethod } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, PaymentMethod, payment_methods, markets, payment_gateways, stores } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,14 +24,14 @@ describe('PaymentMethods resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			payment_source_type: randomValue('string', 'payment_source_type'),
 			price_amount_cents: randomValue('integer', 'price_amount_cents'),
-			market: cl.markets.relationship(TestData.id),
-			payment_gateway: cl.payment_gateways.relationship(TestData.id),
-			store: cl.stores.relationship(TestData.id),
+			market: markets.relationship(TestData.id),
+			payment_gateway: payment_gateways.relationship(TestData.id),
+			store: stores.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +43,11 @@ describe('PaymentMethods resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isPaymentMethod(data.data)).toBeTruthy()
+      expect(payment_methods.isPaymentMethod(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await payment_methods.create(resData, params, CommonData.options)
       .then((res: PaymentMethod) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -56,7 +57,7 @@ describe('PaymentMethods resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -68,7 +69,7 @@ describe('PaymentMethods resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await payment_methods.retrieve(id, params, CommonData.options)
       .then((res: PaymentMethod) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -78,7 +79,7 @@ describe('PaymentMethods resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -92,7 +93,7 @@ describe('PaymentMethods resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await payment_methods.update(resData, params, CommonData.options)
       .then((res: PaymentMethod) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -102,7 +103,7 @@ describe('PaymentMethods resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -112,7 +113,7 @@ describe('PaymentMethods resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await payment_methods.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -121,7 +122,7 @@ describe('PaymentMethods resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -132,7 +133,7 @@ describe('PaymentMethods resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await payment_methods.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,12 +142,12 @@ describe('PaymentMethods resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isPaymentMethod(resource)).toBeTruthy()
+    expect(payment_methods.isPaymentMethod(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = payment_methods.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,12 +155,12 @@ describe('PaymentMethods resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = payment_methods.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = payment_methods.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -168,7 +169,7 @@ describe('PaymentMethods resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -194,7 +195,7 @@ describe('PaymentMethods resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as PaymentMethod
+    const res = payment_methods.parse(payload) as PaymentMethod
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -203,10 +204,19 @@ describe('PaymentMethods resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(payment_methods)
+		expect(payment_methods.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	test(resourceType + '.market', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -218,7 +228,7 @@ describe('PaymentMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await payment_methods.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -226,8 +236,9 @@ describe('PaymentMethods resource', () => {
 	/* relationship.market stop */
 	
 
+	
 	/* relationship.payment_gateway start */
-	it(resourceType + '.payment_gateway', async () => {
+	test(resourceType + '.payment_gateway', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { payment_gateways: CommonData.paramsFields } }
@@ -239,7 +250,7 @@ describe('PaymentMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_gateway(id, params, CommonData.options)
+		await payment_methods.payment_gateway(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,8 +258,9 @@ describe('PaymentMethods resource', () => {
 	/* relationship.payment_gateway stop */
 	
 
+	
 	/* relationship.store start */
-	it(resourceType + '.store', async () => {
+	test(resourceType + '.store', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stores: CommonData.paramsFields } }
@@ -260,7 +272,7 @@ describe('PaymentMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].store(id, params, CommonData.options)
+		await payment_methods.store(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -268,8 +280,9 @@ describe('PaymentMethods resource', () => {
 	/* relationship.store stop */
 	
 
+	
 	/* relationship.orders start */
-	it(resourceType + '.orders', async () => {
+	test(resourceType + '.orders', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -281,7 +294,7 @@ describe('PaymentMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].orders(id, params, CommonData.options)
+		await payment_methods.orders(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -289,8 +302,9 @@ describe('PaymentMethods resource', () => {
 	/* relationship.orders stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -302,7 +316,7 @@ describe('PaymentMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await payment_methods.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -310,8 +324,9 @@ describe('PaymentMethods resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -323,7 +338,7 @@ describe('PaymentMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await payment_methods.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -332,8 +347,9 @@ describe('PaymentMethods resource', () => {
 	
   
 
+	
 	/* trigger._disable start */
-	it(resourceType + '._disable', async () => {
+	test(resourceType + '._disable', async () => {
 	
 		let triggerAttr = '_disable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -350,7 +366,7 @@ describe('PaymentMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._disable(id, {}, CommonData.options)
+		await payment_methods._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -358,8 +374,9 @@ describe('PaymentMethods resource', () => {
 	/* trigger._disable stop */
 	
 
+	
 	/* trigger._enable start */
-	it(resourceType + '._enable', async () => {
+	test(resourceType + '._enable', async () => {
 	
 		let triggerAttr = '_enable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -376,7 +393,7 @@ describe('PaymentMethods resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._enable(id, {}, CommonData.options)
+		await payment_methods._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

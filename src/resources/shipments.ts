@@ -473,6 +473,7 @@ class Shipments extends ApiResource<Shipment> {
 }
 
 
-export default Shipments
+const instance = new Shipments()
+export default instance
 
 export type { Shipment, ShipmentCreate, ShipmentUpdate, ShipmentType }

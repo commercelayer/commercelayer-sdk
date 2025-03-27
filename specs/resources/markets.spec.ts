@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, Market } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, Market, markets, merchants, price_lists, inventory_models, subscription_models, avalara_accounts, customer_groups, geocoders, shipping_methods, payment_methods } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,19 +24,19 @@ describe('Markets resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			merchant: cl.merchants.relationship(TestData.id),
-			price_list: cl.price_lists.relationship(TestData.id),
-			inventory_model: cl.inventory_models.relationship(TestData.id),
-			subscription_model: cl.subscription_models.relationship(TestData.id),
-			tax_calculator: cl.avalara_accounts.relationship(TestData.id),
-			customer_group: cl.customer_groups.relationship(TestData.id),
-			geocoder: cl.geocoders.relationship(TestData.id),
-			default_shipping_method: cl.shipping_methods.relationship(TestData.id),
-			default_payment_method: cl.payment_methods.relationship(TestData.id),
+			merchant: merchants.relationship(TestData.id),
+			price_list: price_lists.relationship(TestData.id),
+			inventory_model: inventory_models.relationship(TestData.id),
+			subscription_model: subscription_models.relationship(TestData.id),
+			tax_calculator: avalara_accounts.relationship(TestData.id),
+			customer_group: customer_groups.relationship(TestData.id),
+			geocoder: geocoders.relationship(TestData.id),
+			default_shipping_method: shipping_methods.relationship(TestData.id),
+			default_payment_method: payment_methods.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -47,11 +48,11 @@ describe('Markets resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isMarket(data.data)).toBeTruthy()
+      expect(markets.isMarket(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await markets.create(resData, params, CommonData.options)
       .then((res: Market) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -61,7 +62,7 @@ describe('Markets resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -73,7 +74,7 @@ describe('Markets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await markets.retrieve(id, params, CommonData.options)
       .then((res: Market) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -83,7 +84,7 @@ describe('Markets resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -97,7 +98,7 @@ describe('Markets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await markets.update(resData, params, CommonData.options)
       .then((res: Market) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -107,7 +108,7 @@ describe('Markets resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -117,7 +118,7 @@ describe('Markets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await markets.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -126,7 +127,7 @@ describe('Markets resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -137,7 +138,7 @@ describe('Markets resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await markets.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -146,12 +147,12 @@ describe('Markets resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isMarket(resource)).toBeTruthy()
+    expect(markets.isMarket(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = markets.type()
     expect(type).toBe(resourceType)
 
   })
@@ -159,12 +160,12 @@ describe('Markets resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = markets.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = markets.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -173,7 +174,7 @@ describe('Markets resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -199,7 +200,7 @@ describe('Markets resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Market
+    const res = markets.parse(payload) as Market
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -208,10 +209,19 @@ describe('Markets resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(markets)
+		expect(markets.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.merchant start */
-	it(resourceType + '.merchant', async () => {
+	test(resourceType + '.merchant', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { merchants: CommonData.paramsFields } }
@@ -223,7 +233,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].merchant(id, params, CommonData.options)
+		await markets.merchant(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -231,8 +241,9 @@ describe('Markets resource', () => {
 	/* relationship.merchant stop */
 	
 
+	
 	/* relationship.price_list start */
-	it(resourceType + '.price_list', async () => {
+	test(resourceType + '.price_list', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_lists: CommonData.paramsFields } }
@@ -244,7 +255,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price_list(id, params, CommonData.options)
+		await markets.price_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -252,8 +263,9 @@ describe('Markets resource', () => {
 	/* relationship.price_list stop */
 	
 
+	
 	/* relationship.base_price_list start */
-	it(resourceType + '.base_price_list', async () => {
+	test(resourceType + '.base_price_list', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_lists: CommonData.paramsFields } }
@@ -265,7 +277,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].base_price_list(id, params, CommonData.options)
+		await markets.base_price_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -273,8 +285,9 @@ describe('Markets resource', () => {
 	/* relationship.base_price_list stop */
 	
 
+	
 	/* relationship.inventory_model start */
-	it(resourceType + '.inventory_model', async () => {
+	test(resourceType + '.inventory_model', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { inventory_models: CommonData.paramsFields } }
@@ -286,7 +299,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].inventory_model(id, params, CommonData.options)
+		await markets.inventory_model(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -294,8 +307,9 @@ describe('Markets resource', () => {
 	/* relationship.inventory_model stop */
 	
 
+	
 	/* relationship.subscription_model start */
-	it(resourceType + '.subscription_model', async () => {
+	test(resourceType + '.subscription_model', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { subscription_models: CommonData.paramsFields } }
@@ -307,7 +321,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].subscription_model(id, params, CommonData.options)
+		await markets.subscription_model(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -315,8 +329,9 @@ describe('Markets resource', () => {
 	/* relationship.subscription_model stop */
 	
 
+	
 	/* relationship.tax_calculator start */
-	it(resourceType + '.tax_calculator', async () => {
+	test(resourceType + '.tax_calculator', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tax_calculators: CommonData.paramsFields } }
@@ -328,7 +343,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tax_calculator(id, params, CommonData.options)
+		await markets.tax_calculator(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -336,8 +351,9 @@ describe('Markets resource', () => {
 	/* relationship.tax_calculator stop */
 	
 
+	
 	/* relationship.customer_group start */
-	it(resourceType + '.customer_group', async () => {
+	test(resourceType + '.customer_group', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customer_groups: CommonData.paramsFields } }
@@ -349,7 +365,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer_group(id, params, CommonData.options)
+		await markets.customer_group(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -357,8 +373,9 @@ describe('Markets resource', () => {
 	/* relationship.customer_group stop */
 	
 
+	
 	/* relationship.geocoder start */
-	it(resourceType + '.geocoder', async () => {
+	test(resourceType + '.geocoder', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { geocoders: CommonData.paramsFields } }
@@ -370,7 +387,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].geocoder(id, params, CommonData.options)
+		await markets.geocoder(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -378,8 +395,9 @@ describe('Markets resource', () => {
 	/* relationship.geocoder stop */
 	
 
+	
 	/* relationship.default_shipping_method start */
-	it(resourceType + '.default_shipping_method', async () => {
+	test(resourceType + '.default_shipping_method', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipping_methods: CommonData.paramsFields } }
@@ -391,7 +409,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].default_shipping_method(id, params, CommonData.options)
+		await markets.default_shipping_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -399,8 +417,9 @@ describe('Markets resource', () => {
 	/* relationship.default_shipping_method stop */
 	
 
+	
 	/* relationship.default_payment_method start */
-	it(resourceType + '.default_payment_method', async () => {
+	test(resourceType + '.default_payment_method', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { payment_methods: CommonData.paramsFields } }
@@ -412,7 +431,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].default_payment_method(id, params, CommonData.options)
+		await markets.default_payment_method(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -420,8 +439,9 @@ describe('Markets resource', () => {
 	/* relationship.default_payment_method stop */
 	
 
+	
 	/* relationship.stores start */
-	it(resourceType + '.stores', async () => {
+	test(resourceType + '.stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stores: CommonData.paramsFields } }
@@ -433,7 +453,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stores(id, params, CommonData.options)
+		await markets.stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -441,8 +461,9 @@ describe('Markets resource', () => {
 	/* relationship.stores stop */
 	
 
+	
 	/* relationship.price_list_schedulers start */
-	it(resourceType + '.price_list_schedulers', async () => {
+	test(resourceType + '.price_list_schedulers', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_list_schedulers: CommonData.paramsFields } }
@@ -454,7 +475,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price_list_schedulers(id, params, CommonData.options)
+		await markets.price_list_schedulers(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -462,8 +483,9 @@ describe('Markets resource', () => {
 	/* relationship.price_list_schedulers stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -475,7 +497,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await markets.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -483,8 +505,9 @@ describe('Markets resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -496,7 +519,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await markets.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -505,8 +528,9 @@ describe('Markets resource', () => {
 	
   
 
+	
 	/* trigger._disable start */
-	it(resourceType + '._disable', async () => {
+	test(resourceType + '._disable', async () => {
 	
 		let triggerAttr = '_disable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -523,7 +547,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._disable(id, {}, CommonData.options)
+		await markets._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -531,8 +555,9 @@ describe('Markets resource', () => {
 	/* trigger._disable stop */
 	
 
+	
 	/* trigger._enable start */
-	it(resourceType + '._enable', async () => {
+	test(resourceType + '._enable', async () => {
 	
 		let triggerAttr = '_enable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -549,7 +574,7 @@ describe('Markets resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._enable(id, {}, CommonData.options)
+		await markets._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

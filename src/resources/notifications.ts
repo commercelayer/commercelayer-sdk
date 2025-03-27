@@ -124,6 +124,7 @@ class Notifications extends ApiResource<Notification> {
 }
 
 
-export default Notifications
+const instance = new Notifications()
+export default instance
 
 export type { Notification, NotificationCreate, NotificationUpdate, NotificationType }

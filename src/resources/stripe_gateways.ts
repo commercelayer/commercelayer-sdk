@@ -177,6 +177,7 @@ class StripeGateways extends ApiResource<StripeGateway> {
 }
 
 
-export default StripeGateways
+const instance = new StripeGateways()
+export default instance
 
 export type { StripeGateway, StripeGatewayCreate, StripeGatewayUpdate, StripeGatewayType }

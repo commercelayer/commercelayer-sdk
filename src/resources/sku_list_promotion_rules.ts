@@ -146,6 +146,7 @@ class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 }
 
 
-export default SkuListPromotionRules
+const instance = new SkuListPromotionRules()
+export default instance
 
 export type { SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRuleUpdate, SkuListPromotionRuleType }

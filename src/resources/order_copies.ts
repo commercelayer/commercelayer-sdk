@@ -188,6 +188,7 @@ class OrderCopies extends ApiResource<OrderCopy> {
 }
 
 
-export default OrderCopies
+const instance = new OrderCopies()
+export default instance
 
 export type { OrderCopy, OrderCopyCreate, OrderCopyUpdate, OrderCopyType }

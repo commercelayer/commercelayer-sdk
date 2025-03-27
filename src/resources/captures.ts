@@ -241,6 +241,7 @@ class Captures extends ApiResource<Capture> {
 }
 
 
-export default Captures
+const instance = new Captures()
+export default instance
 
 export type { Capture, CaptureUpdate, CaptureType }

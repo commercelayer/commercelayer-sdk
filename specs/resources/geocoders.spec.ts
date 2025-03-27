@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, Geocoder } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, Geocoder, geocoders } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('Geocoders resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -35,7 +36,7 @@ describe('Geocoders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await geocoders.retrieve(id, params, CommonData.options)
       .then((res: Geocoder) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -45,7 +46,7 @@ describe('Geocoders resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -56,7 +57,7 @@ describe('Geocoders resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await geocoders.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -65,12 +66,12 @@ describe('Geocoders resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isGeocoder(resource)).toBeTruthy()
+    expect(geocoders.isGeocoder(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = geocoders.type()
     expect(type).toBe(resourceType)
 
   })
@@ -78,12 +79,12 @@ describe('Geocoders resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = geocoders.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = geocoders.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -92,7 +93,7 @@ describe('Geocoders resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -118,7 +119,7 @@ describe('Geocoders resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Geocoder
+    const res = geocoders.parse(payload) as Geocoder
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -127,10 +128,19 @@ describe('Geocoders resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(geocoders)
+		expect(geocoders.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.markets start */
-	it(resourceType + '.markets', async () => {
+	test(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -142,7 +152,7 @@ describe('Geocoders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].markets(id, params, CommonData.options)
+		await geocoders.markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -150,8 +160,9 @@ describe('Geocoders resource', () => {
 	/* relationship.markets stop */
 	
 
+	
 	/* relationship.addresses start */
-	it(resourceType + '.addresses', async () => {
+	test(resourceType + '.addresses', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { addresses: CommonData.paramsFields } }
@@ -163,7 +174,7 @@ describe('Geocoders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].addresses(id, params, CommonData.options)
+		await geocoders.addresses(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -171,8 +182,9 @@ describe('Geocoders resource', () => {
 	/* relationship.addresses stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -184,7 +196,7 @@ describe('Geocoders resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await geocoders.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

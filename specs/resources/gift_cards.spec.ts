@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, GiftCard } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, GiftCard, gift_cards, markets, gift_card_recipients, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,13 +24,13 @@ describe('GiftCards resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			balance_cents: randomValue('integer', 'balance_cents'),
-			market: cl.markets.relationship(TestData.id),
-			gift_card_recipient: cl.gift_card_recipients.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			market: markets.relationship(TestData.id),
+			gift_card_recipient: gift_card_recipients.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -41,11 +42,11 @@ describe('GiftCards resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isGiftCard(data.data)).toBeTruthy()
+      expect(gift_cards.isGiftCard(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await gift_cards.create(resData, params, CommonData.options)
       .then((res: GiftCard) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -55,7 +56,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -67,7 +68,7 @@ describe('GiftCards resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await gift_cards.retrieve(id, params, CommonData.options)
       .then((res: GiftCard) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -77,7 +78,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -91,7 +92,7 @@ describe('GiftCards resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await gift_cards.update(resData, params, CommonData.options)
       .then((res: GiftCard) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -101,7 +102,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -111,7 +112,7 @@ describe('GiftCards resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await gift_cards.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -120,7 +121,7 @@ describe('GiftCards resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -131,7 +132,7 @@ describe('GiftCards resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await gift_cards.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -140,12 +141,12 @@ describe('GiftCards resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isGiftCard(resource)).toBeTruthy()
+    expect(gift_cards.isGiftCard(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = gift_cards.type()
     expect(type).toBe(resourceType)
 
   })
@@ -153,12 +154,12 @@ describe('GiftCards resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = gift_cards.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = gift_cards.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -167,7 +168,7 @@ describe('GiftCards resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -193,7 +194,7 @@ describe('GiftCards resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as GiftCard
+    const res = gift_cards.parse(payload) as GiftCard
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -202,10 +203,19 @@ describe('GiftCards resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(gift_cards)
+		expect(gift_cards.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	test(resourceType + '.market', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -217,7 +227,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await gift_cards.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -225,8 +235,9 @@ describe('GiftCards resource', () => {
 	/* relationship.market stop */
 	
 
+	
 	/* relationship.gift_card_recipient start */
-	it(resourceType + '.gift_card_recipient', async () => {
+	test(resourceType + '.gift_card_recipient', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { gift_card_recipients: CommonData.paramsFields } }
@@ -238,7 +249,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].gift_card_recipient(id, params, CommonData.options)
+		await gift_cards.gift_card_recipient(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -246,8 +257,9 @@ describe('GiftCards resource', () => {
 	/* relationship.gift_card_recipient stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -259,7 +271,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await gift_cards.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -267,8 +279,9 @@ describe('GiftCards resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -280,7 +293,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await gift_cards.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -288,8 +301,9 @@ describe('GiftCards resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.tags start */
-	it(resourceType + '.tags', async () => {
+	test(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
@@ -301,7 +315,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await gift_cards.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -309,8 +323,9 @@ describe('GiftCards resource', () => {
 	/* relationship.tags stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -322,7 +337,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await gift_cards.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -331,8 +346,9 @@ describe('GiftCards resource', () => {
 	
   
 
+	
 	/* trigger._purchase start */
-	it(resourceType + '._purchase', async () => {
+	test(resourceType + '._purchase', async () => {
 	
 		let triggerAttr = '_purchase'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -349,7 +365,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._purchase(id, {}, CommonData.options)
+		await gift_cards._purchase(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -357,8 +373,9 @@ describe('GiftCards resource', () => {
 	/* trigger._purchase stop */
 	
 
+	
 	/* trigger._activate start */
-	it(resourceType + '._activate', async () => {
+	test(resourceType + '._activate', async () => {
 	
 		let triggerAttr = '_activate'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -375,7 +392,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._activate(id, {}, CommonData.options)
+		await gift_cards._activate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -383,8 +400,9 @@ describe('GiftCards resource', () => {
 	/* trigger._activate stop */
 	
 
+	
 	/* trigger._deactivate start */
-	it(resourceType + '._deactivate', async () => {
+	test(resourceType + '._deactivate', async () => {
 	
 		let triggerAttr = '_deactivate'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -401,7 +419,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._deactivate(id, {}, CommonData.options)
+		await gift_cards._deactivate(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -409,8 +427,9 @@ describe('GiftCards resource', () => {
 	/* trigger._deactivate stop */
 	
 
+	
 	/* trigger._balance_change_cents start */
-	it(resourceType + '._balance_change_cents', async () => {
+	test(resourceType + '._balance_change_cents', async () => {
 	
 		let triggerAttr = '_balance_change_cents'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -427,7 +446,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._balance_change_cents(id, triggerValue, {}, CommonData.options)
+		await gift_cards._balance_change_cents(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -435,8 +454,9 @@ describe('GiftCards resource', () => {
 	/* trigger._balance_change_cents stop */
 	
 
+	
 	/* trigger._add_tags start */
-	it(resourceType + '._add_tags', async () => {
+	test(resourceType + '._add_tags', async () => {
 	
 		let triggerAttr = '_add_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -453,7 +473,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await gift_cards._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -461,8 +481,9 @@ describe('GiftCards resource', () => {
 	/* trigger._add_tags stop */
 	
 
+	
 	/* trigger._remove_tags start */
-	it(resourceType + '._remove_tags', async () => {
+	test(resourceType + '._remove_tags', async () => {
 	
 		let triggerAttr = '_remove_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -479,7 +500,7 @@ describe('GiftCards resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await gift_cards._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

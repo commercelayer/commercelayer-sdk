@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, SubscriptionModel } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, SubscriptionModel, subscription_models } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('SubscriptionModels resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -39,11 +40,11 @@ describe('SubscriptionModels resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isSubscriptionModel(data.data)).toBeTruthy()
+      expect(subscription_models.isSubscriptionModel(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await subscription_models.create(resData, params, CommonData.options)
       .then((res: SubscriptionModel) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -53,7 +54,7 @@ describe('SubscriptionModels resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -65,7 +66,7 @@ describe('SubscriptionModels resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await subscription_models.retrieve(id, params, CommonData.options)
       .then((res: SubscriptionModel) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -75,7 +76,7 @@ describe('SubscriptionModels resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -89,7 +90,7 @@ describe('SubscriptionModels resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await subscription_models.update(resData, params, CommonData.options)
       .then((res: SubscriptionModel) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -99,7 +100,7 @@ describe('SubscriptionModels resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -109,7 +110,7 @@ describe('SubscriptionModels resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await subscription_models.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -118,7 +119,7 @@ describe('SubscriptionModels resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -129,7 +130,7 @@ describe('SubscriptionModels resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await subscription_models.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -138,12 +139,12 @@ describe('SubscriptionModels resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isSubscriptionModel(resource)).toBeTruthy()
+    expect(subscription_models.isSubscriptionModel(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = subscription_models.type()
     expect(type).toBe(resourceType)
 
   })
@@ -151,12 +152,12 @@ describe('SubscriptionModels resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = subscription_models.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = subscription_models.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -165,7 +166,7 @@ describe('SubscriptionModels resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -191,7 +192,7 @@ describe('SubscriptionModels resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as SubscriptionModel
+    const res = subscription_models.parse(payload) as SubscriptionModel
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -200,10 +201,19 @@ describe('SubscriptionModels resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(subscription_models)
+		expect(subscription_models.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.markets start */
-	it(resourceType + '.markets', async () => {
+	test(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -215,7 +225,7 @@ describe('SubscriptionModels resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].markets(id, params, CommonData.options)
+		await subscription_models.markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -223,8 +233,9 @@ describe('SubscriptionModels resource', () => {
 	/* relationship.markets stop */
 	
 
+	
 	/* relationship.order_subscriptions start */
-	it(resourceType + '.order_subscriptions', async () => {
+	test(resourceType + '.order_subscriptions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { order_subscriptions: CommonData.paramsFields } }
@@ -236,7 +247,7 @@ describe('SubscriptionModels resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_subscriptions(id, params, CommonData.options)
+		await subscription_models.order_subscriptions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -244,8 +255,9 @@ describe('SubscriptionModels resource', () => {
 	/* relationship.order_subscriptions stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -257,7 +269,7 @@ describe('SubscriptionModels resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await subscription_models.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

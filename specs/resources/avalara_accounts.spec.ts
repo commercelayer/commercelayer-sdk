@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, AvalaraAccount } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, AvalaraAccount, avalara_accounts, tax_categories } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,14 +24,14 @@ describe('AvalaraAccounts resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
 			username: randomValue('string', 'username'),
 			password: randomValue('string', 'password'),
 			company_code: randomValue('string', 'company_code'),
-			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
+			tax_categories: [ tax_categories.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +43,11 @@ describe('AvalaraAccounts resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isAvalaraAccount(data.data)).toBeTruthy()
+      expect(avalara_accounts.isAvalaraAccount(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await avalara_accounts.create(resData, params, CommonData.options)
       .then((res: AvalaraAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -56,7 +57,7 @@ describe('AvalaraAccounts resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -68,7 +69,7 @@ describe('AvalaraAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await avalara_accounts.retrieve(id, params, CommonData.options)
       .then((res: AvalaraAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -78,7 +79,7 @@ describe('AvalaraAccounts resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -92,7 +93,7 @@ describe('AvalaraAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await avalara_accounts.update(resData, params, CommonData.options)
       .then((res: AvalaraAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -102,7 +103,7 @@ describe('AvalaraAccounts resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -112,7 +113,7 @@ describe('AvalaraAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await avalara_accounts.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -121,7 +122,7 @@ describe('AvalaraAccounts resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -132,7 +133,7 @@ describe('AvalaraAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await avalara_accounts.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,12 +142,12 @@ describe('AvalaraAccounts resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isAvalaraAccount(resource)).toBeTruthy()
+    expect(avalara_accounts.isAvalaraAccount(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = avalara_accounts.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,12 +155,12 @@ describe('AvalaraAccounts resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = avalara_accounts.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = avalara_accounts.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -168,7 +169,7 @@ describe('AvalaraAccounts resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -194,7 +195,7 @@ describe('AvalaraAccounts resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as AvalaraAccount
+    const res = avalara_accounts.parse(payload) as AvalaraAccount
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -203,10 +204,19 @@ describe('AvalaraAccounts resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(avalara_accounts)
+		expect(avalara_accounts.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.markets start */
-	it(resourceType + '.markets', async () => {
+	test(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -218,7 +228,7 @@ describe('AvalaraAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].markets(id, params, CommonData.options)
+		await avalara_accounts.markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -226,8 +236,9 @@ describe('AvalaraAccounts resource', () => {
 	/* relationship.markets stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -239,7 +250,7 @@ describe('AvalaraAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await avalara_accounts.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,8 +258,9 @@ describe('AvalaraAccounts resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -260,7 +272,7 @@ describe('AvalaraAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await avalara_accounts.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -268,8 +280,9 @@ describe('AvalaraAccounts resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -281,7 +294,7 @@ describe('AvalaraAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await avalara_accounts.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -289,8 +302,9 @@ describe('AvalaraAccounts resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.tax_categories start */
-	it(resourceType + '.tax_categories', async () => {
+	test(resourceType + '.tax_categories', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tax_categories: CommonData.paramsFields } }
@@ -302,7 +316,7 @@ describe('AvalaraAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tax_categories(id, params, CommonData.options)
+		await avalara_accounts.tax_categories(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

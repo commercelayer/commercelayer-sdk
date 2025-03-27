@@ -73,6 +73,7 @@ class Versions extends ApiResource<Version> {
 }
 
 
-export default Versions
+const instance = new Versions()
+export default instance
 
 export type { Version, VersionType }

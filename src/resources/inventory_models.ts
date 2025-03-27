@@ -189,6 +189,7 @@ class InventoryModels extends ApiResource<InventoryModel> {
 }
 
 
-export default InventoryModels
+const instance = new InventoryModels()
+export default instance
 
 export type { InventoryModel, InventoryModelCreate, InventoryModelUpdate, InventoryModelType }

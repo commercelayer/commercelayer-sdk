@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, BuyXPayYPromotion } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, BuyXPayYPromotion, buy_x_pay_y_promotions, markets, order_amount_promotion_rules, sku_list_promotion_rules, coupon_codes_promotion_rules, custom_promotion_rules, sku_lists, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('BuyXPayYPromotions resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -31,13 +32,13 @@ describe('BuyXPayYPromotions resource', () => {
 			expires_at: randomValue('string', 'expires_at'),
 			x: randomValue('integer', 'x'),
 			y: randomValue('integer', 'y'),
-			market: cl.markets.relationship(TestData.id),
-			order_amount_promotion_rule: cl.order_amount_promotion_rules.relationship(TestData.id),
-			sku_list_promotion_rule: cl.sku_list_promotion_rules.relationship(TestData.id),
-			coupon_codes_promotion_rule: cl.coupon_codes_promotion_rules.relationship(TestData.id),
-			custom_promotion_rule: cl.custom_promotion_rules.relationship(TestData.id),
-			sku_list: cl.sku_lists.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			market: markets.relationship(TestData.id),
+			order_amount_promotion_rule: order_amount_promotion_rules.relationship(TestData.id),
+			sku_list_promotion_rule: sku_list_promotion_rules.relationship(TestData.id),
+			coupon_codes_promotion_rule: coupon_codes_promotion_rules.relationship(TestData.id),
+			custom_promotion_rule: custom_promotion_rules.relationship(TestData.id),
+			sku_list: sku_lists.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -49,11 +50,11 @@ describe('BuyXPayYPromotions resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isBuyXPayYPromotion(data.data)).toBeTruthy()
+      expect(buy_x_pay_y_promotions.isBuyXPayYPromotion(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await buy_x_pay_y_promotions.create(resData, params, CommonData.options)
       .then((res: BuyXPayYPromotion) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -63,7 +64,7 @@ describe('BuyXPayYPromotions resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -75,7 +76,7 @@ describe('BuyXPayYPromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await buy_x_pay_y_promotions.retrieve(id, params, CommonData.options)
       .then((res: BuyXPayYPromotion) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -85,7 +86,7 @@ describe('BuyXPayYPromotions resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -99,7 +100,7 @@ describe('BuyXPayYPromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await buy_x_pay_y_promotions.update(resData, params, CommonData.options)
       .then((res: BuyXPayYPromotion) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -109,7 +110,7 @@ describe('BuyXPayYPromotions resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -119,7 +120,7 @@ describe('BuyXPayYPromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await buy_x_pay_y_promotions.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -128,7 +129,7 @@ describe('BuyXPayYPromotions resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -139,7 +140,7 @@ describe('BuyXPayYPromotions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await buy_x_pay_y_promotions.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -148,12 +149,12 @@ describe('BuyXPayYPromotions resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isBuyXPayYPromotion(resource)).toBeTruthy()
+    expect(buy_x_pay_y_promotions.isBuyXPayYPromotion(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = buy_x_pay_y_promotions.type()
     expect(type).toBe(resourceType)
 
   })
@@ -161,12 +162,12 @@ describe('BuyXPayYPromotions resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = buy_x_pay_y_promotions.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = buy_x_pay_y_promotions.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -175,7 +176,7 @@ describe('BuyXPayYPromotions resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -201,7 +202,7 @@ describe('BuyXPayYPromotions resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as BuyXPayYPromotion
+    const res = buy_x_pay_y_promotions.parse(payload) as BuyXPayYPromotion
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -210,10 +211,19 @@ describe('BuyXPayYPromotions resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(buy_x_pay_y_promotions)
+		expect(buy_x_pay_y_promotions.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	test(resourceType + '.market', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -225,7 +235,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -233,8 +243,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.market stop */
 	
 
+	
 	/* relationship.order_amount_promotion_rule start */
-	it(resourceType + '.order_amount_promotion_rule', async () => {
+	test(resourceType + '.order_amount_promotion_rule', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { order_amount_promotion_rules: CommonData.paramsFields } }
@@ -246,7 +257,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_amount_promotion_rule(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.order_amount_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -254,8 +265,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.order_amount_promotion_rule stop */
 	
 
+	
 	/* relationship.sku_list_promotion_rule start */
-	it(resourceType + '.sku_list_promotion_rule', async () => {
+	test(resourceType + '.sku_list_promotion_rule', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { sku_list_promotion_rules: CommonData.paramsFields } }
@@ -267,7 +279,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_list_promotion_rule(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.sku_list_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -275,8 +287,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.sku_list_promotion_rule stop */
 	
 
+	
 	/* relationship.coupon_codes_promotion_rule start */
-	it(resourceType + '.coupon_codes_promotion_rule', async () => {
+	test(resourceType + '.coupon_codes_promotion_rule', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { coupon_codes_promotion_rules: CommonData.paramsFields } }
@@ -288,7 +301,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].coupon_codes_promotion_rule(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.coupon_codes_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -296,8 +309,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.coupon_codes_promotion_rule stop */
 	
 
+	
 	/* relationship.custom_promotion_rule start */
-	it(resourceType + '.custom_promotion_rule', async () => {
+	test(resourceType + '.custom_promotion_rule', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { custom_promotion_rules: CommonData.paramsFields } }
@@ -309,7 +323,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].custom_promotion_rule(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.custom_promotion_rule(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -317,8 +331,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.custom_promotion_rule stop */
 	
 
+	
 	/* relationship.sku_list start */
-	it(resourceType + '.sku_list', async () => {
+	test(resourceType + '.sku_list', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { sku_lists: CommonData.paramsFields } }
@@ -330,7 +345,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_list(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.sku_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -338,8 +353,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.sku_list stop */
 	
 
+	
 	/* relationship.coupons start */
-	it(resourceType + '.coupons', async () => {
+	test(resourceType + '.coupons', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { coupons: CommonData.paramsFields } }
@@ -351,7 +367,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].coupons(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.coupons(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -359,8 +375,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.coupons stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -372,7 +389,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -380,8 +397,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -393,7 +411,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -401,8 +419,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.tags start */
-	it(resourceType + '.tags', async () => {
+	test(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
@@ -414,7 +433,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -422,8 +441,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.tags stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -435,7 +455,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -443,8 +463,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.skus start */
-	it(resourceType + '.skus', async () => {
+	test(resourceType + '.skus', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { skus: CommonData.paramsFields } }
@@ -456,7 +477,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].skus(id, params, CommonData.options)
+		await buy_x_pay_y_promotions.skus(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -465,8 +486,9 @@ describe('BuyXPayYPromotions resource', () => {
 	
   
 
+	
 	/* trigger._disable start */
-	it(resourceType + '._disable', async () => {
+	test(resourceType + '._disable', async () => {
 	
 		let triggerAttr = '_disable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -483,7 +505,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._disable(id, {}, CommonData.options)
+		await buy_x_pay_y_promotions._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -491,8 +513,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* trigger._disable stop */
 	
 
+	
 	/* trigger._enable start */
-	it(resourceType + '._enable', async () => {
+	test(resourceType + '._enable', async () => {
 	
 		let triggerAttr = '_enable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -509,7 +532,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._enable(id, {}, CommonData.options)
+		await buy_x_pay_y_promotions._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -517,8 +540,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* trigger._enable stop */
 	
 
+	
 	/* trigger._add_tags start */
-	it(resourceType + '._add_tags', async () => {
+	test(resourceType + '._add_tags', async () => {
 	
 		let triggerAttr = '_add_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -535,7 +559,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await buy_x_pay_y_promotions._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -543,8 +567,9 @@ describe('BuyXPayYPromotions resource', () => {
 	/* trigger._add_tags stop */
 	
 
+	
 	/* trigger._remove_tags start */
-	it(resourceType + '._remove_tags', async () => {
+	test(resourceType + '._remove_tags', async () => {
 	
 		let triggerAttr = '_remove_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -561,7 +586,7 @@ describe('BuyXPayYPromotions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await buy_x_pay_y_promotions._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

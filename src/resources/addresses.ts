@@ -400,6 +400,7 @@ class Addresses extends ApiResource<Address> {
 }
 
 
-export default Addresses
+const instance = new Addresses()
+export default instance
 
 export type { Address, AddressCreate, AddressUpdate, AddressType }

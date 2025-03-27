@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, Package } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, Package, packages, stock_locations } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('Packages resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -31,7 +32,7 @@ describe('Packages resource', () => {
 			width: randomValue('number', 'width'),
 			height: randomValue('number', 'height'),
 			unit_of_length: randomValue('string', 'unit_of_length'),
-			stock_location: cl.stock_locations.relationship(TestData.id),
+			stock_location: stock_locations.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -43,11 +44,11 @@ describe('Packages resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isPackage(data.data)).toBeTruthy()
+      expect(packages.isPackage(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await packages.create(resData, params, CommonData.options)
       .then((res: Package) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -57,7 +58,7 @@ describe('Packages resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -69,7 +70,7 @@ describe('Packages resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await packages.retrieve(id, params, CommonData.options)
       .then((res: Package) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -79,7 +80,7 @@ describe('Packages resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -93,7 +94,7 @@ describe('Packages resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await packages.update(resData, params, CommonData.options)
       .then((res: Package) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -103,7 +104,7 @@ describe('Packages resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -113,7 +114,7 @@ describe('Packages resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await packages.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -122,7 +123,7 @@ describe('Packages resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -133,7 +134,7 @@ describe('Packages resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await packages.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -142,12 +143,12 @@ describe('Packages resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isPackage(resource)).toBeTruthy()
+    expect(packages.isPackage(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = packages.type()
     expect(type).toBe(resourceType)
 
   })
@@ -155,12 +156,12 @@ describe('Packages resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = packages.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = packages.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -169,7 +170,7 @@ describe('Packages resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -195,7 +196,7 @@ describe('Packages resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Package
+    const res = packages.parse(payload) as Package
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -204,10 +205,19 @@ describe('Packages resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(packages)
+		expect(packages.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.stock_location start */
-	it(resourceType + '.stock_location', async () => {
+	test(resourceType + '.stock_location', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_locations: CommonData.paramsFields } }
@@ -219,7 +229,7 @@ describe('Packages resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_location(id, params, CommonData.options)
+		await packages.stock_location(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -227,8 +237,9 @@ describe('Packages resource', () => {
 	/* relationship.stock_location stop */
 	
 
+	
 	/* relationship.parcels start */
-	it(resourceType + '.parcels', async () => {
+	test(resourceType + '.parcels', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { parcels: CommonData.paramsFields } }
@@ -240,7 +251,7 @@ describe('Packages resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].parcels(id, params, CommonData.options)
+		await packages.parcels(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -248,8 +259,9 @@ describe('Packages resource', () => {
 	/* relationship.parcels stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -261,7 +273,7 @@ describe('Packages resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await packages.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -269,8 +281,9 @@ describe('Packages resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -282,7 +295,7 @@ describe('Packages resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await packages.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -225,6 +225,7 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 }
 
 
-export default LineItemOptions
+const instance = new LineItemOptions()
+export default instance
 
 export type { LineItemOption, LineItemOptionCreate, LineItemOptionUpdate, LineItemOptionType }

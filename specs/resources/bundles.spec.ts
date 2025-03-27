@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, Bundle } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, Bundle, bundles, markets, sku_lists, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,14 +24,14 @@ describe('Bundles resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			code: randomValue('string', 'code'),
 			name: randomValue('string', 'name'),
-			market: cl.markets.relationship(TestData.id),
-			sku_list: cl.sku_lists.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			market: markets.relationship(TestData.id),
+			sku_list: sku_lists.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +43,11 @@ describe('Bundles resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isBundle(data.data)).toBeTruthy()
+      expect(bundles.isBundle(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await bundles.create(resData, params, CommonData.options)
       .then((res: Bundle) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -56,7 +57,7 @@ describe('Bundles resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -68,7 +69,7 @@ describe('Bundles resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await bundles.retrieve(id, params, CommonData.options)
       .then((res: Bundle) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -78,7 +79,7 @@ describe('Bundles resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -92,7 +93,7 @@ describe('Bundles resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await bundles.update(resData, params, CommonData.options)
       .then((res: Bundle) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -102,7 +103,7 @@ describe('Bundles resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -112,7 +113,7 @@ describe('Bundles resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await bundles.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -121,7 +122,7 @@ describe('Bundles resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -132,7 +133,7 @@ describe('Bundles resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await bundles.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,12 +142,12 @@ describe('Bundles resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isBundle(resource)).toBeTruthy()
+    expect(bundles.isBundle(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = bundles.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,12 +155,12 @@ describe('Bundles resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = bundles.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = bundles.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -168,7 +169,7 @@ describe('Bundles resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -194,7 +195,7 @@ describe('Bundles resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Bundle
+    const res = bundles.parse(payload) as Bundle
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -203,10 +204,19 @@ describe('Bundles resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(bundles)
+		expect(bundles.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	test(resourceType + '.market', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -218,7 +228,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await bundles.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -226,8 +236,9 @@ describe('Bundles resource', () => {
 	/* relationship.market stop */
 	
 
+	
 	/* relationship.sku_list start */
-	it(resourceType + '.sku_list', async () => {
+	test(resourceType + '.sku_list', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { sku_lists: CommonData.paramsFields } }
@@ -239,7 +250,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_list(id, params, CommonData.options)
+		await bundles.sku_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,8 +258,9 @@ describe('Bundles resource', () => {
 	/* relationship.sku_list stop */
 	
 
+	
 	/* relationship.skus start */
-	it(resourceType + '.skus', async () => {
+	test(resourceType + '.skus', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { skus: CommonData.paramsFields } }
@@ -260,7 +272,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].skus(id, params, CommonData.options)
+		await bundles.skus(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -268,8 +280,9 @@ describe('Bundles resource', () => {
 	/* relationship.skus stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -281,7 +294,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await bundles.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -289,8 +302,9 @@ describe('Bundles resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -302,7 +316,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await bundles.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -310,8 +324,9 @@ describe('Bundles resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.tags start */
-	it(resourceType + '.tags', async () => {
+	test(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
@@ -323,7 +338,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await bundles.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -331,8 +346,9 @@ describe('Bundles resource', () => {
 	/* relationship.tags stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -344,7 +360,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await bundles.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -353,8 +369,9 @@ describe('Bundles resource', () => {
 	
   
 
+	
 	/* trigger._compute_price_amount start */
-	it(resourceType + '._compute_price_amount', async () => {
+	test(resourceType + '._compute_price_amount', async () => {
 	
 		let triggerAttr = '_compute_price_amount'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -371,7 +388,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._compute_price_amount(id, {}, CommonData.options)
+		await bundles._compute_price_amount(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -379,8 +396,9 @@ describe('Bundles resource', () => {
 	/* trigger._compute_price_amount stop */
 	
 
+	
 	/* trigger._compute_compare_at_amount start */
-	it(resourceType + '._compute_compare_at_amount', async () => {
+	test(resourceType + '._compute_compare_at_amount', async () => {
 	
 		let triggerAttr = '_compute_compare_at_amount'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -397,7 +415,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._compute_compare_at_amount(id, {}, CommonData.options)
+		await bundles._compute_compare_at_amount(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -405,8 +423,9 @@ describe('Bundles resource', () => {
 	/* trigger._compute_compare_at_amount stop */
 	
 
+	
 	/* trigger._add_tags start */
-	it(resourceType + '._add_tags', async () => {
+	test(resourceType + '._add_tags', async () => {
 	
 		let triggerAttr = '_add_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -423,7 +442,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await bundles._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -431,8 +450,9 @@ describe('Bundles resource', () => {
 	/* trigger._add_tags stop */
 	
 
+	
 	/* trigger._remove_tags start */
-	it(resourceType + '._remove_tags', async () => {
+	test(resourceType + '._remove_tags', async () => {
 	
 		let triggerAttr = '_remove_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -449,7 +469,7 @@ describe('Bundles resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await bundles._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, Event } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, Event, events } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('Events resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -35,7 +36,7 @@ describe('Events resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await events.retrieve(id, params, CommonData.options)
       .then((res: Event) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -45,7 +46,7 @@ describe('Events resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -59,7 +60,7 @@ describe('Events resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await events.update(resData, params, CommonData.options)
       .then((res: Event) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -69,7 +70,7 @@ describe('Events resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -80,7 +81,7 @@ describe('Events resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await events.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -89,12 +90,12 @@ describe('Events resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isEvent(resource)).toBeTruthy()
+    expect(events.isEvent(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = events.type()
     expect(type).toBe(resourceType)
 
   })
@@ -102,12 +103,12 @@ describe('Events resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = events.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = events.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -116,7 +117,7 @@ describe('Events resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -142,7 +143,7 @@ describe('Events resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Event
+    const res = events.parse(payload) as Event
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -151,10 +152,19 @@ describe('Events resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(events)
+		expect(events.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.webhooks start */
-	it(resourceType + '.webhooks', async () => {
+	test(resourceType + '.webhooks', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { webhooks: CommonData.paramsFields } }
@@ -166,7 +176,7 @@ describe('Events resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].webhooks(id, params, CommonData.options)
+		await events.webhooks(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -174,8 +184,9 @@ describe('Events resource', () => {
 	/* relationship.webhooks stop */
 	
 
+	
 	/* relationship.last_event_callbacks start */
-	it(resourceType + '.last_event_callbacks', async () => {
+	test(resourceType + '.last_event_callbacks', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_callbacks: CommonData.paramsFields } }
@@ -187,7 +198,7 @@ describe('Events resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].last_event_callbacks(id, params, CommonData.options)
+		await events.last_event_callbacks(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -196,8 +207,9 @@ describe('Events resource', () => {
 	
   
 
+	
 	/* trigger._trigger start */
-	it(resourceType + '._trigger', async () => {
+	test(resourceType + '._trigger', async () => {
 	
 		let triggerAttr = '_trigger'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -214,7 +226,7 @@ describe('Events resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._trigger(id, {}, CommonData.options)
+		await events._trigger(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

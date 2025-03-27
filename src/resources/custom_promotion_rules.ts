@@ -114,6 +114,7 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 }
 
 
-export default CustomPromotionRules
+const instance = new CustomPromotionRules()
+export default instance
 
 export type { CustomPromotionRule, CustomPromotionRuleCreate, CustomPromotionRuleUpdate, CustomPromotionRuleType }

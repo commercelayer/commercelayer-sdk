@@ -127,6 +127,7 @@ class InventoryStockLocations extends ApiResource<InventoryStockLocation> {
 }
 
 
-export default InventoryStockLocations
+const instance = new InventoryStockLocations()
+export default instance
 
 export type { InventoryStockLocation, InventoryStockLocationCreate, InventoryStockLocationUpdate, InventoryStockLocationType }

@@ -184,6 +184,7 @@ class PriceLists extends ApiResource<PriceList> {
 }
 
 
-export default PriceLists
+const instance = new PriceLists()
+export default instance
 
 export type { PriceList, PriceListCreate, PriceListUpdate, PriceListType }

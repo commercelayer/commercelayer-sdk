@@ -58,7 +58,7 @@ class ApiError extends SdkError {
 
 
 const isRequestError = (error: any): error is TypeError => {
-	return error instanceof TypeError
+	return (error instanceof TypeError) && (error.message !== 'fetch failed')
 }
 
 const isCancelError = (error: any): boolean => {

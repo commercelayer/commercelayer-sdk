@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, LineItemOption } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, LineItemOption, line_item_options, line_items, sku_options, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,14 +24,14 @@ describe('LineItemOptions resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
 			options: randomValue('object', 'options'),
-			line_item: cl.line_items.relationship(TestData.id),
-			sku_option: cl.sku_options.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			line_item: line_items.relationship(TestData.id),
+			sku_option: sku_options.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +43,11 @@ describe('LineItemOptions resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isLineItemOption(data.data)).toBeTruthy()
+      expect(line_item_options.isLineItemOption(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await line_item_options.create(resData, params, CommonData.options)
       .then((res: LineItemOption) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -56,7 +57,7 @@ describe('LineItemOptions resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -68,7 +69,7 @@ describe('LineItemOptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await line_item_options.retrieve(id, params, CommonData.options)
       .then((res: LineItemOption) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -78,7 +79,7 @@ describe('LineItemOptions resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -92,7 +93,7 @@ describe('LineItemOptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await line_item_options.update(resData, params, CommonData.options)
       .then((res: LineItemOption) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -102,7 +103,7 @@ describe('LineItemOptions resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -112,7 +113,7 @@ describe('LineItemOptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await line_item_options.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -121,7 +122,7 @@ describe('LineItemOptions resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -132,7 +133,7 @@ describe('LineItemOptions resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await line_item_options.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,12 +142,12 @@ describe('LineItemOptions resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isLineItemOption(resource)).toBeTruthy()
+    expect(line_item_options.isLineItemOption(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = line_item_options.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,12 +155,12 @@ describe('LineItemOptions resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = line_item_options.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = line_item_options.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -168,7 +169,7 @@ describe('LineItemOptions resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -194,7 +195,7 @@ describe('LineItemOptions resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as LineItemOption
+    const res = line_item_options.parse(payload) as LineItemOption
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -203,10 +204,19 @@ describe('LineItemOptions resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(line_item_options)
+		expect(line_item_options.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.line_item start */
-	it(resourceType + '.line_item', async () => {
+	test(resourceType + '.line_item', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { line_items: CommonData.paramsFields } }
@@ -218,7 +228,7 @@ describe('LineItemOptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].line_item(id, params, CommonData.options)
+		await line_item_options.line_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -226,8 +236,9 @@ describe('LineItemOptions resource', () => {
 	/* relationship.line_item stop */
 	
 
+	
 	/* relationship.sku_option start */
-	it(resourceType + '.sku_option', async () => {
+	test(resourceType + '.sku_option', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { sku_options: CommonData.paramsFields } }
@@ -239,7 +250,7 @@ describe('LineItemOptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_option(id, params, CommonData.options)
+		await line_item_options.sku_option(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,8 +258,9 @@ describe('LineItemOptions resource', () => {
 	/* relationship.sku_option stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -260,7 +272,7 @@ describe('LineItemOptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await line_item_options.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -268,8 +280,9 @@ describe('LineItemOptions resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.tags start */
-	it(resourceType + '.tags', async () => {
+	test(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
@@ -281,7 +294,7 @@ describe('LineItemOptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await line_item_options.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -290,8 +303,9 @@ describe('LineItemOptions resource', () => {
 	
   
 
+	
 	/* trigger._add_tags start */
-	it(resourceType + '._add_tags', async () => {
+	test(resourceType + '._add_tags', async () => {
 	
 		let triggerAttr = '_add_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -308,7 +322,7 @@ describe('LineItemOptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await line_item_options._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -316,8 +330,9 @@ describe('LineItemOptions resource', () => {
 	/* trigger._add_tags stop */
 	
 
+	
 	/* trigger._remove_tags start */
-	it(resourceType + '._remove_tags', async () => {
+	test(resourceType + '._remove_tags', async () => {
 	
 		let triggerAttr = '_remove_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -334,7 +349,7 @@ describe('LineItemOptions resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await line_item_options._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

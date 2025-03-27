@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, ExternalPayment } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, ExternalPayment, external_payments, orders } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,11 +24,11 @@ describe('ExternalPayments resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			payment_source_token: randomValue('string', 'payment_source_token'),
-			order: cl.orders.relationship(TestData.id),
+			order: orders.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -39,11 +40,11 @@ describe('ExternalPayments resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isExternalPayment(data.data)).toBeTruthy()
+      expect(external_payments.isExternalPayment(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await external_payments.create(resData, params, CommonData.options)
       .then((res: ExternalPayment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -53,7 +54,7 @@ describe('ExternalPayments resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -65,7 +66,7 @@ describe('ExternalPayments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await external_payments.retrieve(id, params, CommonData.options)
       .then((res: ExternalPayment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -75,7 +76,7 @@ describe('ExternalPayments resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -89,7 +90,7 @@ describe('ExternalPayments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await external_payments.update(resData, params, CommonData.options)
       .then((res: ExternalPayment) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -99,7 +100,7 @@ describe('ExternalPayments resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -109,7 +110,7 @@ describe('ExternalPayments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await external_payments.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -118,7 +119,7 @@ describe('ExternalPayments resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -129,7 +130,7 @@ describe('ExternalPayments resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await external_payments.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -138,12 +139,12 @@ describe('ExternalPayments resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isExternalPayment(resource)).toBeTruthy()
+    expect(external_payments.isExternalPayment(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = external_payments.type()
     expect(type).toBe(resourceType)
 
   })
@@ -151,12 +152,12 @@ describe('ExternalPayments resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = external_payments.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = external_payments.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -165,7 +166,7 @@ describe('ExternalPayments resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -191,7 +192,7 @@ describe('ExternalPayments resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ExternalPayment
+    const res = external_payments.parse(payload) as ExternalPayment
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -200,10 +201,19 @@ describe('ExternalPayments resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(external_payments)
+		expect(external_payments.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.order start */
-	it(resourceType + '.order', async () => {
+	test(resourceType + '.order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -215,7 +225,7 @@ describe('ExternalPayments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await external_payments.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -223,8 +233,9 @@ describe('ExternalPayments resource', () => {
 	/* relationship.order stop */
 	
 
+	
 	/* relationship.payment_gateway start */
-	it(resourceType + '.payment_gateway', async () => {
+	test(resourceType + '.payment_gateway', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { payment_gateways: CommonData.paramsFields } }
@@ -236,7 +247,7 @@ describe('ExternalPayments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_gateway(id, params, CommonData.options)
+		await external_payments.payment_gateway(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -244,8 +255,9 @@ describe('ExternalPayments resource', () => {
 	/* relationship.payment_gateway stop */
 	
 
+	
 	/* relationship.wallet start */
-	it(resourceType + '.wallet', async () => {
+	test(resourceType + '.wallet', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customer_payment_sources: CommonData.paramsFields } }
@@ -257,7 +269,7 @@ describe('ExternalPayments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].wallet(id, params, CommonData.options)
+		await external_payments.wallet(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -265,8 +277,9 @@ describe('ExternalPayments resource', () => {
 	/* relationship.wallet stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -278,7 +291,7 @@ describe('ExternalPayments resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await external_payments.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -358,6 +358,7 @@ class Returns extends ApiResource<Return> {
 }
 
 
-export default Returns
+const instance = new Returns()
+export default instance
 
 export type { Return, ReturnCreate, ReturnUpdate, ReturnType }

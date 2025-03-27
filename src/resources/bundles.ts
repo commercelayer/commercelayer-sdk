@@ -311,6 +311,7 @@ class Bundles extends ApiResource<Bundle> {
 }
 
 
-export default Bundles
+const instance = new Bundles()
+export default instance
 
 export type { Bundle, BundleCreate, BundleUpdate, BundleType }

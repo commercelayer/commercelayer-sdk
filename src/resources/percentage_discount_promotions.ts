@@ -364,6 +364,7 @@ class PercentageDiscountPromotions extends ApiResource<PercentageDiscountPromoti
 }
 
 
-export default PercentageDiscountPromotions
+const instance = new PercentageDiscountPromotions()
+export default instance
 
 export type { PercentageDiscountPromotion, PercentageDiscountPromotionCreate, PercentageDiscountPromotionUpdate, PercentageDiscountPromotionType }

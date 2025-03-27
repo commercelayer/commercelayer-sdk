@@ -164,6 +164,7 @@ class SubscriptionModels extends ApiResource<SubscriptionModel> {
 }
 
 
-export default SubscriptionModels
+const instance = new SubscriptionModels()
+export default instance
 
 export type { SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate, SubscriptionModelType }

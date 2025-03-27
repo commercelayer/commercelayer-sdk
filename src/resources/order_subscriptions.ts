@@ -347,6 +347,7 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 }
 
 
-export default OrderSubscriptions
+const instance = new OrderSubscriptions()
+export default instance
 
 export type { OrderSubscription, OrderSubscriptionCreate, OrderSubscriptionUpdate, OrderSubscriptionType }

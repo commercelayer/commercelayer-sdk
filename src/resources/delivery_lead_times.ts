@@ -147,6 +147,7 @@ class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 }
 
 
-export default DeliveryLeadTimes
+const instance = new DeliveryLeadTimes()
+export default instance
 
 export type { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeUpdate, DeliveryLeadTimeType }

@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, Void } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, Void, voids } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('Voids resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -35,7 +36,7 @@ describe('Voids resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await voids.retrieve(id, params, CommonData.options)
       .then((res: Void) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -45,7 +46,7 @@ describe('Voids resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -59,7 +60,7 @@ describe('Voids resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await voids.update(resData, params, CommonData.options)
       .then((res: Void) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -69,7 +70,7 @@ describe('Voids resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -80,7 +81,7 @@ describe('Voids resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await voids.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -89,12 +90,12 @@ describe('Voids resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isVoid(resource)).toBeTruthy()
+    expect(voids.isVoid(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = voids.type()
     expect(type).toBe(resourceType)
 
   })
@@ -102,12 +103,12 @@ describe('Voids resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = voids.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = voids.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -116,7 +117,7 @@ describe('Voids resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -142,7 +143,7 @@ describe('Voids resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Void
+    const res = voids.parse(payload) as Void
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -151,10 +152,19 @@ describe('Voids resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(voids)
+		expect(voids.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.order start */
-	it(resourceType + '.order', async () => {
+	test(resourceType + '.order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -166,7 +176,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await voids.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -174,8 +184,9 @@ describe('Voids resource', () => {
 	/* relationship.order stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -187,7 +198,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await voids.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -195,8 +206,9 @@ describe('Voids resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -208,7 +220,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await voids.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -216,8 +228,9 @@ describe('Voids resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -229,7 +242,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await voids.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -237,8 +250,9 @@ describe('Voids resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.reference_authorization start */
-	it(resourceType + '.reference_authorization', async () => {
+	test(resourceType + '.reference_authorization', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { authorizations: CommonData.paramsFields } }
@@ -250,7 +264,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].reference_authorization(id, params, CommonData.options)
+		await voids.reference_authorization(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -259,8 +273,9 @@ describe('Voids resource', () => {
 	
   
 
+	
 	/* trigger._forward start */
-	it(resourceType + '._forward', async () => {
+	test(resourceType + '._forward', async () => {
 	
 		let triggerAttr = '_forward'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -277,7 +292,7 @@ describe('Voids resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._forward(id, {}, CommonData.options)
+		await voids._forward(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

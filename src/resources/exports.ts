@@ -187,6 +187,7 @@ class Exports extends ApiResource<Export> {
 }
 
 
-export default Exports
+const instance = new Exports()
+export default instance
 
 export type { Export, ExportCreate, ExportUpdate, ExportType }

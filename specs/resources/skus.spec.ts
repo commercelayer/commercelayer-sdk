@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, Sku } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, Sku, skus, shipping_categories, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,13 +24,13 @@ describe('Skus resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			code: randomValue('string', 'code'),
 			name: randomValue('string', 'name'),
-			shipping_category: cl.shipping_categories.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			shipping_category: shipping_categories.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -41,11 +42,11 @@ describe('Skus resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isSku(data.data)).toBeTruthy()
+      expect(skus.isSku(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await skus.create(resData, params, CommonData.options)
       .then((res: Sku) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -55,7 +56,7 @@ describe('Skus resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -67,7 +68,7 @@ describe('Skus resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await skus.retrieve(id, params, CommonData.options)
       .then((res: Sku) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -77,7 +78,7 @@ describe('Skus resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -91,7 +92,7 @@ describe('Skus resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await skus.update(resData, params, CommonData.options)
       .then((res: Sku) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -101,7 +102,7 @@ describe('Skus resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -111,7 +112,7 @@ describe('Skus resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await skus.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -120,7 +121,7 @@ describe('Skus resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -131,7 +132,7 @@ describe('Skus resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await skus.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -140,12 +141,12 @@ describe('Skus resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isSku(resource)).toBeTruthy()
+    expect(skus.isSku(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = skus.type()
     expect(type).toBe(resourceType)
 
   })
@@ -153,12 +154,12 @@ describe('Skus resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = skus.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = skus.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -167,7 +168,7 @@ describe('Skus resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -193,7 +194,7 @@ describe('Skus resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Sku
+    const res = skus.parse(payload) as Sku
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -202,10 +203,19 @@ describe('Skus resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(skus)
+		expect(skus.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.shipping_category start */
-	it(resourceType + '.shipping_category', async () => {
+	test(resourceType + '.shipping_category', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipping_categories: CommonData.paramsFields } }
@@ -217,7 +227,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipping_category(id, params, CommonData.options)
+		await skus.shipping_category(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -225,8 +235,9 @@ describe('Skus resource', () => {
 	/* relationship.shipping_category stop */
 	
 
+	
 	/* relationship.prices start */
-	it(resourceType + '.prices', async () => {
+	test(resourceType + '.prices', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { prices: CommonData.paramsFields } }
@@ -238,7 +249,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].prices(id, params, CommonData.options)
+		await skus.prices(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -246,8 +257,9 @@ describe('Skus resource', () => {
 	/* relationship.prices stop */
 	
 
+	
 	/* relationship.stock_items start */
-	it(resourceType + '.stock_items', async () => {
+	test(resourceType + '.stock_items', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_items: CommonData.paramsFields } }
@@ -259,7 +271,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_items(id, params, CommonData.options)
+		await skus.stock_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -267,8 +279,9 @@ describe('Skus resource', () => {
 	/* relationship.stock_items stop */
 	
 
+	
 	/* relationship.stock_reservations start */
-	it(resourceType + '.stock_reservations', async () => {
+	test(resourceType + '.stock_reservations', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_reservations: CommonData.paramsFields } }
@@ -280,7 +293,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_reservations(id, params, CommonData.options)
+		await skus.stock_reservations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -288,8 +301,9 @@ describe('Skus resource', () => {
 	/* relationship.stock_reservations stop */
 	
 
+	
 	/* relationship.delivery_lead_times start */
-	it(resourceType + '.delivery_lead_times', async () => {
+	test(resourceType + '.delivery_lead_times', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { delivery_lead_times: CommonData.paramsFields } }
@@ -301,7 +315,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].delivery_lead_times(id, params, CommonData.options)
+		await skus.delivery_lead_times(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -309,8 +323,9 @@ describe('Skus resource', () => {
 	/* relationship.delivery_lead_times stop */
 	
 
+	
 	/* relationship.sku_options start */
-	it(resourceType + '.sku_options', async () => {
+	test(resourceType + '.sku_options', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { sku_options: CommonData.paramsFields } }
@@ -322,7 +337,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_options(id, params, CommonData.options)
+		await skus.sku_options(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -330,8 +345,9 @@ describe('Skus resource', () => {
 	/* relationship.sku_options stop */
 	
 
+	
 	/* relationship.sku_list_items start */
-	it(resourceType + '.sku_list_items', async () => {
+	test(resourceType + '.sku_list_items', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { sku_list_items: CommonData.paramsFields } }
@@ -343,7 +359,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_list_items(id, params, CommonData.options)
+		await skus.sku_list_items(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -351,8 +367,9 @@ describe('Skus resource', () => {
 	/* relationship.sku_list_items stop */
 	
 
+	
 	/* relationship.sku_lists start */
-	it(resourceType + '.sku_lists', async () => {
+	test(resourceType + '.sku_lists', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { sku_lists: CommonData.paramsFields } }
@@ -364,7 +381,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_lists(id, params, CommonData.options)
+		await skus.sku_lists(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -372,8 +389,9 @@ describe('Skus resource', () => {
 	/* relationship.sku_lists stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -385,7 +403,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await skus.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -393,8 +411,9 @@ describe('Skus resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.links start */
-	it(resourceType + '.links', async () => {
+	test(resourceType + '.links', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { links: CommonData.paramsFields } }
@@ -406,7 +425,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].links(id, params, CommonData.options)
+		await skus.links(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -414,8 +433,9 @@ describe('Skus resource', () => {
 	/* relationship.links stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -427,7 +447,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await skus.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -435,8 +455,9 @@ describe('Skus resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.tags start */
-	it(resourceType + '.tags', async () => {
+	test(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
@@ -448,7 +469,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await skus.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -456,8 +477,9 @@ describe('Skus resource', () => {
 	/* relationship.tags stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -469,7 +491,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await skus.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -477,8 +499,9 @@ describe('Skus resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.jwt_customer start */
-	it(resourceType + '.jwt_customer', async () => {
+	test(resourceType + '.jwt_customer', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customers: CommonData.paramsFields } }
@@ -490,7 +513,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].jwt_customer(id, params, CommonData.options)
+		await skus.jwt_customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -498,8 +521,9 @@ describe('Skus resource', () => {
 	/* relationship.jwt_customer stop */
 	
 
+	
 	/* relationship.jwt_markets start */
-	it(resourceType + '.jwt_markets', async () => {
+	test(resourceType + '.jwt_markets', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -511,7 +535,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].jwt_markets(id, params, CommonData.options)
+		await skus.jwt_markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -519,8 +543,9 @@ describe('Skus resource', () => {
 	/* relationship.jwt_markets stop */
 	
 
+	
 	/* relationship.jwt_stock_locations start */
-	it(resourceType + '.jwt_stock_locations', async () => {
+	test(resourceType + '.jwt_stock_locations', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_locations: CommonData.paramsFields } }
@@ -532,7 +557,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].jwt_stock_locations(id, params, CommonData.options)
+		await skus.jwt_stock_locations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -541,8 +566,9 @@ describe('Skus resource', () => {
 	
   
 
+	
 	/* trigger._add_tags start */
-	it(resourceType + '._add_tags', async () => {
+	test(resourceType + '._add_tags', async () => {
 	
 		let triggerAttr = '_add_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -559,7 +585,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await skus._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -567,8 +593,9 @@ describe('Skus resource', () => {
 	/* trigger._add_tags stop */
 	
 
+	
 	/* trigger._remove_tags start */
-	it(resourceType + '._remove_tags', async () => {
+	test(resourceType + '._remove_tags', async () => {
 	
 		let triggerAttr = '_remove_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -585,7 +612,7 @@ describe('Skus resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await skus._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

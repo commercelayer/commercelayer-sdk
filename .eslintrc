@@ -2,7 +2,23 @@
   "extends": [
     "@commercelayer/eslint-config-ts"
   ],
-  "ignorePatterns": ["test/**/*.ts", "gen/**/*.ts", "specs/**/*.ts", "*.config.js"],
+  "plugins": [
+  ],
+  "ignorePatterns": [
+    "test/**/*.ts",
+    "gen/**/*.ts",
+    "specs/**/*.ts",
+    "*.config.js"
+  ],
+  "globals": {
+    "vi": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022
+  },
+  "env": {
+    
+  },
   "rules": {
     "prettier/prettier": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",

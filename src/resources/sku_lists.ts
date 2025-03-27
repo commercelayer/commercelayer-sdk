@@ -202,6 +202,7 @@ class SkuLists extends ApiResource<SkuList> {
 }
 
 
-export default SkuLists
+const instance = new SkuLists()
+export default instance
 
 export type { SkuList, SkuListCreate, SkuListUpdate, SkuListType }

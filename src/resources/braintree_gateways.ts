@@ -202,6 +202,7 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 }
 
 
-export default BraintreeGateways
+const instance = new BraintreeGateways()
+export default instance
 
 export type { BraintreeGateway, BraintreeGatewayCreate, BraintreeGatewayUpdate, BraintreeGatewayType }
