@@ -1,5 +1,4 @@
 import type { ObjectType } from "../src/types"
-import { SdkError } from "./error"
 // import path from 'node:path'
 
 

@@ -3,143 +3,11 @@ import type { TagType } from './resources/tags'
 import type { VersionType } from './resources/versions'
 import type * as models from './model'
 
-// ##__API_RESOURCES_START__##
-// ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_INSTANCE__## } from './resources/##__RESOURCE_TYPE__##'
-/**
- * ©2025 Commerce Layer Inc.
- **/
-export { default as addresses } from './resources/addresses'
-export { default as adjustments } from './resources/adjustments'
-export { default as adyen_gateways } from './resources/adyen_gateways'
-export { default as adyen_payments } from './resources/adyen_payments'
-export { default as application } from './resources/applications'
-export { default as attachments } from './resources/attachments'
-export { default as authorizations } from './resources/authorizations'
-export { default as avalara_accounts } from './resources/avalara_accounts'
-export { default as axerve_gateways } from './resources/axerve_gateways'
-export { default as axerve_payments } from './resources/axerve_payments'
-export { default as bing_geocoders } from './resources/bing_geocoders'
-export { default as braintree_gateways } from './resources/braintree_gateways'
-export { default as braintree_payments } from './resources/braintree_payments'
-export { default as bundles } from './resources/bundles'
-export { default as buy_x_pay_y_promotions } from './resources/buy_x_pay_y_promotions'
-export { default as captures } from './resources/captures'
-export { default as carrier_accounts } from './resources/carrier_accounts'
-export { default as checkout_com_gateways } from './resources/checkout_com_gateways'
-export { default as checkout_com_payments } from './resources/checkout_com_payments'
-export { default as cleanups } from './resources/cleanups'
-export { default as coupon_codes_promotion_rules } from './resources/coupon_codes_promotion_rules'
-export { default as coupon_recipients } from './resources/coupon_recipients'
-export { default as coupons } from './resources/coupons'
-export { default as custom_promotion_rules } from './resources/custom_promotion_rules'
-export { default as customer_addresses } from './resources/customer_addresses'
-export { default as customer_groups } from './resources/customer_groups'
-export { default as customer_password_resets } from './resources/customer_password_resets'
-export { default as customer_payment_sources } from './resources/customer_payment_sources'
-export { default as customer_subscriptions } from './resources/customer_subscriptions'
-export { default as customers } from './resources/customers'
-export { default as delivery_lead_times } from './resources/delivery_lead_times'
-export { default as discount_engine_items } from './resources/discount_engine_items'
-export { default as discount_engines } from './resources/discount_engines'
-export { default as easypost_pickups } from './resources/easypost_pickups'
-export { default as event_callbacks } from './resources/event_callbacks'
-export { default as events } from './resources/events'
-export { default as exports } from './resources/exports'
-export { default as external_gateways } from './resources/external_gateways'
-export { default as external_payments } from './resources/external_payments'
-export { default as external_promotions } from './resources/external_promotions'
-export { default as external_tax_calculators } from './resources/external_tax_calculators'
-export { default as fixed_amount_promotions } from './resources/fixed_amount_promotions'
-export { default as fixed_price_promotions } from './resources/fixed_price_promotions'
-export { default as flex_promotions } from './resources/flex_promotions'
-export { default as free_gift_promotions } from './resources/free_gift_promotions'
-export { default as free_shipping_promotions } from './resources/free_shipping_promotions'
-export { default as geocoders } from './resources/geocoders'
-export { default as gift_card_recipients } from './resources/gift_card_recipients'
-export { default as gift_cards } from './resources/gift_cards'
-export { default as google_geocoders } from './resources/google_geocoders'
-export { default as imports } from './resources/imports'
-export { default as in_stock_subscriptions } from './resources/in_stock_subscriptions'
-export { default as inventory_models } from './resources/inventory_models'
-export { default as inventory_return_locations } from './resources/inventory_return_locations'
-export { default as inventory_stock_locations } from './resources/inventory_stock_locations'
-export { default as klarna_gateways } from './resources/klarna_gateways'
-export { default as klarna_payments } from './resources/klarna_payments'
-export { default as line_item_options } from './resources/line_item_options'
-export { default as line_items } from './resources/line_items'
-export { default as links } from './resources/links'
-export { default as manual_gateways } from './resources/manual_gateways'
-export { default as manual_tax_calculators } from './resources/manual_tax_calculators'
-export { default as markets } from './resources/markets'
-export { default as merchants } from './resources/merchants'
-export { default as notifications } from './resources/notifications'
-export { default as order_amount_promotion_rules } from './resources/order_amount_promotion_rules'
-export { default as order_copies } from './resources/order_copies'
-export { default as order_factories } from './resources/order_factories'
-export { default as order_subscription_items } from './resources/order_subscription_items'
-export { default as order_subscriptions } from './resources/order_subscriptions'
-export { default as orders } from './resources/orders'
-export { default as organization } from './resources/organizations'
-export { default as packages } from './resources/packages'
-export { default as parcel_line_items } from './resources/parcel_line_items'
-export { default as parcels } from './resources/parcels'
-export { default as payment_gateways } from './resources/payment_gateways'
-export { default as payment_methods } from './resources/payment_methods'
-export { default as payment_options } from './resources/payment_options'
-export { default as paypal_gateways } from './resources/paypal_gateways'
-export { default as paypal_payments } from './resources/paypal_payments'
-export { default as percentage_discount_promotions } from './resources/percentage_discount_promotions'
-export { default as pickups } from './resources/pickups'
-export { default as price_frequency_tiers } from './resources/price_frequency_tiers'
-export { default as price_list_schedulers } from './resources/price_list_schedulers'
-export { default as price_lists } from './resources/price_lists'
-export { default as price_tiers } from './resources/price_tiers'
-export { default as price_volume_tiers } from './resources/price_volume_tiers'
-export { default as prices } from './resources/prices'
-export { default as promotion_rules } from './resources/promotion_rules'
-export { default as promotions } from './resources/promotions'
-export { default as recurring_order_copies } from './resources/recurring_order_copies'
-export { default as refunds } from './resources/refunds'
-export { default as reserved_stocks } from './resources/reserved_stocks'
-export { default as resource_errors } from './resources/resource_errors'
-export { default as return_line_items } from './resources/return_line_items'
-export { default as returns } from './resources/returns'
-export { default as satispay_gateways } from './resources/satispay_gateways'
-export { default as satispay_payments } from './resources/satispay_payments'
-export { default as shipments } from './resources/shipments'
-export { default as shipping_categories } from './resources/shipping_categories'
-export { default as shipping_method_tiers } from './resources/shipping_method_tiers'
-export { default as shipping_methods } from './resources/shipping_methods'
-export { default as shipping_weight_tiers } from './resources/shipping_weight_tiers'
-export { default as shipping_zones } from './resources/shipping_zones'
-export { default as sku_list_items } from './resources/sku_list_items'
-export { default as sku_list_promotion_rules } from './resources/sku_list_promotion_rules'
-export { default as sku_lists } from './resources/sku_lists'
-export { default as sku_options } from './resources/sku_options'
-export { default as skus } from './resources/skus'
-export { default as stock_items } from './resources/stock_items'
-export { default as stock_line_items } from './resources/stock_line_items'
-export { default as stock_locations } from './resources/stock_locations'
-export { default as stock_reservations } from './resources/stock_reservations'
-export { default as stock_transfers } from './resources/stock_transfers'
-export { default as stores } from './resources/stores'
-export { default as stripe_gateways } from './resources/stripe_gateways'
-export { default as stripe_payments } from './resources/stripe_payments'
-export { default as stripe_tax_accounts } from './resources/stripe_tax_accounts'
-export { default as subscription_models } from './resources/subscription_models'
-export { default as tags } from './resources/tags'
-export { default as talon_one_accounts } from './resources/talon_one_accounts'
-export { default as tax_calculators } from './resources/tax_calculators'
-export { default as tax_categories } from './resources/tax_categories'
-export { default as tax_rules } from './resources/tax_rules'
-export { default as taxjar_accounts } from './resources/taxjar_accounts'
-export { default as transactions } from './resources/transactions'
-export { default as versions } from './resources/versions'
-export { default as vertex_accounts } from './resources/vertex_accounts'
-export { default as voids } from './resources/voids'
-export { default as webhooks } from './resources/webhooks'
-export { default as wire_transfers } from './resources/wire_transfers'
-// ##__API_RESOURCES_STOP__##
+
+// Autogenerated schema version number, do not remove this line
+const OPEN_API_SCHEMA_VERSION = '7.8.2'
+export { OPEN_API_SCHEMA_VERSION }
+
 
 
 /**
@@ -426,21 +294,6 @@ export const singletonList: ResourceTypeLock[] = [
 	'organizations'
 	// ##__API_RESOURCE_SINGLETON_STOP__##
 ] as const
-
-
-/*
-type ResourceInfo = {
-	name: string;
-	type: string;
-	api: string;
-}
-
-
-export const resourceMap: { [res: string]: ResourceInfo } = {
-	// ##__API_RESOURCE_MAP_START__##
-	// ##__API_RESOURCE_MAP_STOP__##
-} as const
-*/
 
 
 // Retrievable resources
