@@ -1,10 +1,10 @@
 
 // import * as api from './api'
 import type { ResourceTypeLock } from './api'
-import { SdkError, type ApiError } from './error'
+import { type ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj, InterceptorManager } from './interceptor'
 import { CommerceLayerStatic } from './static'
-import ResourceAdapter, { ApiResourceAdapter, type ResourcesInitConfig } from './resource'
+import { ApiResourceAdapter, type ResourcesInitConfig, type ResourceAdapter } from './resource'
 
 
 import Debug from './debug'
@@ -33,9 +33,6 @@ class CommerceLayerClient {
 
 	private static cl: CommerceLayerClient
 
-	// readonly #adapter: ResourceAdapter
-	// #slug: string
-
 	// ##__CL_RESOURCES_DEF_START__##
 	// ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##
 	// ##__CL_RESOURCES_DEF_STOP__##
@@ -53,8 +50,7 @@ class CommerceLayerClient {
 
 		debug('new commercelayer instance %O', config)
 
-		/* this.#adapter = */ApiResourceAdapter.get(config) // new ResourceAdapter(config)
-		// this.#slug = config.organization ?? ''
+		ApiResourceAdapter.init(config)
 
 		// ##__CL_RESOURCES_INIT_START__##
 		// ##__CL_RESOURCES_INIT_TEMPLATE:: ##__TAB__####__TAB__##this.##__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)
@@ -72,8 +68,8 @@ class CommerceLayerClient {
 	private get interceptors(): InterceptorManager { return this.adapter.client.interceptors }
 
 
-	private localConfig(config: Partial<SdkConfig> & { organization?: string }): void {
-		// if (config.organization) this.#slug = config.organization
+	private localConfig(config: Partial<SdkConfig>): void {
+		// if (config.abc) this.abc = config.abc
 	}
 
 
@@ -84,8 +80,6 @@ class CommerceLayerClient {
 		// CommerceLayer config
 		this.localConfig(config)
 		// ResourceAdapter config
-		// To rebuild baseUrl in client in case only the domain is defined
-		// if (!config.organization) config.organization = this.currentOrganization
 		this.adapter.config(config)
 
 		return this
