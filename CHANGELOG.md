@@ -1,3 +1,9 @@
+## [7.0.0-beta.14](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.13...v7.0.0-beta.14) (2025-03-27)
+
+### Bug Fixes
+
+* fix imports and ResourceAdapter ([222572a](https://github.com/commercelayer/commercelayer-sdk/commit/222572a7279b1d191834fa7f7268d51c75a7b452))
+
 ## [7.0.0-beta.13](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.12...v7.0.0-beta.13) (2025-03-24)
 
 ### Features
