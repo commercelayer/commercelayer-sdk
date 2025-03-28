@@ -20530,7 +20530,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.",
+                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'aborted', 'failed', or 'completed'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -20541,6 +20541,7 @@
                     "enum": [
                         "pending",
                         "in_progress",
+                        "aborted",
                         "failed",
                         "completed"
                     ]
@@ -20842,7 +20843,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.",
+                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'aborted', 'failed', or 'completed'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -20853,6 +20854,7 @@
                     "enum": [
                         "pending",
                         "in_progress",
+                        "aborted",
                         "failed",
                         "completed"
                     ]
@@ -27513,7 +27515,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.",
+                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'aborted', 'failed', or 'completed'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -27524,6 +27526,7 @@
                     "enum": [
                         "pending",
                         "in_progress",
+                        "aborted",
                         "failed",
                         "completed"
                     ]

@@ -3,7 +3,7 @@ import ApiClient, { type ApiClientInitConfig } from './client'
 import { denormalize, normalize, type DocWithData } from './jsonapi'
 import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } from './query'
 import { generateQueryStringParams, isParamsList } from './query'
-import type { ResourceTypeLock } from './api'
+import type { ResourceTypeLock } from './enum'
 import config from './config'
 import { SdkError } from './error'
 

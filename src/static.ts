@@ -1,6 +1,8 @@
 
-import { OPEN_API_SCHEMA_VERSION, resourceList, singletonList, type ResourceTypeLock } from './api'
-import { SdkError, ApiError} from './error'
+import type { CreatableResourceType, DeletableResourceType, TaggableResourceType, UpdatableResourceType, VersionableResourceType, ResourceTypeLock } from './enum'
+import { getResources, getSingletons, isCreatable, isDeletable, isSingleton, isTaggable, isUpdatable, isVersionable } from './enum'
+import { OPEN_API_SCHEMA_VERSION } from './commercelayer'
+import { SdkError, ApiError, isSdkError, isApiError} from './error'
 import { isTokenExpired } from './util'
 
 
@@ -8,23 +10,43 @@ import { isTokenExpired } from './util'
 export const CommerceLayerStatic = {
 
 	resources: (sort?: boolean): readonly string[] => {
-		return sort? [ ...resourceList ].sort() : resourceList
+		return getResources(sort)
 	},
 
 	singletons: (sort?: boolean): readonly string[] => {
-		return sort? [ ...singletonList ].sort() : singletonList
+		return getSingletons(sort)
 	},
 
 	isSingleton: (resource: ResourceTypeLock): boolean => {
-		return singletonList.includes(resource)
+		return isSingleton(resource)
+	},
+
+	isCreatable: (resource: ResourceTypeLock): boolean => {
+		return isCreatable(resource)
+	},
+
+	isUpdatable: (resource: ResourceTypeLock): boolean => {
+		return isUpdatable(resource)
+	},
+
+	isDeletable: (resource: ResourceTypeLock): boolean => {
+		return isDeletable(resource)
+	},
+
+	isTaggable: (resource: ResourceTypeLock): boolean => {
+		return isTaggable(resource)
+	},
+
+	isVersionable: (resource: ResourceTypeLock): boolean => {
+		return isVersionable(resource)
 	},
 
 	isSdkError: (error: unknown): error is SdkError => {
-		return SdkError.isSdkError(error)
+		return isSdkError(error)
 	},
 
 	isApiError: (error: unknown): error is ApiError => {
-		return ApiError.isApiError(error)
+		return isApiError(error)
 	},
 
 	isTokenExpired: (token: string): boolean => {

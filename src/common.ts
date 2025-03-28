@@ -1,5 +1,5 @@
 
-import { type ResourceTypeLock, resourceList } from './api'
+import { type ResourceTypeLock, resourceList } from './enum'
 import type { ResourceId, ResourceType } from './resource'
 
 

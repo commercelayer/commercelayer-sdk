@@ -1,7 +1,8 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, CommerceLayerStatic, OPEN_API_SCHEMA_VERSION } from '../src'
+import { CommerceLayerClient, CommerceLayerStatic, ResourceTypeLock } from '../src'
 import { getClient } from '../test/common'
+import { OPEN_API_SCHEMA_VERSION } from '../src/commercelayer'
 
 
 let cl: CommerceLayerClient
@@ -38,16 +39,33 @@ describe('SDK:static suite', () => {
 	})
 
 
-	/*
-	test('static.init', async () => {
-		const client = CommerceLayerStatic.init({ organization: organization, accessToken: 'fake-access-token' })
-		expect(client).not.toBeNull()
-	})
-		*/
-
 	test('static.schema', async () => {
 		const sver = CommerceLayerStatic.schemaVersion
 		expect(sver).toBe(OPEN_API_SCHEMA_VERSION)
+	})
+
+	test('static.creatable', async () => {
+		expect(CommerceLayerStatic.isCreatable('customers')).toBeTruthy()
+	})
+
+
+	test('static.updatable', async () => {
+		expect(CommerceLayerStatic.isUpdatable('customers')).toBeTruthy()
+	})
+
+
+	test('static.deletable', async () => {
+		expect(CommerceLayerStatic.isDeletable('customers')).toBeTruthy()
+	})
+
+
+	test('static.taggable', async () => {
+		expect(CommerceLayerStatic.isTaggable('orders')).toBeTruthy()
+	})
+
+
+	test('static.versionable', async () => {
+		expect(CommerceLayerStatic.isVersionable('orders')).toBeTruthy()
 	})
 
 })

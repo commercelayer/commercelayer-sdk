@@ -321,17 +321,11 @@ const updateModelTypes = (resources: Record<string, ApiRes>): void => {
 
 const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
-	const filePath = 'src/api.ts'
+	const filePath = 'src/enum.ts'
 
 	const cl = readFileSync(filePath, { encoding: 'utf-8' })
 
 	const lines = cl.split('\n')
-
-	// OpenAPI schema version
-	if (global.version) {
-		const schemaLine = findLine('const OPEN_API_SCHEMA_VERSION', lines)
-		if (schemaLine.index >= 0) lines[schemaLine.index] = `const OPEN_API_SCHEMA_VERSION = '${global.version}'`
-	}
 
 	const types: string[] = []
 
@@ -366,10 +360,6 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
 	})
 
-	const typeStartIdx = findLine('##__API_RESOURCE_TYPES_START__##', lines).index + 1
-	const typeStopIdx = findLine('##__API_RESOURCE_TYPES_STOP__##', lines).index
-	lines.splice(typeStartIdx, typeStopIdx - typeStartIdx, types.join('\n|'))
-
 	const resStartIdx = findLine('##__API_RESOURCE_LIST_START__##', lines).index + 1
 	const resStopIdx = findLine('##__API_RESOURCE_LIST_STOP__##', lines).index
 	lines.splice(resStartIdx, resStopIdx - resStartIdx, types.join(',\n'))
@@ -384,23 +374,23 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
 	const rcStartIdx = findLine('##__API_RESOURCE_CREATABLE_START__##', lines).index + 1
 	const rcStopIdx = findLine('##__API_RESOURCE_CREATABLE_STOP__##', lines).index
-	lines.splice(rcStartIdx, rcStopIdx - rcStartIdx, creatables.join('\n|'))
+	lines.splice(rcStartIdx, rcStopIdx - rcStartIdx, creatables.join(',\n'))
 
 	const ruStartIdx = findLine('##__API_RESOURCE_UPDATABLE_START__##', lines).index + 1
 	const ruStopIdx = findLine('##__API_RESOURCE_UPDATABLE_STOP__##', lines).index
-	lines.splice(ruStartIdx, ruStopIdx - ruStartIdx, updatables.join('\n|'))
+	lines.splice(ruStartIdx, ruStopIdx - ruStartIdx, updatables.join(',\n'))
 
 	const rdStartIdx = findLine('##__API_RESOURCE_DELETABLE_START__##', lines).index + 1
 	const rdStopIdx = findLine('##__API_RESOURCE_DELETABLE_STOP__##', lines).index
-	lines.splice(rdStartIdx, rdStopIdx - rdStartIdx, deletables.join('\n|'))
+	lines.splice(rdStartIdx, rdStopIdx - rdStartIdx, deletables.join(',\n'))
 
 	const rtStartIdx = findLine('##__API_RESOURCE_TAGGABLE_START__##', lines).index + 1
 	const rtStopIdx = findLine('##__API_RESOURCE_TAGGABLE_STOP__##', lines).index
-	lines.splice(rtStartIdx, rtStopIdx - rtStartIdx, taggables.join('\n|'))
+	lines.splice(rtStartIdx, rtStopIdx - rtStartIdx, taggables.join(',\n'))
 
 	const rvStartIdx = findLine('##__API_RESOURCE_VERSIONABLE_START__##', lines).index + 1
 	const rvStopIdx = findLine('##__API_RESOURCE_VERSIONABLE_STOP__##', lines).index
-	lines.splice(rvStartIdx, rvStopIdx - rvStartIdx, versionables.join('\n|'))
+	lines.splice(rvStartIdx, rvStopIdx - rvStartIdx, versionables.join(',\n'))
 
 	const rfStartIdx = findLine('##__API_RESOURCE_FIELDS_START__##', lines).index + 1
 	const rfStopIdx = findLine('##__API_RESOURCE_FIELDS_STOP__##', lines).index
@@ -420,7 +410,7 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
 const updateAdapters = (resources: Record<string, ApiRes>): void => {
 
-	const filePath = 'src/adapter.ts'
+	const filePath = 'src/api.ts'
 
 	const cl = readFileSync(filePath, { encoding: 'utf-8' })
 

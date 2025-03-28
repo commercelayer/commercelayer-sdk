@@ -2,7 +2,7 @@
 import type { Resource, ResourceType } from "./resource"
 import { ErrorType, SdkError } from "./error"
 import type { PositiveNumberRange, StringKey } from "./types"
-import type { ResourceFields, ResourceSortFields, ResourceTypeLock } from "./api"
+import type { ResourceFields, ResourceSortFields, ResourceTypeLock } from "./enum"
 
 import Debug from './debug'
 const debug = Debug('query')

@@ -3,8 +3,7 @@
 export { default, CommerceLayer } from './commercelayer'
 
 
-export { OPEN_API_SCHEMA_VERSION } from './api'
-export * from './adapter'
+export * from './api'
 
 // Commerce Layer static functions
 export { CommerceLayerStatic } from './static'
@@ -31,4 +30,20 @@ export type * from './resource'
 export type * from './model'
 
 // Resource API types
-export type * from './api'
+export type {
+  ResourceTypeLock,
+  RetrievableResourceType,
+  RetrievableResource,
+  ListableResourceType,
+  ListableResource,
+  CreatableResourceType,
+  CreatableResource,
+  UpdatableResourceType,
+  UpdatableResource,
+  DeletableResourceType,
+  DeletableResource,
+  TaggableResourceType,
+  TaggableResource,
+  VersionableResourceType,
+  VersionableResource
+} from './enum'
