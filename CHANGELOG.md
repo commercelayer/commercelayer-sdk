@@ -1,3 +1,50 @@
+## [7.0.0-beta.17](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.16...v7.0.0-beta.17) (2025-03-28)
+
+### Bug Fixes
+
+* fix exports and test config ([59a2fce](https://github.com/commercelayer/commercelayer-sdk/commit/59a2fce84b05e6aaf28fd6bdd7655fdab7e2464a))
+
+## [7.0.0-beta.16](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.15...v7.0.0-beta.16) (2025-03-28)
+
+### Bug Fixes
+
+* fix enums and exports ([3e0615d](https://github.com/commercelayer/commercelayer-sdk/commit/3e0615d669882e88cee42d448777aefe254ae6b6))
+
+## [7.0.0-beta.15](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.14...v7.0.0-beta.15) (2025-03-27)
+
+### Bug Fixes
+
+* fix adapters and specs ([dd41dd0](https://github.com/commercelayer/commercelayer-sdk/commit/dd41dd0b6d8744066397e2b5af6b5380c5517553))
+
+## [7.0.0-beta.14](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.13...v7.0.0-beta.14) (2025-03-27)
+
+### Bug Fixes
+
+* fix imports and ResourceAdapter ([222572a](https://github.com/commercelayer/commercelayer-sdk/commit/222572a7279b1d191834fa7f7268d51c75a7b452))
+
+## [7.0.0-beta.13](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.12...v7.0.0-beta.13) (2025-03-24)
+
+### Features
+
+* client as singleton ([7b9682a](https://github.com/commercelayer/commercelayer-sdk/commit/7b9682ac1391019abe6fa1b92d36e3bcd6d90352))
+
+### Bug Fixes
+
+* fix concurrent specs ([975bed5](https://github.com/commercelayer/commercelayer-sdk/commit/975bed59d15f46ed0682c38ffb5f02683831c44a))
+* fix specs ([b25543a](https://github.com/commercelayer/commercelayer-sdk/commit/b25543adbbc5f9c5207b5780a463f96820017fdc))
+
+## [7.0.0-beta.12](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.11...v7.0.0-beta.12) (2025-03-18)
+
+### Features
+
+* add resource instances ([a87038d](https://github.com/commercelayer/commercelayer-sdk/commit/a87038d5b0559848b4f6124e237304938d693864))
+* update resources ([85ae7b1](https://github.com/commercelayer/commercelayer-sdk/commit/85ae7b139b24a33a8393ca0c913cfb2e946970e0))
+* update resources to schema v7.8.0 ([cf28b35](https://github.com/commercelayer/commercelayer-sdk/commit/cf28b35d91d6e61c0f3bc69508137b977197a761))
+* update resources to schema v7.8.1 ([05a8f5e](https://github.com/commercelayer/commercelayer-sdk/commit/05a8f5e96b9e81d184581a976dc1b5159848429d))
+
+### Bug Fixes
+
+* remove internal instances ([af35c5f](https://github.com/commercelayer/commercelayer-sdk/commit/af35c5f0011e8bdaca9a4bf066fbab048b44b1b9))
 
 ## [7.0.0-beta.11](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.10...v7.0.0-beta.11) (2025-02-27)
 

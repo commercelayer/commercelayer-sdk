@@ -2,7 +2,7 @@
 import type { Resource, ResourceType } from "./resource"
 import { ErrorType, SdkError } from "./error"
 import type { PositiveNumberRange, StringKey } from "./types"
-import type { ResourceFields, ResourceSortFields, ResourceTypeLock } from "./api"
+import type { ResourceFields, ResourceSortFields, ResourceTypeLock } from "./enum"
 
 import Debug from './debug'
 const debug = Debug('query')
@@ -25,8 +25,8 @@ type QueryResType<T extends Resource> = T['type']
 export type QueryInclude = string[]
 
 type QueryResourceFields<R extends ResourceTypeLock> = keyof ResourceFields[R]
-export type QueryArrayFields<R extends Resource> = Array<QueryResourceFields<QueryResType<R>>>
-export type QueryRecordFields = { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
+type QueryArrayFields<R extends Resource> = Array<QueryResourceFields<QueryResType<R>>>
+type QueryRecordFields = { [key in keyof ResourceFields]?: Array<(QueryResourceFields<key>)> }
 export type QueryFields<R extends Resource> = QueryArrayFields<R> | QueryRecordFields
 
 export interface QueryParamsRetrieve<R extends Resource = Resource> {
@@ -37,8 +37,8 @@ export interface QueryParamsRetrieve<R extends Resource = Resource> {
 type QuerySortType = 'asc' | 'desc'
 type QueryResourceSortable<R extends Resource> = ResourceSortFields[QueryResType<R>]
 type QueryResourceSortableFields<R extends Resource> = StringKey<QueryResourceSortable<R>>
-export type QueryArraySortable<R extends Resource> = Array<QueryResourceSortableFields<R> | `-${QueryResourceSortableFields<R>}`>
-export type QueryRecordSortable<R extends Resource> = Partial<Record<keyof QueryResourceSortable<R>, QuerySortType>>
+type QueryArraySortable<R extends Resource> = Array<QueryResourceSortableFields<R> | `-${QueryResourceSortableFields<R>}`>
+type QueryRecordSortable<R extends Resource> = Partial<Record<keyof QueryResourceSortable<R>, QuerySortType>>
 export type QuerySort<R extends Resource> = QueryArraySortable<R> | QueryRecordSortable<R>
 
 export type QueryFilter = Record<string, string | number | boolean | object | Array<string | number>>

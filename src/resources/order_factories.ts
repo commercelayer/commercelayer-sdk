@@ -19,10 +19,10 @@ interface OrderFactory extends Resource {
 	readonly type: OrderFactoryType
 
 	/** 
-	 * The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.
+	 * The order factory status. One of 'pending' (default), 'in_progress', 'aborted', 'failed', or 'completed'.
 	 * @example ```"in_progress"```
 	 */
-	status: 'pending' | 'in_progress' | 'failed' | 'completed'
+	status: 'pending' | 'in_progress' | 'aborted' | 'failed' | 'completed'
 	/** 
 	 * Time at which the order copy was started.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
