@@ -1,3 +1,9 @@
+## [7.0.0-beta.16](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.15...v7.0.0-beta.16) (2025-03-28)
+
+### Bug Fixes
+
+* fix enums and exports ([3e0615d](https://github.com/commercelayer/commercelayer-sdk/commit/3e0615d669882e88cee42d448777aefe254ae6b6))
+
 ## [7.0.0-beta.15](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.14...v7.0.0-beta.15) (2025-03-27)
 
 ### Bug Fixes
