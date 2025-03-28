@@ -97,8 +97,8 @@ type ResourceAdapterConfig = {
 	// xyz?: boolean
 }
 
-type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
-type ResourcesConfig = Partial<ResourcesInitConfig>
+export type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
+export type ResourcesConfig = Partial<ResourcesInitConfig>
 
 
 
@@ -362,4 +362,3 @@ abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 
 export { ApiResourceAdapter, ApiResource, ApiSingleton }
-export type { ResourcesConfig, ResourcesInitConfig, ResourceAdapter }

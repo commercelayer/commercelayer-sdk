@@ -3,7 +3,7 @@
 import { getResources, getSingletons, isSingleton, type ResourceTypeLock } from './enum'
 import { isApiError, type ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj, InterceptorManager } from './interceptor'
-import { ApiResourceAdapter, type ResourcesInitConfig, type ResourceAdapter } from './resource'
+import { ApiResourceAdapter, type ResourcesInitConfig } from './resource'
 
 
 import Debug from './debug'
@@ -61,10 +61,10 @@ class CommerceLayerClient {
 	// ##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return this.###__RESOURCE_TYPE__## || (this.###__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)) }
 	// ##__CL_RESOURCES_LEAZY_LOADING_STOP__##
 
-	private get adapter(): ResourceAdapter { return ApiResourceAdapter.get() }
-	get currentOrganization(): string { return this.adapter?.client?.currentOrganization }
-	get currentAccessToken(): string { return this.adapter?.client?.currentAccessToken }
-	private get interceptors(): InterceptorManager { return this.adapter.client.interceptors }
+	// private get adapter(): ResourceAdapter { return ApiResourceAdapter.get() }
+	get currentOrganization(): string { return ApiResourceAdapter.get().client?.currentOrganization }
+	get currentAccessToken(): string { return ApiResourceAdapter.get().client?.currentAccessToken }
+	private get interceptors(): InterceptorManager { return ApiResourceAdapter.get().client?.interceptors }
 
 
 	private localConfig(config: Partial<SdkConfig>): void {
@@ -79,7 +79,7 @@ class CommerceLayerClient {
 		// CommerceLayer config
 		this.localConfig(config)
 		// ResourceAdapter config
-		this.adapter.config(config)
+		ApiResourceAdapter.config(config)
 
 		return this
 
