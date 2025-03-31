@@ -1,3 +1,9 @@
+## [7.0.0-beta.18](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.17...v7.0.0-beta.18) (2025-03-31)
+
+### Bug Fixes
+
+* fix specs imports ([f134f4a](https://github.com/commercelayer/commercelayer-sdk/commit/f134f4ac4a8bdd2f9a3e8fe7292ecd1fdf40d0cc))
+
 ## [7.0.0-beta.17](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.16...v7.0.0-beta.17) (2025-03-28)
 
 ### Bug Fixes
