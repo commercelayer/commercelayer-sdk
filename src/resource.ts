@@ -3,12 +3,13 @@ import ApiClient, { type ApiClientInitConfig } from './client'
 import { denormalize, normalize, type DocWithData } from './jsonapi'
 import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } from './query'
 import { generateQueryStringParams, isParamsList } from './query'
-import type { ResourceTypeLock } from './api'
+import { type ResourceTypeLock, resourceList } from './enum'
 import config from './config'
 import { SdkError } from './error'
 
 
 import Debug from './debug'
+import { ObjectType } from './types'
 const debug = Debug('resource')
 
 
@@ -17,7 +18,7 @@ type ResourceNull = { id: null } & ResourceType
 type ResourceRel = ResourceId | ResourceNull
 
 
-type Metadata = Record<string, any>
+type Metadata = ObjectType
 
 
 interface ResourceType {
@@ -97,8 +98,8 @@ type ResourceAdapterConfig = {
 	// xyz?: boolean
 }
 
-type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
-type ResourcesConfig = Partial<ResourcesInitConfig>
+export type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
+export type ResourcesConfig = Partial<ResourcesInitConfig>
 
 
 
@@ -362,4 +363,13 @@ abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 
 export { ApiResourceAdapter, ApiResource, ApiSingleton }
-export type { ResourcesConfig, ResourcesInitConfig, ResourceAdapter }
+
+
+
+export const isResourceId = (resource: any): resource is ResourceId => {
+	return (resource?.type && resource.id) && resourceList.includes(resource.type as ResourceTypeLock)
+}
+
+export const isResourceType = (resource: any): resource is ResourceType => {
+	return resource && (typeof resource.type !== 'undefined') && resource.type && resourceList.includes(resource.type as ResourceTypeLock)
+}

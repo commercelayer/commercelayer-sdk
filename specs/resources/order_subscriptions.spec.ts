@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, OrderSubscription, order_subscriptions, markets, orders, tags } from '../../src'
+import { CommerceLayerClient, OrderSubscription, order_subscriptions, markets, orders, tags } from '../../lib'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'

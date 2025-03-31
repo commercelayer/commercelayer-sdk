@@ -1,10 +1,8 @@
 
 import dotenv from 'dotenv'
 import getToken from './token'
-import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
+import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj, Resource } from '../lib'
 import { inspect, isDeepStrictEqual } from 'util'
-import { RequestConfig } from '../src/client'
-import { Resource } from '../src/resource'
 
 
 dotenv.config()
@@ -18,7 +16,7 @@ export { organization, domain }
 
 const INTERCEPTOR_CANCEL = 'TEST-INTERCEPTED'
 const REQUEST_TIMEOUT = 5550
-const REQUEST_OPTIONS: RequestConfig = {
+const REQUEST_OPTIONS: CommerceLayerConfig = {
 	timeout: REQUEST_TIMEOUT,
 	params: { }
 } as const

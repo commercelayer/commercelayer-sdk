@@ -1,5 +1,6 @@
 import type { FetchError, FetchRequestOptions } from "./fetch"
 
+
 type InterceptorEventManager<S extends (RequestInterceptor | ResponseInterceptor), F extends (ErrorInterceptor | ResponseInterceptor)> = {
 	onSuccess?: S
 	onFailure?: F

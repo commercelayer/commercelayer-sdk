@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "7.0.0-beta.11",
+  "version": "7.0.0-rc.1",
   "main": "lib/index.cjs",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
@@ -48,12 +48,12 @@
   },
   "devDependencies": {
     "@commercelayer/eslint-config-ts": "^2.2.0",
-    "@commercelayer/js-auth": "^6.7.1",
+    "@commercelayer/js-auth": "^6.7.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/debug": "^4.1.12",
     "@types/node": "^22.13.14",
-    "@vitest/coverage-v8": "^3.0.9",
+    "@vitest/coverage-v8": "^3.1.1",
     "@vitest/eslint-plugin": "^1.1.38",
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "dotenv": "^16.4.7",
@@ -64,7 +64,7 @@
     "tsup": "^8.4.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
-    "vitest": "^3.0.9"
+    "vitest": "^3.1.1"
   },
   "repository": "github:commercelayer/commercelayer-sdk",
   "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues",

@@ -1,6 +1,6 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { application, CommerceLayerClient } from '../src'
+import { application, CommerceLayerClient } from '../lib'
 import { getClient, CommonData, handleError, interceptRequest } from '../test/common'
 
 

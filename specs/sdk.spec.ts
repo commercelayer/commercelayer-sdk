@@ -1,10 +1,10 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Customer, customers } from '../src'
-import { sleep, sortObjectFields } from '../src/util'
+import { CommerceLayerClient, Customer, customers } from '../lib'
+import { sleep, sortObjectFields } from '../lib/util'
 import { checkParam, getClient, handleError, interceptRequest, TestData } from '../test/common'
-import { isResourceType } from '../src/common'
-import { ObjectType } from '../src/types'
+import { isResourceType } from '../lib/resource'
+import { ObjectType } from '../lib/types'
 
 
 let cl: CommerceLayerClient

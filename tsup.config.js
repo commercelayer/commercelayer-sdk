@@ -1,22 +1,29 @@
 import { defineConfig } from 'tsup'
 
-const env = process.env.NODE_ENV
+
+const env = process.env.NODE_ENV || 'development'
+
+const isDev = env === 'development'
+const isProd = env === 'production'
+
+const watch = isDev && (process.argv.filter(arg => (arg === '--watch') || (arg === '-w')).length > 0)
 
 
 export default defineConfig(() => ({
-  sourcemap: env === 'development',
+  sourcemap: isDev,
   clean: true,
   dts: true,
   format: ['cjs', 'esm'],
-  minify: (env === 'production'),
+  minify: isProd,
   bundle: false,
   treeshake: true,
-  watch: (env === 'development'),
-  target: 'es2020',
+  watch,
+  target: 'es2024',
   entry: ['src/**/*.ts'],
   outDir: 'lib',
-  splitting: true,
+  splitting: false,
   shims: true,
   cjsInterop: true,
-  skipNodeModulesBundle: true
+  skipNodeModulesBundle: true,
+  silent: false
 }))

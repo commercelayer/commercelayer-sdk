@@ -119,3 +119,12 @@ const handleError = (error: Error): never => {
 
 
 export { SdkError, ApiError, ErrorType, handleError, isExpiredTokenError }
+
+
+export function isSdkError(error: unknown): error is SdkError {
+	return SdkError.isSdkError(error)
+}
+
+export function isApiError(error: unknown): error is ApiError {
+	return ApiError.isApiError(error)
+}
