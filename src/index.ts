@@ -32,7 +32,7 @@ export type {
 export type { RequestObj, ResponseObj, ErrorObj, HeadersObj } from './interceptor'
 
 // Error types
-export type { SdkError, ApiError, ErrorType } from './error'
+export type { SdkError, ApiError } from './error'
 
 
 // Resource types

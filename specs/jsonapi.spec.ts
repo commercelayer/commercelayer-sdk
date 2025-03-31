@@ -1,8 +1,8 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { type CommerceLayerClient, customer_subscriptions, customers, orders, ResourceTypeLock } from '../src'
+import { type CommerceLayerClient, customer_subscriptions, customers, orders, ResourceTypeLock } from '../lib'
 import { getClient, TestData } from '../test/common'
-import { normalize, denormalize } from '../src/jsonapi'
+import { normalize, denormalize } from '../lib/jsonapi'
 import { isDeepStrictEqual } from 'node:util'
 
 

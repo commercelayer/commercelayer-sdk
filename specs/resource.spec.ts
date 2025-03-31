@@ -1,6 +1,6 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { application, CommerceLayerClient, Customer, customers, orders, type ListResponse } from '../src'
+import { application, CommerceLayerClient, Customer, customers, orders, type ListResponse } from '../lib'
 import { getClient } from '../test/common'
 
 

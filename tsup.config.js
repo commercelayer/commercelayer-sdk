@@ -9,14 +9,15 @@ export default defineConfig(() => ({
   dts: true,
   format: ['cjs', 'esm'],
   minify: (env === 'production'),
-  bundle: false,
+  bundle: true,
   treeshake: true,
-  watch: (env === 'development'),
-  target: 'es2020',
+  watch: false, //(env === 'development'),
+  target: 'es2024',
   entry: ['src/**/*.ts'],
   outDir: 'lib',
-  splitting: true,
+  splitting: false,
   shims: true,
   cjsInterop: true,
-  skipNodeModulesBundle: true
+  skipNodeModulesBundle: true,
+  silent: false
 }))

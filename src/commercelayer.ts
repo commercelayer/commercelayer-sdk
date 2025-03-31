@@ -1,6 +1,6 @@
 
 // import * as api from './api'
-import { getResources, getSingletons, isSingleton, type ResourceTypeLock } from './enum'
+import { getResources } from './enum'
 import { isApiError, type ApiError } from './error'
 import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj, InterceptorManager } from './interceptor'
 import { ApiResourceAdapter, type ResourcesInitConfig } from './resource'

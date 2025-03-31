@@ -1,8 +1,8 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, CommerceLayerStatic, ResourceTypeLock } from '../src'
+import { CommerceLayerClient, CommerceLayerStatic } from '../lib'
 import { getClient } from '../test/common'
-import { OPEN_API_SCHEMA_VERSION } from '../src/commercelayer'
+import { OPEN_API_SCHEMA_VERSION } from '../lib/commercelayer'
 
 
 let cl: CommerceLayerClient
