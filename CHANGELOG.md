@@ -1,3 +1,9 @@
+## [7.0.0-beta.19](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.18...v7.0.0-beta.19) (2025-03-31)
+
+### Bug Fixes
+
+* fix bundler config ([2e21dda](https://github.com/commercelayer/commercelayer-sdk/commit/2e21ddaafab9302a847914aa557b503c7ba50dac))
+
 ## [7.0.0-beta.18](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.17...v7.0.0-beta.18) (2025-03-31)
 
 ### Bug Fixes
