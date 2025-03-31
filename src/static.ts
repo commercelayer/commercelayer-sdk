@@ -1,5 +1,5 @@
 
-import type { CreatableResourceType, DeletableResourceType, TaggableResourceType, UpdatableResourceType, VersionableResourceType, ResourceTypeLock } from './enum'
+import type { ResourceTypeLock } from './enum'
 import { getResources, getSingletons, isCreatable, isDeletable, isSingleton, isTaggable, isUpdatable, isVersionable } from './enum'
 import { OPEN_API_SCHEMA_VERSION } from './commercelayer'
 import { SdkError, ApiError, isSdkError, isApiError} from './error'
