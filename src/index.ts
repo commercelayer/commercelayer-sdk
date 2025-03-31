@@ -2,7 +2,7 @@
 // SDK
 export { default, CommerceLayer } from './commercelayer'
 
-
+// Resource adapters
 export * from './api'
 
 // Commerce Layer static functions
