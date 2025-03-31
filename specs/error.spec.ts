@@ -3,7 +3,7 @@ import { expect, test, beforeAll, afterAll, describe } from 'vitest'
 import { CommerceLayerClient, customers, ErrorObj } from '../lib'
 import { ErrorType } from '../lib/error'
 import { getClient } from '../test/common'
-import { DBG } from '../lib/common'
+// import { DBG } from '../lib/common'
 
 
 let cl: CommerceLayerClient
@@ -60,12 +60,12 @@ describe('SDK:error suite', () => {
 	test('ApiError.type', async () => {
 		try {
 			cl.config({ domain: 'fake.domain.xx', accessToken: 'fake-access-token' })
-			DBG.verbose = true
+			// DBG.verbose = true
 			await customers.list({ pageSize: 1})
 		} catch (error) {
 			expect(error.type).toEqual(ErrorType.CLIENT)
 		} finally {
-			DBG.verbose = false
+			// DBG.verbose = false
 		}
 	})
 

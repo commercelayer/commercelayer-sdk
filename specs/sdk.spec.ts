@@ -3,7 +3,7 @@ import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerClient, Customer, customers } from '../lib'
 import { sleep, sortObjectFields } from '../lib/util'
 import { checkParam, getClient, handleError, interceptRequest, TestData } from '../test/common'
-import { isResourceType } from '../lib/common'
+import { isResourceType } from '../lib/resource'
 import { ObjectType } from '../lib/types'
 
 
