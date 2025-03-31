@@ -9,7 +9,7 @@ export default defineConfig(() => ({
   dts: true,
   format: ['cjs', 'esm'],
   minify: (env === 'production'),
-  bundle: true,
+  bundle: false,
   treeshake: true,
   watch: false, //(env === 'development'),
   target: 'es2024',
