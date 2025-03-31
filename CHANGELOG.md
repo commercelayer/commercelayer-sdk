@@ -1,3 +1,9 @@
+## [7.0.0-beta.20](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.19...v7.0.0-beta.20) (2025-03-31)
+
+### Bug Fixes
+
+* move common functione to resource ([8a4a2eb](https://github.com/commercelayer/commercelayer-sdk/commit/8a4a2eb8e0ebfa83f6139ae96d6e1b03e3bfeb7d))
+
 ## [7.0.0-beta.19](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-beta.18...v7.0.0-beta.19) (2025-03-31)
 
 ### Bug Fixes
