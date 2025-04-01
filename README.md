@@ -72,12 +72,13 @@ const cl = CommerceLayer({
 })
 ```
 
-In the SDK v7.x, to enable tree-shaking by the bundler used to create the package for distribution, you must import the client and the required resources separately.
+Starting from version v7.x, in order to enable the tree-shaking feature used by bundlers to reduce the created package size, you must import separately the client and the required resources.
 
 ```javascript
 import CommerceLayer, { orders } from '@commercelayer/sdk'
 
 const cl = CommerceLayer({ accessToken })
+cl.addRawResponseReader()
 
 const orderList = await orders.list()
 ```
