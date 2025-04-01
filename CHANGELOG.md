@@ -1,3 +1,15 @@
+## [7.0.0-rc.3](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.2...v7.0.0-rc.3) (2025-04-01)
+
+### Bug Fixes
+
+* fix schema version const ([2a92ed2](https://github.com/commercelayer/commercelayer-sdk/commit/2a92ed2f155f9080032dd09b5511cf1df099ff98))
+
+## [7.0.0-rc.2](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.1...v7.0.0-rc.2) (2025-03-31)
+
+### Bug Fixes
+
+* enable bundle code splitting ([4bea0e6](https://github.com/commercelayer/commercelayer-sdk/commit/4bea0e63a3b5cf08b5b491a39a49fcf0f03f08a4))
+
 ## [7.0.0-rc.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.34.0...v7.0.0-rc.1) (2025-03-31)
 
 ### ⚠ BREAKING CHANGES

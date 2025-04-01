@@ -21,7 +21,7 @@ export default defineConfig(() => ({
   target: 'es2024',
   entry: ['src/**/*.ts'],
   outDir: 'lib',
-  splitting: false,
+  splitting: true,
   shims: true,
   cjsInterop: true,
   skipNodeModulesBundle: true,

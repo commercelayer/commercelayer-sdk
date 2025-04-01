@@ -1,5 +1,5 @@
 import { getAccessToken, handleError, init, initConfig } from './util'
-import commercelayer, { customers, organization, application } from '../src'
+import commercelayer, { customers, organization, application, CommerceLayerClient } from '../src'
 
 
 
@@ -20,7 +20,7 @@ async function refreshToken(old: string): Promise<string> {
 
 	const config = await initConfig()
 	const cl = commercelayer(config)
-
+	
 	cl.config({ refreshToken, fetch: customFetch, accessToken: process.env.CL_SDK_ACCESS_TOKEN_EXPIRED })
 	try {
 

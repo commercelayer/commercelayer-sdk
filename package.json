@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/sdk",
-  "version": "7.0.0-rc.1",
+  "version": "7.0.0-rc.3",
   "main": "lib/index.cjs",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
@@ -52,7 +52,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/debug": "^4.1.12",
-    "@types/node": "^22.13.14",
+    "@types/node": "^22.13.16",
     "@vitest/coverage-v8": "^3.1.1",
     "@vitest/eslint-plugin": "^1.1.38",
     "conventional-changelog-conventionalcommits": "^8.0.0",
