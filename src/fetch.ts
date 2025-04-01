@@ -19,6 +19,8 @@ export type FetchClientOptions = {
 
 export class FetchError extends Error {
 
+  static NAME = 'FetchError'
+
   static isFetchError = (error: any): error is FetchError => {
     return error instanceof FetchError
   }
@@ -34,6 +36,7 @@ export class FetchError extends Error {
     this.#statusText = statusText
     if (body) this.#errors = body.errors
     if (request) this.#request = request
+    this.name = FetchError.NAME
   }
 
 

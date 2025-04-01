@@ -18,6 +18,7 @@ export const CONFIG = {
 /**** **** **** **** **** **** **** **** ****/
 
 
+const SCHEMA_VERSION_CONST = 'OPEN_API_SCHEMA_VERSION'
 const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
 
@@ -195,8 +196,9 @@ const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
 
 	// OpenAPI schema version
 	if (global.version) {
-		const schemaLine = findLine('const OPEN_API_SCHEMA_VERSION', lines)
-		if (schemaLine.index >= 0) lines[schemaLine.index] = `const OPEN_API_SCHEMA_VERSION = '${global.version}'`
+		const schemaLine = findLine(SCHEMA_VERSION_CONST, lines)
+		const prefix = schemaLine.text.substring(0, schemaLine.offset).trim()
+		if (schemaLine.index >= 0) lines[schemaLine.index] = `${prefix} ${SCHEMA_VERSION_CONST} = '${global.version}'`
 	}
 
 	// Definitions

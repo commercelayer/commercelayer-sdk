@@ -32,6 +32,7 @@ class SdkError extends Error {
 
 }
 
+
 class ApiError extends SdkError {
 
 	static NAME = 'ApiError'
