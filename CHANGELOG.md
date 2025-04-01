@@ -1,3 +1,9 @@
+## [7.0.0-rc.3](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.2...v7.0.0-rc.3) (2025-04-01)
+
+### Bug Fixes
+
+* fix schema version const ([2a92ed2](https://github.com/commercelayer/commercelayer-sdk/commit/2a92ed2f155f9080032dd09b5511cf1df099ff98))
+
 ## [7.0.0-rc.2](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.1...v7.0.0-rc.2) (2025-03-31)
 
 ### Bug Fixes
