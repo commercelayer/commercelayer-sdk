@@ -13,5 +13,5 @@
 
 ## Reporting a Vulnerability
 
-Please report (suspected) security vulnerabilities to <pierluigi@commercelayer.io>.
+Please report (suspected) security vulnerabilities to <pierluigi@commercelayer.io> or <support@commercelayer.io>.
 You will receive a response from us and if the issue is confirmed, we will release patch as soon as possible depending on complexity.
