@@ -482,6 +482,28 @@ describe('Orders resource', () => {
 	
 
 	
+	/* relationship.discount_engine_item start */
+	test(resourceType + '.discount_engine_item', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { discount_engine_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'discount_engine_item')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await orders.discount_engine_item(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.discount_engine_item stop */
+	
+
+	
 	/* relationship.line_items start */
 	test(resourceType + '.line_items', async () => {
 	
