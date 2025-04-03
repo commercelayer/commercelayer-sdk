@@ -31,6 +31,7 @@ describe('Markets resource', () => {
 			price_list: cl.price_lists.relationship(TestData.id),
 			inventory_model: cl.inventory_models.relationship(TestData.id),
 			subscription_model: cl.subscription_models.relationship(TestData.id),
+			discount_engine: cl.discount_engines.relationship(TestData.id),
 			tax_calculator: cl.avalara_accounts.relationship(TestData.id),
 			customer_group: cl.customer_groups.relationship(TestData.id),
 			geocoder: cl.geocoders.relationship(TestData.id),
@@ -313,6 +314,27 @@ describe('Markets resource', () => {
 	
 	})
 	/* relationship.subscription_model stop */
+	
+
+	/* relationship.discount_engine start */
+	it(resourceType + '.discount_engine', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { discount_engines: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'discount_engine')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].discount_engine(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.discount_engine stop */
 	
 
 	/* relationship.tax_calculator start */

@@ -31,6 +31,11 @@ interface StripePayment extends Resource {
 	 */
 	client_secret?: string | null
 	/** 
+	 * The account (if any) for which the funds of the PaymentIntent are intended.
+	 * @example ```"acct_xxxx-yyyy-zzzz"```
+	 */
+	connected_account?: string | null
+	/** 
 	 * The Stripe charge ID. Identifies money movement upon the payment intent confirmation.
 	 * @example ```"ch_1234XXX"```
 	 */

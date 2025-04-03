@@ -11,6 +11,7 @@ import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { Sku } from './skus'
 import type { Bundle } from './bundles'
+import type { DiscountEngineItem } from './discount_engine_items'
 import type { LineItem } from './line_items'
 import type { LineItemOption } from './line_item_options'
 import type { StockReservation } from './stock_reservations'
@@ -581,7 +582,7 @@ interface Order extends Resource {
 	 */
 	fulfillment_updated_at?: string | null
 	/** 
-	 * Last time at which an order was manually refreshed.
+	 * Last time at which the order was refreshed.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	refreshed_at?: string | null
@@ -619,6 +620,7 @@ interface Order extends Resource {
 	available_free_bundles?: Bundle[] | null
 	payment_method?: PaymentMethod | null
 	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
+	discount_engine_item?: DiscountEngineItem | null
 	line_items?: LineItem[] | null
 	line_item_options?: LineItemOption[] | null
 	stock_reservations?: StockReservation[] | null
@@ -1102,6 +1104,11 @@ class Orders extends ApiResource<Order> {
 	async payment_method(orderId: string | Order, params?: QueryParamsRetrieve<PaymentMethod>, options?: ResourcesConfig): Promise<PaymentMethod> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `orders/${_orderId}/payment_method`, params, options) as unknown as PaymentMethod
+	}
+
+	async discount_engine_item(orderId: string | Order, params?: QueryParamsRetrieve<DiscountEngineItem>, options?: ResourcesConfig): Promise<DiscountEngineItem> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<DiscountEngineItem>({ type: 'discount_engine_items' }, `orders/${_orderId}/discount_engine_item`, params, options) as unknown as DiscountEngineItem
 	}
 
 	async line_items(orderId: string | Order, params?: QueryParamsList<LineItem>, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {
