@@ -44,7 +44,7 @@ class CommerceLayerClient {
 	}
 
 
-	private constructor(config: CommerceLayerInitConfig) {
+	protected constructor(config: CommerceLayerInitConfig) {
 
 		debug('new commercelayer instance %O', config)
 
@@ -161,4 +161,5 @@ const CommerceLayer = (config: CommerceLayerInitConfig): CommerceLayerClient => 
 export default CommerceLayer
 export { CommerceLayer }
 
-export type { CommerceLayerClient, CommerceLayerConfig, CommerceLayerInitConfig }
+export { CommerceLayerClient }
+export type { CommerceLayerConfig, CommerceLayerInitConfig }

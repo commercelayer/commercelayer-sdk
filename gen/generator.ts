@@ -551,7 +551,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 		const relationships = reqType ? resource.components[reqType].relationships : {}
 		const filtered = Object.values(relationships).filter(rel => !rel.deprecated)
 		filtered.forEach(f => {
-			importInstances.push(f.type)
+			if (!importInstances.includes(f.type)) importInstances.push(f.type)
 			let relVal: string | string[] = `${f.type}.relationship(TestData.id)`
 			if (f.cardinality === 'to_many') relVal = `[ ${relVal} ]`
 			obj += `\t\t\t${f.name}: ${relVal},\n`

@@ -293,17 +293,17 @@ class ResourceAdapter {
 abstract class ApiResourceBase<R extends Resource> {
 
 	static readonly TYPE: ResourceTypeLock
-	// #resources?: ResourceAdapter
+	#resources?: ResourceAdapter
 
 
 	constructor(adapter?: ResourceAdapter) {
 		debug('new resource instance: %s', this.type())
-		// this.#resources = adapter
+		if (adapter) this.#resources = adapter
 	}
 
 
 	protected get resources(): ResourceAdapter {
-		return /* this.#resources || (this.#resources = */ApiResourceAdapter.get()//)
+		return this.#resources || ApiResourceAdapter.get()
 	}
 
 
