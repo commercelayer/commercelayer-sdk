@@ -6,7 +6,7 @@ import { generateQueryStringParams, isParamsList } from './query'
 import { type ResourceTypeLock, resourceList } from './enum'
 import config from './config'
 import { SdkError } from './error'
-import { ObjectType } from './types'
+import type { ObjectType } from './types'
 
 
 import Debug from './debug'

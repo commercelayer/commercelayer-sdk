@@ -1,6 +1,5 @@
 import { CommerceLayerClient, CommerceLayerInitConfig } from './commercelayer'
 import * as api from './api'
-import { ApiResourceAdapter, type ResourceAdapter } from './resource'
 
 
 class CommerceLayerBundle extends CommerceLayerClient {
