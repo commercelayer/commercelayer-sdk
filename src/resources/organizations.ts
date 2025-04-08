@@ -110,6 +110,10 @@ interface Organization extends Resource {
 	 */
 	addresses_phone_required?: boolean | null
 	/** 
+	 * The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done, until the lapse is observed.
+	 */
+	orders_min_refresh_lapse?: number | null
+	/** 
 	 * The maximum number line items allowed for a test order before disabling the autorefresh option.
 	 * @example ```50```
 	 */

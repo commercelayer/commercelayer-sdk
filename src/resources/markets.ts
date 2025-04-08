@@ -6,6 +6,7 @@ import type { Merchant, MerchantType } from './merchants'
 import type { PriceList, PriceListType } from './price_lists'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { SubscriptionModel, SubscriptionModelType } from './subscription_models'
+import type { DiscountEngine, DiscountEngineType } from './discount_engines'
 import type { TaxCalculator } from './tax_calculators'
 import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { Geocoder, GeocoderType } from './geocoders'
@@ -29,6 +30,7 @@ type MerchantRel = ResourceRel & { type: MerchantType }
 type PriceListRel = ResourceRel & { type: PriceListType }
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
+type DiscountEngineRel = ResourceRel & { type: DiscountEngineType }
 type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
 type StripeTaxAccountRel = ResourceRel & { type: StripeTaxAccountType }
 type VertexAccountRel = ResourceRel & { type: VertexAccountType }
@@ -110,6 +112,7 @@ interface Market extends Resource {
 	base_price_list?: PriceList | null
 	inventory_model?: InventoryModel | null
 	subscription_model?: SubscriptionModel | null
+	discount_engine?: DiscountEngine | null
 	tax_calculator?: AvalaraAccount | StripeTaxAccount | VertexAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
 	customer_group?: CustomerGroup | null
 	geocoder?: Geocoder | null
@@ -175,6 +178,7 @@ interface MarketCreate extends ResourceCreate {
 	price_list: PriceListRel
 	inventory_model: InventoryModelRel
 	subscription_model?: SubscriptionModelRel | null
+	discount_engine?: DiscountEngineRel | null
 	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
 	geocoder?: GeocoderRel | null
@@ -236,6 +240,7 @@ interface MarketUpdate extends ResourceUpdate {
 	price_list?: PriceListRel | null
 	inventory_model?: InventoryModelRel | null
 	subscription_model?: SubscriptionModelRel | null
+	discount_engine?: DiscountEngineRel | null
 	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
 	geocoder?: GeocoderRel | null
@@ -284,6 +289,11 @@ class Markets extends ApiResource<Market> {
 	async subscription_model(marketId: string | Market, params?: QueryParamsRetrieve<SubscriptionModel>, options?: ResourcesConfig): Promise<SubscriptionModel> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<SubscriptionModel>({ type: 'subscription_models' }, `markets/${_marketId}/subscription_model`, params, options) as unknown as SubscriptionModel
+	}
+
+	async discount_engine(marketId: string | Market, params?: QueryParamsRetrieve<DiscountEngine>, options?: ResourcesConfig): Promise<DiscountEngine> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<DiscountEngine>({ type: 'discount_engines' }, `markets/${_marketId}/discount_engine`, params, options) as unknown as DiscountEngine
 	}
 
 	async tax_calculator(marketId: string | Market, params?: QueryParamsRetrieve<TaxCalculator>, options?: ResourcesConfig): Promise<TaxCalculator> {

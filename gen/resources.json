@@ -19668,12 +19668,13 @@
                 },
                 "refreshed_at": {
                     "type": "datetime",
-                    "desc": "Last time at which an order was manually refreshed.",
+                    "desc": "Last time at which the order was refreshed.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
+                    "exportable": false,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
                 "archived_at": {
@@ -20530,7 +20531,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.",
+                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'aborted', 'failed', or 'completed'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -20541,6 +20542,7 @@
                     "enum": [
                         "pending",
                         "in_progress",
+                        "aborted",
                         "failed",
                         "completed"
                     ]
@@ -20842,7 +20844,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.",
+                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'aborted', 'failed', or 'completed'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -20853,6 +20855,7 @@
                     "enum": [
                         "pending",
                         "in_progress",
+                        "aborted",
                         "failed",
                         "completed"
                     ]
@@ -22313,6 +22316,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "true"
+                },
+                "orders_min_refresh_lapse": {
+                    "type": "float",
+                    "default": 0,
+                    "desc": "The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done, until the lapse is observed.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "0.0"
                 },
                 "orders_autorefresh_cutoff_test": {
                     "type": "integer",
@@ -27513,7 +27527,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'failed', or 'completed'.",
+                    "desc": "The order factory status. One of 'pending' (default), 'in_progress', 'aborted', 'failed', or 'completed'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -27524,6 +27538,7 @@
                     "enum": [
                         "pending",
                         "in_progress",
+                        "aborted",
                         "failed",
                         "completed"
                     ]
@@ -35427,6 +35442,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "pi_1234XXX_secret_5678YYY"
+                },
+                "connected_account": {
+                    "type": "string",
+                    "desc": "The account (if any) for which the funds of the PaymentIntent are intended.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "acct_xxxx-yyyy-zzzz"
                 },
                 "charge_id": {
                     "type": "string",
