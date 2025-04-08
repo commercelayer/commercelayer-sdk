@@ -1,3 +1,15 @@
+## [7.0.0-rc.4](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.3...v7.0.0-rc.4) (2025-04-08)
+
+### Features
+
+* add bundle client ([efdfa46](https://github.com/commercelayer/commercelayer-sdk/commit/efdfa46dfd133592a4232f1b4681c2dcd36ceda1))
+* client bundle first commit ([46774ad](https://github.com/commercelayer/commercelayer-sdk/commit/46774adc17a5a8c7d06f6432328342f264ddecfa))
+* update resources to schema v7.8.4 ([aacfc89](https://github.com/commercelayer/commercelayer-sdk/commit/aacfc8933c315edf0e19f02a3bd2f6fbc318625c))
+
+### Bug Fixes
+
+* fix types export ([9a55d37](https://github.com/commercelayer/commercelayer-sdk/commit/9a55d377f5a78d7803863b553d52573e5f2ab820))
+
 ## [7.0.0-rc.3](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.2...v7.0.0-rc.3) (2025-04-01)
 
 ### Bug Fixes
