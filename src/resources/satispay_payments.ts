@@ -159,4 +159,4 @@ class SatispayPayments extends ApiResource<SatispayPayment> {
 const instance = new SatispayPayments()
 export default instance
 
-export type { SatispayPayment, SatispayPaymentCreate, SatispayPaymentUpdate, SatispayPaymentType }
+export type { SatispayPayments, SatispayPayment, SatispayPaymentCreate, SatispayPaymentUpdate, SatispayPaymentType }

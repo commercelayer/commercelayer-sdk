@@ -142,4 +142,4 @@ class KlarnaPayments extends ApiResource<KlarnaPayment> {
 const instance = new KlarnaPayments()
 export default instance
 
-export type { KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate, KlarnaPaymentType }
+export type { KlarnaPayments, KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate, KlarnaPaymentType }

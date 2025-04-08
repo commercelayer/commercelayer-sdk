@@ -129,4 +129,4 @@ class ManualTaxCalculators extends ApiResource<ManualTaxCalculator> {
 const instance = new ManualTaxCalculators()
 export default instance
 
-export type { ManualTaxCalculator, ManualTaxCalculatorCreate, ManualTaxCalculatorUpdate, ManualTaxCalculatorType }
+export type { ManualTaxCalculators, ManualTaxCalculator, ManualTaxCalculatorCreate, ManualTaxCalculatorUpdate, ManualTaxCalculatorType }

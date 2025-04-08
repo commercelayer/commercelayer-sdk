@@ -127,4 +127,4 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
 const instance = new ParcelLineItems()
 export default instance
 
-export type { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate, ParcelLineItemType }
+export type { ParcelLineItems, ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate, ParcelLineItemType }

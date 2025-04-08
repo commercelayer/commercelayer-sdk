@@ -172,4 +172,4 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 const instance = new ReturnLineItems()
 export default instance
 
-export type { ReturnLineItem, ReturnLineItemCreate, ReturnLineItemUpdate, ReturnLineItemType }
+export type { ReturnLineItems, ReturnLineItem, ReturnLineItemCreate, ReturnLineItemUpdate, ReturnLineItemType }

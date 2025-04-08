@@ -161,4 +161,4 @@ class AdyenPayments extends ApiResource<AdyenPayment> {
 const instance = new AdyenPayments()
 export default instance
 
-export type { AdyenPayment, AdyenPaymentCreate, AdyenPaymentUpdate, AdyenPaymentType }
+export type { AdyenPayments, AdyenPayment, AdyenPaymentCreate, AdyenPaymentUpdate, AdyenPaymentType }

@@ -165,4 +165,4 @@ class BraintreePayments extends ApiResource<BraintreePayment> {
 const instance = new BraintreePayments()
 export default instance
 
-export type { BraintreePayment, BraintreePaymentCreate, BraintreePaymentUpdate, BraintreePaymentType }
+export type { BraintreePayments, BraintreePayment, BraintreePaymentCreate, BraintreePaymentUpdate, BraintreePaymentType }

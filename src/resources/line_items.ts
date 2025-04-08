@@ -495,4 +495,4 @@ class LineItems extends ApiResource<LineItem> {
 const instance = new LineItems()
 export default instance
 
-export type { LineItem, LineItemCreate, LineItemUpdate, LineItemType }
+export type { LineItems, LineItem, LineItemCreate, LineItemUpdate, LineItemType }

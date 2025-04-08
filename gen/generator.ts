@@ -13,7 +13,7 @@ export const CONFIG = {
 	RELATIONSHIP_FUNCTIONS: true,
 	TRIGGER_FUNCTIONS: true,
 	RESOURCES_LEAZY_LOADING: true,
-	RESOURCES_FULL_BUNDLE: false
+	RESOURCES_FULL_BUNDLE: true
 }
 /**** **** **** **** **** **** **** **** ****/
 
@@ -151,9 +151,10 @@ const generate = async (localSchema?: boolean) => {
 
 	updateApiResources(resources)
 	updateAdapters(resources)
-	updateSdkInterfaces(resources)
 	updateModelTypes(resources)
+	updateSdkBundle(resources)
 
+	updateSdkVersion()
 	updateLicense()
 
 	console.log(`SDK generation completed [${global.version}].\n`)
@@ -185,8 +186,9 @@ const tabsString = (num: number): string => {
 }
 
 
+const updateSdkVersion = (): void => {
 
-const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
+	if (!global.version) return
 
 	const filePath = 'src/commercelayer.ts'
 
@@ -195,11 +197,24 @@ const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
 	const lines = cl.split('\n')
 
 	// OpenAPI schema version
-	if (global.version) {
-		const schemaLine = findLine(SCHEMA_VERSION_CONST, lines)
-		const prefix = schemaLine.text.substring(0, schemaLine.offset).trim()
-		if (schemaLine.index >= 0) lines[schemaLine.index] = `${prefix} ${SCHEMA_VERSION_CONST} = '${global.version}'`
-	}
+	const schemaLine = findLine(SCHEMA_VERSION_CONST, lines)
+	const prefix = schemaLine.text.substring(0, schemaLine.offset).trim()
+	if (schemaLine.index >= 0) lines[schemaLine.index] = `${prefix} ${SCHEMA_VERSION_CONST} = '${global.version}'`
+
+	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
+
+	console.log(`SDK version updated [${global.version}].`)
+
+}
+
+
+const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
+
+	const filePath = 'src/bundle.ts'
+
+	const cl = readFileSync(filePath, { encoding: 'utf-8' })
+
+	const lines = cl.split('\n')
 
 	// Definitions
 	const definitions: string[] = []

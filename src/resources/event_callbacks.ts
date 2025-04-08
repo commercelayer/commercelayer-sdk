@@ -77,4 +77,4 @@ class EventCallbacks extends ApiResource<EventCallback> {
 const instance = new EventCallbacks()
 export default instance
 
-export type { EventCallback, EventCallbackType }
+export type { EventCallbacks, EventCallback, EventCallbackType }

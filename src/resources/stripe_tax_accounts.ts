@@ -154,4 +154,4 @@ class StripeTaxAccounts extends ApiResource<StripeTaxAccount> {
 const instance = new StripeTaxAccounts()
 export default instance
 
-export type { StripeTaxAccount, StripeTaxAccountCreate, StripeTaxAccountUpdate, StripeTaxAccountType }
+export type { StripeTaxAccounts, StripeTaxAccount, StripeTaxAccountCreate, StripeTaxAccountUpdate, StripeTaxAccountType }

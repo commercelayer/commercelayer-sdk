@@ -377,4 +377,4 @@ class FixedAmountPromotions extends ApiResource<FixedAmountPromotion> {
 const instance = new FixedAmountPromotions()
 export default instance
 
-export type { FixedAmountPromotion, FixedAmountPromotionCreate, FixedAmountPromotionUpdate, FixedAmountPromotionType }
+export type { FixedAmountPromotions, FixedAmountPromotion, FixedAmountPromotionCreate, FixedAmountPromotionUpdate, FixedAmountPromotionType }

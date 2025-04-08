@@ -184,4 +184,4 @@ class Promotions extends ApiResource<Promotion> {
 const instance = new Promotions()
 export default instance
 
-export type { Promotion, PromotionType }
+export type { Promotions, Promotion, PromotionType }

@@ -190,4 +190,4 @@ class Exports extends ApiResource<Export> {
 const instance = new Exports()
 export default instance
 
-export type { Export, ExportCreate, ExportUpdate, ExportType }
+export type { Exports, Export, ExportCreate, ExportUpdate, ExportType }

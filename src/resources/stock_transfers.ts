@@ -281,4 +281,4 @@ class StockTransfers extends ApiResource<StockTransfer> {
 const instance = new StockTransfers()
 export default instance
 
-export type { StockTransfer, StockTransferCreate, StockTransferUpdate, StockTransferType }
+export type { StockTransfers, StockTransfer, StockTransferCreate, StockTransferUpdate, StockTransferType }

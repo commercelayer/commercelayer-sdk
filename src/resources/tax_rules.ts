@@ -266,4 +266,4 @@ class TaxRules extends ApiResource<TaxRule> {
 const instance = new TaxRules()
 export default instance
 
-export type { TaxRule, TaxRuleCreate, TaxRuleUpdate, TaxRuleType }
+export type { TaxRules, TaxRule, TaxRuleCreate, TaxRuleUpdate, TaxRuleType }

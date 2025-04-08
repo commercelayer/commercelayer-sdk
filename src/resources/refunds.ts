@@ -180,4 +180,4 @@ class Refunds extends ApiResource<Refund> {
 const instance = new Refunds()
 export default instance
 
-export type { Refund, RefundUpdate, RefundType }
+export type { Refunds, Refund, RefundUpdate, RefundType }

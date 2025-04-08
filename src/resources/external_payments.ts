@@ -137,4 +137,4 @@ class ExternalPayments extends ApiResource<ExternalPayment> {
 const instance = new ExternalPayments()
 export default instance
 
-export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate, ExternalPaymentType }
+export type { ExternalPayments, ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate, ExternalPaymentType }

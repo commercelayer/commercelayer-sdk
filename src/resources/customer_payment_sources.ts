@@ -161,4 +161,4 @@ class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
 const instance = new CustomerPaymentSources()
 export default instance
 
-export type { CustomerPaymentSource, CustomerPaymentSourceCreate, CustomerPaymentSourceUpdate, CustomerPaymentSourceType }
+export type { CustomerPaymentSources, CustomerPaymentSource, CustomerPaymentSourceCreate, CustomerPaymentSourceUpdate, CustomerPaymentSourceType }

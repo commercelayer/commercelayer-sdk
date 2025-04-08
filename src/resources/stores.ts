@@ -164,4 +164,4 @@ class Stores extends ApiResource<Store> {
 const instance = new Stores()
 export default instance
 
-export type { Store, StoreCreate, StoreUpdate, StoreType }
+export type { Stores, Store, StoreCreate, StoreUpdate, StoreType }

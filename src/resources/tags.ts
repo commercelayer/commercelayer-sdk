@@ -88,4 +88,4 @@ class Tags extends ApiResource<Tag> {
 const instance = new Tags()
 export default instance
 
-export type { Tag, TagCreate, TagUpdate, TagType }
+export type { Tags, Tag, TagCreate, TagUpdate, TagType }

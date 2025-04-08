@@ -213,4 +213,4 @@ class Coupons extends ApiResource<Coupon> {
 const instance = new Coupons()
 export default instance
 
-export type { Coupon, CouponCreate, CouponUpdate, CouponType }
+export type { Coupons, Coupon, CouponCreate, CouponUpdate, CouponType }

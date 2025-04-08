@@ -397,4 +397,4 @@ class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
 const instance = new BuyXPayYPromotions()
 export default instance
 
-export type { BuyXPayYPromotion, BuyXPayYPromotionCreate, BuyXPayYPromotionUpdate, BuyXPayYPromotionType }
+export type { BuyXPayYPromotions, BuyXPayYPromotion, BuyXPayYPromotionCreate, BuyXPayYPromotionUpdate, BuyXPayYPromotionType }

@@ -167,4 +167,4 @@ class SubscriptionModels extends ApiResource<SubscriptionModel> {
 const instance = new SubscriptionModels()
 export default instance
 
-export type { SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate, SubscriptionModelType }
+export type { SubscriptionModels, SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate, SubscriptionModelType }

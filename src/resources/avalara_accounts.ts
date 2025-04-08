@@ -199,4 +199,4 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 const instance = new AvalaraAccounts()
 export default instance
 
-export type { AvalaraAccount, AvalaraAccountCreate, AvalaraAccountUpdate, AvalaraAccountType }
+export type { AvalaraAccounts, AvalaraAccount, AvalaraAccountCreate, AvalaraAccountUpdate, AvalaraAccountType }

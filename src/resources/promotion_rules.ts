@@ -66,4 +66,4 @@ class PromotionRules extends ApiResource<PromotionRule> {
 const instance = new PromotionRules()
 export default instance
 
-export type { PromotionRule, PromotionRuleType }
+export type { PromotionRules, PromotionRule, PromotionRuleType }

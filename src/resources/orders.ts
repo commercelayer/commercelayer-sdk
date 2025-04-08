@@ -1388,4 +1388,4 @@ class Orders extends ApiResource<Order> {
 const instance = new Orders()
 export default instance
 
-export type { Order, OrderCreate, OrderUpdate, OrderType }
+export type { Orders, Order, OrderCreate, OrderUpdate, OrderType }

@@ -205,4 +205,4 @@ class Webhooks extends ApiResource<Webhook> {
 const instance = new Webhooks()
 export default instance
 
-export type { Webhook, WebhookCreate, WebhookUpdate, WebhookType }
+export type { Webhooks, Webhook, WebhookCreate, WebhookUpdate, WebhookType }

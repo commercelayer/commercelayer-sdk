@@ -118,4 +118,4 @@ class InventoryReturnLocations extends ApiResource<InventoryReturnLocation> {
 const instance = new InventoryReturnLocations()
 export default instance
 
-export type { InventoryReturnLocation, InventoryReturnLocationCreate, InventoryReturnLocationUpdate, InventoryReturnLocationType }
+export type { InventoryReturnLocations, InventoryReturnLocation, InventoryReturnLocationCreate, InventoryReturnLocationUpdate, InventoryReturnLocationType }

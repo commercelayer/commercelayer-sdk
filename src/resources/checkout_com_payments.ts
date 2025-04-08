@@ -227,4 +227,4 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 const instance = new CheckoutComPayments()
 export default instance
 
-export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate, CheckoutComPaymentType }
+export type { CheckoutComPayments, CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate, CheckoutComPaymentType }

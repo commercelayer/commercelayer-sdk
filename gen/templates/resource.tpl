@@ -46,4 +46,4 @@ class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOU
 const instance = new ##__RESOURCE_CLASS__##()
 export default instance
 
-export type { ##__EXPORT_RESOURCE_TYPES__##, ##__MODEL_RESOURCE_INTERFACE__##Type }
+export type { ##__RESOURCE_CLASS__##, ##__EXPORT_RESOURCE_TYPES__##, ##__MODEL_RESOURCE_INTERFACE__##Type }

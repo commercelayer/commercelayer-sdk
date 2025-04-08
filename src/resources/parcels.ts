@@ -477,4 +477,4 @@ class Parcels extends ApiResource<Parcel> {
 const instance = new Parcels()
 export default instance
 
-export type { Parcel, ParcelCreate, ParcelUpdate, ParcelType }
+export type { Parcels, Parcel, ParcelCreate, ParcelUpdate, ParcelType }

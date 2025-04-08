@@ -185,4 +185,4 @@ class Imports extends ApiResource<Import> {
 const instance = new Imports()
 export default instance
 
-export type { Import, ImportCreate, ImportUpdate, ImportType }
+export type { Imports, Import, ImportCreate, ImportUpdate, ImportType }

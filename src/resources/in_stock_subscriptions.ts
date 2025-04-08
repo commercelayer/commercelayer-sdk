@@ -183,4 +183,4 @@ class InStockSubscriptions extends ApiResource<InStockSubscription> {
 const instance = new InStockSubscriptions()
 export default instance
 
-export type { InStockSubscription, InStockSubscriptionCreate, InStockSubscriptionUpdate, InStockSubscriptionType }
+export type { InStockSubscriptions, InStockSubscription, InStockSubscriptionCreate, InStockSubscriptionUpdate, InStockSubscriptionType }

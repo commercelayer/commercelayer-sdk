@@ -120,4 +120,4 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 const instance = new BingGeocoders()
 export default instance
 
-export type { BingGeocoder, BingGeocoderCreate, BingGeocoderUpdate, BingGeocoderType }
+export type { BingGeocoders, BingGeocoder, BingGeocoderCreate, BingGeocoderUpdate, BingGeocoderType }

@@ -190,4 +190,4 @@ class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 const instance = new OrderSubscriptionItems()
 export default instance
 
-export type { OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItemUpdate, OrderSubscriptionItemType }
+export type { OrderSubscriptionItems, OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItemUpdate, OrderSubscriptionItemType }

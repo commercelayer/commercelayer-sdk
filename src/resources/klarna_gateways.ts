@@ -145,4 +145,4 @@ class KlarnaGateways extends ApiResource<KlarnaGateway> {
 const instance = new KlarnaGateways()
 export default instance
 
-export type { KlarnaGateway, KlarnaGatewayCreate, KlarnaGatewayUpdate, KlarnaGatewayType }
+export type { KlarnaGateways, KlarnaGateway, KlarnaGatewayCreate, KlarnaGatewayUpdate, KlarnaGatewayType }

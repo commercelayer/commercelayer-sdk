@@ -155,4 +155,4 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 const instance = new ShippingWeightTiers()
 export default instance
 
-export type { ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierUpdate, ShippingWeightTierType }
+export type { ShippingWeightTiers, ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierUpdate, ShippingWeightTierType }

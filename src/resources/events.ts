@@ -88,4 +88,4 @@ class Events extends ApiResource<Event> {
 const instance = new Events()
 export default instance
 
-export type { Event, EventUpdate, EventType }
+export type { Events, Event, EventUpdate, EventType }

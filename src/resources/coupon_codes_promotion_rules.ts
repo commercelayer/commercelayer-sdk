@@ -110,4 +110,4 @@ class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
 const instance = new CouponCodesPromotionRules()
 export default instance
 
-export type { CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRuleUpdate, CouponCodesPromotionRuleType }
+export type { CouponCodesPromotionRules, CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRuleUpdate, CouponCodesPromotionRuleType }

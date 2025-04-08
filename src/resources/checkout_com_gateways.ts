@@ -150,4 +150,4 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 const instance = new CheckoutComGateways()
 export default instance
 
-export type { CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewayUpdate, CheckoutComGatewayType }
+export type { CheckoutComGateways, CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewayUpdate, CheckoutComGatewayType }

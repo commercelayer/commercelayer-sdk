@@ -364,4 +364,4 @@ class Skus extends ApiResource<Sku> {
 const instance = new Skus()
 export default instance
 
-export type { Sku, SkuCreate, SkuUpdate, SkuType }
+export type { Skus, Sku, SkuCreate, SkuUpdate, SkuType }

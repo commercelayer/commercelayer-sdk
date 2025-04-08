@@ -132,4 +132,4 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 const instance = new CustomerGroups()
 export default instance
 
-export type { CustomerGroup, CustomerGroupCreate, CustomerGroupUpdate, CustomerGroupType }
+export type { CustomerGroups, CustomerGroup, CustomerGroupCreate, CustomerGroupUpdate, CustomerGroupType }

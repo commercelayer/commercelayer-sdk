@@ -160,4 +160,4 @@ class StockReservations extends ApiResource<StockReservation> {
 const instance = new StockReservations()
 export default instance
 
-export type { StockReservation, StockReservationCreate, StockReservationUpdate, StockReservationType }
+export type { StockReservations, StockReservation, StockReservationCreate, StockReservationUpdate, StockReservationType }

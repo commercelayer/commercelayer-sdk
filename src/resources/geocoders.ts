@@ -76,4 +76,4 @@ class Geocoders extends ApiResource<Geocoder> {
 const instance = new Geocoders()
 export default instance
 
-export type { Geocoder, GeocoderType }
+export type { Geocoders, Geocoder, GeocoderType }

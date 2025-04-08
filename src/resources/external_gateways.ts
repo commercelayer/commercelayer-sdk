@@ -209,4 +209,4 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 const instance = new ExternalGateways()
 export default instance
 
-export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate, ExternalGatewayType }
+export type { ExternalGateways, ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate, ExternalGatewayType }

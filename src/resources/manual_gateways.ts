@@ -103,4 +103,4 @@ class ManualGateways extends ApiResource<ManualGateway> {
 const instance = new ManualGateways()
 export default instance
 
-export type { ManualGateway, ManualGatewayCreate, ManualGatewayUpdate, ManualGatewayType }
+export type { ManualGateways, ManualGateway, ManualGatewayCreate, ManualGatewayUpdate, ManualGatewayType }

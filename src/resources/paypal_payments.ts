@@ -169,4 +169,4 @@ class PaypalPayments extends ApiResource<PaypalPayment> {
 const instance = new PaypalPayments()
 export default instance
 
-export type { PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate, PaypalPaymentType }
+export type { PaypalPayments, PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate, PaypalPaymentType }

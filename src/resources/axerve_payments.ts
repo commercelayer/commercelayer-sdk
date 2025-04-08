@@ -173,4 +173,4 @@ class AxervePayments extends ApiResource<AxervePayment> {
 const instance = new AxervePayments()
 export default instance
 
-export type { AxervePayment, AxervePaymentCreate, AxervePaymentUpdate, AxervePaymentType }
+export type { AxervePayments, AxervePayment, AxervePaymentCreate, AxervePaymentUpdate, AxervePaymentType }

@@ -411,4 +411,4 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 const instance = new ShippingMethods()
 export default instance
 
-export type { ShippingMethod, ShippingMethodCreate, ShippingMethodUpdate, ShippingMethodType }
+export type { ShippingMethods, ShippingMethod, ShippingMethodCreate, ShippingMethodUpdate, ShippingMethodType }

@@ -125,4 +125,4 @@ class ShippingCategories extends ApiResource<ShippingCategory> {
 const instance = new ShippingCategories()
 export default instance
 
-export type { ShippingCategory, ShippingCategoryCreate, ShippingCategoryUpdate, ShippingCategoryType }
+export type { ShippingCategories, ShippingCategory, ShippingCategoryCreate, ShippingCategoryUpdate, ShippingCategoryType }

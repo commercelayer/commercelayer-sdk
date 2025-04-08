@@ -69,4 +69,4 @@ class DiscountEngineItems extends ApiResource<DiscountEngineItem> {
 const instance = new DiscountEngineItems()
 export default instance
 
-export type { DiscountEngineItem, DiscountEngineItemType }
+export type { DiscountEngineItems, DiscountEngineItem, DiscountEngineItemType }

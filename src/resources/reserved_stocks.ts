@@ -83,4 +83,4 @@ class ReservedStocks extends ApiResource<ReservedStock> {
 const instance = new ReservedStocks()
 export default instance
 
-export type { ReservedStock, ReservedStockType }
+export type { ReservedStocks, ReservedStock, ReservedStockType }

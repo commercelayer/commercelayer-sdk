@@ -96,4 +96,4 @@ class PriceTiers extends ApiResource<PriceTier> {
 const instance = new PriceTiers()
 export default instance
 
-export type { PriceTier, PriceTierType }
+export type { PriceTiers, PriceTier, PriceTierType }

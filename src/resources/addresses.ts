@@ -403,4 +403,4 @@ class Addresses extends ApiResource<Address> {
 const instance = new Addresses()
 export default instance
 
-export type { Address, AddressCreate, AddressUpdate, AddressType }
+export type { Addresses, Address, AddressCreate, AddressUpdate, AddressType }

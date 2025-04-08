@@ -69,4 +69,4 @@ class PaymentGateways extends ApiResource<PaymentGateway> {
 const instance = new PaymentGateways()
 export default instance
 
-export type { PaymentGateway, PaymentGatewayType }
+export type { PaymentGateways, PaymentGateway, PaymentGatewayType }

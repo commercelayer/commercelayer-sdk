@@ -173,4 +173,4 @@ class Voids extends ApiResource<Void> {
 const instance = new Voids()
 export default instance
 
-export type { Void, VoidUpdate, VoidType }
+export type { Voids, Void, VoidUpdate, VoidType }

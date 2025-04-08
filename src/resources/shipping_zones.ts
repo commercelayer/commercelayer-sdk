@@ -193,4 +193,4 @@ class ShippingZones extends ApiResource<ShippingZone> {
 const instance = new ShippingZones()
 export default instance
 
-export type { ShippingZone, ShippingZoneCreate, ShippingZoneUpdate, ShippingZoneType }
+export type { ShippingZones, ShippingZone, ShippingZoneCreate, ShippingZoneUpdate, ShippingZoneType }

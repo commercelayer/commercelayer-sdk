@@ -145,4 +145,4 @@ class SkuListItems extends ApiResource<SkuListItem> {
 const instance = new SkuListItems()
 export default instance
 
-export type { SkuListItem, SkuListItemCreate, SkuListItemUpdate, SkuListItemType }
+export type { SkuListItems, SkuListItem, SkuListItemCreate, SkuListItemUpdate, SkuListItemType }

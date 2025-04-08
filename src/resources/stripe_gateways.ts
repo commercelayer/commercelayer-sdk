@@ -180,4 +180,4 @@ class StripeGateways extends ApiResource<StripeGateway> {
 const instance = new StripeGateways()
 export default instance
 
-export type { StripeGateway, StripeGatewayCreate, StripeGatewayUpdate, StripeGatewayType }
+export type { StripeGateways, StripeGateway, StripeGatewayCreate, StripeGatewayUpdate, StripeGatewayType }

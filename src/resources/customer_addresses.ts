@@ -124,4 +124,4 @@ class CustomerAddresses extends ApiResource<CustomerAddress> {
 const instance = new CustomerAddresses()
 export default instance
 
-export type { CustomerAddress, CustomerAddressCreate, CustomerAddressUpdate, CustomerAddressType }
+export type { CustomerAddresses, CustomerAddress, CustomerAddressCreate, CustomerAddressUpdate, CustomerAddressType }

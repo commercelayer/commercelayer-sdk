@@ -102,4 +102,4 @@ class CustomerSubscriptions extends ApiResource<CustomerSubscription> {
 const instance = new CustomerSubscriptions()
 export default instance
 
-export type { CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscriptionUpdate, CustomerSubscriptionType }
+export type { CustomerSubscriptions, CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscriptionUpdate, CustomerSubscriptionType }

@@ -110,4 +110,4 @@ class OrderFactories extends ApiResource<OrderFactory> {
 const instance = new OrderFactories()
 export default instance
 
-export type { OrderFactory, OrderFactoryType }
+export type { OrderFactories, OrderFactory, OrderFactoryType }

@@ -202,4 +202,4 @@ class StockLineItems extends ApiResource<StockLineItem> {
 const instance = new StockLineItems()
 export default instance
 
-export type { StockLineItem, StockLineItemCreate, StockLineItemUpdate, StockLineItemType }
+export type { StockLineItems, StockLineItem, StockLineItemCreate, StockLineItemUpdate, StockLineItemType }

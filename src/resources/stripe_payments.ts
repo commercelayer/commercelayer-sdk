@@ -217,4 +217,4 @@ class StripePayments extends ApiResource<StripePayment> {
 const instance = new StripePayments()
 export default instance
 
-export type { StripePayment, StripePaymentCreate, StripePaymentUpdate, StripePaymentType }
+export type { StripePayments, StripePayment, StripePaymentCreate, StripePaymentUpdate, StripePaymentType }
