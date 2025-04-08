@@ -1,3 +1,9 @@
+## [7.0.0-rc.5](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.4...v7.0.0-rc.5) (2025-04-08)
+
+### Bug Fixes
+
+* fix bundle config ([68f0843](https://github.com/commercelayer/commercelayer-sdk/commit/68f08439d7fff33cfe74874067c6ddaf8e43cf84))
+
 ## [7.0.0-rc.4](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.3...v7.0.0-rc.4) (2025-04-08)
 
 ### Features
