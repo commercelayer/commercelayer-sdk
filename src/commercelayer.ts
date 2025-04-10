@@ -29,7 +29,7 @@ class CommerceLayerClient {
 	static get openApiSchemaVersion(): string { return OPEN_API_SCHEMA_VERSION }
 	readonly openApiSchemaVersion = OPEN_API_SCHEMA_VERSION
 
-	private static cl: CommerceLayerClient
+	protected static cl: CommerceLayerClient
 
 	// ##__CL_RESOURCES_DEF_START__##
 	// ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##

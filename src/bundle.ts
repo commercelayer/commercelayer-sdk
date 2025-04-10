@@ -1,6 +1,9 @@
 import { CommerceLayerClient, CommerceLayerInitConfig } from './commercelayer'
 import * as api from './api'
 
+import Debug from './debug'
+const debug = Debug('bundle')
+
 
 class CommerceLayerBundle extends CommerceLayerClient {
 
@@ -142,11 +145,20 @@ class CommerceLayerBundle extends CommerceLayerClient {
   public constructor(config: CommerceLayerInitConfig) {
 
 		super(config)
+		debug('new commercelayer bundle instance %O', config)
 
 		// ##__CL_RESOURCES_INIT_START__##
 		// ##__CL_RESOURCES_INIT_TEMPLATE:: ##__TAB__####__TAB__##this.##__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)
 		// ##__CL_RESOURCES_INIT_STOP__##
 
+	}
+
+
+	static get (config?: CommerceLayerInitConfig): CommerceLayerBundle {
+		if (config) return (CommerceLayerBundle.cl = new CommerceLayerBundle(config))
+		else
+		if (!CommerceLayerBundle.cl) throw new Error('CommerceLayer bundle client not initialized')
+		return CommerceLayerBundle.cl as CommerceLayerBundle
 	}
 
 	// private get adapter(): ResourceAdapter { return ApiResourceAdapter.get() }
@@ -291,7 +303,7 @@ class CommerceLayerBundle extends CommerceLayerClient {
 
 
 function CommerceLayer(config: CommerceLayerInitConfig): CommerceLayerBundle {
-	return new CommerceLayerBundle(config)
+	return CommerceLayerBundle.get(config)
 }
 
 
