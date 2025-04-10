@@ -1,3 +1,9 @@
+## [7.0.0-rc.6](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.5...v7.0.0-rc.6) (2025-04-10)
+
+### Bug Fixes
+
+* fix resource exports ([fd651a2](https://github.com/commercelayer/commercelayer-sdk/commit/fd651a2e5198efc65e3883c0c0c6e31b6c6558c9))
+
 ## [7.0.0-rc.5](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.4...v7.0.0-rc.5) (2025-04-08)
 
 ### Bug Fixes
