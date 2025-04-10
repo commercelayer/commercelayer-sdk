@@ -1,3 +1,13 @@
+## [7.0.0-rc.7](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.6...v7.0.0-rc.7) (2025-04-10)
+
+### Features
+
+* update resources to schema v7.8.5 ([093a3b9](https://github.com/commercelayer/commercelayer-sdk/commit/093a3b94e29946c5f3b9b92dfc59ef618ae47baa))
+
+### Bug Fixes
+
+* fix enum types export ([2fc9d30](https://github.com/commercelayer/commercelayer-sdk/commit/2fc9d301cc96d3028c610081009c9f57e3258c59))
+
 ## [7.0.0-rc.6](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.5...v7.0.0-rc.6) (2025-04-10)
 
 ### Bug Fixes
