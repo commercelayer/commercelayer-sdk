@@ -1,3 +1,9 @@
+## [7.0.0-rc.8](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.7...v7.0.0-rc.8) (2025-04-10)
+
+### Bug Fixes
+
+* fix client bundle singleton ([0e2c948](https://github.com/commercelayer/commercelayer-sdk/commit/0e2c948f6d1858149c49a5dc9ba8aaa573853dae))
+
 ## [7.0.0-rc.7](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.6...v7.0.0-rc.7) (2025-04-10)
 
 ### Features
