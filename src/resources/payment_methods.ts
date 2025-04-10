@@ -5,7 +5,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Market, MarketType } from './markets'
 import type { PaymentGateway, PaymentGatewayType } from './payment_gateways'
 import type { Store, StoreType } from './stores'
-import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
@@ -93,7 +92,6 @@ interface PaymentMethod extends Resource {
 	market?: Market | null
 	payment_gateway?: PaymentGateway | null
 	store?: Store | null
-	orders?: Order[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
@@ -251,11 +249,6 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 	async store(paymentMethodId: string | PaymentMethod, params?: QueryParamsRetrieve<Store>, options?: ResourcesConfig): Promise<Store> {
 		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
 		return this.resources.fetch<Store>({ type: 'stores' }, `payment_methods/${_paymentMethodId}/store`, params, options) as unknown as Store
-	}
-
-	async orders(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Order>, options?: ResourcesConfig): Promise<ListResponse<Order>> {
-		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `payment_methods/${_paymentMethodId}/orders`, params, options) as unknown as ListResponse<Order>
 	}
 
 	async attachments(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {

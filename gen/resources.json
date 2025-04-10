@@ -7116,6 +7116,17 @@
                     "sortable": true,
                     "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                 },
+                "jwt_custom_claim": {
+                    "type": "object",
+                    "desc": "The custom_claim attached to the current JWT (if any).",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}",
+                    "exportable": false
+                },
                 "metadata": {
                     "type": "object",
                     "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
@@ -7127,6 +7138,50 @@
                     "sortable": false,
                     "example": {
                         "foo": "bar"
+                    }
+                },
+                "_request_anonymization": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to trigger anonymization.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_cancel_anonymization": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to trigger a cancellation of anonymization.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "anonymization_info": {
+                    "type": "object",
+                    "desc": "The anonymization info object.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": {
+                        "status": "requested",
+                        "requested_at": "2025-03-15 11:39:21 UTC",
+                        "requester": {
+                            "id": "fdgt56hh",
+                            "first_name": "Travis",
+                            "last_name": "Muller",
+                            "email": "test@labadie.test"
+                        }
                     }
                 }
             },
@@ -7223,6 +7278,33 @@
                     "prohibited": true,
                     "parent_resource": "Api::CustomerResource",
                     "class_name": "Tag"
+                },
+                "jwt_customer": {
+                    "type": "has_one",
+                    "desc": "The customer associated to the JWT.",
+                    "class_name": "Customer",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "parent_resource": "Api::CustomerResource"
+                },
+                "jwt_markets": {
+                    "type": "has_many",
+                    "desc": "The markets associated to the JWT.",
+                    "class_name": "Market",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "parent_resource": "Api::CustomerResource"
+                },
+                "jwt_stock_locations": {
+                    "type": "has_many",
+                    "desc": "The stock locations associated to the JWT.",
+                    "class_name": "StockLocation",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "parent_resource": "Api::CustomerResource"
                 }
             },
             "filters": [
@@ -24063,12 +24145,6 @@
                     "sortable": true,
                     "parent_resource": "Api::PaymentMethodResource",
                     "class_name": "Store"
-                },
-                "orders": {
-                    "type": "has_many",
-                    "desc": "The associated orders.",
-                    "parent_resource": "Api::PaymentMethodResource",
-                    "class_name": "Order"
                 },
                 "attachments": {
                     "type": "has_many",
