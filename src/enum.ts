@@ -146,7 +146,7 @@ export const resourceList: Readonly<ResourceTypeLock[]> = apiResources
 
 
 // Singleton resources
-export const singletonList: ResourceTypeLock[] = [
+export const singletonList = [
 	// ##__API_RESOURCE_SINGLETON_START__##
 	'applications',
 	'organizations'
@@ -176,7 +176,7 @@ export type ListableResource = Resource & {
 
 
 // Creatable resources
-export const creatableResources: ResourceTypeLock[] = [
+export const creatableResources = [
 	// ##__API_RESOURCE_CREATABLE_START__##
 	'addresses',
 	'adjustments',
@@ -296,7 +296,7 @@ export type CreatableResource = Resource & {
 
 
 // Updatable resources
-export const updatableResources: ResourceTypeLock[] = [
+export const updatableResources = [
 	// ##__API_RESOURCE_UPDATABLE_START__##
 	'addresses',
 	'adjustments',
@@ -421,7 +421,7 @@ export type UpdatableResource = Resource & {
 
 
 // Deletable resources
-export const deletableResources: ResourceTypeLock[] = [
+export const deletableResources = [
 	// ##__API_RESOURCE_DELETABLE_START__##
 	'addresses',
 	'adjustments',
@@ -541,7 +541,7 @@ export type DeletableResource = Resource & {
 
 
 // Taggable resources
-export const taggableResources: ResourceTypeLock[] = [
+export const taggableResources = [
 	// ##__API_RESOURCE_TAGGABLE_START__##
 	'addresses',
 	'bundles',
@@ -576,7 +576,7 @@ export type TaggableResource = Resource & {
 
 
 // Versionable resources
-export const versionableResources: ResourceTypeLock[] = [
+export const versionableResources = [
 	// ##__API_RESOURCE_VERSIONABLE_START__##
 	'addresses',
 	'adjustments',
@@ -692,7 +692,7 @@ export type VersionableResource = Resource & {
 
 
 // Utility functions
-export function getResources(sort?: boolean): readonly string[] {
+export function getResources(sort?: boolean): readonly ResourceTypeLock[] {
 	return sort? [ ...resourceList ].sort() : resourceList
 }
 
@@ -701,27 +701,27 @@ export function getSingletons(sort?: boolean): readonly string[] {
 }
 
 export function isSingleton(resource: ResourceTypeLock): boolean {
-	return singletonList.includes(resource)
+	return singletonList.includes(resource as any)
 }
 
 export function isCreatable(resource: ResourceTypeLock): boolean {
-	return creatableResources.includes(resource)
+	return creatableResources.includes(resource as any)
 }
 
 export function isUpdatable(resource: ResourceTypeLock): boolean {
-	return updatableResources.includes(resource)
+	return updatableResources.includes(resource as any)
 }
 
 export function isDeletable(resource: ResourceTypeLock): boolean {
-	return deletableResources.includes(resource)
+	return deletableResources.includes(resource as any)
 }
 
 export function isTaggable(resource: ResourceTypeLock): boolean {
-	return taggableResources.includes(resource)
+	return taggableResources.includes(resource as any)
 }
 
 export function isVersionable(resource: ResourceTypeLock): boolean {
-	return versionableResources.includes(resource)
+	return versionableResources.includes(resource as any)
 }
 
 
