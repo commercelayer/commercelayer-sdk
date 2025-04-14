@@ -7,14 +7,28 @@ import Inflector from './inflector'
 import { updateLicense } from './license'
 
 
+type ConfigType = {
+	LOCAL_SCHEMA: boolean,
+	RELATIONSHIP_FUNCTIONS: boolean,
+	TRIGGER_FUNCTIONS: boolean,
+	RESOURCES_FULL_BUNDLE: boolean,
+	RESOURCES_INSTANCE_STYLE: 'standard_object' | 'leazy_loading' | 'accessors_only',
+	RESOURCES_STANDARD_OBJECT?: boolean,
+	RESOURCES_LEAZY_LOADING?: boolean,
+	RESOURCES_ACCESSORS_ONLY?: boolean
+}
+
 /**** SDK source code generator settings ****/
-export const CONFIG = {
+export const CONFIG: ConfigType = {
 	LOCAL_SCHEMA: false,
 	RELATIONSHIP_FUNCTIONS: true,
 	TRIGGER_FUNCTIONS: true,
-	RESOURCES_LEAZY_LOADING: true,
-	RESOURCES_FULL_BUNDLE: true
+	RESOURCES_FULL_BUNDLE: true,
+	RESOURCES_INSTANCE_STYLE: 'accessors_only'
 }
+CONFIG.RESOURCES_STANDARD_OBJECT = (CONFIG.RESOURCES_INSTANCE_STYLE === 'standard_object')
+CONFIG.RESOURCES_LEAZY_LOADING = (CONFIG.RESOURCES_INSTANCE_STYLE === 'leazy_loading')
+CONFIG.RESOURCES_ACCESSORS_ONLY = (CONFIG.RESOURCES_INSTANCE_STYLE === 'accessors_only')
 /**** **** **** **** **** **** **** **** ****/
 
 
@@ -219,7 +233,7 @@ const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
 	// Definitions
 	const definitions: string[] = []
 
-	if (CONFIG.RESOURCES_FULL_BUNDLE) {
+	if (CONFIG.RESOURCES_FULL_BUNDLE && !CONFIG.RESOURCES_ACCESSORS_ONLY) {
 
 		const defTplLine = findLine('##__CL_RESOURCES_DEF_TEMPLATE::', lines)
 		const defTplIdx = defTplLine.offset + '##__CL_RESOURCES_DEF_TEMPLATE::'.length + 1
@@ -250,7 +264,7 @@ const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
 		const iniTplIdx = iniTplLine.offset + '##__CL_RESOURCES_INIT_TEMPLATE::'.length + 1
 		const iniTpl = iniTplLine.text.substring(iniTplIdx)
 
-		if (!CONFIG.RESOURCES_LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+		if (!CONFIG.RESOURCES_LEAZY_LOADING && !CONFIG.RESOURCES_ACCESSORS_ONLY) Object.entries(resources).forEach(([type, res]) => {
 			const fieldName = res.singleton ? Inflector.singularize(type) : type
 			let ini = iniTpl
 			ini = ini.replace(/##__TAB__##/g, '\t')
@@ -275,7 +289,7 @@ const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
 		const llTplIdx = llTplLine.offset + '##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::'.length + 1
 		const llTpl = llTplLine.text.substring(llTplIdx)
 
-		if (CONFIG.RESOURCES_LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+		if (CONFIG.RESOURCES_LEAZY_LOADING && !CONFIG.RESOURCES_ACCESSORS_ONLY) Object.entries(resources).forEach(([type, res]) => {
 			const fieldName = res.singleton ? Inflector.singularize(type) : type
 			let ll = llTpl
 			ll = ll.replace(/##__TAB__##/g, '\t')
@@ -289,6 +303,31 @@ const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
 	const llStartIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_START__##', lines).index + 2
 	const llStopIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_STOP__##', lines).index
 	lines.splice(llStartIdx, llStopIdx - llStartIdx, ...leazyLoaders)
+
+
+	// Accessors
+	const accessors: string[] = []
+
+	if (CONFIG.RESOURCES_FULL_BUNDLE) {
+
+		const aoTplLine = findLine('##__CL_RESOURCES_ACCESSORS_ONLY_TEMPLATE::', lines)
+		const aoTplIdx = aoTplLine.offset + '##__CL_RESOURCES_ACCESSORS_ONLY_TEMPLATE::'.length + 1
+		const aoTpl = aoTplLine.text.substring(aoTplIdx)
+
+		if (CONFIG.RESOURCES_ACCESSORS_ONLY) Object.entries(resources).forEach(([type, res]) => {
+			const fieldName = res.singleton ? Inflector.singularize(type) : type
+			let ao = aoTpl
+			ao = ao.replace(/##__TAB__##/g, '\t')
+			ao = ao.replace(/##__RESOURCE_TYPE__##/g, fieldName)
+			ao = ao.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
+			accessors.push(ao)
+		})
+
+	}
+
+	const aoStartIdx = findLine('##__CL_RESOURCES_ACCESSORS_ONLY_START__##', lines).index + 2
+	const aoStopIdx = findLine('##__CL_RESOURCES_ACCESSORS_ONLY_STOP__##', lines).index
+	lines.splice(aoStartIdx, aoStopIdx - aoStartIdx, ...accessors)
 
 
 	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })

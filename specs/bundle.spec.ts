@@ -1,6 +1,6 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { getClient, organization, domain } from '../test/common'
+import { organization, domain } from '../test/common'
 import { CommerceLayer, type CommerceLayerBundle } from '../lib/bundle'
 import getToken from '../test/token'
 
@@ -12,7 +12,6 @@ beforeAll(async () => {
 	const token = await getToken('integration')
 	if (token === null) throw new Error('Unable to get access token')
 	const accessToken = token.accessToken
-	
 	cl = CommerceLayer({ organization, accessToken, domain })
 })
 
