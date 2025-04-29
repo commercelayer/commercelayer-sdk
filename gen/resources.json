@@ -5323,23 +5323,32 @@
                     "sortable": false,
                     "example": "tok_4gzeau5o2uqubbk6fufs3m7p54"
                 },
-                "session_id": {
-                    "type": "string",
-                    "desc": "A payment session ID used to obtain the details.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
+                "payment_session": {
+                    "type": "object",
+                    "desc": "The session object which initializes payment.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "example": "sid_y3oqhf46pyzuxjbcn2giaqnb44"
+                    "example": {
+                        "id": "ps_xxxx_yyyy_zzzz",
+                        "payment_session_secret": "pss_xxxx_yyy_zzzz",
+                        "payment_session_token": "xxxxx_yyyyy_zzzzz",
+                        "_links": {
+                            "self": {
+                                "href": "https://api.sandbox.checkout.com/payment-sessions/ps_xxxx_yyyy_zzzz"
+                            }
+                        }
+                    }
                 },
                 "success_url": {
                     "type": "string",
                     "desc": "The URL to redirect your customer upon 3DS succeeded authentication.",
-                    "required": "optional",
+                    "required": "required",
                     "creatable": true,
-                    "updatable": true,
+                    "updatable": false,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
@@ -5348,9 +5357,9 @@
                 "failure_url": {
                     "type": "string",
                     "desc": "The URL to redirect your customer upon 3DS failed authentication.",
-                    "required": "optional",
+                    "required": "required",
                     "creatable": true,
-                    "updatable": true,
+                    "updatable": false,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
