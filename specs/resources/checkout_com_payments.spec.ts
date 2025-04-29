@@ -29,6 +29,8 @@ describe('CheckoutComPayments resource', () => {
     const createAttributes = {
 			payment_type: randomValue('string', 'payment_type'),
 			token: randomValue('string', 'token'),
+			success_url: randomValue('string', 'success_url'),
+			failure_url: randomValue('string', 'failure_url'),
 			order: orders.relationship(TestData.id),
 		}
 

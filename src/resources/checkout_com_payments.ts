@@ -36,20 +36,20 @@ interface CheckoutComPayment extends Resource {
 	 */
 	token: string
 	/** 
-	 * A payment session ID used to obtain the details.
-	 * @example ```"sid_y3oqhf46pyzuxjbcn2giaqnb44"```
+	 * The session object which initializes payment.
+	 * @example ```{"id":"ps_xxxx_yyyy_zzzz","payment_session_secret":"pss_xxxx_yyy_zzzz","payment_session_token":"xxxxx_yyyyy_zzzzz","_links":{"self":{"href":"https://api.sandbox.checkout.com/payment-sessions/ps_xxxx_yyyy_zzzz"}}}```
 	 */
-	session_id?: string | null
+	payment_session: Record<string, any>
 	/** 
 	 * The URL to redirect your customer upon 3DS succeeded authentication.
 	 * @example ```"http://commercelayer.dev/checkout_com/success"```
 	 */
-	success_url?: string | null
+	success_url: string
 	/** 
 	 * The URL to redirect your customer upon 3DS failed authentication.
 	 * @example ```"http://commercelayer.dev/checkout_com/failure"```
 	 */
-	failure_url?: string | null
+	failure_url: string
 	/** 
 	 * The payment source identifier that can be used for subsequent payments.
 	 * @example ```"src_nwd3m4in3hkuddfpjsaevunhdy"```
@@ -100,20 +100,15 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 	 */
 	token: string
 	/** 
-	 * A payment session ID used to obtain the details.
-	 * @example ```"sid_y3oqhf46pyzuxjbcn2giaqnb44"```
-	 */
-	session_id?: string | null
-	/** 
 	 * The URL to redirect your customer upon 3DS succeeded authentication.
 	 * @example ```"http://commercelayer.dev/checkout_com/success"```
 	 */
-	success_url?: string | null
+	success_url: string
 	/** 
 	 * The URL to redirect your customer upon 3DS failed authentication.
 	 * @example ```"http://commercelayer.dev/checkout_com/failure"```
 	 */
-	failure_url?: string | null
+	failure_url: string
 
 	order: OrderRel
 
@@ -132,21 +127,6 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	 * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
 	 */
 	token?: string | null
-	/** 
-	 * A payment session ID used to obtain the details.
-	 * @example ```"sid_y3oqhf46pyzuxjbcn2giaqnb44"```
-	 */
-	session_id?: string | null
-	/** 
-	 * The URL to redirect your customer upon 3DS succeeded authentication.
-	 * @example ```"http://commercelayer.dev/checkout_com/success"```
-	 */
-	success_url?: string | null
-	/** 
-	 * The URL to redirect your customer upon 3DS failed authentication.
-	 * @example ```"http://commercelayer.dev/checkout_com/failure"```
-	 */
-	failure_url?: string | null
 	/** 
 	 * Send this attribute if you want to send additional details the payment request (i.e. upon 3DS check).
 	 * @example ```true```

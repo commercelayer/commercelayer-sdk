@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"name": "commercelayer-sdk-test",
+			"path": "../commercelayer-sdk-test"
+		},
+		{
+			"name": "commercelayer-sdk-js",
+			"path": "../commercelayer-sdk-js"
+		},
+		{
+			"name": "commercelayer-data",
+			"path": "../commercelayer-data"
+		},
+		{
+			"name": "commercelayer-js-auth",
+			"path": "../commercelayer-js-auth"
+		},
+		{
+			"name": "provisioning-sdk",
+			"path": "../provisioning-sdk"
+		},
+		{
+			"name": "poc-core-sdk",
+			"path": "../poc-core-sdk"
+		}
+	],
+	"settings": {
+		"editor.formatOnSave": false,
+		"editor.formatOnPaste": false
+	}
+}
