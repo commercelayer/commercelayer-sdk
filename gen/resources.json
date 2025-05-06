@@ -7191,7 +7191,89 @@
                             "last_name": "Muller",
                             "email": "test@labadie.test"
                         }
+                    },
+                    "properties": {
+                        "status": {
+                            "type": "string",
+                            "desc": "The status of the anonymization."
+                        },
+                        "requested_at": {
+                            "type": "datetime",
+                            "desc": "The time when the anonymization was requested."
+                        },
+                        "started_at": {
+                            "type": "datetime",
+                            "desc": "The time when the anonymization request was started."
+                        },
+                        "completed_at": {
+                            "type": "datetime",
+                            "desc": "The time when the anonymization request was completed."
+                        },
+                        "failed_at": {
+                            "type": "datetime",
+                            "desc": "The time when the anonymization request failed."
+                        },
+                        "cancelled_at": {
+                            "type": "datetime",
+                            "desc": "The time when the anonymization request was cancelled."
+                        },
+                        "requester": {
+                            "type": "object",
+                            "desc": "The user who requested the anonymization.",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "desc": "The ID of the user."
+                                },
+                                "first_name": {
+                                    "type": "string",
+                                    "desc": "First name of the user."
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "desc": "Last name of the user."
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "desc": "Email of the user."
+                                }
+                            }
+                        },
+                        "cancellation_requester": {
+                            "type": "object",
+                            "desc": "The user who requested the cancellation of the anonymization.",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "desc": "The ID of the user."
+                                },
+                                "first_name": {
+                                    "type": "string",
+                                    "desc": "First name of the user."
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "desc": "Last name of the user."
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "desc": "Email of the user."
+                                }
+                            }
+                        }
                     }
+                },
+                "anonymization_status": {
+                    "type": "string",
+                    "desc": "Status of the current anonymization request (if any).",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "exportable": true,
+                    "example": "requested"
                 }
             },
             "relationships": {
@@ -7326,6 +7408,7 @@
                 "reference",
                 "reference_origin",
                 "metadata",
+                "anonymization_status",
                 "q",
                 "customer_group_id",
                 "customer_addresses_id",

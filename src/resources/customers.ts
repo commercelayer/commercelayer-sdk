@@ -23,8 +23,8 @@ type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type CustomerSort = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count'> & ResourceSort
-// export type CustomerFilter = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count'> & ResourceFilter
+export type CustomerSort = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count' | 'anonymization_status'> & ResourceSort
+// export type CustomerFilter = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count' | 'anonymization_status'> & ResourceFilter
 
 
 interface Customer extends Resource {
@@ -75,6 +75,11 @@ interface Customer extends Resource {
 	 * @example ```{"status":"requested","requested_at":"2025-03-15 11:39:21 UTC","requester":{"id":"fdgt56hh","first_name":"Travis","last_name":"Muller","email":"test@labadie.test"}}```
 	 */
 	anonymization_info?: Record<string, any> | null
+	/** 
+	 * Status of the current anonymization request (if any).
+	 * @example ```"requested"```
+	 */
+	anonymization_status?: string | null
 
 	customer_group?: CustomerGroup | null
 	customer_addresses?: CustomerAddress[] | null
