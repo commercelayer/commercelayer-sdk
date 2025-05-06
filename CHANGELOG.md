@@ -1,3 +1,9 @@
+## [7.0.0-rc.11](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.10...v7.0.0-rc.11) (2025-05-06)
+
+### Features
+
+* update resources to versione 7.8.7 ([dee80ea](https://github.com/commercelayer/commercelayer-sdk/commit/dee80eaabf988566bf8637811746225151f942c7))
+
 ## [7.0.0-rc.10](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.9...v7.0.0-rc.10) (2025-04-29)
 
 ### Features
