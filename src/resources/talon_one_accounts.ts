@@ -51,6 +51,10 @@ interface TalonOneAccountCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
+	 * Indicates if the discount engine manages both promotions and gift cards application at once.
+	 */
+	manage_gift_cards?: boolean | null
+	/** 
 	 * The Talon.One account API key.
 	 * @example ```"TALON_ONE_API_KEY"```
 	 */
@@ -71,6 +75,10 @@ interface TalonOneAccountUpdate extends ResourceUpdate {
 	 * @example ```"Personal discount engine"```
 	 */
 	name?: string | null
+	/** 
+	 * Indicates if the discount engine manages both promotions and gift cards application at once.
+	 */
+	manage_gift_cards?: boolean | null
 	/** 
 	 * The Talon.One account API key.
 	 * @example ```"TALON_ONE_API_KEY"```

@@ -8541,12 +8541,13 @@
                 "manage_gift_cards": {
                     "type": "boolean",
                     "desc": "Indicates if the discount engine manages both promotions and gift cards application at once.",
-                    "creatable": false,
-                    "updatable": false,
+                    "required": "optional, default is 'true'",
+                    "default": true,
+                    "creatable": true,
+                    "updatable": true,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "delegate": "manage_gift_cards?",
                     "example": true
                 },
                 "id": {
@@ -35479,7 +35480,8 @@
                 "force_payments": {
                     "type": "boolean",
                     "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.",
-                    "required": "optional, default is 'false'",
+                    "required": "optional, default is 'true'",
+                    "default": true,
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -36441,12 +36443,13 @@
                 "manage_gift_cards": {
                     "type": "boolean",
                     "desc": "Indicates if the discount engine manages both promotions and gift cards application at once.",
-                    "creatable": false,
-                    "updatable": false,
+                    "required": "optional, default is 'true'",
+                    "default": true,
+                    "creatable": true,
+                    "updatable": true,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "delegate": "manage_gift_cards?",
                     "example": true
                 },
                 "id": {
