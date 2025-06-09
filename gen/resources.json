@@ -997,6 +997,19 @@
                     "sortable": false,
                     "example": "false"
                 },
+                "balance": {
+                    "type": "integer",
+                    "desc": "The balance remaining on a shopper's gift card, must be computed by using its related trigger attribute.",
+                    "required": "optional, default is \"0\"",
+                    "default": 0,
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "1000"
+                },
                 "_authorize": {
                     "type": "boolean",
                     "trigger": true,
@@ -1012,6 +1025,17 @@
                     "type": "boolean",
                     "trigger": true,
                     "desc": "Send this attribute if you want to send additional details the payment request.",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_balance": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want retrieve the balance remaining on a shopper's gift card.",
                     "creatable": false,
                     "updatable": true,
                     "fetchable": false,
@@ -1198,6 +1222,7 @@
                         "datocms",
                         "exports",
                         "external",
+                        "generic",
                         "gift_cards",
                         "imports",
                         "integration",
@@ -7152,7 +7177,8 @@
                 "_request_anonymization": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to trigger anonymization.",
+                    "desc": "Send this attribute if you want to trigger anonymization. Cannot be passed by sales channels.",
+                    "prohibited": true,
                     "required": "optional",
                     "creatable": false,
                     "updatable": true,
@@ -7164,7 +7190,8 @@
                 "_cancel_anonymization": {
                     "type": "boolean",
                     "trigger": true,
-                    "desc": "Send this attribute if you want to trigger a cancellation of anonymization.",
+                    "desc": "Send this attribute if you want to trigger a cancellation of anonymization. Cannot be passed by sales channels.",
+                    "prohibited": true,
                     "required": "optional",
                     "creatable": false,
                     "updatable": true,

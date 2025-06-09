@@ -169,12 +169,12 @@ interface CustomerUpdate extends ResourceUpdate {
 	 */
 	_remove_tags?: string | null
 	/** 
-	 * Send this attribute if you want to trigger anonymization.
+	 * Send this attribute if you want to trigger anonymization. Cannot be passed by sales channels.
 	 * @example ```true```
 	 */
 	_request_anonymization?: boolean | null
 	/** 
-	 * Send this attribute if you want to trigger a cancellation of anonymization.
+	 * Send this attribute if you want to trigger a cancellation of anonymization. Cannot be passed by sales channels.
 	 * @example ```true```
 	 */
 	_cancel_anonymization?: boolean | null

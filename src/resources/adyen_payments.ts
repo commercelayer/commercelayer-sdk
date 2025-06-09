@@ -50,6 +50,11 @@ interface AdyenPayment extends Resource {
 	 */
 	mismatched_amounts?: boolean | null
 	/** 
+	 * The balance remaining on a shopper's gift card, must be computed by using its related trigger attribute.
+	 * @example ```1000```
+	 */
+	balance?: number | null
+	/** 
 	 * Information about the payment instrument used in the transaction.
 	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
@@ -91,6 +96,11 @@ interface AdyenPaymentUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_details?: boolean | null
+	/** 
+	 * Send this attribute if you want retrieve the balance remaining on a shopper's gift card.
+	 * @example ```true```
+	 */
+	_balance?: boolean | null
 
 	order?: OrderRel | null
 
@@ -134,6 +144,10 @@ class AdyenPayments extends ApiResource<AdyenPayment> {
 
 	async _details(id: string | AdyenPayment, params?: QueryParamsRetrieve<AdyenPayment>, options?: ResourcesConfig): Promise<AdyenPayment> {
 		return this.resources.update<AdyenPaymentUpdate, AdyenPayment>({ id: (typeof id === 'string')? id: id.id, type: AdyenPayments.TYPE, _details: true }, params, options)
+	}
+
+	async _balance(id: string | AdyenPayment, params?: QueryParamsRetrieve<AdyenPayment>, options?: ResourcesConfig): Promise<AdyenPayment> {
+		return this.resources.update<AdyenPaymentUpdate, AdyenPayment>({ id: (typeof id === 'string')? id: id.id, type: AdyenPayments.TYPE, _balance: true }, params, options)
 	}
 
 
