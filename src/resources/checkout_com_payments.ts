@@ -26,12 +26,7 @@ interface CheckoutComPayment extends Resource {
 	 */
 	public_key?: string | null
 	/** 
-	 * The payment source type.
-	 * @example ```"token"```
-	 */
-	payment_type: string
-	/** 
-	 * The Checkout.com card or digital wallet token.
+	 * The Checkout.com payment or digital wallet token.
 	 * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
 	 */
 	token: string
@@ -90,12 +85,7 @@ interface CheckoutComPayment extends Resource {
 interface CheckoutComPaymentCreate extends ResourceCreate {
 	
 	/** 
-	 * The payment source type.
-	 * @example ```"token"```
-	 */
-	payment_type: string
-	/** 
-	 * The Checkout.com card or digital wallet token.
+	 * The Checkout.com payment or digital wallet token.
 	 * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
 	 */
 	token: string
@@ -118,12 +108,7 @@ interface CheckoutComPaymentCreate extends ResourceCreate {
 interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The payment source type.
-	 * @example ```"token"```
-	 */
-	payment_type?: string | null
-	/** 
-	 * The Checkout.com card or digital wallet token.
+	 * The Checkout.com payment or digital wallet token.
 	 * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
 	 */
 	token?: string | null

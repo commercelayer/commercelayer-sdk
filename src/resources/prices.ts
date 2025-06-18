@@ -80,6 +80,11 @@ interface Price extends Resource {
 	 */
 	formatted_compare_at_amount?: string | null
 	/** 
+	 * The rule outcomes.
+	 * @example ```[]```
+	 */
+	rule_outcomes?: Record<string, any> | null
+	/** 
 	 * Time at which the resource was processed by API.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -89,11 +94,6 @@ interface Price extends Resource {
 	 * @example ```{}```
 	 */
 	rules?: Record<string, any> | null
-	/** 
-	 * The rule outcomes.
-	 * @example ```{}```
-	 */
-	rule_outcomes?: Record<string, any> | null
 	/** 
 	 * The payload used to evaluate the rules.
 	 * @example ```{}```

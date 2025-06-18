@@ -2031,7 +2031,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -4810,7 +4809,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -5326,20 +5324,9 @@
                     "sortable": false,
                     "example": "pk_test_xxxx-yyyy-zzzz"
                 },
-                "payment_type": {
-                    "type": "string",
-                    "desc": "The payment source type.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "token"
-                },
                 "token": {
                     "type": "string",
-                    "desc": "The Checkout.com card or digital wallet token.",
+                    "desc": "The Checkout.com payment or digital wallet token.",
                     "required": "required",
                     "creatable": true,
                     "updatable": true,
@@ -6477,299 +6464,6 @@
                 "q",
                 "customer_id",
                 "attachments_id",
-                "ids",
-                "created_at_from",
-                "created_at_to",
-                "updated_at_from",
-                "updated_at_to"
-            ]
-        }
-    },
-    {
-        "id": "credit_card",
-        "type": "resources",
-        "attributes": {
-            "singleton": false,
-            "deprecated": true,
-            "addon": false,
-            "hidden": false,
-            "actions": [
-                "list",
-                "retrieve",
-                "create",
-                "update",
-                "delete"
-            ],
-            "examples": {},
-            "filter_scopes": [],
-            "fields": {
-                "first_name": {
-                    "type": "string",
-                    "desc": "The cardholder's first name.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "John"
-                },
-                "last_name": {
-                    "type": "string",
-                    "desc": "The cardholder's last name.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "Smith"
-                },
-                "full_name": {
-                    "type": "string",
-                    "desc": "Handy attribute that returns the cardholder's first and last name.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "John Smith"
-                },
-                "number": {
-                    "type": "string",
-                    "desc": "The credit card number.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": false,
-                    "fetchable": false,
-                    "filterable": false,
-                    "sortable": false,
-                    "exportable": false,
-                    "example": "4111111111111111"
-                },
-                "month": {
-                    "type": "string",
-                    "desc": "The credit card expiration month.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "10"
-                },
-                "year": {
-                    "type": "string",
-                    "desc": "The credit card expiration year.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "2023"
-                },
-                "valid_thru": {
-                    "type": "string",
-                    "desc": "Handy attribute that returns 'month/year'.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "10/2023"
-                },
-                "verification_value": {
-                    "type": "string",
-                    "desc": "The credit card verification value (CCV, CVV).",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": false,
-                    "fetchable": false,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "123"
-                },
-                "card_type": {
-                    "type": "string",
-                    "desc": "The credit card type, e.g. visa, master, american_express.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "visa"
-                },
-                "display_number": {
-                    "type": "string",
-                    "desc": "The obscured credit card number. This can be useful to safely display an order's payment source details.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "XXXX-XXXX-XXXX-1111"
-                },
-                "name": {
-                    "type": "string",
-                    "desc": "Alias for 'display_number'.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "XXXX-XXXX-XXXX-1111"
-                },
-                "display_verification_value": {
-                    "type": "string",
-                    "desc": "The obscured credit card verification value. This can be useful to safely display an order's payment source details.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": false,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "XXX"
-                },
-                "fingerprint": {
-                    "type": "string",
-                    "desc": "A universal unique identifier for the credit card.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "9abc5b0ef273e53749068820b3a30640b838"
-                },
-                "storage_state": {
-                    "type": "string",
-                    "desc": "The credit card storage state within your vault. Can be one of 'cached', 'retained', or 'redacted'.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "cached"
-                },
-                "id": {
-                    "format": "id",
-                    "type": "string",
-                    "desc": "Unique identifier for the resource (hash).",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "XAyRWNUzyN"
-                },
-                "payment_instrument": {
-                    "type": "object",
-                    "desc": "Information about the payment instrument used in the transaction.",
-                    "required": "optional",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": {
-                        "issuer": "cl bank",
-                        "card_type": "visa"
-                    }
-                },
-                "created_at": {
-                    "type": "datetime",
-                    "desc": "Time at which the resource was created.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "2018-01-01T12:00:00.000Z"
-                },
-                "updated_at": {
-                    "type": "datetime",
-                    "desc": "Time at which the resource was last updated.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "2018-01-01T12:00:00.000Z"
-                },
-                "reference": {
-                    "type": "string",
-                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "ANY-EXTERNAL-REFEFERNCE"
-                },
-                "reference_origin": {
-                    "type": "string",
-                    "desc": "Any identifier of the third party system that defines the reference code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                },
-                "metadata": {
-                    "type": "object",
-                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": false,
-                    "example": {
-                        "foo": "bar"
-                    }
-                }
-            },
-            "relationships": {
-                "order": {
-                    "type": "has_one",
-                    "desc": "The order associated to the credit card. If present, the credit card is set as the order's payment source.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "parent_resource": "Api::CreditCardResource",
-                    "class_name": "Order"
-                },
-                "versions": {
-                    "type": "has_many",
-                    "desc": "The associated changes.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "parent_resource": "Api::CreditCardResource",
-                    "class_name": "Version"
-                }
-            },
-            "filters": [
-                "id",
-                "card_type",
-                "created_at",
-                "updated_at",
-                "reference",
-                "reference_origin",
-                "metadata",
-                "q",
-                "order_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -8139,7 +7833,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -12128,6 +11821,18 @@
                     "example": "{}",
                     "action": "show"
                 },
+                "rule_outcomes": {
+                    "type": "object",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "[]",
+                    "action": "show"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -12238,18 +11943,6 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                },
-                "rule_outcomes": {
-                    "type": "object",
-                    "desc": "The rule outcomes.",
-                    "required": "optional",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "{}",
-                    "action": "show"
                 },
                 "resource_payload": {
                     "type": "object",
@@ -16239,6 +15932,18 @@
                     "sortable": false,
                     "example": "SUMMERDISCOUNT"
                 },
+                "rule_outcomes": {
+                    "type": "object",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "[]"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -20156,7 +19861,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -23984,7 +23688,7 @@
                 },
                 "payment_source_type": {
                     "type": "string",
-                    "desc": "The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.",
+                    "desc": "The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.",
                     "required": "required",
                     "creatable": true,
                     "updatable": true,
@@ -23997,7 +23701,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -24344,7 +24047,7 @@
                 },
                 "payment_source_type": {
                     "type": "string",
-                    "desc": "The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.",
+                    "desc": "The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.",
                     "required": "required",
                     "creatable": true,
                     "updatable": false,
@@ -24357,7 +24060,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -25692,6 +25394,18 @@
                     "monetizable": true,
                     "example": "€130,00"
                 },
+                "rule_outcomes": {
+                    "type": "object",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "[]",
+                    "action": "show"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -25767,18 +25481,6 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
-                    "example": "{}",
-                    "action": "show"
-                },
-                "rule_outcomes": {
-                    "type": "object",
-                    "desc": "The rule outcomes.",
-                    "required": "optional",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
                     "sortable": false,
                     "example": "{}",
                     "action": "show"
@@ -26228,6 +25930,18 @@
                     "sortable": true,
                     "example": "true"
                 },
+                "rule_outcomes": {
+                    "type": "object",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "[]",
+                    "action": "show"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -26292,18 +26006,6 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
-                    "example": "{}",
-                    "action": "show"
-                },
-                "rule_outcomes": {
-                    "type": "object",
-                    "desc": "The rule outcomes.",
-                    "required": "optional",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
                     "sortable": false,
                     "example": "{}",
                     "action": "show"
@@ -28224,7 +27926,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -31410,6 +31111,31 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "shared_secret": {
+                    "type": "string",
+                    "desc": "The shared secret used to sign the external request payload.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "confidential": true,
+                    "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
+                },
+                "_regenerate_shared_secret": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to regenerate the shared secret.",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "deprecated": true,
+                    "example": "true"
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -33631,168 +33357,6 @@
                 "attachments_id",
                 "events_id",
                 "tags_id",
-                "ids",
-                "created_at_from",
-                "created_at_to",
-                "updated_at_from",
-                "updated_at_to"
-            ]
-        }
-    },
-    {
-        "id": "spreedly_gateway",
-        "type": "resources",
-        "attributes": {
-            "singleton": false,
-            "deprecated": true,
-            "addon": false,
-            "hidden": false,
-            "actions": [
-                "list",
-                "retrieve",
-                "create",
-                "update",
-                "delete"
-            ],
-            "examples": {},
-            "filter_scopes": [],
-            "fields": {
-                "name": {
-                    "type": "string",
-                    "desc": "The payment gateway's internal name.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "US payment gateway"
-                },
-                "id": {
-                    "format": "id",
-                    "type": "string",
-                    "desc": "Unique identifier for the resource (hash).",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "XAyRWNUzyN"
-                },
-                "created_at": {
-                    "type": "datetime",
-                    "desc": "Time at which the resource was created.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "2018-01-01T12:00:00.000Z"
-                },
-                "updated_at": {
-                    "type": "datetime",
-                    "desc": "Time at which the resource was last updated.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "2018-01-01T12:00:00.000Z"
-                },
-                "reference": {
-                    "type": "string",
-                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "ANY-EXTERNAL-REFEFERNCE"
-                },
-                "reference_origin": {
-                    "type": "string",
-                    "desc": "Any identifier of the third party system that defines the reference code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                },
-                "metadata": {
-                    "type": "object",
-                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": false,
-                    "example": {
-                        "foo": "bar"
-                    }
-                },
-                "spreedly_type": {
-                    "type": "string",
-                    "desc": "The gateway permitted type.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "stripe"
-                },
-                "token": {
-                    "type": "string",
-                    "desc": "The gateway token.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": false,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "xxxx-yyyy-zzzz"
-                }
-            },
-            "relationships": {
-                "payment_methods": {
-                    "type": "has_many",
-                    "desc": "The associated payment methods.",
-                    "creatable": false,
-                    "updatable": false,
-                    "filterable": true,
-                    "sortable": false,
-                    "parent_resource": "Api::StripeGatewayResource",
-                    "class_name": "PaymentMethod"
-                },
-                "versions": {
-                    "type": "has_many",
-                    "desc": "The associated changes.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "parent_resource": "Api::SpreedlyGatewayResource",
-                    "class_name": "Version"
-                }
-            },
-            "filters": [
-                "id",
-                "name",
-                "created_at",
-                "updated_at",
-                "reference",
-                "reference_origin",
-                "metadata",
-                "q",
-                "payment_methods_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -37726,7 +37290,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -38518,7 +38081,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",

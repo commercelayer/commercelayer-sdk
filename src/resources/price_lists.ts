@@ -41,15 +41,15 @@ interface PriceList extends Resource {
 	 */
 	tax_included?: boolean | null
 	/** 
+	 * The rule outcomes.
+	 * @example ```[]```
+	 */
+	rule_outcomes?: Record<string, any> | null
+	/** 
 	 * The rules (using Rules Engine) to be applied.
 	 * @example ```{}```
 	 */
 	rules?: Record<string, any> | null
-	/** 
-	 * The rule outcomes.
-	 * @example ```{}```
-	 */
-	rule_outcomes?: Record<string, any> | null
 	/** 
 	 * The payload used to evaluate the rules.
 	 * @example ```{}```

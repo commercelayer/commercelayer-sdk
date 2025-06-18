@@ -213,6 +213,11 @@ interface LineItem extends Resource {
 	 */
 	coupon_code?: string | null
 	/** 
+	 * The rule outcomes.
+	 * @example ```[]```
+	 */
+	rule_outcomes?: Record<string, any> | null
+	/** 
 	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
 	 * @example ```"closed"```
 	 */

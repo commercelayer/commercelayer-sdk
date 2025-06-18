@@ -75,15 +75,15 @@ interface FlexPromotion extends Resource {
 	 */
 	rules: Record<string, any>
 	/** 
+	 * The rule outcomes.
+	 * @example ```[]```
+	 */
+	rule_outcomes?: Record<string, any> | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
-	/** 
-	 * The rule outcomes.
-	 * @example ```{}```
-	 */
-	rule_outcomes?: Record<string, any> | null
 	/** 
 	 * The payload used to evaluate the rules.
 	 * @example ```{}```
