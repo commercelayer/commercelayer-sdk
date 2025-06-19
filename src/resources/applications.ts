@@ -25,7 +25,7 @@ interface Application extends Resource {
 	 * The application's kind. One of 'sales_channel', 'integration', or 'webapp'.
 	 * @example ```"sales-channel"```
 	 */
-	kind?: 'dashboard' | 'user' | 'metrics' | 'contentful' | 'bundles' | 'customers' | 'datocms' | 'exports' | 'external' | 'gift_cards' | 'imports' | 'integration' | 'inventory' | 'orders' | 'price_lists' | 'promotions' | 'resources' | 'returns' | 'sales_channel' | 'sanity' | 'shipments' | 'skus' | 'sku_lists' | 'stock_transfers' | 'subscriptions' | 'tags' | 'webapp' | 'webhooks' | 'zapier' | null
+	kind?: 'dashboard' | 'user' | 'metrics' | 'contentful' | 'bundles' | 'customers' | 'datocms' | 'exports' | 'external' | 'generic' | 'gift_cards' | 'imports' | 'integration' | 'inventory' | 'orders' | 'price_lists' | 'promotions' | 'resources' | 'returns' | 'sales_channel' | 'sanity' | 'shipments' | 'skus' | 'sku_lists' | 'stock_transfers' | 'subscriptions' | 'tags' | 'webapp' | 'webhooks' | 'zapier' | null
 	/** 
 	 * Indicates if the application has public access.
 	 * @example ```true```

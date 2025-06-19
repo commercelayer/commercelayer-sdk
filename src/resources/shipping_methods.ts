@@ -134,6 +134,11 @@ interface ShippingMethod extends Resource {
 	 * @example ```5```
 	 */
 	circuit_failure_count?: number | null
+	/** 
+	 * The shared secret used to sign the external request payload.
+	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
+	 */
+	shared_secret: string
 
 	market?: Market | null
 	shipping_zone?: ShippingZone | null
