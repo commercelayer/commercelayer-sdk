@@ -110,7 +110,11 @@ interface Organization extends Resource {
 	 */
 	addresses_phone_required?: boolean | null
 	/** 
-	 * The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done, until the lapse is observed.
+	 * The minimum lapse in fraction of seconds to be observed between two consecutive shipments rebuilt. If shipments rebuilt is triggered within the minimum lapse, the update is performed, but no rebuilt is done.
+	 */
+	orders_min_rebuild_shipments_lapse?: number | null
+	/** 
+	 * The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done.
 	 */
 	orders_min_refresh_lapse?: number | null
 	/** 
@@ -142,6 +146,11 @@ interface Organization extends Resource {
 	 */
 	orders_invalid_coupon_errors?: boolean | null
 	/** 
+	 * Enables raising of API errors in case the provided gift card code is invalid, default is true.
+	 * @example ```true```
+	 */
+	orders_invalid_gift_card_errors?: boolean | null
+	/** 
 	 * The maximum number of SKUs allowed for bundles, default is 10.
 	 * @example ```10```
 	 */
@@ -156,6 +165,10 @@ interface Organization extends Resource {
 	 * @example ```40```
 	 */
 	coupons_max_code_length?: number | null
+	/** 
+	 * Enables matching the gift card code by its exact value, instead of by its first charachters, default is false.
+	 */
+	gift_cards_exact_code_matching?: boolean | null
 	/** 
 	 * The minimum length for gift card code, default is 8.
 	 * @example ```8```
@@ -190,6 +203,11 @@ interface Organization extends Resource {
 	 * Disables the interruption of the import in case its errors exceeds the 10% threshold, default is false.
 	 */
 	imports_skip_errors?: boolean | null
+	/** 
+	 * The maximum number for stock locations cutoff, default is 10.
+	 * @example ```10```
+	 */
+	inventory_models_max_stock_locations_cutoff?: number | null
 	/** 
 	 * The maximum number of active concurrent promotions allowed for your organization, default is 10.
 	 * @example ```10```
