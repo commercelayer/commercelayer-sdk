@@ -1,3 +1,10 @@
+## [6.45.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.45.0...v6.45.1) (2025-08-21)
+
+
+### Bug Fixes
+
+* fix blank id in retrieve calls ([ecbf898](https://github.com/commercelayer/commercelayer-sdk/commit/ecbf898d0dbd6ad0b549486f3b182fa355113b23))
+
 # [6.45.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.44.0...v6.45.0) (2025-07-14)
 
 
