@@ -6,6 +6,7 @@ import type { Geocoder, GeocoderType } from './geocoders'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type AddressType = 'addresses'
@@ -146,6 +147,7 @@ interface Address extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -368,6 +370,11 @@ class Addresses extends ApiResource<Address> {
 	async versions(addressId: string | Address, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _addressId = (addressId as Address).id || addressId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `addresses/${_addressId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(addressId: string | Address, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _addressId = (addressId as Address).id || addressId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `addresses/${_addressId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _add_tags(id: string | Address, triggerValue: string, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {

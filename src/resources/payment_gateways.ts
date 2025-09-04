@@ -4,6 +4,7 @@ import type { QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type PaymentGatewayType = 'payment_gateways'
@@ -26,6 +27,7 @@ interface PaymentGateway extends Resource {
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -42,6 +44,11 @@ class PaymentGateways extends ApiResource<PaymentGateway> {
 	async versions(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || paymentGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `payment_gateways/${_paymentGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || paymentGatewayId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `payment_gateways/${_paymentGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

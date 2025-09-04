@@ -12,6 +12,7 @@ import type { Version } from './versions'
 import type { Customer } from './customers'
 import type { Market } from './markets'
 import type { StockLocation } from './stock_locations'
+import type { EventStore } from './event_stores'
 
 
 type PriceType = 'prices'
@@ -115,6 +116,7 @@ interface Price extends Resource {
 	jwt_customer?: Customer | null
 	jwt_markets?: Market[] | null
 	jwt_stock_locations?: StockLocation[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -248,6 +250,11 @@ class Prices extends ApiResource<Price> {
 	async jwt_stock_locations(priceId: string | Price, params?: QueryParamsList<StockLocation>, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {
 		const _priceId = (priceId as Price).id || priceId as string
 		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `prices/${_priceId}/jwt_stock_locations`, params, options) as unknown as ListResponse<StockLocation>
+	}
+
+	async event_stores(priceId: string | Price, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _priceId = (priceId as Price).id || priceId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `prices/${_priceId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

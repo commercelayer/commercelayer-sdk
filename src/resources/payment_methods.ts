@@ -7,6 +7,7 @@ import type { PaymentGateway, PaymentGatewayType } from './payment_gateways'
 import type { Store, StoreType } from './stores'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type PaymentMethodType = 'payment_methods'
@@ -94,6 +95,7 @@ interface PaymentMethod extends Resource {
 	store?: Store | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -259,6 +261,11 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 	async versions(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `payment_methods/${_paymentMethodId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `payment_methods/${_paymentMethodId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _disable(id: string | PaymentMethod, params?: QueryParamsRetrieve<PaymentMethod>, options?: ResourcesConfig): Promise<PaymentMethod> {

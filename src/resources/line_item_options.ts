@@ -6,6 +6,7 @@ import type { LineItem, LineItemType } from './line_items'
 import type { SkuOption, SkuOptionType } from './sku_options'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
+import type { EventStore } from './event_stores'
 
 
 type LineItemOptionType = 'line_item_options'
@@ -88,6 +89,7 @@ interface LineItemOption extends Resource {
 	sku_option?: SkuOption | null
 	events?: Event[] | null
 	tags?: Tag[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -193,6 +195,11 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 	async tags(lineItemOptionId: string | LineItemOption, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `line_item_options/${_lineItemOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async event_stores(lineItemOptionId: string | LineItemOption, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _lineItemOptionId = (lineItemOptionId as LineItemOption).id || lineItemOptionId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `line_item_options/${_lineItemOptionId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _add_tags(id: string | LineItemOption, triggerValue: string, params?: QueryParamsRetrieve<LineItemOption>, options?: ResourcesConfig): Promise<LineItemOption> {

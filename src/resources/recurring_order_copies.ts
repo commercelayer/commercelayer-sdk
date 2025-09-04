@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { Event } from './events'
+import type { EventStore } from './event_stores'
 import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
 
 
@@ -65,6 +66,7 @@ interface RecurringOrderCopy extends Resource {
 	source_order?: Order | null
 	target_order?: Order | null
 	events?: Event[] | null
+	event_stores?: EventStore[] | null
 	order_subscription?: OrderSubscription | null
 
 }
@@ -121,6 +123,11 @@ class RecurringOrderCopies extends ApiResource<RecurringOrderCopy> {
 	async events(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `recurring_order_copies/${_recurringOrderCopyId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async event_stores(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _recurringOrderCopyId = (recurringOrderCopyId as RecurringOrderCopy).id || recurringOrderCopyId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `recurring_order_copies/${_recurringOrderCopyId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async order_subscription(recurringOrderCopyId: string | RecurringOrderCopy, params?: QueryParamsRetrieve<OrderSubscription>, options?: ResourcesConfig): Promise<OrderSubscription> {

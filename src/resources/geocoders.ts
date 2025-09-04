@@ -5,6 +5,7 @@ import type { QueryParamsList } from '../query'
 import type { Market } from './markets'
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
+import type { EventStore } from './event_stores'
 
 
 type GeocoderType = 'geocoders'
@@ -28,6 +29,7 @@ interface Geocoder extends Resource {
 	markets?: Market[] | null
 	addresses?: Address[] | null
 	attachments?: Attachment[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -49,6 +51,11 @@ class Geocoders extends ApiResource<Geocoder> {
 	async attachments(geocoderId: string | Geocoder, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `geocoders/${_geocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async event_stores(geocoderId: string | Geocoder, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _geocoderId = (geocoderId as Geocoder).id || geocoderId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `geocoders/${_geocoderId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

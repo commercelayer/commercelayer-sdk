@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { StripePayment } from './stripe_payments'
 
 
@@ -57,6 +58,7 @@ interface StripeGateway extends Resource {
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	stripe_payments?: StripePayment[] | null
 
 }
@@ -148,6 +150,11 @@ class StripeGateways extends ApiResource<StripeGateway> {
 	async versions(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_gateways/${_stripeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `stripe_gateways/${_stripeGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async stripe_payments(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<StripePayment>, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {

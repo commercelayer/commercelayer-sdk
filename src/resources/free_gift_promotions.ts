@@ -13,6 +13,7 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { Sku } from './skus'
 import type { PromotionRule } from './promotion_rules'
 
@@ -114,6 +115,7 @@ interface FreeGiftPromotion extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	skus?: Sku[] | null
 
 }
@@ -324,6 +326,11 @@ class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 	async versions(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `free_gift_promotions/${_freeGiftPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _freeGiftPromotionId = (freeGiftPromotionId as FreeGiftPromotion).id || freeGiftPromotionId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `free_gift_promotions/${_freeGiftPromotionId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async skus(freeGiftPromotionId: string | FreeGiftPromotion, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {

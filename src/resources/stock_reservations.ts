@@ -1,6 +1,6 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { LineItem } from './line_items'
 import type { Order } from './orders'
@@ -9,6 +9,7 @@ import type { StockTransfer } from './stock_transfers'
 import type { StockItem, StockItemType } from './stock_items'
 import type { ReservedStock } from './reserved_stocks'
 import type { Sku } from './skus'
+import type { EventStore } from './event_stores'
 
 
 type StockReservationType = 'stock_reservations'
@@ -47,6 +48,7 @@ interface StockReservation extends Resource {
 	stock_item?: StockItem | null
 	reserved_stock?: ReservedStock | null
 	sku?: Sku | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -129,6 +131,11 @@ class StockReservations extends ApiResource<StockReservation> {
 	async sku(stockReservationId: string | StockReservation, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `stock_reservations/${_stockReservationId}/sku`, params, options) as unknown as Sku
+	}
+
+	async event_stores(stockReservationId: string | StockReservation, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _stockReservationId = (stockReservationId as StockReservation).id || stockReservationId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `stock_reservations/${_stockReservationId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _pending(id: string | StockReservation, params?: QueryParamsRetrieve<StockReservation>, options?: ResourcesConfig): Promise<StockReservation> {

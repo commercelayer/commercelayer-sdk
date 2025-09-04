@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type KlarnaPaymentType = 'klarna_payments'
@@ -53,6 +54,7 @@ interface KlarnaPayment extends Resource {
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -111,6 +113,11 @@ class KlarnaPayments extends ApiResource<KlarnaPayment> {
 	async versions(klarnaPaymentId: string | KlarnaPayment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _klarnaPaymentId = (klarnaPaymentId as KlarnaPayment).id || klarnaPaymentId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `klarna_payments/${_klarnaPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(klarnaPaymentId: string | KlarnaPayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _klarnaPaymentId = (klarnaPaymentId as KlarnaPayment).id || klarnaPaymentId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `klarna_payments/${_klarnaPaymentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _update(id: string | KlarnaPayment, params?: QueryParamsRetrieve<KlarnaPayment>, options?: ResourcesConfig): Promise<KlarnaPayment> {

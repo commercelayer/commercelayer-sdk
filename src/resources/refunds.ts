@@ -6,6 +6,7 @@ import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { Capture } from './captures'
 import type { Return } from './returns'
 import type { AdyenPayment } from './adyen_payments'
@@ -92,6 +93,7 @@ interface Refund extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	reference_capture?: Capture | null
 	return?: Return | null
 
@@ -139,6 +141,11 @@ class Refunds extends ApiResource<Refund> {
 	async versions(refundId: string | Refund, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `refunds/${_refundId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(refundId: string | Refund, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _refundId = (refundId as Refund).id || refundId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `refunds/${_refundId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async reference_capture(refundId: string | Refund, params?: QueryParamsRetrieve<Capture>, options?: ResourcesConfig): Promise<Capture> {

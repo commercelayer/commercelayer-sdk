@@ -18,6 +18,7 @@ import type { Version } from './versions'
 import type { Customer } from './customers'
 import type { Market } from './markets'
 import type { StockLocation } from './stock_locations'
+import type { EventStore } from './event_stores'
 
 
 type SkuType = 'skus'
@@ -109,6 +110,7 @@ interface Sku extends Resource {
 	jwt_customer?: Customer | null
 	jwt_markets?: Market[] | null
 	jwt_stock_locations?: StockLocation[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -329,6 +331,11 @@ class Skus extends ApiResource<Sku> {
 	async jwt_stock_locations(skuId: string | Sku, params?: QueryParamsList<StockLocation>, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {
 		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `skus/${_skuId}/jwt_stock_locations`, params, options) as unknown as ListResponse<StockLocation>
+	}
+
+	async event_stores(skuId: string | Sku, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `skus/${_skuId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _add_tags(id: string | Sku, triggerValue: string, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {

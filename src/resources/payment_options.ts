@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { Attachment } from './attachments'
+import type { EventStore } from './event_stores'
 
 
 type PaymentOptionType = 'payment_options'
@@ -37,6 +38,7 @@ interface PaymentOption extends Resource {
 
 	order?: Order | null
 	attachments?: Attachment[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -106,6 +108,11 @@ class PaymentOptions extends ApiResource<PaymentOption> {
 	async attachments(paymentOptionId: string | PaymentOption, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _paymentOptionId = (paymentOptionId as PaymentOption).id || paymentOptionId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_options/${_paymentOptionId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async event_stores(paymentOptionId: string | PaymentOption, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _paymentOptionId = (paymentOptionId as PaymentOption).id || paymentOptionId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `payment_options/${_paymentOptionId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
 import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
 import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
@@ -41,6 +42,7 @@ interface CustomPromotionRule extends Resource {
 
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -90,6 +92,11 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 	async versions(customPromotionRuleId: string | CustomPromotionRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _customPromotionRuleId = (customPromotionRuleId as CustomPromotionRule).id || customPromotionRuleId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `custom_promotion_rules/${_customPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(customPromotionRuleId: string | CustomPromotionRule, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _customPromotionRuleId = (customPromotionRuleId as CustomPromotionRule).id || customPromotionRuleId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `custom_promotion_rules/${_customPromotionRuleId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 
