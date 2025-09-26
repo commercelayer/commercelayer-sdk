@@ -14,7 +14,7 @@ type PriceListRel = ResourceRel & { type: PriceListType }
 
 
 export type PriceListSort = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included'> & ResourceSort
-// export type PriceListFilter = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included' | 'rules'> & ResourceFilter
+// export type PriceListFilter = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included'> & ResourceFilter
 
 
 interface PriceList extends Resource {
@@ -41,21 +41,6 @@ interface PriceList extends Resource {
 	 * @example ```true```
 	 */
 	tax_included?: boolean | null
-	/** 
-	 * The rule outcomes.
-	 * @example ```[]```
-	 */
-	rule_outcomes?: Record<string, any> | null
-	/** 
-	 * The rules (using Rules Engine) to be applied.
-	 * @example ```{}```
-	 */
-	rules?: Record<string, any> | null
-	/** 
-	 * The payload used to evaluate the rules.
-	 * @example ```{}```
-	 */
-	resource_payload?: Record<string, any> | null
 
 	prices?: Price[] | null
 	price_list_schedulers?: PriceListScheduler[] | null

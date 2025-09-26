@@ -118,7 +118,7 @@
                 "state_code": {
                     "type": "string",
                     "desc": "State, province or region code.",
-                    "required": "required",
+                    "required": "optional",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -12596,7 +12596,11 @@
                     "filterable": true,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show",
+                        "create",
+                        "update"
+                    ]
                 },
                 "rule_outcomes": {
                     "type": "object",
@@ -12608,7 +12612,9 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "[]",
-                    "action": "show"
+                    "actions": [
+                        "show"
+                    ]
                 },
                 "id": {
                     "format": "id",
@@ -12731,7 +12737,9 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show"
+                    ]
                 },
                 "metadata": {
                     "type": "object",
@@ -18624,6 +18632,8 @@
                     "updatable": true,
                     "filterable": true,
                     "sortable": true,
+                    "polymorphic": true,
+                    "sti": true,
                     "parent_resource": "Api::MarketResource",
                     "class_name": "TaxCalculator",
                     "enum": [
@@ -26709,8 +26719,8 @@
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
+                    "filterable": false,
+                    "sortable": false,
                     "example": "EUR"
                 },
                 "sku_code": {
@@ -26822,7 +26832,9 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "[]",
-                    "action": "show"
+                    "actions": [
+                        "show"
+                    ]
                 },
                 "id": {
                     "format": "id",
@@ -26901,7 +26913,11 @@
                     "filterable": true,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show",
+                        "create",
+                        "update"
+                    ]
                 },
                 "resource_payload": {
                     "type": "object",
@@ -26913,7 +26929,9 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show"
+                    ]
                 },
                 "jwt_custom_claim": {
                     "type": "object",
@@ -27052,7 +27070,6 @@
             },
             "filters": [
                 "id",
-                "currency_code",
                 "amount_cents",
                 "compare_at_amount_cents",
                 "created_at",
@@ -27384,7 +27401,9 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "[]",
-                    "action": "show"
+                    "actions": [
+                        "show"
+                    ]
                 },
                 "id": {
                     "format": "id",
@@ -27452,7 +27471,11 @@
                     "filterable": true,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show",
+                        "create",
+                        "update"
+                    ]
                 },
                 "resource_payload": {
                     "type": "object",
@@ -27464,7 +27487,9 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show"
+                    ]
                 },
                 "metadata": {
                     "type": "object",
@@ -33818,7 +33843,9 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "action": "show",
+                    "actions": [
+                        "show"
+                    ],
                     "example": {
                         "available": true,
                         "quantity": 10,

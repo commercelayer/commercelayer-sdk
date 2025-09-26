@@ -22,8 +22,8 @@ type SkuRel = ResourceRel & { type: SkuType }
 type PriceTierRel = ResourceRel & { type: PriceTierType }
 
 
-export type PriceSort = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceSort
-// export type PriceFilter = Pick<Price, 'id' | 'currency_code' | 'amount_cents' | 'compare_at_amount_cents' | 'rules'> & ResourceFilter
+export type PriceSort = Pick<Price, 'id' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceSort
+// export type PriceFilter = Pick<Price, 'id' | 'amount_cents' | 'compare_at_amount_cents'> & ResourceFilter
 
 
 interface Price extends Resource {
@@ -81,25 +81,10 @@ interface Price extends Resource {
 	 */
 	formatted_compare_at_amount?: string | null
 	/** 
-	 * The rule outcomes.
-	 * @example ```[]```
-	 */
-	rule_outcomes?: Record<string, any> | null
-	/** 
 	 * Time at which the resource was processed by API.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	processed_at?: string | null
-	/** 
-	 * The rules (using Rules Engine) to be applied.
-	 * @example ```{}```
-	 */
-	rules?: Record<string, any> | null
-	/** 
-	 * The payload used to evaluate the rules.
-	 * @example ```{}```
-	 */
-	resource_payload?: Record<string, any> | null
 	/** 
 	 * The custom_claim attached to the current JWT (if any).
 	 * @example ```{}```

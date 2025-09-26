@@ -337,27 +337,6 @@ describe('Markets resource', () => {
 	/* relationship.discount_engine stop */
 	
 
-	/* relationship.tax_calculator start */
-	it(resourceType + '.tax_calculator', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { tax_calculators: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourcePath, id, currentAccessToken, 'tax_calculator')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await cl[resourcePath].tax_calculator(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.tax_calculator stop */
-	
-
 	/* relationship.customer_group start */
 	it(resourceType + '.customer_group', async () => {
 	

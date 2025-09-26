@@ -7,7 +7,6 @@ import type { PriceList, PriceListType } from './price_lists'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { SubscriptionModel, SubscriptionModelType } from './subscription_models'
 import type { DiscountEngine, DiscountEngineType } from './discount_engines'
-import type { TaxCalculator } from './tax_calculators'
 import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { Geocoder, GeocoderType } from './geocoders'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
@@ -296,11 +295,6 @@ class Markets extends ApiResource<Market> {
 	async discount_engine(marketId: string | Market, params?: QueryParamsRetrieve<DiscountEngine>, options?: ResourcesConfig): Promise<DiscountEngine> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<DiscountEngine>({ type: 'discount_engines' }, `markets/${_marketId}/discount_engine`, params, options) as unknown as DiscountEngine
-	}
-
-	async tax_calculator(marketId: string | Market, params?: QueryParamsRetrieve<TaxCalculator>, options?: ResourcesConfig): Promise<TaxCalculator> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<TaxCalculator>({ type: 'tax_calculators' }, `markets/${_marketId}/tax_calculator`, params, options) as unknown as TaxCalculator
 	}
 
 	async customer_group(marketId: string | Market, params?: QueryParamsRetrieve<CustomerGroup>, options?: ResourcesConfig): Promise<CustomerGroup> {

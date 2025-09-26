@@ -28,7 +28,6 @@ describe('Addresses resource', () => {
     const createAttributes = {
 			line_1: randomValue('string', 'line_1'),
 			city: randomValue('string', 'city'),
-			state_code: randomValue('string', 'state_code'),
 			country_code: randomValue('string', 'country_code'),
 			phone: randomValue('string', 'phone'),
 			geocoder: cl.geocoders.relationship(TestData.id),

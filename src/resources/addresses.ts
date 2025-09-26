@@ -71,7 +71,7 @@ interface Address extends Resource {
 	 * State, province or region code.
 	 * @example ```"NY"```
 	 */
-	state_code: string
+	state_code?: string | null
 	/** 
 	 * The international 2-letter country code as defined by the ISO 3166-1 standard.
 	 * @example ```"US"```
@@ -197,7 +197,7 @@ interface AddressCreate extends ResourceCreate {
 	 * State, province or region code.
 	 * @example ```"NY"```
 	 */
-	state_code: string
+	state_code?: string | null
 	/** 
 	 * The international 2-letter country code as defined by the ISO 3166-1 standard.
 	 * @example ```"US"```

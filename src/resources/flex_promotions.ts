@@ -18,7 +18,7 @@ type TagRel = ResourceRel & { type: TagType }
 
 
 export type FlexPromotionSort = Pick<FlexPromotion, 'id' | 'name' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
-// export type FlexPromotionFilter = Pick<FlexPromotion, 'id' | 'name' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'rules' | 'disabled_at'> & ResourceFilter
+// export type FlexPromotionFilter = Pick<FlexPromotion, 'id' | 'name' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
 
 
 interface FlexPromotion extends Resource {
@@ -71,25 +71,10 @@ interface FlexPromotion extends Resource {
 	 */
 	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
 	/** 
-	 * The discount rule to be applied.
-	 * @example ```{}```
-	 */
-	rules: Record<string, any>
-	/** 
-	 * The rule outcomes.
-	 * @example ```[]```
-	 */
-	rule_outcomes?: Record<string, any> | null
-	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
-	/** 
-	 * The payload used to evaluate the rules.
-	 * @example ```{}```
-	 */
-	resource_payload?: Record<string, any> | null
 
 	coupon_codes_promotion_rule?: CouponCodesPromotionRule | null
 	coupons?: Coupon[] | null
