@@ -353,28 +353,6 @@ describe('Markets resource', () => {
 	
 
 	
-	/* relationship.tax_calculator start */
-	test(resourceType + '.tax_calculator', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { tax_calculators: CommonData.paramsFields } }
-	
-		const intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourcePath, id, currentAccessToken, 'tax_calculator')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await markets.tax_calculator(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.tax_calculator stop */
-	
-
-	
 	/* relationship.customer_group start */
 	test(resourceType + '.customer_group', async () => {
 	
@@ -548,6 +526,28 @@ describe('Markets resource', () => {
 	
 	})
 	/* relationship.versions stop */
+	
+
+	
+	/* relationship.event_stores start */
+	test(resourceType + '.event_stores', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'event_stores')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await markets.event_stores(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.event_stores stop */
 	
   
 

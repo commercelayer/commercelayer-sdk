@@ -1,9 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
 import type { LineItem } from './line_items'
+import type { EventStore } from './event_stores'
 import type { Sku, SkuType } from './skus'
 import type { Bundle, BundleType } from './bundles'
 import type { Adjustment, AdjustmentType } from './adjustments'
@@ -77,6 +78,7 @@ interface OrderSubscriptionItem extends Resource {
 	bundle?: Bundle | null
 	adjustment?: Adjustment | null
 	source_line_item?: LineItem | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -163,6 +165,11 @@ class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 	async source_line_item(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `order_subscription_items/${_orderSubscriptionItemId}/source_line_item`, params, options) as unknown as LineItem
+	}
+
+	async event_stores(orderSubscriptionItemId: string | OrderSubscriptionItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _orderSubscriptionItemId = (orderSubscriptionItemId as OrderSubscriptionItem).id || orderSubscriptionItemId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `order_subscription_items/${_orderSubscriptionItemId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

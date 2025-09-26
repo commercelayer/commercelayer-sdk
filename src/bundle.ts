@@ -73,6 +73,7 @@ class CommerceLayerBundle extends CommerceLayerClient {
 	get discount_engines(): api.DiscountEngines { return api.discount_engines }
 	get easypost_pickups(): api.EasypostPickups { return api.easypost_pickups }
 	get event_callbacks(): api.EventCallbacks { return api.event_callbacks }
+	get event_stores(): api.EventStores { return api.event_stores }
 	get events(): api.Events { return api.events }
 	get exports(): api.Exports { return api.exports }
 	get external_gateways(): api.ExternalGateways { return api.external_gateways }

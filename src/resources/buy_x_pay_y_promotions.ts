@@ -13,6 +13,7 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { Sku } from './skus'
 import type { PromotionRule } from './promotion_rules'
 
@@ -124,6 +125,7 @@ interface BuyXPayYPromotion extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	skus?: Sku[] | null
 
 }
@@ -354,6 +356,11 @@ class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
 	async versions(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _buyXPayYPromotionId = (buyXPayYPromotionId as BuyXPayYPromotion).id || buyXPayYPromotionId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `buy_x_pay_y_promotions/${_buyXPayYPromotionId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async skus(buyXPayYPromotionId: string | BuyXPayYPromotion, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {

@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
 
 
@@ -43,6 +44,7 @@ interface SatispayGateway extends Resource {
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	satispay_payments?: SatispayPayment[] | null
 
 }
@@ -103,6 +105,11 @@ class SatispayGateways extends ApiResource<SatispayGateway> {
 	async versions(satispayGatewayId: string | SatispayGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _satispayGatewayId = (satispayGatewayId as SatispayGateway).id || satispayGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `satispay_gateways/${_satispayGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(satispayGatewayId: string | SatispayGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _satispayGatewayId = (satispayGatewayId as SatispayGateway).id || satispayGatewayId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `satispay_gateways/${_satispayGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async satispay_payments(satispayGatewayId: string | SatispayGateway, params?: QueryParamsList<SatispayPayment>, options?: ResourcesConfig): Promise<ListResponse<SatispayPayment>> {

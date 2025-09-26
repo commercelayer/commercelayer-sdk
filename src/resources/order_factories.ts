@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order } from './orders'
 import type { Event } from './events'
+import type { EventStore } from './event_stores'
 
 
 type OrderFactoryType = 'order_factories'
@@ -62,6 +63,7 @@ interface OrderFactory extends Resource {
 	source_order?: Order | null
 	target_order?: Order | null
 	events?: Event[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -83,6 +85,11 @@ class OrderFactories extends ApiResource<OrderFactory> {
 	async events(orderFactoryId: string | OrderFactory, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _orderFactoryId = (orderFactoryId as OrderFactory).id || orderFactoryId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `order_factories/${_orderFactoryId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async event_stores(orderFactoryId: string | OrderFactory, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _orderFactoryId = (orderFactoryId as OrderFactory).id || orderFactoryId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `order_factories/${_orderFactoryId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

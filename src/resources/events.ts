@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Webhook } from './webhooks'
 import type { EventCallback } from './event_callbacks'
+import type { EventStore } from './event_stores'
 
 
 type EventType = 'events'
@@ -26,6 +27,7 @@ interface Event extends Resource {
 
 	webhooks?: Webhook[] | null
 	last_event_callbacks?: EventCallback[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -57,6 +59,11 @@ class Events extends ApiResource<Event> {
 	async last_event_callbacks(eventId: string | Event, params?: QueryParamsList<EventCallback>, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		const _eventId = (eventId as Event).id || eventId as string
 		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `events/${_eventId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
+	}
+
+	async event_stores(eventId: string | Event, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _eventId = (eventId as Event).id || eventId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `events/${_eventId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _trigger(id: string | Event, params?: QueryParamsRetrieve<Event>, options?: ResourcesConfig): Promise<Event> {

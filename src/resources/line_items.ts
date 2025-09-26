@@ -11,6 +11,7 @@ import type { StockTransfer } from './stock_transfers'
 import type { Notification } from './notifications'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
+import type { EventStore } from './event_stores'
 import type { Sku, SkuType } from './skus'
 import type { Bundle, BundleType } from './bundles'
 import type { GiftCard, GiftCardType } from './gift_cards'
@@ -244,6 +245,7 @@ interface LineItem extends Resource {
 	notifications?: Notification[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -453,6 +455,11 @@ class LineItems extends ApiResource<LineItem> {
 	async tags(lineItemId: string | LineItem, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `line_items/${_lineItemId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
+	async event_stores(lineItemId: string | LineItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `line_items/${_lineItemId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _external_price(id: string | LineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {

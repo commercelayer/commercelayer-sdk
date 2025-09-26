@@ -256,6 +256,28 @@ describe('StripeGateways resource', () => {
 	
 
 	
+	/* relationship.event_stores start */
+	test(resourceType + '.event_stores', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'event_stores')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await stripe_gateways.event_stores(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.event_stores stop */
+	
+
+	
 	/* relationship.stripe_payments start */
 	test(resourceType + '.stripe_payments', async () => {
 	

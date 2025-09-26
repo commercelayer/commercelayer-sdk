@@ -1,7 +1,8 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsList } from '../query'
 
-
+import type { EventStore } from './event_stores'
 import type { Order } from './orders'
 import type { Return } from './returns'
 
@@ -35,6 +36,7 @@ interface ResourceError extends Resource {
 	message: string
 
 	resource?: Order | Return | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -43,7 +45,10 @@ class ResourceErrors extends ApiResource<ResourceError> {
 
 	static readonly TYPE: ResourceErrorType = 'resource_errors' as const
 
-	
+	async event_stores(resourceErrorId: string | ResourceError, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _resourceErrorId = (resourceErrorId as ResourceError).id || resourceErrorId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `resource_errors/${_resourceErrorId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
 
 
 	isResourceError(resource: any): resource is ResourceError {

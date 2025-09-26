@@ -6,6 +6,7 @@ import type { Market } from './markets'
 import type { DiscountEngineItem } from './discount_engine_items'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type TalonOneAccountType = 'talon_one_accounts'
@@ -39,6 +40,7 @@ interface TalonOneAccount extends Resource {
 	discount_engine_items?: DiscountEngineItem[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -127,6 +129,11 @@ class TalonOneAccounts extends ApiResource<TalonOneAccount> {
 	async versions(talonOneAccountId: string | TalonOneAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || talonOneAccountId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `talon_one_accounts/${_talonOneAccountId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(talonOneAccountId: string | TalonOneAccount, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || talonOneAccountId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `talon_one_accounts/${_talonOneAccountId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

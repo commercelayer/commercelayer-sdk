@@ -7,6 +7,7 @@ import type { CouponRecipient, CouponRecipientType } from './coupon_recipients'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type CouponType = 'coupons'
@@ -59,6 +60,7 @@ interface Coupon extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -178,6 +180,11 @@ class Coupons extends ApiResource<Coupon> {
 	async versions(couponId: string | Coupon, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _couponId = (couponId as Coupon).id || couponId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `coupons/${_couponId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(couponId: string | Coupon, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _couponId = (couponId as Coupon).id || couponId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `coupons/${_couponId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _add_tags(id: string | Coupon, triggerValue: string, params?: QueryParamsRetrieve<Coupon>, options?: ResourcesConfig): Promise<Coupon> {

@@ -6,6 +6,7 @@ import type { StockItem } from './stock_items'
 import type { Sku } from './skus'
 import type { StockReservation } from './stock_reservations'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ReservedStockType = 'reserved_stocks'
@@ -30,6 +31,7 @@ interface ReservedStock extends Resource {
 	sku?: Sku | null
 	stock_reservations?: StockReservation[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -56,6 +58,11 @@ class ReservedStocks extends ApiResource<ReservedStock> {
 	async versions(reservedStockId: string | ReservedStock, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _reservedStockId = (reservedStockId as ReservedStock).id || reservedStockId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `reserved_stocks/${_reservedStockId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(reservedStockId: string | ReservedStock, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _reservedStockId = (reservedStockId as ReservedStock).id || reservedStockId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `reserved_stocks/${_reservedStockId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

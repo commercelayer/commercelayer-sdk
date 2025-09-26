@@ -10,6 +10,7 @@ import type { StockReservation } from './stock_reservations'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type StockTransferType = 'stock_transfers'
@@ -83,6 +84,7 @@ interface StockTransfer extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -230,6 +232,11 @@ class StockTransfers extends ApiResource<StockTransfer> {
 	async versions(stockTransferId: string | StockTransfer, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `stock_transfers/${_stockTransferId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(stockTransferId: string | StockTransfer, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _stockTransferId = (stockTransferId as StockTransfer).id || stockTransferId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `stock_transfers/${_stockTransferId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _upcoming(id: string | StockTransfer, params?: QueryParamsRetrieve<StockTransfer>, options?: ResourcesConfig): Promise<StockTransfer> {

@@ -6,6 +6,7 @@ import type { StockLocation, StockLocationType } from './stock_locations'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type DeliveryLeadTimeType = 'delivery_lead_times'
@@ -47,6 +48,7 @@ interface DeliveryLeadTime extends Resource {
 	shipping_method?: ShippingMethod | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -123,6 +125,11 @@ class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 	async versions(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `delivery_lead_times/${_deliveryLeadTimeId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(deliveryLeadTimeId: string | DeliveryLeadTime, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _deliveryLeadTimeId = (deliveryLeadTimeId as DeliveryLeadTime).id || deliveryLeadTimeId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `delivery_lead_times/${_deliveryLeadTimeId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

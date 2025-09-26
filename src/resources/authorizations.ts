@@ -6,6 +6,7 @@ import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { Capture } from './captures'
 import type { Void } from './voids'
 import type { AdyenPayment } from './adyen_payments'
@@ -162,6 +163,7 @@ interface Authorization extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	captures?: Capture[] | null
 	voids?: Void[] | null
 
@@ -229,6 +231,11 @@ class Authorizations extends ApiResource<Authorization> {
 	async versions(authorizationId: string | Authorization, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `authorizations/${_authorizationId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(authorizationId: string | Authorization, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `authorizations/${_authorizationId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async captures(authorizationId: string | Authorization, params?: QueryParamsList<Capture>, options?: ResourcesConfig): Promise<ListResponse<Capture>> {

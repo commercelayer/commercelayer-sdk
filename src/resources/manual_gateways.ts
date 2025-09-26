@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ManualGatewayType = 'manual_gateways'
@@ -26,6 +27,7 @@ interface ManualGateway extends Resource {
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -76,6 +78,11 @@ class ManualGateways extends ApiResource<ManualGateway> {
 	async versions(manualGatewayId: string | ManualGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `manual_gateways/${_manualGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(manualGatewayId: string | ManualGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `manual_gateways/${_manualGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

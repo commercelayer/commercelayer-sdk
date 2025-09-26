@@ -39,6 +39,7 @@ export type { DiscountEngineItem, DiscountEngineItemSort } from './resources/dis
 export type { DiscountEngine, DiscountEngineSort } from './resources/discount_engines'
 export type { EasypostPickup, EasypostPickupCreate, EasypostPickupUpdate, EasypostPickupSort } from './resources/easypost_pickups'
 export type { EventCallback, EventCallbackSort } from './resources/event_callbacks'
+export type { EventStore, EventStoreSort } from './resources/event_stores'
 export type { Event, EventUpdate, EventSort } from './resources/events'
 export type { Export, ExportCreate, ExportUpdate, ExportSort } from './resources/exports'
 export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate, ExternalGatewaySort } from './resources/external_gateways'

@@ -1,7 +1,8 @@
 import { ApiSingleton } from '../resource'
-import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsList } from '../query'
 
-
+import type { EventStore } from './event_stores'
 
 
 type OrganizationType = 'organizations'
@@ -109,6 +110,11 @@ interface Organization extends Resource {
 	 * @example ```true```
 	 */
 	addresses_phone_required?: boolean | null
+	/** 
+	 * Indicates if a sales channel application without customer can read and update just guest orders.
+	 * @example ```true```
+	 */
+	orders_sales_channel_guest_only?: boolean | null
 	/** 
 	 * The minimum lapse in fraction of seconds to be observed between two consecutive shipments rebuilt. If shipments rebuilt is triggered within the minimum lapse, the update is performed, but no rebuilt is done.
 	 */
@@ -263,7 +269,9 @@ interface Organization extends Resource {
 	 * Enables raising of API errors in case of external promotion failure, default is false.
 	 */
 	external_promotions_errors?: boolean | null
-	
+
+	event_stores?: EventStore[] | null
+
 }
 
 
@@ -271,7 +279,10 @@ class Organizations extends ApiSingleton<Organization> {
 
 	static readonly TYPE: OrganizationType = 'organizations' as const
 
-	
+	async event_stores(organizationId: string | Organization, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _organizationId = (organizationId as Organization).id || organizationId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `organization/${_organizationId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
 
 
 	isOrganization(resource: any): resource is Organization {

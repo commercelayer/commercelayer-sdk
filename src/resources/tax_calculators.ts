@@ -6,6 +6,7 @@ import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type TaxCalculatorType = 'tax_calculators'
@@ -30,6 +31,7 @@ interface TaxCalculator extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -56,6 +58,11 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
 	async versions(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `tax_calculators/${_taxCalculatorId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(taxCalculatorId: string | TaxCalculator, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _taxCalculatorId = (taxCalculatorId as TaxCalculator).id || taxCalculatorId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `tax_calculators/${_taxCalculatorId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

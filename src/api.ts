@@ -39,6 +39,7 @@ export { default as discount_engine_items, type DiscountEngineItems } from './re
 export { default as discount_engines, type DiscountEngines } from './resources/discount_engines'
 export { default as easypost_pickups, type EasypostPickups } from './resources/easypost_pickups'
 export { default as event_callbacks, type EventCallbacks } from './resources/event_callbacks'
+export { default as event_stores, type EventStores } from './resources/event_stores'
 export { default as events, type Events } from './resources/events'
 export { default as exports, type Exports } from './resources/exports'
 export { default as external_gateways, type ExternalGateways } from './resources/external_gateways'

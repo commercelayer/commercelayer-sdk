@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { StockLocation, StockLocationType } from './stock_locations'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type InventoryReturnLocationType = 'inventory_return_locations'
@@ -30,6 +31,7 @@ interface InventoryReturnLocation extends Resource {
 	stock_location?: StockLocation | null
 	inventory_model?: InventoryModel | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -91,6 +93,11 @@ class InventoryReturnLocations extends ApiResource<InventoryReturnLocation> {
 	async versions(inventoryReturnLocationId: string | InventoryReturnLocation, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _inventoryReturnLocationId = (inventoryReturnLocationId as InventoryReturnLocation).id || inventoryReturnLocationId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `inventory_return_locations/${_inventoryReturnLocationId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(inventoryReturnLocationId: string | InventoryReturnLocation, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _inventoryReturnLocationId = (inventoryReturnLocationId as InventoryReturnLocation).id || inventoryReturnLocationId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `inventory_return_locations/${_inventoryReturnLocationId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

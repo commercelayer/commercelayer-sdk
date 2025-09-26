@@ -1,8 +1,9 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Webhook } from './webhooks'
+import type { EventStore } from './event_stores'
 
 
 type EventCallbackType = 'event_callbacks'
@@ -39,6 +40,7 @@ interface EventCallback extends Resource {
 	response_message?: string | null
 
 	webhook?: Webhook | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -50,6 +52,11 @@ class EventCallbacks extends ApiResource<EventCallback> {
 	async webhook(eventCallbackId: string | EventCallback, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
 		const _eventCallbackId = (eventCallbackId as EventCallback).id || eventCallbackId as string
 		return this.resources.fetch<Webhook>({ type: 'webhooks' }, `event_callbacks/${_eventCallbackId}/webhook`, params, options) as unknown as Webhook
+	}
+
+	async event_stores(eventCallbackId: string | EventCallback, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _eventCallbackId = (eventCallbackId as EventCallback).id || eventCallbackId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `event_callbacks/${_eventCallbackId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

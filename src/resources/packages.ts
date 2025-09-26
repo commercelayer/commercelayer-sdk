@@ -6,6 +6,7 @@ import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Parcel } from './parcels'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type PackageType = 'packages'
@@ -56,6 +57,7 @@ interface Package extends Resource {
 	parcels?: Parcel[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -170,6 +172,11 @@ class Packages extends ApiResource<Package> {
 	async versions(packageId: string | Package, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _packageId = (packageId as Package).id || packageId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `packages/${_packageId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(packageId: string | Package, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _packageId = (packageId as Package).id || packageId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `packages/${_packageId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 
