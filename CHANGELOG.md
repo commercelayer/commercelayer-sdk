@@ -1,3 +1,13 @@
+## [7.0.0-rc.15](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.14...v7.0.0-rc.15) (2025-10-03)
+
+### Features
+
+* add sdk version and fix tests ([99e10b4](https://github.com/commercelayer/commercelayer-sdk/commit/99e10b41b86ef442bc06fe2c7caf6c261c9b2dc2))
+
+### Bug Fixes
+
+* update readme and dev dependencies ([7862d50](https://github.com/commercelayer/commercelayer-sdk/commit/7862d5081f523d5b36cd0fe5e43d607aff0ebc97))
+
 ## [7.0.0-rc.14](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.13...v7.0.0-rc.14) (2025-09-26)
 
 ### Features
