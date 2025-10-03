@@ -1,4 +1,4 @@
-import { ApiClientInitConfig } from "./client"
+import type { ApiClientInitConfig } from "./client"
 
 const config = {
 	default: {

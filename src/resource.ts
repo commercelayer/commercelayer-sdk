@@ -295,7 +295,7 @@ class ResourceAdapter {
 abstract class ApiResourceBase<R extends Resource> {
 
 	static readonly TYPE: ResourceTypeLock
-	#resources?: ResourceAdapter
+	readonly #resources?: ResourceAdapter
 
 
 	constructor(adapter?: ResourceAdapter) {

@@ -1,4 +1,4 @@
-import { CommerceLayerClient, CommerceLayerInitConfig } from './commercelayer'
+import { CommerceLayerClient, type CommerceLayerInitConfig } from './commercelayer'
 import * as api from './api'
 
 import Debug from './debug'

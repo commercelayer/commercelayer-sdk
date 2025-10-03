@@ -1,4 +1,4 @@
-import { inspect } from "util"
+import { inspect } from "node:util"
 import CommerceLayer, { CommerceLayerClient, type CommerceLayerInitConfig, CommerceLayerStatic } from "../src"
 import getToken, { AccessToken } from './token'
 

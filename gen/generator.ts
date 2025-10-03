@@ -1,7 +1,7 @@
 
 import apiSchema, { Resource, Operation, Component, Cardinality, Attribute } from './schema'
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs'
-import { basename } from 'node:path'
+import { basename, resolve } from 'node:path'
 import Fixer from './fixer'
 import Inflector from './inflector'
 import { updateLicense } from './license'
@@ -33,6 +33,7 @@ CONFIG.RESOURCES_ACCESSORS_ONLY = (CONFIG.RESOURCES_INSTANCE_STYLE === 'accessor
 
 
 const SCHEMA_VERSION_CONST = 'OPEN_API_SCHEMA_VERSION'
+const SDK_VERSION_CONST = 'SDK_VERSION'
 const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
 
@@ -212,8 +213,15 @@ const updateSdkVersion = (): void => {
 
 	// OpenAPI schema version
 	const schemaLine = findLine(SCHEMA_VERSION_CONST, lines)
-	const prefix = schemaLine.text.substring(0, schemaLine.offset).trim()
-	if (schemaLine.index >= 0) lines[schemaLine.index] = `${prefix} ${SCHEMA_VERSION_CONST} = '${global.version}'`
+	const schemaPrefix = schemaLine.text.substring(0, schemaLine.offset).trim()
+	if (schemaLine.index >= 0) lines[schemaLine.index] = `${schemaPrefix} ${SCHEMA_VERSION_CONST} = '${global.version}'`
+
+	// SDK version
+	const pkgJson = readFileSync(resolve('.', 'package.json'), { encoding: 'utf-8' })
+	const pkg = JSON.parse(pkgJson)
+	const sdkLine = findLine(SDK_VERSION_CONST, lines)
+	const sdkPrefix = sdkLine.text.substring(0, sdkLine.offset).trim()
+	if (sdkLine.index >= 0) lines[sdkLine.index] = `${sdkPrefix} ${SDK_VERSION_CONST} = '${pkg.version}'`
 
 	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
 

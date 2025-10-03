@@ -143,7 +143,7 @@ const apiResources = [
 ] as const
 
 export type ResourceTypeLock = typeof apiResources[number]
-export const resourceList: Readonly<ResourceTypeLock[]> = apiResources
+export const resourceList: readonly ResourceTypeLock[] = apiResources
 
 
 // Singleton resources
@@ -702,27 +702,27 @@ export function getSingletons(sort?: boolean): readonly string[] {
 }
 
 export function isSingleton(resource: ResourceTypeLock): boolean {
-	return singletonList.includes(resource as any)
+	return (singletonList as readonly ResourceTypeLock[]).includes(resource)
 }
 
 export function isCreatable(resource: ResourceTypeLock): boolean {
-	return creatableResources.includes(resource as any)
+	return (creatableResources as readonly ResourceTypeLock[]).includes(resource)
 }
 
 export function isUpdatable(resource: ResourceTypeLock): boolean {
-	return updatableResources.includes(resource as any)
+	return (updatableResources as readonly ResourceTypeLock[]).includes(resource)
 }
 
 export function isDeletable(resource: ResourceTypeLock): boolean {
-	return deletableResources.includes(resource as any)
+	return (deletableResources as readonly ResourceTypeLock[]).includes(resource)
 }
 
 export function isTaggable(resource: ResourceTypeLock): boolean {
-	return taggableResources.includes(resource as any)
+	return (taggableResources as readonly ResourceTypeLock[]).includes(resource)
 }
 
 export function isVersionable(resource: ResourceTypeLock): boolean {
-	return versionableResources.includes(resource as any)
+	return (versionableResources as readonly ResourceTypeLock[]).includes(resource)
 }
 
 

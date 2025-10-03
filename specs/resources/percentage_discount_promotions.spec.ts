@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, PercentageDiscountPromotion, percentage_discount_promotions, markets, order_amount_promotion_rules, sku_list_promotion_rules, coupon_codes_promotion_rules, custom_promotion_rules, sku_lists, tags } from '../../lib'
+import { CommerceLayerClient, PercentageDiscountPromotion, percentage_discount_promotions, markets, order_amount_promotion_rules, sku_list_promotion_rules, coupon_codes_promotion_rules, custom_promotion_rules, sku_lists, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'

@@ -1,6 +1,6 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { application, CommerceLayerClient, Customer, customers, orders, type ListResponse } from '../lib'
+import { application, CommerceLayerClient, Customer, customers, orders, type ListResponse } from '../src'
 import { getClient } from '../test/common'
 
 
@@ -72,7 +72,7 @@ describe('SDK:resource suite', () => {
 		await customers.delete(tempId)
 		try {
 			await customers.retrieve(tempId)
-		} catch (error) {
+		} catch (error: any) {
 			expect(error.code).toEqual("404")
 			expect(error.status).toEqual(404)
 		}
