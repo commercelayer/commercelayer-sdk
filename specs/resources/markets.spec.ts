@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Market, markets, merchants, price_lists, inventory_models, subscription_models, avalara_accounts, customer_groups, geocoders, shipping_methods, payment_methods } from '../../lib'
+import { CommerceLayerClient, Market, markets, merchants, price_lists, inventory_models, subscription_models, discount_engines, avalara_accounts, customer_groups, geocoders, shipping_methods, payment_methods } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -32,6 +32,7 @@ describe('Markets resource', () => {
 			price_list: price_lists.relationship(TestData.id),
 			inventory_model: inventory_models.relationship(TestData.id),
 			subscription_model: subscription_models.relationship(TestData.id),
+			discount_engine: discount_engines.relationship(TestData.id),
 			tax_calculator: avalara_accounts.relationship(TestData.id),
 			customer_group: customer_groups.relationship(TestData.id),
 			geocoder: geocoders.relationship(TestData.id),
@@ -330,25 +331,25 @@ describe('Markets resource', () => {
 	
 
 	
-	/* relationship.tax_calculator start */
-	test(resourceType + '.tax_calculator', async () => {
+	/* relationship.discount_engine start */
+	test(resourceType + '.discount_engine', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { tax_calculators: CommonData.paramsFields } }
+		const params = { fields: { discount_engines: CommonData.paramsFields } }
 	
 		const intId = cl.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourcePath, id, currentAccessToken, 'tax_calculator')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'discount_engine')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await markets.tax_calculator(id, params, CommonData.options)
+		await markets.discount_engine(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
 	})
-	/* relationship.tax_calculator stop */
+	/* relationship.discount_engine stop */
 	
 
 	
@@ -525,6 +526,28 @@ describe('Markets resource', () => {
 	
 	})
 	/* relationship.versions stop */
+	
+
+	
+	/* relationship.event_stores start */
+	test(resourceType + '.event_stores', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'event_stores')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await markets.event_stores(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.event_stores stop */
 	
   
 

@@ -1,8 +1,8 @@
 
 import dotenv from 'dotenv'
 import getToken from './token'
-import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj, Resource } from '../lib'
-import { inspect, isDeepStrictEqual } from 'util'
+import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj, Resource } from '../src'
+import { inspect, isDeepStrictEqual } from 'node:util'
 
 
 dotenv.config()
@@ -150,8 +150,9 @@ export { handleError, interceptRequest, randomValue }
 
 const checkCommon = (request: RequestObj, path: string, id?: string, token?: string, relationship?: string) => {
 	expect(request.url.pathname).toBe('/api/' + path + (id ? `/${id}` : '') + (relationship ? `/${relationship}` : ''))
-	expect(request.options.headers).toBeDefined()
-	if (request.options.headers) expect(request.options.headers['Authorization']).toContain('Bearer ' + (token || ''))
+	const requestOptionsHeaders = request.options.headers as Record<string, string>
+	expect(requestOptionsHeaders).toBeDefined()
+	if (requestOptionsHeaders) expect(requestOptionsHeaders['Authorization']).toContain('Bearer ' + (token || ''))
 	expect(request.options.signal).not.toBeNull()
 }
 

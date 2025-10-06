@@ -11,6 +11,7 @@ import type { StockTransfer } from './stock_transfers'
 import type { Notification } from './notifications'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
+import type { EventStore } from './event_stores'
 import type { Sku, SkuType } from './skus'
 import type { Bundle, BundleType } from './bundles'
 import type { GiftCard, GiftCardType } from './gift_cards'
@@ -213,6 +214,11 @@ interface LineItem extends Resource {
 	 */
 	coupon_code?: string | null
 	/** 
+	 * The rule outcomes.
+	 * @example ```[]```
+	 */
+	rule_outcomes?: Record<string, any> | null
+	/** 
 	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
 	 * @example ```"closed"```
 	 */
@@ -239,6 +245,7 @@ interface LineItem extends Resource {
 	notifications?: Notification[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -450,6 +457,11 @@ class LineItems extends ApiResource<LineItem> {
 		return this.resources.fetch<Tag>({ type: 'tags' }, `line_items/${_lineItemId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
+	async event_stores(lineItemId: string | LineItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _lineItemId = (lineItemId as LineItem).id || lineItemId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `line_items/${_lineItemId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _external_price(id: string | LineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _external_price: true }, params, options)
 	}
@@ -495,4 +507,4 @@ class LineItems extends ApiResource<LineItem> {
 const instance = new LineItems()
 export default instance
 
-export type { LineItem, LineItemCreate, LineItemUpdate, LineItemType }
+export type { LineItems, LineItem, LineItemCreate, LineItemUpdate, LineItemType }

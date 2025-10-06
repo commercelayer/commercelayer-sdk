@@ -1,9 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { DiscountEngine } from './discount_engines'
 import type { Order } from './orders'
+import type { EventStore } from './event_stores'
 
 
 type DiscountEngineItemType = 'discount_engine_items'
@@ -26,6 +27,7 @@ interface DiscountEngineItem extends Resource {
 
 	discount_engine?: DiscountEngine | null
 	order?: Order | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -42,6 +44,11 @@ class DiscountEngineItems extends ApiResource<DiscountEngineItem> {
 	async order(discountEngineItemId: string | DiscountEngineItem, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _discountEngineItemId = (discountEngineItemId as DiscountEngineItem).id || discountEngineItemId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `discount_engine_items/${_discountEngineItemId}/order`, params, options) as unknown as Order
+	}
+
+	async event_stores(discountEngineItemId: string | DiscountEngineItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _discountEngineItemId = (discountEngineItemId as DiscountEngineItem).id || discountEngineItemId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `discount_engine_items/${_discountEngineItemId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 
@@ -69,4 +76,4 @@ class DiscountEngineItems extends ApiResource<DiscountEngineItem> {
 const instance = new DiscountEngineItems()
 export default instance
 
-export type { DiscountEngineItem, DiscountEngineItemType }
+export type { DiscountEngineItems, DiscountEngineItem, DiscountEngineItemType }

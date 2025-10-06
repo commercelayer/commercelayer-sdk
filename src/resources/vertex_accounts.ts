@@ -6,6 +6,7 @@ import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type VertexAccountType = 'vertex_accounts'
@@ -55,6 +56,7 @@ interface VertexAccount extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -172,6 +174,11 @@ class VertexAccounts extends ApiResource<VertexAccount> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `vertex_accounts/${_vertexAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(vertexAccountId: string | VertexAccount, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _vertexAccountId = (vertexAccountId as VertexAccount).id || vertexAccountId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `vertex_accounts/${_vertexAccountId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _refresh_token(id: string | VertexAccount, params?: QueryParamsRetrieve<VertexAccount>, options?: ResourcesConfig): Promise<VertexAccount> {
 		return this.resources.update<VertexAccountUpdate, VertexAccount>({ id: (typeof id === 'string')? id: id.id, type: VertexAccounts.TYPE, _refresh_token: true }, params, options)
 	}
@@ -201,4 +208,4 @@ class VertexAccounts extends ApiResource<VertexAccount> {
 const instance = new VertexAccounts()
 export default instance
 
-export type { VertexAccount, VertexAccountCreate, VertexAccountUpdate, VertexAccountType }
+export type { VertexAccounts, VertexAccount, VertexAccountCreate, VertexAccountUpdate, VertexAccountType }

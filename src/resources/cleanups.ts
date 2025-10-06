@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type CleanupType = 'cleanups'
@@ -71,6 +72,7 @@ interface Cleanup extends Resource {
 
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -128,6 +130,11 @@ class Cleanups extends ApiResource<Cleanup> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `cleanups/${_cleanupId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(cleanupId: string | Cleanup, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _cleanupId = (cleanupId as Cleanup).id || cleanupId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `cleanups/${_cleanupId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _interrupt(id: string | Cleanup, params?: QueryParamsRetrieve<Cleanup>, options?: ResourcesConfig): Promise<Cleanup> {
 		return this.resources.update<CleanupUpdate, Cleanup>({ id: (typeof id === 'string')? id: id.id, type: Cleanups.TYPE, _interrupt: true }, params, options)
 	}
@@ -157,4 +164,4 @@ class Cleanups extends ApiResource<Cleanup> {
 const instance = new Cleanups()
 export default instance
 
-export type { Cleanup, CleanupCreate, CleanupUpdate, CleanupType }
+export type { Cleanups, Cleanup, CleanupCreate, CleanupUpdate, CleanupType }

@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ShippingWeightTierType = 'shipping_weight_tiers'
@@ -49,6 +50,7 @@ interface ShippingWeightTier extends Resource {
 	shipping_method?: ShippingMethod | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -130,6 +132,11 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_weight_tiers/${_shippingWeightTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(shippingWeightTierId: string | ShippingWeightTier, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _shippingWeightTierId = (shippingWeightTierId as ShippingWeightTier).id || shippingWeightTierId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `shipping_weight_tiers/${_shippingWeightTierId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isShippingWeightTier(resource: any): resource is ShippingWeightTier {
 		return resource.type && (resource.type === ShippingWeightTiers.TYPE)
@@ -155,4 +162,4 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 const instance = new ShippingWeightTiers()
 export default instance
 
-export type { ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierUpdate, ShippingWeightTierType }
+export type { ShippingWeightTiers, ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierUpdate, ShippingWeightTierType }

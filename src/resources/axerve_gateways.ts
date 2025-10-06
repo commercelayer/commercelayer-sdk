@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { AxervePayment, AxervePaymentType } from './axerve_payments'
 
 
@@ -38,6 +39,7 @@ interface AxerveGateway extends Resource {
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	axerve_payments?: AxervePayment[] | null
 
 }
@@ -115,6 +117,11 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `axerve_gateways/${_axerveGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _axerveGatewayId = (axerveGatewayId as AxerveGateway).id || axerveGatewayId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `axerve_gateways/${_axerveGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async axerve_payments(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList<AxervePayment>, options?: ResourcesConfig): Promise<ListResponse<AxervePayment>> {
 		const _axerveGatewayId = (axerveGatewayId as AxerveGateway).id || axerveGatewayId as string
 		return this.resources.fetch<AxervePayment>({ type: 'axerve_payments' }, `axerve_gateways/${_axerveGatewayId}/axerve_payments`, params, options) as unknown as ListResponse<AxervePayment>
@@ -145,4 +152,4 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 const instance = new AxerveGateways()
 export default instance
 
-export type { AxerveGateway, AxerveGatewayCreate, AxerveGatewayUpdate, AxerveGatewayType }
+export type { AxerveGateways, AxerveGateway, AxerveGatewayCreate, AxerveGatewayUpdate, AxerveGatewayType }

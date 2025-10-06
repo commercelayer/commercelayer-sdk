@@ -13,6 +13,7 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { Sku } from './skus'
 import type { PromotionRule } from './promotion_rules'
 
@@ -29,7 +30,7 @@ type TagRel = ResourceRel & { type: TagType }
 
 
 export type FixedPricePromotionSort = Pick<FixedPricePromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
-// export type FixedPricePromotionFilter = Pick<FixedPricePromotion, 'id' | 'name' | 'currency_code' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
+// export type FixedPricePromotionFilter = Pick<FixedPricePromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
 
 
 interface FixedPricePromotion extends Resource {
@@ -87,6 +88,11 @@ interface FixedPricePromotion extends Resource {
 	 */
 	status?: 'disabled' | 'expired' | 'pending' | 'active' | 'inactive' | null
 	/** 
+	 * The weight of the promotion, computed by exclusivity, priority, type and start time. Determines the order of application, higher weight apply first.
+	 * @example ```112```
+	 */
+	weight?: number | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -119,6 +125,7 @@ interface FixedPricePromotion extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	skus?: Sku[] | null
 
 }
@@ -331,6 +338,11 @@ class FixedPricePromotions extends ApiResource<FixedPricePromotion> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `fixed_price_promotions/${_fixedPricePromotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _fixedPricePromotionId = (fixedPricePromotionId as FixedPricePromotion).id || fixedPricePromotionId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `fixed_price_promotions/${_fixedPricePromotionId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async skus(fixedPricePromotionId: string | FixedPricePromotion, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
 		const _fixedPricePromotionId = (fixedPricePromotionId as FixedPricePromotion).id || fixedPricePromotionId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `fixed_price_promotions/${_fixedPricePromotionId}/skus`, params, options) as unknown as ListResponse<Sku>
@@ -377,4 +389,4 @@ class FixedPricePromotions extends ApiResource<FixedPricePromotion> {
 const instance = new FixedPricePromotions()
 export default instance
 
-export type { FixedPricePromotion, FixedPricePromotionCreate, FixedPricePromotionUpdate, FixedPricePromotionType }
+export type { FixedPricePromotions, FixedPricePromotion, FixedPricePromotionCreate, FixedPricePromotionUpdate, FixedPricePromotionType }

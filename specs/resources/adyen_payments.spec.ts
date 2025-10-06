@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, AdyenPayment, adyen_payments, orders } from '../../lib'
+import { CommerceLayerClient, AdyenPayment, adyen_payments, orders } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -275,6 +275,28 @@ describe('AdyenPayments resource', () => {
 	})
 	/* relationship.versions stop */
 	
+
+	
+	/* relationship.event_stores start */
+	test(resourceType + '.event_stores', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'event_stores')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await adyen_payments.event_stores(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.event_stores stop */
+	
   
 
 	
@@ -329,5 +351,32 @@ describe('AdyenPayments resource', () => {
 	
 	})
 	/* trigger._details stop */
+	
+
+	
+	/* trigger._balance start */
+	test(resourceType + '._balance', async () => {
+	
+		let triggerAttr = '_balance'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await adyen_payments._balance(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._balance stop */
 	
 })

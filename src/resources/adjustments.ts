@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type AdjustmentType = 'adjustments'
@@ -49,6 +50,7 @@ interface Adjustment extends Resource {
 	distribute_discount?: boolean | null
 
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -126,6 +128,11 @@ class Adjustments extends ApiResource<Adjustment> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `adjustments/${_adjustmentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(adjustmentId: string | Adjustment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _adjustmentId = (adjustmentId as Adjustment).id || adjustmentId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `adjustments/${_adjustmentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isAdjustment(resource: any): resource is Adjustment {
 		return resource.type && (resource.type === Adjustments.TYPE)
@@ -151,4 +158,4 @@ class Adjustments extends ApiResource<Adjustment> {
 const instance = new Adjustments()
 export default instance
 
-export type { Adjustment, AdjustmentCreate, AdjustmentUpdate, AdjustmentType }
+export type { Adjustments, Adjustment, AdjustmentCreate, AdjustmentUpdate, AdjustmentType }

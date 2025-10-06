@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
 import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
 import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
@@ -56,6 +57,7 @@ interface OrderAmountPromotionRule extends Resource {
 
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -117,6 +119,11 @@ class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `order_amount_promotion_rules/${_orderAmountPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(orderAmountPromotionRuleId: string | OrderAmountPromotionRule, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _orderAmountPromotionRuleId = (orderAmountPromotionRuleId as OrderAmountPromotionRule).id || orderAmountPromotionRuleId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `order_amount_promotion_rules/${_orderAmountPromotionRuleId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isOrderAmountPromotionRule(resource: any): resource is OrderAmountPromotionRule {
 		return resource.type && (resource.type === OrderAmountPromotionRules.TYPE)
@@ -142,4 +149,4 @@ class OrderAmountPromotionRules extends ApiResource<OrderAmountPromotionRule> {
 const instance = new OrderAmountPromotionRules()
 export default instance
 
-export type { OrderAmountPromotionRule, OrderAmountPromotionRuleCreate, OrderAmountPromotionRuleUpdate, OrderAmountPromotionRuleType }
+export type { OrderAmountPromotionRules, OrderAmountPromotionRule, OrderAmountPromotionRuleCreate, OrderAmountPromotionRuleUpdate, OrderAmountPromotionRuleType }

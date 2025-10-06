@@ -11,6 +11,7 @@ import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { Sku } from './skus'
 import type { Bundle } from './bundles'
+import type { DiscountEngineItem } from './discount_engine_items'
 import type { LineItem } from './line_items'
 import type { LineItemOption } from './line_item_options'
 import type { StockReservation } from './stock_reservations'
@@ -34,6 +35,7 @@ import type { ResourceError } from './resource_errors'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
 import type { AxervePayment, AxervePaymentType } from './axerve_payments'
 import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
@@ -66,8 +68,8 @@ type WireTransferRel = ResourceRel & { type: WireTransferType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type OrderSort = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
-// export type OrderFilter = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'customer_email' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'payment_source_details' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
+export type OrderSort = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'expires_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type OrderFilter = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'customer_email' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'payment_source_details' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'expires_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface Order extends Resource {
@@ -581,7 +583,7 @@ interface Order extends Resource {
 	 */
 	fulfillment_updated_at?: string | null
 	/** 
-	 * Last time at which an order was manually refreshed.
+	 * Last time at which the order was refreshed.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	refreshed_at?: string | null
@@ -595,6 +597,16 @@ interface Order extends Resource {
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	subscription_created_at?: string | null
+	/** 
+	 * The expiration date/time of this order. Cannot be passed by sales channels.
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at?: string | null
+	/** 
+	 * The information related to the order expiration, in case expires_at is not null. Cannot be passed by sales channels.
+	 * @example ```{"summary_message":"Your tickets are reserved for the remaining time.","expired_message":"Your session has expired. Please start your checkout again.","redirect_url":"https://yourshop.com/"}```
+	 */
+	expiration_info?: Record<string, any> | null
 	/** 
 	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
 	 * @example ```"closed"```
@@ -619,6 +631,7 @@ interface Order extends Resource {
 	available_free_bundles?: Bundle[] | null
 	payment_method?: PaymentMethod | null
 	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
+	discount_engine_item?: DiscountEngineItem | null
 	line_items?: LineItem[] | null
 	line_item_options?: LineItemOption[] | null
 	stock_reservations?: StockReservation[] | null
@@ -644,6 +657,7 @@ interface Order extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -744,6 +758,16 @@ interface OrderCreate extends ResourceCreate {
 	 * @example ```"https://yourdomain.com/privacy"```
 	 */
 	privacy_url?: string | null
+	/** 
+	 * The expiration date/time of this order. Cannot be passed by sales channels.
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at?: string | null
+	/** 
+	 * The information related to the order expiration, in case expires_at is not null. Cannot be passed by sales channels.
+	 * @example ```{"summary_message":"Your tickets are reserved for the remaining time.","expired_message":"Your session has expired. Please start your checkout again.","redirect_url":"https://yourshop.com/"}```
+	 */
+	expiration_info?: Record<string, any> | null
 
 	market?: MarketRel | null
 	customer?: CustomerRel | null
@@ -1003,6 +1027,16 @@ interface OrderUpdate extends ResourceUpdate {
 	 */
 	_stop_editing?: boolean | null
 	/** 
+	 * The expiration date/time of this order. Cannot be passed by sales channels.
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at?: string | null
+	/** 
+	 * The information related to the order expiration, in case expires_at is not null. Cannot be passed by sales channels.
+	 * @example ```{"summary_message":"Your tickets are reserved for the remaining time.","expired_message":"Your session has expired. Please start your checkout again.","redirect_url":"https://yourshop.com/"}```
+	 */
+	expiration_info?: Record<string, any> | null
+	/** 
 	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
 	 * @example ```true```
 	 */
@@ -1102,6 +1136,11 @@ class Orders extends ApiResource<Order> {
 	async payment_method(orderId: string | Order, params?: QueryParamsRetrieve<PaymentMethod>, options?: ResourcesConfig): Promise<PaymentMethod> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `orders/${_orderId}/payment_method`, params, options) as unknown as PaymentMethod
+	}
+
+	async discount_engine_item(orderId: string | Order, params?: QueryParamsRetrieve<DiscountEngineItem>, options?: ResourcesConfig): Promise<DiscountEngineItem> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<DiscountEngineItem>({ type: 'discount_engine_items' }, `orders/${_orderId}/discount_engine_item`, params, options) as unknown as DiscountEngineItem
 	}
 
 	async line_items(orderId: string | Order, params?: QueryParamsList<LineItem>, options?: ResourcesConfig): Promise<ListResponse<LineItem>> {
@@ -1222,6 +1261,11 @@ class Orders extends ApiResource<Order> {
 	async versions(orderId: string | Order, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `orders/${_orderId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(orderId: string | Order, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _orderId = (orderId as Order).id || orderId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `orders/${_orderId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _archive(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
@@ -1381,4 +1425,4 @@ class Orders extends ApiResource<Order> {
 const instance = new Orders()
 export default instance
 
-export type { Order, OrderCreate, OrderUpdate, OrderType }
+export type { Orders, Order, OrderCreate, OrderUpdate, OrderType }

@@ -6,6 +6,7 @@ import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { TaxCategory, TaxCategoryType } from './tax_categories'
 
 
@@ -52,6 +53,7 @@ interface AvalaraAccount extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	tax_categories?: TaxCategory[] | null
 
 }
@@ -169,6 +171,11 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `avalara_accounts/${_avalaraAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `avalara_accounts/${_avalaraAccountId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async tax_categories(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<TaxCategory>, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<TaxCategory>({ type: 'tax_categories' }, `avalara_accounts/${_avalaraAccountId}/tax_categories`, params, options) as unknown as ListResponse<TaxCategory>
@@ -199,4 +206,4 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 const instance = new AvalaraAccounts()
 export default instance
 
-export type { AvalaraAccount, AvalaraAccountCreate, AvalaraAccountUpdate, AvalaraAccountType }
+export type { AvalaraAccounts, AvalaraAccount, AvalaraAccountCreate, AvalaraAccountUpdate, AvalaraAccountType }

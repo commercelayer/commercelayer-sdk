@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type SatispayPaymentType = 'satispay_payments'
@@ -59,6 +60,7 @@ interface SatispayPayment extends Resource {
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -130,6 +132,11 @@ class SatispayPayments extends ApiResource<SatispayPayment> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `satispay_payments/${_satispayPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(satispayPaymentId: string | SatispayPayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _satispayPaymentId = (satispayPaymentId as SatispayPayment).id || satispayPaymentId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `satispay_payments/${_satispayPaymentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _refresh(id: string | SatispayPayment, params?: QueryParamsRetrieve<SatispayPayment>, options?: ResourcesConfig): Promise<SatispayPayment> {
 		return this.resources.update<SatispayPaymentUpdate, SatispayPayment>({ id: (typeof id === 'string')? id: id.id, type: SatispayPayments.TYPE, _refresh: true }, params, options)
 	}
@@ -159,4 +166,4 @@ class SatispayPayments extends ApiResource<SatispayPayment> {
 const instance = new SatispayPayments()
 export default instance
 
-export type { SatispayPayment, SatispayPaymentCreate, SatispayPaymentUpdate, SatispayPaymentType }
+export type { SatispayPayments, SatispayPayment, SatispayPaymentCreate, SatispayPaymentUpdate, SatispayPaymentType }

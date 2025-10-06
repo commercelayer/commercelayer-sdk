@@ -6,6 +6,7 @@ import type { Market, MarketType } from './markets'
 import type { PriceList, PriceListType } from './price_lists'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type PriceListSchedulerType = 'price_list_schedulers'
@@ -57,6 +58,7 @@ interface PriceListScheduler extends Resource {
 	price_list?: PriceList | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -165,6 +167,11 @@ class PriceListSchedulers extends ApiResource<PriceListScheduler> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `price_list_schedulers/${_priceListSchedulerId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(priceListSchedulerId: string | PriceListScheduler, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _priceListSchedulerId = (priceListSchedulerId as PriceListScheduler).id || priceListSchedulerId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `price_list_schedulers/${_priceListSchedulerId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _disable(id: string | PriceListScheduler, params?: QueryParamsRetrieve<PriceListScheduler>, options?: ResourcesConfig): Promise<PriceListScheduler> {
 		return this.resources.update<PriceListSchedulerUpdate, PriceListScheduler>({ id: (typeof id === 'string')? id: id.id, type: PriceListSchedulers.TYPE, _disable: true }, params, options)
 	}
@@ -198,4 +205,4 @@ class PriceListSchedulers extends ApiResource<PriceListScheduler> {
 const instance = new PriceListSchedulers()
 export default instance
 
-export type { PriceListScheduler, PriceListSchedulerCreate, PriceListSchedulerUpdate, PriceListSchedulerType }
+export type { PriceListSchedulers, PriceListScheduler, PriceListSchedulerCreate, PriceListSchedulerUpdate, PriceListSchedulerType }

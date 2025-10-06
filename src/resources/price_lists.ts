@@ -6,6 +6,7 @@ import type { Price } from './prices'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type PriceListType = 'price_lists'
@@ -13,7 +14,7 @@ type PriceListRel = ResourceRel & { type: PriceListType }
 
 
 export type PriceListSort = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included'> & ResourceSort
-// export type PriceListFilter = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included' | 'rules'> & ResourceFilter
+// export type PriceListFilter = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included'> & ResourceFilter
 
 
 interface PriceList extends Resource {
@@ -40,26 +41,12 @@ interface PriceList extends Resource {
 	 * @example ```true```
 	 */
 	tax_included?: boolean | null
-	/** 
-	 * The rules (using Rules Engine) to be applied.
-	 * @example ```{}```
-	 */
-	rules?: Record<string, any> | null
-	/** 
-	 * The rule outcomes.
-	 * @example ```{}```
-	 */
-	rule_outcomes?: Record<string, any> | null
-	/** 
-	 * The payload used to evaluate the rules.
-	 * @example ```{}```
-	 */
-	resource_payload?: Record<string, any> | null
 
 	prices?: Price[] | null
 	price_list_schedulers?: PriceListScheduler[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -162,6 +149,11 @@ class PriceLists extends ApiResource<PriceList> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `price_lists/${_priceListId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(priceListId: string | PriceList, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _priceListId = (priceListId as PriceList).id || priceListId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `price_lists/${_priceListId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isPriceList(resource: any): resource is PriceList {
 		return resource.type && (resource.type === PriceLists.TYPE)
@@ -187,4 +179,4 @@ class PriceLists extends ApiResource<PriceList> {
 const instance = new PriceLists()
 export default instance
 
-export type { PriceList, PriceListCreate, PriceListUpdate, PriceListType }
+export type { PriceLists, PriceList, PriceListCreate, PriceListUpdate, PriceListType }

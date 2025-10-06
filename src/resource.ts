@@ -6,10 +6,10 @@ import { generateQueryStringParams, isParamsList } from './query'
 import { type ResourceTypeLock, resourceList } from './enum'
 import config from './config'
 import { SdkError } from './error'
+import type { ObjectType } from './types'
 
 
 import Debug from './debug'
-import { ObjectType } from './types'
 const debug = Debug('resource')
 
 
@@ -112,7 +112,9 @@ class ApiResourceAdapter {
 
 
 	static init(config: ResourcesInitConfig): ResourceAdapter {
-		return (ApiResourceAdapter.adapter = new ResourceAdapter(config))
+		ApiResourceAdapter.adapter = new ResourceAdapter(config)
+		debug('resource adapter initialized')
+		return ApiResourceAdapter.get()
 	}
 
 	static get(config?: ResourcesInitConfig): ResourceAdapter {
@@ -144,7 +146,7 @@ class ResourceAdapter {
 
 
 	private localConfig(config: ResourceAdapterConfig): void {
-		// if (typeof config.xyz !== 'undefined') this.#config.xyz = config.xyz
+		Object.assign(this.#config, config)
 	}
 
 
@@ -293,17 +295,17 @@ class ResourceAdapter {
 abstract class ApiResourceBase<R extends Resource> {
 
 	static readonly TYPE: ResourceTypeLock
-	// #resources?: ResourceAdapter
+	readonly #resources?: ResourceAdapter
 
 
 	constructor(adapter?: ResourceAdapter) {
 		debug('new resource instance: %s', this.type())
-		// this.#resources = adapter
+		if (adapter) this.#resources = adapter
 	}
 
 
 	protected get resources(): ResourceAdapter {
-		return /* this.#resources || (this.#resources = */ApiResourceAdapter.get()//)
+		return this.#resources || ApiResourceAdapter.get()
 	}
 
 
@@ -362,7 +364,7 @@ abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 
 
-export { ApiResourceAdapter, ApiResource, ApiSingleton }
+export { ApiResourceAdapter, ApiResource, ApiSingleton, type ResourceAdapter }
 
 
 

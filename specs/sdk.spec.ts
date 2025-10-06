@@ -1,10 +1,12 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Customer, customers } from '../lib'
-import { sleep, sortObjectFields } from '../lib/util'
+import { CommerceLayerClient, CommerceLayerStatic, Customer, customers } from '../src'
+import { sleep, sortObjectFields } from '../src/util'
 import { checkParam, getClient, handleError, interceptRequest, TestData } from '../test/common'
-import { isResourceType } from '../lib/resource'
-import { ObjectType } from '../lib/types'
+import { isResourceType } from '../src/resource'
+import { ObjectType } from '../src/types'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 
 
 let cl: CommerceLayerClient
@@ -83,6 +85,24 @@ describe('SDK suite', () => {
     await customers.list({})
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
+    
+  })
+
+
+	test('sdk.version', async () => {
+
+		const cl = await getClient()
+
+    const sdkVersion = cl.version
+		const staticVersion = CommerceLayerStatic.sdkVersion
+
+		const pkgJson = readFileSync(resolve('.', 'package.json'), { encoding: 'utf-8' })
+		const pkg = JSON.parse(pkgJson)
+		const packageVersion = pkg.version
+
+		expect(packageVersion).not.toBeUndefined()
+		expect(sdkVersion).toBe(packageVersion)
+		expect(staticVersion).toBe(packageVersion)
     
   })
 

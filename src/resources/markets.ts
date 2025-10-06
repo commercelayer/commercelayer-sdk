@@ -6,7 +6,7 @@ import type { Merchant, MerchantType } from './merchants'
 import type { PriceList, PriceListType } from './price_lists'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { SubscriptionModel, SubscriptionModelType } from './subscription_models'
-import type { TaxCalculator } from './tax_calculators'
+import type { DiscountEngine, DiscountEngineType } from './discount_engines'
 import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { Geocoder, GeocoderType } from './geocoders'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
@@ -15,6 +15,7 @@ import type { Store } from './stores'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
 import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
 import type { VertexAccount, VertexAccountType } from './vertex_accounts'
@@ -29,6 +30,7 @@ type MerchantRel = ResourceRel & { type: MerchantType }
 type PriceListRel = ResourceRel & { type: PriceListType }
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
+type DiscountEngineRel = ResourceRel & { type: DiscountEngineType }
 type AvalaraAccountRel = ResourceRel & { type: AvalaraAccountType }
 type StripeTaxAccountRel = ResourceRel & { type: StripeTaxAccountType }
 type VertexAccountRel = ResourceRel & { type: VertexAccountType }
@@ -110,6 +112,7 @@ interface Market extends Resource {
 	base_price_list?: PriceList | null
 	inventory_model?: InventoryModel | null
 	subscription_model?: SubscriptionModel | null
+	discount_engine?: DiscountEngine | null
 	tax_calculator?: AvalaraAccount | StripeTaxAccount | VertexAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
 	customer_group?: CustomerGroup | null
 	geocoder?: Geocoder | null
@@ -119,6 +122,7 @@ interface Market extends Resource {
 	price_list_schedulers?: PriceListScheduler[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -175,6 +179,7 @@ interface MarketCreate extends ResourceCreate {
 	price_list: PriceListRel
 	inventory_model: InventoryModelRel
 	subscription_model?: SubscriptionModelRel | null
+	discount_engine?: DiscountEngineRel | null
 	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
 	geocoder?: GeocoderRel | null
@@ -236,6 +241,7 @@ interface MarketUpdate extends ResourceUpdate {
 	price_list?: PriceListRel | null
 	inventory_model?: InventoryModelRel | null
 	subscription_model?: SubscriptionModelRel | null
+	discount_engine?: DiscountEngineRel | null
 	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
 	customer_group?: CustomerGroupRel | null
 	geocoder?: GeocoderRel | null
@@ -286,9 +292,9 @@ class Markets extends ApiResource<Market> {
 		return this.resources.fetch<SubscriptionModel>({ type: 'subscription_models' }, `markets/${_marketId}/subscription_model`, params, options) as unknown as SubscriptionModel
 	}
 
-	async tax_calculator(marketId: string | Market, params?: QueryParamsRetrieve<TaxCalculator>, options?: ResourcesConfig): Promise<TaxCalculator> {
+	async discount_engine(marketId: string | Market, params?: QueryParamsRetrieve<DiscountEngine>, options?: ResourcesConfig): Promise<DiscountEngine> {
 		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<TaxCalculator>({ type: 'tax_calculators' }, `markets/${_marketId}/tax_calculator`, params, options) as unknown as TaxCalculator
+		return this.resources.fetch<DiscountEngine>({ type: 'discount_engines' }, `markets/${_marketId}/discount_engine`, params, options) as unknown as DiscountEngine
 	}
 
 	async customer_group(marketId: string | Market, params?: QueryParamsRetrieve<CustomerGroup>, options?: ResourcesConfig): Promise<CustomerGroup> {
@@ -331,6 +337,11 @@ class Markets extends ApiResource<Market> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `markets/${_marketId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(marketId: string | Market, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _marketId = (marketId as Market).id || marketId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `markets/${_marketId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _disable(id: string | Market, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.update<MarketUpdate, Market>({ id: (typeof id === 'string')? id: id.id, type: Markets.TYPE, _disable: true }, params, options)
 	}
@@ -364,4 +375,4 @@ class Markets extends ApiResource<Market> {
 const instance = new Markets()
 export default instance
 
-export type { Market, MarketCreate, MarketUpdate, MarketType }
+export type { Markets, Market, MarketCreate, MarketUpdate, MarketType }

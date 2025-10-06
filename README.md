@@ -72,15 +72,29 @@ const cl = CommerceLayer({
 })
 ```
 
-Starting from version v7.x, in order to enable the tree-shaking feature used by bundlers to reduce the created package size, you must import separately the client and the required resources.
+Starting from version v7.x, in order to enable the tree-shaking feature used by bundlers to reduce the size of the created package, you can import separately the client and the required resources.
+Use `client` to setup the SDK access special features like *interceptors*, *raw response* or *auto token refresh* and use `resources` to interact with the API.
 
 ```javascript
-import CommerceLayer, { orders } from '@commercelayer/sdk'
+import CommerceLayer, { orders, skus } from '@commercelayer/sdk'
 
 const cl = CommerceLayer({ accessToken })
 cl.addRawResponseReader()
 
 const orderList = await orders.list()
+const skuList = await skus.list()
+```
+
+You can still use the old styled bundle client importing it directly (together with all the included resources, this will increase your final package size).
+
+```javascript
+import { CommerceLayer } from '@commercelayer/sdk/bundle'
+
+const cl = CommerceLayer({ accessToken })
+cl.addRawResponseReader()
+
+const orderList = await cl.orders.list()
+const skuList = await cl.skus.list()
 ```
 
 ### Options

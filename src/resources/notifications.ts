@@ -1,7 +1,8 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { EventStore } from './event_stores'
 import type { Order, OrderType } from './orders'
 import type { LineItem, LineItemType } from './line_items'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
@@ -38,6 +39,7 @@ interface Notification extends Resource {
 	body?: Record<string, any> | null
 
 	notifiable?: Order | LineItem | ShippingMethod | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -102,6 +104,11 @@ class Notifications extends ApiResource<Notification> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Notifications.TYPE } : id, options)
 	}
 
+	async event_stores(notificationId: string | Notification, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _notificationId = (notificationId as Notification).id || notificationId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `notifications/${_notificationId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isNotification(resource: any): resource is Notification {
 		return resource.type && (resource.type === Notifications.TYPE)
@@ -127,4 +134,4 @@ class Notifications extends ApiResource<Notification> {
 const instance = new Notifications()
 export default instance
 
-export type { Notification, NotificationCreate, NotificationUpdate, NotificationType }
+export type { Notifications, Notification, NotificationCreate, NotificationUpdate, NotificationType }

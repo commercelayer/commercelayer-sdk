@@ -6,6 +6,7 @@ import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ExternalTaxCalculatorType = 'external_tax_calculators'
@@ -50,6 +51,7 @@ interface ExternalTaxCalculator extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -127,6 +129,11 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `external_tax_calculators/${_externalTaxCalculatorId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `external_tax_calculators/${_externalTaxCalculatorId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _reset_circuit(id: string | ExternalTaxCalculator, params?: QueryParamsRetrieve<ExternalTaxCalculator>, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
 		return this.resources.update<ExternalTaxCalculatorUpdate, ExternalTaxCalculator>({ id: (typeof id === 'string')? id: id.id, type: ExternalTaxCalculators.TYPE, _reset_circuit: true }, params, options)
 	}
@@ -156,4 +163,4 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 const instance = new ExternalTaxCalculators()
 export default instance
 
-export type { ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorUpdate, ExternalTaxCalculatorType }
+export type { ExternalTaxCalculators, ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorUpdate, ExternalTaxCalculatorType }

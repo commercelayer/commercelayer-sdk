@@ -6,6 +6,7 @@ import type { Customer } from './customers'
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type CustomerGroupType = 'customer_groups'
@@ -35,6 +36,7 @@ interface CustomerGroup extends Resource {
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -107,6 +109,11 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `customer_groups/${_customerGroupId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(customerGroupId: string | CustomerGroup, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `customer_groups/${_customerGroupId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isCustomerGroup(resource: any): resource is CustomerGroup {
 		return resource.type && (resource.type === CustomerGroups.TYPE)
@@ -132,4 +139,4 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 const instance = new CustomerGroups()
 export default instance
 
-export type { CustomerGroup, CustomerGroupCreate, CustomerGroupUpdate, CustomerGroupType }
+export type { CustomerGroups, CustomerGroup, CustomerGroupCreate, CustomerGroupUpdate, CustomerGroupType }

@@ -1,9 +1,10 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Return, ReturnType } from './returns'
 import type { LineItem, LineItemType } from './line_items'
+import type { EventStore } from './event_stores'
 
 
 type ReturnLineItemType = 'return_line_items'
@@ -73,6 +74,7 @@ interface ReturnLineItem extends Resource {
 
 	return?: Return | null
 	line_item?: LineItem | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -143,6 +145,11 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 		return this.resources.fetch<LineItem>({ type: 'line_items' }, `return_line_items/${_returnLineItemId}/line_item`, params, options) as unknown as LineItem
 	}
 
+	async event_stores(returnLineItemId: string | ReturnLineItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _returnLineItemId = (returnLineItemId as ReturnLineItem).id || returnLineItemId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `return_line_items/${_returnLineItemId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _restock(id: string | ReturnLineItem, params?: QueryParamsRetrieve<ReturnLineItem>, options?: ResourcesConfig): Promise<ReturnLineItem> {
 		return this.resources.update<ReturnLineItemUpdate, ReturnLineItem>({ id: (typeof id === 'string')? id: id.id, type: ReturnLineItems.TYPE, _restock: true }, params, options)
 	}
@@ -172,4 +179,4 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 const instance = new ReturnLineItems()
 export default instance
 
-export type { ReturnLineItem, ReturnLineItemCreate, ReturnLineItemUpdate, ReturnLineItemType }
+export type { ReturnLineItems, ReturnLineItem, ReturnLineItemCreate, ReturnLineItemUpdate, ReturnLineItemType }

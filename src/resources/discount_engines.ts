@@ -6,6 +6,7 @@ import type { Market } from './markets'
 import type { DiscountEngineItem } from './discount_engine_items'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type DiscountEngineType = 'discount_engines'
@@ -34,6 +35,7 @@ interface DiscountEngine extends Resource {
 	discount_engine_items?: DiscountEngineItem[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -62,6 +64,11 @@ class DiscountEngines extends ApiResource<DiscountEngine> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `discount_engines/${_discountEngineId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(discountEngineId: string | DiscountEngine, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _discountEngineId = (discountEngineId as DiscountEngine).id || discountEngineId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `discount_engines/${_discountEngineId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isDiscountEngine(resource: any): resource is DiscountEngine {
 		return resource.type && (resource.type === DiscountEngines.TYPE)
@@ -87,4 +94,4 @@ class DiscountEngines extends ApiResource<DiscountEngine> {
 const instance = new DiscountEngines()
 export default instance
 
-export type { DiscountEngine, DiscountEngineType }
+export type { DiscountEngines, DiscountEngine, DiscountEngineType }

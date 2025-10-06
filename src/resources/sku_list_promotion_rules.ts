@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
@@ -49,6 +50,7 @@ interface SkuListPromotionRule extends Resource {
 
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	sku_list?: SkuList | null
 	skus?: Sku[] | null
 
@@ -114,6 +116,11 @@ class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async sku_list(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsRetrieve<SkuList>, options?: ResourcesConfig): Promise<SkuList> {
 		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId as string
 		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/sku_list`, params, options) as unknown as SkuList
@@ -149,4 +156,4 @@ class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 const instance = new SkuListPromotionRules()
 export default instance
 
-export type { SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRuleUpdate, SkuListPromotionRuleType }
+export type { SkuListPromotionRules, SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRuleUpdate, SkuListPromotionRuleType }

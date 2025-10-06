@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, LineItem, line_items, orders, skus, tags } from '../../lib'
+import { CommerceLayerClient, LineItem, line_items, orders, skus, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -409,6 +409,28 @@ describe('LineItems resource', () => {
 	
 	})
 	/* relationship.tags stop */
+	
+
+	
+	/* relationship.event_stores start */
+	test(resourceType + '.event_stores', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'event_stores')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await line_items.event_stores(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.event_stores stop */
 	
   
 

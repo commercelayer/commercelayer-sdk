@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Order, orders, markets, customers, addresses, addresses, stores, payment_methods, adyen_payments, tags } from '../../lib'
+import { CommerceLayerClient, Order, orders, markets, customers, addresses, stores, payment_methods, adyen_payments, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -479,6 +479,28 @@ describe('Orders resource', () => {
 	
 	})
 	/* relationship.payment_method stop */
+	
+
+	
+	/* relationship.discount_engine_item start */
+	test(resourceType + '.discount_engine_item', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { discount_engine_items: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'discount_engine_item')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await orders.discount_engine_item(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.discount_engine_item stop */
 	
 
 	
@@ -1007,6 +1029,28 @@ describe('Orders resource', () => {
 	
 	})
 	/* relationship.versions stop */
+	
+
+	
+	/* relationship.event_stores start */
+	test(resourceType + '.event_stores', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'event_stores')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await orders.event_stores(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.event_stores stop */
 	
   
 

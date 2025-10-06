@@ -6,6 +6,7 @@ import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { AdyenPayment } from './adyen_payments'
 import type { AxervePayment } from './axerve_payments'
 import type { BraintreePayment } from './braintree_payments'
@@ -90,6 +91,7 @@ interface Transaction extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -118,6 +120,11 @@ class Transactions extends ApiResource<Transaction> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `transactions/${_transactionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(transactionId: string | Transaction, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _transactionId = (transactionId as Transaction).id || transactionId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `transactions/${_transactionId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isTransaction(resource: any): resource is Transaction {
 		return resource.type && (resource.type === Transactions.TYPE)
@@ -143,4 +150,4 @@ class Transactions extends ApiResource<Transaction> {
 const instance = new Transactions()
 export default instance
 
-export type { Transaction, TransactionType }
+export type { Transactions, Transaction, TransactionType }

@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Market } from './markets'
 import type { OrderSubscription } from './order_subscriptions'
 import type { Attachment } from './attachments'
+import type { EventStore } from './event_stores'
 
 
 type SubscriptionModelType = 'subscription_models'
@@ -47,6 +48,7 @@ interface SubscriptionModel extends Resource {
 	markets?: Market[] | null
 	order_subscriptions?: OrderSubscription[] | null
 	attachments?: Attachment[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -142,6 +144,11 @@ class SubscriptionModels extends ApiResource<SubscriptionModel> {
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `subscription_models/${_subscriptionModelId}/attachments`, params, options) as unknown as ListResponse<Attachment>
 	}
 
+	async event_stores(subscriptionModelId: string | SubscriptionModel, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _subscriptionModelId = (subscriptionModelId as SubscriptionModel).id || subscriptionModelId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `subscription_models/${_subscriptionModelId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isSubscriptionModel(resource: any): resource is SubscriptionModel {
 		return resource.type && (resource.type === SubscriptionModels.TYPE)
@@ -167,4 +174,4 @@ class SubscriptionModels extends ApiResource<SubscriptionModel> {
 const instance = new SubscriptionModels()
 export default instance
 
-export type { SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate, SubscriptionModelType }
+export type { SubscriptionModels, SubscriptionModel, SubscriptionModelCreate, SubscriptionModelUpdate, SubscriptionModelType }

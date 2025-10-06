@@ -1,7 +1,8 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsList } from '../query'
 
-
+import type { EventStore } from './event_stores'
 
 
 type VersionType = 'versions'
@@ -41,7 +42,9 @@ interface Version extends Resource {
 	 * @example ```{"application":{"id":"DNOPYiZYpn","kind":"sales_channel","public":true},"owner":{"id":"yQQrBhLBmQ","type":"Customer"}}```
 	 */
 	who?: Record<string, any> | null
-	
+
+	event_stores?: EventStore[] | null
+
 }
 
 
@@ -49,7 +52,10 @@ class Versions extends ApiResource<Version> {
 
 	static readonly TYPE: VersionType = 'versions' as const
 
-	
+	async event_stores(versionId: string | Version, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _versionId = (versionId as Version).id || versionId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `versions/${_versionId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
 
 
 	isVersion(resource: any): resource is Version {
@@ -76,4 +82,4 @@ class Versions extends ApiResource<Version> {
 const instance = new Versions()
 export default instance
 
-export type { Version, VersionType }
+export type { Versions, Version, VersionType }

@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { StockLocation, StockLocationType } from './stock_locations'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type InventoryStockLocationType = 'inventory_stock_locations'
@@ -34,6 +35,7 @@ interface InventoryStockLocation extends Resource {
 	stock_location?: StockLocation | null
 	inventory_model?: InventoryModel | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -105,6 +107,11 @@ class InventoryStockLocations extends ApiResource<InventoryStockLocation> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `inventory_stock_locations/${_inventoryStockLocationId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _inventoryStockLocationId = (inventoryStockLocationId as InventoryStockLocation).id || inventoryStockLocationId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `inventory_stock_locations/${_inventoryStockLocationId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isInventoryStockLocation(resource: any): resource is InventoryStockLocation {
 		return resource.type && (resource.type === InventoryStockLocations.TYPE)
@@ -130,4 +137,4 @@ class InventoryStockLocations extends ApiResource<InventoryStockLocation> {
 const instance = new InventoryStockLocations()
 export default instance
 
-export type { InventoryStockLocation, InventoryStockLocationCreate, InventoryStockLocationUpdate, InventoryStockLocationType }
+export type { InventoryStockLocations, InventoryStockLocation, InventoryStockLocationCreate, InventoryStockLocationUpdate, InventoryStockLocationType }

@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Address, addresses, geocoders, tags } from '../../lib'
+import { CommerceLayerClient, Address, addresses, geocoders, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -29,7 +29,6 @@ describe('Addresses resource', () => {
     const createAttributes = {
 			line_1: randomValue('string', 'line_1'),
 			city: randomValue('string', 'city'),
-			state_code: randomValue('string', 'state_code'),
 			country_code: randomValue('string', 'country_code'),
 			phone: randomValue('string', 'phone'),
 			geocoder: geocoders.relationship(TestData.id),
@@ -302,6 +301,28 @@ describe('Addresses resource', () => {
 	
 	})
 	/* relationship.versions stop */
+	
+
+	
+	/* relationship.event_stores start */
+	test(resourceType + '.event_stores', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'event_stores')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await addresses.event_stores(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.event_stores stop */
 	
   
 

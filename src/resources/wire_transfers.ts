@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type WireTransferType = 'wire_transfers'
@@ -27,6 +28,7 @@ interface WireTransfer extends Resource {
 
 	order?: Order | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -71,6 +73,11 @@ class WireTransfers extends ApiResource<WireTransfer> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `wire_transfers/${_wireTransferId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(wireTransferId: string | WireTransfer, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `wire_transfers/${_wireTransferId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isWireTransfer(resource: any): resource is WireTransfer {
 		return resource.type && (resource.type === WireTransfers.TYPE)
@@ -96,4 +103,4 @@ class WireTransfers extends ApiResource<WireTransfer> {
 const instance = new WireTransfers()
 export default instance
 
-export type { WireTransfer, WireTransferCreate, WireTransferUpdate, WireTransferType }
+export type { WireTransfers, WireTransfer, WireTransferCreate, WireTransferUpdate, WireTransferType }

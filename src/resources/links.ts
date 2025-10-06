@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
+import type { EventStore } from './event_stores'
 import type { Order, OrderType } from './orders'
 import type { Sku, SkuType } from './skus'
 import type { SkuList, SkuListType } from './sku_lists'
@@ -86,6 +87,7 @@ interface Link extends Resource {
 
 	item?: Order | Sku | SkuList | null
 	events?: Event[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -222,6 +224,11 @@ class Links extends ApiResource<Link> {
 		return this.resources.fetch<Event>({ type: 'events' }, `links/${_linkId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async event_stores(linkId: string | Link, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _linkId = (linkId as Link).id || linkId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `links/${_linkId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _disable(id: string | Link, params?: QueryParamsRetrieve<Link>, options?: ResourcesConfig): Promise<Link> {
 		return this.resources.update<LinkUpdate, Link>({ id: (typeof id === 'string')? id: id.id, type: Links.TYPE, _disable: true }, params, options)
 	}
@@ -255,4 +262,4 @@ class Links extends ApiResource<Link> {
 const instance = new Links()
 export default instance
 
-export type { Link, LinkCreate, LinkUpdate, LinkType }
+export type { Links, Link, LinkCreate, LinkUpdate, LinkType }

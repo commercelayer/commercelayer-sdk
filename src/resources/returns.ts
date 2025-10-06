@@ -14,6 +14,7 @@ import type { ResourceError } from './resource_errors'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ReturnType = 'returns'
@@ -116,6 +117,7 @@ interface Return extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -284,6 +286,11 @@ class Returns extends ApiResource<Return> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `returns/${_returnId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(returnId: string | Return, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _returnId = (returnId as Return).id || returnId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `returns/${_returnId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _request(id: string | Return, params?: QueryParamsRetrieve<Return>, options?: ResourcesConfig): Promise<Return> {
 		return this.resources.update<ReturnUpdate, Return>({ id: (typeof id === 'string')? id: id.id, type: Returns.TYPE, _request: true }, params, options)
 	}
@@ -361,4 +368,4 @@ class Returns extends ApiResource<Return> {
 const instance = new Returns()
 export default instance
 
-export type { Return, ReturnCreate, ReturnUpdate, ReturnType }
+export type { Returns, Return, ReturnCreate, ReturnUpdate, ReturnType }

@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer, CustomerType } from './customers'
+import type { EventStore } from './event_stores'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
 
@@ -37,6 +38,7 @@ interface CouponRecipient extends Resource {
 	last_name?: string | null
 
 	customer?: Customer | null
+	event_stores?: EventStore[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
 
@@ -110,6 +112,11 @@ class CouponRecipients extends ApiResource<CouponRecipient> {
 		return this.resources.fetch<Customer>({ type: 'customers' }, `coupon_recipients/${_couponRecipientId}/customer`, params, options) as unknown as Customer
 	}
 
+	async event_stores(couponRecipientId: string | CouponRecipient, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `coupon_recipients/${_couponRecipientId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async attachments(couponRecipientId: string | CouponRecipient, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _couponRecipientId = (couponRecipientId as CouponRecipient).id || couponRecipientId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `coupon_recipients/${_couponRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
@@ -145,4 +152,4 @@ class CouponRecipients extends ApiResource<CouponRecipient> {
 const instance = new CouponRecipients()
 export default instance
 
-export type { CouponRecipient, CouponRecipientCreate, CouponRecipientUpdate, CouponRecipientType }
+export type { CouponRecipients, CouponRecipient, CouponRecipientCreate, CouponRecipientUpdate, CouponRecipientType }

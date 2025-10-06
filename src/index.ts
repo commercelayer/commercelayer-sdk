@@ -37,6 +37,8 @@ export type { SdkError, ApiError } from './error'
 
 // Resource types
 export type {
+  ApiResource,
+  ApiSingleton,
   Metadata,
   ResourceType,
   ResourceId,

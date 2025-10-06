@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
+import type { EventStore } from './event_stores'
 
 
 type ImportType = 'imports'
@@ -94,6 +95,7 @@ interface Import extends Resource {
 	attachment_url?: string | null
 
 	events?: Event[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -156,6 +158,11 @@ class Imports extends ApiResource<Import> {
 		return this.resources.fetch<Event>({ type: 'events' }, `imports/${_importId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async event_stores(importId: string | Import, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _importId = (importId as Import).id || importId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `imports/${_importId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _interrupt(id: string | Import, params?: QueryParamsRetrieve<Import>, options?: ResourcesConfig): Promise<Import> {
 		return this.resources.update<ImportUpdate, Import>({ id: (typeof id === 'string')? id: id.id, type: Imports.TYPE, _interrupt: true }, params, options)
 	}
@@ -185,4 +192,4 @@ class Imports extends ApiResource<Import> {
 const instance = new Imports()
 export default instance
 
-export type { Import, ImportCreate, ImportUpdate, ImportType }
+export type { Imports, Import, ImportCreate, ImportUpdate, ImportType }

@@ -5,9 +5,9 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Market, MarketType } from './markets'
 import type { PaymentGateway, PaymentGatewayType } from './payment_gateways'
 import type { Store, StoreType } from './stores'
-import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type PaymentMethodType = 'payment_methods'
@@ -31,10 +31,10 @@ interface PaymentMethod extends Resource {
 	 */
 	name?: string | null
 	/** 
-	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
+	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"stripe_payments"```
 	 */
-	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
+	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
@@ -93,9 +93,9 @@ interface PaymentMethod extends Resource {
 	market?: Market | null
 	payment_gateway?: PaymentGateway | null
 	store?: Store | null
-	orders?: Order[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -108,10 +108,10 @@ interface PaymentMethodCreate extends ResourceCreate {
 	 */
 	name?: string | null
 	/** 
-	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
+	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"stripe_payments"```
 	 */
-	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
+	payment_source_type: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers'
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
@@ -169,10 +169,10 @@ interface PaymentMethodUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
+	 * The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"stripe_payments"```
 	 */
-	payment_source_type?: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'credit_cards' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers' | null
+	payment_source_type?: 'adyen_payments' | 'axerve_payments' | 'braintree_payments' | 'checkout_com_payments' | 'external_payments' | 'klarna_payments' | 'paypal_payments' | 'satispay_payments' | 'stripe_payments' | 'wire_transfers' | null
 	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard.
 	 * @example ```"EUR"```
@@ -253,11 +253,6 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 		return this.resources.fetch<Store>({ type: 'stores' }, `payment_methods/${_paymentMethodId}/store`, params, options) as unknown as Store
 	}
 
-	async orders(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Order>, options?: ResourcesConfig): Promise<ListResponse<Order>> {
-		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `payment_methods/${_paymentMethodId}/orders`, params, options) as unknown as ListResponse<Order>
-	}
-
 	async attachments(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_methods/${_paymentMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
@@ -266,6 +261,11 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 	async versions(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `payment_methods/${_paymentMethodId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `payment_methods/${_paymentMethodId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _disable(id: string | PaymentMethod, params?: QueryParamsRetrieve<PaymentMethod>, options?: ResourcesConfig): Promise<PaymentMethod> {
@@ -301,4 +301,4 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 const instance = new PaymentMethods()
 export default instance
 
-export type { PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate, PaymentMethodType }
+export type { PaymentMethods, PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate, PaymentMethodType }

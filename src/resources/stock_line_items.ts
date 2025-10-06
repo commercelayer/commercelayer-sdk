@@ -8,6 +8,7 @@ import type { StockItem, StockItemType } from './stock_items'
 import type { Sku, SkuType } from './skus'
 import type { StockReservation } from './stock_reservations'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type StockLineItemType = 'stock_line_items'
@@ -58,6 +59,7 @@ interface StockLineItem extends Resource {
 	sku?: Sku | null
 	stock_reservation?: StockReservation | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -165,6 +167,11 @@ class StockLineItems extends ApiResource<StockLineItem> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `stock_line_items/${_stockLineItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(stockLineItemId: string | StockLineItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _stockLineItemId = (stockLineItemId as StockLineItem).id || stockLineItemId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `stock_line_items/${_stockLineItemId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _reserve_stock(id: string | StockLineItem, params?: QueryParamsRetrieve<StockLineItem>, options?: ResourcesConfig): Promise<StockLineItem> {
 		return this.resources.update<StockLineItemUpdate, StockLineItem>({ id: (typeof id === 'string')? id: id.id, type: StockLineItems.TYPE, _reserve_stock: true }, params, options)
 	}
@@ -202,4 +209,4 @@ class StockLineItems extends ApiResource<StockLineItem> {
 const instance = new StockLineItems()
 export default instance
 
-export type { StockLineItem, StockLineItemCreate, StockLineItemUpdate, StockLineItemType }
+export type { StockLineItems, StockLineItem, StockLineItemCreate, StockLineItemUpdate, StockLineItemType }

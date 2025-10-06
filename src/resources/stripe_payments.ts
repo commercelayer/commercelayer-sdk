@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type StripePaymentType = 'stripe_payments'
@@ -30,6 +31,11 @@ interface StripePayment extends Resource {
 	 * @example ```"pi_1234XXX_secret_5678YYY"```
 	 */
 	client_secret?: string | null
+	/** 
+	 * The account (if any) for which the funds of the PaymentIntent are intended.
+	 * @example ```"acct_xxxx-yyyy-zzzz"```
+	 */
+	connected_account?: string | null
 	/** 
 	 * The Stripe charge ID. Identifies money movement upon the payment intent confirmation.
 	 * @example ```"ch_1234XXX"```
@@ -83,6 +89,7 @@ interface StripePayment extends Resource {
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -179,6 +186,11 @@ class StripePayments extends ApiResource<StripePayment> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_payments/${_stripePaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(stripePaymentId: string | StripePayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _stripePaymentId = (stripePaymentId as StripePayment).id || stripePaymentId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `stripe_payments/${_stripePaymentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _update(id: string | StripePayment, params?: QueryParamsRetrieve<StripePayment>, options?: ResourcesConfig): Promise<StripePayment> {
 		return this.resources.update<StripePaymentUpdate, StripePayment>({ id: (typeof id === 'string')? id: id.id, type: StripePayments.TYPE, _update: true }, params, options)
 	}
@@ -212,4 +224,4 @@ class StripePayments extends ApiResource<StripePayment> {
 const instance = new StripePayments()
 export default instance
 
-export type { StripePayment, StripePaymentCreate, StripePaymentUpdate, StripePaymentType }
+export type { StripePayments, StripePayment, StripePaymentCreate, StripePaymentUpdate, StripePaymentType }

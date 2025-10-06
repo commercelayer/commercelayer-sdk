@@ -1,6 +1,6 @@
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayer, CommerceLayerClient, CommerceLayerInitConfig, CommerceLayerStatic, customers } from '../lib'
+import { CommerceLayer, CommerceLayerClient, CommerceLayerInitConfig, CommerceLayerStatic, customers } from '../src'
 import { getClient, organization, } from '../test/common'
 import getAccessToken from '../test/token'
 

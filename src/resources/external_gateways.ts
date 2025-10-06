@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { ExternalPayment } from './external_payments'
 
 
@@ -67,6 +68,7 @@ interface ExternalGateway extends Resource {
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	external_payments?: ExternalPayment[] | null
 
 }
@@ -175,6 +177,11 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `external_gateways/${_externalGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(externalGatewayId: string | ExternalGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `external_gateways/${_externalGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async external_payments(externalGatewayId: string | ExternalGateway, params?: QueryParamsList<ExternalPayment>, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
 		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
 		return this.resources.fetch<ExternalPayment>({ type: 'external_payments' }, `external_gateways/${_externalGatewayId}/external_payments`, params, options) as unknown as ListResponse<ExternalPayment>
@@ -209,4 +216,4 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 const instance = new ExternalGateways()
 export default instance
 
-export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate, ExternalGatewayType }
+export type { ExternalGateways, ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate, ExternalGatewayType }

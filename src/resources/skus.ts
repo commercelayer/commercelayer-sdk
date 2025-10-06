@@ -18,6 +18,7 @@ import type { Version } from './versions'
 import type { Customer } from './customers'
 import type { Market } from './markets'
 import type { StockLocation } from './stock_locations'
+import type { EventStore } from './event_stores'
 
 
 type SkuType = 'skus'
@@ -83,11 +84,6 @@ interface Sku extends Resource {
 	 */
 	do_not_track?: boolean | null
 	/** 
-	 * Aggregated information about the SKU's inventory. Returned only when retrieving a single SKU.
-	 * @example ```{"available":true,"quantity":10,"levels":[{"quantity":4,"delivery_lead_times":[{"shipping_method":{"name":"Standard Shipping","reference":null,"price_amount_cents":700,"free_over_amount_cents":9900,"formatted_price_amount":"€7,00","formatted_free_over_amount":"€99,00"},"min":{"hours":72,"days":3},"max":{"hours":120,"days":5}},{"shipping_method":{"name":"Express Delivery","reference":null,"price_amount_cents":1200,"free_over_amount_cents":null,"formatted_price_amount":"€12,00","formatted_free_over_amount":null},"min":{"hours":48,"days":2},"max":{"hours":72,"days":3}}]},{"quantity":6,"delivery_lead_times":[{"shipping_method":{"name":"Standard Shipping","reference":null,"price_amount_cents":700,"free_over_amount_cents":9900,"formatted_price_amount":"€7,00","formatted_free_over_amount":"€99,00"},"min":{"hours":96,"days":4},"max":{"hours":144,"days":6}},{"shipping_method":{"name":"Express Delivery","reference":null,"price_amount_cents":1200,"free_over_amount_cents":null,"formatted_price_amount":"€12,00","formatted_free_over_amount":null},"min":{"hours":72,"days":3},"max":{"hours":96,"days":4}}]}]}```
-	 */
-	inventory?: Record<string, any> | null
-	/** 
 	 * The custom_claim attached to the current JWT (if any).
 	 * @example ```{}```
 	 */
@@ -109,6 +105,7 @@ interface Sku extends Resource {
 	jwt_customer?: Customer | null
 	jwt_markets?: Market[] | null
 	jwt_stock_locations?: StockLocation[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -331,6 +328,11 @@ class Skus extends ApiResource<Sku> {
 		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `skus/${_skuId}/jwt_stock_locations`, params, options) as unknown as ListResponse<StockLocation>
 	}
 
+	async event_stores(skuId: string | Sku, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _skuId = (skuId as Sku).id || skuId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `skus/${_skuId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _add_tags(id: string | Sku, triggerValue: string, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		return this.resources.update<SkuUpdate, Sku>({ id: (typeof id === 'string')? id: id.id, type: Skus.TYPE, _add_tags: triggerValue }, params, options)
 	}
@@ -364,4 +366,4 @@ class Skus extends ApiResource<Sku> {
 const instance = new Skus()
 export default instance
 
-export type { Sku, SkuCreate, SkuUpdate, SkuType }
+export type { Skus, Sku, SkuCreate, SkuUpdate, SkuType }

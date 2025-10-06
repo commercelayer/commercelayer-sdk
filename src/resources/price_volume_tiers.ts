@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Price, PriceType } from './prices'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { Event } from './events'
 
 
@@ -50,6 +51,7 @@ interface PriceVolumeTier extends Resource {
 	price?: Price | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	events?: Event[] | null
 
 }
@@ -132,6 +134,11 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `price_volume_tiers/${_priceVolumeTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `price_volume_tiers/${_priceVolumeTierId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async events(priceVolumeTierId: string | PriceVolumeTier, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _priceVolumeTierId = (priceVolumeTierId as PriceVolumeTier).id || priceVolumeTierId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `price_volume_tiers/${_priceVolumeTierId}/events`, params, options) as unknown as ListResponse<Event>
@@ -162,4 +169,4 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 const instance = new PriceVolumeTiers()
 export default instance
 
-export type { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate, PriceVolumeTierType }
+export type { PriceVolumeTiers, PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate, PriceVolumeTierType }

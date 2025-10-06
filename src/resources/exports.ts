@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ExportType = 'exports'
@@ -85,6 +86,7 @@ interface Export extends Resource {
 
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -161,6 +163,11 @@ class Exports extends ApiResource<Export> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `exports/${_exportId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(exportId: string | Export, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _exportId = (exportId as Export).id || exportId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `exports/${_exportId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _interrupt(id: string | Export, params?: QueryParamsRetrieve<Export>, options?: ResourcesConfig): Promise<Export> {
 		return this.resources.update<ExportUpdate, Export>({ id: (typeof id === 'string')? id: id.id, type: Exports.TYPE, _interrupt: true }, params, options)
 	}
@@ -190,4 +197,4 @@ class Exports extends ApiResource<Export> {
 const instance = new Exports()
 export default instance
 
-export type { Export, ExportCreate, ExportUpdate, ExportType }
+export type { Exports, Export, ExportCreate, ExportUpdate, ExportType }

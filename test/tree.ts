@@ -1,5 +1,5 @@
 import { handleError, initConfig } from './util'
-import commercelayer, { customers, initCommerceLayer } from '../src'
+import commercelayer, { customers } from '../src'
 
 
 ; (async () => {
@@ -9,7 +9,7 @@ import commercelayer, { customers, initCommerceLayer } from '../src'
 
 	try {
 
-    initCommerceLayer(config)
+    commercelayer(config)
 
     const res = await customers.list()
     console.log(res)

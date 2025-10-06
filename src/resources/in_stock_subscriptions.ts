@@ -7,6 +7,7 @@ import type { Customer, CustomerType } from './customers'
 import type { Sku, SkuType } from './skus'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type InStockSubscriptionType = 'in_stock_subscriptions'
@@ -50,6 +51,7 @@ interface InStockSubscription extends Resource {
 	sku?: Sku | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -150,6 +152,11 @@ class InStockSubscriptions extends ApiResource<InStockSubscription> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `in_stock_subscriptions/${_inStockSubscriptionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(inStockSubscriptionId: string | InStockSubscription, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _inStockSubscriptionId = (inStockSubscriptionId as InStockSubscription).id || inStockSubscriptionId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `in_stock_subscriptions/${_inStockSubscriptionId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _activate(id: string | InStockSubscription, params?: QueryParamsRetrieve<InStockSubscription>, options?: ResourcesConfig): Promise<InStockSubscription> {
 		return this.resources.update<InStockSubscriptionUpdate, InStockSubscription>({ id: (typeof id === 'string')? id: id.id, type: InStockSubscriptions.TYPE, _activate: true }, params, options)
 	}
@@ -183,4 +190,4 @@ class InStockSubscriptions extends ApiResource<InStockSubscription> {
 const instance = new InStockSubscriptions()
 export default instance
 
-export type { InStockSubscription, InStockSubscriptionCreate, InStockSubscriptionUpdate, InStockSubscriptionType }
+export type { InStockSubscriptions, InStockSubscription, InStockSubscriptionCreate, InStockSubscriptionUpdate, InStockSubscriptionType }

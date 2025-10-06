@@ -6,6 +6,7 @@ import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { Authorization } from './authorizations'
 import type { AdyenPayment } from './adyen_payments'
 import type { AxervePayment } from './axerve_payments'
@@ -91,6 +92,7 @@ interface Void extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	reference_authorization?: Authorization | null
 
 }
@@ -139,6 +141,11 @@ class Voids extends ApiResource<Void> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `voids/${_voidId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(voidId: string | Void, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _voidId = (voidId as Void).id || voidId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `voids/${_voidId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async reference_authorization(voidId: string | Void, params?: QueryParamsRetrieve<Authorization>, options?: ResourcesConfig): Promise<Authorization> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Authorization>({ type: 'authorizations' }, `voids/${_voidId}/reference_authorization`, params, options) as unknown as Authorization
@@ -173,4 +180,4 @@ class Voids extends ApiResource<Void> {
 const instance = new Voids()
 export default instance
 
-export type { Void, VoidUpdate, VoidType }
+export type { Voids, Void, VoidUpdate, VoidType }

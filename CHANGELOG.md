@@ -1,3 +1,89 @@
+## [7.0.0-rc.15](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.14...v7.0.0-rc.15) (2025-10-03)
+
+### Features
+
+* add sdk version and fix tests ([99e10b4](https://github.com/commercelayer/commercelayer-sdk/commit/99e10b41b86ef442bc06fe2c7caf6c261c9b2dc2))
+
+### Bug Fixes
+
+* update readme and dev dependencies ([7862d50](https://github.com/commercelayer/commercelayer-sdk/commit/7862d5081f523d5b36cd0fe5e43d607aff0ebc97))
+
+## [7.0.0-rc.14](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.13...v7.0.0-rc.14) (2025-09-26)
+
+### Features
+
+* update resources to schema v7.9.5 ([2a03891](https://github.com/commercelayer/commercelayer-sdk/commit/2a0389149959a2cc260888a88d579f11dd66acbf))
+
+## [7.0.0-rc.13](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.12...v7.0.0-rc.13) (2025-07-14)
+
+### Features
+
+* update resources to schema v7.9.3 ([20ad710](https://github.com/commercelayer/commercelayer-sdk/commit/20ad7102af2a38ac7bd5c7d5b2147b5beaea8673))
+
+## [7.0.0-rc.12](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.11...v7.0.0-rc.12) (2025-06-19)
+
+### Features
+
+* update resources to schema v7.9.0 ([f3eb738](https://github.com/commercelayer/commercelayer-sdk/commit/f3eb738ed5955d91424dc570da536e2498f8eca5))
+
+## [7.0.0-rc.11](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.10...v7.0.0-rc.11) (2025-05-06)
+
+### Features
+
+* update resources to versione 7.8.7 ([dee80ea](https://github.com/commercelayer/commercelayer-sdk/commit/dee80eaabf988566bf8637811746225151f942c7))
+
+## [7.0.0-rc.10](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.9...v7.0.0-rc.10) (2025-04-29)
+
+### Features
+
+* update resources to schema v7.8.6 ([6e5846f](https://github.com/commercelayer/commercelayer-sdk/commit/6e5846f9d14e40d6fbfdd9cb4b2280d4eab0c3eb))
+
+## [7.0.0-rc.9](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.8...v7.0.0-rc.9) (2025-04-14)
+
+### Bug Fixes
+
+* fix bundle accessors ([1756b05](https://github.com/commercelayer/commercelayer-sdk/commit/1756b0580b3356e3e66194a952f21a23feda51eb))
+
+## [7.0.0-rc.8](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.7...v7.0.0-rc.8) (2025-04-10)
+
+### Bug Fixes
+
+* fix client bundle singleton ([0e2c948](https://github.com/commercelayer/commercelayer-sdk/commit/0e2c948f6d1858149c49a5dc9ba8aaa573853dae))
+
+## [7.0.0-rc.7](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.6...v7.0.0-rc.7) (2025-04-10)
+
+### Features
+
+* update resources to schema v7.8.5 ([093a3b9](https://github.com/commercelayer/commercelayer-sdk/commit/093a3b94e29946c5f3b9b92dfc59ef618ae47baa))
+
+### Bug Fixes
+
+* fix enum types export ([2fc9d30](https://github.com/commercelayer/commercelayer-sdk/commit/2fc9d301cc96d3028c610081009c9f57e3258c59))
+
+## [7.0.0-rc.6](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.5...v7.0.0-rc.6) (2025-04-10)
+
+### Bug Fixes
+
+* fix resource exports ([fd651a2](https://github.com/commercelayer/commercelayer-sdk/commit/fd651a2e5198efc65e3883c0c0c6e31b6c6558c9))
+
+## [7.0.0-rc.5](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.4...v7.0.0-rc.5) (2025-04-08)
+
+### Bug Fixes
+
+* fix bundle config ([68f0843](https://github.com/commercelayer/commercelayer-sdk/commit/68f08439d7fff33cfe74874067c6ddaf8e43cf84))
+
+## [7.0.0-rc.4](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.3...v7.0.0-rc.4) (2025-04-08)
+
+### Features
+
+* add bundle client ([efdfa46](https://github.com/commercelayer/commercelayer-sdk/commit/efdfa46dfd133592a4232f1b4681c2dcd36ceda1))
+* client bundle first commit ([46774ad](https://github.com/commercelayer/commercelayer-sdk/commit/46774adc17a5a8c7d06f6432328342f264ddecfa))
+* update resources to schema v7.8.4 ([aacfc89](https://github.com/commercelayer/commercelayer-sdk/commit/aacfc8933c315edf0e19f02a3bd2f6fbc318625c))
+
+### Bug Fixes
+
+* fix types export ([9a55d37](https://github.com/commercelayer/commercelayer-sdk/commit/9a55d377f5a78d7803863b553d52573e5f2ab820))
+
 ## [7.0.0-rc.3](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0-rc.2...v7.0.0-rc.3) (2025-04-01)
 
 ### Bug Fixes

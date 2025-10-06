@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { PaypalPayment } from './paypal_payments'
 
 
@@ -27,6 +28,7 @@ interface PaypalGateway extends Resource {
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	paypal_payments?: PaypalPayment[] | null
 
 }
@@ -100,6 +102,11 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `paypal_gateways/${_paypalGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `paypal_gateways/${_paypalGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async paypal_payments(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<PaypalPayment>, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
 		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
 		return this.resources.fetch<PaypalPayment>({ type: 'paypal_payments' }, `paypal_gateways/${_paypalGatewayId}/paypal_payments`, params, options) as unknown as ListResponse<PaypalPayment>
@@ -130,4 +137,4 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 const instance = new PaypalGateways()
 export default instance
 
-export type { PaypalGateway, PaypalGatewayCreate, PaypalGatewayUpdate, PaypalGatewayType }
+export type { PaypalGateways, PaypalGateway, PaypalGatewayCreate, PaypalGatewayUpdate, PaypalGatewayType }

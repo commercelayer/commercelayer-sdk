@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
 
 
@@ -48,6 +49,7 @@ interface BraintreeGateway extends Resource {
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	braintree_payments?: BraintreePayment[] | null
 
 }
@@ -175,6 +177,11 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `braintree_gateways/${_braintreeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `braintree_gateways/${_braintreeGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async braintree_payments(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<BraintreePayment>, options?: ResourcesConfig): Promise<ListResponse<BraintreePayment>> {
 		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
 		return this.resources.fetch<BraintreePayment>({ type: 'braintree_payments' }, `braintree_gateways/${_braintreeGatewayId}/braintree_payments`, params, options) as unknown as ListResponse<BraintreePayment>
@@ -205,4 +212,4 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 const instance = new BraintreeGateways()
 export default instance
 
-export type { BraintreeGateway, BraintreeGatewayCreate, BraintreeGatewayUpdate, BraintreeGatewayType }
+export type { BraintreeGateways, BraintreeGateway, BraintreeGatewayCreate, BraintreeGatewayUpdate, BraintreeGatewayType }

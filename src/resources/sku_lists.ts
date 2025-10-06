@@ -9,6 +9,7 @@ import type { Bundle } from './bundles'
 import type { Attachment } from './attachments'
 import type { Link } from './links'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type SkuListType = 'sku_lists'
@@ -61,6 +62,7 @@ interface SkuList extends Resource {
 	attachments?: Attachment[] | null
 	links?: Link[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -180,6 +182,11 @@ class SkuLists extends ApiResource<SkuList> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `sku_lists/${_skuListId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(skuListId: string | SkuList, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _skuListId = (skuListId as SkuList).id || skuListId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `sku_lists/${_skuListId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isSkuList(resource: any): resource is SkuList {
 		return resource.type && (resource.type === SkuLists.TYPE)
@@ -205,4 +212,4 @@ class SkuLists extends ApiResource<SkuList> {
 const instance = new SkuLists()
 export default instance
 
-export type { SkuList, SkuListCreate, SkuListUpdate, SkuListType }
+export type { SkuLists, SkuList, SkuListCreate, SkuListUpdate, SkuListType }

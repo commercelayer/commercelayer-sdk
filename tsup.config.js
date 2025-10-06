@@ -15,7 +15,7 @@ export default defineConfig(() => ({
   dts: true,
   format: ['cjs', 'esm'],
   minify: isProd,
-  bundle: false,
+  bundle: true,
   treeshake: true,
   watch,
   target: 'es2024',

@@ -9,6 +9,7 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type BundleType = 'bundles'
@@ -102,6 +103,7 @@ interface Bundle extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -273,6 +275,11 @@ class Bundles extends ApiResource<Bundle> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `bundles/${_bundleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(bundleId: string | Bundle, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _bundleId = (bundleId as Bundle).id || bundleId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `bundles/${_bundleId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _compute_price_amount(id: string | Bundle, params?: QueryParamsRetrieve<Bundle>, options?: ResourcesConfig): Promise<Bundle> {
 		return this.resources.update<BundleUpdate, Bundle>({ id: (typeof id === 'string')? id: id.id, type: Bundles.TYPE, _compute_price_amount: true }, params, options)
 	}
@@ -314,4 +321,4 @@ class Bundles extends ApiResource<Bundle> {
 const instance = new Bundles()
 export default instance
 
-export type { Bundle, BundleCreate, BundleUpdate, BundleType }
+export type { Bundles, Bundle, BundleCreate, BundleUpdate, BundleType }

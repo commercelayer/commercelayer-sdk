@@ -1,24 +1,39 @@
 
 import apiSchema, { Resource, Operation, Component, Cardinality, Attribute } from './schema'
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs'
-import { basename } from 'node:path'
+import { basename, resolve } from 'node:path'
 import Fixer from './fixer'
 import Inflector from './inflector'
 import { updateLicense } from './license'
 
 
+type ConfigType = {
+	LOCAL_SCHEMA: boolean,
+	RELATIONSHIP_FUNCTIONS: boolean,
+	TRIGGER_FUNCTIONS: boolean,
+	RESOURCES_FULL_BUNDLE: boolean,
+	RESOURCES_INSTANCE_STYLE: 'standard_object' | 'leazy_loading' | 'accessors_only',
+	RESOURCES_STANDARD_OBJECT?: boolean,
+	RESOURCES_LEAZY_LOADING?: boolean,
+	RESOURCES_ACCESSORS_ONLY?: boolean
+}
+
 /**** SDK source code generator settings ****/
-export const CONFIG = {
+export const CONFIG: ConfigType = {
 	LOCAL_SCHEMA: false,
 	RELATIONSHIP_FUNCTIONS: true,
 	TRIGGER_FUNCTIONS: true,
-	RESOURCES_LEAZY_LOADING: true,
-	RESOURCES_FULL_BUNDLE: false
+	RESOURCES_FULL_BUNDLE: true,
+	RESOURCES_INSTANCE_STYLE: 'accessors_only'
 }
+CONFIG.RESOURCES_STANDARD_OBJECT = (CONFIG.RESOURCES_INSTANCE_STYLE === 'standard_object')
+CONFIG.RESOURCES_LEAZY_LOADING = (CONFIG.RESOURCES_INSTANCE_STYLE === 'leazy_loading')
+CONFIG.RESOURCES_ACCESSORS_ONLY = (CONFIG.RESOURCES_INSTANCE_STYLE === 'accessors_only')
 /**** **** **** **** **** **** **** **** ****/
 
 
 const SCHEMA_VERSION_CONST = 'OPEN_API_SCHEMA_VERSION'
+const SDK_VERSION_CONST = 'SDK_VERSION'
 const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
 
@@ -151,9 +166,10 @@ const generate = async (localSchema?: boolean) => {
 
 	updateApiResources(resources)
 	updateAdapters(resources)
-	updateSdkInterfaces(resources)
 	updateModelTypes(resources)
+	updateSdkBundle(resources)
 
+	updateSdkVersion()
 	updateLicense()
 
 	console.log(`SDK generation completed [${global.version}].\n`)
@@ -185,8 +201,9 @@ const tabsString = (num: number): string => {
 }
 
 
+const updateSdkVersion = (): void => {
 
-const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
+	if (!global.version) return
 
 	const filePath = 'src/commercelayer.ts'
 
@@ -195,16 +212,36 @@ const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
 	const lines = cl.split('\n')
 
 	// OpenAPI schema version
-	if (global.version) {
-		const schemaLine = findLine(SCHEMA_VERSION_CONST, lines)
-		const prefix = schemaLine.text.substring(0, schemaLine.offset).trim()
-		if (schemaLine.index >= 0) lines[schemaLine.index] = `${prefix} ${SCHEMA_VERSION_CONST} = '${global.version}'`
-	}
+	const schemaLine = findLine(SCHEMA_VERSION_CONST, lines)
+	const schemaPrefix = schemaLine.text.substring(0, schemaLine.offset).trim()
+	if (schemaLine.index >= 0) lines[schemaLine.index] = `${schemaPrefix} ${SCHEMA_VERSION_CONST} = '${global.version}'`
+
+	// SDK version
+	const pkgJson = readFileSync(resolve('.', 'package.json'), { encoding: 'utf-8' })
+	const pkg = JSON.parse(pkgJson)
+	const sdkLine = findLine(SDK_VERSION_CONST, lines)
+	const sdkPrefix = sdkLine.text.substring(0, sdkLine.offset).trim()
+	if (sdkLine.index >= 0) lines[sdkLine.index] = `${sdkPrefix} ${SDK_VERSION_CONST} = '${pkg.version}'`
+
+	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
+
+	console.log(`SDK version updated [${global.version}].`)
+
+}
+
+
+const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
+
+	const filePath = 'src/bundle.ts'
+
+	const cl = readFileSync(filePath, { encoding: 'utf-8' })
+
+	const lines = cl.split('\n')
 
 	// Definitions
 	const definitions: string[] = []
 
-	if (CONFIG.RESOURCES_FULL_BUNDLE) {
+	if (CONFIG.RESOURCES_FULL_BUNDLE && !CONFIG.RESOURCES_ACCESSORS_ONLY) {
 
 		const defTplLine = findLine('##__CL_RESOURCES_DEF_TEMPLATE::', lines)
 		const defTplIdx = defTplLine.offset + '##__CL_RESOURCES_DEF_TEMPLATE::'.length + 1
@@ -235,7 +272,7 @@ const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
 		const iniTplIdx = iniTplLine.offset + '##__CL_RESOURCES_INIT_TEMPLATE::'.length + 1
 		const iniTpl = iniTplLine.text.substring(iniTplIdx)
 
-		if (!CONFIG.RESOURCES_LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+		if (!CONFIG.RESOURCES_LEAZY_LOADING && !CONFIG.RESOURCES_ACCESSORS_ONLY) Object.entries(resources).forEach(([type, res]) => {
 			const fieldName = res.singleton ? Inflector.singularize(type) : type
 			let ini = iniTpl
 			ini = ini.replace(/##__TAB__##/g, '\t')
@@ -260,7 +297,7 @@ const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
 		const llTplIdx = llTplLine.offset + '##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::'.length + 1
 		const llTpl = llTplLine.text.substring(llTplIdx)
 
-		if (CONFIG.RESOURCES_LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
+		if (CONFIG.RESOURCES_LEAZY_LOADING && !CONFIG.RESOURCES_ACCESSORS_ONLY) Object.entries(resources).forEach(([type, res]) => {
 			const fieldName = res.singleton ? Inflector.singularize(type) : type
 			let ll = llTpl
 			ll = ll.replace(/##__TAB__##/g, '\t')
@@ -274,6 +311,31 @@ const updateSdkInterfaces = (resources: Record<string, ApiRes>): void => {
 	const llStartIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_START__##', lines).index + 2
 	const llStopIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_STOP__##', lines).index
 	lines.splice(llStartIdx, llStopIdx - llStartIdx, ...leazyLoaders)
+
+
+	// Accessors
+	const accessors: string[] = []
+
+	if (CONFIG.RESOURCES_FULL_BUNDLE) {
+
+		const aoTplLine = findLine('##__CL_RESOURCES_ACCESSORS_ONLY_TEMPLATE::', lines)
+		const aoTplIdx = aoTplLine.offset + '##__CL_RESOURCES_ACCESSORS_ONLY_TEMPLATE::'.length + 1
+		const aoTpl = aoTplLine.text.substring(aoTplIdx)
+
+		if (CONFIG.RESOURCES_ACCESSORS_ONLY) Object.entries(resources).forEach(([type, res]) => {
+			const fieldName = res.singleton ? Inflector.singularize(type) : type
+			let ao = aoTpl
+			ao = ao.replace(/##__TAB__##/g, '\t')
+			ao = ao.replace(/##__RESOURCE_TYPE__##/g, fieldName)
+			ao = ao.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
+			accessors.push(ao)
+		})
+
+	}
+
+	const aoStartIdx = findLine('##__CL_RESOURCES_ACCESSORS_ONLY_START__##', lines).index + 2
+	const aoStopIdx = findLine('##__CL_RESOURCES_ACCESSORS_ONLY_STOP__##', lines).index
+	lines.splice(aoStartIdx, aoStopIdx - aoStartIdx, ...accessors)
 
 
 	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
@@ -551,7 +613,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 		const relationships = reqType ? resource.components[reqType].relationships : {}
 		const filtered = Object.values(relationships).filter(rel => !rel.deprecated)
 		filtered.forEach(f => {
-			importInstances.push(f.type)
+			if (!importInstances.includes(f.type)) importInstances.push(f.type)
 			let relVal: string | string[] = `${f.type}.relationship(TestData.id)`
 			if (f.cardinality === 'to_many') relVal = `[ ${relVal} ]`
 			obj += `\t\t\t${f.name}: ${relVal},\n`

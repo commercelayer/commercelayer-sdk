@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Shipment, ShipmentType } from './shipments'
 import type { Parcel } from './parcels'
 import type { Event } from './events'
+import type { EventStore } from './event_stores'
 
 
 type EasypostPickupType = 'easypost_pickups'
@@ -69,6 +70,7 @@ interface EasypostPickup extends Resource {
 	shipment?: Shipment | null
 	parcels?: Parcel[] | null
 	events?: Event[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -145,6 +147,11 @@ class EasypostPickups extends ApiResource<EasypostPickup> {
 		return this.resources.fetch<Event>({ type: 'events' }, `easypost_pickups/${_easypostPickupId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async event_stores(easypostPickupId: string | EasypostPickup, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _easypostPickupId = (easypostPickupId as EasypostPickup).id || easypostPickupId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `easypost_pickups/${_easypostPickupId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _purchase(id: string | EasypostPickup, params?: QueryParamsRetrieve<EasypostPickup>, options?: ResourcesConfig): Promise<EasypostPickup> {
 		return this.resources.update<EasypostPickupUpdate, EasypostPickup>({ id: (typeof id === 'string')? id: id.id, type: EasypostPickups.TYPE, _purchase: true }, params, options)
 	}
@@ -174,4 +181,4 @@ class EasypostPickups extends ApiResource<EasypostPickup> {
 const instance = new EasypostPickups()
 export default instance
 
-export type { EasypostPickup, EasypostPickupCreate, EasypostPickupUpdate, EasypostPickupType }
+export type { EasypostPickups, EasypostPickup, EasypostPickupCreate, EasypostPickupUpdate, EasypostPickupType }

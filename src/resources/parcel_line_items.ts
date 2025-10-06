@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Parcel, ParcelType } from './parcels'
 import type { StockLineItem, StockLineItemType } from './stock_line_items'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ParcelLineItemType = 'parcel_line_items'
@@ -50,6 +51,7 @@ interface ParcelLineItem extends Resource {
 	parcel?: Parcel | null
 	stock_line_item?: StockLineItem | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -102,6 +104,11 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `parcel_line_items/${_parcelLineItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `parcel_line_items/${_parcelLineItemId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isParcelLineItem(resource: any): resource is ParcelLineItem {
 		return resource.type && (resource.type === ParcelLineItems.TYPE)
@@ -127,4 +134,4 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
 const instance = new ParcelLineItems()
 export default instance
 
-export type { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate, ParcelLineItemType }
+export type { ParcelLineItems, ParcelLineItem, ParcelLineItemCreate, ParcelLineItemUpdate, ParcelLineItemType }

@@ -13,6 +13,9 @@ import type { SkuList } from './sku_lists'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
+import type { Market } from './markets'
+import type { StockLocation } from './stock_locations'
+import type { EventStore } from './event_stores'
 
 
 type CustomerType = 'customers'
@@ -21,8 +24,8 @@ type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type CustomerSort = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count'> & ResourceSort
-// export type CustomerFilter = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count'> & ResourceFilter
+export type CustomerSort = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count' | 'anonymization_status'> & ResourceSort
+// export type CustomerFilter = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count' | 'anonymization_status'> & ResourceFilter
 
 
 interface Customer extends Resource {
@@ -63,6 +66,21 @@ interface Customer extends Resource {
 	 * @example ```"xxx-yyy-zzz"```
 	 */
 	tax_exemption_code?: string | null
+	/** 
+	 * The custom_claim attached to the current JWT (if any).
+	 * @example ```{}```
+	 */
+	jwt_custom_claim?: Record<string, any> | null
+	/** 
+	 * The anonymization info object.
+	 * @example ```{"status":"requested","requested_at":"2025-03-15 11:39:21 UTC","requester":{"id":"fdgt56hh","first_name":"Travis","last_name":"Muller","email":"test@labadie.test"}}```
+	 */
+	anonymization_info?: Record<string, any> | null
+	/** 
+	 * Status of the current anonymization request (if any).
+	 * @example ```"requested"```
+	 */
+	anonymization_status?: string | null
 
 	customer_group?: CustomerGroup | null
 	customer_addresses?: CustomerAddress[] | null
@@ -75,6 +93,10 @@ interface Customer extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
+	jwt_customer?: Customer | null
+	jwt_markets?: Market[] | null
+	jwt_stock_locations?: StockLocation[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -148,6 +170,16 @@ interface CustomerUpdate extends ResourceUpdate {
 	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
 	 */
 	_remove_tags?: string | null
+	/** 
+	 * Send this attribute if you want to trigger anonymization. Cannot be passed by sales channels.
+	 * @example ```true```
+	 */
+	_request_anonymization?: boolean | null
+	/** 
+	 * Send this attribute if you want to trigger a cancellation of anonymization. Cannot be passed by sales channels.
+	 * @example ```true```
+	 */
+	_cancel_anonymization?: boolean | null
 
 	customer_group?: CustomerGroupRel | null
 	tags?: TagRel[] | null
@@ -226,12 +258,40 @@ class Customers extends ApiResource<Customer> {
 		return this.resources.fetch<Tag>({ type: 'tags' }, `customers/${_customerId}/tags`, params, options) as unknown as ListResponse<Tag>
 	}
 
+	async jwt_customer(customerId: string | Customer, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
+		const _customerId = (customerId as Customer).id || customerId as string
+		return this.resources.fetch<Customer>({ type: 'customers' }, `customers/${_customerId}/jwt_customer`, params, options) as unknown as Customer
+	}
+
+	async jwt_markets(customerId: string | Customer, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
+		const _customerId = (customerId as Customer).id || customerId as string
+		return this.resources.fetch<Market>({ type: 'markets' }, `customers/${_customerId}/jwt_markets`, params, options) as unknown as ListResponse<Market>
+	}
+
+	async jwt_stock_locations(customerId: string | Customer, params?: QueryParamsList<StockLocation>, options?: ResourcesConfig): Promise<ListResponse<StockLocation>> {
+		const _customerId = (customerId as Customer).id || customerId as string
+		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `customers/${_customerId}/jwt_stock_locations`, params, options) as unknown as ListResponse<StockLocation>
+	}
+
+	async event_stores(customerId: string | Customer, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _customerId = (customerId as Customer).id || customerId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `customers/${_customerId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _add_tags(id: string | Customer, triggerValue: string, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
 		return this.resources.update<CustomerUpdate, Customer>({ id: (typeof id === 'string')? id: id.id, type: Customers.TYPE, _add_tags: triggerValue }, params, options)
 	}
 
 	async _remove_tags(id: string | Customer, triggerValue: string, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
 		return this.resources.update<CustomerUpdate, Customer>({ id: (typeof id === 'string')? id: id.id, type: Customers.TYPE, _remove_tags: triggerValue }, params, options)
+	}
+
+	async _request_anonymization(id: string | Customer, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.update<CustomerUpdate, Customer>({ id: (typeof id === 'string')? id: id.id, type: Customers.TYPE, _request_anonymization: true }, params, options)
+	}
+
+	async _cancel_anonymization(id: string | Customer, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
+		return this.resources.update<CustomerUpdate, Customer>({ id: (typeof id === 'string')? id: id.id, type: Customers.TYPE, _cancel_anonymization: true }, params, options)
 	}
 
 
@@ -259,4 +319,4 @@ class Customers extends ApiResource<Customer> {
 const instance = new Customers()
 export default instance
 
-export type { Customer, CustomerCreate, CustomerUpdate, CustomerType }
+export type { Customers, Customer, CustomerCreate, CustomerUpdate, CustomerType }

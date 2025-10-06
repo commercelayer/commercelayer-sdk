@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type PaypalPaymentType = 'paypal_payments'
@@ -73,6 +74,7 @@ interface PaypalPayment extends Resource {
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -144,6 +146,11 @@ class PaypalPayments extends ApiResource<PaypalPayment> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `paypal_payments/${_paypalPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(paypalPaymentId: string | PaypalPayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `paypal_payments/${_paypalPaymentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isPaypalPayment(resource: any): resource is PaypalPayment {
 		return resource.type && (resource.type === PaypalPayments.TYPE)
@@ -169,4 +176,4 @@ class PaypalPayments extends ApiResource<PaypalPayment> {
 const instance = new PaypalPayments()
 export default instance
 
-export type { PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate, PaypalPaymentType }
+export type { PaypalPayments, PaypalPayment, PaypalPaymentCreate, PaypalPaymentUpdate, PaypalPaymentType }

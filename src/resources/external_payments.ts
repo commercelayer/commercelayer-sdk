@@ -6,6 +6,7 @@ import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ExternalPaymentType = 'external_payments'
@@ -41,6 +42,7 @@ interface ExternalPayment extends Resource {
 	payment_gateway?: PaymentGateway | null
 	wallet?: CustomerPaymentSource | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -112,6 +114,11 @@ class ExternalPayments extends ApiResource<ExternalPayment> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `external_payments/${_externalPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(externalPaymentId: string | ExternalPayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `external_payments/${_externalPaymentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isExternalPayment(resource: any): resource is ExternalPayment {
 		return resource.type && (resource.type === ExternalPayments.TYPE)
@@ -137,4 +144,4 @@ class ExternalPayments extends ApiResource<ExternalPayment> {
 const instance = new ExternalPayments()
 export default instance
 
-export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate, ExternalPaymentType }
+export type { ExternalPayments, ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate, ExternalPaymentType }

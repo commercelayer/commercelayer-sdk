@@ -1,7 +1,8 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { EventStore } from './event_stores'
 
 
 type TagType = 'tags'
@@ -21,7 +22,9 @@ interface Tag extends Resource {
 	 * @example ```"new_campaign"```
 	 */
 	name: string
-	
+
+	event_stores?: EventStore[] | null
+
 }
 
 
@@ -63,6 +66,11 @@ class Tags extends ApiResource<Tag> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Tags.TYPE } : id, options)
 	}
 
+	async event_stores(tagId: string | Tag, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _tagId = (tagId as Tag).id || tagId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `tags/${_tagId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isTag(resource: any): resource is Tag {
 		return resource.type && (resource.type === Tags.TYPE)
@@ -88,4 +96,4 @@ class Tags extends ApiResource<Tag> {
 const instance = new Tags()
 export default instance
 
-export type { Tag, TagCreate, TagUpdate, TagType }
+export type { Tags, Tag, TagCreate, TagUpdate, TagType }

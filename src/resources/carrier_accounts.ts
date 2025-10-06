@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Market, MarketType } from './markets'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type CarrierAccountType = 'carrier_accounts'
@@ -44,6 +45,7 @@ interface CarrierAccount extends Resource {
 	market?: Market | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -125,6 +127,11 @@ class CarrierAccounts extends ApiResource<CarrierAccount> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `carrier_accounts/${_carrierAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(carrierAccountId: string | CarrierAccount, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _carrierAccountId = (carrierAccountId as CarrierAccount).id || carrierAccountId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `carrier_accounts/${_carrierAccountId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 
 	isCarrierAccount(resource: any): resource is CarrierAccount {
 		return resource.type && (resource.type === CarrierAccounts.TYPE)
@@ -150,4 +157,4 @@ class CarrierAccounts extends ApiResource<CarrierAccount> {
 const instance = new CarrierAccounts()
 export default instance
 
-export type { CarrierAccount, CarrierAccountCreate, CarrierAccountUpdate, CarrierAccountType }
+export type { CarrierAccounts, CarrierAccount, CarrierAccountCreate, CarrierAccountUpdate, CarrierAccountType }

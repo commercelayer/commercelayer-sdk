@@ -19,6 +19,7 @@ import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ShipmentType = 'shipments'
@@ -169,6 +170,7 @@ interface Shipment extends Resource {
 	events?: Event[] | null
 	tags?: Tag[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -391,6 +393,11 @@ class Shipments extends ApiResource<Shipment> {
 		return this.resources.fetch<Version>({ type: 'versions' }, `shipments/${_shipmentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
+	async event_stores(shipmentId: string | Shipment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _shipmentId = (shipmentId as Shipment).id || shipmentId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `shipments/${_shipmentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _upcoming(id: string | Shipment, params?: QueryParamsRetrieve<Shipment>, options?: ResourcesConfig): Promise<Shipment> {
 		return this.resources.update<ShipmentUpdate, Shipment>({ id: (typeof id === 'string')? id: id.id, type: Shipments.TYPE, _upcoming: true }, params, options)
 	}
@@ -476,4 +483,4 @@ class Shipments extends ApiResource<Shipment> {
 const instance = new Shipments()
 export default instance
 
-export type { Shipment, ShipmentCreate, ShipmentUpdate, ShipmentType }
+export type { Shipments, Shipment, ShipmentCreate, ShipmentUpdate, ShipmentType }

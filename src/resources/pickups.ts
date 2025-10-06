@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Shipment } from './shipments'
 import type { Parcel } from './parcels'
 import type { Event } from './events'
+import type { EventStore } from './event_stores'
 
 
 type PickupType = 'pickups'
@@ -33,6 +34,7 @@ interface Pickup extends Resource {
 	shipment?: Shipment | null
 	parcels?: Parcel[] | null
 	events?: Event[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -54,6 +56,11 @@ class Pickups extends ApiResource<Pickup> {
 	async events(pickupId: string | Pickup, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _pickupId = (pickupId as Pickup).id || pickupId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `pickups/${_pickupId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async event_stores(pickupId: string | Pickup, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _pickupId = (pickupId as Pickup).id || pickupId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `pickups/${_pickupId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 
@@ -81,4 +88,4 @@ class Pickups extends ApiResource<Pickup> {
 const instance = new Pickups()
 export default instance
 
-export type { Pickup, PickupType }
+export type { Pickups, Pickup, PickupType }

@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Customer } from './customers'
 import type { Event } from './events'
+import type { EventStore } from './event_stores'
 
 
 type CustomerPasswordResetType = 'customer_password_resets'
@@ -36,6 +37,7 @@ interface CustomerPasswordReset extends Resource {
 
 	customer?: Customer | null
 	events?: Event[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -93,6 +95,11 @@ class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 		return this.resources.fetch<Event>({ type: 'events' }, `customer_password_resets/${_customerPasswordResetId}/events`, params, options) as unknown as ListResponse<Event>
 	}
 
+	async event_stores(customerPasswordResetId: string | CustomerPasswordReset, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _customerPasswordResetId = (customerPasswordResetId as CustomerPasswordReset).id || customerPasswordResetId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `customer_password_resets/${_customerPasswordResetId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
 	async _reset_password_token(id: string | CustomerPasswordReset, triggerValue: string, params?: QueryParamsRetrieve<CustomerPasswordReset>, options?: ResourcesConfig): Promise<CustomerPasswordReset> {
 		return this.resources.update<CustomerPasswordResetUpdate, CustomerPasswordReset>({ id: (typeof id === 'string')? id: id.id, type: CustomerPasswordResets.TYPE, _reset_password_token: triggerValue }, params, options)
 	}
@@ -122,4 +129,4 @@ class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 const instance = new CustomerPasswordResets()
 export default instance
 
-export type { CustomerPasswordReset, CustomerPasswordResetCreate, CustomerPasswordResetUpdate, CustomerPasswordResetType }
+export type { CustomerPasswordResets, CustomerPasswordReset, CustomerPasswordResetCreate, CustomerPasswordResetUpdate, CustomerPasswordResetType }
