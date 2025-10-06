@@ -43,6 +43,7 @@ export { default as DiscountEngineItems } from './resources/discount_engine_item
 export { default as DiscountEngines } from './resources/discount_engines'
 export { default as EasypostPickups } from './resources/easypost_pickups'
 export { default as EventCallbacks } from './resources/event_callbacks'
+export { default as EventStores } from './resources/event_stores'
 export { default as Events } from './resources/events'
 export { default as Exports } from './resources/exports'
 export { default as ExternalGateways } from './resources/external_gateways'
@@ -179,6 +180,7 @@ export type ResourceTypeLock =
 |	'discount_engines'
 |	'easypost_pickups'
 |	'event_callbacks'
+|	'event_stores'
 |	'events'
 |	'exports'
 |	'external_gateways'
@@ -315,6 +317,7 @@ export const resourceList: ResourceTypeLock[] = [
 	'discount_engines',
 	'easypost_pickups',
 	'event_callbacks',
+	'event_stores',
 	'events',
 	'exports',
 	'external_gateways',
@@ -1002,6 +1005,7 @@ export type ResourceFields = {
 	discount_engines: models.DiscountEngine,
 	easypost_pickups: models.EasypostPickup,
 	event_callbacks: models.EventCallback,
+	event_stores: models.EventStore,
 	events: models.Event,
 	exports: models.Export,
 	external_gateways: models.ExternalGateway,
@@ -1139,6 +1143,7 @@ export type ResourceSortFields = {
 	discount_engines: models.DiscountEngineSort,
 	easypost_pickups: models.EasypostPickupSort,
 	event_callbacks: models.EventCallbackSort,
+	event_stores: models.EventStoreSort,
 	events: models.EventSort,
 	exports: models.ExportSort,
 	external_gateways: models.ExternalGatewaySort,

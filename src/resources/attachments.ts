@@ -1,7 +1,8 @@
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { EventStore } from './event_stores'
 import type { Geocoder, GeocoderType } from './geocoders'
 import type { PriceList, PriceListType } from './price_lists'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
@@ -109,6 +110,7 @@ interface Attachment extends Resource {
 	url?: string | null
 
 	attachable?: Geocoder | PriceList | PaymentMethod | Market | CustomerGroup | Order | Transaction | Promotion | TaxCalculator | TaxCategory | Sku | ShippingCategory | Bundle | SkuList | StockItem | StockLocation | Return | CarrierAccount | CouponRecipient | Customer | DeliveryLeadTime | ShippingMethod | DiscountEngine | Shipment | Parcel | GiftCardRecipient | GiftCard | InventoryModel | StockTransfer | SkuOption | Merchant | SubscriptionModel | PaymentOption | Package | Price | PriceTier | ShippingMethodTier | ShippingZone | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -173,6 +175,11 @@ class Attachments extends ApiResource<Attachment> {
 
 	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Attachments.TYPE } : id, options)
+	}
+
+	async event_stores(attachmentId: string | Attachment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _attachmentId = (attachmentId as Attachment).id || attachmentId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `attachments/${_attachmentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

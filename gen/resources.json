@@ -118,7 +118,7 @@
                 "state_code": {
                     "type": "string",
                     "desc": "State, province or region code.",
-                    "required": "required",
+                    "required": "optional",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -411,6 +411,19 @@
                     "sortable": false,
                     "parent_resource": "Api::AddressResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::AddressResource"
                 }
             },
             "filters": [
@@ -615,6 +628,19 @@
                     "sortable": false,
                     "parent_resource": "Api::AdjustmentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::AdjustmentResource"
                 }
             },
             "filters": [
@@ -872,6 +898,19 @@
                     "parent_resource": "Api::AdyenGatewayResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::AdyenGatewayResource"
+                },
                 "adyen_payments": {
                     "type": "has_many",
                     "desc": "The associated payments.",
@@ -997,6 +1036,19 @@
                     "sortable": false,
                     "example": "false"
                 },
+                "balance": {
+                    "type": "integer",
+                    "desc": "The balance remaining on a shopper's gift card, must be computed by using its related trigger attribute.",
+                    "required": "optional, default is \"0\"",
+                    "default": 0,
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "1000"
+                },
                 "_authorize": {
                     "type": "boolean",
                     "trigger": true,
@@ -1012,6 +1064,17 @@
                     "type": "boolean",
                     "trigger": true,
                     "desc": "Send this attribute if you want to send additional details the payment request.",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_balance": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want retrieve the balance remaining on a shopper's gift card.",
                     "creatable": false,
                     "updatable": true,
                     "fetchable": false,
@@ -1136,6 +1199,19 @@
                     "sortable": false,
                     "parent_resource": "Api::AdyenPaymentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::AdyenPaymentResource"
                 }
             },
             "filters": [
@@ -1198,6 +1274,7 @@
                         "datocms",
                         "exports",
                         "external",
+                        "generic",
                         "gift_cards",
                         "imports",
                         "integration",
@@ -1523,6 +1600,19 @@
                         "shipping_method_tiers",
                         "shipping_zones"
                     ]
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::AttachmentResource"
                 }
             },
             "filters": [
@@ -2006,7 +2096,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -2041,6 +2130,19 @@
                     "sortable": false,
                     "parent_resource": "Api::AuthorizationResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::AuthorizationResource"
                 },
                 "captures": {
                     "type": "has_many",
@@ -2293,6 +2395,19 @@
                     "parent_resource": "Api::AvalaraAccountResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::AvalaraAccountResource"
+                },
                 "tax_categories": {
                     "type": "has_many",
                     "desc": "The associated tax categories.",
@@ -2479,6 +2594,19 @@
                     "sortable": false,
                     "parent_resource": "Api::AxerveGatewayResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::AxerveGatewayResource"
                 },
                 "axerve_payments": {
                     "type": "has_many",
@@ -2743,6 +2871,19 @@
                     "sortable": false,
                     "parent_resource": "Api::AxervePaymentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::AxervePaymentResource"
                 }
             },
             "filters": [
@@ -2895,6 +3036,19 @@
                     "sortable": false,
                     "parent_resource": "Api::OrderValidationRuleResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::OrderValidationRuleResource"
                 }
             },
             "filters": [
@@ -3062,6 +3216,19 @@
                     "sortable": false,
                     "parent_resource": "Api::BingGeocoderResource",
                     "class_name": "Attachment"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::BingGeocoderResource"
                 }
             },
             "filters": [
@@ -3294,6 +3461,19 @@
                     "parent_resource": "Api::BraintreeGatewayResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::BraintreeGatewayResource"
+                },
                 "braintree_payments": {
                     "type": "has_many",
                     "desc": "The associated payments.",
@@ -3516,6 +3696,19 @@
                     "sortable": false,
                     "parent_resource": "Api::BraintreePaymentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::BraintreePaymentResource"
                 }
             },
             "filters": [
@@ -3885,6 +4078,19 @@
                     "sortable": false,
                     "parent_resource": "Api::BundleResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::BundleResource"
                 }
             },
             "filters": [
@@ -3994,7 +4200,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": true,
                     "example": "true"
                 },
@@ -4079,6 +4285,16 @@
                         "active",
                         "inactive"
                     ]
+                },
+                "weight": {
+                    "type": "integer",
+                    "desc": "The weight of the promotion, computed by exclusivity, priority, type and start time. Determines the order of application, higher weight apply first.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "112"
                 },
                 "id": {
                     "format": "id",
@@ -4362,6 +4578,19 @@
                     "parent_resource": "Api::BuyXPayYPromotionResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::BuyXPayYPromotionResource"
+                },
                 "skus": {
                     "type": "has_many",
                     "desc": "The associated SKUs.",
@@ -4376,6 +4605,7 @@
                 "name",
                 "type",
                 "currency_code",
+                "exclusive",
                 "priority",
                 "starts_at",
                 "expires_at",
@@ -4785,7 +5015,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -4820,6 +5049,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CaptureResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CaptureResource"
                 },
                 "reference_authorization": {
                     "type": "has_one",
@@ -5045,6 +5287,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CarrierAccountResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CarrierAccountResource"
                 }
             },
             "filters": [
@@ -5243,6 +5498,19 @@
                     "parent_resource": "Api::CheckoutComGatewayResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CheckoutComGatewayResource"
+                },
                 "checkout_com_payments": {
                     "type": "has_many",
                     "desc": "The associated payments.",
@@ -5301,20 +5569,9 @@
                     "sortable": false,
                     "example": "pk_test_xxxx-yyyy-zzzz"
                 },
-                "payment_type": {
-                    "type": "string",
-                    "desc": "The payment source type.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "token"
-                },
                 "token": {
                     "type": "string",
-                    "desc": "The Checkout.com card or digital wallet token.",
+                    "desc": "The Checkout.com payment or digital wallet token.",
                     "required": "required",
                     "creatable": true,
                     "updatable": true,
@@ -5323,23 +5580,32 @@
                     "sortable": false,
                     "example": "tok_4gzeau5o2uqubbk6fufs3m7p54"
                 },
-                "session_id": {
-                    "type": "string",
-                    "desc": "A payment session ID used to obtain the details.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
+                "payment_session": {
+                    "type": "object",
+                    "desc": "The session object which initializes payment.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "example": "sid_y3oqhf46pyzuxjbcn2giaqnb44"
+                    "example": {
+                        "id": "ps_xxxx_yyyy_zzzz",
+                        "payment_session_secret": "pss_xxxx_yyy_zzzz",
+                        "payment_session_token": "xxxxx_yyyyy_zzzzz",
+                        "_links": {
+                            "self": {
+                                "href": "https://api.sandbox.checkout.com/payment-sessions/ps_xxxx_yyyy_zzzz"
+                            }
+                        }
+                    }
                 },
                 "success_url": {
                     "type": "string",
                     "desc": "The URL to redirect your customer upon 3DS succeeded authentication.",
-                    "required": "optional",
+                    "required": "required",
                     "creatable": true,
-                    "updatable": true,
+                    "updatable": false,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
@@ -5348,9 +5614,9 @@
                 "failure_url": {
                     "type": "string",
                     "desc": "The URL to redirect your customer upon 3DS failed authentication.",
-                    "required": "optional",
+                    "required": "required",
                     "creatable": true,
-                    "updatable": true,
+                    "updatable": false,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
@@ -5565,6 +5831,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CheckoutComPaymentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CheckoutComPaymentResource"
                 }
             },
             "filters": [
@@ -5818,6 +6097,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CleanupResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CleanupResource"
                 }
             },
             "filters": [
@@ -6078,6 +6370,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CouponResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CouponResource"
                 }
             },
             "filters": [
@@ -6247,6 +6552,19 @@
                     "parent_resource": "Api::CouponCodesPromotionRuleResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CouponCodesPromotionRuleResource"
+                },
                 "coupons": {
                     "type": "has_many",
                     "desc": "The associated coupons.",
@@ -6410,6 +6728,19 @@
                     "parent_resource": "Api::GiftCardRecipientResource",
                     "class_name": "Customer"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CouponRecipientResource"
+                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -6443,299 +6774,6 @@
                 "q",
                 "customer_id",
                 "attachments_id",
-                "ids",
-                "created_at_from",
-                "created_at_to",
-                "updated_at_from",
-                "updated_at_to"
-            ]
-        }
-    },
-    {
-        "id": "credit_card",
-        "type": "resources",
-        "attributes": {
-            "singleton": false,
-            "deprecated": true,
-            "addon": false,
-            "hidden": false,
-            "actions": [
-                "list",
-                "retrieve",
-                "create",
-                "update",
-                "delete"
-            ],
-            "examples": {},
-            "filter_scopes": [],
-            "fields": {
-                "first_name": {
-                    "type": "string",
-                    "desc": "The cardholder's first name.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "John"
-                },
-                "last_name": {
-                    "type": "string",
-                    "desc": "The cardholder's last name.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "Smith"
-                },
-                "full_name": {
-                    "type": "string",
-                    "desc": "Handy attribute that returns the cardholder's first and last name.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "John Smith"
-                },
-                "number": {
-                    "type": "string",
-                    "desc": "The credit card number.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": false,
-                    "fetchable": false,
-                    "filterable": false,
-                    "sortable": false,
-                    "exportable": false,
-                    "example": "4111111111111111"
-                },
-                "month": {
-                    "type": "string",
-                    "desc": "The credit card expiration month.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "10"
-                },
-                "year": {
-                    "type": "string",
-                    "desc": "The credit card expiration year.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "2023"
-                },
-                "valid_thru": {
-                    "type": "string",
-                    "desc": "Handy attribute that returns 'month/year'.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "10/2023"
-                },
-                "verification_value": {
-                    "type": "string",
-                    "desc": "The credit card verification value (CCV, CVV).",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": false,
-                    "fetchable": false,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "123"
-                },
-                "card_type": {
-                    "type": "string",
-                    "desc": "The credit card type, e.g. visa, master, american_express.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "visa"
-                },
-                "display_number": {
-                    "type": "string",
-                    "desc": "The obscured credit card number. This can be useful to safely display an order's payment source details.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "XXXX-XXXX-XXXX-1111"
-                },
-                "name": {
-                    "type": "string",
-                    "desc": "Alias for 'display_number'.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "XXXX-XXXX-XXXX-1111"
-                },
-                "display_verification_value": {
-                    "type": "string",
-                    "desc": "The obscured credit card verification value. This can be useful to safely display an order's payment source details.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": false,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "XXX"
-                },
-                "fingerprint": {
-                    "type": "string",
-                    "desc": "A universal unique identifier for the credit card.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "9abc5b0ef273e53749068820b3a30640b838"
-                },
-                "storage_state": {
-                    "type": "string",
-                    "desc": "The credit card storage state within your vault. Can be one of 'cached', 'retained', or 'redacted'.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "cached"
-                },
-                "id": {
-                    "format": "id",
-                    "type": "string",
-                    "desc": "Unique identifier for the resource (hash).",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "XAyRWNUzyN"
-                },
-                "payment_instrument": {
-                    "type": "object",
-                    "desc": "Information about the payment instrument used in the transaction.",
-                    "required": "optional",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": {
-                        "issuer": "cl bank",
-                        "card_type": "visa"
-                    }
-                },
-                "created_at": {
-                    "type": "datetime",
-                    "desc": "Time at which the resource was created.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "2018-01-01T12:00:00.000Z"
-                },
-                "updated_at": {
-                    "type": "datetime",
-                    "desc": "Time at which the resource was last updated.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "2018-01-01T12:00:00.000Z"
-                },
-                "reference": {
-                    "type": "string",
-                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "ANY-EXTERNAL-REFEFERNCE"
-                },
-                "reference_origin": {
-                    "type": "string",
-                    "desc": "Any identifier of the third party system that defines the reference code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                },
-                "metadata": {
-                    "type": "object",
-                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": false,
-                    "example": {
-                        "foo": "bar"
-                    }
-                }
-            },
-            "relationships": {
-                "order": {
-                    "type": "has_one",
-                    "desc": "The order associated to the credit card. If present, the credit card is set as the order's payment source.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "parent_resource": "Api::CreditCardResource",
-                    "class_name": "Order"
-                },
-                "versions": {
-                    "type": "has_many",
-                    "desc": "The associated changes.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "parent_resource": "Api::CreditCardResource",
-                    "class_name": "Version"
-                }
-            },
-            "filters": [
-                "id",
-                "card_type",
-                "created_at",
-                "updated_at",
-                "reference",
-                "reference_origin",
-                "metadata",
-                "q",
-                "order_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -6908,6 +6946,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CustomPromotionRuleResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CustomPromotionRuleResource"
                 }
             },
             "filters": [
@@ -7116,6 +7167,17 @@
                     "sortable": true,
                     "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                 },
+                "jwt_custom_claim": {
+                    "type": "object",
+                    "desc": "The custom_claim attached to the current JWT (if any).",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{}",
+                    "exportable": false
+                },
                 "metadata": {
                     "type": "object",
                     "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
@@ -7128,6 +7190,134 @@
                     "example": {
                         "foo": "bar"
                     }
+                },
+                "_request_anonymization": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to trigger anonymization. Cannot be passed by sales channels.",
+                    "prohibited": true,
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_cancel_anonymization": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to trigger a cancellation of anonymization. Cannot be passed by sales channels.",
+                    "prohibited": true,
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "anonymization_info": {
+                    "type": "object",
+                    "desc": "The anonymization info object.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": {
+                        "status": "requested",
+                        "requested_at": "2025-03-15 11:39:21 UTC",
+                        "requester": {
+                            "id": "fdgt56hh",
+                            "first_name": "Travis",
+                            "last_name": "Muller",
+                            "email": "test@labadie.test"
+                        }
+                    },
+                    "properties": {
+                        "status": {
+                            "type": "string",
+                            "desc": "The status of the anonymization."
+                        },
+                        "requested_at": {
+                            "type": "datetime",
+                            "desc": "The time when the anonymization was requested."
+                        },
+                        "started_at": {
+                            "type": "datetime",
+                            "desc": "The time when the anonymization request was started."
+                        },
+                        "completed_at": {
+                            "type": "datetime",
+                            "desc": "The time when the anonymization request was completed."
+                        },
+                        "failed_at": {
+                            "type": "datetime",
+                            "desc": "The time when the anonymization request failed."
+                        },
+                        "cancelled_at": {
+                            "type": "datetime",
+                            "desc": "The time when the anonymization request was cancelled."
+                        },
+                        "requester": {
+                            "type": "object",
+                            "desc": "The user who requested the anonymization.",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "desc": "The ID of the user."
+                                },
+                                "first_name": {
+                                    "type": "string",
+                                    "desc": "First name of the user."
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "desc": "Last name of the user."
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "desc": "Email of the user."
+                                }
+                            }
+                        },
+                        "cancellation_requester": {
+                            "type": "object",
+                            "desc": "The user who requested the cancellation of the anonymization.",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "desc": "The ID of the user."
+                                },
+                                "first_name": {
+                                    "type": "string",
+                                    "desc": "First name of the user."
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "desc": "Last name of the user."
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "desc": "Email of the user."
+                                }
+                            }
+                        }
+                    }
+                },
+                "anonymization_status": {
+                    "type": "string",
+                    "desc": "Status of the current anonymization request (if any).",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "exportable": true,
+                    "example": "requested"
                 }
             },
             "relationships": {
@@ -7223,6 +7413,46 @@
                     "prohibited": true,
                     "parent_resource": "Api::CustomerResource",
                     "class_name": "Tag"
+                },
+                "jwt_customer": {
+                    "type": "has_one",
+                    "desc": "The customer associated to the JWT.",
+                    "class_name": "Customer",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "parent_resource": "Api::CustomerResource"
+                },
+                "jwt_markets": {
+                    "type": "has_many",
+                    "desc": "The markets associated to the JWT.",
+                    "class_name": "Market",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "parent_resource": "Api::CustomerResource"
+                },
+                "jwt_stock_locations": {
+                    "type": "has_many",
+                    "desc": "The stock locations associated to the JWT.",
+                    "class_name": "StockLocation",
+                    "eager_load_on_include": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "parent_resource": "Api::CustomerResource"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CustomerResource"
                 }
             },
             "filters": [
@@ -7235,6 +7465,7 @@
                 "reference",
                 "reference_origin",
                 "metadata",
+                "anonymization_status",
                 "q",
                 "customer_group_id",
                 "customer_addresses_id",
@@ -7404,6 +7635,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CustomerAddressResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CustomerAddressResource"
                 }
             },
             "filters": [
@@ -7567,6 +7811,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CustomerGroupResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CustomerGroupResource"
                 }
             },
             "filters": [
@@ -7755,6 +8012,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CustomerPasswordResetResource",
                     "class_name": "Event"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CustomerPasswordResetResource"
                 }
             },
             "filters": [
@@ -7938,7 +8208,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -7957,6 +8226,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CustomerPaymentSourceResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CustomerPaymentSourceResource"
                 }
             },
             "filters": [
@@ -8108,6 +8390,19 @@
                     "sortable": false,
                     "parent_resource": "Api::CustomerSubscriptionResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::CustomerSubscriptionResource"
                 }
             },
             "filters": [
@@ -8299,6 +8594,19 @@
                     "sortable": false,
                     "parent_resource": "Api::DeliveryLeadTimeResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::DeliveryLeadTimeResource"
                 }
             },
             "filters": [
@@ -8367,12 +8675,13 @@
                 "manage_gift_cards": {
                     "type": "boolean",
                     "desc": "Indicates if the discount engine manages both promotions and gift cards application at once.",
-                    "creatable": false,
-                    "updatable": false,
+                    "required": "optional, default is 'true'",
+                    "default": true,
+                    "creatable": true,
+                    "updatable": true,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "delegate": "manage_gift_cards?",
                     "example": true
                 },
                 "id": {
@@ -8476,6 +8785,19 @@
                     "sortable": false,
                     "parent_resource": "Api::DiscountEngineResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::DiscountEngineResource"
                 }
             },
             "filters": [
@@ -8617,6 +8939,19 @@
                     "sortable": true,
                     "parent_resource": "Api::DiscountEngineItemResource",
                     "class_name": "Order"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::DiscountEngineItemResource"
                 }
             },
             "filters": [
@@ -8882,6 +9217,19 @@
                     "sortable": false,
                     "parent_resource": "Api::EasypostPickupResource",
                     "class_name": "Event"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::EasypostPickupResource"
                 }
             },
             "filters": [
@@ -9041,6 +9389,19 @@
                     "class_name": "EventCallback",
                     "eager_load_on_include": false,
                     "virtual": true,
+                    "parent_resource": "Api::EventResource"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
                     "parent_resource": "Api::EventResource"
                 }
             },
@@ -9216,6 +9577,19 @@
                     "sortable": true,
                     "parent_resource": "Api::EventCallbackResource",
                     "class_name": "Webhook"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::EventCallbackResource"
                 }
             },
             "filters": [
@@ -9235,6 +9609,180 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
+            ]
+        }
+    },
+    {
+        "id": "event_store",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "addon": false,
+            "hidden": false,
+            "actions": [
+                "retrieve"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "The event identifier.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "1755185525941-0"
+                },
+                "resource_type": {
+                    "type": "string",
+                    "desc": "The type of the affected resource.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "filter_operators": [
+                        "eq",
+                        "in"
+                    ],
+                    "sortable": false,
+                    "example": "orders"
+                },
+                "resource_id": {
+                    "type": "string",
+                    "desc": "The ID of the affected resource.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "PzdJhdLdYV"
+                },
+                "event": {
+                    "type": "string",
+                    "desc": "The type of change (one of create or update).",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "update"
+                },
+                "ip_address": {
+                    "type": "string",
+                    "desc": "The request remote ip.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "127.0.0.1"
+                },
+                "user_agent": {
+                    "type": "string",
+                    "desc": "The request User Agent.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "Chrome/108.0.0.0 Safari/537.36"
+                },
+                "uuid": {
+                    "type": "string",
+                    "desc": "The request id.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2284362d2b024dc8a8736770ab2a7050bd35487c"
+                },
+                "payload": {
+                    "type": "object",
+                    "desc": "The object changes payload.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{ \"status\": [\"draft\", \"placed\"] }"
+                },
+                "who": {
+                    "type": "object",
+                    "desc": "Information about who triggered the change.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "{ \"application\": { \"id\": \"DNOPYiZYpn\", \"kind\": \"sales_channel\", \"public\": true }, \"owner\": { \"id\": \"yQQrBhLBmQ\", \"type\": \"Customer\" }, }"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                }
+            },
+            "relationships": {},
+            "filters": [
+                "id"
             ]
         }
     },
@@ -9506,6 +10054,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ExportResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ExportResource"
                 }
             },
             "filters": [
@@ -9775,6 +10336,19 @@
                     "parent_resource": "Api::ExternalGatewayResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ExternalGatewayResource"
+                },
                 "external_payments": {
                     "type": "has_many",
                     "desc": "The associated payments.",
@@ -9975,6 +10549,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ExternalPaymentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ExternalPaymentResource"
                 }
             },
             "filters": [
@@ -10072,7 +10659,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": true,
                     "example": "true"
                 },
@@ -10157,6 +10744,16 @@
                         "active",
                         "inactive"
                     ]
+                },
+                "weight": {
+                    "type": "integer",
+                    "desc": "The weight of the promotion, computed by exclusivity, priority, type and start time. Determines the order of application, higher weight apply first.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "112"
                 },
                 "id": {
                     "format": "id",
@@ -10477,6 +11074,19 @@
                     "parent_resource": "Api::ExternalPromotionResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ExternalPromotionResource"
+                },
                 "skus": {
                     "type": "has_many",
                     "desc": "The associated SKUs.",
@@ -10491,6 +11101,7 @@
                 "name",
                 "type",
                 "currency_code",
+                "exclusive",
                 "priority",
                 "starts_at",
                 "expires_at",
@@ -10751,6 +11362,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ExternalTaxCalculatorResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ExternalTaxCalculatorResource"
                 }
             },
             "filters": [
@@ -10852,7 +11476,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": true,
                     "example": "true"
                 },
@@ -10937,6 +11561,16 @@
                         "active",
                         "inactive"
                     ]
+                },
+                "weight": {
+                    "type": "integer",
+                    "desc": "The weight of the promotion, computed by exclusivity, priority, type and start time. Determines the order of application, higher weight apply first.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "112"
                 },
                 "id": {
                     "format": "id",
@@ -11220,6 +11854,19 @@
                     "parent_resource": "Api::FixedAmountPromotionResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::FixedAmountPromotionResource"
+                },
                 "skus": {
                     "type": "has_many",
                     "desc": "The associated SKUs.",
@@ -11234,6 +11881,7 @@
                 "name",
                 "type",
                 "currency_code",
+                "exclusive",
                 "priority",
                 "starts_at",
                 "expires_at",
@@ -11348,7 +11996,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": true,
                     "example": "true"
                 },
@@ -11433,6 +12081,16 @@
                         "active",
                         "inactive"
                     ]
+                },
+                "weight": {
+                    "type": "integer",
+                    "desc": "The weight of the promotion, computed by exclusivity, priority, type and start time. Determines the order of application, higher weight apply first.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "112"
                 },
                 "id": {
                     "format": "id",
@@ -11716,6 +12374,19 @@
                     "parent_resource": "Api::FixedPricePromotionResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::FixedPricePromotionResource"
+                },
                 "skus": {
                     "type": "has_many",
                     "desc": "The associated SKUs.",
@@ -11730,6 +12401,7 @@
                 "name",
                 "type",
                 "currency_code",
+                "exclusive",
                 "priority",
                 "starts_at",
                 "expires_at",
@@ -11828,7 +12500,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": true,
                     "example": "true"
                 },
@@ -11924,7 +12596,25 @@
                     "filterable": true,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show",
+                        "create",
+                        "update"
+                    ]
+                },
+                "rule_outcomes": {
+                    "type": "object",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "[]",
+                    "actions": [
+                        "show"
+                    ]
                 },
                 "id": {
                     "format": "id",
@@ -12037,18 +12727,6 @@
                     "sortable": true,
                     "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
                 },
-                "rule_outcomes": {
-                    "type": "object",
-                    "desc": "The rule outcomes.",
-                    "required": "optional",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "{}",
-                    "action": "show"
-                },
                 "resource_payload": {
                     "type": "object",
                     "desc": "The payload used to evaluate the rules.",
@@ -12059,7 +12737,9 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show"
+                    ]
                 },
                 "metadata": {
                     "type": "object",
@@ -12134,12 +12814,26 @@
                     "sortable": false,
                     "parent_resource": "Api::FlexPromotionResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::FlexPromotionResource"
                 }
             },
             "filters": [
                 "id",
                 "name",
                 "type",
+                "exclusive",
                 "priority",
                 "starts_at",
                 "expires_at",
@@ -12249,7 +12943,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": true,
                     "example": "true"
                 },
@@ -12334,6 +13028,16 @@
                         "active",
                         "inactive"
                     ]
+                },
+                "weight": {
+                    "type": "integer",
+                    "desc": "The weight of the promotion, computed by exclusivity, priority, type and start time. Determines the order of application, higher weight apply first.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "112"
                 },
                 "id": {
                     "format": "id",
@@ -12596,6 +13300,19 @@
                     "parent_resource": "Api::FreeGiftPromotionResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::FreeGiftPromotionResource"
+                },
                 "skus": {
                     "type": "has_many",
                     "desc": "The associated SKUs.",
@@ -12610,6 +13327,7 @@
                 "name",
                 "type",
                 "currency_code",
+                "exclusive",
                 "priority",
                 "starts_at",
                 "expires_at",
@@ -12724,7 +13442,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": true,
                     "example": "true"
                 },
@@ -12809,6 +13527,16 @@
                         "active",
                         "inactive"
                     ]
+                },
+                "weight": {
+                    "type": "integer",
+                    "desc": "The weight of the promotion, computed by exclusivity, priority, type and start time. Determines the order of application, higher weight apply first.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "112"
                 },
                 "id": {
                     "format": "id",
@@ -13058,6 +13786,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PromotionResource"
                 }
             },
             "filters": [
@@ -13065,6 +13806,7 @@
                 "name",
                 "type",
                 "currency_code",
+                "exclusive",
                 "priority",
                 "starts_at",
                 "expires_at",
@@ -13233,6 +13975,19 @@
                     "sortable": false,
                     "parent_resource": "Api::GeocoderResource",
                     "class_name": "Attachment"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::GeocoderResource"
                 }
             },
             "filters": [
@@ -13719,6 +14474,19 @@
                     "sortable": false,
                     "parent_resource": "Api::GiftCardResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::GiftCardResource"
                 }
             },
             "filters": [
@@ -13884,6 +14652,19 @@
                     "sortable": true,
                     "parent_resource": "Api::GiftCardRecipientResource",
                     "class_name": "Customer"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::GiftCardRecipientResource"
                 },
                 "attachments": {
                     "type": "has_many",
@@ -14072,6 +14853,19 @@
                     "sortable": false,
                     "parent_resource": "Api::GoogleGeocoderResource",
                     "class_name": "Attachment"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::GoogleGeocoderResource"
                 }
             },
             "filters": [
@@ -14403,6 +15197,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ImportResource",
                     "class_name": "Event"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ImportResource"
                 }
             },
             "filters": [
@@ -14654,6 +15461,19 @@
                     "sortable": false,
                     "parent_resource": "Api::InStockSubscriptionResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::InStockSubscriptionResource"
                 }
             },
             "filters": [
@@ -14867,6 +15687,19 @@
                     "sortable": false,
                     "parent_resource": "Api::InventoryModelResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::InventoryModelResource"
                 }
             },
             "filters": [
@@ -15024,6 +15857,19 @@
                     "sortable": false,
                     "parent_resource": "Api::InventoryReturnLocationResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::InventoryReturnLocationResource"
                 }
             },
             "filters": [
@@ -15188,6 +16034,19 @@
                     "sortable": false,
                     "parent_resource": "Api::InventoryStockLocationResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::InventoryStockLocationResource"
                 }
             },
             "filters": [
@@ -15365,6 +16224,19 @@
                     "sortable": false,
                     "parent_resource": "Api::KlarnaGatewayResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::KlarnaGatewayResource"
                 },
                 "klarna_payments": {
                     "type": "has_many",
@@ -15599,6 +16471,19 @@
                     "sortable": false,
                     "parent_resource": "Api::KlarnaPaymentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::KlarnaPaymentResource"
                 }
             },
             "filters": [
@@ -16037,6 +16922,18 @@
                     "sortable": false,
                     "example": "SUMMERDISCOUNT"
                 },
+                "rule_outcomes": {
+                    "type": "object",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "[]"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -16355,6 +17252,19 @@
                     "prohibited": true,
                     "parent_resource": "Api::LineItemResource",
                     "class_name": "Tag"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::LineItemResource"
                 }
             },
             "filters": [
@@ -16683,6 +17593,19 @@
                     "prohibited": true,
                     "parent_resource": "Api::LineItemOptionResource",
                     "class_name": "Tag"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::LineItemOptionResource"
                 }
             },
             "filters": [
@@ -16994,6 +17917,19 @@
                     "sortable": false,
                     "parent_resource": "Api::LinkResource",
                     "class_name": "Event"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::LinkResource"
                 }
             },
             "filters": [
@@ -17147,6 +18083,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ManualGatewayResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ManualGatewayResource"
                 }
             },
             "filters": [
@@ -17318,6 +18267,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ManualTaxCalculatorResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ManualTaxCalculatorResource"
                 },
                 "tax_rules": {
                     "type": "has_many",
@@ -17670,6 +18632,8 @@
                     "updatable": true,
                     "filterable": true,
                     "sortable": true,
+                    "polymorphic": true,
+                    "sti": true,
                     "parent_resource": "Api::MarketResource",
                     "class_name": "TaxCalculator",
                     "enum": [
@@ -17770,6 +18734,19 @@
                     "sortable": false,
                     "parent_resource": "Api::MarketResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::MarketResource"
                 }
             },
             "filters": [
@@ -17936,6 +18913,19 @@
                     "sortable": false,
                     "parent_resource": "Api::MerchantResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::MerchantResource"
                 }
             },
             "filters": [
@@ -18100,6 +19090,19 @@
                         "line_items",
                         "shipping_methods"
                     ]
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::NotificationResource"
                 }
             },
             "filters": [
@@ -19697,6 +20700,34 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "expires_at": {
+                    "type": "datetime",
+                    "desc": "The expiration date/time of this order. Cannot be passed by sales channels.",
+                    "prohibited": true,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "exportable": false,
+                    "example": "2018-01-02T12:00:00.000Z"
+                },
+                "expiration_info": {
+                    "type": "object",
+                    "desc": "The information related to the order expiration, in case expires_at is not null. Cannot be passed by sales channels.",
+                    "prohibited": true,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": {
+                        "summary_message": "Your tickets are reserved for the remaining time.",
+                        "expired_message": "Your session has expired. Please start your checkout again.",
+                        "redirect_url": "https://yourshop.com/"
+                    }
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -19954,7 +20985,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -20190,6 +21220,19 @@
                     "sortable": false,
                     "parent_resource": "Api::OrderResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::OrderResource"
                 }
             },
             "filters": [
@@ -20230,6 +21273,7 @@
                 "refreshed_at",
                 "archived_at",
                 "subscription_created_at",
+                "expires_at",
                 "circuit_state",
                 "circuit_failure_count",
                 "created_at",
@@ -20286,6 +21330,8 @@
                 "archived_at_to",
                 "subscription_created_at_from",
                 "subscription_created_at_to",
+                "expires_at_from",
+                "expires_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -20476,6 +21522,19 @@
                     "sortable": false,
                     "parent_resource": "Api::OrderAmountPromotionRuleResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::OrderAmountPromotionRuleResource"
                 }
             },
             "filters": [
@@ -20769,6 +21828,19 @@
                     "parent_resource": "Api::OrderCopyResource",
                     "class_name": "Event"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::OrderCopyResource"
+                },
                 "order_subscription": {
                     "type": "has_one",
                     "desc": "The associated order subscription.",
@@ -21035,6 +22107,19 @@
                     "sortable": false,
                     "parent_resource": "Api::OrderFactoryResource",
                     "class_name": "Event"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::OrderFactoryResource"
                 }
             },
             "filters": [
@@ -21515,6 +22600,19 @@
                     "sortable": false,
                     "parent_resource": "Api::OrderSubscriptionResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::OrderSubscriptionResource"
                 }
             },
             "filters": [
@@ -21825,6 +22923,19 @@
                     "sortable": false,
                     "parent_resource": "Api::OrderSubscriptionItemResource",
                     "class_name": "LineItem"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::OrderSubscriptionItemResource"
                 }
             },
             "filters": [
@@ -21980,6 +23091,19 @@
                     "sortable": false,
                     "parent_resource": "Api::OrderValidationRuleResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::OrderValidationRuleResource"
                 }
             },
             "filters": [
@@ -22317,10 +23441,32 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "orders_sales_channel_guest_only": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Indicates if a sales channel application without customer can read and update just guest orders.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "orders_min_rebuild_shipments_lapse": {
+                    "type": "float",
+                    "default": 0,
+                    "desc": "The minimum lapse in fraction of seconds to be observed between two consecutive shipments rebuilt. If shipments rebuilt is triggered within the minimum lapse, the update is performed, but no rebuilt is done.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "0.0"
+                },
                 "orders_min_refresh_lapse": {
                     "type": "float",
                     "default": 0,
-                    "desc": "The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done, until the lapse is observed.",
+                    "desc": "The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -22394,6 +23540,17 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "orders_invalid_gift_card_errors": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Enables raising of API errors in case the provided gift card code is invalid, default is true.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "bundles_max_items_count": {
                     "type": "integer",
                     "default": 10,
@@ -22426,6 +23583,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "40"
+                },
+                "gift_cards_exact_code_matching": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables matching the gift card code by its exact value, instead of by its first charachters, default is false.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
                 },
                 "gift_cards_min_code_length": {
                     "type": "integer",
@@ -22503,6 +23671,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "false"
+                },
+                "inventory_models_max_stock_locations_cutoff": {
+                    "type": "integer",
+                    "default": 10,
+                    "desc": "The maximum number for stock locations cutoff, default is 10.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "10"
                 },
                 "promotions_max_concurrent_count": {
                     "type": "integer",
@@ -22707,7 +23886,21 @@
                     }
                 }
             },
-            "relationships": {},
+            "relationships": {
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::OrganizationResource"
+                }
+            },
             "filters": [
                 "id"
             ]
@@ -22906,6 +24099,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PackageResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PackageResource"
                 }
             },
             "filters": [
@@ -23368,6 +24574,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ParcelResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ParcelResource"
                 }
             },
             "filters": [
@@ -23593,6 +24812,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ParcelLineItemResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ParcelLineItemResource"
                 }
             },
             "filters": [
@@ -23731,6 +24963,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ManualGatewayResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ManualGatewayResource"
                 }
             },
             "filters": [
@@ -23782,7 +25027,7 @@
                 },
                 "payment_source_type": {
                     "type": "string",
-                    "desc": "The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.",
+                    "desc": "The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.",
                     "required": "required",
                     "creatable": true,
                     "updatable": true,
@@ -23795,7 +25040,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -24064,12 +25308,6 @@
                     "parent_resource": "Api::PaymentMethodResource",
                     "class_name": "Store"
                 },
-                "orders": {
-                    "type": "has_many",
-                    "desc": "The associated orders.",
-                    "parent_resource": "Api::PaymentMethodResource",
-                    "class_name": "Order"
-                },
                 "attachments": {
                     "type": "has_many",
                     "desc": "The associated attachments.",
@@ -24088,6 +25326,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PaymentMethodResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PaymentMethodResource"
                 }
             },
             "filters": [
@@ -24148,7 +25399,7 @@
                 },
                 "payment_source_type": {
                     "type": "string",
-                    "desc": "The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'credit_cards', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.",
+                    "desc": "The payment source type. One of 'adyen_payments', 'axerve_payments', 'braintree_payments', 'checkout_com_payments', 'external_payments', 'klarna_payments', 'paypal_payments', 'satispay_payments', 'stripe_payments', or 'wire_transfers'.",
                     "required": "required",
                     "creatable": true,
                     "updatable": false,
@@ -24161,7 +25412,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -24273,6 +25523,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PaymentOptionResource",
                     "class_name": "Attachment"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PaymentOptionResource"
                 }
             },
             "filters": [
@@ -24440,6 +25703,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PaypalGatewayResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PaypalGatewayResource"
                 },
                 "paypal_payments": {
                     "type": "has_many",
@@ -24704,6 +25980,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PaypalPaymentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PaypalPaymentResource"
                 }
             },
             "filters": [
@@ -24801,7 +26090,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": true,
                     "example": "true"
                 },
@@ -24886,6 +26175,16 @@
                         "active",
                         "inactive"
                     ]
+                },
+                "weight": {
+                    "type": "integer",
+                    "desc": "The weight of the promotion, computed by exclusivity, priority, type and start time. Determines the order of application, higher weight apply first.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "112"
                 },
                 "id": {
                     "format": "id",
@@ -25147,6 +26446,19 @@
                     "parent_resource": "Api::PercentageDiscountPromotionResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PercentageDiscountPromotionResource"
+                },
                 "skus": {
                     "type": "has_many",
                     "desc": "The associated SKUs.",
@@ -25161,6 +26473,7 @@
                 "name",
                 "type",
                 "currency_code",
+                "exclusive",
                 "priority",
                 "starts_at",
                 "expires_at",
@@ -25346,6 +26659,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PickupResource",
                     "class_name": "Event"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PickupResource"
                 }
             },
             "filters": [
@@ -25393,8 +26719,8 @@
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
+                    "filterable": false,
+                    "sortable": false,
                     "example": "EUR"
                 },
                 "sku_code": {
@@ -25496,6 +26822,20 @@
                     "monetizable": true,
                     "example": "€130,00"
                 },
+                "rule_outcomes": {
+                    "type": "object",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "[]",
+                    "actions": [
+                        "show"
+                    ]
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -25573,19 +26913,11 @@
                     "filterable": true,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
-                },
-                "rule_outcomes": {
-                    "type": "object",
-                    "desc": "The rule outcomes.",
-                    "required": "optional",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show",
+                        "create",
+                        "update"
+                    ]
                 },
                 "resource_payload": {
                     "type": "object",
@@ -25597,7 +26929,9 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show"
+                    ]
                 },
                 "jwt_custom_claim": {
                     "type": "object",
@@ -25719,11 +27053,23 @@
                     "virtual": true,
                     "exportable": false,
                     "parent_resource": "Api::PriceResource"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PriceResource"
                 }
             },
             "filters": [
                 "id",
-                "currency_code",
                 "amount_cents",
                 "compare_at_amount_cents",
                 "created_at",
@@ -25938,6 +27284,19 @@
                     "parent_resource": "Api::PriceFrequencyTierResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PriceFrequencyTierResource"
+                },
                 "events": {
                     "type": "has_many",
                     "desc": "The associated events.",
@@ -26032,6 +27391,20 @@
                     "sortable": true,
                     "example": "true"
                 },
+                "rule_outcomes": {
+                    "type": "object",
+                    "desc": "The rule outcomes.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "[]",
+                    "actions": [
+                        "show"
+                    ]
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -26098,19 +27471,11 @@
                     "filterable": true,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
-                },
-                "rule_outcomes": {
-                    "type": "object",
-                    "desc": "The rule outcomes.",
-                    "required": "optional",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show",
+                        "create",
+                        "update"
+                    ]
                 },
                 "resource_payload": {
                     "type": "object",
@@ -26122,7 +27487,9 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "{}",
-                    "action": "show"
+                    "actions": [
+                        "show"
+                    ]
                 },
                 "metadata": {
                     "type": "object",
@@ -26173,6 +27540,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PriceListResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PriceListResource"
                 }
             },
             "filters": [
@@ -26423,6 +27803,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PriceListSchedulerResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PriceListSchedulerResource"
                 }
             },
             "filters": [
@@ -26639,6 +28032,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PriceTierResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PriceTierResource"
                 }
             },
             "filters": [
@@ -26852,6 +28258,19 @@
                     "parent_resource": "Api::PriceVolumeTierResource",
                     "class_name": "Version"
                 },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PriceVolumeTierResource"
+                },
                 "events": {
                     "type": "has_many",
                     "desc": "The associated events.",
@@ -26958,7 +28377,7 @@
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
-                    "filterable": false,
+                    "filterable": true,
                     "sortable": true,
                     "example": "true"
                 },
@@ -27043,6 +28462,16 @@
                         "active",
                         "inactive"
                     ]
+                },
+                "weight": {
+                    "type": "integer",
+                    "desc": "The weight of the promotion, computed by exclusivity, priority, type and start time. Determines the order of application, higher weight apply first.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "112"
                 },
                 "id": {
                     "format": "id",
@@ -27292,6 +28721,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PromotionResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PromotionResource"
                 }
             },
             "filters": [
@@ -27299,6 +28741,7 @@
                 "name",
                 "type",
                 "currency_code",
+                "exclusive",
                 "priority",
                 "starts_at",
                 "expires_at",
@@ -27472,6 +28915,19 @@
                     "sortable": false,
                     "parent_resource": "Api::PromotionRuleResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::PromotionRuleResource"
                 }
             },
             "filters": [
@@ -27718,6 +29174,19 @@
                     "sortable": false,
                     "parent_resource": "Api::RecurringOrderCopyResource",
                     "class_name": "Event"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::RecurringOrderCopyResource"
                 },
                 "order_subscription": {
                     "type": "has_one",
@@ -28028,7 +29497,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -28063,6 +29531,19 @@
                     "sortable": false,
                     "parent_resource": "Api::RefundResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::RefundResource"
                 },
                 "reference_capture": {
                     "type": "has_one",
@@ -28257,6 +29738,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ReservedStockResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ReservedStockResource"
                 }
             },
             "filters": [
@@ -28414,6 +29908,19 @@
                         "orders",
                         "returns"
                     ]
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ResourceErrorResource"
                 }
             },
             "filters": [
@@ -28953,6 +30460,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ReturnResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ReturnResource"
                 }
             },
             "filters": [
@@ -29240,6 +30760,19 @@
                     "exclude_links": "default",
                     "parent_resource": "Api::ReturnLineItemResource",
                     "class_name": "LineItem"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ReturnLineItemResource"
                 }
             },
             "filters": [
@@ -29444,6 +30977,19 @@
                     "sortable": false,
                     "parent_resource": "Api::SatispayGatewayResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::SatispayGatewayResource"
                 },
                 "satispay_payments": {
                     "type": "has_many",
@@ -29689,6 +31235,19 @@
                     "sortable": false,
                     "parent_resource": "Api::SatispayPaymentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::SatispayPaymentResource"
                 }
             },
             "filters": [
@@ -30414,6 +31973,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ShipmentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ShipmentResource"
                 }
             },
             "filters": [
@@ -30721,6 +32293,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ShipmentLineItemResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ShipmentLineItemResource"
                 }
             },
             "filters": [
@@ -30883,6 +32468,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ShippingCategoryResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ShippingCategoryResource"
                 }
             },
             "filters": [
@@ -31214,6 +32812,31 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "shared_secret": {
+                    "type": "string",
+                    "desc": "The shared secret used to sign the external request payload.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "confidential": true,
+                    "example": "1c0994cc4e996e8c6ee56a2198f66f3c"
+                },
+                "_regenerate_shared_secret": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to regenerate the shared secret.",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "deprecated": true,
+                    "example": "true"
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -31370,6 +32993,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ShippingMethodResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ShippingMethodResource"
                 }
             },
             "filters": [
@@ -31590,6 +33226,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ShippingWeightTierResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ShippingWeightTierResource"
                 }
             },
             "filters": [
@@ -31801,6 +33450,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ShippingWeightTierResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ShippingWeightTierResource"
                 }
             },
             "filters": [
@@ -32009,6 +33671,19 @@
                     "sortable": false,
                     "parent_resource": "Api::ShippingZoneResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::ShippingZoneResource"
                 }
             },
             "filters": [
@@ -32168,7 +33843,9 @@
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "action": "show",
+                    "actions": [
+                        "show"
+                    ],
                     "example": {
                         "available": true,
                         "quantity": 10,
@@ -32500,6 +34177,19 @@
                     "virtual": true,
                     "exportable": false,
                     "parent_resource": "Api::SkuResource"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::SkuResource"
                 }
             },
             "filters": [
@@ -32756,6 +34446,19 @@
                     "sortable": false,
                     "parent_resource": "Api::SkuListResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::SkuListResource"
                 }
             },
             "filters": [
@@ -32937,6 +34640,19 @@
                     "sortable": false,
                     "parent_resource": "Api::SkuListItemResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::SkuListItemResource"
                 }
             },
             "filters": [
@@ -33120,6 +34836,19 @@
                     "sortable": false,
                     "parent_resource": "Api::SkuListPromotionRuleResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::SkuListPromotionRuleResource"
                 },
                 "sku_list": {
                     "type": "has_one",
@@ -33415,6 +35144,19 @@
                     "sortable": false,
                     "parent_resource": "Api::SkuOptionResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::SkuOptionResource"
                 }
             },
             "filters": [
@@ -33435,168 +35177,6 @@
                 "attachments_id",
                 "events_id",
                 "tags_id",
-                "ids",
-                "created_at_from",
-                "created_at_to",
-                "updated_at_from",
-                "updated_at_to"
-            ]
-        }
-    },
-    {
-        "id": "spreedly_gateway",
-        "type": "resources",
-        "attributes": {
-            "singleton": false,
-            "deprecated": true,
-            "addon": false,
-            "hidden": false,
-            "actions": [
-                "list",
-                "retrieve",
-                "create",
-                "update",
-                "delete"
-            ],
-            "examples": {},
-            "filter_scopes": [],
-            "fields": {
-                "name": {
-                    "type": "string",
-                    "desc": "The payment gateway's internal name.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "US payment gateway"
-                },
-                "id": {
-                    "format": "id",
-                    "type": "string",
-                    "desc": "Unique identifier for the resource (hash).",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "XAyRWNUzyN"
-                },
-                "created_at": {
-                    "type": "datetime",
-                    "desc": "Time at which the resource was created.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "2018-01-01T12:00:00.000Z"
-                },
-                "updated_at": {
-                    "type": "datetime",
-                    "desc": "Time at which the resource was last updated.",
-                    "required": "required",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "2018-01-01T12:00:00.000Z"
-                },
-                "reference": {
-                    "type": "string",
-                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "ANY-EXTERNAL-REFEFERNCE"
-                },
-                "reference_origin": {
-                    "type": "string",
-                    "desc": "Any identifier of the third party system that defines the reference code.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": true,
-                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
-                },
-                "metadata": {
-                    "type": "object",
-                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": true,
-                    "sortable": false,
-                    "example": {
-                        "foo": "bar"
-                    }
-                },
-                "spreedly_type": {
-                    "type": "string",
-                    "desc": "The gateway permitted type.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "stripe"
-                },
-                "token": {
-                    "type": "string",
-                    "desc": "The gateway token.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": false,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "xxxx-yyyy-zzzz"
-                }
-            },
-            "relationships": {
-                "payment_methods": {
-                    "type": "has_many",
-                    "desc": "The associated payment methods.",
-                    "creatable": false,
-                    "updatable": false,
-                    "filterable": true,
-                    "sortable": false,
-                    "parent_resource": "Api::StripeGatewayResource",
-                    "class_name": "PaymentMethod"
-                },
-                "versions": {
-                    "type": "has_many",
-                    "desc": "The associated changes.",
-                    "creatable": false,
-                    "updatable": false,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "parent_resource": "Api::SpreedlyGatewayResource",
-                    "class_name": "Version"
-                }
-            },
-            "filters": [
-                "id",
-                "name",
-                "created_at",
-                "updated_at",
-                "reference",
-                "reference_origin",
-                "metadata",
-                "q",
-                "payment_methods_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -33788,6 +35368,19 @@
                     "sortable": false,
                     "parent_resource": "Api::StockItemResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::StockItemResource"
                 }
             },
             "filters": [
@@ -34060,6 +35653,19 @@
                     "sortable": false,
                     "parent_resource": "Api::StockLineItemResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::StockLineItemResource"
                 }
             },
             "filters": [
@@ -34292,6 +35898,19 @@
                     "sortable": false,
                     "parent_resource": "Api::StockLocationResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::StockLocationResource"
                 }
             },
             "filters": [
@@ -34537,6 +36156,19 @@
                     "sortable": false,
                     "parent_resource": "Api::StockReservationResource",
                     "class_name": "Sku"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::StockReservationResource"
                 }
             },
             "filters": [
@@ -34923,6 +36555,19 @@
                     "sortable": false,
                     "parent_resource": "Api::StockTransferResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::StockTransferResource"
                 }
             },
             "filters": [
@@ -35141,6 +36786,19 @@
                     "sortable": false,
                     "parent_resource": "Api::StoreResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::StoreResource"
                 }
             },
             "filters": [
@@ -35311,7 +36969,8 @@
                 "force_payments": {
                     "type": "boolean",
                     "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.",
-                    "required": "optional, default is 'false'",
+                    "required": "optional, default is 'true'",
+                    "default": true,
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
@@ -35373,6 +37032,19 @@
                     "sortable": false,
                     "parent_resource": "Api::StripeGatewayResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::StripeGatewayResource"
                 },
                 "stripe_payments": {
                     "type": "has_many",
@@ -35696,6 +37368,19 @@
                     "sortable": false,
                     "parent_resource": "Api::StripePaymentResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::StripePaymentResource"
                 }
             },
             "filters": [
@@ -35886,6 +37571,19 @@
                     "sortable": false,
                     "parent_resource": "Api::StripeTaxAccountResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::StripeTaxAccountResource"
                 },
                 "tax_categories": {
                     "type": "has_many",
@@ -36087,6 +37785,19 @@
                     "sortable": false,
                     "parent_resource": "Api::SubscriptionModelResource",
                     "class_name": "Attachment"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::SubscriptionModelResource"
                 }
             },
             "filters": [
@@ -36209,7 +37920,21 @@
                     }
                 }
             },
-            "relationships": {},
+            "relationships": {
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::TagResource"
+                }
+            },
             "filters": [
                 "id",
                 "name",
@@ -36273,12 +37998,13 @@
                 "manage_gift_cards": {
                     "type": "boolean",
                     "desc": "Indicates if the discount engine manages both promotions and gift cards application at once.",
-                    "creatable": false,
-                    "updatable": false,
+                    "required": "optional, default is 'true'",
+                    "default": true,
+                    "creatable": true,
+                    "updatable": true,
                     "fetchable": true,
                     "filterable": false,
                     "sortable": false,
-                    "delegate": "manage_gift_cards?",
                     "example": true
                 },
                 "id": {
@@ -36414,6 +38140,19 @@
                     "sortable": false,
                     "parent_resource": "Api::TalonOneAccountResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::TalonOneAccountResource"
                 }
             },
             "filters": [
@@ -36583,6 +38322,19 @@
                     "sortable": false,
                     "parent_resource": "Api::TaxCalculatorResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::TaxCalculatorResource"
                 }
             },
             "filters": [
@@ -36766,6 +38518,19 @@
                     "sortable": false,
                     "parent_resource": "Api::TaxCategoryResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::TaxCategoryResource"
                 }
             },
             "filters": [
@@ -37045,6 +38810,19 @@
                     "sortable": false,
                     "parent_resource": "Api::TaxRuleResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::TaxRuleResource"
                 }
             },
             "filters": [
@@ -37232,6 +39010,19 @@
                     "sortable": false,
                     "parent_resource": "Api::TaxjarAccountResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::TaxjarAccountResource"
                 },
                 "tax_categories": {
                     "type": "has_many",
@@ -37528,7 +39319,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -37563,6 +39353,19 @@
                     "sortable": false,
                     "parent_resource": "Api::TransactionResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::TransactionResource"
                 }
             },
             "filters": [
@@ -37769,7 +39572,21 @@
                     }
                 }
             },
-            "relationships": {},
+            "relationships": {
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::VersionResource"
+                }
+            },
             "filters": [
                 "id",
                 "resource_type",
@@ -38031,6 +39848,19 @@
                     "sortable": false,
                     "parent_resource": "Api::VertexAccountResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::VertexAccountResource"
                 }
             },
             "filters": [
@@ -38320,7 +40150,6 @@
                         "axerve_payments",
                         "braintree_payments",
                         "checkout_com_payments",
-                        "credit_cards",
                         "external_payments",
                         "klarna_payments",
                         "paypal_payments",
@@ -38355,6 +40184,19 @@
                     "sortable": false,
                     "parent_resource": "Api::VoidResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::VoidResource"
                 },
                 "reference_authorization": {
                     "type": "has_one",
@@ -38649,6 +40491,19 @@
                     "sortable": false,
                     "parent_resource": "Api::WebhookResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::WebhookResource"
                 }
             },
             "filters": [
@@ -38798,6 +40653,19 @@
                     "sortable": false,
                     "parent_resource": "Api::WireTransferResource",
                     "class_name": "Version"
+                },
+                "event_stores": {
+                    "type": "has_many",
+                    "desc": "The associated event stores.",
+                    "class_name": "EventStore",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "virtual": true,
+                    "exportable": false,
+                    "includable": false,
+                    "parent_resource": "Api::WireTransferResource"
                 }
             },
             "filters": [

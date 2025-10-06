@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type BraintreePaymentType = 'braintree_payments'
@@ -54,6 +55,7 @@ interface BraintreePayment extends Resource {
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -138,6 +140,11 @@ class BraintreePayments extends ApiResource<BraintreePayment> {
 	async versions(braintreePaymentId: string | BraintreePayment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `braintree_payments/${_braintreePaymentId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(braintreePaymentId: string | BraintreePayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _braintreePaymentId = (braintreePaymentId as BraintreePayment).id || braintreePaymentId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `braintree_payments/${_braintreePaymentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

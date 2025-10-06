@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
 
 
@@ -62,6 +63,7 @@ interface AdyenGateway extends Resource {
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	adyen_payments?: AdyenPayment[] | null
 
 }
@@ -205,6 +207,11 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 	async versions(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _adyenGatewayId = (adyenGatewayId as AdyenGateway).id || adyenGatewayId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `adyen_gateways/${_adyenGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _adyenGatewayId = (adyenGatewayId as AdyenGateway).id || adyenGatewayId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `adyen_gateways/${_adyenGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async adyen_payments(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList<AdyenPayment>, options?: ResourcesConfig): Promise<ListResponse<AdyenPayment>> {

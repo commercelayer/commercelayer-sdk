@@ -9,6 +9,7 @@ import type { Order } from './orders'
 import type { PaymentMethod } from './payment_methods'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type StoreType = 'stores'
@@ -44,6 +45,7 @@ interface Store extends Resource {
 	payment_methods?: PaymentMethod[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -137,6 +139,11 @@ class Stores extends ApiResource<Store> {
 	async versions(storeId: string | Store, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _storeId = (storeId as Store).id || storeId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `stores/${_storeId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(storeId: string | Store, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _storeId = (storeId as Store).id || storeId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `stores/${_storeId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

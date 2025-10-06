@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Sku } from './skus'
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ShippingCategoryType = 'shipping_categories'
@@ -33,6 +34,7 @@ interface ShippingCategory extends Resource {
 	skus?: Sku[] | null
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -98,6 +100,11 @@ class ShippingCategories extends ApiResource<ShippingCategory> {
 	async versions(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_categories/${_shippingCategoryId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(shippingCategoryId: string | ShippingCategory, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _shippingCategoryId = (shippingCategoryId as ShippingCategory).id || shippingCategoryId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `shipping_categories/${_shippingCategoryId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

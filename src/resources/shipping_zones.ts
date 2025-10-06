@@ -4,6 +4,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Attachment } from './attachments'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ShippingZoneType = 'shipping_zones'
@@ -56,6 +57,7 @@ interface ShippingZone extends Resource {
 
 	attachments?: Attachment[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -166,6 +168,11 @@ class ShippingZones extends ApiResource<ShippingZone> {
 	async versions(shippingZoneId: string | ShippingZone, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_zones/${_shippingZoneId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(shippingZoneId: string | ShippingZone, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `shipping_zones/${_shippingZoneId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

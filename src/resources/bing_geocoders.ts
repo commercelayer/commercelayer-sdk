@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Market } from './markets'
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
+import type { EventStore } from './event_stores'
 
 
 type BingGeocoderType = 'bing_geocoders'
@@ -28,6 +29,7 @@ interface BingGeocoder extends Resource {
 	markets?: Market[] | null
 	addresses?: Address[] | null
 	attachments?: Attachment[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -93,6 +95,11 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 	async attachments(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `bing_geocoders/${_bingGeocoderId}/attachments`, params, options) as unknown as ListResponse<Attachment>
+	}
+
+	async event_stores(bingGeocoderId: string | BingGeocoder, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _bingGeocoderId = (bingGeocoderId as BingGeocoder).id || bingGeocoderId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `bing_geocoders/${_bingGeocoderId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 

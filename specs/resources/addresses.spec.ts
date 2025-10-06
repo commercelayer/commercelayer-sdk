@@ -28,7 +28,6 @@ describe('Addresses resource', () => {
     const createAttributes = {
 			line_1: randomValue('string', 'line_1'),
 			city: randomValue('string', 'city'),
-			state_code: randomValue('string', 'state_code'),
 			country_code: randomValue('string', 'country_code'),
 			phone: randomValue('string', 'phone'),
 			geocoder: cl.geocoders.relationship(TestData.id),
@@ -289,6 +288,27 @@ describe('Addresses resource', () => {
 	
 	})
 	/* relationship.versions stop */
+	
+
+	/* relationship.event_stores start */
+	it(resourceType + '.event_stores', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { event_stores: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'event_stores')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath].event_stores(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.event_stores stop */
 	
   
 

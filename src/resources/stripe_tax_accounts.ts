@@ -6,6 +6,7 @@ import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { TaxCategory, TaxCategoryType } from './tax_categories'
 
 
@@ -37,6 +38,7 @@ interface StripeTaxAccount extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	tax_categories?: TaxCategory[] | null
 
 }
@@ -122,6 +124,11 @@ class StripeTaxAccounts extends ApiResource<StripeTaxAccount> {
 	async versions(stripeTaxAccountId: string | StripeTaxAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _stripeTaxAccountId = (stripeTaxAccountId as StripeTaxAccount).id || stripeTaxAccountId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_tax_accounts/${_stripeTaxAccountId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(stripeTaxAccountId: string | StripeTaxAccount, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _stripeTaxAccountId = (stripeTaxAccountId as StripeTaxAccount).id || stripeTaxAccountId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `stripe_tax_accounts/${_stripeTaxAccountId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async tax_categories(stripeTaxAccountId: string | StripeTaxAccount, params?: QueryParamsList<TaxCategory>, options?: ResourcesConfig): Promise<ListResponse<TaxCategory>> {

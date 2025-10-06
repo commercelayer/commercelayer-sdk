@@ -12,6 +12,7 @@ import type { ShippingWeightTier } from './shipping_weight_tiers'
 import type { Attachment } from './attachments'
 import type { Notification } from './notifications'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ShippingMethodType = 'shipping_methods'
@@ -134,6 +135,11 @@ interface ShippingMethod extends Resource {
 	 * @example ```5```
 	 */
 	circuit_failure_count?: number | null
+	/** 
+	 * The shared secret used to sign the external request payload.
+	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
+	 */
+	shared_secret: string
 
 	market?: Market | null
 	shipping_zone?: ShippingZone | null
@@ -145,6 +151,7 @@ interface ShippingMethod extends Resource {
 	attachments?: Attachment[] | null
 	notifications?: Notification[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -372,6 +379,11 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 	async versions(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_methods/${_shippingMethodId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `shipping_methods/${_shippingMethodId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _disable(id: string | ShippingMethod, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {

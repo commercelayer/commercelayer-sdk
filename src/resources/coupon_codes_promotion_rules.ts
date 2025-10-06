@@ -3,6 +3,7 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 import type { Coupon, CouponType } from './coupons'
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
 import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
@@ -38,6 +39,7 @@ interface CouponCodesPromotionRule extends Resource {
 
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 	coupons?: Coupon[] | null
 
 }
@@ -78,6 +80,11 @@ class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
 	async versions(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _couponCodesPromotionRuleId = (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || couponCodesPromotionRuleId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _couponCodesPromotionRuleId = (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || couponCodesPromotionRuleId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async coupons(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList<Coupon>, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {

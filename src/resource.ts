@@ -8,6 +8,7 @@ import config from './config'
 
 
 import Debug from './debug'
+import { SdkError } from './error'
 const debug = Debug('resource')
 
 
@@ -302,7 +303,9 @@ abstract class ApiResourceBase<R extends Resource> {
 abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 
 	async retrieve(id: string | ResourceId, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
-		return this.resources.retrieve<R>((typeof id === 'string') ? { type: this.type(), id } : id, params, options)
+		const resId = (typeof id === 'string') ? { type: this.type(), id } : id
+		if (!resId.id) throw new SdkError({ message: 'Resource id cannot be blank' })
+		return this.resources.retrieve<R>(resId, params, options)
 	}
 
 	async list(params?: QueryParamsList<R>, options?: ResourcesConfig): Promise<ListResponse<R>> {

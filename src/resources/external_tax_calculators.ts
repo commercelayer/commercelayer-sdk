@@ -6,6 +6,7 @@ import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Version } from './versions'
+import type { EventStore } from './event_stores'
 
 
 type ExternalTaxCalculatorType = 'external_tax_calculators'
@@ -50,6 +51,7 @@ interface ExternalTaxCalculator extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	versions?: Version[] | null
+	event_stores?: EventStore[] | null
 
 }
 
@@ -125,6 +127,11 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 	async versions(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `external_tax_calculators/${_externalTaxCalculatorId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async event_stores(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
+		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
+		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `external_tax_calculators/${_externalTaxCalculatorId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
 	}
 
 	async _reset_circuit(id: string | ExternalTaxCalculator, params?: QueryParamsRetrieve<ExternalTaxCalculator>, options?: ResourcesConfig): Promise<ExternalTaxCalculator> {
