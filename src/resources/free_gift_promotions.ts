@@ -376,6 +376,7 @@ class FreeGiftPromotions extends ApiResource<FreeGiftPromotion> {
 }
 
 
-export default FreeGiftPromotions
+const instance = new FreeGiftPromotions()
+export default instance
 
-export type { FreeGiftPromotion, FreeGiftPromotionCreate, FreeGiftPromotionUpdate, FreeGiftPromotionType }
+export type { FreeGiftPromotions, FreeGiftPromotion, FreeGiftPromotionCreate, FreeGiftPromotionUpdate, FreeGiftPromotionType }

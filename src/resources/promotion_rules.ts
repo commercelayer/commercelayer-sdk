@@ -70,6 +70,7 @@ class PromotionRules extends ApiResource<PromotionRule> {
 }
 
 
-export default PromotionRules
+const instance = new PromotionRules()
+export default instance
 
-export type { PromotionRule, PromotionRuleType }
+export type { PromotionRules, PromotionRule, PromotionRuleType }

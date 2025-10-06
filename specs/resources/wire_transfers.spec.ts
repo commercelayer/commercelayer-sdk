@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, WireTransfer } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, WireTransfer, wire_transfers, orders } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,10 +24,10 @@ describe('WireTransfers resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
-			order: cl.orders.relationship(TestData.id),
+			order: orders.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -38,11 +39,11 @@ describe('WireTransfers resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isWireTransfer(data.data)).toBeTruthy()
+      expect(wire_transfers.isWireTransfer(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await wire_transfers.create(resData, params, CommonData.options)
       .then((res: WireTransfer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -52,7 +53,7 @@ describe('WireTransfers resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -64,7 +65,7 @@ describe('WireTransfers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await wire_transfers.retrieve(id, params, CommonData.options)
       .then((res: WireTransfer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -74,7 +75,7 @@ describe('WireTransfers resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -88,7 +89,7 @@ describe('WireTransfers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await wire_transfers.update(resData, params, CommonData.options)
       .then((res: WireTransfer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -98,7 +99,7 @@ describe('WireTransfers resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -108,7 +109,7 @@ describe('WireTransfers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await wire_transfers.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -117,7 +118,7 @@ describe('WireTransfers resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -128,7 +129,7 @@ describe('WireTransfers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await wire_transfers.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -137,12 +138,12 @@ describe('WireTransfers resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isWireTransfer(resource)).toBeTruthy()
+    expect(wire_transfers.isWireTransfer(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = wire_transfers.type()
     expect(type).toBe(resourceType)
 
   })
@@ -150,12 +151,12 @@ describe('WireTransfers resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = wire_transfers.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = wire_transfers.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -164,7 +165,7 @@ describe('WireTransfers resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -190,7 +191,7 @@ describe('WireTransfers resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as WireTransfer
+    const res = wire_transfers.parse(payload) as WireTransfer
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -199,10 +200,19 @@ describe('WireTransfers resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(wire_transfers)
+		expect(wire_transfers.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.order start */
-	it(resourceType + '.order', async () => {
+	test(resourceType + '.order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -214,7 +224,7 @@ describe('WireTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await wire_transfers.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -222,8 +232,9 @@ describe('WireTransfers resource', () => {
 	/* relationship.order stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -235,7 +246,7 @@ describe('WireTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await wire_transfers.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -243,8 +254,9 @@ describe('WireTransfers resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.event_stores start */
-	it(resourceType + '.event_stores', async () => {
+	test(resourceType + '.event_stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_stores: CommonData.paramsFields } }
@@ -256,7 +268,7 @@ describe('WireTransfers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].event_stores(id, params, CommonData.options)
+		await wire_transfers.event_stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

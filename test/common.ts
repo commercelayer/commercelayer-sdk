@@ -1,15 +1,13 @@
 
-import getToken from './token'
-import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
 import dotenv from 'dotenv'
-import { inspect, isDeepStrictEqual } from 'util'
-import { RequestConfig } from '../src/client'
-import { Resource } from '../src/resource'
+import getToken from './token'
+import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj, Resource } from '../src'
+import { inspect, isDeepStrictEqual } from 'node:util'
 
 
 dotenv.config()
 
-const GLOBAL_TIMEOUT = 15000
+export const GLOBAL_TIMEOUT = 15000
 
 const organization = process.env.CL_SDK_ORGANIZATION as string
 const domain = process.env.CL_SDK_DOMAIN as string
@@ -18,7 +16,7 @@ export { organization, domain }
 
 const INTERCEPTOR_CANCEL = 'TEST-INTERCEPTED'
 const REQUEST_TIMEOUT = 5550
-const REQUEST_OPTIONS: RequestConfig = {
+const REQUEST_OPTIONS: CommerceLayerConfig = {
 	timeout: REQUEST_TIMEOUT,
 	params: { }
 } as const
@@ -73,7 +71,8 @@ const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerCli
 	currentAccessToken = accessToken
 
 	client.config({ timeout: config.timeout || GLOBAL_TIMEOUT })
-	try { jest.setTimeout(config.timeout || GLOBAL_TIMEOUT) } catch(err: any) {}
+	try { vi.setConfig({ testTimeout: config.timeout || GLOBAL_TIMEOUT })  } catch(err: any) {}
+
 
 	return client
 
@@ -89,7 +88,7 @@ const fakeClient = async (): Promise<CommerceLayerClient> => {
 
 
 const getClient = (config?: CommerceLayerConfig): Promise<CommerceLayerClient> => {
-	return config ?  initClient(config) : fakeClient()
+	return config ? initClient(config) : fakeClient()
 }
 
 const printObject = (obj: unknown): string => {
@@ -151,8 +150,9 @@ export { handleError, interceptRequest, randomValue }
 
 const checkCommon = (request: RequestObj, path: string, id?: string, token?: string, relationship?: string) => {
 	expect(request.url.pathname).toBe('/api/' + path + (id ? `/${id}` : '') + (relationship ? `/${relationship}` : ''))
-	expect(request.options.headers).toBeDefined()
-	if (request.options.headers) expect(request.options.headers['Authorization']).toContain('Bearer ' + (token || ''))
+	const requestOptionsHeaders = request.options.headers as Record<string, string>
+	expect(requestOptionsHeaders).toBeDefined()
+	if (requestOptionsHeaders) expect(requestOptionsHeaders['Authorization']).toContain('Bearer ' + (token || ''))
 	expect(request.options.signal).not.toBeNull()
 }
 

@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, OrderFactory } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, OrderFactory, order_factories } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('OrderFactories resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -35,7 +36,7 @@ describe('OrderFactories resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await order_factories.retrieve(id, params, CommonData.options)
       .then((res: OrderFactory) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -45,7 +46,7 @@ describe('OrderFactories resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -56,7 +57,7 @@ describe('OrderFactories resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await order_factories.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -65,12 +66,12 @@ describe('OrderFactories resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isOrderFactory(resource)).toBeTruthy()
+    expect(order_factories.isOrderFactory(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = order_factories.type()
     expect(type).toBe(resourceType)
 
   })
@@ -78,12 +79,12 @@ describe('OrderFactories resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = order_factories.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = order_factories.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -92,7 +93,7 @@ describe('OrderFactories resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -118,7 +119,7 @@ describe('OrderFactories resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as OrderFactory
+    const res = order_factories.parse(payload) as OrderFactory
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -127,10 +128,19 @@ describe('OrderFactories resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(order_factories)
+		expect(order_factories.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.source_order start */
-	it(resourceType + '.source_order', async () => {
+	test(resourceType + '.source_order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -142,7 +152,7 @@ describe('OrderFactories resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].source_order(id, params, CommonData.options)
+		await order_factories.source_order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -150,8 +160,9 @@ describe('OrderFactories resource', () => {
 	/* relationship.source_order stop */
 	
 
+	
 	/* relationship.target_order start */
-	it(resourceType + '.target_order', async () => {
+	test(resourceType + '.target_order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -163,7 +174,7 @@ describe('OrderFactories resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].target_order(id, params, CommonData.options)
+		await order_factories.target_order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -171,8 +182,9 @@ describe('OrderFactories resource', () => {
 	/* relationship.target_order stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -184,7 +196,7 @@ describe('OrderFactories resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await order_factories.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -192,8 +204,9 @@ describe('OrderFactories resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.event_stores start */
-	it(resourceType + '.event_stores', async () => {
+	test(resourceType + '.event_stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_stores: CommonData.paramsFields } }
@@ -205,7 +218,7 @@ describe('OrderFactories resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].event_stores(id, params, CommonData.options)
+		await order_factories.event_stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

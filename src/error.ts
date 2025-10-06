@@ -32,6 +32,7 @@ class SdkError extends Error {
 
 }
 
+
 class ApiError extends SdkError {
 
 	static NAME = 'ApiError'
@@ -58,7 +59,7 @@ class ApiError extends SdkError {
 
 
 const isRequestError = (error: any): error is TypeError => {
-	return error instanceof TypeError
+	return (error instanceof TypeError) && (error.message !== 'fetch failed')
 }
 
 const isCancelError = (error: any): boolean => {
@@ -119,3 +120,12 @@ const handleError = (error: Error): never => {
 
 
 export { SdkError, ApiError, ErrorType, handleError, isExpiredTokenError }
+
+
+export function isSdkError(error: unknown): error is SdkError {
+	return SdkError.isSdkError(error)
+}
+
+export function isApiError(error: unknown): error is ApiError {
+	return ApiError.isApiError(error)
+}

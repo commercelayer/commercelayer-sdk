@@ -372,6 +372,7 @@ class Markets extends ApiResource<Market> {
 }
 
 
-export default Markets
+const instance = new Markets()
+export default instance
 
-export type { Market, MarketCreate, MarketUpdate, MarketType }
+export type { Markets, Market, MarketCreate, MarketUpdate, MarketType }

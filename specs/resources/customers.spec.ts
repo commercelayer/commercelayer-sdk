@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, Customer } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, Customer, customers, customer_groups, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,12 +24,12 @@ describe('Customers resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			email: randomValue('string', 'email'),
-			customer_group: cl.customer_groups.relationship(TestData.id),
-			tags: [ cl.tags.relationship(TestData.id) ],
+			customer_group: customer_groups.relationship(TestData.id),
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -40,11 +41,11 @@ describe('Customers resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isCustomer(data.data)).toBeTruthy()
+      expect(customers.isCustomer(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await customers.create(resData, params, CommonData.options)
       .then((res: Customer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -54,7 +55,7 @@ describe('Customers resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -66,7 +67,7 @@ describe('Customers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await customers.retrieve(id, params, CommonData.options)
       .then((res: Customer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -76,7 +77,7 @@ describe('Customers resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -90,7 +91,7 @@ describe('Customers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await customers.update(resData, params, CommonData.options)
       .then((res: Customer) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -100,7 +101,7 @@ describe('Customers resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -110,7 +111,7 @@ describe('Customers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await customers.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -119,7 +120,7 @@ describe('Customers resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -130,7 +131,7 @@ describe('Customers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await customers.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -139,12 +140,12 @@ describe('Customers resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isCustomer(resource)).toBeTruthy()
+    expect(customers.isCustomer(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = customers.type()
     expect(type).toBe(resourceType)
 
   })
@@ -152,12 +153,12 @@ describe('Customers resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = customers.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = customers.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -166,7 +167,7 @@ describe('Customers resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -192,7 +193,7 @@ describe('Customers resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Customer
+    const res = customers.parse(payload) as Customer
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -201,10 +202,19 @@ describe('Customers resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(customers)
+		expect(customers.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.customer_group start */
-	it(resourceType + '.customer_group', async () => {
+	test(resourceType + '.customer_group', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customer_groups: CommonData.paramsFields } }
@@ -216,7 +226,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer_group(id, params, CommonData.options)
+		await customers.customer_group(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -224,8 +234,9 @@ describe('Customers resource', () => {
 	/* relationship.customer_group stop */
 	
 
+	
 	/* relationship.customer_addresses start */
-	it(resourceType + '.customer_addresses', async () => {
+	test(resourceType + '.customer_addresses', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customer_addresses: CommonData.paramsFields } }
@@ -237,7 +248,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer_addresses(id, params, CommonData.options)
+		await customers.customer_addresses(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -245,8 +256,9 @@ describe('Customers resource', () => {
 	/* relationship.customer_addresses stop */
 	
 
+	
 	/* relationship.customer_payment_sources start */
-	it(resourceType + '.customer_payment_sources', async () => {
+	test(resourceType + '.customer_payment_sources', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customer_payment_sources: CommonData.paramsFields } }
@@ -258,7 +270,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer_payment_sources(id, params, CommonData.options)
+		await customers.customer_payment_sources(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -266,8 +278,9 @@ describe('Customers resource', () => {
 	/* relationship.customer_payment_sources stop */
 	
 
+	
 	/* relationship.customer_subscriptions start */
-	it(resourceType + '.customer_subscriptions', async () => {
+	test(resourceType + '.customer_subscriptions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customer_subscriptions: CommonData.paramsFields } }
@@ -279,7 +292,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].customer_subscriptions(id, params, CommonData.options)
+		await customers.customer_subscriptions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -287,8 +300,9 @@ describe('Customers resource', () => {
 	/* relationship.customer_subscriptions stop */
 	
 
+	
 	/* relationship.orders start */
-	it(resourceType + '.orders', async () => {
+	test(resourceType + '.orders', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -300,7 +314,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].orders(id, params, CommonData.options)
+		await customers.orders(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -308,8 +322,9 @@ describe('Customers resource', () => {
 	/* relationship.orders stop */
 	
 
+	
 	/* relationship.order_subscriptions start */
-	it(resourceType + '.order_subscriptions', async () => {
+	test(resourceType + '.order_subscriptions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { order_subscriptions: CommonData.paramsFields } }
@@ -321,7 +336,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order_subscriptions(id, params, CommonData.options)
+		await customers.order_subscriptions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -329,8 +344,9 @@ describe('Customers resource', () => {
 	/* relationship.order_subscriptions stop */
 	
 
+	
 	/* relationship.returns start */
-	it(resourceType + '.returns', async () => {
+	test(resourceType + '.returns', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { returns: CommonData.paramsFields } }
@@ -342,7 +358,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].returns(id, params, CommonData.options)
+		await customers.returns(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -350,8 +366,9 @@ describe('Customers resource', () => {
 	/* relationship.returns stop */
 	
 
+	
 	/* relationship.sku_lists start */
-	it(resourceType + '.sku_lists', async () => {
+	test(resourceType + '.sku_lists', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { sku_lists: CommonData.paramsFields } }
@@ -363,7 +380,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku_lists(id, params, CommonData.options)
+		await customers.sku_lists(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -371,8 +388,9 @@ describe('Customers resource', () => {
 	/* relationship.sku_lists stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -384,7 +402,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await customers.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -392,8 +410,9 @@ describe('Customers resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -405,7 +424,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await customers.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -413,8 +432,9 @@ describe('Customers resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.tags start */
-	it(resourceType + '.tags', async () => {
+	test(resourceType + '.tags', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tags: CommonData.paramsFields } }
@@ -426,7 +446,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tags(id, params, CommonData.options)
+		await customers.tags(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -434,8 +454,9 @@ describe('Customers resource', () => {
 	/* relationship.tags stop */
 	
 
+	
 	/* relationship.jwt_customer start */
-	it(resourceType + '.jwt_customer', async () => {
+	test(resourceType + '.jwt_customer', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { customers: CommonData.paramsFields } }
@@ -447,7 +468,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].jwt_customer(id, params, CommonData.options)
+		await customers.jwt_customer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -455,8 +476,9 @@ describe('Customers resource', () => {
 	/* relationship.jwt_customer stop */
 	
 
+	
 	/* relationship.jwt_markets start */
-	it(resourceType + '.jwt_markets', async () => {
+	test(resourceType + '.jwt_markets', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -468,7 +490,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].jwt_markets(id, params, CommonData.options)
+		await customers.jwt_markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -476,8 +498,9 @@ describe('Customers resource', () => {
 	/* relationship.jwt_markets stop */
 	
 
+	
 	/* relationship.jwt_stock_locations start */
-	it(resourceType + '.jwt_stock_locations', async () => {
+	test(resourceType + '.jwt_stock_locations', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_locations: CommonData.paramsFields } }
@@ -489,7 +512,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].jwt_stock_locations(id, params, CommonData.options)
+		await customers.jwt_stock_locations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -497,8 +520,9 @@ describe('Customers resource', () => {
 	/* relationship.jwt_stock_locations stop */
 	
 
+	
 	/* relationship.event_stores start */
-	it(resourceType + '.event_stores', async () => {
+	test(resourceType + '.event_stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_stores: CommonData.paramsFields } }
@@ -510,7 +534,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].event_stores(id, params, CommonData.options)
+		await customers.event_stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -519,8 +543,9 @@ describe('Customers resource', () => {
 	
   
 
+	
 	/* trigger._add_tags start */
-	it(resourceType + '._add_tags', async () => {
+	test(resourceType + '._add_tags', async () => {
 	
 		let triggerAttr = '_add_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -537,7 +562,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._add_tags(id, triggerValue, {}, CommonData.options)
+		await customers._add_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -545,8 +570,9 @@ describe('Customers resource', () => {
 	/* trigger._add_tags stop */
 	
 
+	
 	/* trigger._remove_tags start */
-	it(resourceType + '._remove_tags', async () => {
+	test(resourceType + '._remove_tags', async () => {
 	
 		let triggerAttr = '_remove_tags'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -563,7 +589,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._remove_tags(id, triggerValue, {}, CommonData.options)
+		await customers._remove_tags(id, triggerValue, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -571,8 +597,9 @@ describe('Customers resource', () => {
 	/* trigger._remove_tags stop */
 	
 
+	
 	/* trigger._request_anonymization start */
-	it(resourceType + '._request_anonymization', async () => {
+	test(resourceType + '._request_anonymization', async () => {
 	
 		let triggerAttr = '_request_anonymization'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -589,7 +616,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._request_anonymization(id, {}, CommonData.options)
+		await customers._request_anonymization(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -597,8 +624,9 @@ describe('Customers resource', () => {
 	/* trigger._request_anonymization stop */
 	
 
+	
 	/* trigger._cancel_anonymization start */
-	it(resourceType + '._cancel_anonymization', async () => {
+	test(resourceType + '._cancel_anonymization', async () => {
 	
 		let triggerAttr = '_cancel_anonymization'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -615,7 +643,7 @@ describe('Customers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._cancel_anonymization(id, {}, CommonData.options)
+		await customers._cancel_anonymization(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, EasypostPickup } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, EasypostPickup, easypost_pickups, shipments } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,12 +24,12 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			min_datetime: randomValue('string', 'min_datetime'),
 			max_datetime: randomValue('string', 'max_datetime'),
-			shipment: cl.shipments.relationship(TestData.id),
+			shipment: shipments.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -40,11 +41,11 @@ describe('EasypostPickups resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isEasypostPickup(data.data)).toBeTruthy()
+      expect(easypost_pickups.isEasypostPickup(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await easypost_pickups.create(resData, params, CommonData.options)
       .then((res: EasypostPickup) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -54,7 +55,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -66,7 +67,7 @@ describe('EasypostPickups resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await easypost_pickups.retrieve(id, params, CommonData.options)
       .then((res: EasypostPickup) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -76,7 +77,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -90,7 +91,7 @@ describe('EasypostPickups resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await easypost_pickups.update(resData, params, CommonData.options)
       .then((res: EasypostPickup) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -100,7 +101,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -110,7 +111,7 @@ describe('EasypostPickups resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await easypost_pickups.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -119,7 +120,7 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -130,7 +131,7 @@ describe('EasypostPickups resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await easypost_pickups.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -139,12 +140,12 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isEasypostPickup(resource)).toBeTruthy()
+    expect(easypost_pickups.isEasypostPickup(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = easypost_pickups.type()
     expect(type).toBe(resourceType)
 
   })
@@ -152,12 +153,12 @@ describe('EasypostPickups resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = easypost_pickups.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = easypost_pickups.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -166,7 +167,7 @@ describe('EasypostPickups resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -192,7 +193,7 @@ describe('EasypostPickups resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as EasypostPickup
+    const res = easypost_pickups.parse(payload) as EasypostPickup
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -201,10 +202,19 @@ describe('EasypostPickups resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(easypost_pickups)
+		expect(easypost_pickups.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.shipment start */
-	it(resourceType + '.shipment', async () => {
+	test(resourceType + '.shipment', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { shipments: CommonData.paramsFields } }
@@ -216,7 +226,7 @@ describe('EasypostPickups resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].shipment(id, params, CommonData.options)
+		await easypost_pickups.shipment(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -224,8 +234,9 @@ describe('EasypostPickups resource', () => {
 	/* relationship.shipment stop */
 	
 
+	
 	/* relationship.parcels start */
-	it(resourceType + '.parcels', async () => {
+	test(resourceType + '.parcels', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { parcels: CommonData.paramsFields } }
@@ -237,7 +248,7 @@ describe('EasypostPickups resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].parcels(id, params, CommonData.options)
+		await easypost_pickups.parcels(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -245,8 +256,9 @@ describe('EasypostPickups resource', () => {
 	/* relationship.parcels stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -258,7 +270,7 @@ describe('EasypostPickups resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await easypost_pickups.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -266,8 +278,9 @@ describe('EasypostPickups resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.event_stores start */
-	it(resourceType + '.event_stores', async () => {
+	test(resourceType + '.event_stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_stores: CommonData.paramsFields } }
@@ -279,7 +292,7 @@ describe('EasypostPickups resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].event_stores(id, params, CommonData.options)
+		await easypost_pickups.event_stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -288,8 +301,9 @@ describe('EasypostPickups resource', () => {
 	
   
 
+	
 	/* trigger._purchase start */
-	it(resourceType + '._purchase', async () => {
+	test(resourceType + '._purchase', async () => {
 	
 		let triggerAttr = '_purchase'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -306,7 +320,7 @@ describe('EasypostPickups resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._purchase(id, {}, CommonData.options)
+		await easypost_pickups._purchase(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

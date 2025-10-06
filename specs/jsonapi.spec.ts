@@ -1,8 +1,8 @@
 
-import { CommerceLayerClient } from '../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { type CommerceLayerClient, customer_subscriptions, customers, orders, ResourceTypeLock } from '../src'
 import { getClient, TestData } from '../test/common'
 import { normalize, denormalize } from '../src/jsonapi'
-import { ResourceTypeLock } from '../src/api'
 import { isDeepStrictEqual } from 'node:util'
 
 
@@ -14,7 +14,7 @@ beforeAll(async () => { cl = await getClient() })
 
 describe('SDK:jsonapi suite', () => {
 
-	it('jsonapi.normalize', async () => {
+	test('jsonapi.normalize', async () => {
 
 		const type: ResourceTypeLock = 'customers'
 
@@ -24,9 +24,9 @@ describe('SDK:jsonapi suite', () => {
 			reference: TestData.reference,
 			reference_origin: TestData.reference_origin,
 			metadata: TestData.metadata,
-			customer_group: cl.customers.relationship(TestData.id),
-			order: cl.orders.relationship(TestData.id),
-			customer_subscriptions: cl.customer_subscriptions.relationship(null)
+			customer_group: customers.relationship(TestData.id),
+			order: orders.relationship(TestData.id),
+			customer_subscriptions: customer_subscriptions.relationship(null)
 		}
 
 		const expected = {
@@ -57,7 +57,7 @@ describe('SDK:jsonapi suite', () => {
 	})
 
 
-	it('jsonapi.denormalize', async () => {
+	test('jsonapi.denormalize', async () => {
 
 		const jsonApi = {
 			data: {

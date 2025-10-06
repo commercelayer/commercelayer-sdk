@@ -134,6 +134,7 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 }
 
 
-export default PaypalGateways
+const instance = new PaypalGateways()
+export default instance
 
-export type { PaypalGateway, PaypalGatewayCreate, PaypalGatewayUpdate, PaypalGatewayType }
+export type { PaypalGateways, PaypalGateway, PaypalGatewayCreate, PaypalGatewayUpdate, PaypalGatewayType }

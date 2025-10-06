@@ -2,7 +2,7 @@
 import type { Value as JSONValue } from 'json-typescript'
 import type { DocWithData, Included, ResourceIdentifierObject, ResourceObject as JSONAPIObject, AttributesObject, RelationshipsObject } from 'jsonapi-typescript'
 import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource, ResourceRel } from './resource'
-import { isResourceId, isResourceType } from './common'
+import { isResourceId, isResourceType } from './resource'
 import config from './config'
 
 import Debug from './debug'

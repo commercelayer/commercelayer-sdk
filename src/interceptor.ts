@@ -1,5 +1,6 @@
 import type { FetchError, FetchRequestOptions } from "./fetch"
 
+
 type InterceptorEventManager<S extends (RequestInterceptor | ResponseInterceptor), F extends (ErrorInterceptor | ResponseInterceptor)> = {
 	onSuccess?: S
 	onFailure?: F
@@ -27,8 +28,8 @@ type ResponseObj = Response
 type ResponseInterceptor = (response: ResponseObj) => ResponseObj | Promise<ResponseObj>
 
 // Headers
-type ApiHeadersList = 'x-ratelimit-limit' | 'x-ratelimit-interval' | 'x-ratelimit-remaining' // | 'x-ratelimit-count' | 'x-ratelimit-period'
-type ApiHeaders = { [key in ApiHeadersList]: string | number | boolean }
+type ApiHeadersLock = 'x-ratelimit-limit' | 'x-ratelimit-interval' | 'x-ratelimit-remaining' // | 'x-ratelimit-count' | 'x-ratelimit-period'
+type ApiHeaders = { [key in ApiHeadersLock]: string | number | boolean }
 type HeadersObj = Record<string, string> | ApiHeaders
 
 // Error

@@ -100,6 +100,7 @@ class WireTransfers extends ApiResource<WireTransfer> {
 }
 
 
-export default WireTransfers
+const instance = new WireTransfers()
+export default instance
 
-export type { WireTransfer, WireTransferCreate, WireTransferUpdate, WireTransferType }
+export type { WireTransfers, WireTransfer, WireTransferCreate, WireTransferUpdate, WireTransferType }

@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, TaxjarAccount } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, TaxjarAccount, taxjar_accounts, tax_categories } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,12 +24,12 @@ describe('TaxjarAccounts resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
 			api_key: randomValue('string', 'api_key'),
-			tax_categories: [ cl.tax_categories.relationship(TestData.id) ],
+			tax_categories: [ tax_categories.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -40,11 +41,11 @@ describe('TaxjarAccounts resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isTaxjarAccount(data.data)).toBeTruthy()
+      expect(taxjar_accounts.isTaxjarAccount(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await taxjar_accounts.create(resData, params, CommonData.options)
       .then((res: TaxjarAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -54,7 +55,7 @@ describe('TaxjarAccounts resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -66,7 +67,7 @@ describe('TaxjarAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await taxjar_accounts.retrieve(id, params, CommonData.options)
       .then((res: TaxjarAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -76,7 +77,7 @@ describe('TaxjarAccounts resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -90,7 +91,7 @@ describe('TaxjarAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await taxjar_accounts.update(resData, params, CommonData.options)
       .then((res: TaxjarAccount) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -100,7 +101,7 @@ describe('TaxjarAccounts resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -110,7 +111,7 @@ describe('TaxjarAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await taxjar_accounts.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -119,7 +120,7 @@ describe('TaxjarAccounts resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -130,7 +131,7 @@ describe('TaxjarAccounts resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await taxjar_accounts.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -139,12 +140,12 @@ describe('TaxjarAccounts resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isTaxjarAccount(resource)).toBeTruthy()
+    expect(taxjar_accounts.isTaxjarAccount(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = taxjar_accounts.type()
     expect(type).toBe(resourceType)
 
   })
@@ -152,12 +153,12 @@ describe('TaxjarAccounts resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = taxjar_accounts.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = taxjar_accounts.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -166,7 +167,7 @@ describe('TaxjarAccounts resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -192,7 +193,7 @@ describe('TaxjarAccounts resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as TaxjarAccount
+    const res = taxjar_accounts.parse(payload) as TaxjarAccount
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -201,10 +202,19 @@ describe('TaxjarAccounts resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(taxjar_accounts)
+		expect(taxjar_accounts.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.markets start */
-	it(resourceType + '.markets', async () => {
+	test(resourceType + '.markets', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -216,7 +226,7 @@ describe('TaxjarAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].markets(id, params, CommonData.options)
+		await taxjar_accounts.markets(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -224,8 +234,9 @@ describe('TaxjarAccounts resource', () => {
 	/* relationship.markets stop */
 	
 
+	
 	/* relationship.attachments start */
-	it(resourceType + '.attachments', async () => {
+	test(resourceType + '.attachments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { attachments: CommonData.paramsFields } }
@@ -237,7 +248,7 @@ describe('TaxjarAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].attachments(id, params, CommonData.options)
+		await taxjar_accounts.attachments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -245,8 +256,9 @@ describe('TaxjarAccounts resource', () => {
 	/* relationship.attachments stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -258,7 +270,7 @@ describe('TaxjarAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await taxjar_accounts.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -266,8 +278,9 @@ describe('TaxjarAccounts resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -279,7 +292,7 @@ describe('TaxjarAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await taxjar_accounts.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -287,8 +300,9 @@ describe('TaxjarAccounts resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.event_stores start */
-	it(resourceType + '.event_stores', async () => {
+	test(resourceType + '.event_stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_stores: CommonData.paramsFields } }
@@ -300,7 +314,7 @@ describe('TaxjarAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].event_stores(id, params, CommonData.options)
+		await taxjar_accounts.event_stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -308,8 +322,9 @@ describe('TaxjarAccounts resource', () => {
 	/* relationship.event_stores stop */
 	
 
+	
 	/* relationship.tax_categories start */
-	it(resourceType + '.tax_categories', async () => {
+	test(resourceType + '.tax_categories', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { tax_categories: CommonData.paramsFields } }
@@ -321,7 +336,7 @@ describe('TaxjarAccounts resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].tax_categories(id, params, CommonData.options)
+		await taxjar_accounts.tax_categories(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

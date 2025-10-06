@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, ReservedStock } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, ReservedStock, reserved_stocks } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('ReservedStocks resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -35,7 +36,7 @@ describe('ReservedStocks resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await reserved_stocks.retrieve(id, params, CommonData.options)
       .then((res: ReservedStock) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -45,7 +46,7 @@ describe('ReservedStocks resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -56,7 +57,7 @@ describe('ReservedStocks resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await reserved_stocks.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -65,12 +66,12 @@ describe('ReservedStocks resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isReservedStock(resource)).toBeTruthy()
+    expect(reserved_stocks.isReservedStock(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = reserved_stocks.type()
     expect(type).toBe(resourceType)
 
   })
@@ -78,12 +79,12 @@ describe('ReservedStocks resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = reserved_stocks.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = reserved_stocks.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -92,7 +93,7 @@ describe('ReservedStocks resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -118,7 +119,7 @@ describe('ReservedStocks resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ReservedStock
+    const res = reserved_stocks.parse(payload) as ReservedStock
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -127,10 +128,19 @@ describe('ReservedStocks resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(reserved_stocks)
+		expect(reserved_stocks.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.stock_item start */
-	it(resourceType + '.stock_item', async () => {
+	test(resourceType + '.stock_item', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_items: CommonData.paramsFields } }
@@ -142,7 +152,7 @@ describe('ReservedStocks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_item(id, params, CommonData.options)
+		await reserved_stocks.stock_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -150,8 +160,9 @@ describe('ReservedStocks resource', () => {
 	/* relationship.stock_item stop */
 	
 
+	
 	/* relationship.sku start */
-	it(resourceType + '.sku', async () => {
+	test(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { skus: CommonData.paramsFields } }
@@ -163,7 +174,7 @@ describe('ReservedStocks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku(id, params, CommonData.options)
+		await reserved_stocks.sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -171,8 +182,9 @@ describe('ReservedStocks resource', () => {
 	/* relationship.sku stop */
 	
 
+	
 	/* relationship.stock_reservations start */
-	it(resourceType + '.stock_reservations', async () => {
+	test(resourceType + '.stock_reservations', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_reservations: CommonData.paramsFields } }
@@ -184,7 +196,7 @@ describe('ReservedStocks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_reservations(id, params, CommonData.options)
+		await reserved_stocks.stock_reservations(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -192,8 +204,9 @@ describe('ReservedStocks resource', () => {
 	/* relationship.stock_reservations stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -205,7 +218,7 @@ describe('ReservedStocks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await reserved_stocks.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -213,8 +226,9 @@ describe('ReservedStocks resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.event_stores start */
-	it(resourceType + '.event_stores', async () => {
+	test(resourceType + '.event_stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_stores: CommonData.paramsFields } }
@@ -226,7 +240,7 @@ describe('ReservedStocks resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].event_stores(id, params, CommonData.options)
+		await reserved_stocks.event_stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

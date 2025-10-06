@@ -1,3 +1,4 @@
+import type { ApiClientInitConfig } from "./client"
 
 const config = {
 	default: {
@@ -7,7 +8,7 @@ const config = {
 	},
 	client: {
 		timeout: 15000,
-		requiredAttributes: ['organization', 'accessToken'],
+		requiredAttributes: ['organization', 'accessToken'] as Array<keyof ApiClientInitConfig>,
 	},
 	jsonapi: {
 		maxResourceIncluded: 2

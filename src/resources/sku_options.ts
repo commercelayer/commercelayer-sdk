@@ -242,6 +242,7 @@ class SkuOptions extends ApiResource<SkuOption> {
 }
 
 
-export default SkuOptions
+const instance = new SkuOptions()
+export default instance
 
-export type { SkuOption, SkuOptionCreate, SkuOptionUpdate, SkuOptionType }
+export type { SkuOptions, SkuOption, SkuOptionCreate, SkuOptionUpdate, SkuOptionType }

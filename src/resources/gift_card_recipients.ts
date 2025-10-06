@@ -149,6 +149,7 @@ class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
 }
 
 
-export default GiftCardRecipients
+const instance = new GiftCardRecipients()
+export default instance
 
-export type { GiftCardRecipient, GiftCardRecipientCreate, GiftCardRecipientUpdate, GiftCardRecipientType }
+export type { GiftCardRecipients, GiftCardRecipient, GiftCardRecipientCreate, GiftCardRecipientUpdate, GiftCardRecipientType }

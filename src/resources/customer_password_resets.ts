@@ -126,6 +126,7 @@ class CustomerPasswordResets extends ApiResource<CustomerPasswordReset> {
 }
 
 
-export default CustomerPasswordResets
+const instance = new CustomerPasswordResets()
+export default instance
 
-export type { CustomerPasswordReset, CustomerPasswordResetCreate, CustomerPasswordResetUpdate, CustomerPasswordResetType }
+export type { CustomerPasswordResets, CustomerPasswordReset, CustomerPasswordResetCreate, CustomerPasswordResetUpdate, CustomerPasswordResetType }

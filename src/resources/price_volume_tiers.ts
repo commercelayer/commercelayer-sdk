@@ -166,6 +166,7 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 }
 
 
-export default PriceVolumeTiers
+const instance = new PriceVolumeTiers()
+export default instance
 
-export type { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate, PriceVolumeTierType }
+export type { PriceVolumeTiers, PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate, PriceVolumeTierType }

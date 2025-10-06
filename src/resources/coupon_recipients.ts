@@ -149,6 +149,7 @@ class CouponRecipients extends ApiResource<CouponRecipient> {
 }
 
 
-export default CouponRecipients
+const instance = new CouponRecipients()
+export default instance
 
-export type { CouponRecipient, CouponRecipientCreate, CouponRecipientUpdate, CouponRecipientType }
+export type { CouponRecipients, CouponRecipient, CouponRecipientCreate, CouponRecipientUpdate, CouponRecipientType }

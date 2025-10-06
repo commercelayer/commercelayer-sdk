@@ -149,6 +149,7 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 }
 
 
-export default AxerveGateways
+const instance = new AxerveGateways()
+export default instance
 
-export type { AxerveGateway, AxerveGatewayCreate, AxerveGatewayUpdate, AxerveGatewayType }
+export type { AxerveGateways, AxerveGateway, AxerveGatewayCreate, AxerveGatewayUpdate, AxerveGatewayType }

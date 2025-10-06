@@ -160,6 +160,7 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 }
 
 
-export default ExternalTaxCalculators
+const instance = new ExternalTaxCalculators()
+export default instance
 
-export type { ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorUpdate, ExternalTaxCalculatorType }
+export type { ExternalTaxCalculators, ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorUpdate, ExternalTaxCalculatorType }

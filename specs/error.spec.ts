@@ -1,7 +1,9 @@
 
-import { CommerceLayerClient, ErrorObj } from '../src'
+import { expect, test, beforeAll, afterAll, describe } from 'vitest'
+import { CommerceLayerClient, customers, ErrorObj } from '../src'
 import { ErrorType } from '../src/error'
 import { getClient } from '../test/common'
+// import { DBG } from '../src/common'
 
 
 let cl: CommerceLayerClient
@@ -14,38 +16,26 @@ afterAll(() => { cl.removeInterceptors() })
 
 describe('SDK:error suite', () => {
 
-	it('ApiError', async () => {
+	test('ApiError', async () => {
 		try {
-			await cl.customers.retrieve('fake-id')
-		} catch (error) {
+			await customers.retrieve('fake-id')
+		} catch (error: any) {
 			expect(cl.isApiError(error)).toBeTruthy()
 			expect(error.status).toBe(404)
 		}
 	})
 
 
-	it('ApiError.first', async () => {
+	test('ApiError.first', async () => {
 		try {
-			await cl.customers.create({ email: '' })
-		} catch (error) {
+			await customers.create({ email: '' })
+		} catch (error: any) {
 			expect(error.first()).not.toBeUndefined()
 		}
 	})
 
 
-	it('ApiError.type', async () => {
-		try {
-			cl.config({ domain: 'fake.domain.xx', accessToken: 'fake-access-token' })
-			await cl.customers.list({ pageSize: 1})
-		} catch (error) {
-			expect(error.type).toEqual(ErrorType.CLIENT)
-		}
-	})
-
-
-	it('ErrorInterceptor.response', async () => {
-
-		cl = await getClient({})
+	test('ErrorInterceptor.response', async () => {
 
 		let interceptor = false
 
@@ -58,12 +48,25 @@ describe('SDK:error suite', () => {
 		})
 
 		try {
-			await cl.customers.create({ email: '' })
-		} catch (error) {
+			await customers.create({ email: '' })
+		} catch (error: any) {
 			expect(error.type).toBe(ErrorType.RESPONSE)
 			expect(interceptor).toBeTruthy()
 		}
 
+	})
+
+
+	test('ApiError.type', async () => {
+		try {
+			cl.config({ domain: 'fake.domain.xx', accessToken: 'fake-access-token' })
+			// DBG.verbose = true
+			await customers.list({ pageSize: 1})
+		} catch (error: any) {
+			expect(error.type).toEqual(ErrorType.CLIENT)
+		} finally {
+			// DBG.verbose = false
+		}
 	})
 
 })

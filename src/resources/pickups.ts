@@ -85,6 +85,7 @@ class Pickups extends ApiResource<Pickup> {
 }
 
 
-export default Pickups
+const instance = new Pickups()
+export default instance
 
-export type { Pickup, PickupType }
+export type { Pickups, Pickup, PickupType }

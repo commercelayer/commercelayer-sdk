@@ -139,6 +139,7 @@ class SatispayGateways extends ApiResource<SatispayGateway> {
 }
 
 
-export default SatispayGateways
+const instance = new SatispayGateways()
+export default instance
 
-export type { SatispayGateway, SatispayGatewayCreate, SatispayGatewayUpdate, SatispayGatewayType }
+export type { SatispayGateways, SatispayGateway, SatispayGatewayCreate, SatispayGatewayUpdate, SatispayGatewayType }

@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, ExternalGateway } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, ExternalGateway, external_gateways } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('ExternalGateways resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -38,11 +39,11 @@ describe('ExternalGateways resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isExternalGateway(data.data)).toBeTruthy()
+      expect(external_gateways.isExternalGateway(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await external_gateways.create(resData, params, CommonData.options)
       .then((res: ExternalGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -52,7 +53,7 @@ describe('ExternalGateways resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -64,7 +65,7 @@ describe('ExternalGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await external_gateways.retrieve(id, params, CommonData.options)
       .then((res: ExternalGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -74,7 +75,7 @@ describe('ExternalGateways resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -88,7 +89,7 @@ describe('ExternalGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await external_gateways.update(resData, params, CommonData.options)
       .then((res: ExternalGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -98,7 +99,7 @@ describe('ExternalGateways resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -108,7 +109,7 @@ describe('ExternalGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await external_gateways.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -117,7 +118,7 @@ describe('ExternalGateways resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -128,7 +129,7 @@ describe('ExternalGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await external_gateways.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -137,12 +138,12 @@ describe('ExternalGateways resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isExternalGateway(resource)).toBeTruthy()
+    expect(external_gateways.isExternalGateway(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = external_gateways.type()
     expect(type).toBe(resourceType)
 
   })
@@ -150,12 +151,12 @@ describe('ExternalGateways resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = external_gateways.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = external_gateways.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -164,7 +165,7 @@ describe('ExternalGateways resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -190,7 +191,7 @@ describe('ExternalGateways resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ExternalGateway
+    const res = external_gateways.parse(payload) as ExternalGateway
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -199,10 +200,19 @@ describe('ExternalGateways resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(external_gateways)
+		expect(external_gateways.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.payment_methods start */
-	it(resourceType + '.payment_methods', async () => {
+	test(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { payment_methods: CommonData.paramsFields } }
@@ -214,7 +224,7 @@ describe('ExternalGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_methods(id, params, CommonData.options)
+		await external_gateways.payment_methods(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -222,8 +232,9 @@ describe('ExternalGateways resource', () => {
 	/* relationship.payment_methods stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -235,7 +246,7 @@ describe('ExternalGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await external_gateways.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -243,8 +254,9 @@ describe('ExternalGateways resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.event_stores start */
-	it(resourceType + '.event_stores', async () => {
+	test(resourceType + '.event_stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_stores: CommonData.paramsFields } }
@@ -256,7 +268,7 @@ describe('ExternalGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].event_stores(id, params, CommonData.options)
+		await external_gateways.event_stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -264,8 +276,9 @@ describe('ExternalGateways resource', () => {
 	/* relationship.event_stores stop */
 	
 
+	
 	/* relationship.external_payments start */
-	it(resourceType + '.external_payments', async () => {
+	test(resourceType + '.external_payments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { external_payments: CommonData.paramsFields } }
@@ -277,7 +290,7 @@ describe('ExternalGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].external_payments(id, params, CommonData.options)
+		await external_gateways.external_payments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -286,8 +299,9 @@ describe('ExternalGateways resource', () => {
 	
   
 
+	
 	/* trigger._reset_circuit start */
-	it(resourceType + '._reset_circuit', async () => {
+	test(resourceType + '._reset_circuit', async () => {
 	
 		let triggerAttr = '_reset_circuit'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -304,7 +318,7 @@ describe('ExternalGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._reset_circuit(id, {}, CommonData.options)
+		await external_gateways._reset_circuit(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

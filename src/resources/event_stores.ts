@@ -73,6 +73,7 @@ class EventStores extends ApiResource<EventStore> {
 }
 
 
-export default EventStores
+const instance = new EventStores()
+export default instance
 
-export type { EventStore, EventStoreType }
+export type { EventStores, EventStore, EventStoreType }

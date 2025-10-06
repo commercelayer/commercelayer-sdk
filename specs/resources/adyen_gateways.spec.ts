@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, AdyenGateway } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, AdyenGateway, adyen_gateways, adyen_payments } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,14 +24,14 @@ describe('AdyenGateways resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
 			merchant_account: randomValue('string', 'merchant_account'),
 			api_key: randomValue('string', 'api_key'),
 			live_url_prefix: randomValue('string', 'live_url_prefix'),
-			adyen_payments: [ cl.adyen_payments.relationship(TestData.id) ],
+			adyen_payments: [ adyen_payments.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +43,11 @@ describe('AdyenGateways resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isAdyenGateway(data.data)).toBeTruthy()
+      expect(adyen_gateways.isAdyenGateway(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await adyen_gateways.create(resData, params, CommonData.options)
       .then((res: AdyenGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -56,7 +57,7 @@ describe('AdyenGateways resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -68,7 +69,7 @@ describe('AdyenGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await adyen_gateways.retrieve(id, params, CommonData.options)
       .then((res: AdyenGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -78,7 +79,7 @@ describe('AdyenGateways resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -92,7 +93,7 @@ describe('AdyenGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await adyen_gateways.update(resData, params, CommonData.options)
       .then((res: AdyenGateway) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -102,7 +103,7 @@ describe('AdyenGateways resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -112,7 +113,7 @@ describe('AdyenGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await adyen_gateways.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -121,7 +122,7 @@ describe('AdyenGateways resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -132,7 +133,7 @@ describe('AdyenGateways resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await adyen_gateways.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,12 +142,12 @@ describe('AdyenGateways resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isAdyenGateway(resource)).toBeTruthy()
+    expect(adyen_gateways.isAdyenGateway(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = adyen_gateways.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,12 +155,12 @@ describe('AdyenGateways resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = adyen_gateways.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = adyen_gateways.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -168,7 +169,7 @@ describe('AdyenGateways resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -194,7 +195,7 @@ describe('AdyenGateways resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as AdyenGateway
+    const res = adyen_gateways.parse(payload) as AdyenGateway
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -203,10 +204,19 @@ describe('AdyenGateways resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(adyen_gateways)
+		expect(adyen_gateways.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.payment_methods start */
-	it(resourceType + '.payment_methods', async () => {
+	test(resourceType + '.payment_methods', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { payment_methods: CommonData.paramsFields } }
@@ -218,7 +228,7 @@ describe('AdyenGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].payment_methods(id, params, CommonData.options)
+		await adyen_gateways.payment_methods(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -226,8 +236,9 @@ describe('AdyenGateways resource', () => {
 	/* relationship.payment_methods stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -239,7 +250,7 @@ describe('AdyenGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await adyen_gateways.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,8 +258,9 @@ describe('AdyenGateways resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.event_stores start */
-	it(resourceType + '.event_stores', async () => {
+	test(resourceType + '.event_stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_stores: CommonData.paramsFields } }
@@ -260,7 +272,7 @@ describe('AdyenGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].event_stores(id, params, CommonData.options)
+		await adyen_gateways.event_stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -268,8 +280,9 @@ describe('AdyenGateways resource', () => {
 	/* relationship.event_stores stop */
 	
 
+	
 	/* relationship.adyen_payments start */
-	it(resourceType + '.adyen_payments', async () => {
+	test(resourceType + '.adyen_payments', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { adyen_payments: CommonData.paramsFields } }
@@ -281,7 +294,7 @@ describe('AdyenGateways resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].adyen_payments(id, params, CommonData.options)
+		await adyen_gateways.adyen_payments(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

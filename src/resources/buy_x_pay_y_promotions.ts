@@ -406,6 +406,7 @@ class BuyXPayYPromotions extends ApiResource<BuyXPayYPromotion> {
 }
 
 
-export default BuyXPayYPromotions
+const instance = new BuyXPayYPromotions()
+export default instance
 
-export type { BuyXPayYPromotion, BuyXPayYPromotionCreate, BuyXPayYPromotionUpdate, BuyXPayYPromotionType }
+export type { BuyXPayYPromotions, BuyXPayYPromotion, BuyXPayYPromotionCreate, BuyXPayYPromotionUpdate, BuyXPayYPromotionType }

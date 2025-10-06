@@ -205,6 +205,7 @@ class VertexAccounts extends ApiResource<VertexAccount> {
 }
 
 
-export default VertexAccounts
+const instance = new VertexAccounts()
+export default instance
 
-export type { VertexAccount, VertexAccountCreate, VertexAccountUpdate, VertexAccountType }
+export type { VertexAccounts, VertexAccount, VertexAccountCreate, VertexAccountUpdate, VertexAccountType }

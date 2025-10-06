@@ -148,6 +148,7 @@ class TaxCategories extends ApiResource<TaxCategory> {
 }
 
 
-export default TaxCategories
+const instance = new TaxCategories()
+export default instance
 
-export type { TaxCategory, TaxCategoryCreate, TaxCategoryUpdate, TaxCategoryType }
+export type { TaxCategories, TaxCategory, TaxCategoryCreate, TaxCategoryUpdate, TaxCategoryType }

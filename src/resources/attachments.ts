@@ -204,6 +204,7 @@ class Attachments extends ApiResource<Attachment> {
 }
 
 
-export default Attachments
+const instance = new Attachments()
+export default instance
 
-export type { Attachment, AttachmentCreate, AttachmentUpdate, AttachmentType }
+export type { Attachments, Attachment, AttachmentCreate, AttachmentUpdate, AttachmentType }

@@ -72,6 +72,7 @@ class ResourceErrors extends ApiResource<ResourceError> {
 }
 
 
-export default ResourceErrors
+const instance = new ResourceErrors()
+export default instance
 
-export type { ResourceError, ResourceErrorType }
+export type { ResourceErrors, ResourceError, ResourceErrorType }

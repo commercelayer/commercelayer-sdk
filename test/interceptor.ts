@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
-// import commercelayer from '../lib/cjs'
-import commercelayer, { ErrorObj, RequestObj, ResponseObj } from '../lib/index.js'
+import commercelayer, { ErrorObj, RequestObj, ResponseObj, customers } from '../src'
 import getToken from './token'
 
 
@@ -40,11 +39,11 @@ const errorInterceptor = (error: ErrorObj): ErrorObj => {
 	cl.addRequestInterceptor(requestInterceptor)
 	cl.addResponseInterceptor(responseInterceptor, errorInterceptor)
 
-	const customers = await cl.customers.list({ pageSize: 1 }).catch(error => console.log(error.message))
+	const customerList = await customers.list({ pageSize: 1 }).catch(error => console.log(error.message))
 
 	cl.removeInterceptors()
 
-	console.log(customers)
+	console.log(customerList)
 	console.log(rrr.rawResponse)
 	console.log(rrr.headers)
 

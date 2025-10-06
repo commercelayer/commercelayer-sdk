@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, ##__RESOURCE_MODEL__## } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, ##__RESOURCE_MODEL__##, ##__IMPORT_INSTANCES__## } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = ##__RESOURCE_ATTRIBUTES_CREATE__##
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -35,11 +36,11 @@ describe('##__RESOURCE_CLASS__## resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].is##__RESOURCE_MODEL__##(data.data)).toBeTruthy()
+      expect(##__RESOURCE_PATH__##.is##__RESOURCE_MODEL__##(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await ##__RESOURCE_PATH__##.create(resData, params, CommonData.options)
       .then((res: ##__RESOURCE_MODEL__##) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -49,7 +50,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -61,7 +62,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await ##__RESOURCE_PATH__##.retrieve(id, params, CommonData.options)
       .then((res: ##__RESOURCE_MODEL__##) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -71,7 +72,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -85,7 +86,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await ##__RESOURCE_PATH__##.update(resData, params, CommonData.options)
       .then((res: ##__RESOURCE_MODEL__##) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -95,7 +96,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -105,7 +106,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await ##__RESOURCE_PATH__##.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -114,7 +115,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -125,7 +126,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await ##__RESOURCE_PATH__##.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -134,7 +135,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
 
 
   /* spec.singleton.start */
-  it(resourceType + '.singleton', async () => {
+  test(resourceType + '.singleton', async () => {
 
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
 
@@ -145,7 +146,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(params, CommonData.options)
+    await ##__RESOURCE_PATH__##.retrieve(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -154,12 +155,12 @@ describe('##__RESOURCE_CLASS__## resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].is##__RESOURCE_MODEL__##(resource)).toBeTruthy()
+    expect(##__RESOURCE_PATH__##.is##__RESOURCE_MODEL__##(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = ##__RESOURCE_PATH__##.type()
     expect(type).toBe(resourceType)
 
   })
@@ -167,12 +168,12 @@ describe('##__RESOURCE_CLASS__## resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = ##__RESOURCE_PATH__##.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = ##__RESOURCE_PATH__##.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -181,7 +182,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -207,7 +208,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as ##__RESOURCE_MODEL__##
+    const res = ##__RESOURCE_PATH__##.parse(payload) as ##__RESOURCE_MODEL__##
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -215,6 +216,14 @@ describe('##__RESOURCE_CLASS__## resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(##__RESOURCE_INSTANCE__##)
+		expect(##__RESOURCE_INSTANCE__##.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   ##__RELATIONSHIP_SPECS__##
   ##__TRIGGER_SPECS__##

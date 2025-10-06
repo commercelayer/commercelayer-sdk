@@ -157,6 +157,7 @@ class RecurringOrderCopies extends ApiResource<RecurringOrderCopy> {
 }
 
 
-export default RecurringOrderCopies
+const instance = new RecurringOrderCopies()
+export default instance
 
-export type { RecurringOrderCopy, RecurringOrderCopyCreate, RecurringOrderCopyUpdate, RecurringOrderCopyType }
+export type { RecurringOrderCopies, RecurringOrderCopy, RecurringOrderCopyCreate, RecurringOrderCopyUpdate, RecurringOrderCopyType }

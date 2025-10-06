@@ -316,6 +316,7 @@ class Customers extends ApiResource<Customer> {
 }
 
 
-export default Customers
+const instance = new Customers()
+export default instance
 
-export type { Customer, CustomerCreate, CustomerUpdate, CustomerType }
+export type { Customers, Customer, CustomerCreate, CustomerUpdate, CustomerType }

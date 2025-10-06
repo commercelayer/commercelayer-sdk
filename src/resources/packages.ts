@@ -201,6 +201,7 @@ class Packages extends ApiResource<Package> {
 }
 
 
-export default Packages
+const instance = new Packages()
+export default instance
 
-export type { Package, PackageCreate, PackageUpdate, PackageType }
+export type { Packages, Package, PackageCreate, PackageUpdate, PackageType }

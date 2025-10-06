@@ -166,6 +166,7 @@ class PriceFrequencyTiers extends ApiResource<PriceFrequencyTier> {
 }
 
 
-export default PriceFrequencyTiers
+const instance = new PriceFrequencyTiers()
+export default instance
 
-export type { PriceFrequencyTier, PriceFrequencyTierCreate, PriceFrequencyTierUpdate, PriceFrequencyTierType }
+export type { PriceFrequencyTiers, PriceFrequencyTier, PriceFrequencyTierCreate, PriceFrequencyTierUpdate, PriceFrequencyTierType }

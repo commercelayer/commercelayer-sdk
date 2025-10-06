@@ -77,6 +77,7 @@ class Applications extends ApiSingleton<Application> {
 }
 
 
-export default Applications
+const instance = new Applications()
+export default instance
 
-export type { Application, ApplicationType }
+export type { Applications, Application, ApplicationType }

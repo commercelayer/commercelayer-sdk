@@ -178,6 +178,7 @@ class EasypostPickups extends ApiResource<EasypostPickup> {
 }
 
 
-export default EasypostPickups
+const instance = new EasypostPickups()
+export default instance
 
-export type { EasypostPickup, EasypostPickupCreate, EasypostPickupUpdate, EasypostPickupType }
+export type { EasypostPickups, EasypostPickup, EasypostPickupCreate, EasypostPickupUpdate, EasypostPickupType }

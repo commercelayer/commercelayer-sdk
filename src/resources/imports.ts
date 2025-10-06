@@ -189,6 +189,7 @@ class Imports extends ApiResource<Import> {
 }
 
 
-export default Imports
+const instance = new Imports()
+export default instance
 
-export type { Import, ImportCreate, ImportUpdate, ImportType }
+export type { Imports, Import, ImportCreate, ImportUpdate, ImportType }

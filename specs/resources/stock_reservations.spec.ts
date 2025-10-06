@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, StockReservation } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, StockReservation, stock_reservations, stock_items } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,11 +24,11 @@ describe('StockReservations resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			quantity: randomValue('integer', 'quantity'),
-			stock_item: cl.stock_items.relationship(TestData.id),
+			stock_item: stock_items.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -39,11 +40,11 @@ describe('StockReservations resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isStockReservation(data.data)).toBeTruthy()
+      expect(stock_reservations.isStockReservation(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await stock_reservations.create(resData, params, CommonData.options)
       .then((res: StockReservation) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -53,7 +54,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -65,7 +66,7 @@ describe('StockReservations resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await stock_reservations.retrieve(id, params, CommonData.options)
       .then((res: StockReservation) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -75,7 +76,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -89,7 +90,7 @@ describe('StockReservations resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await stock_reservations.update(resData, params, CommonData.options)
       .then((res: StockReservation) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -99,7 +100,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -109,7 +110,7 @@ describe('StockReservations resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await stock_reservations.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -118,7 +119,7 @@ describe('StockReservations resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -129,7 +130,7 @@ describe('StockReservations resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await stock_reservations.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -138,12 +139,12 @@ describe('StockReservations resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isStockReservation(resource)).toBeTruthy()
+    expect(stock_reservations.isStockReservation(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = stock_reservations.type()
     expect(type).toBe(resourceType)
 
   })
@@ -151,12 +152,12 @@ describe('StockReservations resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = stock_reservations.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = stock_reservations.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -165,7 +166,7 @@ describe('StockReservations resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -191,7 +192,7 @@ describe('StockReservations resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as StockReservation
+    const res = stock_reservations.parse(payload) as StockReservation
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -200,10 +201,19 @@ describe('StockReservations resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(stock_reservations)
+		expect(stock_reservations.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.line_item start */
-	it(resourceType + '.line_item', async () => {
+	test(resourceType + '.line_item', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { line_items: CommonData.paramsFields } }
@@ -215,7 +225,7 @@ describe('StockReservations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].line_item(id, params, CommonData.options)
+		await stock_reservations.line_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -223,8 +233,9 @@ describe('StockReservations resource', () => {
 	/* relationship.line_item stop */
 	
 
+	
 	/* relationship.order start */
-	it(resourceType + '.order', async () => {
+	test(resourceType + '.order', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { orders: CommonData.paramsFields } }
@@ -236,7 +247,7 @@ describe('StockReservations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].order(id, params, CommonData.options)
+		await stock_reservations.order(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -244,8 +255,9 @@ describe('StockReservations resource', () => {
 	/* relationship.order stop */
 	
 
+	
 	/* relationship.stock_line_item start */
-	it(resourceType + '.stock_line_item', async () => {
+	test(resourceType + '.stock_line_item', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_line_items: CommonData.paramsFields } }
@@ -257,7 +269,7 @@ describe('StockReservations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_line_item(id, params, CommonData.options)
+		await stock_reservations.stock_line_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -265,8 +277,9 @@ describe('StockReservations resource', () => {
 	/* relationship.stock_line_item stop */
 	
 
+	
 	/* relationship.stock_transfer start */
-	it(resourceType + '.stock_transfer', async () => {
+	test(resourceType + '.stock_transfer', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_transfers: CommonData.paramsFields } }
@@ -278,7 +291,7 @@ describe('StockReservations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_transfer(id, params, CommonData.options)
+		await stock_reservations.stock_transfer(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -286,8 +299,9 @@ describe('StockReservations resource', () => {
 	/* relationship.stock_transfer stop */
 	
 
+	
 	/* relationship.stock_item start */
-	it(resourceType + '.stock_item', async () => {
+	test(resourceType + '.stock_item', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { stock_items: CommonData.paramsFields } }
@@ -299,7 +313,7 @@ describe('StockReservations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].stock_item(id, params, CommonData.options)
+		await stock_reservations.stock_item(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -307,8 +321,9 @@ describe('StockReservations resource', () => {
 	/* relationship.stock_item stop */
 	
 
+	
 	/* relationship.reserved_stock start */
-	it(resourceType + '.reserved_stock', async () => {
+	test(resourceType + '.reserved_stock', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { reserved_stocks: CommonData.paramsFields } }
@@ -320,7 +335,7 @@ describe('StockReservations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].reserved_stock(id, params, CommonData.options)
+		await stock_reservations.reserved_stock(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -328,8 +343,9 @@ describe('StockReservations resource', () => {
 	/* relationship.reserved_stock stop */
 	
 
+	
 	/* relationship.sku start */
-	it(resourceType + '.sku', async () => {
+	test(resourceType + '.sku', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { skus: CommonData.paramsFields } }
@@ -341,7 +357,7 @@ describe('StockReservations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].sku(id, params, CommonData.options)
+		await stock_reservations.sku(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -349,8 +365,9 @@ describe('StockReservations resource', () => {
 	/* relationship.sku stop */
 	
 
+	
 	/* relationship.event_stores start */
-	it(resourceType + '.event_stores', async () => {
+	test(resourceType + '.event_stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_stores: CommonData.paramsFields } }
@@ -362,7 +379,7 @@ describe('StockReservations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].event_stores(id, params, CommonData.options)
+		await stock_reservations.event_stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -371,8 +388,9 @@ describe('StockReservations resource', () => {
 	
   
 
+	
 	/* trigger._pending start */
-	it(resourceType + '._pending', async () => {
+	test(resourceType + '._pending', async () => {
 	
 		let triggerAttr = '_pending'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -389,7 +407,7 @@ describe('StockReservations resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._pending(id, {}, CommonData.options)
+		await stock_reservations._pending(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

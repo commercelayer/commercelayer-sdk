@@ -3,12 +3,13 @@ import ApiClient, { type ApiClientInitConfig } from './client'
 import { denormalize, normalize, type DocWithData } from './jsonapi'
 import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } from './query'
 import { generateQueryStringParams, isParamsList } from './query'
-import type { ResourceTypeLock } from './api'
+import { type ResourceTypeLock, resourceList } from './enum'
 import config from './config'
+import { SdkError } from './error'
+import type { ObjectType } from './types'
 
 
 import Debug from './debug'
-import { SdkError } from './error'
 const debug = Debug('resource')
 
 
@@ -17,7 +18,7 @@ type ResourceNull = { id: null } & ResourceType
 type ResourceRel = ResourceId | ResourceNull
 
 
-type Metadata = Record<string, any>
+type Metadata = ObjectType
 
 
 interface ResourceType {
@@ -97,13 +98,39 @@ type ResourceAdapterConfig = {
 	// xyz?: boolean
 }
 
-type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
-type ResourcesConfig = Partial<ResourcesInitConfig>
+export type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
+export type ResourcesConfig = Partial<ResourcesInitConfig>
 
 
-export const apiResourceAdapter = (config: ResourcesInitConfig): ResourceAdapter => {
-	return new ResourceAdapter(config)
+
+class ApiResourceAdapter {
+
+	private static adapter: ResourceAdapter
+
+
+	private constructor() { }
+
+
+	static init(config: ResourcesInitConfig): ResourceAdapter {
+		ApiResourceAdapter.adapter = new ResourceAdapter(config)
+		debug('resource adapter initialized')
+		return ApiResourceAdapter.get()
+	}
+
+	static get(config?: ResourcesInitConfig): ResourceAdapter {
+		if (config) return ApiResourceAdapter.init(config)
+		else {
+			if (ApiResourceAdapter.adapter) return ApiResourceAdapter.adapter
+			else throw new SdkError({ message: 'Commerce Layer not initialized' })
+		}
+	}
+
+	static config(config: ResourcesConfig): void {
+		ApiResourceAdapter.get().config(config)
+	}
+
 }
+
 
 
 class ResourceAdapter {
@@ -119,7 +146,7 @@ class ResourceAdapter {
 
 
 	private localConfig(config: ResourceAdapterConfig): void {
-		// if (typeof config.xyz !== 'undefined') this.#config.xyz = config.xyz
+		Object.assign(this.#config, config)
 	}
 
 
@@ -268,21 +295,29 @@ class ResourceAdapter {
 abstract class ApiResourceBase<R extends Resource> {
 
 	static readonly TYPE: ResourceTypeLock
-	protected readonly resources: ResourceAdapter
+	readonly #resources?: ResourceAdapter
 
-	constructor(adapter: ResourceAdapter) {
+
+	constructor(adapter?: ResourceAdapter) {
 		debug('new resource instance: %s', this.type())
-		this.resources = adapter
+		if (adapter) this.#resources = adapter
 	}
 
+
+	protected get resources(): ResourceAdapter {
+		return this.#resources || ApiResourceAdapter.get()
+	}
+
+
 	abstract relationship(id: string | ResourceId | null): ResourceRel
+
 
 	protected relationshipOneToOne<RR extends ResourceRel>(id: string | ResourceId | null): RR {
 		return (((id === null) || (typeof id === 'string')) ? { id, type: this.type() } : { id: id.id, type: this.type() }) as RR
 	}
 
 	protected relationshipOneToMany<RR extends ResourceRel>(...ids: string[]): RR[] {
-		return (((ids === null) || (ids.length === 0) || (ids[0] === null))? [ { id: null, type: this.type() } ] : ids.map(id => { return { id, type: this.type() } })) as RR[]
+		return (((ids === null) || (ids.length === 0) || (ids[0] === null)) ? [{ id: null, type: this.type() }] : ids.map(id => { return { id, type: this.type() } })) as RR[]
 	}
 
 	abstract type(): ResourceTypeLock
@@ -331,7 +366,14 @@ abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 
 
-export default ResourceAdapter
+export { ApiResourceAdapter, ApiResource, ApiSingleton, type ResourceAdapter }
 
-export { ApiResource, ApiSingleton }
-export type { ResourcesConfig, ResourcesInitConfig, ResourceAdapter }
+
+
+export const isResourceId = (resource: any): resource is ResourceId => {
+	return (resource?.type && resource.id) && resourceList.includes(resource.type as ResourceTypeLock)
+}
+
+export const isResourceType = (resource: any): resource is ResourceType => {
+	return resource && (typeof resource.type !== 'undefined') && resource.type && resourceList.includes(resource.type as ResourceTypeLock)
+}

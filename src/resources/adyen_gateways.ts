@@ -241,6 +241,7 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 }
 
 
-export default AdyenGateways
+const instance = new AdyenGateways()
+export default instance
 
-export type { AdyenGateway, AdyenGatewayCreate, AdyenGatewayUpdate, AdyenGatewayType }
+export type { AdyenGateways, AdyenGateway, AdyenGatewayCreate, AdyenGatewayUpdate, AdyenGatewayType }

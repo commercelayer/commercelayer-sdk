@@ -42,7 +42,7 @@ const fixRedundantComponents = (schema: ApiSchema): ApiSchema => {
 
 const enrichSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
 
-	const resourcesInfo = CONFIG.LOCAL? resSchema.load() : await resSchema.download()
+	const resourcesInfo = CONFIG.LOCAL_SCHEMA? resSchema.load() : await resSchema.download()
 
 	if (!resourcesInfo) {
 		console.log('Error reading reasources data')
@@ -112,6 +112,15 @@ export const fixSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
 
 	return fixedSchema
 
+}
+
+
+export const fixReservedWord = (word: string): string => {
+	switch (word) {
+		case 'exports': return 'exportz'
+		case 'export': return 'eXport'
+		default: return word
+	}
 }
 
 

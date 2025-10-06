@@ -504,6 +504,7 @@ class LineItems extends ApiResource<LineItem> {
 }
 
 
-export default LineItems
+const instance = new LineItems()
+export default instance
 
-export type { LineItem, LineItemCreate, LineItemUpdate, LineItemType }
+export type { LineItems, LineItem, LineItemCreate, LineItemUpdate, LineItemType }

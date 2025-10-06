@@ -114,6 +114,7 @@ class OrderFactories extends ApiResource<OrderFactory> {
 }
 
 
-export default OrderFactories
+const instance = new OrderFactories()
+export default instance
 
-export type { OrderFactory, OrderFactoryType }
+export type { OrderFactories, OrderFactory, OrderFactoryType }

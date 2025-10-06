@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, PriceListScheduler } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, PriceListScheduler, price_list_schedulers, markets, price_lists } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,14 +24,14 @@ describe('PriceListSchedulers resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(resourceType + '.create', async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
 			starts_at: randomValue('string', 'starts_at'),
 			expires_at: randomValue('string', 'expires_at'),
-			market: cl.markets.relationship(TestData.id),
-			price_list: cl.price_lists.relationship(TestData.id),
+			market: markets.relationship(TestData.id),
+			price_list: price_lists.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -42,11 +43,11 @@ describe('PriceListSchedulers resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(cl[resourcePath].isPriceListScheduler(data.data)).toBeTruthy()
+      expect(price_list_schedulers.isPriceListScheduler(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await cl[resourcePath].create(resData, params, CommonData.options)
+    await price_list_schedulers.create(resData, params, CommonData.options)
       .then((res: PriceListScheduler) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -56,7 +57,7 @@ describe('PriceListSchedulers resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(resourceType + '.retrieve', async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -68,7 +69,7 @@ describe('PriceListSchedulers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(id, params, CommonData.options)
+    await price_list_schedulers.retrieve(id, params, CommonData.options)
       .then((res: PriceListScheduler) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -78,7 +79,7 @@ describe('PriceListSchedulers resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(resourceType + '.update', async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -92,7 +93,7 @@ describe('PriceListSchedulers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].update(resData, params, CommonData.options)
+    await price_list_schedulers.update(resData, params, CommonData.options)
       .then((res: PriceListScheduler) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -102,7 +103,7 @@ describe('PriceListSchedulers resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(resourceType + '.delete', async () => {
 
     const id = TestData.id
 
@@ -112,7 +113,7 @@ describe('PriceListSchedulers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].delete(id, CommonData.options)
+    await price_list_schedulers.delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
 
@@ -121,7 +122,7 @@ describe('PriceListSchedulers resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(resourceType + '.list', async () => {
 
     const params = CommonData.paramsList
 
@@ -132,7 +133,7 @@ describe('PriceListSchedulers resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].list(params, CommonData.options)
+    await price_list_schedulers.list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -141,12 +142,12 @@ describe('PriceListSchedulers resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isPriceListScheduler(resource)).toBeTruthy()
+    expect(price_list_schedulers.isPriceListScheduler(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = price_list_schedulers.type()
     expect(type).toBe(resourceType)
 
   })
@@ -154,12 +155,12 @@ describe('PriceListSchedulers resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = price_list_schedulers.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = price_list_schedulers.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -168,7 +169,7 @@ describe('PriceListSchedulers resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -194,7 +195,7 @@ describe('PriceListSchedulers resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as PriceListScheduler
+    const res = price_list_schedulers.parse(payload) as PriceListScheduler
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -203,10 +204,19 @@ describe('PriceListSchedulers resource', () => {
   */
   /* spec.parse.stop */
 
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(price_list_schedulers)
+		expect(price_list_schedulers.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
+
   
 
+	
 	/* relationship.market start */
-	it(resourceType + '.market', async () => {
+	test(resourceType + '.market', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { markets: CommonData.paramsFields } }
@@ -218,7 +228,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].market(id, params, CommonData.options)
+		await price_list_schedulers.market(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -226,8 +236,9 @@ describe('PriceListSchedulers resource', () => {
 	/* relationship.market stop */
 	
 
+	
 	/* relationship.price_list start */
-	it(resourceType + '.price_list', async () => {
+	test(resourceType + '.price_list', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { price_lists: CommonData.paramsFields } }
@@ -239,7 +250,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].price_list(id, params, CommonData.options)
+		await price_list_schedulers.price_list(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -247,8 +258,9 @@ describe('PriceListSchedulers resource', () => {
 	/* relationship.price_list stop */
 	
 
+	
 	/* relationship.events start */
-	it(resourceType + '.events', async () => {
+	test(resourceType + '.events', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { events: CommonData.paramsFields } }
@@ -260,7 +272,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].events(id, params, CommonData.options)
+		await price_list_schedulers.events(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -268,8 +280,9 @@ describe('PriceListSchedulers resource', () => {
 	/* relationship.events stop */
 	
 
+	
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(resourceType + '.versions', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -281,7 +294,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].versions(id, params, CommonData.options)
+		await price_list_schedulers.versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -289,8 +302,9 @@ describe('PriceListSchedulers resource', () => {
 	/* relationship.versions stop */
 	
 
+	
 	/* relationship.event_stores start */
-	it(resourceType + '.event_stores', async () => {
+	test(resourceType + '.event_stores', async () => {
 	
 		const id = TestData.id
 		const params = { fields: { event_stores: CommonData.paramsFields } }
@@ -302,7 +316,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath].event_stores(id, params, CommonData.options)
+		await price_list_schedulers.event_stores(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -311,8 +325,9 @@ describe('PriceListSchedulers resource', () => {
 	
   
 
+	
 	/* trigger._disable start */
-	it(resourceType + '._disable', async () => {
+	test(resourceType + '._disable', async () => {
 	
 		let triggerAttr = '_disable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -329,7 +344,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._disable(id, {}, CommonData.options)
+		await price_list_schedulers._disable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	
@@ -337,8 +352,9 @@ describe('PriceListSchedulers resource', () => {
 	/* trigger._disable stop */
 	
 
+	
 	/* trigger._enable start */
-	it(resourceType + '._enable', async () => {
+	test(resourceType + '._enable', async () => {
 	
 		let triggerAttr = '_enable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -355,7 +371,7 @@ describe('PriceListSchedulers resource', () => {
 			return interceptRequest()
 		})
 	
-		await cl[resourcePath]._enable(id, {}, CommonData.options)
+		await price_list_schedulers._enable(id, {}, CommonData.options)
 			.catch(handleError)
 			.finally(() => cl.removeInterceptor('request'))
 	

@@ -3,7 +3,8 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerClient, Application } from '../../src'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { CommerceLayerClient, Application, application } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -23,7 +24,7 @@ describe('Applications resource', () => {
 
 
   /* spec.singleton.start */
-  it(resourceType + '.singleton', async () => {
+  test(resourceType + '.singleton', async () => {
 
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
 
@@ -34,7 +35,7 @@ describe('Applications resource', () => {
       return interceptRequest()
     })
 
-    await cl[resourcePath].retrieve(params, CommonData.options)
+    await application.retrieve(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
     
@@ -43,12 +44,12 @@ describe('Applications resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(cl[resourcePath].isApplication(resource)).toBeTruthy()
+    expect(application.isApplication(resource)).toBeTruthy()
 
-    const type = cl[resourcePath].type()
+    const type = application.type()
     expect(type).toBe(resourceType)
 
   })
@@ -56,12 +57,12 @@ describe('Applications resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(resourceType + '.relationship', async () => {
 
-    const relId = cl[resourcePath].relationship(TestData.id)
+    const relId = application.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = cl[resourcePath].relationship({ id: TestData.id, type: resourceType })
+    const relResId = application.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -70,7 +71,7 @@ describe('Applications resource', () => {
 
   /* spec.parse.start */
   /*
-  it(resourceType + '.parse', async () => {
+  test(resourceType + '.parse', async () => {
 
     const reference = 'myReferenceId'
 
@@ -96,7 +97,7 @@ describe('Applications resource', () => {
     }
     `
 
-    const res = cl[resourcePath].parse(payload) as Application
+    const res = application.parse(payload) as Application
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -104,6 +105,14 @@ describe('Applications resource', () => {
   })
   */
   /* spec.parse.stop */
+
+
+  /* spec.instance start */
+	test(resourceType + '.instance', async () => {
+    expect(application)
+		expect(application.type()).toBe(resourceType)
+	})
+	/* spec.instance stop */
 
   
   

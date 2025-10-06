@@ -1,95 +1,95 @@
 
-import { CommerceLayerClient, Customer } from '../src'
-import { ListResponse } from '../src/resource'
+import { expect, test, beforeAll, describe } from 'vitest'
+import { application, CommerceLayerClient, Customer, customers, orders, type ListResponse } from '../src'
 import { getClient } from '../test/common'
 
 
 let cl: CommerceLayerClient
-let customers: ListResponse<Customer>
+let customerList: ListResponse<Customer>
 let tempId: string
 
 
 beforeAll(async () => {
 	cl = await getClient({})
-	customers = await cl.customers.list({ pageSize: 1})
+	customerList = await customers.list({ pageSize: 1})
 })
 
 
 describe('SDK:resource suite', () => {
 
-	it('resource.first', async () => {
-		const first = customers.first()
+	test('resource.first', async () => {
+		const first = customerList.first()
 		expect(first?.id).not.toBeUndefined()
 	})
 
 
-	it('resource.last', async () => {
-		const first = customers.first()
-		const last = customers.last()
+	test('resource.last', async () => {
+		const first = customerList.first()
+		const last = customerList.last()
 		expect(last?.id).not.toBeUndefined()
 		expect(first).toEqual(last)
 	})
 
 
-	it('resource.get', async () => {
-		const customer = customers.get(0)
+	test('resource.get', async () => {
+		const customer = customerList.get(0)
 		expect(customer?.id).not.toBeUndefined()
 	})
 
 
-	it('resource.retrieve', async () => {
-		const id = customers.first()?.id as string
-		const customer = await cl.customers.retrieve(id)
+	test('resource.retrieve', async () => {
+		const id = customerList.first()?.id as string
+		const customer = await customers.retrieve(id)
 		expect(customer.id).toEqual(id)
 	})
 
 
-	it('resource.update', async () => {
-		const id = customers.first()?.id as string
+	test('resource.update', async () => {
+		const id = customerList.first()?.id as string
 		const reference = String(Date.now())
-		const customer = await cl.customers.update({ id, reference })
+		const customer = await customers.update({ id, reference })
 		expect(customer.reference).toEqual(reference)
 	})
 
 
-	it('resource.singleton', async () => {
-		const application = await cl.application.retrieve()
-		expect(application.id).not.toBeNull()
-		expect(application.id).not.toBeUndefined()
+	test('resource.singleton', async () => {
+		const app = await application.retrieve()
+		expect(app.id).not.toBeNull()
+		expect(app.id).not.toBeUndefined()
 	})
 
 
-	it('resource.create', async () => {
+	test('resource.create', async () => {
 		const email = 'spec@sdk-test.org'
-		const customer = await cl.customers.create({ email })
+		const customer = await customers.create({ email })
 		expect(customer.id).not.toBeUndefined()
 		expect(customer.email).toEqual(email)
 		tempId = customer.id
 	})
 
 
-	it('resource.delete', async () => {
-		await cl.customers.delete(tempId)
+	test('resource.delete', async () => {
+		await customers.delete(tempId)
 		try {
-			await cl.customers.retrieve(tempId)
-		} catch (error) {
+			await customers.retrieve(tempId)
+		} catch (error: any) {
 			expect(error.code).toEqual("404")
 			expect(error.status).toEqual(404)
 		}
 	})
 
 
-	it('resource.fetch', async () => {
-		const id = customers.first()?.id as string
-		const orders = await cl.customers.orders(id)
-		expect(orders.length).toBeGreaterThan(0)
-		const customer = await cl.orders.customer(orders.first()?.id as string)
+	test('resource.fetch', async () => {
+		const id = customerList.first()?.id as string
+		const orderList = await customers.orders(id)
+		expect(orderList.length).toBeGreaterThan(0)
+		const customer = await orders.customer(orderList.first()?.id as string)
 		expect(customer.id).toEqual(id)
 	})
 
 
 	/*
-	it('resource.relationship.delete', async () => {
+	test('resource.relationship.delete', async () => {
 
 		const customerOptions = { fields: ['email', 'customer_group'], include: ['customer_group'] }
 
