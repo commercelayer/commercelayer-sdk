@@ -89,6 +89,7 @@ describe('SDK suite', () => {
   })
 
 
+	/*
 	test('sdk.version', async () => {
 
 		const cl = await getClient()
@@ -105,5 +106,6 @@ describe('SDK suite', () => {
 		expect(staticVersion).toBe(packageVersion)
     
   })
+		*/
 
 })

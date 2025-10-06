@@ -35,7 +35,7 @@
     "generate-local": "tsx gen/generator.ts -- --local",
     "lint": "eslint ./src --ext .ts",
     "lintspec": "eslint ./specs/resources/ --ext .spec.ts",
-    "release": "pnpm upgrade && pnpm generate --local && pnpm lint && pnpm build && pnpm test",
+    "release": "pnpm upgrade && pnpm lint && pnpm build && pnpm test",
     "semantic-release": "semantic-release",
     "test": "vitest",
     "test-local": "tsx test/spot.ts",

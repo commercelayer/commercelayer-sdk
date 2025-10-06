@@ -33,7 +33,7 @@ CONFIG.RESOURCES_ACCESSORS_ONLY = (CONFIG.RESOURCES_INSTANCE_STYLE === 'accessor
 
 
 const SCHEMA_VERSION_CONST = 'OPEN_API_SCHEMA_VERSION'
-const SDK_VERSION_CONST = 'SDK_VERSION'
+// const SDK_VERSION_CONST = 'SDK_VERSION'
 const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
 
@@ -217,11 +217,13 @@ const updateSdkVersion = (): void => {
 	if (schemaLine.index >= 0) lines[schemaLine.index] = `${schemaPrefix} ${SCHEMA_VERSION_CONST} = '${global.version}'`
 
 	// SDK version
+	/*
 	const pkgJson = readFileSync(resolve('.', 'package.json'), { encoding: 'utf-8' })
 	const pkg = JSON.parse(pkgJson)
 	const sdkLine = findLine(SDK_VERSION_CONST, lines)
 	const sdkPrefix = sdkLine.text.substring(0, sdkLine.offset).trim()
 	if (sdkLine.index >= 0) lines[sdkLine.index] = `${sdkPrefix} ${SDK_VERSION_CONST} = '${pkg.version}'`
+	*/
 
 	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
 
