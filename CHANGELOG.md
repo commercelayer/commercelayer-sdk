@@ -1,3 +1,10 @@
+## [6.48.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.48.0...v6.48.1) (2025-10-08)
+
+
+### Bug Fixes
+
+* fix release script ([7dcc72a](https://github.com/commercelayer/commercelayer-sdk/commit/7dcc72ace9e5f34e8bbf8834b498fc4866595274))
+
 # [6.48.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.47.0...v6.48.0) (2025-10-08)
 
 
