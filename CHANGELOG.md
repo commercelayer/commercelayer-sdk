@@ -1,3 +1,9 @@
+## [7.0.1](https://github.com/commercelayer/commercelayer-sdk/compare/v7.0.0...v7.0.1) (2025-10-06)
+
+### Bug Fixes
+
+* fix sdk version ([ac4c688](https://github.com/commercelayer/commercelayer-sdk/commit/ac4c688a084de7471e3c365fd4ac1063ac7cd1f9))
+
 ## [7.0.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.47.0...v7.0.0) (2025-10-06)
 
 ### ⚠ BREAKING CHANGES
