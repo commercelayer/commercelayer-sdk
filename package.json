@@ -14,7 +14,9 @@
     "semantic-release": "semantic-release",
     "test": "jest",
     "test-local": "tsx test/spot.ts",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "release": "pnpm upgrade && pnpm generate && pnpm build && pnpm lint && pnpm test",
+    "publish-release": "pnpm publish --tag sdk6"
   },
   "keywords": [
     "javascript",
