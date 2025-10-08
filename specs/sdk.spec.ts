@@ -1,5 +1,5 @@
 
-import { CommerceLayerClient, Customer, QueryParamsList } from '../src'
+import { CommerceLayerClient, Customer } from '../src'
 import { sleep, sortObjectFields } from '../src/util'
 import { checkParam, getClient, handleError, interceptRequest, TestData } from '../test/common'
 import { isResourceType } from '../src/common'
