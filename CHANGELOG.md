@@ -1,3 +1,20 @@
+# [6.48.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.47.0...v6.48.0) (2025-10-08)
+
+
+### Bug Fixes
+
+* fix release config ([7411bcd](https://github.com/commercelayer/commercelayer-sdk/commit/7411bcd24eb44f26cade06b077d57054bfeb680d))
+* fix release config ([d2ee7f9](https://github.com/commercelayer/commercelayer-sdk/commit/d2ee7f94e25f422189c7afe0711771956e5b235e))
+* fix release script ([ed66448](https://github.com/commercelayer/commercelayer-sdk/commit/ed6644867ac851e2fb8436a9b1c1f4b0c0a8b577))
+* fix release script ([d616f69](https://github.com/commercelayer/commercelayer-sdk/commit/d616f695321e740e01c814d49139f3d371b5211b))
+* fix version number ([cf42b6e](https://github.com/commercelayer/commercelayer-sdk/commit/cf42b6e39ab673cb3550f2df37a7418004250660))
+
+
+### Features
+
+* add release and publish scripts ([3b8dcda](https://github.com/commercelayer/commercelayer-sdk/commit/3b8dcdaa3e08354dcb953d4fbd55c31ecd9b2bc4))
+* update resources to schema v7.9.6 ([9d3d0c6](https://github.com/commercelayer/commercelayer-sdk/commit/9d3d0c6da1b78147e2732691c4266cec57c77b9d))
+
 # [6.47.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.46.0...v6.47.0) (2025-09-26)
 
 
