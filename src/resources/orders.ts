@@ -127,6 +127,11 @@ interface Order extends Resource {
 	 */
 	customer_email?: string | null
 	/** 
+	 * The type of the associated customer. One of 'new', or 'returning'.
+	 * @example ```"returning"```
+	 */
+	customer_type?: 'new' | 'returning' | null
+	/** 
 	 * The preferred language code (ISO 639-1) to be used when communicating with the customer. This can be useful when sending the order to 3rd party marketing tools and CRMs. If the language is supported, the hosted checkout will be localized accordingly.
 	 * @example ```"it"```
 	 */

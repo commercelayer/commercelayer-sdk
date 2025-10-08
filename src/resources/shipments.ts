@@ -32,8 +32,8 @@ type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type ShipmentSort = Pick<Shipment, 'id' | 'number' | 'status' | 'cost_amount_cents' | 'get_rates_started_at' | 'get_rates_completed_at' | 'purchase_started_at' | 'purchase_completed_at' | 'purchase_failed_at' | 'on_hold_at' | 'picking_at' | 'packing_at' | 'ready_to_ship_at' | 'shipped_at'> & ResourceSort
-// export type ShipmentFilter = Pick<Shipment, 'id' | 'number' | 'status' | 'cost_amount_cents' | 'get_rates_started_at' | 'get_rates_completed_at' | 'purchase_started_at' | 'purchase_completed_at' | 'purchase_failed_at' | 'on_hold_at' | 'picking_at' | 'packing_at' | 'ready_to_ship_at' | 'shipped_at'> & ResourceFilter
+export type ShipmentSort = Pick<Shipment, 'id' | 'number' | 'status' | 'cost_amount_cents' | 'get_rates_started_at' | 'get_rates_completed_at' | 'purchase_started_at' | 'purchase_completed_at' | 'purchase_failed_at' | 'on_hold_at' | 'picking_at' | 'packing_at' | 'ready_to_ship_at' | 'shipped_at' | 'delivered_at'> & ResourceSort
+// export type ShipmentFilter = Pick<Shipment, 'id' | 'number' | 'status' | 'cost_amount_cents' | 'get_rates_started_at' | 'get_rates_completed_at' | 'purchase_started_at' | 'purchase_completed_at' | 'purchase_failed_at' | 'on_hold_at' | 'picking_at' | 'packing_at' | 'ready_to_ship_at' | 'shipped_at' | 'delivered_at'> & ResourceFilter
 
 
 interface Shipment extends Resource {
@@ -150,6 +150,11 @@ interface Shipment extends Resource {
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	shipped_at?: string | null
+	/** 
+	 * Time at which the shipment was delivered.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	delivered_at?: string | null
 
 	order?: Order | null
 	shipping_category?: ShippingCategory | null

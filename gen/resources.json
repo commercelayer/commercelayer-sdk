@@ -16589,6 +16589,18 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "_reset_restocked_quantity": {
+                    "type": "boolean",
+                    "desc": "Send this attribute if you want to reset the quantity restocked by a return or by an order/shipment cancel. This will allow for multiple returns, albeit you need to adjust the stock manually. Cannot be passed by sales channels.",
+                    "required": "optional",
+                    "prohibited": true,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "currency_code": {
                     "type": "string",
                     "desc": "The international 3-letter currency code as defined by the ISO 4217 standard, automatically inherited from the order's market.",
@@ -19303,6 +19315,21 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "secret"
+                },
+                "customer_type": {
+                    "type": "string",
+                    "desc": "The type of the associated customer. One of 'new', or 'returning'.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "returning",
+                    "enum": [
+                        "new",
+                        "returning"
+                    ]
                 },
                 "language_code": {
                     "type": "string",
@@ -23430,6 +23457,17 @@
                     "sortable": false,
                     "example": "5000"
                 },
+                "addresses_avs_check": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Indicates if AVS checking will be enforced during payment workflow by passing specific attributes, default is true.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "addresses_phone_required": {
                     "type": "boolean",
                     "default": true,
@@ -23815,6 +23853,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "false"
+                },
+                "external_prices_errors": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Enables raising of API errors in case of external price failure, default is true.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "id": {
                     "format": "id",
@@ -31701,6 +31750,16 @@
                     "sortable": true,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
+                "delivered_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the shipment was delivered.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -32003,6 +32062,7 @@
                 "packing_at",
                 "ready_to_ship_at",
                 "shipped_at",
+                "delivered_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -32043,6 +32103,8 @@
                 "ready_to_ship_at_to",
                 "shipped_at_from",
                 "shipped_at_to",
+                "delivered_at_from",
+                "delivered_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
