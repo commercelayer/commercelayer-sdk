@@ -23589,6 +23589,17 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "orders_validate_shipping_stock": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables the validation of the generated stock line items and stock transfers before placing the order, default is false.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
                 "bundles_max_items_count": {
                     "type": "integer",
                     "default": 10,
