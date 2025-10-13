@@ -467,6 +467,32 @@ describe('LineItems resource', () => {
 	/* trigger._reserve_stock stop */
 	
 
+	/* trigger._reset_restocked_quantity start */
+	it(resourceType + '._reset_restocked_quantity', async () => {
+	
+		let triggerAttr = '_reset_restocked_quantity'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath]._reset_restocked_quantity(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._reset_restocked_quantity stop */
+	
+
 	/* trigger._reset_circuit start */
 	it(resourceType + '._reset_circuit', async () => {
 	
