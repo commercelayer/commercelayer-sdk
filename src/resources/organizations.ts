@@ -106,6 +106,11 @@ interface Organization extends Resource {
 	 */
 	api_max_regex_length?: number | null
 	/** 
+	 * Indicates if AVS checking will be enforced during payment workflow by passing specific attributes, default is true.
+	 * @example ```true```
+	 */
+	addresses_avs_check?: boolean | null
+	/** 
 	 * Indicates if the phone attribute is required for addresses, default is true.
 	 * @example ```true```
 	 */
@@ -156,6 +161,10 @@ interface Organization extends Resource {
 	 * @example ```true```
 	 */
 	orders_invalid_gift_card_errors?: boolean | null
+	/** 
+	 * Enables the validation of the generated stock line items and stock transfers before placing the order, default is false.
+	 */
+	orders_validate_shipping_stock?: boolean | null
 	/** 
 	 * The maximum number of SKUs allowed for bundles, default is 10.
 	 * @example ```10```
@@ -269,6 +278,11 @@ interface Organization extends Resource {
 	 * Enables raising of API errors in case of external promotion failure, default is false.
 	 */
 	external_promotions_errors?: boolean | null
+	/** 
+	 * Enables raising of API errors in case of external price failure, default is true.
+	 * @example ```true```
+	 */
+	external_prices_errors?: boolean | null
 
 	event_stores?: EventStore[] | null
 

@@ -283,6 +283,11 @@ interface LineItemCreate extends ResourceCreate {
 	 */
 	_reserve_stock?: boolean | null
 	/** 
+	 * Send this attribute if you want to reset the quantity restocked by a return or by an order/shipment cancel. This will allow for multiple returns, albeit you need to adjust the stock manually. Cannot be passed by sales channels.
+	 * @example ```true```
+	 */
+	_reset_restocked_quantity?: boolean | null
+	/** 
 	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods. Cannot be passed by sales channels.
 	 * @example ```10000```
 	 */
@@ -347,6 +352,11 @@ interface LineItemUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_reserve_stock?: boolean | null
+	/** 
+	 * Send this attribute if you want to reset the quantity restocked by a return or by an order/shipment cancel. This will allow for multiple returns, albeit you need to adjust the stock manually. Cannot be passed by sales channels.
+	 * @example ```true```
+	 */
+	_reset_restocked_quantity?: boolean | null
 	/** 
 	 * The unit amount of the line item, in cents. Can be specified only via an integration application, or when the item is missing, otherwise is automatically computed by using one of the available methods. Cannot be passed by sales channels.
 	 * @example ```10000```
@@ -468,6 +478,10 @@ class LineItems extends ApiResource<LineItem> {
 
 	async _reserve_stock(id: string | LineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
 		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _reserve_stock: true }, params, options)
+	}
+
+	async _reset_restocked_quantity(id: string | LineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
+		return this.resources.update<LineItemUpdate, LineItem>({ id: (typeof id === 'string')? id: id.id, type: LineItems.TYPE, _reset_restocked_quantity: true }, params, options)
 	}
 
 	async _reset_circuit(id: string | LineItem, params?: QueryParamsRetrieve<LineItem>, options?: ResourcesConfig): Promise<LineItem> {
