@@ -1,3 +1,9 @@
+## [7.3.0](https://github.com/commercelayer/commercelayer-sdk/compare/v7.2.0...v7.3.0) (2025-10-20)
+
+### Features
+
+* add support for Node v20 ([277190e](https://github.com/commercelayer/commercelayer-sdk/commit/277190e90433c892047a13a3788a3afc1e4b86fa))
+
 ## [7.2.0](https://github.com/commercelayer/commercelayer-sdk/compare/v7.1.0...v7.2.0) (2025-10-13)
 
 ### Features
