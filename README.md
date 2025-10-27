@@ -85,7 +85,7 @@ const orderList = await orders.list()
 const skuList = await skus.list()
 ```
 
-You can still use the old styled bundle client importing it directly (together with all the included resources, this will increase your final package size).
+You can still use the old style bundle client importing it directly (together with all the included resources, this will increase your final package size).
 
 ```javascript
 import { CommerceLayer } from '@commercelayer/sdk/bundle'
