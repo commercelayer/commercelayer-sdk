@@ -34,15 +34,15 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.28.3",
-    "@babel/preset-typescript": "^7.27.1",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@commercelayer/eslint-config-ts": "1.4.5",
     "@commercelayer/js-auth": "^6.7.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/debug": "^4.1.12",
     "@types/jest": "^29.5.14",
-    "@types/node": "^24.7.2",
+    "@types/node": "^24.10.0",
     "dotenv": "^16.6.1",
     "eslint": "^8.57.1",
     "jest": "^29.7.0",

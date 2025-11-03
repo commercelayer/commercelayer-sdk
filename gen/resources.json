@@ -4258,6 +4258,16 @@
                     "sortable": true,
                     "example": "2"
                 },
+                "total_usage_reached": {
+                    "type": "boolean",
+                    "desc": "Indicates if the promotion has been applied the total number of allowed times.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": false
+                },
                 "active": {
                     "type": "boolean",
                     "desc": "Indicates if the promotion is active (enabled and not expired).",
@@ -4611,6 +4621,7 @@
                 "expires_at",
                 "total_usage_limit",
                 "total_usage_count",
+                "total_usage_reached",
                 "disabled_at",
                 "created_at",
                 "updated_at",
@@ -10717,6 +10728,16 @@
                     "sortable": true,
                     "example": "2"
                 },
+                "total_usage_reached": {
+                    "type": "boolean",
+                    "desc": "Indicates if the promotion has been applied the total number of allowed times.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": false
+                },
                 "active": {
                     "type": "boolean",
                     "desc": "Indicates if the promotion is active (enabled and not expired).",
@@ -11107,6 +11128,7 @@
                 "expires_at",
                 "total_usage_limit",
                 "total_usage_count",
+                "total_usage_reached",
                 "disabled_at",
                 "created_at",
                 "updated_at",
@@ -11534,6 +11556,16 @@
                     "sortable": true,
                     "example": "2"
                 },
+                "total_usage_reached": {
+                    "type": "boolean",
+                    "desc": "Indicates if the promotion has been applied the total number of allowed times.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": false
+                },
                 "active": {
                     "type": "boolean",
                     "desc": "Indicates if the promotion is active (enabled and not expired).",
@@ -11887,6 +11919,7 @@
                 "expires_at",
                 "total_usage_limit",
                 "total_usage_count",
+                "total_usage_reached",
                 "disabled_at",
                 "created_at",
                 "updated_at",
@@ -12053,6 +12086,16 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "2"
+                },
+                "total_usage_reached": {
+                    "type": "boolean",
+                    "desc": "Indicates if the promotion has been applied the total number of allowed times.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": false
                 },
                 "active": {
                     "type": "boolean",
@@ -12407,6 +12450,7 @@
                 "expires_at",
                 "total_usage_limit",
                 "total_usage_count",
+                "total_usage_reached",
                 "disabled_at",
                 "created_at",
                 "updated_at",
@@ -13001,6 +13045,16 @@
                     "sortable": true,
                     "example": "2"
                 },
+                "total_usage_reached": {
+                    "type": "boolean",
+                    "desc": "Indicates if the promotion has been applied the total number of allowed times.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": false
+                },
                 "active": {
                     "type": "boolean",
                     "desc": "Indicates if the promotion is active (enabled and not expired).",
@@ -13333,6 +13387,7 @@
                 "expires_at",
                 "total_usage_limit",
                 "total_usage_count",
+                "total_usage_reached",
                 "disabled_at",
                 "created_at",
                 "updated_at",
@@ -13499,6 +13554,16 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "2"
+                },
+                "total_usage_reached": {
+                    "type": "boolean",
+                    "desc": "Indicates if the promotion has been applied the total number of allowed times.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": false
                 },
                 "active": {
                     "type": "boolean",
@@ -13812,6 +13877,7 @@
                 "expires_at",
                 "total_usage_limit",
                 "total_usage_count",
+                "total_usage_reached",
                 "disabled_at",
                 "created_at",
                 "updated_at",
@@ -26208,6 +26274,16 @@
                     "sortable": true,
                     "example": "2"
                 },
+                "total_usage_reached": {
+                    "type": "boolean",
+                    "desc": "Indicates if the promotion has been applied the total number of allowed times.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": false
+                },
                 "active": {
                     "type": "boolean",
                     "desc": "Indicates if the promotion is active (enabled and not expired).",
@@ -26539,6 +26615,7 @@
                 "expires_at",
                 "total_usage_limit",
                 "total_usage_count",
+                "total_usage_reached",
                 "disabled_at",
                 "created_at",
                 "updated_at",
@@ -28495,6 +28572,16 @@
                     "sortable": true,
                     "example": "2"
                 },
+                "total_usage_reached": {
+                    "type": "boolean",
+                    "desc": "Indicates if the promotion has been applied the total number of allowed times.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": false
+                },
                 "active": {
                     "type": "boolean",
                     "desc": "Indicates if the promotion is active (enabled and not expired).",
@@ -28807,6 +28894,7 @@
                 "expires_at",
                 "total_usage_limit",
                 "total_usage_count",
+                "total_usage_reached",
                 "disabled_at",
                 "created_at",
                 "updated_at",

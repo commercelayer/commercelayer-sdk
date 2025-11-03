@@ -29,8 +29,8 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type ExternalPromotionSort = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
-// export type ExternalPromotionFilter = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
+export type ExternalPromotionSort = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type ExternalPromotionFilter = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface ExternalPromotion extends Resource {
@@ -77,6 +77,10 @@ interface ExternalPromotion extends Resource {
 	 * @example ```2```
 	 */
 	total_usage_count?: number | null
+	/** 
+	 * Indicates if the promotion has been applied the total number of allowed times.
+	 */
+	total_usage_reached?: boolean | null
 	/** 
 	 * Indicates if the promotion is active (enabled and not expired).
 	 * @example ```true```
