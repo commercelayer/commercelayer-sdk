@@ -29,8 +29,8 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type FixedPricePromotionSort = Pick<FixedPricePromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
-// export type FixedPricePromotionFilter = Pick<FixedPricePromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
+export type FixedPricePromotionSort = Pick<FixedPricePromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at'> & ResourceSort
+// export type FixedPricePromotionFilter = Pick<FixedPricePromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at'> & ResourceFilter
 
 
 interface FixedPricePromotion extends Resource {
@@ -77,6 +77,10 @@ interface FixedPricePromotion extends Resource {
 	 * @example ```2```
 	 */
 	total_usage_count?: number | null
+	/** 
+	 * Indicates if the promotion has been applied the total number of allowed times.
+	 */
+	total_usage_reached?: boolean | null
 	/** 
 	 * Indicates if the promotion is active (enabled and not expired).
 	 * @example ```true```

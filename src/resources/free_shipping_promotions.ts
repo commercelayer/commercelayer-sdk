@@ -28,8 +28,8 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type FreeShippingPromotionSort = Pick<FreeShippingPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceSort
-// export type FreeShippingPromotionFilter = Pick<FreeShippingPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'disabled_at'> & ResourceFilter
+export type FreeShippingPromotionSort = Pick<FreeShippingPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at'> & ResourceSort
+// export type FreeShippingPromotionFilter = Pick<FreeShippingPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at'> & ResourceFilter
 
 
 interface FreeShippingPromotion extends Resource {
@@ -76,6 +76,10 @@ interface FreeShippingPromotion extends Resource {
 	 * @example ```2```
 	 */
 	total_usage_count?: number | null
+	/** 
+	 * Indicates if the promotion has been applied the total number of allowed times.
+	 */
+	total_usage_reached?: boolean | null
 	/** 
 	 * Indicates if the promotion is active (enabled and not expired).
 	 * @example ```true```
