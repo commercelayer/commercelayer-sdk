@@ -1,3 +1,10 @@
+## [6.50.1](https://github.com/commercelayer/commercelayer-sdk/compare/v6.50.0...v6.50.1) (2025-12-05)
+
+
+### Bug Fixes
+
+* fix npm release and update dependencies ([1730521](https://github.com/commercelayer/commercelayer-sdk/commit/1730521864e732927e6852b96763be8cc61d2d3d))
+
 # [6.50.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.49.0...v6.50.0) (2025-11-03)
 
 
