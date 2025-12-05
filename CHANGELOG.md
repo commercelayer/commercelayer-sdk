@@ -1,3 +1,9 @@
+## [7.4.1](https://github.com/commercelayer/commercelayer-sdk/compare/v7.4.0...v7.4.1) (2025-12-05)
+
+### Bug Fixes
+
+* fix npm release and update dependencies ([62d2fa6](https://github.com/commercelayer/commercelayer-sdk/commit/62d2fa6b69781ed51d68c170a0fb3a36307c1802))
+
 ## [7.4.0](https://github.com/commercelayer/commercelayer-sdk/compare/v7.3.1...v7.4.0) (2025-11-03)
 
 ### Features
