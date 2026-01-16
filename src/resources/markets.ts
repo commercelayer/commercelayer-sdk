@@ -106,6 +106,11 @@ interface Market extends Resource {
 	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
 	 */
 	shared_secret: string
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
 
 	merchant?: Merchant | null
 	price_list?: PriceList | null
@@ -174,6 +179,11 @@ interface MarketCreate extends ResourceCreate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
 
 	merchant: MerchantRel
 	price_list: PriceListRel
@@ -236,6 +246,11 @@ interface MarketUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
 
 	merchant?: MerchantRel | null
 	price_list?: PriceListRel | null

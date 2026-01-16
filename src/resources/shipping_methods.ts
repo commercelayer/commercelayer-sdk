@@ -140,6 +140,11 @@ interface ShippingMethod extends Resource {
 	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
 	 */
 	shared_secret: string
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
 
 	market?: Market | null
 	shipping_zone?: ShippingZone | null
@@ -223,6 +228,11 @@ interface ShippingMethodCreate extends ResourceCreate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
 
 	market?: MarketRel | null
 	shipping_zone?: ShippingZoneRel | null
@@ -305,6 +315,11 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
 
 	market?: MarketRel | null
 	shipping_zone?: ShippingZoneRel | null

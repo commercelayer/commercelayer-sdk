@@ -1,10 +1,10 @@
 /**
- * ©2025 Commerce Layer Inc.
+ * ©2026 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, Notification, notifications, orders } from '../../src'
+import { CommerceLayerClient, Notification, notifications, line_items } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -28,7 +28,7 @@ describe('Notifications resource', () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			notifiable: orders.relationship(TestData.id),
+			notifiable: line_items.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

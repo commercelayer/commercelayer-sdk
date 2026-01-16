@@ -3,15 +3,15 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { EventStore } from './event_stores'
-import type { Order, OrderType } from './orders'
 import type { LineItem, LineItemType } from './line_items'
+import type { Order, OrderType } from './orders'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 
 
 type NotificationType = 'notifications'
 type NotificationRel = ResourceRel & { type: NotificationType }
-type OrderRel = ResourceRel & { type: OrderType }
 type LineItemRel = ResourceRel & { type: LineItemType }
+type OrderRel = ResourceRel & { type: OrderType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
 
@@ -38,7 +38,7 @@ interface Notification extends Resource {
 	 */
 	body?: Record<string, any> | null
 
-	notifiable?: Order | LineItem | ShippingMethod | null
+	notifiable?: LineItem | Order | ShippingMethod | null
 	event_stores?: EventStore[] | null
 
 }
@@ -61,7 +61,7 @@ interface NotificationCreate extends ResourceCreate {
 	 */
 	body?: Record<string, any> | null
 
-	notifiable: OrderRel | LineItemRel | ShippingMethodRel
+	notifiable: LineItemRel | OrderRel | ShippingMethodRel
 
 }
 
@@ -83,7 +83,7 @@ interface NotificationUpdate extends ResourceUpdate {
 	 */
 	body?: Record<string, any> | null
 
-	notifiable?: OrderRel | LineItemRel | ShippingMethodRel | null
+	notifiable?: LineItemRel | OrderRel | ShippingMethodRel | null
 
 }
 
