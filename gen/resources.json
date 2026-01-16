@@ -1565,9 +1565,9 @@
                         "payment_methods",
                         "markets",
                         "customer_groups",
+                        "promotions",
                         "orders",
                         "transactions",
-                        "promotions",
                         "tax_calculators",
                         "tax_categories",
                         "skus",
@@ -1583,8 +1583,8 @@
                         "customers",
                         "delivery_lead_times",
                         "shipping_methods",
-                        "discount_engines",
                         "shipments",
+                        "discount_engines",
                         "parcels",
                         "gift_card_recipients",
                         "gift_cards",
@@ -10323,6 +10323,20 @@
                     "sortable": false,
                     "deprecated": true,
                     "example": "true"
+                },
+                "external_includes": {
+                    "type": "array",
+                    "desc": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
+                    "required": "optional, default to resource specific list",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": [
+                        "order.line_item_options"
+                    ]
                 }
             },
             "relationships": {
@@ -10969,6 +10983,20 @@
                     "sortable": false,
                     "deprecated": true,
                     "example": "true"
+                },
+                "external_includes": {
+                    "type": "array",
+                    "desc": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
+                    "required": "optional, default to resource specific list",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": [
+                        "order.line_item_options"
+                    ]
                 }
             },
             "relationships": {
@@ -11349,6 +11377,20 @@
                     "sortable": false,
                     "deprecated": true,
                     "example": "true"
+                },
+                "external_includes": {
+                    "type": "array",
+                    "desc": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
+                    "required": "optional, default to resource specific list",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": [
+                        "order.line_item_options"
+                    ]
                 }
             },
             "relationships": {
@@ -15164,6 +15206,17 @@
                     "deprecated": true,
                     "example": "true"
                 },
+                "skip_errors": {
+                    "type": "boolean",
+                    "desc": "Disables the interruption of the import in case its errors exceeds the 10% threshold.",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "attachment_url": {
                     "type": "string",
                     "desc": "The URL the the raw inputs file, which will be generated at import start.",
@@ -18580,6 +18633,20 @@
                     "deprecated": true,
                     "example": "true"
                 },
+                "external_includes": {
+                    "type": "array",
+                    "desc": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
+                    "required": "optional, default to resource specific list",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": [
+                        "order.line_item_options"
+                    ]
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -19164,8 +19231,8 @@
                     "parent_resource": "Api::NotificationResource",
                     "class_name": "Notifiable",
                     "enum": [
-                        "orders",
                         "line_items",
+                        "orders",
                         "shipping_methods"
                     ]
                 },
@@ -32997,6 +33064,20 @@
                     "sortable": false,
                     "deprecated": true,
                     "example": "true"
+                },
+                "external_includes": {
+                    "type": "array",
+                    "desc": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
+                    "required": "optional, default to resource specific list",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": [
+                        "order.line_item_options"
+                    ]
                 },
                 "created_at": {
                     "type": "datetime",

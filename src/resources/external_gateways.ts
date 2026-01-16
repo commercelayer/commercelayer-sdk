@@ -65,6 +65,11 @@ interface ExternalGateway extends Resource {
 	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
 	 */
 	shared_secret: string
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
@@ -106,6 +111,11 @@ interface ExternalGatewayCreate extends ResourceCreate {
 	 * @example ```"https://external_gateway.com/token"```
 	 */
 	token_url?: string | null
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
 	
 }
 
@@ -147,6 +157,11 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
 	
 }
 

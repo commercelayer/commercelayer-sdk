@@ -1,5 +1,5 @@
 /**
- * ©2025 Commerce Layer Inc.
+ * ©2026 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
@@ -27,7 +27,7 @@ describe('Notifications resource', () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			notifiable: cl.orders.relationship(TestData.id),
+			notifiable: cl.line_items.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }

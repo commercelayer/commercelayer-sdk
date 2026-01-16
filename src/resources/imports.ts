@@ -89,6 +89,11 @@ interface Import extends Resource {
 	 */
 	warnings_log?: Record<string, any> | null
 	/** 
+	 * Disables the interruption of the import in case its errors exceeds the 10% threshold.
+	 * @example ```true```
+	 */
+	skip_errors?: boolean | null
+	/** 
 	 * The URL the the raw inputs file, which will be generated at import start.
 	 * @example ```"http://cl_imports.s3.amazonaws.com/"```
 	 */
@@ -122,6 +127,11 @@ interface ImportCreate extends ResourceCreate {
 	 * @example ```[{"code":"ABC","name":"Foo"},{"code":"DEF","name":"Bar"}]```
 	 */
 	inputs: Array<Record<string, any>>
+	/** 
+	 * Disables the interruption of the import in case its errors exceeds the 10% threshold.
+	 * @example ```true```
+	 */
+	skip_errors?: boolean | null
 	
 }
 
