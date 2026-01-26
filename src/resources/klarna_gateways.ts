@@ -13,8 +13,8 @@ type KlarnaGatewayRel = ResourceRel & { type: KlarnaGatewayType }
 type KlarnaPaymentRel = ResourceRel & { type: KlarnaPaymentType }
 
 
-export type KlarnaGatewaySort = Pick<KlarnaGateway, 'id' | 'name'> & ResourceSort
-// export type KlarnaGatewayFilter = Pick<KlarnaGateway, 'id' | 'name'> & ResourceFilter
+export type KlarnaGatewaySort = Pick<KlarnaGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
+// export type KlarnaGatewayFilter = Pick<KlarnaGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
 
 interface KlarnaGateway extends Resource {
@@ -26,6 +26,16 @@ interface KlarnaGateway extends Resource {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
@@ -42,6 +52,21 @@ interface KlarnaGatewayCreate extends ResourceCreate {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The gateway country code one of EU, US, or OC.
 	 * @example ```"EU"```
@@ -70,6 +95,21 @@ interface KlarnaGatewayUpdate extends ResourceUpdate {
 	 * @example ```"US payment gateway"```
 	 */
 	name?: string | null
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The gateway country code one of EU, US, or OC.
 	 * @example ```"EU"```
@@ -125,6 +165,14 @@ class KlarnaGateways extends ApiResource<KlarnaGateway> {
 	async klarna_payments(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<KlarnaPayment>, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>> {
 		const _klarnaGatewayId = (klarnaGatewayId as KlarnaGateway).id || klarnaGatewayId as string
 		return this.resources.fetch<KlarnaPayment>({ type: 'klarna_payments' }, `klarna_gateways/${_klarnaGatewayId}/klarna_payments`, params, options) as unknown as ListResponse<KlarnaPayment>
+	}
+
+	async _disable(id: string | KlarnaGateway, params?: QueryParamsRetrieve<KlarnaGateway>, options?: ResourcesConfig): Promise<KlarnaGateway> {
+		return this.resources.update<KlarnaGatewayUpdate, KlarnaGateway>({ id: (typeof id === 'string')? id: id.id, type: KlarnaGateways.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | KlarnaGateway, params?: QueryParamsRetrieve<KlarnaGateway>, options?: ResourcesConfig): Promise<KlarnaGateway> {
+		return this.resources.update<KlarnaGatewayUpdate, KlarnaGateway>({ id: (typeof id === 'string')? id: id.id, type: KlarnaGateways.TYPE, _enable: true }, params, options)
 	}
 
 

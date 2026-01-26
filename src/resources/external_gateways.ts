@@ -12,8 +12,8 @@ type ExternalGatewayType = 'external_gateways'
 type ExternalGatewayRel = ResourceRel & { type: ExternalGatewayType }
 
 
-export type ExternalGatewaySort = Pick<ExternalGateway, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
-// export type ExternalGatewayFilter = Pick<ExternalGateway, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
+export type ExternalGatewaySort = Pick<ExternalGateway, 'id' | 'name' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
+// export type ExternalGatewayFilter = Pick<ExternalGateway, 'id' | 'name' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 
 interface ExternalGateway extends Resource {
@@ -25,6 +25,16 @@ interface ExternalGateway extends Resource {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
 	/** 
 	 * The endpoint used by the external gateway to authorize payments.
 	 * @example ```"https://external_gateway.com/authorize"```
@@ -87,6 +97,21 @@ interface ExternalGatewayCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
+	/** 
 	 * The endpoint used by the external gateway to authorize payments.
 	 * @example ```"https://external_gateway.com/authorize"```
 	 */
@@ -127,6 +152,21 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 	 * @example ```"US payment gateway"```
 	 */
 	name?: string | null
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The endpoint used by the external gateway to authorize payments.
 	 * @example ```"https://external_gateway.com/authorize"```
@@ -200,6 +240,14 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 	async external_payments(externalGatewayId: string | ExternalGateway, params?: QueryParamsList<ExternalPayment>, options?: ResourcesConfig): Promise<ListResponse<ExternalPayment>> {
 		const _externalGatewayId = (externalGatewayId as ExternalGateway).id || externalGatewayId as string
 		return this.resources.fetch<ExternalPayment>({ type: 'external_payments' }, `external_gateways/${_externalGatewayId}/external_payments`, params, options) as unknown as ListResponse<ExternalPayment>
+	}
+
+	async _disable(id: string | ExternalGateway, params?: QueryParamsRetrieve<ExternalGateway>, options?: ResourcesConfig): Promise<ExternalGateway> {
+		return this.resources.update<ExternalGatewayUpdate, ExternalGateway>({ id: (typeof id === 'string')? id: id.id, type: ExternalGateways.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | ExternalGateway, params?: QueryParamsRetrieve<ExternalGateway>, options?: ResourcesConfig): Promise<ExternalGateway> {
+		return this.resources.update<ExternalGatewayUpdate, ExternalGateway>({ id: (typeof id === 'string')? id: id.id, type: ExternalGateways.TYPE, _enable: true }, params, options)
 	}
 
 	async _reset_circuit(id: string | ExternalGateway, params?: QueryParamsRetrieve<ExternalGateway>, options?: ResourcesConfig): Promise<ExternalGateway> {

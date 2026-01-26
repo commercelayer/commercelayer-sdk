@@ -12,8 +12,8 @@ type PaypalGatewayType = 'paypal_gateways'
 type PaypalGatewayRel = ResourceRel & { type: PaypalGatewayType }
 
 
-export type PaypalGatewaySort = Pick<PaypalGateway, 'id' | 'name'> & ResourceSort
-// export type PaypalGatewayFilter = Pick<PaypalGateway, 'id' | 'name'> & ResourceFilter
+export type PaypalGatewaySort = Pick<PaypalGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
+// export type PaypalGatewayFilter = Pick<PaypalGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
 
 interface PaypalGateway extends Resource {
@@ -25,6 +25,16 @@ interface PaypalGateway extends Resource {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
 
 	payment_methods?: PaymentMethod[] | null
 	versions?: Version[] | null
@@ -41,6 +51,21 @@ interface PaypalGatewayCreate extends ResourceCreate {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The gateway client ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -62,6 +87,21 @@ interface PaypalGatewayUpdate extends ResourceUpdate {
 	 * @example ```"US payment gateway"```
 	 */
 	name?: string | null
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The gateway client ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -110,6 +150,14 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 	async paypal_payments(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<PaypalPayment>, options?: ResourcesConfig): Promise<ListResponse<PaypalPayment>> {
 		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
 		return this.resources.fetch<PaypalPayment>({ type: 'paypal_payments' }, `paypal_gateways/${_paypalGatewayId}/paypal_payments`, params, options) as unknown as ListResponse<PaypalPayment>
+	}
+
+	async _disable(id: string | PaypalGateway, params?: QueryParamsRetrieve<PaypalGateway>, options?: ResourcesConfig): Promise<PaypalGateway> {
+		return this.resources.update<PaypalGatewayUpdate, PaypalGateway>({ id: (typeof id === 'string')? id: id.id, type: PaypalGateways.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | PaypalGateway, params?: QueryParamsRetrieve<PaypalGateway>, options?: ResourcesConfig): Promise<PaypalGateway> {
+		return this.resources.update<PaypalGatewayUpdate, PaypalGateway>({ id: (typeof id === 'string')? id: id.id, type: PaypalGateways.TYPE, _enable: true }, params, options)
 	}
 
 

@@ -13,8 +13,8 @@ type AdyenGatewayRel = ResourceRel & { type: AdyenGatewayType }
 type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
 
 
-export type AdyenGatewaySort = Pick<AdyenGateway, 'id' | 'name'> & ResourceSort
-// export type AdyenGatewayFilter = Pick<AdyenGateway, 'id' | 'name'> & ResourceFilter
+export type AdyenGatewaySort = Pick<AdyenGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
+// export type AdyenGatewayFilter = Pick<AdyenGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
 
 interface AdyenGateway extends Resource {
@@ -26,6 +26,16 @@ interface AdyenGateway extends Resource {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
 	/** 
 	 * The prefix of the endpoint used for live transactions.
 	 * @example ```"1797a841fbb37ca7-AdyenDemo"```
@@ -76,6 +86,21 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The gateway merchant account.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -133,6 +158,21 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	 * @example ```"US payment gateway"```
 	 */
 	name?: string | null
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The gateway merchant account.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -217,6 +257,14 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 	async adyen_payments(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList<AdyenPayment>, options?: ResourcesConfig): Promise<ListResponse<AdyenPayment>> {
 		const _adyenGatewayId = (adyenGatewayId as AdyenGateway).id || adyenGatewayId as string
 		return this.resources.fetch<AdyenPayment>({ type: 'adyen_payments' }, `adyen_gateways/${_adyenGatewayId}/adyen_payments`, params, options) as unknown as ListResponse<AdyenPayment>
+	}
+
+	async _disable(id: string | AdyenGateway, params?: QueryParamsRetrieve<AdyenGateway>, options?: ResourcesConfig): Promise<AdyenGateway> {
+		return this.resources.update<AdyenGatewayUpdate, AdyenGateway>({ id: (typeof id === 'string')? id: id.id, type: AdyenGateways.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | AdyenGateway, params?: QueryParamsRetrieve<AdyenGateway>, options?: ResourcesConfig): Promise<AdyenGateway> {
+		return this.resources.update<AdyenGatewayUpdate, AdyenGateway>({ id: (typeof id === 'string')? id: id.id, type: AdyenGateways.TYPE, _enable: true }, params, options)
 	}
 
 
