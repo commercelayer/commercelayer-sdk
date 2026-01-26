@@ -691,6 +691,18 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -702,6 +714,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -925,6 +972,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -934,6 +982,8 @@
                 "payment_methods_id",
                 "adyen_payments_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -2469,6 +2519,18 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -2480,6 +2542,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -2622,6 +2719,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -2631,6 +2729,8 @@
                 "payment_methods_id",
                 "axerve_payments_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -3279,6 +3379,18 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -3290,6 +3402,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -3488,6 +3635,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -3497,6 +3645,8 @@
                 "payment_methods_id",
                 "braintree_payments_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -5362,6 +5512,18 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -5373,6 +5535,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -5536,6 +5733,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -5545,6 +5743,8 @@
                 "payment_methods_id",
                 "checkout_com_payments_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -10141,6 +10341,18 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -10152,6 +10364,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -10332,6 +10579,7 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": false,
+                    "visibility": "skip_example",
                     "sortable": false,
                     "exportable": false,
                     "example": [
@@ -10388,6 +10636,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -10399,6 +10648,8 @@
                 "payment_methods_id",
                 "external_payments_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -10992,6 +11243,7 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": false,
+                    "visibility": "skip_example",
                     "sortable": false,
                     "exportable": false,
                     "example": [
@@ -11386,6 +11638,7 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": false,
+                    "visibility": "skip_example",
                     "sortable": false,
                     "exportable": false,
                     "example": [
@@ -16217,6 +16470,18 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -16228,6 +16493,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -16371,6 +16671,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -16380,6 +16681,8 @@
                 "payment_methods_id",
                 "klarna_payments_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -16638,7 +16941,25 @@
                 "update",
                 "delete"
             ],
-            "examples": {},
+            "examples": {
+                "creatable": {
+                    "fields": [
+                        "quantity",
+                        "sku_code"
+                    ],
+                    "relationships": [
+                        "order"
+                    ]
+                },
+                "updatable": {
+                    "fields": [
+                        "quantity"
+                    ],
+                    "relationships": [
+                        "tags"
+                    ]
+                }
+            },
             "filter_scopes": [],
             "fields": {
                 "sku_code": {
@@ -18123,6 +18444,18 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -18134,6 +18467,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -18232,6 +18600,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -18240,6 +18609,8 @@
                 "q",
                 "payment_methods_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -18641,6 +19012,7 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": false,
+                    "visibility": "skip_example",
                     "sortable": false,
                     "exportable": false,
                     "example": [
@@ -25065,6 +25437,18 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -25076,6 +25460,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -25174,6 +25593,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -25182,6 +25602,8 @@
                 "q",
                 "payment_methods_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -25781,6 +26203,18 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -25792,6 +26226,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -25924,6 +26393,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -25933,6 +26403,8 @@
                 "payment_methods_id",
                 "paypal_payments_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -31043,6 +31515,18 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.",
+                    "required": "optional, default is 'false'",
+                    "default": false,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -31054,6 +31538,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -31220,6 +31739,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -31229,6 +31749,8 @@
                 "payment_methods_id",
                 "satispay_payments_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -33073,6 +33595,7 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": false,
+                    "visibility": "skip_example",
                     "sortable": false,
                     "exportable": false,
                     "example": [
@@ -37094,6 +37617,16 @@
                     "sortable": true,
                     "example": "US payment gateway"
                 },
+                "force_payments": {
+                    "type": "boolean",
+                    "required": "optional, default is 'true'",
+                    "default": true,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -37105,6 +37638,41 @@
                     "filterable": true,
                     "sortable": true,
                     "example": "XAyRWNUzyN"
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
                 },
                 "created_at": {
                     "type": "datetime",
@@ -37208,18 +37776,6 @@
                     "sortable": false,
                     "example": "true"
                 },
-                "force_payments": {
-                    "type": "boolean",
-                    "desc": "Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.",
-                    "required": "optional, default is 'true'",
-                    "default": true,
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "true"
-                },
                 "webhook_endpoint_id": {
                     "type": "string",
                     "desc": "The gateway webhook endpoint ID, generated automatically.",
@@ -37302,6 +37858,7 @@
             "filters": [
                 "id",
                 "name",
+                "disabled_at",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -37310,6 +37867,8 @@
                 "q",
                 "payment_methods_id",
                 "ids",
+                "disabled_at_from",
+                "disabled_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",

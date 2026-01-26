@@ -12,8 +12,8 @@ type StripeGatewayType = 'stripe_gateways'
 type StripeGatewayRel = ResourceRel & { type: StripeGatewayType }
 
 
-export type StripeGatewaySort = Pick<StripeGateway, 'id' | 'name'> & ResourceSort
-// export type StripeGatewayFilter = Pick<StripeGateway, 'id' | 'name'> & ResourceFilter
+export type StripeGatewaySort = Pick<StripeGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
+// export type StripeGatewayFilter = Pick<StripeGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
 
 interface StripeGateway extends Resource {
@@ -25,6 +25,12 @@ interface StripeGateway extends Resource {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	force_payments?: boolean | null
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
 	/** 
 	 * The account (if any) for which the funds of the PaymentIntent are intended.
 	 * @example ```"acct_xxxx-yyyy-zzzz"```
@@ -35,11 +41,6 @@ interface StripeGateway extends Resource {
 	 * @example ```true```
 	 */
 	auto_payments?: boolean | null
-	/** 
-	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.
-	 * @example ```true```
-	 */
-	force_payments?: boolean | null
 	/** 
 	 * The gateway webhook endpoint ID, generated automatically.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -71,6 +72,17 @@ interface StripeGatewayCreate extends ResourceCreate {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The gateway login.
 	 * @example ```"sk_live_xxxx-yyyy-zzzz"```
@@ -91,11 +103,6 @@ interface StripeGatewayCreate extends ResourceCreate {
 	 * @example ```true```
 	 */
 	auto_payments?: boolean | null
-	/** 
-	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.
-	 * @example ```true```
-	 */
-	force_payments?: boolean | null
 	
 }
 
@@ -107,6 +114,17 @@ interface StripeGatewayUpdate extends ResourceUpdate {
 	 * @example ```"US payment gateway"```
 	 */
 	name?: string | null
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The account (if any) for which the funds of the PaymentIntent are intended.
 	 * @example ```"acct_xxxx-yyyy-zzzz"```
@@ -117,11 +135,6 @@ interface StripeGatewayUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	auto_payments?: boolean | null
-	/** 
-	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from Stripe.
-	 * @example ```true```
-	 */
-	force_payments?: boolean | null
 	
 }
 
@@ -160,6 +173,14 @@ class StripeGateways extends ApiResource<StripeGateway> {
 	async stripe_payments(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<StripePayment>, options?: ResourcesConfig): Promise<ListResponse<StripePayment>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
 		return this.resources.fetch<StripePayment>({ type: 'stripe_payments' }, `stripe_gateways/${_stripeGatewayId}/stripe_payments`, params, options) as unknown as ListResponse<StripePayment>
+	}
+
+	async _disable(id: string | StripeGateway, params?: QueryParamsRetrieve<StripeGateway>, options?: ResourcesConfig): Promise<StripeGateway> {
+		return this.resources.update<StripeGatewayUpdate, StripeGateway>({ id: (typeof id === 'string')? id: id.id, type: StripeGateways.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | StripeGateway, params?: QueryParamsRetrieve<StripeGateway>, options?: ResourcesConfig): Promise<StripeGateway> {
+		return this.resources.update<StripeGatewayUpdate, StripeGateway>({ id: (typeof id === 'string')? id: id.id, type: StripeGateways.TYPE, _enable: true }, params, options)
 	}
 
 

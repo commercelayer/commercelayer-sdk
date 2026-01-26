@@ -13,8 +13,8 @@ type CheckoutComGatewayRel = ResourceRel & { type: CheckoutComGatewayType }
 type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
 
 
-export type CheckoutComGatewaySort = Pick<CheckoutComGateway, 'id' | 'name'> & ResourceSort
-// export type CheckoutComGatewayFilter = Pick<CheckoutComGateway, 'id' | 'name'> & ResourceFilter
+export type CheckoutComGatewaySort = Pick<CheckoutComGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
+// export type CheckoutComGatewayFilter = Pick<CheckoutComGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
 
 interface CheckoutComGateway extends Resource {
@@ -26,6 +26,16 @@ interface CheckoutComGateway extends Resource {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
 	/** 
 	 * The gateway webhook endpoint ID, generated automatically.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -58,6 +68,21 @@ interface CheckoutComGatewayCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
+	/** 
 	 * The gateway secret key.
 	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
 	 */
@@ -80,6 +105,21 @@ interface CheckoutComGatewayUpdate extends ResourceUpdate {
 	 * @example ```"US payment gateway"```
 	 */
 	name?: string | null
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The gateway secret key.
 	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
@@ -130,6 +170,14 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 	async checkout_com_payments(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<CheckoutComPayment>, options?: ResourcesConfig): Promise<ListResponse<CheckoutComPayment>> {
 		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
 		return this.resources.fetch<CheckoutComPayment>({ type: 'checkout_com_payments' }, `checkout_com_gateways/${_checkoutComGatewayId}/checkout_com_payments`, params, options) as unknown as ListResponse<CheckoutComPayment>
+	}
+
+	async _disable(id: string | CheckoutComGateway, params?: QueryParamsRetrieve<CheckoutComGateway>, options?: ResourcesConfig): Promise<CheckoutComGateway> {
+		return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComGateways.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | CheckoutComGateway, params?: QueryParamsRetrieve<CheckoutComGateway>, options?: ResourcesConfig): Promise<CheckoutComGateway> {
+		return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComGateways.TYPE, _enable: true }, params, options)
 	}
 
 

@@ -13,8 +13,8 @@ type AxerveGatewayRel = ResourceRel & { type: AxerveGatewayType }
 type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
 
 
-export type AxerveGatewaySort = Pick<AxerveGateway, 'id' | 'name'> & ResourceSort
-// export type AxerveGatewayFilter = Pick<AxerveGateway, 'id' | 'name'> & ResourceFilter
+export type AxerveGatewaySort = Pick<AxerveGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
+// export type AxerveGatewayFilter = Pick<AxerveGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
 
 interface AxerveGateway extends Resource {
@@ -26,6 +26,16 @@ interface AxerveGateway extends Resource {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
 	/** 
 	 * The merchant login code.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -53,6 +63,21 @@ interface AxerveGatewayCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
+	/** 
 	 * The merchant login code.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
@@ -75,6 +100,21 @@ interface AxerveGatewayUpdate extends ResourceUpdate {
 	 * @example ```"US payment gateway"```
 	 */
 	name?: string | null
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The merchant login code.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -125,6 +165,14 @@ class AxerveGateways extends ApiResource<AxerveGateway> {
 	async axerve_payments(axerveGatewayId: string | AxerveGateway, params?: QueryParamsList<AxervePayment>, options?: ResourcesConfig): Promise<ListResponse<AxervePayment>> {
 		const _axerveGatewayId = (axerveGatewayId as AxerveGateway).id || axerveGatewayId as string
 		return this.resources.fetch<AxervePayment>({ type: 'axerve_payments' }, `axerve_gateways/${_axerveGatewayId}/axerve_payments`, params, options) as unknown as ListResponse<AxervePayment>
+	}
+
+	async _disable(id: string | AxerveGateway, params?: QueryParamsRetrieve<AxerveGateway>, options?: ResourcesConfig): Promise<AxerveGateway> {
+		return this.resources.update<AxerveGatewayUpdate, AxerveGateway>({ id: (typeof id === 'string')? id: id.id, type: AxerveGateways.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | AxerveGateway, params?: QueryParamsRetrieve<AxerveGateway>, options?: ResourcesConfig): Promise<AxerveGateway> {
+		return this.resources.update<AxerveGatewayUpdate, AxerveGateway>({ id: (typeof id === 'string')? id: id.id, type: AxerveGateways.TYPE, _enable: true }, params, options)
 	}
 
 

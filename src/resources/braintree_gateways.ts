@@ -13,8 +13,8 @@ type BraintreeGatewayRel = ResourceRel & { type: BraintreeGatewayType }
 type BraintreePaymentRel = ResourceRel & { type: BraintreePaymentType }
 
 
-export type BraintreeGatewaySort = Pick<BraintreeGateway, 'id' | 'name'> & ResourceSort
-// export type BraintreeGatewayFilter = Pick<BraintreeGateway, 'id' | 'name'> & ResourceFilter
+export type BraintreeGatewaySort = Pick<BraintreeGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
+// export type BraintreeGatewayFilter = Pick<BraintreeGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
 
 interface BraintreeGateway extends Resource {
@@ -26,6 +26,16 @@ interface BraintreeGateway extends Resource {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Time at which this resource was disabled.
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	disabled_at?: string | null
 	/** 
 	 * The dynamic descriptor name. Must be composed by business name (3, 7 or 12 chars), an asterisk (*) and the product name (18, 14 or 9 chars), for a total length of 22 chars.
 	 * @example ```"company*productabc1234"```
@@ -62,6 +72,21 @@ interface BraintreeGatewayCreate extends ResourceCreate {
 	 * @example ```"US payment gateway"```
 	 */
 	name: string
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The gateway merchant account ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -110,6 +135,21 @@ interface BraintreeGatewayUpdate extends ResourceUpdate {
 	 * @example ```"US payment gateway"```
 	 */
 	name?: string | null
+	/** 
+	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+	 * @example ```true```
+	 */
+	force_payments?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as disabled.
+	 * @example ```true```
+	 */
+	_disable?: boolean | null
+	/** 
+	 * Send this attribute if you want to mark this resource as enabled.
+	 * @example ```true```
+	 */
+	_enable?: boolean | null
 	/** 
 	 * The gateway merchant account ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -185,6 +225,14 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 	async braintree_payments(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<BraintreePayment>, options?: ResourcesConfig): Promise<ListResponse<BraintreePayment>> {
 		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
 		return this.resources.fetch<BraintreePayment>({ type: 'braintree_payments' }, `braintree_gateways/${_braintreeGatewayId}/braintree_payments`, params, options) as unknown as ListResponse<BraintreePayment>
+	}
+
+	async _disable(id: string | BraintreeGateway, params?: QueryParamsRetrieve<BraintreeGateway>, options?: ResourcesConfig): Promise<BraintreeGateway> {
+		return this.resources.update<BraintreeGatewayUpdate, BraintreeGateway>({ id: (typeof id === 'string')? id: id.id, type: BraintreeGateways.TYPE, _disable: true }, params, options)
+	}
+
+	async _enable(id: string | BraintreeGateway, params?: QueryParamsRetrieve<BraintreeGateway>, options?: ResourcesConfig): Promise<BraintreeGateway> {
+		return this.resources.update<BraintreeGatewayUpdate, BraintreeGateway>({ id: (typeof id === 'string')? id: id.id, type: BraintreeGateways.TYPE, _enable: true }, params, options)
 	}
 
 
