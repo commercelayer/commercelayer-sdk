@@ -1,3 +1,9 @@
+## [7.6.1](https://github.com/commercelayer/commercelayer-sdk/compare/v7.6.0...v7.6.1) (2026-02-11)
+
+### Bug Fixes
+
+* fix readme and update dependencies ([e8bc2f5](https://github.com/commercelayer/commercelayer-sdk/commit/e8bc2f51c134f15a07e13a8d618fe4a4a4da4e04))
+
 ## [7.6.0](https://github.com/commercelayer/commercelayer-sdk/compare/v7.5.0...v7.6.0) (2026-01-26)
 
 ### Features
