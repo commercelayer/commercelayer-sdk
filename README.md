@@ -522,7 +522,7 @@ In this case you can define a special function that takes care of refreshing the
 
 ## Contributors guide
 
-1. Fork [this repository](https://github.com/commercelayer/commercelayer-sdk) (learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
+1. Fork [this repository](https://github.com/commercelayer/commercelayer-sdk) (learn how to do this [by reading the GitHub documentation](https://help.github.com/articles/fork-a-repo)).
 
 2. Clone the forked repository like so:
 
