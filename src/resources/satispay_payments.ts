@@ -13,8 +13,8 @@ type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
 
-export type SatispayPaymentSort = Pick<SatispayPayment, 'id' | 'flow' | 'status'> & ResourceSort
-// export type SatispayPaymentFilter = Pick<SatispayPayment, 'id' | 'flow' | 'status'> & ResourceFilter
+export type SatispayPaymentSort = Pick<SatispayPayment, 'id' | 'payment_id' | 'flow' | 'status'> & ResourceSort
+// export type SatispayPaymentFilter = Pick<SatispayPayment, 'id' | 'payment_id' | 'flow' | 'status'> & ResourceFilter
 
 
 interface SatispayPayment extends Resource {
