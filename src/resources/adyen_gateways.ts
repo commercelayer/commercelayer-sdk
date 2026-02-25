@@ -56,6 +56,11 @@ interface AdyenGateway extends Resource {
 	 */
 	partial_payments?: boolean | null
 	/** 
+	 * The minutes after which the order created for partial payments automatically expires.
+	 * @example ```30```
+	 */
+	order_expiration_mins?: number | null
+	/** 
 	 * Indicates if the gateway will use the native customer payment sources.
 	 * @example ```true```
 	 */
@@ -136,6 +141,11 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	 */
 	partial_payments?: boolean | null
 	/** 
+	 * The minutes after which the order created for partial payments automatically expires.
+	 * @example ```30```
+	 */
+	order_expiration_mins?: number | null
+	/** 
 	 * Indicates if the gateway will use the native customer payment sources.
 	 * @example ```true```
 	 */
@@ -207,6 +217,11 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	 * Send this attribute if you want to enable partial payments for the order.
 	 */
 	partial_payments?: boolean | null
+	/** 
+	 * The minutes after which the order created for partial payments automatically expires.
+	 * @example ```30```
+	 */
+	order_expiration_mins?: number | null
 	/** 
 	 * Indicates if the gateway will use the native customer payment sources.
 	 * @example ```true```

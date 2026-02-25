@@ -888,6 +888,18 @@
                     "sortable": false,
                     "example": "false"
                 },
+                "order_expiration_mins": {
+                    "type": "integer",
+                    "desc": "The minutes after which the order created for partial payments automatically expires.",
+                    "required": "optional, default is one day (1440 minutes)",
+                    "default": 1440,
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "30"
+                },
                 "native_customer_payment_sources": {
                     "type": "boolean",
                     "desc": "Indicates if the gateway will use the native customer payment sources.",
@@ -1132,6 +1144,17 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "expires_at": {
+                    "type": "datetime",
+                    "desc": "The expiration date/time of this Adyen payment (valid for partial payments only).",
+                    "delegate": "order_expires_at",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2018-01-02T12:00:00.000Z"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -1274,6 +1297,8 @@
                 "q",
                 "order_id",
                 "ids",
+                "expires_at_from",
+                "expires_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
@@ -1736,6 +1761,18 @@
                         "captures",
                         "refunds"
                     ]
+                },
+                "payment_method_type": {
+                    "type": "string",
+                    "desc": "Information about the payment method used in the transaction.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "credit card"
                 },
                 "currency_code": {
                     "type": "string",
@@ -4859,6 +4896,18 @@
                         "captures",
                         "refunds"
                     ]
+                },
+                "payment_method_type": {
+                    "type": "string",
+                    "desc": "Information about the payment method used in the transaction.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "credit card"
                 },
                 "currency_code": {
                     "type": "string",
@@ -29965,6 +30014,18 @@
                         "refunds"
                     ]
                 },
+                "payment_method_type": {
+                    "type": "string",
+                    "desc": "Information about the payment method used in the transaction.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "credit card"
+                },
                 "currency_code": {
                     "type": "string",
                     "desc": "The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.",
@@ -30585,7 +30646,7 @@
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
-                    "filterable": true,
+                    "filterable": false,
                     "sortable": false,
                     "polymorphic": true,
                     "eager_load_on_include": false,
@@ -30621,7 +30682,6 @@
                 "reference_origin",
                 "metadata",
                 "q",
-                "resource_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -31779,12 +31839,12 @@
                 "payment_id": {
                     "type": "string",
                     "desc": "The payment unique identifier.",
-                    "required": "optional",
+                    "required": "required, created by gateway",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
+                    "filterable": true,
+                    "sortable": true,
                     "example": "xxxx-yyyy-zzzz"
                 },
                 "flow": {
@@ -31989,6 +32049,7 @@
             },
             "filters": [
                 "id",
+                "payment_id",
                 "flow",
                 "status",
                 "created_at",
@@ -39901,6 +39962,18 @@
                         "refunds"
                     ]
                 },
+                "payment_method_type": {
+                    "type": "string",
+                    "desc": "Information about the payment method used in the transaction.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "credit card"
+                },
                 "currency_code": {
                     "type": "string",
                     "desc": "The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.",
@@ -40731,6 +40804,18 @@
                         "captures",
                         "refunds"
                     ]
+                },
+                "payment_method_type": {
+                    "type": "string",
+                    "desc": "Information about the payment method used in the transaction.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "exportable": false,
+                    "example": "credit card"
                 },
                 "currency_code": {
                     "type": "string",

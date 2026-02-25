@@ -56,6 +56,11 @@ interface AdyenPayment extends Resource {
 	 */
 	balance?: number | null
 	/** 
+	 * The expiration date/time of this Adyen payment (valid for partial payments only).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	expires_at?: string | null
+	/** 
 	 * Information about the payment instrument used in the transaction.
 	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */

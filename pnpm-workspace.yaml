@@ -1,2 +1,6 @@
 ignoredBuiltDependencies:
   - esbuild
+
+peerDependencyRules:
+  allowedVersions:
+    "@typescript-eslint/eslint-plugin": "7"

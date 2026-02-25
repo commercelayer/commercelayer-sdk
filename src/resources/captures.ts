@@ -40,6 +40,11 @@ interface Capture extends Resource {
 	 */
 	number: string
 	/** 
+	 * Information about the payment method used in the transaction.
+	 * @example ```"credit card"```
+	 */
+	payment_method_type?: string | null
+	/** 
 	 * The international 3-letter currency code as defined by the ISO 4217 standard, inherited from the associated order.
 	 * @example ```"EUR"```
 	 */
