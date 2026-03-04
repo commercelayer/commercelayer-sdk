@@ -3952,7 +3952,7 @@
                     "updatable": true,
                     "fetchable": true,
                     "filterable": true,
-                    "sortable": false,
+                    "sortable": true,
                     "example": "Men's Black T-shirt (XL) with Black Cap and Socks, all with White Logo"
                 },
                 "currency_code": {
@@ -4492,6 +4492,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "112"
+                },
+                "coupons_count": {
+                    "type": "integer",
+                    "desc": "The total number of coupons created for this promotion.",
+                    "default": 0,
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2"
                 },
                 "id": {
                     "format": "id",
@@ -11090,6 +11101,17 @@
                     "sortable": false,
                     "example": "112"
                 },
+                "coupons_count": {
+                    "type": "integer",
+                    "desc": "The total number of coupons created for this promotion.",
+                    "default": 0,
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -11948,6 +11970,17 @@
                     "sortable": false,
                     "example": "112"
                 },
+                "coupons_count": {
+                    "type": "integer",
+                    "desc": "The total number of coupons created for this promotion.",
+                    "default": 0,
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -12478,6 +12511,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "112"
+                },
+                "coupons_count": {
+                    "type": "integer",
+                    "desc": "The total number of coupons created for this promotion.",
+                    "default": 0,
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2"
                 },
                 "id": {
                     "format": "id",
@@ -13437,6 +13481,17 @@
                     "sortable": false,
                     "example": "112"
                 },
+                "coupons_count": {
+                    "type": "integer",
+                    "desc": "The total number of coupons created for this promotion.",
+                    "default": 0,
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -13946,6 +14001,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "112"
+                },
+                "coupons_count": {
+                    "type": "integer",
+                    "desc": "The total number of coupons created for this promotion.",
+                    "default": 0,
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2"
                 },
                 "id": {
                     "format": "id",
@@ -26910,6 +26976,17 @@
                     "sortable": false,
                     "example": "112"
                 },
+                "coupons_count": {
+                    "type": "integer",
+                    "desc": "The total number of coupons created for this promotion.",
+                    "default": 0,
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -29207,6 +29284,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "112"
+                },
+                "coupons_count": {
+                    "type": "integer",
+                    "desc": "The total number of coupons created for this promotion.",
+                    "default": 0,
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2"
                 },
                 "id": {
                     "format": "id",

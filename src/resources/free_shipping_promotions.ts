@@ -96,6 +96,11 @@ interface FreeShippingPromotion extends Resource {
 	 */
 	weight?: number | null
 	/** 
+	 * The total number of coupons created for this promotion.
+	 * @example ```2```
+	 */
+	coupons_count?: number | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
