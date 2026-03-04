@@ -85,7 +85,10 @@ const generate = async (localSchema?: boolean) => {
 			console.log('No current local schema available')
 		}
 
-		const schemaInfo = await apiSchema.download()
+		const schemaInfo = await apiSchema.download().catch((error) => {
+			console.log(error.message)
+			return undefined
+		})
 
 		if (!schemaInfo) {
 			console.log('Unable to download OpenAPI schema')

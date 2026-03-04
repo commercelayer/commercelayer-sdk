@@ -19,7 +19,7 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 type TagRel = ResourceRel & { type: TagType }
 
 
-export type BundleSort = Pick<Bundle, 'id' | 'code' | 'currency_code' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceSort
+export type BundleSort = Pick<Bundle, 'id' | 'code' | 'name' | 'currency_code' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceSort
 // export type BundleFilter = Pick<Bundle, 'id' | 'code' | 'name' | 'currency_code' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceFilter
 
 

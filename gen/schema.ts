@@ -24,6 +24,7 @@ const downloadSchema = async (url?: string): Promise<SchemaInfo> => {
 	console.log(`Downloading OpenAPI schema ... [${schemaUrl}]`)
 
 	const response = await fetch(schemaUrl)
+	if (!response.ok) throw new Error("Error downloading OpenApi schema")
 	const schema = await response.json()
 
 	if (schema) writeFileSync(schemaOutPath, JSON.stringify(schema, null, 4))
@@ -204,7 +205,7 @@ const getReference = (obj: any): string | undefined => {
 }
 
 
-const resolveReference = (schemaComponents: any[], ref: string): any => {
+const resolveReference = (schemaComponents: any, ref: string): any => {
 
 	const segs = ref.replace('#/components/schemas/', '').split('/')
 	const key = Inflector.camelize(segs.shift() as string, true)
