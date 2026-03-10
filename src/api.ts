@@ -844,6 +844,7 @@ export type TaggableResourceType =
 |	'promotions'
 |	'returns'
 |	'shipments'
+|	'shipping_methods'
 |	'sku_options'
 |	'skus'
 // ##__API_RESOURCE_TAGGABLE_STOP__##
