@@ -1,3 +1,10 @@
+# [6.55.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.54.0...v6.55.0) (2026-03-10)
+
+
+### Features
+
+* update resources to sche ([c38ed3a](https://github.com/commercelayer/commercelayer-sdk/commit/c38ed3aaf931560d01c4c4cd9034d7f58024832c))
+
 # [6.54.0](https://github.com/commercelayer/commercelayer-sdk/compare/v6.53.0...v6.54.0) (2026-03-04)
 
 
