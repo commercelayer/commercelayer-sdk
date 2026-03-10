@@ -4,7 +4,7 @@
  **/
 
 import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, ShippingMethod, shipping_methods, markets, shipping_zones, shipping_categories, stock_locations, shipping_method_tiers } from '../../src'
+import { CommerceLayerClient, ShippingMethod, shipping_methods, markets, shipping_zones, shipping_categories, stock_locations, shipping_method_tiers, tags } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -34,6 +34,7 @@ describe('ShippingMethods resource', () => {
 			shipping_category: shipping_categories.relationship(TestData.id),
 			stock_location: stock_locations.relationship(TestData.id),
 			shipping_method_tiers: [ shipping_method_tiers.relationship(TestData.id) ],
+			tags: [ tags.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -415,6 +416,50 @@ describe('ShippingMethods resource', () => {
 	
 
 	
+	/* relationship.events start */
+	test(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await shipping_methods.events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.events stop */
+	
+
+	
+	/* relationship.tags start */
+	test(resourceType + '.tags', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { tags: CommonData.paramsFields } }
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'tags')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await shipping_methods.tags(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.tags stop */
+	
+
+	
 	/* relationship.versions start */
 	test(resourceType + '.versions', async () => {
 	
@@ -538,5 +583,59 @@ describe('ShippingMethods resource', () => {
 	
 	})
 	/* trigger._reset_circuit stop */
+	
+
+	
+	/* trigger._add_tags start */
+	test(resourceType + '._add_tags', async () => {
+	
+		let triggerAttr = '_add_tags'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = randomValue('string')
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await shipping_methods._add_tags(id, triggerValue, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._add_tags stop */
+	
+
+	
+	/* trigger._remove_tags start */
+	test(resourceType + '._remove_tags', async () => {
+	
+		let triggerAttr = '_remove_tags'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = randomValue('string')
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await shipping_methods._remove_tags(id, triggerValue, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._remove_tags stop */
 	
 })

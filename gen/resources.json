@@ -33751,6 +33751,26 @@
                         "order.line_item_options"
                     ]
                 },
+                "_add_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
+                "_remove_tags": {
+                    "type": "string",
+                    "desc": "Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.",
+                    "creatable": false,
+                    "fetchable": false,
+                    "updatable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "prohibited": true
+                },
                 "created_at": {
                     "type": "datetime",
                     "desc": "Time at which the resource was created.",
@@ -33897,6 +33917,26 @@
                     "parent_resource": "Api::ShippingMethodResource",
                     "class_name": "Notification"
                 },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::ShippingMethodResource",
+                    "class_name": "Event"
+                },
+                "tags": {
+                    "type": "has_many",
+                    "desc": "The associated tags. Cannot be passed by sales channels.",
+                    "creatable": true,
+                    "fetchable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "prohibited": true,
+                    "parent_resource": "Api::ShippingMethodResource",
+                    "class_name": "Tag"
+                },
                 "versions": {
                     "type": "has_many",
                     "desc": "The associated changes.",
@@ -33945,6 +33985,8 @@
                 "shipping_method_tiers_id",
                 "attachments_id",
                 "notifications_id",
+                "events_id",
+                "tags_id",
                 "ids",
                 "disabled_at_from",
                 "disabled_at_to",

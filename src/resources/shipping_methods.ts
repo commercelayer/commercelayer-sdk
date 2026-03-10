@@ -11,6 +11,8 @@ import type { ShippingMethodTier, ShippingMethodTierType } from './shipping_meth
 import type { ShippingWeightTier } from './shipping_weight_tiers'
 import type { Attachment } from './attachments'
 import type { Notification } from './notifications'
+import type { Event } from './events'
+import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
@@ -22,6 +24,7 @@ type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
 type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
 type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
+type TagRel = ResourceRel & { type: TagType }
 
 
 export type ShippingMethodSort = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
@@ -155,6 +158,8 @@ interface ShippingMethod extends Resource {
 	shipping_weight_tiers?: ShippingWeightTier[] | null
 	attachments?: Attachment[] | null
 	notifications?: Notification[] | null
+	events?: Event[] | null
+	tags?: Tag[] | null
 	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
@@ -239,6 +244,7 @@ interface ShippingMethodCreate extends ResourceCreate {
 	shipping_category?: ShippingCategoryRel | null
 	stock_location?: StockLocationRel | null
 	shipping_method_tiers?: ShippingMethodTierRel[] | null
+	tags?: TagRel[] | null
 
 }
 
@@ -320,12 +326,21 @@ interface ShippingMethodUpdate extends ResourceUpdate {
 	 * @example ```["order.line_item_options"]```
 	 */
 	external_includes?: string[] | null
+	/** 
+	 * Comma separated list of tags to be added. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_add_tags?: string | null
+	/** 
+	 * Comma separated list of tags to be removed. Duplicates, invalid and non existing ones are discarded. Cannot be passed by sales channels.
+	 */
+	_remove_tags?: string | null
 
 	market?: MarketRel | null
 	shipping_zone?: ShippingZoneRel | null
 	shipping_category?: ShippingCategoryRel | null
 	stock_location?: StockLocationRel | null
 	shipping_method_tiers?: ShippingMethodTierRel[] | null
+	tags?: TagRel[] | null
 
 }
 
@@ -391,6 +406,16 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 		return this.resources.fetch<Notification>({ type: 'notifications' }, `shipping_methods/${_shippingMethodId}/notifications`, params, options) as unknown as ListResponse<Notification>
 	}
 
+	async events(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
+		return this.resources.fetch<Event>({ type: 'events' }, `shipping_methods/${_shippingMethodId}/events`, params, options) as unknown as ListResponse<Event>
+	}
+
+	async tags(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
+		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
+		return this.resources.fetch<Tag>({ type: 'tags' }, `shipping_methods/${_shippingMethodId}/tags`, params, options) as unknown as ListResponse<Tag>
+	}
+
 	async versions(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_methods/${_shippingMethodId}/versions`, params, options) as unknown as ListResponse<Version>
@@ -411,6 +436,14 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 
 	async _reset_circuit(id: string | ShippingMethod, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
 		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ id: (typeof id === 'string')? id: id.id, type: ShippingMethods.TYPE, _reset_circuit: true }, params, options)
+	}
+
+	async _add_tags(id: string | ShippingMethod, triggerValue: string, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
+		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ id: (typeof id === 'string')? id: id.id, type: ShippingMethods.TYPE, _add_tags: triggerValue }, params, options)
+	}
+
+	async _remove_tags(id: string | ShippingMethod, triggerValue: string, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
+		return this.resources.update<ShippingMethodUpdate, ShippingMethod>({ id: (typeof id === 'string')? id: id.id, type: ShippingMethods.TYPE, _remove_tags: triggerValue }, params, options)
 	}
 
 
