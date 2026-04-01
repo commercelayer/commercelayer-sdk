@@ -1,3 +1,13 @@
+## [7.10.0](https://github.com/commercelayer/commercelayer-sdk/compare/v7.9.0...v7.10.0) (2026-04-01)
+
+### Features
+
+* add biome ([e7508b8](https://github.com/commercelayer/commercelayer-sdk/commit/e7508b8c12188403dce405f1c7588e5a0e518f38))
+
+### Bug Fixes
+
+* remove workspace config ([a1409bd](https://github.com/commercelayer/commercelayer-sdk/commit/a1409bd5edd43f4bcfc383fb9556f292b31c1bb8))
+
 ## [7.9.0](https://github.com/commercelayer/commercelayer-sdk/compare/v7.8.0...v7.9.0) (2026-03-10)
 
 ### Features
