@@ -10099,7 +10099,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The export job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.",
+                    "desc": "The export job status. One of 'pending' (default), 'in_progress', 'interrupted', 'completed', or 'failed'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -10111,7 +10111,8 @@
                         "pending",
                         "in_progress",
                         "interrupted",
-                        "completed"
+                        "completed",
+                        "failed"
                     ]
                 },
                 "includes": {
@@ -10163,6 +10164,16 @@
                     "sortable": false,
                     "example": "false"
                 },
+                "jwt_filters": {
+                    "type": "boolean",
+                    "desc": "Send this attribute to apply JWT scope–based sales channel filtering to the exported data.",
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "started_at": {
                     "type": "datetime",
                     "desc": "Time at which the export was started.",
@@ -10181,6 +10192,16 @@
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "estimated_completion_at": {
+                    "type": "datetime",
+                    "desc": "Estimated time at which the export should complete (dynamically refres^hed).",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
                     "example": "2018-01-01T12:00:00.000Z"
                 },
                 "interrupted_at": {
@@ -10203,6 +10224,26 @@
                     "sortable": true,
                     "example": "300"
                 },
+                "processed_count": {
+                    "type": "integer",
+                    "desc": "Indicates how many records have been processed in real time.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "270"
+                },
+                "progress": {
+                    "type": "float",
+                    "desc": "The percentage of progress of the export.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "30"
+                },
                 "attachment_url": {
                     "type": "string",
                     "desc": "The URL to the output file, which will be generated upon export completion.",
@@ -10224,6 +10265,17 @@
                     "example": {
                         "RuntimeError": "query timeout"
                     }
+                },
+                "_start": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to restart an 'interrupted' export.",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "id": {
                     "format": "id",
@@ -10349,6 +10401,7 @@
                 "completed_at",
                 "interrupted_at",
                 "records_count",
+                "processed_count",
                 "attachment_url",
                 "errors_log",
                 "created_at",
@@ -10363,6 +10416,8 @@
                 "started_at_to",
                 "completed_at_from",
                 "completed_at_to",
+                "estimated_completion_at_from",
+                "estimated_completion_at_to",
                 "interrupted_at_from",
                 "interrupted_at_to",
                 "created_at_from",
