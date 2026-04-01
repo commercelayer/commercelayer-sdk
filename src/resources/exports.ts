@@ -11,8 +11,8 @@ type ExportType = 'exports'
 type ExportRel = ResourceRel & { type: ExportType }
 
 
-export type ExportSort = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url'> & ResourceSort
-// export type ExportFilter = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'attachment_url' | 'errors_log'> & ResourceFilter
+export type ExportSort = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'processed_count' | 'attachment_url'> & ResourceSort
+// export type ExportFilter = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'processed_count' | 'attachment_url' | 'errors_log'> & ResourceFilter
 
 
 interface Export extends Resource {
@@ -30,10 +30,10 @@ interface Export extends Resource {
 	 */
 	format?: string | null
 	/** 
-	 * The export job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.
+	 * The export job status. One of 'pending' (default), 'in_progress', 'interrupted', 'completed', or 'failed'.
 	 * @example ```"in_progress"```
 	 */
-	status: 'pending' | 'in_progress' | 'interrupted' | 'completed'
+	status: 'pending' | 'in_progress' | 'interrupted' | 'completed' | 'failed'
 	/** 
 	 * List of related resources that should be included in the export (redundant when 'fields' are specified).
 	 * @example ```["prices.price_tiers"]```
@@ -54,6 +54,11 @@ interface Export extends Resource {
 	 */
 	dry_data?: boolean | null
 	/** 
+	 * Send this attribute to apply JWT scope–based sales channel filtering to the exported data.
+	 * @example ```true```
+	 */
+	jwt_filters?: boolean | null
+	/** 
 	 * Time at which the export was started.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -64,6 +69,11 @@ interface Export extends Resource {
 	 */
 	completed_at?: string | null
 	/** 
+	 * Estimated time at which the export should complete (dynamically refres^hed).
+	 * @example ```"2018-01-01T12:00:00.000Z"```
+	 */
+	estimated_completion_at?: string | null
+	/** 
 	 * Time at which the export was interrupted.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -73,6 +83,16 @@ interface Export extends Resource {
 	 * @example ```300```
 	 */
 	records_count?: number | null
+	/** 
+	 * Indicates how many records have been processed in real time.
+	 * @example ```270```
+	 */
+	processed_count?: number | null
+	/** 
+	 * The percentage of progress of the export.
+	 * @example ```30```
+	 */
+	progress?: number | null
 	/** 
 	 * The URL to the output file, which will be generated upon export completion.
 	 * @example ```"http://cl_exports.s3.amazonaws.com/"```
@@ -122,12 +142,22 @@ interface ExportCreate extends ResourceCreate {
 	 * Send this attribute if you want to skip exporting redundant attributes (IDs, timestamps, blanks, etc.), useful when combining export and import to duplicate your dataset.
 	 */
 	dry_data?: boolean | null
+	/** 
+	 * Send this attribute to apply JWT scope–based sales channel filtering to the exported data.
+	 * @example ```true```
+	 */
+	jwt_filters?: boolean | null
 	
 }
 
 
 interface ExportUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Send this attribute if you want to restart an 'interrupted' export.
+	 * @example ```true```
+	 */
+	_start?: boolean | null
 	/** 
 	 * Send this attribute if you want to mark status as 'interrupted'.
 	 * @example ```true```
@@ -166,6 +196,10 @@ class Exports extends ApiResource<Export> {
 	async event_stores(exportId: string | Export, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
 		const _exportId = (exportId as Export).id || exportId as string
 		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `exports/${_exportId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
+	async _start(id: string | Export, params?: QueryParamsRetrieve<Export>, options?: ResourcesConfig): Promise<Export> {
+		return this.resources.update<ExportUpdate, Export>({ id: (typeof id === 'string')? id: id.id, type: Exports.TYPE, _start: true }, params, options)
 	}
 
 	async _interrupt(id: string | Export, params?: QueryParamsRetrieve<Export>, options?: ResourcesConfig): Promise<Export> {
